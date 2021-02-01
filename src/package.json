@@ -3,6 +3,7 @@
   "version": "0.2.1",
   "description": "quick-dev-template",
   "main": "index.js",
+  "browserslist": "> 0.25%, not dead",
   "scripts": {
     "webdriver-update": "webdriver-manager update",
     "test": "echo \"Error: no test specified\" && exit 1"

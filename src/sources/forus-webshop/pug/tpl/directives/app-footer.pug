@@ -3,8 +3,10 @@ section.section.section-footer
         .block.block-footer: .row
             .col.col-md-4(ng-if="description_contact_details_html")
                 .block.block-markdown(ng-bind-html="description_contact_details_html")
+
             .col.col-md-4(ng-if="description_opening_times_html")
                 .block.block-markdown(ng-bind-html="description_opening_times_html")
+
             .col(ng-class="description_opening_times_html?'col-md-3':'col-md-4'")
                 .block.block-markdown
                     h3 Navigatie
@@ -23,11 +25,16 @@ section.section.section-footer
             
     .block.block-copyrights: .wrapper
         .copyrights 
+        //- pre {{ $dir.pageLinks}}
         .links
-            a(ng-if="settings.terms_and_conditions_url" href="{{ settings.terms_and_conditions_url }}" target="_blank") Algemene Voorwaarden
-            .link-separator(ng-if="settings.terms_and_conditions_url")
-            a(ng-if="settings.privacy_statement_url" href="{{ settings.privacy_statement_url }}" target="_blank") Privacyverklaring
-            a(ng-if="!settings.privacy_statement_url" ui-sref="privacy" target="_self") Privacyverklaring
-            .link-separator
-            a(ng-if="settings.accessibility_url" href="{{ settings.accessibility_url }}" target="_blank") Toegankelijkheid
-            a(ng-if="!settings.accessibility_url" ui-sref="accessibility" target="_self") Toegankelijkheid
+            .link-item(ng-repeat="pageLink in $dir.pageLinks"): a(
+                ui-sref="{{ pageLink.page_type }}"
+                target="{{ pageLink.external ? _blank : '_self' }}"
+                translate="{{ pageLink.page_type }}")
+
+            //- div
+                a(ng-if="settings.privacy_statement_url" href="{{ settings.privacy_statement_url }}" target="_blank") Privacyverklaring
+                a(ng-if="!settings.privacy_statement_url" ui-sref="privacy" target="_self") Privacyverklaring
+                .link-separator
+                a(ng-if="settings.accessibility_url" href="{{ settings.accessibility_url }}" target="_blank") Toegankelijkheid
+                a(ng-if="!settings.accessibility_url" ui-sref="accessibility" target="_self") Toegankelijkheid

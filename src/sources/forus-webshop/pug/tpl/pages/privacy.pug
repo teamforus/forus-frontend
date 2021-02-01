@@ -4,11 +4,15 @@ section.section.section-details: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active(i18n="Privacyverklaring")
-    .section-title.text-left(translate="privacy.{{$root.client_key}}.title" translate-default="{{ 'privacy.title' | translate }}")
 
-    .block.block-markdown(ng-if="$ctrl.description_privacy_html" ng-bind-html="$ctrl.description_privacy_html")
+    .block.block-markdown(ng-if="$ctrl.description_html" ng-bind-html="$ctrl.description_html")
 
-    .block.block-accessibility(ng-if="!$ctrl.description_privacy_html")
+    .section-title.text-left(
+        ng-if="!$ctrl.description_html" 
+        translate="privacy.{{$root.client_key}}.title" 
+        translate-default="{{ 'privacy.title' | translate }}")
+    
+    .block.block-accessibility(ng-if="$ctrl.description_html")
         .block-text
            p.description(translate="privacy.{{$root.client_key}}.one" translate-default="{{ 'privacy.one' | translate }}")
 

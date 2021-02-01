@@ -63,17 +63,38 @@
         }
 
         .links {
-            display: inline-block;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
 
-            .link-separator {
-                height: 30px;
-                border-left: 1px solid $border_color;
-                margin-right: 30px;
-                display: block;
-                float: left;
+            .link-item {
+                position: relative;
+                display: inline-flex;
+                padding: 0 30px;
+
+                &::after {
+                    content: "";
+                    height: 30px;
+                    border-left: 1px solid $border_color;
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translate(0, -50%);
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
 
                 &:last-child {
-                    margin-right: 0;
+                    a {
+                        margin-right: 0;
+                    }
+
+                    &::after {
+                        display: none;
+                    }
                 }
             }
 
@@ -81,13 +102,8 @@
                 float: left;
                 font: inherit;
                 color: $fc-link;
-                margin-right: 30px;
                 display: block;
-                transition: .4s;
-
-                &:last-child {
-                    margin-right: 0;
-                }
+                transition: 0.4s;
 
                 &:hover {
                     color: $fc-link-hover;
@@ -102,8 +118,8 @@
 
             a {
                 font: inherit;
-                color:$fc-link;
-                transition: .4s;
+                color: $fc-link;
+                transition: 0.4s;
 
                 &:hover {
                     color: $fc-link-hover;
@@ -144,9 +160,9 @@
                 margin-bottom: 10px;
 
                 a {
-                    color:$fc-link;
+                    color: $fc-link;
                     font: 700 14px/24px $bf;
-                    transition: color .4s;
+                    transition: color 0.4s;
 
                     &:hover {
                         color: $fc-link-hover;

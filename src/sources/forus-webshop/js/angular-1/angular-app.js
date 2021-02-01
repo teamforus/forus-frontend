@@ -41,6 +41,7 @@ app.component('meComponent', require('./components/MeComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 app.component('accessibilityComponent', require('./components/AccessibilityComponent'));
 app.component('privacyComponent', require('./components/PrivacyComponent'));
+app.component('termsAndConditionsComponent', require('./components/TermsAndConditionsComponent'));
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));

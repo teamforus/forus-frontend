@@ -352,10 +352,34 @@ module.exports = {
             header_title: "Header titel",
             header_description: "Header omschrijving",
             title: "Titel",
-            description_providers: "Aanbiederpagina content",
             description: "Uitlegpagina content",
-            more_info: "Externe uitleg URL",
-            description_privacy: "Privacy content"
+            communication: "Aanspreekvorm",
+
+            provider: "Aanbiederpagina content",
+            privacy: "Privacy content",
+            explanation: "Externe uitleg URL",
+            accessibility: "Toegankelijkheidsverklaring",
+            terms_and_conditions: "Algemene voorwaarden",
+
+            provider_url: "Aanbiederpagina content",
+            privacy_url: "Privacy content",
+            explanation_url: "Externe uitleg URL",
+            accessibility_url: "Toegankelijkheidsverklaring",
+            terms_and_conditions_url: "Algemene voorwaarden",
+        },
+        placeholders: {
+            provider: "Aanbiederpagina content",
+            privacy: "bijv. http://uwgemeente.nl/privacyverklaring",
+            explanation: "bijv. http://uwgemeente.nl/uitleg-regeling",
+            accessibility: "bijv. http://uwgemeente.nl/toegankelijkheid",
+            terms_and_conditions: "bijv. http://uwgemeente.nl/algemene-voorwaarden",
+        },
+        tooltips: {
+            provider: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
+            privacy: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
+            explanation: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
+            accessibility: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
+            terms_and_conditions: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
         },
         buttons: {
             cancel: "Annuleren",
@@ -677,7 +701,7 @@ module.exports = {
         header: {
             main_header: "Aanmelden als aanbieder",
             go_back: "Terug",
-            title_step_1: "Welkom", 
+            title_step_1: "Welkom",
             subtitle_step_1: "Door dit online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 5 minuten.",
             title_step_1_paragrah_1: "Aanbiedingen plaatsen en betalingen ontvangen",
             subtitle_step_1_paragrah_1: "Na het aanmelden krijgt u toegang tot uw aanbieders webomgeving. Nadat uw aamelding is geaccepteerd kunt u producten en/of diensten aanbieden en betalingen ontvangen.",
@@ -686,10 +710,10 @@ module.exports = {
             title_step_1_paragrah_3: "Hulp nodig?",
             subtitle_step_1_paragrah_3: "Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.",
             title_step_2: "Benodigdheden",
-            subtitle_step_2: "U gaat de me app gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" + 
-                "De Me app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" + 
-                "U heeft nodig:<br/><br/>" + 
-                "<ul>" + 
+            subtitle_step_2: "U gaat de me app gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" +
+                "De Me app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" +
+                "U heeft nodig:<br/><br/>" +
+                "<ul>" +
                 "<li>Mobiele telefoon of tablet met camera en internet</li>" +
                 "<li>Bedrijfsgegevens van uw organisatie (contactgegevens, KvK en IBAN nummer)</li>" +
                 "</ul>",
@@ -708,7 +732,7 @@ module.exports = {
                 "Er wordt een uitnodiging met instructies verstuurd naar de e-mailadressen die u hieronder invult. Als u geen medewerkers wilt toevoegen kunt u deze stap overslaan.",
             title_step_8: "Meld u aan voor de regelingen",
             subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt zo spoedig mogelijk behandeld. U ontvangt hierover per e-mail een bevestiging.",
-            
+
             title_step_9: "Aanvraag ontvangen",
             top_title_step_9: "Uw aanmelding is ontvangen",
             subtitle_step_9: "Uw aanmelding is in behandeling. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
@@ -717,7 +741,7 @@ module.exports = {
             top_title_step_9_mobile: "Uw aanmelding is ontvangen",
             subtitle_step_9_mobile: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw e-mailadres:\n",
             download_step_9_mobile: "Applicatie downloaden",
-            
+
             title_step_10: "Test betaling",
             subtitle_step_10: "Bijna klaar! Tot slot, oefen alvast hoe een betaling tussen u en een inwoner werkt. Scan onderstaande QR-code met de app en doe een test betaling.",
             title_step_11: "De test betaling is gelukt!",
@@ -1096,7 +1120,7 @@ module.exports = {
             description_bottom: [
                 "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
             ].join("\n"),
-            no_app: "Ik wil inloggen met mijn e-mailadres >"    
+            no_app: "Ik wil inloggen met mijn e-mailadres >"
         },
         app_header: {
             title: 'Vul de code in op het invoerveld',
@@ -1629,7 +1653,7 @@ module.exports = {
         title_push_preferences: 'Push notificaties',
         subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle e-mail notificaties uitgeschreven. Wanneer u e-mail notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
         unsubscribe: 'Uitschrijven voor alle e-mail notificaties',
-        unsubscribe_desc:  'Ik wil me uitschrijven van alle e-mail notificaties.',
+        unsubscribe_desc: 'Ik wil me uitschrijven van alle e-mail notificaties.',
         unsubscribe_button: 'Uitschrijven',
         subscribe: 'Ja, ik wil e-mail notificaties ontvangen.',
         errors: {

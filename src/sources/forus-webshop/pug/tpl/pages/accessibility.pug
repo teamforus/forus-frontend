@@ -4,9 +4,10 @@ section.section.section-details: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active(i18n="Toegankelijkheidsverklaring")
-    .section-title.text-left(translate="Toegankelijkheidsverklaring")
+    .block.block-markdown(ng-if="$ctrl.description_html" ng-bind-html="$ctrl.description_html")
 
-    .block.block-accessibility
+    .section-title.text-left(ng-if="!$ctrl.description_html" translate="Toegankelijkheidsverklaring")
+    .block.block-accessibility(ng-if="!$ctrl.description_html")
         .block-text
             p.description Gemeente {{ $ctrl.vars.organization_name }} streeft naar het toegankelijk maken van de eigen online informatie en dienstverlening, in overeenstemming met Tijdelijk besluit digitale toegankelijkheid overheid.
             p.description Deze toegankelijkheidsverklaring is van toepassing op de inhoud van de website {{ $ctrl.vars.implementation_name}} {{ $ctrl.vars.organization_name }} die valt binnen de werkingssfeer van Tijdelijk besluit digitale toegankelijkheid overheid.

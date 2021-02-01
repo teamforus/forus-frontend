@@ -5,92 +5,63 @@
             .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Webshops 
             .breadcrumb-item(ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" ng-bind="$ctrl.implementation.name")
             .breadcrumb-item.active Content Management System
-            
+
         .card: form(ng-submit="$ctrl.form.submit()").form
-            .card-header
-                .card-title(i18n="implementation_edit.header.title")
-            
+            //-  pre {{ $ctrl.form.values | pretty_json }}
+            .card-header: .card-title(i18n="implementation_edit.header.title")
+
             .card-section.card-section-primary: .row: .col.col-lg-9
-                .form-group.form-group-inline
+                .form-group.form-group-inline.form-group-inline-lg
                     label(translate="implementation_edit.labels.header_title").form-label
                     input(ng-model="$ctrl.form.values.title" type="text" placeholder="Titel").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
 
-                .form-group.form-group-inline
+                .form-group.form-group-inline.form-group-inline-lg
                     label(translate="implementation_edit.labels.header_description").form-label
                     .form-offset: markdown(ng-model="$ctrl.form.values.description" extended-options="true")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
             .card-section.card-section-primary
                 .row: .col.col-lg-9
-                    .form-group.form-group-inline.tooltipped
-                        label.form-label(translate="implementation_edit.labels.description_providers")
-                        .form-offset: markdown(ng-model="$ctrl.form.values.description_providers" extended-options="true")
+                    //- Formal/Informal communication
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                        label(for="info_url" translate="implementation_edit.labels.communication").form-label
+                        select(name="informal_communication" id="informal_communication" ng-model="$ctrl.form.values.informal_communication").form-control
+                            option(value="1") Je/jouw
+                            option(value="0") U/uw
+                        .form-error(ng-repeat="error in $ctrl.form.errors.informal_communication" ng-bind="error")
 
-                        tooltip(text="'Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.'")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.description_providers" ng-bind="error")
-            
-            .card-section.card-section-primary
+                        tooltip(text="'Kies de gewenste aanspreekvorm. Je/jouw en u/uw wordt gebruikt op de website en in alle berichten die worden verstuurd.'")
+
+            .card-section.card-section-primary(ng-repeat="key in $ctrl.implementation.page_types")
                 .row: .col.col-lg-9
-                    .form-group.form-group-inline
-                        label(for="info_url").form-toggle.form-label.flex-end 
-                            .form-label(translate="implementation_edit.labels.more_info")
-                            input(type="checkbox" id="info_url" ng-model="$ctrl.form.values.has_more_info_url").form-label
-                            .form-toggle-inner.flex-end(style="padding-left:10px"): .toggle-input: .toggle-input-dot
-                
-                        input(ng-disabled="!$ctrl.form.values.has_more_info_url" ng-model="$ctrl.form.values.more_info_url" type="text" placeholder="bijv. http://uwgemeente.nl/uitleg-regeling").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.more_info_url" ng-bind="error")
-
-                    .form-group.form-group-inline.tooltipped(ng-show="!$ctrl.form.values.has_more_info_url")
-                        label.form-label(translate="implementation_edit.labels.description")
-                        .form-offset: markdown(ng-model="$ctrl.form.values.description_steps" extended-options="true")
-
-                        tooltip(text="'Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.'")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.description_steps" ng-bind="error")
-                        
-            .card-section.card-section-primary
-                .row: .col.col-lg-9
-                    .form-group.form-group-inline
-                        label(for="privacy_url").form-toggle.form-label.flex-end 
-                            .form-label Externe privacy URL
-                            input(type="checkbox" id="privacy_url" ng-model="$ctrl.form.values.has_privacy_url").form-label
+                    .form-group.form-group-inline.form-group-inline-lg(ng-if="!$ctrl.page_types_internal.includes(key)")
+                        label(for="{{ key }}").form-toggle.form-label.flex-end
+                            .form-label(translate="implementation_edit.labels.{{ key }}_url")
+                            input(type="checkbox" id="{{ key }}" ng-model="$ctrl.form.values.pages[key].external").form-label
                             .form-toggle-inner.flex-end(style="padding-left:10px"): .toggle-input: .toggle-input-dot
 
-                        input(ng-disabled="!$ctrl.form.values.has_privacy_url" ng-model="$ctrl.form.values.privacy_statement_url" type="text" placeholder="bijv. http://uwgemeente.nl/privacyverklaring").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.privacy_statement_url" ng-bind="error")        
+                        //- disabled field
+                        input.form-control(
+                            disabled
+                            ng-if="!$ctrl.form.values.pages[key].external"
+                            ng-model="$ctrl.modelPlaceholder" 
+                            placeholder="{{ 'implementation_edit.placeholders.' + key | translate }}")
 
-                    .form-group.form-group-inline.tooltipped(ng-show="!$ctrl.form.values.has_privacy_url")
-                        label.form-label(translate="implementation_edit.labels.description_privacy")
-                        .form-offset: markdown(ng-model="$ctrl.form.values.description_privacy" extended-options="true")
-                        
-                        tooltip(text="'Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.'")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.description_privacy" ng-bind="error")
+                        //- enabled field
+                        input.form-control(
+                            ng-if="$ctrl.form.values.pages[key].external"
+                            ng-model="$ctrl.form.values.pages[key].external_url" 
+                            placeholder="{{ 'implementation_edit.placeholders.' + key | translate }}")
 
-            .card-section.card-section-primary
-                .row: .col.col-lg-9
-                    .form-group.form-group-inline.tooltipped
-                        label.form-label Contactgegevens
-                        .form-offset: markdown(ng-model="$ctrl.form.values.description_contact_details" extended-options="true")
+                        .form-error(ng-repeat="error in $ctrl.form.errors['pages.' + key + '.external_url']" ng-bind="error")
 
-                        tooltip(text="'Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.'")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.description_contact_details" ng-bind="error")
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="!$ctrl.form.values.pages[key].external")
+                        label.form-label(translate="implementation_edit.labels.{{ key }}")
+                        .form-offset: markdown(ng-model="$ctrl.form.values.pages[key].content" extended-options="true")
 
-                    .form-group.form-group-inline.tooltipped
-                        label.form-label Openingstijden
-                        .form-offset: markdown(ng-model="$ctrl.form.values.description_opening_times" extended-options="true")
-
-                        tooltip(text="'Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.'")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.description_opening_times" ng-bind="error")
-
-                    .form-group.form-group-inline
-                        .form-label Algemene voorwaarden
-                        input(ng-model="$ctrl.form.values.terms_and_conditions_url" type="text" placeholder="bijv. http://uwgemeente.nl/algemene-voorwaarden").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.terms_and_conditions_url" ng-bind="error")        
-
-                    .form-group.form-group-inline
-                        .form-label Toegankelijkheidsverklaring
-                        input(ng-model="$ctrl.form.values.accessibility_url" type="text" placeholder="bijv. http://uwgemeente.nl/toegankelijkheid").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.accessibility_url" ng-bind="error")        
+                        tooltip(text="'implementation_edit.tooltips.' + key | translate")
+                        .form-error(ng-repeat="error in $ctrl.form.errors['pages.' + key + '.content']" ng-bind="error")
 
             .card-section.card-section-primary: .text-center
                 button(type="button" ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default

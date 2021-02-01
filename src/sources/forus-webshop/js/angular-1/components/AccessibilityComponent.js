@@ -1,4 +1,5 @@
 let AccessibilityComponent = function(
+    $sce,
     appConfigs
 ) {
     let $ctrl = this;
@@ -46,11 +47,17 @@ let AccessibilityComponent = function(
                 'telephone_numer': '14 0162'
             }                   
         }[appConfigs.client_key];
+
+        $ctrl.description_html = $sce.trustAsHtml($ctrl.page.content_html);
     };
 }
 
 module.exports = {
+    bindings: {
+        page: '<',
+    },
     controller: [
+        '$sce',
         'appConfigs',
         AccessibilityComponent
     ],
