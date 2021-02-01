@@ -24,8 +24,8 @@ let ModalNotificationComponent = function(
         $ctrl.description = $ctrl.modal.scope.description;
         $ctrl.descriptionIsArray = Array.isArray($ctrl.description);
         $ctrl.subdescription = $ctrl.modal.scope.subdescription;
-
-        $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon) : null;
+        $ctrl.icon_filetype = $ctrl.modal.scope.icon_filetype ? $ctrl.modal.scope.icon_filetype : '.png';
+        $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon, $ctrl.icon_filetype) : null;
 
         $ctrl.confirmBtnText = $ctrl.modal.scope.confirmBtnText ? $ctrl.modal.scope.confirmBtnText : $ctrl.confirmBtnText;
         $ctrl.closeBtnText = $ctrl.modal.scope.closeBtnText ? $ctrl.modal.scope.closeBtnText : $ctrl.closeBtnText;
@@ -63,8 +63,8 @@ let ModalNotificationComponent = function(
         }, 0);
     };
 
-    let getIcon = (icon) => {
-        return './assets/img/modal/' + icon + '.png';
+    let getIcon = (icon, filetype) => {
+        return './assets/img/modal/' + icon + filetype;
     };
 
     $ctrl.cancel = () => {
