@@ -242,7 +242,7 @@ let BaseController = function(
     $translate.use('nl');
 
     if (AuthService.hasCredentials()) {
-        $rootScope.loadAuthUser().then(auth_user => {
+        $rootScope.loadAuthUser().then(() => {
             $rootScope.autoSelectOrganization($state.current.name == 'home');
         });
     } else {
