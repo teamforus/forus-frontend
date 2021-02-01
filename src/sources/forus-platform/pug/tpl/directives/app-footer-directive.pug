@@ -1,1 +1,1 @@
-.app.app-footer: dashboard-switcher
+.app.app-footer(ng-if="$root.auth_user && $state.current.name !== 'sign-up'"): dashboard-switcher

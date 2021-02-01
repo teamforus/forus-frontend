@@ -31,15 +31,9 @@ let FundProviderComponent = function(
     };
 
     $ctrl.disableProductItem = function(fundProvider, product) {
-        ModalService.open("dangerZone", {
-            title: "U verwijderd hiermee het aanbod permanent uit de webshop",
-            description: "U dient aanbieders en inwoners hierover te informeren.",
-            cancelButton: "Annuleer",
-            confirmButton: "Stop actie",
-            onConfirm: () => {
-                product.allowed = false;
-                $ctrl.updateAllowBudgetItem(fundProvider, product);
-            }
+        FundService.stopActionConfirmationModal(() => {
+            product.allowed = false;
+            $ctrl.updateAllowBudgetItem(fundProvider, product);
         });
     };
 

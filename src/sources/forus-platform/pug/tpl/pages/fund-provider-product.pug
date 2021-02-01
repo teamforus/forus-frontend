@@ -98,7 +98,7 @@
 
                 tr(ng-repeat="item in $ctrl.product.deals_history")
                     td(ng-bind="item.voucher_transactions_count")
-                    td(ng-bind="item.limit_total == '999999' ? 'Onbeperkt' : item.limit_total")
+                    td(ng-bind="item.limit_total_unlimited ? 'Onbeperkt' : item.limit_total")
                     td(ng-bind="item.limit_per_identity")
                     td(ng-bind="item.amount | currency_format")
                     td

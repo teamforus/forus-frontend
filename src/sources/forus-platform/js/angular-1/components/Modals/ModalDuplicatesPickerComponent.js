@@ -36,6 +36,10 @@ let ModalDuplicatesPickerComponent = function(
     };
 
     $ctrl.confirm = () => {
+        if ($ctrl.items.length === 1) {
+            $ctrl.toggleAllOn();
+        }
+
         $ctrl.onConfirm($ctrl.items);
         $ctrl.close();
     };
