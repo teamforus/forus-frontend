@@ -19,7 +19,7 @@ module.exports = {
         pay_from_voucher: "U betaalt vanuit het tegoed:",
         price: "Prijs:",
         discount: "Korting:",
-        expire_prefix: "Geldig t/m"
+        expire_prefix: "Geldig tot"
     },
     status: {
         active: "Actief",
