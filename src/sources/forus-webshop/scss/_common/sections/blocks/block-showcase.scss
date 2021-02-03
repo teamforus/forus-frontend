@@ -162,17 +162,20 @@
             .showcase-content-header {
                 position: relative;
                 z-index: 1;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
 
                 .showcase-filters-title,
                 .showcase-filters-block {
                     margin: 0 0 15px;
-                    @include cf();
+                    display: flex;
+                    flex-grow: 1;
                 }
 
                 .showcase-filters-title {
                     font: 600 24px/28px $bf;
                     color: $tc;
-                    width: 100%;
 
                     .showcase-filters-title-count {
                         font: 700 16px/30px $bf;
@@ -193,6 +196,10 @@
                             font-weight: 700;
                         }
                     }
+                }
+
+                .showcase-filters-block {
+                    justify-content: flex-end;
                 }
             }
         }
@@ -392,6 +399,26 @@
             .showcase-content {
                 padding: 0 0 0;
                 max-width: 100%;
+
+                .showcase-content-header {
+                    flex-direction: column;
+
+                    .showcase-filters-block {
+                        justify-content: flex-start;
+
+                        .block-label-tabs {
+                            width: 100%;
+
+                            .label-tab-set, .label-tab {
+                                flex-grow: 1;
+                            }
+                        }
+                    }
+
+                    &.showcase-content-header-compact {
+                        flex-direction: row;
+                    }
+                }
             }
         }
 
