@@ -10,9 +10,37 @@ let ProductsComponent = function(
     let $ctrl = this;
     let timeout = false;
 
+    $ctrl.sortByOptions = [{
+        label: 'Price: Low to high',
+        value: {
+            order_by: 'price',
+            order_by_dir: 'asc',
+        }
+    }, {
+        label: 'Price: High to low',
+        value: {
+            order_by: 'price',
+            order_by_dir: 'desc',
+        }
+    }, {
+        label: 'Created: Older to newer',
+        value: {
+            order_by: 'created_at',
+            order_by_dir: 'asc',
+        }
+    }, {
+        label: 'Created: Newer to older',
+        value: {
+            order_by: 'created_at',
+            order_by_dir: 'desc',
+        }
+    }];
+
     $ctrl.filtersList = [
-        'q', 'product_category_id', 'fund',
+        'q', 'product_category_id', 'fund', 'sortBy',
     ];
+
+    $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
 
     $ctrl.objectOnly = (obj, props = []) => {
         let out = {};
@@ -24,6 +52,16 @@ let ProductsComponent = function(
         }
 
         return out;
+    };
+
+    $ctrl.toggleOrderDropdown = ($event) => {
+        $event ? $event.stopPropagation() : '';
+        $ctrl.show_order_dropdown = !$ctrl.show_order_dropdown;
+    };
+
+    $ctrl.hideOrderDropdown = ($event) => {
+        $event ? $event.stopPropagation() : '';
+        $ctrl.show_order_dropdown = false;
     };
 
     $ctrl.toggleMobileMenu = () => {
@@ -53,14 +91,36 @@ let ProductsComponent = function(
         $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
     };
 
-    $ctrl.buildQuery = (values) => ({
-        q: values.q,
-        organization_id: values.organization_id,
-        page: values.page,
-        product_category_id: values.product_category_id,
-        fund_id: values.fund ? values.fund.id : null,
-        display_type: $ctrl.display_type,
-    });
+    $ctrl.sortBy = ($event, sort_by) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $ctrl.sort_by = sort_by;
+        $ctrl.show_order_dropdown = false;
+
+        $ctrl.onPageChange({ ...$ctrl.form.values });
+    };
+
+    $ctrl.buildQuery = (values) => {
+        const orderByValue = {
+            ...$ctrl.sort_by.value,
+            ...{
+                order_by: $ctrl.sort_by.value.order_by === 'price' ? (
+                    $ctrl.fund_type === 'budget' ? 'price' : 'price_min'
+                ) : $ctrl.sort_by.value.order_by,
+            }
+        };
+
+        return {
+            q: values.q,
+            organization_id: values.organization_id,
+            page: values.page,
+            product_category_id: values.product_category_id,
+            fund_id: values.fund ? values.fund.id : null,
+            display_type: $ctrl.display_type,
+            ...orderByValue
+        };
+    };
 
     $ctrl.onFormChange = (values) => {
         if (timeout) {
@@ -144,6 +204,8 @@ let ProductsComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.fund_type = $stateParams.fund_type;
+        $ctrl.show_order_dropdown = false;
+
         $scope.appConfigs = appConfigs;
         $scope.$watch('appConfigs', (_appConfigs) => {
             if (_appConfigs.features && !_appConfigs.features.products.list) {
