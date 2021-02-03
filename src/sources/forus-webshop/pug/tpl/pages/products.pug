@@ -54,7 +54,7 @@ block content
                                         ng-class="{active: $ctrl.show_order_dropdown}" 
                                         ng-click="$ctrl.toggleOrderDropdown($event)")
                                         em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.show_order_dropdown ? 'up' : 'down')")
-                                        | Sort by
+                                        | Sorteer
                                         .label-tab-menu(ng-show="$ctrl.show_order_dropdown" click-outside="$ctrl.hideOrderDropdown($event)")
                                             .label-tab-menu-item(
                                                 ng-repeat="sortByOption in $ctrl.sortByOptions track by $index" 

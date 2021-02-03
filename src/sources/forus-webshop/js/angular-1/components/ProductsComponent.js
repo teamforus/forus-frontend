@@ -11,25 +11,25 @@ let ProductsComponent = function(
     let timeout = false;
 
     $ctrl.sortByOptions = [{
-        label: 'Price: Low to high',
+        label: 'Prijs (oplopend)',
         value: {
             order_by: 'price',
             order_by_dir: 'asc',
         }
     }, {
-        label: 'Price: High to low',
+        label: 'Prijs (aflopend)',
         value: {
             order_by: 'price',
             order_by_dir: 'desc',
         }
     }, {
-        label: 'Created: Older to newer',
+        label: 'Oudste eerst',
         value: {
             order_by: 'created_at',
             order_by_dir: 'asc',
         }
     }, {
-        label: 'Created: Newer to older',
+        label: 'Nieuwe eerst',
         value: {
             order_by: 'created_at',
             order_by_dir: 'desc',
