@@ -270,6 +270,7 @@
                     .sign_up-pane-heading.sign_up-pane-heading-lg.text-primary-mid(translate="sign_up_sponsor.labels.confirm_email") 
                     .sign_up-pane-text
                         translate(translate="sign_up_sponsor.labels.confirm_email_description")
+                        | &nbsp;
                         span.sign_up-pane-link(ng-bind="$ctrl.signUpForm.values.email")
                 
                 .sign_up-pane-footer(ng-if="$ctrl.shareSmsSent || $ctrl.shareEmailSent || $ctrl.appDownloadSkip"): .row

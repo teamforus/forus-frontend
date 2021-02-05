@@ -36,9 +36,6 @@
         flex-direction: row;
 
         .showcase-aside {
-            background: #fff;
-            border-radius: $border_radius;
-            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
             height: fit-content;
             width: 340px;
             max-width: 340px;
@@ -49,6 +46,10 @@
                 padding: 20px;
                 width: 100%;
                 border-bottom: 1px solid $border_color;
+                background: #fff;
+                border-radius: $border_radius;
+                box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+                margin-bottom: 30px;
 
                 .showcase-aside-block-info {
                     font: 500 12px $bf;

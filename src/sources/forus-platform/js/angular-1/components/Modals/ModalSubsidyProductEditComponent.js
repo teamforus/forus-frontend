@@ -39,7 +39,8 @@ let ModalSubsidyProductEditComponent = function(
                 enable_products: [{
                     id: $ctrl.product.id,
                     amount: form.values.gratis ? $ctrl.product.price : form.values.amount,
-                    limit_total: form.values.unlimited_stock ? 999999 : form.values.limit_total,
+                    limit_total: form.values.limit_total,
+                    limit_total_unlimited: form.values.unlimited_stock ? 1 : 0,
                     limit_per_identity: form.values.limit_per_identity,
                 }],
             }).then((res) => {

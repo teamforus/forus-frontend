@@ -36,7 +36,8 @@ let ModalFundOffersComponent = function (
                 offer.subsidy_amount = offer.price - fund.price;
                 offer.subsidy_user_amount = fund.price;
                 offer.subsidy_user_limit = fund.limit_per_identity;
-                offer.subsidy_limit_total = fund.limit_total
+                offer.subsidy_limit_total = fund.limit_total;
+                offer.subsidy_limit_total_unlimited = fund.limit_total_unlimited;
             }
 
         });
