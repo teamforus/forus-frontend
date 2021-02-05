@@ -95,7 +95,7 @@
                             step=".1" 
                             min="0" 
                             ng-change="$ctrl.amountChange()").form-control
-                        input(
+                        .row: .col.col-lg-3.col-xs-12: input(
                             disabled
                             ng-if="$ctrl.form.values.gratis"
                             ng-model="$ctrl.product.price").form-control
