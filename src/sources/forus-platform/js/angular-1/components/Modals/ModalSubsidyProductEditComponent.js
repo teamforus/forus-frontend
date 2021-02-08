@@ -11,8 +11,6 @@ let ModalSubsidyProductEditComponent = function(
     $ctrl.amountChange = () => {
         $timeout.cancel(timeout);
 
-        console.log($ctrl.form.values.amount);
-
         if (!$ctrl.form.values.amount && $ctrl.form.values.amount !== 0) {
             timeout = $timeout(() => $ctrl.form.values.amount = 0, 1000);
         }
