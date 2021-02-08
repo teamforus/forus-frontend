@@ -50,6 +50,8 @@ let ModalAuthComponent = function(
     }
 
     $ctrl.$onInit = () => {
+        $ctrl.appConfigs = appConfigs;
+
         $(document).bind('keydown', (e) => {
             $timeout(function() {
                 var key = e.charCode || e.keyCode || 0;

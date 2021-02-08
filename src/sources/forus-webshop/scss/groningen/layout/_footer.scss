@@ -2,7 +2,23 @@
 
     &.block-footer {
         padding: 20px 0;
-        
+        p {
+            width: 65%;
+            text-align: left;
+            font: 400 16px/1.5em $bf;
+        }
+
+        a {
+            font: 400 16px/1.5em $bf;
+            color: $fc;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+                color: $fc;
+            }
+        }
+              
         .footer-label {
             color: $tc-var;
             margin-bottom: 15px;
@@ -16,7 +32,6 @@
             img {
                 height: 40px;
                 width: 135px;
-                margin-top: 10px;
             }
         }
 
@@ -41,9 +56,7 @@
         }
 
         .footer-nav {
-
             .footer-nav-item {
-        
                 a {
                     font: 400 16px/1.5em $bf;
                     color: $tc-var;

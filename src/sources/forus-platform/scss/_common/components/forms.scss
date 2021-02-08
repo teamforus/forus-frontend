@@ -287,6 +287,22 @@
                 float: left;
             }
 
+            &.form-group-inline-lg {
+                &>.form-label {
+                    width: 250px;
+                }
+
+                &>.form-offset,
+                &>.form-control {
+                    width: calc(100% - 250px);
+                }
+
+                &>.form-error {
+                    margin-left: 250px;
+                    width: calc(100% - 250px);
+                }
+            }
+
             &.form-group-inline-md {
                 &>.form-label {
                     width: 120px;
