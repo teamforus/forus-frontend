@@ -67,6 +67,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalPdfPreviewComponent'
     });
 
+    ModalRouteProvider.modal('imagePreview', {
+        component: 'modalImagePreviewComponent'
+    });
+
     ModalRouteProvider.modal('fundInviteProviders', {
         component: 'modalFundInviteProvidersComponent'
     });

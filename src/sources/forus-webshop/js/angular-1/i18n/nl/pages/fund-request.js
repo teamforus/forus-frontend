@@ -32,17 +32,22 @@ module.exports = {
         },
         labels: {
             has_app: "Ik wil inloggen met de Me-app >",
+            restore_with_digid: "Vergeten welk e-mailadres u heeft gebruikt? >",
             no_app: "Ik wil inloggen met mijn e-mailadres >",
         },
         app: {
             title: "Heeft u de Me-app al?",
             description_top: [
-                'De Me-app is een optionele manier om eenvoudig, veilig en snel op deze website in te loggen, en om uw tegoeden te beheren.',
+                'Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.',
             ].join("\n"),
             description_bottom: [
-                'Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.',
                 'De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren.',
             ].join("\n")
+        },
+        digid: {
+            title: "Vergeten welk e-mailadres u heeft gebruikt?",
+            description: "Herstel uw account door opnieuw in te loggen met DigiD",
+            button: "Login"
         },
         record_checkbox: {
             default: 'Ik verklaar aan de bovenstaande voorwaarden te voldoen',

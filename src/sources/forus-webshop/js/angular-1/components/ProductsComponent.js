@@ -104,9 +104,7 @@ let ProductsComponent = function(
             product_category_id: query.product_category_id,
             show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
-        }, {
-            location: location,
-        });
+        }, { location });
     };
 
     $ctrl.updateFiltersUsedCount = () => {
@@ -128,9 +126,7 @@ let ProductsComponent = function(
                 product.price_max = Math.max(prices);
             }
 
-            return {...product, ...{
-                isDiscounted: product.old_price && (product.price != product.old_price)
-            }};
+            return product;
         });
 
         let product_rows = [];

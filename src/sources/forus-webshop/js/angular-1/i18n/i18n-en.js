@@ -75,6 +75,6 @@ module.exports = {
     empty_block: require("./en/directives/empty-block"),
     fund_criterion: require("./en/directives/fund-criterion"),
     maps: require("./en/directives/google-map"),
-    profile_card: require("./en/directives/profile-card"),
+    profile_menu: require("./en/directives/profile-menu"),
 
 };

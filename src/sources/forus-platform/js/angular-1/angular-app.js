@@ -53,6 +53,7 @@ app.component('implementationViewComponent', require('./components/Implementatio
 app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
 app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
 app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
+app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -66,7 +67,8 @@ app.component('modalProductVoucherCreateComponent', require('./components/Modals
 app.component('modalVoucherQrCodeComponent', require('./components/Modals/ModalVoucherQrCodeComponent'));
 app.component('modalVouchersUploadComponent', require('./components/Modals/ModalVouchersUploadComponent'));
 app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
-app.component('modalPdfPreviewComponent', require('./components/Modals/ModalPdfPreviewComponent'));
+app.component('modalPdfPreviewComponent', require('./components/Modals/FilePreviews/ModalPdfPreviewComponent'));
+app.component('modalImagePreviewComponent', require('./components/Modals/FilePreviews/ModalImagePreviewComponent'));
 app.component('modalFundRequestRecordClarifyComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordClarifyComponent'));
 app.component('modalFundRequestRecordDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordDeclineComponent'));
 app.component('modalFundRequestRecordsDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordsDeclineComponent'));
@@ -120,7 +122,7 @@ app.service('ModalService', require('./services/ModalService'));
 app.service('PrintableService', require('./services/PrintableService'));
 app.service('PermissionsService', require('./services/PermissionsService'));
 app.service('RoleService', require('./services/RoleService'));
-app.service('SmsService', require('./services/SmsService'));
+app.service('ShareService', require('./services/ShareService'));
 app.service('FileService', require('./services/FileService'));
 app.service('FundRequestValidatorService', require('./services/FundRequestValidatorService'));
 app.service('FundProviderInvitationsService', require('./services/FundProviderInvitationsService'));
@@ -145,6 +147,8 @@ app.directive('menu', {
     validator: require('./directives/MenuValidatorDirective'),
 } [env_data.panel_type]);
 
+app.directive('appFooter', require('./directives/AppFooterDirective'));
+app.directive('dashboardSwitcher', require('./directives/DashboardSwitcherDirective'));
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
 app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'));
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
@@ -163,7 +167,7 @@ app.directive('barChart', require('./directives/BarChartDirective'));
 app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
-app.directive('landingAppFooter', require('./directives/landing/LandingAppFooterDirective'));
+app.directive('landingAuth', require('./directives/landing/AuthDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
@@ -181,7 +185,7 @@ app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
-app.directive('pdfPreview', require('./directives/PdfPreviewDirective'));
+app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));

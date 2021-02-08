@@ -24,14 +24,11 @@
                                 tr(ng-repeat="offer in $ctrl.offers.data")
                                     td(ng-bind="offer.name") 
                                     td(ng-bind="offer.unlimited_stock ? 'Ongelimiteerd' : offer.stock_amount")
-                                    td
-                                        span.offer-price(ng-bind="offer.price | currency_format")
-                                        span.offer-old-price(ng-bind="offer.old_price | currency_format")
-                                
+                                    td: .offer-price(ng-bind="offer.price | currency_format")
                                     td(ng-bind="offer.allowed ? (offer.subsidy_amount | currency_format) : '-'")
                                     td(ng-bind="offer.allowed ? (offer.subsidy_user_amount | currency_format) : '-'")
                                     td(ng-bind="offer.allowed ? offer.subsidy_user_limit : '-'")
-                                    td(ng-bind="offer.allowed ? offer.subsidy_limit_total : '-'")
+                                    td(ng-bind="offer.allowed ? (offer.subsidy_limit_total_unlimited ? 'Onbeperkt' : offer.subsidy_limit_total) : '-'")
 
                                     td.text-right
                                         .tag(

@@ -1,4 +1,4 @@
-let ProviderSignUpComponent = function(
+const ProviderSignUpComponent = function(
     $q,
     $state,
     $stateParams,
@@ -11,7 +11,7 @@ let ProviderSignUpComponent = function(
     FormBuilderService,
     OrganizationEmployeesService,
     MediaService,
-    SmsService,
+    ShareService,
     DemoTransactionService,
     ProviderFundService,
     AuthService,
@@ -59,6 +59,7 @@ let ProviderSignUpComponent = function(
     $ctrl.signedIn = AuthService.hasCredentials();
     $ctrl.organization = null;
     $ctrl.hasApp = true;
+    $ctrl.selectedOption = "";
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
 
@@ -66,7 +67,8 @@ let ProviderSignUpComponent = function(
     $ctrl.showLoginBlock = false;
     $ctrl.offices = [];
     $ctrl.employees = [];
-    $ctrl.sentSms = false;
+    $ctrl.shareSmsSent = false;
+    $ctrl.shareEmailSent = false;
     $ctrl.fundsAvailable = [];
 
     $ctrl.showAddOfficeBtn = true;
@@ -89,11 +91,11 @@ let ProviderSignUpComponent = function(
 
             if (isMobile()) {
                 $ctrl.STEP_SIGNUP_FINISHED = 9;
-                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, /* 7, 8 */ ];
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, /* 7, 8 */];
             } else {
                 $ctrl.STEP_DEMO_TRANSACTION = 9;
                 $ctrl.STEP_SIGNUP_FINISHED = 10;
-                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /* 8 */ ];
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /* 8 */];
             }
         } else {
             $ctrl.STEP_SCAN_QR = 3;
@@ -106,11 +108,11 @@ let ProviderSignUpComponent = function(
 
             if (isMobile()) {
                 $ctrl.STEP_SIGNUP_FINISHED = 10;
-                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /* 8, 9 */ ];
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, /* 8, 9 */];
             } else {
                 $ctrl.STEP_DEMO_TRANSACTION = 10;
                 $ctrl.STEP_SIGNUP_FINISHED = 11;
-                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, 8, /* 9 */ ];
+                $ctrl.shownSteps = [1, 2, 3, 4, 5, 6, 7, 8, /* 9 */];
             }
         }
     };
@@ -128,17 +130,17 @@ let ProviderSignUpComponent = function(
             $ctrl.STEP_DEMO_TRANSACTION,
             $ctrl.STEP_SIGNUP_FINISHED,
         ] : [
-            $ctrl.STEP_INFO_ME_APP,
-            $ctrl.STEP_SCAN_QR,
-            $ctrl.STEP_SELECT_ORGANIZATION,
-            $ctrl.STEP_ORGANIZATION_ADD,
-            $ctrl.STEP_OFFICES,
-            $ctrl.STEP_EMPLOYEES,
-            $ctrl.STEP_FUND_APPLY,
-            $ctrl.STEP_PROCESS_NOTICE,
-            $ctrl.STEP_DEMO_TRANSACTION,
-            $ctrl.STEP_SIGNUP_FINISHED,
-        ];
+                $ctrl.STEP_INFO_ME_APP,
+                $ctrl.STEP_SCAN_QR,
+                $ctrl.STEP_SELECT_ORGANIZATION,
+                $ctrl.STEP_ORGANIZATION_ADD,
+                $ctrl.STEP_OFFICES,
+                $ctrl.STEP_EMPLOYEES,
+                $ctrl.STEP_FUND_APPLY,
+                $ctrl.STEP_PROCESS_NOTICE,
+                $ctrl.STEP_DEMO_TRANSACTION,
+                $ctrl.STEP_SIGNUP_FINISHED,
+            ];
 
         if (stepsAvailable.indexOf(step) === -1) {
             return $ctrl.setStep($ctrl.STEP_INFO_GENERAL);
@@ -216,7 +218,7 @@ let ProviderSignUpComponent = function(
 
             let values = JSON.parse(JSON.stringify(form.values));
 
-            if (typeof(values.iban) === 'string') {
+            if (typeof (values.iban) === 'string') {
                 values.iban = values.iban.replace(/\s/g, '');
             }
 
@@ -289,10 +291,15 @@ let ProviderSignUpComponent = function(
         $scope.phoneForm = FormBuilderService.build({
             phone: "06"
         }, function(form) {
-            return SmsService.send({
+            return ShareService.sendSms({
                 phone: "+31" + form.values.phone.substr(1),
-                type: 'me_app_download_link'
             });
+        }, true);
+
+        $scope.emailForm = FormBuilderService.build({
+            email: ""
+        }, function(form) {
+            return ShareService.sendEmail(form.values);
         }, true);
 
         $ctrl.businessType = $ctrl.businessTypes.filter(
@@ -363,8 +370,8 @@ let ProviderSignUpComponent = function(
         }
     }
 
-    $ctrl.saveEmployee = () => {     
-        $ctrl.blurInput();       
+    $ctrl.saveEmployee = () => {
+        $ctrl.blurInput();
 
         ModalService.open('employeeAddConfirmation', {
             email: $ctrl.employeeForm.values.email,
@@ -458,11 +465,11 @@ let ProviderSignUpComponent = function(
             if ($stateParams.organization_id) {
                 search_params.organization_id = $stateParams.organization_id;
             }
-    
+
             if ($stateParams.tag) {
                 search_params.tag = $stateParams.tag;
             }
-    
+
             if ($stateParams.fund_id) {
                 search_params.fund_id = $stateParams.fund_id;
             }
@@ -562,24 +569,40 @@ let ProviderSignUpComponent = function(
         }
 
         let promise = $scope.phoneForm.submit();
-        
+
         if (promise) {
             waitingSms = true;
 
-            promise.then((res) => {
-                $ctrl.sentSms = true;
+            promise.then(() => {
+                $ctrl.shareSmsSent = true;
                 waitingSms = false;
                 $scope.phoneForm.unlock();
             }, (res) => {
                 waitingSms = false;
                 $scope.phoneForm.unlock();
-                $scope.phoneForm.errors = res.data.errors;
-    
-                if (res.status == 429) {
-                    $scope.phoneForm.errors = {
-                        phone: [$filter('translate')('sign_up.sms.error.try_later')]
-                    };
-                }
+                $scope.phoneForm.errors = res.data.errors || { phone: [res.data.message] };
+            });
+        }
+    };
+
+    $ctrl.sendEmail = () => {
+        if (waitingSms) {
+            return;
+        }
+
+        let promise = $scope.emailForm.submit();
+
+        if (promise) {
+            waitingSms = true;
+
+            promise.then(() => {
+                $ctrl.shareEmailSent = true;
+                waitingSms = false;
+                $scope.emailForm.unlock();
+            }, (res) => {
+                waitingSms = false;
+                $scope.emailForm.unlock();
+                $scope.emailForm.errors = res.data.errors || { email: [res.data.message] };
             });
         }
     };
@@ -619,12 +642,21 @@ let ProviderSignUpComponent = function(
         loginQrBlock.hide();
     };
 
+    $ctrl.resetShareForms = () => {
+        $ctrl.shareSmsSent = false;
+        $ctrl.shareEmailSent = false;
+        $ctrl.appDownloadSkip = false;
+
+        $scope.emailForm.values.email = '';
+        $scope.phoneForm.values.phone = '';
+    };
+
     $ctrl.showLoginQrCode = function() {
         $ctrl.requestAuthQrToken();
         loginQrBlock.show();
     };
 
-    let loginQrBlock = new(function() {
+    let loginQrBlock = new (function() {
         this.show = () => $ctrl.showLoginBlock = true;
         this.hide = () => $ctrl.showLoginBlock = false;
     });
@@ -663,15 +695,8 @@ let ProviderSignUpComponent = function(
         authTokenSubscriber.stopCheckAccessTokenStatus();
     };
 
-    $ctrl.finish = () => $state.go('organizations-view', {
-        id: $ctrl.organization.id
-    });
-    
-    $ctrl.goToMain = () => $state.go('home');
-
-    $ctrl.openAuthPopup = function() {
-        ModalService.open('modalAuth', {});
-    };
+    $ctrl.finish = () => $state.go('organizations-view', { id: $ctrl.organization.id });
+    $ctrl.openAuthPopup = () => $state.go('home');
 };
 
 module.exports = {
@@ -691,7 +716,7 @@ module.exports = {
         'FormBuilderService',
         'OrganizationEmployeesService',
         'MediaService',
-        'SmsService',
+        'ShareService',
         'DemoTransactionService',
         'ProviderFundService',
         'AuthService',

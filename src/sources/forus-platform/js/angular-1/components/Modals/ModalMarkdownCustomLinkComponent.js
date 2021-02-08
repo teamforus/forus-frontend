@@ -6,12 +6,12 @@ let ModalMarkdownCustomLinkComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.params = {
             type: $ctrl.modal.scope.type,
+            hasDescription: $ctrl.modal.scope.hasDescription,
             description: $ctrl.modal.scope.selection
         };
 
         $ctrl.form = FormBuilderService.build({}, (form) => {
             $ctrl.modal.scope.success(form.values);
-
             $ctrl.close();
         });
     };

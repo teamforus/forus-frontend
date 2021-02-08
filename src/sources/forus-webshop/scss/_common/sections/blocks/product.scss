@@ -22,6 +22,7 @@
             background-position: 50%;
             background-repeat: no-repeat;
             border-radius: $border_radius;
+            max-height: 400px;
 
             img {
                 width: 100%;
@@ -78,6 +79,10 @@
                     .product-property-value {
                         color: #282b39;
                         font: 600 16px/18px $bf;
+
+                        p:last-child {
+                            margin-bottom: 0;
+                        }
                     }
 
                     &.product-property-full {
@@ -125,6 +130,10 @@
                     display: flex;
                     font: 700 22px/30px $bf;
                     justify-content: flex-end;
+
+                    &.fund-item-section-value-sm {
+                        font: 700 16px/30px $bf;
+                    }
                 }
 
                 &.fund-item-section-details {
@@ -238,6 +247,7 @@
                 max-width: 100%;
                 background: none;
                 border-radius: $border_radius;
+                max-height: inherit;
 
                 img {
                     display: block;
@@ -259,39 +269,8 @@
                     .product-property {
                         width: 100%;
                         display: flex;
-                        flex-direction: row;
-                        margin-bottom: 5px;
-
-                        .product-property-label,
-                        .product-property-value {
-                            width: 50%;
-                            flex-direction: column;
-                            justify-content: center;
-                        }
-    
-                        .product-property-label {
-                            text-align: left;
-                            align-items: flex-start;
-                            padding-right: 10px;
-                        }
-    
-                        .product-property-value {
-                            text-align: left;
-                            align-items: flex-end;
-                            padding-left: 10px;
-                            font-size: 14px;
-                        }
-
-                        &.product-property-full {
-                            width: 100%;
-                            flex-direction: column;
-
-                            .product-property-label,
-                            .product-property-value {
-                                width: 100%;
-                                padding: 0;
-                            }
-                        }
+                        flex-direction: column;
+                        margin: 0 0 10px;
 
                         &:last-child {
                             margin-bottom: 0;
@@ -320,7 +299,7 @@
                     .fund-item-section-value {
                         width: 50%;
                         flex-direction: column;
-                        justify-content: center;
+                        justify-content: flex-start;
                     }
 
                     .fund-item-section-label {
@@ -332,6 +311,12 @@
                         text-align: right;
                         align-items: flex-end;
                         font-size: 13px;
+                        line-height: 20px;
+
+                        &.fund-item-section-value-sm {
+                            font-size: 13px;
+                            line-height: 20px;
+                        }
                     }
 
                     &.fund-item-section-details {

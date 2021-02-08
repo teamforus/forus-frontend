@@ -17,7 +17,7 @@
                     .product-properties
                         .product-property
                             .product-property-label(translate="product_edit.labels.expire")
-                            .product-property-value(ng-bind="$ctrl.product.expire_at")
+                            .product-property-value(ng-bind="$ctrl.product.expire_at ? $ctrl.product.expire_at_locale : 'Onbeperkt'")
                         .product-property
                             .product-property-label(translate="product_edit.labels.sold")
                             .product-property-value(ng-bind="$ctrl.product.sold_amount")
@@ -29,10 +29,7 @@
                             .product-property-value(ng-if="!$ctrl.product.unlimited_stock" ng-bind="$ctrl.product.stock_amount")
                             .product-property-value(ng-if="$ctrl.product.unlimited_stock" translate="product_edit.labels.unlimited")
                 
-                .product-actions.form(ng-if="!$ctrl.product.no_price")
-                    .product-price
-                        | {{ $ctrl.product.price | currency_format }}
-                        .product-price-old(ng-if="$ctrl.product.old_price" ng-bind="$ctrl.product.old_price | currency_format")
+                .product-actions: .product-price(ng-bind="$ctrl.product.price_locale")
             
             .product-description
                 .description-header
@@ -115,5 +112,5 @@
         
         block-empty(
             ng-if="$ctrl.funds.meta.total == 0" 
-            text="You have not applied to any funds yet." 
-            button="{text: 'View available funds', href: $ctrl.emptyFundsLink}")
+            text="Uw aanbod kan nog niet op een website worden geplaatst omdat u zich eerst voor een fonds moet aanmelden. Meld u aan voor één of meerdere fondsen." 
+            button="{text: 'Bekijk beschikbare fondsen', href: $ctrl.emptyFundsLink}")

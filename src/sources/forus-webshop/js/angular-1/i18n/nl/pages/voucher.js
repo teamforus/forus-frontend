@@ -69,7 +69,7 @@ module.exports = {
             },
             reason_placeholder: 'Bericht voor aanbieder',
             buttons: {
-                submit: 'Vesturen',
+                submit: 'Versturen',
                 confirm: 'Sluit'
             },
             popup_sent: {

@@ -1,3 +1,5 @@
+const { isNull } = require("underscore");
+
 let ProductsEditComponent = function(
     $timeout,
     $state,
@@ -14,20 +16,21 @@ let ProductsEditComponent = function(
 
     $ctrl.media;
     $ctrl.mediaErrors = [];
-
-    $ctrl.clearPrices = (no_price) => {
-        if (no_price) {
-            delete $ctrl.form.values.price;
-            delete $ctrl.form.values.old_price;
-        }
-    };
+    $ctrl.nonExpiring = false;
 
     $ctrl.$onInit = function() {
         let values = $ctrl.product ? ProductService.apiResourceToForm($ctrl.product) : {
-            product_category_id: null
+            product_category_id: null,
+            price_type: 'regular',
         };
 
+        $ctrl.nonExpiring = !values.expire_at;
         $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
+
+        values.expire_at = $ctrl.nonExpiring ? moment(
+            new Date()
+        ).add(1, 'day') : moment(values.expire_at, 'YYYY-MM-DD');
+        values.expire_at = values.expire_at.format('DD-MM-YYYY');
 
         if ($ctrl.maxProductCount && !$ctrl.product && $ctrl.products.length >= $ctrl.maxProductCount) {
             ModalService.open('modalNotification', {
@@ -43,19 +46,37 @@ let ProductsEditComponent = function(
         }
 
         $ctrl.confirmPriceChange = (confirmCallback) => {
-            if (!$ctrl.product || 
-                parseFloat($ctrl.product.price) === parseFloat($ctrl.form.values.price) || 
-                $ctrl.product.funds.filter(fund => fund.type == 'subsidies').length === 0) {
+            let priceHasChanged = false;
+
+            if (!$ctrl.product) {
                 return confirmCallback();
             }
 
-            ModalService.open('modalNotification', {
-                type: 'confirm',
-                title: 'product_edit.confirm_price_change.title',
-                description: 'product_edit.confirm_price_change.description',
-                icon: 'product-create',
-                confirm: () => confirmCallback()
-            });
+            if ($ctrl.product.price_type !== $ctrl.form.values.price_type) {
+                priceHasChanged = true;
+            }
+
+            if ($ctrl.form.values.price_type === 'regular' &&
+                parseFloat($ctrl.product.price) !== parseFloat($ctrl.form.values.price)) {
+                priceHasChanged = true;
+            }
+
+            if (['discount_fixed', 'discount_percentage'].includes($ctrl.form.values.price_type) &&
+                parseFloat($ctrl.product.price_discount) !== parseFloat($ctrl.form.values.price_discount)) {
+                priceHasChanged = true;
+            }
+
+            if (priceHasChanged && $ctrl.product.funds.filter(fund => fund.type == 'subsidies').length > 0) {
+                return ModalService.open('modalNotification', {
+                    type: 'confirm',
+                    title: 'product_edit.confirm_price_change.title',
+                    description: 'product_edit.confirm_price_change.description',
+                    icon: 'product-create',
+                    confirm: () => confirmCallback(),
+                });
+            }
+
+            return confirmCallback();
         };
 
         $ctrl.saveProduct = function() {
@@ -101,27 +122,33 @@ let ProductsEditComponent = function(
                 }
             }
 
-            if ($ctrl.product) {
-                let values = JSON.parse(JSON.stringify(form.values));
+            let values = {
+                ...form.values, ...{
+                    expire_at: $ctrl.nonExpiring ? null : moment(
+                        form.values.expire_at,
+                        'DD-MM-YYYY'
+                    ).format('YYYY-MM-DD')
+                }
+            };;
 
-                values.total_amount = values.sold_amount + values.stock_amount;
-
-                promise = ProductService.update(
-                    $ctrl.product.organization_id,
-                    $ctrl.product.id,
-                    values
-                )
-            } else {
-                promise = ProductService.store(
-                    $stateParams.organization_id,
-                    form.values
-                )
+            if (values.price_type !== 'regular') {
+                delete values.price;
+            } else if (values.price_type !== 'regular' && values.price_type !== 'free') {
+                delete values.price_discount;
             }
 
-            promise.then((res) => {
-                $state.go('products', {
-                    organization_id: $stateParams.organization_id
+            if ($ctrl.product) {
+                promise = ProductService.update($ctrl.product.organization_id, $ctrl.product.id, {
+                    ...values, ...{
+                        total_amount: values.sold_amount + values.stock_amount
+                    }
                 });
+            } else {
+                promise = ProductService.store($stateParams.organization_id, values);
+            }
+
+            promise.then(() => {
+                $state.go('products', { organization_id: $stateParams.organization_id });
             }, (res) => {
                 $timeout(() => {
                     form.errors = res.data.errors;

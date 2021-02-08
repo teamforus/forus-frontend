@@ -32,6 +32,28 @@ let ProductVouchersComponent = function(
         name: 'Medewerker'
     }];
 
+    $ctrl.voucher_states = [{
+        value: null,
+        name: 'Alle'
+    }, {
+        value: 'pending',
+        name: 'Inactief'
+    }, {
+        value: 'active',
+        name: 'Actief'
+    }];
+
+    $ctrl.in_use = [{
+        value: null,
+        name: 'Selecteer...'
+    }, {
+        value: 1,
+        name: 'Ja'
+    }, {
+        value: 0,
+        name: 'Nee'
+    }];
+
     $ctrl.filters = {
         show: false,
         defaultValues: {
@@ -41,6 +63,8 @@ let ProductVouchersComponent = function(
             amount_max: null,
             from: null,
             to: null,
+            state: null,
+            in_use: null,
             type: 'product_voucher',
             source: 'all',
             sort_by: 'created_at',
@@ -48,7 +72,7 @@ let ProductVouchersComponent = function(
         },
         values: {},
         reset: function() {
-            this.values = {...this.defaultValues};
+            this.values = { ...this.defaultValues };
         }
     };
 
@@ -65,12 +89,8 @@ let ProductVouchersComponent = function(
             voucher: voucher,
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onSent: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            },
-            onAssigned: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
+            onSent: () => $ctrl.onPageChange($ctrl.filters.values),
+            onAssigned: () => $ctrl.onPageChange($ctrl.filters.values)
         });
     };
 
@@ -78,10 +98,8 @@ let ProductVouchersComponent = function(
         ModalService.open('product_voucher_create', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onCreated: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
-        });
+            onCreated: () => $ctrl.onPageChange($ctrl.filters.values)
+        }, { max_load_time: 1000 });
     };
 
     $ctrl.uploadProductVouchersCsv = () => {
@@ -89,20 +107,21 @@ let ProductVouchersComponent = function(
             fund: $ctrl.fund,
             organization: $ctrl.organization,
             type: $ctrl.filters.values.type,
-            done: () => {
-                $state.reload();
-            }
+            organizationFunds: $ctrl.funds,
+            done: () => $state.reload()
         });
     };
 
     $ctrl.getQueryParams = (query) => {
         let _query = JSON.parse(JSON.stringify(query));
 
-        return {..._query, ...{
-            from: _query.from ? DateService._frontToBack(_query.from) : null,
-            to: _query.to ? DateService._frontToBack(_query.to) : null,
-            fund_id: $ctrl.fund.id,
-        }};
+        return {
+            ..._query, ...{
+                from: _query.from ? DateService._frontToBack(_query.from) : null,
+                to: _query.to ? DateService._frontToBack(_query.to) : null,
+                fund_id: $ctrl.fund.id,
+            }
+        };
     };
 
     /* $ctrl.exportQRCodes = () => {
@@ -136,9 +155,8 @@ let ProductVouchersComponent = function(
 
     $ctrl.exportPdf = () => {
         VoucherService.downloadQRCodes($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                export_type: 'pdf'
-            }
+            ...$ctrl.getQueryParams($ctrl.filters.values),
+            ...{ export_type: 'pdf' }
         }).then(res => {
             FileService.downloadFile(
                 'vouchers_' + moment().format(
@@ -159,11 +177,12 @@ let ProductVouchersComponent = function(
     };
 
 
-    $ctrl.exportImages = () => {
+    $ctrl.exportImages = (type) => {
         PageLoadingBarService.setProgress(0);
         VoucherService.downloadQRCodesData($ctrl.organization.id, {
             ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                export_type: 'png'
+                export_type: 'png',
+                export_only_data: type === 'data' ? 1 : 0,
             }
         }).then(async res => {
             let data = res.data;
@@ -171,7 +190,7 @@ let ProductVouchersComponent = function(
             let csvName = 'qr_codes.csv';
             let vouchersData = data.vouchersData;
             let zip = new JSZip();
-            let img = zip.folder("images");
+            let img = vouchersData.length > 0 ? zip.folder("images") : null;
             let promises = [];
 
             PageLoadingBarService.setProgress(10);
@@ -193,10 +212,7 @@ let ProductVouchersComponent = function(
 
             Promise.all(promises).then((data) => {
                 console.info('- inserting images into .zip archive.');
-                
-                data.forEach((imgData) => {
-                    img.file(imgData.name + ".png", imgData.imageData, { base64: true });
-                });
+                data.forEach((imgData) => img.file(imgData.name + ".png", imgData.imageData, { base64: true }));
 
                 PageLoadingBarService.setProgress(80);
 
@@ -227,7 +243,7 @@ let ProductVouchersComponent = function(
                 if (data.exportType === 'pdf') {
                     $ctrl.exportPdf();
                 } else {
-                    $ctrl.exportImages();
+                    $ctrl.exportImages(data.exportType);
                 }
             }
         });
@@ -263,7 +279,7 @@ let ProductVouchersComponent = function(
     $ctrl.onFundSelect = (fund) => {
         $ctrl.fund = fund;
         $ctrl.init();
-    }; 
+    };
 
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);

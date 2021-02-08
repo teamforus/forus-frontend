@@ -1,7 +1,13 @@
 block content
     .header-splash: .splash.splash-c
     top-navbar
+
     .block.block-office
+        .office-breadcrumbs
+            .wrapper: .block.block-breadcrumbs
+                a(ui-sref="providers").breadcrumb-item Aanbieders
+                a(ui-sref="provider({provider_id: $ctrl.provider.id})").breadcrumb-item {{ $ctrl.provider.name }}
+                .breadcrumb-item.active {{ $ctrl.office.address }}
         .office-map: .block.block-google-map: google-map(
             map-pointers="[$ctrl.office]" 
             map-pointer-template="providers-office-view" 
@@ -79,3 +85,6 @@ block content
                                             .office-info.office-info-inline(ng-if="provider.email")
                                                 .mdi.mdi-email-outline
                                                 | {{ provider.email }}
+
+            block-products(ng-if="$ctrl.products.data.length > 0" display="grid" type="budget" products="$ctrl.products.data" filters="{organization_id: $ctrl.provider.id}")
+            block-products(ng-if="$ctrl.subsidies.data.length > 0" display="grid" type="subsidies" products="$ctrl.subsidies.data" filters="{organization_id: $ctrl.provider.id}")

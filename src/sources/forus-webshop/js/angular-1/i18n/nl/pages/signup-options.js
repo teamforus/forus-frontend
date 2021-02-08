@@ -6,7 +6,7 @@ module.exports = {
     },
     labels: {
         title_provider: "Aanmelden als Aanbieder",
-        description_provider: "Als aanbieder biedt u producten of diensten die betaald kunnen worden uit de verschillende potjes.",
+        description_providers: "Als aanbieder biedt u producten of diensten die betaald kunnen worden uit de verschillende potjes.",
         title_validator: "Aanmelden als Validator",
         description_validator: "Als validator beoordeelt u informatie van de aavrangers, bijvoorbeeld inkomen, woonplaats en leeftijd.",
         title_sponsor: "Aanmelden als Sponsor",

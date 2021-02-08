@@ -33,8 +33,7 @@ module.exports = () => {
             LandingNavbarDirective
         ],
         templateUrl: ($el, $attr) => {
-            let template = $attr.template || 'navbar';
-            return 'assets/tpl/directives/landing/' + template + '.html';
+            return 'assets/tpl/directives/landing/' + ($attr.template || 'navbar') + '.html';
         }
     };
 };

@@ -33,6 +33,28 @@ let VouchersComponent = function(
         name: 'Medewerker'
     }];
 
+    $ctrl.voucher_states = [{
+        value: null,
+        name: 'Alle'
+    }, {
+        value: 'pending',
+        name: 'Inactief'
+    }, {
+        value: 'active',
+        name: 'Actief'
+    }];
+
+    $ctrl.in_use = [{
+        value: null,
+        name: 'Selecteer...'
+    }, {
+        value: 1,
+        name: 'Ja'
+    }, {
+        value: 0,
+        name: 'Nee'
+    }];
+
     $ctrl.filters = {
         show: false,
         defaultValues: {
@@ -42,6 +64,8 @@ let VouchersComponent = function(
             amount_max: null,
             from: null,
             to: null,
+            state: null,
+            in_use: null,
             type: 'fund_voucher',
             source: 'all',
             sort_by: 'created_at',
@@ -88,11 +112,10 @@ let VouchersComponent = function(
     $ctrl.uploadVouchersCsv = () => {
         ModalService.open('vouchersUpload', {
             fund: $ctrl.fund,
-            organization: $ctrl.organization,
             type: $ctrl.filters.values.type,
-            done: () => {
-                $state.reload();
-            }
+            organization: $ctrl.organization,
+            organizationFunds: $ctrl.funds,
+            done: () => $state.reload(),
         });
     };
 
@@ -117,9 +140,8 @@ let VouchersComponent = function(
 
     $ctrl.exportPdf = () => {
         VoucherService.downloadQRCodes($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                export_type: 'pdf'
-            }
+            ...$ctrl.getQueryParams($ctrl.filters.values), 
+            ...{ export_type: 'pdf' }
         }).then(res => {
             FileService.downloadFile(
                 'vouchers_' + moment().format(
@@ -139,11 +161,12 @@ let VouchersComponent = function(
         });
     };
 
-    $ctrl.exportImages = () => {
+    $ctrl.exportImages = (type) => {
         PageLoadingBarService.setProgress(0);
         VoucherService.downloadQRCodesData($ctrl.organization.id, {
             ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                export_type: 'png'
+                export_type: 'png', 
+                export_only_data: type === 'data' ? 1 : 0,
             }
         }).then(async res => {
             let data = res.data;
@@ -151,7 +174,7 @@ let VouchersComponent = function(
             let csvName = 'qr_codes.csv';
             let vouchersData = data.vouchersData;
             let zip = new JSZip();
-            let img = zip.folder("images");
+            let img = vouchersData.length > 0 ? zip.folder("images") : null;
             let promises = [];
 
             PageLoadingBarService.setProgress(10);
@@ -173,10 +196,7 @@ let VouchersComponent = function(
 
             Promise.all(promises).then((data) => {
                 console.info('- inserting images into .zip archive.');
-                
-                data.forEach((imgData) => {
-                    img.file(imgData.name + ".png", imgData.imageData, { base64: true });
-                });
+                data.forEach((imgData) => img.file(imgData.name + ".png", imgData.imageData, { base64: true }));
 
                 PageLoadingBarService.setProgress(80);
 
@@ -207,7 +227,7 @@ let VouchersComponent = function(
                 if (data.exportType === 'pdf') {
                     $ctrl.exportPdf();
                 } else {
-                    $ctrl.exportImages();
+                    $ctrl.exportImages(data.exportType);
                 }
             }
         });

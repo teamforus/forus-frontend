@@ -11,9 +11,7 @@ let OfficesEditComponent = function(
     $ctrl.media;
 
     $ctrl.$onInit = function() {
-        let values = OfficeService.apiResourceToForm(
-            $ctrl.office || {}
-        );
+        let values = OfficeService.apiResourceToForm($ctrl.office || {});
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
             form.lock();

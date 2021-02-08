@@ -2,6 +2,7 @@ let ModalDangerZoneComponent = function() {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
+        $ctrl.header = $ctrl.modal.scope.header;
         $ctrl.title = $ctrl.modal.scope.title;
         $ctrl.description = $ctrl.modal.scope.description;
         $ctrl.cancelButton = $ctrl.modal.scope.cancelButton || 'Cancel';

@@ -2,7 +2,7 @@
 
 head
     meta(charset="UTF-8")
-    title(ng-bind="$root.pageTitle") Forus 
+    title(ng-bind="$root.pageTitle") #{qdt_c.platform.env_data.default_title || 'Forus'}
 
     //- disable index
     if (!qdt_c.platform.env_data.allow_indexing)

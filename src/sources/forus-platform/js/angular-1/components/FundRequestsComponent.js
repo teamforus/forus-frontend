@@ -48,17 +48,20 @@ let FundRequestsComponent = function(
     $ctrl.filters = {
         show: false,
         values: {},
+        defaultValues: {
+            page: 1,
+            per_page: 10,
+            q: '',
+            state: $ctrl.states[0].key,
+            employee_id: null,
+            from: '',
+            to: null,
+            sort_by: 'state',
+            sort_order: 'asc'
+        },
         reset: function() {
-            this.values.q = '';
-            this.values.state = $ctrl.states[0].key;
-            this.values.employee_id = null;
-            this.values.from = '';
-            this.values.to = null;
+            this.values = { ...this.values, ...this.defaultValues };
         }
-    };
-
-    $ctrl.resetFilters = () => {
-        $ctrl.filters.reset();
     };
 
     $ctrl.hideFilters = () => {
@@ -86,19 +89,14 @@ let FundRequestsComponent = function(
         }, console.error);
     };
 
-    let reloadRequests = (query = false) => {
-        if (query) {
-            $ctrl.filters.values = query;
-        }
-        let _query = JSON.parse(JSON.stringify($ctrl.filters.values));
-
-        FundRequestValidatorService.indexAll($ctrl.organization.id, Object.assign(_query, {
-            per_page: 25,
-            from: _query.from ? DateService._frontToBack(_query.from) : null,
-            to: _query.to ? DateService._frontToBack(_query.to) : null,
-            sort_by: 'created_at',
-            sort_order: 'desc'
-        })).then(function(res) {
+    let reloadRequests = (query) => {
+        FundRequestValidatorService.indexAll($ctrl.organization.id, {
+            ...query,
+            ...{
+                from: query.from ? DateService._frontToBack(query.from) : null,
+                to: query.to ? DateService._frontToBack(query.to) : null,
+            }
+        }).then(function(res) {
             $ctrl.validatorRequests = $ctrl.updateSelfAssignedFlags(res.data);
         }, console.error);
     };
@@ -118,8 +116,8 @@ let FundRequestsComponent = function(
         ModalService.open('modalNotification', {
             modalClass: 'modal-md',
             type: 'confirm',
-            title: 'Weet u zeker dat u deze eigenschap wil valideren?',
-            description: 'Een validatie kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
+            title: 'Weet u zeker dat u deze eigenschap wil goedkeuren?',
+            description: 'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
             confirm: (res) => {
                 FundRequestValidatorService.approveRecord(
                     $ctrl.organization.id,
@@ -128,7 +126,7 @@ let FundRequestsComponent = function(
                 ).then(() => {
                     $ctrl.reloadRequest(request);
                     showInfoModal('Eigenschap gevalideert');
-                }, res => showInfoModal('Fout: U kunt deze eigenschap op dit moment niet valideren', res.data.message));
+                }, res => showInfoModal('Fout: U kunt deze eigenschap op dit moment niet beoordelen.', res.data.message));
             }
         });
     };
@@ -170,10 +168,7 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.requestApprove = (request) => {
-        FundRequestValidatorService.approve(
-            $ctrl.organization.id,
-            request.id
-        ).then(() => {
+        FundRequestValidatorService.approve($ctrl.organization.id, request.id).then(() => {
             $ctrl.reloadRequest(request);
         }, (res) => {
             showInfoModal(
@@ -196,7 +191,7 @@ let FundRequestsComponent = function(
                 }
 
                 $ctrl.reloadRequest(request);
-                showInfoModal('Aanvragen geweigerd.');
+                PushNotificationsService.success('Gelukt! Aanvraag is geweigerd');
             }
         });
     };
@@ -258,8 +253,8 @@ let FundRequestsComponent = function(
             fundRequest: fundRequest,
             organization: $ctrl.organization,
             onAppend: () => {
-                PushNotificationsService.success('Gelukt! New record attached and approved.');
-                reloadRequests();
+                PushNotificationsService.success('Gelukt! Eigenschap toegevoegd.');
+                reloadRequests($ctrl.filters.values);
             }
         });
     };
@@ -306,7 +301,7 @@ let FundRequestsComponent = function(
             });
         }).then(() => {
             $ctrl.filters.reset();
-            
+
             OrganizationEmployeesService.list($ctrl.organization.id, {
                 per_page: 100,
                 role: 'validation',
@@ -322,7 +317,7 @@ let FundRequestsComponent = function(
                 });
 
                 $ctrl.filters.values.employee_id = $ctrl.employees[0].id;
-                reloadRequests();
+                reloadRequests($ctrl.filters.values);
             });
         });
     };
@@ -348,15 +343,25 @@ let FundRequestsComponent = function(
         }), console.error);
     };
 
+    $ctrl.hasFilePreview = (file) => {
+        return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext);
+    }
+
     $ctrl.previewFile = ($event, file) => {
         $event.originalEvent.preventDefault();
         $event.originalEvent.stopPropagation();
 
-        FileService.download(file).then(res => {
-            ModalService.open('pdfPreview', {
-                rawPdfFile: res.data
+        if (file.ext == 'pdf') {
+            FileService.download(file).then(res => {
+                ModalService.open('pdfPreview', {
+                    rawPdfFile: res.data
+                });
+            }, console.error);
+        } else if (['png', 'jpeg', 'jpg'].includes(file.ext)) {
+            ModalService.open('imagePreview', {
+                imageSrc: file.url
             });
-        }, console.error);
+        }
     };
 
     $ctrl.onPageChange = (query) => {

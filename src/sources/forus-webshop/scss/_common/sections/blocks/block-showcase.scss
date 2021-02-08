@@ -36,10 +36,8 @@
         flex-direction: row;
 
         .showcase-aside {
-            background: #fff;
-            border-radius: $border_radius;
-            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
             height: fit-content;
+            background: #fff;
             width: 340px;
             max-width: 340px;
             min-width: 340px;
@@ -49,6 +47,10 @@
                 padding: 20px;
                 width: 100%;
                 border-bottom: 1px solid $border_color;
+                background: #fff;
+                border-radius: $border_radius;
+                box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+                margin-bottom: 30px;
 
                 .showcase-aside-block-info {
                     font: 500 12px $bf;
@@ -156,6 +158,7 @@
         .showcase-content {
             padding-left: 30px;
             flex-grow: 1;
+            max-width: calc(100% - 340px);
 
             .showcase-content-header {
                 position: relative;
@@ -274,6 +277,10 @@
                 min-width: 280px;
                 max-width: 280px;
             }
+
+            .showcase-content {
+                max-width: calc(100% - 280px);
+            }
         }
     }
 
@@ -385,6 +392,7 @@
 
             .showcase-content {
                 padding: 0 0 0;
+                max-width: 100%;
             }
         }
 

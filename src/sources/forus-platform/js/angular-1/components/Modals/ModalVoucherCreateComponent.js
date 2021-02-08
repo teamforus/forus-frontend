@@ -1,97 +1,170 @@
 let ModalVoucherCreateComponent = function(
     FormBuilderService,
-    VoucherService
+    VoucherService,
+    ModalService
 ) {
     let $ctrl = this;
-    
-    $ctrl.voucherType = null;
-    $ctrl.state = '';
+
+    $ctrl.lastReplaceConfirmed = null;
+    $ctrl.voucherType = 'activation_code_uid';
     $ctrl.activationCodeSubmitted = false;
     $ctrl.assignTypes = [{
-        key: null,
-        label: 'Niet toekennen',
+        key: 'activation_code_uid',
+        label: 'Activatiecode',
+        inputLabel: 'Uniek nummer',
     }, {
         key: 'email',
         label: 'E-mailadres',
+        inputLabel: 'E-mailadres',
     }, {
         key: 'bsn',
         label: 'BSN',
+        inputLabel: 'BSN',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
+    $ctrl.dateMinLimit = new Date();
 
     $ctrl.onAsignTypeChange = (assignType) => {
-        if (assignType.key === 'bsn') {
+        if (assignType.key !== 'bsn') {
             delete $ctrl.form.values.bsn;
         }
 
         if (assignType.key !== 'email') {
             delete $ctrl.form.values.email;
         }
+
+        if (assignType.key !== 'activation_code_uid') {
+            delete $ctrl.form.values.activation_code_uid;
+        }
     };
 
-    $ctrl.submitActivationCode = (activation_code) => {
-        let code = activation_code ? activation_code : '';
+    $ctrl.confirmEmailSkip = function(existingEmails, onConfirm = () => { }, onCancel = () => { }) {
+        let items = existingEmails.map(email => ({ value: email }));
 
-        if ($ctrl.activationCodeSubmitted) {
-            return false;   
-        }
-
-        $ctrl.activationCodeSubmitted = true;
-        code = code.substring(0, 4) + '-' +  code.substring(4);
-
-        // activation_code;
-        VoucherService.storeValidate($ctrl.organization.id, {
-            activation_code: code,
-            fund_id: $ctrl.fund.id,
-        }).then(() => {}, res => {
-            if (res.data.errors.activation_code) {
-                $ctrl.state = 'activation_code_invalid';
-            } else {
-                if ($ctrl.voucherType == 'activation_code') {
-                    $ctrl.form.values.activation_code = code;
-                }
-                
-                $ctrl.state = 'voucher_form';
-            }
+        ModalService.open('duplicatesPicker', {
+            hero_title: "Dubbele e-mailadressen gedetecteerd.",
+            hero_subtitle: [
+                `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra tegoed wilt aanmaken?`,
+                "Deze e-mailadressen bezitten al een tegoed van dit fonds."
+            ],
+            label_on: "Aanmaken tegoed",
+            label_off: "Overslaan",
+            items: items,
+            onConfirm: onConfirm,
+            onCancel: onCancel,
         });
     };
-    
+
+    $ctrl.confirmBsnSkip = function(existingBsn, onConfirm = () => { }, onCancel = () => { }) {
+        let items = existingBsn.map(bsn => ({ value: bsn }));
+
+        ModalService.open('duplicatesPicker', {
+            hero_title: "Dubbele bsn(s) gedetecteerd.",
+            hero_subtitle: [
+                `Weet u zeker dat u voor ${items.length} bsn(s) een extra tegoed wilt aanmaken?`,
+                "Deze burgerservicenummers bezitten al een tegoed van dit fonds."
+            ],
+            label_on: "Aanmaken tegoed",
+            label_off: "Overslaan",
+            items: items,
+            onConfirm: onConfirm,
+            onCancel: onCancel,
+        });
+    };
+
     $ctrl.$onInit = () => {
         $ctrl.fund = $ctrl.modal.scope.fund || null;
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onCreated = $ctrl.modal.scope.onCreated;
 
-        $ctrl.state = 'select_type';
-
         $ctrl.form = FormBuilderService.build({
             fund_id: $ctrl.fund.id,
             expire_at: $ctrl.fund.end_date,
         }, (form) => {
-            form.lock();
+            VoucherService.storeValidate($ctrl.organization.id, {
+                ...form.values,
+                ...{ assign_by_type: $ctrl.assignType.key },
+                ...({
+                    email: { activate: 1, activation_code: 0 },
+                    bsn: { activate: 1, activation_code: 0 },
+                    activation_code_uid: { activate: 0, activation_code: 1 },
+                }[$ctrl.assignType.key])
+            }).then(() => {
+                if ($ctrl.assignType.key === 'email' && (form.values.email !== $ctrl.lastReplaceConfirmed)) {
+                    return VoucherService.index($ctrl.organization.id, {
+                        type: 'fund_voucher',
+                        email: form.values.email,
+                        fund_id: $ctrl.fund.id,
+                        source: 'all',
+                        expired: 0,
+                    }).then((res) => {
+                        $ctrl.close();
 
-            VoucherService.store(
-                $ctrl.organization.id,
-                form.values
-            ).then(res => {
-                $ctrl.onCreated();
-                $ctrl.close();
+                        if (res.data.meta.total > 0) {
+                            return $ctrl.confirmEmailSkip([form.values.email], (emails) => {
+                                if (emails.filter(email => email.model).length > 0) {
+                                    $ctrl.lastReplaceConfirmed = form.values.email;
+                                    $ctrl.makRequest(form);
+                                }
+                            });
+                        }
+
+                        $ctrl.makRequest(form);
+                    });
+                }
+
+                if ($ctrl.assignType.key === 'bsn' && (form.values.bsn !== $ctrl.lastReplaceConfirmed)) {
+                    return VoucherService.index($ctrl.organization.id, {
+                        type: 'fund_voucher',
+                        bsn: form.values.bsn,
+                        fund_id: $ctrl.fund.id,
+                        source: 'all',
+                    }).then((res) => {
+                        $ctrl.close();
+
+                        if (res.data.meta.total > 0) {
+                            return $ctrl.confirmBsnSkip([form.values.bsn], (bsns) => {
+                                if (bsns.filter(bsn => bsn.model).length > 0) {
+                                    $ctrl.lastReplaceConfirmed = form.values.bsn;
+                                    $ctrl.makRequest(form);
+                                }
+                            });
+                        }
+
+                        $ctrl.makRequest(form);
+                    });
+                }
+
+                $ctrl.makRequest(form);
             }, res => {
                 form.errors = res.data.errors;
                 form.unlock();
             });
+        }, true);
+    };
+
+    $ctrl.makRequest = (form) => {
+        VoucherService.store($ctrl.organization.id, {
+            ...form.values,
+            ...{ assign_by_type: $ctrl.assignType.key },
+            ...({
+                email: { activate: 1, activation_code: 0 },
+                bsn: { activate: 1, activation_code: 0 },
+                activation_code_uid: { activate: 0, activation_code: 1 },
+            }[$ctrl.assignType.key])
+        }).then(() => {
+            $ctrl.onCreated();
+            $ctrl.close();
+        }, res => {
+            form.errors = res.data.errors;
+            form.unlock();
+
+            if (res.data.message && res.status !== 422) {
+                alert(res.data.message);
+            }
         });
-    };
-
-    $ctrl.submitVoucherType = () => {
-        if ($ctrl.voucherType === 'activation_code') {
-            $ctrl.state = 'activation_code';
-        } else if ($ctrl.voucherType === 'giftcard') {
-            $ctrl.state = 'voucher_form';
-        }
-    };
-
-    $ctrl.$onDestroy = function() {};
+    }
 };
 
 module.exports = {
@@ -102,6 +175,7 @@ module.exports = {
     controller: [
         'FormBuilderService',
         'VoucherService',
+        'ModalService',
         ModalVoucherCreateComponent
     ],
     templateUrl: () => {

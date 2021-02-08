@@ -106,7 +106,7 @@ module.exports = function() {
                             done(response);
                         }, function(response) {
                             if (response.status == 401) {
-                                $rootScope.signOut();
+                                $rootScope.signOut(false);
                             }
 
                             reject(response);

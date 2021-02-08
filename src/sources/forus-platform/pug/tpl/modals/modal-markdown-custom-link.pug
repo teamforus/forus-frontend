@@ -2,13 +2,15 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header(ng-bind="$ctrl.params.type == 'image-link' ? 'Afbeelding link toevoegen' : 'Link toevoegen'")
+        .modal-header(ng-if="$ctrl.params.type == 'image-link'") Afbeelding link toevoegen
+        .modal-header(ng-if="$ctrl.params.type == 'custom-link'") Link toevoegen
+        .modal-header(ng-if="$ctrl.params.type == 'youtube'") Youtube link
         .modal-body
             .modal-section
                 .form-group
                     label.form-label(ng-bind="$ctrl.params.type == 'image-link' ? 'URL Afbeelding' : 'URL'")
                     input(type="text" ng-model="$ctrl.form.values.url").form-control
-                .form-group
+                .form-group(ng-if="$ctrl.params.hasDescription")
                     label.form-label Beschrijving
                     input(type="text" ng-init="$ctrl.form.values.description=$ctrl.params.description" ng-model="$ctrl.form.values.description").form-control
 

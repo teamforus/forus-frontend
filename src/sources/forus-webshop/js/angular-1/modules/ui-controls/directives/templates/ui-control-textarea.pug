@@ -1,5 +1,6 @@
 .ui-control.ui-control-textarea(ng-class="$dir.class")
     textarea(
+        rows="{{ $dir.rows }}" 
         id="{{ $dir.id }}" 
         name="{{ $dir.name }}" 
         ng-change="$dir.onChange()"

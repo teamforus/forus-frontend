@@ -11,15 +11,23 @@
             padding: 15px 25px;
 
             .map_card-title {
-                color:  #595959;
+                color: #00122a;
                 font: 700 22px $bf;
                 margin-bottom: 5px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
 
             .map_card-subtitle {
                 color: #646f79;
                 font: 400 16px $bf;
                 margin-bottom: 5px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
 
@@ -55,6 +63,17 @@
                 @include fill_parent();
                 width: 100%;
                 height: 100%;
+            }
+        }
+
+
+        @media screen and (max-width: 1000px) {
+            .map_card-header {
+                padding: 15px 20px;
+
+                .map_card-title {
+                    font-size: 16px;
+                }
             }
         }
     }

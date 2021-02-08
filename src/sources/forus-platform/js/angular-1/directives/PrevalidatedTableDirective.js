@@ -2,7 +2,9 @@ let PrevalidatedTableDirective = async function(
     $scope,
     $timeout,
     FileService,
-    PrevalidationService
+    ModalService,
+    PrevalidationService,
+    PushNotificationsService
 ) {
     $scope.headers = [];
 
@@ -122,7 +124,7 @@ let PrevalidatedTableDirective = async function(
         });
     };
 
-    $scope.$watch('fund', (fund) => $scope.init(), true);
+    $scope.$watch('fund', () => $scope.init(), true);
 
     // Export to XLS file
     $scope.export = (filters = {}) => {
@@ -137,6 +139,24 @@ let PrevalidatedTableDirective = async function(
                 res.headers('Content-Type') + ';charset=utf-8;'
             );
         }));
+    };
+
+    $scope.deletePrevalidation = (prevalidation) => {
+        ModalService.open('modalNotification', {
+            modalClass: 'modal-md',
+            type: 'confirm',
+            title: 'Wilt u dit gegeven verwijderen?',
+            description:
+                'Weet u zeker dat u dit gegeven wilt verwijderen? Deze actie kunt niet ongedaan maken, ' +
+                'u kunt echter wel een nieuw gegeven aanmaken.',
+            confirm: () => PrevalidationService.destroy(prevalidation.uid).then(() => {
+                PushNotificationsService.success('Gegeven verwijderd');
+                $scope.init();
+            }, (res) => {
+                PushNotificationsService.danger('Error!', res.data.message || null);
+                console.error(res);
+            })
+        });
     };
 
     $scope.typesByKey = {};
@@ -157,7 +177,9 @@ module.exports = () => {
             '$scope',
             '$timeout',
             'FileService',
+            'ModalService',
             'PrevalidationService',
+            'PushNotificationsService',
             PrevalidatedTableDirective
         ],
         templateUrl: 'assets/tpl/directives/prevalidated-table.html'

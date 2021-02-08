@@ -67,15 +67,6 @@
                 text-overflow: ellipsis;
             }
 
-            .product-discount {
-                display: none;
-                text-align: left;
-                float: left;
-                width: 50%;
-                font: 700 15px/24px $bf;
-                color: #d91d46;
-            }
-
             .product-price {
                 font: 700 18px/24px $bf;
                 color: #151b26;
@@ -107,25 +98,7 @@
 
                         &:after {
                             opacity: .5;
-                            ;
                         }
-                    }
-                }
-            }
-
-            &.discounted {
-                .product-discount {
-                    display: block;
-                    width: 50%;
-                }
-
-                .product-price {
-                    width: 50%;
-                    text-align: right;
-                    float: right;
-
-                    small {
-                        display: block;
                     }
                 }
             }

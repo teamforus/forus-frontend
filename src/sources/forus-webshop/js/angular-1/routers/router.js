@@ -56,23 +56,30 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: {
             funds: ['FundService', (
                 FundService
-            ) => repackResponse(FundService.list())]
+            ) => repackResponse(FundService.list())],
+            products: ['ProductService', (ProductService) => repackPagination(ProductService.list({
+                fund_type: 'budget',
+                sample: 1,
+                per_page: 6,
+            }))],
+            subsidies: ['ProductService', (ProductService) => repackPagination(ProductService.list({
+                fund_type: 'subsidies',
+                sample: 1,
+                per_page: 6,
+            }))],
         }
     });
 
     $stateProvider.state({
         name: "sign-up",
-        url: "/sign-up",
+        url: "/aanbieder-aanmelden",
         component: "signUpSelectionComponent",
-        params: {
-            confirmed: null,
-            digid_error: null
-        },
-        resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())]
-        }
+    });
+
+    $stateProvider.state({
+        name: "sign-up-en",
+        url: "/sign-up",
+        controller: ['$state', ($state) => $state.go('sign-up')],
     });
 
     $stateProvider.state({
@@ -81,7 +88,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "signUpComponent",
         params: {
             confirmed: null,
-            digid_error: null
+            digid_error: null,
+            email_address: null,
         },
         resolve: {
             funds: ['FundService', (
@@ -97,7 +105,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             component: "accessibilityComponent",
         });
     }
-    
+
     if (appConfigs.flags && appConfigs.flags.privacyPage) {
         $stateProvider.state({
             name: "privacy",
@@ -117,7 +125,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "products",
-        url: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}",
+        url: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
         component: "productsComponent",
         params: {
             q: {
@@ -131,6 +139,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 squash: true,
             },
             fund_id: {
+                value: null,
+                squash: true
+            },
+            organization_id: {
                 value: null,
                 squash: true
             },
@@ -165,6 +177,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 page: $transition$.params().page,
                 fund_id: $transition$.params().fund_id,
                 fund_type: $transition$.params().fund_type,
+                organization_id: $transition$.params().organization_id,
                 product_category_id: $transition$.params().product_category_id
             }))],
             productCategories: ['ProductCategoryService', (
@@ -189,7 +202,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "actions",
-        url: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}",
+        url: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
         component: "productsComponent",
         params: {
             q: {
@@ -203,6 +216,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 squash: true,
             },
             fund_id: {
+                value: null,
+                squash: true
+            },
+            organization_id: {
                 value: null,
                 squash: true
             },
@@ -237,6 +254,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 page: $transition$.params().page,
                 fund_id: $transition$.params().fund_id,
                 fund_type: $transition$.params().fund_type,
+                organization_id: $transition$.params().organization_id,
                 product_category_id: $transition$.params().product_category_id
             }))],
             productCategories: ['ProductCategoryService', (
@@ -360,7 +378,23 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 $transition$, OfficeService
             ) => repackResponse(OfficeService.read(
                 $transition$.params().office_id
-            ))]
+            ))],
+            products: ['$transition$', 'ProductService', (
+                $transition$, ProductService
+            ) => repackPagination(ProductService.list({
+                fund_type: 'budget',
+                organization_id: $transition$.params().provider_id,
+                per_page: 3,
+                page: 1,
+            }))],
+            subsidies: ['$transition$', 'ProductService', (
+                $transition$, ProductService
+            ) => repackPagination(ProductService.list({
+                fund_type: 'subsidies',
+                organization_id: $transition$.params().provider_id,
+                per_page: 3,
+                page: 1,
+            }))],
         }
     });
 
@@ -374,6 +408,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(ProvidersService.read(
                 $transition$.params().provider_id
             ))],
+            products: ['$transition$', 'ProductService', (
+                $transition$, ProductService
+            ) => repackPagination(ProductService.list({
+                fund_type: 'budget',
+                organization_id: $transition$.params().provider_id,
+                per_page: 3,
+                page: 1,
+            }))],
+            subsidies: ['$transition$', 'ProductService', (
+                $transition$, ProductService
+            ) => repackPagination(ProductService.list({
+                fund_type: 'subsidies',
+                organization_id: $transition$.params().provider_id,
+                per_page: 3,
+                page: 1,
+            }))],
         }
     });
 
@@ -413,15 +463,31 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: 'voucher',
         url: '/voucher/{address}',
         component: 'voucherComponent',
-        data: {
-            address: null
-        },
+        data: { address: null },
         resolve: {
             voucher: ['$transition$', 'VoucherService', (
                 $transition$, VoucherService
             ) => repackResponse(VoucherService.get(
                 $transition$.params().address
-            ))]
+            ))],
+            loadProducts: ['voucher', (voucher) => !voucher.product && voucher.fund.type == 'budget'],
+            loadSubsidies: ['voucher', (voucher) => voucher.fund.type == 'subsidies'],
+            products: ['voucher', 'loadProducts', 'ProductService', (
+                voucher, loadProducts, ProductService
+            ) => loadProducts ? repackPagination(ProductService.list({
+                fund_type: 'budget',
+                sample: 1,
+                per_page: 6,
+                fund_id: voucher.fund_id,
+            })) : null],
+            subsidies: ['voucher', 'loadSubsidies', 'ProductService', (
+                voucher, loadSubsidies, ProductService
+            ) => loadSubsidies ? repackPagination(ProductService.list({
+                fund_type: 'subsidies',
+                sample: 1,
+                per_page: 6,
+                fund_id: voucher.fund_id,
+            })) : null],
         }
     });
 
@@ -666,14 +732,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(FundService.readById(
                 $transition$.params().fund_id
             ))],
-            records: ['AuthService', 'RecordService', (
-                AuthService, RecordService
-            ) => AuthService.hasCredentials() ? repackResponse(
-                RecordService.list()
-            ) : promiseResolve(null)],
-            recordTypes: ['RecordTypeService', (
-                RecordTypeService
-            ) => repackResponse(RecordTypeService.list())],
             clarification: ['$transition$', 'FundRequestClarificationService', 'AuthService', (
                 $transition$, FundRequestClarificationService, AuthService
             ) => AuthService.hasCredentials() ? repackResponse(FundRequestClarificationService.read(

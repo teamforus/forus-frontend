@@ -11,10 +11,10 @@ mixin progress()
         .sign_up-step(
             ng-repeat="step in $ctrl.totalSteps track by $index"
             ng-class="($ctrl.step - 1) == step ? 'sign_up-step-active' : (($ctrl.step - 1) > step ? 'sign_up-step-done' : '')")
-            
+
             .sign_up-step-border
             .sign-up-step-block Stap {{ ' ' + ($index + 1) }} 
-        
+
         .sign_up-progress-overview Stap {{ $ctrl.step }} from {{ $ctrl.totalSteps.length }}
 
 //-top-navbar
@@ -31,7 +31,7 @@ section: .wrapper
                 .sign_up-pane-body
                     .sign_up-pane-media: img(src="./assets/img/fund-request-error.png")
                     p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
-                    
+
                     ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
                         ng-repeat="critera in $ctrl.fund.criteria" 
                         ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
@@ -92,14 +92,14 @@ section: .wrapper
                             .sign_up-pane-text(
                                 ng-repeat="line in ('fund_request.sign_up.app.description_top' | translate | lines_to_array)"
                                 ng-bind="line")
-                            
+
                             .sign_up-pane-auth-qr_code.show-sm
                                 qr-code(
                                     ng-if="$ctrl.authToken" 
                                     qr-value="$ctrl.authToken" 
                                     qr-type="auth_token" 
                                     qr-logo=src_prefix + "./assets/img/me-logo.png") 
-                            
+
                             .sign_up-pane-text(
                                 ng-repeat="line in ('fund_request.sign_up.app.description_bottom' | translate | lines_to_array)"
                                 ng-bind="line")
@@ -107,9 +107,9 @@ section: .wrapper
                             .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app").show-sm
 
                             .sign_up-pane-auth-apps
-                                a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676" aria-label="Dowload Me-app").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
-                                a(href="https://play.google.com/store/apps/details?id=io.forus.me" aria-label="Dowload Me-app").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
-                        
+                                a(href="{{ $root.appConfigs.ios_iphone_link }}" aria-label="Dowload Me-app").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
+                                a(href="{{ $root.appConfigs.android_link }}" aria-label="Dowload Me-app").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+
                         .sign_up-pane-auth-qr_code.hide-sm
                             qr-code(
                                 ng-if="$ctrl.authToken" 
@@ -118,7 +118,7 @@ section: .wrapper
                                 qr-logo=src_prefix + "./assets/img/me-logo.png") 
 
                     .sign_up-pane-link.hide-sm(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app")
-       
+
         //- Log in email sent
         div(ng-if="$ctrl.state == 'auth_email_sent'")
             +progress()
@@ -132,7 +132,7 @@ section: .wrapper
                             img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title(i18n="popup_auth.labels.join")
                         .sign_up-email_sent-text(i18n="popup_auth.notifications.link")
-            
+
             //- For existing users
             .sign_up-pane(ng-if="$ctrl.authEmailSent")
                 .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
@@ -147,30 +147,30 @@ section: .wrapper
         //- DigiD login
         div(ng-if="$ctrl.state == 'digid_login'")
             +progress()
-            
+
             .sign_up-pane
                 .sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid") 
                 .sign_up-pane-body
-                    
+
                     .sign_up-pane-digid
                         button.digid-button(type="button" ng-click="$ctrl.startDigId()") Log in met DigiD
                         img.digid-image(src=src_prefix + "./assets/img/icon-digid.svg")
-                
+
                 .sign_up-pane-footer(ng-if="!$ctrl.digidMandatory"): .row
                     .col.col-lg-6.col-xs-6.text-left &nbsp;
                     .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
                         em.mdi.mdi-chevron-right.icon-right
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
-                        
+
         //- List the criteria
         div(ng-if="$ctrl.state == 'criteria'")
             +progress()
-            
+
             .sign_up-pane
                 .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
                 .sign_up-pane-body
                     p.sign_up-pane-text(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
-                    
+
                     ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
                         ng-repeat="critera in $ctrl.fund.criteria")
                         .item-icon.item-icon-default
@@ -179,7 +179,7 @@ section: .wrapper
                             ng-if="!critera.title"
                             i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
                             i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
-                
+
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.col-xs-6.text-left &nbsp;
                     .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()")
@@ -190,7 +190,7 @@ section: .wrapper
             ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
             ng-if="$ctrl.state == 'criteria_' + $index")
             +progress()
-            
+
             .sign_up-pane
                 .sign_up-pane-header(ng-if="invalidCriteria.title" ng-bind="invalidCriteria.title")
                 .sign_up-pane-header(ng-if="!invalidCriteria.title" ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
@@ -204,7 +204,7 @@ section: .wrapper
                                 ng-if="!invalidCriteria.description && invalidCriteria.description !== '_'"
                                 i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
                                 i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}")
-                        
+
                         .form-label(ng-bind="$ctrl.recordTypes[invalidCriteria.record_type_key].name")
                         ui-control-checkbox(
                             ng-if="invalidCriteria.control_type == 'ui_control_checkbox'"
@@ -238,17 +238,28 @@ section: .wrapper
                             data-id="criterion_{{ invalidCriteria.id }}"
                             data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
                         .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
-                    
-                    .form-group.col.col-lg-12: file-uploader(ng-if="invalidCriteria.show_attachment" files="invalidCriteria.files")
-                
+
+                    .form-group.col.col-lg-12
+                        file-uploader(
+                            ng-if="invalidCriteria.show_attachment"
+                            type="fund_request_record_proof"
+                            files="invalidCriteria.files"
+                            on-file-removed="$ctrl.onFileInfo(invalidCriteria, files)"
+                            on-file-resolved="$ctrl.onFileInfo(invalidCriteria, files)"
+                            on-file-batch-queued="$ctrl.onFileInfo(invalidCriteria, files)")
+                        .form-error(ng-repeat="error in invalidCriteria.errors.file" ng-bind="error")
+                        .form-error(ng-repeat="error in invalidCriteria.errors.record" ng-bind="error")
+
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()")
                         em.mdi.mdi-chevron-left.icon-left
-                        | {{ 'fund_request.sign_up.pane.footer.prev' | translate }}
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.submitStepCriteria(invalidCriteria)")
+                        translate(translate='fund_request.sign_up.pane.footer.prev')
+                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(
+                        ng-disabled="invalidCriteria.isUploadingFiles"
+                        ng-click="$ctrl.submitStepCriteria(invalidCriteria)")
                         em.mdi.mdi-chevron-right.icon-right
-                        | {{ 'fund_request.sign_up.pane.footer.next' | translate }}          
-        
+                        translate(translate='fund_request.sign_up.pane.footer.next')
+
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'confirm_criteria'")
             +progress()
@@ -266,14 +277,14 @@ section: .wrapper
                 .sign_up-pane-header Bevestig uw inkomen
                 .sign_up-pane-body: .form
                     p.sign_up-pane-text U staat op het punt om een Busvoordeelabonnement aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
-                    
+
                     ul.sign_up-pane-list 
                         li U bent 18 jaar of ouder
                         li U kunt geen gebruik maken van de OV-chipkaart voor studenten (het studentenreisproduct van de DUO)
                         li U woont in Nijmegen
                         li U bent geen inwoner van het AZC
                         li In de tabel hieronder vindt u wat uw maximale inkomen mag zijn. Gebruik ter controle uw inkomen van de maand vóór de maand waarin u het abonnement aanvraagt. Voorbeeld: u vraagt op 3 december 2020 het abonnement aan. Dan vergelijkt u uw inkomen van november 2020 met het maximale inkomen dat voor u geldt
-                    
+
                     table.table.collapse-sides
                         tr
                             th Situatie
@@ -295,7 +306,7 @@ section: .wrapper
                             td € 1.963,-
                             td € 2.080,-
                             td € 765,-
-                    
+
                     p.sign_up-pane-text 
                         | #[strong Wat hoort bij het inkomen?] 
                         | #[br]
@@ -304,7 +315,7 @@ section: .wrapper
                         | #[br]
                         | #[strong Wat hoort niet bij het inkomen?] #[br]
                         | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
-                    
+
                     p.sign_up-pane-text 
                         | Door te verklaren dat u aan de voorwaarden voldoet, 
                         | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat er een bedrag kan
@@ -316,18 +327,18 @@ section: .wrapper
                         data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
 
                 +confirm_criteria_footer()
-            
+
             .sign_up-pane(ng-if="$ctrl.fund.key == 'meedoen_2020'")
                 .sign_up-pane-header Bevestig uw inkomen
                 .sign_up-pane-body: .form
                     p.sign_up-pane-text U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
-                    
+
                     ul.sign_up-pane-list 
                         li U bent 18 jaar of ouder
                         li U bent geen student
                         li U woont in Nijmegen
-                        li U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2020:
-                    
+                        li U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2021:
+
                     table.table.collapse-sides
                         tr
                             th Situatie
@@ -349,7 +360,7 @@ section: .wrapper
                             td € 1.661,-
                             td € 1.760,-
                             td € 590,-
-                    
+
                     p.sign_up-pane-text 
                         | #[strong Wat hoort bij het inkomen?] 
                         | #[br]
@@ -358,7 +369,7 @@ section: .wrapper
                         | #[br]
                         | #[strong Wat hoort niet bij het inkomen?] #[br]
                         | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
-                    
+
                     p.sign_up-pane-text 
                         | Door te verklaren dat u aan de voorwaarden voldoet, 
                         | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat het bedrag van €150,- 
@@ -376,7 +387,7 @@ section: .wrapper
             //- Success
             div(ng-if="!$ctrl.finishError")
                 +progress()
-                
+
                 .sign_up-pane
                     .sign_up-pane-header Aanvraag ontvangen
                     .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
@@ -386,7 +397,7 @@ section: .wrapper
                         .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
                         .text-center: .button.button-text.button-text-primary.button-text-padless(ng-click="$ctrl.finish()") Terug
                         .form-group.col.col-lg-12.hidden-xs: br
-                
+
             //- Error
             div(ng-if="$ctrl.finishError")
                 +progress()
@@ -399,6 +410,6 @@ section: .wrapper
                             p.sign_up-pane-text.text-center 
                                 | Reden:
                             p.sign_up-pane-text.text-center(translate="{{ $ctrl.errorReason }}")
-                    
+
                             .text-center: .button.button-default(ng-click="$ctrl.finish()") Verlaat formulier
                         .form-group.col.col-lg-12: br 
