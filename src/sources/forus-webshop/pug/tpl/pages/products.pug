@@ -2,7 +2,7 @@ block content
     .header-splash: .splash.splash-c
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
         top-navbar(hide-on-scroll="true")
-        
+
         .showcase-wrapper
             .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                 .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
@@ -12,7 +12,7 @@ block content
             .block.block-breadcrumbs
                 a(ui-sref="home").breadcrumb-item Home
                 .breadcrumb-item.active Aanbod
-            
+
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
                     .showcase-aside-block
@@ -41,14 +41,32 @@ block content
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
                                 placeholder="Selecteer tegoed...")
-                    
+
                 .showcase-content
                     .showcase-content-header
                         .showcase-filters-title
-                            div(ng-if="!$ctrl.showMap").pull-left
+                            div(ng-if="!$ctrl.showMap")
                                 .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
                                 | Aanbod
-                            .block.block-label-tabs.pull-right
+
+                        .showcase-filters-block: .block.block-label-tabs
+                            .label-tab-set
+                                .label-tab.label-tab-sm.label-tab-primary-light(
+                                    ng-class="{active: $ctrl.show_order_dropdown}" 
+                                    ng-click="$ctrl.toggleOrderDropdown($event)")
+                                    em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.show_order_dropdown ? 'up' : 'down')")
+                                    | Sorteer
+                                    .label-tab-menu(ng-show="$ctrl.show_order_dropdown" click-outside="$ctrl.hideOrderDropdown($event)")
+                                        .label-tab-menu-item(
+                                            ng-repeat="sortByOption in $ctrl.sortByOptions track by $index" 
+                                            ng-class="{active: $ctrl.sort_by.label === sortByOption.label}"
+                                            ng-click="$ctrl.sortBy($event, sortByOption)")
+                                            translate(translate="{{ sortByOption.label }}")
+                                            em.mdi.mdi-check(ng-if="$ctrl.sort_by.label === sortByOption.label")
+
+                                .label-tab.label-tab-sm.label-tab-disabled(translate="{{ $ctrl.sort_by.label }}")
+
+                            .label-tab-set
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.display_type == 'list'}"
                                     ng-click="$ctrl.showAs('list')")
@@ -59,7 +77,7 @@ block content
                                     ng-click="$ctrl.showAs('grid')")
                                     em.mdi.mdi-view-grid-outline.icon-start
                                     | Foto's
-                    
+
                     div(ng-if="$ctrl.display_type == 'grid'" ): products-list(display="grid" type="{{ $ctrl.fund_type }}" products="$ctrl.products.data")
                     div(ng-if="$ctrl.display_type == 'list'" ): products-list(display="list" type="{{ $ctrl.fund_type }}" products="$ctrl.products.data")
 
@@ -68,7 +86,7 @@ block content
                         description="{{ 'block_products.labels.subtitle' | translate }}"
                         hide-link="true" 
                         ng-if="$ctrl.products.data.length == 0")
-                
+
                     .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(
                         meta="$ctrl.products.meta" 
                         filters="$ctrl.form.values" 
