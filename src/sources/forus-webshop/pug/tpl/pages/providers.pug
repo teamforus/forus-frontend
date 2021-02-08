@@ -49,11 +49,13 @@ block content
                         | Aanmelden als aanbieder
 
                 .showcase-content
-                    .showcase-content-header
+                    .showcase-content-header.showcase-content-header-compact
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap").pull-left
                                 .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
                                 | Aanbieders
+
+                        .showcase-filters-block
                             .block.block-label-tabs.pull-right
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: !$ctrl.showMap}"
