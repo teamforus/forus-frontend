@@ -366,6 +366,10 @@ module.exports = {
             explanation_url: "Externe uitleg URL",
             accessibility_url: "Toegankelijkheidsverklaring",
             terms_and_conditions_url: "Algemene voorwaarden",
+
+            footer_contact_details: "Footer contact content",
+            footer_opening_times: "Footer openingstijden content",
+
         },
         placeholders: {
             provider: "Aanbiederpagina content",
@@ -380,6 +384,9 @@ module.exports = {
             explanation: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
             accessibility: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
             terms_and_conditions: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
+        
+            footer_contact_details: "Contact informatie voor in de footer van de homepagina",
+            footer_opening_times: "Openingstijden voor in de footer van de homepagina",
         },
         buttons: {
             cancel: "Annuleren",

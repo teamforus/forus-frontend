@@ -2,7 +2,12 @@
 
     &.block-footer {
         padding: 20px 0;
-        
+        p {
+            width: 65%;
+            text-align: left;
+            font: 400 16px/1.5em $bf;
+        }
+
         a {
             font: 400 16px/1.5em $bf;
             color: $fc;
@@ -27,7 +32,6 @@
             img {
                 height: 40px;
                 width: 135px;
-                margin-top: 10px;
             }
         }
 
