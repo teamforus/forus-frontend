@@ -1,10 +1,18 @@
-let FundProviderProductComponent = function(
+let FundProviderProductsComponent = function(
+    $stateParams,
+    ProviderFundService,
     FundService,
     ModalService,
-    FundProviderChatService,
     PushNotificationsService
 ) {
     let $ctrl = this;
+
+    $ctrl.filters = {
+        values: {
+            q: "",
+            per_page: 15
+        },
+    };
 
     $ctrl.openSubsidyProductModal = function(
         fundProvider,
@@ -20,20 +28,38 @@ let FundProviderProductComponent = function(
             fundProvider: fundProvider,
             onApproved: (fundProvider) => {
                 PushNotificationsService.success('Opgeslagen!');
-                $ctrl.fundProvider = fundProvider;
+                $ctrl.updateProviderProduct(fundProvider);
                 $ctrl.$onInit();
             }
         });
     };
 
     $ctrl.disableProductItem = function(fundProvider, product) {
+        FundService.stopActionConfirmationModal(() => {
+            fundProvider.product_allowed = false;
+            $ctrl.updateAllowBudgetItem(fundProvider, product);
+        });
+    };
+
+    $ctrl.updateProviderProduct = (fundProvider) => {
+        FundService.getProviderProduct(
+            $stateParams.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id,
+            $stateParams.product_id,
+        ).then((res) => {
+            $ctrl.product = res.data.data;
+        });
+    }
+
+    $ctrl.disableProductItem = function(fundProvider, product) {
         ModalService.open("dangerZone", {
-            title: "U verwijdert hiermee het aanbod permanent uit de webshop",
+            title: "U verwijderd hiermee het aanbod permanent uit de webshop",
             description: "U dient aanbieders en inwoners hierover te informeren.",
             cancelButton: "Annuleer",
             confirmButton: "Stop actie",
             onConfirm: () => {
-                product.allowed = false;
+                fundProvider.product_allowed = false;
                 $ctrl.updateAllowBudgetItem(fundProvider, product);
             }
         });
@@ -44,64 +70,43 @@ let FundProviderProductComponent = function(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
             fundProvider.id, {
-            enable_products: product.allowed ? [{
+            enable_products: fundProvider.product_allowed ? [{
                 id: product.id
             }] : [],
-            disable_products: !product.allowed ? [product.id] : [],
+            disable_products: !fundProvider.product_allowed ? [product.id] : [],
         }
-        ).then((res) => {
+        ).then(() => {
             PushNotificationsService.success('Opgeslagen!');
-            $ctrl.fundProvider = res.data.data;
         }, console.error);
     };
 
-    $ctrl.makeChat = () => {
-        ModalService.open('fundProviderChatMessage', {
-            organization_id: $ctrl.organization.id,
-            fund_id: $ctrl.fund.id,
-            fund_provider_id: $ctrl.fundProvider.id,
-            product_id: $ctrl.product.id,
-            submit: (fundProviderProductChat) => {
-                $ctrl.fundProviderProductChat = fundProviderProductChat;
-                PushNotificationsService.success('Opgeslagen!');
-                $ctrl.showTheChat();
-            }
-        });
-    };
+    $ctrl.transformProduct = (product) => {
+        $ctrl.providerFunds = $ctrl.providerFunds.map(providerFund => {
+            let activeDeals = providerFund.product_deals_history ? 
+                providerFund.product_deals_history.filter(deal => deal.active) : [];
+    
+            providerFund.product_allowed = providerFund.products.indexOf(product.id) !== -1;
+            providerFund.product_active_deal = activeDeals.length > 0 ? activeDeals[0] : null;
 
-    $ctrl.loadChat = () => {
-        FundProviderChatService.list(
-            $ctrl.organization.id,
-            $ctrl.fund.id,
-            $ctrl.fundProvider.id, {
-            product_id: $ctrl.product.id
-        }
-        ).then((res) => {
-            $ctrl.fundProviderProductChats = res.data.data;
-            $ctrl.$onInit();
-        });
-    };
-
-    $ctrl.showTheChat = () => {
-        if (!$ctrl.fundProviderProductChat) {
-            return;
-        }
-
-        ModalService.open('fundProviderChatSponsor', {
-            organization_id: $ctrl.organization.id,
-            fund_id: $ctrl.fund.id,
-            fund_provider_id: $ctrl.fundProvider.id,
-            fund_provider_chat_id: $ctrl.fundProviderProductChat.id,
-            product: $ctrl.product,
-            onClose: $ctrl.loadChat,
+            return providerFund;
         });
     };
 
     $ctrl.$onInit = function() {
-        $ctrl.fundProviderProductChat = $ctrl.fundProviderProductChats[0] || null;
-        $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf(
-            $ctrl.product.id
-        ) !== -1;
+        FundService.list($ctrl.organization.id).then(res => {
+            $ctrl.organizationFunds    = res.data.data;
+            $ctrl.organizationFundsIds = $ctrl.organizationFunds.map(fund => fund.id);
+
+            ProviderFundService.listFunds(
+                $stateParams.fund_provider_organization_id
+            ).then(res => {
+                $ctrl.providerFunds = res.data.data.filter(providerFund => {
+                    return $ctrl.organizationFundsIds.indexOf(providerFund.fund.id) !== -1;
+                });
+                
+                $ctrl.transformProduct($ctrl.product);
+            });
+        });
     };
 };
 
@@ -109,16 +114,15 @@ module.exports = {
     bindings: {
         organization: '<',
         fundProvider: '<',
-        fundProviderProductChats: '<',
-        fund: '<',
         product: '<'
     },
     controller: [
+        '$stateParams',
+        'ProviderFundService',
         'FundService',
         'ModalService',
-        'FundProviderChatService',
         'PushNotificationsService',
-        FundProviderProductComponent
+        FundProviderProductsComponent
     ],
     templateUrl: 'assets/tpl/pages/fund-provider-product.html'
 };

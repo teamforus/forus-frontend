@@ -1,14 +1,23 @@
-let FundProviderComponent = function(
+let OrganizationProviderComponent = function(
     $q,
     $state,
+    $stateParams,
     FundService,
-    ModalService,
+    ProviderFundService,
+    ProductService,
     OfficeService,
     PushNotificationsService
 ) {
     let $ctrl = this;
 
-    $ctrl.filters = {
+    $ctrl.fundFilters = {
+        values: {
+            q: "",
+            per_page: 15
+        },
+    };
+
+    $ctrl.fundProviderFilters = {
         values: {
             q: "",
             per_page: 15
@@ -17,54 +26,12 @@ let FundProviderComponent = function(
 
     $ctrl.tab = "employees";
 
-    $ctrl.openSubsidyProductModal = function(fundProvider, product) {
-        ModalService.open('subsidyProductEdit', {
-            product: product,
-            fund: fundProvider.fund,
-            fundProvider: fundProvider,
-            onApproved: (fundProvider) => {
-                PushNotificationsService.success('Opgeslagen!');
-                $ctrl.fundProvider = fundProvider;
-                $ctrl.fetchProducts(fundProvider, $ctrl.filters.values);
-            }
-        });
-    };
-
-    $ctrl.disableProductItem = function(fundProvider, product) {
-        ModalService.open("dangerZone", {
-            title: "U verwijderd hiermee het aanbod permanent uit de webshop",
-            description: "U dient aanbieders en inwoners hierover te informeren.",
-            cancelButton: "Annuleer",
-            confirmButton: "Stop actie",
-            onConfirm: () => {
-                product.allowed = false;
-                $ctrl.updateAllowBudgetItem(fundProvider, product);
-            }
-        });
-    };
-
     $ctrl.updateAllowBudget = function(fundProvider) {
         FundService.updateProvider(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
             fundProvider.id, {
             allow_budget: fundProvider.allow_budget
-        }
-        ).then((res) => {
-            PushNotificationsService.success('Opgeslagen!');
-            $ctrl.fundProvider = res.data.data;
-        }, console.error);
-    };
-
-    $ctrl.updateAllowBudgetItem = function(fundProvider, product) {
-        FundService.updateProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id, {
-            enable_products: product.allowed ? [{
-                id: product.id
-            }] : [],
-            disable_products: !product.allowed ? [product.id] : [],
         }
         ).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
@@ -85,12 +52,10 @@ let FundProviderComponent = function(
         }, console.error);
     };
 
-    $ctrl.fetchProducts = (fundProvider, query = {}) => {
+    $ctrl.fetchProducts = (query = {}) => {
         return $q((resolve, reject) => {
-            FundService.listProviderProducts(
-                fundProvider.fund.organization_id,
-                fundProvider.fund.id,
-                fundProvider.id,
+            ProductService.list(
+                $stateParams.fund_provider_organization_id,
                 Object.assign({}, query)
             ).then((res) => {
                 resolve($ctrl.products = {
@@ -101,12 +66,43 @@ let FundProviderComponent = function(
         });
     };
 
-    $ctrl.onPageChange = (query = {}) => {
-        return $ctrl.fetchProducts($ctrl.fundProvider, query);
+    $ctrl.fetchFundProviders = (query = {}) => {
+        let organizationFundsIds = $ctrl.organizationFunds.map(fund => fund.id);
+
+        return $q((resolve, reject) => {
+            ProviderFundService.listFunds(
+                $stateParams.fund_provider_organization_id
+            ).then(res => {
+                $ctrl.providerFundsEmployees = res.data.data[0].employees;
+
+                $ctrl.providerFunds = res.data.data.filter(providerFund => {
+                    return providerFund.fund.type == 'budget' && organizationFundsIds.indexOf(
+                        providerFund.fund.id
+                    ) !== -1;
+                });
+
+                $ctrl.providerFundsProducts  = [];
+                $ctrl.providerFunds.forEach(providerFund => {
+                    if (providerFund.products && providerFund.products.length) {
+                        $ctrl.providerFundsProducts.push(providerFund.products);
+                    }
+                });
+                
+                resolve($ctrl.providerFunds);
+            }, reject);
+        });
+    };
+
+    $ctrl.onProductsPageChange = (query = {}) => {
+        return $ctrl.fetchProducts(query);
+    };
+
+    $ctrl.onFundPageChange = (query = {}) => {
+        return $ctrl.fetchFundProviders(query);
     };
 
     $ctrl.transformProduct = (product) => {
-        product.allowed = $ctrl.fundProvider.products.indexOf(product.id) !== -1;
+        product.allowed = $ctrl.providerFundsProducts.indexOf(product.id) !== -1;
         return product;
     };
 
@@ -115,11 +111,10 @@ let FundProviderComponent = function(
     };
 
     $ctrl.openProductDetails = (product) => {
-        $state.go('fund-provider-product', {
+        $state.go('fund-provider-products', {
             organization_id: $ctrl.organization.id,
-            fund_provider_id: $ctrl.fundProvider.id,
-            fund_id: $ctrl.fund.id,
-            product_id: product.id,
+            fund_provider_organization_id: $stateParams.fund_provider_organization_id,
+            product_id: product.id
         });
     };
 
@@ -140,7 +135,7 @@ let FundProviderComponent = function(
     };
 
     $ctrl.prepareProperties = () => {
-        let organization = $ctrl.fundProvider.organization;
+        let organization = $ctrl.organization;
         let properties = [];
 
         let makeProp = (label, value, primary = false) => ({
@@ -156,20 +151,21 @@ let FundProviderComponent = function(
         organization.iban && properties.push(makeProp("IBAN", organization.iban))
         organization.btw && properties.push(makeProp("BTW", organization.btw));
 
-        let count = properties.length;
-
-        $ctrl.properties = [
-            properties.splice(0, count == 4 ? 4 : 3),
-            properties.splice(0, count == 4 ? 4 : 3)
-        ];
+        $ctrl.properties = properties;
     };
 
     $ctrl.$onInit = function() {
-        $ctrl.onPageChange($ctrl.filters.values).then(() => {
-            OfficeService.list($ctrl.fundProvider.organization_id, {
-                per_page: 100
-            }).then(res => {
-                $ctrl.offices = res.data;
+        FundService.list($ctrl.organization.id).then(res => {
+            $ctrl.organizationFunds = res.data.data;
+
+            $ctrl.onFundPageChange($ctrl.fundProviderFilters.values).then(() => {
+                OfficeService.list($ctrl.organization.id, {
+                    per_page: 100
+                }).then(res => {
+                    $ctrl.offices = res.data;
+                });
+    
+                $ctrl.onProductsPageChange($ctrl.fundFilters.values);
             });
         });
 
@@ -186,11 +182,13 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$stateParams',
         'FundService',
-        'ModalService',
+        'ProviderFundService',
+        'ProductService',
         'OfficeService',
         'PushNotificationsService',
-        FundProviderComponent
+        OrganizationProviderComponent
     ],
-    templateUrl: 'assets/tpl/pages/fund-provider.html'
+    templateUrl: 'assets/tpl/pages/organization-provider.html'
 };

@@ -311,76 +311,49 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     // Organization providers
     $stateProvider.state({
         name: "fund-provider",
-        url: "/organizations/{organization_id}/funds/{fund_id}/providers/{fund_provider_id}",
-        component: "fundProviderComponent",
+        url: "/organizations/{organization_id}/provider/{fund_provider_organization_id}",
+        component: "organizationProviderComponent",
         params: {
             organization_id: null,
-            fund_id: null,
-            fund_provider_id: null
+            fund_provider_organization_id: null,
         },
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
-            fundProvider: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => $transition$.params().fund_id != null ? repackResponse(FundService.readProvider(
-                $transition$.params().organization_id,
-                $transition$.params().fund_id,
-                $transition$.params().fund_provider_id
-            )) : new Promise((res) => res(null))],
-            fund: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => $transition$.params().fund_id != null ? repackResponse(
-                FundService.readPublic($transition$.params().fund_id)
-            ) : new Promise((res) => res(null))]
+            fundProvider: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService
+            ) => repackResponse(
+                OrganizationService.read($transition$.params().fund_provider_organization_id)
+            )]
         }
     });
 
-    // Organization providers
+    // // Organization providers
     $stateProvider.state({
         name: "fund-provider-product",
-        url: "/organizations/{organization_id}/funds/{fund_id}/providers/{fund_provider_id}/products/{product_id}",
+        url: "/organizations/{organization_id}/provider/{fund_provider_organization_id}/products/{product_id}",
         component: "fundProviderProductComponent",
         params: {
+            fund_provider_organization_id: null,
             organization_id: null,
-            fund_id: null,
-            fund_provider_id: null,
             product_id: null,
         },
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
-            fundProvider: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => $transition$.params().fund_id != null ? repackResponse(FundService.readProvider(
-                $transition$.params().organization_id,
-                $transition$.params().fund_id,
-                $transition$.params().fund_provider_id
-            )) : new Promise((res) => res(null))],
-            fund: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => $transition$.params().fund_id != null ? repackResponse(
-                FundService.readPublic($transition$.params().fund_id)
-            ) : new Promise((res) => res(null))],
-            product: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => $transition$.params().fund_id != null ? repackResponse(
-                FundService.getroviderProduct(
-                    $transition$.params().organization_id,
-                    $transition$.params().fund_id,
-                    $transition$.params().fund_provider_id,
+            fundProvider: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService
+            ) => repackResponse(
+                OrganizationService.read($transition$.params().fund_provider_organization_id)
+            )],
+            product: ['$transition$', 'ProductService', (
+                $transition$, ProductService
+            ) => repackResponse(
+                ProductService.read(
+                    $transition$.params().fund_provider_organization_id, 
                     $transition$.params().product_id
                 )
-            ) : new Promise((res) => res(null))],
-            fundProviderProductChats: ['permission', '$transition$', 'FundProviderChatService', (
-                permission, $transition$, FundProviderChatService
-            ) => $transition$.params().fund_id != null ? repackResponse(FundProviderChatService.list(
-                $transition$.params().organization_id,
-                $transition$.params().fund_id,
-                $transition$.params().fund_provider_id, {
-                product_id: $transition$.params().product_id
-            }
-            )) : new Promise((res) => res(null))],
+            )]
         }
     });
 

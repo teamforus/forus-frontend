@@ -38,7 +38,7 @@ app.component('sponsorSignUpComponent', require('./components/SponsorSignUpCompo
 app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
-app.component('fundProviderComponent', require('./components/FundProviderComponent'));
+app.component('organizationProviderComponent', require('./components/OrganizationProviderComponent'));
 app.component('fundProviderProductComponent', require('./components/FundProviderProductComponent'));
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));

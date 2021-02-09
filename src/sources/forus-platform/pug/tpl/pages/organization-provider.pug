@@ -1,0 +1,147 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card-heading Algemene informatie
+        .card
+            .card-section.card-section-narrow
+                .block.block-entity-overview
+                    .entity-photo
+                        img(ng-src="{{ $ctrl.fundProvider.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}").entity-photo-img
+                        .entity-photo-abbr
+                    .entity-details: .entity-title(ng-bind="$ctrl.fundProvider.name")
+
+                .card-section-actions
+                    button(ng-if="!$ctrl.fundProvider.dismissed" ng-click="$ctrl.dismissProvider($ctrl.fundProvider)").button.button-default.button-sm
+                        | Weigeren en verberg
+                        em.mdi.mdi-close.icon-end
+                    .button.button-text.button-text.button-text-muted.button-narrow.button-sm(disabled 
+                        ng-if="$ctrl.fundProvider.dismissed")
+                        | Verborgen
+            
+            .card-section.card-section-narrow
+                .block.block-data-list
+                    .data-list-row(ng-repeat="property in $ctrl.properties" ng-if="$ctrl.properties.length > 0")
+                        .data-list-key(ng-bind="property.label")
+                        .data-list-value(ng-bind="property.value")        
+
+        .card(ng-if="$ctrl.providerFunds.length")
+            .card-header: .flex-row
+                .flex-col: .card-title Aanmeldingen
+                //- .flex-col: .card-header-drown: .block.block-inline-filters
+                //-     .form(ng-if="!$ctrl.fundFilters.show"): .form-group: input(
+                //-         ng-model="$ctrl.fundFilters.values.q"
+                //-         placeholder="Zoeken").form-control
+            
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th.td-narrow Afbeelding
+                    th(width="60%") Naam
+                    th.text-right Accepteer budget
+                    th.text-right Alle aanbiedingen
+                
+                tr(ng-repeat="providerFund in $ctrl.providerFunds")
+                    td.td-narrow: img(
+                        ng-src="{{ providerFund.fund.logo ? providerFund.fund.logo.sizes.small : './assets/img/placeholders/fund-thumbnail.png' }}").td-media
+                    td(ng-bind="providerFund.fund.name")
+                    
+                    td: .form.pull-right: label(
+                        for=("provider_allow_budget_{{ providerFund.id }}") ).form-toggle
+                        input(
+                            type="checkbox" 
+                            id="provider_allow_budget_{{ providerFund.id }}"
+                            ng-change="$ctrl.updateAllowBudget(providerFund)"
+                            ng-model="providerFund.allow_budget")
+                        .form-toggle-inner: .toggle-input: .toggle-input-dot
+                    
+                    td: .form.pull-right: label(
+                        for=("provider_allow_products_{{ providerFund.id }}") ).form-toggle
+                        input(
+                            type="checkbox" 
+                            id="provider_allow_products_{{ providerFund.id }}"
+                            ng-change="$ctrl.updateAllowProducts(providerFund)"
+                            ng-model="providerFund.allow_products")
+                        .form-toggle-inner: .toggle-input: .toggle-input-dot
+            
+            .card-section.text-center(ng-if="$ctrl.providerFund.length == 0") Geen aanmeldingen
+            .card-section.card-section-narrow(ng-if="$ctrl.providerFunds.meta" ng-show="$ctrl.providerFunds.meta.last_page > 1")
+                paginator(meta="$ctrl.providerFunds.meta" filters="$ctrl.fundFilters.values" count-buttons="5" on-page-change="$ctrl.onFundPageChange(query)")
+
+        //- Products for budget fund
+        .card
+            .card-header: .flex-row
+                .flex-col: .card-title Aanbiedingen
+                .flex-col: .card-header-drown: .block.block-inline-filters
+                    .form(ng-if="!$ctrl.filters.show"): .form-group: input(
+                        ng-model="$ctrl.filters.values.q"
+                        placeholder="Zoeken").form-control
+
+            .card-section.card-section-success.card-section-narrow(
+                ng-if="$ctrl.fundProvider.allow_products && $ctrl.products.meta.total > 0"): em
+                | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat. 
+                | Zet de globale instelling uit om individuele producten goed te keuren.
+            
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th.td-narrow Afbeelding
+                    th Naam
+                    th Aantal
+                    th Prijs
+                    th
+                
+                tr(ng-repeat="product in $ctrl.products.data")
+                    td.td-narrow: img(
+                        ng-src="{{ product.photo ? product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}").td-media
+                    td(ng-bind="product.name")
+                    td(ng-if="product.unlimited_stock") Ongelimiteerd
+                    td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
+                    
+                    td(ng-if="product.no_price") Geen prijs 
+                    td(ng-if="!product.no_price")
+                        span(ng-bind="product.price | currency_format")
+                        .text-muted.text-sm(ng-if="product.old_price" ng-bind="product.old_price | currency_format")
+                    
+                    td.td-narrow.text-right
+                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm
+                            em.mdi.mdi-eye-outline.icon-start
+                            | Kijk
+            
+            .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
+            .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
+                paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onProductsPageChange(query)")
+        
+        //- Employees
+        .card(ng-if="$ctrl.tab == 'employees'")
+            .card-header: .card-header-drown
+                .block.block-label-tabs
+                    button(
+                        ng-class="{active: $ctrl.tab == 'employees'}"
+                        ng-click="$ctrl.tab = 'employees'").label-tab Medewerkers
+                    button(
+                        ng-class="{active: $ctrl.tab == 'offices'}"
+                        ng-click="$ctrl.tab = 'offices'").label-tab Vestigingen
+            
+            .card-section.text-center(ng-if="$ctrl.providerFundsEmployees.total == 0") Geen vestigingen
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr: th E-Mailadres
+                tr(ng-repeat="employee in $ctrl.providerFundsEmployees"): td(ng-bind="employee.email")
+
+        //- Offices
+        .card(ng-if="$ctrl.tab == 'offices'")
+            .card-header: .card-header-drown
+                .block.block-label-tabs
+                    button(
+                        ng-class="{active: $ctrl.tab == 'employees'}"
+                        ng-click="$ctrl.tab = 'employees'").label-tab Medewerkers
+                    button(
+                        ng-class="{active: $ctrl.tab == 'offices'}"
+                        ng-click="$ctrl.tab = 'offices'").label-tab Vestigingen
+
+            .card-section.text-center(ng-if="$ctrl.offices.meta.total == 0") Geen vestigingen
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th Adres
+                    th.text-right Telefoonnummer
+                
+                tr(ng-repeat="office in $ctrl.offices.data")
+                    td(ng-bind="office.address || 'n.v.t.'" ng-class="{'text-muted': !office.address}")
+                    td(ng-bind="office.phone || 'n.v.t.'" ng-class="{'text-muted': !office.phone}").text-right

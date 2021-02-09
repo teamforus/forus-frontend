@@ -2,106 +2,92 @@
     menu
     section.app.app-content
         .block.block-breadcrumbs
-            .breadcrumb-item(ui-sref="offices({organization_id:$ctrl.organization.id})" ng-bind="$ctrl.organization.name")
-            .breadcrumb-item(ui-sref="organization-providers({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id})" translate="page_state_titles.organization-providers")
-            .breadcrumb-item(ui-sref="fund-provider({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id, fund_provider_id: $ctrl.fundProvider.id})" ng-bind="$ctrl.fundProvider.organization.name")
-            .breadcrumb-item.active(ng-bind="$ctrl.product.name")
+            .breadcrumb-item Fondsen 
+            .breadcrumb-item {{ $ctrl.fundProvider.name }}
+            .breadcrumb-item.active {{ $ctrl.product.name }}
 
-        .block.block-provider-product
-            .product-overview
-                .product-media: img.product-media-img(
-                    ng-src="{{ $ctrl.product.photo ? $ctrl.product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}")
+        .card-heading Algemene informatie
+        .card
+            .card-section.card-section-narrow
+                .flex-row
+                    img(ng-src="{{ $ctrl.product.photo.sizes.thumbnail || './assets/img/placeholders/product-thumbnail.png' }}")  
+                    
+                    .flex-col-2
+                        span &nbsp
+                    .flex-col
+                        .flex-row.flex-grow
+                            .flex-col.flex-grow    
+                                .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                                    .card-block-listing-label 
+                                    .card-block-listing-value(ng-bind="$ctrl.product.name") 
+                            .flex-col-3    
+                                span(ng-bind="$ctrl.product.price_locale")
+                        br
+                    
+                        .flex-row.flex-grow
+                            .flex-col      
+                                .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                                    .card-block-listing-label Vervaldatum van aanbod
+                                    .card-block-listing-value(ng-bind="$ctrl.product.expire_at_locale")
+
+                            .flex-col
+                                .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                                    .card-block-listing-label Verkocht: 
+                                    .card-block-listing-value(ng-bind="$ctrl.product.sold_amount")
+                                    
+                            .flex-col    
+                                .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                                    .card-block-listing-label Gereserveerd:
+                                    .card-block-listing-value(ng-bind="$ctrl.product.reserved_amount")    
+
+        .card(ng-if="$ctrl.product.description")
+            .card-section.card-section-narrow
+                .block.block-entity-overview
+                    .entity-details: .entity-title(ng-bind="$ctrl.product.description")
+
+        //- Products for budget fund
+        .card
+            .card-header: .flex-row
+                .flex-col: .card-title Aanmeldingen
+                //- .flex-col: .card-header-drown: .block.block-inline-filters
+                //-     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
+                //-         ng-model="$ctrl.filters.values.q"
+                //-         placeholder="Zoeken").form-control
+            
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th.td-narrow Afbeelding
+                    th Naam
+                    th Geaccepteerd
                 
-                .product-details
-                    .product-name(ng-bind="$ctrl.product.name")
-                    .product-properties
-                        .product-property
-                            .product-property-label(translate="product_edit.labels.expire")
-                            .product-property-value(ng-bind="$ctrl.product.expire_at")
-                        .product-property
-                            .product-property-label(translate="product_edit.labels.sold")
-                            .product-property-value(ng-bind="$ctrl.product.sold_amount")
-                        .product-property
-                            .product-property-label(translate="product_edit.labels.reserved")
-                            .product-property-value(ng-bind="$ctrl.product.reserved_amount")
-                
-                .product-actions.form
-                    .product-price
-                        | {{ $ctrl.product.price | currency_format }}
-                        .product-price-old(ng-if="$ctrl.product.old_price" ng-bind="$ctrl.product.old_price | currency_format")
-                
-                    //- budget fund toggle
-                    .form-group.form-group-inline(ng-if="$ctrl.fundProvider.fund.type == 'budget'")
-                        label(
+                tr(ng-repeat="providerFund in $ctrl.providerFunds")
+                    td.td-narrow: img(
+                        ng-src="{{ providerFund.fund.logo ? providerFund.fund.logo.sizes.small : './assets/img/placeholders/fund-thumbnail.png' }}").td-media
+                    td(ng-bind="providerFund.fund.name")
+                    
+                    td.td-narrow: .form.pull-right
+                        //- budget fund toggle
+                        label(ng-if="providerFund.fund.type == 'budget'"
                             for=("product_{{ $ctrl.product.id }}_enabled") 
-                            ng-class="$ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
+                            ng-class="providerFund.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
                             input(
                                 type="checkbox" 
                                 id=("product_{{ $ctrl.product.id }}_enabled") 
                                 ng-model="$ctrl.product.allowed"
-                                ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, $ctrl.product)")
+                                ng-change="$ctrl.updateAllowBudgetItem(providerFund, $ctrl.product)")
                             .form-toggle-inner: .toggle-input: .toggle-input-dot
 
-                    //- subsidy fund button
-                    .button.button-primary.button-sm.nowrap(
-                        ng-if="($ctrl.fundProvider.fund.type == 'subsidies') && $ctrl.product.is_available && !$ctrl.product.allowed"
-                        ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, $ctrl.product)")
-                        em.mdi.mdi-play.icon-start
-                        | Start actie
-                    
-                    .tag.tag-success.nowrap(ng-if="$ctrl.product.is_available && $ctrl.product.allowed")
-                        | Actie actief 
-                        .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, $ctrl.product)")
-            
-            .product-description
-                .description-header
-                    | Beschrijving
-                    
-                    .description-header-action(ng-if="!$ctrl.fundProviderProductChat")
-                        .button.button-primary-light(ng-click="$ctrl.makeChat()")
-                            em.mdi.mdi-message-text.icon-start
-                            | Nieuw aanpassingsverzoek
-                    
-                    .description-header-action(ng-if="$ctrl.fundProviderProductChat")
-                        span(ng-if="$ctrl.fundProviderProductChat.sponsor_unseen_messages") 
-                            | {{ $ctrl.fundProviderProductChat.sponsor_unseen_messages }} nieuwe 
-                        
-                        .button.button-icon(
-                            ng-class="$ctrl.fundProviderProductChat.sponsor_unseen_messages > 0 ? 'button-primary-light' : 'button-default'" 
-                            ng-disabled="!$ctrl.fundProviderProductChat" 
-                            ng-click="$ctrl.showTheChat()"
-                            ): em.mdi.mdi-message-text(ng-class="{'text-primary':$ctrl.fundProviderProductChat && !$ctrl.fundProviderProductChat.sponsor_unseen_messages}")
-                
-                .description-body(ng-if="$ctrl.product.description_html")
-                    .arrow-box.border.bg-dim: .arrow
-                    div(ng-bind-html="$ctrl.product.description_html")
-                
-                .description-body(ng-if="!$ctrl.product.description_html") 
-                    .arrow-box.border.bg-dim: .arrow
-                    | Geen data
-        
-        .card(ng-if="$ctrl.product.deals_history.length > 0")
-            .card-header: .flex-row
-                .flex-col: .card-title Lopende en verlopen acties op {{ $ctrl.product.name }}
+                        //- subsidy fund button
+                        div.flex.flex-end(ng-if="providerFund.fund.type == 'subsidies'" test="{{ providerFund }}")
+                            .button.button-primary.button-sm.nowrap(
+                                ng-if="!providerFund.product_allowed"
+                                ng-click="$ctrl.openSubsidyProductModal(providerFund, $ctrl.product)")
+                                em.mdi.mdi-play.icon-start
+                                | Start actie
 
-            .card-section.card-section-padless: .table-wrapper: table.table
-                tr
-                    th.td-narrow Gebruikt
-                    th Totaal aanbod
-                    th Limiet per aanvrager
-                    th Bijdrage
-                    th Status
-                    th
-                
-                tr(ng-repeat="item in $ctrl.product.deals_history")
-                    td(ng-bind="item.voucher_transactions_count")
-                    td(ng-bind="item.limit_total")
-                    td(ng-bind="item.limit_per_identity")
-                    td(ng-bind="item.amount | currency_format")
-                    td
-                        .tag.tag-success(ng-if="item.active") Actief
-                        .tag.tag-default(ng-if="!item.active") Afgelopen
-                    td.td-narrow
-                        .button.button-default.button-sm(ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, $ctrl.product, true, item)")
-                            em.mdi.mdi-eye-outline.icon-start
-                            | Kijk
+                            .tag.tag-success.nowrap(ng-if="providerFund.product_allowed")
+                                | Actie actief 
+                                .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem(providerFund, $ctrl.product)")
+            
+            .card-section.text-center(ng-if="$ctrl.providerFunds.length == 0") Geen aanmeldingen
+            //- .card-section(ng-if="$ctrl.providerFunds.length > 0") {{ $ctrl.providerFunds.length }} resultaten
