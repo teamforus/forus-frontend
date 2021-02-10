@@ -30,7 +30,7 @@ section.section.section-footer
             .link-item(ng-repeat="pageLink in $dir.pageLinks"): a(
                 ui-sref="{{ pageLink.page_type }}"
                 target="{{ pageLink.external ? _blank : '_self' }}"
-                translate="{{ pageLink.page_type }}")
+                translate="app_footer.links.{{ pageLink.page_type }}")
 
             //- div
                 a(ng-if="settings.privacy_statement_url" href="{{ settings.privacy_statement_url }}" target="_blank") Privacyverklaring

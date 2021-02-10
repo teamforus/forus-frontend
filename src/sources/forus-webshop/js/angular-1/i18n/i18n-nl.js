@@ -80,6 +80,7 @@ module.exports = {
     modal: require("./nl/modals/modal"),
 
     // DIRECTIVES
+    app_footer: require("./nl/directives/app-footer"),
     block_products: require("./nl/directives/block-products"),
     block_funds: require("./nl/directives/block-funds"),
     block_notifications:  require("./nl/directives/block-notifications"),
