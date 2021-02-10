@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "description": "quick-dev-template",
   "main": "index.js",
-  "browserslist": "> 0.25%, not dead",
+  "browserslist": "defaults",
   "scripts": {
     "start": "gulp",
     "build": "gulp compile",
