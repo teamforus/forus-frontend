@@ -6,7 +6,7 @@ block content
         .showcase-wrapper
             mixin search_results(total, show = "false")
                 .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
-                .showcase-subtitle(ng-if=show) Selecteer een organisatie voor meer informatie
+                .showcase-subtitle(ng-if=show) Selecteer een aanbieder voor meer informatie
 
             .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                 .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
@@ -49,11 +49,13 @@ block content
                         | Aanmelden als aanbieder
 
                 .showcase-content
-                    .showcase-content-header
+                    .showcase-content-header.showcase-content-header-compact
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap").pull-left
                                 .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
                                 | Aanbieders
+
+                        .showcase-filters-block
                             .block.block-label-tabs.pull-right
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: !$ctrl.showMap}"

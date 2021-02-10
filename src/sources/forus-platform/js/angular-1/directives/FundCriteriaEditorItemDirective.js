@@ -1,6 +1,7 @@
 const sprintf = require('sprintf-js').sprintf;
 
 let FundCriteriaEditorItemDirective = function(
+    $q,
     $scope,
     $filter,
     FundService,
@@ -92,44 +93,52 @@ let FundCriteriaEditorItemDirective = function(
     };
 
     $dir.saveCriterion = (_criterion) => {
-        let criterion = JSON.parse(JSON.stringify(_criterion));
+        return $q((resolve) => {
+            let criterion = JSON.parse(JSON.stringify(_criterion));
 
-        criterion.is_editing = false;
-
-        delete criterion.header;
-        delete criterion.new_validator;
-        delete criterion.validators_list;
-        delete criterion.validators_models;
-        delete criterion.validators_available;
-        delete criterion.use_external_validators;
-        delete criterion.show_external_validators_form;
-
-        if (criterion.record_type_key) {
-            let recordType = $dir.recordTypes.filter(
-                recordType => recordType.key == criterion.record_type_key
-            )[0];
-
-            if (recordType) {
-                criterion.record_type_name = recordType ? recordType.name : '';
+            if (!criterion.is_editing) {
+                return resolve(true);
             }
-        }
 
-        let validatorsField = criterion.external_validators.map(
-            validator => validator.organization_validator_id
-        );
+            criterion.is_editing = false;
 
-        $dir.errors = {};
+            delete criterion.header;
+            delete criterion.new_validator;
+            delete criterion.validators_list;
+            delete criterion.validators_models;
+            delete criterion.validators_available;
+            delete criterion.use_external_validators;
+            delete criterion.show_external_validators_form;
 
-        $dir.validateCriteria(criterion).then(() => {
-            criterion.is_new = false;
-            criterion.validators = validatorsField;
+            if (criterion.record_type_key) {
+                let recordType = $dir.recordTypes.filter(
+                    recordType => recordType.key == criterion.record_type_key
+                )[0];
 
-            $scope.criterion = Object.assign($scope.criterion, criterion);
+                if (recordType) {
+                    criterion.record_type_name = recordType ? recordType.name : '';
+                }
+            }
 
-            $scope.onSave($scope.criterion);
-            $dir.init();
-        }, res => {
-            $dir.errors = res.data.errors;
+            let validatorsField = criterion.external_validators.map(
+                validator => validator.organization_validator_id
+            );
+
+            $dir.errors = {};
+
+            $dir.validateCriteria(criterion).then(() => {
+                criterion.is_new = false;
+                criterion.validators = validatorsField;
+
+                $scope.criterion = Object.assign($scope.criterion, criterion);
+
+                $scope.onSave($scope.criterion);
+                $dir.init();
+                resolve(true);
+            }, res => {
+                $dir.errors = res.data.errors;
+                resolve(false);
+            });
         });
     };
 
@@ -152,6 +161,7 @@ let FundCriteriaEditorItemDirective = function(
     };
 
     $dir.removeCriterion = () => {
+        $scope.unregisterEditor({ childRef: $dir });
         $scope.onDelete($scope.criterion);
     };
 
@@ -228,6 +238,8 @@ let FundCriteriaEditorItemDirective = function(
         }
     };
 
+    $scope.registerEditor({ childRef: $dir });
+
     $dir.init = function() {
         $dir.isEditable = $scope.isEditable;
         $dir.recordTypes = $scope.recordTypes;
@@ -247,6 +259,7 @@ module.exports = () => {
             onEditCancel: '&',
             onSave: '&',
             onDelete: '&',
+            showSaveButton: '=',
             fund: '=',
             organization: '=',
             isEditable: '=',
@@ -254,10 +267,13 @@ module.exports = () => {
             recordTypes: '=',
             onRemoveCriterion: '&',
             validatorOrganizations: '=',
+            registerEditor: '&',
+            unregisterEditor: '&',
         },
         restrict: "EA",
         replace: true,
         controller: [
+            '$q',
             '$scope',
             '$filter',
             'FundService',

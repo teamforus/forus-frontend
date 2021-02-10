@@ -1,5 +1,14 @@
-let FundCriteriaEditorDirective = function($scope) {
+let FundCriteriaEditorDirective = function(
+    $q,
+    $scope,
+    $timeout,
+    $element
+) {
     let $dir = $scope.$dir = {};
+
+    $dir.items = [];
+    $dir.is_editing = false;
+    $dir.deletedItemsCount = 0;
 
     $dir.updateOnEditFlag = () => {
         $dir.is_editing = $scope.criteria.filter(
@@ -17,7 +26,7 @@ let FundCriteriaEditorDirective = function($scope) {
             operator: "=",
             value: "",
         });
-        
+
         $dir.updateOnEditFlag();
     };
 
@@ -25,18 +34,43 @@ let FundCriteriaEditorDirective = function($scope) {
         let index = $scope.criteria.indexOf(criterion);
 
         if (index != -1) {
+            $dir.deletedItemsCount++;
             $scope.criteria.splice(index, 1);
         }
 
         $dir.updateOnEditFlag();
     };
 
-    $dir.saveCriteria = () => {
-        $scope.onSaveCriteria({
-            fund: $dir.fund
-        });
+    $dir.registerItem = function(childRef) {
+        $dir.items.push(childRef);
+    }
+    
+    $dir.unregisterItem = function(childRef) {
+        if ($dir.items.includes(childRef)) {
+            $dir.items.splice($dir.items.indexOf(childRef));
+        }
+    }
 
-        $dir.updateOnEditFlag();
+    $dir.saveCriteria = () => {
+        return $q(resolve => {
+            $q.all($dir.items.map(item => item.saveCriterion(item.criterion))).then((result) => {
+                $dir.updateOnEditFlag();
+
+                if (result.filter(result => !result).length === 0) {
+                    resolve(true);
+                    $scope.onSaveCriteria({ fund: $dir.fund });
+                } else {
+                    resolve(false);
+                    $timeout(() => {
+                        const errors = $element.find('.form-error');
+
+                        if (errors.length) {
+                            window.scrollTo(0, Math.max(0, errors.offset().top - 100));
+                        }
+                    }, 250);
+                }
+            });
+        });
     };
 
     $dir.init = function() {
@@ -56,6 +90,10 @@ let FundCriteriaEditorDirective = function($scope) {
             key: 0,
             name: "Select"
         });
+
+        $timeout(() => {
+            $scope.registerParent({ childRef: $dir });
+        }, 250);
     };
 
     $dir.init();
@@ -71,12 +109,16 @@ module.exports = () => {
             recordTypes: '=',
             organization: '=',
             onSaveCriteria: '&',
+            registerParent: '&',
             validatorOrganizations: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
+            '$q',
             '$scope',
+            '$timeout',
+            '$element',
             FundCriteriaEditorDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-criteria-editor.html'

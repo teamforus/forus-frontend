@@ -50,6 +50,8 @@ let ModalAuthComponent = function(
     }
 
     $ctrl.$onInit = () => {
+        $ctrl.appConfigs = appConfigs;
+
         $(document).bind('keydown', (e) => {
             $timeout(function() {
                 var key = e.charCode || e.keyCode || 0;
@@ -92,6 +94,7 @@ let ModalAuthComponent = function(
                     class: 'modal-description-pad',
                     email: form.values.email,
                     icon: "email_signup",
+                    icon_filetype: ".svg",
                     title: 'popup_auth.labels.mail_sent',
                     description: 'popup_auth.notifications.link',
                     confirmBtnText: 'popup_auth.buttons.submit'
