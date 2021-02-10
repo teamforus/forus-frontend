@@ -43,6 +43,17 @@ let ProductVouchersComponent = function(
         name: 'Actief'
     }];
 
+    $ctrl.in_use = [{
+        value: null,
+        name: 'Selecteer...'
+    }, {
+        value: 1,
+        name: 'Ja'
+    }, {
+        value: 0,
+        name: 'Nee'
+    }];
+
     $ctrl.filters = {
         show: false,
         defaultValues: {
@@ -53,6 +64,7 @@ let ProductVouchersComponent = function(
             from: null,
             to: null,
             state: null,
+            in_use: null,
             type: 'product_voucher',
             source: 'all',
             sort_by: 'created_at',
@@ -77,12 +89,8 @@ let ProductVouchersComponent = function(
             voucher: voucher,
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onSent: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            },
-            onAssigned: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
+            onSent: () => $ctrl.onPageChange($ctrl.filters.values),
+            onAssigned: () => $ctrl.onPageChange($ctrl.filters.values)
         });
     };
 
@@ -90,10 +98,8 @@ let ProductVouchersComponent = function(
         ModalService.open('product_voucher_create', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onCreated: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
-        });
+            onCreated: () => $ctrl.onPageChange($ctrl.filters.values)
+        }, { max_load_time: 1000 });
     };
 
     $ctrl.uploadProductVouchersCsv = () => {
@@ -101,9 +107,8 @@ let ProductVouchersComponent = function(
             fund: $ctrl.fund,
             organization: $ctrl.organization,
             type: $ctrl.filters.values.type,
-            done: () => {
-                $state.reload();
-            }
+            organizationFunds: $ctrl.funds,
+            done: () => $state.reload()
         });
     };
 
@@ -150,8 +155,8 @@ let ProductVouchersComponent = function(
 
     $ctrl.exportPdf = () => {
         VoucherService.downloadQRCodes($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values), 
-            ...{ export_type: 'pdf'}
+            ...$ctrl.getQueryParams($ctrl.filters.values),
+            ...{ export_type: 'pdf' }
         }).then(res => {
             FileService.downloadFile(
                 'vouchers_' + moment().format(

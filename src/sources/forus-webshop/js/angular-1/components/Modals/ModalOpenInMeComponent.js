@@ -3,7 +3,7 @@ let ModalOpenInMeComponent = function(
     IdentityService,
     FormBuilderService,
     ModalService,
-    SmsService
+    ShareService
 ) {
     let $ctrl = this;
 
@@ -15,7 +15,7 @@ let ModalOpenInMeComponent = function(
         }, function(form) {
             form.lock();
 
-            SmsService.send({
+            ShareService.sendSms({
                 phone: "+31" + form.values.phone.substr(1),
                 type: 'me_app_download_link'
             }).then((res) => {
@@ -79,7 +79,7 @@ module.exports = {
         'IdentityService',
         'FormBuilderService',
         'ModalService',
-        'SmsService',
+        'ShareService',
         ModalOpenInMeComponent
     ],
     templateUrl: () => {

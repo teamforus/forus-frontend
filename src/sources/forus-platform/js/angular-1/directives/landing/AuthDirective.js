@@ -26,30 +26,33 @@ let AuthDirective = function(
             });
     }, true);
 
+    $scope.goToDashboard = () => {
+        if (['provider'].indexOf(appConfigs.panel_type) != -1) {
+            $rootScope.loadAuthUser().then(auth_user => {
+                let organizations = auth_user.organizations.filter(organization =>
+                    !organization.business_type_id &&
+                    PermissionsService.hasPermission(organization, 'manage_organization')
+                );
+
+                if (organizations.length > 0) {
+                    ModalService.open('businessSelect', {
+                        organizations: organizations,
+                        onReady: () => $state.go('organizations'),
+                    });
+                } else {
+                    $state.go('organizations');
+                }
+            });
+        } else {
+            $rootScope.loadAuthUser().then(() => $state.go('organizations'));
+        };
+    }
+
     $scope.checkAccessTokenStatus = (type, access_token) => {
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 CredentialsService.set(access_token);
-
-                if (['provider'].indexOf(appConfigs.panel_type) != -1) {
-                    $rootScope.loadAuthUser().then(auth_user => {
-                        let organizations = auth_user.organizations.filter(organization =>
-                            !organization.business_type_id &&
-                            PermissionsService.hasPermission(organization, 'manage_organization')
-                        );
-
-                        if (organizations.length > 0) {
-                            ModalService.open('businessSelect', {
-                                organizations: organizations,
-                                onReady: () => $state.go('organizations'),
-                            });
-                        } else {
-                            $state.go('organizations');
-                        }
-                    });
-                } else {
-                    $rootScope.loadAuthUser().then(() => $state.go('organizations'));
-                }
+                $scope.goToDashboard();
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
                     $scope.checkAccessTokenStatus(type, access_token);
@@ -76,11 +79,13 @@ let AuthDirective = function(
         }, console.log);
     };
 
-    $scope.login = () => {
-        $scope.form.submit();
-    }
+    $scope.$watch(() => !!CredentialsService.get(), (value) => {
+        $scope.showForm = !value || $scope.emailSent;
 
-    $scope.$onInit = () => { };
+        if (value && !$scope.emailSent) {
+            $scope.goToDashboard();
+        }
+    });
 };
 
 module.exports = () => {

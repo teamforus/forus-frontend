@@ -3,6 +3,7 @@ let ProductComponent = function(
     $state,
     $sce,
     appConfigs,
+    AuthService,
     FundService,
     ModalService,
     VoucherService
@@ -22,15 +23,13 @@ let ProductComponent = function(
     };
 
     $ctrl.goToVoucher = (fundId) => {
-        let fundVouchers = $ctrl.vouchers.filter((voucher) => {
-            voucher.fund_id == fundId && voucher.type == 'regular';
-        });
-
         $state.go('voucher', {
-           address: fundVouchers[0].address
+            address: $ctrl.vouchers.filter((voucher) => {
+                return voucher.fund_id == fundId && voucher.type == 'regular';
+            })[0].address
         });
     }
-    
+
     $ctrl.toggleOffices = ($event, provider) => {
         $event.preventDefault();
         $event.stopPropagation();
@@ -80,13 +79,14 @@ let ProductComponent = function(
 
     $ctrl.$onInit = function() {
         let fundIds = $ctrl.product.funds.map(fund => fund.id);
-        
+
+        $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.subsidyFunds = $ctrl.product.funds.filter(fund => fund.type === 'subsidies');
         $ctrl.useSubsidies = $ctrl.subsidyFunds.length > 0
         $ctrl.useBudget = $ctrl.product.funds.filter(fund => fund.type === 'budget').length > 0
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
-        
+
         $ctrl.lowAmountVouchers = $ctrl.vouchers.filter(voucher => {
             return isValidProductVoucher(voucher, fundIds) &&
                 parseFloat($ctrl.product.price) >= parseFloat(voucher.amount) &&
@@ -94,12 +94,15 @@ let ProductComponent = function(
         });
 
         $ctrl.product.funds.forEach(fund => {
+            let product_expire_at = moment($ctrl.product.expire_at);
+            let fund_expire_at = moment(fund.end_at);
+
             fund.meta = {};
 
             fund.meta.applicableSubsidyVouchers = $ctrl.vouchers.filter(voucher => {
                 return isValidProductVoucher(voucher, [fund.id]) && voucher.fund.type == 'subsidies';
             });
-            
+
             fund.meta.applicableBudgetVouchers = $ctrl.vouchers.filter(voucher => {
                 return isValidProductVoucher(voucher, [fund.id]) &&
                     parseFloat($ctrl.product.price) <= parseFloat(voucher.amount) &&
@@ -108,6 +111,9 @@ let ProductComponent = function(
 
             fund.meta.isApplicable = fund.meta.applicableBudgetVouchers.length > 0;
             fund.meta.isApplicableSubsidy = fund.meta.applicableSubsidyVouchers.length > 0;
+            
+            fund.shownExpireDate = !$ctrl.product.expire_at || product_expire_at.isAfter(fund_expire_at) ? 
+                fund.end_at_locale : $ctrl.product.expire_at_locale;
         })
 
         $ctrl.isApplicable = $ctrl.product.funds.filter(
@@ -124,9 +130,11 @@ let ProductComponent = function(
             let voucher = $ctrl.applicableBudgetVouchers[0];
 
             let fund_expire_at = moment(voucher.fund.end_date);
-            let product_expire_at = moment($ctrl.product.expire_at);
+            let product_expire_at = $ctrl.product.expire_at ? moment($ctrl.product.expire_at) : false;
 
-            let expire_at = fund_expire_at.isAfter(product_expire_at) ? $ctrl.product.expire_at_locale : voucher.last_active_day_locale;
+            let expire_at = product_expire_at && fund_expire_at.isBefore(
+                product_expire_at
+            ) ? voucher.last_active_day_locale : $ctrl.product.expire_at_locale;
 
             return ModalService.open('modalProductApply', {
                 expire_at: expire_at,
@@ -163,6 +171,7 @@ module.exports = {
         '$state',
         '$sce',
         'appConfigs',
+        'AuthService',
         'FundService',
         'ModalService',
         'VoucherService',

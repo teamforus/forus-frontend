@@ -3,7 +3,7 @@ module.exports = {
     headers: {
         home: "Home",
         products: "Aanbod",
-        subsidies: "Acties",
+        subsidies: "Aanbod",
         funds: "Tegoeden",
         provider: "Aanbieder",
         map: "Locaties op kaart"
@@ -17,8 +17,9 @@ module.exports = {
         category: "Categorie:",
         expire: "Geldigheid van aanbod:",
         pay_from_voucher: "U betaalt vanuit het tegoed:",
-        price: "Wat u betaalt:",
-        expire_prefix: "Geldig t/m"
+        price: "Prijs:",
+        discount: "Korting:",
+        expire_prefix: "Geldig tot"
     },
     status: {
         active: "Actief",

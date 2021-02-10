@@ -14,6 +14,10 @@ let chatId = false;
 let sessions = false;
 let google_maps_api_key = '';
 
+const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
+const ios_iphone_link = 'https://testflight.apple.com/join/gWw1lXyB';
+const android_link = 'https://media.forus.io/static/me-0.0.5-staging-7-release.apk';
+
 module.exports = (core) => {
     // Config markups
     core.editPlatform('dashboard_markup', (platform) => {
@@ -44,6 +48,9 @@ module.exports = (core) => {
             sessions: sessions,
             hide_vouchers_csv: false,
             google_maps_api_key: google_maps_api_key,
+            android_link: android_link,
+            ios_ipad_link: ios_ipad_link,
+            ios_iphone_link: ios_iphone_link,
             // html5ModeEnabled: true,
             // html5Mode: {
             //    basePath: '/'
@@ -74,6 +81,9 @@ module.exports = (core) => {
             flags: {},
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
+            android_link: android_link,
+            ios_ipad_link: ios_ipad_link,
+            ios_iphone_link: ios_iphone_link,
         });
 
         platform.editTask('js', (task) => {
@@ -98,6 +108,9 @@ module.exports = (core) => {
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
+            android_link: android_link,
+            ios_ipad_link: ios_ipad_link,
+            ios_iphone_link: ios_iphone_link,
         });
 
         platform.editTask('js', (task) => {
@@ -496,9 +509,13 @@ module.exports = (core) => {
             support_id: "15870000001861118?orgId=20065804523",
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
+            provider_sign_up_filters: {},
             flags: {},
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
+            android_link: android_link,
+            ios_ipad_link: ios_ipad_link,
+            ios_iphone_link: ios_iphone_link,
         });
 
         platform.editTask('js', (task) => {

@@ -69,7 +69,7 @@ module.exports = {
         search: "Zoek naar een product of dienst",
     },
     map: { 
-        title: "Overzicht van alle organisaties",
+        title: "Overzicht van alle aanbieders",
         subtitle: "",
     },
     faq: {
@@ -93,7 +93,7 @@ module.exports = {
         faq_nine: "Kan ik het tegoed omruilen voor contant geld?",
         nine: "Nee, de waarde van het tegoed krijgt u niet in contant geld uitbetaald.",
         faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de website staat?",
-        ten: "Nee, het tegoed kunt u alleen uitgeven bij organisaties die op de website staan.",
+        ten: "Nee, het tegoed kunt u alleen uitgeven bij aanbieders die op de website staan.",
         faq_eleven: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger tegoed?",
         eleven: "Ja, dat kan. Neem dan even contact op met de gemeente.",
         faq_twelve: "Hoe kom ik in aanmerking voor {{fund}}?",
@@ -119,7 +119,7 @@ module.exports = {
             faq_eight: "Hoe lang is mijn tegoed geldig?",
             eight: "Door in te loggen op de website kunt u bij ‘Mijn tegoeden’ uw tegoed inzien. Klik bij het tegoed op ‘Open’. Op deze pagina staat ook de geldigheid vermeld.",   
             faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de website staat?",
-            ten: "Nee, het tegoed kunt u alleen uitgeven bij organisaties die op de website staan. U kunt een organisatie vragen om zich aan te melden.",
+            ten: "Nee, het tegoed kunt u alleen uitgeven bij aanbieders die op de website staan. U kunt een aanbieder vragen om zich aan te melden.",
             faq_twelve: "Hoe kom ik in aanmerking voor het Kindpakket?",
             twelve: "Als u denkt recht te hebben op het Kindpakket, neem dan contact op met de gemeente via telefoonnummer: 14 0594. De gemeente bekijkt dan of u voldoet aan de voorwaarden.",
             faq_fourteen: "Ik zie aanbod op de webshop staan, hoe kan ik een product of dienst kopen?",
@@ -139,7 +139,7 @@ module.exports = {
             eight: "Door in te loggen op de webshop kunt u uw tegoed inzien. Op de pagina met het tegoed staat ook de geldigheid vermeld.",
             faq_nine: "Kan ik de voucher omruilen voor contant geld?",
             nine: "Nee, de waarde van het tegoed krijgt u niet in contact geld uitbetaald.",
-            ten: "Nee, het tegoed kan alleen uitgegeven worden bij organisaties die op de webshop staan. U kunt een organisatie vragen om zich aan te melden via de meedoenapplicatie of om contact op te nemen met de gemeente, (0527) 63 39 11.",
+            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een aanbieder vragen om zich aan te melden via de meedoenapplicatie of om contact op te nemen met de gemeente, (0527) 63 39 11.",
             eleven: "Het tegoed is bedoeld voor kinderen van 4 t/m 17 jaar. Is uw kind 4 jaar geworden? Dan kunt u het tegoed aanvragen, (0527) 63 39 11. Of download het aanvraagformulier: <a target='_blank' href='https://www.noordoostpolder.nl/meedoenpakket'> https://www.noordoostpolder.nl/meedoenpakket </a>",
             faq_twelve: "Kom ik of mijn kind in aanmerking voor het tegoed?",
             twelve: "Het Meedoenpakket is bedoeld voor kinderen vanaf 4 jaar t/m 17 jaar van wie de ouders een laag inkomen hebben. Ook AOW-gerechtigden met een laag inkomen kunnen een beroep doen op het Meedoenpakket. Als u denkt dat u of uw kind(eren) recht heeft op het tegoed, dan kunt u een aanvraag doen. Bel (0527) 69 93 11 of download het aanvraagformulier: <a target='_blank' href='https://www.noordoostpolder.nl/meedoenpakket'> https://www.noordoostpolder.nl/meedoenpakket </a>",
@@ -169,7 +169,7 @@ module.exports = {
             faq_nine: "Kan ik het tegoed omruilen voor contant geld?",
             nine: "Nee, de waarde van het tegoed krijgt u niet in contant geld uitbetaald.",
             faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
-            ten: "Nee, het tegoed kan alleen uitgegeven worden bij organisaties die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met de Sociale Dienst Oost Achterhoek, 0544-474200.",
+            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met de Sociale Dienst Oost Achterhoek, 0544-474200.",
             faq_eleven: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger tegoed?",
             eleven: "Ja, dat kan. Neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200.",
             faq_twelve: "Hoe kom ik in aanmerking voor de Kindregeling?",
@@ -207,7 +207,7 @@ module.exports = {
             faq_nine: "Kan ik het tegoed omruilen voor contant geld?",
             nine: "Nee, de waarde van het tegoed krijgt u niet in contant geld uitbetaald.",
             faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
-            ten: "Nee, het tegoed kan alleen uitgegeven worden bij organisaties die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met de Sociale Dienst Oost Achterhoek, 0544-474200.",
+            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met de Sociale Dienst Oost Achterhoek, 0544-474200.",
             faq_eleven: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger tegoed?",
             eleven: "Ja, dat kan. Neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200.",
             faq_twelve: "Hoe kom ik in aanmerking voor de Kindregeling?",
@@ -245,7 +245,7 @@ module.exports = {
             faq_nine: "Kan ik het tegoed omruilen voor contant geld?",
             nine: "Nee, de waarde van het tegoed krijgt u niet in contant geld uitbetaald.",
             faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
-            ten: "Nee, het tegoed kan alleen uitgegeven worden bij organisaties die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met de Sociale Dienst Oost Achterhoek, 0544-474200.",
+            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met de Sociale Dienst Oost Achterhoek, 0544-474200.",
             faq_eleven: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger tegoed?",
             eleven: "Ja, dat kan. Neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200.",
             faq_twelve: "Hoe kom ik in aanmerking voor de Kindregeling?",
@@ -272,18 +272,18 @@ module.exports = {
         stepthree: "Stap 3",
         three: "Klik daarna op ‘Aanbod’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. Het tegoed vindt u terug door bovenaan op ‘Mijn tegoeden’ te klikken.",
         stepfour: "Stap 4",
-        four: "Met het tegoed betaalt u bij deelnemende organisaties. De aanbieder scant uw code. Daarna wordt het tegoed automatisch afgeschreven. Via de lijst met deelnemende organisaties en de pagina 'Aanbod' kunt u zien waar en waaraan u uw tegoed kunt besteden.",
+        four: "Met het tegoed betaalt u bij deelnemende aanbieders. De aanbieder scant uw code. Daarna wordt het tegoed automatisch afgeschreven. Via de lijst met deelnemende aanbieders en de pagina 'Aanbod' kunt u zien waar en waaraan u uw tegoed kunt besteden.",
         stepfive: "Stap 5",
         five: "Klik op 'Aanbod' om het aanbod te zien. Als u klikt op 'Mijn vouchers' ziet u hoeveel tegoed u heeft.",
         westerkwartier: {
             three: "Klik daarna op ‘Aanbod’ om het aanbod op de webshop te zien. Ook kunt u uw tegoed zien. het tegoed met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
-            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de organisatie waar u een aankoop wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
+            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Daarmee betaalt u de aanbieder waar u een aankoop wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon hebben door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
         },
         noordoostpolder: {
             one: "U heeft van de gemeente een brief ontvangen met een activatiecode voor het Meedoenpakket.",
             two: "Klik op <u>Start</u> om uw e-mailadres en activatiecode in te vullen. Gebruik per activatiecode een ander e-mailadres.", 
             three: "Als u een Meedoenpakket heeft gekregen dan kunt u de QR-code waarmee u kunt betalen vinden door op ‘Mijn tegoeden’ te klikken.",
-            four: "Met de QR-code betaalt u bij deelnemende organisaties. De aanbieder scant uw code. Daarna wordt het tegoed automatisch afgeschreven. De QR-code kunt u meenemen door de code uit te printen, naar uzelf te mailen of de Me app te gebruiken.",
+            four: "Met de QR-code betaalt u bij deelnemende aanbieders. De aanbieder scant uw code. Daarna wordt het tegoed automatisch afgeschreven. De QR-code kunt u meenemen door de code uit te printen, naar uzelf te mailen of de Me app te gebruiken.",
             five: "Klik op 'Aanbod' om de aanbiedingen te zien. Als u klikt op 'Mijn tegoeden' ziet u hoeveel tegoed u heeft."
         },
         nijmegen: {
@@ -296,14 +296,14 @@ module.exports = {
             one: "Klik op de knop 'Start' om uw aanvraag te beginnen.",
             two: "Meld u aan met uw eigen e-mailadres.",
             three: "U ziet een overzicht van beschikbare potjes. Ziet u een potje die u wil? Klik op 'aanvragen' en vul uw gegevens in. Uw aanvraag wordt behandeld.",
-            four: "Is uw aanvraag goedgekeurd? Dan ontvangt u toegang tot het tegoed. Met de QR-code kan u naar de organisatie om de betaling te verichten.",
-            five: "Ga naar 'Aanbod' of het overzicht van alle organisaties om te zien waar u uw tegoed kunt besteden of om een product of dienst te kopen. Ga naar de organisatie en laat de bijbehorende QR-code zien om uw product of dienst in ontvangst te nemen."
+            four: "Is uw aanvraag goedgekeurd? Dan ontvangt u toegang tot het tegoed. Met de QR-code kan u naar de aanbieder om de betaling te verichten.",
+            five: "Ga naar 'Aanbod' of het overzicht van alle aanbieders om te zien waar u uw tegoed kunt besteden of om een product of dienst te kopen. Ga naar de aanbieder en laat de bijbehorende QR-code zien om uw product of dienst in ontvangst te nemen."
         },
         westerkwartier: {
             one: "U heeft van de gemeente een brief ontvangen over het Kindpakket.",
             two: "Klik op de knop ‘Start aanvraag’ om uw aanvraag te starten. Gebruik uw eigen e-mailadres en log in met DigiD.",
             three: "Als u een tegoed heeft gekregen dan kunt u de QR-code waarmee u kunt betalen vinden door op ‘Mijn tegoeden’ te klikken. Klik daarna op ‘Aanbod’. Daar vindt u alle producten en diensten.",
-            four: "Met de QR-code betaalt u bij deelnemende organisaties. De aanbieder scant uw code. Daarna wordt het tegoed automatisch afgeschreven. De QR-code kunt u meenemen door de code uit te printen, naar uzelf te mailen of de Me app te gebruiken.",
+            four: "Met de QR-code betaalt u bij deelnemende aanbieders. De aanbieder scant uw code. Daarna wordt het tegoed automatisch afgeschreven. De QR-code kunt u meenemen door de code uit te printen, naar uzelf te mailen of de Me app te gebruiken.",
             five: "Klik op 'Aanbod' om de aanbiedingen te zien. Als u klikt op 'Mijn tegoeden' ziet u hoeveel tegoed u heeft."
         },    
         winterswijk: {
@@ -315,9 +315,9 @@ module.exports = {
             stepthree: "Stap #3",
             three: "Klik daarna op ‘Aanbod’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. het tegoed met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
             stepfour: "Stap #4",
-            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Met deze QR-code betaalt u de organisatie waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon laten zien door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>'Me - Forus'</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
+            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Met deze QR-code betaalt u de aanbieder waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon laten zien door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>'Me - Forus'</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
             stepfive: "Stap #5",
-            five: "Ga naar 'Aanbod' of het overzicht van alle organisaties om te zien waar u het tegoed kunt besteden of om een product of dienst te kopen. Ga naar de organisatie en laat de bijbehorende QR-code zien om uw product of dienst in ontvangst te nemen.",
+            five: "Ga naar 'Aanbod' of het overzicht van alle aanbieders om te zien waar u het tegoed kunt besteden of om een product of dienst te kopen. Ga naar de aanbieder en laat de bijbehorende QR-code zien om uw product of dienst in ontvangst te nemen.",
         },
 
         oostgelre: {
@@ -329,9 +329,9 @@ module.exports = {
             stepthree: "Stap #3",
             three: "Klik daarna op ‘Aanbod’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. het tegoed met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
             stepfour: "Stap #4",
-            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Met deze QR-code betaalt u de organisatie waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon laten zien door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>'Me - Forus'</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
+            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Met deze QR-code betaalt u de aanbieder waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon laten zien door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>'Me - Forus'</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
             stepfive: "Stap #5",
-            five: "Ga naar 'Aanbod' of het overzicht van alle organisaties om te zien waar u het tegoed kunt besteden of om een product of dienst te kopen. Ga naar de organisatie en laat de bijbehorende QR-code zien om uw product of dienst in ontvangst te nemen.",
+            five: "Ga naar 'Aanbod' of het overzicht van alle aanbieders om te zien waar u het tegoed kunt besteden of om een product of dienst te kopen. Ga naar de aanbieder en laat de bijbehorende QR-code zien om uw product of dienst in ontvangst te nemen.",
         },
 
         berkelland: {
@@ -343,9 +343,9 @@ module.exports = {
             stepthree: "Stap #3",
             three: "Klik daarna op ‘Aanbod’. Daar vindt u alle activiteiten en cursussen. Ook kunt u uw tegoed zien. het tegoed met het tegoed vindt u terug door bovenaan op ‘Mijn vouchers’ te klikken.",
             stepfour: "Stap #4",
-            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Met deze QR-code betaalt u de organisatie waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon laten zien door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>'Me - Forus'</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
+            four: "Bij ‘Mijn vouchers’ staat ook een persoonlijke QR-code. Met deze QR-code betaalt u de aanbieder waar u een activiteit wilt doen. De QR-code kunt u uitprinten, naar uzelf mailen of op uw telefoon laten zien door in te loggen op de app <a href='#!/me' tartget='_blank'><u><i>Me</i></u></a>. De app <a href='#!/me' tartget='_blank'><u><i>'Me - Forus'</i></u></a> kunt u downloaden via de Google Playstore en de App Store.",
             stepfive: "Stap #5",
-            five: "Ga naar 'Aanbod' of het overzicht van alle organisaties om te zien waar u het tegoed kunt besteden of om een product of dienst te kopen. Ga naar de organisatie en laat de bijbehorende QR-code zien om uw product of dienst in ontvangst te nemen.",
+            five: "Ga naar 'Aanbod' of het overzicht van alle aanbieders om te zien waar u het tegoed kunt besteden of om een product of dienst te kopen. Ga naar de aanbieder en laat de bijbehorende QR-code zien om uw product of dienst in ontvangst te nemen.",
         }
     },
 };
