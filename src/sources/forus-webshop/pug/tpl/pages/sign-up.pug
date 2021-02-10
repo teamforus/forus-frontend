@@ -64,7 +64,7 @@ header.section.section-sign-up-choose
                     .sign_up-pane-link(
                         ng-if="$ctrl.digidAvailable && !$root.appConfigs.flags.disableDigidRestoreOption" 
                         ng-click="$ctrl.setRestoreWithDigiD()" 
-                        translate="fund_request.sign_up.labels.restore_with_digid")
+                        translate="{{ 'fund_request.sign_up.labels.restore_with_digid_' + $root.appConfigs.features.communication_type }}")
 
                     br(ng-if="$ctrl.digidAvailable && !$root.appConfigs.flags.disableDigidRestoreOption")
 

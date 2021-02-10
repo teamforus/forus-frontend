@@ -96,7 +96,7 @@ module.exports = {
         dont_have_account: "Heeft u geen account en wilt u één aanmaken door een activatiecode te gebruiken?",
     },
     input: {
-        mail: "Vul uw e-mailadres in",
+        mail: "E-mailadres",
         coding: "Vul de activatiecode in",
         code: "Activatiecode",
         mailing: "E-mail",
