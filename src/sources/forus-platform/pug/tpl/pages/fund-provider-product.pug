@@ -6,44 +6,32 @@
             .breadcrumb-item {{ $ctrl.fundProvider.name }}
             .breadcrumb-item.active {{ $ctrl.product.name }}
 
-        .card-heading Algemene informatie
-        .card
-            .card-section.card-section-narrow
-                .flex-row
-                    img(ng-src="{{ $ctrl.product.photo.sizes.thumbnail || './assets/img/placeholders/product-thumbnail.png' }}")
+        .block.block-provider-product
+            .product-overview
+                .product-media: img.product-media-img(
+                    ng-src="{{ $ctrl.product.photo ? $ctrl.product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}")
 
-                    .flex-col-2
-                        span &nbsp
-                    .flex-col
-                        .flex-row.flex-grow
-                            .flex-col.flex-grow
-                                .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                                    .card-block-listing-label
-                                    .card-block-listing-value(ng-bind="$ctrl.product.name")
-                            .flex-col-3
-                                span(ng-bind="$ctrl.product.price_locale")
-                        br
+                .product-details
+                    .product-name(ng-bind="$ctrl.product.name")
+                    .product-properties
+                        .product-property
+                            .product-property-label(translate="product_edit.labels.expire")
+                            .product-property-value(ng-bind="$ctrl.product.expire_at ? $ctrl.product.expire_at_locale : 'Onbeperkt'")
+                        .product-property
+                            .product-property-label(translate="product_edit.labels.sold")
+                            .product-property-value(ng-bind="$ctrl.product.sold_amount")
+                        .product-property
+                            .product-property-label(translate="product_edit.labels.reserved")
+                            .product-property-value(ng-bind="$ctrl.product.reserved_amount")
 
-                        .flex-row.flex-grow
-                            .flex-col
-                                .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                                    .card-block-listing-label Vervaldatum van aanbod
-                                    .card-block-listing-value(ng-bind="$ctrl.product.expire_at_locale")
-
-                            .flex-col
-                                .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                                    .card-block-listing-label Verkocht:
-                                    .card-block-listing-value(ng-bind="$ctrl.product.sold_amount")
-
-                            .flex-col
-                                .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                                    .card-block-listing-label Gereserveerd:
-                                    .card-block-listing-value(ng-bind="$ctrl.product.reserved_amount")
+                .product-actions.form
+                    .product-price(ng-bind="$ctrl.product.price_locale")
 
         .card(ng-if="$ctrl.product.description")
+            .card-header: .flex-row
+                .flex-col: .card-title Beschrijving
             .card-section.card-section-narrow
-                .block.block-entity-overview
-                    .entity-details: .entity-title(ng-bind="$ctrl.product.description")
+                span(ng-bind="$ctrl.product.description")            
 
         //- Products for budget fund
         .card

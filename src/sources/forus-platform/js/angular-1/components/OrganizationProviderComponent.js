@@ -111,7 +111,7 @@ let OrganizationProviderComponent = function(
     };
 
     $ctrl.openProductDetails = (product) => {
-        $state.go('fund-provider-products', {
+        $state.go('fund-provider-product', {
             organization_id: $ctrl.organization.id,
             fund_provider_organization_id: $stateParams.fund_provider_organization_id,
             product_id: product.id
