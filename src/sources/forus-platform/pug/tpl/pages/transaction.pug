@@ -2,7 +2,13 @@
     menu
     section.app.app-content
         .block.block-breadcrumbs(ng-if="$root.activeOrganization")
-            .breadcrumb-item(ui-sref="transactions({organization_id:$root.activeOrganization.id})" translate="page_state_titles.transactions")
+            .breadcrumb-item(
+                ui-sref="transactions({organization_id:$root.activeOrganization.id})" 
+                translate="page_state_titles.transactions")
+            .breadcrumb-item(
+                ng-if="$ctrl.appConfigs.panel_type == 'sponsor'"
+                ui-sref="transactions({organization_id:$root.activeOrganization.id})" 
+                ng-bind="$ctrl.transaction.fund.name")
             .breadcrumb-item.active(ng-bind="'#' + $ctrl.transaction.id")
         .card
             .card-section
@@ -49,7 +55,7 @@
                     .keyvalue-item
                         .keyvalue-key {{ "financial_dashboard_transaction.labels.id" | translate }}
                         .keyvalue-value {{ $ctrl.transaction.id }}
-                    .keyvalue-item
+                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
                         .keyvalue-key {{ "financial_dashboard_transaction.labels.bunq_id" | translate }}
                         .keyvalue-value {{ $ctrl.transaction.payment_id }}
                     .keyvalue-item

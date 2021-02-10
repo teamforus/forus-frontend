@@ -43,7 +43,7 @@
                     
                     .subsidy-property.subsidy-property-monetary
                         .subsidy-property-label(ng-bind="$ctrl.fund.organization.name + ' betaalt'")
-                        .subsidy-property-value(ng-bind="($ctrl.form.values.gratis ? 0 : $ctrl.form.values.amount) | currency_format")
+                        .subsidy-property-value(ng-bind="($ctrl.form.values.gratis ? 0 : ($ctrl.form.values.amount || 0)) | currency_format")
                     
                     .subsidy-property.subsidy-property-monetary(ng-if="$ctrl.product.price_type === 'regular'")
                         .subsidy-property-label Prijs voor de klant
@@ -92,7 +92,7 @@
                             ng-model="$ctrl.form.values.amount" 
                             type="number" 
                             placeholder="Bijdrage" 
-                            step=".1" 
+                            step=".01" 
                             min="0" 
                             ng-change="$ctrl.amountChange()").form-control
                         .row: .col.col-lg-3.col-xs-12: input(
