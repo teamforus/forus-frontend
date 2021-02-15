@@ -10,8 +10,9 @@ let AuthPinCodeComponent = function(
     $ctrl.pinCodeError = false;
 
     $ctrl.STATE_PIN_CODE = 'pin_code';
-    $ctrl.STATE_SUCCESS = 'success';
-    $ctrl.STATE_ERROR = 'error';
+    $ctrl.STATE_SUCCESS  = 'success';
+    $ctrl.STATE_ERROR    = 'error';
+    $ctrl.STATE_DETAILS  = 'details';
 
     $ctrl.submit = function(pinCode) {
         if (pinCode.length < 6) {
@@ -33,6 +34,10 @@ let AuthPinCodeComponent = function(
     $ctrl.initPinCode = function() {
         $ctrl.state = $ctrl.STATE_PIN_CODE;
     };
+
+    $ctrl.goToDetailsPage = function() {
+        $ctrl.state = $ctrl.STATE_DETAILS;
+    }
 
     $ctrl.$onInit = function() {
         let promise = null;

@@ -21,6 +21,35 @@
             margin: 0 0 30px;
         }
 
+        .pin_code-link {
+            font: 500 18px/24px $bf;
+            text-align: center;
+            color: #4C73FF;
+        }
+
+        .pin_code-media {
+            &.pin_code-media-small {
+                img {
+                    width: 188px;
+                }
+            }
+        }
+
+        .pin_code-details-block {
+            margin-top: 30px;
+            text-align: center;
+            color: #222530;
+
+            .pin_code-details-title {
+                font: 500 21px/26px $bf;
+            }
+
+            .pin_code-details-info {
+                margin-top: 15px;
+                font: 400 18px/27px $bf;
+            }
+        }
+
         .pin_code-input {
             display: flex;
             flex-direction: row;

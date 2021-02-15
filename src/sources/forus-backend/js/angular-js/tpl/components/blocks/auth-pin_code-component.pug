@@ -18,6 +18,25 @@ form.block.block-auth-pin_code(ng-submit="$ctrl.submit($ctrl.pinCode)")
         .pin_code-title Succes!
         .pin_code-subtitle Uw emailadres is bevestigd
         .pin_code-media: img.pin_code-media-img(src='/assets/img/sign_in-pin_code-success.svg' alt='')
+        .pin_code-link(ng-click="$ctrl.goToDetailsPage()") Hoe nu verder?
+    
+    //- Details
+    .pin_code-content.text-center(ng-if='$ctrl.state == $ctrl.STATE_DETAILS')
+        .pin_code-title Succes!
+        .pin_code-subtitle Uw emailadres is bevestigd
+        .pin_code-media.pin_code-media-small: img.pin_code-media-img(src='/assets/img/sign_in-pin_code-success.svg' alt='')
+        .pin_code-details-block
+            .pin_code-details-title Ingelogd op de Me-app?
+            .pin_code-details-info
+                | Ga verder in de app.
+                br
+                | U mag dit scherm sluiten.
+        .pin_code-details-block
+            .pin_code-details-title Was u bezig met een aanmelding?
+            .pin_code-details-info
+                | Ga terug naar het aanmeldformulier om uw
+                br
+                | aanmelding af te ronden.
     
     //- Error
     .pin_code-content.text-center(ng-if='$ctrl.state == $ctrl.STATE_ERROR')
