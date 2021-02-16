@@ -22,7 +22,7 @@ let BaseController = function(
     let loadOrganizations = () => {
         return $q((resolve, reject) => {
             OrganizationService.list({
-                per_page: 150,
+                per_page: 300,
             }).then(res => {
                 resolve($scope.organizations = res.data.data);
             }, reject);
