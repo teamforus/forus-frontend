@@ -23,6 +23,14 @@
         color: $tc;
         padding: 0;
         color: $color_primary;
+
+        &.form-label-required {
+            &:before {
+                content: '*';
+                color: #444444;
+                padding-right: 2px;
+            }
+        }
     }
 
     .form-value {
