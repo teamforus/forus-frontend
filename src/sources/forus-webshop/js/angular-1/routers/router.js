@@ -397,12 +397,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "explanation",
         url: "/explanation",
         component: "explanationComponent",
-        params: {},
-        resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())]
-        }
+        resolve: resolveCmsPage('explanation')
     });
 
     $stateProvider.state({
