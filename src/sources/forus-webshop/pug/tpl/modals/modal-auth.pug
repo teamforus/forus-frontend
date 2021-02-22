@@ -7,8 +7,8 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close")
         
         .block.block-auth-widget(ng-if="!$ctrl.restoreWithDigId")
-            .auth-title Login met e-mail
-            .auth-subtitle {{ "popup_auth.labels.link" | translate }}
+            .auth-title(translate="popup_auth.header.title")
+            .auth-subtitle(translate="{{ 'popup_auth.header.subtitle_' + $ctrl.appConfigs.features.communication_type }}")
 
             form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()")
                 .auth-form-input
@@ -17,7 +17,7 @@
                 div: button(type="submit").button.button-primary Login
 
             .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link
-                | Vergeten welk e-mailadres u heeft gebruikt?
+                translate(translate="{{ 'popup_auth.restore_' + $ctrl.appConfigs.features.communication_type }}")
                 em.mdi.mdi-chevron-right
 
             .auth-qr_code.hidden-xs

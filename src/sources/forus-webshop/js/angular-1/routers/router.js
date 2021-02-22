@@ -42,6 +42,27 @@ let handleAuthTarget = ($state, target) => {
     return false;
 };
 
+const resolveCmsPage = (pageSlug) => {
+    return {
+        configs: ['ConfigService', (ConfigService) => repackResponse(ConfigService.get('webshop'))],
+        pages: ['configs', '$q', (configs, $q) => $q((resolve) => resolve(configs.pages || null))],
+        page: ['pages', '$state', '$q', (pages, $state, $q) => {
+            return $q((resolve) => {
+                const page = pages[pageSlug] || false;
+                const { external, external_url } = page ? page : {};
+
+                if (!page || (external && !external_url)) {
+                    return $state.go('home');
+                } else if (external && external_url) {
+                    return document.location = external_url;
+                }
+
+                resolve(page);
+            });
+        }]
+    };
+}
+
 module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider, $locationProvider, appConfigs
 ) {
@@ -82,6 +103,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "sign-up",
         url: "/aanbieders/aanmelden",
         component: "signUpSelectionComponent",
+        resolve: resolveCmsPage('provider'),
     });
 
     $stateProvider.state({
@@ -112,21 +134,26 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    if (appConfigs.flags && appConfigs.flags.accessibilityPage) {
-        $stateProvider.state({
-            name: "accessibility",
-            url: "/accessibility",
-            component: "accessibilityComponent",
-        });
-    }
+    $stateProvider.state({
+        name: "privacy",
+        url: "/privacy",
+        component: "privacyComponent",
+        resolve: resolveCmsPage('privacy'),
+    });
 
-    if (appConfigs.flags && appConfigs.flags.privacyPage) {
-        $stateProvider.state({
-            name: "privacy",
-            url: "/privacy",
-            component: "privacyComponent",
-        });
-    }
+    $stateProvider.state({
+        name: "accessibility",
+        url: "/accessibility",
+        component: "accessibilityComponent",
+        resolve: resolveCmsPage('accessibility'),
+    });
+
+    $stateProvider.state({
+        name: "terms_and_conditions",
+        url: "/terms-and-conditions",
+        component: "termsAndConditionsComponent",
+        resolve: resolveCmsPage('terms_and_conditions'),
+    });
 
     $stateProvider.state({
         name: "me-app",
@@ -370,12 +397,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "explanation",
         url: "/explanation",
         component: "explanationComponent",
-        params: {},
-        resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())]
-        }
+        resolve: resolveCmsPage('explanation')
     });
 
     $stateProvider.state({

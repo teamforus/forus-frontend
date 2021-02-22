@@ -1,4 +1,4 @@
-let PrivacyComponent = function($sce) {
+let TermsAndConditionsComponent = function($sce) {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
@@ -12,7 +12,7 @@ module.exports = {
     },
     controller: [
         '$sce',
-        PrivacyComponent
+        TermsAndConditionsComponent
     ],
-    templateUrl: 'assets/tpl/pages/privacy.html'
+    templateUrl: 'assets/tpl/pages/terms-and-conditions.html'
 };

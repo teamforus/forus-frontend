@@ -7,10 +7,9 @@
 
     &.section-footer {
         padding: 30px 0 0;
-        background-color: $fc;
+        background-color: $fbc;
         margin-top: 0;
-        color: #fff;
-        display: $fd;
+        color: $fc;
     }
 
     @media screen and (max-width: 1000px) {
@@ -64,34 +63,50 @@
         }
 
         .links {
-            display: inline-block;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
 
-            .link-separator {
-                height: 30px;
-                border-left: 1px solid $border_color;
-                margin-right: 30px;
-                display: block;
-                float: left;
+            .link-item {
+                position: relative;
+                display: inline-flex;
+                padding: 0 30px;
+
+                &::after {
+                    content: "";
+                    height: 30px;
+                    border-left: 1px solid $border_color;
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translate(0, -50%);
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
 
                 &:last-child {
-                    margin-right: 0;
+                    a {
+                        margin-right: 0;
+                    }
+
+                    &::after {
+                        display: none;
+                    }
                 }
             }
 
             a {
                 float: left;
                 font: inherit;
-                color: $color_default;
-                margin-right: 30px;
+                color: $fc-link;
                 display: block;
-                transition: .4s;
-
-                &:last-child {
-                    margin-right: 0;
-                }
+                transition: 0.4s;
 
                 &:hover {
-                    color: #2987fd;
+                    color: $fc-link-hover;
                 }
             }
         }
@@ -103,11 +118,11 @@
 
             a {
                 font: inherit;
-                color: $color_default;
-                transition: .4s;
+                color: $fc-link;
+                transition: 0.4s;
 
                 &:hover {
-                    color: #2987fd;
+                    color: $fc-link-hover;
                 }
             }
         }
@@ -115,6 +130,13 @@
 
     &.block-footer {
         margin-bottom: 40px;
+
+        .block-app_download {
+            img {
+                height: 40px;
+                width: 135px;
+            }
+        }
 
         .footer-logo {
             width: 140px;
@@ -128,18 +150,22 @@
             margin-bottom: 25px;
         }
 
+        .block.block-markdown h3 {
+            margin: 0.9em 0 0.9em 0;
+        }
+
         .footer-nav {
             .footer-nav-item {
                 display: block;
                 margin-bottom: 10px;
 
                 a {
-                    color: $color_default;
+                    color: $fc-link;
                     font: 700 14px/24px $bf;
-                    transition: color .4s;
+                    transition: color 0.4s;
 
                     &:hover {
-                        color: #2987fd;
+                        color: $fc-link-hover;
                     }
                 }
 

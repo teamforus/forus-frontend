@@ -4,6 +4,7 @@
     border-top-right-radius: $border_radius;
     border-bottom-left-radius: $border_radius;
     border-bottom-right-radius: $border_radius;
+    margin-right: 20px;
 
     .label-tab {
         background: #fff;
@@ -43,6 +44,55 @@
 
         .label-tab-icon-end {
             margin-left: 4px;
+        }
+
+        .label-tab-menu {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid $border_color;
+            border-radius: $border_radius / 2;
+            overflow: hidden;
+            box-shadow: $base_shadow;
+            top: 100%;
+            left: 0;
+            margin-top: 2.5px;
+            padding: 5px 0;
+            background-color: #fff;
+
+            .label-tab-menu-item {
+                padding: 5px 35px 5px 20px;
+                font: 400 13px/20px $bf;
+                color: #1A2A3F;
+                transition: color .4s, background-color .4s;
+                background-color: #fff;
+                white-space: nowrap;
+                display: flex;
+                flex-direction: row;
+                position: relative;
+
+                .mdi {
+                    color: #1A2A3F;
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    width: 15px;
+                    transform: translate(0, -50%);
+                }
+
+                &:hover {
+                    color: #fff;
+                    background-color: $color_primary;
+
+                    .mdi {
+                        color: #fff;
+                    }
+                }
+
+                &.active {
+                    font-weight: bold;
+                }
+            }
         }
 
         &:first-child {
@@ -94,7 +144,7 @@
             color: $color_primary_light;
 
             &:hover {
-                color: $color_primary;
+                color: #fff;
             }
         }
 
@@ -164,8 +214,8 @@
         }
     }
 
-    &:first-child {
-        margin-left: 0;
+    &:last-child {
+        margin-right: 0;
     }
 
     &.block-label-tabs-fill {

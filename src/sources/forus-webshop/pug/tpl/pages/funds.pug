@@ -33,22 +33,23 @@ block content
                 .showcase-content
                     .showcase-content-header
                         .showcase-filters-title
-                            div(ng-if="!$ctrl.showMap").pull-left
+                            div(ng-if="!$ctrl.showMap")
                                 .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
                                 span(
                                     translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
                                     translate-default="{{'funds.header.title' | translate }}")
-                            .block.block-label-tabs.pull-right
-                                .label-tab.label-tab-sm(
-                                    ng-class="{active: $ctrl.display_type == 'list'}"
-                                    ng-click="$ctrl.showAs('list')")
-                                    em.mdi.mdi-format-list-text.icon-start
-                                    | Lijst
-                                .label-tab.label-tab-sm(
-                                    ng-class="{active: $ctrl.display_type == 'grid'}"
-                                    ng-click="$ctrl.showAs('grid')")
-                                    em.mdi.mdi-view-grid-outline.icon-start
-                                    | Foto's
+
+                        .showcase-filters-block: .block.block-label-tabs
+                            .label-tab.label-tab-sm(
+                                ng-class="{active: $ctrl.display_type == 'list'}"
+                                ng-click="$ctrl.showAs('list')")
+                                em.mdi.mdi-format-list-text.icon-start
+                                | Lijst
+                            .label-tab.label-tab-sm(
+                                ng-class="{active: $ctrl.display_type == 'grid'}"
+                                ng-click="$ctrl.showAs('grid')")
+                                em.mdi.mdi-view-grid-outline.icon-start
+                                | Foto's
 
                     .block.block-funds(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'grid'")
                         .fund-item(ng-repeat="fund in $ctrl.funds.data")

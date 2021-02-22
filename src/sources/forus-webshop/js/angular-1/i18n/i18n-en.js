@@ -69,6 +69,7 @@ module.exports = {
     modal: require("./en/modals/modal"),
 
     // DIRECTIVES
+    app_footer: require("./en/directives/app-footer"),
     block_products: require("./en/directives/block-products"),
     block_providers: require("./en/directives/block-providers"),
     contact: require("./en/directives/contact"),

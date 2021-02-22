@@ -69,6 +69,7 @@ module.exports = {
     voucher_printable: require('./nl/pages/voucher-printable'),
     accessibility: require('./nl/pages/accessibility'),
     error_page: require("./nl/pages/error-page"),
+    privacy: require("./nl/pages/privacy"),
 
     // MODALS
     popup_auth: require("./nl/modals/modal-auth"),
@@ -79,6 +80,7 @@ module.exports = {
     modal: require("./nl/modals/modal"),
 
     // DIRECTIVES
+    app_footer: require("./nl/directives/app-footer"),
     block_products: require("./nl/directives/block-products"),
     block_funds: require("./nl/directives/block-funds"),
     block_notifications:  require("./nl/directives/block-notifications"),
