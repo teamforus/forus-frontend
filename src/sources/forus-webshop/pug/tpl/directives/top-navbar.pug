@@ -1,8 +1,8 @@
 .block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visible}')
     .navbar-inner.wrapper   
         a.button(
-            ng-if="!$root.appConfigs.features.settings.has_more_info_url"
             ui-sref="explanation"
+            target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
             ui-sref-active="active").show-sm
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-info.svg
                 div(translate="topnavbar.items.explanation")
@@ -84,15 +84,9 @@
 
             nav.navbar-item-wrapper(ng-click="mobileMenu = false")
                 a.navbar-item(
-                    ng-if="!$root.appConfigs.features.settings.has_more_info_url"
                     ui-sref="explanation"
                     ui-sref-active="active"
-                    ng-bind="'topnavbar.items.explanation' | translate")
-
-                a.navbar-item(
-                    ng-if="$root.appConfigs.features.settings.has_more_info_url"
-                    href="{{ $root.appConfigs.features.settings.more_info_url }}"
-                    target="_blank"
+                    target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
                     ng-bind="'topnavbar.items.explanation' | translate")
 
     .block.block-subnav.hide-sm
