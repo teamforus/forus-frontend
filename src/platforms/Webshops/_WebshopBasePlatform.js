@@ -9,6 +9,7 @@ platform = new Platform('forus-webshop');
 // add libs to bundle (see libs folder)
 platform.setLibs([
     "babel_polyfill",
+    "jquery",
     "angular",
     "angular_cookies",
     "angular_sanitize",
