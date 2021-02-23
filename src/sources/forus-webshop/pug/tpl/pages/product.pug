@@ -9,7 +9,7 @@ section.section.section-product: .wrapper
 
     .block.block-product
         .product-card
-            .product-photo(ng-style="{'background-image':'url({{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }})'}")
+            .product-photo
                 img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}")
             
             .product-details

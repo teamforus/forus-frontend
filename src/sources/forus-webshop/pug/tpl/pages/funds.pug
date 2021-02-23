@@ -53,7 +53,7 @@ block content
                     .block.block-funds(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'grid'")
                         .fund-item(ng-repeat="fund in $ctrl.funds.data")
                             .fund-item-inner
-                                .fund-image(style="background-image: url('{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}')")
+                                .fund-image
                                     img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
                                 .fund-details
                                     .fund-organization(ng-bind="fund.organization.name")
