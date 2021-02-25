@@ -25,9 +25,8 @@
         color: $color_primary;
 
         &.form-label-required {
-            &:before {
+            &:after {
                 content: '*';
-                color: #444444;
                 padding-right: 2px;
             }
         }
@@ -279,6 +278,17 @@
                 text-align: right;
                 padding-right: 15px;
                 float: left;
+
+                &.form-label-required {
+                    &:before {
+                        content: '*';
+                        padding-right: 2px;
+                    }
+
+                    &:after {
+                        display: none;
+                    }
+                }
             }
 
             &>.form-offset,
