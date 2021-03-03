@@ -137,6 +137,17 @@
                     input(ng-model="$ctrl.form.values.notification_amount" type="text" placeholder="{{ funds_edit.labels.notification_amount | translate }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.notification_amount" ng-bind="error")
 
+                //- Sponsor is allowed to add products to approved providers
+                .form-group.form-group-inline.tooltipped(ng-if="$ctrl.organization.manage_provider_products")
+                    label.form-label Aanbod toevoegen
+                    input-checkbox-control(
+                        ng-disabled="!!$ctrl.fund"
+                        name="manage_provider_products_{{ $index }}" 
+                        ng-model="$ctrl.form.values.manage_provider_products" 
+                        label="Voeg aanbod toe zonder tussenkomst van de aanbieder.")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.manage_provider_products" ng-bind="error")
+                    tooltip(text="'Maak het voor dit fonds mogelijk om aanbod uit naam van de aanbieder toe te voegen, zonder dat de aanbieder actie onderneemt. De aanbieder wordt verplicht om akkoord te gaan met deze voorwaarde om mee te kunnen doen. '")
+
             .card-section.card-section-primary: .text-center
                 button(type="button" ng-click="$ctrl.cancel()" translate="funds_edit.buttons.cancel" id="cancel").button.button-default
                 button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary

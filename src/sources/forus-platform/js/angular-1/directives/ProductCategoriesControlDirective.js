@@ -120,6 +120,7 @@ module.exports = () => {
     return {
         scope: {
             ngModel: '=',
+            disabled: "@",
             productType: "=",
             errors: "="
         },

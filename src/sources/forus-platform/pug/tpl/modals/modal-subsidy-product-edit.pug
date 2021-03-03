@@ -55,7 +55,11 @@
                 .subsidy-form-media: .subsidy-media(
                     style="background-image: url({{ $ctrl.product.photo ? $ctrl.product.photo.sizes.small : './assets/img/placeholders/product-small.png' }})")
 
-                .subsidy-form-content(ng-if="!$ctrl.readOnly"): .form
+                .subsidy-form-content(ng-if="!$ctrl.readOnly"): block-product-subsidy-form(
+                    form="$ctrl.form"
+                    stock-amount="$ctrl.product.stock_amount"
+                    unlimited-stock="$ctrl.product.unlimited_stock")
+                //- .subsidy-form-content(ng-if="!$ctrl.readOnly"): .form
                     .form-group
                         .form-label Totaal aantal acties dat vanuit {{ $ctrl.fund.name  }} gebruikt mag worden.
                         .row: .col.col-lg-3.col-xs-12: input(

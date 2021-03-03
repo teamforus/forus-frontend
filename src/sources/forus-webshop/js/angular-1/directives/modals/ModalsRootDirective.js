@@ -36,6 +36,6 @@ module.exports = () => {
             'ModalRoute',
             ModalsRootDirective
         ],
-        templateUrl: 'assets/tpl/directives/modals-root.html'
+        // templateUrl: 'assets/tpl/directives/modals-root.html'
     };
 };

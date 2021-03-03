@@ -74,6 +74,7 @@ let FundsEditComponent = function(
         let values = $ctrl.fund ? FundService.apiResourceToForm($ctrl.fund) : {
             default_validator_employee_id: null,
             auto_requests_validation: false,
+            manage_provider_products: false,
             formula_products: [],
             criteria: [],
             state: $ctrl.fundStates[0].value,

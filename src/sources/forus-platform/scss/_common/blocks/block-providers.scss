@@ -45,6 +45,7 @@
                 font: 600 11px/16px $bf;   
                 color: #134478;
                 @include ellipsis();
+                margin: 0 0 10px;
 
                 .tag {
                     margin-right: 0;
@@ -59,6 +60,43 @@
                         color: #D4D9DD;
                         margin-left: 5px;
                         margin-right: 5px;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .provider-funds {
+                .provider-fund {
+                    margin: 0 0 5px;
+                    position: relative;
+                    padding-left: 10px;
+                    font: 600 13px/16px $bf;
+                    color: #666;
+
+                    &:before {
+                        content: '';
+                        width: 4px;
+                        height: 4px;
+                        background-color: #666;
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        transform: translate(0, -2px);
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &.active {
+                        color: $color_primary;
+                        
+                        &:before {
+                            background-color: $color_primary;
+                        }
                     }
                 }
             }

@@ -54,6 +54,7 @@ module.exports = () => {
             'selectPhoto': '&',
             'thumbnail': '=',
             'label': '@',
+            'disabled': '@',
             'descriptionTranslate': '@',
             'description': '@',
             'type': '@',

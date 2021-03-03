@@ -1,11 +1,10 @@
-const { isNull } = require("underscore");
-
-let ProductsEditComponent = function(
-    $timeout,
+const ProductsEditComponent = function(
     $state,
     $stateParams,
     appConfigs,
+    FundService,
     ProductService,
+    OrganizationService,
     FormBuilderService,
     MediaService,
     ModalService
@@ -17,112 +16,84 @@ let ProductsEditComponent = function(
     $ctrl.media;
     $ctrl.mediaErrors = [];
     $ctrl.nonExpiring = false;
+    $ctrl.sponsorProduct = false;
 
-    $ctrl.$onInit = function() {
-        let values = $ctrl.product ? ProductService.apiResourceToForm($ctrl.product) : {
-            product_category_id: null,
-            price_type: 'regular',
-        };
+    $ctrl.goToFundProvider = (provider) => {
+        $state.go('fund-provider', {
+            organization_id: provider.fund.organization_id,
+            fund_id: provider.fund_id,
+            fund_provider_id: provider.id,
+        });
+    };
 
-        $ctrl.nonExpiring = !values.expire_at;
-        $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
+    $ctrl.uploadMediaFile = async () => {
+        try {
+            $ctrl.media = (await MediaService.store('product_photo', mediaFile)).data.data;
+            mediaFile = false;
+            console.log($ctrl.media);
 
-        values.expire_at = $ctrl.nonExpiring ? moment(
-            new Date()
-        ).add(1, 'day') : moment(values.expire_at, 'YYYY-MM-DD');
-        values.expire_at = values.expire_at.format('DD-MM-YYYY');
-
-        if ($ctrl.maxProductCount && !$ctrl.product && $ctrl.products.length >= $ctrl.maxProductCount) {
-            ModalService.open('modalNotification', {
-                type: 'danger',
-                title: 'product_edit.errors.already_added',
-                icon: 'product-error',
-                cancel: () => {
-                    return $state.go('products', {
-                        organization_id: $stateParams.organization_id
-                    });
-                }
-            });
+            return $ctrl.media.uid;
+        } catch (err) {
+            $ctrl.mediaErrors = err.data.errors.file;
         }
 
-        $ctrl.confirmPriceChange = (confirmCallback) => {
-            let priceHasChanged = false;
+        return null;
+    }
 
-            if (!$ctrl.product) {
-                return confirmCallback();
-            }
+    $ctrl.buildSubsidyForm = () => {
+        const provider = $ctrl.fundProvider;
 
-            if ($ctrl.product.price_type !== $ctrl.form.values.price_type) {
-                priceHasChanged = true;
-            }
-
-            if ($ctrl.form.values.price_type === 'regular' &&
-                parseFloat($ctrl.product.price) !== parseFloat($ctrl.form.values.price)) {
-                priceHasChanged = true;
-            }
-
-            if (['discount_fixed', 'discount_percentage'].includes($ctrl.form.values.price_type) &&
-                parseFloat($ctrl.product.price_discount) !== parseFloat($ctrl.form.values.price_discount)) {
-                priceHasChanged = true;
-            }
-
-            if (priceHasChanged && $ctrl.product.funds.filter(fund => fund.type == 'subsidies').length > 0) {
-                return ModalService.open('modalNotification', {
-                    type: 'confirm',
-                    title: 'product_edit.confirm_price_change.title',
-                    description: 'product_edit.confirm_price_change.description',
-                    icon: 'product-create',
-                    confirm: () => confirmCallback(),
-                });
-            }
-
-            return confirmCallback();
-        };
-
-        $ctrl.saveProduct = function() {
-            $ctrl.confirmPriceChange(() => {
-                if (!$ctrl.product && !alreadyConfirmed) {
-                    ModalService.open('modalNotification', {
-                        type: 'confirm',
-                        title: 'product_edit.confirm_create.title',
-                        description: 'product_edit.confirm_create.description',
-                        icon: 'product-create',
-                        confirm: () => {
-                            alreadyConfirmed = true;
-                            $ctrl.form.submit();
-                        }
-                    });
-                } else {
-                    $ctrl.form.submit();
-                }
+        $ctrl.subsidyForm = FormBuilderService.build({
+            limit_total: 1,
+            unlimited_stock: false,
+            limit_per_identity: 1,
+            amount: 0,
+            gratis: false,
+        }, (form) => {
+            FundService.updateProvider(provider.fund.organization_id, provider.fund.id, provider.id, {
+                enable_products: [{
+                    id: $ctrl.sponsorProduct.id,
+                    amount: form.values.gratis ? $ctrl.sponsorProduct.price : form.values.amount,
+                    limit_total: form.values.limit_total,
+                    limit_total_unlimited: form.values.unlimited_stock ? 1 : 0,
+                    limit_per_identity: form.values.limit_per_identity,
+                }],
+            }).then(() => {
+                $ctrl.goToFundProvider(provider);
+            }, (res) => {
+                form.errors = res.data.errors;
+                form.unlock();
             });
-        };
+        }, true);
+    };
+
+    $ctrl.buildForm = () => {
+        const values = $ctrl.product || $ctrl.sourceProduct ? ProductService.apiResourceToForm(
+            $ctrl.product ? $ctrl.product : $ctrl.sourceProduct
+        ) : {
+                product_category_id: null,
+                price_type: 'regular',
+            };
+
+        values.expire_at = $ctrl.nonExpiring ? moment().add(1, 'day') : moment(values.expire_at, 'YYYY-MM-DD');
+        values.expire_at = values.expire_at.format('DD-MM-YYYY');
 
         $ctrl.form = FormBuilderService.build(values, async (form) => {
             if ($ctrl.product && !$ctrl.product.unlimited_stock && form.values.stock_amount < 0) {
+                form.unlock();
+
                 return $ctrl.form.errors.stock_amount = [
                     'Nog te koop moet minimaal 0 zijn.'
                 ];
             }
 
-            form.lock();
-
             let promise;
 
-            if (mediaFile) {
-                try {
-                    let res = await MediaService.store('product_photo', mediaFile);
-
-                    $ctrl.media = res.data.data;
-                    $ctrl.form.values.media_uid = $ctrl.media.uid;
-
-                    mediaFile = false;
-                } catch (err) {
-                    $ctrl.mediaErrors = err.data.errors.file;
-                }
+            if (mediaFile && !($ctrl.form.values.media_uid = await $ctrl.uploadMediaFile())) {
+                return form.unlock();
             }
 
-            let values = {
+            const values = {
                 ...form.values, ...{
                     expire_at: $ctrl.nonExpiring ? null : moment(
                         form.values.expire_at,
@@ -138,55 +109,164 @@ let ProductsEditComponent = function(
             }
 
             if ($ctrl.product) {
-                promise = ProductService.update($ctrl.product.organization_id, $ctrl.product.id, {
-                    ...values, ...{
-                        total_amount: values.sold_amount + values.stock_amount
-                    }
-                });
+                const updateValues = {
+                    ...values,
+                    ...{ total_amount: values.sold_amount + values.stock_amount }
+                };
+
+                if (!$ctrl.providerOrganization) {
+                    promise = ProductService.update(
+                        $ctrl.organization.id,
+                        $ctrl.product.id,
+                        updateValues
+                    );
+                } else {
+                    promise = ProductService.update(
+                        $ctrl.organization.id,
+                        $ctrl.providerOrganization.id,
+                        $ctrl.product.id,
+                        updateValues
+                    );
+                }
             } else {
-                promise = ProductService.store($stateParams.organization_id, values);
+                if (!$ctrl.fundProvider) {
+                    promise = ProductService.store($ctrl.organization.id, values);
+                } else {
+                    promise = OrganizationService.sponsorStoreProduct(
+                        $ctrl.organization.id,
+                        $ctrl.providerOrganization.id,
+                        values
+                    );
+                }
             }
 
-            promise.then(() => {
-                $state.go('products', { organization_id: $stateParams.organization_id });
+            promise.then((res) => {
+                if (!$ctrl.fundProvider) {
+                    $state.go('products', { organization_id: $ctrl.organization.id });
+                } else {
+                    if ($ctrl.fundProvider.fund.type === 'subsidies') {
+                        form.unlock();
+                        $ctrl.sponsorProduct = res.data.data;
+                        $ctrl.subsidyForm.submit();
+                    } else {
+                        $ctrl.goToFundProvider($ctrl.fundProvider);
+                    }
+                }
             }, (res) => {
-                $timeout(() => {
-                    form.errors = res.data.errors;
-                    form.unlock();
-                }, 100);
+                form.errors = res.data.errors;
+                form.unlock();
+            });
+        }, true);
+    };
+
+    $ctrl.priceWillChange = (product) => {
+        if (!product) {
+            return false;
+        }
+
+        if (product.price_type !== $ctrl.form.values.price_type) {
+            return true;
+        }
+
+        if ($ctrl.form.values.price_type === 'regular' &&
+            parseFloat(product.price) !== parseFloat($ctrl.form.values.price)) {
+            return true;
+        }
+
+        if (['discount_fixed', 'discount_percentage'].includes($ctrl.form.values.price_type) &&
+            parseFloat(product.price_discount) !== parseFloat($ctrl.form.values.price_discount)) {
+            return true;
+        }
+
+        return true;
+    };
+
+    $ctrl.hasSubsidyFunds = (product) => {
+        return product && product.funds.filter(fund => fund.type == 'subsidies').length > 0;
+    };
+
+    $ctrl.confirmPriceChange = () => {
+        return $q((resolve) => {
+            if (alreadyConfirmed) {
+                return resolve(true);
+            }
+
+            ModalService.open('modalNotification', {
+                type: 'confirm',
+                title: 'product_edit.confirm_price_change.title',
+                description: 'product_edit.confirm_price_change.description',
+                icon: 'product-create',
+                confirm: () => () => {
+                    alreadyConfirmed = true;
+                    resolve(true);
+                },
+                cancel: () => resolve(false),
             });
         });
+    };
 
-        if ($ctrl.product && $ctrl.product.photo) {
-            MediaService.read($ctrl.product.photo.uid).then((res) => {
-                $ctrl.media = res.data.data;
+    $ctrl.saveProduct = (product) => {
+        if ($ctrl.sponsorProduct) {
+            return $ctrl.subsidyForm.submit();
+        }
+
+        if ($ctrl.priceWillChange(product) && $ctrl.hasSubsidyFunds(product)) {
+            return $ctrl.confirmPriceChange().then((confirmed) => {
+                if (confirmed) {
+                    $ctrl.form.submit();
+                }
             });
         }
+
+        $ctrl.form.submit();
     };
 
-    $ctrl.selectPhoto = (file) => {
-        mediaFile = file;
-    };
+    $ctrl.selectPhoto = (file) => mediaFile = file;
+    $ctrl.cancel = () => $state.go('products', { 'organization_id': $stateParams.organization_id });
 
-    $ctrl.cancel = function() {
-        $state.go('products', {
-            'organization_id': $stateParams.organization_id
-        });
+    $ctrl.$onInit = function() {
+        $ctrl.nonExpiring = !$ctrl.product || ($ctrl.product && !$ctrl.product.expire_at);
+        $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
+        $ctrl.buildForm();
+        $ctrl.isEditable = !$ctrl.product || !$ctrl.product.sponsor_organization_id || (
+            $ctrl.product.sponsor_organization_id === $ctrl.organization.id
+        );
+
+        if ($ctrl.fundProvider) {
+            $ctrl.buildSubsidyForm();
+        }
+
+        if ($ctrl.maxProductCount && !$ctrl.product && $ctrl.products && $ctrl.products.length >= $ctrl.maxProductCount) {
+            ModalService.open('modalNotification', {
+                type: 'danger',
+                title: 'product_edit.errors.already_added',
+                icon: 'product-error',
+                cancel: () => $state.go('products', { organization_id: $stateParams.organization_id }),
+            });
+        }
+
+        if ($ctrl.product && $ctrl.product.photo) {
+            MediaService.read($ctrl.product.photo.uid).then((res) => $ctrl.media = res.data.data);
+        }
     };
 };
 
 module.exports = {
     bindings: {
         product: '<',
-        // productCategories: '<',
-        products: '<'
+        products: '<',
+        fundProvider: '<',
+        organization: '<',
+        sourceProduct: '<',
+        providerOrganization: '<',
     },
     controller: [
-        '$timeout',
         '$state',
         '$stateParams',
         'appConfigs',
+        'FundService',
         'ProductService',
+        'OrganizationService',
         'FormBuilderService',
         'MediaService',
         'ModalService',

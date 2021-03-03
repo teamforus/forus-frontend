@@ -100,14 +100,13 @@ let FundProviderProductComponent = function(
             $stateParams.product_id,
         ).then((res) => {
             $ctrl.product = res.data.data;
+            $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf($ctrl.product.id) !== -1;
         });
     }
 
     $ctrl.$onInit = function() {
         $ctrl.fundProviderProductChat = $ctrl.fundProviderProductChats[0] || null;
-        $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf(
-            $ctrl.product.id
-        ) !== -1;
+        $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf($ctrl.product.id) !== -1;
     };
 };
 
