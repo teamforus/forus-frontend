@@ -308,7 +308,7 @@ const FundService = function(ApiRequest, ModalService) {
         this.stopActionConfirmationModal = (onConfirm) => {
             ModalService.open("dangerZone", {
                 header: "Actie stoppen",
-                title: "De actie wordt van de website verwijderd.",
+                title: "De publicatie van het aanbod wordt van de website verwijderd.",
                 description:
                     "Hierna kan er van deze actie geen gebruik meer worden gemaakt.\n" +
                     "De gebruikte tegoeden blijven bewaard." +
