@@ -30,6 +30,8 @@ let ModalSubsidyProductEditComponent = function(
             limit_per_identity: 1,
             amount: $ctrl.readOnly ? $ctrl.product.price / 2 : 0,
             gratis: false,
+            expires_with_fund: true,
+            expiration_date: $ctrl.fund.end_date
         }, (form) => {
             if ($ctrl.readOnly) {
                 return form.unlock();
@@ -42,6 +44,7 @@ let ModalSubsidyProductEditComponent = function(
                     limit_total: form.values.limit_total,
                     limit_total_unlimited: form.values.unlimited_stock ? 1 : 0,
                     limit_per_identity: form.values.limit_per_identity,
+                    expiration_date: form.values.expiration_date
                 }],
             }).then((res) => {
                 $ctrl.onApproved(res.data.data);
