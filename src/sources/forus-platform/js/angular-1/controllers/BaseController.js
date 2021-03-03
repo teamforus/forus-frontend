@@ -22,7 +22,7 @@ let BaseController = function(
     let loadOrganizations = () => {
         return $q((resolve, reject) => {
             OrganizationService.list({
-                per_page: 100,
+                per_page: 300,
             }).then(res => {
                 resolve($scope.organizations = res.data.data);
             }, reject);
@@ -159,7 +159,7 @@ let BaseController = function(
 
                 OrganizationService.list({
                     dependency: "permissions,logo",
-                    per_page: 100,
+                    per_page: 300,
                 }).then((res) => {
                     auth_user.organizations = res.data.data;
                     auth_user.organizationsMap = {};

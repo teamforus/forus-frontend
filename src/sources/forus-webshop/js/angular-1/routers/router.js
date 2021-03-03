@@ -92,8 +92,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "sign-up-redirect",
+        url: "/aanbieders/inloggen",
+        controller: ['ConfigService', (ConfigService) => {
+            ConfigService.get().then(res => document.location = res.data.fronts.url_provider)
+        }]
+    });
+
+    $stateProvider.state({
         name: "sign-up",
-        url: "/aanbieder-aanmelden",
+        url: "/aanbieders/aanmelden",
         component: "signUpSelectionComponent",
         resolve: resolveCmsPage('provider'),
     });
@@ -102,6 +110,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "sign-up-en",
         url: "/sign-up",
         controller: ['$state', ($state) => $state.go('sign-up')],
+    });
+
+    $stateProvider.state({
+        name: "sign-up-redirect-en",
+        url: "/providers/sign-in",
+        controller: ['$state', ($state) => $state.go('sign-up-redirect')],
     });
 
     $stateProvider.state({
@@ -383,12 +397,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "explanation",
         url: "/explanation",
         component: "explanationComponent",
-        params: {},
-        resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())]
-        }
+        resolve: resolveCmsPage('explanation')
     });
 
     $stateProvider.state({

@@ -357,7 +357,7 @@ module.exports = {
 
             provider: "Aanbiederpagina content",
             privacy: "Privacy content",
-            explanation: "Externe uitleg URL",
+            explanation: "Uitleg pagina content",
             accessibility: "Toegankelijkheidsverklaring",
             terms_and_conditions: "Algemene voorwaarden",
 
