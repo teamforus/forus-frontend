@@ -302,13 +302,7 @@ let ValidatorSignUpComponent = function(
         officeMediaFile = file;
     };
 
-    $ctrl.goToMain = () => {
-        $state.go('home');
-    };
-
-    $ctrl.openAuthPopup = function() {
-        ModalService.open('modalAuth', {});
-    };
+    $ctrl.openAuthPopup = () => $state.go('home');
 
     $ctrl.$onDestroy = function() {
         progressStorage.clear();

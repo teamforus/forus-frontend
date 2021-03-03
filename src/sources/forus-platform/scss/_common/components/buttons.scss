@@ -64,6 +64,19 @@
         }
     }
 
+    &.button-primary-outline {
+        color: #2f5bf6;
+        border: 1px solid #2f5bf6;
+        box-shadow: none;
+        background: transparent;
+
+        &:hover {
+            color: #2f5bf6;
+            border: 1px solid #2f5bf6;
+            box-shadow: none;
+        }
+    }
+
     &.button-primary-light {
         background: #2b5cff;
         color: #fff;

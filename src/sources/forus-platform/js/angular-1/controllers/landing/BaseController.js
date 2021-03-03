@@ -34,13 +34,8 @@ let BaseController = function(
         $rootScope.appConfigs.frontends = res.data.fronts;
     });
     
-    $scope.openAuthPopup = function () {
-        $state.go('login');
-    };
-
-    $scope.openPinCodePopup = function () {
-        ModalService.open('modalPinCode', {});
-    };
+    $scope.openAuthPopup = () => $state.go('login');
+    $scope.openPinCodePopup = () => ModalService.open('modalPinCode', {});
 
     $scope.$ctrl = {
         userMenuOpened: false,
@@ -121,9 +116,10 @@ let BaseController = function(
     $scope.$watch(function() {
         return $state.$current.name
     }, function(newVal, oldVal) {
-        if ($state.current.name == 'login' || $state.current.name == 'register') {
-            $scope.$ctrl.showFooter = $scope.$ctrl.showHeader = false;
-        }
+        // hide header and footer on listed pages
+        $scope.$ctrl.showFooter = $scope.$ctrl.showHeader = [
+            'login', 'sign-up', 'dl', 
+        ].indexOf($state.current.name) === -1;
 
         if ([
             'sign-up', 'sign-up-provider', 
@@ -134,6 +130,7 @@ let BaseController = function(
             $rootScope.viewLayout = 'landing';
         }
     });
+
     $translate.use('nl');
     $rootScope.appConfigs = appConfigs;
 };

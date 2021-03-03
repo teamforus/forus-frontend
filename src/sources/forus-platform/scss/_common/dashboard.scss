@@ -24,7 +24,9 @@
 @import 'components/labels';
 @import 'components/flex-grid';
 
-@import '../../../forus-webshop/scss/_common/components/ui-controls';
+$borderRadius: $border_radius;
+$colorPrimary: $color_primary;
+$colorPrimaryLight: $color_primary_light;
 
 // blocks
 .block {
@@ -40,14 +42,22 @@
     @import 'blocks/block-breadcrumbs';
     @import 'blocks/block-provider-product';
     @import 'blocks/block-notifications';
+    @import '../../../forus-webshop/scss/_common/components/ui-controls';
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
     @import 'blocks/block-fund_types';
     @import 'blocks/block-subsidy-editor';
+    @import 'blocks/block-dashboard-switcher';
+    @import 'blocks/block-app_download';
 }
 
-$borderRadius: $border_radius;
-$colorPrimary: $color_primary;
-$colorPrimaryLight: $color_primary_light;
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
 
 .hover-actions {
     position: relative;
@@ -122,6 +132,8 @@ $colorPrimaryLight: $color_primary_light;
 }
 
 .app {
+    flex: 1 0 auto;
+
     &.app-header {
         padding: 30px 0;
         position: relative;
@@ -595,6 +607,7 @@ $colorPrimaryLight: $color_primary_light;
     }
 
     &.app-container {
+        margin-bottom: 40px;
         @extend .wrapper;
         @include cf();
     }
@@ -603,7 +616,7 @@ $colorPrimaryLight: $color_primary_light;
         width: 320px;
         min-height: 200px;
         float: left;
-        padding-right: 60px;
+        padding-right: 30px;
 
         .sidebar-nav {
             display: flex;
@@ -684,6 +697,18 @@ $colorPrimaryLight: $color_primary_light;
                 padding: 15px 0 0;
                 margin: 0 0 20px;
             }
+
+            .sidebar-section-title {
+                font: 600 14px/20px $bf;
+                padding: 25px 0;
+                color: #000000;
+                cursor: default;
+
+                &:first-child {
+                    padding-top: 10px;
+                    padding: 10px 0 20px;
+                }
+            }
         }
     }
 
@@ -691,6 +716,13 @@ $colorPrimaryLight: $color_primary_light;
         width: calc(100% - 320px);
         float: left;
         padding: 10px 0;
+    }
+
+    &.app-footer {
+        width: 100%;
+        text-align: center;
+        padding: 25px 0;
+        flex-shrink: 0;
     }
 
     @media screen and (max-width: 1300px) {
@@ -730,6 +762,7 @@ $colorPrimaryLight: $color_primary_light;
     font: 500 18px/26px $bf;
     color: #282b39;
     margin-bottom: 10px;
+    cursor: default;
 
     .link {
         display: inline-block;
@@ -4309,7 +4342,7 @@ $colorPrimaryLight: $color_primary_light;
             cursor: default;
 
             .chart-header-range {
-                flex: 2 0px;
+                flex-basis: 40%;
 
                 .chart-header-item {
                     color: $tc;
@@ -4336,11 +4369,29 @@ $colorPrimaryLight: $color_primary_light;
                 text-align: center;
                 font: 500 13px/34px $bf;
                 color: #151b26;
+                flex-basis: 20%;
             }
 
             .chart-header-actions {
-                flex: 2 0px;
-                text-align: right;
+                flex-basis: 40%;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+
+                .flex-row {
+                    flex: 1;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    flex-wrap: nowrap;
+                }
+
+                .form-group {
+                    margin: 0 10px 0 0;
+                }
+
+                .form-control {
+                    max-width: 200px;
+                }
             }
         }
     }
@@ -4846,15 +4897,16 @@ $colorPrimaryLight: $color_primary_light;
                     margin-bottom: 0;
                 }
             }
-    
-            .modal-button-digid-icon {
+
+            &.button-digid {
                 background-color: #000;
                 background-image: url('../img/icon-digid.svg');
-                background-size: contain;
-                background-repeat: none;
-                background-position: 50% 50%;
+                background-repeat: no-repeat;
+                background-position: center;
                 border-color: #000;
+                box-shadow: none;
                 cursor: default;
+                pointer-events: none;
             }
         }
     
@@ -5413,111 +5465,182 @@ $colorPrimaryLight: $color_primary_light;
     }
     
     &.block-login {
-        width: 754px;
-        margin: 30px auto;
-        border: 1px solid #E5E5E5;
-        background-color: #FFF;
-        border-radius: 6px;
-        position: absolute;
-        top: 30%;
-        left: 50%;
-        transform: translateY(-30%) translateX(-50%);
+        flex-direction: column;
+        justify-content: center;
+        display: flex;
+        @include fill_parent();
+        position: fixed;
+        padding-bottom: 60px;
+        cursor: default;
+
+        .block-login-window {
+            display: block;
+            margin: 0 auto;
+            width: 760px;
+            max-width: 100%;
+            border: 1px solid #E5E5E5;
+            border-radius: $borderRadius;
+            background-color: #fff;
+        }
 
         .block-login-content {
-            .block-login-header {
-                padding: 20px 30px;
+            padding: 30px 40px;
+            border-bottom: 1px solid #E5E5E5;
 
-                .block-login-header-title {
-                    font: 500 19px/21px 'Montserrat';
-                    color: #222530;
-                }
-    
-                .block-login-header-description {
-                    font: 500 16px/26px 'Montserrat';
-                    color: #222530;
-                    margin-top: 8px;
-                }
+            .block-login-title {
+                font: 500 21px/36px $bf;
+                color: #222530;
+            }
+
+            .block-login-description {
+                font: 400 18px/26px $bf;
+                color: #222530;
+                margin: 0 0 30px;
             }
     
             .block-login-form {
-                padding: 20px 30px;
-    
+                margin: 0 0 30px;
+
                 .form-label {
                     color: #7E818C;
                     margin-left: 10px;
                     font-weight: 400;
                     text-transform: uppercase;
                 }
+
+                .block-login-control {
+                    display: flex;
+                    flex-direction: row;
+
+                    .form-group {
+                        padding-right: 20px;
+                        flex-grow: 1;
+                        margin: 0 0;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                        
+                    .button {
+                        align-self: flex-start;
+                    }
+                }
     
-                .form-control {
-                    font: 400 15px/20px 'Montserrat';
+                .form-control:not([type='radio']):not([type='checkbox']) {
+                    font: 400 16px/20px $bf;
                 }
     
                 button {
                     padding-left: 50px;
                     padding-right: 50px;
                 }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
     
-            .block-login-me-app {
-                padding: 20px 30px;
-                border-bottom: 1px solid #E5E5E5;
-    
-                .auth-title {
-                    font: 600 18px/20px 'Montserrat';
-                    color: #333;
-                    margin: 0 0 5px;
-                }
-        
-                .auth-qr_code {
-                    display: flex;
-                    flex-direction: column;
-            
-                    .qr_code-container {
-                        display: flex;
-                        flex-direction: row;
-                        font: 400 15px/22px 'Montserrat';
-            
-                        .qr_code-description {
-                            padding-right: 10px;
-            
-                            .qr_code-download-app {
-                                display: flex;
-            
-                                .download-link {
-                                    height: 40px;
-                                    display: inline-flex;
-                                    margin-right: 10px;
-                                }
-                            }
-                        }
-            
-                        .qr_code-block {
-                            width: 175px;
-                            min-width: 175px;
-                            border: 1px solid #E5E5E5;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
+            .block-login-me_app {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
 
-                            button {
-                                background: rgba(53, 97, 255, 0.15);
-                                border-radius: 5px;
-                                font: 500 14px/17px 'Montserrat';
-                                color: #3561FF;
-                            }
+                .qr_code-container {
+                    padding-right: 30px;
+
+                    .auth-title {
+                        font: 500 21px/28px $bf;
+                        color: #333;
+                        margin: 0 0 5px;
+                    }
+    
+                    .auth-description {
+                        font: 400 15px/22px $bf;
+                        color: #333;
+                        margin: 0 0 5px;
+                    }
             
-                            .block-qr-code {
-                                .qr_code {
-                                    padding: 10px;
-                                    width: 100%;
-                                    height: auto;
-                                    border: 2px dashed #000;
-                                }
-                            }
+                    .qr_code-download-app {
+                        display: flex;
+    
+                        .download-link {
+                            height: 40px;
+                            display: inline-flex;
+                            margin-right: 10px;
                         }
                     }
                 }
+        
+                .qr_code-block {
+                    display: flex;
+                    flex-direction: column;
+
+                    .qr_code-block-placeholder {
+                        width: 200px;
+                        height: 200px;
+                        border: 1px solid #E5E5E5;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        text-align: center;
+
+                        button {
+                            background: rgba(53, 97, 255, 0.15);
+                            border-radius: 5px;
+                            font: 500 14px/25px $bf;
+                            color: #3561FF;
+                            margin: 0 auto;
+                            padding: 7.5px 15px;
+                            box-shadow: none;
+                            align-self: center;
+                        }
+                    }
+
+                    .block.block-qr-code {
+                        width: 200px;
+                        height: 200px;
+                        padding: 0;
+
+                        .qr_code {
+                            border-radius: 0;
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                            padding: 12.5px;
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, .12);
+                        }
+                    }
+                }
+            }
+
+            .block-login-email_sent {
+                text-align: center;
+
+                .block-login-email_sent-icon {
+                    margin: 0 auto 10px;
+
+                    .block-login-email_sent-icon-img {
+                        display: block;
+                        width: 300px;
+                        max-width: 100%;
+                        margin: auto;
+                    }
+                }
+
+                .block-login-email_sent-title {
+                    font: 500 28px/38px $bf;
+                    color: $color_primary;
+                    margin: 0 0 20px;
+                }
+
+                .block-login-email_sent-text {
+                    font: 500 18px/27px $bf;
+                    color: #454545;
+                    margin: 0 0 20px;
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
             }
         }
     
@@ -5525,12 +5648,12 @@ $colorPrimaryLight: $color_primary_light;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin-top: 30px;
-            margin-bottom: 30px;
+            padding: 30px;
     
             .block-login-footer-title {
-                font: 500 19px/21px 'Montserrat';
+                font: 500 19px/21px $bf;
                 text-align: center;
+                margin: 0 auto 20px;
             }
     
             .block-login-footer-button {
@@ -5539,19 +5662,72 @@ $colorPrimaryLight: $color_primary_light;
                 color: #0C66FF;
                 background: rgba(12, 102, 255, 0.1);
                 padding: 20px 65px;
-                margin: 20px auto 0px auto;
                 text-align: center;
                 background: #fff;
                 border: 1px solid #0C66FF;
                 border-radius: 8px;
-                font: 600 16px/21px 'Montserrat';
+                font: 600 16px/21px $bf;
                 transition: color 0.3s, border-color .3s, background 0.3s, box-shadow 0.3s;
+                margin: auto;
                 
                 &:hover {
-                    cursor: pointer;
+                    text-decoration: none;
                     background: rgba(12, 102, 255, 0.1);
                     border-color: #0C66FF;
                 }
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            position: initial;
+
+            .block-login-window {
+                border: none;
+                background: none;
+            }
+
+            .block-login-content {
+                padding: 25px;
+
+                .block-login-title {
+                    font: 500 17px/30px $bf;
+                }
+    
+                .block-login-description {
+                    font: 400 13px/20px $bf;
+                }
+
+                .block-login-form {
+                    margin: 0;
+
+                    .block-login-control {
+                        flex-direction: column;
+
+                        .flex {
+                            justify-content: center;
+                        }
+
+                        .form-group {
+                            margin-bottom: 20px;
+                            padding-right: 0;
+                        }
+                    }
+                }
+
+                .block-login-me_app {
+                    display: none;
+                }
+            }
+        }
+        
+        .block-login-footer {
+            .block-login-footer-title {
+                font: 500 17px/21px $bf;
+            }
+
+            .block-login-footer-button {
+                padding: 15px 45px;
+                width: auto;
             }
         }
     }
@@ -6153,7 +6329,7 @@ $colorPrimaryLight: $color_primary_light;
             }
 
             a {
-                font: 400 16px "Source Sans Pro", sans-serif;
+                font: inherit;
                 color: rgb(100, 111, 121);
             }
         }
@@ -6250,118 +6426,6 @@ $colorPrimaryLight: $color_primary_light;
 
                         img {
                             width: 100%;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    &.modal-voucher-create {
-        .modal-window {
-            width: 680px;
-
-            .modal-body {
-                .voucher-type {
-                    text-align: center;
-                    cursor: default;
-                    padding: 10px 0;
-
-                    .voucher-type-icon {
-                        background: #305dfb;
-                        text-align: center;
-                        width: 96px;
-                        height: 96px;
-                        border-radius: 96px;
-                        border: 3px solid #fff;
-                        line-height: 90px;
-                        font-size: 45px;
-                        color: #fff;
-                        margin: 0 auto 20px;
-                        box-shadow: 2px 4px 10px rgba($color: #000000, $alpha: .1);
-                    }
-
-                    .voucher-type-title {
-                        font: 600 16px/28px $bf;
-                        color: #282b39;
-                        margin: 0 0 5px;
-                    }
-
-                    .voucher-type-subtitle {
-                        font: 500 14px/20px $bf;
-                        color: #646f79;
-                        margin: 0 0 25px;
-
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-                    }
-
-                    .voucher-type-row {
-                        display: flex;
-                        justify-content: center;
-                        justify-items: center;
-                    }
-
-                    .voucher-type-item {
-                        margin-right: 30px;
-                        flex-grow: 1;
-                        padding: 25px 20px;
-                        font: 500 14px $bf;
-                        color: #282b39;
-                        border: 1px solid #d4d9dd;
-                        border-radius: $border_radius / 2;
-                        max-width: 220px;
-                        position: relative;
-                        transition: .4s;
-                        background: transparent;
-                        cursor: pointer;
-
-                        .voucher-type-item-check {
-                            position: absolute;
-                            top: 10px;
-                            right: 10px;
-                            border-radius: 22px;
-                            width: 22px;
-                            height: 22px;
-                            line-height: 22px;
-                            text-align: center;
-                            background: #2cc678;
-                            color: #fff;
-                            opacity: 0;
-                            transition: .4s;
-                        }
-
-                        .voucher-type-item-icon {
-                            margin-bottom: 15px;
-                            width: 100%;
-
-                            .voucher-type-item-icon-img {
-                                display: block;
-                                margin: 0 auto 0;
-                            }
-                        }
-
-                        &:hover {
-                            color: #305dfb;
-                            background: #fff;
-                            border-color: #fff;
-                            box-shadow: 2px 10px 15px rgba($color: #000000, $alpha: .075);
-                        }
-
-                        &.active {
-                            background: #fff;
-                            color: #282b39;
-                            border: 1px solid #d4d9dd;
-                            box-shadow: 1px 5px 7.5px rgba($color: #000000, $alpha: .075);
-
-                            .voucher-type-item-check {
-                                opacity: 1;
-                            }
-                        }
-
-                        &:last-child {
-                            margin-right: 0;
                         }
                     }
                 }
@@ -6555,12 +6619,6 @@ $colorPrimaryLight: $color_primary_light;
         .modal-window {
             .modal-section {
                 .table {
-                    .offer-old-price {
-                        margin-left: 10px;
-                        color: #a7a7a7;
-                        text-decoration: line-through;
-                    }
-
                     td {
                         &:last-child {
                             width: 150px;
@@ -6608,7 +6666,9 @@ $colorPrimaryLight: $color_primary_light;
         }
 
         .modal-window {
+            opacity: 1;
             transform: scale(1, 1);
+            filter: blur(0px);
         }
 
         &.modal-loading {
@@ -6616,9 +6676,14 @@ $colorPrimaryLight: $color_primary_light;
                 opacity: 0;
                 transition: .25s ease-out;
             }
+
+            .modal-backdrop {
+                pointer-events: none;
+            }
     
             .modal-window {
-                transform: scale(0, 0);
+                transform: scale(1.2, 1.2);
+                filter: blur(2.5px);
             }
         }
     }

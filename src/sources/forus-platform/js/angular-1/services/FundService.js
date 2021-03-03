@@ -1,6 +1,6 @@
 const sprintf = require('sprintf-js').sprintf;
 
-const FundService = function(ApiRequest) {
+const FundService = function(ApiRequest, ModalService) {
     let uriPrefix = '/platform/organizations/';
 
     return new (function() {
@@ -11,7 +11,7 @@ const FundService = function(ApiRequest) {
 
             return ApiRequest.get(sprintf(uriPrefix + '%s/funds', organization_id), query);
         };
-        
+
         this.listPublic = function(query = {}) {
             return ApiRequest.get(sprintf('/platform/funds'), query);
         };
@@ -85,7 +85,7 @@ const FundService = function(ApiRequest) {
             ), query);
         };
 
-        this.getroviderProduct = function(organization_id, fund_id, provider_id, product_id, query = {}) {
+        this.getProviderProduct = function(organization_id, fund_id, provider_id, product_id, query = {}) {
             return ApiRequest.get(sprintf(
                 uriPrefix + '%s/funds/%s/providers/%s/products/%s',
                 organization_id,
@@ -304,10 +304,25 @@ const FundService = function(ApiRequest) {
                 criteria: criteria
             });
         };
+
+        this.stopActionConfirmationModal = (onConfirm) => {
+            ModalService.open("dangerZone", {
+                header: "Actie stoppen",
+                title: "De publicatie van het aanbod wordt van de website verwijderd.",
+                description:
+                    "Hierna kan er van deze actie geen gebruik meer worden gemaakt.\n" +
+                    "De gebruikte tegoeden blijven bewaard." +
+                    "Wanneer u de actie opnieuw start, worden de gebruikte tegoeden verrekend met het nieuwe ingestelde limiet.",
+                cancelButton: "Annuleer",
+                confirmButton: "Stop actie",
+                onConfirm,
+            })
+        };
     });
 };
 
 module.exports = [
     'ApiRequest',
+    'ModalService',
     FundService
 ];

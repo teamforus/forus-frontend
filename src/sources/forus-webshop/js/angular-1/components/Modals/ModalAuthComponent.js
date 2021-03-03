@@ -22,7 +22,7 @@ let ModalAuthComponent = function(
     $ctrl.restoreWithDigId = false;
 
     if (AuthService.hasCredentials()) {
-        IdentityService.identity().then(() => {}, $ctrl.close);
+        IdentityService.identity().then(() => { }, $ctrl.close);
     }
 
     $ctrl.showQrForm = function() {
@@ -50,6 +50,8 @@ let ModalAuthComponent = function(
     }
 
     $ctrl.$onInit = () => {
+        $ctrl.appConfigs = appConfigs;
+
         $(document).bind('keydown', (e) => {
             $timeout(function() {
                 var key = e.charCode || e.keyCode || 0;
@@ -64,18 +66,26 @@ let ModalAuthComponent = function(
 
         $ctrl.signInEmailForm = FormBuilderService.build({
             email: ""
-        }, (form) => {
-            let authTarget = undefined;
+        }, async (form) => {
+            const handleErrors = (res) => {
+                form.unlock();
+                form.errors = res.data.errors ? res.data.errors : {
+                    email: [res.data.message]
+                };
+            };
 
-            if ($ctrl.modal.scope.has_redirect) {
-                authTarget = [$ctrl.modal.scope.target_name].concat(
-                    Object.values($ctrl.modal.scope.target_params)
-                );
+            const used = await new Promise((resolve) => {
+                IdentityService.validateEmail(form.values).then(res => {
+                    resolve(res.data.email.used);
+                }, handleErrors);
+            });
 
-                authTarget = authTarget.join('-');
+            if (!used) {
+                $ctrl.close();
+                return $state.go('start', { email_address: form.values.email });
             }
-            
-            IdentityService.makeAuthEmailToken(form.values.email, authTarget).then(() => {
+
+            IdentityService.makeAuthEmailToken(form.values.email).then(() => {
                 $ctrl.screen = 'sign_in-email-sent';
                 $ctrl.close();
 
@@ -84,17 +94,12 @@ let ModalAuthComponent = function(
                     class: 'modal-description-pad',
                     email: form.values.email,
                     icon: "email_signup",
+                    icon_filetype: ".svg",
                     title: 'popup_auth.labels.mail_sent',
                     description: 'popup_auth.notifications.link',
                     confirmBtnText: 'popup_auth.buttons.submit'
                 });
-
-            }, (res) => {
-                form.unlock();
-                form.errors = res.data.errors ? res.data.errors : {
-                    email: [res.data.message]
-                };
-            });
+            }, (res) => handleErrors);
         }, true);
     };
 
@@ -129,7 +134,6 @@ let ModalAuthComponent = function(
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
-
             $ctrl.qrValue = $ctrl.authToken;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);

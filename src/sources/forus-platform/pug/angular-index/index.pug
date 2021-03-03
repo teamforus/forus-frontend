@@ -18,6 +18,7 @@ html(lang="nl" ng-controller="BaseController" ng-cloak)
             div(forus-chat chat-id="{{ appConfigs.chat_id }}" ng-if="appConfigs.chat_id")
             div(forus-support support-id="{{ appConfigs.support_id}}" ng-if="appConfigs.support_id")
 
+        app-footer
         printables-root
         push-notifications
         

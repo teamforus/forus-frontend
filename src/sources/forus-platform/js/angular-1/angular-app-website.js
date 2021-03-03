@@ -14,13 +14,13 @@ app.component('meComponent', require('./components/website/MeComponent'));
 app.component('contactComponent', require('./components/website/ContactComponent'));
 app.component('currentComponent', require('./components/website/CurrentComponent'));
 app.component('loginComponent', require('./components/website/LoginComponent'));
-app.component('registerComponent', require('./components/website/SignUpComponent'));
-app.component('signUpComponent', require('./components/landing/SignUpComponent'));
+app.component('signUpComponent', require('./components/website/SignUpComponent'));
+app.component('dlMeAppComponent', require('./components/landing/DlMeAppComponent'));
 
 // Services
 app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('ConfigService', require('./services/ConfigService'));
-app.service('SmsService', require('./services/SmsService'));
+app.service('ShareService', require('./services/ShareService'));
 app.service('AuthService', require('./services/AuthService'));
 app.service('RecordService', require('./services/RecordService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
@@ -46,7 +46,6 @@ app.directive('landingContactForm', require('./directives/landing/ContactFormDir
 app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
-app.directive('landingAppFooter', require('./directives/landing/LandingAppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('phoneControl', require('./directives/PhoneControlDirective'));

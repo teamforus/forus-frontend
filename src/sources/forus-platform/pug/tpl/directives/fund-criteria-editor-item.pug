@@ -87,12 +87,12 @@
         div(ng-if="$dir.criterion.show_external_validators_form")
             .flex-row
                 .flex-col: .flex-row
-                    .flex-col.flex-grow
-                        .form-group
-                            label.form-label Selecteer organisatie
-                            select(
-                                ng-options="validator.id as validator.validator_organization.name for validator in $dir.criterion.validators_available"
-                                ng-model="$dir.criterion.new_validator").form-control
+                    .flex-col.flex-grow: .form-group
+                        label.form-label Selecteer organisatie
+                        select(
+                            ng-options="validator.id as validator.validator_organization.name for validator in $dir.criterion.validators_available"
+                            ng-model="$dir.criterion.new_validator").form-control
+
                     .flex-col: .form-group
                         label.form-label &nbsp;
                         .button-group
@@ -102,13 +102,9 @@
                             .button.button-default(ng-click="$dir.cancelAddExternalValidator($dir.criterion)") Annuleren
                 .flex-col
 
-    .criterion-section(ng-if="$dir.criterion.is_editing")
+    .criterion-section(ng-if="$dir.criterion.is_editing && (!$dir.criterion.show_external_validators_form && ($dir.criterion.validators_available.length > 1))")
         .button.button-primary(
             ng-if="!$dir.criterion.show_external_validators_form && ($dir.criterion.validators_available.length > 1)"
             ng-click="$dir.addExternalValidator($dir.criterion)")
             em.mdi.mdi-plus-circle.icon-start
             translate(translate="components.fund_criteria_editor_item.buttons.add_external_validator")
-        
-        .button.button-primary.pull-right(ng-click="$dir.saveCriterion($dir.criterion)")
-            em.mdi.mdi-content-save.icon-start
-            translate(translate="components.fund_criteria_editor_item.buttons.apply")

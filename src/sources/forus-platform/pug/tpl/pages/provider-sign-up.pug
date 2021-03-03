@@ -18,12 +18,13 @@
 
     .block.block-sign_up: .block-wrapper        
         .sign_up-header
-            .sign_up-header-item.flex-grow: a.sign_up-header-item-back(ng-if="$ctrl.showBackBtn" ng-click="$ctrl.goToMain()")
+            .sign_up-header-item.flex-grow: a(ui-sref="home").sign_up-header-item-back
                 em.mdi.mdi-chevron-left
                 | Verlaat het formulier
 
-            .sign_up-header-item(ng-if="!$root.auth_user")
-                a.button.button-light(ng-click="$ctrl.openAuthPopup()") Inloggen
+            .sign_up-header-item
+                a.button.button-light(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthPopup()") Inloggen
+                a.button.button-light(ng-if="$root.auth_user" href="{{ $root.appConfigs.features.fronts.url_provider }}") Open beheeromgeving
 
         h2.block-title(translate="sign_up_provider.header.main_header")
 
@@ -39,7 +40,7 @@
                     .sign_up-pane-text
                         h5(translate="sign_up_provider.header.title_step_1_paragrah_1").sign_up-pane-heading
                         span(translate="sign_up_provider.header.subtitle_step_1_paragrah_1")
-                    .sign_up-pane-text
+                    .sign_up-pane-text(ng-if="!$root.auth_user")
                         h5(translate="sign_up_provider.header.title_step_1_paragrah_2").sign_up-pane-heading
                         a(ng-click="$ctrl.openAuthPopup()").sign_up-pane-link Klik hier
                         |  {{ "sign_up_provider.header.subtitle_step_1_paragrah_2" | translate}}                       
@@ -87,30 +88,101 @@
                 .sign_up-pane-header.visible-md.visible-lg(translate="sign_up_provider.header.title_step_3_mail" ng-if="!$ctrl.hasApp")
                 .sign_up-pane-header.visible-sm.visible-xs(translate="sign_up_provider.header.title_step_3_mail_mobile" ng-if="!$ctrl.hasApp")
 
-                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp && !$ctrl.sentSms"): .form
-                    .sign_up-pane-heading {{ 'sign_up_provider.labels.mobile_number' | translate }}
-                    phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
-                    
-                    .form-group: input(type="text"
-                        ng-model="phoneForm.values.phone"
-                        placeholder="TELEFOONNUMMER").large.form-control.visible-sm.visible-xs
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.hasApp && !$ctrl.shareSmsSent && !$ctrl.shareEmailSent && !$ctrl.appDownloadSkip")
+                    .block.block-app_download.form
+                        .app_download-row
+                            .app_download-media: img(ng-src="./assets/img/sign_up_me.svg")
+                            .app_download-content.form
+                                h4.app_download-heading Selecteer uw apparaat
+                                select(placeholder="amigo" ng-model="$ctrl.selectedOption").form-control
+                                    option(value="") Selecteer uw apparaat
+                                    option(value="iphone") iPhone
+                                    option(value="android-phone") Android smartphone
+                                    option(value="android-tablet") Android tablet
+                                    option(value="ipad") iPad
 
-                    .row: .col-lg-12.col-md-12.col-sm-12: button.button.button-primary-outline.col-xs-12(
-                        ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
-                        ng-click="$ctrl.sendSms()"
-                        translate="sign_up_provider.download.download_link")
-                    
-                    .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
-                    
-                    br
-                    .sign_up-pane-text.sign_up-pane-text-sm 
-                        | {{ "sign_up_provider.download.cannot_receive_sms" | translate }} 
-                        a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
-                        br
-                        | {{ "sign_up_provider.download.cannot_install_app" | translate }} 
-                        .sign_up-pane-link.text-muted(ng-click="$ctrl.setHasAppProp(false)") Ga verder met uw e-mailadres >
+                        //- Not selected
+                        .app_download-row(ng-if="!$ctrl.selectedOption"): h4.app_download-heading Of:
+                        .app_download-row(ng-if="!$ctrl.selectedOption")
+                            .app_download-media: img(ng-src="./assets/img/forus-dl-link.jpg")
+                            .app_download-content: p.app_download-text
+                                | Typ #[b forus.io/dl] in uw mobiele browser (safari, chrome, etc) en 
+                                span.app_download-link(ng-click="$ctrl.appDownloadSkip = true") ga verder >
 
-                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent)  && $ctrl.sentSms") 
+                        //- Android or iPhone
+                        .app_download-row(ng-if="$ctrl.selectedOption == 'iphone' || $ctrl.selectedOption == 'android-phone'"): .app_download-col
+                            .app_download-row(ng-if="$ctrl.selectedOption == 'iphone'"): h4.app_download-heading Download uit app store
+                            .app_download-row(ng-if="$ctrl.selectedOption == 'android-phone'"): h4.app_download-heading Download uit play store
+                            .app_download-row
+                                a.app_download-store_icon(
+                                    ng-if="$ctrl.selectedOption == 'iphone'"
+                                    href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
+                                    img(ng-src="./assets/img/icon-app-ios.svg")
+
+                                a.app_download-store_icon(
+                                    ng-if="$ctrl.selectedOption == 'android-phone'"
+                                    href="{{ $root.appConfigs.android_link }}" target="_blank")
+                                    img(ng-src="./assets/img/icon-app-android.svg")  
+
+                                .app_download-col.flex-center
+                                    span.app_download-link.text-muted(ng-click="$ctrl.appDownloadSkip = true") Ga verder >
+
+                            .app_download-row: h4.app_download-heading Of stuur een downloadlink direct naar uw telefoon
+                            .app_download-row: .app_download-col
+                                label.form-label Mobiele telefoonnummer
+                                phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
+                                .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
+
+                                .app_download-row: button.button.button-primary-outline(
+                                    type="submit"
+                                    ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
+                                    ng-click="$ctrl.sendSms()"
+                                    translate="sign_up_provider.download.download_link")
+
+                        //- iPad or android tablet
+                        .app_download-row(ng-if="$ctrl.selectedOption == 'ipad' || $ctrl.selectedOption == 'android-tablet'"): .app_download-col
+                            .app_download-row(ng-if="$ctrl.selectedOption == 'ipad'"): h4.app_download-heading Download uit app store
+                            .app_download-row(ng-if="$ctrl.selectedOption == 'android-tablet'"): h4.app_download-heading Download uit play store
+                            .app_download-row
+                                a.app_download-store_icon(
+                                    ng-if="$ctrl.selectedOption == 'ipad'"
+                                    href="{{ $root.appConfigs.ios_ipad_link }}" target="_blank")
+                                    img(ng-src="./assets/img/icon-app-ios.svg")
+                                a.app_download-store_icon(
+                                    ng-if="$ctrl.selectedOption == 'android-tablet'"
+                                    href="{{ $root.appConfigs.android_link }}" target="_blank")
+                                    img(ng-src="./assets/img/icon-app-android.svg")  
+                                .app_download-col.flex-center
+                                    span.app_download-link.text-muted(ng-click="$ctrl.appDownloadSkip = true") Ga verder >
+                            
+                            .app_download-row: h4.app_download-heading Of stuur een link naar een e-mailadres
+                            .app_download-row: .app_download-col
+                                form(ng-submit="emailForm.submit()").app_download-form_group
+                                    .app_download-form_group-input
+                                        label(for="email_input").form-label.hide-xs E-mailadres
+                                        input(type="text"
+                                            id="email_input"
+                                            ng-model="emailForm.values.email"
+                                            placeholder="EMAILADRES").large.form-control
+                                    
+                                    .app_download-form_group-button
+                                        label.form-label &nbsp;
+                                        button.button.button-primary-outline(
+                                            ng-disabled="!emailForm.values.email"
+                                            type="submit"
+                                            ng-click="$ctrl.sendEmail()") verstuur e-mail
+                                //- Form errors
+                                .app_download-form_group: .form-error(ng-repeat="error in emailForm.errors.email" ng-bind="error")
+
+                        //- Use email instead
+                        .app_download-row
+                        .app_download-row: .app_download-text.app_download-text-xs
+                            translate(translate="sign_up_provider.download.cannot_install_app")
+                            span &nbsp;
+                            span.app_download-link.text-muted(ng-click="$ctrl.setHasAppProp(false)") Ga verder met uw e-mailadres >
+
+                //- Sms sent message
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.shareSmsSent") 
                     .sign_up-pane-heading U heeft een SMS ontvangen op {{ phoneForm.values.phone | phone_number_format }}
                     
                     .sign_up-pane-auth
@@ -118,7 +190,7 @@
                             .sign_up-pane-text(translate="sign_up_provider.qr_code.description")
                             br
                             .sign_up-pane-text: small
-                                | {{ "sign_up_provider.download.no_link_received" | translate }} 
+                                | {{ "sign_up_provider.download.no_link_received_sms" | translate }} 
                                 a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
 
                         .sign_up-pane-auth-qr_code.visible-md.visible-lg
@@ -126,7 +198,48 @@
                                 ng-if="$ctrl.authToken" 
                                 qr-value="$ctrl.authToken" 
                                 qr-type="auth_token" 
-                                qr-logo=src_prefix + "./assets/img/me-logo.png")   
+                                qr-logo=src_prefix + "./assets/img/me-logo.png")
+
+                //- Email sent message
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.shareEmailSent") 
+                    .sign_up-pane-heading Er is een e-mail verstuurd naar {{ emailForm.values.email }}
+                    
+                    .sign_up-pane-auth
+                        .sign_up-pane-auth-content
+                            .sign_up-pane-text(translate="sign_up_provider.qr_code.description")
+                            br
+                            .sign_up-pane-text: small
+                                | {{ "sign_up_provider.download.no_link_received_email" | translate }} 
+                                a(href="https://www.forus.io/DL" target="_blank") www.forus.io/DL
+
+                        .sign_up-pane-auth-qr_code.visible-md.visible-lg
+                            qr-code(
+                                ng-if="$ctrl.authToken" 
+                                qr-value="$ctrl.authToken" 
+                                qr-type="auth_token" 
+                                qr-logo=src_prefix + "./assets/img/me-logo.png")
+
+                //- Skipped
+                .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.appDownloadSkip") 
+                    .sign_up-pane-heading Maak een profiel en scan QR-code om verder te gaan
+                    
+                    .sign_up-pane-auth
+                        .sign_up-pane-auth-content
+                            .sign_up-pane-text
+                                | 1. Installeer de Me-app <br/>
+                                | 2. Open de Me app en meld u aan <br/>
+                                | 3. Scan de QR-code aan de rechterkant met de QR scanner in de Me app <br/>
+                            br
+                            .sign_up-pane-text: small
+                                | App nog niet gedownload? 
+                                .sign_up-pane-link.text-muted(ng-click="$ctrl.appDownloadSkip = false") Ga naar de vorige stap
+
+                        .sign_up-pane-auth-qr_code.visible-md.visible-lg
+                            qr-code(
+                                ng-if="$ctrl.authToken" 
+                                qr-value="$ctrl.authToken" 
+                                qr-type="auth_token" 
+                                qr-logo=src_prefix + "./assets/img/me-logo.png")
 
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && !$ctrl.hasApp")
                     .sign_up-pane-heading.visible-md.visible-lg(translate='sign_up_provider.no_app.enter_email') 
@@ -156,14 +269,23 @@
                     .sign_up-pane-media: img(ng-src="./assets/img/email_confirmed.svg")  
                     .sign_up-pane-heading.sign_up-pane-heading-lg.text-primary-mid(translate="sign_up_sponsor.labels.confirm_email") 
                     .sign_up-pane-text
-                        | {{ "sign_up_sponsor.labels.confirm_email_description" | translate }} 
+                        translate(translate="sign_up_sponsor.labels.confirm_email_description")
+                        | &nbsp;
                         span.sign_up-pane-link(ng-bind="$ctrl.signUpForm.values.email")
                 
-                .sign_up-pane-footer(ng-if="$ctrl.sentSms"): .row
+                .sign_up-pane-footer(ng-if="$ctrl.shareSmsSent || $ctrl.shareEmailSent || $ctrl.appDownloadSkip"): .row
                     .col.col-lg-6.text-left
-                        .button.button-text.button-text-padless(ng-click="$ctrl.sentSms = false")
+                        .button.button-text.button-text-padless(ng-click="$ctrl.resetShareForms()")
                             em.mdi.mdi-chevron-left.icon-lefts
-                            | {{ 'sign_up_provider.buttons.back' | translate }}
+                            translate(translate="sign_up_provider.buttons.back")
+                        
+                    .col.col-lg-6.text-right
+
+                .sign_up-pane-footer(ng-if="!$ctrl.shareSmsSent && !$ctrl.shareEmailSent && !$ctrl.appDownloadSkip"): .row
+                    .col.col-lg-6.text-left
+                        .button.button-text.button-text-padless(ng-click="$ctrl.back()")
+                            em.mdi.mdi-chevron-left.icon-lefts
+                            translate(translate="sign_up_provider.buttons.back")
                         
                     .col.col-lg-6.text-right
 

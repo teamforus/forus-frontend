@@ -33,6 +33,28 @@ let VouchersComponent = function(
         name: 'Medewerker'
     }];
 
+    $ctrl.voucher_states = [{
+        value: null,
+        name: 'Alle'
+    }, {
+        value: 'pending',
+        name: 'Inactief'
+    }, {
+        value: 'active',
+        name: 'Actief'
+    }];
+
+    $ctrl.in_use = [{
+        value: null,
+        name: 'Selecteer...'
+    }, {
+        value: 1,
+        name: 'Ja'
+    }, {
+        value: 0,
+        name: 'Nee'
+    }];
+
     $ctrl.filters = {
         show: false,
         defaultValues: {
@@ -42,6 +64,8 @@ let VouchersComponent = function(
             amount_max: null,
             from: null,
             to: null,
+            state: null,
+            in_use: null,
             type: 'fund_voucher',
             source: 'all',
             sort_by: 'created_at',
@@ -88,11 +112,10 @@ let VouchersComponent = function(
     $ctrl.uploadVouchersCsv = () => {
         ModalService.open('vouchersUpload', {
             fund: $ctrl.fund,
-            organization: $ctrl.organization,
             type: $ctrl.filters.values.type,
-            done: () => {
-                $state.reload();
-            }
+            organization: $ctrl.organization,
+            organizationFunds: $ctrl.funds,
+            done: () => $state.reload(),
         });
     };
 

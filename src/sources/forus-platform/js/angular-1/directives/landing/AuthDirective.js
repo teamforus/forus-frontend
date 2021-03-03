@@ -13,51 +13,46 @@ let AuthDirective = function(
     let timeout;
 
     $scope.qrValue = null;
+    $scope.emailSent = false;
 
     $scope.form = FormBuilderService.build({
         email: "",
     }, function(form) {
-        form.lock();
-        IdentityService.makeAuthEmailToken(form.values.email).then((res) => {
-            ModalService.open('modalNotification', {
-                type: 'action-result',
-                class: 'modal-description-pad modal-content',
-                email: form.values.email,
-                icon: 'icon-sign_up-success',
-                title: 'popup_auth.labels.mail_sent',
-                description: 'popup_auth.notifications.link',
-                confirmBtnText: 'popup_auth.buttons.confirm',
+        IdentityService.makeAuthEmailToken(form.values.email).then(
+            () => $scope.emailSent = true,
+            (res) => {
+                form.unlock();
+                form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
             });
-        }, (res) => {
-            form.unlock();
-            form.errors = res.data.errors;
-        });
-    });
+    }, true);
+
+    $scope.goToDashboard = () => {
+        if (['provider'].indexOf(appConfigs.panel_type) != -1) {
+            $rootScope.loadAuthUser().then(auth_user => {
+                let organizations = auth_user.organizations.filter(organization =>
+                    !organization.business_type_id &&
+                    PermissionsService.hasPermission(organization, 'manage_organization')
+                );
+
+                if (organizations.length > 0) {
+                    ModalService.open('businessSelect', {
+                        organizations: organizations,
+                        onReady: () => $state.go('organizations'),
+                    });
+                } else {
+                    $state.go('organizations');
+                }
+            });
+        } else {
+            $rootScope.loadAuthUser().then(() => $state.go('organizations'));
+        };
+    }
 
     $scope.checkAccessTokenStatus = (type, access_token) => {
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 CredentialsService.set(access_token);
-
-                if (['provider'].indexOf(appConfigs.panel_type) != -1) {
-                    $rootScope.loadAuthUser().then(auth_user => {
-                        let organizations = auth_user.organizations.filter(organization =>
-                            !organization.business_type_id &&
-                            PermissionsService.hasPermission(organization, 'manage_organization')
-                        );
-
-                        if (organizations.length > 0) {
-                            ModalService.open('businessSelect', {
-                                organizations: organizations,
-                                onReady: () => $state.go('organizations'),
-                            });
-                        } else {
-                            $state.go('organizations');
-                        }
-                    });
-                } else {
-                    $rootScope.loadAuthUser().then(() => $state.go('organizations'));
-                }
+                $scope.goToDashboard();
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
                     $scope.checkAccessTokenStatus(type, access_token);
@@ -84,15 +79,13 @@ let AuthDirective = function(
         }, console.log);
     };
 
-    $scope.login = () => {
-        $scope.form.submit();
-    }
+    $scope.$watch(() => !!CredentialsService.get(), (value) => {
+        $scope.showForm = !value || $scope.emailSent;
 
-    $scope.register = () => {
-        $state.go('sign-up');
-    }
-
-    $scope.$onInit = () => {};
+        if (value && !$scope.emailSent) {
+            $scope.goToDashboard();
+        }
+    });
 };
 
 module.exports = () => {
@@ -116,6 +109,6 @@ module.exports = () => {
             'ModalService',
             AuthDirective
         ],
-        templateUrl: 'assets/tpl/directives/landing/auth.html' 
+        templateUrl: 'assets/tpl/directives/landing/auth.html'
     };
 };

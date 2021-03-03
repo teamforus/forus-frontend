@@ -1,21 +1,17 @@
-let PrivacyComponent = function(
-    appConfigs
-) {
+let PrivacyComponent = function($sce) {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.vars = {
-            'groningen': {
-                'organization_name': 'Groningen',
-                'website': 'https://gemeente.groningen.nl/privacyverklaring',
-            }
-        }[appConfigs.client_key];
+        $ctrl.description_html = $sce.trustAsHtml($ctrl.page.content_html);
     };
 }
 
 module.exports = {
+    bindings: {
+        page: '<',
+    },
     controller: [
-        'appConfigs',
+        '$sce',
         PrivacyComponent
     ],
     templateUrl: 'assets/tpl/pages/privacy.html'

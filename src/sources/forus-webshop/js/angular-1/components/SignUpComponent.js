@@ -4,6 +4,7 @@ let SignUpComponent = function(
     AuthService,
     IdentityService,
     FormBuilderService,
+    DigIdService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -16,6 +17,7 @@ let SignUpComponent = function(
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
     $ctrl.hasApp = false;
+    $ctrl.digidAvailable = appConfigs.features.digid;
 
     // Initialize authorization form
     $ctrl.initAuthForm = () => {
@@ -24,27 +26,37 @@ let SignUpComponent = function(
         $ctrl.authForm = FormBuilderService.build({
             email: '',
             target: target,
-        }, function(form) {
-            let resolveErrors = (res) => {
+        }, async (form) => {
+            if (!$ctrl.authForm.autofill && appConfigs.flags.privacyPage && !form.values.privacy) {
+                return form.unlock();
+            }
+
+            let handleErrors = (res) => {
                 form.unlock();
-                form.errors = res.data.errors;
+                form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
+                $ctrl.authForm.autofill = false;
             };
 
-            IdentityService.validateEmail(form.values).then(res => {
-                if (res.data.email.used) {
-                    IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
-                        $ctrl.authEmailRestoreSent = true;
-                        $ctrl.nextStep();
-                    }, resolveErrors);
-                } else {
-                    IdentityService.make(form.values).then(() => {
-                        $ctrl.authEmailSent = true;
-                        $ctrl.nextStep();
-                    }, resolveErrors);
-                }
+            const used = !$ctrl.authForm.autofill && await new Promise((resolve) => {
+                IdentityService.validateEmail(form.values).then(res => {
+                    resolve(res.data.email.used);
+                }, handleErrors);
+            });
 
-            }, resolveErrors);
+            if (used) {
+                IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
+                    $ctrl.authEmailRestoreSent = true;
+                    $ctrl.nextStep();
+                }, handleErrors);
+            } else {
+                IdentityService.make(form.values).then(() => {
+                    $ctrl.authEmailSent = true;
+                    $ctrl.nextStep();
+                }, handleErrors);
+            }
         }, true);
+
+        $ctrl.authForm.autofill = false;
     };
 
     // Show qr code or email input
@@ -57,6 +69,15 @@ let SignUpComponent = function(
             authTokenSubscriber.stopCheckAccessTokenStatus();
         }
     };
+
+    $ctrl.startDigId = () => {
+        DigIdService.startAuthRestore().then(
+            (res) => document.location = res.data.redirect_url,
+            (res) => $state.go('error', { 
+                errorCode: res.headers('Error-Code')
+            }),
+        );
+    }
 
     // Request auth token for the qr-code
     $ctrl.requestAuthQrToken = () => {
@@ -80,6 +101,10 @@ let SignUpComponent = function(
             return 'auth_email_sent';
         }
 
+        if (step == 3) {
+            return 'digid';
+        }
+
         return 'done';
     };
 
@@ -91,6 +116,7 @@ let SignUpComponent = function(
     $ctrl.nextStep = () => $ctrl.setStep($ctrl.step + 1);
     $ctrl.prevStep = () => $ctrl.setStep($ctrl.step - 1);
 
+    $ctrl.setRestoreWithDigiD = () => $ctrl.setStep(3);
     $ctrl.updateState = () => $ctrl.state = $ctrl.step2state($ctrl.step);
 
     $ctrl.onSignedIn = () => {
@@ -98,7 +124,7 @@ let SignUpComponent = function(
             per_page: 1000,
         }).then((res) => {
             let vouchers = res.data.data;
-            let takenFundIds = vouchers.map(voucher => voucher.fund_id);
+            let takenFundIds = vouchers.map(voucher => voucher.fund_id && !voucher.expired);
             let fundsNoVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
             let fundsWithVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
 
@@ -134,6 +160,12 @@ let SignUpComponent = function(
         } else {
             $ctrl.initAuthForm();
             $ctrl.setStep(1);
+
+            if ($ctrl.$transition$.params().email_address) {
+                $ctrl.authForm.values.email = $ctrl.$transition$.params().email_address;
+                $ctrl.authForm.autofill = true;
+                $ctrl.authForm.submit();
+            }
         }
     };
 
@@ -143,7 +175,8 @@ let SignUpComponent = function(
 module.exports = {
     bindings: {
         funds: '<',
-        recordTypes: '<'
+        recordTypes: '<',
+        $transition$: '<',
     },
     controller: [
         '$state',
@@ -151,6 +184,7 @@ module.exports = {
         'AuthService',
         'IdentityService',
         'FormBuilderService',
+        'DigIdService',
         'appConfigs',
         SignUpComponent
     ],

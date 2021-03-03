@@ -31,9 +31,9 @@
                         | #[br] #[br]
 
                         .qr_code-download-app
-                            a(href="https://itunes.apple.com/nl/app/me-forus/id1422610676").download-link
+                            a(href="{{ $root.appConfigs.ios_iphone_link }}").download-link
                                 img(src="./assets/img/landing/icon-app-ios.svg")
-                            a(href="https://play.google.com/store/apps/details?id=io.forus.me")
+                            a(href="{{ $root.appConfigs.android_link }}")
                                 img(src="./assets/img/landing/icon-app-android.svg").download-link
                     .qr_code-block: qr-code(
                         ng-if="$ctrl.qrValue" 
@@ -50,7 +50,7 @@
                     | herstellen door opnieuw hiermee in te loggen.
                     br
                 .auth-subtitle 
-                    .button.modal-button-digid-icon &nbsp;
+                    .button.button-digid &nbsp;
                     .button.button-primary(ng-click="$ctrl.startDigId()") Login met DigID
 
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId && $ctrl.restoreWithDigIdFailed")

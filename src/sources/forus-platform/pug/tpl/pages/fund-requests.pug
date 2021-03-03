@@ -102,6 +102,11 @@
                                     span(ng-if="critera.operator == '='") 
                                     span(ng-if="critera.operator == '<'") minder dan 
                                     | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                
+                .card-block.card-block-listing(ng-if="validatorRequest.note")
+                    .card-block-listing-label Reden van weigeren
+                    .card-block-listing-value
+                        span(ng-bind="validatorRequest.note")
             
             .card-header(ng-hide='validatorRequest.collapsed')
                 .arrow-box.border.bg-dim: .arrow
@@ -178,14 +183,9 @@
                                     .attachment-size(ng-bind='file.size')
                                 .attachment-name(ng-bind='file.original_name')
                                 .attachment-date(ng-bind='record.created_at_locale')
-                                .attachment-preview(
-                                    title="Bekijk file"
-                                    ng-if="$ctrl.hasFilePreview(file)" 
-                                    ng-click="$ctrl.previewFile($event, file)")
-                                    .mdi.mdi-eye
                                 .attachment-preview( 
-                                    title="Bekijk PDF-bestand"
                                     ng-if="file.ext == 'pdf'"
+                                    title="file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'"
                                     ng-click="$ctrl.previewFile($event, file)")
                                     .mdi.mdi-eye
                         
@@ -212,9 +212,9 @@
                                                         .mdi.mdi-file
                                                         .attachment-size(ng-bind='file.size')
                                                     .attachment-name(ng-bind='file.original_name')
-                                                    .attachment-preview( 
-                                                        title="Bekijk PDF-bestand" 
-                                                        ng-if="file.ext == 'pdf'"
+                                                    .attachment-preview(
+                                                        title="Bekijk file"
+                                                        ng-if="$ctrl.hasFilePreview(file)" 
                                                         ng-click="$ctrl.previewFile($event, file)")
                                                         .mdi.mdi-eye
     

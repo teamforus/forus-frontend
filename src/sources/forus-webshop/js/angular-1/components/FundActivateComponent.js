@@ -8,7 +8,6 @@ let FundActivateComponent = function(
     FundService,
     AuthService,
     PushNotificationsService,
-    PrevalidationService,
     FormBuilderService,
     DigIdService,
     ModalService,
@@ -75,44 +74,56 @@ let FundActivateComponent = function(
         form.lock();
         form.enabled = false;
 
-        PrevalidationService.redeem(code).then(() => {
-            $ctrl.getApplicableFunds().then((funds) => {
-                if (funds.length > 0) {
-                    let vouchers = [];
-
-                    Promise.all(funds.map((fund) => (new Promise((resolve, reject) => {
-                        $ctrl.applyFund(fund).then((voucher) => {
-                            vouchers.push(voucher);
-                            resolve(voucher);
-                        }, reject);
-                    })))).then(() => {
-                        if (vouchers.length == 0) {
-                            $state.go('funds');
-                        } else if (vouchers.length == 1) {
-                            $state.go('voucher', vouchers[0]);
-                        } else {
-                            $state.go('vouchers');
-                        }
-                    });
+        FundService.redeem(code).then(res => {
+            if (res.data.vouchers.length > 0) {
+                if (res.data.vouchers.length === 1) {
+                    $state.go('voucher', res.data.vouchers[0]);
                 } else {
-                    $state.go('funds');
+                    $state.go('vouchers');
                 }
-            });
-        }, (res) => {
-            $timeout(() => form.enabled = true, 1000);
-            form.unlock();
+            } else if (res.data.prevalidation) {
+                $ctrl.getApplicableFunds().then((funds) => {
+                    if (funds.length > 0) {
+                        let vouchers = [];
 
-            if (res.status == 404) {
-                form.errors.code = [
-                    res.data.meta.message
-                ];
+                        Promise.all(funds.map((fund) => (new Promise((resolve, reject) => {
+                            $ctrl.applyFund(fund).then((voucher) => {
+                                vouchers.push(voucher);
+                                resolve(voucher);
+                            }, reject);
+                        })))).then(() => {
+                            if (vouchers.length == 0) {
+                                $state.go('funds');
+                            } else if (vouchers.length == 1) {
+                                $state.go('voucher', vouchers[0]);
+                            } else {
+                                $state.go('vouchers');
+                            }
+                        });
+                    } else {
+                        $state.go('funds');
+                    }
+                });
+            }
+        }, (res) => {
+            if ((res.status == 404 || res.status === 403) && res.data.meta) {
+                form.errors.code = [res.data.meta.message];
             } else if (res.data.meta || res.status == 429) {
                 ModalService.open('modalNotification', {
                     type: 'info',
                     title: res.data.meta.title,
                     description: res.data.meta.message.split("\n"),
                 });
+            } else {
+                ModalService.open('modalNotification', {
+                    type: 'info',
+                    title: 'Error',
+                    description: res.data.message.split("\n"),
+                });
             }
+
+            $timeout(() => form.enabled = true, 1000);
+            form.unlock();
         });
     };
 
@@ -156,6 +167,7 @@ let FundActivateComponent = function(
             // digid sign-in flow
             if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
                 PushNotificationsService.success('Succes! Ingelogd met DigiD.');
+                sessionStorage.setItem('__last_timestamp', new Date().getTime());
 
                 // user vouchers
                 let vouchers = $ctrl.vouchers;
@@ -219,7 +231,7 @@ let FundActivateComponent = function(
                             voucher => voucher.fund_id === fundsWithVouchers[0].id
                         )[0].address,
                     });
-                }  else {
+                } else {
                     // None of above
                     $state.go('funds');
                 }
@@ -232,7 +244,7 @@ let FundActivateComponent = function(
     };
 
     $ctrl.getFundVouchers = (fund, vouchers) => {
-        return vouchers.filter(voucher => voucher.fund_id === fund.id);
+        return vouchers.filter(voucher => voucher.fund_id === fund.id && !voucher.expired);
     };
 
     $ctrl.getFirstFundVoucher = (fund, vouchers) => {
@@ -345,7 +357,6 @@ module.exports = {
         'FundService',
         'AuthService',
         'PushNotificationsService',
-        'PrevalidationService',
         'FormBuilderService',
         'DigIdService',
         'ModalService',

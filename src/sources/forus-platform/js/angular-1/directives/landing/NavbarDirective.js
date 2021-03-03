@@ -1,6 +1,5 @@
 let LandingNavbarDirective = function(
     $scope,
-    $state,
     ModalService,
     ConfigService
 ) {
@@ -29,14 +28,12 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
-            '$state',
             'ModalService',
             'ConfigService',
             LandingNavbarDirective
         ],
         templateUrl: ($el, $attr) => {
-            let template = $attr.template || 'navbar';
-            return 'assets/tpl/directives/landing/' + template + '.html';
+            return 'assets/tpl/directives/landing/' + ($attr.template || 'navbar') + '.html';
         }
     };
 };

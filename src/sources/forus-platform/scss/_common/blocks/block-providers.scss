@@ -45,6 +45,22 @@
                 font: 600 11px/16px $bf;   
                 color: #305dfb;
                 @include ellipsis();
+
+                .tag {
+                    margin-right: 0;
+                }
+
+                .provider-activity {
+                    font: 500 11px/13px $bf;
+                    color: #151B26;
+
+                    &:before {
+                        content: '|';
+                        color: #D4D9DD;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                    }
+                }
             }
         }
 

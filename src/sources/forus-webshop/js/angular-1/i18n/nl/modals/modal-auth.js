@@ -1,6 +1,12 @@
 module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
     header: {
+        title: 'Login met e-mail',
+
+        subtitle_formal: 'Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.',
+        subtitle_informal: 'Vul jouw e-mailadres in om een link te ontvangen waarmee je kunt inloggen.',
+
+        // todo: check if can be deleted
         nijmegen: {
             title: "Inloggen bij de Meedoen-regeling",
             subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
@@ -40,7 +46,7 @@ module.exports = {
     },
     notifications: {
         confirmation: "Het is gelukt!",
-        link: "Er is een e-mail verstuurd naar <b>{{email}}</b>. Klik op de link om u aan te melden.",
+        link: "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om u aan te melden.",
         invalid: "De activatiecode is ongeldig of al gebruikt.",
         voucher_email: "Uw tegoed is verstuurd naar uw mail.",
     },
@@ -109,5 +115,7 @@ module.exports = {
     },
     validation: {
         email_confirmation: "De e-mailadressen komen niet overeen"
-    }
+    },
+    restore_formal: 'Vergeten welk e-mailadres u heeft gebruikt?',
+    restore_informal: 'Vergeten welk e-mailadres je hebt gebruikt?',
 }

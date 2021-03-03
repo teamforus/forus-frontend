@@ -1,24 +1,14 @@
-let LoginComponent = function(
-    $rootScope
-) {
+let LoginComponent = function(appConfigs) {
     let $ctrl = this;
 
-    $ctrl.selectedType = null;
-
-    $ctrl.selectType = (type) => {
-        $ctrl.selectedType = $ctrl.selectedType == type ? null : type;
-
-        document.location.href = $rootScope.appConfigs.frontends['url_' + $ctrl.selectedType];
-    }
-
-    $ctrl.login = () => {
-        document.location.href = '#!/register';
+    $ctrl.$onInit = () => {
+        $ctrl.appConfigs = appConfigs;
     };
 };
 
 module.exports = {
     controller: [
-        '$rootScope',
+        'appConfigs', 
         LoginComponent
     ],
     templateUrl: 'assets/tpl/pages/website/login.html'

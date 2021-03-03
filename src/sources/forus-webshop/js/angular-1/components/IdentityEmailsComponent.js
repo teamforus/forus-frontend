@@ -13,11 +13,17 @@ let IdentityEmailsComponent = function(
         if (email.disabled) {
             return false;
         }
+
+        delete email.error;
         
         IdentityEmailsService.resendVerification(email.id).then(() => {
             PushNotificationsService.success('Verificatie e-mail opnieuw verstuurd!');
             email.disabled = true;
             timeout = $timeout(() => email.disabled = false, 1000);
+        }, (res) => {
+            if (res.status === 429) {
+                email.error = res.data.message;
+            }
         });
     };
 
@@ -59,7 +65,12 @@ let IdentityEmailsComponent = function(
                 $ctrl.formSuccess = true;
                 $ctrl.form = false;
             }, (res) => {
-                form.errors = res.data.errors;
+                if (res.status === 429) {
+                    form.errors = {email: [res.data.message]};
+                } else {
+                    form.errors = res.data.errors;
+                }
+
                 form.unlock();
             });
         }, true);

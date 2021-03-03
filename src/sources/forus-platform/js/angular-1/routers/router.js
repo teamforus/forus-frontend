@@ -365,7 +365,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             product: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => $transition$.params().fund_id != null ? repackResponse(
-                FundService.getroviderProduct(
+                FundService.getProviderProduct(
                     $transition$.params().organization_id,
                     $transition$.params().fund_id,
                     $transition$.params().fund_provider_id,
