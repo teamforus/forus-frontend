@@ -204,6 +204,17 @@
                 &.sign_up-pane-text-xs {
                     font: 400 11px/26px $bf;
                 }
+
+                &.list-item-normal {
+                    list-style-type: disc;
+                    background-image: none;
+                    padding-left: 0;
+                    margin-bottom: 0;
+                }
+            }
+                            
+            .list-normal {
+                padding-left: 18px;
             }
 
             .sign_up-pane-media {
