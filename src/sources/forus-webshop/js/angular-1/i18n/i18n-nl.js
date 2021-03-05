@@ -86,7 +86,6 @@ module.exports = {
     block_funds: require("./nl/directives/block-funds"),
     block_notifications:  require("./nl/directives/block-notifications"),
     block_providers: require("./nl/directives/block-providers"),
-    contact: require("./nl/directives/contact"),
     empty_block: require("./nl/directives/empty-block"),
     fund_criterion: require("./nl/directives/fund-criterion"),
     maps: require("./nl/directives/google-map"),
