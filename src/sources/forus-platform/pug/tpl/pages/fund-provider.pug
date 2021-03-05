@@ -47,7 +47,7 @@
                     td.td-narrow.text-right: .button-group.flex-end
                         .flex.flex-center(ng-if="product.is_available && product.allowed"): .flex-self-center
                             .tag.tag-success.nowrap.flex
-                                | Actie actief 
+                                | Subsidie actief 
                                 .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, product)")
                             .hidden
                         .flex.flex-center(ng-if="!product.is_available"): .flex-self-center
@@ -57,7 +57,7 @@
                             ng-if="product.is_available && !product.allowed" 
                             ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, product)")
                             em.mdi.mdi-play.icon-start
-                            | Start actie
+                            | Start subsidie
                         a(ui-sref="fund-provider-product-create(product.copyParams)").button.button-icon.button-text: em.mdi.mdi-content-copy
                         a(ui-sref="fund-provider-product-edit(product.editParams)").button.button-default.button-sm.button-icon: em.mdi.mdi-pencil
                         button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm.button-icon: em.mdi.mdi-eye-outline
@@ -128,7 +128,7 @@
         //- Products for budget fund
         .card(ng-if="$ctrl.fundProvider.fund.type == 'budget'")
             .card-header: .flex-row
-                .flex-col: .card-title Aanbiedingen
+                .flex-col: .card-title Aanbod in beheer van {{ $ctrl.fundProvider.organization.name }}
                 .flex-col: .card-header-drown: .block.block-inline-filters
                     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
@@ -171,7 +171,7 @@
                             ui-sref="fund-provider-product-create(product.copyParams)").button.button-icon.button-text: em.mdi.mdi-content-copy
                         button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm
                             em.mdi.mdi-eye-outline.icon-start
-                            | Kijk
+                            | Bekijken
             
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
@@ -180,7 +180,7 @@
         //- Products for subsidy fund
         .card(ng-if="$ctrl.fundProvider.fund.type == 'subsidies'")
             .card-header: .flex-row
-                .flex-col: .card-title Aanbiedingen
+                .flex-col: .card-title Aanbod in beheer van {{ $ctrl.fundProvider.organization.name }}
                 .flex-col: .card-header-drown: .block.block-inline-filters
                     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
@@ -207,10 +207,10 @@
                             ng-if="product.is_available && !product.allowed" 
                             ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, product)")
                             em.mdi.mdi-play.icon-start
-                            | Start actie
+                            | Start subsidie
                         div(ng-if="product.is_available && product.allowed")
                             .tag.tag-success.nowrap
-                                | Actie actief 
+                                | Subsidie actief 
                                 .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, product)")
                             .hidden
                         div(ng-if="!product.is_available")
@@ -228,7 +228,7 @@
                 paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
 
         //- Provider offices
-        block-provider-organization-offices(offices="$ctrl.fundProvider.offices")
+        //- block-provider-organization-offices(offices="$ctrl.fundProvider.offices")
         
         //- Provider employees
-        block-provider-organization-employees(employees="$ctrl.fundProvider.employees")
+        //- block-provider-organization-employees(employees="$ctrl.fundProvider.employees")

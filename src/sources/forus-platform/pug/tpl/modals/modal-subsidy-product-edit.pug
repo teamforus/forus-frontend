@@ -5,8 +5,8 @@
     //- Select type
     form(ng-submit="$ctrl.form.submit()").modal-window
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header(ng-if="!$ctrl.readOnly") Actie starten
-        .modal-header(ng-if="$ctrl.readOnly") Actie bekijken
+        .modal-header(ng-if="!$ctrl.readOnly") Subsidie starten
+        .modal-header(ng-if="$ctrl.readOnly") Subsidie bekijken
 
         .modal-body: .block.block-subsidy-editor
             .subsidy-product
@@ -119,7 +119,7 @@
                 .subsidy-form-content(ng-if="$ctrl.readOnly")
                     .form
                         .form-group
-                            .form-label Totaal aantal acties #[tooltip(text="'Totaal aantal acties waaraan uw organisatie wilt bijdragen'")]
+                            .form-label Totaal aantal #[tooltip(text="'Totaal aantal aanbiedingen waaraan uw organisatie wilt bijdragen'")]
                             .form-value-placeholder.form-value-placeholder-sm(ng-bind="$ctrl.form.values.limit_total_unlimited ? 'Onbeperkt' : $ctrl.form.values.limit_total")
                         .form-group
                             .form-label Limiet per aanvrager
