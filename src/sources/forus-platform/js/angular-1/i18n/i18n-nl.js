@@ -357,7 +357,7 @@ module.exports = {
 
             provider: "Aanbiederpagina content",
             privacy: "Privacy content",
-            explanation: "Externe uitleg URL",
+            explanation: "Uitleg pagina content",
             accessibility: "Toegankelijkheidsverklaring",
             terms_and_conditions: "Algemene voorwaarden",
 
@@ -886,7 +886,7 @@ module.exports = {
         employee: {
             labels: {
                 employee_add_header: "Bevestig uitnodiging",
-                employee_add_message: "Wil u de medewerker <strong class='text-primary'>{{email}}</strong> uitnodigen? <br>Deze medewerker zal hier over een email ontvangen.",
+                employee_add_message: "Wilt u medewerker met het e-mailadres <strong class='text-primary'>{{email}}</strong> uitnodigen? <br>Deze medewerker zal hier over een e-mail ontvangen.",
                 accept: "Bevestig",
                 cancel: "Annuleer"
             }

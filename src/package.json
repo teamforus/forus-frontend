@@ -3,8 +3,10 @@
   "version": "0.2.1",
   "description": "quick-dev-template",
   "main": "index.js",
-  "browserslist": "> 0.25%, not dead",
+  "browserslist": "defaults",
   "scripts": {
+    "start": "gulp",
+    "build": "gulp compile",
     "webdriver-update": "webdriver-manager update",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

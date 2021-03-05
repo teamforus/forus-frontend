@@ -1,13 +1,13 @@
 top-navbar
 
 .page.page-home
-    .block.block-steps(ng-if="$ctrl.description_steps_html"): .wrapper
+    .block.block-steps(ng-if="$ctrl.description_html"): .wrapper
         .block.block-breadcrumbs
             a(ui-sref="home").breadcrumb-item Home
             .breadcrumb-item.active Uitleg
-        .block-steps-description: .block.block-markdown(ng-bind-html="$ctrl.description_steps_html")
+        .block-steps-description: .block.block-markdown(ng-bind-html="$ctrl.description_html")
 
-    section.section.section-steps#steps(ng-if="$ctrl.appConfigs.flags.homeSteps && !$ctrl.description_steps_html"): .wrapper
+    section.section.section-steps#steps(ng-if="!$ctrl.description_html"): .wrapper
         .block.block-breadcrumbs
             a(ui-sref="home").breadcrumb-item Home
             .breadcrumb-item.active Uitleg
@@ -32,7 +32,7 @@ top-navbar
                 h4(i18n="home.guide.stepfive")
                 p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
 
-    section.section.section-faq(ng-if="$ctrl.appConfigs.flags.homeFaq && !$ctrl.description_steps_html"): .wrapper
+    section.section.section-faq(ng-if="!$ctrl.description_html"): .wrapper
         .section-splash
         .section-title(i18n="home.faq.title")
         .faq(collapse)
