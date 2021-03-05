@@ -377,13 +377,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$.params().organization_id,
                 fundProvider.organization_id,
             )) : permission],
-            product: ['permission', '$transition$', 'OrganizationService', 'providerOrganization', (
-                permission, $transition$, OrganizationService, providerOrganization
-            ) => permission ? repackResponse(OrganizationService.sponsorProduct(
+            product: ['$transition$', 'FundService', 'permission', (
+                $transition$, FundService
+            ) => $transition$.params().product_id ? repackResponse(FundService.getProviderProduct(
                 $transition$.params().organization_id,
-                providerOrganization.id,
-                $transition$.params().product_id,
-            )) : null],
+                $transition$.params().fund_id,
+                $transition$.params().fund_provider_id,
+                $transition$.params().product_id
+            )) : new Promise((res) => res(null))],
         }
     });
 

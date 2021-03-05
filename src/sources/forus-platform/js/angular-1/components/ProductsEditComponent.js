@@ -45,19 +45,25 @@ const ProductsEditComponent = function(
         const dealsHistory = (fromProduct && fromProduct.deals_history) ? fromProduct.deals_history : [];
         const deal = dealsHistory.filter((deal) => deal.active)[0] || false;
 
-        $ctrl.subsidyForm = FormBuilderService.build(deal ? {
+        const values = deal ? {
+            expire_at: deal.expire_at ? deal.expire_at : $ctrl.fundProvider.fund.end_date,
+            expires_with_fund: deal.expire_at ? false : true,
             limit_total: parseFloat(deal.limit_total),
             unlimited_stock: deal.limit_total_unlimited,
             limit_per_identity: parseInt(deal.limit_per_identity),
             amount: parseFloat(deal.amount),
             gratis: parseFloat(deal.amount) === parseFloat(fromProduct.amount),
-        }: {
+        } : {
+            expire_at: $ctrl.fundProvider.fund.end_date,
+            expires_with_fund: true,
             limit_total: 1,
             unlimited_stock: false,
             limit_per_identity: 1,
             amount: 0,
             gratis: false,
-        }, (form) => {
+        };
+
+        $ctrl.subsidyForm = FormBuilderService.build(values, (form) => {
             FundService.updateProvider(provider.fund.organization_id, provider.fund.id, provider.id, {
                 enable_products: [{
                     id: $ctrl.sponsorProduct.id,
@@ -65,6 +71,7 @@ const ProductsEditComponent = function(
                     limit_total: form.values.limit_total,
                     limit_total_unlimited: form.values.unlimited_stock ? 1 : 0,
                     limit_per_identity: form.values.limit_per_identity,
+                    expire_at: form.values.expires_with_fund ? null : form.values.expire_at,
                 }],
             }).then(() => {
                 $ctrl.goToFundProvider(provider);
@@ -128,7 +135,7 @@ const ProductsEditComponent = function(
                         $ctrl.product.id,
                         updateValues
                     );
-                } else {ole.log('OrganizationService.sponsorProductUpdate');
+                } else {
                     promise = OrganizationService.sponsorProductUpdate(
                         $ctrl.organization.id,
                         $ctrl.fundProvider.organization_id,
@@ -230,7 +237,7 @@ const ProductsEditComponent = function(
     };
 
     $ctrl.selectPhoto = (file) => mediaFile = file;
-    
+
     $ctrl.cancel = () => {
         if ($ctrl.fundProvider) {
             $ctrl.goToFundProvider($ctrl.fundProvider);
@@ -240,6 +247,7 @@ const ProductsEditComponent = function(
     };
 
     $ctrl.$onInit = function() {
+        console.log($ctrl);
         $ctrl.nonExpiring = !$ctrl.product || ($ctrl.product && !$ctrl.product.expire_at);
         $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
         $ctrl.buildForm();
