@@ -42,21 +42,21 @@
             ng-if="form.values.gratis"
             ng-model="$ctrl.product.price").form-control
 
-    .form-group
-        label(for='expires_with_fund').checkbox.checkbox-narrow
-            input(type="checkbox" ng-model="form.values.expires_with_fund" id='expires_with_fund')
-            .checkbox-label 
-                .checkbox-box: .mdi.mdi-check
-                | Expires with the fund
-
     .form-group(ng-if="!form.values.expires_with_fund")
-        .form-label Expiration date
+        .form-label Verloopdatum
         .row: .col.col-lg-3.col-xs-12
             datepicker(
                 date-format="yyyy-MM-dd" 
                 datepicker-mobile=""
                 date-week-start-day="1").form-control
                 input(ng-model="form.values.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
+                
+    .form-group
+        label(for='expires_with_fund').checkbox.checkbox-narrow
+            input(type="checkbox" ng-model="form.values.expires_with_fund" id='expires_with_fund')
+            .checkbox-label 
+                .checkbox-box: .mdi.mdi-check
+                | Verloopt met het tegoed
 
     .form-group
         label(
