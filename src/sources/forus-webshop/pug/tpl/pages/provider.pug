@@ -36,9 +36,9 @@ block content
                             .data-list-value(ng-bind="$ctrl.provider.phone")
                         
                         .data-list-row(ng-if="$ctrl.provider")
-                            .data-list-key Organisatie type:
+                            .data-list-key Type aanbieder:
                             .data-list-value
-                                .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen organisatie type' }}
+                                .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen aanbieder type' }}
             
             .block.block-pane.last-child: .pane-head
                 .flex-grow Vestigingen
@@ -57,7 +57,7 @@ block content
                                     .office-details
                                         .office-title(ng-bind="office.address")
                                         .office-labels
-                                            .label.label-default(ng-bind="$ctrl.provider.business_type.name || 'Geen organisatie type'")
+                                            .label.label-default(ng-bind="$ctrl.provider.business_type.name || 'Geen aanbieder type'")
                                         
                                         div(ng-if="office.phone || provider.phone || provider.email")
                                             .office-info.office-info-inline(ng-if="office.phone || provider.phone")
