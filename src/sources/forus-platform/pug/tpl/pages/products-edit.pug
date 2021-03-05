@@ -86,7 +86,8 @@
                                 ng-model="$ctrl.form.values.price_discount" 
                                 type="number" 
                                 placeholder="20%" 
-                                step="0.01").form-control
+                                step="0.01"
+                                max="100").form-control
                             .form-error(ng-repeat="error in $ctrl.form.errors.price_discount" ng-bind="error")
 
                     //- Discount fixed
