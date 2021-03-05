@@ -28,7 +28,8 @@ app.component('officesEditComponent', require('./components/OfficesEditComponent
 app.component('productsComponent', require('./components/ProductsComponent'));
 app.component('productsEditComponent', require('./components/ProductsEditComponent'));
 app.component('productsShowComponent', require('./components/ProductsShowComponent'));
-app.component('organizationProvidersComponent', require('./components/OrganizationProvidersComponent'));
+app.component('sponsorProviderOrganizationsComponent', require('./components/SponsorProviderOrganizationsComponent'));
+app.component('sponsorProviderOrganizationComponent', require('./components/SponsorProviderOrganizationComponent'));
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
@@ -211,6 +212,10 @@ app.directive('printableEnabler', require('./directives/printables/PrintableEnab
 
 app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
 app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissionDirective'));
+app.directive('blockProviderOrganizationOffices', require('./directives/blocks/sponsor/BlockProviderOrganizationOfficesDirective'));
+app.directive('blockProviderOrganizationEmployees', require('./directives/blocks/sponsor/BlockProviderOrganizationEmployeesDirective'));
+app.directive('blockProviderOrganizationOverview', require('./directives/blocks/sponsor/BlockProviderOrganizationOverviewDirective'));
+app.directive('blockProductSubsidyForm', require('./directives/blocks/sponsor/BlockProductSubsidyFormDirective'));
 
 // Providers
 app.provider('PrintableRoute', require('./providers/PrintableRouteProvider'));

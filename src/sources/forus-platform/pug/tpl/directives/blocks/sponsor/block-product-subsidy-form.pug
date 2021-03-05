@@ -1,0 +1,54 @@
+.form
+    .form-group
+        .form-label Totaal aantal acties dat vanuit {{ $ctrl.fund.name  }} gebruikt mag worden.
+        .row: .col.col-lg-3.col-xs-12: input(
+            ng-disabled="form.values.unlimited_stock"
+            ng-model="form.values.limit_total" 
+            type="number" 
+            placeholder="Totaal aanbod" 
+            min="1" 
+            max="{{ unlimitedStock ? '' : stockAmount }}").form-control
+        .form-limit(ng-if="!unlimitedStock") Limiet 1/{{ stockAmount }}
+        .form-limit(ng-if="unlimitedStock") Ongelimiteerd
+        label(ng-if="unlimitedStock" for='unlimited_stock_subsidy').checkbox.checkbox-narrow
+            input(type="checkbox" value="1" ng-model="form.values.unlimited_stock" id='unlimited_stock_subsidy')
+            .checkbox-label 
+                .checkbox-box: .mdi.mdi-check
+                | Ongelimiteerd aantal acties mag gebruikt worden
+    .form-group
+        .form-label Hoe vaak mag er per inwoner gebruik gemaakt worden van deze actie?
+        .row: .col.col-lg-3.col-xs-12: input(
+            ng-model="form.values.limit_per_identity" 
+            type="number" 
+            placeholder="Limiet per aanvrager" 
+            min="1" 
+            max="{{ unlimitedStock ? '' : stockAmount }}").form-control
+        .form-limit(ng-if="!unlimitedStock") Limiet 1/{{ stockAmount }}
+        .form-limit(ng-if="unlimitedStock") Ongelimiteerd
+    .form-group
+        .form-label Welke bijdrage wilt u als organisatie doen?
+        .row: .col.col-lg-3.col-xs-12: input(
+            ng-if="!form.values.gratis"
+            ng-disabled="form.values.gratis"
+            ng-model="form.values.amount" 
+            type="number" 
+            placeholder="Bijdrage" 
+            step=".1" 
+            min="0" 
+            ng-change="$ctrl.amountChange()").form-control
+        .row: .col.col-lg-3.col-xs-12: input(
+            disabled
+            ng-if="form.values.gratis"
+            ng-model="$ctrl.product.price").form-control
+    .form-group
+        label(
+            ng-if="$ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular'" 
+            for='subsidie').checkbox.checkbox-narrow
+            input(type="checkbox" ng-model="form.values.gratis" id='subsidie')
+            .checkbox-label 
+                .checkbox-box: .mdi.mdi-check
+                | Volledige bijdrage vanuit de sponsor (voor de inwoner is het gratis)
+        .form-error(ng-repeat="error in form.errors['enable_products.0.amount']" ng-bind="error")
+        .form-error(ng-repeat="error in form.errors['enable_products.0.limit_total']" ng-bind="error")
+        .form-error(ng-repeat="error in form.errors['enable_products.0.limit_per_identity']" ng-bind="error")
+        .form-error(ng-repeat="error in form.errors['enable_products.0']" ng-bind="error")

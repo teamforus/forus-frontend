@@ -580,21 +580,13 @@
                         funds-available="$ctrl.fundsAvailable" 
                         organization="$ctrl.organization")
 
-                    .card(
+                    fund-card-provider-can-join(
                         ng-if="$ctrl.fundsAvailable.meta.total > 0"
-                        ng-repeat="fund in $ctrl.fundsAvailable.data")
-                            .card-section.card-section-primary
-                                div(
-                                    template="provider-signup-fund-card"
-                                    fund-card-provider-can-join
-                                    fund="fund"
-                                    organization="$ctrl.organization"
-                                    hide-modal="true")
-
-                                block-empty(
-                                    ng-if="$ctrl.funds.length == 0"
-                                    text="Er zijn momenteel geen actieve fondsen.")
-                                    
+                        ng-repeat="fund in $ctrl.fundsAvailable.data"
+                        template="provider-signup-fund-card"
+                        fund="fund"
+                        organization="$ctrl.organization"
+                        hide-modal="true")    
 
                     block-empty(
                         ng-if="$ctrl.fundsAvailable.meta.total == 0" 
