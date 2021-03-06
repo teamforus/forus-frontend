@@ -1,6 +1,9 @@
 .app.app-container
     menu
     section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="products({organization_id: $root.activeOrganization.id})") Aanbod  
+            .breadcrumb-item.active Aanbod toevoegen
         //- information-block(text="'products.cannot_delete'" type="'danger'")
         .card: form(ng-submit="$ctrl.saveProduct()").form
             .card-header
