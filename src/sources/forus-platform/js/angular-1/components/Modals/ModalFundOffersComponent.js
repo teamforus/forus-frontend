@@ -1,6 +1,6 @@
 let ModalFundOffersComponent = function (
     ProductService,
-    FundService,
+    ProviderFundService,
 ) {
     let $ctrl = this;
 
@@ -9,9 +9,8 @@ let ModalFundOffersComponent = function (
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.providerFund = $ctrl.modal.scope.providerFund;
 
-        FundService.readProvider(
-            $ctrl.fund.organization.id,
-            $ctrl.fund.id,
+        ProviderFundService.readFundProvider(
+            $ctrl.organization.id,
             $ctrl.providerFund.id
         ).then(res => {
             $ctrl.enabledProducts = res.data.data.products;
@@ -53,7 +52,7 @@ module.exports = {
     },
     controller: [
         'ProductService',
-        'FundService',
+        'ProviderFundService',
         ModalFundOffersComponent
     ],
     templateUrl: () => {

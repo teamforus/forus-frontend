@@ -14,7 +14,8 @@ section.section.section-product: .wrapper
         
         .voucher-item.voucher-item-use(
             ng-repeat="voucher in $ctrl.applicableVouchers")
-            .voucher-image(style="background-image: url({{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }})")
+            .voucher-image
+                img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
             .voucher-details
                 .voucher-name(ng-bind="voucher.fund.name")
                 .voucher-organization(ng-bind="voucher.fund.organization.name")

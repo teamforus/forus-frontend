@@ -1,5 +1,4 @@
 let ProviderFundsComponent = function(
-    $state,
     $stateParams,
     $filter,
     ProviderFundService,
@@ -110,7 +109,6 @@ module.exports = {
         organization: '<',
     },
     controller: [
-        '$state',
         '$stateParams',
         '$filter',
         'ProviderFundService',
