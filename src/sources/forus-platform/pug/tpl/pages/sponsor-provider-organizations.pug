@@ -114,7 +114,7 @@
                             strong(ng-if="providerOrganization.funds_active === 1" ng-bind="providerOrganization.funds_active + ' fonds'").text-primary
                             strong(ng-if="providerOrganization.funds_active > 1" ng-bind="providerOrganization.funds_active + ' fondsen'").text-primary
                 .provider-actions.form
-                    .provider-action-item: a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-default 
+                    .provider-action-item: a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-primary 
                         em.mdi.mdi-eye-outline.icon-start
                         | Bekijken
                 .break
@@ -130,7 +130,7 @@
                             td.td-narrow.text-right
                                 a(ui-sref="fund-provider({organization_id: fund.organization_id, fund_id: fund.id, fund_provider_id: fund.fund_provider_id})").button.button-default 
                                     em.mdi.mdi-eye-outline.icon-start
-                                    | Bekijken
+                                    | Bekijk aanbod
         block-empty( 
             ng-if="$ctrl.providerOrganizations.data.length == 0"
             text="Je hebt nog geen verzoeken van aanbieders")
