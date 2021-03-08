@@ -4,8 +4,8 @@
     margin-bottom: 20px;
 
     .provider-item {
-        flex-direction: column;
         display: flex;
+        flex-wrap: wrap;
         padding: 20px;
         flex-direction: row;
         position: relative;
@@ -14,7 +14,20 @@
         border-radius: $border_radius / 2;
         box-shadow: $box_shadow;
         cursor: default;
-
+        .break {
+            flex-basis: 100%;
+            height: 0;
+        }
+        .provider-funds {
+            flex-grow: 1;
+            .table-wrapper {
+                margin: -20px;
+                margin-top: 20px;
+                tr {
+                    border-top: 1px solid #d2e6ff;
+                }
+            }
+        }
         .provider-media {
             display: flex;
             flex-direction: column;
