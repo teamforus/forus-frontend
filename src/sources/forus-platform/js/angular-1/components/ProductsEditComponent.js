@@ -247,7 +247,6 @@ const ProductsEditComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        console.log($ctrl);
         $ctrl.nonExpiring = !$ctrl.product || ($ctrl.product && !$ctrl.product.expire_at);
         $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
         $ctrl.buildForm();

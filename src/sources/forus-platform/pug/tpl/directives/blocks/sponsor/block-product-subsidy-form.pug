@@ -1,13 +1,18 @@
 .form
     .form-group
         .form-label Totaal aantal aanbiedingen dat vanuit {{ $ctrl.fund.name  }} gebruikt mag worden.
-        .row: .col.col-lg-3.col-xs-12: input(
-            ng-disabled="form.values.unlimited_stock"
-            ng-model="form.values.limit_total" 
-            type="number" 
-            placeholder="Totaal aanbod" 
-            min="1" 
-            max="{{ unlimitedStock ? '' : stockAmount }}").form-control
+        .row: .col.col-lg-3.col-xs-12
+            input(
+                ng-if="!(unlimitedStock && form.values.unlimited_stock)"
+                ng-model="form.values.limit_total" 
+                type="number" 
+                placeholder="Totaal aanbod" 
+                min="1" 
+                max="{{ unlimitedStock ? '' : stockAmount }}").form-control
+            input(
+                disabled
+                ng-if="unlimitedStock && form.values.unlimited_stock"
+                value='Ongelimiteerd').form-control
         .form-limit(ng-if="!unlimitedStock") Limiet 1/{{ stockAmount }}
         .form-limit(ng-if="unlimitedStock") Ongelimiteerd
         label(ng-if="unlimitedStock" for='unlimited_stock_subsidy').checkbox.checkbox-narrow
