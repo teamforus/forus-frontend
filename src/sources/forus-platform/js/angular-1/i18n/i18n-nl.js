@@ -480,7 +480,7 @@ module.exports = {
     // ORGANIZATION PROVIDERS = organization-providers.pug
     organization_providers: {
         header: {
-            title: "Aanbieders per fonds"
+            title: "Aanbieders"
         },
         status: {
             accepted: "Geaccepteerd",
@@ -709,13 +709,15 @@ module.exports = {
             main_header: "Aanmelden als aanbieder",
             go_back: "Terug",
             title_step_1: "Welkom",
-            subtitle_step_1: "Door dit online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 5 minuten.",
-            title_step_1_paragrah_1: "Aanbiedingen plaatsen en betalingen ontvangen",
-            subtitle_step_1_paragrah_1: "Na het aanmelden krijgt u toegang tot uw aanbieders webomgeving. Nadat uw aamelding is geaccepteerd kunt u producten en/of diensten aanbieden en betalingen ontvangen.",
+            subtitle_step_1: "Meld uw organisatie aan door dit formulier in te vullen. Als aanbieder plaatst u aanbod en ontvangt u betalingen. Het invullen duurt ongeveer 15 minuten.",
+            title_step_1_paragrah_1: "Hoe werkt het?",
+            subtitle_step_1_point_1: "Doorloop de stappen in het aanmeldformulier.",
+            subtitle_step_1_point_2: "Hierna komt u in de beheeromgeving. Plaats hier uw aanbod.",
+            subtitle_step_1_point_3: "Gebruik de Me-app om betalingen te ontvangen. Deze app downloadt u in de volgende stappen.",
             title_step_1_paragrah_2: "Heeft u al een account?",
-            subtitle_step_1_paragrah_2: "of rechts bovenin om in te loggen met een bestaand account. U hoeft het aanmeldformulier dan niet te doorlopen.",
+            subtitle_step_1_paragrah_2: "of rechts bovenin om in te loggen met een bestaand account.",
             title_step_1_paragrah_3: "Hulp nodig?",
-            subtitle_step_1_paragrah_3: "Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.",
+            subtitle_step_1_paragrah_3: "Klik op het vraagteken rechtsonder in beeld. Hiermee opent u de helpdesk.",
             title_step_2: "Benodigdheden",
             subtitle_step_2: "U gaat de me app gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" +
                 "De Me app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" +
@@ -886,7 +888,7 @@ module.exports = {
         employee: {
             labels: {
                 employee_add_header: "Bevestig uitnodiging",
-                employee_add_message: "Wil u de medewerker <strong class='text-primary'>{{email}}</strong> uitnodigen? <br>Deze medewerker zal hier over een email ontvangen.",
+                employee_add_message: "Wilt u medewerker met het e-mailadres <strong class='text-primary'>{{email}}</strong> uitnodigen? <br>Deze medewerker zal hier over een e-mail ontvangen.",
                 accept: "Bevestig",
                 cancel: "Annuleer"
             }
@@ -1504,6 +1506,7 @@ module.exports = {
             active: "Actief",
             paused: "Gepauzeerd",
             closed: "Gesloten",
+            archived: "Gearchiveerd",
         },
         buttons: {
             delete: "Verwijderen",

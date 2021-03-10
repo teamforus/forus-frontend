@@ -307,14 +307,14 @@ const FundService = function(ApiRequest, ModalService) {
 
         this.stopActionConfirmationModal = (onConfirm) => {
             ModalService.open("dangerZone", {
-                header: "Actie stoppen",
-                title: "De actie wordt van de website verwijderd.",
+                header: "Subsidie stoppen",
+                title: "De publicatie van het aanbod wordt van de website verwijderd",
                 description:
-                    "Hierna kan er van deze actie geen gebruik meer worden gemaakt.\n" +
-                    "De gebruikte tegoeden blijven bewaard." +
-                    "Wanneer u de actie opnieuw start, worden de gebruikte tegoeden verrekend met het nieuwe ingestelde limiet.",
+                    "Hierna kan er van dit aanbod geen gebruik meer worden gemaakt.\n" +
+                    "De gebruikte tegoeden blijven bewaard. " +
+                    "Wanneer u de subsidie opnieuw start, worden de gebruikte tegoeden verrekend met het nieuwe ingestelde limiet.",
                 cancelButton: "Annuleer",
-                confirmButton: "Stop actie",
+                confirmButton: "Stop subsidie",
                 onConfirm,
             })
         };

@@ -78,14 +78,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             funds: ['FundService', (
                 FundService
             ) => repackResponse(FundService.list())],
-            products: ['ProductService', (ProductService) => repackPagination(ProductService.list({
+            products: ['ProductService', (ProductService) => repackPagination(ProductService.sample({
                 fund_type: 'budget',
-                sample: 1,
                 per_page: 6,
             }))],
-            subsidies: ['ProductService', (ProductService) => repackPagination(ProductService.list({
+            subsidies: ['ProductService', (ProductService) => repackPagination(ProductService.sample({
                 fund_type: 'subsidies',
-                sample: 1,
                 per_page: 6,
             }))],
         }
