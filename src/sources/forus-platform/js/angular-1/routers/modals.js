@@ -111,10 +111,6 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundProviderChatMessageComponent'
     });
 
-    ModalRouteProvider.modal('subsidyProductEdit', {
-        component: 'modalSubsidyProductEditComponent'
-    });
-
     ModalRouteProvider.modal('duplicatesPicker', {
         component: 'modalDuplicatesPickerComponent'
     });

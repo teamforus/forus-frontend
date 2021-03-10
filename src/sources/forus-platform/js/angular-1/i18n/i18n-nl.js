@@ -480,7 +480,7 @@ module.exports = {
     // ORGANIZATION PROVIDERS = organization-providers.pug
     organization_providers: {
         header: {
-            title: "Aanbieders per fonds"
+            title: "Aanbieders"
         },
         status: {
             accepted: "Geaccepteerd",
@@ -1506,6 +1506,7 @@ module.exports = {
             active: "Actief",
             paused: "Gepauzeerd",
             closed: "Gesloten",
+            archived: "Gearchiveerd",
         },
         buttons: {
             delete: "Verwijderen",
