@@ -25,16 +25,16 @@ block content
                         .form-group
                             input.form-control(
                                 ng-model="$ctrl.form.values.q"
-                                placeholder="Zoeken..." 
+                                placeholder="Zoek aanbieder" 
                                 type="search")
 
                         .form-group
-                            label.form-label Organisatie type
+                            label.form-label Type aanbieder
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.businessType" 
                                 options="$ctrl.businessTypes"
-                                placeholder="Selecteer organisatie type...")
+                                placeholder="Selecteer type...")
 
                         .form-group
                             label.form-label Tegoeden

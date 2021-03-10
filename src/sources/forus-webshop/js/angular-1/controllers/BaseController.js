@@ -1,3 +1,5 @@
+const { logout } = require("../i18n/nl/modals/modal");
+
 let BaseController = function(
     $q,
     $state,
@@ -68,9 +70,9 @@ let BaseController = function(
         if (needConfirmation) {
             return ModalService.open('modalNotification', {
                 type: "confirm",
-                title: "Weet u zeker dat u wilt uitloggen?",
-                confirmBtnText: "Bevestig",
-                cancelBtnText: "Annuleer",
+                title: "logout.title_" + $rootScope.appConfigs.features.communication_type,
+                confirmBtnText: "buttons.confirm",
+                cancelBtnText: "buttons.cancel",
                 confirm: () => {
                     $rootScope.signOut();
                 },

@@ -99,7 +99,7 @@
                         .form-group.form-group-inline
                             .form-label 
                                 | Gebruikt
-                                tooltip(text="'How many products did citizens buy'")
+                                tooltip(text="'Hoeveel tegoed (tot zijn limiet) heeft de aanvrager gebruikt.'")
                             .form-offset: .col.col-lg-12: .form-value-placeholder.text-right(
                                 ng-bind="$ctrl.deal.voucher_transactions_count")
         
@@ -179,7 +179,7 @@
                                     | Volledige bijdrage
 
                 .form-group.form-group-inline.tooltipped
-                    tooltip(text="'Some other tooltip....'")
+                    tooltip(text="'Tot wanneer de subsidie geldig is. Kies de gewenste datum of de einddatum van het fonds.'")
                     .form-label Verloopdatum
                     .form-offset: .row
                         .col.col-lg-6.col-xs-12(ng-if="$ctrl.form.values.expires_with_fund")
@@ -198,7 +198,7 @@
                             input(type="checkbox" ng-model="$ctrl.form.values.expires_with_fund" id='expires_with_fund')
                             .checkbox-label 
                                 .checkbox-box: .mdi.mdi-check
-                                | Verloopt met het tegoed
+                                | Verloopt met het fonds
 
                 .form-group.form-group-inline(ng-if="$ctrl.form.errors['enable_products.0']")
                     .form-label &nbsp;

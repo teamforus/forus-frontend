@@ -126,10 +126,10 @@
                             .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
                                 .menu-dropdown-arrow
                                 .dropdown.dropdown-actions
-                                    .dropdown-heading Actions
+                                    .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
-                                    a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Copy
-                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Edit
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Kopieren
+                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken
 
             .card-section.text-center(ng-if="$ctrl.sponsorProducts.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
@@ -184,9 +184,9 @@
                             .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
                                 .menu-dropdown-arrow
                                 .dropdown.dropdown-actions
-                                    .dropdown-heading Actions
+                                    .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
-                                    a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Copy
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Kopieren
             
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
@@ -236,9 +236,9 @@
                             .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
                                 .menu-dropdown-arrow
                                 .dropdown.dropdown-actions
-                                    .dropdown-heading Actions
+                                    .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
-                                    a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Copy
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Kopieren
 
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")

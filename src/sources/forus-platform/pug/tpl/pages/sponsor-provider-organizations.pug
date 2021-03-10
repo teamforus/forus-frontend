@@ -54,7 +54,7 @@
                                             ng-model="$ctrl.filters.values.allow_budget" value="")
                                         label(for="allow_budget_all").radio-label
                                             .radio-circle
-                                            | Alle
+                                            | Alles
                             
                             .form-group
                                 form-label-toggle(label="Accepteer aanbiedingen")
@@ -90,7 +90,7 @@
                                             ng-model="$ctrl.filters.values.allow_products" value="")
                                         label(for="allow_products_all").radio-label
                                             .radio-circle
-                                            | Alle
+                                            | Alles
                             .form-actions(ng-show="$ctrl.providerOrganizations.meta.total > 0")
                                 button.button.button-primary.button-wide(ng-click="$ctrl.exportList()")
                                     em.mdi.mdi-download.icon-start  
@@ -113,13 +113,24 @@
                             strong(ng-if="providerOrganization.funds_active === 0" ng-bind="'geen fondsen'").text-primary
                             strong(ng-if="providerOrganization.funds_active === 1" ng-bind="providerOrganization.funds_active + ' fonds'").text-primary
                             strong(ng-if="providerOrganization.funds_active > 1" ng-bind="providerOrganization.funds_active + ' fondsen'").text-primary
-                    .provider-funds(ng-if="$ctrl.extendedView")
-                        .provider-fund(ng-repeat="fund in providerOrganization.funds" ng-class="{active: fund.active}" ng-bind="fund.name")
                 .provider-actions.form
-                    .provider-action-item: a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-default 
+                    .provider-action-item: a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-primary 
                         em.mdi.mdi-eye-outline.icon-start
                         | Bekijken
-
+                .break
+                .provider-funds(ng-if="$ctrl.extendedView")
+                    .card-section.card-section-padless: .table-wrapper: table.table.form
+                        tr
+                            th Fondsnaam
+                            th Status
+                            th Opties
+                        tr(ng-repeat="fund in providerOrganization.funds")
+                            td(ng-bind="fund.name")
+                            td: .tag.tag-sm(ng-class="'tag-' + (fund.active ? 'success' : 'warning')"   ng-bind="fund.active ? 'Geaccepteerd' : 'Wachtend'")  
+                            td.td-narrow.text-right
+                                a(ui-sref="fund-provider({organization_id: fund.organization_id, fund_id: fund.id, fund_provider_id: fund.fund_provider_id})").button.button-default 
+                                    em.mdi.mdi-eye-outline.icon-start
+                                    | Bekijk aanbod
         block-empty( 
             ng-if="$ctrl.providerOrganizations.data.length == 0"
             text="Je hebt nog geen verzoeken van aanbieders")
