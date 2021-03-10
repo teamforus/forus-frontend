@@ -96,7 +96,7 @@ let ModalAuthComponent = function(
                     icon: "email_signup",
                     icon_filetype: ".svg",
                     title: 'popup_auth.labels.mail_sent',
-                    description: 'popup_auth.notifications.link',
+                    description: 'popup_auth.notifications.link_' + appConfigs.features.communication_type,
                     confirmBtnText: 'popup_auth.buttons.submit'
                 });
             }, (res) => handleErrors);

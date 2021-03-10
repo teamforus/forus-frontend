@@ -64,7 +64,7 @@ header.section.section-sign-up-choose
                     .sign_up-pane-link(
                         ng-if="$ctrl.digidAvailable && !$root.appConfigs.flags.disableDigidRestoreOption" 
                         ng-click="$ctrl.setRestoreWithDigiD()" 
-                        translate="fund_request.sign_up.labels.restore_with_digid")
+                        translate="{{ 'fund_request.sign_up.labels.restore_with_digid_' + $root.appConfigs.features.communication_type }}")
 
                     br(ng-if="$ctrl.digidAvailable && !$root.appConfigs.flags.disableDigidRestoreOption")
 
@@ -120,7 +120,7 @@ header.section.section-sign-up-choose
                         .sign_up-email_sent-icon
                             img(src=src_prefix + "./assets/img/modal/email_signup.svg").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title(translate="popup_auth.labels.join")
-                        .sign_up-email_sent-text(translate="popup_auth.notifications.link" translate-values="{{ $ctrl.authForm.values }}")
+                        .sign_up-email_sent-text(translate="{{ 'popup_auth.notifications.link_' + $ctrl.appConfigs.features.communication_type }}" translate-values="{{ $ctrl.authForm.values }}")
             
             //- For existing users
             .sign_up-pane(ng-if="$ctrl.authEmailSent")

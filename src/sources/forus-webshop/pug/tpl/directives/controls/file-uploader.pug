@@ -15,6 +15,6 @@
             .file-item-container
                 .file-item-icon: img(ng-src=src_prefix + "assets/img/file-icon-{{ (fileItem.file.name.split('.')[fileItem.file.name.split('.').length - 1]) }}.svg")
                 .file-item-name(ng-bind="fileItem.file.name")
-                .file-item-progress: .file-item-progress-container: .file-item-progress-bar(style="width: {{ fileItem.progress }}%")
+                .file-item-progress: .file-item-progress-container: progress(max="100" value="{{ fileItem.progress }}")
                 .file-item-action: a(ng-click="$dir.removeFile(fileItem)").mdi.mdi-close
             .file-item-error: .text-danger(ng-repeat="fileItemError in fileItem.error" ng-bind="fileItemError")

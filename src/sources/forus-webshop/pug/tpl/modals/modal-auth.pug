@@ -12,7 +12,7 @@
 
             form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()")
                 .auth-form-input
-                    input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mail").form-control.email-auth
+                    input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mailadres").form-control.email-auth
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.email" ng-bind="error")
                 div: button(type="submit").button.button-primary Login
 
@@ -48,7 +48,7 @@
                     | Herstel uw account door opnieuw in te loggen met DigiD
                     br
                 .auth-subtitle 
-                    .button.button-digid(style="height: 48px; width: 48px") &nbsp;
+                    .button.button-digid &nbsp;
                     .button.button-primary(ng-click="$ctrl.startDigId()") Login
 
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId && $ctrl.restoreWithDigIdFailed")

@@ -25,7 +25,6 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_funds","view_finances","view_funds"]:false',
             'funds')
-            
 
         if (!qdt_c.platform.env_data.hide_voucher_generators)
             +nav_item(
@@ -59,7 +58,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             'employees')
 
         +nav_item(
-            "Aanbieders", "people", 'organization-providers', 
+            "Aanbieders", "people", 'sponsor-provider-organizations', 
             '{organization_id: $root.activeOrganization.id, fund_id: null}',
             '$root.activeOrganization | hasPerm:["manage_providers"]',
             'providers')

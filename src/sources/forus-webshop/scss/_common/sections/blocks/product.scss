@@ -13,20 +13,18 @@
         display: flex;
 
         .product-photo {
-            width: 40%;
-            min-width: 40%;
-            max-width: 40%;
+            width: 70%;
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
-            background-size: cover;
-            background-position: 50%;
-            background-repeat: no-repeat;
             border-radius: $border_radius;
             max-height: 400px;
 
             img {
                 width: 100%;
-                display: none;
+                min-width: 533px;
+                min-height: 400px;
+
+                border-radius: $border_radius;
                 border-top-left-radius: inherit;
                 border-bottom-left-radius: inherit;
             }

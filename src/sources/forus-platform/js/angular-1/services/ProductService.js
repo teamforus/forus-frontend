@@ -79,6 +79,7 @@ let ProductService = function(ApiRequest) {
                 expire_at: apiResource.expire_at,
                 total_amount: apiResource.total_amount,
                 stock_amount: apiResource.stock_amount,
+                unlimited_stock: apiResource.unlimited_stock,
                 sold_amount: apiResource.total_amount - apiResource.stock_amount,
                 product_category_id: apiResource.product_category_id,
             };
