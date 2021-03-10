@@ -107,6 +107,7 @@ let FundService = function(
                 state: apiResource.state,
                 start_date: apiResource.start_date,
                 end_date: apiResource.end_date,
+                manage_provider_products: apiResource.manage_provider_products,
             };
         };
 

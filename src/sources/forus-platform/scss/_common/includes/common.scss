@@ -154,6 +154,16 @@ img {
     justify-items: center;
 }
 
+.flex-self-end {
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+.flex-self-center {
+    align-self: center;
+    justify-self: center;
+}
+
 .flex-grow {
     flex-grow: 100 !important;
 }

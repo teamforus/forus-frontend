@@ -45,9 +45,16 @@ $colorPrimaryLight: $color_primary_light;
     @import '../../../forus-webshop/scss/_common/components/ui-controls';
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
     @import 'blocks/block-fund_types';
-    @import 'blocks/block-subsidy-editor';
+    @import 'blocks/block-subsidy-product-overview';
     @import 'blocks/block-dashboard-switcher';
     @import 'blocks/block-app_download';
+}
+
+
+// Dropdown menus
+.dropdown {
+    // dropdown blocks
+    @import 'dropdown/dropdown-actions';
 }
 
 html, body {
@@ -808,18 +815,21 @@ body {
     border-radius: 5px;
     box-shadow: 0 2px 8px rgba(#000, 0.1);
     margin-bottom: 20px;
+    cursor: default;
 
     .card-header,
     .card-section,
     .card-footer {
-        border-bottom: 1px solid #d4d9dd;
+        border-bottom: 1px solid $border_color;
 
         &:first-child {
-            border-radius: 5px 5px 0 0;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
         }
 
         &:last-child {
-            border-radius: 0 0 5px 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
         }
     }
 
@@ -863,6 +873,46 @@ body {
         .button {
             line-height: 22px;
         }
+    }
+
+    .label-item {
+        font: 500 13px $bf;
+        color: #646f79;
+        margin-bottom: 5px;
+    }
+
+    .card-heading {
+        font: 600 14px/22px $bf;
+        color: #282b39;
+        margin: 0 0 15px;
+        cursor: inherit;
+
+        &:last-child,
+        &.card-heading-padless {
+            margin-bottom: 0;
+        }
+    }
+
+    .card-text {
+        font: 500 13px/18px $bf;
+        color: #646f79;
+        margin: 0 0 15px;
+        cursor: inherit;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.alert {
+            color: #a80a2d;
+            font: 600 16px/18px $bf;
+        }
+    }
+
+    .card-text-link {
+        color: inherit;
+        font: inherit;
+        text-decoration: underline;
     }
 
     .card-section {
@@ -1032,38 +1082,6 @@ body {
 
     &.card-outline {
         border: 1px solid #8ca3a6;
-    }
-
-    .label-item {
-        font: 500 13px $bf;
-        color: #646f79;
-        margin-bottom: 5px;
-    }
-
-    .card-heading {
-        font: 600 14px/22px $bf;
-        color: #282b39;
-        margin: 0 0 15px;
-
-        &:last-child,
-        &.card-heading-padless {
-            margin-bottom: 0;
-        }
-    }
-
-    .card-text {
-        font: 500 13px/18px $bf;
-        color: #646f79;
-        margin: 0 0 15px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-
-        &.alert {
-            color: #a80a2d;
-            font: 600 16px/18px $bf;
-        }
     }
 
     &.card-collapsable {
@@ -2328,81 +2346,13 @@ body {
                     background: #fff;
                     padding: 16px 18px;
 
-                    &.card-section-fund {
-                        display: flex;
-                        align-items: center;
-
-                        &.applied {
-                            background-color: #f8f4e7;
-                            cursor: default;
-                            pointer-events: none;
-
-                            &:hover {
-                                background: initial;
-                            }
-
-                            .card-section-actions {
-                                button {
-                                    background-color: rgba(255, 255, 255, 0.5);
-                                    color: #0f0f0f;
-                                    border-color: #c2c2c2;
-                                }
-                            }
-
-                            .card-block {
-                                &.card-block-fund {
-                                    .fund-organization {
-                                        color: #4b4b4b;
-                                    }
-        
-                                    .fund-title {
-                                        color: #4b4b4b;
-                                    }
-                                }
-                            }
-                        }
-
-                        &:hover {
-                            background: #FAFAFA;
-
-                            .card-section-actions {
-                                button {
-                                    background-color: rgba(53, 97, 255, 0.15);
-                                    border-color: rgba(53, 97, 255, 0.15);
-                                    border-color: 1px solid #E5E6EC;
-                                    transform: none;
-                                }
-                            }
-                        }
-
-                        .card-section-actions {
-                            bottom: auto;
-                            top: auto;
-    
-                            button {
-                                background-color: #fff;
-                                color: #3561FF;
-                                padding-top: 12px;
-                                padding-bottom: 12px;
-                                font: 500 14px/17px $bf;
-                                box-shadow: none;
-                                text-transform: none;
-                                width: 200px;
-                            }
-                        }
-                    }
-
-                    &.card-section-primary {
-                        padding: 0px;
-                    }
-
                     .card-block {
                         &.card-block-fund {
                             padding-top: 0px;
                             display: flex;
 
                             .fund-img {
-                                margin: auto 10px;
+                                margin: auto 10px auto 0;
                                 padding: 0px;
                                 width: 50px;
                                 height: 50px;
@@ -2424,8 +2374,57 @@ body {
                             }
                         }
                     }
-                }
 
+                    &.card-section-fund {
+                        display: flex;
+                        align-items: center;
+
+                        .card-section-actions {
+                            right: 16px;
+                            top: 16px;
+
+                            .button {
+                                width: 200px;
+                                white-space: nowrap;
+
+                                &:focus {
+                                    outline: none;
+                                    box-shadow: none;
+                                }
+                            }
+                        }
+
+                        &.applied {
+                            background-color: #f8f4e7;
+                            cursor: default;
+                            pointer-events: none;
+
+                            .card-section-actions {
+                                button {
+                                    background-color: rgba(255, 255, 255, 0.5);
+                                    color: #0f0f0f;
+                                    border-color: #c2c2c2;
+                                }
+                            }
+
+                            .card-block {
+                                &.card-block-fund {
+                                    .fund-organization {
+                                        color: #4b4b4b;
+                                    }
+        
+                                    .fund-title {
+                                        color: #4b4b4b;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &.card-section-primary {
+                        padding: 0px;
+                    }
+                }
 
                 &:last-child {
                     margin-bottom: 0;
@@ -4788,6 +4787,19 @@ body {
             img {
                 height: 100%;
                 display: inline-block;
+            }
+
+            &[disabled] {
+                background-color: #f1f1f1;
+                border: 1px solid #d4d9dd;
+                color: #000000;
+                pointer-events: none;
+
+                &:hover {
+                    background-color: #f1f1f1;
+                    border: 1px solid #d4d9dd;
+                    color: #000000;
+                }
             }
     
             &:hover {
