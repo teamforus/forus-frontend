@@ -99,7 +99,7 @@
                         .form-group.form-group-inline
                             .form-label 
                                 | Gebruikt
-                                tooltip(text="'How many products did citizens buy'")
+                                tooltip(text="'Hoeveel tegoed (tot zijn limiet) heeft de aanvrager gebruikt.'")
                             .form-offset: .col.col-lg-12: .form-value-placeholder.text-right(
                                 ng-bind="$ctrl.deal.voucher_transactions_count")
         
@@ -179,7 +179,7 @@
                                     | Volledige bijdrage
 
                 .form-group.form-group-inline.tooltipped
-                    tooltip(text="'Wanneer deze actie automatisch moet stoppen op een dag eerder dan het fonds'")
+                    tooltip(text="'Tot wanneer de subsidie geldig is. Kies de gewenste datum of de einddatum van het fonds.'")
                     .form-label Verloopdatum
                     .form-offset: .row
                         .col.col-lg-6.col-xs-12(ng-if="$ctrl.form.values.expires_with_fund")
