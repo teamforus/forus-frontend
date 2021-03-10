@@ -13,12 +13,11 @@
                 ng-bind="$ctrl.fundProvider.fund.name")
             .breadcrumb-item.active(ng-bind="$ctrl.product ? $ctrl.product.name : 'Voeg aanbod toe'")
 
-        //- information-block(text="'products.cannot_delete'" type="'danger'")
         .card: form(ng-submit="$ctrl.saveProduct()").form
             .card-header
                 .card-title(ng-if="!$ctrl.product" i18n="product_edit.header.title_add")
                 .card-title(ng-if="$ctrl.product" i18n="product_edit.header.title_edit")
-            .card-section.card-section-primary(ng-if="!$ctrl.sponsorProduct")
+            .card-section.card-section-primary
                 .row 
                     .col.col-xs-12
                         .form-group.form-group-inline
@@ -31,7 +30,7 @@
                                     select-photo="$ctrl.selectPhoto(file)")
                                 .form-error(ng-repeat="error in $ctrl.mediaErrors" ng-bind="error")
 
-            .card-section.card-section-primary(ng-if="!$ctrl.sponsorProduct")
+            .card-section.card-section-primary
                 .row: .col.col-lg-9
                     .form-group.form-group-inline
                         label.form-label(translate="product_edit.labels.name")
@@ -43,7 +42,7 @@
                         tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
-            .card-section.card-section-primary(ng-if="!$ctrl.sponsorProduct")
+            .card-section.card-section-primary
                 .row: .col.col.col-lg-9
                     .form-group.form-group-inline
                         label.form-label Aanbod type
@@ -110,11 +109,15 @@
                         label.form-label(translate="product_edit.labels.total")
                         .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock"): .form-value.text-muted(translate="product_edit.labels.stock_unlimited")
                         .form-offset(ng-if="!$ctrl.product || ($ctrl.product && !$ctrl.product.unlimited_stock)"): .row
-                            .col.col-lg-7: input(
-                                ng-model="$ctrl.form.values.total_amount" 
+                            .col.col-lg-7(ng-if="!$ctrl.form.values.unlimited_stock"): input(
+                                ng-model="$ctrl.form.values.total_amount"
                                 type="number" 
                                 placeholder="Aantal in voorraad"
                                 ng-disabled="!$ctrl.isEditable || !!$ctrl.product || $ctrl.form.values.unlimited_stock").form-control
+
+                            .col.col-lg-7(ng-if="$ctrl.form.values.unlimited_stock")
+                                input(value="{{ 'product_edit.labels.stock_unlimited' | translate }}" disabled).form-control
+                            
                             .col.col-lg-5: .checkbox(ng-disabled="$ctrl.product && !$ctrl.product.unlimited_stock")
                                 input(type="checkbox" id="unlimited_stock" ng-model="$ctrl.form.values.unlimited_stock" ng-disabled="!$ctrl.isEditable")
                                 label(for="unlimited_stock").checkbox-label
@@ -128,7 +131,7 @@
                         tooltip(text="'tooltip.product.limit'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
 
-            .card-section.card-section-primary(ng-if="!$ctrl.sponsorProduct")
+            .card-section.card-section-primary
                 .row: .col.col-lg-9
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.expire")
@@ -151,21 +154,12 @@
                             tooltip(text="'De uiterlijke datum tot waneer uw aanbieding loopt. Aanbieding wordt na deze datum verwijderd uit de webshop en kan niet meer worden opgehaald.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
 
-            .card-section.card-section-primary(ng-if="!$ctrl.sponsorProduct")
+            .card-section.card-section-primary
                 .row: product-categories-control(
                     disabled="{{!$ctrl.isEditable}}"
                     ng-model="$ctrl.form.values.product_category_id"
                     product-type="$ctrl.product.product_category.service ? 'service' : 'product'"
                     errors="$ctrl.form.errors.product_category_id")
-
-            .card-section.card-section-primary(
-                ng-if="$ctrl.fundProvider && $ctrl.fundProvider.fund.type == 'subsidies' && ($ctrl.form.values.total_amount || $ctrl.form.values.unlimited_stock)")
-                .form-group.form-group-inline.tooltipped
-                    label.form-label &nbsp;
-                    .form-offset: block-product-subsidy-form(
-                        form="$ctrl.subsidyForm"
-                        stock-amount="$ctrl.form.values.total_amount"
-                        unlimited-stock="$ctrl.form.values.unlimited_stock")
 
             .card-section.card-section-primary: .text-center
                 button(type="button" ng-click="$ctrl.cancel()" translate="product_edit.buttons.cancel" id="cancel_create_product").button.button-default

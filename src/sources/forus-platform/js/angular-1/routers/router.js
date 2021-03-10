@@ -464,6 +464,45 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Organization providers
+    $stateProvider.state({
+        name: "fund-provider-product-subsidy-edit",
+        url: "/organizations/{organization_id}/funds/{fund_id}/providers/{fund_provider_id}/products/{product_id}/subsidy?deal_id",
+        component: "fundProviderProductSubsidyEditComponent",
+        params: {
+            organization_id: null,
+            fund_id: null,
+            fund_provider_id: null,
+            product_id: null,
+        },
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('organization-providers', 'manage_providers'),
+            fundProvider: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => $transition$.params().fund_id != null ? repackResponse(FundService.readProvider(
+                $transition$.params().organization_id,
+                $transition$.params().fund_id,
+                $transition$.params().fund_provider_id
+            )) : new Promise((res) => res(null))],
+            fund: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => $transition$.params().fund_id != null ? repackResponse(
+                FundService.readPublic($transition$.params().fund_id)
+            ) : new Promise((res) => res(null))],
+            product: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => $transition$.params().fund_id != null ? repackResponse(
+                FundService.getProviderProduct(
+                    $transition$.params().organization_id,
+                    $transition$.params().fund_id,
+                    $transition$.params().fund_provider_id,
+                    $transition$.params().product_id
+                )
+            ) : new Promise((res) => res(null))],
+        }
+    });
+
     // Organization employees
     $stateProvider.state({
         name: "employees",

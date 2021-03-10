@@ -1,8 +1,8 @@
 const ProductsEditComponent = function(
+    $q,
     $state,
     $stateParams,
     appConfigs,
-    FundService,
     ProductService,
     OrganizationService,
     FormBuilderService,
@@ -16,7 +16,6 @@ const ProductsEditComponent = function(
     $ctrl.media;
     $ctrl.mediaErrors = [];
     $ctrl.nonExpiring = false;
-    $ctrl.sponsorProduct = false;
 
     $ctrl.goToFundProvider = (provider) => {
         $state.go('fund-provider', {
@@ -39,56 +38,13 @@ const ProductsEditComponent = function(
         return null;
     }
 
-    $ctrl.buildSubsidyForm = () => {
-        const provider = $ctrl.fundProvider;
-        const fromProduct = ($ctrl.product || $ctrl.sourceProduct);
-        const dealsHistory = (fromProduct && fromProduct.deals_history) ? fromProduct.deals_history : [];
-        const deal = dealsHistory.filter((deal) => deal.active)[0] || false;
-
-        const values = deal ? {
-            expire_at: deal.expire_at ? deal.expire_at : $ctrl.fundProvider.fund.end_date,
-            expires_with_fund: deal.expire_at ? false : true,
-            limit_total: parseFloat(deal.limit_total),
-            unlimited_stock: deal.limit_total_unlimited,
-            limit_per_identity: parseInt(deal.limit_per_identity),
-            amount: parseFloat(deal.amount),
-            gratis: parseFloat(deal.amount) === parseFloat(fromProduct.amount),
-        } : {
-            expire_at: $ctrl.fundProvider.fund.end_date,
-            expires_with_fund: true,
-            limit_total: 1,
-            unlimited_stock: false,
-            limit_per_identity: 1,
-            amount: 0,
-            gratis: false,
-        };
-
-        $ctrl.subsidyForm = FormBuilderService.build(values, (form) => {
-            FundService.updateProvider(provider.fund.organization_id, provider.fund.id, provider.id, {
-                enable_products: [{
-                    id: $ctrl.sponsorProduct.id,
-                    amount: form.values.gratis ? $ctrl.sponsorProduct.price : form.values.amount,
-                    limit_total: form.values.limit_total,
-                    limit_total_unlimited: form.values.unlimited_stock ? 1 : 0,
-                    limit_per_identity: form.values.limit_per_identity,
-                    expire_at: form.values.expires_with_fund ? null : form.values.expire_at,
-                }],
-            }).then(() => {
-                $ctrl.goToFundProvider(provider);
-            }, (res) => {
-                form.errors = res.data.errors;
-                form.unlock();
-            });
-        }, true);
-    };
-
     $ctrl.buildForm = () => {
         const values = $ctrl.product || $ctrl.sourceProduct ? ProductService.apiResourceToForm(
             $ctrl.product ? $ctrl.product : $ctrl.sourceProduct
         ) : {
-                product_category_id: null,
-                price_type: 'regular',
-            };
+            product_category_id: null,
+            price_type: 'regular',
+        };
 
         values.expire_at = $ctrl.nonExpiring ? moment().add(1, 'day') : moment(values.expire_at, 'YYYY-MM-DD');
         values.expire_at = values.expire_at.format('DD-MM-YYYY');
@@ -113,7 +69,7 @@ const ProductsEditComponent = function(
                     expire_at: $ctrl.nonExpiring ? null : moment(
                         form.values.expire_at,
                         'DD-MM-YYYY'
-                    ).format('YYYY-MM-DD')
+                    ).format('YYYY-MM-DD'),
                 }
             };;
 
@@ -121,6 +77,10 @@ const ProductsEditComponent = function(
                 delete values.price;
             } else if (values.price_type !== 'regular' && values.price_type !== 'free') {
                 delete values.price_discount;
+            }
+
+            if (values.unlimited_stock) {
+                delete values.total_amount;
             }
 
             if ($ctrl.product) {
@@ -160,9 +120,12 @@ const ProductsEditComponent = function(
                     $state.go('products', { organization_id: $ctrl.organization.id });
                 } else {
                     if ($ctrl.fundProvider.fund.type === 'subsidies') {
-                        form.unlock();
-                        $ctrl.sponsorProduct = res.data.data;
-                        $ctrl.subsidyForm.submit();
+                        $state.go($ctrl.product ? 'fund-provider-product' : 'fund-provider-product-subsidy-edit', {
+                            organization_id: $ctrl.fundProvider.fund.organization_id,
+                            fund_id: $ctrl.fundProvider.fund_id,
+                            fund_provider_id: $ctrl.fundProvider.id,
+                            product_id: res.data.data.id
+                        });
                     } else {
                         $ctrl.goToFundProvider($ctrl.fundProvider);
                     }
@@ -197,7 +160,9 @@ const ProductsEditComponent = function(
     };
 
     $ctrl.hasSubsidyFunds = (product) => {
-        return product && product.funds.filter(fund => fund.type == 'subsidies').length > 0;
+        return product && (product.sponsor_organization_id || product.funds.filter(fund => {
+            return fund.type == 'subsidies';
+        }).length > 0);
     };
 
     $ctrl.confirmPriceChange = () => {
@@ -211,7 +176,7 @@ const ProductsEditComponent = function(
                 title: 'product_edit.confirm_price_change.title',
                 description: 'product_edit.confirm_price_change.description',
                 icon: 'product-create',
-                confirm: () => () => {
+                confirm: () => {
                     alreadyConfirmed = true;
                     resolve(true);
                 },
@@ -220,10 +185,8 @@ const ProductsEditComponent = function(
         });
     };
 
-    $ctrl.saveProduct = (product) => {
-        if ($ctrl.sponsorProduct) {
-            return $ctrl.subsidyForm.submit();
-        }
+    $ctrl.saveProduct = () => {
+        const product = $ctrl.product;
 
         if ($ctrl.priceWillChange(product) && $ctrl.hasSubsidyFunds(product)) {
             return $ctrl.confirmPriceChange().then((confirmed) => {
@@ -254,10 +217,6 @@ const ProductsEditComponent = function(
             $ctrl.product.sponsor_organization_id === $ctrl.organization.id
         );
 
-        if ($ctrl.fundProvider) {
-            $ctrl.buildSubsidyForm();
-        }
-
         if ($ctrl.maxProductCount && !$ctrl.product && $ctrl.products && $ctrl.products.length >= $ctrl.maxProductCount) {
             ModalService.open('modalNotification', {
                 type: 'danger',
@@ -283,10 +242,10 @@ module.exports = {
         providerOrganization: '<',
     },
     controller: [
+        '$q',
         '$state',
         '$stateParams',
         'appConfigs',
-        'FundService',
         'ProductService',
         'OrganizationService',
         'FormBuilderService',

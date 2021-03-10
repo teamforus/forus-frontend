@@ -41,6 +41,7 @@ app.component('financialDashboardComponent', require('./components/FinancialDash
 app.component('transactionComponent', require('./components/TransactionComponent'));
 app.component('fundProviderComponent', require('./components/FundProviderComponent'));
 app.component('fundProviderProductComponent', require('./components/FundProviderProductComponent'));
+app.component('fundProviderProductSubsidyEditComponent', require('./components/FundProviderProductSubsidyEditComponent'));
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
@@ -84,7 +85,6 @@ app.component('modalDangerZoneComponent', require('./components/Modals/ModalDang
 app.component('modalFundProviderChatSponsorComponent', require('./components/Modals/ModalFundProviderChatSponsorComponent'));
 app.component('modalFundProviderChatProviderComponent', require('./components/Modals/ModalFundProviderChatProviderComponent'));
 app.component('modalFundProviderChatMessageComponent', require('./components/Modals/ModalFundProviderChatMessageComponent'));
-app.component('modalSubsidyProductEditComponent', require('./components/Modals/ModalSubsidyProductEditComponent'));
 app.component('modalDuplicatesPickerComponent', require('./components/Modals/ModalDuplicatesPickerComponent'));
 app.component('modalFundAppendRequestRecordComponent', require('./components/Modals/ModalFundAppendRequestRecordComponent'));
 
@@ -215,7 +215,6 @@ app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissio
 app.directive('blockProviderOrganizationOffices', require('./directives/blocks/sponsor/BlockProviderOrganizationOfficesDirective'));
 app.directive('blockProviderOrganizationEmployees', require('./directives/blocks/sponsor/BlockProviderOrganizationEmployeesDirective'));
 app.directive('blockProviderOrganizationOverview', require('./directives/blocks/sponsor/BlockProviderOrganizationOverviewDirective'));
-app.directive('blockProductSubsidyForm', require('./directives/blocks/sponsor/BlockProductSubsidyFormDirective'));
 
 // Providers
 app.provider('PrintableRoute', require('./providers/PrintableRouteProvider'));

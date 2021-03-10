@@ -3,7 +3,6 @@ let FundProviderComponent = function(
     $state,
     $timeout,
     FundService,
-    ModalService,
     $stateParams,
     OrganizationService,
     PushNotificationsService
@@ -22,19 +21,6 @@ let FundProviderComponent = function(
             q: "",
             per_page: 15
         },
-    };
-
-    $ctrl.openSubsidyProductModal = function(fundProvider, product) {
-        ModalService.open('subsidyProductEdit', {
-            product: product,
-            fund: fundProvider.fund,
-            fundProvider: fundProvider,
-            onApproved: (fundProvider) => {
-                PushNotificationsService.success('Opgeslagen!');
-                $ctrl.fundProvider = fundProvider;
-                $ctrl.fetchProducts(fundProvider, $ctrl.filters.values);
-            }
-        });
     };
 
     $ctrl.disableProductItem = function(fundProvider, product) {
@@ -106,6 +92,7 @@ let FundProviderComponent = function(
         product.active_deal = activeDeals.length > 0 ? activeDeals[0] : null;
         product.copyParams = { ...$stateParams, ...{ source: product.id } };
         product.editParams = { ...$stateParams, ...{ product_id: product.id } };
+        product.subsidyEditParams = { ...$stateParams, ...{ product_id: product.id } };
 
         return product;
     };
@@ -199,7 +186,6 @@ module.exports = {
         '$state',
         '$timeout',
         'FundService',
-        'ModalService',
         '$stateParams',
         'OrganizationService',
         'PushNotificationsService',

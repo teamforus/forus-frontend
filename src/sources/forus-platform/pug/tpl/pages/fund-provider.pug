@@ -53,9 +53,9 @@
                         .flex.flex-center(ng-if="!product.is_available"): .flex-self-center
                             .tag.tag-text.nowrap Niet beschikbaar 
                             .hidden
-                        button.button.button-primary.button-sm.nowrap(
+                        a.button.button-primary.button-sm.nowrap(
                             ng-if="product.is_available && !product.allowed" 
-                            ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, product)")
+                            ui-sref="fund-provider-product-subsidy-edit(product.subsidyEditParams)")
                             em.mdi.mdi-play.icon-start
                             | Start subsidie
                         a(ui-sref="fund-provider-product-create(product.copyParams)").button.button-icon.button-text: em.mdi.mdi-content-copy
@@ -203,9 +203,9 @@
                     td(ng-bind="product.active_deal ? (product.active_deal.amount | currency_format) : '-'")
                     td(ng-bind="product.price_locale")
                     td.td-narrow.text-right: .button-group.flex-end
-                        .button.button-primary.button-sm.nowrap(
+                        a.button.button-primary.button-sm.nowrap(
                             ng-if="product.is_available && !product.allowed" 
-                            ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, product)")
+                            ui-sref="fund-provider-product-subsidy-edit(product.subsidyEditParams)")
                             em.mdi.mdi-play.icon-start
                             | Start subsidie
                         div(ng-if="product.is_available && product.allowed")
