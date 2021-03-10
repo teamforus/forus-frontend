@@ -1,6 +1,11 @@
 .app.app-container
     menu
     section.app.app-content
+
+        .block.block-breadcrumbs(ng-if="!$ctrl.fundProvider")
+            .breadcrumb-item(ui-sref="products({organization_id: $root.activeOrganization.id})") Aanbod  
+            .breadcrumb-item.active Aanbod toevoegen
+
         .block.block-breadcrumbs(ng-if="$ctrl.fundProvider")
             .breadcrumb-item(
                 ui-sref="sponsor-provider-organizations({organization_id: $ctrl.organization.id})" 
