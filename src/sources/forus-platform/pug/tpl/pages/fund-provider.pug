@@ -58,9 +58,16 @@
                             ui-sref="fund-provider-product-subsidy-edit(product.subsidyEditParams)")
                             em.mdi.mdi-play.icon-start
                             | Start subsidie
-                        a(ui-sref="fund-provider-product-create(product.copyParams)").button.button-icon.button-text: em.mdi.mdi-content-copy
-                        a(ui-sref="fund-provider-product-edit(product.editParams)").button.button-default.button-sm.button-icon: em.mdi.mdi-pencil
-                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm.button-icon: em.mdi.mdi-eye-outline
+
+                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                            em.mdi.mdi-dots-horizontal
+                            .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
+                                .menu-dropdown-arrow
+                                .dropdown.dropdown-actions
+                                    .dropdown-heading Actions
+                                    a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Copy
+                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Edit
 
             .card-section.text-center(ng-if="$ctrl.sponsorProducts.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
@@ -114,9 +121,15 @@
                         .form-toggle-inner: .toggle-input: .toggle-input-dot
 
                     td.td-narrow.text-right: .button-group.flex-end
-                        a(ui-sref="fund-provider-product-create(product.copyParams)").button.button-icon.button-text: em.mdi.mdi-content-copy
-                        a(ui-sref="fund-provider-product-edit(product.editParams)").button.button-default.button-sm.button-icon: em.mdi.mdi-pencil
-                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm.button-icon: em.mdi.mdi-eye-outline
+                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                            em.mdi.mdi-dots-horizontal
+                            .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
+                                .menu-dropdown-arrow
+                                .dropdown.dropdown-actions
+                                    .dropdown-heading Actions
+                                    a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Copy
+                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Edit
 
             .card-section.text-center(ng-if="$ctrl.sponsorProducts.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
@@ -166,12 +179,14 @@
                             ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, product)")
                         .form-toggle-inner: .toggle-input: .toggle-input-dot
                     td.td-narrow.text-right: .button-group.flex-end
-                        a(
-                            ng-if="$ctrl.organization.manage_provider_products" 
-                            ui-sref="fund-provider-product-create(product.copyParams)").button.button-icon.button-text: em.mdi.mdi-content-copy
-                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm
-                            em.mdi.mdi-eye-outline.icon-start
-                            | Bekijken
+                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                            em.mdi.mdi-dots-horizontal
+                            .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
+                                .menu-dropdown-arrow
+                                .dropdown.dropdown-actions
+                                    .dropdown-heading Actions
+                                    a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Copy
             
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
@@ -216,12 +231,14 @@
                         div(ng-if="!product.is_available")
                             .tag.tag-text.nowrap Niet beschikbaar 
                             .hidden
-                        a(
-                            ng-if="$ctrl.organization.manage_provider_products" 
-                            ui-sref="fund-provider-product-create(product.copyParams)").button.button-icon.button-text: em.mdi.mdi-content-copy
-                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm
-                            em.mdi.mdi-eye-outline.icon-start
-                            | Bekijken
+                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                            em.mdi.mdi-dots-horizontal
+                            .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
+                                .menu-dropdown-arrow
+                                .dropdown.dropdown-actions
+                                    .dropdown-heading Actions
+                                    a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Copy
 
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")

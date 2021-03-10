@@ -50,6 +50,13 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-app_download';
 }
 
+
+// Dropdown menus
+.dropdown {
+    // dropdown blocks
+    @import 'dropdown/dropdown-actions';
+}
+
 html, body {
     height: 100%;
 }

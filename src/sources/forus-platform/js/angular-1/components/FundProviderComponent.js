@@ -9,6 +9,8 @@ let FundProviderComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.dropdownMenuItem = false;
+
     $ctrl.filters = {
         values: {
             q: "",
@@ -21,6 +23,16 @@ let FundProviderComponent = function(
             q: "",
             per_page: 15
         },
+    };
+
+    $ctrl.toggleActions = (e, item) => {
+        e.stopPropagation();
+        $ctrl.dropdownMenuItem = item;
+    };
+    
+    $ctrl.onClickOutsideMenu = (e) => {
+        e.stopPropagation();
+        $ctrl.dropdownMenuItem = false;
     };
 
     $ctrl.disableProductItem = function(fundProvider, product) {
@@ -91,6 +103,7 @@ let FundProviderComponent = function(
         product.allowed = $ctrl.fundProvider.products.indexOf(product.id) !== -1;
         product.active_deal = activeDeals.length > 0 ? activeDeals[0] : null;
         product.copyParams = { ...$stateParams, ...{ source: product.id } };
+        product.viewParams = { ...$stateParams, ...{ product_id: product.id } };
         product.editParams = { ...$stateParams, ...{ product_id: product.id } };
         product.subsidyEditParams = { ...$stateParams, ...{ product_id: product.id } };
 
