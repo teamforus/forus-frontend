@@ -4,9 +4,12 @@
         .card-heading: .row
             .col.col-lg-3.col-xs-12 Aanvragen
             .block.block-inline-filters.col.col-lg-9.col-xs-12.text-right
-                button(ng-click="$ctrl.exportRequests()").button.button-primary
+                button(ng-click="$ctrl.exportRequests('csv')").button.button-primary
                     .mdi.mdi-download.icon-start
-                    | {{ 'validation_requests.buttons.export' | translate }}
+                    | {{ 'validation_requests.buttons.export_csv' | translate }}
+                button(ng-click="$ctrl.exportRequests('xls')").button.button-primary
+                    .mdi.mdi-download.icon-start
+                    | {{ 'validation_requests.buttons.export_xls' | translate }}
 
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                     em.mdi.mdi-close.icon-start 

@@ -116,18 +116,19 @@ let OrganizationProvidersComponent = function(
     };
 
     // Export to XLS file
-    $ctrl.exportList = () => {
+    $ctrl.exportList = (type) => {
         OrganizationService.listProvidersExport(
             $ctrl.organization.id,
             Object.assign({}, $ctrl.filters.values, {
                 dismissed: $ctrl.filters.values.dismissed ? 1 : 0,
-                fund_id: $ctrl.fund.id
+                fund_id: $ctrl.fund.id,
+                export_format: type
             })
         ).then((res => {
             FileService.downloadFile(
                 'providers_' + org + '_' + moment().format(
                     'YYYY-MM-DD HH:mm:ss'
-                ) + '.xls',
+                ) + '.' + type,
                 res.data,
                 res.headers('Content-Type') + ';charset=utf-8;'
             );

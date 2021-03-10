@@ -93,9 +93,13 @@
             .card-section: .table-pagination
                 .table-pagination-counter(ng-if="$ctrl.transactions.data.length") {{ "transactions.labels.total_amount" | translate }} {{ $ctrl.transactionsTotal | currency_format }}
                 
-                .table-pagination-navigation: button(ng-click="$ctrl.exportList()").button.button-primary.pull-right
-                    em.mdi.mdi-download.icon-start  
-                    span(i18n="transactions.buttons.export")
+                .table-pagination-navigation
+                    button(ng-click="$ctrl.exportList('csv')").button.button-primary
+                        em.mdi.mdi-download.icon-start
+                        span(i18n="transactions.buttons.export_csv")
+                    button(ng-click="$ctrl.exportList('xls')").button.button-primary.pull-right
+                        em.mdi.mdi-download.icon-start  
+                        span(i18n="transactions.buttons.export_xls")
 
             .card-section(ng-if="$ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
                 paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
