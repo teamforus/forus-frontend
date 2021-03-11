@@ -63,7 +63,15 @@ let SponsorProviderOrganizationsComponent = function(
             uiViewParams: {
                 organization_id: $ctrl.organization.id,
                 provider_organization_id: providerOrganization.id
-            }
+            },
+            funds: (providerOrganization.funds || []).map((fund) => ({
+                ...fund,
+                uiViewParams: {
+                    fund_id: fund.id,
+                    organization_id: fund.organization_id,
+                    fund_provider_id: fund.fund_provider_id
+                },
+            }))
         }
     });
 
