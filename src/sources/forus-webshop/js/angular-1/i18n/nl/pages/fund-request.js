@@ -31,7 +31,7 @@ module.exports = {
             fund_already_applied: "Er is al een aanvraag in behandeling",
         },
         labels: {
-            has_app: "Verder gaan Me-app >",
+            has_app: "Aanmelden met Me-app >",
             restore_with_digid_formal: "Vergeten welk e-mailadres u heeft gebruikt? >",
             restore_with_digid_informal: "Vergeten welk e-mailadres je hebt gebruikt? >",
             no_app: "Ik wil inloggen met mijn e-mailadres >",

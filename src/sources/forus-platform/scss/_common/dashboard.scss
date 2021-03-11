@@ -789,6 +789,18 @@ body {
     margin-bottom: 10px;
     cursor: default;
 
+    .block.block-inline-filters {
+        .form {
+            .form-group {
+                margin: 0px 10px 0px 0;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
     .link {
         display: inline-block;
         color: #646f79;
@@ -4472,11 +4484,15 @@ body {
 
         .form {
             display: flex;
-            margin-right: 15px;
+            margin-right: 10px;
 
             .form-group {
                 margin: -2px 0;
-                margin-right: 15px;
+                margin-right: 10px;
+
+                &.no-margin {
+                    margin: 0;
+                }
 
                 &:last-child {
                     margin-right: 0;

@@ -1,21 +1,28 @@
 .app.app-container
     menu
     section.app.app-content
+        //- Heading
         .card-heading: .row
+            //- Title
             .col.col-lg-6.col-xs-12
                 span(translate="organization_providers.header.title")
                 span(ng-bind="$ctrl.providerOrganizations.meta.total").span-count
             
+            //- Filters
             .block.block-inline-filters.col.col-lg-6.col-xs-12
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.resetFilters()")
                     em.mdi.mdi-close.icon-start
                     span(i18n="Wis filters")
 
-                .button.button-default.button-icon(ng-if="!$ctrl.extendedView" ng-click="$ctrl.setExtendedView(true)"): em.mdi.mdi-format-list-bulleted
-                .button.button-default.button-icon(ng-if="$ctrl.extendedView" ng-click="$ctrl.setExtendedView(false)"): em.mdi.mdi-format-list-bulleted-square
+                .button.button-default.button-icon(ng-if="!$ctrl.extendedView" ng-click="$ctrl.setExtendedView(true)")
+                    img(src="./assets/img/collapse-icons/uncollapse-all.svg").custom
+                    | Alles uitklappen
+                .button.button-default.button-icon(ng-if="$ctrl.extendedView" ng-click="$ctrl.setExtendedView(false)")
+                    img(src="./assets/img/collapse-icons/collapse-all.svg").custom
+                    | Alles inklappen
                 
                 .form(ng-if="!$ctrl.filters.show")
-                    .form-group.inline-filters-search
+                    .form-group.no-margin.inline-filters-search
                         input(ng-model="$ctrl.filters.values.q" placeholder="{{ 'search' | i18n }}").form-control
 
                 .inline-filters-dropdown(click-outside="$ctrl.hideFilters()")
@@ -98,8 +105,9 @@
 
                     .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
-        .block.block-providers
-            .provider-item(ng-repeat="providerOrganization in $ctrl.providerOrganizations.data")
+        //- Provider list
+        .block.block-providers: .provider-item(ng-repeat="providerOrganization in $ctrl.providerOrganizations.data")
+            .provider-overview
                 .provider-media: img.provider-media-img(ng-src="{{ providerOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                 .provider-details
                     .provider-title(ng-bind="providerOrganization.name")
@@ -117,20 +125,21 @@
                     .provider-action-item: a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-primary 
                         em.mdi.mdi-eye-outline.icon-start
                         | Bekijken
-                .break
-                .provider-funds(ng-if="$ctrl.extendedView")
-                    .card-section.card-section-padless: .table-wrapper: table.table.form
-                        tr
-                            th Fondsnaam
-                            th Status
-                            th Opties
-                        tr(ng-repeat="fund in providerOrganization.funds")
-                            td(ng-bind="fund.name")
-                            td: .tag.tag-sm(ng-class="'tag-' + (fund.active ? 'success' : 'warning')"   ng-bind="fund.active ? 'Geaccepteerd' : 'Wachtend'")  
-                            td.td-narrow.text-right
-                                a(ui-sref="fund-provider({organization_id: fund.organization_id, fund_id: fund.id, fund_provider_id: fund.fund_provider_id})").button.button-default 
-                                    em.mdi.mdi-eye-outline.icon-start
-                                    | Bekijk aanbod
+
+            .provider-funds(ng-if="$ctrl.extendedView")
+                .card-section.card-section-padless: .table-wrapper: table.table.form
+                    tr
+                        th Fondsnaam
+                        th Status
+                        th Opties
+                    tr(ng-repeat="fund in providerOrganization.funds")
+                        td(ng-bind="fund.name")
+                        td: .tag.tag-sm(ng-class="'tag-' + (fund.active ? 'success' : 'warning')"   ng-bind="fund.active ? 'Geaccepteerd' : 'Wachtend'")  
+                        td.td-narrow.text-right
+                            a(ui-sref="fund-provider(fund.uiViewParams)").button.button-default.nowrap  
+                                em.mdi.mdi-eye-outline.icon-start
+                                | Bekijk aanbod
+
         block-empty( 
             ng-if="$ctrl.providerOrganizations.data.length == 0"
             text="Je hebt nog geen verzoeken van aanbieders")
