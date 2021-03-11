@@ -19,7 +19,7 @@
                 .label-tab.label-tab-sm(
                     ng-class="{active : $ctrl.filters.values.source == 'sponsor'}" 
                     ui-sref="products($ctrl.srefData.sponsor)")
-                    | Niet in uw beheer ({{ $ctrl.products.meta.total_sponsor }})
+                    | In beheer van sponsor ({{ $ctrl.products.meta.total_sponsor }})
                 .label-tab.label-tab-sm(
                     ng-class="{active : $ctrl.filters.values.source == 'archive'}" 
                     ui-sref="products($ctrl.srefData.archive)")
