@@ -7,27 +7,6 @@ let FundProviderProductComponent = function(
 ) {
     let $ctrl = this;
 
-    $ctrl.openSubsidyProductModal = function(
-        fundProvider,
-        product,
-        readOnly = false,
-        readValues = {}
-    ) {
-        ModalService.open('subsidyProductEdit', {
-            fund: fundProvider.fund,
-            product: product,
-            readOnly: readOnly,
-            readValues: readValues,
-            fundProvider: fundProvider,
-            onApproved: (fundProvider) => {
-                PushNotificationsService.success('Opgeslagen!');
-                $ctrl.fundProvider = fundProvider;
-                $ctrl.updateProviderProduct();
-                $ctrl.$onInit();
-            }
-        });
-    };
-
     $ctrl.disableProductItem = function(fundProvider, product) {
         FundService.stopActionConfirmationModal(() => {
             product.allowed = false;
@@ -100,14 +79,23 @@ let FundProviderProductComponent = function(
             $stateParams.product_id,
         ).then((res) => {
             $ctrl.product = res.data.data;
+            $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf($ctrl.product.id) !== -1;
         });
     }
 
     $ctrl.$onInit = function() {
         $ctrl.fundProviderProductChat = $ctrl.fundProviderProductChats[0] || null;
-        $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf(
-            $ctrl.product.id
-        ) !== -1;
+        $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf($ctrl.product.id) !== -1;
+        $ctrl.product.approvedActionParams = { ...$stateParams };
+        $ctrl.product.editParams = { ...$stateParams };
+
+        if ($ctrl.product.deals_history && Array.isArray($ctrl.product.deals_history)) {
+            $ctrl.product.deals_history = $ctrl.product.deals_history.map(deal => ({
+                ...deal, ...{
+                    showSubsidyDealParams: { ...$stateParams, ...{ deal_id: deal.id } }
+                }
+            }));
+        }
     };
 };
 

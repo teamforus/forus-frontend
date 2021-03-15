@@ -31,8 +31,9 @@ module.exports = {
             fund_already_applied: "Er is al een aanvraag in behandeling",
         },
         labels: {
-            has_app: "Ik wil inloggen met de Me-app >",
-            restore_with_digid: "Vergeten welk e-mailadres u heeft gebruikt? >",
+            has_app: "Aanmelden met Me-app >",
+            restore_with_digid_formal: "Vergeten welk e-mailadres u heeft gebruikt? >",
+            restore_with_digid_informal: "Vergeten welk e-mailadres je hebt gebruikt? >",
             no_app: "Ik wil inloggen met mijn e-mailadres >",
         },
         app: {
@@ -45,8 +46,8 @@ module.exports = {
             ].join("\n")
         },
         digid: {
-            title: "Vergeten welk e-mailadres u heeft gebruikt?",
-            description: "Herstel uw account door opnieuw in te loggen met DigiD",
+            title: "Account herstel",
+            description: "Herstel account door opnieuw in te loggen met DigiD",
             button: "Login"
         },
         record_checkbox: {

@@ -24,3 +24,7 @@
                         ng-if="fund.state != 'closed'"
                         translate="fund_card_available_provider.buttons.join"
                         ng-click="providerApplyFund(fund)")
+
+    .card-section(ng-if="fund.implementation.has_provider_terms_page"): .card-text
+        | Door u aan te melden gaat u akkoord met de 
+        a(ng-href="{{ fund.implementation.url_webshop + '/aanbieders/aanmelden' }}" target="_blank").card-text-link algemene voorwaarden
