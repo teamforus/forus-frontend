@@ -126,6 +126,7 @@ module.exports = () => {
             ngModel: '=',
             modal: '=',
             pages: '=',
+            disabled: '@',
             extendedOptions: '='
         },
         replace: true,

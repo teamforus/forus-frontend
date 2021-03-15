@@ -15,7 +15,7 @@ head
     link(rel="preconnect" href=qdt_c.platform.env_data.api_url)
 
     //- libs bundle
-    link(rel="stylesheet", href=src_prefix + "assets/dist/bundle/css/bundle.min.css")
+    link(rel="stylesheet", href=src_prefix + "assets/dist/bundle/css/bundle.min" + qdt_c.append_assets + ".css")
     
     //- Favicon
     link(rel="shortcut icon", type="image/x-icon", href=src_prefix + "assets/img/favicon.ico")
@@ -32,7 +32,7 @@ head
                 display: none!important;
             }
 
-            .oldie{
+            .oldie {
                 display: block!important;
             }
     <![endif]-->

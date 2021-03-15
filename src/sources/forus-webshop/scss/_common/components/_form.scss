@@ -120,7 +120,7 @@ $formPadding: 14px 15px;
     }
 
     select.form-control {
-        background-image: url('../img/select-bg.svg');
+        background-image: url('../img/select-bg.png');
         background-position: 99%;
         background-repeat: no-repeat;
         background-size: 25px;
@@ -150,6 +150,10 @@ $formPadding: 14px 15px;
             
         .select-control-search {
             cursor: pointer;
+            background-image: url('../img/select-bg.png');
+            background-position: 99%;
+            background-repeat: no-repeat;
+            background-size: 25px;
         }
         
         .select-control-options {
