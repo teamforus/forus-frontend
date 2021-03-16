@@ -87,6 +87,7 @@ let FundProviderProductComponent = function(
         $ctrl.fundProviderProductChat = $ctrl.fundProviderProductChats[0] || null;
         $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf($ctrl.product.id) !== -1;
         $ctrl.product.approvedActionParams = { ...$stateParams };
+        $ctrl.product.editParams = { ...$stateParams };
 
         if ($ctrl.product.deals_history && Array.isArray($ctrl.product.deals_history)) {
             $ctrl.product.deals_history = $ctrl.product.deals_history.map(deal => ({
