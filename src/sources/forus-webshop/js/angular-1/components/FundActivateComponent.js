@@ -157,9 +157,18 @@ let FundActivateComponent = function(
         if ($ctrl.hasDigiDResponse($stateParams)) {
             // got digid error, abort
             if ($stateParams.digid_error) {
-                $state.go('error', {
-                    errorCode: 'digid_' + $stateParams.digid_error
-                });
+                if ($stateParams.digid_error === 'error_0040') {
+                    PushNotificationsService.info(
+                        'DigiD - Inlogpoging geannuleerd.',
+                        'U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan.'
+                    );
+
+                    $state.go('fund-activate', { ...$stateParams, ...{ digid_error: undefined } }, {
+                        reload: true
+                    });
+                } else {
+                    $state.go('error', { errorCode: 'digid_' + $stateParams.digid_error });
+                }
 
                 return true;
             }
