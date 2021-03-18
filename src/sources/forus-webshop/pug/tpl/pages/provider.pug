@@ -18,7 +18,7 @@ block content
                 .pane-head Aanbieder informatie
                 .pane-section: .provider-details
                     .provider-description
-                        img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}").provider-logo
+                        img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}" alt="Aanbieder logo").provider-logo
                         .provider-title(ng-bind="$ctrl.provider.name")
 
                 .pane-section.pane-section-compact-vertical
