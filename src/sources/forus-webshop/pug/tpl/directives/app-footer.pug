@@ -15,7 +15,9 @@ section.section.section-footer
             .col.col-md-3
                 .block.block-markdown
                     h3 Download Me-app
-                    .block.block-app_download
+                    .block.block-app_download(style="width: 350px")
+                        a(href="{{ $root.appConfigs.me_app_link }}" target="_blank" aria-label="Download Me-app")
+                            img(src="./assets/img/icon-app/icon-app-me.svg" alt="Me app" style="width: 36px; margin-right: 8px")
                         a(href="{{ $root.appConfigs.android_link }}" target="_blank" aria-label="Download Me-app")
                             img(src="./assets/img/icon-app/icon-app-android.svg" alt="Google Play Store")
                         a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank" aria-label="Download Me-app")

@@ -14,6 +14,7 @@ let chatId = false;
 let sessions = false;
 let google_maps_api_key = '';
 
+const me_app_link = 'https://forus.io/DL';
 const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const ios_iphone_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const android_link = 'https://media.forus.io/static/me-0.0.5-staging-7-release.apk';
@@ -49,6 +50,7 @@ module.exports = (core) => {
             hide_vouchers_csv: false,
             google_maps_api_key: google_maps_api_key,
             android_link: android_link,
+            me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
             // html5ModeEnabled: true,
@@ -82,6 +84,7 @@ module.exports = (core) => {
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
             android_link: android_link,
+            me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
         });
@@ -109,6 +112,7 @@ module.exports = (core) => {
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
             android_link: android_link,
+            me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
         });
@@ -514,6 +518,7 @@ module.exports = (core) => {
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
             android_link: android_link,
+            me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
         });

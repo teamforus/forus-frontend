@@ -63,8 +63,10 @@
                         | #[br] #[br]
 
                         .qr_code-download-app
+                            a(href="{{ $root.appConfigs.me_app_link }}").download-link
+                                img(src="./assets/img/icon-app/icon-app-me.svg")
                             a(href="{{ $root.appConfigs.ios_iphone_link }}").download-link
-                                img(src=src_prefix + "./assets/img/landing/icon-app-ios.svg")
+                                img(src=src_prefix + "./assets/img/icon-app/app-store-badge.svg")
                             a(href="{{ $root.appConfigs.android_link }}")
                                 img(src=src_prefix + "./assets/img/landing/icon-app-android.svg").download-link
                     .qr_code-block: qr-code(

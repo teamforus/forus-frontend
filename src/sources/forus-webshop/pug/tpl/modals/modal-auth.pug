@@ -30,8 +30,10 @@
                         | #[br] #[br]
 
                         .qr_code-download-app
+                            a(href="{{ $root.appConfigs.me_app_link }}" target="_blank" aria-label="Dowload Me-app").download-link
+                                img(src="./assets/img/icon-app/icon-app-me.svg" style="width: 36px")
                             a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank" aria-label="Dowload Me-app").download-link
-                                img(src="./assets/img/icon-app-ios.svg")
+                                img(src="./assets/img/icon-app/app-store-badge.svg")
                             a(href="{{ $root.appConfigs.android_link }}")
                                 img(src="./assets/img/icon-app-android.svg" aria-label="Dowload Me-app").download-link
                     .qr_code-block: qr-code(

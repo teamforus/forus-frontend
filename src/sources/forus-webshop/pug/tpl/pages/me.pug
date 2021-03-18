@@ -11,6 +11,8 @@ section.section.section-details: .wrapper
                 | Aanbieders gebruiken de app om QR-codes te scannen.
 
             .me_app-download-apps.hide-sm
+                a(href="{{ $root.appConfigs.me_app_link }}" target="_blank")
+                    img(src="./assets/img/icon-app/icon-app-me.svg" class="dl_buttons")
                 a(href="{{ $root.appConfigs.android_link }}" target="_blank")
                     img(src="assets/img/icon-app/icon-app-android.svg" class="dl_buttons")
                 a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
@@ -22,6 +24,8 @@ section.section.section-details: .wrapper
 
         .me_app-download
             .me_app-download-apps
+                a(href="{{ $root.appConfigs.me_app_link }}" target="_blank")
+                    img(src="./assets/img/icon-app/icon-app-me.svg" class="dl_buttons")
                 a(href="{{ $root.appConfigs.android_link }}" target="_blank")
                     img(src="assets/img/icon-app/icon-app-android.svg" class="dl_buttons")
                 a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")

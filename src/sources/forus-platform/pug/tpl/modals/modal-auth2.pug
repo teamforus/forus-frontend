@@ -27,8 +27,10 @@
         .block.block-qr-code.hidden-xs
             qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="auth_token" qr-logo="https://media.forus.io/assets/me-logo.png").hidden-xs
         .modal-subtitle.subtitle-left.download-badges.hidden-xs
+            a(href="{{ $root.appConfigs.me_app_link }}")
+                img(src="./assets/img/icon-app/icon-app-me.svg")
             a(href="{{ $root.appConfigs.ios_iphone_link }}")
-                img(src="./assets/img/landing/icon-app/icon-app-ios.svg") 
+                img(src="./assets/img/icon-app/app-store-badge.svg") 
             a(href="{{ $root.appConfigs.android_link }}")
                 img(src="./assets/img/landing/icon-app/icon-app-android.svg")
 
