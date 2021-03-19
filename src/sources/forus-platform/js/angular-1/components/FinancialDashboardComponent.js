@@ -11,7 +11,8 @@ let FinancialDashboardComponent = function(
     $ctrl.filters = {
         values: {
             q: "",
-            per_page: 15
+            per_page: 15,
+            approved_or_has_transactions: 1
         },
     };
 
