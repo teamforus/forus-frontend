@@ -282,18 +282,12 @@ let FundRequestComponent = function(
         });
     };
 
-    $ctrl.getFundVouchers = (fund, vouchers) => {
-        return vouchers.filter(voucher => voucher.fund_id === fund.id);
+    $ctrl.getActiveFundVouchers = (fund, vouchers) => {
+        return vouchers.filter(voucher => !voucher.expired && (voucher.fund_id === fund.id));
     };
 
     $ctrl.getFirstFundVoucher = (fund, vouchers) => {
-        let fundVouchers = $ctrl.getFundVouchers(fund, vouchers);
-
-        if (fundVouchers.length > 0) {
-            return fundVouchers[0];
-        }
-
-        return false;
+        return $ctrl.getActiveFundVouchers(fund, vouchers)[0] || false;
     }
 
     $ctrl.finish = () => $state.go('funds');
@@ -314,9 +308,15 @@ let FundRequestComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        let pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
+        const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
+        const pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
             return request.state === 'pending';
         }) : [];
+
+        // Voucher already received, go to the voucher
+        if (voucher) {
+            return $state.go('voucher', voucher);
+        }
 
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
