@@ -225,7 +225,7 @@ let FundActivateComponent = function(
                     }, {
                         reload: true
                     });
-                } else if (fundsValidCriteria.map(fund => fund.id).includes($ctrl.fund.id)) {
+                } else if (!fundsValidCriteria.map(fund => fund.id).includes($ctrl.fund.id)) {
                     // The current fund is now available for request (possible because bsn is now available)
                     $state.go('fund-request', {
                         fund_id: $ctrl.fund.id
