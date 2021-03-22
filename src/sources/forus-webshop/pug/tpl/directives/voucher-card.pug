@@ -1,6 +1,6 @@
 .voucher-item(ui-sref="voucher(voucher)" ng-class="voucherCard.disabled  ? 'voucher-item-disabled' : ''")
     .voucher-image
-        img(src='{{ voucherCard.thumbnail }}')
+        img(src='{{ voucherCard.thumbnail }}' alt="{{voucherCard.title}}")
     
     .voucher-details
         .label(ng-class="{true: 'label-success', false: 'label-warning'}[!voucherCard.used]" ng-if="voucherCard.type == 'product' && !voucher.expired" ng-bind="!voucherCard.used ? 'Ongebruikt' : 'Gebruikt'")
