@@ -35,7 +35,7 @@
             .invite-fund-subtitle Aangeboden door: {{ $ctrl.invitation.sponsor_organization.name }}
             .invite-fund-description(ng-bind="$ctrl.invitation.fund.description")
         .invite-fund-expiration
-            .invite-fund-expiration-label UITNODIGING GELDIG TOT
+            .invite-fund-expiration-label UITNODIGING GELDIG TOT EN MET
             .invite-fund-expiration-value {{ $ctrl.invitation.expire_at_locale }}
             .button.button-primary.button-slim(ng-if="$ctrl.invitation.state == 'pending'" ng-click="$ctrl.acceptInvitation()") Accepteer
 
