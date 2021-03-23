@@ -25,12 +25,6 @@
                         em.mdi.mdi-upload.icon-start 
                         span(translate="vouchers.buttons.upload_csv")
                     
-                    .button.button-primary(
-                        ng-if="!$ctrl.fundClosed && ($ctrl.vouchers.meta.total > 0)"
-                        ng-click="$ctrl.exportQRCodes()")
-                        em.mdi.mdi-file-export.icon-start
-                        span(translate="vouchers.buttons.export")
-                    
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start 
                         span(translate="vouchers.buttons.clear_filter")
@@ -106,7 +100,14 @@
                                         datepicker-mobile="" 
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
-                        
+
+                                .form-actions
+                                    button.button.button-primary.button-wide(
+                                        ng-click="$ctrl.exportQRCodes()" 
+                                        ng-disabled="$ctrl.fundClosed || ($ctrl.vouchers.meta.total == 0)")
+                                        em.mdi.mdi-download.icon-start  
+                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.vouchers.meta.total }")
+                                        
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
             .card-section

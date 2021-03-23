@@ -504,7 +504,9 @@ module.exports = {
         buttons: {
             reject: "Weigeren",
             accept: "Accepteren",
-            view_request: "Bekijk aanvraag"
+            view_request: "Bekijk aanvraag",
+            export_csv: "Exporteer als .CSV",
+            export_xls: "Exporteer als .XLS",
         },
     },
 
@@ -1194,7 +1196,8 @@ module.exports = {
         buttons: {
             previous: "Vorige",
             next: "Volgende",
-            export: 'Exporteren',
+            export_csv: "Exporteer als .CSV",
+            export_xls: "Exporteer als .XLS",
         },
         paginator: {
             one: "1",
@@ -1259,8 +1262,9 @@ module.exports = {
             alldecline: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
-            export: "Exporteren",
-            clear_filter: "Wis filter"
+            clear_filter: "Wis filter",
+            export_csv: "Exporteer als .CSV",
+            export_xls: "Exporteer als .XLS",
         },
     },
 
@@ -1496,7 +1500,8 @@ module.exports = {
         },
         buttons: {
             export_selected: "Exporteer selectie",
-            export: "Exporteer alles",
+            export_csv: "Exporteer als .CSV",
+            export_xls: "Exporteer als .XLS",
         }
     },
 
