@@ -80,6 +80,7 @@ module.exports = ['$q', ($q) => {
     return {
         scope: {
             qrDescription: '@',
+            qrAlt: '@',
             qrValue: '=',
             qrBackground: '@',
             qrLogo: '@',

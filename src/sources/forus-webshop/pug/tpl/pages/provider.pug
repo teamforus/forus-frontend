@@ -18,7 +18,7 @@ block content
                 .pane-head Aanbieder informatie
                 .pane-section: .provider-details
                     .provider-description
-                        img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}").provider-logo
+                        img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}" alt="{{ $ctrl.provider.name }}").provider-logo
                         .provider-title(ng-bind="$ctrl.provider.name")
 
                 .pane-section.pane-section-compact-vertical
@@ -53,6 +53,7 @@ block content
                                 .office-pane-block
                                     .office-logo: img(
                                         ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
+                                        alt="Vestiging {{ office.organization.name }}"
                                         ).office-logo-img
                                     .office-details
                                         .office-title(ng-bind="office.address")

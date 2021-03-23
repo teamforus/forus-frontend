@@ -73,6 +73,7 @@ block content
                             .organization-pane(ng-click="$ctrl.toggleOffices($event, provider)")
                                 .organization-logo(ng-click="$ctrl.goToProvider(provider)"): img(
                                     ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
+                                    alt="{{ provider.name }}"
                                     ).organization-logo-img
                                 .organization-title
                                     .organization-title-value(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.name")
@@ -86,6 +87,7 @@ block content
                                         .office-pane-block
                                             .office-logo: img(
                                                 ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
+                                                alt="Vestiging {{ office.organization.name }}"
                                                 ).office-logo-img
                                             .office-details
                                                 .office-title(ng-bind="office.address")

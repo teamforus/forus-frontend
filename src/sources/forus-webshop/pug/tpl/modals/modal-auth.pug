@@ -30,13 +30,14 @@
                         | #[br] #[br]
 
                         .qr_code-download-app
-                            a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank" aria-label="Dowload Me-app").download-link
-                                img(src="./assets/img/icon-app-ios.svg")
-                            a(href="{{ $root.appConfigs.android_link }}")
-                                img(src="./assets/img/icon-app-android.svg" aria-label="Dowload Me-app").download-link
+                            a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank").download-link
+                                img(src="./assets/img/icon-app-ios.svg" alt="Download in de App Store")
+                            a(href="{{ $root.appConfigs.android_link }}" target="_blank")
+                                img(src="./assets/img/icon-app-android.svg" alt="Ontdek het op Google Play").download-link
                     .qr_code-block: qr-code(
                         ng-if="$ctrl.qrValue" 
                         qr-value="$ctrl.qrValue" 
+                        qr-alt="Login"
                         qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
     
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId")
