@@ -30,15 +30,17 @@
                         | #[br] #[br]
 
                         .qr_code-download-app
-                            a(href="{{ $root.appConfigs.me_app_link }}" target="_blank" aria-label="Dowload Me-app").download-link
-                                img(src="./assets/img/icon-app/icon-app-me.svg" style="width: 36px")
-                            a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank" aria-label="Dowload Me-app").download-link
+                            a(href="{{ $root.appConfigs.me_app_link }}" target="_blank").download-link
+                                img(src="./assets/img/icon-app/icon-app-me.svg" alt="Me app" style="width: 36px")
+                            a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank" alt="Download in de App Store").download-link
                                 img(src="./assets/img/icon-app/app-store-badge.svg")
-                            a(href="{{ $root.appConfigs.android_link }}")
-                                img(src="./assets/img/icon-app-android.svg" aria-label="Dowload Me-app").download-link
+                            a(href="{{ $root.appConfigs.android_link }}" target="_blank")
+                                img(src="./assets/img/icon-app-android.svg" alt="Ontdek het op Google Play").download-link
+
                     .qr_code-block: qr-code(
                         ng-if="$ctrl.qrValue" 
                         qr-value="$ctrl.qrValue" 
+                        qr-alt="Login"
                         qr-type="auth_token" qr-logo=src_prefix + "./assets/img/me-logo.png")
     
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId")

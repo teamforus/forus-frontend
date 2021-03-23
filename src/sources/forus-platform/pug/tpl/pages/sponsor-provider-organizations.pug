@@ -99,10 +99,12 @@
                                         label(for="allow_products_all").radio-label
                                             .radio-circle
                                             | Alles
-                            .form-actions(ng-show="$ctrl.providerOrganizations.meta.total > 0")
-                                button.button.button-primary.button-wide(ng-click="$ctrl.exportList()")
+                            .form-actions
+                                button.button.button-primary.button-wide(
+                                    ng-click="$ctrl.exportList()"
+                                    ng-disabled="$ctrl.providerOrganizations.meta.total == 0")
                                     em.mdi.mdi-download.icon-start  
-                                    span.ng-scope(translate='prevalidated_table.buttons.export_selected') Exporteer selectie
+                                    span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.providerOrganizations.meta.total }")
 
                     .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
