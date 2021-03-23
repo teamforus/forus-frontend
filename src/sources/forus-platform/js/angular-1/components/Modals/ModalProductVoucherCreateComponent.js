@@ -54,10 +54,10 @@ let ModalProductVoucherCreateComponent = function(
         ModalService.open('duplicatesPicker', {
             hero_title: "Dubbele e-mailadressen gedetecteerd.",
             hero_subtitle: [
-                `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
-                "Deze e-mailadressen bezitten al een voucher van dit fonds."
+                `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra tegoed wilt aanmaken?`,
+                "Deze e-mailadressen bezitten al een tegoed van dit fonds."
             ],
-            label_on: "Aanmaken voucher",
+            label_on: "Aanmaken tegoed",
             label_off: "Overslaan",
             items: items,
             onConfirm: onConfirm,
@@ -69,12 +69,12 @@ let ModalProductVoucherCreateComponent = function(
         let items = existingBsn.map(bsn => ({ value: bsn }));
 
         ModalService.open('duplicatesPicker', {
-            hero_title: "Dubbele bsn gedetecteerd.",
+            hero_title: "Dubbele bsn(s) gedetecteerd.",
             hero_subtitle: [
-                `Weet u zeker dat u voor ${items.length} bsn een extra voucher wilt aanmaken?`,
-                "Deze bsn bezitten al een voucher van dit fonds."
+                `Weet u zeker dat u voor ${items.length} bsn(s) een extra tegoed wilt aanmaken?`,
+                "Deze bsn(s) bezitten al een tegoed van dit fonds."
             ],
-            label_on: "Aanmaken voucher",
+            label_on: "Aanmaken tegoed",
             label_off: "Overslaan",
             items: items,
             onConfirm: onConfirm,

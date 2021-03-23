@@ -1,4 +1,5 @@
 let FundProviderProductComponent = function(
+    $stateParams,
     FundService,
     ModalService,
     FundProviderChatService,
@@ -6,36 +7,10 @@ let FundProviderProductComponent = function(
 ) {
     let $ctrl = this;
 
-    $ctrl.openSubsidyProductModal = function(
-        fundProvider,
-        product,
-        readOnly = false,
-        readValues = {}
-    ) {
-        ModalService.open('subsidyProductEdit', {
-            fund: fundProvider.fund,
-            product: product,
-            readOnly: readOnly,
-            readValues: readValues,
-            fundProvider: fundProvider,
-            onApproved: (fundProvider) => {
-                PushNotificationsService.success('Opgeslagen!');
-                $ctrl.fundProvider = fundProvider;
-                $ctrl.$onInit();
-            }
-        });
-    };
-
     $ctrl.disableProductItem = function(fundProvider, product) {
-        ModalService.open("dangerZone", {
-            title: "U verwijdert hiermee het aanbod permanent uit de webshop",
-            description: "U dient aanbieders en inwoners hierover te informeren.",
-            cancelButton: "Annuleer",
-            confirmButton: "Stop actie",
-            onConfirm: () => {
-                product.allowed = false;
-                $ctrl.updateAllowBudgetItem(fundProvider, product);
-            }
+        FundService.stopActionConfirmationModal(() => {
+            product.allowed = false;
+            $ctrl.updateAllowBudgetItem(fundProvider, product);
         });
     };
 
@@ -49,6 +24,8 @@ let FundProviderProductComponent = function(
         }).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
+            $ctrl.updateProviderProduct();
+            $ctrl.$onInit();
         }, console.error);
     };
 
@@ -94,11 +71,31 @@ let FundProviderProductComponent = function(
         });
     };
 
+    $ctrl.updateProviderProduct = () => {
+        FundService.getProviderProduct(
+            $stateParams.organization_id,
+            $stateParams.fund_id,
+            $stateParams.fund_provider_id,
+            $stateParams.product_id,
+        ).then((res) => {
+            $ctrl.product = res.data.data;
+            $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf($ctrl.product.id) !== -1;
+        });
+    }
+
     $ctrl.$onInit = function() {
         $ctrl.fundProviderProductChat = $ctrl.fundProviderProductChats[0] || null;
-        $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf(
-            $ctrl.product.id
-        ) !== -1;
+        $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf($ctrl.product.id) !== -1;
+        $ctrl.product.approvedActionParams = { ...$stateParams };
+        $ctrl.product.editParams = { ...$stateParams };
+
+        if ($ctrl.product.deals_history && Array.isArray($ctrl.product.deals_history)) {
+            $ctrl.product.deals_history = $ctrl.product.deals_history.map(deal => ({
+                ...deal, ...{
+                    showSubsidyDealParams: { ...$stateParams, ...{ deal_id: deal.id } }
+                }
+            }));
+        }
     };
 };
 
@@ -111,6 +108,7 @@ module.exports = {
         product: '<'
     },
     controller: [
+        '$stateParams',
         'FundService',
         'ModalService',
         'FundProviderChatService',

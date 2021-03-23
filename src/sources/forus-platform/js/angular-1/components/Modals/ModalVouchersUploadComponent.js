@@ -210,9 +210,9 @@ let ModalVouchersUploadComponent = function(
                         `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
                         "Deze e-mailadressen bezitten al een voucher van dit fonds."
                     ],
-                    button_none: "Alle vouchers overslaan",
-                    button_all: "Alle vouchers aanmaken",
-                    label_on: "Aanmaken voucher",
+                    button_none: "Alle tegoed overslaan",
+                    button_all: "Alle tegoed aanmaken",
+                    label_on: "Aanmaken tegoed",
                     label_off: "Overslaan",
                     items: items,
                     onConfirm: (items) => {
@@ -237,14 +237,14 @@ let ModalVouchersUploadComponent = function(
                 }
 
                 ModalService.open('duplicatesPicker', {
-                    hero_title: "Dubbele bsn gedetecteerd.",
+                    hero_title: "Dubbele bsn(s) gedetecteerd.",
                     hero_subtitle: [
-                        `Weet u zeker dat u voor ${items.length} bsn een extra voucher wilt aanmaken?`,
-                        "Deze bsn bezitten al een voucher van dit fonds."
+                        `Weet u zeker dat u voor ${items.length} bsn(s) een extra voucher wilt aanmaken?`,
+                        "Deze bsn(s) bezitten al een voucher van dit fonds."
                     ],
-                    button_none: "Alle vouchers overslaan",
-                    button_all: "Alle vouchers aanmaken",
-                    label_on: "Aanmaken voucher",
+                    button_none: "Alle tegoed overslaan",
+                    button_all: "Alle tegoed aanmaken",
+                    label_on: "Aanmaken tegoed",
                     label_off: "Overslaan",
                     items: items,
                     onConfirm: (items) => {
@@ -283,6 +283,7 @@ let ModalVouchersUploadComponent = function(
                         per_page: 100,
                         page: page,
                         source: 'employee',
+                        expired: 0,
                     });
                 }, 4).then(data => {
                     PushNotificationsService.success(

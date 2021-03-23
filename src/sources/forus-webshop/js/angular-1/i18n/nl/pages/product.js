@@ -10,7 +10,7 @@ module.exports = {
     },
     labels: {
         fund: "Aanvragen",
-        limit: "Aantal keer dat u gebruik kan maken:",
+        limit: "Aantal keer dat je gebruik kan maken:",
         max_limit: "Maximaal per persoon:",
         find: "U kunt ons hier vinden",  
         description: "Omschrijving:",
@@ -19,7 +19,7 @@ module.exports = {
         pay_from_voucher: "U betaalt vanuit het tegoed:",
         price: "Prijs:",
         discount: "Korting:",
-        expire_prefix: "Geldig t/m"
+        expire_prefix: "Geldig tot"
     },
     status: {
         active: "Actief",

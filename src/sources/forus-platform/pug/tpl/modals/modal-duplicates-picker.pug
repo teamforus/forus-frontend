@@ -16,7 +16,7 @@
                         em.mdi.mdi-alert-outline.text-warning.switch-key-icon
                         | {{ item.value }}
                     
-                    .switch-input: .flex-row
+                    .switch-input(ng-if="$ctrl.itemsShown.length > 1"): .flex-row
                         .flex-col.switch-input-label(
                             ng-class="{'switch-input-label-blink' : item.blink}"
                             ng-bind="item.model ? $ctrl.labels.label_on : $ctrl.labels.label_off")

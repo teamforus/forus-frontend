@@ -90,6 +90,85 @@ module.exports = [
                 );
             };
 
+            this.providerOrganizations = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers',
+                    organization_id
+                ), query);
+            };
+
+            this.providerOrganizationsExport = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/export',
+                    organization_id
+                ), query, {}, true, (_cfg) => {
+                    return { ..._cfg, ...{ responseType: 'arraybuffer', cache: false } };
+                });
+            };
+
+            this.providerOrganization = function(
+                organization_id,
+                provider_organization_id,
+                query = {}
+            ) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s',
+                    organization_id,
+                    provider_organization_id
+                ), query);
+            };
+
+            this.sponsorProducts = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                query = {}
+            ) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products',
+                    sponsor_organization_id,
+                    provider_organization_id
+                ), { ...query });
+            };
+
+            this.sponsorProduct = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                product_id
+            ) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products/%s',
+                    sponsor_organization_id,
+                    provider_organization_id,
+                    product_id
+                ));
+            };
+
+            this.sponsorProductUpdate = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                product_id,
+                data = {}
+            ) {
+                return ApiRequest.patch(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products/%s',
+                    sponsor_organization_id,
+                    provider_organization_id,
+                    product_id
+                ), { ...data });
+            };
+
+            this.sponsorStoreProduct = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                data = {}
+            ) {
+                return ApiRequest.post(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products',
+                    sponsor_organization_id,
+                    provider_organization_id
+                ), { ...data });
+            };
+
             this.store = function(values) {
                 return ApiRequest.post(
                     '/platform/organizations',
@@ -114,9 +193,8 @@ module.exports = [
             this.updateBusinessType = function(id, business_type_id) {
                 return ApiRequest.patch(
                     '/platform/organizations/' + id + '/update-business', {
-                        business_type_id: business_type_id
-                    }
-                );
+                    business_type_id: business_type_id
+                });
             };
 
             this.read = function(id, query = {}) {

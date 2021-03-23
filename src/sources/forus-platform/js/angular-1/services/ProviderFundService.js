@@ -11,16 +11,18 @@ let ProviderFundService = function(ApiRequest) {
         this.listFunds = function(organization_id, state) {
             return ApiRequest.get(
                 uriPrefix + organization_id + '/provider/funds',
-                state ? {state: state} : {}
+                state ? { state: state } : {}
+            );
+        };
+
+        this.readFundProvider = function(organization_id, fund_provider_id, query = {}) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/provider/funds/' + fund_provider_id, query
             );
         };
 
         this.applyForFund = function(organization_id, fund_id) {
-            return ApiRequest.post(
-                uriPrefix + organization_id + '/provider/funds', {
-                    fund_id: fund_id
-                }
-            );
+            return ApiRequest.post(uriPrefix + organization_id + '/provider/funds', { fund_id });
         };
     });
 };

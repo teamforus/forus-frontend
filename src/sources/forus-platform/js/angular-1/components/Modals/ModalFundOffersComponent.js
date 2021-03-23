@@ -1,6 +1,6 @@
 let ModalFundOffersComponent = function (
     ProductService,
-    FundService,
+    ProviderFundService,
 ) {
     let $ctrl = this;
 
@@ -9,9 +9,8 @@ let ModalFundOffersComponent = function (
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.providerFund = $ctrl.modal.scope.providerFund;
 
-        FundService.readProvider(
-            $ctrl.fund.organization.id,
-            $ctrl.fund.id,
+        ProviderFundService.readFundProvider(
+            $ctrl.organization.id,
             $ctrl.providerFund.id
         ).then(res => {
             $ctrl.enabledProducts = res.data.data.products;
@@ -36,7 +35,8 @@ let ModalFundOffersComponent = function (
                 offer.subsidy_amount = offer.price - fund.price;
                 offer.subsidy_user_amount = fund.price;
                 offer.subsidy_user_limit = fund.limit_per_identity;
-                offer.subsidy_limit_total = fund.limit_total
+                offer.subsidy_limit_total = fund.limit_total;
+                offer.subsidy_limit_total_unlimited = fund.limit_total_unlimited;
             }
 
         });
@@ -52,7 +52,7 @@ module.exports = {
     },
     controller: [
         'ProductService',
-        'FundService',
+        'ProviderFundService',
         ModalFundOffersComponent
     ],
     templateUrl: () => {

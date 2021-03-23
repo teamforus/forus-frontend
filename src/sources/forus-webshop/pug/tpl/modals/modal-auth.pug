@@ -7,17 +7,17 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close")
         
         .block.block-auth-widget(ng-if="!$ctrl.restoreWithDigId")
-            .auth-title Login met e-mail
-            .auth-subtitle {{ "popup_auth.labels.link" | translate }}
+            .auth-title(translate="popup_auth.header.title")
+            .auth-subtitle(translate="{{ 'popup_auth.header.subtitle_' + $ctrl.appConfigs.features.communication_type }}")
 
             form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()")
                 .auth-form-input
-                    input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mail").form-control.email-auth
+                    input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mailadres").form-control.email-auth
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.email" ng-bind="error")
                 div: button(type="submit").button.button-primary Login
 
             .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link
-                | Vergeten welk e-mailadres u heeft gebruikt?
+                translate(translate="{{ 'popup_auth.restore_' + $ctrl.appConfigs.features.communication_type }}")
                 em.mdi.mdi-chevron-right
 
             .auth-qr_code.hidden-xs
@@ -48,7 +48,7 @@
                     | Herstel uw account door opnieuw in te loggen met DigiD
                     br
                 .auth-subtitle 
-                    .button.button-digid(style="height: 48px; width: 48px") &nbsp;
+                    .button.button-digid &nbsp;
                     .button.button-primary(ng-click="$ctrl.startDigId()") Login
 
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId && $ctrl.restoreWithDigIdFailed")

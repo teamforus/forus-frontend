@@ -1,7 +1,9 @@
-let TransactionComponent = function() {
+let TransactionComponent = function(appConfigs) {
     let $ctrl = this;
 
-    $ctrl.$onInit = function () {};
+    $ctrl.$onInit = function () {
+        $ctrl.appConfigs = appConfigs;
+    };
 };
 
 module.exports = {
@@ -9,6 +11,7 @@ module.exports = {
         transaction: '<',
     },
     controller: [
+        'appConfigs',
         TransactionComponent
     ],
     templateUrl: 'assets/tpl/pages/transaction.html'

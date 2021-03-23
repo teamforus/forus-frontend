@@ -3,12 +3,16 @@
 .modal.modal-md
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
+        .modal-header(ng-if="$ctrl.header")
+            span(ng-bind="$ctrl.header")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+
         .modal-body: .modal-section
             .block.block-danger_zone
                 .danger_zone-title
                     em.mdi.mdi-alert
                     span(ng-bind="$ctrl.title")
-                .danger_zone-description(ng-repeat="description in ($ctrl.description | lines_to_array)" ng-bind="description")
+                .danger_zone-description: div(ng-repeat="description in ($ctrl.description | lines_to_array)" ng-bind="description")
         .modal-footer
             .button.button-default(ng-click="$ctrl.close()" ng-bind="$ctrl.cancelButton")
             .button.button-danger(ng-click="$ctrl.confirm()" ng-bind="$ctrl.confirmButton")

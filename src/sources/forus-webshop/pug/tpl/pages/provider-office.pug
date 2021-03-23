@@ -30,9 +30,9 @@ block content
                             .data-list-value(ng-bind="$ctrl.office.phone ? $ctrl.office.phone : $ctrl.provider.phone")
                         
                         .data-list-row(ng-if="$ctrl.provider")
-                            .data-list-key Organisatie type:
+                            .data-list-key Type aanbieder:
                             .data-list-value
-                                .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen organisatie type' }}
+                                .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen type geselecteerd' }}
 
             .block.block-pane(ng-if="$ctrl.provider.description_html")
                 .pane-head Omschrijving
@@ -51,7 +51,7 @@ block content
                     | Aanbieder heeft geen openingstijden ingesteld. Contacteer aanbieder voor de openingstijden.
             
             .block.block-pane.last-child
-                .pane-head Organisatie
+                .pane-head Aanbieder
                 .pane-section
                     .office-organization(ng-click="$ctrl.toggleOffices($event, $ctrl.provider)")
                         .organization-photo(ng-click="$ctrl.goToProvider($event, $ctrl.provider)")

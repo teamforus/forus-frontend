@@ -1,25 +1,31 @@
-let SignUpSelectionComponent = function($scope, appConfigs, $sce) {
+let SignUpSelectionComponent = function($sce, appConfigs) {
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.appConfigs = appConfigs;
+        const { content_html } = $ctrl.page;
+        const { fronts } = $ctrl.configs;
+        const { provider_sign_up_filters } = appConfigs;
 
-        $scope.$watch(() => appConfigs, (configs) => {
-            if (configs && configs.features && configs.features.settings) {
-                $ctrl.description_providers_html = $sce.trustAsHtml(
-                    configs.features.settings.description_providers_html
-                );
-            }
-        }, true);
+        const params = provider_sign_up_filters || {};
+        const paramKeys = Object.keys(params);
+
+        $ctrl.signUpUrl = fronts.url_provider || '';
+        $ctrl.signUpUrlParams = (paramKeys.length > 0 ? '?' : '') + paramKeys.map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+        }).join('&');
+
+        $ctrl.description_html = $sce.trustAsHtml(content_html);
     };
 };
 
 module.exports = {
-    bindings: {},
+    bindings: {
+        page: '<',
+        configs: '<',
+    },
     controller: [
-        '$scope',
-        'appConfigs',
         '$sce',
+        'appConfigs',
         SignUpSelectionComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up-options.html'

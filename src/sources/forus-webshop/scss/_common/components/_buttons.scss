@@ -16,7 +16,6 @@
         margin-right: 10px;
         margin-left: -10px;
         float: left;
-        transition: 0.4s;
 
         &.icon-right {
             float: right;
@@ -258,6 +257,8 @@
         box-shadow: none;
         cursor: default;
         pointer-events: none;
+        height: 48px; 
+        width: 48px;
     }
 }
 

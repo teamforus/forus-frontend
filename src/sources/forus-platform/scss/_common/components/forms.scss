@@ -23,6 +23,13 @@
         color: $tc;
         padding: 0;
         color: $color_primary;
+
+        &.form-label-required {
+            &:after {
+                content: '*';
+                padding-right: 2px;
+            }
+        }
     }
 
     .form-value {
@@ -271,6 +278,17 @@
                 text-align: right;
                 padding-right: 15px;
                 float: left;
+
+                &.form-label-required {
+                    &:before {
+                        content: '*';
+                        padding-right: 2px;
+                    }
+
+                    &:after {
+                        display: none;
+                    }
+                }
             }
 
             &>.form-offset,
@@ -285,6 +303,22 @@
                 margin-left: 200px;
                 width: calc(100% - 200px);
                 float: left;
+            }
+
+            &.form-group-inline-lg {
+                &>.form-label {
+                    width: 250px;
+                }
+
+                &>.form-offset,
+                &>.form-control {
+                    width: calc(100% - 250px);
+                }
+
+                &>.form-error {
+                    margin-left: 250px;
+                    width: calc(100% - 250px);
+                }
             }
 
             &.form-group-inline-md {

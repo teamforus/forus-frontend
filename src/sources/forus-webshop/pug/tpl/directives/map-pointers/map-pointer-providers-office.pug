@@ -1,5 +1,6 @@
 .map-card
-    .map-card-img(style="background-image: url('{{ imageUrl }}'")
+    .map-card-img
+        img(src="{{ imageUrl }}")
     .map-card-content
         .map-card-title(ng-bind="office.organization.name")
         .map-card-description

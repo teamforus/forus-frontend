@@ -13,8 +13,7 @@ module.exports = {
             fund: "Fonds",
             expire: "Geldig tot en met:",
             requirements: "Voor voorwaarden van dit aanbod neem contact op met de aanbieder.",
-            vouchers: "Staat uw gewenste aanbod niet in de webshop? Ga dan langs bij de aanbieder.",
-            info: "<span style='font-style: italic;'>Zoek je een organisatie die niet op de kaart staat? Je kunt een organisatie vragen om deel te nemen. Een organisatie kan zich het hele jaar door aanmelden.</span>",
+            info: "<span style='font-style: italic;'>Zoek je een aanbieder die niet op de kaart staat? Je kunt een aanbieder vragen om deel te nemen. Een aanbieder kan zich het hele jaar door aanmelden.</span>",
             offices: "Aanbieders",
             voucher: "Print uw tegoed uit of mail hem naar uzelf toe. Ga met de QR-code naar de aanbieder en laat hem scannen.",
             office: "Locaties waar u deze reservering kan verzilveren.",
@@ -27,9 +26,8 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                description: "Uw {{fund_name}} tegoed kunt u bij de aanbieder laten zien. De aanbieder scant de QR-code om u het aanbod te leveren",
-                desc: "Een tegoed kunt u bij de aanbieder laten zien. De aanbieder kan de QR-code scannen om u het aanbod te leveren.",
-                contact_sponsor: "Heeft u vragen? Neem dan contact met ons op.",
+                description: "Neem de QR-code mee naar de aanbieder. De aanbieder scant de QR-code en levert het aanbod.",  
+                contact_sponsor: "Vragen? Neem contact met ons op.",
                 contact_provider: "Heeft u vragen over dit aanbod? Neem dan contact met ons op.",
             },
             footer: {
@@ -57,7 +55,6 @@ module.exports = {
         },
         physical_card: {
             title: 'Activeer mijn pas',
-            description: 'Als u de Stadjerpas (opnieuw) activeert kun u deze blijven gebruiken.',
             buttons: {
                 reactivate: 'Activeer'
             }
@@ -74,7 +71,7 @@ module.exports = {
             },
             popup_sent: {
                 title: 'Uw reservering is verstuurd naar de aanbieder.',
-                description: 'De aanbieder heeft de reservering en uw bericht ontvangen. Neem contact op met de aanbieder of ga bij de organisatie langs om het aanbod af te nemen.'
+                description: 'De aanbieder heeft de reservering en uw bericht ontvangen. Neem contact op met de aanbieder of ga bij de aanbieder langs om het aanbod af te nemen.'
             },
             labels: {
                 send_copy: "Stuur e-mail als bewijs ook naar uzelf"

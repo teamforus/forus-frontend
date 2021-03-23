@@ -69,9 +69,11 @@ module.exports = {
     voucher_printable: require('./nl/pages/voucher-printable'),
     accessibility: require('./nl/pages/accessibility'),
     error_page: require("./nl/pages/error-page"),
+    privacy: require("./nl/pages/privacy"),
 
     // MODALS
     popup_auth: require("./nl/modals/modal-auth"),
+    logout: require("./nl/modals/modal-logout"),
     popup_offices: require("./nl/modals/modal-offices"),
     open_in_me: require("./nl/modals/modal-open-in-me"),
     physical_card: require("./nl/modals/modal-physical_card"),
@@ -79,11 +81,11 @@ module.exports = {
     modal: require("./nl/modals/modal"),
 
     // DIRECTIVES
+    app_footer: require("./nl/directives/app-footer"),
     block_products: require("./nl/directives/block-products"),
     block_funds: require("./nl/directives/block-funds"),
     block_notifications:  require("./nl/directives/block-notifications"),
     block_providers: require("./nl/directives/block-providers"),
-    contact: require("./nl/directives/contact"),
     empty_block: require("./nl/directives/empty-block"),
     fund_criterion: require("./nl/directives/fund-criterion"),
     maps: require("./nl/directives/google-map"),
