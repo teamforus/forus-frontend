@@ -66,7 +66,7 @@ block content
                         .fund-item(
                             ng-repeat="fund in $ctrl.funds.data")
                             .fund-photo
-                                img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                                img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
                             .fund-content
                                 .fund-details
                                     .fund-name(ng-bind="fund.name")

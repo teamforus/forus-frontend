@@ -7,7 +7,7 @@ module.exports = {
         activation_code: "Code",
         amount: "Bedrag",
         created_date: "Aangemaakt op",
-        expire_date: "Geldig tot",
+        expire_date: "Geldig tot en met",
         fund: "Fonds",
         granted: "Toegekend",
         note: "Notitie",
