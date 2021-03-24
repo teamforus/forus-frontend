@@ -7,7 +7,7 @@
             .hero-title(ng-bind="$ctrl.hero_title" ng-if="$ctrl.hero_title")
             .hero-subtitle(ng-repeat="hero_subtitle in $ctrl.hero_subtitle" ng-bind="hero_subtitle" ng-if="$ctrl.hero_subtitle")
         
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         
         .modal-body.modal-body-padless.form
             .block.block-switch-table(scroll-end="$ctrl.loadMore()")

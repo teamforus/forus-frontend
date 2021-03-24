@@ -2,7 +2,7 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Sign In by qr-code
     .modal-window: .modal-content
-        .modal-close(ng-click="$ctrl.close()")
+        .modal-close(ng-click="$ctrl.close()" role="button")
             include ../../../resources/platform-general/assets/img/svg/close.svg
 
         h4.modal-title Login met e-mail
