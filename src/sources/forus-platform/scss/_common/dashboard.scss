@@ -47,7 +47,8 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-fund_types';
     @import 'blocks/block-subsidy-product-overview';
     @import 'blocks/block-dashboard-switcher';
-    @import 'blocks/block-app_download';
+    @import 'blocks/block-app_download.scss';
+    @import 'blocks/block-app_links.scss';
 }
 
 
@@ -2016,7 +2017,7 @@ body {
                 }
 
                 .sign_up-pane-auth-content {
-                    .sign_up-pane-auth-apps {
+                    .block-app_links {
                         margin-top: 26px;
                     }
 
@@ -5587,16 +5588,6 @@ body {
                         font: 400 15px/22px $bf;
                         color: #333;
                         margin: 0 0 5px;
-                    }
-            
-                    .qr_code-download-app {
-                        display: flex;
-    
-                        .download-link {
-                            height: 40px;
-                            display: inline-flex;
-                            margin-right: 10px;
-                        }
                     }
                 }
         

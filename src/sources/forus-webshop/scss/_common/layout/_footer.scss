@@ -20,30 +20,6 @@
 }
 
 .block {
-    &.block-app_download {
-        .download-button {
-            width: 240px;
-            max-width: 100%;
-            margin-bottom: 10px;
-
-            .download-label {
-                font: 400 12px $bf;
-                color: #646f79;
-            }
-
-            .download-value {
-                font: 700 16px $bf;
-                color: #282b39;
-            }
-
-            .download-icon {
-                img {
-                    width: 100%;
-                }
-            }
-        }
-    }
-
     &.block-copyrights {
         width: 100%;
         border-top: 1px solid #d7e9ed;
@@ -130,13 +106,6 @@
 
     &.block-footer {
         margin-bottom: 40px;
-
-        .block-app_download {
-            img {
-                height: 40px;
-                width: 135px;
-            }
-        }
 
         .footer-logo {
             width: 140px;
@@ -246,24 +215,6 @@
     }
 
     @media screen and (max-width: 1000px) {
-        &.block-app_download {
-            text-align: center;
-
-            .download-icon {
-                width: 200px;
-                display: inline-block;
-                max-width: 100%;
-            }
-        }
-
-        &.block-app_download {
-            margin: 0 0 20px;
-
-            .download-button {
-                width: 100%;
-            }
-        }
-
         &.block-copyrights {
             padding: 20px 0;
             text-align: center;

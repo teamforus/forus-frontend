@@ -419,21 +419,6 @@
                     font: 400 15px/22px $bf;
                     padding-right: 30px;
                     flex-grow: 1;
-
-                    .sign_up-pane-auth-apps {
-                        .sign_up-pane-auth-app-item {
-                            width: 130px;
-                            margin-right: 10px;
-
-                            &:last-child {
-                                margin-right: 0;
-                            }
-                            
-                            img {
-                                height: 44px;
-                            }
-                        }
-                    }
                 }
 
                 .sign_up-pane-auth-qr_code {

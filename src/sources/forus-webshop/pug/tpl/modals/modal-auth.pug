@@ -29,13 +29,7 @@
                         | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
                         | #[br] #[br]
 
-                        .qr_code-download-app
-                            a(href="{{ $root.appConfigs.me_app_link }}" target="_blank").download-link
-                                img(src="./assets/img/icon-app/icon-app-me.svg" alt="Me app" style="width: 36px")
-                            a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank" alt="Download in de App Store").download-link
-                                img(src="./assets/img/icon-app/app-store-badge.svg")
-                            a(href="{{ $root.appConfigs.android_link }}" target="_blank")
-                                img(src="./assets/img/icon-app-android.svg" alt="Ontdek het op Google Play").download-link
+                        app-links
 
                     .qr_code-block: qr-code(
                         ng-if="$ctrl.qrValue" 

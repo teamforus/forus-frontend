@@ -10,23 +10,10 @@ section.section.section-details: .wrapper
                 | Met de app kunnen inwoners gemakkelijk hun tegoeden beheren. 
                 | Aanbieders gebruiken de app om QR-codes te scannen.
 
-            .me_app-download-apps.hide-sm
-                a(href="{{ $root.appConfigs.me_app_link }}" target="_blank")
-                    img(src="./assets/img/icon-app/icon-app-me.svg" class="dl_buttons")
-                a(href="{{ $root.appConfigs.android_link }}" target="_blank")
-                    img(src="assets/img/icon-app/icon-app-android.svg" class="dl_buttons")
-                a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
-                    img(src="assets/img/icon-app/app-store-badge.svg" class="dl_buttons")
+            app-links(type="lg").hide-sm
 
         .me_app-images
             .me_app-image: img(src="assets/img/app-ios.png")
             .me_app-image: img(src="assets/img/app-android.png")
 
-        .me_app-download
-            .me_app-download-apps
-                a(href="{{ $root.appConfigs.me_app_link }}" target="_blank")
-                    img(src="./assets/img/icon-app/icon-app-me.svg" class="dl_buttons")
-                a(href="{{ $root.appConfigs.android_link }}" target="_blank")
-                    img(src="assets/img/icon-app/icon-app-android.svg" class="dl_buttons")
-                a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
-                    img(src="assets/img/icon-app/app-store-badge.svg" class="dl_buttons")
+        .me_app-download.flex-center: app-links
