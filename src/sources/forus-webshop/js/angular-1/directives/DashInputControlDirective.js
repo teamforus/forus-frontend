@@ -4,9 +4,10 @@ let DashInputControlDirective = function(
 ) {
     let dashInterval = parseInt($scope.blockSize || 4);
     let maxLength = parseInt($scope.maxLength || 8);
+    let index = Math.floor(Math.random() * 100000) + 1;
 
     // prevent invalid inpit
-    $($element).bind('keypress', function(e) {
+    angular.element($element).bind('keypress.dash_control_' + index, function(e) {
         var key = e.which;
         var isValid = key >= 65 && key <= 90 || // A-Z
             key >= 97 && key <= 122 || // a-z
@@ -40,6 +41,10 @@ let DashInputControlDirective = function(
         } else {
             $scope.ngModel = _old;
         }
+    });
+
+    $scope.$on('$destroy', function() {
+        angular.element($element).bind('keypress.dash_control_' + index);
     });
 };
 

@@ -123,7 +123,7 @@
                                 ng-if="$ctrl.userMenuOpened"
                                 click-outside="$ctrl.hideUserMenu()")
                                 .triangle
-                                .inner
+                                .inner(prevent-propagation)
                                     .auth-user-menu-item(ng-click="startFundRequest()" id="open_activation_code_popup")
                                         //-  ng-if="!$root.appConfigs.features.digid")
                                         img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
