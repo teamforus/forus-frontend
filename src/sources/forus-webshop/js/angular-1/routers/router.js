@@ -658,7 +658,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "fund-apply",
         url: "/funds/{id}",
-        component: "fundApplyComponent",
+        component: "fundComponent",
         data: {
             id: null
         },
@@ -668,15 +668,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => repackResponse(FundService.readById(
                 $transition$.params().id
             ))],
-            records: ['RecordService', (
-                RecordService
-            ) => repackResponse(RecordService.list())],
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],
-            vouchers: ['VoucherService', (
-                VoucherService
-            ) => repackResponse(VoucherService.list())],
+            products: ['ProductService', (
+                 ProductService
+            ) => repackPagination(ProductService.list())]
         }
     });
 
