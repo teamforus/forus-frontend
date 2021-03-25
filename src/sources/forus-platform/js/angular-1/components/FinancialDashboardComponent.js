@@ -12,7 +12,7 @@ let FinancialDashboardComponent = function(
         values: {
             q: "",
             per_page: 15,
-            approved_or_has_transactions: 1
+            state: 'approved_or_has_transactions',
         },
     };
 
@@ -36,7 +36,7 @@ let FinancialDashboardComponent = function(
         FundService.listProviders(
             $ctrl.fund.organization_id,
             $ctrl.fund.id,
-            'approved',
+            'approved_or_has_transactions',
             query
         ).then(res => {
             deferred.resolve($ctrl.fundProviders = res.data);
