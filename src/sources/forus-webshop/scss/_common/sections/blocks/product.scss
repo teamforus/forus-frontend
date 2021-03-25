@@ -16,17 +16,13 @@
             width: 70%;
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
-            border-radius: $border_radius;
             max-height: 400px;
 
             img {
                 width: 100%;
-                min-width: 533px;
-                min-height: 400px;
-
-                border-radius: $border_radius;
                 border-top-left-radius: inherit;
                 border-bottom-left-radius: inherit;
+                display: block;
             }
         }
 
@@ -249,7 +245,6 @@
 
                 img {
                     display: block;
-                    min-width: 150px;
                     border-radius: $border_radius;
                     border-top-left-radius: inherit;
                     border-top-right-radius: inherit;

@@ -126,6 +126,41 @@
                 }
             }
         }
+
+        @media screen and (max-width: 1000px) {
+            padding: 20px 0;
+            text-align: center;
+            height: auto;
+
+            .wrapper {
+                height: auto;
+            }
+
+            .copyrights {
+                width: 100%;
+            }
+
+            .links {
+                width: 100%;
+                flex-direction: column;
+
+                .link-item {
+                    a {
+                        width: 100%;
+                        margin: 0;
+                        padding: 0;
+                    }
+    
+                    &:after {
+                        content: none;
+                    }
+                }
+
+                .link-separator {
+                    display: none;
+                }
+            }
+        }
     }
 
     &.block-footer {
@@ -217,6 +252,16 @@
                 border-top-left-radius: 0;
             }
         }
+
+        @media screen and (max-width: 1000px) {
+            .block-markdown {
+                text-align: center;
+
+                * {
+                    text-align: inherit;
+                }
+            }
+        }
     }
 
     @media screen and (max-width: 1700px) {
@@ -261,34 +306,6 @@
 
             .download-button {
                 width: 100%;
-            }
-        }
-
-        &.block-copyrights {
-            padding: 20px 0;
-            text-align: center;
-            height: auto;
-
-            .wrapper {
-                height: auto;
-            }
-
-            .copyrights {
-                width: 100%;
-            }
-
-            .links {
-                width: 100%;
-
-                a {
-                    width: 100%;
-                    margin: 0;
-                    padding: 0;
-                }
-
-                .link-separator {
-                    display: none;
-                }
             }
         }
 
