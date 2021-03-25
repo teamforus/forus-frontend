@@ -1,5 +1,5 @@
 .block.block-app_links(ng-class="type ? 'block-app_links-' + type : ''")
-    a(href="{{ $root.appConfigs.me_app_link }}" target="_blank" id="{{ dlId }}" ng-if="showDlButton").download-link
+    //-a(href="{{ $root.appConfigs.me_app_link }}" target="_blank" id="{{ dlId }}" ng-if="showDlButton").download-link
         img(src="./assets/img/icon-app/icon-app-me.svg" alt="Me app")
     
     a(href="{{ $root.appConfigs.android_link }}" target="_blank" id="{{ androidId }}" ng-if="showAndroidButton").download-link
