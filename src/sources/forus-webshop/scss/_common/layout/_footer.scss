@@ -128,6 +128,17 @@
                 display: block;
                 margin-bottom: 10px;
 
+                svg {
+                    height: 20px;
+                    width: 23px;
+                    margin-right: 5px;
+                    margin-bottom: -3px;
+                    
+                    path {
+                        fill: $fc-link;
+                    }
+                }
+
                 a {
                     color: $fc-link;
                     font: 700 14px/24px $bf;

@@ -18,7 +18,9 @@ section.section.section-footer
                     app-links
                     
                     nav.footer-nav
-                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
+                        .footer-nav-item
+                            include ../../../resources/_webshop-common/assets/img/me-logo.svg
+                            a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
             
     .block.block-copyrights: .wrapper
         .copyrights 

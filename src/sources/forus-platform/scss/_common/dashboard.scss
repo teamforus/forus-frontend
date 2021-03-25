@@ -4985,7 +4985,8 @@ body {
     
                 .qr_code-description {
                     padding-right: 10px;
-    
+                    flex-grow: 1;
+                    
                     .qr_code-download-app {
                         display: flex;
     

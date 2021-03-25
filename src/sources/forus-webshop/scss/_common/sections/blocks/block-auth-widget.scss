@@ -126,6 +126,16 @@
             flex-direction: row;
             font: 400 14px/20px $bf;
 
+            .qr_code-description { 
+                flex-grow: 1;
+
+                a {
+                    color: #3661ff;
+                    text-decoration: underline;
+                    font: 600 14px $bf;
+                }
+            }
+
             .qr_code-block {
                 width: 175px;
                 min-width: 175px;
