@@ -1,7 +1,9 @@
 module.exports = {
         sms: {
-            title: 'Download <i>Me</i> op uw mobiele telefoon',
-            description: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
+            title_formal: 'Download <i>Me</i> op uw mobiele telefoon',
+            title_informal: 'Download <i>Me</i> op je mobiele telefoon',
+            description_formal: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
+            description_informal: 'Vul je telefoonnummer in en ontvang een SMS met de downloadlink.',
             subdescription: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
             sent: 'Een sms-bericht is verstuurd.',
             sent_description: 'Heeft u geen bericht ontvangen? Download <i>Me</i> via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',

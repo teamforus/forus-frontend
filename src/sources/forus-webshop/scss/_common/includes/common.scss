@@ -76,6 +76,10 @@ img {
     display: none;
 }
 
+.ellipsis {
+    @include ellipsis();
+}
+
 .hard-disabled {
     filter: grayscale(1);
     user-select: none;

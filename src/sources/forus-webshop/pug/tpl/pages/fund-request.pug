@@ -106,9 +106,7 @@ section: .wrapper
 
                             .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app").show-sm
 
-                            .sign_up-pane-auth-apps
-                                a(href="{{ $root.appConfigs.ios_iphone_link }}" aria-label="Dowload Me-app").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
-                                a(href="{{ $root.appConfigs.android_link }}" aria-label="Dowload Me-app").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                            app-links
 
                         .sign_up-pane-auth-qr_code.hide-sm
                             qr-code(

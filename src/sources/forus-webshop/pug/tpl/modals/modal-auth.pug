@@ -26,14 +26,10 @@
                         .auth-title Login met Me-app
                         | Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app. 
                         | #[br] #[br]
-                        | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                        | #[a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app]
                         | #[br] #[br]
+                        | #[app-links]
 
-                        .qr_code-download-app
-                            a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank").download-link
-                                img(src="./assets/img/icon-app-ios.svg" alt="Download in de App Store")
-                            a(href="{{ $root.appConfigs.android_link }}" target="_blank")
-                                img(src="./assets/img/icon-app-android.svg" alt="Ontdek het op Google Play").download-link
                     .qr_code-block: qr-code(
                         ng-if="$ctrl.qrValue" 
                         qr-value="$ctrl.qrValue" 

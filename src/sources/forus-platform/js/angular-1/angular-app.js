@@ -199,6 +199,8 @@ app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEdit
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
 
+app.directive('appLinks', require('./directives/elements/AppLinksDirective'));
+
 // Modals
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
