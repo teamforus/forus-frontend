@@ -2,6 +2,7 @@ let SponsorProviderOrganizationsComponent = function(
     $q,
     $stateParams,
     FileService,
+    ModalService,
     OrganizationService
 ) {
     let $ctrl = this;
@@ -44,13 +45,18 @@ let SponsorProviderOrganizationsComponent = function(
 
     // Export to XLS file
     $ctrl.exportList = () => {
-        const fileName = 'providers_' + org + '_' + moment().format('YYYY-MM-DD HH:mm:ss') + '.xls';
+        ModalService.open('exportType', {
+            success: (data) => {
+                const fileName = 'providers_' + org + '_' + moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType;
 
-        OrganizationService.providerOrganizationsExport($stateParams.organization_id, {
-            ...$ctrl.filters.values
-        }).then((res => {
-            FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-        }));
+                OrganizationService.providerOrganizationsExport($stateParams.organization_id, {
+                    ...$ctrl.filters.values,
+                    ...{ export_format: data.exportType } 
+                }).then((res => {
+                    FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+                }));
+            }
+        });
     };
 
 
@@ -92,6 +98,7 @@ module.exports = {
         '$q',
         '$stateParams',
         'FileService',
+        'ModalService',
         'OrganizationService',
         SponsorProviderOrganizationsComponent
     ],
