@@ -105,7 +105,6 @@ app.service('RecordService', require('./services/RecordService'));
 app.service('RecordTypeService', require('./services/RecordTypeService'));
 app.service('RecordCategoryService', require('./services/RecordCategoryService'));
 app.service('RecordValidationService', require('./services/RecordValidationService'));
-app.service('QrScannerService', require('./services/QrScannerService'));
 app.service('ProductCategoryService', require('./services/ProductCategoryService'));
 app.service('BusinessTypeService', require('./services/BusinessTypeService'));
 app.service('OfficeService', require('./services/OfficeService'));
