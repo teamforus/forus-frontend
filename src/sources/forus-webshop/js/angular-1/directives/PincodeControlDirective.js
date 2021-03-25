@@ -7,9 +7,10 @@ let PincodeControlDirective = function(
     let blockSize = $scope.blockSize = $scope.blockSize || 6;
     let blockCount = $scope.blockCount = $scope.blockCount || 1;
     let totalSize = blockSize * blockCount;
-    let $input = $element.find('.hidden-input');
+    let $input = angular.element($element[0].querySelector('.hidden-input'));;
     let len = 0;
     let inputTypes = ['insertText', 'insertCompositionText', 'deleteContentBackward'];
+    let eventListener = null;
 
     let isIe = () => {
         var ua = window.navigator.userAgent;
@@ -32,12 +33,9 @@ let PincodeControlDirective = function(
     $scope.isIe = isIe();
 
     if (!$scope.isIe) {
-        $input.focus();
+        $input[0].focus();
         $input.val([...Array(1000).keys()].join(''));
-    
-        $element.on('click', (e) => {
-            $input.focus();
-        });
+        $element.on('click', (e) => $input[0].focus());
     }
 
     $scope.cantDeleteLength = $scope.cantDeleteLength ? $scope.cantDeleteLength : 0;
@@ -89,9 +87,9 @@ let PincodeControlDirective = function(
     let bind = () => {
         if (!$scope.isIe) {
             $input.bind('input', (e) => {
-                let data = e.originalEvent.data;
+                let data = e.data;
 
-                if (inputTypes.indexOf(e.originalEvent.inputType) === -1) {
+                if (inputTypes.indexOf(e.inputType) === -1) {
                     return;
                 }
 
@@ -101,15 +99,18 @@ let PincodeControlDirective = function(
             });
         }
 
-        angular.element('body').bind('keydown.pincode_control', (e) => {
-            if ($scope.isIe || !$input.is(e.target)) {
+        eventListener = (e) => {
+            if ($scope.isIe || $input[0] !== e.target) {
                 $timeout(() => $scope.addCharCode(e.charCode || e.keyCode || 0, null, e), 0);
             }
 
             if ($scope.isIe && ((e.charCode || e.keyCode) === 8)) {
-                return false;
+                e.preventDefault();
+                e.stopPropagation();
             }
-        });
+        };
+
+        document.body.addEventListener('keydown', eventListener);
     };
 
     $scope.addCharCode = function(key, value, e) {
@@ -120,17 +121,17 @@ let PincodeControlDirective = function(
             $scope.ngModel = '';
         }
 
-        if (e.originalEvent.ctrlKey || e.originalEvent.shiftKey || e.altKey || e.metaKey) {
+        if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
             $element.val($scope.ngModel)
             return false;
         }
 
         if (e.type === 'input') {
-            _delete = !e.originalEvent.data || (e.originalEvent.data.length < len);
-            len = e.originalEvent.data ? e.originalEvent.data.length : 0;
+            _delete = !e.data || (e.data.length < len);
+            len = e.data ? e.data.length : 0;
         }
 
-        if (_delete || key == 8 || key == 46 || e.originalEvent.inputType == 'deleteContentBackward') {
+        if (_delete || key == 8 || key == 46 || e.inputType == 'deleteContentBackward') {
             if ($scope.ngModel.length > $scope.cantDeleteLength) {
                 $scope.ngModel = $scope.ngModel.slice(0, $scope.ngModel.length - 1);
             }
@@ -172,7 +173,7 @@ let PincodeControlDirective = function(
             } else {
                 if ((key >= 65 && key <= 90) || (key >= 97 && key <= 122)) {
                     if ($scope.ngModel.length < totalSize) {
-                        $scope.ngModel += e.originalEvent.key || e.originalEvent.data[e.originalEvent.data.length - 1];
+                        $scope.ngModel += e.key || e.data[e.data.length - 1];
                     }
 
                     handled = true;
@@ -194,7 +195,7 @@ let PincodeControlDirective = function(
 
     $scope.updateInput();
     $scope.$on('$destroy', function() {
-        angular.element('body').unbind('keydown.pincode_control')
+        document.body.removeEventListener('keydown', eventListener);
     });
 
     bind();

@@ -6,6 +6,7 @@
   "browserslist": "defaults",
   "scripts": {
     "start": "gulp",
+    "watch": "gulp watch",
     "build": "gulp compile",
     "webdriver-update": "webdriver-manager update",
     "test": "echo \"Error: no test specified\" && exit 1"
