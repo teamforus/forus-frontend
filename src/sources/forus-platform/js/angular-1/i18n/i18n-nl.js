@@ -844,7 +844,7 @@ module.exports = {
                 '1. Open de link',
                 '2. Installeer de app',
                 '3. Open de app en meld u aan',
-                '4. Druk op QR om de de scanner te openen',
+                '4. Druk op QR om de scanner te openen',
                 '5. Scan de QR-code die rechts wordt weergegeven'
             ].join('<br>'),
         },
@@ -997,7 +997,7 @@ module.exports = {
             to_app: 'Ik wil inloggen met de me app >',
         },
         app: {
-            title: "Heeft u de Me-app al?",
+            title: "Login met de Me-app",
             description_top: [
                 "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
@@ -1124,7 +1124,7 @@ module.exports = {
             to_app: 'Ik wil inloggen met de me app >',
         },
         app: {
-            title: "Heeft u de Me-app al?",
+            title: "Login met de Me-app",
             description_top: [
                 "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),

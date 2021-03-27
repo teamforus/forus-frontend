@@ -39,10 +39,10 @@
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId")
             .auth-digid-form
                 .auth-title 
-                    | Vergeten welk e-mailadres u heeft gebruikt?
+                    translate(translate="{{ 'popup_auth.restore_' + $ctrl.appConfigs.features.communication_type }}")
                     br
                 .auth-subtitle 
-                    | Herstel uw account door opnieuw in te loggen met DigiD
+                    translate(translate="{{ 'popup_auth.restore_subtitle_' + $ctrl.appConfigs.features.communication_type }}")
                     br
                 .auth-subtitle 
                     .button.button-digid &nbsp;
