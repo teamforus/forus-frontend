@@ -115,7 +115,7 @@
                             .auth-user-avatar
                                 div
                                 include ../../../resources/_webshop-common/assets/img/identity-avatar.svg
-                            .auth-user-caret(id="user_menu")
+                            .auth-user-caret(id="user_menu" role="button" aria-expanded="{{$ctrl.userMenuOpened}}")
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
                             nav.auth-user-menu.hide-sm(

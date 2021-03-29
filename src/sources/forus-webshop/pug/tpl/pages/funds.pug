@@ -25,10 +25,11 @@ block content
                                 type="search")
 
                         .form-group
-                            label.form-label Organisatie
+                            label.form-label(for="select_organization") Organisatie
                             select(
                                 ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
-                                ng-model="$ctrl.form.values.organization_id").form-control
+                                ng-model="$ctrl.form.values.organization_id"
+                                id="select_organization").form-control
                     
                 .showcase-content
                     .showcase-content-header

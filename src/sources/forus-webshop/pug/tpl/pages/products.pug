@@ -23,24 +23,27 @@ block content
                                 type="search")
 
                         .form-group
-                            label.form-label Aanbieders
+                            label.form-label(for="select_provider") Aanbieders
                             select(
                                 ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
-                                ng-model="$ctrl.form.values.organization_id").form-control
+                                ng-model="$ctrl.form.values.organization_id"
+                                id="select_provider").form-control
 
                         .form-group
-                            label.form-label Categorie
+                            label.form-label(for="select_category") Categorie
                             select(
                                 ng-options="category.id as category.name for category in $ctrl.productCategories" 
-                                ng-model="$ctrl.form.values.product_category_id").form-control
+                                ng-model="$ctrl.form.values.product_category_id"
+                                id="select_category").form-control
 
                         .form-group
-                            label.form-label Tegoeden
+                            label.form-label(for="select_fund") Tegoeden
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer tegoed...")
+                                placeholder="Selecteer tegoed..."
+                                id="select_fund")
 
                 .showcase-content
                     .showcase-content-header
