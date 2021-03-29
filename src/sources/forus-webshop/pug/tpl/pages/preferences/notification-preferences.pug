@@ -46,7 +46,7 @@ section.section.section-voucher-details: .wrapper
                                 ng-change="$ctrl.togglePreferenceOption()" 
                                 ng-checked="type.subscribed" 
                                 ng-model="type.subscribed")
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button")
                                 em.mdi.mdi-check-bold(ng-if="type.subscribed")
                                 .icon-disabled(ng-if="!type.subscribed")
                 
@@ -65,6 +65,6 @@ section.section.section-voucher-details: .wrapper
                                 ng-change="$ctrl.togglePreferenceOption()" 
                                 ng-checked="type.subscribed" 
                                 ng-model="type.subscribed")
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button")
                                 em.mdi.mdi-check-bold(ng-if="type.subscribed")
                                 .icon-disabled(ng-if="!type.subscribed")                
