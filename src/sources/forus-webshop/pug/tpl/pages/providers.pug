@@ -29,20 +29,22 @@ block content
                                 type="search")
 
                         .form-group
-                            label.form-label Type aanbieder
+                            label.form-label(for="select_provider_type") Type aanbieder
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.businessType" 
                                 options="$ctrl.businessTypes"
-                                placeholder="Selecteer type...")
+                                placeholder="Selecteer type..."
+                                id="select_provider_type")
 
                         .form-group
-                            label.form-label Tegoeden
+                            label.form-label(for="select_fund") Tegoeden
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer tegoed...")
+                                placeholder="Selecteer tegoed..."
+                                id="select_fund")
 
                     a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm 
                         em.mdi.mdi-store-outline

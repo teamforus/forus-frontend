@@ -12,6 +12,8 @@ let MobileFooterDirective = function(
     $scope.i18nLangs = $translate.getAvailableLanguageKeys();
     $scope.i18nActive = $translate.use();
 
+    $ctrl.active = "melk en kaas";
+
     $scope.startFundRequest = () => {
         if ($ctrl.funds.length > 0) {
             $state.go('start');
