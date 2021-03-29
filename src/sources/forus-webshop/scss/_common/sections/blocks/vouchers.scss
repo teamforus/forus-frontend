@@ -9,21 +9,26 @@
         .voucher-item {
             display: flex;
             background-color: #fff;
-            border-radius: 7.5px;
+            border-radius: $border_radius;
             margin-bottom: 30px;
             box-shadow: 0 5px 30px rgba(#000, .05);
             @include cf();
             position: relative;
             transition: .4s;
-            min-height: 150px;
+            min-height: 120px;
             cursor: pointer;
 
             .voucher-image {
+                width: 130px;
+                min-width: 130px;
+                overflow: hidden;
+                background-size: cover;
+                background-position: 50% 50%;
+                position: relative;
                 border-radius: inherit;
-                float: left;
-                max-height: 155px;
-                width: 155px;
-                
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+
                 img {
                     width: 100%;
                     height: 100%;
@@ -35,7 +40,7 @@
             .voucher-details {
                 float: left;
                 padding: 20px 30px;
-                width: calc(100% - 380px);
+                width: 380px;
                 flex-grow: 1;
 
                 .label {
@@ -45,50 +50,21 @@
                 }
 
                 .voucher-name {
-                    font: 700 24px/36px $bf;
+                    font: 700 16px/26px $bf;
                     color: #00122a;
                     margin-bottom: 5px;
                     @include ellipsis();
                 }
 
                 .voucher-organization {
-                    font: 400 16px/28px $bf;
+                    font: 400 14px/22px $bf;
                     color: #282b39;
                     margin-bottom: 10px;
                 }
 
                 .voucher-value {
                     font: 700 24px $bf;
-                    color: #315efd;
-                }
-
-                .voucher-read_more {
-                    font: 600 13px/20px $bf;
-                    color: #083f49;
-                    display: inline-block;
-                    cursor: hover;
-                    vertical-align: middle;
-                    margin-bottom: 10px;
-
-                    @media screen and (max-width: 767px) {
-                        display: none;
-                    }
-
-                    .mdi {
-                        color: #3396a7;
-                        position: relative;
-                        transform: translate(0, 1.5px);
-                        margin-left: 5px;
-                        display: inline-block;
-                        transition: .4s;
-                        font-size: 1.4em;
-                    }
-
-                    &:hover {
-                        .mdi {
-                            transform: translate(5px, 1.5px);
-                        }
-                    }
+                    color: #00122a;
                 }
 
                 .voucher-status-label {
@@ -112,9 +88,9 @@
 
             .voucher-overview {
                 float: right;
-                width: 230px;
                 border-left: 1px solid #d4d9dd;
                 padding: 20px 25px;
+                min-width: 200px;
                 min-height: inherit;
                 position: relative;
                 display: flex;
@@ -125,16 +101,12 @@
                     margin-bottom: 10px;
                     float: left;
                     width: 100%;
-
-                    &.voucher-open {
-                        width: 80%;
-                        position: absolute;
-                        bottom: 25px;
-                        left: 25px;
-                    }
+                    position: absolute;
+                    bottom: 25px;
+                    left: 25px;
 
                     .voucher-overview-label {
-                        font: 400 10px/12px $bf;
+                        font: 400 12px/16px $bf;
                         color: #646f79;
                     }
 
@@ -150,13 +122,6 @@
                         }
                     }
 
-                    .button {
-                        width: 100%;
-                        padding: 12px 20px;
-                        font: 700 12px/22px $bf;
-                        text-transform: uppercase;
-                    }
-
                     &:last-of-type,
                     &:last-child {
                         margin-bottom: 0;
@@ -167,10 +132,6 @@
                     padding-left: 50px;
                     padding-right: 50px;
                     @include float_center();
-                }
-
-                &.voucher-overview-no-border {
-                    border-left: none;
                 }
             }
 
@@ -183,12 +144,6 @@
 
             &:hover {
                 box-shadow: 0 10px 30px rgba(#000, .15);
-            }
-
-            &.voucher-item-use {
-                .voucher-details {
-                    width: calc(100% - 610px);
-                }
             }
 
             &.voucher-item-disabled {
@@ -229,25 +184,21 @@
                     border-radius: 70px;
                     overflow: hidden;
                     display: block;
-                    border-bottom: 1px solid #eee;
-                    position: absolute;
                     min-height: auto;
-                    right: 20px;
-                    top: 50%;
-                    transform: translate(0, -50%);
                     border: none;
                     min-width: 70px;
                     max-width: 70px;
+                    margin: 20px 0 0 10px;
                 }
 
                 .voucher-details {
-                    width: 100%;
+                    width: 80%;
                     text-align: left;
                     padding: 20px;
                     padding-right: 110px;
 
                     .voucher-name {
-                        font: 700 18px/24px $bf;
+                        font: 700 14px/24px $bf;
                         margin: 0 0 0;
                         @include ellipsis();
                     }
@@ -270,8 +221,6 @@
                     }
 
                     .voucher-status-label {
-                        position: initial;
-
                         .label {
                             margin: 0px;
                         }
