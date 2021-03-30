@@ -27,6 +27,7 @@ block content
                             select(
                                 ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
                                 ng-model="$ctrl.form.values.organization_id"
+                                name="provider"
                                 id="select_provider").form-control
 
                         .form-group
@@ -34,6 +35,7 @@ block content
                             select(
                                 ng-options="category.id as category.name for category in $ctrl.productCategories" 
                                 ng-model="$ctrl.form.values.product_category_id"
+                                name="category"
                                 id="select_category").form-control
 
                         .form-group
@@ -43,6 +45,7 @@ block content
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
                                 placeholder="Selecteer tegoed..."
+                                name="fund"
                                 id="select_fund")
 
                 .showcase-content
