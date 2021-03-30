@@ -14,7 +14,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
             .card-inner
                 .card-body
                     //- product voucher
-                    .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}").voucher-img
+                    .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}" alt="{{$ctrl.voucherCard.title}}").voucher-img
 
                     .card-section
                         .card-title(ng-bind="$ctrl.voucherCard.title | str_limit:40")
@@ -24,11 +24,11 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                             .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)")
 
                     .card-qr_code.show-sm
-                        qr-code(ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue").card-qr_code-element
+                        qr-code(ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue" qr-alt="Voucher").card-qr_code-element
                         .card-qr_code-desc Geldig t/m {{ $ctrl.voucherCard.last_active_day_locale }} 
 
                     .card-qr_code.hide-sm
-                        qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher")
+                        qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher" qr-alt="Voucher")
                         .card-qr_code-desc(ng-if="!$ctrl.voucherCard.used") Geldig t/m {{ $ctrl.voucherCard.last_active_day_locale }} 
                         .card-qr_code-desc(ng-if="$ctrl.voucherCard.product && $ctrl.voucherCard.used") Gebruikt
 
@@ -97,7 +97,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         //- regular voucher
         div(ng-if="!$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
             .card-body
-                .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
+                .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="{{ $ctrl.voucherCard.fund.organization.name }}")
                 .card-section
                     .card-title {{ "voucher.voucher_card.header.title" | translate }}
                     .card-description(i18n="voucher.voucher_card.labels.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
@@ -113,7 +113,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         //- product voucher
         div(ng-if="$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
             .card-body
-                .card-photo: img(ng-src="{{ $ctrl.voucherCard.product.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="")
+                .card-photo: img(ng-src="{{ $ctrl.voucherCard.product.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="{{ $ctrl.voucherCard.product.organization.name }}")
                 .card-section
                     .card-title {{ "voucher.voucher_card.header.title" | translate }}
                     .card-description {{ "voucher.voucher_card.labels.description" | translate }}
@@ -127,7 +127,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
                     strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
                     
     .block.block-physical-cards(ng-if="$ctrl.showPhysicalCardsOption")
-        .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png")
+        .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
         .block-card-details 
             .block-card-title(i18n="voucher.physical_card.title")
             //-.block-card-description(i18n="voucher.physical_card.description")

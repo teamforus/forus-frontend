@@ -66,27 +66,27 @@ block content
                         .fund-item(
                             ng-repeat="fund in $ctrl.funds.data")
                             .fund-photo
-                                img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                                img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
                             .fund-content
                                 .fund-details
                                     .fund-name(ng-bind="fund.name")
                                     .fund-description(ng-bind="fund.description")
-                                .fund-actions
+                                .fund-actions(ng-if="fund.showRequestButton || fund.showPendingButton || fund.showActivateButton || fund.showReceivedButton")
                                     a.button.button-primary.button-disabled(
-                                        ng-if="!fund.alreadyReceived && fund.has_pending_fund_requests"
+                                        ng-if="fund.showPendingButton"
                                         ui-sref="fund-activate({fund_id: fund.id})"
                                         ng-click="$ctrl.applyFund(fund)" 
                                         translate="funds.buttons.is_pending")
 
                                     a.button.button-primary(
-                                        ng-if="!fund.alreadyReceived && !fund.has_pending_fund_requests && !fund.isApplicable && $ctrl.appConfigs.features.funds.fund_requests" 
+                                        ng-if="fund.showRequestButton" 
                                         ui-sref="fund-activate({fund_id: fund.id})"
                                         translate="funds.buttons.{{ $root.client_key }}.start_request" 
                                         translate-default="{{ 'funds.buttons.start_request' | translate }}")
 
                                     button.button.button-primary(
                                         type="button"
-                                        ng-if="!fund.alreadyReceived && fund.isApplicable" 
+                                        ng-if="fund.showActivateButton" 
                                         ng-click="$ctrl.applyFund(fund)" 
                                         translate="funds.buttons.is_applicable")
     

@@ -47,7 +47,8 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-fund_types';
     @import 'blocks/block-subsidy-product-overview';
     @import 'blocks/block-dashboard-switcher';
-    @import 'blocks/block-app_download';
+    @import 'blocks/block-app_download.scss';
+    @import 'blocks/block-app_links.scss';
 }
 
 
@@ -2016,7 +2017,7 @@ body {
                 }
 
                 .sign_up-pane-auth-content {
-                    .sign_up-pane-auth-apps {
+                    .block-app_links {
                         margin-top: 26px;
                     }
 
@@ -4984,7 +4985,8 @@ body {
     
                 .qr_code-description {
                     padding-right: 10px;
-    
+                    flex-grow: 1;
+                    
                     .qr_code-download-app {
                         display: flex;
     
@@ -5587,16 +5589,6 @@ body {
                         font: 400 15px/22px $bf;
                         color: #333;
                         margin: 0 0 5px;
-                    }
-            
-                    .qr_code-download-app {
-                        display: flex;
-    
-                        .download-link {
-                            height: 40px;
-                            display: inline-flex;
-                            margin-right: 10px;
-                        }
                     }
                 }
         
@@ -6465,7 +6457,7 @@ body {
 
     &.modal-voucher-export-type {
         .modal-window {
-            width: 840px;
+            width: 940px;
 
             .modal-body {
                 .voucher-export-type {
@@ -6487,11 +6479,11 @@ body {
                         color: #282b39;
                         border: 1px solid #d4d9dd;
                         border-radius: $border_radius / 2;
-                        max-width: 220px;
                         position: relative;
                         transition: .4s;
                         background: transparent;
                         cursor: pointer;
+                        flex-basis: 25%;
 
                         .voucher-export-type-item-check {
                             position: absolute;

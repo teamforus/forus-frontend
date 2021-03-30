@@ -12,6 +12,7 @@ let ModalAuthComponent = function(
 ) {
     let $ctrl = this;
     let timeout;
+    let index = Math.floor(Math.random() * 100000) + 1;
 
     $ctrl.qrValue = null;
     $ctrl.showChoose = true;
@@ -52,7 +53,7 @@ let ModalAuthComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.appConfigs = appConfigs;
 
-        $(document).bind('keydown', (e) => {
+        angular.element(document).bind('keydown.auth_model_' + index, (e) => {
             $timeout(function() {
                 var key = e.charCode || e.keyCode || 0;
 
@@ -141,11 +142,14 @@ let ModalAuthComponent = function(
     };
 
     $ctrl.stopQrCodeVerification = () => $timeout.cancel(timeout);
-    $ctrl.$onDestroy = () => $ctrl.stopQrCodeVerification();
+
+    $ctrl.$onDestroy = () => {
+        $ctrl.stopQrCodeVerification();
+        angular.element(document).unbind('keydown.auth_model_' + index);
+    };
 
     $ctrl.openAuthCodePopup = function() {
         $ctrl.close();
-
         ModalService.open('modalAuthCode', {});
     };
 };

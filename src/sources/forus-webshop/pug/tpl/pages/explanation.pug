@@ -42,7 +42,7 @@ top-navbar
                         span(translate=title i18n-vars="{ fund: $ctrl.funds[0].name }" translate-default=title_default)
                         .faq-item-chevron-down.mdi.mdi-chevron-down
                         .faq-item-chevron-up.mdi.mdi-chevron-up
-                    .faq-item-content(collapse-conten, translate=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }" translate-default=content_default)
+                    .faq-item-content(translate=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }" translate-default=content_default)
 
             +faq_item(
                 'home.faq.{{ $root.client_key }}.faq_one',

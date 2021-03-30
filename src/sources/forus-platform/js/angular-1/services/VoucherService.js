@@ -72,6 +72,18 @@ module.exports = [
                 });
             };
 
+            this.downloadQRCodesXls = function(organization_id, query) {
+                return ApiRequest.get([
+                    '/platform/organizations/' + organization_id,
+                    '/sponsor/vouchers/export-xls',
+                ].join(''), query, {}, true, (_cfg) => {
+                    _cfg.responseType = 'arraybuffer';
+                    _cfg.cache = false;
+
+                    return _cfg;
+                });
+            };
+
             this.downloadQRCodes = function(organization_id, query) {
                 return ApiRequest.get([
                     '/platform/organizations/' + organization_id,
