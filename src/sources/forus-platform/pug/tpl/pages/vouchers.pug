@@ -161,6 +161,8 @@
                                     em.mdi.mdi-close
                                     string(translate="product_vouchers.labels.no").text-md.text-muted-dark
                                 td
+                                    a(ui-sref="voucher-details({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})").button.button-primary.button-icon
+                                        em.mdi.mdi-eye-outline.icon-start
                                     button.button.button-primary.button-icon.pull-right(
                                         ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired"
                                         ng-click="$ctrl.showQrCode(voucher)")
