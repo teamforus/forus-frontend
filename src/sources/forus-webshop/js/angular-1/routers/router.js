@@ -656,7 +656,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
-        name: "fund-apply",
+        name: "fund",
         url: "/funds/{id}",
         component: "fundComponent",
         data: {
@@ -672,8 +672,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],
             products: ['ProductService', (
+                ProductService
+           ) => repackPagination(ProductService.sample({
+               fund_type: 'budget',
+               per_page: 6,
+           }))],
+            subsidies: ['ProductService', (
                  ProductService
-            ) => repackPagination(ProductService.list())]
+            ) => repackPagination(ProductService.sample({
+                fund_type: 'subsidies',
+                per_page: 6,
+            }))],
         }
     });
 

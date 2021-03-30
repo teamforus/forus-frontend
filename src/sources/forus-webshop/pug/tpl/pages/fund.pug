@@ -52,3 +52,9 @@ section.section.section-fund: .wrapper
         type="budget"
         products="$ctrl.products.data"
         filters="{fund_id: $ctrl.fund.id}")  
+
+    block-products(
+        ng-if="$root.appConfigs.features.products.list && $ctrl.fund.type == 'subsidies'"
+        type="subsidies"
+        products="$ctrl.subsidies.data"
+        filters="{fund_id: $ctrl.fund.id}")  

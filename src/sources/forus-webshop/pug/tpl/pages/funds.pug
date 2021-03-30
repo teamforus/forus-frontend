@@ -52,7 +52,7 @@ block content
                                 | Foto's
 
                     .block.block-funds(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'grid'")
-                        .fund-item(ng-repeat="fund in $ctrl.funds.data")
+                        .fund-item(ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
                             .fund-item-inner
                                 .fund-image
                                     img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
@@ -64,7 +64,7 @@ block content
 
                     .block.block-funds-list(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'list'" id="funds_list")
                         .fund-item(
-                            ng-repeat="fund in $ctrl.funds.data")
+                            ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
                             .fund-photo
                                 img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
                             .fund-content

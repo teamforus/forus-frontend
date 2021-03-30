@@ -27,7 +27,8 @@ module.exports = {
     bindings: {
         fund: '<',
         recordTypes: '<',
-        products: '<'
+        products: '<',
+        subsidies: '<',
     },
     controller: [
         FundsComponent
