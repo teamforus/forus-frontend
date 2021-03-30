@@ -80,7 +80,7 @@ block content
                                 .organization-title
                                     .organization-title-value(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.name")
                                 .organization-chevron
-                                    .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
+                                    .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')" role = "link")
 
                             .organization-offices(ng-if="$ctrl.officesShown.indexOf(provider.id) != -1"): .block.block-offices
                                 a(ng-repeat="office in provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
