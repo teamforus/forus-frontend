@@ -1,0 +1,54 @@
+top-navbar.nar-var
+
+section.section.section-fund: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Start
+        a(ui-sref="funds").breadcrumb-item Fondsen
+        a.breadcrumb-item.active(ng-bind="$ctrl.fund.name")
+    
+    .block.block-fund
+        .fund-content
+            .fund-card
+                .fund-details
+                    .fund-image: img(ng-src="{{ $ctrl.fund.logo.sizes.thumbnail || $ctrl.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                    .fund-details-title
+                        .fund-name(ng-bind="$ctrl.fund.name") 
+                        .organization-name(ng-bind="$ctrl.fund.organization.name")
+                        .fund-details-items
+                            .fund-details-item(ng-repeat="formula in $ctrl.formulaList.fixed")
+                                .fund-details-item-label(translate="fund.criterias.fixed_amount")
+                                .fund-details-item-value(ng-bind="formula.amount | currency_format")
+                            .fund-details-item(ng-repeat="formula in $ctrl.formulaList.multiply")
+                                .fund-details-item-label(translate="fund.criterias.multiplied_amount")
+                                .fund-details-item-value
+                                    span(ng-bind="formula.label + ': '")
+                                    span(ng-bind="formula.amount | currency_format")                                
+                            .fund-details-item
+                                .fund-details-item-label Startdatum
+                                .fund-details-item-value(ng-bind="$ctrl.fund.start_date_locale")
+                            .fund-details-item
+                                .fund-details-item-label Einddatum
+                                .fund-details-item-value(ng-bind="$ctrl.fund.end_date_locale")        
+                .fund-description(ng-if="$ctrl.fund.description")
+                    .fund-description-label Omschrijving
+                    .fund-description-value(ng-bind="$ctrl.fund.description")    
+
+        .fund-aside
+            .fund-card
+                .fund-criterias(ng-if="$ctrl.criteriaList.length > 0")
+                    .fund-criterias-label Voorwaarden om in aanmerking te komen:
+                    .fund-criteria-item(ng-repeat="criterion in $ctrl.criteriaList")
+                        .fund-criteria-item-label(ng-if="!criterion.title" ng-bind="criterion.record_type_name")
+                        .fund-criteria-item-value(ng-if="!criterion.title" ng-bind="criterion.value")
+                        .fund-criteria-item-value(ng-if="criterion.title" ng-bind="criterion.title")
+            .fund-menu
+                button.button.button-primary.button-fill(
+                    ui-sref="fund-activate({fund_id: $ctrl.fund.id})"
+                    translate="funds.buttons.{{ $root.client_key }}.start_request" 
+                    translate-default="{{ 'funds.buttons.start_request' | translate }}")
+
+    block-products(
+        ng-if="$root.appConfigs.features.products.list && $ctrl.fund.type == 'budget'"
+        type="budget"
+        products="$ctrl.products.data"
+        filters="{fund_id: $ctrl.fund.id}")  
