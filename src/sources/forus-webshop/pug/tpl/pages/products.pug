@@ -56,7 +56,8 @@ block content
                             .label-tab-set
                                 .label-tab.label-tab-sm.label-tab-primary-light(
                                     ng-class="{active: $ctrl.show_order_dropdown}" 
-                                    ng-click="$ctrl.toggleOrderDropdown($event)")
+                                    ng-click="$ctrl.toggleOrderDropdown($event)"
+                                    role="button")
                                     em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.show_order_dropdown ? 'up' : 'down')")
                                     | Sorteer
                                     .label-tab-menu(ng-show="$ctrl.show_order_dropdown" click-outside="$ctrl.hideOrderDropdown($event)")
@@ -72,12 +73,16 @@ block content
                             .label-tab-set
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.display_type == 'list'}"
-                                    ng-click="$ctrl.showAs('list')")
+                                    ng-click="$ctrl.showAs('list')"
+                                    role="button" 
+                                    aria-selected="{{ $ctrl.display_type == 'list' ? 'true' : 'false' }}")
                                     em.mdi.mdi-format-list-text.icon-start
                                     | Lijst
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.display_type == 'grid'}"
-                                    ng-click="$ctrl.showAs('grid')")
+                                    ng-click="$ctrl.showAs('grid')"
+                                    role="button"
+                                    aria-selected="{{ $ctrl.display_type == 'grid' ? 'true' : 'false' }}")
                                     em.mdi.mdi-view-grid-outline.icon-start
                                     | Foto's
 
