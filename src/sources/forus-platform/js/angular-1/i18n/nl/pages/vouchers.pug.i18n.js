@@ -5,6 +5,7 @@ module.exports = {
     labels: {
         state: "Status",
         activation_code: "Code",
+        details_activation_code: 'Activatiecode',
         amount: "Bedrag",
         assigned_to: "Methode",
         source: "Aangemaakt door",
@@ -21,15 +22,20 @@ module.exports = {
         yes: "Ja",
         source_employee: "Medewerker",
         source_user: "Gebruiker",
+        active: 'Actief',
+        pending: 'Inactief',
     },
     buttons: {
         add_new: "Aanmaken",
         upload_csv: "Upload bulkbestand",
         export: "Export",
-        clear_filter: "Wis filter"
+        clear_filter: "Wis filter",
+        physical_card_add: "Plastic pas koppelen",
+        physical_card_delete: "Pas blokkeren",
+        activate: "Activeren"
     },
     csv: {
         default_note: "Aangemaakt op {{ upload_date }} door {{ uploader_email }}, toegekend aan {{ target_email }}",
         default_note_no_email: "Aangemaakt op {{ upload_date }} door {{ uploader_email }}",
-    }
+    },
 };
