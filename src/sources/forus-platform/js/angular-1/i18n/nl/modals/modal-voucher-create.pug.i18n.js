@@ -6,7 +6,7 @@ module.exports = {
         assign_by_type: 'Methode:',
         assign_by_type_or_activate: 'Toewijzen of activeren:',
         note: 'Notitie',
-        expire_at: 'Geldig tot',
+        expire_at: 'Geldig tot en met',
     },
     modal_section: {
         choose_title: "Selecteer op welke manier u een tegoed wilt aanmaken.",

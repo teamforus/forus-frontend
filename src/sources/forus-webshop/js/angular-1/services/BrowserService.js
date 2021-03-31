@@ -20,8 +20,8 @@ let BrowserService = function() {
                         clearInterval(idleInterval);
                         resetIdleTime();
 
-                        $(document).off('mousemove.activity');
-                        $(document).off('keypress.activity');
+                        angular.element(document).off('mousemove.activity');
+                        angular.element(document).off('keypress.activity');
 
                         idleInterval = false;
                         localStorage.removeItem('lastAcivity');
@@ -39,8 +39,8 @@ let BrowserService = function() {
                     );
                 }
 
-                $(document).on('mousemove.activity', (e) => resetIdleTime());
-                $(document).on('keypress.activity', (e) => resetIdleTime());
+                angular.element(document).on('mousemove.activity', () => resetIdleTime());
+                angular.element(document).on('keypress.activity', () => resetIdleTime());
 
                 timerIncrement(0);
             });
@@ -50,8 +50,8 @@ let BrowserService = function() {
             clearInterval(idleInterval);
             resetIdleTime();
 
-            $(document).off('mousemove.activity');
-            $(document).off('keypress.activity');
+            angular.element(document).off('mousemove.activity');
+            angular.element(document).off('keypress.activity');
 
             idleInterval = false;
             localStorage.removeItem('lastAcivity');

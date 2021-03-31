@@ -29,6 +29,15 @@ let PushNotificationsService = function() {
             }));
         };
 
+        this.info = (title, message, icon = 'close', other = {}) => {
+            this.push(Object.assign(other, {
+                icon: icon,
+                title: title,
+                message: message,
+                type: 'info',
+            }));
+        };
+
         this.danger = (title, message, icon = 'close', other = {}) => {
             this.push(Object.assign(other, {
                 icon: icon,

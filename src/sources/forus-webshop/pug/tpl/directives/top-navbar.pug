@@ -18,7 +18,7 @@
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
                         div(translate="topnavbar.buttons.logout")
 
-            .auth-out(ng-if="!$root.auth_user" id="login")                
+            .auth-out(ng-if="!$root.auth_user" id="login_mobile")                
                 .button.button-default(ng-click="openAuthPopup()").hide-sm
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
                     span(translate="topnavbar.buttons.login")
@@ -92,9 +92,9 @@
     .block.block-subnav.hide-sm
         .subnav-inner.wrapper   
             a(ui-sref="home").navbar-logo
-                img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
-                img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
-                //img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover  
+                img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo" alt="{{$root.appConfigs.features.implementation_name}} alternatief logo").second-logo
+                img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" alt="{{$root.appConfigs.features.implementation_name}}")
+                //img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}" alt="{{$root.appConfigs.features.implementation_name}}").hover  
             
             .block
                 .block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
@@ -123,7 +123,7 @@
                                 ng-if="$ctrl.userMenuOpened"
                                 click-outside="$ctrl.hideUserMenu()")
                                 .triangle
-                                .inner
+                                .inner(prevent-propagation)
                                     .auth-user-menu-item(ng-click="startFundRequest()" id="open_activation_code_popup")
                                         //-  ng-if="!$root.appConfigs.features.digid")
                                         img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")

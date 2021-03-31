@@ -328,15 +328,17 @@ let FundRequestsComponent = function(
         }, console.error);
     };
 
-    $ctrl.exportRequests = () => {
+    $ctrl.exportRequests = (type) => {
         FundRequestValidatorService.exportAll(
             $ctrl.organization.id,
-            $ctrl.filters.values
+            Object.assign($ctrl.filters.values, {
+                export_format: type
+            })
         ).then((res => {
             FileService.downloadFile(
                 appConfigs.panel_type + '_' + org + '_' + moment().format(
                     'YYYY-MM-DD HH:mm:ss'
-                ) + '.xls',
+                ) + '.' + type,
                 res.data,
                 res.headers('Content-Type') + ';charset=utf-8;'
             );
