@@ -2,8 +2,11 @@ top-navbar.nar-var
 
 section.section.section-fund: .wrapper
     .block.block-breadcrumbs
-        a(ui-sref="home").breadcrumb-item Start
-        a(ui-sref="funds").breadcrumb-item Fondsen
+        a(ui-sref="home").breadcrumb-item Home
+        a.breadcrumb-item(
+            ui-sref="funds"
+            translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
+            translate-default="{{'funds.header.title' | translate }}")
         a.breadcrumb-item.active(ng-bind="$ctrl.fund.name")
     
     .block.block-fund
