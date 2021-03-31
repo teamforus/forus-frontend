@@ -656,27 +656,38 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
-        name: "fund-apply",
+        name: "fund",
         url: "/funds/{id}",
-        component: "fundApplyComponent",
+        component: "fundComponent",
         data: {
             id: null
         },
         resolve: {
+            vouchers: ['AuthService', 'VoucherService', (
+                AuthService, VoucherService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                VoucherService.list()
+            ) : new Promise(resolve => resolve([]))],
             fund: ['$transition$', 'FundService', (
                 $transition$, FundService
             ) => repackResponse(FundService.readById(
                 $transition$.params().id
             ))],
-            records: ['RecordService', (
-                RecordService
-            ) => repackResponse(RecordService.list())],
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],
-            vouchers: ['VoucherService', (
-                VoucherService
-            ) => repackResponse(VoucherService.list())],
+            products: ['ProductService', (
+                ProductService
+           ) => repackPagination(ProductService.sample({
+               fund_type: 'budget',
+               per_page: 6,
+           }))],
+            subsidies: ['ProductService', (
+                 ProductService
+            ) => repackPagination(ProductService.sample({
+                fund_type: 'subsidies',
+                per_page: 6,
+            }))],
         }
     });
 
