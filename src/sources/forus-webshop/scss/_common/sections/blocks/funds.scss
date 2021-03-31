@@ -9,7 +9,7 @@
             display: inline-block;
             max-width: 33.333%;
             min-width: 33.333%;
-    
+
             .fund-image {
                 width: 100%;
                 border-radius: $border_radius;
@@ -58,7 +58,7 @@
             }
 
             .fund-organization {
-                font: 600 16px/18px $bf;
+                font: 400 14px/18px $bf;
                 flex: 1;
                 white-space: nowrap;
                 overflow: hidden;
@@ -71,7 +71,7 @@
                 font: 700 18px/21px $bf;
                 margin: 10px 0 5px;
                 transition: .4s;
-                color: #626161;
+                color: $tc;
             }
 
             .fund-item-inner {
@@ -224,7 +224,7 @@
 
             .fund-item {
                 width: 50%;
-                margin: 0 0 0;
+                margin: 0 0 30px;
                 max-width: none;
 
                 .fund-item-inner {

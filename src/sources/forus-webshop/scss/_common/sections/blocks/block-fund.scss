@@ -39,12 +39,13 @@
                     margin-left: 25px;
 
                     .fund-name {
-                        font: 700 40px $bf;
+                        font: 700 24px/36px $bf;
+                        color: $tc;
                     }
 
                     .organization-name {
-                        font: 600 16px $bf;
-                        color: #009EF4;
+                        font: 400 16px $bf;
+                        color: $tc;
                     }
 
                     .fund-details-items {
@@ -156,7 +157,6 @@
 
                         .fund-details-items {
                             flex-direction: column;
-                            margin: 15px 0;
 
                             .fund-details-item {
                                 margin: 10px 0px;
@@ -166,6 +166,14 @@
                     .fund-name {
                             font-size: 24px;
                         }
+                    }
+                }
+
+                .fund-description {
+                    padding: 0 0 25px 20px;
+
+                    .fund-description-label {
+                        font: 700 12px $bf;
                     }
                 }
             }

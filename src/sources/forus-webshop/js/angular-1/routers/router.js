@@ -663,6 +663,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             id: null
         },
         resolve: {
+            vouchers: ['AuthService', 'VoucherService', (
+                AuthService, VoucherService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                VoucherService.list()
+            ) : new Promise(resolve => resolve([]))],
             fund: ['$transition$', 'FundService', (
                 $transition$, FundService
             ) => repackResponse(FundService.readById(
