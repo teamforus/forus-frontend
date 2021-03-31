@@ -47,9 +47,6 @@ let VoucherDetailsComponent = function(
             confirmButton: $translate('modals.modal_voucher_physical_card.delete_card.confirmButton'),
 
             onConfirm: () => {
-                console.log('delete');
-                console.log($ctrl.organization);
-                console.log($ctrl.voucher);
                 PhysicalCardsService.destroy(
                     $ctrl.organization.id, 
                     $ctrl.voucher.id, 
@@ -80,8 +77,6 @@ module.exports = {
     bindings: {
         voucher: '<',
         organization: '<',
-        physicalCard: '<',
-        fund: '<',
     },
     controller: [
         'ModalService',

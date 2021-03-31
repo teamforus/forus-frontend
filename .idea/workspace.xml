@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28b58bc4-846e-4b1b-8aab-2d2de00798a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/angular-app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/angular-app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/i18n/i18n-nl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/i18n/i18n-nl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/i18n/nl/pages/vouchers.pug.i18n.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/i18n/nl/pages/vouchers.pug.i18n.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/routers/modals.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/routers/modals.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/routers/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/routers/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/services/VoucherService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/js/angular-1/services/VoucherService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/pug/tpl/pages/vouchers.pug" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/pug/tpl/pages/vouchers.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/scss/_common/components/buttons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/scss/_common/components/buttons.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/scss/_common/dashboard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/scss/_common/dashboard.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-platform/scss/_common/includes/common.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-platform/scss/_common/includes/common.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sources/forus-webshop/scss/_common/components/card.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/sources/forus-webshop/scss/_common/components/card.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +48,8 @@
       <workItem from="1617105254478" duration="592000" />
       <workItem from="1617119860237" duration="3000" />
       <workItem from="1617121001716" duration="11000" />
+      <workItem from="1617122584321" duration="4000" />
+      <workItem from="1617133742190" duration="11000" />
     </task>
     <servers />
   </component>

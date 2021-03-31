@@ -4,24 +4,23 @@ let ModalVoucherAddPhysicalCardComponent = function(FormBuilderService, Physical
     $ctrl.voucher = null;
     $ctrl.state = '';
     
-    // todo: cleanup physicalcard type component
     $ctrl.$onInit = () => {
         $ctrl.voucher = $ctrl.modal.scope.voucher;
+        $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onAttached = $ctrl.modal.scope.onAttached;
 
         $ctrl.activateCodeForm = FormBuilderService.build({
             code: '1001'
         }, (form) => {
             PhysicalCardsService.store(
-                $ctrl.modal.scope.organization.id, 
-                $ctrl.modal.scope.voucher.id, 
+                $ctrl.organization.id, 
+                $ctrl.voucher.id, 
                 form.values
             ).then(res => {
                 $ctrl.code = res.data.data.code
                 $ctrl.state = 'success_old_card';
                 $ctrl.onAttached();
             }, (res) => {
-                console.log(res);
                 form.unlock();
 
                 if (res.status === 429) {
@@ -35,19 +34,10 @@ let ModalVoucherAddPhysicalCardComponent = function(FormBuilderService, Physical
         });
     };
 
-    $ctrl.choosePhysicalCardType = (type) => {
-        $ctrl.physicalCardType = type;
-
-        if (type == 'old') {
-            $ctrl.state = 'card_code';
-        } else {
-            $ctrl.preffersPlasticCard = true;
-        }
-    };
-
     $ctrl.submitActivationCode = () => {
         $ctrl.activateCodeForm.submit();
     };    
+    
     $ctrl.resetPinCode = () => {
         $ctrl.activateCodeForm.values.code = "1001";
     };    
