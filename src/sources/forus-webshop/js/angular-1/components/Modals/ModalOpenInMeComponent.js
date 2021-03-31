@@ -3,6 +3,7 @@ let ModalOpenInMeComponent = function(
     IdentityService,
     FormBuilderService,
     ModalService,
+    appConfigs,
     ShareService
 ) {
     let $ctrl = this;
@@ -45,7 +46,7 @@ let ModalOpenInMeComponent = function(
 
                 ModalService.open('modalNotification', {
                     type: 'confirm',
-                    title: 'popup_auth.pin_code.confirmation.title',
+                    title: 'popup_auth.pin_code.confirmation.title_' + appConfigs.features.communication_type,
                     description: 'popup_auth.pin_code.confirmation.description',
                     cancelBtnText: 'popup_auth.pin_code.confirmation.buttons.try_again',
                     confirmBtnText: 'popup_auth.pin_code.confirmation.buttons.confirm'
@@ -79,6 +80,7 @@ module.exports = {
         'IdentityService',
         'FormBuilderService',
         'ModalService',
+        'appConfigs',
         'ShareService',
         ModalOpenInMeComponent
     ],

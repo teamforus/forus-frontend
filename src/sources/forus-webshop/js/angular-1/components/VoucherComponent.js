@@ -55,7 +55,7 @@ let VoucherComponent = function(
         return ModalService.open('modalNotification', {
             type: 'confirm',
             title: "E-mail naar mij",
-            description: "Stuur de de QR-code naar mijn e-mailadres",
+            description: "Stuur de QR-code naar mijn e-mailadres",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
                     ModalService.open('modalNotification', {
