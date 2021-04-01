@@ -1,4 +1,7 @@
-.modal.modal-auth.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-auth.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog" aria-labelledby="productApplyDialogTitle" aria-describedby="productApplyDialogSubtitle")
+
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-content: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close")
@@ -16,8 +19,8 @@
 
             .divider-img: img(src="./assets/img/Base7.png")
 
-        .modal-title Stap 3: {{ "open_in_me.app_header.title" | translate }}
-        .modal-subtitle {{ "open_in_me.app_header.subtitle" | translate }}
+        .modal-title(id="productApplyDialogTitle") Stap 3: {{ "open_in_me.app_header.title" | translate }}
+        .modal-subtitle(id="productApplyDialogSubtitle") {{ "open_in_me.app_header.subtitle" | translate }}
 
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
             .form-group

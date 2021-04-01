@@ -14,13 +14,15 @@ block content
                 .breadcrumb-item.active Aanbod
 
             .showcase-layout
-                .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
+                .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
                     .showcase-aside-block
                         .form-group
                             input.form-control(
                                 ng-model="$ctrl.form.values.q"
                                 placeholder="Zoek aanbod" 
-                                type="search")
+                                type="search"
+                                aria-label="search"
+                                id="products_search")
 
                         .form-group
                             label.form-label(for="select_provider") Aanbieders

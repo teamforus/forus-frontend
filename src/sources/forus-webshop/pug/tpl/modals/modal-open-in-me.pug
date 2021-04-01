@@ -1,4 +1,7 @@
-.modal.modal-auth.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-auth.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog" aria-labelledby="openInMeDialogTitle" aria-describedby="openInMeDialogSubtitle")
+    
     .modal-backdrop(ng-click="$ctrl.close()")
 
     .modal-content(ng-if="!$ctrl.sentSms"): .modal-section
@@ -26,8 +29,8 @@
     .modal-content(ng-if="$ctrl.sentSms"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
 
-        .modal-title(translate="open_in_me.app_instruction.title")
-        .modal-subtitle.hide-sm
+        .modal-title(id="openInMeDialogTitle" translate="open_in_me.app_instruction.title")
+        .modal-subtitle.hide-sm(id="openInMeDialogSubtitle")
             span(translate="open_in_me.app_instruction.description")
             a(ui-sref="me-app" target="_blank" class="text-primary"): u Me-app
 
