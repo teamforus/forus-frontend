@@ -86,7 +86,10 @@ let VouchersComponent = function(
         $timeout(() => $ctrl.filters.show = false, 0);
     };
 
-    $ctrl.showQrCode = (voucher) => {
+    $ctrl.showQrCode = ($event, voucher) => {
+        $event.stopPropagation();
+        $event.preventDefault();
+
         ModalService.open('voucher_qr_code', {
             voucher: voucher,
             fund: $ctrl.fund,

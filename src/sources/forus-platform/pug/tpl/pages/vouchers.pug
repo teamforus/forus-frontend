@@ -128,7 +128,7 @@
 
                             tr(
                                 ng-repeat="voucher in $ctrl.vouchers.data" 
-                                ui-sref="voucher-details({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
+                                ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
                                 td
                                     strong(ng-bind="(voucher.identity_email | str_limit:25) || voucher.activation_code || 'Niet toegewezen'").text-primary
                                     span(ng-if="voucher.identity_bsn || voucher.relation_bsn").text-strong.text-md.text-muted-dark
@@ -152,12 +152,14 @@
                                     br
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
                                 td(ng-if="!$ctrl.fundClosed"): strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
+
                                 //-td(ng-if="!$ctrl.fundClosed && voucher.is_granted"): .td-boolean
                                     em.mdi.mdi-check-circle
                                     | {{ "product_vouchers.labels.yes" | translate }}
                                 //-td(ng-if="!$ctrl.fundClosed && !voucher.is_granted"): .td-boolean
                                     em.mdi.mdi-close
                                     | {{ "product_vouchers.labels.no" | translate }}
+
                                 td(ng-if="!$ctrl.fundClosed && voucher.has_transactions"): .td-boolean
                                     em.mdi.mdi-check-circle
                                     string(translate="product_vouchers.labels.yes").text-md.text-muted-dark
@@ -165,19 +167,14 @@
                                     em.mdi.mdi-close
                                     string(translate="product_vouchers.labels.no").text-md.text-muted-dark
                                 td
-                                    //-button.button.button-primary.button-icon.pull-right(
-                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired"
-                                        ng-click="$ctrl.showQrCode(voucher)")
-                                        em(ng-if="voucher.state === 'active'").mdi.mdi-qrcode 
-                                        em(ng-if="voucher.state === 'pending'").mdi.mdi-bookmark
-
-                                    .td-boolean.pull-right(ng-if="voucher.expired")
+                                    .td-boolean(ng-if="voucher.expired")
                                         em.mdi.mdi-close
                                         span.text-md.text-muted-dark Verlopen               
-                                    .td-boolean.pull-right(ng-if="!voucher.expired")
+                                    .td-boolean(ng-if="!voucher.expired")
                                         em(ng-if="voucher.state === 'active'").mdi.mdi-check-circle
                                         em(ng-if="voucher.state === 'pending'").mdi.mdi-close
-                                        span.block.block-tooltip-details.block-tooltip-hover.text-md.text-muted-dark {{ ( voucher.state === 'active' ? 'Actief' : 'Inactief' ) }}
+                                        span.block.block-tooltip-details.block-tooltip-hover.text-md.text-muted-dark 
+                                            | {{ ( voucher.state === 'active' ? 'Actief' : 'Inactief' ) }}
                                             .tooltip-content.tooltip-content-left.tooltip-content-fit
                                                 .tooltip-text
                                                     span
@@ -204,8 +201,14 @@
                                                         span.text-primary.text-sm.text-strong PASNUMMER:
                                                         br
                                                         span(ng-bind="voucher.physical_card.code || 'Nee'").text-strong                                                    
-                                td
-                                    a.button.button-default.button-icon.pull-right(ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
+                                td: .button-group.flex-end
+                                    button.button.button-default.button-icon.pull-right(
+                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired"
+                                        ng-click="$ctrl.showQrCode($event, voucher)")
+                                        em(ng-if="voucher.state === 'active'").mdi.mdi-qrcode 
+                                        em(ng-if="voucher.state === 'pending'").mdi.mdi-bookmark
+                                    a.button.button-primary.button-icon.pull-right(
+                                        ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
                                         em.mdi.mdi-eye-outline.icon-start
 
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")

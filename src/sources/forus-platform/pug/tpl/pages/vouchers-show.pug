@@ -55,7 +55,7 @@
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
-                            tr()
+                            tr
                                 td
                                     strong(translate="vouchers.labels.email").text-strong.text-md.text-muted-dark
                                     br
@@ -79,7 +79,8 @@
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
                                 td(ng-if="!$ctrl.voucher.physical_card")
                                 td(ng-if="!$ctrl.voucher.activation_code_uid && !$ctrl.voucher.activation_code")
-                            tr()
+
+                            tr
                                 td(ng-if="!$ctrl.fundClosed")
                                     strong(translate="vouchers.labels.expire_date").text-strong.text-md.text-muted-dark
                                     br
