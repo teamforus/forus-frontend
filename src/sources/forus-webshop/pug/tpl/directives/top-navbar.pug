@@ -14,15 +14,15 @@
 
         .block.block-auth.show-sm
             .auth-in(ng-if="$root.auth_user").show-sm
-                    .button.button-mobile(ng-click="$root.signOut()")
+                    .button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
                         div(translate="topnavbar.buttons.logout")
 
             .auth-out(ng-if="!$root.auth_user" id="login_mobile")                
-                .button.button-default(ng-click="openAuthPopup()").hide-sm
+                .button.button-default(ng-click="openAuthPopup()" role="button" aria-label="login").hide-sm
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
                     span(translate="topnavbar.buttons.login")
-                .button.button-mobile(ng-click="openAuthPopup()").show-sm
+                .button.button-mobile(ng-click="openAuthPopup()" role="button" aria-label="login").show-sm
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
                     div(translate="topnavbar.buttons.login")
         
@@ -193,16 +193,16 @@
                                 div(translate="topnavbar.buttons.logout")
 
                     .auth-out(ng-if="!$root.auth_user" id="login")
-                        .button.button-default(ng-click="openAuthPopup()").hide-sm
+                        .button.button-default(ng-click="openAuthPopup()" role="button" aria-label="login").hide-sm
                             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
                             span(translate="topnavbar.buttons.login")
                         
-                        .button.button-mobile(ng-click="openAuthPopup()").show-sm
+                        .button.button-mobile(ng-click="openAuthPopup()" role="button" aria-label="login").show-sm
                             include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
                             div(translate="topnavbar.buttons.login")
                         
                     
-                    .button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()")
+                    .button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()" role="button" aria-label="start_fund_request")
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
                         span(translate="home.header.{{ $root.client_key }}.button" translate-default="{{ 'home.header.button' | translate }}" id="start_modal")
 
