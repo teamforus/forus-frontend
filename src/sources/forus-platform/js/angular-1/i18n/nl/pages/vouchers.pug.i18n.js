@@ -30,6 +30,8 @@ module.exports = {
         uid: 'Uniek nummer',
         physical_card: "Pasnummer",
         bsn: "Burgerservicenummer",
+        from: "Aangemaakt vanaf",
+        to: "Aangemaakt tot en met",
     },
     buttons: {
         add_new: "Aanmaken",
