@@ -12,8 +12,8 @@ module.exports = {
     },
     success_card: {
         title: 'Pas gekoppeld',
-        description: 'De pas met pasnummer: {{ code }} is geblokkeerd.',
-        button: 'Koppel pas'
+        description: 'De pas met pasnummer: <strong>{{ code }}</strong> is gekoppeld.',
+        button: 'Sluit venster'
     },
     delete_card: {
         header: 'Pas blokkeren',
