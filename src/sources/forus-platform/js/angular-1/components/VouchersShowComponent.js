@@ -1,4 +1,4 @@
-let VoucherDetailsComponent = function(
+let VouchersShowComponent = function(
     ModalService,
     VoucherService,
     FundService,
@@ -23,7 +23,7 @@ let VoucherDetailsComponent = function(
     };
 
     $ctrl.addPhysicalCard = () => {
-        ModalService.open('voucher_add_physical_card', {
+        ModalService.open('physical_card', {
             voucher: $ctrl.voucher,
             organization: $ctrl.organization,
             onSent: () => {
@@ -84,7 +84,7 @@ module.exports = {
         'FundService',
         'PhysicalCardsService',
         '$filter',
-        VoucherDetailsComponent
+        VouchersShowComponent
     ],
-    templateUrl: 'assets/tpl/pages/voucher-details.html'
+    templateUrl: 'assets/tpl/pages/vouchers-show.html'
 };

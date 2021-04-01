@@ -6,7 +6,7 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-header
             .modal-title(translate="modals.modal_voucher_physical_card.header.card_title")
-        .modal-content: .modal-section: form.form
+        .modal-content: form.form
             .activation-card
                 .physical-card-title(translate="modals.modal_voucher_physical_card.content.title")
                 p(translate="modals.modal_voucher_physical_card.content.subtitle").text-center
@@ -19,8 +19,14 @@
                 .form-error.text-center(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
             
         .modal-footer.text-center
-            button(ng-class="{disabled: $ctrl.activateCodeForm.values.code.length <= 4}" type="button" ng-click="$ctrl.resetPinCode()" translate="modals.modal_voucher_physical_card.buttons.cancel").button.button-default
-            button(ng-class="{disabled: $ctrl.activateCodeForm.values.code.length != 12}" ng-click="$ctrl.submitActivationCode()" translate="modals.modal_voucher_physical_card.buttons.submit").button.button-primary
+            button(
+                ng-click="$ctrl.close()" 
+                translate="modals.modal_voucher_physical_card.buttons.cancel").button.button-default
+            
+            button(
+                ng-class="{disabled: $ctrl.activateCodeForm.values.code.length != 12}" 
+                ng-click="$ctrl.submitActivationCode()" 
+                translate="modals.modal_voucher_physical_card.buttons.submit").button.button-primary
     
     //- Success old card
     .modal-window(ng-if="$ctrl.state == 'success_old_card'")

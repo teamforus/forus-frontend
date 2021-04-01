@@ -22,7 +22,7 @@ app.component('fundsEditComponent', require('./components/FundsEditComponent'));
 app.component('fundsShowComponent', require('./components/FundsShowComponent'));
 app.component('transactionsComponent', require('./components/TransactionsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
-app.component('voucherDetailsComponent', require('./components/VoucherDetailsComponent'));
+app.component('vouchersShowComponent', require('./components/VouchersShowComponent'));
 app.component('productVouchersComponent', require('./components/ProductVouchersComponent'));
 app.component('officesComponent', require('./components/OfficesComponent'));
 app.component('officesEditComponent', require('./components/OfficesEditComponent'));
@@ -88,7 +88,7 @@ app.component('modalFundProviderChatProviderComponent', require('./components/Mo
 app.component('modalFundProviderChatMessageComponent', require('./components/Modals/ModalFundProviderChatMessageComponent'));
 app.component('modalDuplicatesPickerComponent', require('./components/Modals/ModalDuplicatesPickerComponent'));
 app.component('modalFundAppendRequestRecordComponent', require('./components/Modals/ModalFundAppendRequestRecordComponent'));
-app.component('modalVoucherAddPhysicalCardComponent', require('./components/Modals/ModalVoucherAddPhysicalCardComponent'));
+app.component('modalPhysicalCardComponent', require('./components/Modals/ModalPhysicalCardComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));

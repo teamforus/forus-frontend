@@ -758,9 +758,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
          * Voucher details
          */
          $stateProvider.state({
-            name: "voucher-details",
+            name: "vouchers-show",
             url: "/organizations/{organization_id}/vouchers/{voucher_id}",
-            component: "voucherDetailsComponent",
+            component: "vouchersShowComponent",
             resolve: {
                 organization: organziationResolver(),
                 permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),

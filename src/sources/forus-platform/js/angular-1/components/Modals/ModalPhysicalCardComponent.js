@@ -1,4 +1,4 @@
-let ModalVoucherAddPhysicalCardComponent = function(FormBuilderService, PhysicalCardsService) {
+let ModalPhysicalCardComponent = function(FormBuilderService, PhysicalCardsService) {
     let $ctrl = this;
     
     $ctrl.voucher = null;
@@ -51,9 +51,9 @@ module.exports = {
     controller: [
         'FormBuilderService',
         'PhysicalCardsService',
-        ModalVoucherAddPhysicalCardComponent
+        ModalPhysicalCardComponent
     ],
     templateUrl: () => {
-        return 'assets/tpl/modals/modal-voucher-add-physical-card.html';
+        return 'assets/tpl/modals/modal-physical-card.html';
     }
 };
