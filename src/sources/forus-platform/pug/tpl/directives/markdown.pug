@@ -25,6 +25,6 @@
                 em.mdi.mdi-youtube
 
     .form-group
-        textarea.form-control.markdown-textarea(ng-model="ngModel" ng-disabled="{{disabled}}" )
+        textarea.form-control.markdown-textarea(ng-model="value" ng-change="onChange(value)" ng-disabled="{{disabled}}" )
 
     .markdow-hint **dikgedrukt** _schuingedrukt_

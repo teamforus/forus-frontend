@@ -1,4 +1,6 @@
 let MarkdownDirective = function($scope, $element, ModalService) {
+    $scope.value = "";
+
     $element.find('.toolbar-item').on("click", function(e) {
         e.preventDefault();
 
@@ -7,63 +9,53 @@ let MarkdownDirective = function($scope, $element, ModalService) {
 
         if ($textarea.length) {
             replaceSelectedText(
-                $textarea[0], 
-                $toolBarItem.data('start'), 
-                $toolBarItem.data('end'), 
+                $textarea[0],
+                $toolBarItem.data('start'),
+                $toolBarItem.data('end'),
                 $toolBarItem.data('markType')
             );
         }
     });
 
     function getInputSelection(el) {
-        let start = 0,
-            end = 0;
+        const start = typeof el.selectionStart == "number" ? el.selectionStart : 0;
+        const end = typeof el.selectionEnd == "number" ? el.selectionEnd : 0;
+        const selected = el.value.substring(start, end);
 
-        if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
-            start = el.selectionStart;
-            end = el.selectionEnd;
-        }
-
-        return {
-            start: start,
-            end: end,
-            selected: el.value.substring(start, end)
-        };
+        return { start, end, selected };
     }
 
     function replaceSelectedText(el, start, end, type) {
-        let sel = getInputSelection(el);
-        let val = el.value;
-        let arrayOfSelected = sel.selected.split("\n");
-        let moveSelection = 0;
+        const selection = getInputSelection(el);
+        const value = el.value;
+        const arrayOfSelected = selection.selected.split("\n");
+
         let needSelectAll = true;
-        let moveStartSelection = sel.start;
+        let moveStartSelection = selection.start;
         let finalRes = '';
+        let offsetSelection = 0;
 
         type = type ? type : 'text';
 
-        if (arrayOfSelected.length > 1 && type == 'list') {
-            $.each(arrayOfSelected, function(i, value) {
-
+        if (type == 'list' && arrayOfSelected.length > 1) {
+            arrayOfSelected.forEach((selectedRow, selectedRowIndex) => {
                 if (start == '1. ') {
-                    finalRes += (i + 1) + '. ' + value + end + "\n";
+                    finalRes += (selectedRowIndex + 1) + '. ' + selectedRow + end + "\n";
                 } else {
-                    finalRes += start + value + end + "\n";
+                    finalRes += start + selectedRow + end + "\n";
                 }
-            });
+            })
 
-            moveSelection = sel.end + arrayOfSelected.length * (
-                start.length + end.length
-            );
+            offsetSelection = selection.end + arrayOfSelected.length * (start.length + end.length);
         } else if (type == 'custom-link' || type == 'image-link' || type == 'youtube') {
             ModalService.open('markdownCustomLink', {
                 pages: $scope.pages,
-                selection: sel.selected,
+                selection: selection.selected,
                 type: type,
                 hasDescription: type != 'youtube',
                 success: (data) => {
                     let url = data.url;
-                    let text = sel.selected ? sel.selected : data.description;
+                    let text = selection.selected ? selection.selected : data.description;
                     let components = ['[', text, '](', url, ')'];
 
                     finalRes = components.join('');
@@ -71,52 +63,59 @@ let MarkdownDirective = function($scope, $element, ModalService) {
                         finalRes = '!' + finalRes;
                     }
 
-                    if (sel.selected == '') {
+                    if (selection.selected == '') {
                         needSelectAll = false;
                     } else {
                         //Leave only the dynamic components
                         delete components[1];
                     }
 
-                    moveSelection = sel.end + (sel.selected == '' ?
+                    offsetSelection = selection.end + (selection.selected == '' ?
                         finalRes.length : components.join('').length);
 
-                    $scope.ngModel = val.slice(0, sel.start) + finalRes + val.slice(sel.end);
+                    $scope.value = value.slice(0, selection.start) + finalRes + value.slice(selection.end);
 
-                    applySelection(el, needSelectAll, moveStartSelection, moveSelection);
+                    applySelection(el, needSelectAll, moveStartSelection, offsetSelection);
                 }
             });
         } else {
-            finalRes = start + sel.selected + end;
+            finalRes = start + selection.selected + end;
+            offsetSelection = selection.end + start.length + (selection.selected == '' ? 0 : end.length);
 
-            moveSelection = sel.end + start.length + (sel.selected == '' ? 0 : end.length);
-
-            if (sel.selected == '')
+            if (selection.selected == '') {
                 needSelectAll = false;
+            }
 
-            if (type == 'list' || type == 'header')
+            if (type == 'list' || type == 'header') {
                 moveStartSelection += start.length;
+            }
         }
 
-        if (moveSelection) {
+        if (offsetSelection) {
             $scope.$apply(function() {
-                $scope.ngModel = val.slice(0, sel.start) + finalRes + val.slice(sel.end);
+                $scope.value = value.slice(0, selection.start) + finalRes + value.slice(selection.end);
             });
 
-            applySelection(el, needSelectAll, moveStartSelection, moveSelection);
+            applySelection(el, needSelectAll, moveStartSelection, offsetSelection);
         }
+
+        $scope.onChange();
     }
 
-    function applySelection(el, needSelectAll, moveStartSelection, moveSelection) {
+    function applySelection(el, needSelectAll, moveStartSelection, offsetSelection) {
         el.focus({
             preventScroll: true
         });
 
-        if (needSelectAll)
+        if (needSelectAll) {
             el.selectionStart = moveStartSelection;
+        }
 
-        el.selectionEnd = moveSelection;
+        el.selectionEnd = offsetSelection;
     }
+
+    $scope.onChange = () => $scope.ngModel = $scope.value.replaceAll(/([ ][ ][\n])|([ ][\n])|([\n])/g, "  \n");
+    $scope.value = ($scope.ngModel || '').replaceAll(/([ ][ ][\n])|([ ][\n])|([\n])/g, "\n");;
 };
 
 module.exports = () => {
