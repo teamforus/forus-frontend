@@ -9,6 +9,7 @@ module.exports = {
         amount: "Bedrag",
         assigned_to: "Methode",
         assigned: "Status",
+        actions: "Acties",
         source: "Aangemaakt door",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot en met",
