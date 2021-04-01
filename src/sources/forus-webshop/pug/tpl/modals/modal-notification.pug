@@ -4,7 +4,7 @@
     
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-content
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="close" role="button")
         .modal-section
             .text-center
                 .modal-icon(ng-if="$ctrl.icon")

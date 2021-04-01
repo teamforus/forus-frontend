@@ -5,7 +5,7 @@
     .modal-backdrop(ng-click="$ctrl.close()")
 
     .modal-content(ng-if="!$ctrl.sentSms"): .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
 
         .modal-title(translate="open_in_me.sms.title")
         .modal-subtitle.hide-sm(translate="open_in_me.sms.description")
@@ -27,7 +27,7 @@
                     .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
 
     .modal-content(ng-if="$ctrl.sentSms"): .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
 
         .modal-title(id="openInMeDialogTitle" translate="open_in_me.app_instruction.title")
         .modal-subtitle.hide-sm(id="openInMeDialogSubtitle")

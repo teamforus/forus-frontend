@@ -4,7 +4,7 @@
 
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-content: .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="close" role="button")
         .app-instruction
             .step-item
                 .step-title Stap 1

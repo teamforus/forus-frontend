@@ -8,7 +8,7 @@
     
     //- Activation code form
     .modal-window(ng-if="$ctrl.state == 'card_code'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
         .modal-header
             .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.link_card.title")
         .modal-content: .modal-section: form.form
@@ -36,7 +36,7 @@
     
     //- Digital password
     .modal-window(ng-if="$ctrl.state == 'select_type'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
         .modal-header(ng-if="!$ctrl.preffersPlasticCard")
             .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.type_selection.title" translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
         .modal-content 
@@ -122,7 +122,7 @@
 
     //- Success old card
     .modal-window(ng-if="$ctrl.state == 'success_old_card'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
         .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.link_card_success.title")
         .modal-content: .modal-section
             .physical-card-result
@@ -132,7 +132,7 @@
 
     //- Success new card
     .modal-window(ng-if="$ctrl.state == 'success_new_card'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
         .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.request_card_success.title")
         .modal-content: .modal-section
             .physical-card-result
