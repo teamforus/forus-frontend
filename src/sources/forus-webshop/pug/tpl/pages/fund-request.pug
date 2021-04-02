@@ -125,7 +125,7 @@ section: .wrapper
 
             //- For new users
             .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
-                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title" role="heading") 
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
@@ -135,7 +135,7 @@ section: .wrapper
 
             //- For existing users
             .sign_up-pane(ng-if="$ctrl.authEmailSent")
-                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title" role="heading") 
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
