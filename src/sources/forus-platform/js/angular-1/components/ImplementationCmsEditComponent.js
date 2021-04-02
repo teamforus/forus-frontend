@@ -8,6 +8,14 @@ let ImplementationCmsEditComponent = function(
 
     $ctrl.modelPlaceholder = '';
 
+    $ctrl.communicationTypes = [{
+        value: '1',
+        label: 'Je/jouw',
+    }, {
+        value: '0',
+        label: 'U/uw',
+    }];
+
     $ctrl.preparePages = (implementation) => {
         const { pages, page_types, page_types_internal } = implementation;
 
