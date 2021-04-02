@@ -25,6 +25,14 @@ let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
             };
         });
     };
+
+    angular.element('body').on('keydown.modal', function(e) {
+        if (e.keyCode === 27) {
+            $scope.modals.forEach(modal => {
+                modal.close();
+            });
+        }
+    });
 };
 
 module.exports = () => {
