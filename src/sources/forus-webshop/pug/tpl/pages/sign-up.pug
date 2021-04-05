@@ -46,8 +46,8 @@ header.section.section-sign-up-choose
                     form(ng-submit="$ctrl.authForm.submit()").form
                         .row
                             .form-group.col.col-lg-9
-                                label.form-label(i18n="popup_auth.input.mail")
-                                ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl")
+                                label.form-label(i18n="popup_auth.input.mail" for="email")
+                                ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email")
                                 .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
                             .form-group.col.col-lg-3
                                 label.form-label.hide-sm &nbsp;
