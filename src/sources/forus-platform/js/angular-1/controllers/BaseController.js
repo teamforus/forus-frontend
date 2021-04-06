@@ -129,10 +129,10 @@ let BaseController = function(
         let route = PermissionsService.getAvailableRoutes(
             appConfigs.panel_type,
             $rootScope.auth_user.organizationsMap[selectedOrganizationId]
-        ).map(route => route.name)[0];
+        ).map(route => route.name)[0] || null;
 
         if (!route) {
-            $state.go('no-permission');
+            return $state.go('no-permission');
         }
 
         $state.go(route, { organization_id: selectedOrganizationId });
