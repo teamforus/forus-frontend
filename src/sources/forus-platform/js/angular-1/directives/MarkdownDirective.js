@@ -54,11 +54,19 @@ let MarkdownDirective = function($scope, $element, ModalService) {
                 type: type,
                 hasDescription: type != 'youtube',
                 success: (data) => {
-                    let url = data.url;
-                    let text = selection.selected ? selection.selected : data.description;
-                    let components = ['[', text, '](', url, ')'];
+                    const url = data.url;
+                    const media_uid = data.uid;
+                    const text = selection.selected ? selection.selected : data.description;
+                    const components = ['[', text, '](', url, ')'];
+
+                    if (media_uid) {
+                        $scope.mediaUploaded({
+                            'media_uid': media_uid,
+                        });
+                    }
 
                     finalRes = components.join('');
+
                     if (type == 'image-link') {
                         finalRes = '!' + finalRes;
                     }
@@ -76,6 +84,7 @@ let MarkdownDirective = function($scope, $element, ModalService) {
                     $scope.value = value.slice(0, selection.start) + finalRes + value.slice(selection.end);
 
                     applySelection(el, needSelectAll, moveStartSelection, offsetSelection);
+                    $scope.onChange();
                 }
             });
         } else {
@@ -114,8 +123,11 @@ let MarkdownDirective = function($scope, $element, ModalService) {
         el.selectionEnd = offsetSelection;
     }
 
-    $scope.onChange = () => $scope.ngModel = $scope.value.replaceAll(/([ ][ ][\n])|([ ][\n])|([\n])/g, "  \n");
-    $scope.value = ($scope.ngModel || '').replaceAll(/([ ][ ][\n])|([ ][\n])|([\n])/g, "\n");;
+    $scope.onChange = () => {
+        $scope.ngModel = $scope.value.replaceAll(/([ ][ ][\n])|([ ][\n])|([\n])/g, "  \n");
+    };
+
+    $scope.value = ($scope.ngModel || '').replaceAll(/([ ][ ][\n])|([ ][\n])|([\n])/g, "\n");
 };
 
 module.exports = () => {
@@ -125,6 +137,7 @@ module.exports = () => {
             ngModel: '=',
             modal: '=',
             pages: '=',
+            mediaUploaded: '&',
             disabled: '@',
             extendedOptions: '='
         },

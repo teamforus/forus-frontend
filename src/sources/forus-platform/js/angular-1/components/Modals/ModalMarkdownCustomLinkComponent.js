@@ -41,6 +41,7 @@ let ModalMarkdownCustomLinkComponent = function(
 
             $ctrl.media = res.data.data;
             $ctrl.form.values.url = $ctrl.media.sizes.public;
+            $ctrl.form.values.uid = $ctrl.media.uid;
         });
 
         $element[0].appendChild(input);

@@ -8,6 +8,14 @@ let ImplementationCmsEditComponent = function(
 
     $ctrl.modelPlaceholder = '';
 
+    $ctrl.appendMedia = (media_uid, formValue) => {
+        if (!Array.isArray(formValue.media_uid)) {
+            formValue.media_uid = [];
+        }
+
+        formValue.media_uid.push(media_uid);
+    };
+
     $ctrl.preparePages = (implementation) => {
         const { pages, page_types, page_types_internal } = implementation;
 
@@ -22,20 +30,27 @@ let ImplementationCmsEditComponent = function(
                 pagesValue[page_type].external = false;
             }
 
+            if (!Array.isArray(!pagesValue[page_type].media_uid)) {
+                pagesValue[page_type].media_uid = [];
+            }
+
             return pagesValue;
         }, {});
     }
 
     $ctrl.$onInit = () => {
-        const { informal_communication, page_types, page_types_internal } = $ctrl.implementation;
+        const { title, description } = $ctrl.implementation;
 
-        $ctrl.page_types = page_types;
-        $ctrl.page_types_internal = page_types_internal;
-        $ctrl.implementation.informal_communication = informal_communication ? '1' : '0';
+        $ctrl.page_types = $ctrl.implementation.page_types;
+        $ctrl.page_types_internal = $ctrl.implementation.page_types_internal;
 
         $ctrl.form = FormBuilderService.build({
-            ...$ctrl.implementation,
-            ...{ pages: $ctrl.preparePages($ctrl.implementation) }
+            ...{ title, description, informal_communication, },
+            ...{
+                pages: $ctrl.preparePages($ctrl.implementation),
+                informal_communication: $ctrl.implementation.informal_communication ? '1' : '0',
+                media_uid: [],
+            }
         }, (form) => {
             ImplementationService.updateCMS(
                 $rootScope.activeOrganization.id,
