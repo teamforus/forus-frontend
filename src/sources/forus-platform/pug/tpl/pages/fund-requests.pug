@@ -2,12 +2,8 @@
     menu
     section.app.app-content(ng-if='$ctrl.validatorRequests')
         .card-heading: .row
-            .col.col-lg-3.col-xs-12 Aanvragen
+            .col.col-lg-3.col-xs-12 Aanvragen ({{ $ctrl.validatorRequests.meta.total }})
             .block.block-inline-filters.col.col-lg-9.col-xs-12.text-right
-                button(ng-click="$ctrl.exportRequests()").button.button-primary
-                    .mdi.mdi-download.icon-start
-                    | {{ 'validation_requests.buttons.export' | translate }}
-
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                     em.mdi.mdi-close.icon-start 
                     span(i18n="validation_requests.buttons.clear_filter")
@@ -48,7 +44,13 @@
                                     datepicker-mobile=""
                                     date-week-start-day="1").form-control
                                     input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
-                    
+                            .form-actions
+                                button.button.button-primary.button-wide(
+                                    ng-click="$ctrl.exportRequests()"
+                                    ng-disabled="$ctrl.validatorRequests.meta.total == 0")
+                                    em.mdi.mdi-download.icon-start  
+                                    span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.validatorRequests.meta.total }")
+
                     .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
         .card.card-collapsable(

@@ -3,6 +3,7 @@ let TransactionsComponent = function(
     $timeout,
     appConfigs,
     FileService,
+    ModalService,
     TransactionService,
     OrganizationService
 ) {
@@ -65,19 +66,25 @@ let TransactionsComponent = function(
 
     // Export to XLS file
     $ctrl.exportList = () => {
-        TransactionService.export(
-            appConfigs.panel_type,
-            $ctrl.organization.id,
-            $ctrl.filters.values
-        ).then((res => {
-            FileService.downloadFile(
-                appConfigs.panel_type + '_' + org + '_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.xls',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }));
+        ModalService.open('exportType', {
+            success: (data) => {
+                TransactionService.export(
+                    appConfigs.panel_type,
+                    $ctrl.organization.id,
+                    Object.assign($ctrl.filters.values, {
+                        export_format: data.exportType
+                    })
+                ).then((res => {
+                    FileService.downloadFile(
+                        appConfigs.panel_type + '_' + org + '_' + moment().format(
+                            'YYYY-MM-DD HH:mm:ss'
+                        ) + '.' + data.exportType,
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+                }), console.error);
+            }
+        });
     };
 
     $ctrl.showTransaction = (transaction) => {
@@ -122,6 +129,7 @@ module.exports = {
         '$timeout',
         'appConfigs',
         'FileService',
+        'ModalService',
         'TransactionService',
         'OrganizationService',
         TransactionsComponent

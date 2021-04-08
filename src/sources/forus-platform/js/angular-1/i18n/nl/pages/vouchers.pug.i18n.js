@@ -9,7 +9,7 @@ module.exports = {
         assigned_to: "Methode",
         source: "Aangemaakt door",
         created_date: "Aangemaakt op",
-        expire_date: "Geldig tot",
+        expire_date: "Geldig tot en met",
         fund: "Fonds",
         granted: "Toegewezen",
         used: "In gebruik",

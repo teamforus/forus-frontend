@@ -1,5 +1,6 @@
 let FileUploaderDirective = function(
     $scope,
+    $timeout,
     $element,
     FileService
 ) {
@@ -68,6 +69,7 @@ let FileUploaderDirective = function(
     $dir.selectFile = (e) => {
         e && e.preventDefault() && e.stopPropagation();
 
+
         if (input && input.remove) {
             input.remove();
         }
@@ -102,15 +104,14 @@ let FileUploaderDirective = function(
     };
 
     $scope.addFiles = (files) => {
-        $scope.$apply(() => $scope.files = [
+        $timeout(() => $scope.files = [
             ...$scope.files,
             ...filterValidFiles([...files]).map((file) => uploadFile({
                 file: file,
                 uploaded: false,
                 progress: 0,
             }))
-        ]);
-
+        ], 0);
 
         onFileBatchQueued(eventInfo());
     };
@@ -147,6 +148,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$timeout',
             '$element',
             'FileService',
             FileUploaderDirective

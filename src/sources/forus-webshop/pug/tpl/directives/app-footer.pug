@@ -15,13 +15,12 @@ section.section.section-footer
             .col.col-md-3
                 .block.block-markdown
                     h3 Download Me-app
-                    .block.block-app_download
-                        a(href="{{ $root.appConfigs.android_link }}" target="_blank")
-                            img(src="./assets/img/icon-app/icon-app-android.svg" alt="Ontdek het op Google Play")
-                        a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
-                            img(src="./assets/img/icon-app/app-store-badge.svg" alt="Download in de App Store")
+                    app-links
+                    
                     nav.footer-nav
-                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
+                        .footer-nav-item
+                            include ../../../resources/_webshop-common/assets/img/me-logo.svg
+                            a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
             
     .block.block-copyrights: .wrapper
         .copyrights 

@@ -66,7 +66,14 @@
                                     select(
                                         ng-options="state.key as state.name for state in $ctrl.fundStates" 
                                         ng-model="$ctrl.filters.values.fund_state").form-control
-                        
+
+                                .form-actions
+                                    button.button.button-primary.button-wide(
+                                        ng-click="$ctrl.exportList()"
+                                        ng-disabled="$ctrl.transactions.meta.total == 0")
+                                        em.mdi.mdi-download.icon-start  
+                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactions.meta.total }")
+
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
             .card-section
@@ -92,10 +99,6 @@
                     
             .card-section: .table-pagination
                 .table-pagination-counter(ng-if="$ctrl.transactions.data.length") {{ "transactions.labels.total_amount" | translate }} {{ $ctrl.transactionsTotal | currency_format }}
-                
-                .table-pagination-navigation: button(ng-click="$ctrl.exportList()").button.button-primary.pull-right
-                    em.mdi.mdi-download.icon-start  
-                    span(i18n="transactions.buttons.export")
 
             .card-section(ng-if="$ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
                 paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")

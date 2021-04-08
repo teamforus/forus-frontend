@@ -132,12 +132,20 @@ let FundsComponent = function(
 
     $ctrl.updateFundsMeta = () => {
         $ctrl.funds.data = $ctrl.funds.data.map(function(fund) {
-            fund.vouchers = $ctrl.vouchers.filter(
-                voucher => voucher.fund_id == fund.id && !voucher.expired
-            );
+            fund.vouchers = $ctrl.vouchers.filter(voucher => voucher.fund_id == fund.id && !voucher.expired);
             fund.isApplicable = fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
             fund.alreadyReceived = fund.vouchers.length !== 0;
             fund.voucherStateName = 'vouchers';
+
+            fund.showRequestButton = !fund.alreadyReceived &&
+                fund.allow_direct_requests &&
+                !fund.has_pending_fund_requests &&
+                !fund.isApplicable &&
+                $ctrl.appConfigs.features.funds.fund_requests;
+
+            fund.showPendingButton = !fund.alreadyReceived && fund.has_pending_fund_requests;
+            fund.showActivateButton = !fund.alreadyReceived && fund.isApplicable;
+            fund.showReceivedButton = fund.alreadyReceived;
 
             if (fund.vouchers[0] && fund.vouchers[0].address) {
                 fund.voucherStateName = 'voucher({ address: fund.vouchers[0].address })';
