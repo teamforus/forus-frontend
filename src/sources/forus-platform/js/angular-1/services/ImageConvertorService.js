@@ -27,6 +27,66 @@ let createObjectURL = (file) => {
     ).createObjectURL(file);
 };
 
+let maxImageSize = (file, callback) => {
+    // Make sure the file is an image and the file API is supported.
+    if( !file.type.match(/image.*/)) {
+        callback(file);
+        return;
+    }
+
+    var img    = document.createElement("img"),
+        reader = new FileReader();
+
+    // Wait until the image is loaded (after file reader is loaded)
+    img.onload = function() {
+        var canvas   = document.createElement('canvas'),
+            max_size = 2000,
+            width    = img.width,
+            height   = img.height,
+            ctx      = null,
+            dataurl  = null;
+
+        // If the image fits within the constraints, use the original image
+        if( width <= max_size && height <= max_size ) {
+            callback(file);
+            return;
+
+        // Calculate the new image size
+        } else {
+            if(width > height) {
+                height *= max_size / width;
+                width = max_size;
+            } else {
+                width *= max_size / height;
+                height = max_size;
+            }
+        }
+
+        // Use canvas to resize the image.
+        canvas.width = width;
+        canvas.height = height;
+        ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        if(canvas.toBlob) {
+            canvas.toBlob(function(blob) {
+                if(blob && blob.type === file.type) {
+                    callback(blob);
+                } else {
+                    callback(file);
+                }
+            }, file.type, 80);
+        } else {
+            callback(file);
+        }
+        return;
+    };
+
+    // Wait until after the file reader has loader.
+    reader.onload = function(e) { img.src = e.target.result; };
+    reader.readAsDataURL(file);
+};
+
 function ImageConvertor(file) {
     let converter = {};
     let imageObj = new Image();

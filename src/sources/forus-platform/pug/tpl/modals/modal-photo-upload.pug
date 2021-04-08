@@ -20,7 +20,9 @@
                             result-image="$ctrl.cropedPhoto"
                             result-image-size="$ctrl.mediaConfig.large_size"
                             area-type="rectangle"
-                            aspect-ratio="$ctrl.mediaConfig.aspect_ratio"
+                            aspect-ratio="1"
+                            init-max-area="true"
+                            allow-crop-resize-on-corners="true"
                             on-change="$ctrl.onChange($ctrl.cropjectObj)"
                             on-load-begin="$ctrl.onChange($ctrl.cropjectObj)"
                             on-load-done="$ctrl.onChange($ctrl.cropjectObj)")
