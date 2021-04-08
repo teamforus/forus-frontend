@@ -3,7 +3,7 @@ let ModalExportTypeComponent = function(FormBuilderService) {
 
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build({
-            exportType: 'csv'
+            exportType: 'xls'
         }, (form) => {
             $ctrl.modal.scope.success(form.values);
 
