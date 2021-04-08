@@ -18,7 +18,7 @@ module.exports = {
         provider: 'Aanbieder',
         records: 'Eigenschappen',
         explanation: 'Uitleg',
-        start: 'Start request',
+        start: 'Start aanmelden',
         privacy: 'Privacy',
         accessibility: 'Accessibility',
         "record-validate": 'Eigenschap goedkeuren',
