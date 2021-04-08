@@ -135,7 +135,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
     .block.block-transactions(ng-if="!$ctrl.voucherCard.product && ($ctrl.voucherCard.transactions.length > 0 || $ctrl.voucher.expired)")
-        .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
+        .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }} #[span(ng-if="$ctrl.voucher.expired").text-strong-half - Verlopen op {{ $ctrl.voucherCard.last_active_day_locale }}]
         .transactions-body(ng-if="$ctrl.voucher.expired && $ctrl.voucherCard.transactions.length == 0"): .transactions-list
             .transactions-item 
                 .transactions-item-details 

@@ -16,8 +16,9 @@
 
     .voucher-overview.voucher-overview-stats
         .voucher-overview-item(ng-if="!voucherCard.used")
-            .voucher-overview-label(i18n="vouchers.labels.expire")
+            .voucher-overview-label(i18n="vouchers.labels.expire" ng-if="!voucher.expired")
+            .voucher-overview-label(i18n="vouchers.labels.expired_on" ng-if="voucher.expired")
             .voucher-overview-value(ng-bind="voucherCard.last_active_day_locale")  
         .voucher-overview-item(ng-if="voucherCard.used && voucherCard.type == 'product'")
-            .voucher-overview-label Gebruikt op:
+            .voucher-overview-label(i18n="vouchers.labels.used_on")
             .voucher-overview-value(ng-bind="voucherCard.last_transaction_at_locale")
