@@ -1,5 +1,4 @@
 .block {
-
     &.block-footer {
         padding: 20px 0;
         p {
@@ -62,17 +61,20 @@
                 }
             }
         }
+        @media screen and (max-width: 1000px) {
+            p {
+                margin: 0 auto;
+                margin-bottom: 10px;
+            }
+        }
     }
 
     &.block-copyrights {
         background-color: #ffff;
 
-        .copyrights {
-        }
-
         .links {
             a {
-                color: #727d84;
+                color: #000;
                 &:hover {
                     color: #000;
                     text-decoration: underline;
@@ -81,3 +83,4 @@
         }
     }
 }
+

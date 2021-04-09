@@ -4,11 +4,11 @@
         .block.block-breadcrumbs(ng-if="$root.activeOrganization")
             .breadcrumb-item(
                 ui-sref="vouchers({organization_id:$root.activeOrganization.id})" 
-                ng-bind="'Tegoeden'"
+                ng-bind="'Vouchers'"
                 ng-if="!$ctrl.voucher.product")
             .breadcrumb-item(
                 ui-sref="product-vouchers({organization_id:$root.activeOrganization.id})" 
-                ng-bind="'Extra tegoed'"
+                ng-bind="'Aanbiedingsvouchers'"
                 ng-if="$ctrl.voucher.product")
             .breadcrumb-item(
                 ng-if="$ctrl.appConfigs.panel_type == 'sponsor'"
