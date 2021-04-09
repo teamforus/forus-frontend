@@ -1,6 +1,6 @@
 module.exports = {
     header: {
-        title: "Tegoeden",
+        title: "Vouchers",
     },
     labels: {
         state: "Status",

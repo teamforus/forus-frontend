@@ -1,5 +1,5 @@
 module.exports = {
-    title: "Extra tegoed aanmaken",
+    title: "Aanbiedingsvoucher aanmaken",
     labels: {
         product: 'Aanbod',
         fund: 'Fonds',
