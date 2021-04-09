@@ -1,7 +1,6 @@
 .voucher-item(ui-sref="voucher(voucher)")
-    .voucher-image
-        img(src='{{ voucherCard.thumbnail }}' alt="{{voucherCard.title}}")
-    
+    .voucher-image: img(src='{{ voucherCard.thumbnail }}' alt="{{ voucherCard.title }}")
+
     .voucher-details
         .voucher-name(ng-bind="voucherCard.title")
         .voucher-organization(ng-bind="voucherCard.subtitle")
@@ -9,8 +8,7 @@
         .voucher-status-label
             .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
             .label(ng-class="{true: 'label-success', false: 'label-warning'}[!voucherCard.used]" ng-if="voucherCard.type == 'product' && !voucher.expired" ng-bind="!voucherCard.used ? 'Ongebruikt' : 'Gebruikt'")
-        .voucher-cancel-label: a(
-            ng-if="voucher.expired && !voucherCard.used && voucherCard.type == 'product' && voucherCard.returnable"
+        .voucher-cancel-label(ng-if="voucher.expired && !voucherCard.used && voucherCard.type == 'product' && voucherCard.returnable"): a(
             ng-click="deleteVoucher($event, voucher)" 
             i18n="voucher.voucher_card.delete")
 

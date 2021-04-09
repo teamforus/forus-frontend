@@ -5,6 +5,8 @@ let FundsComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.fundLogo = null;
+    $ctrl.appConfigs = appConfigs;
     $ctrl.recordsByTypesKey = {};
 
     $ctrl.showPartnerModal = () => {
@@ -40,7 +42,7 @@ let FundsComponent = function(
             $ctrl.fund.allow_direct_requests &&
             !$ctrl.fund.has_pending_fund_requests &&
             !$ctrl.fund.isApplicable &&
-            appConfigs.features.funds.fund_requests;
+            $ctrl.configs.funds.fund_requests;
 
         $ctrl.fund.showPendingButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.has_pending_fund_requests;
         $ctrl.fund.showActivateButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.isApplicable;
@@ -55,30 +57,34 @@ let FundsComponent = function(
         $ctrl.updateFundsMeta();
 
         $ctrl.criteriaList = $ctrl.fund.criteria;
+        $ctrl.fundLogo = $ctrl.fund.logo || $ctrl.fund.organization.logo;
+
+        console.log($ctrl.recordsByTypesKey);
+
+        $ctrl.recordTypes.forEach(function(recordType) {
+            $ctrl.recordsByTypesKey[recordType.key] = recordType;
+        });
 
         $ctrl.formulaList = {
-            fixed: $ctrl.fund.formulas.filter(formula => {
-                return formula.type == 'fixed'
-            }),
-            multiply: $ctrl.fund.formulas.filter(formula => {
-                return formula.type == 'multiply'
-            }).map(multiply => {
-                return {
-                    amount: multiply.amount,
-                    label: $ctrl.recordsByTypesKey[multiply.record_type_key].name
-                }
-            }),
-        }; 
+            fixed: $ctrl.fund.formulas.filter(formula => formula.type == 'fixed'),
+            multiply: $ctrl.fund.formulas.filter(formula => formula.type == 'multiply').map(multiply => ({
+                amount: multiply.amount,
+                label: ($ctrl.recordsByTypesKey[multiply.record_type_key] || {
+                    name: multiply.record_type_key
+                }).name,
+            })),
+        };
     };
 };
 
 module.exports = {
     bindings: {
-        vouchers: '<',
         fund: '<',
-        recordTypes: '<',
+        configs: '<',
+        vouchers: '<',
         products: '<',
         subsidies: '<',
+        recordTypes: '<',
     },
     controller: [
         '$state',
