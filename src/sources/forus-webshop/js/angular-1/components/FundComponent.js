@@ -59,8 +59,6 @@ let FundsComponent = function(
         $ctrl.criteriaList = $ctrl.fund.criteria;
         $ctrl.fundLogo = $ctrl.fund.logo || $ctrl.fund.organization.logo;
 
-        console.log($ctrl.recordsByTypesKey);
-
         $ctrl.recordTypes.forEach(function(recordType) {
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
