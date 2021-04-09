@@ -35,10 +35,9 @@ module.exports = {
         "terms_and_conditions": 'Algemene voorwaarden',
         "confirmation-email": 'E-mail bevestigen',
         "provider-office": 'Aanbieder vestiging',
-        "auth-link": "Auth link",
-        "sign-up": 'Sign Up',
-        "me-app": 'Me app',
-        "auth-link": "Auth link"
+        "auth-link": "Inloggen",
+        "sign-up": 'Aanmelden',
+        "me-app": 'Me-app'
     },
     implementation_name: {
         general: 'General',
