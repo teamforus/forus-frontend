@@ -78,13 +78,7 @@ let permissionMiddleware = (
             }
 
             if (!PermissionsService.hasPermission(organization, permissions, permissionsAll)) {
-                setTimeout(() => {
-                    $state.go('no-permission', {
-                        message: messageKey
-                    });
-                }, 0);
-
-                return false;
+                return setTimeout(() => $state.go('no-permission', { error: messageKey }), 0);
             }
 
             return true;
@@ -115,7 +109,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "no-permission",
-        url: "/no-permission/{message}",
+        url: "/no-permission?error",
         component: "noPermissionComponent",
         resolve: {
             message: ['$filter', ($filter) => ({
@@ -293,7 +287,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
             organization: organziationResolver(),
             funds: ['$transition$', 'FundService', 'permission', (
-                $transition$, FundService, 
+                $transition$, FundService,
             ) => repackResponse(FundService.list($transition$.params().organization_id, {
                 per_page: 100
             }))],

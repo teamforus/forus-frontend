@@ -6564,6 +6564,12 @@ body {
                 }
             }
         }
+
+        &.modal-voucher-export-narrow {
+            .modal-window {
+                width: 640px;
+            }
+        }
     }
     
     &.modal-pdf-preview {

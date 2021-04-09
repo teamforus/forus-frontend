@@ -157,9 +157,9 @@
                             td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]")
         
         .card-section: .table-pagination
-            button(ng-click="exportList()").button.button-primary.pull-right
+            button(ng-click="exportList()" ng-disabled="transactions.meta.total == 0").button.button-primary.pull-right
                 em.mdi.mdi-download.icon-start 
-                span(i18n="transactions.buttons.export")
+                span(translate="components.dropdown.export" translate-values="{ total: transactions.meta.total }")
 
         .card-section(ng-if="transactions" ng-show="transactions.meta.last_page > 1")
             paginator(meta="transactions.meta" filters="filters.values" count-buttons="5" on-page-change="onPageChange(query)")

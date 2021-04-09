@@ -189,12 +189,14 @@ let VouchersComponent = function(
     };
 
     $ctrl.exportImages = (type) => {
-        let promisses = [
-            $ctrl.exportQRCodesData(type)
-        ];
+        const promisses = [];
 
-        if (type == 'xls') {
+        if (type == 'xls' || type == 'png') {
             promisses.push($ctrl.exportQRCodesXls());
+        };
+
+        if (type == 'csv' || type == 'png') {
+            promisses.push($ctrl.exportQRCodesData(type));
         };
 
         PageLoadingBarService.setProgress(0);
@@ -206,7 +208,7 @@ let VouchersComponent = function(
             let vouchersData = data.vouchersData;
             let zip = new JSZip();
             let img = vouchersData.length > 0 ? zip.folder("images") : null;
-            let promises = [];
+            const promises = [];
 
             PageLoadingBarService.setProgress(10);
             console.info('- data loaded from the api.');
