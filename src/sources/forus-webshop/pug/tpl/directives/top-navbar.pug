@@ -50,7 +50,7 @@
                     ui-sref-active="active"
                     translate="topnavbar.items.home")
 
-            nav.navbar-item-wrapper(ng-if="$root.auth_user && $root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
+            nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
                 a.navbar-item(
                     ui-sref="funds" 
                     ui-sref-active="active"
