@@ -28,5 +28,6 @@ module.exports = {
         expire: "Vervaldatum",
         open_voucher: "Open",
         show_transactions: "Bekijk transacties",
+        actions: "Actie",
     }
 }
