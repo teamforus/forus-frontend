@@ -4,7 +4,12 @@
         .block.block-breadcrumbs(ng-if="$root.activeOrganization")
             .breadcrumb-item(
                 ui-sref="vouchers({organization_id:$root.activeOrganization.id})" 
-                ng-bind="'Vouchers'")
+                ng-bind="'Tegoeden'"
+                ng-if="!$ctrl.voucher.product")
+            .breadcrumb-item(
+                ui-sref="product-vouchers({organization_id:$root.activeOrganization.id})" 
+                ng-bind="'Extra tegoed'"
+                ng-if="$ctrl.voucher.product")
             .breadcrumb-item(
                 ng-if="$ctrl.appConfigs.panel_type == 'sponsor'"
                 ui-sref="vouchers({organization_id:$root.activeOrganization.id})" 
@@ -14,7 +19,8 @@
         .card(ng-if="$ctrl.voucher")
             .card-header: .row
                 .col.col-lg-7.col-xs-12: .card-title
-                    span(ng-bind="$ctrl.voucher.fund.name") 
+                    span(ng-bind="$ctrl.voucher.fund.name" ng-if="!$ctrl.voucher.product") 
+                    span(ng-bind="$ctrl.voucher.product.name" ng-if="$ctrl.voucher.product")
                     .tag.tag-success.tag-sm(
                         ng-if="$ctrl.voucher.state == 'active' && !$ctrl.voucher.expired" 
                         translate="vouchers.labels.active")
@@ -27,7 +33,8 @@
                         ng-if="$ctrl.voucher.expired" 
                         translate="vouchers.labels.expired")
                     br
-                    span(ng-if="$ctrl.voucher.fund.type == 'budget'" ng-bind="$ctrl.voucher.amount | currency_format").text-primary
+                    span(ng-bind="$ctrl.voucher.product.organization.name" ng-if="$ctrl.voucher.product").text-primary
+                    span(ng-if="$ctrl.voucher.fund.type == 'budget' && !$ctrl.voucher.product" ng-bind="$ctrl.voucher.amount | currency_format").text-primary
             
                 .block.block-inline-buttons.col.col-lg-5.col-xs-12
                         .button.button-default.button-hover(

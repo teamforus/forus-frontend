@@ -1,7 +1,7 @@
 .app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
     menu
     section.app.app-content
-        .card-heading(ng-if="$ctrl.funds.length > 1" ng-bind="'csv_validation.header.title' | translate")
+        //-.card-heading(ng-if="$ctrl.funds.length > 1" ng-bind="'csv_validation.header.title' | translate")
         fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
     
         .card(ng-if="$ctrl.vouchers")
@@ -121,7 +121,6 @@
                                 th(translate="vouchers.labels.note")
                                 th(translate="vouchers.labels.created_date").nowrap
                                 th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.expire_date").nowrap
-                                //-th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.granted")
                                 th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.used")
                                 th(translate="vouchers.labels.assigned")
                                 th(translate="vouchers.labels.actions").nowrap.text-right
@@ -152,14 +151,6 @@
                                     br
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
                                 td(ng-if="!$ctrl.fundClosed"): strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
-
-                                //-td(ng-if="!$ctrl.fundClosed && voucher.is_granted"): .td-boolean
-                                    em.mdi.mdi-check-circle
-                                    | {{ "product_vouchers.labels.yes" | translate }}
-                                //-td(ng-if="!$ctrl.fundClosed && !voucher.is_granted"): .td-boolean
-                                    em.mdi.mdi-close
-                                    | {{ "product_vouchers.labels.no" | translate }}
-
                                 td(ng-if="!$ctrl.fundClosed && voucher.has_transactions"): .td-boolean
                                     em.mdi.mdi-check-circle
                                     string(translate="product_vouchers.labels.yes").text-md.text-muted-dark

@@ -85,6 +85,9 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.showQrCode = (voucher) => {
+        $event.stopPropagation();
+        $event.preventDefault();
+
         ModalService.open('voucher_qr_code', {
             voucher: voucher,
             fund: $ctrl.fund,

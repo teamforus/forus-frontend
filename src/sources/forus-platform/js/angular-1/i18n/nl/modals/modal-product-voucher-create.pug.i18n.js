@@ -1,5 +1,5 @@
 module.exports = {
-    title: "QR-code aanmaken",
+    title: "Extra tegoed aanmaken",
     labels: {
         product: 'Aanbod',
         fund: 'Fonds',
