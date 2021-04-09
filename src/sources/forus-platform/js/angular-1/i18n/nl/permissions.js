@@ -1,5 +1,8 @@
 module.exports = {
-    'organization-funds': { 
+    title: "Geen rechten",
+    description: "U heeft geen rechten om deze actie uit te voeren.",
+
+    'organization-funds': {
         title: "Rechten",
         description: 'Er zijn specifieke rechten voor dit fonds aan u toegewezen.'
     },

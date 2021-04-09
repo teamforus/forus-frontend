@@ -16,7 +16,9 @@ aside.app.app-sidebar
                 +nav_item_icon(icon)
                 | #{name} 
 
-        .sidebar-section-title(translate="menu.organizational")
+        .sidebar-section-title(
+            translate="menu.organizational" 
+            ng-if="$root.activeOrganization | hasPerm:['manage_employees', 'manage_offices', 'view_finances', 'manage_provider_funds', 'manage_products']")
 
         +nav_item(
             "Overzicht", "provider-overview", 'provider-overview', 
@@ -27,7 +29,7 @@ aside.app.app-sidebar
         +nav_item(
             "Vestigingen", "offices", 'offices', 
             '{organization_id: $root.activeOrganization.id}', 
-            '$root.activeOrganization.id',
+            '$root.activeOrganization | hasPerm:["manage_offices"]',
             'offices')
             
         +nav_item(
