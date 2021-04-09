@@ -4,9 +4,7 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
         a(ui-sref="home").breadcrumb-item Home
         a(ui-sref="vouchers").breadcrumb-item Mijn tegoeden
         .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
-        .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") Reservering
-
-    .section-title.hide-sm(ng-if="$ctrl.voucherCard.product") Uw reservering
+        .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
 
     .block.block-voucher(ng-if="$ctrl.voucherCanUse")
         //- voucher details
@@ -136,8 +134,12 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
             ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
         //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
-    .block.block-transactions(ng-if="$ctrl.voucherCard.transactions.length > 0 && !$ctrl.voucherCard.product")
-        .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }}
+    .block.block-transactions(ng-if="!$ctrl.voucherCard.product && ($ctrl.voucherCard.transactions.length > 0 || $ctrl.voucher.expired)")
+        .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }} #[span(ng-if="$ctrl.voucher.expired").text-strong-half - Verlopen op {{ $ctrl.voucherCard.last_active_day_locale }}]
+        .transactions-body(ng-if="$ctrl.voucher.expired && $ctrl.voucherCard.transactions.length == 0"): .transactions-list
+            .transactions-item 
+                .transactions-item-details 
+                    .transactions-item-empty Geen uitgaven
         .transactions-body: .transactions-list
             .transactions-item(ng-repeat="transaction in $ctrl.voucherCard.transactions" class="transactions-item-out")
                 .transactions-item-icon: em.mdi.mdi-arrow-up
