@@ -37,13 +37,14 @@ section.section.section-fund: .wrapper
                     .fund-description-value(ng-bind="$ctrl.fund.description")    
 
         .fund-aside
-            .fund-card
+            .fund-card(ng-if="$ctrl.fund.allow_fund_requests")
                 .fund-criterias(ng-if="$ctrl.criteriaList.length > 0")
-                    .fund-criterias-label Voorwaarden om in aanmerking te komen:
-                    .fund-criteria-item(ng-repeat="criterion in $ctrl.criteriaList")
-                        .fund-criteria-item-label(ng-if="!criterion.title" ng-bind="criterion.record_type_name")
-                        .fund-criteria-item-value(ng-if="!criterion.title" ng-bind="criterion.value")
-                        .fund-criteria-item-value(ng-if="criterion.title" ng-bind="criterion.title")
+                    .fund-criterias-label Doorloop de volgende stappen:
+                    .fund-criteria-item(ng-repeat="criterion in $ctrl.criteriaList" ng-if="!criterion.title")
+                        .fund-criteria-item-label(ng-bind="criterion.record_type_name")
+                        .fund-criteria-item-value(ng-bind="criterion.value")
+                    ul.fund-criteria-item(ng-repeat="criterion in $ctrl.criteriaList" ng-if="criterion.title")
+                        li.fund-criteria-item-value(ng-bind="criterion.title")
             .fund-menu
                 button.button.button-primary.button-fill(
                     ng-if="$ctrl.fund.showRequestButton"

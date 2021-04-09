@@ -74,7 +74,8 @@
             }
             .fund-description {
                 padding: 30px 23px;
-
+                border-top: 1px solid #C4C4C4;
+                
                 .fund-description-label {
                     color: #646F79;
                     font: 700 14px $bf;
@@ -116,7 +117,7 @@
                     }
 
                     .fund-criteria-item-value {
-                        font: 600 14px $bf;
+                        font: 600 14px/22px $bf;
                         color: #282b39;
                         float: left;
                     }
@@ -124,6 +125,19 @@
                     &:last-child {
                         margin-bottom: 0;
                     }
+                }
+                ul {
+                    list-style-type: none;
+
+                    li {
+                        padding: 5px;
+                    }
+
+                    li::before {
+                        content: "•";
+                        padding-right: 8px;
+                        color: #C4C4C4;
+                      }
                 }
             }
 
@@ -171,6 +185,7 @@
 
                 .fund-description {
                     padding: 0 0 25px 20px;
+                    border: 0;
 
                     .fund-description-label {
                         font: 700 12px $bf;

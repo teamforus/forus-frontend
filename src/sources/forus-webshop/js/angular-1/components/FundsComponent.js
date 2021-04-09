@@ -126,6 +126,7 @@ let FundsComponent = function(
             fund.isApplicable = fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
             fund.alreadyReceived = fund.vouchers.length !== 0;
 
+            fund.showPendingButton = !fund.alreadyReceived && fund.has_pending_fund_requests;
             fund.showActivateButton = !fund.alreadyReceived && fund.isApplicable;
 
             return fund;
