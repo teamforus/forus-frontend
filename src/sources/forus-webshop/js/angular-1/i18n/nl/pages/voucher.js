@@ -17,8 +17,8 @@ module.exports = {
             offices: "Aanbieders",
             voucher: "Print uw tegoed uit of mail hem naar uzelf toe. Ga met de QR-code naar de aanbieder en laat hem scannen.",
             office: "Locaties waar u deze reservering kan verzilveren.",
-            shopdetail: "INFORMATIE OVER DE AANBIEDER",
-            productdetail: "INFORMATIE OVER HET AANBOD",
+            shopdetail: "Informatie over de aanbieder",
+            productdetail: "Informatie over het aanbod",
             offers: "Wilt u graag informatie over het volledige aanbod? Neem dan contact op met de aanbieder.",
         },
         voucher_card: {
