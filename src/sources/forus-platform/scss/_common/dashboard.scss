@@ -58,6 +58,10 @@ $colorPrimaryLight: $color_primary_light;
     @import 'dropdown/dropdown-actions';
 }
 
+.modal{
+    @import'modals/modal-physical-cards.scss';
+}
+
 html, body {
     height: 100%;
 }
@@ -856,6 +860,10 @@ body {
             font-size: 36px;
             line-height: 28px;
             color: #777;
+        }
+
+        .tag {
+            margin-left: 10px;
         }
     }
 
@@ -4656,6 +4664,17 @@ body {
             }
         }
     }
+
+    &.block-inline-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+
+        .button {
+            margin: 5px 5px 10px 0;
+        }
+    }
     
     &.block-information {
         background: #fff;
@@ -6543,6 +6562,12 @@ body {
                         }
                     }
                 }
+            }
+        }
+
+        &.modal-voucher-export-narrow {
+            .modal-window {
+                width: 640px;
             }
         }
     }

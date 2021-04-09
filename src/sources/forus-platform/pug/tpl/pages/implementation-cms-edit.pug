@@ -7,7 +7,6 @@
             .breadcrumb-item.active Content Management System
 
         .card: form(ng-submit="$ctrl.form.submit()").form
-            //-  pre {{ $ctrl.form.values | pretty_json }}
             .card-header: .card-title(i18n="implementation_edit.header.title")
 
             .card-section.card-section-primary: .row: .col.col-lg-9
@@ -18,7 +17,10 @@
 
                 .form-group.form-group-inline.form-group-inline-lg
                     label(translate="implementation_edit.labels.header_description").form-label
-                    .form-offset: markdown(ng-model="$ctrl.form.values.description" extended-options="true")
+                    .form-offset: markdown(
+                        extended-options="true"
+                        ng-model="$ctrl.form.values.description" 
+                        media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
             .card-section.card-section-primary
@@ -58,7 +60,11 @@
 
                     .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="!$ctrl.form.values.pages[key].external")
                         label.form-label(translate="implementation_edit.labels.{{ key }}")
-                        .form-offset: markdown(ng-model="$ctrl.form.values.pages[key].content" extended-options="true")
+                        .form-offset
+                            markdown(
+                                extended-options="true"
+                                ng-model="$ctrl.form.values.pages[key].content" 
+                                media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values.pages[key])")
 
                         tooltip(text="'implementation_edit.tooltips.' + key | translate")
                         .form-error(ng-repeat="error in $ctrl.form.errors['pages.' + key + '.content']" ng-bind="error")
