@@ -1,6 +1,7 @@
 let ModalPinCodeComponent = function(
     IdentityService,
     FormBuilderService,
+    appConfigs,
     ModalService
 ) {
     let $ctrl = this;
@@ -20,9 +21,9 @@ let ModalPinCodeComponent = function(
 
                 ModalService.open('modalNotification', {
                     type: 'confirm',
-                    title: 'popup_auth.pin_code.confirmation.title',
+                    title: 'popup_auth.pin_code.confirmation.title_' + appConfigs.features.communication_type,
                     description: 'popup_auth.pin_code.confirmation.description',
-                    notice: 'popup_auth.pin_code.confirmation.notice',
+                    notice: 'popup_auth.pin_code.confirmation.notice_' + appConfigs.features.communication_type,
                     confirmBtnText: 'popup_auth.pin_code.confirmation.buttons.confirm',
                     cancelBtnText: 'popup_auth.pin_code.confirmation.buttons.try_again',
                     cancel: () => {
@@ -36,7 +37,7 @@ let ModalPinCodeComponent = function(
 
                 if (res.status == 404) {
                     form.errors = {
-                        auth_code: ["Unknown code."]
+                        auth_code: ["Onbekende code."]
                     };
                 }
             });
@@ -58,6 +59,7 @@ module.exports = {
     controller: [
         'IdentityService',
         'FormBuilderService',
+        'appConfigs',
         'ModalService',
         ModalPinCodeComponent
     ],

@@ -57,7 +57,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                 .auth-user-menu(ng-if="$root.userMenuOpened" click-outside="$root.hideUserMenu()")
                     a(ui-sref="identity-emails" ng-if="$root.appConfigs.sessions && !$root.activeOrganization").auth-user-menu-item
                         em.mdi.mdi-at
-                        | Email instellingen
+                        | E-mail instellingen
                     
                     a(ui-sref="security-sessions" ng-if="$root.appConfigs.sessions && !$root.activeOrganization" ).auth-user-menu-item
                         em.mdi.mdi-shield-account

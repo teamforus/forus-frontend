@@ -199,6 +199,28 @@
     }
 
     &.modal-auth {
+        .me-logo {
+            height: 115px;
+            width: 115px;
+            margin: 0 auto;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+
+            svg {
+                width: 85px;
+                height: 78px;
+                margin: 0 auto;
+                display: block;
+
+                path {
+                    fill: #007DF0;
+                }
+            }
+        }
         .modal-title {
             color: #282b39;
             font: 700 26px $bf;
@@ -333,6 +355,9 @@
         }
 
         &.modal-auth {
+            .me-logo {
+                display: none;
+            }
             .modal-title {
                 font: 700 22px $bf;
             }

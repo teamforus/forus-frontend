@@ -63,7 +63,6 @@ app.service('RecordService', require('./services/RecordService'));
 app.service('RecordTypeService', require('./services/RecordTypeService'));
 app.service('RecordCategoryService', require('./services/RecordCategoryService'));
 app.service('RecordValidationService', require('./services/RecordValidationService'));
-app.service('QrScannerService', require('./services/QrScannerService'));
 app.service('ProductCategoryService', require('./services/ProductCategoryService'));
 app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
@@ -127,6 +126,8 @@ app.directive('productsList', require('./directives/ProductsListDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
+
+app.directive('appLinks', require('./directives/elements/AppLinksDirective'));
 
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));

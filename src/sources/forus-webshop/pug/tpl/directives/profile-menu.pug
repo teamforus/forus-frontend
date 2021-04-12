@@ -1,28 +1,28 @@
 .profile-aside: .profile-menu
-    a(ui-sref="vouchers" ui-sref-active="active").profile-menu-item.hide-sm
+    a(ui-sref="vouchers" ui-sref-active="active" role="button").profile-menu-item.hide-sm
         | {{ "profile_menu.buttons.vouchers" | translate }}
         em.mdi.mdi-arrow-right
     
-    a(ui-sref="funds" ui-sref-active="active" ng-if="appConfigs.flags.fundsMenu").profile-menu-item.show-sm
+    a(ui-sref="funds" ui-sref-active="active" ng-if="appConfigs.flags.fundsMenu" role="button").profile-menu-item.show-sm
         span(translate="funds.buttons.{{ $root.appConfigs.client_key }}.start_request" translate-default="{{ 'funds.buttons.start_request' | translate }}")
         em.mdi.mdi-arrow-right
     
-    a(ui-sref="records" ui-sref-active="active" ng-if="appConfigs.features.records.list").profile-menu-item 
+    a(ui-sref="records" ui-sref-active="active" ng-if="appConfigs.features.records.list" role="button").profile-menu-item 
         | {{ "profile_menu.buttons.records" | translate }}
         em.mdi.mdi-arrow-right
     
-    a(ui-sref="notifications" ui-sref-active="active").profile-menu-item 
+    a(ui-sref="notifications" ui-sref-active="active" role="button").profile-menu-item 
         | {{ "profile_menu.buttons.notifications" | translate }}
         em.mdi.mdi-arrow-right
     
-    a(ui-sref="preferences-notifications" ui-sref-active="active").profile-menu-item 
+    a(ui-sref="preferences-notifications" ui-sref-active="active" role="button").profile-menu-item 
         | {{ "profile_menu.buttons.notification_preferences" | translate }}
         em.mdi.mdi-arrow-right
 
-    a(ui-sref="security-sessions" ui-sref-active="active" ng-if="appConfigs.sessions").profile-menu-item  
+    a(ui-sref="security-sessions" ui-sref-active="active" ng-if="appConfigs.sessions" role="button").profile-menu-item  
         | {{ "profile_menu.buttons.sessions" | translate }}
         em.mdi.mdi-arrow-right
     
-    a(ui-sref="identity-emails" ui-sref-active="active").profile-menu-item 
+    a(ui-sref="identity-emails" ui-sref-active="active" role="button").profile-menu-item 
         | {{ "profile_menu.buttons.email_settings" | translate }}
         em.mdi.mdi-arrow-right

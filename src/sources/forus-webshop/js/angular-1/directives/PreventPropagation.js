@@ -1,6 +1,6 @@
 let preventPropagation = function($scope, element) {
-    element.on("click", function(e) {
-        e.stopPropagation();
+    element.on("click", function($e) {
+        $e.stopPropagation();
     });
 };
 

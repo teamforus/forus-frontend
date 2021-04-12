@@ -1,10 +1,13 @@
-.modal.modal-auth.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
-    .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-content: .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close")
+.modal.modal-auth.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']" 
+    role="dialog" aria-labelledby="authDialogTitle" aria-describedby="authDialogSubtitle")
 
-        .modal-title {{ "popup_auth.labels.activate" | translate }}
-        .modal-subtitle(translate="popup_auth.labels.{{ $root.client_key }}.mail")
+    .modal-backdrop(ng-click="$ctrl.close()" role="button")
+    .modal-content: .modal-section
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="close" role="button")
+
+        .modal-title(id="authDialogTitle" translate="popup_auth.labels.activate")
+        .modal-subtitle(id="authDialogSubtitle" translate="popup_auth.labels.{{ $root.client_key }}.mail")
 
         form.form(ng-submit="$ctrl.signUpForm.submit()")
             .form-group

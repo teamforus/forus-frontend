@@ -9,7 +9,6 @@ platform = new Platform('forus-webshop');
 // add libs to bundle (see libs folder)
 platform.setLibs([
     "babel_polyfill",
-    "jquery",
     "angular",
     "angular_cookies",
     "angular_sanitize",
@@ -19,7 +18,6 @@ platform.setLibs([
     "angular_datepicker",
     "mdi",
     "moment",
-    "nanoscroller",
     "qrcodejs",
     "ui_router",
     "ui_select",

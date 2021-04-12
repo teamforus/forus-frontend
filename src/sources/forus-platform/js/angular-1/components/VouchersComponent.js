@@ -1,4 +1,5 @@
 let VouchersComponent = function(
+    $q,
     $state,
     $stateParams,
     $timeout,
@@ -161,26 +162,62 @@ let VouchersComponent = function(
         });
     };
 
+    $ctrl.exportQRCodesXls = () => {
+        return $q((resolve, reject) => {
+            VoucherService.downloadQRCodesXls($ctrl.organization.id, {
+                ...$ctrl.getQueryParams($ctrl.filters.values)
+            }).then(res => resolve(
+                $ctrl.xlsData = res.data
+            ), reject);
+        });
+    };
+
+    $ctrl.exportQRCodesData = (type) => {
+        return $q((resolve, reject) => {
+            VoucherService.downloadQRCodesData($ctrl.organization.id, {
+                ...$ctrl.getQueryParams($ctrl.filters.values), ...{
+                    export_type: 'png', 
+                    export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
+                }
+            }).then(res => resolve(
+                $ctrl.qrCodesData = res.data
+            ), reject);
+        });
+    };
+
     $ctrl.exportImages = (type) => {
+        const promisses = [];
+
+        if (type == 'xls' || type == 'png') {
+            promisses.push($ctrl.exportQRCodesXls());
+        };
+
+        if (type == 'csv' || type == 'png') {
+            promisses.push($ctrl.exportQRCodesData(type));
+        };
+
         PageLoadingBarService.setProgress(0);
-        VoucherService.downloadQRCodesData($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                export_type: 'png', 
-                export_only_data: type === 'data' ? 1 : 0,
-            }
-        }).then(async res => {
-            let data = res.data;
+
+        $q.all(promisses).then(() => {
+            let data = $ctrl.qrCodesData;
             let csvContent = data.rawCsv;
             let csvName = 'qr_codes.csv';
             let vouchersData = data.vouchersData;
             let zip = new JSZip();
             let img = vouchersData.length > 0 ? zip.folder("images") : null;
-            let promises = [];
+            const promises = [];
 
             PageLoadingBarService.setProgress(10);
             console.info('- data loaded from the api.');
 
-            zip.file(csvName, csvContent);
+            if (type == 'png' || type == 'csv') {
+                zip.file(csvName, csvContent);
+            }
+
+            if (type == 'png' || type == 'xls') {
+                zip.file('qr_codes.xls', $ctrl.xlsData);
+            }
+
             PageLoadingBarService.setProgress(20);
             vouchersData.forEach((voucherData, index) => {
                 promises.push(new Promise((resolve) => {
@@ -291,6 +328,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$q',
         '$state',
         '$stateParams',
         '$timeout',

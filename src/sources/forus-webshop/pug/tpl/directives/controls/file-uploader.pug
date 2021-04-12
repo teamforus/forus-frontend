@@ -7,7 +7,7 @@
             | Document slepen &amp; neer zetten
             br
             small of
-        .droparea-button: .button.button-primary-outline(ng-click="$dir.selectFile()") Upload een document
+        .droparea-button: .button.button-primary-outline(ng-click="$dir.selectFile()" role="button") Upload een document
         .droparea-size max. grootte 8Mb
     
     .uploader-files(ng-if="files.length > 0")
@@ -16,5 +16,5 @@
                 .file-item-icon: img(ng-src=src_prefix + "assets/img/file-icon-{{ (fileItem.file.name.split('.')[fileItem.file.name.split('.').length - 1]) }}.svg")
                 .file-item-name(ng-bind="fileItem.file.name")
                 .file-item-progress: .file-item-progress-container: progress(max="100" value="{{ fileItem.progress }}")
-                .file-item-action: a(ng-click="$dir.removeFile(fileItem)").mdi.mdi-close
+                .file-item-action: a(ng-click="$dir.removeFile(fileItem)" role="button").mdi.mdi-close
             .file-item-error: .text-danger(ng-repeat="fileItemError in fileItem.error" ng-bind="fileItemError")

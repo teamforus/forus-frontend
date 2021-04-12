@@ -329,18 +329,24 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.exportRequests = () => {
-        FundRequestValidatorService.exportAll(
-            $ctrl.organization.id,
-            $ctrl.filters.values
-        ).then((res => {
-            FileService.downloadFile(
-                appConfigs.panel_type + '_' + org + '_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.xls',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }), console.error);
+        ModalService.open('exportType', {
+            success: (data) => {
+                FundRequestValidatorService.exportAll(
+                    $ctrl.organization.id,
+                    Object.assign($ctrl.filters.values, {
+                        export_format: data.exportType
+                    })
+                ).then((res => {
+                    FileService.downloadFile(
+                        appConfigs.panel_type + '_' + org + '_' + moment().format(
+                            'YYYY-MM-DD HH:mm:ss'
+                        ) + '.' + data.exportType,
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+                }), console.error);
+            }
+        });
     };
 
     $ctrl.hasFilePreview = (file) => {

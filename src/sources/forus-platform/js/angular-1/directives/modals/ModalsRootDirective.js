@@ -1,3 +1,5 @@
+const dasherize = require("underscore.string/dasherize");
+
 let ModalsRootDirective = function($scope, $element, $timeout, ModalService, ModalRoute) {
     let routeModals = ModalRoute.modals();
 
@@ -9,13 +11,11 @@ let ModalsRootDirective = function($scope, $element, $timeout, ModalService, Mod
 
     let update = (modals) => {
         modals.forEach(_modal => {
-            let modal = _modal;
+            const modal = _modal;
 
             modal.ready = true;
             modal.component = routeModals[modal.key].component;
-            modal.componentType = require("underscore.string/dasherize")(
-                routeModals[modal.key].component
-            );
+            modal.componentType = dasherize(routeModals[modal.key].component);
             modal.close = function() {
                 if (typeof(modal.events.onClose) === 'function') {
                     modal.events.onClose(modal);
