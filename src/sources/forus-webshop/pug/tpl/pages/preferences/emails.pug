@@ -12,7 +12,7 @@ section.section.section-voucher-details: .wrapper
                 .profile-content-header.clearfix
                     .profile-content-title
                         div.pull-left
-                            | {{ 'email_preferences.title_email_preferences' | translate }}
+                            h1.profile-content-header {{ 'email_preferences.title_email_preferences' | translate }}
 
                 p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
                 

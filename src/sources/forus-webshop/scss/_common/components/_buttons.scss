@@ -176,6 +176,9 @@
     }
 
     &.button-text {
+        background: none;
+        border: none;
+        
         &.button-text-padless {
             padding-left: 0;
             padding-right: 0;

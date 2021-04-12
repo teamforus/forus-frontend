@@ -12,7 +12,8 @@
         button(
             ng-repeat="page in pages" ng-bind="page"
             ng-click="setPage(page)"
-            ng-class="page == meta.current_page ? 'button-primary' : 'button-default'").button
+            ng-class="page == meta.current_page ? 'button-primary' : 'button-default'" 
+            aria-current="{{page == meta.current_page ? 'page': ''}}").button
         
         button(
             ng-class="meta.current_page == meta.last_page ? 'disabled' : ''" 

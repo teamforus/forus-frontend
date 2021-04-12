@@ -3,8 +3,10 @@
 top-navbar
 
 mixin progress()
-    .sign_up-progress(ng-class="{'sign_up-progress-compact':$ctrl.totalSteps.length >= 5}")
-        .sign_up-step.sign_up-step-info(ng-class="$ctrl.step == 1 ? 'sign_up-step-active' : 'sign_up-step-done'")
+    .sign_up-progress(ng-class="{'sign_up-progress-compact':$ctrl.totalSteps.length >= 5}" role="progressbar" aria-valuenow="{{$ctrl.step - 1}}" aria-valuemax="{{$ctrl.totalSteps.length}}")
+        .sign_up-step.sign_up-step-info(
+            ng-class="$ctrl.step == 1 ? 'sign_up-step-active' : 'sign_up-step-done'"
+            )
             .sign_up-step-border
             .mdi.mdi-information-outline
 
@@ -20,7 +22,7 @@ mixin progress()
 //-top-navbar
 section: .wrapper 
     .block.block-sign_up: .block-wrapper
-        .block-title(ng-if="$ctrl.state" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
+        h1.block-title(ng-if="$ctrl.state" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
         div(ng-if="$ctrl.state == 'fund_already_applied'")
             +progress()
@@ -56,8 +58,8 @@ section: .wrapper
                     .sign_up-pane-media: img(ng-src="./assets/img/fund-request-welcome.png") 
 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless(role="button")
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()" role="button")
+                    .col.col-lg-6.col-xs-6.text-left: button.button.button-text.button-text-padless(role="button")
+                    .col.col-lg-6.col-xs-6.text-right: button.button.button-text.button-text-padless(ng-click="$ctrl.nextStep()" role="button")
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
                         em.mdi.mdi-chevron-right.icon-right 
 
@@ -155,7 +157,7 @@ section: .wrapper
 
                 .sign_up-pane-footer(ng-if="!$ctrl.digidMandatory"): .row
                     .col.col-lg-6.col-xs-6.text-left &nbsp;
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()" role="button")
+                    .col.col-lg-6.col-xs-6.text-right: button.button.button-text.button-text-padless(ng-click="$ctrl.nextStep()" role="button")
                         em.mdi.mdi-chevron-right.icon-right
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
 
@@ -179,7 +181,7 @@ section: .wrapper
 
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.col-xs-6.text-left &nbsp;
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.nextStep()" role="button")
+                    .col.col-lg-6.col-xs-6.text-right: button.button.button-text.button-text-padless(ng-click="$ctrl.nextStep()" role="button")
                         em.mdi.mdi-chevron-right.icon-right
                         | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
 
@@ -248,10 +250,10 @@ section: .wrapper
                         .form-error(ng-repeat="error in invalidCriteria.errors.record" ng-bind="error")
 
                 .sign_up-pane-footer: .row
-                    .col.col-lg-6.col-xs-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
+                    .col.col-lg-6.col-xs-6.text-left: button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
                         em.mdi.mdi-chevron-left.icon-left
                         translate(translate='fund_request.sign_up.pane.footer.prev')
-                    .col.col-lg-6.col-xs-6.text-right: .button.button-text.button-text-padless(
+                    .col.col-lg-6.col-xs-6.text-right: button.button.button-text.button-text-padless(
                         ng-disabled="invalidCriteria.isUploadingFiles"
                         ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
                         role="button")

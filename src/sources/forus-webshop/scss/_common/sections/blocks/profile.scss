@@ -166,6 +166,12 @@
                         margin-bottom: 5px;
                     }
 
+                    .profile-content-header {
+                        display: inline;
+                        margin: 0;
+                        font: inherit;
+                    }
+
                     .profile-content-title-count {
                         font: 700 16px/30px $bf;
                         background: $color_primary;

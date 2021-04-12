@@ -12,7 +12,7 @@ section.section.section-voucher-details: .wrapper
                 .profile-content-title
                     div.pull-left
                         .profile-content-title-count(ng-bind="$ctrl.notifications.meta.total_unseen" ng-if="$ctrl.notifications.meta.total_unseen > 0") 
-                        | Notificaties
+                        h1.profile-content-header Notificaties
             .card.block.block-notifications-table(ng-if="$ctrl.notifications.data.length > 0")
                 .card-section.card-section-padless: table.table
                     tr
