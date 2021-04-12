@@ -564,7 +564,7 @@ $formPadding: 14px 15px;
         $borderRadius: 4px;
 
         &>input[type=radio], &>input[type=checkbox] {
-            display: none;
+            opacity: 0;
         }
 
         .form-toggle-inner {

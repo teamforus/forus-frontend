@@ -23,6 +23,8 @@
         font-size: 20px;
         cursor: pointer;
         z-index: 4;
+        background: none;
+        border: none;
     }
 
     .modal-window {
@@ -50,6 +52,8 @@
             color: #222;
             transition: color .4s;
             z-index: 1;
+            background: none;
+            border: none;
         }
     }
 
