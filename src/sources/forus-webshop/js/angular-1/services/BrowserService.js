@@ -1,7 +1,7 @@
 let BrowserService = function() {
     let idleInterval = false;
 
-    return new(function() {
+    return new (function() {
         let idleTime;
 
         let resetIdleTime = function() {
@@ -10,9 +10,12 @@ let BrowserService = function() {
         };
 
         this.detectInactivity = function(seconds) {
+            let keyEvent;
+            let mouseEvent;
+
             return new Promise((resolve, reject) => {
                 if (idleInterval != false) {
-                    reject();
+                    return reject("Listener alreadty registered.");
                 }
 
                 let timerIncrement = function(increment = 0) {
@@ -20,8 +23,8 @@ let BrowserService = function() {
                         clearInterval(idleInterval);
                         resetIdleTime();
 
-                        angular.element(document).off('mousemove.activity');
-                        angular.element(document).off('keypress.activity');
+                        document.removeEventListener('keypress', resetIdleTime, { passive: false });
+                        document.removeEventListener('mousemove', resetIdleTime, { passive: false });
 
                         idleInterval = false;
                         localStorage.removeItem('lastAcivity');
@@ -39,14 +42,14 @@ let BrowserService = function() {
                     );
                 }
 
-                angular.element(document).on('mousemove.activity', () => resetIdleTime());
-                angular.element(document).on('keypress.activity', () => resetIdleTime());
+                keyEvent = document.addEventListener('keypress', resetIdleTime, { passive: true });
+                mouseEvent = document.addEventListener('mousemove', resetIdleTime, { passive: true });
 
                 timerIncrement(0);
             });
         };
 
-        this.unsetInactivity = function () {
+        this.unsetInactivity = function() {
             clearInterval(idleInterval);
             resetIdleTime();
 
