@@ -1,26 +1,21 @@
 .section {
     &.section-header {
         @media screen and (min-width: 1024px) {
-            background-size: cover;
-            background-position: center center;
+            .header-content {
+                text-shadow: 1px 1px 4px #000000;
+            }
+
             &:before {
                 position: absolute;
                 right:0;
-                bottom: 0;
+                bottom: -1px;
                 width: 0;
                 height: 0;
                 border-style: solid;
                 border-width: 0 0 12vmax 12vmax;
                 border-color: transparent transparent #b9cb18 transparent;
-                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
                 content: " ";
-            }
-            .header-content {
-                text-shadow: 1px 1px 4px #000000;
-                color: $tc-var;
-                .header-how-it-works, .block-markdown>p>a {
-                    color: $tc-var;
-                }
             }
         }
     }

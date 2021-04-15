@@ -373,8 +373,8 @@ var pug_compiler = function(source, platform, src, dest, task) {
     var streams = [];
 
     streams.push(gulp.src(src, {
-            base: source
-        }),
+        base: source
+    }),
         plugins.pug({
             data: {
                 qdt_c: {
@@ -485,7 +485,7 @@ let libsTask = (done) => {
 
             fse.mkdirpSync(assestPath('/dist/bundle/css'));
             fse.writeFileSync(compose_dest_path(
-                assestPath('/dist/bundle/css/bundle.min.css'), 
+                assestPath('/dist/bundle/css/bundle.min.css'),
                 !platform.env_data.disable_timestamps ? assetsSuffix : ''
             ), bundle.css);
 
@@ -534,20 +534,40 @@ let serverTask = () => {
         var server = {
             server: {
                 baseDir: platform.paths.root + platform.server.path,
-                middleware: [compress()]
+                middleware: [compress(), (req, res, next) => {
+                    const headers = platform.server.headers || {};
+
+                    for (const key in headers) {
+                        res.setHeader(key, headers[key]);
+                    }
+
+                    next();
+                }],
             },
             notify: true,
             open: false,
             port: platform.server.port || 3000,
+            rewriteRules: [
+                {
+                    match: /script /g,
+                    fn: function (req, res, match) {
+                        return `script nonce='1Py20ko19vEhus6l1yvGJw=='`;
+                    }
+                },
+                {
+                    match: /style /g,
+                    fn: function (req, res, match) {
+                        return `style nonce='1Py20ko19vEhus6l1yvGJw=='`;
+                    }
+                },
+            ],
             ui: {
                 port: (platform.server.port || 3000) + 1,
             }
         };
 
         if (platform.env_data.html5ModeEnabled) {
-            server.server.middleware = [
-                historyApiFallback()
-            ];
+            server.server.middleware.push(historyApiFallback());
         }
 
         browserSync[platform.name].init(server);

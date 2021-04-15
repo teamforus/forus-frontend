@@ -68,10 +68,11 @@ let Platform = function(source) {
         return this;
     };
 
-    this.serve = (port, path) => {
+    this.serve = (port, path, headers = {}) => {
         cfg.server = {
             port: port,
-            path: path || '/'
+            path: path || '/',
+            headers: headers || {},
         };
 
         return this;

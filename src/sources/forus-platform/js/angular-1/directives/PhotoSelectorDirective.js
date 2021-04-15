@@ -17,6 +17,12 @@ let PhotoSelectorDirective = function(
             input.remove();
         }
 
+        const thumbnailSize = $scope.thumbnailSize || { x: 100, y: 100 };
+        const fillStyle = typeof $scope.fillStyle === 'undefined' ? '#ffffff' : $scope.fillStyle;
+        
+        console.log('$scope.fillStyle', $scope.fillStyle, fillStyle);
+        console.log(thumbnailSize);
+
         input = document.createElement('input');
         input.setAttribute("type", "file");
         input.setAttribute("accept", "image/*");
@@ -31,7 +37,7 @@ let PhotoSelectorDirective = function(
                 submit: (file) => {
                     ImageConvertorService.instance(file).then((converter) => {
                         $timeout(() => {
-                            $scope.thumbnail = converter.resize(100, 100);
+                            $scope.thumbnail = converter.resize(thumbnailSize.x, thumbnailSize.y, fillStyle);
                         }, 0);
                     });
 
@@ -51,13 +57,17 @@ let PhotoSelectorDirective = function(
 module.exports = () => {
     return {
         scope: {
+            'fillStyle': '=',
             'selectPhoto': '&',
             'thumbnail': '=',
+            'thumbnailSize': '=',
             'label': '@',
             'disabled': '@',
             'descriptionTranslate': '@',
             'description': '@',
             'type': '@',
+            'templateData': '=',
+            'templateCallback': '&'
         },
         restrict: "EA",
         replace: true,

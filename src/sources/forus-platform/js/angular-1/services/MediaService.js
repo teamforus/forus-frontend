@@ -17,14 +17,12 @@ let MediaService = function(
             formData.append('file', file, file['name']);
             formData.append('type', type);
 
-            if (Array.isArray(sync_presets)) {
-                if (sync_presets.length > 0) {
-                    sync_presets.forEach(sync_preset => {
-                        formData.append('sync_presets[]', sync_preset);
-                    });
-                } else {
-                    formData.append('sync_presets[]', '');
-                }
+            if (Array.isArray(sync_presets) || typeof sync_presets === 'string') {
+                sync_presets = typeof sync_presets === 'string' ? [sync_presets] : sync_presets;
+
+                sync_presets.forEach(sync_preset => {
+                    formData.append('sync_presets[]', sync_preset);
+                });
             }
 
             return ApiRequest.post(uriPrefix, formData, {

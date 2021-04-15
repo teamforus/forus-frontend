@@ -1,7 +1,7 @@
 .block.block-subsidies#subsidies
     mixin subsidy_item(name)
         .product-item: a(href="#").product-item-inner
-            .product-image(style="background-image: url('./assets/img/placeholders/product-small.png')")
+            .product-image(ng-style="{'background-image': \'url('./assets/img/placeholders/product-small.png')\'}")
                 img(src="./assets/img/placeholders/product-small.png")
                 .product-price € 350,-
             .product-details

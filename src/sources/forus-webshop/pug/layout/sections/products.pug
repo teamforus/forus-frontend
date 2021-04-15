@@ -12,7 +12,7 @@ section.section.section-products#products: .wrapper
     .block.block-products
         mixin product_item(name, discounted)
             .product-item(class=discounted?'discounted':''): a(href="#").product-item-inner
-                .product-image(style="background-image: url('./assets/img/placeholders/product-small.png')")
+                .product-image(ng-style="{'background-image': \'url('./assets/img/placeholders/product-small.png')\'}")
                     img(src="./assets/img/placeholders/product-small.png")
                 .product-details
                     .product-name=name
