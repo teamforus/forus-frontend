@@ -547,7 +547,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             }],
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
-            ) => repackResponse(FundService.list(
+            ) => repackPagination(FundService.list(
                 $transition$.params().organization_id
             ))],
             productCategories: ['ProductCategoryService', (

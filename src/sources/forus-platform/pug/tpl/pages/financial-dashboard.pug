@@ -1,107 +1,112 @@
 .app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
     menu
     section.app.app-content
-        .card-heading(ng-bind="'financial_dashboard.header.title' | translate")
-        fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
-        
-        div(ng-if="$ctrl.allFundProviders.data.length > 0")
-            .block.block-charts
-                .row: .col.col-lg-12: .card: .card-section
-                    .chart-header
-                        .chart-header-range
-                            .chart-header-item(
-                                ng-click="$ctrl.chartData.changeType('all')"
-                                ng-class="$ctrl.chartData.request.type=='all'?'active':''"
-                                ng-bind="'financial_dashboard.labels.all' | translate")
+        .card(class=(state=='closed' ? 'card-outline' : '')).card-financial.form
+            .card-header
+                .row
+                    .col.col-lg-8.col-xs-12: .card-title.card-title-bold Huidig saldo en uitgaven
+                    .col.col-lg-4.col-xs-12.text-right: button.button.button-primary(ng-click="$ctrl.exportFunds(false)")
+                        .mdi.mdi-download.icon-start
+                        | Exporteren
 
-                            .chart-header-item(
-                                ng-click="$ctrl.chartData.changeType('quarter')"
-                                ng-class="$ctrl.chartData.request.type=='quarter'?'active':''"
-                                ng-bind="'financial_dashboard.labels.quarter' | translate")
+            .card-section
+                .card-block.card-block-table.card-block-financial
+                    .table-wrapper
+                        table.table
+                            tr
+                                th Fondsnaam
+                                th.text-right Totaal gestort
+                                th.text-right Huidig saldo
+                                th.text-right Uitgaven
+                                th.text-right Transactiekosten
 
-                            .chart-header-item(
-                                ng-click="$ctrl.chartData.changeType('month')"
-                                ng-class="$ctrl.chartData.request.type=='month'?'active':''"
-                                ng-bind="'financial_dashboard.labels.month' | translate")
+                            tr(ng-repeat="fund in $ctrl.funds.data")
+                                td(ng-bind="fund.name")
+                                td.text-right(ng-bind="fund.budget.total | currency_format")
+                                td.text-right(ng-bind="fund.budget.left | currency_format")
+                                td.text-right(ng-bind="fund.budget.used | currency_format")
+                                td.text-right(ng-bind="fund.budget.transaction_costs | currency_format")
+                                
+                            tr.table-totals
+                                td Totaal
+                                td.text-right(ng-bind="$ctrl.funds.meta.total_amount | currency_format")
+                                td.text-right(ng-bind="$ctrl.funds.meta.left | currency_format")
+                                td.text-right(ng-bind="$ctrl.funds.meta.used | currency_format")
+                                td.text-right(ng-bind="$ctrl.funds.meta.transaction_costs | currency_format")
 
-                            .chart-header-item(
-                                ng-click="$ctrl.chartData.changeType('week')"
-                                ng-class="$ctrl.chartData.request.type=='week'?'active':''"
-                                ng-bind="'financial_dashboard.labels.week' | translate")
+        .card.card-collapsable.card-financial
+            .card-header
+                .card-title.card-title-bold: .row
+                    .col.col-lg-6 Tegoeden
+                    .col.col-lg-6.text-right: button.button.button-primary(ng-click="$ctrl.exportFunds(true)")
+                        .mdi.mdi-download.icon-start
+                        | Exporteren
 
-                        .chart-header-title(ng-bind="$ctrl.chartData.stringTitle")
-                        .chart-header-actions.form: .flex-row
-                            .form-group: select(
-                                ng-change="$ctrl.chartData.update()"
-                                ng-options="productCategory.id as productCategory.name for productCategory in $ctrl.productCategories"
-                                ng-model="$ctrl.chartData.request.product_category").form-control
+            .card-section
+                .card-block.card-block-table.card-block-financial: .table-wrapper: table.table
+                    thead: tr
+                        th.cell-chevron(width="5%") Fonds
+                        th.text-left(width="20%")
+                        th.text-right(width="10%") Totaal
+                        th.text-right(width="15%") Actief
+                        th.text-right(width="15%") Inactief
+                        th.text-right(width="15%") Uitgaven
+                        th.text-right Restant
 
-                            .flex
-                                .button.button-default(
-                                    ng-click="$ctrl.chartData.decrease()"
-                                    ng-bind="'financial_dashboard.buttons.previous' | translate")
-                                .button.button-default(
-                                    ng-click="$ctrl.chartData.increase()"
-                                    ng-bind="'financial_dashboard.buttons.next' | translate")
-                    .chart-body: bar-chart(data="$ctrl.chartData.response.dates")
+                    tbody(ng-repeat="fund in $ctrl.funds.data")
+                        tr(ng-class="{'table-separator': !fund.collapsedData}")
+                            td.text-center: a.mdi.mdi-menu-down.td-menu-icon(
+                                ng-class="{'mdi-menu-right': !fund.collapsedData, 'mdi-menu-down': fund.collapsedData}"
+                                ng-click="fund.collapsedData = !fund.collapsedData")
+                            td.text-left(ng-bind="fund.name")    
+                            td.text-right(ng-bind="fund.budget.total | currency_format")
+                            td.text-right(ng-bind="fund.budget.active | currency_format")
+                            td.text-right(ng-bind="fund.budget.inactive | currency_format")
+                            td.text-right(ng-bind="fund.budget.used | currency_format")
+                            td.text-right(ng-bind="fund.budget.left | currency_format")
 
-                .chart-row
-                    .card: .card-section: .chart-control
-                        .chart-label(ng-bind="'financial_dashboard.labels.total' | translate")
-                        .chart-value
-                            .chart-value_value(ng-bind="($ctrl.fund.budget.left - $ctrl.chartData.response.service_costs.total) | currency_format")
-                            .chart-value_label(i18n="financial_dashboard.labels.spend")
-                            .chart-value_value_b(ng-bind="$ctrl.fund.budget.total | currency_format")
-
-                    .card: .card-section: .chart-control
-                        .chart-label(i18n="financial_dashboard.labels.service_costs")
-                        .chart-value
-                            .chart-value_value(ng-bind="$ctrl.chartData.response.service_costs.total | currency_format")
-                            .chart-value_label(i18n="financial_dashboard.labels.transaction_costs")
-                            .chart-value_value_b(ng-bind="$ctrl.chartData.response.service_costs.transaction_costs | currency_format")
-
-                    .card: .card-section: .chart-control
-                        .chart-label {{ $ctrl.chartData.stringTitle }} {{ "financial_dashboard.labels.usage" | translate }}
-                        .chart-value
-                            .chart-value_value(ng-bind="$ctrl.chartData.response.usage | currency_format")
-                            .chart-value_label 
-                                | {{ "financial_dashboard.labels.payed" | translate }} 
-                                | {{ $ctrl.chartData.response.providers }} 
-                                | {{ "financial_dashboard.labels.provider" | translate | lowercase }}
-
-                    .card: .card-section: .chart-control
-                        .chart-label {{ $ctrl.chartData.stringTitle }}: {{ "financial_dashboard.labels.activation" | translate }}
-                        .chart-value
-                            .chart-value_value(ng-bind="$ctrl.chartData.response.activations")
-                            .chart-value_label
-                                translate(translate="financial_dashboard.labels.citizen")
-                            .chart-value_value_b(ng-bind="$ctrl.fund.budget.reserved | currency_format")
-
-        .card-heading: .row
-            .col.col-lg-6.col-xs-12 
-                span(translate="financial_dashboard.labels.provider")
-                span(ng-bind="$ctrl.fundProviders.meta.total").span-count
-            .block.block-inline-filters.col.col-lg-6.col-xs-12
-                .form(ng-if="!$ctrl.filters.show")
-                    .form-group: input(
-                        ng-model="$ctrl.filters.values.q" 
-                        type="text" 
-                        placeholder="{{ 'vouchers.labels.search' | i18n }}").form-control
-             
-        fund-card-provider-finances(ng-repeat="fundProvider in $ctrl.fundProviders.data" fund-provider="fundProvider")
-
-        .card: .card-section(ng-if="$ctrl.fundProviders" ng-show="$ctrl.fundProviders.meta.last_page > 1")
-            paginator(meta="$ctrl.fundProviders.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
-
-        block-empty(
-            ng-if='$ctrl.fundProviders.data.length == 0' 
-            text="{{ 'financial_dashboard.labels.no_statistics' | translate }}")
-    section.app.app-content(ng-if="$ctrl.funds.length == 0")
-        block-empty(
-            ng-if="$ctrl.fund == null && $ctrl.funds.length == 0 && ($root.activeOrganization | hasPerm:'manage_funds')"
-            text="{{ 'financial_dashboard.labels.no_funds_available' | translate }}"
-            button="{href: $ctrl.emptyBlockLink, text: 'Fonds toevoegen'}")
-        
-        block-empty(
-            ng-if="$ctrl.fund == null && $ctrl.funds.length > 0"
-            text="{{ 'financial_dashboard.labels.select_fond' | translate }}")
+                        tr(ng-if="fund.collapsedData")
+                            td.text-center: a.mdi.mdi-circle-small
+                            td.text-left Totaal percentage
+                            td.text-right {{ fund.budget.percentageTotal }} %
+                            td.text-right {{ fund.budget.percentageActive }} %
+                            td.text-right {{ fund.budget.percentageInactive }} %
+                            td.text-right {{ fund.budget.percentageUsed }} %
+                            td.text-right {{ fund.budget.percentageLeft }} %
+                            
+                        tr(ng-if="fund.collapsedData")
+                            td.text-center: a.mdi.mdi-circle-small
+                            td.text-left Totaalaantal
+                            td.text-right {{ fund.budget.count }}
+                            td.text-right {{ fund.budget.active_count }}
+                            td.text-right {{ fund.budget.inactive_count }}
+                            td.text-right -
+                            td.text-right -
+                            
+                        tr(ng-if="fund.collapsedData" ng-class="{'table-separator': fund.collapsedData}")
+                            td.text-center
+                                a.mdi.mdi-circle-small: br
+                                | &nbsp
+                            td.text-left 
+                                | Tegoeden
+                                br
+                                | &nbsp
+                            td.text-right 
+                                | Per tegoed
+                                br
+                                | {{ fund.limit_per_voucher | currency_format }}
+                            td(colspan="2").text-right 
+                                | Gem. per tegoed
+                                br
+                                | {{ fund.limit_sum_vouchers | currency_format }}
+                            td
+                            td
+                                
+                    tr.table-totals
+                        td
+                        td Totaal
+                        td.text-right(ng-bind="$ctrl.funds.meta.total_amount | currency_format")
+                        td.text-right(ng-bind="$ctrl.funds.meta.vouchers_active | currency_format")
+                        td.text-right(ng-bind="$ctrl.funds.meta.vouchers_inactive | currency_format")
+                        td.text-right(ng-bind="$ctrl.funds.meta.used | currency_format")
+                        td.text-right(ng-bind="$ctrl.funds.meta.left | currency_format")

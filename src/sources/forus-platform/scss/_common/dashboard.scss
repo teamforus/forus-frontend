@@ -865,6 +865,10 @@ body {
         .tag {
             margin-left: 10px;
         }
+
+        &.card-title-bold {
+            font-weight: 600;
+        }
     }
 
     .card-header {
@@ -1786,6 +1790,24 @@ body {
     &.card-implementation-edit {
         .card-block-details {
             font: 500 16px/20px $bf;
+        }
+    }
+
+    &.card-block-financial {
+        .table {
+            .table-separator {
+                border-bottom: 2px solid #d4d9dd;
+            }
+
+            tr {
+                &.table-totals {
+                    border-top: 3px solid #134478;
+
+                    td {
+                        font-weight: 600;
+                    }
+                }
+            }
         }
     }
 }

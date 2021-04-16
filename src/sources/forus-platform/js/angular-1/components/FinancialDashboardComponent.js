@@ -3,10 +3,16 @@ let FinancialDashboardComponent = function(
     $scope,
     $q,
     $stateParams,
+    appConfigs,
+    OrganizationService,
     FundService,
-    DateService
+    DateService,
+    ModalService,
+    FileService
 ) {
     let $ctrl = this;
+
+    let org = OrganizationService.active();
 
     $ctrl.filters = {
         values: {
@@ -163,18 +169,20 @@ let FinancialDashboardComponent = function(
             }
         };
 
-        if (Array.isArray($ctrl.funds)) {
-            $ctrl.funds = $ctrl.funds.filter(function(fund) {
+        if (Array.isArray($ctrl.funds.data)) {
+            $ctrl.funds.data = $ctrl.funds.data.filter(function(fund) {
                 return fund.state !== 'waiting';
             });
 
-            if ($ctrl.funds.length == 1 && !$ctrl.fund) {
+            if ($ctrl.funds.meta.total == 1 && !$ctrl.fund) {
                 return $state.go('financial-dashboard', {
                     organization_id: $ctrl.funds[0].organization_id,
                     fund_id: $ctrl.funds[0].id
                 });
             }
         }
+
+        $ctrl.transformFunds();
 
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
@@ -195,6 +203,55 @@ let FinancialDashboardComponent = function(
         });
     };
 
+    $ctrl.transformFunds = () => {
+        if (!$ctrl.funds.meta.total) {
+            return;
+        }
+
+        $ctrl.funds.data.forEach(fund => {
+            fund.collapsedData = false;
+
+            fund.budget.percentageTotal = $ctrl.funds.meta.total_amount > 0 ? 
+                Math.round(fund.budget.total / $ctrl.funds.meta.total_amount * 100) : 0;
+
+            fund.budget.percentageActive = $ctrl.funds.meta.vouchers_active > 0 ? 
+                Math.round(fund.budget.active / $ctrl.funds.meta.vouchers_active * 100) : 0;
+
+            fund.budget.percentageInactive = $ctrl.funds.meta.vouchers_inactive > 0 ? 
+                Math.round(fund.budget.inactive / $ctrl.funds.meta.vouchers_inactive * 100) : 0;
+
+            fund.budget.percentageUsed = $ctrl.funds.meta.used > 0 ? 
+                Math.round(fund.budget.used / $ctrl.funds.meta.used * 100) : 0;
+
+            fund.budget.percentageLeft = $ctrl.funds.meta.left > 0 ? 
+                Math.round(fund.budget.left / $ctrl.funds.meta.left * 100) : 0;
+        });
+
+        return $ctrl.funds;
+    };
+
+    $ctrl.exportFunds = (detailed) => {
+        ModalService.open('exportType', {
+            success: (data) => {
+                FundService.export(
+                    $ctrl.funds.data[0].organization_id,
+                    Object.assign($ctrl.filters.values, {
+                        export_format: data.exportType,
+                        detailed: detailed
+                    })
+                ).then((res => {
+                    FileService.downloadFile(
+                        appConfigs.panel_type + '_' + org + '_' + moment().format(
+                            'YYYY-MM-DD HH:mm:ss'
+                        ) + '.' + data.exportType,
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+                }), console.error);
+            }
+        });
+    };
+
     $scope.onPageChange = (query) => {
         $ctrl.getProviders(query);
     };
@@ -212,8 +269,12 @@ module.exports = {
         '$scope',
         '$q',
         '$stateParams',
+        'appConfigs',
+        'OrganizationService',
         'FundService',
         'DateService',
+        'ModalService',
+        'FileService',
         FinancialDashboardComponent
     ],
     templateUrl: 'assets/tpl/pages/financial-dashboard.html'
