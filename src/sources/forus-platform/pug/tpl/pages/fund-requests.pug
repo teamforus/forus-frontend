@@ -46,7 +46,7 @@
                                     input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
                             .form-actions
                                 button.button.button-primary.button-wide(
-                                    ng-click="$ctrl.exportRequests('xls')"
+                                    ng-click="$ctrl.exportRequests()"
                                     ng-disabled="$ctrl.validatorRequests.meta.total == 0")
                                     em.mdi.mdi-download.icon-start  
                                     span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.validatorRequests.meta.total }")

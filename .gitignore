@@ -1,5 +1,6 @@
 # Generated in development files #
 /dist
+/.idea
 /phonegap/www
 /php/public/assets/*
 /src/qdt-env.js

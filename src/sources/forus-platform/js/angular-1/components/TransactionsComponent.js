@@ -3,6 +3,7 @@ let TransactionsComponent = function(
     $timeout,
     appConfigs,
     FileService,
+    ModalService,
     TransactionService,
     OrganizationService
 ) {
@@ -64,22 +65,26 @@ let TransactionsComponent = function(
     };
 
     // Export to XLS file
-    $ctrl.exportList = (type) => {
-        TransactionService.export(
-            appConfigs.panel_type,
-            $ctrl.organization.id,
-            Object.assign($ctrl.filters.values, {
-                export_format: type
-            })
-        ).then((res => {
-            FileService.downloadFile(
-                appConfigs.panel_type + '_' + org + '_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.' + type,
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }));
+    $ctrl.exportList = () => {
+        ModalService.open('exportType', {
+            success: (data) => {
+                TransactionService.export(
+                    appConfigs.panel_type,
+                    $ctrl.organization.id,
+                    Object.assign($ctrl.filters.values, {
+                        export_format: data.exportType
+                    })
+                ).then((res => {
+                    FileService.downloadFile(
+                        appConfigs.panel_type + '_' + org + '_' + moment().format(
+                            'YYYY-MM-DD HH:mm:ss'
+                        ) + '.' + data.exportType,
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+                }), console.error);
+            }
+        });
     };
 
     $ctrl.showTransaction = (transaction) => {
@@ -124,6 +129,7 @@ module.exports = {
         '$timeout',
         'appConfigs',
         'FileService',
+        'ModalService',
         'TransactionService',
         'OrganizationService',
         TransactionsComponent

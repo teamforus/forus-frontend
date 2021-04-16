@@ -7,9 +7,22 @@
         .modal-header(ng-if="$ctrl.params.type == 'youtube'") Youtube link
         .modal-body
             .modal-section
-                .form-group
-                    label.form-label(ng-bind="$ctrl.params.type == 'image-link' ? 'URL Afbeelding' : 'URL'")
+                .form-group(ng-if="$ctrl.params.type != 'image-link'")
+                    label.form-label URL
                     input(type="text" ng-model="$ctrl.form.values.url").form-control
+
+                .form-group(ng-if="$ctrl.params.type == 'image-link'"): .flex-row
+                    .flex-col.flex-grow
+                        label.form-label URL Afbeelding
+                        input(type="text" ng-model="$ctrl.form.values.url").form-control
+                        .form-error(ng-repeat="error in $ctrl.errors.file" ng-bind="error")
+
+                    .flex-col
+                        label.form-label &nbsp;
+                        button(type="button" ng-click="$ctrl.selectMedia()").button.button-primary.nowrap
+                            em.mdi.mdi-upload.icon-start
+                            | Upload afbeelding
+
                 .form-group(ng-if="$ctrl.params.hasDescription")
                     label.form-label Beschrijving
                     input(type="text" ng-init="$ctrl.form.values.description=$ctrl.params.description" ng-model="$ctrl.form.values.description").form-control

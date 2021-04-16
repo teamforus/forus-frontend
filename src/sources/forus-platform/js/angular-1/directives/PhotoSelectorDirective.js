@@ -19,9 +19,7 @@ let PhotoSelectorDirective = function(
 
         const thumbnailSize = $scope.thumbnailSize || { x: 100, y: 100 };
         const fillStyle = typeof $scope.fillStyle === 'undefined' ? '#ffffff' : $scope.fillStyle;
-        
-        console.log('$scope.fillStyle', $scope.fillStyle, fillStyle);
-        console.log(thumbnailSize);
+
 
         input = document.createElement('input');
         input.setAttribute("type", "file");

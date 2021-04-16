@@ -84,14 +84,9 @@ function ImageConvertor(file) {
             context.fillRect(0, 0, x, y);
         }
 
-        console.log('0', fillStyle);
-        console.log('1', canvas.width, canvas.height, imageObj.width, imageObj.height);
         const position = cover(canvas.width, canvas.height, imageObj.width, imageObj.height);
         
-        console.log('2', position);
-        
         context.drawImage(imageObj, position.offsetX, position.offsetY, position.width, position.height);
-        // context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
 
         return canvas.toDataURL('image/jpeg');
     };

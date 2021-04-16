@@ -56,10 +56,24 @@ let ImplementationCmsEditComponent = function (
         MediaService.store('implementation_banner', mediaFile, ['medium']).then((res) => {
             $ctrl.bannerMedia = res.data.data;
             $ctrl.bannerMeta.media = $ctrl.bannerMedia;
-            $ctrl.form.values.media_uid = $ctrl.bannerMedia.uid;
-        }, (res) => {
-            PushNotificationsService.danger('Error!', res.data.message);
-        });
+            $ctrl.form.values.banner_media_uid = $ctrl.bannerMedia.uid;
+        }, (res) => PushNotificationsService.danger('Error!', res.data.message));
+    };
+
+    $ctrl.communicationTypes = [{
+        value: '1',
+        label: 'Je/jouw',
+    }, {
+        value: '0',
+        label: 'U/uw',
+    }];
+    
+    $ctrl.appendMedia = (media_uid, formValue) => {
+        if (!Array.isArray(formValue.media_uid)) {
+            formValue.media_uid = [];
+        }
+
+        formValue.media_uid.push(media_uid);
     };
 
     $ctrl.preparePages = (implementation) => {
@@ -76,6 +90,10 @@ let ImplementationCmsEditComponent = function (
                 pagesValue[page_type].external = false;
             }
 
+            if (!Array.isArray(!pagesValue[page_type].media_uid)) {
+                pagesValue[page_type].media_uid = [];
+            }
+
             return pagesValue;
         }, {});
     }
@@ -83,8 +101,8 @@ let ImplementationCmsEditComponent = function (
     $ctrl.$onInit = () => {
         const { informal_communication, page_types, page_types_internal } = $ctrl.implementation;
 
-        $ctrl.page_types = page_types;
-        $ctrl.page_types_internal = page_types_internal;
+        $ctrl.page_types = $ctrl.implementation.page_types;
+        $ctrl.page_types_internal = $ctrl.implementation.page_types_internal;
         $ctrl.implementation.informal_communication = informal_communication ? '1' : '0';
 
         $ctrl.bannerMedia = $ctrl.implementation.banner;
@@ -102,11 +120,12 @@ let ImplementationCmsEditComponent = function (
             $ctrl.bannerMeta.header_text_color = $ctrl.implementation.header_text_color;
         }
 
-        console.log($ctrl.bannerMeta.header_text_color);
-
         $ctrl.form = FormBuilderService.build({
             ...$ctrl.implementation,
-            ...{ pages: $ctrl.preparePages($ctrl.implementation) },
+            ...{
+                pages: $ctrl.preparePages($ctrl.implementation),
+                media_uid: [],
+            }
         }, (form) => {
             const { overlay_enabled, overlay_type, overlay_opacity } = $ctrl.bannerMeta;
             const header_text_color = $ctrl.bannerMeta.auto_text_color ? 'auto' : $ctrl.bannerMeta.header_text_color;
@@ -115,7 +134,7 @@ let ImplementationCmsEditComponent = function (
                 ...form.values,
                 ...{ overlay_enabled, overlay_type, overlay_opacity, header_text_color }
             }).then(() => {
-                delete $ctrl.form.values.media_uid;
+                delete $ctrl.form.values.banner_media_uid;
                 form.unlock();
                 form.errors = [];
                 PushNotificationsService.success('Opgeslagen!');
