@@ -34,7 +34,7 @@
                                 td.text-right(ng-bind="$ctrl.funds.meta.used | currency_format")
                                 td.text-right(ng-bind="$ctrl.funds.meta.transaction_costs | currency_format")
 
-        .card.card-collapsable.card-financial(ng-if="$ctrl.state == 'statistics'")
+        .card.card-collapsable.card-financial(ng-if="$ctrl.state == 'overview'")
             .card-header
                 .card-title.card-title-bold: .row
                     .col.col-lg-6 Tegoeden
@@ -111,7 +111,7 @@
                         td.text-right(ng-bind="$ctrl.funds.meta.used | currency_format")
                         td.text-right(ng-bind="$ctrl.funds.meta.left | currency_format")
 
-        div(ng-if="$ctrl.state == 'transactions'")
+        div(ng-if="$ctrl.state == 'statistics'")
             .card-heading(ng-bind="'financial_dashboard.header.title' | translate")
             fund-selector(funds="$ctrl.funds.data" on-fund-select="$ctrl.onFundSelect")
             

@@ -591,38 +591,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
-    $stateProvider.state({
-        name: "financial-dashboard-transactions",
-        url: "/organizations/{organization_id}/financial-dashboard-transactions/funds?fund_id",
-        component: "financialDashboardComponent",
-        params: {
-            fund_id: null,
-            state: 'transactions'
-        },
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('financial-dashboard', 'view_finances'),
-            fund: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => {
-                return $transition$.params().fund_id != null ? repackResponse(FundService.read(
-                    $transition$.params().organization_id,
-                    $transition$.params().fund_id
-                )) : new Promise((res) => res(null));
-            }],
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackPagination(FundService.list(
-                $transition$.params().organization_id
-            ))],
-            productCategories: ['ProductCategoryService', (
-                ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({
-                parent_id: 'null'
-            }))]
-        }
-    });
-
     /**
      * Offices
      */
