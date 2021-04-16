@@ -184,6 +184,8 @@ let FinancialDashboardComponent = function(
 
         $ctrl.transformFunds();
 
+        $ctrl.state = $stateParams.state;
+
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
         $ctrl.chartData.update();
@@ -261,6 +263,7 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
+        state: '<',
         fundProviders: '<',
         productCategories: "<",
     },

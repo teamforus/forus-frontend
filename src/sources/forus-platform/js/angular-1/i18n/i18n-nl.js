@@ -40,6 +40,7 @@ module.exports = {
         organizational: 'Organisatie',
         implementation: 'Webshop',
         personal: 'Persoonlijk',
+        finances: 'Financieel',
     },
     // MODALS
     modals: {
