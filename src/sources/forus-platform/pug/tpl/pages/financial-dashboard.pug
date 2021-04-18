@@ -7,18 +7,18 @@
                     .col.col-lg-8.col-xs-12: .card-title.card-title-bold Huidig saldo en uitgaven
                     .col.col-lg-4.col-xs-12.text-right: button.button.button-primary(ng-click="$ctrl.exportFunds(false)")
                         .mdi.mdi-download.icon-start
-                        | Exporteren
+                        | {{ 'financial_dashboard_overview.buttons.export' | translate }}
 
             .card-section
                 .card-block.card-block-table.card-block-financial
                     .table-wrapper
                         table.table
                             tr
-                                th Fondsnaam
-                                th.text-right Totaal gestort
-                                th.text-right Huidig saldo
-                                th.text-right Uitgaven
-                                th.text-right Transactiekosten
+                                th(translate="financial_dashboard_overview.labels.fund_name")
+                                th.text-right(translate="financial_dashboard_overview.labels.total_budget") 
+                                th.text-right(translate="financial_dashboard_overview.labels.current_budget")
+                                th.text-right(translate="financial_dashboard_overview.labels.used_budget") 
+                                th.text-right(translate="financial_dashboard_overview.labels.transaction_costs")
 
                             tr(ng-repeat="fund in $ctrl.funds.data")
                                 td(ng-bind="fund.name")
@@ -28,7 +28,7 @@
                                 td.text-right(ng-bind="fund.budget.transaction_costs | currency_format")
                                 
                             tr.table-totals
-                                td Totaal
+                                td(translate="financial_dashboard_overview.labels.total")
                                 td.text-right(ng-bind="$ctrl.funds.meta.total_amount | currency_format")
                                 td.text-right(ng-bind="$ctrl.funds.meta.left | currency_format")
                                 td.text-right(ng-bind="$ctrl.funds.meta.used | currency_format")
@@ -40,18 +40,18 @@
                     .col.col-lg-6 Tegoeden
                     .col.col-lg-6.text-right: button.button.button-primary(ng-click="$ctrl.exportFunds(true)")
                         .mdi.mdi-download.icon-start
-                        | Exporteren
+                        | {{ 'financial_dashboard_overview.buttons.export' | translate }}
 
             .card-section
                 .card-block.card-block-table.card-block-financial: .table-wrapper: table.table
                     thead: tr
-                        th.cell-chevron(width="5%") Fonds
+                        th.cell-chevron(width="5%" translate="financial_dashboard_overview.labels.funds")
                         th.text-left(width="20%")
-                        th.text-right(width="10%") Totaal
-                        th.text-right(width="15%") Actief
-                        th.text-right(width="15%") Inactief
-                        th.text-right(width="15%") Uitgaven
-                        th.text-right Restant
+                        th.text-right(width="10%" translate="financial_dashboard_overview.labels.total")
+                        th.text-right(width="15%" translate="financial_dashboard_overview.labels.active") 
+                        th.text-right(width="15%" translate="financial_dashboard_overview.labels.inactive") 
+                        th.text-right(width="15%" translate="financial_dashboard_overview.labels.used") 
+                        th.text-right(translate="financial_dashboard_overview.labels.left")
 
                     tbody(ng-repeat="fund in $ctrl.funds.data")
                         tr(ng-class="{'table-separator': !fund.collapsedData}")
@@ -67,7 +67,7 @@
 
                         tr(ng-if="fund.collapsedData")
                             td.text-center: a.mdi.mdi-circle-small
-                            td.text-left Totaal percentage
+                            td.text-left(translate="financial_dashboard_overview.labels.total_percentage")
                             td.text-right {{ fund.budget.percentageTotal }} %
                             td.text-right {{ fund.budget.percentageActive }} %
                             td.text-right {{ fund.budget.percentageInactive }} %
@@ -76,7 +76,7 @@
                             
                         tr(ng-if="fund.collapsedData")
                             td.text-center: a.mdi.mdi-circle-small
-                            td.text-left Totaalaantal
+                            td.text-left(translate="financial_dashboard_overview.labels.total_count")
                             td.text-right {{ fund.budget.count }}
                             td.text-right {{ fund.budget.active_count }}
                             td.text-right {{ fund.budget.inactive_count }}
@@ -104,13 +104,15 @@
                                 
                     tr.table-totals
                         td
-                        td Totaal
+                        td(translate="financial_dashboard_overview.labels.total")
                         td.text-right(ng-bind="$ctrl.funds.meta.total_amount | currency_format")
                         td.text-right(ng-bind="$ctrl.funds.meta.vouchers_active | currency_format")
                         td.text-right(ng-bind="$ctrl.funds.meta.vouchers_inactive | currency_format")
                         td.text-right(ng-bind="$ctrl.funds.meta.used | currency_format")
                         td.text-right(ng-bind="$ctrl.funds.meta.left | currency_format")
 
+
+        //- Old financial dashboard    
         div(ng-if="$ctrl.state == 'statistics'")
             .card-heading(ng-bind="'financial_dashboard.header.title' | translate")
             fund-selector(funds="$ctrl.funds.data" on-fund-select="$ctrl.onFundSelect")
@@ -207,12 +209,13 @@
             block-empty(
                 ng-if='$ctrl.fundProviders.data.length == 0' 
                 text="{{ 'financial_dashboard.labels.no_statistics' | translate }}")
-        section.app.app-content(ng-if="$ctrl.funds.meta.total == 0")
-            block-empty(
-                ng-if="$ctrl.fund == null && $ctrl.funds.meta.total == 0 && ($root.activeOrganization | hasPerm:'manage_funds')"
-                text="{{ 'financial_dashboard.labels.no_funds_available' | translate }}"
-                button="{href: $ctrl.emptyBlockLink, text: 'Fonds toevoegen'}")
-            
-            block-empty(
-                ng-if="$ctrl.fund == null && $ctrl.funds.meta.total > 0"
-                text="{{ 'financial_dashboard.labels.select_fond' | translate }}")                        
+
+            section.app.app-content(ng-if="$ctrl.funds.meta.total == 0")
+                block-empty(
+                    ng-if="$ctrl.fund == null && $ctrl.funds.meta.total == 0 && ($root.activeOrganization | hasPerm:'manage_funds')"
+                    text="{{ 'financial_dashboard.labels.no_funds_available' | translate }}"
+                    button="{href: $ctrl.emptyBlockLink, text: 'Fonds toevoegen'}")
+                
+                block-empty(
+                    ng-if="$ctrl.fund == null && $ctrl.funds.meta.total > 0"
+                    text="{{ 'financial_dashboard.labels.select_fond' | translate }}")                        

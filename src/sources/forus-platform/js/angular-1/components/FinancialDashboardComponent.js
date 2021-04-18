@@ -175,9 +175,9 @@ let FinancialDashboardComponent = function(
             });
 
             if ($ctrl.funds.meta.total == 1 && !$ctrl.fund) {
-                return $state.go('financial-dashboard', {
-                    organization_id: $ctrl.funds[0].organization_id,
-                    fund_id: $ctrl.funds[0].id
+                return $state.go('financial-dashboard-statistics', {
+                    organization_id: $ctrl.funds.data[0].organization_id,
+                    fund_id: $ctrl.funds.data[0].id,
                 });
             }
         }
@@ -238,8 +238,8 @@ let FinancialDashboardComponent = function(
                 FundService.export(
                     $ctrl.funds.data[0].organization_id,
                     Object.assign($ctrl.filters.values, {
-                        export_format: data.exportType,
-                        detailed: detailed
+                        export_type: data.exportType,
+                        detailed: detailed ? 1 : 0
                     })
                 ).then((res => {
                     FileService.downloadFile(
