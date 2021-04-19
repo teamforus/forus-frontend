@@ -25,8 +25,11 @@ module.exports = {
         none: "Geen",
         used: "Gebruikt",
         generated: "Aangemaakt",
-        expire: "Vervaldatum",
+        expire: "Geldig tot en met:",
+        expired_on: "Verlopen op:",
+        used_on: "Gebruikt op:",
         open_voucher: "Open",
         show_transactions: "Bekijk transacties",
+        actions: "Actie",
     }
 }

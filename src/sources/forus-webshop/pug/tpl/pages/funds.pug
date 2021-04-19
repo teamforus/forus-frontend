@@ -52,48 +52,32 @@ block content
                                 | Foto's
 
                     .block.block-funds(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'grid'")
-                        .fund-item(ng-repeat="fund in $ctrl.funds.data")
+                        .fund-item(ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
                             .fund-item-inner
-                                .fund-image
-                                    img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                                .fund-image: img(
+                                    ng-src="{{ (fund.logo || fund.organization.logo).sizes.large || './assets/img/placeholders/fund-large.png' }}" alt="{{ fund.name }}")
                                 .fund-details
-                                    .fund-organization(ng-bind="fund.organization.name")
                                     .fund-name(ng-bind="fund.name")
-                                .fund-actions
-                                    .button.button-text.button-text-padless(ng-click="$ctrl.requestFund(fund)") Aanvragen
+                                    .fund-organization(ng-bind="fund.organization.name")
 
                     .block.block-funds-list(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'list'" id="funds_list")
                         .fund-item(
-                            ng-repeat="fund in $ctrl.funds.data")
+                            ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
                             .fund-photo
-                                img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
+                                img(ng-src="{{ (fund.logo || fund.organization.logo).sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
                             .fund-content
                                 .fund-details
                                     .fund-name(ng-bind="fund.name")
-                                    .fund-description(ng-bind="fund.description")
-                                .fund-actions(ng-if="fund.showRequestButton || fund.showPendingButton || fund.showActivateButton || fund.showReceivedButton")
-                                    a.button.button-primary.button-disabled(
-                                        ng-if="fund.showPendingButton"
-                                        ui-sref="fund-activate({fund_id: fund.id})"
-                                        ng-click="$ctrl.applyFund(fund)" 
-                                        translate="funds.buttons.is_pending")
-
-                                    a.button.button-primary(
-                                        ng-if="fund.showRequestButton" 
-                                        ui-sref="fund-activate({fund_id: fund.id})"
-                                        translate="funds.buttons.{{ $root.client_key }}.start_request" 
-                                        translate-default="{{ 'funds.buttons.start_request' | translate }}")
-
-                                    button.button.button-primary(
+                                    .fund-organization(ng-bind="fund.organization.name")
+                                    .fund-status-label
+                                        .label.label-default(ng-if="fund.showPendingButton" translate="funds.buttons.is_pending")
+                                        .label.label-success(ng-if="fund.alreadyReceived" translate="funds.status.active")
+                                    
+                                .fund-actions(ng-if="fund.showActivateButton")
+                                    button.button.button-primary.button-fill(
                                         type="button"
-                                        ng-if="fund.showActivateButton" 
                                         ng-click="$ctrl.applyFund(fund)" 
                                         translate="funds.buttons.is_applicable")
-    
-                                    a.button.button-primary(
-                                        ng-if="fund.alreadyReceived" 
-                                        ui-sref="{{ fund.voucherStateName }}" 
-                                        translate="funds.buttons.already_received")
 
                     empty-block(
                         title= "{{ 'block_funds.labels.title' | translate }}"
