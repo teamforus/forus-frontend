@@ -20,6 +20,7 @@ app.component('organizationFundsComponent', require('./components/OrganizationFu
 app.component('providerFundsComponent', require('./components/ProviderFundsComponent'));
 app.component('fundsEditComponent', require('./components/FundsEditComponent'));
 app.component('fundsShowComponent', require('./components/FundsShowComponent'));
+app.component('fundBackofficeEdit', require('./components/FundBackofficeEditComponent'));
 app.component('transactionsComponent', require('./components/TransactionsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('vouchersShowComponent', require('./components/VouchersShowComponent'));
