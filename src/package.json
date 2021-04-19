@@ -77,7 +77,7 @@
     "qrcodejs": "^1.0.0",
     "selenium": "^2.20.0",
     "ui-cropper": "^1.0.9",
-    "underscore": "^1.9.2",
+    "underscore": "^1.13.1",
     "underscore.string": "^3.3.5"
   }
 }
