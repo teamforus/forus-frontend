@@ -53,11 +53,17 @@ let ImplementationCmsEditComponent = function (
     };
 
     $ctrl.selectBanner = (mediaFile) => {
-        MediaService.store('implementation_banner', mediaFile, ['medium']).then((res) => {
+        $ctrl.bannerMeta.mediaLoading = true;
+
+        MediaService.store('implementation_banner', mediaFile, ['thumbnail', 'medium']).then((res) => {
             $ctrl.bannerMedia = res.data.data;
             $ctrl.bannerMeta.media = $ctrl.bannerMedia;
             $ctrl.form.values.banner_media_uid = $ctrl.bannerMedia.uid;
-        }, (res) => PushNotificationsService.danger('Error!', res.data.message));
+        }, (res) => {
+            PushNotificationsService.danger('Error!', res.data.message);
+        }).finally(() => {
+            $ctrl.bannerMeta.mediaLoading = false;
+        });
     };
 
     $ctrl.communicationTypes = [{

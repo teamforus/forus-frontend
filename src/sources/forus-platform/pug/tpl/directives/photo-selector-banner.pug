@@ -44,7 +44,8 @@
             .mdi.mdi-image-area.picker-icon
             .picker-description(
                 ng-class="['picker-description-' + (templateData.auto_text_color ? (templateData.media.is_dark ? 'bright' : 'dark') : (templateData.header_text_color))]")
-                | Upload custom header image
+                span(ng-if="!templateData.mediaLoading") Upload custom header image
+                span(ng-if="templateData.mediaLoading"): .mdi.mdi-loading.mdi-spin
             .button.button-default(ng-click="selectFile($event)") Upload image
 
 //- .block.block-photo-selector

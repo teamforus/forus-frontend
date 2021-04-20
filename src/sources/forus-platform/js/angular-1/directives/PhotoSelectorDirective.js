@@ -29,18 +29,14 @@ let PhotoSelectorDirective = function(
         input.addEventListener('change', function(e) {
             ModalService.open('photoUploader', {
                 type: $scope.type,
-                getFile: () => {
-                    return e.target.files[0];
-                },
+                getFile: () => e.target.files[0],
                 submit: (file) => {
+                    $scope.selectPhoto({ file });
+
                     ImageConvertorService.instance(file).then((converter) => {
                         $timeout(() => {
-                            $scope.thumbnail = converter.resize(thumbnailSize.x, thumbnailSize.y, fillStyle);
+                            $scope.thumbnail = converter.resize(thumbnailSize.x, thumbnailSize.y, fillStyle)
                         }, 0);
-                    });
-
-                    $scope.selectPhoto({
-                        file: file
                     });
                 }
             });
