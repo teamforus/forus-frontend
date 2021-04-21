@@ -54,8 +54,8 @@ block content
                     .block.block-funds(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'grid'")
                         .fund-item(ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
                             .fund-item-inner
-                                .fund-image
-                                    img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                                .fund-image: img(
+                                    ng-src="{{ (fund.logo || fund.organization.logo).sizes.large || './assets/img/placeholders/fund-large.png' }}" alt="{{ fund.name }}")
                                 .fund-details
                                     .fund-name(ng-bind="fund.name")
                                     .fund-organization(ng-bind="fund.organization.name")
@@ -64,7 +64,7 @@ block content
                         .fund-item(
                             ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
                             .fund-photo
-                                img(ng-src="{{ fund.logo.sizes.thumbnail || fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
+                                img(ng-src="{{ (fund.logo || fund.organization.logo).sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
                             .fund-content
                                 .fund-details
                                     .fund-name(ng-bind="fund.name")
@@ -74,7 +74,7 @@ block content
                                         .label.label-success(ng-if="fund.alreadyReceived" translate="funds.status.active")
                                     
                                 .fund-actions(ng-if="fund.showActivateButton")
-                                    button.button.button-primary(
+                                    button.button.button-primary.button-fill(
                                         type="button"
                                         ng-click="$ctrl.applyFund(fund)" 
                                         translate="funds.buttons.is_applicable")

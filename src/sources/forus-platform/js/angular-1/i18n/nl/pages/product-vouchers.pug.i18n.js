@@ -1,6 +1,6 @@
 module.exports = {
     header: {
-        title: "Reserveringen",
+        title: "Aanbiedingsvouchers",
     },
     labels: {
         amount: "Bedrag",

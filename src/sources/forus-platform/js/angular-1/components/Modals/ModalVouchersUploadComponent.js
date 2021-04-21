@@ -210,9 +210,9 @@ let ModalVouchersUploadComponent = function(
                         `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
                         "Deze e-mailadressen bezitten al een voucher van dit fonds."
                     ],
-                    button_none: "Alle tegoed overslaan",
-                    button_all: "Alle tegoed aanmaken",
-                    label_on: "Aanmaken tegoed",
+                    button_none: "Alle overslaan",
+                    button_all: "Alle aanmaken",
+                    label_on: "Aanmaken",
                     label_off: "Overslaan",
                     items: items,
                     onConfirm: (items) => {
@@ -242,9 +242,9 @@ let ModalVouchersUploadComponent = function(
                         `Weet u zeker dat u voor ${items.length} bsn(s) een extra voucher wilt aanmaken?`,
                         "Deze bsn(s) bezitten al een voucher van dit fonds."
                     ],
-                    button_none: "Alle tegoed overslaan",
-                    button_all: "Alle tegoed aanmaken",
-                    label_on: "Aanmaken tegoed",
+                    button_none: "Alle overslaan",
+                    button_all: "Alle aanmaken",
+                    label_on: "Aanmaken",
                     label_off: "Overslaan",
                     items: items,
                     onConfirm: (items) => {

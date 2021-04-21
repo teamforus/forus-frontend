@@ -1,18 +1,24 @@
-let repackResponse = (promise) => new Promise((resolve, reject) => {
+const repackResponse = (promise) => new Promise((resolve, reject) => {
     promise.then((res) => resolve(
         res.data.data ? res.data.data : res.data
     ), reject);
 });
 
-let repackPagination = (promise) => new Promise((resolve, reject) => {
+const resolveConfigs = () => {
+    return ['ConfigService', 'appConfigs', (ConfigService, appConfigs) => {
+        return appConfigs.features || repackResponse(ConfigService.get('webshop'));
+    }];
+}
+
+const repackPagination = (promise) => new Promise((resolve, reject) => {
     promise.then((res) => resolve(res.data), reject);
 });
 
-let promiseResolve = (res) => {
+const promiseResolve = (res) => {
     return new Promise(resolve => resolve(res));
 };
 
-let handleAuthTarget = ($state, target) => {
+const handleAuthTarget = ($state, target) => {
     if (target[0] == 'homeStart') {
         return !!$state.go('home', {
             confirmed: true
@@ -44,7 +50,7 @@ let handleAuthTarget = ($state, target) => {
 
 const resolveCmsPage = (pageSlug) => {
     return {
-        configs: ['ConfigService', (ConfigService) => repackResponse(ConfigService.get('webshop'))],
+        configs: resolveConfigs(),
         pages: ['configs', '$q', (configs, $q) => $q((resolve) => resolve(configs.pages || null))],
         page: ['pages', '$state', '$q', (pages, $state, $q) => {
             return $q((resolve) => {
@@ -75,17 +81,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             digid_error: null
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
-            products: ['ProductService', (ProductService) => repackPagination(ProductService.sample({
-                fund_type: 'budget',
-                per_page: 6,
-            }))],
-            subsidies: ['ProductService', (ProductService) => repackPagination(ProductService.sample({
-                fund_type: 'subsidies',
-                per_page: 6,
-            }))],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            products: ['ProductService', (ProductService) => repackPagination(ProductService.sample('budget'))],
+            subsidies: ['ProductService', (ProductService) => repackPagination(ProductService.sample('subsidies'))],
         }
     });
 
@@ -659,10 +657,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "fund",
         url: "/funds/{id}",
         component: "fundComponent",
-        data: {
-            id: null
-        },
+        data: { id: null },
         resolve: {
+            configs: resolveConfigs(),
             vouchers: ['AuthService', 'VoucherService', (
                 AuthService, VoucherService
             ) => AuthService.hasCredentials() ? repackResponse(
@@ -676,18 +673,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],
-            products: ['ProductService', (
-                ProductService
-           ) => repackPagination(ProductService.sample({
-               fund_type: 'budget',
-               per_page: 6,
-           }))],
-            subsidies: ['ProductService', (
-                 ProductService
-            ) => repackPagination(ProductService.sample({
-                fund_type: 'subsidies',
-                per_page: 6,
-            }))],
+            products: ['ProductService', 'fund', 'configs', (
+                ProductService, fund, configs,
+            ) => configs.products.list && fund.type == 'budget' ? repackPagination(
+                ProductService.sample('budget')
+            ) : null],
+            subsidies: ['ProductService', 'fund', 'configs', (
+                ProductService, fund, configs,
+            ) => configs.products.list && fund.type == 'subsidies' ? repackPagination(
+                ProductService.sample('subsidies')
+            ) : null],
         }
     });
 
