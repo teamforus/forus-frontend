@@ -10,7 +10,7 @@ let ModalPhysicalCardComponent = function(FormBuilderService, PhysicalCardsServi
         $ctrl.onAttached = $ctrl.modal.scope.onAttached;
 
         $ctrl.activateCodeForm = FormBuilderService.build({
-            code: '1001'
+            code: '100'
         }, (form) => {
             PhysicalCardsService.store(
                 $ctrl.organization.id, 
@@ -39,7 +39,7 @@ let ModalPhysicalCardComponent = function(FormBuilderService, PhysicalCardsServi
     };    
     
     $ctrl.resetPinCode = () => {
-        $ctrl.activateCodeForm.values.code = "1001";
+        $ctrl.activateCodeForm.values.code = "100";
     };    
 };
 
