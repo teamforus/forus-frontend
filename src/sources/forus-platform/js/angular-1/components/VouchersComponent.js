@@ -86,7 +86,10 @@ let VouchersComponent = function(
         $timeout(() => $ctrl.filters.show = false, 0);
     };
 
-    $ctrl.showQrCode = (voucher) => {
+    $ctrl.showQrCode = ($event, voucher) => {
+        $event.stopPropagation();
+        $event.preventDefault();
+
         ModalService.open('voucher_qr_code', {
             voucher: voucher,
             fund: $ctrl.fund,
@@ -186,30 +189,32 @@ let VouchersComponent = function(
     };
 
     $ctrl.exportImages = (type) => {
-        let promisses = [
-            $ctrl.exportQRCodesData(type)
-        ];
+        const promisses = [];
 
-        if (type == 'xls') {
+        if (type == 'xls' || type == 'png') {
             promisses.push($ctrl.exportQRCodesXls());
+        };
+
+        if (type == 'csv' || type == 'png') {
+            promisses.push($ctrl.exportQRCodesData(type));
         };
 
         PageLoadingBarService.setProgress(0);
 
         $q.all(promisses).then(() => {
-            let data = $ctrl.qrCodesData;
-            let csvContent = data.rawCsv;
-            let csvName = 'qr_codes.csv';
-            let vouchersData = data.vouchersData;
-            let zip = new JSZip();
-            let img = vouchersData.length > 0 ? zip.folder("images") : null;
-            let promises = [];
+            const zip = new JSZip();
+            const csvName = 'qr_codes.csv';
+
+            const qrCodesData = $ctrl.qrCodesData;
+            const vouchersData = type == 'png' ? qrCodesData.vouchersData : [];
+            const imgDirectory = vouchersData.length > 0 ? zip.folder("images") : null;
+            const promises = [];
 
             PageLoadingBarService.setProgress(10);
             console.info('- data loaded from the api.');
 
             if (type == 'png' || type == 'csv') {
-                zip.file(csvName, csvContent);
+                zip.file(csvName, qrCodesData.rawCsv);
             }
 
             if (type == 'png' || type == 'xls') {
@@ -231,7 +236,7 @@ let VouchersComponent = function(
 
             Promise.all(promises).then((data) => {
                 console.info('- inserting images into .zip archive.');
-                data.forEach((imgData) => img.file(imgData.name + ".png", imgData.imageData, { base64: true }));
+                data.forEach((imgData) => imgDirectory.file(imgData.name + ".png", imgData.imageData, { base64: true }));
 
                 PageLoadingBarService.setProgress(80);
 

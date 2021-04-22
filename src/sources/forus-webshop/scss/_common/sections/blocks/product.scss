@@ -104,7 +104,6 @@
             flex-direction: row;
             border-bottom: 1px solid $border_color;
             border-radius: $border_radius;
-            overflow: hidden;
 
             .fund-item-section {
                 border-right: 1px solid $border_color;
@@ -230,7 +229,20 @@
             }
         }
     }
-
+    @media screen and (max-width: 1200px) {
+        .product-funds-list {
+            .fund-item {
+                .fund-item-section {
+                    padding: 10px;
+                    .fund-item-section-value {
+                        &.fund-item-section-value-sm {
+                            font: 700 14px/32px $bf;
+                        }
+                    }
+                }
+            }
+        }
+    }
     @media screen and (max-width: 1000px) {
         .product-card {
             flex-direction: column;
@@ -299,6 +311,7 @@
                     .fund-item-section-label {
                         text-align: left;
                         align-items: flex-start;
+                        flex-direction: row;
                     }
 
                     .fund-item-section-value {

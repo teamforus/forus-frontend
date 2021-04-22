@@ -17,7 +17,7 @@
             .divider-img: img(src="./assets/img/Base7.png")
 
         .modal-title Stap 3: {{ "open_in_me.app_header.title" | translate }}
-        .modal-subtitle {{ "open_in_me.app_header.subtitle" | translate }}
+        .modal-subtitle(translate="open_in_me.app_header.subtitle_{{ $root.appConfigs.features.communication_type }}")
 
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
             .form-group

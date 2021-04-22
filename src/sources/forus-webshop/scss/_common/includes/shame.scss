@@ -132,7 +132,7 @@ ui-view {
 
         img {
             &:not(.line-item) {
-                width: 100%;
+                width:215px;
                 border-radius: 5px;
                 box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                 position: relative;
@@ -150,7 +150,7 @@ ui-view {
         }
 
         .app-title {
-            font: 500 16px/24px $bf;
+            font: 500 14px/24px $bf;
             padding: 5px 0 15px 0;
             text-align: center;
         }
@@ -167,7 +167,8 @@ ui-view {
     .app-instruction {
         .step-item {
             padding: 10px 70px;
-
+            width: 25%;
+            
             img {
                 &.line-item {
                     top: 140px;
@@ -184,10 +185,6 @@ ui-view {
 }
 
 @media screen and (max-width: 1000px) {
-    .block-breadcrumbs {
-        margin-top: 10px !important;
-    }
-
     .section-product {
         .section-title {
             display: none;
@@ -228,7 +225,7 @@ ui-view {
         }
 
         .step-item {
-            width: 50%;
+            width: 25%;
             padding: 0 30px;
             vertical-align: top;
 

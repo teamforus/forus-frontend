@@ -17,7 +17,7 @@
             phone-control(ng-model="$ctrl.phoneForm.values.phone" cant-delete-length="2")
             .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
             .text-center
-                .description-small(translate="open_in_me.sms.subdescription")
+                .description-small(translate="open_in_me.sms.subdescription_{{ $root.appConfigs.features.communication_type }}")
             .modal-footer.text-center.no-border
                 button.button.button-primary(type="submit") {{ "open_in_me.sms.button.send" | translate }}
                 button.button.button-dark(type="button" ng-click="$ctrl.skip()") {{ "open_in_me.sms.button.skip" | translate }}
@@ -44,7 +44,7 @@
             .divider-img: img(src="./assets/img/Base7.png")
 
         .modal-title {{ "open_in_me.app_header.title" | translate }}
-        .modal-subtitle {{ "open_in_me.app_header.subtitle" | translate }}
+        .modal-subtitle(translate="open_in_me.app_header.subtitle_{{ $root.appConfigs.features.communication_type }}")
         
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
             .form-group

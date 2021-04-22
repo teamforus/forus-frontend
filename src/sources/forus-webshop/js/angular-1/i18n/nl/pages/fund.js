@@ -9,10 +9,7 @@ module.exports = {
         enddate: "Einddatum:",
         email: "E-Mail:",
         phone: "Telefoonnummer:",
-        fixed_amount: "Vast tegoed:",
-        multiplied_amount: "Vermenigvuldiger:",
-    },
-    buttons: {
-        join: "Doe mee",
-    }  
+        fixed_amount: "Maximaal tegoed:",
+        multiplied_amount: "Tegoed per persoon:",
+    }
 }

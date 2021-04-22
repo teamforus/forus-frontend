@@ -50,7 +50,7 @@ module.exports = {
 
     // PAGES
     signup_options: require("./nl/pages/signup-options"),
-    fund_apply: require("./nl/pages/fund-apply"),
+    fund: require("./nl/pages/fund"),
     fund_request: require("./nl/pages/fund-request"),
     fund_request_clarification: require("./nl/pages/fund-request-clarification"),
     funds: require("./nl/pages/funds"),

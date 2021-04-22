@@ -126,7 +126,7 @@
                 }
             }
 
-            &[ng-click]:hover {
+            &[ng-click]:hover, &[ui-sref]:hover {
                 td,
                 th {
                     background: #f6f8f9;

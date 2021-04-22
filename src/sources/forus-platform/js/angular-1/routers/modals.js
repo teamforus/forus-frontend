@@ -95,6 +95,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalVoucherExportTypeComponent'
     });
 
+    ModalRouteProvider.modal('exportType', {
+        component: 'modalExportTypeComponent'
+    });
+
     ModalRouteProvider.modal('dangerZone', {
         component: 'modalDangerZoneComponent'
     });
@@ -117,5 +121,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('fundAppendRequestRecord', {
         component: 'modalFundAppendRequestRecordComponent'
+    });
+    ModalRouteProvider.modal('physical_card', {
+        component: 'modalPhysicalCardComponent'
     });
 }];

@@ -69,7 +69,7 @@
 
                                 .form-actions
                                     button.button.button-primary.button-wide(
-                                        ng-click="$ctrl.exportList('xls')"
+                                        ng-click="$ctrl.exportList()"
                                         ng-disabled="$ctrl.transactions.meta.total == 0")
                                         em.mdi.mdi-download.icon-start  
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactions.meta.total }")

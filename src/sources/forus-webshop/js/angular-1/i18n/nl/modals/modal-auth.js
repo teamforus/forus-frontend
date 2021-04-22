@@ -8,6 +8,9 @@ module.exports = {
         title_succes_formal: 'Bevestig dat u toegang heeft tot dit e-mailadres.',
         title_succes_informal: 'Bevestig dat je toegang hebt tot dit e-mailadres.',
 
+        subtitle_we_succes_formal: 'U heeft een e-mail ontvangen op {{email}}. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op "Bevestigen".',
+        subtitle_we_succes_informal: 'Je hebt een e-mail ontvangen op {{email}}. Ga naar je inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op "Bevestigen".',
+
         subtitle_succes_formal: 'U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.',
         subtitle_succes_informal: 'Je hebt een e-mail ontvangen op het e-mailadres dat je zojuist hebt ingevuld. Ga naar je inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.',
     },
@@ -72,9 +75,11 @@ module.exports = {
     },
     pin_code: {
         confirmation: {
-            title: "De app wordt gekoppeld aan uw profiel",
+            title_formal: "De app wordt gekoppeld aan uw account",
+            title_informal: "De app wordt gekoppeld aan je account",
             description: "Na vijf tot tien seconden wordt de app gekoppeld. Is het gelukt? Klik dan op volgende.",
-            notice: "Ziet u na dertig seconden nog steeds de zes cijfers in de app? Probeer het dan opnieuw.",
+            notice_formal: "Ziet u na dertig seconden nog steeds de zes cijfers in de app? Probeer het dan opnieuw.",
+            notice_informal: "Zie je na dertig seconden nog steeds de zes cijfers in de app? Probeer het dan opnieuw.",
             buttons: {
                 try_again: "Opnieuw proberen",
                 confirm: "Volgende"
@@ -86,4 +91,6 @@ module.exports = {
     },
     restore_formal: 'Vergeten welk e-mailadres u heeft gebruikt?',
     restore_informal: 'Vergeten welk e-mailadres je hebt gebruikt?',
+    restore_subtitle_formal: 'Herstel uw account door opnieuw in te loggen met DigiD',
+    restore_subtitle_informal: 'Herstel je account door opnieuw in te loggen met DigiD',
 }

@@ -119,14 +119,10 @@ header.section.section-sign-up-choose
             
             //- For existing users
             .sign_up-pane(ng-if="$ctrl.authEmailSent")
-                .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                .sign_up-pane-header(i18n="popup_auth.header.title") 
                 .sign_up-pane-body
                     .sign_up-email_sent
                         .sign_up-email_sent-icon
                             img(src=src_prefix + "./assets/img/modal/email_signup.svg" role="presentation").sign_up-email_sent-icon-img
-                        .sign_up-email_sent-title Bevestig dat u toegang heeft tot dit e-mailadres.
-                        .sign_up-email_sent-text
-                            | U heeft een e-mail ontvangen op 
-                            span(ng-bind="$ctrl.authForm.values.email").text-primary
-                            | . Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" 
-                            | en klik in de e-mail op de blauwe knop.
+                        .sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_succes_' + $root.appConfigs.features.communication_type }}")
+                        .sign_up-email_sent-text(translate="{{ 'popup_auth.header.subtitle_we_succes_' + $root.appConfigs.features.communication_type }}" translate-values="{email: $ctrl.authForm.values.email}")

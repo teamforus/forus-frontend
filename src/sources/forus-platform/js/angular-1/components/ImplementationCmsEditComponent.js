@@ -8,6 +8,14 @@ let ImplementationCmsEditComponent = function(
 
     $ctrl.modelPlaceholder = '';
 
+    $ctrl.communicationTypes = [{
+        value: '1',
+        label: 'Je/jouw',
+    }, {
+        value: '0',
+        label: 'U/uw',
+    }];
+    
     $ctrl.appendMedia = (media_uid, formValue) => {
         if (!Array.isArray(formValue.media_uid)) {
             formValue.media_uid = [];
@@ -40,17 +48,16 @@ let ImplementationCmsEditComponent = function(
     }
 
     $ctrl.$onInit = () => {
-        const { title, description, description_html } = $ctrl.implementation;
+        const { informal_communication } = $ctrl.implementation;
 
         $ctrl.page_types = $ctrl.implementation.page_types;
         $ctrl.page_types_internal = $ctrl.implementation.page_types_internal;
-        $ctrl.markdownPreview = description;
+        $ctrl.implementation.informal_communication = informal_communication ? '1' : '0';
 
         $ctrl.form = FormBuilderService.build({
-            ...{ title, description, description_html, informal_communication, },
+            ...$ctrl.implementation,
             ...{
                 pages: $ctrl.preparePages($ctrl.implementation),
-                informal_communication: $ctrl.implementation.informal_communication ? '1' : '0',
                 media_uid: [],
             }
         }, (form) => {

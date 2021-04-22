@@ -50,6 +50,13 @@
                 .transactions-item-details {
                     flex-grow: 1;
 
+                    .transactions-item-empty {
+                        font: 400 16px $bf;
+                        text-align: center;
+                        color: #282b39;
+                        margin-bottom: 5px;
+                    }
+
                     .transactions-item-counterpart {
                         font: 700 16px $bf;
                         color: #282b39;

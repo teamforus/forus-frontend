@@ -46,7 +46,7 @@ module.exports = {
     topnavbar: require("./en/layout/navbar"),
 
     // PAGES
-    fund_apply: require("./en/pages/fund-apply"),
+    fund: require("./en/pages/fund"),
     fund_request: require("./en/pages/fund-request"),
     funds: require("./en/pages/funds"),
     home: require("./en/pages/home"),
