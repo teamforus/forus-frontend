@@ -174,6 +174,10 @@ let FinancialDashboardComponent = function(
                 return fund.state !== 'waiting';
             });
 
+            $ctrl.budgetFunds = $ctrl.funds.data.filter(function(fund) {
+                return fund.type === 'budget';
+            });
+
             if ($ctrl.funds.meta.total == 1 && !$ctrl.fund) {
                 return $state.go('financial-dashboard-statistics', {
                     organization_id: $ctrl.funds.data[0].organization_id,
@@ -206,27 +210,29 @@ let FinancialDashboardComponent = function(
     };
 
     $ctrl.transformFunds = () => {
-        if (!$ctrl.funds.meta.total) {
+        if (!$ctrl.budgetFunds.length) {
             return;
         }
 
-        $ctrl.funds.data.forEach(fund => {
+        $ctrl.budgetFunds.forEach(fund => {
             fund.collapsedData = false;
 
-            fund.budget.percentageTotal = $ctrl.funds.meta.total_amount > 0 ? 
-                Math.round(fund.budget.total / $ctrl.funds.meta.total_amount * 100) : 0;
+            fund.budget.percentageTotal = $ctrl.funds.meta.vouchers_amount > 0 ? 
+                Math.round(fund.budget.vouchers_amount / $ctrl.funds.meta.vouchers_amount * 100) : 0;
 
             fund.budget.percentageActive = $ctrl.funds.meta.vouchers_active > 0 ? 
-                Math.round(fund.budget.active / $ctrl.funds.meta.vouchers_active * 100) : 0;
+                Math.round(fund.budget.active_vouchers_amount / $ctrl.funds.meta.vouchers_active * 100) : 0;
 
             fund.budget.percentageInactive = $ctrl.funds.meta.vouchers_inactive > 0 ? 
-                Math.round(fund.budget.inactive / $ctrl.funds.meta.vouchers_inactive * 100) : 0;
+                Math.round(fund.budget.inactive_vouchers_amount / $ctrl.funds.meta.vouchers_inactive * 100) : 0;
 
             fund.budget.percentageUsed = $ctrl.funds.meta.used > 0 ? 
                 Math.round(fund.budget.used / $ctrl.funds.meta.used * 100) : 0;
 
             fund.budget.percentageLeft = $ctrl.funds.meta.left > 0 ? 
                 Math.round(fund.budget.left / $ctrl.funds.meta.left * 100) : 0;
+
+            fund.budget.averagePerVoucher = fund.budget.vouchers_count ? fund.budget.vouchers_amount / fund.budget.vouchers_count : 0;
         });
 
         return $ctrl.funds;

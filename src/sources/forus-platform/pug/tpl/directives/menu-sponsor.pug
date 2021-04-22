@@ -66,7 +66,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             translate="menu.finances")
 
         +nav_item(
-            "Overzicht", "financial_dashboard", 'financial-dashboard-overview', 
+            "Overzicht", "financial_dashboard_overview", 'financial-dashboard-overview', 
             '{organization_id: $root.activeOrganization.id, state: "overview"}',
             '$root.activeOrganization | hasPerm:["view_finances"]',
             'financial_dashboard')

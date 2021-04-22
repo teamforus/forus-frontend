@@ -341,6 +341,9 @@ module.exports = {
         },
     },
     financial_dashboard_overview: {
+        header: {
+            title: "Financieel overzicht",
+        },
         labels: {
             funds: "Fonds",
             fund_name: "Fondsnaam",
