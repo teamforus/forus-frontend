@@ -7,13 +7,13 @@ let ModalMarkdownCustomLinkComponent = function(
     let input = false;
 
     $ctrl.$onInit = () => {
-        $ctrl.params = {
-            type: $ctrl.modal.scope.type,
-            hasDescription: $ctrl.modal.scope.hasDescription,
-            description: $ctrl.modal.scope.selection
-        };
+        const { type } = $ctrl.modal.scope;
+        const { text, url } = $ctrl.modal.scope.values;
+        const values = { url, text };
 
-        $ctrl.form = FormBuilderService.build({}, (form) => {
+        $ctrl.linkType = type;
+
+        $ctrl.form = FormBuilderService.build(values, (form) => {
             $ctrl.modal.scope.success(form.values);
             $ctrl.close();
         });
@@ -49,7 +49,7 @@ let ModalMarkdownCustomLinkComponent = function(
         input.click();
     };
 
-    $ctrl.$onDestroy = function() {};
+    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {

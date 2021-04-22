@@ -2,16 +2,20 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header(ng-if="$ctrl.params.type == 'image-link'") Afbeelding link toevoegen
-        .modal-header(ng-if="$ctrl.params.type == 'custom-link'") Link toevoegen
-        .modal-header(ng-if="$ctrl.params.type == 'youtube'") Youtube link
+        .modal-header(ng-if="$ctrl.linkType == 'imageLink'") Afbeelding link toevoegen
+        .modal-header(ng-if="$ctrl.linkType == 'customLink'") Link toevoegen
+        .modal-header(ng-if="$ctrl.linkType == 'youtubeLink'") Youtube link
         .modal-body
             .modal-section
-                .form-group(ng-if="$ctrl.params.type != 'image-link'")
+                .form-group(ng-if="$ctrl.linkType === 'customLink'")
+                    label.form-label Beschrijving
+                    input(type="text" ng-model="$ctrl.form.values.text").form-control
+
+                .form-group(ng-if="$ctrl.linkType === 'customLink' || $ctrl.linkType === 'youtubeLink'")
                     label.form-label URL
                     input(type="text" ng-model="$ctrl.form.values.url").form-control
 
-                .form-group(ng-if="$ctrl.params.type == 'image-link'"): .flex-row
+                .form-group(ng-if="$ctrl.linkType == 'imageLink'"): .flex-row
                     .flex-col.flex-grow
                         label.form-label URL Afbeelding
                         input(type="text" ng-model="$ctrl.form.values.url").form-control
@@ -20,10 +24,6 @@
                         button(type="button" ng-click="$ctrl.selectMedia()").button.button-primary.nowrap
                             em.mdi.mdi-upload.icon-start
                             | Upload image
-
-                .form-group(ng-if="$ctrl.params.hasDescription")
-                    label.form-label Beschrijving
-                    input(type="text" ng-init="$ctrl.form.values.description=$ctrl.params.description" ng-model="$ctrl.form.values.description").form-control
 
         .modal-footer.text-center
             button.button.button-primary(type="submit") Bevestig

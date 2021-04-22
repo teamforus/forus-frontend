@@ -24,6 +24,7 @@ let ImplementationCmsEditComponent = function(
                 external: false,
                 external_url: '',
                 content: '',
+                content_html: '',
             }
 
             if (page_types_internal.includes(page_type)) {
@@ -39,13 +40,14 @@ let ImplementationCmsEditComponent = function(
     }
 
     $ctrl.$onInit = () => {
-        const { title, description } = $ctrl.implementation;
+        const { title, description, description_html } = $ctrl.implementation;
 
         $ctrl.page_types = $ctrl.implementation.page_types;
         $ctrl.page_types_internal = $ctrl.implementation.page_types_internal;
+        $ctrl.markdownPreview = description;
 
         $ctrl.form = FormBuilderService.build({
-            ...{ title, description, informal_communication, },
+            ...{ title, description, description_html, informal_communication, },
             ...{
                 pages: $ctrl.preparePages($ctrl.implementation),
                 informal_communication: $ctrl.implementation.informal_communication ? '1' : '0',
