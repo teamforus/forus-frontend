@@ -22,7 +22,7 @@ module.exports = {
         header: {
             main: "{{ fundname }} aanvraag",
             title: "Aanmelden",
-            title_log_digid: "Log in met DigiD",
+            title_log_digid: "Eenmalig inloggen met DigiD",
             title_fund_already_applied: "Aanvraag in behandeling"
         },
         subtitles: {
