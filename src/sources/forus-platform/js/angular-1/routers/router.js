@@ -554,6 +554,47 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ProductCategoryService
             ) => repackResponse(ProductCategoryService.list({
                 parent_id: 'null'
+            }))],
+            providerOrganizations: ['permission', 'OrganizationService', '$transition$', (
+                permission, OrganizationService, $transition$
+            ) => permission ? repackResponse(OrganizationService.providerOrganizations(
+                $transition$.params().organization_id
+            )) : permission],
+            postcodes: ['permission', 'OrganizationService', '$transition$', (
+                permission, OrganizationService, $transition$
+            ) => permission ? repackResponse(OrganizationService.providerPostcodesList(
+                $transition$.params().organization_id
+            )) : permission]
+        }
+    });
+
+    $stateProvider.state({
+        name: "financial-dashboard-old",
+        url: "/organizations/{organization_id}/financial-dashboard-old/funds?fund_id",
+        component: "financialDashboardOldComponent",
+        params: {
+            fund_id: null,
+        },
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('financial-dashboard', 'view_finances'),
+            fund: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => {
+                return $transition$.params().fund_id != null ? repackResponse(FundService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().fund_id
+                )) : new Promise((res) => res(null));
+            }],
+            funds: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => repackResponse(FundService.list(
+                $transition$.params().organization_id
+            ))],
+            productCategories: ['ProductCategoryService', (
+                ProductCategoryService
+            ) => repackResponse(ProductCategoryService.list({
+                parent_id: 'null'
             }))]
         }
     });

@@ -49,11 +49,10 @@ const FundService = function(ApiRequest, ModalService) {
             return ApiRequest.get(sprintf('/platform/funds/%s', fund_id), query);
         };
 
-        this.readFinances = function(organization_id, fund_id, query = {}) {
+        this.readFinances = function(organization_id, query = {}) {
             return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/finances',
-                organization_id,
-                fund_id
+                uriPrefix + '%s/funds-finances',
+                organization_id
             ), query);
         };
 

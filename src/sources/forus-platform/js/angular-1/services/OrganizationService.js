@@ -97,6 +97,36 @@ module.exports = [
                 ), query);
             };
 
+            this.providerPostcodesList = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/postcodes',
+                    organization_id
+                ), query);
+            };
+
+            this.providerFinanceTotals = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/finances-totals',
+                    organization_id
+                ), query);
+            };
+
+            this.providerFinance = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/finances-provider',
+                    organization_id
+                ), query);
+            };
+
+            this.exportFinances = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/finances-export',
+                    organization_id
+                ), query, {}, true, (_cfg) => {
+                    return { ..._cfg, ...{ responseType: 'arraybuffer', cache: false } };
+                });
+            };
+
             this.providerOrganizationsExport = function(organization_id, query = {}) {
                 return ApiRequest.get(sprintf(
                     '/platform/organizations/%s/sponsor/providers/export',
