@@ -24,7 +24,7 @@ section.section.section-voucher-details: .wrapper
                             em.mdi.mdi-clock-outline 
                             | {{ notification.created_at_locale }}
                         td
-                            .notification-title(ng-bind="notification.title")
+                            .notification-title(role="heading" ng-bind="notification.title")
                             .notification-description(ng-bind="notification.description")
                             .notification-date.show-sm
                                 em.mdi.mdi-clock-outline 
