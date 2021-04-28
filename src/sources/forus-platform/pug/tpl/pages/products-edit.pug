@@ -44,7 +44,10 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.description")
-                        .form-offset: markdown(ng-model="$ctrl.form.values.description" disabled="{{!$ctrl.isEditable}}")
+                        .form-offset: markdown(
+                            ng-model="$ctrl.form.values.description" 
+                            value="$ctrl.form.values.description_html" 
+                            disabled="{{!$ctrl.isEditable}}")
                         tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 

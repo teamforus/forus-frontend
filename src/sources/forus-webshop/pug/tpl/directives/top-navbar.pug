@@ -14,9 +14,9 @@
 
         .block.block-auth.show-sm
             .auth-in(ng-if="$root.auth_user").show-sm
-                    .button.button-mobile(ng-click="$root.signOut()")
-                        include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
-                        div(translate="topnavbar.buttons.logout")
+                .button.button-mobile(ng-click="$root.signOut()")
+                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
+                    div(translate="topnavbar.buttons.logout")
 
             .auth-out(ng-if="!$root.auth_user" id="login_mobile")                
                 .button.button-default(ng-click="openAuthPopup()").hide-sm

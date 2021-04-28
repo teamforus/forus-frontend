@@ -1,1 +1,1 @@
-.block.block-page-loading-bar(ng-class="{start: $dir.progress == 0, complete: $dir.progress == 100}" style="width: {{ $dir.progress }}%")
+.block.block-page-loading-bar(ng-class="{start: $dir.progress == 0, complete: $dir.progress == 100}" ng-style="{width: $dir.progress + '%'}")

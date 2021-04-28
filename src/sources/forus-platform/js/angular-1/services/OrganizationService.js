@@ -248,6 +248,7 @@ module.exports = [
                     business_type_id: apiResource.business_type_id,
                     name: apiResource.name,
                     description: apiResource.description,
+                    description_html: apiResource.description_html,
                     iban: apiResource.iban,
                     email: apiResource.email,
                     email_public: !!apiResource.email_public,

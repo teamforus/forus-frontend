@@ -52,6 +52,9 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-label-tabs.scss';
     @import 'blocks/block-timeframe.scss';
     @import 'blocks/block-financial-dashboard.scss';
+    @import 'blocks/block-banner-picker.scss';
+    @import 'blocks/block-markdownable.scss';
+    @import 'blocks/block-markdown.scss';
 }
 
 
@@ -4603,110 +4606,6 @@ body {
             .line-item {
                 display: none;
             }
-        }
-    }
-
-    &.block-markdownable {
-        .markdown-toolbar-title {
-            float: left;
-            line-height: 50px;
-        }
-    
-        .markdow-hint {
-            font: 300 14px $bf;
-            margin: 0;
-        }
-    
-        .toolbar-group {
-            display: block;
-            margin-left: 10px;
-            margin-bottom: 10px;
-            float: left;
-    
-            &:first-child {
-                margin-left: 0;
-            }
-        }
-    
-        .mdi {
-            display: block;
-            width: 36px;
-            text-align: center;
-            line-height: 35px;
-            font-size: 20px;
-        }
-    
-        .toolbar-item {
-            transition: .4s;
-            display: block;
-            float: left;
-            padding: 0px;
-            color: #000000;
-            background: none;
-            border: 1px solid $borderColor;
-            height: 36px;
-            width: 36px;
-            cursor: pointer;
-            opacity: .7;
-            text-align: center;
-            margin-right: 5px;
-            border-radius: 4px;
-            background: lighten($color: #eee, $amount: 3);
-            box-shadow: 2px 2px 10px rgba($color: #000000, $alpha: .01);
-    
-            &.active {
-                background-color: #ff0000;
-                color: #fff;
-    
-                &:hover {
-                    background: lighten($color: #ff0000, $amount: 10);
-                    box-shadow: 2px 2px 20px rgba($color: #000000, $alpha: .05);
-                }
-            }
-    
-            img {
-                height: 100%;
-                display: inline-block;
-            }
-
-            &[disabled] {
-                background-color: #f1f1f1;
-                border: 1px solid #d4d9dd;
-                color: #000000;
-                pointer-events: none;
-
-                &:hover {
-                    background-color: #f1f1f1;
-                    border: 1px solid #d4d9dd;
-                    color: #000000;
-                }
-            }
-    
-            &:hover {
-                opacity: 1;
-                background: lighten($color: #eee, $amount: 10);
-                box-shadow: 2px 2px 20px rgba($color: #000000, $alpha: .05);
-    
-                path {
-                    fill: #0366d6;
-                }
-            }
-    
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-    
-        .tooltipped {
-            position: relative;
-        }
-    
-        .markdown-toolbar {
-            @include cf();
-        }
-    
-        .markdown-textarea {
-            min-height: 200px;
         }
     }
 
