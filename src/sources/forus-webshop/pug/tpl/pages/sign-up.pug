@@ -9,7 +9,7 @@ header.section.section-sign-up-choose
                 .sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
 
                 .sign_up-pane-body
-                    .sign_up-pane-media: img(src="./assets/img/fund-request-error.png")
+                    .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" role="presentation")
                     p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
                     
                     ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
@@ -40,14 +40,14 @@ header.section.section-sign-up-choose
         //- Fund request information
         div(ng-if="$ctrl.state == 'auth'")
             .sign_up-pane(ng-show="!$ctrl.authForm.autofill")
-                .sign_up-pane-header(translate="fund_request.sign_up.header.title")
+                .sign_up-pane-header(translate="fund_request.sign_up.header.title" role="heading")
 
                 .sign_up-pane-body(ng-if="!$ctrl.hasApp")
                     form(ng-submit="$ctrl.authForm.submit()").form
                         .row
                             .form-group.col.col-lg-9
-                                label.form-label(i18n="popup_auth.input.mail")
-                                ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl")
+                                label.form-label(i18n="popup_auth.input.mail" for="email")
+                                ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email")
                                 .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
                             .form-group.col.col-lg-3
                                 label.form-label.hide-sm &nbsp;

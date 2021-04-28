@@ -5,7 +5,7 @@
     .modal-window
         .modal-header(ng-if="$ctrl.header")
             span(ng-bind="$ctrl.header")
-            .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
 
         .modal-body: .modal-section
             .block.block-danger_zone

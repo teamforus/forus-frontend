@@ -7,7 +7,23 @@
             .breadcrumb-item.active Content Management System
 
         .card: form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title(i18n="implementation_edit.header.title")
+            .card-header.flex-row
+                .card-title(i18n="implementation_edit.header.title")
+                .flex.flex-grow.flex-end: .flex
+                    a(href="{{ $ctrl.implementation.url_webshop }}" target="_blank").button.button-text.button-sm 
+                        | Open webshop
+                        .mdi.mdi-link-variant.icon-end
+                    button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
+
+            .card-section.card-section-padless
+                photo-selector(
+                    fill-style="false"
+                    type="implementation_banner"
+                    template="photo-selector-banner"
+                    template-data="$ctrl.bannerMeta"
+                    thumbnail="$ctrl.bannerMedia.sizes.medium"
+                    thumbnail-size="{x: 1000, y: 250}"
+                    select-photo="$ctrl.selectBanner(file)")
 
             .card-section.card-section-primary: .row: .col.col-lg-9
                 .form-group.form-group-inline.form-group-inline-lg
@@ -17,9 +33,12 @@
 
                 .form-group.form-group-inline.form-group-inline-lg
                     label(translate="implementation_edit.labels.header_description").form-label
+                    text-angular(ng-model="$ctrl.form.values.description_html")
+
                     .form-offset: markdown(
                         extended-options="true"
-                        ng-model="$ctrl.form.values.description" 
+                        value="$ctrl.form.values.description_html" 
+                        ng-model="$ctrl.form.values.description"
                         media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
@@ -63,6 +82,7 @@
                         .form-offset
                             markdown(
                                 extended-options="true"
+                                value="$ctrl.form.values.pages[key].content_html" 
                                 ng-model="$ctrl.form.values.pages[key].content" 
                                 media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values.pages[key])")
 
