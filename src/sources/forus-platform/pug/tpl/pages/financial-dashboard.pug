@@ -41,15 +41,15 @@
                                                             .checkbox-box: .mdi.mdi-check
                                                             span(ng-bind="item.name")
 
-                            +dropdown('funds', 'Fondsen', 'Zook voor fondsen', '$ctrl.funds')
-                            +dropdown('providerOrganizations', 'Aanbieder', 'Zook voor een aanbieder', '$ctrl.providerOrganizations')
-                            +dropdown('postcodes', 'Postcode', 'Zook voor een postcode', '$ctrl.postcodes')
+                            +dropdown('funds', 'Fondsen', 'Selecteer fondsen', '$ctrl.funds')
+                            +dropdown('providerOrganizations', 'Aanbieders', 'Selecteer aanbieders', '$ctrl.providerOrganizations')
+                            +dropdown('postcodes', 'Postcodes', 'Selecteer postcodes', '$ctrl.postcodes')
                             //- +dropdown('productCategories', 'Categorie', 'Zook voor een categorie', '$ctrl.productCategories')
 
                         //- Todo: filters
                         .block.block-label-tabs
                             //- .label-tab Dag
-                            //- .label-tab Week
+                            .label-tab.label-tab-disabled Week
                             .label-tab.label-tab-disabled Maand
                             .label-tab.label-tab-disabled Kwartaal
                             .label-tab.active Jaar
@@ -119,7 +119,7 @@
                 .financial-totals-col
                     .financial-totals-header
                         .financial-totals-label Totaal uitgegeven
-                        .financial-totals-label.financial-totals-label-sm Totaal transacties
+                        .financial-totals-label.financial-totals-label-sm Totaal aantal transacties
                     .financial-totals-content
                         .financial-totals-value(ng-bind="$ctrl.chartData.response.totals.amount | currency_format")
                         .financial-totals-value(ng-bind="$ctrl.chartData.response.totals.count")
