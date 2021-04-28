@@ -541,7 +541,8 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 logoExtension: '.png',
-
+                fundsMenu: true,    
+                fundsMenuIfLoggedOut: true,   
                 // menu settings
                 meAppMenu: false,
                 forusPlatformMenu: false,
@@ -763,6 +764,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             log_out_time: false,
             flags: {
+                fundsMenu: true,
                 accessibilityPage: false,
             },
             sessions: sessions,
@@ -846,7 +848,8 @@ module.exports = (core) => {
         'dashboard_general_sponsor',
         'dashboard_general_provider',
         'dashboard_general_validator',
-        'webshop_general'
+        'webshop_potjeswijzer',
+        'webshop_groningen'
     ]);
 
     //- Enable all but given platforms (will ignore: 'core.enableOnly' when used)

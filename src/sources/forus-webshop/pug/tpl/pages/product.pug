@@ -106,7 +106,7 @@ section.section.section-product: .wrapper
                         .organization-title-value(ng-bind="$ctrl.product.organization.name")
                         .organization-title-count(ng-bind="$ctrl.product.offices.length")
                     .organization-chevron(ng-click="$ctrl.toggleOffices($event, $ctrl.product.organization)")
-                        .mdi(ng-class="'mdi-chevron-' + ($ctrl.product.organization.showOffices ? 'up' : 'right')")           
+                        .mdi(ng-class="'mdi-chevron-' + ($ctrl.product.organization.showOffices ? 'up' : 'right')" role = "link")           
       
         .block.block-organizations(ng-if="$ctrl.product.organization.showOffices"): .organization-item
             .organization-offices: .block.block-offices

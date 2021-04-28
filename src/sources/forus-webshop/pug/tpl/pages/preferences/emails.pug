@@ -12,7 +12,7 @@ section.section.section-voucher-details: .wrapper
                 .profile-content-header.clearfix
                     .profile-content-title
                         div.pull-left
-                            | {{ 'email_preferences.title_email_preferences' | translate }}
+                            h1.profile-content-header {{ 'email_preferences.title_email_preferences' | translate }}
 
                 p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
                 
@@ -57,7 +57,7 @@ section.section.section-voucher-details: .wrapper
                 .card
                     .card-section.card-section-primary(ng-if="!$ctrl.form && !$ctrl.formSuccess")
                         .card-heading.card-heading-lg Voeg een e-mailadres toe
-                        .button.button-primary(ng-click="$ctrl.createNewEmailForm()") 
+                        .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button") 
                             em.mdi.mdi-plus-circle.icon-start
                             | E-mail toevoegen
                     
@@ -74,4 +74,4 @@ section.section.section-voucher-details: .wrapper
                     .card-section.card-section-primary(ng-if="!$ctrl.form && $ctrl.formSuccess")
                         .card-heading.card-heading-lg.card-heading-padless(translate="{{ 'email_preferences.email_added.title_' +  $root.appConfigs.features.communication_type }}") Bevestig e-mailadres 
                         .card-text(translate="{{ 'email_preferences.email_added.description_' +  $root.appConfigs.features.communication_type }}")
-                        .button.button-primary(ng-click="$ctrl.createNewEmailForm()") Voeg nog een e-mailadres toe
+                        .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button") Voeg nog een e-mailadres toe

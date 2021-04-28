@@ -60,7 +60,7 @@ block content
                             .organization-title-value(ng-click="$ctrl.goToProvider($event, $ctrl.provider)" ng-bind="$ctrl.provider.name")
                             .organization-title-count(ng-click="$ctrl.goToProvider($event, $ctrl.provider)" ng-bind="$ctrl.provider.offices.length")
                         
-                        .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')")
+                        .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')" role = "link")
             
             .block.block-organizations
                 .organization-item

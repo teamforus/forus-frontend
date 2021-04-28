@@ -4,7 +4,7 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Sign In by qr-code
     .modal-window: .modal-content
-        a.modal-close.mdi.mdi-close(href="#" ng-click="$ctrl.close()" id="close")
+        a.modal-close.mdi.mdi-close(href="#" ng-click="$ctrl.close()" id="close" role="button")
 
         .block.block-auth-widget(ng-if="!$ctrl.restoreWithDigId")
             .auth-title Login met e-mail
