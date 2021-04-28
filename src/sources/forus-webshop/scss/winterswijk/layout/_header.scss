@@ -1,30 +1,28 @@
 .section {
     &.section-header {
-        @media screen and (min-width: 1024px) {
-            background-size: cover;
-            background-position: center center;
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 18px;
+
+            .header-title {
+                font-size: 40px;
+            }
+
+            .header-description {
+                font-size: 18px;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
             .header-content {
-                max-width: 800px;
-                left: 0;
-                right: 0;
-                margin: 0 auto;
-                margin-left: auto;
-                margin-right: auto;
-                color: $tc-var;
-                text-align: center;
                 .header-title {
-                    text-align: center;
-                    font: 700 40px/1.5em $bf;
+                    font-size: 28px;
                 }
-                .header-description, .block-markdown>p  {
-                    text-align: center;
-                    p {
-                        font: 400 18px/1.5em $bf;
-                    }
-                }
-                .header-how-it-works, .block-markdown>p>a {
-                    color: $tc-var;
-                    font-style: normal;
+
+                .header-description {
+                    font-size: 16px;
                 }
             }
         }

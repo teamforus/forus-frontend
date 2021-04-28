@@ -1,6 +1,7 @@
-let HomeComponent = function(
+let HomeComponent = function (
     $state,
     $stateParams,
+    $interval,
     $sce,
     appConfigs,
     ModalService,
@@ -8,14 +9,15 @@ let HomeComponent = function(
     VoucherService
 ) {
     let $ctrl = this;
+    let val = 0;
 
     $ctrl.appConfigs = appConfigs;
     $ctrl.implementation_name = appConfigs.features.implementation_name;
-    
+
     $ctrl.digidAvailable = appConfigs.features.digid;
 
     if ($stateParams.confirmed) {
-        return  $state.go('start');
+        return $state.go('start');
     }
 
     $ctrl.startFundRequest = () => {
@@ -51,9 +53,19 @@ let HomeComponent = function(
             });
         }
 
-        $ctrl.description_html = $sce.trustAsHtml(
-            appConfigs.features.settings.description_html
-        );
+        if (appConfigs.features.banner) {
+            $ctrl.headerStyle = {
+                'background-image': 'url("' + appConfigs.features.banner.sizes.large + '")',
+            }
+        }
+
+        $ctrl.overlayStyles = { opacity: $ctrl.appConfigs.features.settings.overlay_opacity };
+
+        if ($ctrl.appConfigs.features.settings.overlay_type != 'color') {
+            $ctrl.overlayStyles['background-image'] = 'url("/assets/img/banner-patterns/' + $ctrl.appConfigs.features.settings.overlay_type + '.svg")';
+        }
+
+        $ctrl.description_html = $sce.trustAsHtml(appConfigs.features.settings.description_html);
     };
 };
 
@@ -70,6 +82,7 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        '$interval',
         '$sce',
         'appConfigs',
         'ModalService',

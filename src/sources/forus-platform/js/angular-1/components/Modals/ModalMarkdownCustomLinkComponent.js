@@ -6,6 +6,8 @@ let ModalMarkdownCustomLinkComponent = function(
     let $ctrl = this;
     let input = false;
 
+    $ctrl.errors = {};
+
     $ctrl.$onInit = () => {
         const { type } = $ctrl.modal.scope;
         const { text, url } = $ctrl.modal.scope.values;
@@ -35,13 +37,14 @@ let ModalMarkdownCustomLinkComponent = function(
         input.style.display = 'none';
 
         input.addEventListener('change', async (e) => {
-            let res = await MediaService.store('cms_media', e.target.files[0], [
+            MediaService.store('cms_media', e.target.files[0], [
                 'public'
-            ]);
-
-            $ctrl.media = res.data.data;
-            $ctrl.form.values.url = $ctrl.media.sizes.public;
-            $ctrl.form.values.uid = $ctrl.media.uid;
+            ]).then((res) => {
+                $ctrl.errors = {};
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.url = $ctrl.media.sizes.public;
+                $ctrl.form.values.uid = $ctrl.media.uid;
+            }, (res) => $ctrl.errors = res.data.errors);
         });
 
         $element[0].appendChild(input);

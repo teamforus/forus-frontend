@@ -7,7 +7,23 @@
             .breadcrumb-item.active Content Management System
 
         .card: form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title(i18n="implementation_edit.header.title")
+            .card-header.flex-row
+                .card-title(i18n="implementation_edit.header.title")
+                .flex.flex-grow.flex-end: .flex
+                    a(href="{{ $ctrl.implementation.url_webshop }}" target="_blank").button.button-text.button-sm 
+                        | Open webshop
+                        .mdi.mdi-link-variant.icon-end
+                    button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
+
+            .card-section.card-section-padless
+                photo-selector(
+                    fill-style="false"
+                    type="implementation_banner"
+                    template="photo-selector-banner"
+                    template-data="$ctrl.bannerMeta"
+                    thumbnail="$ctrl.bannerMedia.sizes.medium"
+                    thumbnail-size="{x: 1000, y: 250}"
+                    select-photo="$ctrl.selectBanner(file)")
 
             .card-section.card-section-primary: .row: .col.col-lg-9
                 .form-group.form-group-inline.form-group-inline-lg

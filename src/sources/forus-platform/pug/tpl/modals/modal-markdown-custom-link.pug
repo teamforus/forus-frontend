@@ -19,6 +19,8 @@
                     .flex-col.flex-grow
                         label.form-label URL Afbeelding
                         input(type="text" ng-model="$ctrl.form.values.url").form-control
+                        .form-error(ng-repeat="error in $ctrl.errors.file" ng-bind="error")
+
                     .flex-col
                         label.form-label &nbsp;
                         button(type="button" ng-click="$ctrl.selectMedia()").button.button-primary.nowrap
