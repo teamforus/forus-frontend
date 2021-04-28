@@ -1,6 +1,6 @@
 const dasherize = require("underscore.string/dasherize");
 
-let ModalsRootDirective = function($scope, $element, $timeout, ModalService, ModalRoute) {
+let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
     let routeModals = ModalRoute.modals();
 
     $scope.modals = ModalService.getModals();
@@ -25,14 +25,6 @@ let ModalsRootDirective = function($scope, $element, $timeout, ModalService, Mod
             };
         });
     };
-
-    angular.element('body').on('keydown.modal', function(e) {
-        if (e.keyCode === 27) {
-            $scope.modals.forEach(modal => {
-                modal.close();
-            });
-        }
-    });
 };
 
 module.exports = () => {
@@ -40,8 +32,6 @@ module.exports = () => {
         restrict: "EA",
         controller: [
             '$scope',
-            '$element',
-            '$timeout',
             'ModalService',
             'ModalRoute',
             ModalsRootDirective
