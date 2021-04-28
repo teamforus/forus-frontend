@@ -341,6 +341,30 @@ module.exports = {
         },
     },
 
+    financial_dashboard_overview: {
+        header: {
+            title: "Financieel overzicht",
+        },
+        labels: {
+            funds: "Fonds",
+            fund_name: "Fondsnaam",
+            total_budget: "Totaal gestort",
+            current_budget: "Huidig saldo",
+            used_budget: "Uitgaven",
+            transaction_costs: "Transactiekosten",
+            total: "Totaal",
+            active: "Actief",
+            inactive: "Inactief",
+            used: "Uitgaven",
+            left: "Restant",
+            total_percentage: "Totaal percentage",
+            total_count: "Totaalaantal"
+        },
+        buttons: {
+            export: "Exporteren"
+        }
+    },
+
     // EDIT IMPLEMENTATION = implementation-edit.pug
     implementation_edit: {
         header: {

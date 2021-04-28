@@ -559,6 +559,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    $stateProvider.state({
+        name: "financial-dashboard-overview",
+        url: "/organizations/{organization_id}/financial-dashboard/overview",
+        component: "financialDashboardOverviewComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('financial-dashboard', 'view_finances'),
+            funds: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => repackPagination(FundService.list(
+                $transition$.params().organization_id
+            ))],
+        }
+    });
+
     /**
      * Offices
      */

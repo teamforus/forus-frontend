@@ -1794,6 +1794,24 @@ body {
             font: 500 16px/20px $bf;
         }
     }
+
+    &.card-block-financial {
+        .table {
+            .table-separator {
+                border-bottom: 2px solid #d4d9dd;
+            }
+
+            tr {
+                &.table-totals {
+                    border-top: 3px solid #134478;
+
+                    td {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .block {

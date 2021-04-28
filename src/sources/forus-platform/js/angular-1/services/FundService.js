@@ -178,6 +178,30 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         /**
+         * Export funds data
+         * 
+         * @param {number} organization_id 
+         * @param {number} fund_id 
+         * @param {number} provider_id 
+         * @param {object} query 
+         * @returns {Promise}
+         */
+         this.export = function(
+            organization_id,
+            query = {}
+        ) {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/funds/export', 
+                organization_id
+            ), query, {}, true, (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
+
+                return _cfg;
+            });
+        };
+
+        /**
          * Get provider finances overview
          * 
          * @param {number} organization_id 
