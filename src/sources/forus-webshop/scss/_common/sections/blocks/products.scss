@@ -2,23 +2,24 @@
     &.block-products {
         margin: 20px -15px 30px;
         flex-wrap: wrap;
+        font-size: 0;
 
         .product-item {
             margin: 0 0 30px;
             padding: 0 15px;
             display: inline-block;
-            max-width: 33.333%;
+            max-width: 33.333%; 
+            font-size: initial;
 
             .product-image {
                 width: 100%;
-                border-radius: 10px 10px 0 0;
+                border-radius: $border_radius $border_radius 0 0;
                 overflow: hidden;
                 display: block;
                 position: relative;
                 transform: translate(0, 0);
                 transition: .4s;
                 box-shadow: 0 0 0 rgba(#000, .05);
-                border: 1px solid #ececec;
                 background-size: cover;
                 background-position: 50% 50%;
 

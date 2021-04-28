@@ -122,4 +122,7 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundAppendRequestRecord', {
         component: 'modalFundAppendRequestRecordComponent'
     });
+    ModalRouteProvider.modal('physical_card', {
+        component: 'modalPhysicalCardComponent'
+    });
 }];

@@ -11,6 +11,10 @@ module.exports = [
                 ].join(''), query);
             };
 
+            this.get = function(address) {
+                return ApiRequest.get('/platform/organizations/' + address);
+            }
+
             this.store = (organization_id, data) => {
                 return ApiRequest.post([
                     '/platform/organizations/' + organization_id,

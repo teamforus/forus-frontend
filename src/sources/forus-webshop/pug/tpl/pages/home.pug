@@ -1,16 +1,25 @@
 top-navbar.nav-var
 
 main(id="main")
-    header.section.section-header.section-header-landing
-        .header-note(translate="home.header.{{ $root.client_key }}.header_note" translate-default="{{'home.header.header_note' | translate }}")
+    header.section.section-header.section-header-landing(
+        ng-style="$ctrl.headerStyle"
+        ng-class="['section-header-' + $ctrl.appConfigs.features.settings.banner_text_color]")
+
+        .header-overlay(
+            ng-if="$ctrl.appConfigs.features.settings.overlay_enabled" 
+            ng-class="{'header-overlay-pattern': $ctrl.appConfigs.features.settings.overlay_type != 'color'}"
+            ng-style="$ctrl.overlayStyles")
+
+        .header-note(
+            translate="home.header.{{ $root.client_key }}.header_note" 
+            translate-default="{{'home.header.header_note' | translate }}")
+        
         .wrapper
-            .header-sprite 
-            //- .header-content(ng-if="$ctrl.funds.length <= 1")
             .header-content
 
                 h1.header-title(ng-if="$ctrl.appConfigs.features.settings.title" ng-bind="$ctrl.appConfigs.features.settings.title")
                 h1.header-title(ng-if="!$ctrl.appConfigs.features.settings.title" translate="home.header.{{ $root.client_key }}.title" translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")
-                
+
                 .header-description#desc(ng-if="$ctrl.appConfigs.features.settings.description")
                     .block.block-markdown(ng-bind-html="$ctrl.description_html")
 

@@ -45,7 +45,9 @@ section.section.section-product: .wrapper
                             | {{ "product.labels.expire_prefix" | translate }} {{ fund.shownExpireDate }}
                     
                     .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
-                        .fund-item-section-label(translate="product.labels.limit" ng-if="$root.auth_user")
+                        .fund-item-section-label.tooltip-block(ng-if="$root.auth_user")
+                            | #[span(translate="product.labels.limit")]
+                            | #[tooltip(text="'product.tooltip'" ng-if="$root.auth_user")]
                         .fund-item-section-value(ng-bind="fund.limit_available" ng-if="$root.auth_user")
                         .fund-item-section-label(translate="product.labels.max_limit" ng-if="!$root.auth_user")
                         .fund-item-section-value(ng-bind="fund.limit_available" ng-if="!$root.auth_user")

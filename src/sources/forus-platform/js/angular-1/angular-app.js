@@ -22,6 +22,7 @@ app.component('fundsEditComponent', require('./components/FundsEditComponent'));
 app.component('fundsShowComponent', require('./components/FundsShowComponent'));
 app.component('transactionsComponent', require('./components/TransactionsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
+app.component('vouchersShowComponent', require('./components/VouchersShowComponent'));
 app.component('productVouchersComponent', require('./components/ProductVouchersComponent'));
 app.component('officesComponent', require('./components/OfficesComponent'));
 app.component('officesEditComponent', require('./components/OfficesEditComponent'));
@@ -87,6 +88,7 @@ app.component('modalFundProviderChatProviderComponent', require('./components/Mo
 app.component('modalFundProviderChatMessageComponent', require('./components/Modals/ModalFundProviderChatMessageComponent'));
 app.component('modalDuplicatesPickerComponent', require('./components/Modals/ModalDuplicatesPickerComponent'));
 app.component('modalFundAppendRequestRecordComponent', require('./components/Modals/ModalFundAppendRequestRecordComponent'));
+app.component('modalPhysicalCardComponent', require('./components/Modals/ModalPhysicalCardComponent'));
 app.component('modalExportTypeComponent', require('./components/Modals/ModalExportTypeComponent'));
 
 // Modal Components
@@ -140,6 +142,7 @@ app.service('FundProviderChatService', require('./services/FundProviderChatServi
 app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('ImplementationService', require('./services/ImplementationService'));
 app.service('HelperService', require('./services/HelperService'));
+app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
 
 // Directives
 app.directive('menu', {
@@ -227,6 +230,7 @@ app.provider('I18nLib', require('./providers/I18nLibProvider'));
 // Filters
 app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
+app.filter('json_pretty', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('file_size', require('./filters/FileSizeFilter'));
 app.filter('hasPerm', require('./filters/HasPerm'));

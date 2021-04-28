@@ -1,10 +1,6 @@
 module.exports = {
     test: "{{name}} {{foo}}",
-    permissions: {
-        title: "Geen rechten",
-        description: "U heeft geen rechten om deze actie uit te voeren."
-    },
-    //permissions: require("./en/permissions"),
+    permissions: require('./nl/permissions'),
     page_title: 'Platform Forus',
     page_state_titles: {
         home: 'Forus platform home',
@@ -48,6 +44,7 @@ module.exports = {
     // MODALS
     modals: {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
+        modal_voucher_physical_card: require('./nl/modals/modal-voucher-physical-card.pug.i18n'),
         modal_product_voucher_create: require('./nl/modals/modal-product-voucher-create.pug.i18n'),
         modal_voucher_qr_code: require('./nl/modals/modal-voucher-qr_code.pug.i18n'),
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),

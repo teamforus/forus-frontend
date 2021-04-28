@@ -14,10 +14,9 @@
 
         .block.block-auth.show-sm
             .auth-in(ng-if="$root.auth_user").show-sm
-                    .button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
-                        include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
-                        div(translate="topnavbar.buttons.logout")
-
+                .button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
+                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
+                    div(translate="topnavbar.buttons.logout")
             .auth-out(ng-if="!$root.auth_user" id="login_mobile")                
                 .button.button-default(ng-click="openAuthPopup()" role="button" aria-label="login").hide-sm
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
@@ -50,7 +49,7 @@
                     ui-sref-active="active"
                     translate="topnavbar.items.home")
 
-            nav.navbar-item-wrapper(ng-if="$root.auth_user && $root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
+            nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
                 a.navbar-item(
                     ui-sref="funds" 
                     ui-sref-active="active"

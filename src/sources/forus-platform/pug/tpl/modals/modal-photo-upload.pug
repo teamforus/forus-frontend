@@ -21,6 +21,7 @@
                             result-image-size="$ctrl.mediaConfig.large_size"
                             area-type="rectangle"
                             aspect-ratio="$ctrl.mediaConfig.aspect_ratio"
+                            init-max-area="true"
                             on-change="$ctrl.onChange($ctrl.cropjectObj)"
                             on-load-begin="$ctrl.onChange($ctrl.cropjectObj)"
                             on-load-done="$ctrl.onChange($ctrl.cropjectObj)")
@@ -32,7 +33,7 @@
                             .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")
                         
                 .photo-crop-info 
-                    span De afbeelding dient vierkant te zijn met een minimum afmeting van 400x400px
+                    span De afmeting van de afbeelding dient bijvoorbeeld {{ $ctrl.mediaConfig.size.large[0] }}x{{ $ctrl.mediaConfig.size.large[1] }}px te zijn. (breedte keer hoogte)
                     br
                     span Toegestaande formaten: .JPG, .PNG
                     br

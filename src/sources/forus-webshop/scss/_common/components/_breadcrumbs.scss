@@ -1,7 +1,8 @@
 .block {
     &.block-breadcrumbs {
         position: relative;
-        margin: 30px 0px;
+        padding: 20px 0px;
+        margin: 0 0;
         @include ellipsis();
         
         .breadcrumb-item {
@@ -34,17 +35,18 @@
             }
         }
     }
-    @media screen and (max-width: 1700px) {
 
+    @media screen and (max-width: 1700px) {
         &.block-breadcrumbs {
             .breadcrumb-item {
                 font: 600 14px $bf;
             }
         }
     }
+
     @media screen and (max-width: 1000px) {
         &.block-breadcrumbs {
-            margin: 0px 0px 10px 0px;
+            padding: 10px 0;
 
             .breadcrumb-item {
                 font-size: 13px;
