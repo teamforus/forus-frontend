@@ -10,30 +10,30 @@
                 input(type="checkbox" id="auto_text_color" ng-model="templateData.auto_text_color")
                 label(for="auto_text_color").checkbox-label
                     .checkbox-box: em.mdi.mdi-check-bold
-                    .flex.flex-grow Auto text color
+                    .flex.flex-grow Auto tekstkleur
 
             .checkbox.checkbox-narrow
                 input(type="checkbox" id="overlay_enabled" ng-model="templateData.overlay_enabled")
                 label(for="overlay_enabled").checkbox-label
                     .checkbox-box: em.mdi.mdi-check-bold
-                    .flex.flex-grow Use overlay
+                    .flex.flex-grow Gebruik een overlay
 
         .picker-select(ng-if="!templateData.auto_text_color")
-            label(for="headerTextColor").picker-select-label Text color:
+            label(for="headerTextColor").picker-select-label Tekstkleur:
             select(
                 id="headerTextColor"
                 ng-model="templateData.header_text_color" 
                 ng-options="colorType.value as colorType.label for colorType in templateData.headerTextColors").picker-select-input
 
         .picker-select(ng-if="templateData.overlay_enabled")
-            label(for="overlayPattern").picker-select-label Pattern:
+            label(for="overlayPattern").picker-select-label Patroon:
             select(
                 id="overlayPattern"
                 ng-model="templateData.overlay_type" 
                 ng-options="pattern.value as pattern.label for pattern in templateData.patterns").picker-select-input
 
         .picker-select(ng-if="templateData.overlay_enabled")
-            label(for="overlayOpacity").picker-select-label Opacity:
+            label(for="overlayOpacity").picker-select-label Transparantie:
             select(
                 id="overlayOpacity"
                 ng-model="templateData.overlay_opacity" 
@@ -44,9 +44,9 @@
             .mdi.mdi-image-area.picker-icon
             .picker-description(
                 ng-class="['picker-description-' + (templateData.auto_text_color ? (templateData.media.is_dark ? 'bright' : 'dark') : (templateData.header_text_color))]")
-                span(ng-if="!templateData.mediaLoading") Upload custom header image
+                span(ng-if="!templateData.mediaLoading") Upload hoofdfoto
                 span(ng-if="templateData.mediaLoading"): .mdi.mdi-loading.mdi-spin
-            .button.button-default(ng-click="selectFile($event)") Upload image
+            .button.button-default(ng-click="selectFile($event)") Kies foto
 
 //- .block.block-photo-selector
     .photo-img: img(ng-click="selectFile($event)" ng-src="{{ thumbnail || './assets/img/placeholders/photo-selector.svg' }}", alt="")

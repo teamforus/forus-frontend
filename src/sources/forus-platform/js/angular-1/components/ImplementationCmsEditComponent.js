@@ -9,32 +9,32 @@ let ImplementationCmsEditComponent = function (
 
     const bannerPatterns = [{
         value: 'color',
-        label: 'Color',
+        label: 'Kleur',
     }, {
         value: 'lines',
-        label: 'Lines',
+        label: 'Lijnen',
     }, {
         value: 'points',
-        label: 'Points',
+        label: 'Punten',
     }, {
         value: 'dots',
-        label: 'Dots',
+        label: 'Stippen',
     }, {
         value: 'circles',
-        label: 'Circles',
+        label: 'Cirkels',
     }];
 
     const headerTextColors = [{
         value: 'dark',
-        label: 'Dark',
+        label: 'Donker',
     }, {
         value: 'bright',
-        label: 'Light',
+        label: 'Licht',
     }];
 
     const bannerOpacityOptions = [1, 2, 3, 4, 5, 6, 7, 9, 10].map((option) => ({
         value: (option * 10).toString(),
-        label: (option * 10) + '%',
+        label: ((10 - option) * 10) + '%',
     }));
 
     $ctrl.modelPlaceholder = '';
