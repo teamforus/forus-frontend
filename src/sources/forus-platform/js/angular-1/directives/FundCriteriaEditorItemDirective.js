@@ -84,9 +84,11 @@ let FundCriteriaEditorItemDirective = function(
             criterion: criterion,
             title: criterion.title,
             description: criterion.description,
+            description_html: criterion.description_html,
             validateCriteria: $dir.validateCriteria,
             success: (data) => {
                 criterion.description = data.description;
+                criterion.description_html = data.description_html;
                 criterion.title = data.title;
             }
         });

@@ -230,6 +230,7 @@ app.provider('I18nLib', require('./providers/I18nLibProvider'));
 // Filters
 app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
+app.filter('json_pretty', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('file_size', require('./filters/FileSizeFilter'));
 app.filter('hasPerm', require('./filters/HasPerm'));
