@@ -39,6 +39,7 @@ app.component('providerSignUpComponent', require('./components/ProviderSignUpCom
 app.component('sponsorSignUpComponent', require('./components/SponsorSignUpComponent'));
 app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
 app.component('financialDashboardComponent', require('./components/FinancialDashboardComponent'));
+app.component('financialDashboardOverviewComponent', require('./components/FinancialDashboardOverviewComponent'));
 app.component('transactionComponent', require('./components/TransactionComponent'));
 app.component('fundProviderComponent', require('./components/FundProviderComponent'));
 app.component('fundProviderProductComponent', require('./components/FundProviderProductComponent'));
