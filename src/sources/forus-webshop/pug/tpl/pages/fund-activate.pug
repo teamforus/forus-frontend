@@ -4,7 +4,7 @@ top-navbar
 
 section: .wrapper 
     .block.block-sign_up: .block-wrapper
-        .block-title(ng-if="$ctrl.state && $ctrl.state != 'pincode_activate'" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
+        .block-title(ng-if="$ctrl.state && $ctrl.state != 'digid_login' && $ctrl.state != 'pincode_activate'" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
         //- No funds received after signing-up through DigiD, fund requests are disabled
         div(ng-if="$ctrl.state == 'error_digid_no_funds'")

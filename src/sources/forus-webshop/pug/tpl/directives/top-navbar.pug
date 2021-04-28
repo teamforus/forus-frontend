@@ -49,7 +49,7 @@
                     ui-sref-active="active"
                     translate="topnavbar.items.home")
 
-            nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && $root.appConfigs.features.funds.list" ng-click="mobileMenu = false")
+            nav.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && ($root.auth_user || $root.appConfigs.flags.fundsMenuIfLoggedOut)" ng-click="mobileMenu = false")
                 a.navbar-item(
                     ui-sref="funds" 
                     ui-sref-active="active"
@@ -156,7 +156,7 @@
                                     button.auth-user-menu-item.show-sm(
                                         ui-sref="funds" 
                                         ui-sref-active="active"
-                                        ng-if="$root.appConfigs.features.funds.list && $root.auth_user")
+                                        ng-if="$root.auth_user")
                                         em.mdi.mdi-star-outline
                                         span(translate="topnavbar.buttons.logout")
                                     
