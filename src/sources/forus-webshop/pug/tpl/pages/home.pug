@@ -16,9 +16,10 @@ main(id="main")
         
         .wrapper
             .header-content
-                .header-title(ng-if="$ctrl.appConfigs.features.settings.title" ng-bind="$ctrl.appConfigs.features.settings.title")
-                .header-title(ng-if="!$ctrl.appConfigs.features.settings.title" translate="home.header.{{ $root.client_key }}.title" translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")
-                
+
+                h1.header-title(ng-if="$ctrl.appConfigs.features.settings.title" ng-bind="$ctrl.appConfigs.features.settings.title")
+                h1.header-title(ng-if="!$ctrl.appConfigs.features.settings.title" translate="home.header.{{ $root.client_key }}.title" translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")
+
                 .header-description#desc(ng-if="$ctrl.appConfigs.features.settings.description")
                     .block.block-markdown(ng-bind-html="$ctrl.description_html")
 
@@ -52,6 +53,6 @@ main(id="main")
         section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap" id="map_block"): .wrapper
             .block.block-map
                 .block-content
-                    .block-title(i18n="home.map.title")
+                    h2.block-title(i18n="home.map.title")
                     .block-description(i18n="home.map.subtitle")
                     button(ui-sref="providers({show_map:true})" i18n="buttons.show_map" id="show_map").button.button-primary.button-wide

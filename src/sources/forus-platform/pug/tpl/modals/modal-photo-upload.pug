@@ -1,7 +1,7 @@
 .modal.modal-photo-upload.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-body: .modal-section
             .modal-title Verplaats en wijzig grootte
             .modal-description.hidden-xs

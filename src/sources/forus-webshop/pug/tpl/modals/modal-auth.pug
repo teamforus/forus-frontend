@@ -1,22 +1,25 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-auth2.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-auth2.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog" aria-labelledby="authDialogTitle" aria-describedby="authDialogSubtitle")
+
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Sign In by qr-code
     .modal-window: .modal-content
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" role="button" tabindex="0" ng-keydown="$ctrl.close()" aria-label="close")
         
         .block.block-auth-widget(ng-if="!$ctrl.restoreWithDigId")
-            .auth-title(translate="popup_auth.header.title")
-            .auth-subtitle(translate="{{ 'popup_auth.header.subtitle_' + $ctrl.appConfigs.features.communication_type }}")
+            .auth-title(id="authDialogTitle" translate="popup_auth.header.title" for="email_login")
+            .auth-subtitle(id="authDialogSubtitle" translate="{{ 'popup_auth.header.subtitle_' + $ctrl.appConfigs.features.communication_type }}")
 
             form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()")
                 .auth-form-input
-                    input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mailadres").form-control.email-auth
+                    input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mailadres" id="email_login").form-control.email-auth
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.email" ng-bind="error")
                 div: button(type="submit").button.button-primary Login
 
-            .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()").auth-digid-link
+            .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()" role="button").auth-digid-link
                 translate(translate="{{ 'popup_auth.restore_' + $ctrl.appConfigs.features.communication_type }}")
                 em.mdi.mdi-chevron-right
 
@@ -38,10 +41,10 @@
     
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId")
             .auth-digid-form
-                .auth-title 
+                .auth-title(id="authDialogTitle")
                     translate(translate="{{ 'popup_auth.restore_' + $ctrl.appConfigs.features.communication_type }}")
                     br
-                .auth-subtitle 
+                .auth-subtitle(id="authDialogSubtitle" )
                     translate(translate="{{ 'popup_auth.restore_subtitle_' + $ctrl.appConfigs.features.communication_type }}")
                     br
                 .auth-subtitle 

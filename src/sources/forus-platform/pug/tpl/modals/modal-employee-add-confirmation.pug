@@ -1,7 +1,7 @@
 .modal.modal-employee-add.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-window.modal-notification(ng-class="$ctrl.class")
-        .modal-close(ng-click="$ctrl.cancel()")
+        .modal-close(ng-click="$ctrl.cancel()" role="button")
             include ../../../resources/platform-general/assets/img/svg/close.svg
         .modal-body: .modal-section
             .modal-title(translate="sign_up_provider.employee.labels.employee_add_header")

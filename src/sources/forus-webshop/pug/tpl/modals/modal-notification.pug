@@ -1,14 +1,17 @@
-.modal.modal-notification.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-notification.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog" aria-labelledby="notificationDialogTitle" aria-describedby="notificationDialogSubtitle")
+    
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-content
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="close" role="button")
         .modal-section
             .text-center
                 .modal-icon(ng-if="$ctrl.icon")
                     img(ng-src="{{ $ctrl.icon }}")
-                .title(translate="{{ $ctrl.title }}")
-                .description(ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}" translate-values='{email: $ctrl.email}')
-                .description(ng-if="$ctrl.description && $ctrl.descriptionIsArray")
+                .title(role="heading" id="notificationDialogTitle" translate="{{ $ctrl.title }}")
+                .description(id="notificationDialogSubtitle" ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}" translate-values='{email: $ctrl.email}')
+                .description(id="notificationDialogSubtitle" ng-if="$ctrl.description && $ctrl.descriptionIsArray")
                     div(ng-repeat="description in $ctrl.description  track by $index" translate="{{ description }}")
                 
                 .description-small(ng-if="$ctrl.notice" translate="{{ $ctrl.notice }}")
