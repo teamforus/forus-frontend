@@ -39,6 +39,7 @@ module.exports = {
     menu: {
         organizational: 'Organisatie',
         implementation: 'Webshop',
+        financial: 'Financieel',
         personal: 'Persoonlijk',
     },
     // MODALS
@@ -296,7 +297,7 @@ module.exports = {
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
     financial_dashboard: {
         header: {
-            title: "Je bekijkt nu het financiële dashboard van: ",
+            title: "Financieel statistieken",
         },
         labels: {
             product: "Fietsen, Computers",

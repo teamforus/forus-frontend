@@ -529,27 +529,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "financial-dashboard",
-        url: "/organizations/{organization_id}/financial-dashboard/funds?fund_id",
+        url: "/organizations/{organization_id}/financial-dashboard",
         component: "financialDashboardComponent",
-        params: {
-            fund_id: null,
-        },
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('financial-dashboard', 'view_finances'),
-            fund: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => {
-                return $transition$.params().fund_id != null ? repackResponse(FundService.read(
-                    $transition$.params().organization_id,
-                    $transition$.params().fund_id
-                )) : new Promise((res) => res(null));
-            }],
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
-            ) => repackResponse(FundService.list(
-                $transition$.params().organization_id
-            ))],
+            ) => permission ? repackResponse(FundService.list(
+                $transition$.params().organization_id, { per_page: 100 },
+            )) : permission],
             productCategories: ['ProductCategoryService', (
                 ProductCategoryService
             ) => repackResponse(ProductCategoryService.list({
@@ -558,44 +547,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             providerOrganizations: ['permission', 'OrganizationService', '$transition$', (
                 permission, OrganizationService, $transition$
             ) => permission ? repackResponse(OrganizationService.providerOrganizations(
-                $transition$.params().organization_id
+                $transition$.params().organization_id, { per_page: 1000 },
             )) : permission],
-            postcodes: ['permission', 'OrganizationService', '$transition$', (
-                permission, OrganizationService, $transition$
-            ) => permission ? repackResponse(OrganizationService.providerPostcodesList(
-                $transition$.params().organization_id
-            )) : permission]
-        }
-    });
-
-    $stateProvider.state({
-        name: "financial-dashboard-old",
-        url: "/organizations/{organization_id}/financial-dashboard-old/funds?fund_id",
-        component: "financialDashboardOldComponent",
-        params: {
-            fund_id: null,
-        },
-        resolve: {
-            organization: organziationResolver(),
-            permission: permissionMiddleware('financial-dashboard', 'view_finances'),
-            fund: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => {
-                return $transition$.params().fund_id != null ? repackResponse(FundService.read(
-                    $transition$.params().organization_id,
-                    $transition$.params().fund_id
-                )) : new Promise((res) => res(null));
-            }],
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.list(
-                $transition$.params().organization_id
-            ))],
-            productCategories: ['ProductCategoryService', (
-                ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({
-                parent_id: 'null'
-            }))]
+            postcodes: ['providerOrganizations', function (providerOrganizations) {
+                return providerOrganizations.map(provider => {
+                    return provider.offices.map(office => office.postcode_number);
+                }).reduce((arr, postcodes) => [...arr, ...postcodes.filter((postcode) => {
+                    return postcode && !arr.includes(postcode);
+                })], []).map((postcode, index) => ({ name: postcode, id: index + 1 }));
+            }]
         }
     });
 
@@ -792,7 +752,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         /**
          * Voucher details
          */
-         $stateProvider.state({
+        $stateProvider.state({
             name: "vouchers-show",
             url: "/organizations/{organization_id}/vouchers/{voucher_id}",
             component: "vouchersShowComponent",
@@ -804,8 +764,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                     function(permission, $transition$, VoucherService) {
                         return repackResponse(
                             VoucherService.show(
-                                $transition$.params().organization_id, 
-                                $transition$.params().voucher_id, 
+                                $transition$.params().organization_id,
+                                $transition$.params().voucher_id,
                             )
                         );
                     }

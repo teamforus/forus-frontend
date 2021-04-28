@@ -2,143 +2,205 @@
     menu
     section.app.app-content
         .card-heading(ng-bind="'financial_dashboard.header.title' | translate")
-        
-        div
-            .block.block-financial-dashboard
-                .row: .col.col-lg-12
-                    .card 
-                        .card-section
-                            .block-top-menu
-                                .block-top-menu-dropdowns
-                                    mixin dropdown(type, title, placeholder, data, ngModel)
-                                        .block-top-menu-dropdown
-                                            .block-dropdown-info(ng-click="$ctrl.showDropdown($event, '" + type + "')") 
-                                                .block-dropdown-title #{title}
-                                                .block-dropdown-caret
-                                                    em.mdi.mdi-chevron-down
-                                            
-                                            .block-dropdown-options(
-                                                ng-if="$ctrl.shownDropdownType == '" + type + "'"
-                                                click-outside="$ctrl.onClickOutsideDropdown($event, '" + type + "')")
+        .block.block-financial-dashboard
+            .card 
+                .card-section.card-section-narrow
+                    .financial-filters
+                        .filter-dropdowns
+                            mixin dropdown(type, title, placeholder, data, ngModel)
+                                .filter-dropdown
+                                    //- Dropdown label
+                                    .filter-dropdown-label(ng-click="$ctrl.showDropdown($event, '" + type + "')") 
+                                        .filter-dropdown-label-text #{title}
+                                        em.mdi.mdi-chevron-down
+                                    
+                                    //- Dropdown menu
+                                    .filter-dropdown-menu(
+                                        ng-if="$ctrl.shownDropdownType == '" + type + "'"
+                                        click-outside="$ctrl.onClickOutsideDropdown($event, '" + type + "')")
 
-                                                .block-dropdown-options-header
-                                                    .header-title #{placeholder}
-                                                    .form.header-search: .form-group
-                                                        input(ng-model="$ctrl.filters.values.q" placeholder="{{ 'search' | i18n }}").form-control
-                                                .block-options-list: .form
-                                                    .block-option(ng-repeat="item in " + data)
-                                                        .form-group.form-group-inline
-                                                            label(for = type + "{{ $index }}").checkbox.checkbox-narrow
-                                                                input(
-                                                                    type="checkbox" 
-                                                                    id=type + "{{ $index }}" 
-                                                                    name=type + "[]"
-                                                                    ng-model="item.checked"
-                                                                    ng-change="$ctrl.selectOption('" + type + "', item)")
-                                                                .checkbox-label(ng-class="{'active': item.checked}") 
-                                                                    .checkbox-box: .mdi.mdi-check
-                                                                    | {{ item.name }}
+                                        //- Dropdown header
+                                        .filter-dropdown-menu-header
+                                            .header-title #{placeholder}
+                                            //- .form.header-search: .form-group
+                                                input(
+                                                    ng-model="$ctrl.filters.values.q"
+                                                    placeholder="{{ 'search' | i18n }}").form-control
 
-                                    +dropdown('funds', 'Fondsen', 'Zook voor fondsen', '$ctrl.funds')
-                                    +dropdown('providerOrganizations', 'Aanbieder', 'Zook voor een aanbieder', '$ctrl.providerOrganizations')
-                                    +dropdown('postcodes', 'Postcode', 'Zook voor een postcode', '$ctrl.postcodes')
-                                    +dropdown('productCategories', 'Categorie', 'Zook voor een categorie', '$ctrl.productCategories')
+                                        //- Dropdown body
+                                        .filter-dropdown-menu-body: .form
+                                            .block-option(ng-repeat="item in " + data)
+                                                .form-group.form-group-inline
+                                                    label(for = type + "_{{ $index }}").checkbox.checkbox-narrow
+                                                        input(  
+                                                            type="checkbox" 
+                                                            id=type + "_{{ $index }}" 
+                                                            ng-model="item.checked"
+                                                            ng-change="$ctrl.selectOption('" + type + "', item)")
+                                                        .checkbox-label(ng-class="{'active': item.checked}") 
+                                                            .checkbox-box: .mdi.mdi-check
+                                                            span(ng-bind="item.name")
 
-                                .block-top-menu-inline
-                                    .block-top-menu-inline-option Dag
-                                    .block-top-menu-inline-option Week
-                                    .block-top-menu-inline-option Maand
-                                    .block-top-menu-inline-option Kwartaal
-                                    .block-top-menu-inline-option.active Jaar
-                    
-                        .card-section
-                            .block-filters
-                                .block-filters-title Selecteer filters:
-                                .block-filters-list
-                                    .block-filters-list-item(ng-repeat="selection in $ctrl.selections" ng-class="{'disabled': selection.items.length == 0}")
-                                        .block-filters-list-item-title(ng-bind="selection.names | str_limit:60")
-                                        em.mdi.mdi-close(ng-if="selection.items.length > 0" ng-click="$ctrl.resetSelection(selection.type)")
-                    
-                        .card-section
-                            .block-timeframes
-                                .block-timeframe-nav.block-timeframe-prev
-                                    .mdi.mdi-chevron-left
-                                .block-timeframe
-                                    .block-timeframe-name Q1
-                                    .block-timeframe-details 2021
-                                .block-timeframe
-                                    .block-timeframe-name Q1
-                                    .block-timeframe-details 2021
-                                .block-timeframe
-                                    .block-timeframe-name Q1
-                                    .block-timeframe-details 2021
-                                .block-timeframe
-                                    .block-timeframe-name Q1
-                                    .block-timeframe-details 2021
-                                .block-timeframe-nav.block-timeframe-next
-                                    .mdi.mdi-chevron-right
+                            +dropdown('funds', 'Fondsen', 'Zook voor fondsen', '$ctrl.funds')
+                            +dropdown('providerOrganizations', 'Aanbieder', 'Zook voor een aanbieder', '$ctrl.providerOrganizations')
+                            +dropdown('postcodes', 'Postcode', 'Zook voor een postcode', '$ctrl.postcodes')
+                            //- +dropdown('productCategories', 'Categorie', 'Zook voor een categorie', '$ctrl.productCategories')
 
-                    .card: .card-section  
-                        .block.block-charts
-                            .chart-body: bar-chart(data="$ctrl.chartData.response.dates")
+                        //- Todo: filters
+                        .block.block-label-tabs
+                            //- .label-tab Dag
+                            //- .label-tab Week
+                            .label-tab.label-tab-disabled Maand
+                            .label-tab.label-tab-disabled Kwartaal
+                            .label-tab.active Jaar
 
-                    .block.block-totals
-                        .block-totals-control
-                            .block-totals-title
-                                .block-totals-main Totaal uitgegeven
-                                .block-totals-secondary Totaal transacties
-                            .block-totals-details
-                                .block-totals-details-amount {{ $ctrl.providerTotals.usage_total | currency_format }}
-                                .block-totals-details-description {{ $ctrl.providerTotals.nr_transactions }}
+                .card-section
+                    .card-heading Selecteer filters:
+                    .label-group
+                        .label.label-primary-light.label-round.label-lg(
+                            ng-repeat="selection in $ctrl.selections" 
+                            ng-if="!selection.ids || selection.ids.length > 0"
+                            ng-class="{'disabled': selection.items.length == 0}")
+                            span(ng-bind="selection.names | str_limit:60")
+                            em(ng-if="selection.items.length > 0" ng-click="$ctrl.resetSelection(selection.type)").label-close.mdi.mdi-close
 
-                        .block-totals-control
-                            .block-totals-title
-                                .block-totals-main Hoogste aankoopbedrag
-                                .block-totals-secondary Bij aanbieder
-                            .block-totals-details
-                                .block-totals-details-amount {{ $ctrl.providerTotals.highest_transaction.amount | currency_format }}
-                                .block-totals-details-description.small 
-                                    div {{ $ctrl.providerTotals.highest_transaction.provider }}
+                //- Years list
+                .card-section(ng-if="$ctrl.timeFilters.type === 'year'")
+                    .block.block-timeframes
+                        .timeframe-item.timeframe-item-disabled: .mdi.mdi-chevron-left
+                        .timeframe-item(
+                            ng-repeat="year in $ctrl.timeFilters.years"
+                            ng-class="{'timeframe-item-active': $ctrl.timeFilters.year === year}"
+                            ng-click="$ctrl.timeFilters.setFilter(year, 'year')"): .timeframe-item-title(ng-bind="year.label")
+                        .timeframe-item.timeframe-item-disabled: .mdi.mdi-chevron-right
 
-                        .block-totals-control
-                            .block-totals-title
-                                .block-totals-main Hoogste dagtotaal
-                                .block-totals-secondary Datum
-                            .block-totals-details
-                                .block-totals-details-amount {{ $ctrl.providerTotals.highest_daily_transaction.amount | currency_format }}
-                                .block-totals-details-description.small {{ $ctrl.providerTotals.highest_daily_transaction.date }}
+                //- .card-section: pre(ng-bind="$ctrl.years | pretty_json")
 
-                    br
-                    .card
-                        .card-header: .flex-row
-                            .flex-col.flex-grow: .card-title Aanbieders
-                            .flex-col: button.button.button-primary(ng-click="$ctrl.exportFinances()")
-                                em.mdi.mdi-download.icon-start
-                                span Exporteren
-                        .card-section(ng-if="$ctrl.providerOrganizationsFinances.length > 0"): .card-block.card-block-table: .table-wrapper: table.table
+                //- 
+                //- .card-section
+                    .block.block-timeframes
+                        .timeframe-item: .mdi.mdi-chevron-left
+                        .timeframe-item(disabled)
+                            .timeframe-item-title Q3
+                            .timeframe-item-subtitle 2020
+                        .timeframe-item(disabled)
+                            .timeframe-item-title Q4
+                            .timeframe-item-subtitle 2020
+                        .timeframe-item
+                            .timeframe-item-title Q1
+                            .timeframe-item-subtitle 2021
+                        .timeframe-item
+                            .timeframe-item-title Q2
+                            .timeframe-item-subtitle 2021
+                        .timeframe-item
+                            .timeframe-item-title Q3
+                            .timeframe-item-subtitle 2021
+                        .timeframe-item.timeframe-item-active
+                            .timeframe-item-title Q4
+                            .timeframe-item-subtitle 2021
+                        .timeframe-item: .mdi.mdi-chevron-right
+
+            //- Statistics graph
+            .card
+                .card-header.flex
+                    .flex.flex-grow: .card-title Grafisch
+                    .flex.block.block-label-tabs
+                        .label-tab(
+                            ng-class="{active: $ctrl.field === 'amount'}" 
+                            ng-click="$ctrl.field = 'amount'") Totaal uitgegeven
+                        .label-tab(
+                            ng-class="{active: $ctrl.field === 'count'}" 
+                            ng-click="$ctrl.field = 'count'") Totaal transacties
+                
+                .card-section: bar-chart(data="$ctrl.chartData.response.dates" field="$ctrl.field")
+
+            //- Statistics columns
+            .financial-totals
+                .financial-totals-col
+                    .financial-totals-header
+                        .financial-totals-label Totaal uitgegeven
+                        .financial-totals-label.financial-totals-label-sm Totaal transacties
+                    .financial-totals-content
+                        .financial-totals-value(ng-bind="$ctrl.chartData.response.totals.amount | currency_format")
+                        .financial-totals-value(ng-bind="$ctrl.chartData.response.totals.count")
+
+                .financial-totals-col
+                    .financial-totals-header
+                        .financial-totals-label Hoogste aankoopbedrag
+                        .financial-totals-label.financial-totals-label-sm Bij aanbieder
+                    .financial-totals-content(ng-if="$ctrl.chartData.response.highest_transaction")
+                        .financial-totals-value(ng-bind="$ctrl.chartData.response.highest_transaction.amount | currency_format")
+                        .financial-totals-value.financial-totals-value-sm(ng-bind="$ctrl.chartData.response.highest_transaction.provider")
+                    .financial-totals-content(ng-if="!$ctrl.chartData.response.highest_transaction")
+                        .financial-totals-value: small.text-strong.text-muted Geen transactie
+                        .financial-totals-value &nbsp;
+
+                .financial-totals-col
+                    .financial-totals-header
+                        .financial-totals-label Hoogste dagtotaal
+                        .financial-totals-label.financial-totals-label-sm Datum
+                    .financial-totals-content(ng-if="$ctrl.chartData.response.highest_daily_transaction")
+                        .financial-totals-value(ng-bind="$ctrl.chartData.response.highest_daily_transaction.amount | currency_format")
+                        .financial-totals-value.financial-totals-value-sm(ng-bind="$ctrl.chartData.response.highest_daily_transaction.date_locale")
+                    .financial-totals-content(ng-if="!$ctrl.chartData.response.highest_daily_transaction")
+                        .financial-totals-value: small.text-strong.text-muted Geen transactie
+                        .financial-totals-value &nbsp;
+
+            //- .card: pre {{ $ctrl.providerOrganizationsFinances.data | pretty_json }} 
+
+            //- Providers
+            .card
+                .card-header: .flex-row
+                    .flex-col.flex-grow: .card-title Aanbieders
+                    .flex-col: button.button.button-primary(ng-click="$ctrl.financeProvidersExport()")
+                        em.mdi.mdi-download.icon-start
+                        span Exporteren
+
+                .card-section(ng-if="$ctrl.providerOrganizationsFinances.data.length > 0")
+                    .card-block.card-block-table: .table-wrapper: table.table
+                        thead: tr
+                            th Aanbieder
+                            th Totaal uitgegeven bij
+                            th Hoogste aankoopbedrag
+                            th.text-right Aantal transacties
+                            //- th
+
+                        tbody(ng-repeat="provider in $ctrl.providerOrganizationsFinances.data")
                             tr
-                                th Aanbieder
-                                th Totaal uitgegeven bij
-                                th Hoogste aankoopbedrag
-                                th Aantal transacties
-                                th
-
-                            tr(ng-repeat="finances in $ctrl.providerOrganizationsFinances")
                                 td.text-primary-light
                                     img.organization-logo(
-                                        ng-src="{{ finances.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-                                    span(ng-bind="finances.organization.name")
-                                td {{ finances.total_spent | currency_format }}
-                                td {{ finances.highest_transaction | currency_format }}
-                                td {{ finances.nr_transactions }}
+                                        ng-src="{{ provider.provider.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                                    span(ng-bind="provider.provider.name")
+                                td(
+                                    ng-class="{'text-muted' : !provider.total_spent}"
+                                    ng-bind="provider.total_spent ? (provider.total_spent | currency_format) : 'Geen transacties'")
+                                td(
+                                    ng-class="{'text-muted' : !provider.highest_transaction}"
+                                    ng-bind="provider.highest_transaction ? (provider.highest_transaction | currency_format) : 'Geen transacties'")
+                                td(ng-bind="provider.nr_transactions").text-right
 
-                                td.text-right
-                                    button.button.button-primary(ng-click="$ctrl.goToTransactions()")
+                                //- td.text-right
+                                    button.button.button-primary(ng-click="provider.transactions = !provider.transactions")
                                         em.mdi.mdi-cash-multiple.icon-start
-                                        //- img(src="./assets/img/menu/icon-transactions.svg")
                                         span Transacties
-                    
-                    block-empty(
-                        ng-if='$ctrl.providerOrganizationsFinances.length == 0' 
-                        text='Geen aanbieder.')           
+
+                            //- tr(ng-if="provider.transactions"): td(colspan="5").td-paddless: table.table
+                                tr
+                                    th(i18n="fund_card_provider_finances.labels.price")
+                                    th(i18n="fund_card_provider_finances.labels.date")
+                                    th(i18n="fund_card_provider_finances.labels.status")
+
+                                tr(
+                                    ng-repeat="transaction in transactions.data"
+                                    ng-click="showTransaction(transaction)")
+                                    td: a(ng-bind="transaction.amount | currency_format").text-primary-light
+                                    td(ng-bind="transaction.created_at_locale")
+                                    td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]")
+
+                .card-section(ng-if="$ctrl.providerOrganizationsFinances" ng-show="$ctrl.providerOrganizationsFinances.meta.last_page > 1")
+                    paginator(meta="$ctrl.providerOrganizationsFinances.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.fetchData(query)")
+
+            block-empty(
+                ng-if='$ctrl.providerOrganizationsFinances && $ctrl.providerOrganizationsFinances.meta.total == 0' 
+                text='Geen aanbieder.')           
 

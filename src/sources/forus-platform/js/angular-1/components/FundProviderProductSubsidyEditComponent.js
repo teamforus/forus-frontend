@@ -48,7 +48,6 @@ let FundProviderProductSubsidyEditComponent = function(
             amount: 0,
             gratis: false,
         };
-
         
         $ctrl.deal = deal;
         $ctrl.loaded = true;
@@ -85,7 +84,6 @@ let FundProviderProductSubsidyEditComponent = function(
                 $state.go('fund-provider-product', $ctrl.stateParams.fund_provider_product);
                 PushNotificationsService.success("Het product is goedgekeurd.");
             }, (res) => {
-                console.log(res.data.errors);
                 form.errors = res.data.errors;
                 return form.unlock();
             });

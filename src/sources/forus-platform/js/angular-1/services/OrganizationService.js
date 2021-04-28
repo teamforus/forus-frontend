@@ -97,28 +97,14 @@ module.exports = [
                 ), query);
             };
 
-            this.providerPostcodesList = function(organization_id, query = {}) {
+            this.financeProviders = function(organization_id, query = {}) {
                 return ApiRequest.get(sprintf(
-                    '/platform/organizations/%s/sponsor/providers/postcodes',
+                    '/platform/organizations/%s/sponsor/providers/finances',
                     organization_id
                 ), query);
             };
 
-            this.providerFinanceTotals = function(organization_id, query = {}) {
-                return ApiRequest.get(sprintf(
-                    '/platform/organizations/%s/sponsor/providers/finances-totals',
-                    organization_id
-                ), query);
-            };
-
-            this.providerFinance = function(organization_id, query = {}) {
-                return ApiRequest.get(sprintf(
-                    '/platform/organizations/%s/sponsor/providers/finances-provider',
-                    organization_id
-                ), query);
-            };
-
-            this.exportFinances = function(organization_id, query = {}) {
+            this.financeProvidersExport = function(organization_id, query = {}) {
                 return ApiRequest.get(sprintf(
                     '/platform/organizations/%s/sponsor/providers/finances-export',
                     organization_id

@@ -50,10 +50,7 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.readFinances = function(organization_id, query = {}) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds-finances',
-                organization_id
-            ), query);
+            return ApiRequest.get(uriPrefix + `${organization_id}/funds-finances`, query);
         };
 
         this.listProviders = function(organization_id, fund_id, state, query = {}) {

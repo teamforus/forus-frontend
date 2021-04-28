@@ -1,11 +1,8 @@
 let BarChartDirective = function($scope, $element) {
-    var BarChart = null;
-    var timeFormat = 'MM/DD/YYYY';
-    $scope.$watch('data', function(data) {
-        drawChart(data ? data : []);
-    });
+    const timeFormat = 'MM/DD/YYYY';
+    const barChart = { instance: null };
 
-    let drawChart = (data) => {
+    const drawChart = (data) => {
         let labels = [];
         let values = [];
 
@@ -15,15 +12,15 @@ let BarChartDirective = function($scope, $element) {
             labels.push(value.key);
             values.push({
                 x: value.key,
-                y: value.value,
+                y: value[$scope.field || 'value'],
             });
         });
 
-        if (BarChart != null) {
-            BarChart.destroy();
+        if (barChart.instance != null) {
+            barChart.instance.destroy();
         }
-        
-        BarChart = new Chart($element, {
+
+        barChart.instance = new Chart($element, {
             type: 'bar',
             data: {
                 labels: labels,
@@ -63,12 +60,21 @@ let BarChartDirective = function($scope, $element) {
     };
 
     drawChart([]);
+
+    $scope.$watch('data', function(data) {
+        drawChart(data ? data : []);
+    });
+    
+    $scope.$watch('field', function() {
+        drawChart($scope.data ? $scope.data : []);
+    });
 };
 
 module.exports = () => {
     return {
         scope: {
             data: '=',
+            field: '='
         },
         restrict: "EA",
         replace: true,

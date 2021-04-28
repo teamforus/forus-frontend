@@ -1,14 +1,65 @@
 let FinancialDashboardComponent = function(
     $state,
-    $scope,
-    $q,
     $stateParams,
     FundService,
-    DateService,
     OrganizationService,
     FileService
 ) {
     let $ctrl = this;
+
+    const startYear = 2015;
+
+    $ctrl.field = 'amount';
+
+    $ctrl.fetchData = (query = {}) => {
+        $ctrl.chartData.update();
+        $ctrl.getFinancePerProvider(query);
+    };
+
+    $ctrl.timeFilters = {
+        type: 'year',
+        years: [],
+        makeYears: function() {
+            return [...(new Array(moment().year() - startYear)).keys()].map((years) => {
+                const date = moment().subtract(years, 'year');
+
+                return {
+                    label: date.format('YYYY'),
+                    value: date.format('YYYY'),
+                    from: date.clone().startOf('year').format('YYYY-MM-DD'),
+                    to: date.clone().endOf('year').format('YYYY-MM-DD'),
+                };
+            });;
+        },
+        init: function() {
+            this.years = this.makeYears();
+            this.years.reverse();
+            this.year = this.years[this.years.length - 1];
+        },
+        setFilter: function(value, type) {
+            this[type || this.type] = value;
+            this.updateFilter();
+        },
+        updateFilter: function() {
+            $ctrl.fetchData();
+        },
+        getQuery: function() {
+            return {
+                type: this.type,
+                type_value: {
+                    year: this.year.value,
+                }[this.type],
+                from: {
+                    year: this.year.from,
+                }[this.type],
+                to: {
+                    year: this.year.to,
+                }[this.type],
+            };
+        }
+    };
+
+    $ctrl.timeFilters.init();
 
     $ctrl.filters = {
         values: {
@@ -17,8 +68,6 @@ let FinancialDashboardComponent = function(
             state: 'approved_or_has_transactions',
         },
     };
-
-    $ctrl.selectionTypes = ['funds', 'providerOrganizations', 'postcodes', 'productCategories'];
 
     $ctrl.selections = {
         funds: {
@@ -30,7 +79,7 @@ let FinancialDashboardComponent = function(
         },
         providerOrganizations: {
             type: 'providerOrganizations',
-            ids:  null,
+            ids: null,
             items: [],
             names: 'Alle aanbieders',
             noSelection: 'Alle aanbieders'
@@ -42,21 +91,19 @@ let FinancialDashboardComponent = function(
             names: 'Alle postcodes',
             noSelection: 'Alle postcodes'
         },
-        productCategories: {
+        /* productCategories: {
             type: 'productCategories',
             ids: null,
             items: [],
             names: 'Alle categories',
             noSelection: 'Alle categories'
-        }
+        } */
     }
 
     $ctrl.shownDropdownType = null;
 
-    $ctrl.onClickOutsideDropdown = (e) => {
-        $scope.$apply(() => {
-            $ctrl.shownDropdownType = null;
-        });
+    $ctrl.onClickOutsideDropdown = () => {
+        $ctrl.shownDropdownType = null;
     }
 
     $ctrl.showDropdown = (e, type) => {
@@ -69,46 +116,24 @@ let FinancialDashboardComponent = function(
     $ctrl.getQuery = () => {
         return {
             fund_ids: $ctrl.selections.funds.ids,
-            postcodes: $ctrl.selections.postcodes.ids ? $ctrl.selections.postcodes.names : '',
+            postcodes: $ctrl.selections.postcodes.items.map(item => item.name),
             provider_ids: $ctrl.selections.providerOrganizations.ids,
-            product_category_ids: $ctrl.selections.productCategories.ids,
+            /* product_category_ids: $ctrl.selections.productCategories.ids, */
         };
     }
 
-    $ctrl.getProviderTotals = () => {
-        let deferred = $q.defer();
-
-        OrganizationService.providerFinanceTotals(
-            $ctrl.organization.id, $ctrl.getQuery()
+    $ctrl.getFinancePerProvider = (query) => {
+        OrganizationService.financeProviders(
+            $ctrl.organization.id,
+            { ...$ctrl.chartData.getQuery(), ...query }
         ).then(res => {
-            deferred.resolve($ctrl.providerTotals = res.data);
-        }, deferred.reject);
-
-        return deferred.promise;
+            $ctrl.providerOrganizationsFinances = res.data;
+        });
     }
 
-    $ctrl.getFinancePerProvider = () => {
-        let deferred = $q.defer();
-
-        OrganizationService.providerFinance(
-            $ctrl.organization.id, $ctrl.getQuery()
-        ).then(res => {
-            deferred.resolve($ctrl.providerOrganizationsFinances = res.data);
-        }, deferred.reject);
-
-        return deferred.promise;
-    }
-
-    $ctrl.refreshDashboardData = () => {
-        $ctrl.chartData.update();
-
-        $ctrl.getProviderTotals();
-        $ctrl.getFinancePerProvider();
-    }
-
-    $ctrl.exportFinances = () => {
-        OrganizationService.exportFinances(
-            $ctrl.organization.id, $ctrl.getQuery()
+    $ctrl.financeProvidersExport = () => {
+        OrganizationService.financeProvidersExport(
+            $ctrl.organization.id, $ctrl.chartData.getQuery()
         ).then((res => {
             FileService.downloadFile(
                 'financial-dashboard_' + $ctrl.organization.name + '_' + moment().format(
@@ -120,16 +145,45 @@ let FinancialDashboardComponent = function(
         }));
     }
 
+    $ctrl.getSelectAllOption = (type) => $ctrl[type].filter(item => item.id == null)[0];
+    $ctrl.getItemOptions = (type) => $ctrl[type].filter(item => item.id != null);
+
+    $ctrl.resetSelection = (type) => {
+        $ctrl.getSelectAllOption(type).checked = true;;
+        $ctrl.selectOption(type, $ctrl.getSelectAllOption(type));
+    }
+
+    $ctrl.selectOption = (type, selectedItem, fetchData = true) => {
+        const optionAll = $ctrl.getSelectAllOption(type);
+        const optionItems = $ctrl.getItemOptions(type);
+
+        //- Select all options if 'all' 
+        if (selectedItem.id == null) {
+            optionItems.forEach(item => item.checked = selectedItem.checked);
+        }
+
+        optionAll.checked = optionItems.filter(item => item.checked).length === optionItems.length;
+
+        const selectedItems = optionAll.checked ? null : optionItems.filter(item => item.checked);
+
+        $ctrl.selections[type]['items'] = selectedItems ? selectedItems : [];
+        $ctrl.selections[type]['names'] = selectedItems ? selectedItems.map(item => item.name).join(', ') : $ctrl.selections[type]['noSelection'];
+        $ctrl.selections[type]['ids'] = selectedItems ? selectedItems.map(item => item.id) : null;
+
+        if (fetchData) {
+            $ctrl.fetchData();
+        }
+    };
+
     $ctrl.$onInit = function() {
+        $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
+
         $ctrl.chartData = {
             request: {
-                type: "all",
-                nth: moment().month() + 1,
                 year: moment().year(),
                 product_category: null,
             },
             response: {},
-            stringTitle: "",
             changeType: function(type) {
                 this.request.type = type;
 
@@ -201,54 +255,17 @@ let FinancialDashboardComponent = function(
 
                 this.update();
             },
-            updateTitle: function() {
-                let stringTitle = "";
-
-                if (this.request.type == 'week') {
-                    stringTitle = this.request.nth + ' Week ' + this.request.year;
-                } else if (this.request.type == 'month') {
-                    stringTitle = moment.months(this.request.nth - 1) + ' ' + this.request.year;
-                } else if (this.request.type == 'quarter') {
-                    stringTitle = 'Kwartaal: Q' + this.request.nth + ' ' + this.request.year;
-                } else if (this.request.type == 'all') {
-                    stringTitle = 'Jaar ' + this.request.year;
-                }
-
-                this.stringTitle = stringTitle;
+            getQuery: function() {
+                return { ...$ctrl.chartData.request, ...$ctrl.getQuery(), ...$ctrl.timeFilters.getQuery() };
             },
             update: function() {
-                this.updateTitle();
-
-                FundService.readFinances(
-                    $ctrl.organization.id,
-                    Object.assign($ctrl.chartData.request, $ctrl.getQuery())
-                ).then(function(res) {
+                FundService.readFinances($ctrl.organization.id, this.getQuery()).then((res) => {
                     $ctrl.chartData.response = res.data;
                 });
             }
         };
 
-        if (Array.isArray($ctrl.funds)) {
-            $ctrl.funds = $ctrl.funds.filter(function(fund) {
-                return fund.state !== 'waiting';
-            });
-
-            if ($ctrl.funds.length == 1 && !$ctrl.fund) {
-                return $state.go('financial-dashboard', {
-                    organization_id: $ctrl.funds[0].organization_id,
-                    fund_id: $ctrl.funds[0].id
-                });
-            }
-        }
-
-        $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
-        
-        $ctrl.refreshDashboardData();
-
-        $ctrl.productCategories.push({
-            name: 'Anders',
-            id: -1
-        });
+        $ctrl.postcodes.sort();
 
         $ctrl.funds.unshift({
             name: 'Alle fondsen',
@@ -268,66 +285,34 @@ let FinancialDashboardComponent = function(
             checked: true
         });
 
-        $ctrl.productCategories.unshift({
+        /* $ctrl.productCategories.unshift({
             name: 'Alle categories',
             id: null,
             checked: true
-        });
-    };
+        }); */
 
-    $ctrl.resetSelection = (type) => {
-        $ctrl.selections[type].ids   = null;
-        $ctrl.selections[type].items = [];
-        $ctrl.selections[type].names = $ctrl.selections[type]['noSelection'];
+        $ctrl.selectOption('funds', $ctrl.funds[0], false);
+        $ctrl.selectOption('postcodes', $ctrl.postcodes[0], false);
+        // $ctrl.selectOption('productCategories', $ctrl.productCategories[0]);
+        $ctrl.selectOption('providerOrganizations', $ctrl.providerOrganizations[0], false);
 
-        $ctrl[type].map(item => {
-            item.checked = false;
-        });
-        
-        $ctrl.refreshDashboardData();
-    }
-
-    $ctrl.selectOption = (type, selectedItem) => {
-        //- Unselect other options if 'all' 
-        if (selectedItem.id == null && selectedItem.checked) {
-            $ctrl[type].map(item => item.checked = (item.id == null));
-        }
-
-        //- Unselect 'all' if other options checked
-        if (selectedItem.id != null && selectedItem.checked) {
-            $ctrl[type][0].checked = false;
-        }
-
-        //- Items selected (except 'all' option)
-        let selectedItems = $ctrl[type].filter(
-            item => item.checked && item.id != null
-        );
-
-        $ctrl.selections[type]['items'] = selectedItems;
-        $ctrl.selections[type]['names'] = selectedItems.map(item => item.name).join(', ') || $ctrl.selections[type]['noSelection'];
-        $ctrl.selections[type]['ids']   = selectedItems.length ? selectedItems.map(item => item.id) : null;
-        
-        $ctrl.refreshDashboardData();
+        $ctrl.fetchData();
     };
 };
 
 module.exports = {
     bindings: {
-        fund: '<',
         funds: '<',
         postcodes: '<',
         fundProviders: '<',
         organization: '<',
-        productCategories: '<',
+        // productCategories: '<',
         providerOrganizations: '<'
     },
     controller: [
         '$state',
-        '$scope',
-        '$q',
         '$stateParams',
         'FundService',
-        'DateService',
         'OrganizationService',
         'FileService',
         FinancialDashboardComponent

@@ -5,7 +5,6 @@ let FundCardProviderFinancesDirective = function(
     FileService,
     OrganizationService
 ) {
-
     let now = moment().format('YYYY-MM-DD HH:mm');
     let org = OrganizationService.active();
 
