@@ -90,6 +90,7 @@ let ImplementationCmsEditComponent = function (
                 external: false,
                 external_url: '',
                 content: '',
+                content_html: '',
             }
 
             if (page_types_internal.includes(page_type)) {
@@ -105,7 +106,7 @@ let ImplementationCmsEditComponent = function (
     }
 
     $ctrl.$onInit = () => {
-        const { informal_communication, page_types, page_types_internal } = $ctrl.implementation;
+        const { informal_communication } = $ctrl.implementation;
 
         $ctrl.page_types = $ctrl.implementation.page_types;
         $ctrl.page_types_internal = $ctrl.implementation.page_types_internal;

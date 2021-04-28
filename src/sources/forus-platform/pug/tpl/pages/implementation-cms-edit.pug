@@ -33,9 +33,12 @@
 
                 .form-group.form-group-inline.form-group-inline-lg
                     label(translate="implementation_edit.labels.header_description").form-label
+                    text-angular(ng-model="$ctrl.form.values.description_html")
+
                     .form-offset: markdown(
                         extended-options="true"
-                        ng-model="$ctrl.form.values.description" 
+                        value="$ctrl.form.values.description_html" 
+                        ng-model="$ctrl.form.values.description"
                         media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
@@ -79,6 +82,7 @@
                         .form-offset
                             markdown(
                                 extended-options="true"
+                                value="$ctrl.form.values.pages[key].content_html" 
                                 ng-model="$ctrl.form.values.pages[key].content" 
                                 media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values.pages[key])")
 

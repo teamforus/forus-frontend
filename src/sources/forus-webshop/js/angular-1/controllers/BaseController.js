@@ -21,7 +21,6 @@ let BaseController = function(
 
         AuthService.identity().then((res) => {
             let auth_user = res.data;
-            let count = 0;
             let timer = (appConfigs.log_out_time || 15) * 60 * 1000;
 
             if (appConfigs.log_out_time !== false) {
@@ -34,12 +33,10 @@ let BaseController = function(
                             type: 'confirm',
                             description: 'modal.logout.description',
                             confirmBtnText: 'Inloggen',
-                            confirm: () => {
-                                ModalService.open('modalAuth', {});
-                            }
+                            confirm: () => ModalService.open('modalAuth', {}),
                         });
                     }
-                }, () => {});
+                }, console.log);
             }
 
             RecordService.list().then((res) => {

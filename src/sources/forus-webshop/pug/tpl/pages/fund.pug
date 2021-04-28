@@ -47,9 +47,7 @@ section.section.section-fund: .wrapper
 
                             .fund-details-item(ng-repeat="formula in $ctrl.formulaList.multiply" ng-if="$ctrl.fund.type == 'budget'")
                                 .fund-details-item-label(translate="fund.criterias.multiplied_amount")
-                                .fund-details-item-value
-                                    span(ng-bind="formula.label + ': '")
-                                    span(ng-bind="formula.amount | currency_format")                                
+                                .fund-details-item-value(ng-bind="formula.amount | currency_format")                                 
 
                             .fund-details-item
                                 .fund-details-item-label Startdatum
