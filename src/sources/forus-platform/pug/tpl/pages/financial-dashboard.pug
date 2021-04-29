@@ -74,9 +74,6 @@
                             ng-click="$ctrl.timeFilters.setFilter(year, 'year')"): .timeframe-item-title(ng-bind="year.label")
                         .timeframe-item.timeframe-item-disabled: .mdi.mdi-chevron-right
 
-                //- .card-section: pre(ng-bind="$ctrl.years | pretty_json")
-
-                //- 
                 //- .card-section
                     .block.block-timeframes
                         .timeframe-item: .mdi.mdi-chevron-left
@@ -146,17 +143,15 @@
                         .financial-totals-value: small.text-strong.text-muted Geen transactie
                         .financial-totals-value &nbsp;
 
-            //- .card: pre {{ $ctrl.providerOrganizationsFinances.data | pretty_json }} 
-
             //- Providers
-            .card
+            .card(ng-if="$ctrl.providerOrganizationsFinances.data.length > 0")
                 .card-header: .flex-row
                     .flex-col.flex-grow: .card-title Aanbieders
                     .flex-col: button.button.button-primary(ng-click="$ctrl.financeProvidersExport()")
                         em.mdi.mdi-download.icon-start
                         span Exporteren
 
-                .card-section(ng-if="$ctrl.providerOrganizationsFinances.data.length > 0")
+                .card-section
                     .card-block.card-block-table: .table-wrapper: table.table
                         thead: tr
                             th Aanbieder

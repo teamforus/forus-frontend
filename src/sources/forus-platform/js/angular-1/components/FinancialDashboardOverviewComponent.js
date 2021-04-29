@@ -8,85 +8,60 @@ let FinancialDashboardOverviewComponent = function(
     const $ctrl = this;
     const org = OrganizationService.active();
 
-    $ctrl.filters = {
-        values: {
-            q: "",
-            per_page: 15,
-            state: 'approved_or_has_transactions',
-        },
-    };
-
     $ctrl.transformFunds = () => {
-        if (!$ctrl.budgetFunds.length) {
-            return;
-        }
-
         $ctrl.budgetFunds.forEach(fund => {
             fund.collapsedData = false;
 
-            fund.budget.percentageTotal = $ctrl.funds.meta.vouchers_amount > 0 ? 
-                Math.round(fund.budget.vouchers_amount / $ctrl.funds.meta.vouchers_amount * 100) : 0;
+            fund.budget.percentageTotal = $ctrl.fundsFinancialOverview.vouchers_amount > 0 ? 
+                Math.round(fund.budget.vouchers_amount / $ctrl.fundsFinancialOverview.vouchers_amount * 100) : 0;
 
-            fund.budget.percentageActive = $ctrl.funds.meta.vouchers_active > 0 ? 
-                Math.round(fund.budget.active_vouchers_amount / $ctrl.funds.meta.vouchers_active * 100) : 0;
+            fund.budget.percentageActive = $ctrl.fundsFinancialOverview.vouchers_active > 0 ? 
+                Math.round(fund.budget.active_vouchers_amount / $ctrl.fundsFinancialOverview.vouchers_active * 100) : 0;
 
-            fund.budget.percentageInactive = $ctrl.funds.meta.vouchers_inactive > 0 ? 
-                Math.round(fund.budget.inactive_vouchers_amount / $ctrl.funds.meta.vouchers_inactive * 100) : 0;
+            fund.budget.percentageInactive = $ctrl.fundsFinancialOverview.vouchers_inactive > 0 ? 
+                Math.round(fund.budget.inactive_vouchers_amount / $ctrl.fundsFinancialOverview.vouchers_inactive * 100) : 0;
 
-            fund.budget.percentageUsed = $ctrl.funds.meta.used > 0 ? 
-                Math.round(fund.budget.used / $ctrl.funds.meta.used * 100) : 0;
+            fund.budget.percentageUsed = $ctrl.fundsFinancialOverview.used > 0 ? 
+                Math.round(fund.budget.used / $ctrl.fundsFinancialOverview.used * 100) : 0;
 
-            fund.budget.percentageLeft = $ctrl.funds.meta.left > 0 ? 
-                Math.round(fund.budget.left / $ctrl.funds.meta.left * 100) : 0;
+            fund.budget.percentageLeft = $ctrl.fundsFinancialOverview.left > 0 ? 
+                Math.round(fund.budget.left / $ctrl.fundsFinancialOverview.left * 100) : 0;
 
             fund.budget.averagePerVoucher = fund.budget.vouchers_count ? fund.budget.vouchers_amount / fund.budget.vouchers_count : 0;
         });
-
-        return $ctrl.funds;
-    };
-
-    $ctrl.$onInit = function() {
-        if (Array.isArray($ctrl.funds.data)) {
-            $ctrl.funds.data = $ctrl.funds.data.filter(function(fund) {
-                return fund.state !== 'waiting';
-            });
-
-            $ctrl.budgetFunds = $ctrl.funds.data.filter(function(fund) {
-                return fund.type === 'budget';
-            });
-        }
-
-        $ctrl.transformFunds();
     };
 
     $ctrl.exportFunds = (detailed) => {
         ModalService.open('exportType', {
             success: (data) => {
-                FundService.export(
-                    $ctrl.funds.data[0].organization_id,
-                    Object.assign($ctrl.filters.values, {
-                        export_type: data.exportType,
-                        detailed: detailed ? 1 : 0
-                    })
-                ).then((res => {
-                    FileService.downloadFile(
-                        appConfigs.panel_type + '_' + org + '_' + moment().format(
-                            'YYYY-MM-DD HH:mm:ss'
-                        ) + '.' + data.exportType,
-                        res.data,
-                        res.headers('Content-Type') + ';charset=utf-8;'
-                    );
+                FundService.financialOverviewExport($ctrl.organization.id, {
+                    export_type: data.exportType,
+                    detailed: detailed ? 1 : 0
+                }).then((res => {
+                    const dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+                    const fileData = res.data;
+                    const fileType = res.headers('Content-Type') + ';charset=utf-8;';
+                    const fileName = appConfigs.panel_type + '_' + org + '_' + dateTime + '.' + data.exportType;
+
+                    FileService.downloadFile(fileName, fileData, fileType);
                 }), console.error);
             }
         });
+    };
+
+    $ctrl.$onInit = function() {
+        $ctrl.funds.data = $ctrl.funds.data.filter((fund) => fund.state != 'waiting');
+        $ctrl.budgetFunds = $ctrl.funds.data.filter((fund) => fund.type == 'budget');
+        $ctrl.transformFunds();
     };
 };
 
 module.exports = {
     bindings: {
-        fund: '<',
         funds: '<',
-        state: '<',
+        organization: '<',
+        fundsFinancialOverview: '<',
     },
     controller: [
         'appConfigs',

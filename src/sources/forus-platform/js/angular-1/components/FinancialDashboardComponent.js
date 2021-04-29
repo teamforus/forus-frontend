@@ -5,8 +5,7 @@ let FinancialDashboardComponent = function(
     OrganizationService,
     FileService
 ) {
-    let $ctrl = this;
-
+    const $ctrl = this;
     const startYear = 2015;
 
     $ctrl.field = 'amount';

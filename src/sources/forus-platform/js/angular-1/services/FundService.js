@@ -50,7 +50,7 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.readFinances = function(organization_id, query = {}) {
-            return ApiRequest.get(uriPrefix + `${organization_id}/funds-finances`, query);
+            return ApiRequest.get(uriPrefix + `${organization_id}/sponsor/finances`, query);
         };
 
         this.listProviders = function(organization_id, fund_id, state, query = {}) {
@@ -186,12 +186,29 @@ const FundService = function(ApiRequest, ModalService) {
          * @param {object} query 
          * @returns {Promise}
          */
-         this.export = function(
+        this.financialOverview = function(organization_id, query = {}) 
+        {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/sponsor/finances-overview', 
+                organization_id
+            ), query);
+        };
+
+        /**
+         * Export funds data
+         * 
+         * @param {number} organization_id 
+         * @param {number} fund_id 
+         * @param {number} provider_id 
+         * @param {object} query 
+         * @returns {Promise}
+         */
+         this.financialOverviewExport = function(
             organization_id,
             query = {}
         ) {
             return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/export', 
+                uriPrefix + '%s/sponsor/finances-overview-export', 
                 organization_id
             ), query, {}, true, (_cfg) => {
                 _cfg.responseType = 'arraybuffer';

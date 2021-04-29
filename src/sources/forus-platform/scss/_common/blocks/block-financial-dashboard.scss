@@ -99,7 +99,9 @@
         margin: 0 0 20px;
 
         .financial-totals-col {
+            display: flex;
             flex-grow: 1;
+            flex-direction: column;
             flex-basis: 33.333%;
             margin-right: 20px;
             background: #ffffff;
@@ -138,6 +140,7 @@
                 display: flex;
                 flex-direction: row;
                 padding: 15px 15px;
+                flex-grow: 1;
     
                 .financial-totals-value {
                     font: 600 22px/30px $bf;
@@ -146,6 +149,7 @@
                     flex-grow: 1;
                     flex-direction: column;
                     justify-content: center;
+                    flex-basis: 50%;
 
                     &:last-child {
                         text-align: right;

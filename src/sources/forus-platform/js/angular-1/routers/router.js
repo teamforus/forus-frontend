@@ -549,7 +549,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => permission ? repackResponse(OrganizationService.providerOrganizations(
                 $transition$.params().organization_id, { per_page: 1000 },
             )) : permission],
-            postcodes: ['providerOrganizations', function (providerOrganizations) {
+            postcodes: ['providerOrganizations', function(providerOrganizations) {
                 return providerOrganizations.map(provider => {
                     return provider.offices.map(office => office.postcode_number);
                 }).reduce((arr, postcodes) => [...arr, ...postcodes.filter((postcode) => {
@@ -564,13 +564,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/organizations/{organization_id}/financial-dashboard/overview",
         component: "financialDashboardOverviewComponent",
         resolve: {
-            organization: organziationResolver(),
             permission: permissionMiddleware('financial-dashboard', 'view_finances'),
+            organization: organziationResolver(),
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
-            ) => repackPagination(FundService.list(
+            ) => permission ? repackPagination(FundService.list(
                 $transition$.params().organization_id
-            ))],
+            )) : null],
+            fundsFinancialOverview: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => permission ? repackPagination(FundService.financialOverview(
+                $transition$.params().organization_id
+            )) : permission],
         }
     });
 

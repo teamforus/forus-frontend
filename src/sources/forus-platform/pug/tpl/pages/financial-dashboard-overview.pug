@@ -4,12 +4,11 @@
         .card-heading(ng-bind="'financial_dashboard_overview.header.title' | translate")
 
         .card.card-financial.form
-            .card-header
-                .row
-                    .col.col-lg-8.col-xs-12: .card-title Huidig saldo en uitgaven
-                    .col.col-lg-4.col-xs-12.text-right: button.button.button-primary(ng-click="$ctrl.exportFunds(false)")
-                        .mdi.mdi-download.icon-start
-                        | {{ 'financial_dashboard_overview.buttons.export' | translate }}
+            .card-header: .flex-row
+                .flex.flex-grow: .flex-col.card-title Huidig saldo en uitgaven
+                .flex: button.button.button-primary.button-sm(ng-click="$ctrl.exportFunds(false)")
+                    .mdi.mdi-download.icon-start
+                    translate(translate="financial_dashboard_overview.buttons.export")
 
             .card-section
                 .card-block.card-block-table.card-block-financial
@@ -31,18 +30,17 @@
 
                             tr.table-totals
                                 td(translate="financial_dashboard_overview.labels.total")
-                                td.text-right(ng-bind="$ctrl.funds.meta.total_amount | currency_format")
-                                td.text-right(ng-bind="$ctrl.funds.meta.left | currency_format")
-                                td.text-right(ng-bind="$ctrl.funds.meta.used | currency_format")
-                                td.text-right(ng-bind="$ctrl.funds.meta.transaction_costs | currency_format")
+                                td.text-right(ng-bind="$ctrl.fundsFinancialOverview.total_amount | currency_format")
+                                td.text-right(ng-bind="$ctrl.fundsFinancialOverview.left | currency_format")
+                                td.text-right(ng-bind="$ctrl.fundsFinancialOverview.used | currency_format")
+                                td.text-right(ng-bind="$ctrl.fundsFinancialOverview.transaction_costs | currency_format")
 
         .card.card-financial(ng-if="$ctrl.budgetFunds.length > 0")
-            .card-header
-                .card-title: .row
-                    .col.col-lg-6 Tegoeden
-                    .col.col-lg-6.text-right: button.button.button-primary(ng-click="$ctrl.exportFunds(true)")
-                        .mdi.mdi-download.icon-start
-                        | {{ 'financial_dashboard_overview.buttons.export' | translate }}
+            .card-header: .flex-row
+                .flex.flex-grow: .flex-col.card-title Tegoeden
+                .flex: button.button.button-primary.button-sm(ng-click="$ctrl.exportFunds(true)")
+                    .mdi.mdi-download.icon-start
+                    translate(translate="financial_dashboard_overview.buttons.export")
 
             .card-section
                 .card-block.card-block-table.card-block-financial: .table-wrapper: table.table
@@ -106,8 +104,8 @@
                     tr.table-totals
                         td
                         td(translate="financial_dashboard_overview.labels.total")
-                        td.text-right(ng-bind="$ctrl.funds.meta.budget.vouchers_amount | currency_format")
-                        td.text-right(ng-bind="$ctrl.funds.meta.budget.vouchers_active | currency_format")
-                        td.text-right(ng-bind="$ctrl.funds.meta.budget.vouchers_inactive | currency_format")
-                        td.text-right(ng-bind="$ctrl.funds.meta.budget.used | currency_format")
-                        td.text-right(ng-bind="($ctrl.funds.meta.budget.vouchers_amount - $ctrl.funds.meta.budget.used) | currency_format")
+                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget.vouchers_amount | currency_format")
+                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget.vouchers_active | currency_format")
+                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget.vouchers_inactive | currency_format")
+                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget.used | currency_format")
+                        td.text-right(ng-bind="($ctrl.fundsFinancialOverview.budget.vouchers_amount - $ctrl.fundsFinancialOverview.budget.used) | currency_format")
