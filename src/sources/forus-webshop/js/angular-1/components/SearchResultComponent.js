@@ -264,9 +264,6 @@ let SearchResultComponent = function(
 
         $ctrl.updateFiltersUsedCount();
         $ctrl.updateRows($stateParams.fund_id);
-
-        console.log($ctrl.form);
-        console.log($ctrl.form);
     };
 };
 

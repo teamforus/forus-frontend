@@ -68,7 +68,11 @@ const TopNavbarSearchDirective = function(
                     $scope.selectedItem = $scope.resultsExists;
                 break;
             case 13: 
-                $scope.goToItem($scope.resultsList[$scope.selectedItem-1])
+                if ($scope.resultsList[$scope.selectedItem-1]) {
+                    $scope.goToItem($scope.resultsList[$scope.selectedItem-1])
+                } else {
+                    $state.go('search-result', {keyword: $scope.query});
+                }                    
                 break;
         
             default:

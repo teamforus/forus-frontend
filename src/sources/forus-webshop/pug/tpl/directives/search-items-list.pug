@@ -2,7 +2,7 @@
     //- grid products
     .product-item(ng-if="$dir.type == 'budget' && $dir.display == 'grid'" ng-repeat="product in $dir.products").discounted
         a(ng-click="goToSearchItem(product)").product-item-inner
-            .product-image: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
+            .product-image: img(ng-src="{{ product.photo.sizes.small || product.logo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
             .product-details
                 .product-name.truncated(ng-bind="product.name")
                 .product-organization(ng-bind="product.description")
@@ -25,13 +25,13 @@
         ng-if="$dir.type == 'budget' && $dir.display == 'list'"
         ng-repeat="product in $dir.products" 
         ng-click="goToSearchItem(product)")
-        .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
+        .product-photo: img(ng-src="{{ product.photo.sizes.small || product.logo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
         .product-content
             .product-details
                 .product-name(ng-bind="product.name")
                 .product-organization(ng-bind="product.description")
             .product-actions(ng-class="{ 'with-button': product.item_type == 'fund' }" ng-click="goToSearchItem(product)")
-                .product-price(ng-if="product.item_type == 'product'" ng-bind="product.price_locale")
+                .product-price(ng-if="product.item_type == 'product' || " ng-bind="product.price_locale")
                 button.button.button-primary(ng-if="product.item_type == 'fund'") Aanvragen
 
 
