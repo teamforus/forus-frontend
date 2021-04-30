@@ -80,8 +80,8 @@ block content
                                     ng-click="$ctrl.showAs('grid')")
                                     em.mdi.mdi-view-grid-outline.icon-start
                                     | Foto's
-                    div(ng-if="$ctrl.display_type == 'grid'" ): search-items-list(ng-if="$ctrl.searchItems.data" display="grid" items="$ctrl.searchItems.data")
-                    div(ng-if="$ctrl.display_type == 'list'" ): search-items-list(ng-if="$ctrl.searchItems.data" display="list" items="$ctrl.searchItems.data")
+                    div(ng-if="$ctrl.display_type == 'grid'" ): search-items-list(ng-if="$ctrl.searchItems.data" type="{{ $ctrl.fund_type }}" display="grid" items="$ctrl.searchItems.data")
+                    div(ng-if="$ctrl.display_type == 'list'" ): search-items-list(ng-if="$ctrl.searchItems.data" type="{{ $ctrl.fund_type }}" display="list" items="$ctrl.searchItems.data")
                     
                     empty-block(
                         title= "{{ 'block_products.labels.title' | translate }}"

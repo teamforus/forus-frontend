@@ -104,9 +104,9 @@ const TopNavbarSearchDirective = function(
                 $scope.resultsList.push(item);
             });
         }
-
+        
         $scope.resultsExists = count;
-        console.log(result);
+
         return result;
     }
 

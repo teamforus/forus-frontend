@@ -62,6 +62,11 @@
             flex-wrap: wrap;
             flex-direction: row-reverse;
 
+            &.with-button {
+                align-items: center;
+                justify-content: center;
+            }
+
             .product-price {
                 font: 700 17px/30px $bf;
                 position: relative;

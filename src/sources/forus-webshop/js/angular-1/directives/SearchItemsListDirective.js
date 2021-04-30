@@ -1,5 +1,6 @@
 let SearchItemsListDirective = function(
     $scope,
+    $state,
 ) {
     let $dir = $scope.$dir = {};
 
@@ -8,6 +9,22 @@ let SearchItemsListDirective = function(
         'subsidies.grid': 'block-subsidies',
         'budget.list': 'block-products-list',
         'subsidies.list': 'block-subsidies-list',
+    };
+
+    $scope.goToSearchItem = (item) => {
+        switch (item.item_type) {
+            case 'product':
+                $state.go('products-show', {id: item.id});
+                break;
+        
+            case 'fund':
+                $state.go('fund', {id: item.id});
+                break;
+
+            case 'provider':
+                $state.go('provider', {provider_id: item.id});
+                break;
+        }        
     };
     
     const init = () => {
@@ -33,6 +50,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$state',
             SearchItemsListDirective
         ],
         templateUrl: 'assets/tpl/directives/search-items-list.html'

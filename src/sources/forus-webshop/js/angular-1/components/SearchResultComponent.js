@@ -152,12 +152,6 @@ let SearchResultComponent = function(
         $ctrl.loadProducts($ctrl.buildQuery(values));
     };
 
-    $ctrl.goToProduct = (product) => {
-        $state.go('product', {
-            product_id: product.id,
-        });
-    };
-
     $ctrl.loadProducts = (query) => {
         SearchService.list(query).then(res => {
             $ctrl.searchItems = res.data;
@@ -203,30 +197,30 @@ let SearchResultComponent = function(
     };
 
     $ctrl.updateRows = () => {
-        // $ctrl.products.data = $ctrl.products.data.map(product => {
-        //     if ($ctrl.form.values.fund && $ctrl.form.values.fund.id && Array.isArray(product.funds)) {
-        //         let prices = product.funds.filter(
-        //             funds => funds.id == $ctrl.form.values.fund.id
-        //         ).map(fund => fund.price);
+        $ctrl.searchItems.data = $ctrl.searchItems.data.map(product => {
+            if ($ctrl.form.values.fund && $ctrl.form.values.fund.id && Array.isArray(product.funds)) {
+                let prices = product.funds.filter(
+                    funds => funds.id == $ctrl.form.values.fund.id
+                ).map(fund => fund.price);
 
-        //         product.price_min = Math.min(prices);
-        //         product.price_max = Math.max(prices);
-        //     }
+                product.price_min = Math.min(prices);
+                product.price_max = Math.max(prices);
+            }
 
-        //     return product;
-        // });
+            return product;
+        });
 
-        // let product_rows = [];
-        // let products = $ctrl.products.data.slice().reverse();
+        let product_rows = [];
+        let products = $ctrl.searchItems.data.slice().reverse();
 
-        // while (products.length > 0) {
-        //     let row = products.splice(-3);
-        //     row.reverse();
+        while (products.length > 0) {
+            let row = products.splice(-3);
+            row.reverse();
 
-        //     product_rows.push(row);
-        // }
+            product_rows.push(row);
+        }
 
-        // $ctrl.product_rows = product_rows;
+        $ctrl.product_rows = product_rows;
     };
 
     $ctrl.$onInit = () => {
@@ -246,6 +240,10 @@ let SearchResultComponent = function(
             id: null,
             name: 'Alle potjes',
         });
+
+        let fund = $ctrl.funds.filter(fund => {
+            return fund.id == $stateParams.fund_id;
+        })[0] || $ctrl.funds[0];
             
         $scope.appConfigs = appConfigs;
         $scope.$watch('appConfigs', (_appConfigs) => {
@@ -260,12 +258,15 @@ let SearchResultComponent = function(
             organization_id: $stateParams.organization_id || null,
             product_category_id: $stateParams.product_category_id || null,
             search_item_types: $stateParams.search_item_types || null,
-            fund: null,
+            fund: fund,
             ...$ctrl.sort_by.value
         });
 
         $ctrl.updateFiltersUsedCount();
-        $ctrl.updateRows();
+        $ctrl.updateRows($stateParams.fund_id);
+
+        console.log($ctrl.form);
+        console.log($ctrl.form);
     };
 };
 
