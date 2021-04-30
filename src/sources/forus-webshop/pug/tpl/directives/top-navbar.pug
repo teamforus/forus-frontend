@@ -89,14 +89,14 @@
                     target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
                     ng-bind="'topnavbar.items.explanation' | translate")
 
-    .block.block-subnav.hide-sm
+    .block.block-subnav
         .subnav-inner.wrapper   
-            a(ui-sref="home").navbar-logo
+            a(ui-sref="home").navbar-logo.hide-sm
                 img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo" alt="{{$root.appConfigs.features.implementation_name}} alternatief logo").second-logo
                 img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" alt="{{$root.appConfigs.features.implementation_name}}")
                 //img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}" alt="{{$root.appConfigs.features.implementation_name}}").hover  
-            
-            .block
+            top-navbar-search
+            .block.hide-sm
                 .block-auth.block-auth-border.hide-sm(ng-if="$root.auth_user")
                     .auth-code
                         a(ui-sref="vouchers" id="vouchers").button.button-primary

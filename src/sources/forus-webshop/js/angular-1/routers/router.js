@@ -397,6 +397,85 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "search-result",
+        url: "/search?{keyword:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{search_item_types:strind}",
+        params: {
+            keyword: {
+                dynamic: true,
+                value: "",
+                squash: true,
+            },
+            page: {
+                dynamic: true,
+                value: 1,
+                squash: true,
+            },
+            fund_id: {
+                value: null,
+                squash: true
+            },
+            organization_id: {
+                value: null,
+                squash: true
+            },
+            product_category_id: {
+                value: null,
+                squash: true
+            },
+            display_type: {
+                dynamic: true,
+                value: 'list',
+                squash: true
+            },
+            search_item_types: {
+                dynamic: true,
+                array: true,
+                value: [''],
+                squash: true
+            },
+            fund_type: {
+                dynamic: true,
+                value: 'budget',
+                squash: true
+            },
+        },
+        component: "searchResultComponent",
+        resolve: {
+            searchItems: ['$transition$', 'SearchService', (
+                $transition$, SearchService
+            ) => repackPagination(SearchService.list({
+                keyword: $transition$.params().keyword,
+                overview: true,
+                page: $transition$.params().page,
+                fund_type: $transition$.params().fund_type,
+                search_item_types: $transition$.params().search_item_types,
+                organization_id: $transition$.params().organization_id,
+                product_category_id: $transition$.params().product_category_id
+            }))],
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())],
+            productCategories: ['ProductCategoryService', (
+                ProductCategoryService
+            ) => repackResponse(ProductCategoryService.list({
+                parent_id: 'null',
+                used: 1,
+            }))],
+            organizations: ['OrganizationService', 'HelperService', (
+                OrganizationService, HelperService
+            ) => HelperService.recursiveLeacher((page) => {
+                return OrganizationService.list({
+                    is_employee: 0,
+                    has_products: 1,
+                    per_page: 100,
+                    page: page,
+                    fund_type: 'budget'
+                });
+            }, 4)],
+        }
+    });
+
+    $stateProvider.state({
         name: "provider-office",
         url: "/providers/{provider_id}/offices/{office_id}",
         component: "providerOfficeComponent",
