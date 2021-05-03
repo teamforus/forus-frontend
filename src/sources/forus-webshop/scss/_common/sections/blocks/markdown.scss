@@ -44,14 +44,14 @@
         }
 
         a {
-            color: $bc;
+            color: $tc-link;
             font-weight: 500;
             transition: 0.4s;
             font: inherit;
             text-decoration: underline;
 
             &:hover {
-                color: $bc;
+                text-decoration: none;
             }
         }
 
