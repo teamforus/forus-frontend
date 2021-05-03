@@ -34,11 +34,13 @@ COPY nginx/default.conf /etc/nginx/conf.d/
 ## Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
 
+ARG IMPLEMENTATION_NAME
+
 ## From 'builder' stage copy over the artifacts in dist folder 
 ## to default nginx public folder
-COPY --from=builder /ng-app/dist/forus-webshop-general.panel /usr/share/nginx/general
-COPY --from=builder /ng-app/dist/forus-platform.provider.general /usr/share/nginx/general/provider
-COPY --from=builder /ng-app/dist/forus-platform.validator.general /usr/share/nginx/general/validator
-COPY --from=builder /ng-app/dist/forus-platform.sponsor.general /usr/share/nginx/general/sponsor
+COPY --from=builder /ng-app/dist/forus-webshop-$IMPLEMENTATION_NAME.panel /usr/share/nginx/$IMPLEMENTATION_NAME
+COPY --from=builder /ng-app/dist/forus-platform.provider.$IMPLEMENTATION_NAME /usr/share/nginx/$IMPLEMENTATION_NAME/provider
+COPY --from=builder /ng-app/dist/forus-platform.validator.$IMPLEMENTATION_NAME /usr/share/nginx/$IMPLEMENTATION_NAME/validator
+COPY --from=builder /ng-app/dist/forus-platform.sponsor.$IMPLEMENTATION_NAME /usr/share/nginx/$IMPLEMENTATION_NAME/sponsor
 
 CMD ["nginx", "-g", "daemon off;"]

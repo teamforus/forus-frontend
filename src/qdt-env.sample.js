@@ -844,12 +844,12 @@ module.exports = (core) => {
     });
 
     //- Enable only given platforms
-    core.enableOnly([
+    /*core.enableOnly([
         'dashboard_general_sponsor',
         'dashboard_general_provider',
         'dashboard_general_validator',
         'webshop_general',
-    ]);
+    ]);*/
 
     //- Enable all but given platforms (will ignore: 'core.enableOnly' when used)
     /*core.disableOnly([
