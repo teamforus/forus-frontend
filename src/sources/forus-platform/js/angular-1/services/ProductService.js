@@ -69,6 +69,7 @@ let ProductService = function(ApiRequest) {
             let values = {
                 name: apiResource.name,
                 description: apiResource.description,
+                description_html: apiResource.description_html,
 
                 price: parseFloat(apiResource.price),
                 price_type: apiResource.price_type,

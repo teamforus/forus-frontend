@@ -1,20 +1,22 @@
 .block {
     &.block-products {
         .product-item {
-            padding: 0 30px;
             .product-item-inner {
-                box-shadow: none;
                 border-top-right-radius: 10px;
                 border-top-left-radius: 10px;
+
                 .product-organization {
                     color: $color-default;
-                }          
+                }      
+
                 .product-name {
                     color: $color-primary;
                 }
+
                 .product-image {
                     border-radius: 0px;
                 }
+
                 &:hover {
                     .product-name {
                         color: $color-default;
@@ -28,6 +30,7 @@
         }
     }
 }
+
 products-component {
     .section {
         &.section-products {

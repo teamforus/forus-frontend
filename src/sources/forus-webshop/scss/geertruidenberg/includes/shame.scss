@@ -29,11 +29,9 @@
 
     .section {
         &.section-header {
-            background-size: cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-top: 0;
 
             &:before {
                 content: '';
@@ -47,11 +45,7 @@
 
             .header-content {
                 color: $tc-var;
-                padding: 150px 0;
-                
-                .header-how-it-works {
-                    color: $tc-var;
-                }
+                padding: 80px 0 160px;
             }
         }
     }

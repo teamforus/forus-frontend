@@ -2,12 +2,14 @@
     &.block-products {
         margin: 20px -15px 30px;
         flex-wrap: wrap;
+        font-size: 0;
 
         .product-item {
             margin: 0 0 30px;
             padding: 0 15px;
             display: inline-block;
-            max-width: 33.333%;
+            max-width: 33.333%; 
+            font-size: initial;
 
             .product-image {
                 width: 100%;

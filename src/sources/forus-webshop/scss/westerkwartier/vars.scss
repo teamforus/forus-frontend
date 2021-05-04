@@ -29,7 +29,8 @@ $bf:                'Lato' ,"Lucida Sans","Lucida Sans Unicode","Lucida Grande",
 
 // text color
 $tc:                #4e4d40;
-$tc-var:            #fff;
+$tc-var:            #fff;      
+$tc-link:           inherit;
 
 // base color
 $bc:                #4990b5;
@@ -55,7 +56,7 @@ $fd:                block;
 $pi:                10px 0 0 10px;
 
 // placeholder text color
-$ptc:               #c4c4c4;
+$ptc:               #515152;
 
 $border_color:      #EBEDF0;
 
