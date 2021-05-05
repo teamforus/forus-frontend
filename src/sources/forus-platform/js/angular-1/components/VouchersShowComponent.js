@@ -8,6 +8,25 @@ let VouchersShowComponent = function(
     let $ctrl = this;
     let $translate = $filter('translate');
 
+    $ctrl.deactivate = () => {
+        ModalService.open('voucher_deactivate', {
+            voucher: $ctrl.voucher,
+            fund: $ctrl.fund, 
+            organization: $ctrl.organization,
+            onSubmit: () => {
+                $ctrl.onPageChange();
+            },
+        });
+    }
+
+    $ctrl.activate = () => {
+        VoucherService.activate(
+            $ctrl.organization.id, $ctrl.voucher.id
+        ).then(() => {
+            $ctrl.onPageChange();
+        });
+    }
+
     $ctrl.showQrCode = () => {
         ModalService.open('voucher_qr_code', {
             voucher: $ctrl.voucher,
