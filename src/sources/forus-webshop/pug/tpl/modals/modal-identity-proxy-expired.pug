@@ -1,11 +1,14 @@
-.modal.modal-identity-proxy-expired.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-identity-proxy-expired.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog" aria-labelledby="authDialogTitle" aria-describedby="authDialogSubtitle")
+
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-content
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="close" role="button")
         .modal-section
             .text-center
-                .title(translate="expired_identity.title")
-                .description(translate="expired_identity.description")
+                .title(role="heading" id="expiredIdentityDialogTitle" translate="expired_identity.title")
+                .description(id="expiredIdentityDialogDescription" translate="expired_identity.description")
 
         .modal-footer.text-center.no-border
             button.button.button-primary(ng-click="$ctrl.openLoginModal()" translate="Bevestig")

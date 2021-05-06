@@ -3,7 +3,7 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     
     .modal-window(ng-show="!$ctrl.assigning && !$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-body: .modal-section
             .voucher_qr-block
                 .voucher_qr-title(translate="modals.modal_voucher_qr_code.title")
@@ -44,7 +44,7 @@
 
     //- assign voucher to user
     .modal-window(ng-show="$ctrl.assigning && !$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header: .voucher_qr-title(translate="modals.modal_voucher_qr_code.title_assign")
         .modal-body: .modal-section: .form
             .form-group
@@ -82,7 +82,7 @@
                 translate="modals.modal_voucher_create.buttons.submit")
     
     .modal-window(ng-show="$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-body: .modal-section
             .block.block-message(ng-if="$ctrl.assigning && ($ctrl.assignType.key === 'email' || $ctrl.assignType.key === 'bsn')")
                 .message-title(translate="modals.modal_voucher_qr_code.success.assigned_title")

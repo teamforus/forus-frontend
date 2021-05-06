@@ -5,7 +5,7 @@
 
     //- Confirm unlinking
     .modal-window(ng-if="$ctrl.state == 'start'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" aria-label="close" role="button")
         .modal-header: .modal-title(translate="physical_card.modal_section.link_card_unlink.title")
         .modal-content: .modal-section: .physical-card-result
             .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-card-exclamation.svg
@@ -19,7 +19,7 @@
 
     //- Card unlinked
     .modal-window(ng-if="$ctrl.state == 'unlinked'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" aria-label="close" role="button")
         .modal-header: .modal-title Pas geblokkeerd!
         .modal-content: .modal-section: .physical-card-result
             .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg

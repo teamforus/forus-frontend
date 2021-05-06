@@ -6,14 +6,16 @@ let ModalMarkdownCustomLinkComponent = function(
     let $ctrl = this;
     let input = false;
 
-    $ctrl.$onInit = () => {
-        $ctrl.params = {
-            type: $ctrl.modal.scope.type,
-            hasDescription: $ctrl.modal.scope.hasDescription,
-            description: $ctrl.modal.scope.selection
-        };
+    $ctrl.errors = {};
 
-        $ctrl.form = FormBuilderService.build({}, (form) => {
+    $ctrl.$onInit = () => {
+        const { type } = $ctrl.modal.scope;
+        const { text, url } = $ctrl.modal.scope.values;
+        const values = { url, text };
+
+        $ctrl.linkType = type;
+
+        $ctrl.form = FormBuilderService.build(values, (form) => {
             $ctrl.modal.scope.success(form.values);
             $ctrl.close();
         });
@@ -35,13 +37,14 @@ let ModalMarkdownCustomLinkComponent = function(
         input.style.display = 'none';
 
         input.addEventListener('change', async (e) => {
-            let res = await MediaService.store('cms_media', e.target.files[0], [
+            MediaService.store('cms_media', e.target.files[0], [
                 'public'
-            ]);
-
-            $ctrl.media = res.data.data;
-            $ctrl.form.values.url = $ctrl.media.sizes.public;
-            $ctrl.form.values.uid = $ctrl.media.uid;
+            ]).then((res) => {
+                $ctrl.errors = {};
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.url = $ctrl.media.sizes.public;
+                $ctrl.form.values.uid = $ctrl.media.uid;
+            }, (res) => $ctrl.errors = res.data.errors);
         });
 
         $element[0].appendChild(input);
@@ -49,7 +52,7 @@ let ModalMarkdownCustomLinkComponent = function(
         input.click();
     };
 
-    $ctrl.$onDestroy = function() {};
+    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {

@@ -169,7 +169,6 @@
 
                 .showcase-filters-title,
                 .showcase-filters-block {
-                    margin: 0 0 15px;
                     display: flex;
                     flex-grow: 1;
                 }
@@ -177,6 +176,7 @@
                 .showcase-filters-title {
                     font: 600 24px/28px $bf;
                     color: $tc;
+                    margin: 0;
 
                     .showcase-filters-title-count {
                         font: 700 16px/30px $bf;
@@ -201,6 +201,7 @@
 
                 .showcase-filters-block {
                     justify-content: flex-end;
+                    margin: 0 0 15px;
                 }
             }
         }

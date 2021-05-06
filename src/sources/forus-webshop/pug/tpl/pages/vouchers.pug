@@ -13,7 +13,7 @@ section.section.section-profile: .wrapper
                     .profile-content-title
                         div.pull-left
                             .profile-content-title-count(ng-bind="$ctrl.regularVouchers.length")
-                            span(translate="vouchers.header.regular.title")
+                            h1.profile-content-header(translate="vouchers.header.regular.title")
                 .block.block-vouchers(ng-if="$ctrl.regularVouchers.length > 0")
                     voucher-card(ng-repeat="voucher in $ctrl.regularVouchers" voucher="voucher")
 
@@ -28,7 +28,7 @@ section.section.section-profile: .wrapper
                     .profile-content-title
                         div.pull-left
                             .profile-content-title-count(ng-bind="$ctrl.productVouchers.length")
-                            span(translate="vouchers.header.product.title")
+                            h1.profile-content-header(translate="vouchers.header.product.title")
                 
                 .block.block-vouchers(ng-if="$ctrl.productVouchers.length > 0")
                     voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
