@@ -1,7 +1,7 @@
 .modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
-        a(ng-click="$ctrl.close()").mdi.mdi-close.modal-close
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header(translate="modal_funds_add.header.title")
         .modal-body.form
             .modal-section

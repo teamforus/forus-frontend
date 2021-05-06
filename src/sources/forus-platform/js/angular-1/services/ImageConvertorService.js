@@ -1,6 +1,6 @@
-let AwesomeQR = require('../libs/AwesomeQrCode');
+const AwesomeQR = require('../libs/AwesomeQrCode');
 
-let dataURItoBlob = (dataURI) => {
+const dataURItoBlob = (dataURI) => {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
     var byteString = atob(dataURI.split(',')[1]);
@@ -21,10 +21,40 @@ let dataURItoBlob = (dataURI) => {
     });
 };
 
-let createObjectURL = (file) => {
+const createObjectURL = (file) => {
     return (
         window.URL || window.webkitURL || window.mozURL || window.msURL
     ).createObjectURL(file);
+};
+
+const fit = (contains) => {
+    return (parentWidth, parentHeight, childWidth, childHeight, scale = 1, offsetX = 0.5, offsetY = 0.5) => {
+        const childRatio = childWidth / childHeight
+        const parentRatio = parentWidth / parentHeight
+        let width = parentWidth * scale
+        let height = parentHeight * scale
+
+        if (contains ? (childRatio > parentRatio) : (childRatio < parentRatio)) {
+            height = width / childRatio
+        } else {
+            width = height * childRatio
+        }
+
+        return {
+            width,
+            height,
+            offsetX: (parentWidth - width) * offsetX,
+            offsetY: (parentHeight - height) * offsetY
+        }
+    }
+};
+
+const contain = (offsetX, offsetY, width, height) => {
+    return fit(true)(offsetX, offsetY, width, height);
+};
+
+const cover = (offsetX, offsetY, width, height) => {
+    return fit(false)(offsetX, offsetY, width, height);
 };
 
 function ImageConvertor(file) {
@@ -45,41 +75,18 @@ function ImageConvertor(file) {
         return converter.dataURItoBlob(base64);
     };
 
-    converter.resize = (x, y) => {
+    converter.resize = (x, y, fillStyle = "#ffffff") => {
         canvas.width = x;
         canvas.height = y;
 
-        let aspect = x / y;
-
-        if (imageObj.width > imageObj.height) {
-            var sourceWidth = imageObj.height * aspect;
-            var sourceHeight = imageObj.height;
-
-            var sourceX = (imageObj.width - imageObj.height) / 2;
-            var sourceY = 0;
-        } else if (imageObj.width < imageObj.height) {
-            var sourceWidth = imageObj.width;
-            var sourceHeight = imageObj.width * aspect;
-
-            var sourceX = 0;
-            var sourceY = (imageObj.height - imageObj.width) / 2;
-        } else {
-            var sourceWidth = imageObj.width;
-            var sourceHeight = imageObj.width;
-
-            var sourceX = 0;
-            var sourceY = 0;
+        if (fillStyle) {
+            context.fillStyle = fillStyle;
+            context.fillRect(0, 0, x, y);
         }
 
-        var destWidth = x;
-        var destHeight = y;
-        var destX = 0;
-        var destY = 0;
-
-        context.fillStyle = "#ffffff";
-        context.fillRect(0, 0, destWidth, destHeight);
-
-        context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+        const position = cover(canvas.width, canvas.height, imageObj.width, imageObj.height);
+        
+        context.drawImage(imageObj, position.offsetX, position.offsetY, position.width, position.height);
 
         return canvas.toDataURL('image/jpeg');
     };

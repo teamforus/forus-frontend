@@ -1,7 +1,7 @@
 .modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.closeModal()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
-        a(ng-click="$ctrl.closeModal()").mdi.mdi-close.modal-close
+        a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="!$ctrl.verificationRequested") Relatie toevoegen
         .modal-header(ng-if="$ctrl.verificationRequested") Gegevens controleren
         .modal-body

@@ -1,5 +1,4 @@
 .section {
-
     &.section-header {
         @media screen and (min-width: 1024px) {
             .wrapper {
@@ -10,21 +9,11 @@
 
             .header-content {
                 .header-title {
-                    font: 700 32px/1.5em $bf;
+                    font-size: 32px;
                 }
 
                 .header-description {
-                    
-                    p {
-                        font: 400 20px/1.5em $bf;
-                    }
-                }
-
-                .header-how-it-works {
-                    color: #186DCB;
-                    font-style: normal;
-                    text-decoration: underline;
-                    font-weight: bold;
+                    font-size: 20px;
                 }
             }
         }

@@ -1,22 +1,25 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-physical-cards.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-physical-cards.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog" aria-labelledby="physicalCardTypeDialogTitle" aria-describedby="physicalCardTypeDialogSubtitle")
+    
     .modal-backdrop(ng-click="$ctrl.close()")
     
     //- Activation code form
     .modal-window(ng-if="$ctrl.state == 'card_code'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
         .modal-header
-            .modal-title(translate="physical_card.modal_section.link_card.title")
+            .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.link_card.title")
         .modal-content: .modal-section: form.form
             .activation-card
-                .physical-card-title(translate="physical_card.modal_section.link_card.subtitle")
+                .physical-card-title(id="physicalCardTypeDialogSubtitle" translate="physical_card.modal_section.link_card.subtitle")
                 pincode-control(
                     ng-model="$ctrl.activateCodeForm.values.code" 
                     block-size="4" 
                     block-count="3" 
                     block-input-type="num"
-                    cant-delete-length="4").block-pincode-compact.block-pincode-mobile-collapse
+                    cant-delete-length="3").block-pincode-compact.block-pincode-mobile-collapse
                 .form-error.text-center(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
 
                 .physical-card-media: img(src=src_prefix + "./assets/img/icon-physical-cards/icon-physical-cards-preview.svg" alt="Fysieke pas: '{{$ctrl.voucher.fund.name}}'")
@@ -33,9 +36,9 @@
     
     //- Digital password
     .modal-window(ng-if="$ctrl.state == 'select_type'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
         .modal-header(ng-if="!$ctrl.preffersPlasticCard")
-            .modal-title(translate="physical_card.modal_section.type_selection.title" translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
+            .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.type_selection.title" translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
         .modal-content 
             .modal-section(ng-if="!$ctrl.preffersPlasticCard")
                 .physical-card: .physical-card-row
@@ -68,7 +71,7 @@
                             .physical-card-item-title(translate="physical_card.modal_section.type_selection.card_new.title")
 
             .modal-header(ng-if="$ctrl.preffersPlasticCard")
-                .modal-title(translate="physical_card.modal_section.request_new_card.title" translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
+                .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.request_new_card.title" translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
 
             .modal-section(ng-if="$ctrl.preffersPlasticCard")
                 .order-block
@@ -119,8 +122,8 @@
 
     //- Success old card
     .modal-window(ng-if="$ctrl.state == 'success_old_card'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header: .modal-title(translate="physical_card.modal_section.link_card_success.title")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.link_card_success.title")
         .modal-content: .modal-section
             .physical-card-result
                 .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg
@@ -129,12 +132,13 @@
 
     //- Success new card
     .modal-window(ng-if="$ctrl.state == 'success_new_card'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header: .modal-title(translate="physical_card.modal_section.request_card_success.title")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.request_card_success.title")
         .modal-content: .modal-section
             .physical-card-result
                 .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg
                 .physical-card-description(
+                    id="physicalCardTypeDialogSubtitle"
                     translate="physical_card.modal_section.request_card_success.description" 
                     translate-values="$ctrl.requestPhysicalCardForm.values")
                 .text-center: button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")
