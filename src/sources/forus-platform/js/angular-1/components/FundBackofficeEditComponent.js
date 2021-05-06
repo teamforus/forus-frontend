@@ -22,10 +22,10 @@ let FundBackofficeEditComponent = function(
 
     $ctrl.fallbackOptions = [{
         value: '1',
-        label: 'Allow regular fund requests.',
+        label: 'Geen foutmelding',
     }, {
         value: '0',
-        label: 'Show try later message.',
+        label: 'Foutmelding bij API downtime',
     }];
 
     $ctrl.selectCertificateFile = (e) => {
@@ -84,13 +84,13 @@ let FundBackofficeEditComponent = function(
     $ctrl.testBackofficeConnection = () => {
         FundService.backofficeTest($ctrl.organization.id, $ctrl.fund.id).then((res) => {
             if (res.data.state === 'success') {
-                PushNotificationsService.success('Success!', 'The api responded and the authorization seems to work.');
+                PushNotificationsService.success('Succes!', 'De API reageert zonder error codes en de authenticatie werkt.');
             } else {
                 PushNotificationsService.danger('Error!', {
-                    0: 'The api responded with code `0`, which most likely means the certificate wrong.',
-                    404: 'The api responded with code `404`, please check the api url.',
-                    403: 'The api responded with code `403`, which most likely means the token or the certificate wrong.',
-                }[res.data.response_code] || `The api responded with code \`${res.data.response_code}\`, please verify the settings.` );
+                    0: 'De API geeft code `0` terug, wat vaak betekent dat het certificaat verkeerd is.',
+                    404: 'De API geeft code `404` terug, controleer de api url.',
+                    403: 'De API geeft code `403` terug, wat vaak betekent dat het certificaat of de sleutel verkeerd is.',
+                }[res.data.response_code] || `De api geeft code \`${res.data.response_code}\` terug, controleer de instellingen.` );
             }
         }, console.error);
     };
@@ -116,7 +116,7 @@ let FundBackofficeEditComponent = function(
                 form.unlock();
                 form.values = this.makeFormValues($ctrl.fund);
 
-                PushNotificationsService.success('Saved!', 'Please test connection to verify your new settings.');
+                PushNotificationsService.success('Opgeslagen!', 'Controleer de integratie om de instellingen te testen.');
             }, (res) => {
                 form.errors = res.data.errors;
                 form.unlock();

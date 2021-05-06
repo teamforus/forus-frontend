@@ -1,21 +1,25 @@
 .app.app-container
     menu
     section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Webshops  
+            .breadcrumb-item(ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" ng-bind="$ctrl.implementation.name")
+            .breadcrumb-item.active Backoffice integratie
         .card: form(ng-submit="$ctrl.form.submit()").form
             .card-header.form
                 .flex-row
                     .flex.flex-grow: .card-title Backoffice integratie
                     .flex: .form-group
                         .button.button-text.button-sm.button-disabled.button-disabled-visible(ng-if="$ctrl.isDirty")
-                            | Save the changed to test your settings
+                            | Test de nieuwe instellingen voor het opslaan
                         .button.button-text.button-sm.button-disabled.button-disabled-visible(ng-if="!$ctrl.isConfigured && !$ctrl.isDirty")
-                            | Please fill all the fields to test connection
+                            | Vul alle velden in om de integratie te testen
                         button(
                             type="button" 
                             ng-click="$ctrl.testBackofficeConnection()"
                             ng-disabled="!$ctrl.isConfigured || $ctrl.isDirty").button.button-default.button-sm
                             .mdi.mdi-connection.icon-start
-                            | Test connection
+                            | Test instellingen
 
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
@@ -30,7 +34,7 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.backoffice_url" ng-bind="error")
 
                 .form-group.form-group-inline
-                    label.form-label API key
+                    label.form-label API sleutel
                     input(ng-model="$ctrl.form.values.backoffice_key" type="text" ng-change="$ctrl.onChange()" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxx").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.backoffice_key" ng-bind="error")
 
@@ -43,7 +47,7 @@
 
                         pre(
                             ng-if="$ctrl.form.values.backoffice_certificate && !$ctrl.showCertificate"
-                            ng-bind="'Certificate selected'").code
+                            ng-bind="'Certificaat geselecteerd'").code
 
                         .button-group
                             .button.button-primary(ng-click="$ctrl.selectCertificateFile()")
@@ -60,13 +64,13 @@
                                 ng-if="$ctrl.form.values.backoffice_certificate && !$ctrl.showCertificate"
                                 ng-click="$ctrl.showCertificate = !$ctrl.showCertificate")
                                 .mdi.mdi-eye-outline.icon-start
-                                | Show certificate
+                                | Bekijk certificaat
 
                             .button.button-text.button-text-primary(
                                 ng-if="$ctrl.form.values.backoffice_certificate && $ctrl.showCertificate"
                                 ng-click="$ctrl.showCertificate = !$ctrl.showCertificate")
                                 .mdi.mdi-eye-off-outline.icon-start
-                                | Hide certificate
+                                | Verberg certificaat
 
                     .form-error(ng-repeat="error in $ctrl.form.errors.backoffice_key" ng-bind="error")
                     tooltip(text="'Upload het benodigde certificaat voor het tot stand brengen van een “two-sided” SSL-verbinding tussen het platform en de externe API.'")
