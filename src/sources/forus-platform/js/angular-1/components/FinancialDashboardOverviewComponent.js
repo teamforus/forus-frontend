@@ -51,7 +51,7 @@ let FinancialDashboardOverviewComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        $ctrl.funds.data = $ctrl.funds.data.filter((fund) => fund.state != 'waiting');
+        $ctrl.funds.data = $ctrl.funds.data.filter((fund) => (fund.state == 'active'));
         $ctrl.budgetFunds = $ctrl.funds.data.filter((fund) => fund.type == 'budget');
         $ctrl.transformFunds();
     };
