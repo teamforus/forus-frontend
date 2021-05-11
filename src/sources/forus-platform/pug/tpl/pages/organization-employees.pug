@@ -16,7 +16,12 @@
 
                 tr(ng-repeat="employee in $ctrl.employees.data")
                     td(ng-bind="employee.email" id="employee_email").text-primary-light
-                    td(ng-bind="employee.rolesList").ellipsis
+                    td
+                        span {{ employee.rolesList | str_limit:60 }} &nbsp; &nbsp;
+                        a.text-primary-light(
+                            ng-if="$ctrl.organization.identity_address == $root.auth_user.address"
+                            ng-click="$ctrl.transferOwnership(employee)" 
+                            translate="organization_employees.buttons.transfer_ownership")
                     td.text-right(ng-if="$ctrl.organization.identity_address == employee.identity_address")
                         span.text-muted(translate="organization_employees.labels.owner")
 

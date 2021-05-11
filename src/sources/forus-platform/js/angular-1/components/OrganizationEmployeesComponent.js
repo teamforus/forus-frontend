@@ -81,6 +81,21 @@ let OrganizationEmployeesComponent = function(
             PushNotificationsService.danger(res.data.message);
         });
     }
+
+    $ctrl.transferOwnership = function(employee) {
+        ModalService.open('transferOrganizationOwnership', {
+            organization: $ctrl.organization,
+            employee: employee,
+            employees: $ctrl.employees.data,
+            submit: () => {
+                $ctrl.organization.identity_address = employee.identity_address;
+                
+                $scope.onPageChange({
+                    page: $ctrl.employees.meta.current_page
+                });
+            }
+        });
+    }
 };
 
 module.exports = {

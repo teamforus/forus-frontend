@@ -90,6 +90,7 @@ app.component('modalDuplicatesPickerComponent', require('./components/Modals/Mod
 app.component('modalFundAppendRequestRecordComponent', require('./components/Modals/ModalFundAppendRequestRecordComponent'));
 app.component('modalPhysicalCardComponent', require('./components/Modals/ModalPhysicalCardComponent'));
 app.component('modalExportTypeComponent', require('./components/Modals/ModalExportTypeComponent'));
+app.component('modalTransferOrganizationOwnershipComponent', require('./components/Modals/ModalTransferOrganizationOwnershipComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
