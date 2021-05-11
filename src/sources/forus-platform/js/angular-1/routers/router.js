@@ -534,28 +534,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('financial-dashboard', 'view_finances'),
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => permission ? repackResponse(FundService.list(
-                $transition$.params().organization_id, { per_page: 100 },
-            )) : permission],
-            productCategories: ['ProductCategoryService', (
-                ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({
-                parent_id: 'null'
-            }))],
-            providerOrganizations: ['permission', 'OrganizationService', '$transition$', (
-                permission, OrganizationService, $transition$
-            ) => permission ? repackResponse(OrganizationService.providerOrganizations(
-                $transition$.params().organization_id, { per_page: 1000 },
-            )) : permission],
-            postcodes: ['providerOrganizations', function(providerOrganizations) {
-                return providerOrganizations.map(provider => {
-                    return provider.offices.map(office => office.postcode_number);
-                }).reduce((arr, postcodes) => [...arr, ...postcodes.filter((postcode) => {
-                    return postcode && !arr.includes(postcode);
-                })], []).map((postcode, index) => ({ name: postcode, id: index + 1 }));
-            }]
+            options: ['permission', 'organization', 'FundService', (permission, organization, FundService) => {
+                return permission ? FundService.readFinances(organization.id, {
+                    filters: 1,
+                }).then(res => res.data.filters) : null;
+            }],
         }
     });
 

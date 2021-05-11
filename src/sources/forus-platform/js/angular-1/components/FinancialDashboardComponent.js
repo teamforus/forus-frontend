@@ -1,105 +1,260 @@
 let FinancialDashboardComponent = function(
     $state,
+    $filter,
     $stateParams,
     FundService,
+    TransactionService,
     OrganizationService,
-    FileService
+    FileService,
+    appConfigs
 ) {
     const $ctrl = this;
-    const startYear = 2015;
 
     $ctrl.field = 'amount';
+    $ctrl.chartData = {};
+    $ctrl.shownDropdownType = null;
+    $ctrl.providersFinances = null;
+    $ctrl.optionsList = {};
 
-    $ctrl.fetchData = (query = {}) => {
-        $ctrl.chartData.update();
-        $ctrl.getFinancePerProvider(query);
+    $ctrl.providerFilters = {
+        page: 1,
+        per_page: 10,
+    };
+
+    $ctrl.fetchData = () => {
+        $ctrl.fetchProviders({ page: 1 });
+        $ctrl.updateChartData();
+    };
+
+    $ctrl.fetchProviders = (query) => {
+        OrganizationService.financeProviders(
+            $ctrl.organization.id,
+            $ctrl.getFiltersQuery(query)
+        ).then(res => $ctrl.providersFinances = res.data);
+    }
+
+    $ctrl.currencyFormat = (value) => {
+        return $filter('currency_format')(value);
+    };
+
+    $ctrl.getFiltersQuery = function(query = {}) {
+        return { ...$ctrl.getQuery(), ...$ctrl.timeFilters.getQuery(), ...query };
+    };
+
+    $ctrl.updateChartData = function() {
+        FundService.readFinances($ctrl.organization.id, $ctrl.getFiltersQuery()).then((res) => {
+            $ctrl.chartData = res.data;
+        });
+    };
+
+    $ctrl.initOptions = () => {
+        $ctrl.optionsList.funds = $ctrl.options.funds;
+        $ctrl.optionsList.postcodes = $ctrl.options.postcodes;
+        $ctrl.optionsList.providers = $ctrl.options.providers;
+        $ctrl.optionsList.productCategories = $ctrl.options.product_categories;
+
+        $ctrl.optionsList.postcodes.sort();
+
+        $ctrl.optionsList.funds.unshift({
+            id: null,
+            name: 'Alle fondsen',
+            transactions: $ctrl.optionsList.funds.reduce((total, fund) => total + fund.transactions, 0),
+            checked: true
+        });
+
+        $ctrl.optionsList.providers.unshift({
+            id: null,
+            name: 'Alle aanbieders',
+            transactions: $ctrl.optionsList.providers.reduce((total, fund) => total + fund.transactions, 0),
+            checked: true
+        });
+
+        $ctrl.optionsList.postcodes.unshift({
+            id: null,
+            name: 'Alle postcodes',
+            transactions: $ctrl.optionsList.postcodes.reduce((total, fund) => total + fund.transactions, 0),
+            checked: true
+        });
+
+        $ctrl.optionsList.productCategories.unshift({
+            id: null,
+            name: 'Alle categories',
+            checked: true
+        });
+
+        $ctrl.selectOption('funds', $ctrl.optionsList.funds[0], false);
+        $ctrl.selectOption('postcodes', $ctrl.optionsList.postcodes[0], false);
+        $ctrl.selectOption('providers', $ctrl.optionsList.providers[0], false);
+        $ctrl.selectOption('productCategories', $ctrl.optionsList.productCategories[0], false);
+
+        $ctrl.searchOption();
     };
 
     $ctrl.timeFilters = {
+        startYear: 2015,
+        endYear: moment().format('YYYY'),
         type: 'year',
+        year: null,
+        month: null,
+        quarter: null,
         years: [],
+        months: [],
+        quarters: [],
+        yearsList: [],
+        monthsList: [],
+        quartersList: [],
         makeYears: function() {
-            return [...(new Array(moment().year() - startYear)).keys()].map((years) => {
-                const date = moment().subtract(years, 'year');
+            return [...(new Array(moment().year() - this.startYear)).keys()].map((years) => {
+                const date = moment().subtract(years, 'year').locale('nl');
+                const yearStart = date.clone().startOf('year');
+                const yearEnd = date.clone().endOf('year');
 
                 return {
-                    label: date.format('YYYY'),
-                    value: date.format('YYYY'),
-                    from: date.clone().startOf('year').format('YYYY-MM-DD'),
-                    to: date.clone().endOf('year').format('YYYY-MM-DD'),
+                    date: yearStart.clone(),
+                    year: yearStart.format('YYYY'),
+                    value: yearStart.format('YYYY-MM-DD'),
+                    title: yearStart.format('YYYY'),
+                    from: yearStart.format('YYYY-MM-DD'),
+                    to: yearEnd.format('YYYY-MM-DD'),
                 };
-            });;
+            });
+        },
+        makeQuarters: function(years) {
+            return years.map((year) => {
+                const date = year.date;
+                const quarters = [...(new Array(4)).keys()];
+
+                return {
+                    quarters: quarters.map(quarter => (3 - quarter)).map((quarter) => {
+                        const quarterStartDate = date.clone().startOf('year').add(quarter, 'quarter');
+                        const quarterEndDate = quarterStartDate.clone().endOf('quarter');
+
+                        return {
+                            active: quarterStartDate.diff(moment()) < 0,
+                            year: quarterStartDate.format('YYYY'),
+                            title: quarterStartDate.format('YYYY'),
+                            subtitle: quarterStartDate.format('[Q]Q'),
+                            value: quarterStartDate.format('YYYY-MM-DD'),
+                            from: quarterStartDate.format('YYYY-MM-DD'),
+                            to: quarterEndDate.format('YYYY-MM-DD'),
+                        };
+                    })
+                };
+            }).reduce((acc, year) => [...acc, ...year.quarters], []);
+        },
+        makeMonths: function(years) {
+            return years.map((year) => {
+                const date = year.date;
+                const months = [...(new Array(12)).keys()];
+
+                return {
+                    months: months.map(month => (12 - month)).map((month) => {
+                        const monthStartDate = date.clone().startOf('year').add(month, 'month');
+                        const monthEndDate = monthStartDate.clone().endOf('month');
+
+                        return {
+                            active: monthStartDate.diff(moment()) < 0,
+                            year: monthStartDate.format('YYYY'),
+                            title: monthStartDate.format('YYYY'),
+                            subtitle: monthStartDate.format('MMMM'),
+                            value: monthStartDate.format('YYYY-MM-DD'),
+                            from: monthStartDate.format('YYYY-MM-DD'),
+                            to: monthEndDate.format('YYYY-MM-DD'),
+                        };
+                    })
+                };
+            }).reduce((acc, year) => [...acc, ...year.months], []);
         },
         init: function() {
             this.years = this.makeYears();
-            this.years.reverse();
-            this.year = this.years[this.years.length - 1];
+            this.months = this.makeMonths(this.years);
+            this.quarters = this.makeQuarters(this.years)
+
+            this.year = this.years[0];
+
+            this.updateLists();
+            this.updateValues(true);
+            this.fetchData();
+        },
+        updateLists: function() {
+            this.yearsList = [...this.years];
+            this.monthsList = [...this.months].filter(month => month.year === this.year.year);
+            this.quartersList = [...this.quarters].filter(quarter => quarter.year === this.year.year);
+
+            this.yearsList.reverse();
+            this.monthsList.reverse();
+            this.quartersList.reverse();
+        },
+        updateValues: function(selectLast = false) {
+            const activeMonths = this.monthsList.filter((month) => month.active);
+            const activeQuarters = this.quartersList.filter((quarter) => quarter.active);
+
+            if (selectLast) {
+                this.month = activeMonths[activeMonths.length - 1] || null;
+                this.quarter = activeQuarters[activeQuarters.length - 1] || null;
+            } else {
+                this.month = activeMonths[0] || null;
+                this.quarter = activeQuarters[0] || null;
+            }
         },
         setFilter: function(value, type) {
             this[type || this.type] = value;
-            this.updateFilter();
+            this.fetchData();
         },
-        updateFilter: function() {
+        prevPage: function() {
+            if (this.yearsList.indexOf(this.year) > 0) {
+                this.year = this.yearsList[this.yearsList.indexOf(this.year) - 1];
+
+                this.updateLists();
+                this.updateValues(true);
+                this.fetchData();
+            }
+        },
+        nextPage: function() {
+            if (this.yearsList.indexOf(this.year) < (this.yearsList.length - 1)) {
+                this.year = this.yearsList[this.yearsList.indexOf(this.year) + 1];
+
+                this.updateLists();
+                this.updateValues(false);
+                this.fetchData();
+            }
+        },
+        setType: function(type) {
+            this.type = type;
+            this.fetchData();
+        },
+        fetchData: function() {
             $ctrl.fetchData();
         },
         getQuery: function() {
+            const { type, year, month, quarter } = this;
+
             return {
-                type: this.type,
-                type_value: {
-                    year: this.year.value,
-                }[this.type],
-                from: {
-                    year: this.year.from,
-                }[this.type],
-                to: {
-                    year: this.year.to,
-                }[this.type],
+                type: type,
+                type_value: { year, month, quarter }[this.type].value,
+                from: { year, month, quarter }[this.type].from,
+                to: { year, month, quarter }[this.type].to,
             };
         }
     };
 
-    $ctrl.timeFilters.init();
-
-    $ctrl.filters = {
-        values: {
-            q: "",
-            per_page: 15,
-            state: 'approved_or_has_transactions',
-        },
+    $ctrl.makeSelection = (type, names, noSelection) => {
+        return {
+            ...{
+                q: '',
+                ids: null,
+                items: [],
+                options: [],
+            }, ...{ type, names, noSelection }
+        };
     };
 
     $ctrl.selections = {
-        funds: {
-            type: 'funds',
-            ids: null,
-            items: [],
-            names: 'Alle fondsen',
-            noSelection: 'Alle fondsen'
-        },
-        providerOrganizations: {
-            type: 'providerOrganizations',
-            ids: null,
-            items: [],
-            names: 'Alle aanbieders',
-            noSelection: 'Alle aanbieders'
-        },
-        postcodes: {
-            type: 'postcodes',
-            ids: null,
-            items: [],
-            names: 'Alle postcodes',
-            noSelection: 'Alle postcodes'
-        },
-        /* productCategories: {
-            type: 'productCategories',
-            ids: null,
-            items: [],
-            names: 'Alle categories',
-            noSelection: 'Alle categories'
-        } */
+        funds: $ctrl.makeSelection('funds', 'Alle fondsen', 'Alle fondsen'),
+        providers: $ctrl.makeSelection('providers', 'Alle aanbieders', 'Alle aanbieders'),
+        postcodes: $ctrl.makeSelection('postcodes', 'Alle postcodes', 'Alle postcodes'),
+        productCategories: $ctrl.makeSelection('productCategories', 'Alle categories', 'Alle categories'),
     }
-
-    $ctrl.shownDropdownType = null;
 
     $ctrl.onClickOutsideDropdown = () => {
         $ctrl.shownDropdownType = null;
@@ -116,23 +271,15 @@ let FinancialDashboardComponent = function(
         return {
             fund_ids: $ctrl.selections.funds.ids,
             postcodes: $ctrl.selections.postcodes.items.map(item => item.name),
-            provider_ids: $ctrl.selections.providerOrganizations.ids,
-            /* product_category_ids: $ctrl.selections.productCategories.ids, */
+            provider_ids: $ctrl.selections.providers.ids,
+            product_category_ids: $ctrl.selections.productCategories.ids,
         };
-    }
-
-    $ctrl.getFinancePerProvider = (query) => {
-        OrganizationService.financeProviders(
-            $ctrl.organization.id,
-            { ...$ctrl.chartData.getQuery(), ...query }
-        ).then(res => {
-            $ctrl.providerOrganizationsFinances = res.data;
-        });
     }
 
     $ctrl.financeProvidersExport = () => {
         OrganizationService.financeProvidersExport(
-            $ctrl.organization.id, $ctrl.chartData.getQuery()
+            $ctrl.organization.id,
+            $ctrl.getFiltersQuery()
         ).then((res => {
             FileService.downloadFile(
                 'financial-dashboard_' + $ctrl.organization.name + '_' + moment().format(
@@ -144,8 +291,8 @@ let FinancialDashboardComponent = function(
         }));
     }
 
-    $ctrl.getSelectAllOption = (type) => $ctrl[type].filter(item => item.id == null)[0];
-    $ctrl.getItemOptions = (type) => $ctrl[type].filter(item => item.id != null);
+    $ctrl.getSelectAllOption = (type) => $ctrl.optionsList[type].filter(item => item.id == null)[0];
+    $ctrl.getItemOptions = (type) => $ctrl.optionsList[type].filter(item => item.id != null);
 
     $ctrl.resetSelection = (type) => {
         $ctrl.getSelectAllOption(type).checked = true;;
@@ -174,146 +321,70 @@ let FinancialDashboardComponent = function(
         }
     };
 
+    $ctrl.searchOption = () => {
+        Object.keys($ctrl.selections).forEach((key) => {
+            $ctrl.selections[key].options = $ctrl.optionsList[key].filter((item) => {
+                return item.name.toLowerCase().includes($ctrl.selections[key].q.toLowerCase());
+            });
+        });
+    };
+
+    $ctrl.showProviderTransactions = (provider) => {
+        if (provider.transactions) {
+            delete provider.transactions;
+            delete provider.filter;
+        } else {
+            provider.filter = {
+                page: 1,
+                per_page: 10,
+                provider_ids: [provider.provider.id],
+            };
+    
+            this.fetchProviderTransactions(provider, provider.filter);
+        }
+    };
+
+    $ctrl.fetchProviderTransactions = (provider, query = {}) => {
+        const filters = $ctrl.getFiltersQuery(query)
+
+        TransactionService.list(appConfigs.panel_type, $ctrl.organization.id, filters).then((res => {
+            provider.transactions = res.data;
+            provider.transactionsTotal = res.data.meta.total_amount;
+        }));
+    };
+
+    $ctrl.showTransaction = (transaction) => {
+        $state.go('transaction', appConfigs.panel_type == 'sponsor' ? {
+            address: transaction.address,
+            organization_id: transaction.fund.organization_id
+        } : transaction);
+    };
+
+    $ctrl.onProviderTransactionPageChange = (provider, query) => {
+        $ctrl.fetchProviderTransactions(provider, query);
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
-
-        $ctrl.chartData = {
-            request: {
-                year: moment().year(),
-                product_category: null,
-            },
-            response: {},
-            changeType: function(type) {
-                this.request.type = type;
-
-                if (this.request.type == 'week') {
-                    this.request.nth = moment().week();
-                } else if (this.request.type == 'month') {
-                    this.request.nth = moment().month() + 1;
-                } else if (this.request.type == 'quarter') {
-                    this.request.nth = moment().quarter();
-                } else if (this.request.type == 'all') {
-                    this.request.nth = null;
-                }
-
-                this.update();
-            },
-            increase: function() {
-                if (this.request.type == 'all') {
-                    this.request.year++;
-                } else if (this.request.type == 'week') {
-                    if (this.request.nth == moment().year(this.request.year).weeksInYear()) {
-                        this.request.nth = 1;
-                        this.request.year++;
-                    } else {
-                        this.request.nth++;
-                    }
-                } else if (this.request.type == 'month') {
-                    if (this.request.nth == 12) {
-                        this.request.nth = 1;
-                        this.request.year++;
-                    } else {
-                        this.request.nth++;
-                    }
-                } else if (this.request.type == 'quarter') {
-                    if (this.request.nth == 4) {
-                        this.request.nth = 1;
-                        this.request.year++;
-                    } else {
-                        this.request.nth++;
-                    }
-                }
-
-                this.update();
-            },
-            decrease: function() {
-                if (this.request.type == 'all') {
-                    this.request.year--;
-                } else if (this.request.type == 'week') {
-                    if (this.request.nth == 1) {
-                        this.request.year--;
-                        this.request.nth = moment().year(this.request.year).weeksInYear();
-                    } else {
-                        this.request.nth--;
-                    }
-                } else if (this.request.type == 'month') {
-                    if (this.request.nth == 1) {
-                        this.request.nth = 12;
-                        this.request.year--;
-                    } else {
-                        this.request.nth--;
-                    }
-                } else if (this.request.type == 'quarter') {
-                    if (this.request.nth == 1) {
-                        this.request.nth = 4;
-                        this.request.year--;
-                    } else {
-                        this.request.nth--;
-                    }
-                }
-
-                this.update();
-            },
-            getQuery: function() {
-                return { ...$ctrl.chartData.request, ...$ctrl.getQuery(), ...$ctrl.timeFilters.getQuery() };
-            },
-            update: function() {
-                FundService.readFinances($ctrl.organization.id, this.getQuery()).then((res) => {
-                    $ctrl.chartData.response = res.data;
-                });
-            }
-        };
-
-        $ctrl.postcodes.sort();
-
-        $ctrl.funds.unshift({
-            name: 'Alle fondsen',
-            id: null,
-            checked: true
-        });
-
-        $ctrl.providerOrganizations.unshift({
-            name: 'Alle aanbieders',
-            id: null,
-            checked: true
-        });
-
-        $ctrl.postcodes.unshift({
-            name: 'Alle postcodes',
-            id: null,
-            checked: true
-        });
-
-        /* $ctrl.productCategories.unshift({
-            name: 'Alle categories',
-            id: null,
-            checked: true
-        }); */
-
-        $ctrl.selectOption('funds', $ctrl.funds[0], false);
-        $ctrl.selectOption('postcodes', $ctrl.postcodes[0], false);
-        // $ctrl.selectOption('productCategories', $ctrl.productCategories[0]);
-        $ctrl.selectOption('providerOrganizations', $ctrl.providerOrganizations[0], false);
-
-        $ctrl.fetchData();
+        $ctrl.initOptions();
+        $ctrl.timeFilters.init();
     };
 };
 
 module.exports = {
     bindings: {
-        funds: '<',
-        postcodes: '<',
-        fundProviders: '<',
         organization: '<',
-        // productCategories: '<',
-        providerOrganizations: '<'
+        options: '<',
     },
     controller: [
         '$state',
+        '$filter',
         '$stateParams',
         'FundService',
+        'TransactionService',
         'OrganizationService',
         'FileService',
+        'appConfigs',
         FinancialDashboardComponent
     ],
     templateUrl: 'assets/tpl/pages/financial-dashboard.html'

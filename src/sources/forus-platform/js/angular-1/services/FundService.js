@@ -101,7 +101,8 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         /**
-         * Get provider transactions lsit
+         * TODO: check for cleanup
+         * Get provider transactions list
          * 
          * @param {number} organization_id 
          * @param {number} fund_id 
@@ -124,6 +125,7 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         /**
+         * TODO: check for cleanup
          * Get provider transaction
          * 
          * @param {number} organization_id 
@@ -150,7 +152,8 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         /**
-         * Export provider transactions lsit
+         * TODO: check for cleanup
+         * Export provider transactions list
          * 
          * @param {number} organization_id 
          * @param {number} fund_id 

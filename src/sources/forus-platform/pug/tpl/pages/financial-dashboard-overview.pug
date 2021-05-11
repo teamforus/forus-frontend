@@ -5,7 +5,9 @@
 
         .card.card-financial.form
             .card-header: .flex-row
-                .flex.flex-grow: .flex-col.card-title Huidig saldo en uitgaven
+                .flex.flex-grow: .flex-col.card-title.tooltipped 
+                    | Huidig saldo en uitgaven 
+                    tooltip(text="'Huidige saldo en uitgaven (afgerond) van de gekoppelde bankrekening per fonds De export bevat exacte bedragen.'")
                 .flex: button.button.button-primary.button-sm(ng-click="$ctrl.exportFunds(false)")
                     .mdi.mdi-download.icon-start
                     translate(translate="financial_dashboard_overview.buttons.export")
@@ -37,7 +39,9 @@
 
         .card.card-financial(ng-if="$ctrl.budgetFunds.length > 0")
             .card-header: .flex-row
-                .flex.flex-grow: .flex-col.card-title Tegoeden
+                .flex.flex-grow: .flex-col.card-title.tooltipped 
+                    | Tegoeden 
+                    tooltip(text="'De tegoeden die zijn toegekend via het systeem met de huidige status (aantallen afgerond). De export bevat exacte aantallen.'")
                 .flex: button.button.button-primary.button-sm(ng-click="$ctrl.exportFunds(true)")
                     .mdi.mdi-download.icon-start
                     translate(translate="financial_dashboard_overview.buttons.export")

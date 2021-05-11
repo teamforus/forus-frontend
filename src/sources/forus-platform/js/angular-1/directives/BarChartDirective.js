@@ -1,4 +1,4 @@
-let BarChartDirective = function($scope, $element) {
+let BarChartDirective = function($scope, $filter, $element) {
     const timeFormat = 'MM/DD/YYYY';
     const barChart = { instance: null };
 
@@ -19,6 +19,8 @@ let BarChartDirective = function($scope, $element) {
         if (barChart.instance != null) {
             barChart.instance.destroy();
         }
+
+        const labelFormatter = ((typeof $scope.fieldFormat === 'function') ? $scope.fieldFormat : (val) => val);
 
         barChart.instance = new Chart($element, {
             type: 'bar',
@@ -51,7 +53,8 @@ let BarChartDirective = function($scope, $element) {
                     }],
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            callback: labelFormatter,
                         }
                     }]
                 },
@@ -64,7 +67,7 @@ let BarChartDirective = function($scope, $element) {
     $scope.$watch('data', function(data) {
         drawChart(data ? data : []);
     });
-    
+
     $scope.$watch('field', function() {
         drawChart($scope.data ? $scope.data : []);
     });
@@ -74,12 +77,14 @@ module.exports = () => {
     return {
         scope: {
             data: '=',
-            field: '='
+            field: '=',
+            fieldFormat: '='
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
+            '$filter',
             '$element',
             BarChartDirective
         ],

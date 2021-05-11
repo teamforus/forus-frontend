@@ -1329,39 +1329,6 @@ module.exports = {
         },
     },
 
-    // FINANCIAL FUNDS FOR PROVIDERS = fund-card-provider-finances.pug
-    fund_card_provider_finances: {
-        status: {
-            accepted: "Geaccepteerd",
-            rejected: "Geweigerd",
-            hold: "In behandeling",
-        },
-        labels: {
-            mail: "E-mail",
-            categories: "Categorieën",
-            nocategories: "Geen categorieën",
-            join: "Aanmelding voor fonds",
-            year: "Jaar",
-            quarter: "Kwartaal",
-            month: "Maand",
-            week: "Week",
-            all: "Alles",
-            usage: "omzet",
-            average: "Gemiddelde transactiegrootte",
-            transaction: "transacties",
-            price: "BEDRAG",
-            date: "DATUM",
-            status: "STATUS",
-            share: "Aandeel van fonds (totaal)",
-        },
-        buttons: {
-            view: "Bekijk statistieken",
-            transactions: "Transacties",
-            previous: "Vorige",
-            next: "Volgende",
-        }
-    },
-
     // FUND CARD FOR PROVIDERS = fund-card-provider.pug
     fund_card_provider: {
         status: {

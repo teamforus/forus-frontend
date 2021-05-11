@@ -157,7 +157,6 @@ app.directive('dashboardSwitcher', require('./directives/DashboardSwitcherDirect
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
 app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'));
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
-app.directive('fundCardProviderFinances', require('./directives/FundCardProviderFinancesDirective'));
 app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
 app.directive('fundCardProviderCanJoin', require('./directives/FundCardProviderCanJoinDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
