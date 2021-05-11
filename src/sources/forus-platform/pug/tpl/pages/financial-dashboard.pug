@@ -42,7 +42,7 @@
                                                         span(ng-bind="item.name")
 
                                                 .block-option-count(ng-bind="item.transactions")
-                                            .block-option-empty(ng-if=("!" + optionData + ".options.length")) Nothing found...
+                                            .block-option-empty(ng-if=("!" + optionData + ".options.length")) Niks gevonden...
 
                             +dropdown('funds', 'Fondsen', 'Selecteer fondsen', '$ctrl.selections.funds')
                             +dropdown('providers', 'Aanbieders', 'Selecteer aanbieders', '$ctrl.selections.providers')
@@ -166,7 +166,7 @@
                         .financial-totals-value(ng-bind="$ctrl.chartData.highest_daily_transaction.amount | currency_format")
                         .financial-totals-value.financial-totals-value-sm(ng-bind="$ctrl.chartData.highest_daily_transaction.date_locale")
                     .financial-totals-content(ng-if="!$ctrl.chartData.highest_daily_transaction")
-                        .financial-totals-value: small.text-strong.text-muted Geen transactie
+                        .financial-totals-value: small.text-strong.text-muted Geen transacties
                         .financial-totals-value &nbsp;
 
             //- Providers

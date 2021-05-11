@@ -78,7 +78,7 @@ let FinancialDashboardComponent = function(
 
         $ctrl.optionsList.productCategories.unshift({
             id: null,
-            name: 'Alle categories',
+            name: 'Alle categorieën',
             checked: true
         });
 
@@ -253,7 +253,7 @@ let FinancialDashboardComponent = function(
         funds: $ctrl.makeSelection('funds', 'Alle fondsen', 'Alle fondsen'),
         providers: $ctrl.makeSelection('providers', 'Alle aanbieders', 'Alle aanbieders'),
         postcodes: $ctrl.makeSelection('postcodes', 'Alle postcodes', 'Alle postcodes'),
-        productCategories: $ctrl.makeSelection('productCategories', 'Alle categories', 'Alle categories'),
+        productCategories: $ctrl.makeSelection('productCategories', 'Alle categorieën', 'Alle categorieën'),
     }
 
     $ctrl.onClickOutsideDropdown = () => {

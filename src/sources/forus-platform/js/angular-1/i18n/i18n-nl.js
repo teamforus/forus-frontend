@@ -1328,7 +1328,17 @@ module.exports = {
             nocategories: "Geen Categorieën",
         },
     },
-
+    // FUND CARD FOR PROVIDERS = fund-card-provider.pug
+    fund_card_provider_finances: {
+        status: {
+            hold: "Wachten",
+        },
+        labels: {
+            price: "Bedrag",
+            date: "Datum",
+            status: "Status",
+        },
+    },
     // FUND CARD FOR PROVIDERS = fund-card-provider.pug
     fund_card_provider: {
         status: {
