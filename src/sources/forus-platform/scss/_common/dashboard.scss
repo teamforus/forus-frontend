@@ -1812,6 +1812,7 @@ body {
 
             tr {
                 &.table-totals {
+                    white-space: nowrap;
                     border-top: 3px solid #134478;
 
                     td {
