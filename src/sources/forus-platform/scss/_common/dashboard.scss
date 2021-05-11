@@ -1801,6 +1801,15 @@ body {
                 border-bottom: 2px solid #d4d9dd;
             }
 
+            .table-highlight td {
+                background: #f6f6f6;
+                font-weight: 600; 
+            }
+
+            .table-highlight-grey td {
+                background: #f6f6f6ad;
+            }
+
             tr {
                 &.table-totals {
                     border-top: 3px solid #134478;

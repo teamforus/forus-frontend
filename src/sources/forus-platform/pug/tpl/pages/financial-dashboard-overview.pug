@@ -58,48 +58,48 @@
                         th.text-right(translate="financial_dashboard_overview.labels.left")
 
                     tbody(ng-repeat="fund in $ctrl.budgetFunds")
-                        tr(ng-class="{'table-separator': !fund.collapsedData}"
+                        tr(ng-class="fund.collapsedData ? 'table-highlight' : 'table-separator'"
                             ng-click="fund.collapsedData = !fund.collapsedData")
 
                             td.text-center: a.mdi.mdi-menu-down.td-menu-icon(
                                 ng-class="{'mdi-menu-right': !fund.collapsedData, 'mdi-menu-down': fund.collapsedData}")
-                            td.text-left(ng-bind="fund.name")    
+                            td.text-left: strong(ng-bind="fund.name")    
                             td.text-right(ng-bind="fund.budget.vouchers_amount | currency_format")
                             td.text-right(ng-bind="fund.budget.active_vouchers_amount | currency_format")
                             td.text-right(ng-bind="fund.budget.inactive_vouchers_amount | currency_format")
                             td.text-right(ng-bind="fund.budget.used | currency_format")
                             td.text-right(ng-bind="(fund.budget.vouchers_amount - fund.budget.used) | currency_format")
 
-                        tr(ng-if="fund.collapsedData")
+                        tr.table-highlight-grey(ng-if="fund.collapsedData")
                             td.text-center: a.mdi.mdi-circle-small
-                            td.text-left(translate="financial_dashboard_overview.labels.total_percentage")
+                            td.text-left: strong(translate="financial_dashboard_overview.labels.total_percentage")
                             td.text-right {{ fund.budget.percentageTotal }} %
                             td.text-right {{ fund.budget.percentageActive }} %
                             td.text-right {{ fund.budget.percentageInactive }} %
                             td.text-right {{ fund.budget.percentageUsed }} %
                             td.text-right {{ fund.budget.percentageLeft }} %
 
-                        tr(ng-if="fund.collapsedData")
+                        tr.table-highlight-grey(ng-if="fund.collapsedData")
                             td.text-center: a.mdi.mdi-circle-small
-                            td.text-left(translate="financial_dashboard_overview.labels.total_count")
-                            td.text-right {{ fund.budget.vouchers_count }}
-                            td.text-right {{ fund.budget.active_vouchers_count }}
-                            td.text-right {{ fund.budget.inactive_vouchers_count }}
-                            td.text-right -
-                            td.text-right -
+                            td.text-left: strong(translate="financial_dashboard_overview.labels.total_count")
+                            td.text-right  {{ fund.budget.vouchers_count }}
+                            td.text-right  {{ fund.budget.active_vouchers_count }}
+                            td.text-right  {{ fund.budget.inactive_vouchers_count }}
+                            td.text-right  -
+                            td.text-right  -
 
-                        tr(ng-if="fund.collapsedData" ng-class="{'table-separator': fund.collapsedData}")
+                        tr.table-highlight-grey(ng-if="fund.collapsedData" ng-class="{'table-separator': fund.collapsedData}")
                             td.text-center
                                 a.mdi.mdi-circle-small: br
                                 | &nbsp
-                            td.text-left 
-                                div Tegoeden
+                            td.text-left
+                                strong Tegoeden
                                 div &nbsp
                             td.text-right(colspan="2") 
                                 div(ng-repeat="formula in fund.formulas").col-lg-6.text-right
                                     div Per tegoed
                                     div {{ formula.amount | currency_format }}
-                            td.text-right 
+                            td.text-right
                                 div Gem. per tegoed
                                 div {{ fund.budget.averagePerVoucher | currency_format }}
                             td
