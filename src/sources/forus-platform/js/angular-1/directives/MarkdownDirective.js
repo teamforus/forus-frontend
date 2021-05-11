@@ -45,9 +45,9 @@ let MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 }),
                 ui.dropdown({
                     items: [
-                        makeLabelItem('Algin left', 'left', 'align-horizontal-left'),
-                        makeLabelItem('Algin center', 'center', 'align-horizontal-center'),
-                        makeLabelItem('Algin right', 'right', 'align-horizontal-right'),
+                        makeLabelItem('Tekst links uitlijnen', 'left', 'align-horizontal-left'),
+                        makeLabelItem('Tekst in het midden uitlijnen', 'center', 'align-horizontal-center'),
+                        makeLabelItem('Tekst rechts uitlijnen', 'right', 'align-horizontal-right'),
                     ],
                     callback: function(items) {
 
