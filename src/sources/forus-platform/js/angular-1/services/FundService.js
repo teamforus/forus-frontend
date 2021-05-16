@@ -258,6 +258,11 @@ const FundService = function(ApiRequest, ModalService) {
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, data);
         };
 
+        this.rejectProvider = function(organization_id, fund_id, id) {
+            return ApiRequest.delete(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id);
+        };
+
         this.states = function() {
             return [{
                 name: "Waiting",

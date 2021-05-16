@@ -1,12 +1,19 @@
 let SponsorProviderOrganizationsComponent = function(
     $q,
+    $filter,
     $stateParams,
+    FundService,
     FileService,
     ModalService,
+    PushNotificationsService,
     OrganizationService
 ) {
     let $ctrl = this;
     let org = OrganizationService.active();
+    let $translate = $filter('translate');
+    let $translateDangerZone = (key) => $translate(
+        'modals.danger_zone.remove_fund_provider.' + key
+    );
 
     $ctrl.loaded = false;
     $ctrl.extendedView = localStorage.getItem('sponsor_providers.extended_view') === 'true';
@@ -81,6 +88,26 @@ let SponsorProviderOrganizationsComponent = function(
         }
     });
 
+    $ctrl.rejectApplication = (fund) => {
+        ModalService.open('dangerZone', {
+            title: $translateDangerZone('title'),
+            description: $translateDangerZone('description'),
+            cancelButton: $translateDangerZone('buttons.cancel'),
+            confirmButton: $translateDangerZone('buttons.confirm'),
+
+            onConfirm: () => {
+                FundService.rejectProvider(
+                    $ctrl.organization.id,
+                    fund.id,
+                    fund.fund_provider_id
+                ).then(res => {
+                    PushNotificationsService.success('Opgeslagen!');
+                    $ctrl.onPageChange($ctrl.filters.values);
+                }, console.error);
+            }
+        });
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds]
         $ctrl.filters.reset();
@@ -96,9 +123,12 @@ module.exports = {
     },
     controller: [
         '$q',
+        '$filter',
         '$stateParams',
+        'FundService',
         'FileService',
         'ModalService',
+        'PushNotificationsService',
         'OrganizationService',
         SponsorProviderOrganizationsComponent
     ],

@@ -109,8 +109,8 @@
                     .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
         //- Provider list
-        .block.block-providers: .provider-item(ng-repeat="providerOrganization in $ctrl.providerOrganizations.data")
-            .provider-overview
+        .block.block-providers: .provider-item.card(ng-repeat="providerOrganization in $ctrl.providerOrganizations.data")
+            .card-section: .provider-overview
                 .provider-media: img.provider-media-img(ng-src="{{ providerOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                 .provider-details
                     .provider-title(ng-bind="providerOrganization.name")
@@ -128,6 +128,28 @@
                     .provider-action-item: a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-primary 
                         em.mdi.mdi-eye-outline.icon-start
                         | Bekijken
+
+            .card-section.card-section-primary
+                .card-block.card-block-table: .table-wrapper
+                    table.table
+                        tr
+                            th(width="30%" translate="organization_providers.labels.name")
+                            th(translate="organization_providers.labels.status")
+                            th(width="25%" translate="organization_providers.labels.options")
+                        tr(ng-repeat="fund in providerOrganization.funds")
+                            td(ng-bind="fund.name")
+                            td
+                                .tag(
+                                    ng-class="fund.active ? 'tag-success' : 'tag-default'"
+                                    translate="{{ 'organization_providers.status.' + (fund.active ? 'accepted' : 'hold') }}")
+                            td
+                                button.button.button-default(
+                                    ui-sref="fund-provider({organization_id: $ctrl.organization.id, fund_id: fund.id, fund_provider_id: fund.fund_provider_id})") 
+                                    em.mdi.mdi-eye.icon-start
+                                    translate(translate="organization_providers.buttons.view_products")
+
+                                button(ng-click="$ctrl.rejectApplication(fund)").button.button-danger.pull-right
+                                    em.delete.mdi.mdi-trash-can-outline
 
             .provider-funds(ng-if="$ctrl.extendedView")
                 .card-section.card-section-padless: .table-wrapper: table.table.form
