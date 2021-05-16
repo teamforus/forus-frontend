@@ -22,10 +22,6 @@ let SponsorProviderOrganizationsComponent = function(
         }
     };
 
-    $ctrl.resetFilters = () => {
-        $ctrl.filters.reset();
-    };
-
     $ctrl.setExtendedView = function(extendedView) {
         localStorage.setItem('sponsor_providers.extended_view', extendedView)
         $ctrl.extendedView = extendedView;
@@ -87,7 +83,7 @@ let SponsorProviderOrganizationsComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds]
-        $ctrl.resetFilters();
+        $ctrl.filters.reset();
         $ctrl.providerOrganizations.data = $ctrl.transformList($ctrl.providerOrganizations.data);
     };
 };
