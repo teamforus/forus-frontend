@@ -51,3 +51,8 @@
                     .button.button-default.pull-right(ng-click="viewOffers()")
                         em.mdi.mdi-eye-outline.icon-start
                         translate(translate="fund_card_provider.labels.view_products")
+
+            .row.card-block-listing-row
+                .button.button-default.pull-right(ng-click="cancelApplication(providerFund)")
+                        em.mdi.mdi-close-circle-outline.icon-start
+                        translate(translate="fund_card_provider.labels.cancel_application")

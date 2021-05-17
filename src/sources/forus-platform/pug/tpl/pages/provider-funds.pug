@@ -49,6 +49,8 @@
             ng-if="$ctrl.shownFundsType == 'pending_rejected' && $ctrl.pendingRejectedFunds.length > 0"
             ng-repeat="fund in $ctrl.pendingRejectedFunds"
             provider-fund="fund"
+            provider-funds="$ctrl.pendingRejectedFunds"
+            show-empty-block="$ctrl.showEmptyBlock"
             organization="$ctrl.organization")
 
         fund-card-invitation-provider( 
