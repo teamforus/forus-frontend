@@ -6,8 +6,8 @@ block content
         .office-breadcrumbs
             .wrapper: .block.block-breadcrumbs
                 a(ui-sref="providers").breadcrumb-item Aanbieders
-                a(ui-sref="provider({provider_id: $ctrl.provider.id})").breadcrumb-item {{ $ctrl.provider.name }}
-                .breadcrumb-item.active {{ $ctrl.office.address }}
+                a(ui-sref="provider($ctrl.provider)" ng-bind="$ctrl.provider.name").breadcrumb-item
+                .breadcrumb-item.active(ng-bind="$ctrl.office.address")
         .office-map: .block.block-google-map: google-map(
             map-pointers="[$ctrl.office]" 
             map-pointer-template="providers-office-view" 
@@ -54,11 +54,11 @@ block content
                 .pane-head Aanbieder
                 .pane-section
                     .office-organization(ng-click="$ctrl.toggleOffices($event, $ctrl.provider)")
-                        .organization-photo(ng-click="$ctrl.goToProvider($event, $ctrl.provider)")
+                        a(ui-sref="provider($ctrl.provider)" ng-click="$event.stopPropagation()").organization-photo
                             img(ng-src="{{ $ctrl.imageUrl }}" alt="{{ $ctrl.office.organization.name }}").organization-photo-img
-                        .organization-title
-                            .organization-title-value(ng-click="$ctrl.goToProvider($event, $ctrl.provider)" ng-bind="$ctrl.provider.name")
-                            .organization-title-count(ng-click="$ctrl.goToProvider($event, $ctrl.provider)" ng-bind="$ctrl.provider.offices.length")
+                        a(ui-sref="provider($ctrl.provider)" ng-click="$event.stopPropagation()").organization-title
+                            .organization-title-value(ng-bind="$ctrl.provider.name")
+                            .organization-title-count(ng-bind="$ctrl.provider.offices.length")
                         
                         .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')")
             

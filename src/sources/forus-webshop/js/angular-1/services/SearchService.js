@@ -1,18 +1,10 @@
-let ProductCategoryService = function(
-    ApiRequest
-) {
+const SearchService = function(ApiRequest) {
     return new (function() {
-        this.list = function(query) {
-            return ApiRequest.get('/platform/search', query);
-        };
-
-        this.get = function(id, query) {
-            return ApiRequest.get('/platform/product-categories/' + id, query);
-        };
+        this.search = (query) => ApiRequest.get('/platform/search', {...query});
     });
 };
 
 module.exports = [
-    'ApiRequest',
-    ProductCategoryService
+    'ApiRequest', 
+    SearchService
 ];

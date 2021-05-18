@@ -315,12 +315,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
-        name: "products-show",
+        name: "product",
         url: "/products/{id}",
         component: "productComponent",
-        data: {
-            id: null
-        },
+        data: { id: null },
         resolve: {
             vouchers: ['AuthService', 'VoucherService', (
                 AuthService, VoucherService
@@ -398,9 +396,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "search-result",
-        url: "/search?{keyword:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{search_item_types:strind}",
+        url: "/search?{q:string}&{page:int}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&search_item_types",
         params: {
-            keyword: {
+            q: {
                 dynamic: true,
                 value: "",
                 squash: true,
@@ -429,8 +427,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             },
             search_item_types: {
                 dynamic: true,
-                array: true,
-                value: [''],
+                value: 'funds,providers,products',
                 squash: true
             },
             fund_type: {
@@ -441,17 +438,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         },
         component: "searchResultComponent",
         resolve: {
-            searchItems: ['$transition$', 'SearchService', (
-                $transition$, SearchService
-            ) => repackPagination(SearchService.list({
-                keyword: $transition$.params().keyword,
-                overview: true,
-                page: $transition$.params().page,
-                fund_type: $transition$.params().fund_type,
-                search_item_types: $transition$.params().search_item_types,
-                organization_id: $transition$.params().organization_id,
-                product_category_id: $transition$.params().product_category_id
-            }))],
+            searchItems: ['$transition$', 'SearchService', ($transition$, SearchService) => {
+                return repackPagination(SearchService.search({...{
+                    q: $transition$.params().q,
+                    overview: 0,
+                    page: $transition$.params().page,
+                    search_item_types: ($transition$.params().search_item_types || '').split(',').filter((type) => type),
+                    organization_id: $transition$.params().organization_id,
+                    product_category_id: $transition$.params().product_category_id
+                }}));
+            }],
             funds: ['FundService', (
                 FundService
             ) => repackResponse(FundService.list())],
@@ -511,19 +507,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "provider",
-        url: "/providers/{provider_id}",
+        url: "/providers/{id}",
         component: "providerComponent",
         resolve: {
             provider: ['$transition$', 'ProvidersService', (
                 $transition$, ProvidersService
             ) => repackResponse(ProvidersService.read(
-                $transition$.params().provider_id
+                $transition$.params().id
             ))],
             products: ['$transition$', 'ProductService', (
                 $transition$, ProductService
             ) => repackPagination(ProductService.list({
                 fund_type: 'budget',
-                organization_id: $transition$.params().provider_id,
+                organization_id: $transition$.params().id,
                 per_page: 3,
                 page: 1,
             }))],
@@ -531,7 +527,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 $transition$, ProductService
             ) => repackPagination(ProductService.list({
                 fund_type: 'subsidies',
-                organization_id: $transition$.params().provider_id,
+                organization_id: $transition$.params().id,
                 per_page: 3,
                 page: 1,
             }))],

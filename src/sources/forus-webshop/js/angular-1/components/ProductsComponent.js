@@ -145,10 +145,7 @@ let ProductsComponent = function(
     $ctrl.loadProducts = (query, location = 'replace') => {
         ProductService.list(Object.assign({
             fund_type: $ctrl.type
-        }, query)).then(res => {
-            $ctrl.products = res.data;
-            $ctrl.updateRows();
-        });
+        }, query)).then(res => $ctrl.products = res.data);
 
         $ctrl.updateState(query, location);
         $ctrl.updateFiltersUsedCount();
@@ -175,34 +172,9 @@ let ProductsComponent = function(
         ) : 0), 0);
     };
 
-    $ctrl.updateRows = () => {
-        $ctrl.products.data = $ctrl.products.data.map(product => {
-            if ($ctrl.form.values.fund && $ctrl.form.values.fund.id && Array.isArray(product.funds)) {
-                let prices = product.funds.filter(
-                    funds => funds.id == $ctrl.form.values.fund.id
-                ).map(fund => fund.price);
-
-                product.price_min = Math.min(prices);
-                product.price_max = Math.max(prices);
-            }
-
-            return product;
-        });
-
-        let product_rows = [];
-        let products = $ctrl.products.data.slice().reverse();
-
-        while (products.length > 0) {
-            let row = products.splice(-3);
-            row.reverse();
-
-            product_rows.push(row);
-        }
-
-        $ctrl.product_rows = product_rows;
-    };
-
     $ctrl.$onInit = () => {
+        $ctrl.showModalFilters = $stateParams.show_menu;
+        $ctrl.display_type = $stateParams.display_type;
         $ctrl.fund_type = $stateParams.fund_type;
         $ctrl.show_order_dropdown = false;
 
@@ -218,7 +190,17 @@ let ProductsComponent = function(
             name: 'Alle tegoeden',
         });
 
-        let fund = $ctrl.funds.filter(fund => {
+        $ctrl.productCategories.unshift({
+            name: 'Selecteer categorie...',
+            id: null
+        });
+
+        $ctrl.organizations.unshift({
+            name: 'Selecteer aanbieder...',
+            id: null
+        });
+
+        const fund = $ctrl.funds.filter(fund => {
             return fund.id == $stateParams.fund_id;
         })[0] || $ctrl.funds[0];
 
@@ -229,19 +211,7 @@ let ProductsComponent = function(
             fund: fund,
         });
 
-        $ctrl.showModalFilters = $stateParams.show_menu;
-        $ctrl.display_type = $stateParams.display_type;
-        $ctrl.productCategories.unshift({
-            name: 'Selecteer categorie...',
-            id: null
-        });
-        $ctrl.organizations.unshift({
-            name: 'Selecteer aanbieder...',
-            id: null
-        });
-
         $ctrl.updateFiltersUsedCount();
-        $ctrl.updateRows();
     };
 };
 

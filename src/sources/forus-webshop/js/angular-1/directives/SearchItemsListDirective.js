@@ -14,7 +14,7 @@ let SearchItemsListDirective = function(
     $scope.goToSearchItem = (item) => {
         switch (item.item_type) {
             case 'product':
-                $state.go('products-show', {id: item.id});
+                $state.go('product', {id: item.id});
                 break;
         
             case 'fund':
@@ -22,7 +22,7 @@ let SearchItemsListDirective = function(
                 break;
 
             case 'provider':
-                $state.go('provider', {provider_id: item.id});
+                $state.go('provider', {id: item.id});
                 break;
         }        
     };
@@ -33,7 +33,22 @@ let SearchItemsListDirective = function(
         $dir.type = $scope.type || 'budget';
         $dir.blockClass = blockClasses[[$dir.type, $dir.display].join('.')];
 
-        $scope.$watch('items', (value) => $dir.products = value);
+        $scope.$watch('items', (value) => {
+            $dir.products = value.map((item) => {
+                if (item.description_html) {
+                    const el = document.createElement('div');
+
+                    el.innerHTML = item.description_html;
+                    item.description = el.innerText;
+
+                    if (item.description.length > 120) {
+                        item.description = item.description.slice(0, 106) + '...';
+                    }
+                }
+
+                return item;
+            });
+        });
     };
 
     init();

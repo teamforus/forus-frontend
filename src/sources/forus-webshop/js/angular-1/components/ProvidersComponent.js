@@ -99,15 +99,6 @@ let ProvidersComponent = function(
         });
     };
 
-    $ctrl.goToProvider = ($event, provider) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $state.go('provider', {
-            provider_id: provider.id
-        });
-    };
-
     $ctrl.showAsMap = () => {
         $ctrl.showMap = true;
         $ctrl.loadProvidersMap(Object.assign($ctrl.buildQuery($ctrl.form.values), {

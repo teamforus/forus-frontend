@@ -19,9 +19,7 @@ let ProductApplyComponent = function(
         $ctrl.isApplicable = $ctrl.applicableVouchers.length > 0;
 
         if (!$ctrl.isApplicable) {
-            return $state.go('products-show', {
-                id: $ctrl.product.id
-            });
+            return $state.go('product', $ctrl.product);
         }
     };
 

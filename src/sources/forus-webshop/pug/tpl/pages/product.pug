@@ -97,9 +97,9 @@ section.section.section-product: .wrapper
                         .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund.id)" i18n="product.buttons.open_voucher")
 
         .block.block-pane(ng-class="{'last-child': $ctrl.product.organization.showOffices}")
-            a(ui-sref="provider({provider_id: $ctrl.product.organization.id})" i18n="product.headers.provider").pane-head
+            a(ui-sref="provider($ctrl.product.organization)" i18n="product.headers.provider").pane-head
             .pane-body: .block.block-organizations: .organization-item
-                a(ui-sref="provider({provider_id: $ctrl.product.organization.id})" ).organization-pane
+                a(ui-sref="provider($ctrl.product.organization)" ).organization-pane
                     .organization-logo
                         img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png'  }}" alt="{{ $ctrl.product.organization.name }}").organization-logo-img
                     .organization-title

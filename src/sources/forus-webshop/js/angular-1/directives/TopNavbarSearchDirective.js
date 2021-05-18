@@ -1,154 +1,150 @@
 const TopNavbarSearchDirective = function(
+    $sce,
     $scope,
     $state,
+    $timeout,
     $rootScope,
     SearchService
 ) {
-    $scope.timeout;
-    $scope.resultsList = [];
-    $scope.selectedItem = 0;
-    $scope.resultsExists = false;
-    $scope.dropdown = false;
-    $scope.results = null;
-    $scope.query = $state.params.keyword || '';
-    $scope.searchResultPage = ($state.current.name === 'search-result');
+    const $dir = $scope.$dir = {};
 
-    $scope.clearSearch = () => {
-        $scope.query = null;
-        $scope.resultsList = [];
-        $scope.selectedItem = 0;
-        $scope.results = null;
-        $scope.resultsExists = false;
-        $scope.dropdown = false;
+    $dir.timeout;
+    $dir.resultsList = [];
+    $dir.selectedItem = 0;
+    $dir.resultsExists = false;
+    $dir.dropdown = false;
+    $dir.results = null;
+    $dir.query = $state.params.q || '';
+    $dir.lastQuery = $state.params.q || '';
+    $dir.isSearchResultPage = $state.current.name === 'search-result';
+
+    $dir.clearSearch = () => {
+        $dir.query = null;
+        $dir.resultsList = [];
+        $dir.selectedItem = 0;
+        $dir.results = null;
+        $dir.resultsExists = false;
+        $dir.dropdown = false;
     };
 
-    $scope.hideDropDown = () => {
-        $scope.dropdown = false;
-    }
+    $dir.hideDropDown = () => $dir.dropdown = false;
+    $dir.showDropDown = () => $dir.dropdown = true;
 
-    $scope.showDropDown = () => {
-        $scope.dropdown = true;
-    }
-
-    $scope.cancelSearch = (e) => {
+    $dir.cancelSearch = (e) => {
         if (e.keyCode === 27) {
-            $scope.clearSearch();
+            $dir.clearSearch();
         }
     };
 
-    $scope.goToItem = (item) => {
-        switch (item.type) {
-            case 'products':
-                $state.go('products-show', {id: item.id});
-                break;
-        
-            case 'funds':
-                $state.go('fund', {id: item.id});
-                break;
-
-            case 'providers':
-                $state.go('provider', {provider_id: item.id});
-                break;
-        }        
-    };
-
-    $scope.navigateItems = (e) => {
+    $dir.navigateItems = (e) => {
         switch (e.keyCode) {
-            case 27: 
-                $scope.clearSearch()
+            case 27: $dir.clearSearch(); break;
+            case 40:
+                $dir.selectedItem < $dir.resultsExists ?
+                    $dir.selectedItem++ :
+                    $dir.selectedItem = 1;
                 break;
-            case 40: 
-                $scope.selectedItem < $scope.resultsExists ?
-                    $scope.selectedItem++ :
-                    $scope.selectedItem = 1;
+            case 38:
+                $dir.selectedItem > 1 ?
+                    $dir.selectedItem-- :
+                    $dir.selectedItem = $dir.resultsExists;
                 break;
-            case 38: 
-                $scope.selectedItem > 1 ?
-                    $scope.selectedItem-- :
-                    $scope.selectedItem = $scope.resultsExists;
-                break;
-            case 13: 
-                if ($scope.resultsList[$scope.selectedItem-1]) {
-                    $scope.goToItem($scope.resultsList[$scope.selectedItem-1])
+            case 13: {
+                if ($dir.resultsList[$dir.selectedItem - 1]) {
+                    const item = $dir.resultsList[$dir.selectedItem - 1];
+
+                    if (item) {
+                        $state.go(item.uiSref, item.uiSrefParams);
+                    }
                 } else {
-                    $state.go('search-result', {keyword: $scope.query});
-                }                    
-                break;
-        
-            default:
-                break;
+                    $state.go('search-result', { q: $dir.query });
+                }
+
+            }; break;
+
+            default: return;
         }
+
+        e.preventDefault();
+        e.stopPropagation();
     };
 
-    $scope.transformSearchResult = (result) => {
+    $dir.sanitize = (value) => {
+        const el = document.createElement('div');
+        el.innerHTML = value;
+        return _.escape(el.innerText);
+    };
+
+    $dir.transformName = (value, q) => {
+        const name = $dir.sanitize(value);
+        const index = name.toLowerCase().indexOf(q.toLowerCase());
+
+        return index !== -1 ? [
+            name.slice(0, index),
+            `<strong>${name.slice(index, index + q.length)}</strong>`,
+            name.slice(index + q.length)
+        ].join("") : name;
+    }
+
+    $dir.transformSearchResult = (result) => {
         let count = 0;
 
-        let transformName = (name, keyword) => {
-            let index = name.toLowerCase().indexOf(keyword.toLowerCase());
-            let nameTransformArr = [];
-
-            if (index != -1) {
-                nameTransformArr = [
-                    name.slice(0, index),
-                    name.slice(index, index + keyword.length),
-                    name.slice(index + keyword.length)
-                ]
-            } else {
-                nameTransformArr.push(name);
-            }
-
-            return nameTransformArr;
-        }
-        
         for (const key in result) {
-            result[key].forEach((item) => {
-                item.nameTransformed = transformName(item.name, $scope.query);
+            result[key].items.forEach((item) => {
+                item.name = $sce.trustAsHtml($dir.transformName(item.name, $dir.query));
                 item.navigation_key = ++count;
-                item.type = key;
-                $scope.resultsList.push(item);
+                item.uiSref = item.item_type;
+                item.uiSrefParams = { id: item.id };
+
+                $dir.resultsList.push(item);
             });
         }
-        
-        $scope.resultsExists = count;
+
+        $dir.resultsExists = count;
 
         return result;
     }
 
-    $scope.doSearch = () => {
-        clearTimeout($scope.timeout);
+    $dir.setResults = (results) => {
+        $dir.results = $dir.transformSearchResult(results);
+        $dir.showDropDown();
+    };
 
-        $scope.timeout = setTimeout(function() {
-            $rootScope.$broadcast('search-query', $scope.query);
-            
-            if ($scope.query.length && $state.current.name !== 'search-result') {
-                SearchService.list({keyword: $scope.query}).then((res) => {
-                    $scope.results = $scope.transformSearchResult(res.data.data);
-                    $scope.showDropDown();
-                }); 
-            } 
-            
-            if ($scope.query.length == 0) {
-                $scope.clearSearch();
-            }          
-            
+    $dir.doSearch = () => {
+        $timeout.cancel($dir.timeout);
+
+        $dir.timeout = $timeout(function() {
+            $dir.lastQuery = $dir.query;
+
+            if ($dir.isSearchResultPage) {
+                return $rootScope.$broadcast('search-query', $dir.query);
+            }
+
+            if ($dir.query.length == 0) {
+                return $dir.clearSearch();
+            }
+
+            SearchService.search({ q: $dir.query, overview: 1 }).then((res) => {
+                $dir.setResults(res.data.data);
+            });
         }, 500);
-        
     };
 };
 
 module.exports = () => {
     return {
-        scope: {
-        },
+        scope: {},
         restrict: "EA",
         replace: true,
         controller: [
+            '$sce',
             '$scope',
             '$state',
+            '$timeout',
             '$rootScope',
             'SearchService',
             TopNavbarSearchDirective
         ],
-        templateUrl: 'assets/tpl/directives/top-navbar-search.html' 
+        templateUrl: 'assets/tpl/directives/top-navbar-search.html'
     };
 };

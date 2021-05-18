@@ -1,6 +1,4 @@
-const { logout } = require("../i18n/nl/modals/modal");
-
-let BaseController = function(
+const BaseController = function(
     $q,
     $state,
     $rootScope,

@@ -71,12 +71,16 @@ block content
                     .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
                         .organization-item(ng-repeat="provider in $ctrl.providers.data")
                             .organization-pane(ng-click="$ctrl.toggleOffices($event, provider)")
-                                .organization-logo(ng-click="$ctrl.goToProvider(provider)"): img(
+                                .organization-logo(ui-sref="provider(provider)" ng-click="$event.stopPropagation()"): img(
                                     ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
                                     alt="{{ provider.name }}"
                                     ).organization-logo-img
-                                .organization-title
-                                    .organization-title-value(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.name")
+
+                                .organization-title: a(
+                                    ui-sref="provider(provider)" 
+                                    ng-click="$event.stopPropagation()" 
+                                    ng-bind="provider.name").organization-title-value
+
                                 .organization-chevron
                                     .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
 

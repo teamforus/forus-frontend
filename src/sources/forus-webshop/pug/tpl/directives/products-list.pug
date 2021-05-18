@@ -1,7 +1,7 @@
 .block(ng-class="$dir.blockClass")
     //- grid products
     .product-item(ng-if="$dir.type == 'budget' && $dir.display == 'grid'" ng-repeat="product in $dir.products").discounted
-        a(ui-sref="products-show(product)").product-item-inner
+        a(ui-sref="product(product)").product-item-inner
             .product-image: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
             .product-details
                 .product-name.truncated(ng-bind="product.name")
@@ -10,7 +10,7 @@
 
     //- grid subsidies
     .product-item(ng-if="$dir.type == 'subsidies' && $dir.display == 'grid'" ng-repeat="product in $dir.products")
-        a(ui-sref="products-show(product)").product-item-inner
+        a(ui-sref="product(product)").product-item-inner
             .product-image
                 img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
                 .product-price(ng-if="product.price_type === 'regular' && product.price_min == 0") Gratis
@@ -24,7 +24,7 @@
     a.product-item(
         ng-if="$dir.type == 'budget' && $dir.display == 'list'"
         ng-repeat="product in $dir.products" 
-        ui-sref="products-show(product)")
+        ui-sref="product(product)")
         .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
         .product-content
             .product-details
@@ -36,7 +36,7 @@
     a.product-item(
         ng-if="$dir.type == 'subsidies' && $dir.display == 'list'"
         ng-repeat="product in $dir.products"
-        ui-sref="products-show(product)")
+        ui-sref="product(product)")
         .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
         .product-content
             .product-details

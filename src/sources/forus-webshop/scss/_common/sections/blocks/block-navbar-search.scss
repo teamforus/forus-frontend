@@ -1,0 +1,178 @@
+&.block-navbar-search {
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+    margin-right: 30px;
+    cursor: default;
+
+    .navbar-search-icon {
+        position: absolute;
+        left: 17.5px;
+        top: 50%;
+        transform: translate(0, -50%);
+        font-size: 22px;
+        pointer-events: none;
+        color: #666666;
+    }
+
+    .search-form.form {
+        width: 100%;
+
+        .form-control {
+            font-weight: 700;
+            padding-left: 45px;
+            background-color: #fff;
+            transition: 0.4s;
+
+            &::placeholder {
+                font-weight: 700;
+            }
+
+            &:focus {
+                border-color: $border_color;
+                box-shadow: $base_shadow;
+            }
+        }
+    }
+
+    .search-result {
+        width: 100%;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: $base_shadow;
+        position: absolute;
+        z-index: 10;
+        top: 100%;
+        border: 1px solid $border_color;
+        border-top: none;
+        border-radius: $border_radius;
+        font-size: 16px;
+        max-height: 700px;
+        overflow: auto;
+
+        .search-result-section {
+            .search-result-title {
+                display: block;
+                font: 700 18px/40px $bf;
+                margin: 0 20px 0;
+                position: relative;
+                border-bottom: 1px solid $border_color;
+                @include cf();
+
+                .search-result-title-link {
+                    display: flex;
+                    font: 600 14px/40px $bf;
+                    float: right;
+                    color: $color_primary;
+                }
+            }
+
+            .search-result-items {
+                .search-result-item {
+                    font: 400 16px/40px $bf;
+                    padding: 0 20px;
+                    color: #666666;
+                    @include ellipsis();
+
+                    strong {
+                        font-weight: 700;
+                        color: #333333;
+                    }
+
+                    &:hover,
+                    &.selected {
+                        background-color: whitesmoke;
+                    }
+
+                    &:first-child {
+                        padding-top: 2.5px;
+                    }
+
+                    &:last-child {
+                        padding-bottom: 2.5px;
+                    }
+                }
+            }
+
+            &:first-child {
+                padding-top: 5px;
+            }
+
+            &:last-child {
+                padding-bottom: 20px;
+            }
+        }
+
+        .search-result-actions {
+            border-top: 1px solid $border_color;
+            padding: 20px 20px 20px;
+        }
+    }
+
+    .search-noresult {
+        padding: 20px 22.5px 20px;
+
+        .search-noresult-description {
+            font: 500 16px/24px $bf;
+            margin: 0 0 10px;
+            color: #666666;
+            max-width: 400px;
+        }
+
+        .search-noresult-items {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-noresult-item {
+            display: flex;
+            font: 500 15px/24px $bf;
+            margin: 0 0 10px;
+            color: #4990b5;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &.block-navbar-search-results {
+        .search-form.form {
+            .form-control {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        .search-result {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 0 -20px 0;
+
+        .search-form.form {
+            .form-control {
+                border-radius: 0;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                border: none;
+                border-top: 1px solid $border_color;
+            }
+        }
+
+        .search-result {
+            border-radius: 0;
+        }
+
+        .search-result-actions {
+            .button {
+                padding: 10px 15px;
+                font: 700 14px/20px $bf;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}

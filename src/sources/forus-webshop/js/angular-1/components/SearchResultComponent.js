@@ -1,22 +1,18 @@
 let SearchResultComponent = function(
-    $scope,
     $rootScope,
     $state,
     $stateParams,
-    $timeout,
-    appConfigs,
-    FormBuilderService,
     SearchService
 ) {
-    let $ctrl = this;
-    let timeout = false;
-    
-    $ctrl.query = $stateParams.keyword;
-    $ctrl.results = null; 
-    $ctrl.resultsExists =false;
-    $ctrl.searchItems = {};  
+    const $ctrl = this;
 
-    $ctrl.sortByOptions = [ {
+    $ctrl.results = null;
+    $ctrl.resultsExists = false;
+    $ctrl.searchItems = {};
+    $ctrl.formItems = [];
+
+    // Search direction
+    $ctrl.sortByOptions = [{
         label: 'Oudste eerst',
         value: {
             order_by: 'created_at',
@@ -30,81 +26,54 @@ let SearchResultComponent = function(
         }
     }];
 
-    $ctrl.searchItemTypes = [
-        {
-            label: 'Potjes',
-            key: 'funds',
-            checked: $stateParams.search_item_types.includes('funds') || false
-        },
-        {
-            label: 'Aanbod',
-            key: 'products',
-            checked: $stateParams.search_item_types.includes('products') || false
-        },
-        {
-            label: 'Aanbieders',
-            key: 'providers',
-            checked: $stateParams.search_item_types.includes('providers') || false
-        },
-    ];
-
-    $ctrl.filtersList = [
-        'q', 'search_item_types', 'organization_id', 'product_category_id', 'fund', 'sortBy',
-    ];
+    // Search by resource type
+    $ctrl.searchItemTypes = [{
+        label: 'Potjes',
+        key: 'funds',
+        checked: ($stateParams.search_item_types || []).includes('funds')
+    }, {
+        label: 'Aanbod',
+        key: 'products',
+        checked: ($stateParams.search_item_types || []).includes('products')
+    }, {
+        label: 'Aanbieders',
+        key: 'providers',
+        checked: ($stateParams.search_item_types || []).includes('providers')
+    }];
 
     $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
 
-    $rootScope.$on('search-query', (e, data) => {
-        $ctrl.form.values.keyword = data;
-    }); 
+    $ctrl.setOrderDropdown = ($event, show) => {
+        $event.stopPropagation();
+        $event.preventDefault();
 
-    $ctrl.objectOnly = (obj, props = []) => {
-        let out = {};
+        $ctrl.showOrderDropdown = show;
+    };
 
-        for (const prop in obj) {
-            if (obj.hasOwnProperty(prop) && props.indexOf(prop) != -1) {
-                out[prop] = obj[prop];
-            }
+    $ctrl.setMobileMenu = ($event, show) => {
+        $event.stopPropagation();
+        $event.preventDefault();
+
+        $ctrl.showModalFilters = show;
+        $ctrl.updateState($ctrl.buildQuery($ctrl.filters));
+    };
+
+    $ctrl.toggleType = ($event, type) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        const index = $ctrl.filters.search_item_types.indexOf(type);
+
+        if (index === -1) {
+            $ctrl.filters.search_item_types.push(type);
+        } else {
+            $ctrl.filters.search_item_types.splice(index, 1);
         }
-
-        return out;
-    };
-
-    $ctrl.toggleOrderDropdown = ($event) => {
-        $event ? $event.stopPropagation() : '';
-        $ctrl.show_order_dropdown = !$ctrl.show_order_dropdown;
-    };
-
-    $ctrl.hideOrderDropdown = ($event) => {
-        $event ? $event.stopPropagation() : '';
-        $ctrl.show_order_dropdown = false;
-    };
-
-    $ctrl.toggleMobileMenu = () => {
-        $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
-    };
-
-    $ctrl.showMobileMenu = () => {
-        $ctrl.showModalFilters = true;
-        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
-    };
-
-    $ctrl.hideMobileMenu = () => {
-        $ctrl.showModalFilters = false;
-        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
-    };
-
-    $ctrl.cancel = () => {
-        if (typeof ($ctrl.modal.scope.cancel) === 'function') {
-            $ctrl.modal.scope.cancel();
-        }
-
-        $ctrl.close();
-    };
+    }
 
     $ctrl.showAs = (display_type) => {
         $ctrl.display_type = display_type;
-        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
+        $ctrl.updateState($ctrl.buildQuery($ctrl.filters));
     };
 
     $ctrl.sortBy = ($event, sort_by) => {
@@ -112,25 +81,23 @@ let SearchResultComponent = function(
         $event.stopPropagation();
 
         $ctrl.sort_by = sort_by;
-        $ctrl.show_order_dropdown = false;
+        $ctrl.showOrderDropdown = false;
 
-        $ctrl.onPageChange({ ...$ctrl.form.values });
+        $ctrl.onPageChange({ ...$ctrl.filters });
     };
 
     $ctrl.buildQuery = (values) => {
         const orderByValue = {
             ...$ctrl.sort_by.value,
-            ...{
-                order_by: $ctrl.sort_by.value.order_by,
-            }
+            ...{ order_by: $ctrl.sort_by.value.order_by }
         };
 
         return {
-            keyword: values.keyword,
+            q: values.q,
             organization_id: values.organization_id,
             fund_id: values.fund ? values.fund.id : null,
             product_category_id: values.product_category_id,
-            overview: true,
+            overview: 0,
             page: values.page,
             search_item_types: values.search_item_types.filter((i) => i),
             display_type: $ctrl.display_type,
@@ -138,132 +105,65 @@ let SearchResultComponent = function(
         };
     };
 
-    $ctrl.onFormChange = (values) => {
-        if (timeout) {
-            $timeout.cancel(timeout); 
-        }
-
-        timeout = $timeout(() => {
-            $ctrl.onPageChange(values);
-        }, 1000);
-    };
-
     $ctrl.onPageChange = (values) => {
-        $ctrl.loadProducts($ctrl.buildQuery(values));
+        $ctrl.doSearch($ctrl.buildQuery(values));
     };
 
-    $ctrl.loadProducts = (query) => {
-        SearchService.list(query).then(res => {
+    $ctrl.doSearch = (query) => {
+        SearchService.search(query).then((res) => {
             $ctrl.searchItems = res.data;
+            $ctrl.updateState(query);
+            $ctrl.updateFiltersUsedCount();
         });
-
-        $ctrl.updateState(query, location);
-        $ctrl.updateFiltersUsedCount();
     };
 
-    $ctrl.updateSearchItemTypes = (index) => {
-        let checkedTypes = $ctrl.form.values.search_item_types;
-        let changedType = $ctrl.searchItemTypes[index];
-        
-        if (checkedTypes.includes(changedType.key) && !changedType.checked) {
-            checkedTypes.splice(checkedTypes.indexOf(changedType.key), 1);
-        }
+    $ctrl.updateState = (query, notify = false) => {
+        const stateParams = { ...query, ...{ search_item_types: query.search_item_types.join(',') } };
 
-        if (!checkedTypes.includes(changedType.key) && changedType.checked) {
-            checkedTypes.push(changedType.key);
-        }
-
-        $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
-    }
-
-    $ctrl.updateState = (query, location = 'replace') => {
-        $state.go('search-result', {
-            keyword: query.keyword || '',
-            page: query.page,
-            display_type: query.display_type,
-            fund_id: query.fund_id,
-            search_item_types: query['search_item_types[]'],
-            organization_id: query.organization_id,
-            product_category_id: query.product_category_id,
-        }, { location });        
+        $state.transitionTo($state.$current.name, stateParams, { notify });
     };
 
     $ctrl.updateFiltersUsedCount = () => {
-        $ctrl.countFiltersApplied = Object.values(
-            $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
-        ).reduce((count, filter) => count + (filter ? (
-            typeof filter == 'object' ? (filter.id || Array.isArray(filter) ? 1 : 0) : 1
-        ) : 0), 0);
+        console.log($ctrl.filters);
+        $ctrl.countFiltersApplied = Object.values($ctrl.filters).reduce((count, filter) => count + (filter ? (
+            typeof filter == 'object' ? (filter.id || Array.isArray(filter) ? filter.length : 0) : 1
+        ) : 0), 0) - 3;
     };
 
-    $ctrl.updateRows = () => {
-        $ctrl.searchItems.data = $ctrl.searchItems.data.map(product => {
-            if ($ctrl.form.values.fund && $ctrl.form.values.fund.id && Array.isArray(product.funds)) {
-                let prices = product.funds.filter(
-                    funds => funds.id == $ctrl.form.values.fund.id
-                ).map(fund => fund.price);
-
-                product.price_min = Math.min(prices);
-                product.price_max = Math.max(prices);
-            }
-
-            return product;
-        });
-
-        let product_rows = [];
-        let products = $ctrl.searchItems.data.slice().reverse();
-
-        while (products.length > 0) {
-            let row = products.splice(-3);
-            row.reverse();
-
-            product_rows.push(row);
-        }
-
-        $ctrl.product_rows = product_rows;
-    };
+    $rootScope.$on('search-query', (e, data) => {
+        $ctrl.filters.q = data;
+    });
 
     $ctrl.$onInit = () => {
-        $ctrl.fund_type = $stateParams.fund_type;
-        $ctrl.show_order_dropdown = false;
+        const { q, overview, fund_id, organization_id, product_category_id, page } = $stateParams;
+        const search_item_types = ($stateParams.search_item_types || '').split(',').filter((i) => i);
+
+        $ctrl.showOrderDropdown = false;
         $ctrl.display_type = $stateParams.display_type;
 
-        $ctrl.productCategories.unshift({
-            name: 'Selecteer categorie...',
-            id: null
-        });
-        $ctrl.organizations.unshift({
-            name: 'Selecteer aanbieders...',
-            id: null
-        });
         $ctrl.funds.unshift({
             id: null,
             name: 'Alle potjes',
         });
 
-        let fund = $ctrl.funds.filter(fund => {
-            return fund.id == $stateParams.fund_id;
-        })[0] || $ctrl.funds[0];
-            
-        $scope.appConfigs = appConfigs;
-        $scope.$watch('appConfigs', (_appConfigs) => {
-            if (_appConfigs.features && !_appConfigs.features.products.list) {
-                $state.go('home');
-            }
-        }, true);        
-        
-        $ctrl.form = FormBuilderService.build({
-            keyword: $stateParams.keyword || '',
-            overview: true,
-            organization_id: $stateParams.organization_id || null,
-            product_category_id: $stateParams.product_category_id || null,
-            search_item_types: $stateParams.search_item_types || null,
-            fund: fund,
-            ...$ctrl.sort_by.value
+        $ctrl.organizations.unshift({
+            name: 'Selecteer aanbieders...',
+            id: null
         });
 
+        $ctrl.productCategories.unshift({
+            name: 'Selecteer categorie...',
+            id: null
+        });
+
+        $ctrl.filters = {
+            ...{ q, overview, fund_id, organization_id, product_category_id, search_item_types, page },
+            ...$ctrl.sort_by.value,
+            fund: $ctrl.funds.filter(fund => fund.id === fund_id)[0] || $ctrl.funds[0],
+        };
+
+        $ctrl.lastStateParams = {...$ctrl.filters};
         $ctrl.updateFiltersUsedCount();
-        $ctrl.updateRows($stateParams.fund_id);
     };
 };
 
@@ -275,13 +175,9 @@ module.exports = {
         productCategories: '<',
     },
     controller: [
-        '$scope',
         '$rootScope',
         '$state',
         '$stateParams',
-        '$timeout',
-        'appConfigs',
-        'FormBuilderService',
         'SearchService',
         SearchResultComponent
     ],
