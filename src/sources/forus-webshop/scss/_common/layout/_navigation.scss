@@ -363,6 +363,8 @@
                             display: flex;
                             justify-items: flex-end;
                             justify-content: flex-end;
+                            border: none;
+                            background: none;
     
                             .mdi {
                                 line-height: 20px;
@@ -401,6 +403,8 @@
                         align-items: center;
                         color: #282B39;
                         padding-left: 5px;
+                        border: none;
+                        background: none;
             
                         .mdi {
                             font-size: 20px;
@@ -433,6 +437,8 @@
                             font: 700 13px/26px $bf;
                             transition: .4s;
                             cursor: pointer;
+                            border: none;
+                            background: none;
     
                             img {
                                 display: block;

@@ -1,104 +1,8 @@
 .section {
-    &.section-header {
-        width: 100%;
-        position: relative;
-        z-index: 2;
-        @include cf();
-
-        .header-body {
-            @include cf();
-            position: relative;
-        }
-
-        .header-content {
-            padding: 50px 0;
-            
-            .button {
-                width: 100%;
-            }
-
-            .header-title {
-                font: 700 32px/1.5em $bf;
-                margin: 0 0 20px;
-                text-align: center;
-            }
-
-            .header-description {
-                font: 400 21px/32px $bf;
-                text-align: center;
-            }
-
-            .header-how-it-works {
-                margin-top: 25px;
-                font-style: italic;
-                text-decoration: underline;
-                cursor: pointer;
-            }
-
-            .header-how-it-works:hover {
-                color: #a5a5a5;
-            }
-
-            .header-download-apps {
-                .app-item {
-                    padding: 25px 20px 25px 90px;
-                    font: 700 12px/20px $bf;
-                    @include ellipsis();
-                    width: 100%;
-                    display: block;
-                    margin-bottom: 20px;
-                    position: relative;
-                    color: #282b39;
-                    overflow: hidden;
-                    border-radius: 5px;
-                    background: #fff;
-                    text-align: left;
-                    transition: .4s;
-                    transform: translate(0, 0);
-                    box-shadow: 5px 15px 30px rgba($color: #000000, $alpha: .05);
-                    height: 55vh;
-
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 50%;
-                        background-color: #f9fbf0;
-                        background-image: url(../img/me/icon-app-android.svg);
-                        background-repeat: no-repeat;
-                        transform: translate(0, -50%);
-                        width: 70px;
-                        height: 100%;
-                        border-radius: 0;
-                        left: 0;
-                        background-size: 50px;
-                        background-position: 50%;
-                    }
-
-                    &.app-item-ios {
-                        &:before {
-                            background-color: #f2fafd;
-                        }
-                    }
-
-                    &:hover {
-                        transform: translate(0, -5px);
-                        box-shadow: 5px 20px 40px rgba($color: #000000, $alpha: .15);
-                    }
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-        }
-    }
-
-    &.section-title {
-        font: 700 20px/30px $bf;
+    .section-title {
+        font: 700 40px/60px $bf;
         margin: 0 0 20px;
-        position: relative;
-        color: #00122a;
+        text-align: center;
     }
 
     .section-description {
@@ -108,83 +12,154 @@
         color: $tc;
     }
 
-    .header-note {
-        position: absolute;
-        bottom: 10px;
-        right: 15px;
-        color: #fff;
-        font: 400 16px/32px $bf;
-    }
-}
+    &.section-header {
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        cursor: default;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        padding: 50px 0;
+        margin-bottom: 30px;
+        @include cf();
 
-@media screen and (min-width: 1024px) {
-    .section {
-        .section-title {
-            font: 700 40px/60px $bf;
-            margin: 0 0 20px;
-            text-align: center;
+        .header-overlay {
+            z-index: 1;
+            opacity: 0;
+            background-color: rgba($color: #000000, $alpha: 0.8);
+            @include fill_parent();
+
+            &.header-overlay-pattern {
+                background-size: 10px;
+                background-color: transparent;
+            }
         }
 
-        &.section-header {
-            background: $bg-values;
-            background-size: auto 80%;
+        .header-note {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            color: #fff;
+            font: 400 16px/32px $bf;
+        }
+
+        .wrapper {
             position: relative;
-            margin: 0;
-            padding: 80px 0;
+            z-index: 2;
+        }
+
+        .header-body {
+            @include cf();
+            position: relative;
+        }
+
+        .header-content {
+            padding: 50px 0;
+            max-width: 650px;
+            text-align: left;
+            color: #fff;
+            text-shadow: 1px 2px 2px rgba($color: #dfb1b1, $alpha: 0.15);
+
+            .header-title {
+                color: inherit;
+                font: 700 48px/1.3em $bf;
+                margin: 0 0 20px;
+                text-shadow: inherit;
+            }
+
+            .header-description {
+                color: inherit;
+                font: 400 21px/1.5em $bf;
+                text-shadow: inherit;
+                text-align: inherit;
+                margin: 0 0 20px;
+    
+                p,
+                ul,
+                ol,
+                li,
+                ol,
+                .block-markdown {
+                    color: inherit;
+                    font: inherit !important;
+                    margin: 0 0 10px;
+                    text-shadow: inherit;
+                    text-align: inherit;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .header-how-it-works {
+                text-decoration: underline;
+                cursor: pointer;
+                margin: 0 0 20px;
+                font: 400 15px/1.5em $bf;
+                font-style: italic;
+                transition: 0.4s;
+                color: inherit;
+                display: inline-block;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        &:before,
+        &:after {
+            position: relative;
+            z-index: 2;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.section-header-dark {
+            .header-title,
+            .header-description,
+            .header-how-it-works {
+                text-shadow: none;
+                color: $tc;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            padding: 30px 0 0;
+            background-image: none !important;
+            margin-bottom: 30px;
+
+            .header-overlay {
+                display: none;
+            }
 
             .header-content {
-                max-width: 650px;
+                text-align: center;
+                max-width: 100%;
+                padding: 0;
+                color: $tc;
 
                 .header-title {
-                    text-align: left;
-                    font: 700 48px/1.3em $bf;
+                    font: 700 28px/1.5em $bf;
+                    margin: 0 0 15px;
                 }
 
                 .header-description {
-                    text-align: left;
-
-                    p, ul, ol {
-                        font: 400 21px/1.5em $bf;
-                    }
+                    font: 300 16px/1.5em $bf;
+                    margin: 0 0 10px;
                 }
+            }
 
-                .button {
-                    width: auto;
-                }
-
-                .header-how-it-works {
-                    margin: 0 0 50px;
-                    font-size: 15px;
-                    transition: .4s;
-                }
-
-                .header-download-apps {
-                    .app-item {
-                        padding: 50px 50px 50px 200px;
-                        width: 100%;
-                        font: 700 18px/30px $bf;
-                        top: 0;
-
-                        .mdi {
-                            top: 50%;
-                            right: 40px;
-                            position: absolute;
-                            transform: translate(0, -50%);
-                            font-size: 18px;
-                            color: #5374d9;
-                        }
-
-                        &:before {
-                            width: 200px;
-                            height: 175px;
-                            border-radius: 200px;
-                            background-repeat: no-repeat;
-                            background-position: 75%;
-                            background-size: 90px;
-                            left: -60px;
-                        }
-                    }
-                }
+            &:last-child {
+                margin-bottom: 0;
             }
         }
     }

@@ -29,20 +29,27 @@ block content
                                 type="search")
 
                         .form-group
-                            label.form-label Type aanbieder
+                            label.form-label(for="select_provider_type") Type aanbieder
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.businessType" 
                                 options="$ctrl.businessTypes"
-                                placeholder="Selecteer type...")
+                                placeholder="Selecteer type..."
+                                id="select_provider_type")
 
                         .form-group
-                            label.form-label Tegoeden
+                            label.form-label(for="select_fund") Tegoeden
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.form.values.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer tegoed...")
+                                placeholder="Selecteer tegoed..."
+                                id="select_fund")
+                        
+                        br
+                        a(ng-show="$ctrl.showMap" ng-click="$ctrl.showAsList()" role="button").button.button-primary-outline.button-fill.button-flat.hide-sm 
+                            em.mdi.mdi-store-outline
+                            | Lijst
 
                     a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm 
                         em.mdi.mdi-store-outline
@@ -53,18 +60,22 @@ block content
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap").pull-left
                                 .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
-                                | Aanbieders
+                                h1.showcase-filters-title Aanbieders
 
                         .showcase-filters-block
                             .block.block-label-tabs.pull-right
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: !$ctrl.showMap}"
-                                    ng-click="$ctrl.showAsList()")
+                                    ng-click="$ctrl.showAsList()" 
+                                    role="tab" 
+                                    aria-selected="{{ !$ctrl.showMap ? 'true' : 'false' }}")
                                     em.mdi.mdi-format-list-text.icon-start
                                     | Lijst
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.showMap}"
-                                    ng-click="$ctrl.showAsMap()")
+                                    ng-click="$ctrl.showAsMap()" 
+                                    role="tab" 
+                                    aria-selected="{{ $ctrl.showMap ? 'true' : 'false' }}")
                                     em.mdi.mdi-map-marker-radius.icon-start
                                     | Kaart
 
@@ -82,7 +93,7 @@ block content
                                     ng-bind="provider.name").organization-title-value
 
                                 .organization-chevron
-                                    .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
+                                    .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')" role = "link")
 
                             .organization-offices(ng-if="$ctrl.officesShown.indexOf(provider.id) != -1"): .block.block-offices
                                 a(ng-repeat="office in provider.offices" ng-click="$ctrl.goToOffice(office)").office-item

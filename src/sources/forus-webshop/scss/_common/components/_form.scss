@@ -38,7 +38,7 @@ $formPadding: 14px 15px;
         transition: background-color .4s ease, border .4s ease;
         border-radius: 6px;
         appearance: none;
-        border: 1px solid $border_color;
+        border: 1px solid #515152;
 
         &[disabled] {
             background-color: #fbfbfa;
@@ -569,7 +569,7 @@ $formPadding: 14px 15px;
         $borderRadius: 4px;
 
         &>input[type=radio], &>input[type=checkbox] {
-            display: none;
+            opacity: 0;
         }
 
         .form-toggle-inner {

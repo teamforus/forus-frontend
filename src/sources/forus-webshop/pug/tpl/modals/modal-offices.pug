@@ -1,7 +1,7 @@
-.modal.modal-shops_map.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-shops_map.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']" role="dialog")
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-content
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="close" role="button")
 
         .block.block-shops_map
             .shop_map-header

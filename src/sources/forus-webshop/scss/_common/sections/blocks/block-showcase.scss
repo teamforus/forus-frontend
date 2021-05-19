@@ -163,7 +163,6 @@
 
                 .showcase-filters-title,
                 .showcase-filters-block {
-                    margin: 0 0 15px;
                     display: flex;
                 }
 
@@ -181,6 +180,7 @@
                 .showcase-filters-title {
                     font: 600 24px/28px $bf;
                     color: $tc;
+                    margin: 0;
                     @include ellipsis();
 
                     .showcase-filters-title-count {
@@ -206,6 +206,7 @@
 
                 .showcase-filters-block {
                     justify-content: flex-end;
+                    margin: 0 0 15px;
                 }
             }
         }
@@ -266,6 +267,7 @@
 
                 .block.block.block-google-map {
                     @include fill_parent();
+                    bottom: 15px;
 
                     iframe {
                         display: block;

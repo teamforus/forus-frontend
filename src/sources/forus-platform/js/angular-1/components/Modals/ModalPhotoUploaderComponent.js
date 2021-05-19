@@ -14,6 +14,7 @@ let ModalPhotoUploaderComponent = function(
             w: $ctrl.mediaConfig.size.large[0],
             h: $ctrl.mediaConfig.size.large[1]
         };
+
         $ctrl.cropFile($ctrl.modal.scope.getFile());
     };
 
