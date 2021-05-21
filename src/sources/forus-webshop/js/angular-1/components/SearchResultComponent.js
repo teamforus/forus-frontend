@@ -28,7 +28,7 @@ let SearchResultComponent = function(
 
     // Search by resource type
     $ctrl.searchItemTypes = [{
-        label: 'Potjes',
+        label: 'Tegoeden',
         key: 'funds',
         checked: ($stateParams.search_item_types || []).includes('funds')
     }, {
@@ -124,7 +124,6 @@ let SearchResultComponent = function(
     };
 
     $ctrl.updateFiltersUsedCount = () => {
-        console.log($ctrl.filters);
         $ctrl.countFiltersApplied = Object.values($ctrl.filters).reduce((count, filter) => count + (filter ? (
             typeof filter == 'object' ? (filter.id || Array.isArray(filter) ? filter.length : 0) : 1
         ) : 0), 0) - 3;
@@ -143,7 +142,7 @@ let SearchResultComponent = function(
 
         $ctrl.funds.unshift({
             id: null,
-            name: 'Alle potjes',
+            name: 'Selecteer tegoeden...',
         });
 
         $ctrl.organizations.unshift({

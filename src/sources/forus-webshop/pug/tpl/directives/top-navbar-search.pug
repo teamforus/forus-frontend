@@ -24,7 +24,7 @@
                     span(translate="top_navbar_search.result.{{ key }}_label")
                     a.search-result-title-link(
                         ui-sref="search-result({q: $dir.lastQuery, search_item_types: key})" 
-                        ng-if="values.count > 3") Found {{ values.count }} results...
+                        ng-if="values.count > 3")  {{ values.count }} resultaten gevonden...
                 
                 //- Result sections list
                 .search-result-items(ng-if="values")

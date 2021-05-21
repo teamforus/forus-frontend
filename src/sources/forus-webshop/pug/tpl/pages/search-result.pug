@@ -11,7 +11,7 @@ block content
 
             .block.block-breadcrumbs
                 a(ui-sref="home").breadcrumb-item Home
-                .breadcrumb-item.active Aanbod
+                .breadcrumb-item.active Zoekresultaten
 
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
@@ -34,12 +34,12 @@ block content
                                 ng-model="$ctrl.filters.product_category_id").form-control
 
                         .form-group
-                            label.form-label Potjes
+                            label.form-label Tegoeden
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.filters.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer potjes...")
+                                placeholder="Selecteer tegoeden...")
 
                         .form-group
                             label.form-label Aanbieders
