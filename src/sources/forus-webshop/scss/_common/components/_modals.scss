@@ -338,6 +338,39 @@
         }
     }
 
+    &.modal-image-preview {
+        .img-block {
+            display: flex;
+            margin: 40px auto;
+            justify-content: center;
+            max-width: 80%;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+    
+    &.modal-pdf-preview {
+        .modal-window {
+            height: 900px;
+            display: flex;
+            flex-direction: column;
+
+            .modal-body {
+                flex-grow: 1;
+                width: 100%;
+                display: flex;
+            }
+
+            .block.block-pdf-preview {
+                width: 100%;
+                flex-grow: 1;
+                overflow: auto;
+            } 
+        }
+    }
+
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;

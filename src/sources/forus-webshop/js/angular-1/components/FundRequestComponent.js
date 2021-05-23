@@ -9,6 +9,8 @@ let FundRequestComponent = function(
     RecordService,
     FundService,
     AuthService,
+    ModalService,
+    FileService,
     FundRequestService,
     PushNotificationsService,
     appConfigs
@@ -44,6 +46,8 @@ let FundRequestComponent = function(
     $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
     $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
 
+    $ctrl.showFundRequestOverviewStep = $ctrl.appConfigs.flags.showFundRequestOverviewStep;
+
     let trans_record_checkbox = (criteria_record_key, criteria_value) => {
         let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
         let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
@@ -55,6 +59,8 @@ let FundRequestComponent = function(
             value: criteria_value
         }) : translated;
     };
+
+    let overviewSteps = $ctrl.showFundRequestOverviewStep ? 1 : 0;
 
     // Submit criteria record
     $ctrl.submitStepCriteria = (criteria) => {
@@ -96,6 +102,33 @@ let FundRequestComponent = function(
         invalidCriteria.isUploadingFiles = invalidCriteria.files.filter(
             (item) => item.uploading
         ).length > 0;
+    };
+
+    $ctrl.hasFilePreview = (file) => {
+        return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.file_data.ext);
+    }
+
+    $ctrl.downloadFile = (file) => {
+        FileService.download(file.file_data).then(res => {
+            FileService.downloadFile(file.file_data.original_name, res.data);
+        }, console.error);
+    };
+
+    $ctrl.previewFile = ($event, file) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        if (file.file_data.ext == 'pdf') {
+            FileService.download(file.file_data).then(res => {
+                ModalService.open('pdfPreview', {
+                    rawPdfFile: res.data
+                });
+            }, console.error);
+        } else if (['png', 'jpeg', 'jpg'].includes(file.file_data.ext)) {
+            ModalService.open('imagePreview', {
+                imageSrc: file.file_data.url
+            });
+        }
     };
 
     $ctrl.submitRequest = () => {
@@ -210,6 +243,10 @@ let FundRequestComponent = function(
         }
 
         if (step == ($ctrl.totalSteps.length + 1) + welcomeSteps) {
+            return $ctrl.showFundRequestOverviewStep ? 'application_overview' : 'done';
+        }
+
+        if ($ctrl.showFundRequestOverviewStep && step == ($ctrl.totalSteps.length + 2) + welcomeSteps) {
             return 'done';
         }
 
@@ -238,7 +275,7 @@ let FundRequestComponent = function(
     $ctrl.nextStep = () => {
         $ctrl.buildSteps();
 
-        if ($ctrl.step == (welcomeSteps + $ctrl.totalSteps.length)) {
+        if ($ctrl.step == (welcomeSteps + $ctrl.totalSteps.length + overviewSteps)) {
             return $ctrl.submitRequest();
         }
 
@@ -384,6 +421,8 @@ module.exports = {
         'RecordService',
         'FundService',
         'AuthService',
+        'ModalService',
+        'FileService',
         'FundRequestService',
         'PushNotificationsService',
         'appConfigs',

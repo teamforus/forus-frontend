@@ -44,6 +44,7 @@ let FileUploaderDirective = function(
         FileService.store(item.file, $scope.type, (e) => item.progress = e.progress, item).then(
             (res) => {
                 item.uploaded = true;
+                item.file_data = res.data.data;
                 item.file_uid = res.data.data.uid;
                 onFileUploaded(eventInfo(item));
             },

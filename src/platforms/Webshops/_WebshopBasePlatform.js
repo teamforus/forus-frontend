@@ -21,7 +21,9 @@ platform.setLibs([
     "qrcodejs",
     "ui_router",
     "ui_select",
+    "file_saver",
     "underscore",
+    "pdfjs",
 ]);
 
 // tweaking output and cleaned paths config
