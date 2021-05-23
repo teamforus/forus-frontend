@@ -391,6 +391,10 @@ let FundRequestComponent = function(
                 if ($ctrl.invalidCriteria.length == 0) {
                     $ctrl.applyFund($ctrl.fund);
                 }
+                
+                if ($ctrl.invalidCriteria.length == 1) {
+                    $ctrl.showFundRequestOverviewStep = false;
+                }
             });
 
             if (($ctrl.bsnIsKnown = $ctrl.identity.bsn) || !$ctrl.digidAvailable) {
