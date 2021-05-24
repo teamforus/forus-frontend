@@ -87,6 +87,7 @@
                                 th(i18n="transactions.labels.fund")
                                 th(i18n="transactions.labels.provider")
                                 th(i18n="transactions.labels.status")
+                                th
                             tr(
                                 ng-repeat="transaction in $ctrl.transactions.data"
                                 ng-click="$ctrl.showTransaction(transaction)")
@@ -96,6 +97,10 @@
                                 td(ng-bind="transaction.fund.name")
                                 td(ng-bind="transaction.organization.name")
                                 td(ng-bind="$ctrl.statesKeyValue[transaction.state]")
+                                td
+                                    .button.button-defaul.pull-right(ng-click="$ctrl.showTransaction(transaction)")
+                                        em.mdi.mdi-eye-outline.icon-start
+                                        translate(translate="transactions.buttons.view")
                     
             .card-section: .table-pagination
                 .table-pagination-counter(ng-if="$ctrl.transactions.data.length") {{ "transactions.labels.total_amount" | translate }} {{ $ctrl.transactionsTotal | currency_format }}
