@@ -45,11 +45,6 @@ block content
                                 options="$ctrl.funds"
                                 placeholder="Selecteer tegoed..."
                                 id="select_fund")
-                        
-                        br
-                        a(ng-show="$ctrl.showMap" ng-click="$ctrl.showAsList()" role="button").button.button-primary-outline.button-fill.button-flat.hide-sm 
-                            em.mdi.mdi-store-outline
-                            | Lijst
 
                     a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm 
                         em.mdi.mdi-store-outline
@@ -64,14 +59,14 @@ block content
 
                         .showcase-filters-block
                             .block.block-label-tabs.pull-right
-                                .label-tab.label-tab-sm(
+                                button.label-tab.label-tab-sm(
                                     ng-class="{active: !$ctrl.showMap}"
                                     ng-click="$ctrl.showAsList()" 
                                     role="tab" 
                                     aria-selected="{{ !$ctrl.showMap ? 'true' : 'false' }}")
                                     em.mdi.mdi-format-list-text.icon-start
                                     | Lijst
-                                .label-tab.label-tab-sm(
+                                button.label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.showMap}"
                                     ng-click="$ctrl.showAsMap()" 
                                     role="tab" 
