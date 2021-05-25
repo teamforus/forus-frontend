@@ -20,7 +20,8 @@
                     .form-group.form-group-inline
                         label.checkbox
                             input(id="notification" type='checkbox' ng-model="$ctrl.form.values.notification")
-                            label(for="notification").form-label(
+                            label.form-label(
+                                for="notification"
                                 translate="modals.modal_voucher_deactivation_confirm.notification.label"
                                 translate-values="{ email: $ctrl.voucher.identity_email }"
                             )
