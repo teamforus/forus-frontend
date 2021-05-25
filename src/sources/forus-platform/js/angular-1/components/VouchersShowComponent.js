@@ -19,6 +19,13 @@ let VouchersShowComponent = function(
         });
     }
 
+    $ctrl.reactivate = () => {
+        VoucherService.reactivate($ctrl.organization.id, $ctrl.voucher.id,{})
+        .then(() => {
+            $ctrl.onPageChange();
+        });
+    }
+
     $ctrl.activate = () => {
         VoucherService.activate(
             $ctrl.organization.id, $ctrl.voucher.id
