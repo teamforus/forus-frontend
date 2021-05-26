@@ -142,6 +142,11 @@ $formPadding: 14px 15px;
 
         .form-control {
             display: block;
+            
+            &:focus {
+                border: 1px solid black;
+                box-shadow: 0 3px 5px rgba(#000000, 0.3);
+            }
         }
 
         label.form-control:not([type='radio']):not([type='checkbox']) {
@@ -154,6 +159,11 @@ $formPadding: 14px 15px;
             background-position: 99%;
             background-repeat: no-repeat;
             background-size: 25px;
+
+            &:focus {
+                border: 1px solid black;
+                box-shadow: 0 3px 5px rgba(#000000, 0.3);
+            }
         }
         
         .select-control-options {
@@ -186,7 +196,7 @@ $formPadding: 14px 15px;
                     font-weight: 700;
                 }
 
-                &:hover {
+                &:hover, &:focus {
                     background: whitesmoke;
                     border-color: whitesmoke;
                 }
