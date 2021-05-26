@@ -129,41 +129,22 @@
                         em.mdi.mdi-eye-outline.icon-start
                         | Bekijken
 
-            .card-section.card-section-primary
-                .card-block.card-block-table: .table-wrapper
-                    table.table
-                        tr
-                            th(width="30%" translate="organization_providers.labels.name")
-                            th(translate="organization_providers.labels.status")
-                            th(width="25%" translate="organization_providers.labels.options")
-                        tr(ng-repeat="fund in providerOrganization.funds")
-                            td(ng-bind="fund.name")
-                            td
-                                .tag(
-                                    ng-class="fund.active ? 'tag-success' : 'tag-default'"
-                                    translate="{{ 'organization_providers.status.' + (fund.active ? 'accepted' : 'hold') }}")
-                            td
-                                button.button.button-default(
-                                    ui-sref="fund-provider({organization_id: $ctrl.organization.id, fund_id: fund.id, fund_provider_id: fund.fund_provider_id})") 
-                                    em.mdi.mdi-eye.icon-start
-                                    translate(translate="organization_providers.buttons.view_products")
-
-                                button(ng-click="$ctrl.rejectApplication(fund)").button.button-danger.pull-right
-                                    em.delete.mdi.mdi-trash-can-outline
-
             .provider-funds(ng-if="$ctrl.extendedView")
                 .card-section.card-section-padless: .table-wrapper: table.table.form
                     tr
                         th Fondsnaam
                         th Status
-                        th Opties
+                        th(width="25%") Opties
                     tr(ng-repeat="fund in providerOrganization.funds")
                         td(ng-bind="fund.name")
                         td: .tag.tag-sm(ng-class="'tag-' + (fund.active ? 'success' : 'warning')"   ng-bind="fund.active ? 'Geaccepteerd' : 'Wachtend'")  
-                        td.td-narrow.text-right
+                        td
                             a(ui-sref="fund-provider(fund.uiViewParams)").button.button-default.nowrap  
                                 em.mdi.mdi-eye-outline.icon-start
                                 | Bekijk aanbod
+
+                            button(ng-click="$ctrl.rejectApplication(fund)").button.button-danger.pull-right
+                                em.delete.mdi.mdi-trash-can-outline
 
         block-empty( 
             ng-if="$ctrl.providerOrganizations.data.length == 0"

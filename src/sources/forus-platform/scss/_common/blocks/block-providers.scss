@@ -143,18 +143,6 @@
             border-top: 1px solid #d2e6ff;
         }
 
-        .table-wrapper {
-            table {
-                &.table {
-                    tr {
-                        td {
-                            font-weight: 600;
-                        }
-                    }
-                }
-            }
-        }
-
         &:last-child {
             border-bottom: none;
             margin: 0 0 0;
