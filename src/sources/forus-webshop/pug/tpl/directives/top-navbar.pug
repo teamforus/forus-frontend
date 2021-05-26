@@ -14,14 +14,11 @@
 
         .block.block-auth.show-sm
             .auth-in(ng-if="$root.auth_user").show-sm
-                .button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
+                button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
                     div(translate="topnavbar.buttons.logout")
             .auth-out(ng-if="!$root.auth_user" id="login_mobile")                
-                .button.button-default(ng-click="openAuthPopup()" role="button" aria-label="login").hide-sm
-                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
-                    span(translate="topnavbar.buttons.login")
-                .button.button-mobile(ng-click="openAuthPopup()" role="button" aria-label="login").show-sm
+                button.button.button-mobile(ng-click="openAuthPopup()" role="button" aria-label="login").show-sm
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
                     div(translate="topnavbar.buttons.login")
         
