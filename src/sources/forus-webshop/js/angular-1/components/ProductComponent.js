@@ -1,6 +1,7 @@
-let ProductComponent = function(
+const ProductComponent = function(
     $scope,
     $state,
+    $stateParams,
     $sce,
     appConfigs,
     AuthService,
@@ -8,7 +9,7 @@ let ProductComponent = function(
     ModalService,
     VoucherService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
     let fetchingFund = false;
 
     if (!appConfigs.features.products.show) {
@@ -78,8 +79,9 @@ let ProductComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        let fundIds = $ctrl.product.funds.map(fund => fund.id);
+        const fundIds = $ctrl.product.funds.map(fund => fund.id);
 
+        $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.subsidyFunds = $ctrl.product.funds.filter(fund => fund.type === 'subsidies');
         $ctrl.useSubsidies = $ctrl.subsidyFunds.length > 0
@@ -169,6 +171,7 @@ module.exports = {
     controller: [
         '$scope',
         '$state',
+        '$stateParams',
         '$sce',
         'appConfigs',
         'AuthService',

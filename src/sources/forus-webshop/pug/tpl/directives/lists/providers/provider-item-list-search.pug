@@ -1,0 +1,9 @@
+.search-item.search-item-provider
+    .search-media: img(
+        ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || '/assets/img/placeholders/organization-thumbnail.png' }}"
+        alt="{{ $dir.provider.name }}")
+
+    .search-content
+        .search-details
+            .search-title(ng-bind="$dir.provider.name")
+            .search-subtitle(ng-bind="$dir.provider.description")

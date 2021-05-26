@@ -1,7 +1,5 @@
-let ProviderComponent = function(
-    $state
-) {
-    let $ctrl = this;
+const ProviderComponent = function($state, $stateParams) {
+    const $ctrl = this;
 
     $ctrl.mapOptions = {
         zoom: 11,
@@ -15,8 +13,9 @@ let ProviderComponent = function(
         });
     };
 
-    $ctrl.$onInit = () => {};
-    $ctrl.$onDestroy = () => {};
+    $ctrl.$onInit = () => {
+        $ctrl.searchData = $stateParams.searchData || null;
+    };
 };
 
 module.exports = {
@@ -27,6 +26,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$stateParams',
         ProviderComponent
     ],
     templateUrl: 'assets/tpl/pages/provider.html'

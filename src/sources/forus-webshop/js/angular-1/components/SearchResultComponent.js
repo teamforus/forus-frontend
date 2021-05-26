@@ -1,4 +1,4 @@
-let SearchResultComponent = function(
+const SearchResultComponent = function(
     $rootScope,
     $state,
     $stateParams,
@@ -41,8 +41,6 @@ let SearchResultComponent = function(
         checked: ($stateParams.search_item_types || []).includes('providers')
     }];
 
-    $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
-
     $ctrl.setOrderDropdown = ($event, show) => {
         $event.stopPropagation();
         $event.preventDefault();
@@ -76,24 +74,22 @@ let SearchResultComponent = function(
         $ctrl.updateState($ctrl.buildQuery($ctrl.filters));
     };
 
-    $ctrl.sortBy = ($event, sort_by) => {
+    $ctrl.setSortBy = ($event, sortBy) => {
         $event.preventDefault();
         $event.stopPropagation();
 
-        $ctrl.sort_by = sort_by;
+        $ctrl.sortBy = sortBy;
+        $ctrl.filters = { ...$ctrl.filters, ...sortBy.value };
         $ctrl.showOrderDropdown = false;
 
-        $ctrl.onPageChange({ ...$ctrl.filters });
+        $ctrl.updateState({ ...$ctrl.filters });
     };
 
-    $ctrl.buildQuery = (values) => {
-        const orderByValue = {
-            ...$ctrl.sort_by.value,
-            ...{ order_by: $ctrl.sort_by.value.order_by }
-        };
-
+    $ctrl.buildQuery = (values = {}) => {
         return {
             q: values.q,
+            order_by: values.order_by,
+            order_by_dir: values.order_by_dir,
             organization_id: values.organization_id,
             fund_id: values.fund ? values.fund.id : null,
             product_category_id: values.product_category_id,
@@ -101,26 +97,37 @@ let SearchResultComponent = function(
             page: values.page,
             search_item_types: values.search_item_types.filter((i) => i),
             display_type: $ctrl.display_type,
-            ...orderByValue
         };
     };
 
-    $ctrl.onPageChange = (values) => {
-        $ctrl.doSearch($ctrl.buildQuery(values));
-    };
-
-    $ctrl.doSearch = (query) => {
-        SearchService.search(query).then((res) => {
-            $ctrl.searchItems = res.data;
-            $ctrl.updateState(query);
+    $ctrl.doSearch = (query, stateParams) => {
+        return SearchService.search(query).then((res) => {
+            $ctrl.searchItems = $ctrl.transformItems(res.data, stateParams);
             $ctrl.updateFiltersUsedCount();
         });
     };
 
-    $ctrl.updateState = (query, notify = false) => {
-        const stateParams = { ...query, ...{ search_item_types: query.search_item_types.join(',') } };
+    $ctrl.onPageChange = (values) => {
+        $ctrl.updateState({ ...$ctrl.buildQuery($ctrl.filters), ...{ page: values.page } });
+    };
 
-        $state.transitionTo($state.$current.name, stateParams, { notify });
+    $ctrl.transformItems = function(items, stateParams) {
+        return {
+            ...items,
+            ...{ data: items.data.map((item) => ({ ...item, ...{ searchData: stateParams } })) }
+        };
+    };
+
+    $ctrl.getStateParams = (query) => {
+        return { ...query, ...{ search_item_types: query.search_item_types.join(',') } };
+    };
+
+    $ctrl.updateState = (query) => {
+        const stateParams = $ctrl.getStateParams(query);
+
+        $ctrl.doSearch(query, stateParams).then(() => {
+            $state.transitionTo($state.$current.name, stateParams, { notify: false, location: 'replace', reload: false });
+        });
     };
 
     $ctrl.updateFiltersUsedCount = () => {
@@ -134,8 +141,9 @@ let SearchResultComponent = function(
     });
 
     $ctrl.$onInit = () => {
-        const { q, overview, fund_id, organization_id, product_category_id, page } = $stateParams;
+        const { q, overview, fund_id, organization_id, product_category_id, page, order_by, order_by_dir } = $stateParams;
         const search_item_types = ($stateParams.search_item_types || '').split(',').filter((i) => i);
+        const stateParams = { q, overview, fund_id, organization_id, product_category_id, search_item_types, page, order_by, order_by_dir };
 
         $ctrl.showOrderDropdown = false;
         $ctrl.display_type = $stateParams.display_type;
@@ -156,12 +164,20 @@ let SearchResultComponent = function(
         });
 
         $ctrl.filters = {
-            ...{ q, overview, fund_id, organization_id, product_category_id, search_item_types, page },
-            ...$ctrl.sort_by.value,
-            fund: $ctrl.funds.filter(fund => fund.id === fund_id)[0] || $ctrl.funds[0],
+            ...stateParams,
+            ...{ fund: $ctrl.funds.filter(fund => fund.id === fund_id)[0] || $ctrl.funds[0] }
         };
 
-        $ctrl.lastStateParams = {...$ctrl.filters};
+        $ctrl.sortBy = $ctrl.sortByOptions.filter((option) => {
+            return option.value.order_by == $ctrl.filters.order_by &&
+                option.value.order_by_dir == $ctrl.filters.order_by_dir;
+        })[0];
+
+        $ctrl.searchItems = $ctrl.transformItems(
+            $ctrl.searchItems,
+            $ctrl.getStateParams($ctrl.buildQuery($ctrl.filters))
+        );
+
         $ctrl.updateFiltersUsedCount();
     };
 };
@@ -169,6 +185,7 @@ let SearchResultComponent = function(
 module.exports = {
     bindings: {
         funds: '<',
+        vouchers: '<',
         searchItems: '<',
         organizations: '<',
         productCategories: '<',

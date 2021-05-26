@@ -5,14 +5,19 @@ block content
     .block.block-provider
         .provider-breadcrumbs
             .wrapper: .block.block-breadcrumbs
+                a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
+                    em.mdi.mdi-chevron-left
+                    | Terug
                 a(ui-sref="providers").breadcrumb-item Aanbieders
-                .breadcrumb-item.active {{ $ctrl.provider.name }}
+                .breadcrumb-item.active(ng-bind="$ctrl.provider.name")
+        
         .provider-map: .block.block-google-map: google-map(
             ng-if="$ctrl.mapOptions"
             map-pointers="$ctrl.provider.offices" 
             map-pointer-template="providers-office-view"
             map-options="$ctrl.mapOptions"
             map-gesture-handling="'none'")
+
         .provider-content
             .block.block-pane
                 .pane-head Aanbieder informatie

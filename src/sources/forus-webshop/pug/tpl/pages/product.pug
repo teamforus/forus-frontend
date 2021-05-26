@@ -2,6 +2,9 @@ top-navbar
 section.section.section-product: .wrapper
 
     .block.block-breadcrumbs
+        a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
+            em.mdi.mdi-chevron-left
+            | Terug
         a(ui-sref="home" i18n="product.headers.home").breadcrumb-item
         a(ui-sref="products" ng-if="$ctrl.useBudget" i18n="product.headers.products").breadcrumb-item
         a(ui-sref="actions" ng-if="$ctrl.useSubsidies" i18n="product.headers.subsidies").breadcrumb-item

@@ -141,6 +141,10 @@ app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrake
 app.directive('mapPointerProvidersOffice', require('./directives/map-pointers/MapPointerProvidersOfficeDirective'));
 app.directive('mapPointerProvidersOfficeView', require('./directives/map-pointers/MapPointerProvidersOfficeViewDirective'));
 
+app.directive('fundListItem', require('./directives/lists/FundItemDirective'));
+app.directive('productListItem', require('./directives/lists/ProductItemDirective'));
+app.directive('providerListItem', require('./directives/lists/ProviderItemDirective'));
+
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalOfficesComponent', require('./components/Modals/ModalOfficesComponent'));

@@ -1,31 +1,18 @@
-let ProvidersComponent = function(
+const ProvidersComponent = function(
     $state,
     $stateParams,
-    $timeout,
     FormBuilderService,
     ProvidersService
 ) {
-    let $ctrl = this;
-    let timeout = false;
+    const $ctrl = this;
 
     $ctrl.showmap = false;
     $ctrl.officesShown = [];
+    $ctrl.countFiltersApplied = 0;
 
     $ctrl.filtersList = [
-        'q', 'fund', 'businessType', 
+        'q', 'fund', 'businessType',
     ];
-
-    $ctrl.objectOnly = (obj, props = []) => {
-        let out = {};
-
-        for (const prop in obj) {
-            if (obj.hasOwnProperty(prop) && props.indexOf(prop) != -1) {
-                out[prop] = obj[prop];
-            }
-        }
-
-        return out;
-    };
 
     $ctrl.toggleMobileMenu = () => {
         $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
@@ -42,29 +29,9 @@ let ProvidersComponent = function(
     };
 
     $ctrl.mapOptions = {
-        //-centerType: 'avg',
         fullscreenControlOptions: {
             position: google.maps.ControlPosition.LEFT_BOTTOM
         },
-    };
-
-    $ctrl.toggleOffices = ($event, provider) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        if ($ctrl.officesShown.indexOf(provider.id) == -1) {
-            $ctrl.officesShown.push(provider.id);
-        } else {
-            $ctrl.officesShown.splice($ctrl.officesShown.indexOf(provider.id), 1);
-        }
-    };
-
-    $ctrl.cancel = () => {
-        if (typeof($ctrl.modal.scope.cancel) === 'function') {
-            $ctrl.modal.scope.cancel();
-        }
-
-        $ctrl.close();
     };
 
     $ctrl.buildQuery = (values) => ({
@@ -74,41 +41,20 @@ let ProvidersComponent = function(
         business_type_id: values.businessType ? values.businessType.id : null,
     });
 
-    $ctrl.onFormChange = (values) => {
-        if (timeout) {
-            $timeout.cancel(timeout);
-        }
-
-        timeout = $timeout(() => {
-            $ctrl.onPageChange(values);
-        }, 1000);
-    };
-
     $ctrl.onPageChange = (values) => {
-        $ctrl.showMap ? $ctrl.loadProvidersMap(
-            $ctrl.buildQuery(values)
-        ) : $ctrl.loadProviders(
-            $ctrl.buildQuery(values)
-        );
-    };
+        const query = $ctrl.buildQuery(values);
 
-    $ctrl.goToOffice = (office) => {
-        $state.go('provider-office', {
-            provider_id: office.organization_id,
-            office_id: office.id
-        });
+        $ctrl.showMap ? $ctrl.loadProvidersMap(query) : $ctrl.loadProviders(query);
     };
 
     $ctrl.showAsMap = () => {
         $ctrl.showMap = true;
-        $ctrl.loadProvidersMap(Object.assign($ctrl.buildQuery($ctrl.form.values), {
-            page: 1
-        }), true);
+        $ctrl.loadProvidersMap({ ...$ctrl.buildQuery($ctrl.form.values), ...{ page: 1 } }, true);
     }
 
     $ctrl.showAsList = () => {
         $ctrl.showMap = false;
-        $ctrl.loadProviders($ctrl.buildQuery($ctrl.form.values), true);
+        $ctrl.loadProviders({ ...$ctrl.buildQuery($ctrl.form.values), ...{ page: 1 } }, true);
     }
 
     $ctrl.loadProviders = (query, location = 'replace') => {
@@ -121,9 +67,7 @@ let ProvidersComponent = function(
     };
 
     $ctrl.loadProvidersMap = (query, location = 'replace') => {
-        ProvidersService.search(Object.assign({
-            per_page: 1000,
-        }, query)).then(res => {
+        ProvidersService.search({ ...{ per_page: 1000 }, ...query }).then(res => {
             $ctrl.providersAll = res.data;
             $ctrl.offices = $ctrl.providersAll.data.reduce((arr, provider) => {
                 return arr.concat(provider.offices);
@@ -142,17 +86,16 @@ let ProvidersComponent = function(
             business_type_id: query.business_type_id,
             show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
-        }, {
-            location: location,
-        });
+        }, { location });
     };
 
     $ctrl.updateFiltersUsedCount = () => {
-        $ctrl.countFiltersApplied = Object.values(
-            $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
-        ).reduce((count, filter) => count + (filter ? (
-            typeof filter == 'object' ? (filter.id ? 1 : 0) : 1
-        ) : 0), 0);
+        let count = 0;
+
+        $ctrl.form.values.q && count++;
+        $ctrl.form.values.fund && $ctrl.form.values.fund.id && count++;
+        $ctrl.form.values.businessType && $ctrl.form.values.businessType.id && count++;
+        $ctrl.countFiltersApplied = count;
     };
 
     $ctrl.$onInit = () => {
@@ -167,11 +110,11 @@ let ProvidersComponent = function(
             name: 'Alle tegoeden',
         });
 
-        let fund = $ctrl.funds.filter(fund => {
+        const fund = $ctrl.funds.filter(fund => {
             return fund.id == $stateParams.fund_id;
         })[0] || $ctrl.funds[0];
 
-        let businessType = $ctrl.businessTypes.filter(businessType => {
+        const businessType = $ctrl.businessTypes.filter(businessType => {
             return businessType.id == $stateParams.business_type_id;
         })[0] || $ctrl.businessTypes[0];
 
@@ -199,7 +142,6 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        '$timeout',
         'FormBuilderService',
         'ProvidersService',
         ProvidersComponent

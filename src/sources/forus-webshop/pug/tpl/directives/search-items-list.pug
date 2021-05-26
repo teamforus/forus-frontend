@@ -1,55 +1,20 @@
-.block(ng-class="$dir.blockClass")
-    //- grid products
-    .product-item(ng-if="$dir.type == 'budget' && $dir.display == 'grid'" ng-repeat="product in $dir.products").discounted
-        a(ng-click="goToSearchItem(product)").product-item-inner
-            .product-image: img(ng-src="{{ product.photo.sizes.small || product.logo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
-            .product-details
-                .product-name.truncated(ng-bind="product.name")
-                .product-organization(ng-bind="product.description")
-                .product-price.text-right(ng-bind="product.price_locale")
+.block.block-search-results(ng-class="{'block-search-results-grid' : $dir.display === 'grid'}")
+    .search-wrapper(ng-repeat="item in $dir.items" item="{{item.item_type}}")
+        product-list-item(
+            ng-if="item.item_type === 'product'"
+            product="item.resource"
+            template="product-item-list-search"
+            ui-sref="product(item)")
 
-    //- grid subsidies
-    .product-item(ng-if="$dir.type == 'subsidies' && $dir.display == 'grid'" ng-repeat="product in $dir.products")
-        a(ui-sref="product(product)").product-item-inner
-            .product-image
-                img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
-                .product-price(ng-if="product.price_type === 'regular' && product.price_min == 0") Gratis
-                .product-price(ng-if="product.price_type === 'regular' && product.price_min != 0" ng-bind="product.price_min | currency_format")
-                .product-price(ng-if="product.price_type !== 'regular'" ng-bind="product.price_locale")
-            .product-details
-                .product-name(ng-bind="product.name")
-                .product-provider(ng-bind="product.organization.name")
+        fund-list-item(
+            ng-if="item.item_type === 'fund'"
+            fund="item.resource"
+            vouchers="$dir.vouchers"
+            template="fund-item-list-search"
+            ui-sref="fund(item)")
 
-    //- list products
-    a.product-item(
-        ng-if="$dir.type == 'budget' && $dir.display == 'list'"
-        ng-repeat="product in $dir.products" 
-        ng-click="goToSearchItem(product)")
-        .product-photo: img(
-            ng-src="{{ product.photo.sizes.small || product.logo.sizes.small || './assets/img/placeholders/product-small.png' }}" 
-            alt="{{ product.name }}")
-
-        .product-content
-            .product-details
-                .product-name(ng-bind="product.name")
-                .product-organization(ng-bind="product.description")
-
-            .product-actions(ng-class="{ 'with-button': product.item_type == 'fund' }" ng-click="goToSearchItem(product)")
-                .product-price(ng-if="product.item_type == 'product'" ng-bind="product.price_locale")
-                //-button.button.button-primary(ng-if="product.item_type == 'fund'") Aanvragen
-
-
-    //- list subsidies
-    a.product-item(
-        ng-if="$dir.type == 'subsidies' && $dir.display == 'list'"
-        ng-repeat="product in $dir.products"
-        ui-sref="product(product)")
-        .product-photo: img(ng-src="{{ product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
-        .product-content
-            .product-details
-                .product-name(ng-bind="product.name")
-                .product-provider(ng-bind="product.organization.name")
-            .product-actions
-                .product-price(ng-if="product.price_type === 'regular' && product.price_min == 0") Gratis
-                .product-price(ng-if="product.price_type === 'regular' && product.price_min != 0" ng-bind="product.price_min | currency_format")
-                .product-price(ng-if="product.price_type !== 'regular'" ng-bind="product.price_locale")
+        provider-list-item(
+            ng-if="item.item_type === 'provider'"
+            provider="item.resource"
+            template="provider-item-list-search"
+            ui-sref="provider(item)")

@@ -52,7 +52,8 @@ block content
                         .showcase-filters-title
                             div(ng-if="!$ctrl.showMap")
                                 .showcase-filters-title-count(ng-bind="$ctrl.searchItems.meta.total")
-                                div.ellipsis Zoekresultaten gevonden voor "{{ $ctrl.filters.q }}"
+                                div.ellipsis(ng-if="$ctrl.filters.q") Zoekresultaten gevonden voor "{{ $ctrl.filters.q }}"
+                                div.ellipsis(ng-if="!$ctrl.filters.q") Zoekresultaten 
 
                         .showcase-filters-block: .block.block-label-tabs
                             .label-tab-set
@@ -64,12 +65,12 @@ block content
                                     .label-tab-menu(ng-if="$ctrl.showOrderDropdown" click-outside="$ctrl.setOrderDropdown($event, false)")
                                         .label-tab-menu-item(
                                             ng-repeat="sortByOption in $ctrl.sortByOptions track by $index" 
-                                            ng-class="{active: $ctrl.sort_by.label === sortByOption.label}"
-                                            ng-click="$ctrl.sortBy($event, sortByOption)")
+                                            ng-class="{active: $ctrl.sortBy.label === sortByOption.label}"
+                                            ng-click="$ctrl.setSortBy($event, sortByOption)")
                                             translate(translate="{{ sortByOption.label }}")
-                                            em.mdi.mdi-check(ng-if="$ctrl.sort_by.label === sortByOption.label")
+                                            em.mdi.mdi-check(ng-if="$ctrl.sortBy.label === sortByOption.label")
 
-                                .label-tab.label-tab-sm.label-tab-disabled(translate="{{ $ctrl.sort_by.label }}")
+                                .label-tab.label-tab-sm.label-tab-disabled(ng-bind="$ctrl.sortBy.label")
 
                             .label-tab-set
                                 .label-tab.label-tab-sm(
@@ -84,17 +85,11 @@ block content
                                     em.mdi.mdi-view-grid-outline.icon-start
                                     | Foto's
 
-                    div(ng-if="$ctrl.display_type == 'grid'"): search-items-list(
-                        ng-if="$ctrl.searchItems.data" 
-                        type="{{ $ctrl.fund_type }}" 
-                        display="grid" 
-                        items="$ctrl.searchItems.data")
-
-                    div(ng-if="$ctrl.display_type == 'list'"): search-items-list(
-                        ng-if="$ctrl.searchItems.data" 
-                        type="{{ $ctrl.fund_type }}" 
-                        display="list" 
-                        items="$ctrl.searchItems.data")
+                    search-items-list(
+                        ng-if="$ctrl.searchItems.data.length > 0"
+                        items="$ctrl.searchItems.data"
+                        vouchers="$ctrl.vouchers"
+                        display="$ctrl.display_type")
 
                     empty-block(
                         title= "{{ 'block_products.labels.title' | translate }}"

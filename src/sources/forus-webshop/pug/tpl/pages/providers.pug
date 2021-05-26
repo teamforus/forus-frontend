@@ -46,8 +46,11 @@ block content
                                 placeholder="Selecteer tegoed..."
                                 id="select_fund")
                         
-                        br
-                        a(ng-show="$ctrl.showMap" ng-click="$ctrl.showAsList()" role="button").button.button-primary-outline.button-fill.button-flat.hide-sm 
+                        br(ng-if="$ctrl.showMap")
+                        a.button.button-primary-outline.button-fill.button-flat.hide-sm(
+                            ng-if="$ctrl.showMap" 
+                            ng-click="$ctrl.showAsList()" 
+                            role="button") 
                             em.mdi.mdi-store-outline
                             | Lijst
 
@@ -57,10 +60,9 @@ block content
 
                 .showcase-content
                     .showcase-content-header.showcase-content-header-compact
-                        .showcase-filters-title
-                            div(ng-if="!$ctrl.showMap").pull-left
-                                .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
-                                h1.showcase-filters-title Aanbieders
+                        h1.showcase-filters-title
+                            span Aanbieders
+                            .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
 
                         .showcase-filters-block
                             .block.block-label-tabs.pull-right
@@ -80,43 +82,9 @@ block content
                                     | Kaart
 
                     .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
-                        .organization-item(ng-repeat="provider in $ctrl.providers.data")
-                            .organization-pane(ng-click="$ctrl.toggleOffices($event, provider)")
-                                .organization-logo(ui-sref="provider(provider)" ng-click="$event.stopPropagation()"): img(
-                                    ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
-                                    alt="{{ provider.name }}"
-                                    ).organization-logo-img
-
-                                .organization-title: a(
-                                    ui-sref="provider(provider)" 
-                                    ng-click="$event.stopPropagation()" 
-                                    ng-bind="provider.name").organization-title-value
-
-                                .organization-chevron
-                                    .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')" role = "link")
-
-                            .organization-offices(ng-if="$ctrl.officesShown.indexOf(provider.id) != -1"): .block.block-offices
-                                a(ng-repeat="office in provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
-                                    .office-item-map-icon: .mdi.mdi-map-marker
-                                    .office-pane
-                                        .office-pane-block
-                                            .office-logo: img(
-                                                ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
-                                                alt="Vestiging {{ office.organization.name }}"
-                                                ).office-logo-img
-                                            .office-details
-                                                .office-title(ng-bind="office.address")
-                                                .office-labels
-                                                    .label.label-default(ng-bind="provider.business_type.name || 'Geen data'")
-
-                                                div(ng-if="office.phone || provider.phone || provider.email")
-                                                    .office-info.office-info-inline(ng-if="office.phone || provider.phone")
-                                                        .mdi.mdi-phone-outline
-                                                        | {{ office.phone ? office.phone : provider.phone }}
-
-                                                    .office-info.office-info-inline(ng-if="provider.email")
-                                                        .mdi.mdi-email-outline
-                                                        | {{ provider.email }}
+                        provider-list-item(
+                            ng-repeat="provider in $ctrl.providers.data" 
+                            provider="provider")
 
                         .card(ng-if="$ctrl.providers"): .card-section(ng-show="$ctrl.providers.meta.last_page > 1"): paginator(
                             meta="$ctrl.providers.meta" 

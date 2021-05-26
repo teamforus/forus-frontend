@@ -1,11 +1,11 @@
 block content
     .header-splash: .splash.splash-c
-    .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
+    .block.block-showcase
         top-navbar
         
         .showcase-wrapper
-            .showcase-mobile-filters(ng-class="{active: $ctrl.funds.meta.total > 0}")
-                .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.funds.meta.total")
+            .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
+                .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
                 .mobile-filters-title Filter op categorieën en budgetten
                 .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
@@ -33,12 +33,12 @@ block content
                     
                 .showcase-content
                     .showcase-content-header
-                        .showcase-filters-title
-                            div(ng-if="!$ctrl.showMap")
-                                .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
-                                span(
-                                    translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
-                                    translate-default="{{'funds.header.title' | translate }}")
+                        h1.showcase-filters-title
+                            translate(
+                                translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
+                                translate-default="{{'funds.header.title' | translate }}")
+                            .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
+                                
 
                         .showcase-filters-block: .block.block-label-tabs
                             .label-tab.label-tab-sm(
@@ -53,32 +53,20 @@ block content
                                 | Foto's
 
                     .block.block-funds(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'grid'")
-                        .fund-item(ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
-                            .fund-item-inner
-                                .fund-image: img(
-                                    ng-src="{{ (fund.logo || fund.organization.logo).sizes.large || './assets/img/placeholders/fund-large.png' }}" alt="{{ fund.name }}")
-                                .fund-details
-                                    .fund-name(ng-bind="fund.name")
-                                    .fund-organization(ng-bind="fund.organization.name")
+                        fund-list-item(
+                            ng-repeat="fund in $ctrl.funds.data" 
+                            vouchers="$ctrl.vouchers" 
+                            template="fund-item-grid"
+                            ui-sref="fund(fund)"
+                            fund="fund")
 
                     .block.block-funds-list(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'list'" id="funds_list")
-                        .fund-item(
-                            ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
-                            .fund-photo
-                                img(ng-src="{{ (fund.logo || fund.organization.logo).sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
-                            .fund-content
-                                .fund-details
-                                    .fund-name(ng-bind="fund.name")
-                                    .fund-organization(ng-bind="fund.organization.name")
-                                    .fund-status-label
-                                        .label.label-default(ng-if="fund.showPendingButton" translate="funds.buttons.is_pending")
-                                        .label.label-success(ng-if="fund.alreadyReceived" translate="funds.status.active")
-                                    
-                                .fund-actions(ng-if="fund.showActivateButton")
-                                    button.button.button-primary.button-fill(
-                                        type="button"
-                                        ng-click="$ctrl.applyFund(fund)" 
-                                        translate="funds.buttons.is_applicable")
+                        fund-list-item(
+                            ng-repeat="fund in $ctrl.funds.data" 
+                            vouchers="$ctrl.vouchers" 
+                            template="fund-item-list"
+                            ui-sref="fund(fund)"
+                            fund="fund")
 
                     empty-block(
                         title= "{{ 'block_funds.labels.title' | translate }}"

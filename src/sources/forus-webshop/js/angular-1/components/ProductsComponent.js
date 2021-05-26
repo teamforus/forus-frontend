@@ -1,14 +1,12 @@
-let ProductsComponent = function(
+const ProductsComponent = function(
     $scope,
     $state,
     $stateParams,
-    $timeout,
     appConfigs,
     FormBuilderService,
     ProductService
 ) {
-    let $ctrl = this;
-    let timeout = false;
+    const $ctrl = this;
 
     $ctrl.sortByOptions = [{
         label: 'Prijs (oplopend)',
@@ -42,18 +40,6 @@ let ProductsComponent = function(
 
     $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
 
-    $ctrl.objectOnly = (obj, props = []) => {
-        let out = {};
-
-        for (const prop in obj) {
-            if (obj.hasOwnProperty(prop) && props.indexOf(prop) != -1) {
-                out[prop] = obj[prop];
-            }
-        }
-
-        return out;
-    };
-
     $ctrl.toggleOrderDropdown = ($event) => {
         $event ? $event.stopPropagation() : '';
         $ctrl.show_order_dropdown = !$ctrl.show_order_dropdown;
@@ -76,14 +62,6 @@ let ProductsComponent = function(
     $ctrl.hideMobileMenu = () => {
         $ctrl.showModalFilters = false;
         $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
-    };
-
-    $ctrl.cancel = () => {
-        if (typeof ($ctrl.modal.scope.cancel) === 'function') {
-            $ctrl.modal.scope.cancel();
-        }
-
-        $ctrl.close();
     };
 
     $ctrl.showAs = (display_type) => {
@@ -122,30 +100,14 @@ let ProductsComponent = function(
         };
     };
 
-    $ctrl.onFormChange = (values) => {
-        if (timeout) {
-            $timeout.cancel(timeout);
-        }
-
-        timeout = $timeout(() => {
-            $ctrl.onPageChange(values);
-        }, 1000);
-    };
-
     $ctrl.onPageChange = (values) => {
         $ctrl.loadProducts($ctrl.buildQuery(values));
     };
 
-    $ctrl.goToProduct = (product) => {
-        $state.go('product', {
-            product_id: product.id,
-        });
-    };
-
     $ctrl.loadProducts = (query, location = 'replace') => {
-        ProductService.list(Object.assign({
-            fund_type: $ctrl.type
-        }, query)).then(res => $ctrl.products = res.data);
+        ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
+            return $ctrl.products = res.data;
+        });
 
         $ctrl.updateState(query, location);
         $ctrl.updateFiltersUsedCount();
@@ -159,17 +121,18 @@ let ProductsComponent = function(
             fund_id: query.fund_id,
             organization_id: query.organization_id,
             product_category_id: query.product_category_id,
-            show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
         }, { location });
     };
 
     $ctrl.updateFiltersUsedCount = () => {
-        $ctrl.countFiltersApplied = Object.values(
-            $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
-        ).reduce((count, filter) => count + (filter ? (
-            typeof filter == 'object' ? (filter.id ? 1 : 0) : 1
-        ) : 0), 0);
+        let count = 0;
+
+        $ctrl.form.values.q && count++;
+        $ctrl.form.values.organization_id && count++;
+        $ctrl.form.values.product_category_id && count++;
+        $ctrl.form.values.fund && $ctrl.form.values.fund.id && count++;
+        $ctrl.countFiltersApplied = count;
     };
 
     $ctrl.$onInit = () => {
@@ -227,7 +190,6 @@ module.exports = {
         '$scope',
         '$state',
         '$stateParams',
-        '$timeout',
         'appConfigs',
         'FormBuilderService',
         'ProductService',

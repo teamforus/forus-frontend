@@ -1,55 +1,33 @@
-let SearchItemsListDirective = function(
-    $scope,
-    $state,
-) {
-    let $dir = $scope.$dir = {};
+const SearchItemsListDirective = function($scope) {
+    const $dir = $scope.$dir = {};
 
-    let blockClasses = {
-        'budget.grid': 'block-products',
-        'subsidies.grid': 'block-subsidies',
-        'budget.list': 'block-products-list',
-        'subsidies.list': 'block-subsidies-list',
-    };
-
-    $scope.goToSearchItem = (item) => {
-        switch (item.item_type) {
-            case 'product':
-                $state.go('product', {id: item.id});
-                break;
-        
-            case 'fund':
-                $state.go('fund', {id: item.id});
-                break;
-
-            case 'provider':
-                $state.go('provider', {id: item.id});
-                break;
-        }        
-    };
-    
     const init = () => {
-        $dir.products = $scope.items || [];
-        $dir.display = $scope.display || 'grid';
         $dir.type = $scope.type || 'budget';
-        $dir.blockClass = blockClasses[[$dir.type, $dir.display].join('.')];
+        $dir.display = $scope.display || 'grid';
+        $dir.vouchers = $scope.vouchers || [];
 
-        $scope.$watch('items', (value) => {
-            $dir.products = value.map((item) => {
-                if (item.description_html) {
-                    const el = document.createElement('div');
+        $dir.items = ($scope.items || []).map((item) => {
+            if (item.description_text) {
+                const el = document.createElement('div');
 
-                    el.innerHTML = item.description_html;
-                    item.description = el.innerText;
+                el.innerHTML = item.description_text;
+                item.description = el.innerText;
 
-                    if (item.description.length > 120) {
-                        item.description = item.description.slice(0, 106) + '...';
-                    }
+                if (item.description.length > 120) {
+                    item.description = item.description.slice(0, 106) + '...';
                 }
 
-                return item;
-            });
+                item.resource.description = item.description;
+            }
+
+            return item;
         });
     };
+
+    $scope.$watch('vouchers', (value, old) => (old && value != old) && init());
+    $scope.$watch('display', (value, old) => (old && value != old) && init());
+    $scope.$watch('items', (value, old) => (old && value != old) && init());
+    $scope.$watch('type', (value, old) => (old && value != old) && init());
 
     init();
 };
@@ -57,15 +35,15 @@ let SearchItemsListDirective = function(
 module.exports = () => {
     return {
         scope: {
-            display: '@',
-            type: '@',
+            type: '=',
             items: '=',
+            display: '=',
+            vouchers: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
-            '$state',
             SearchItemsListDirective
         ],
         templateUrl: 'assets/tpl/directives/search-items-list.html'
