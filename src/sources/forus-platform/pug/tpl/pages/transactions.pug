@@ -98,7 +98,7 @@
                                 td(ng-bind="transaction.organization.name")
                                 td(ng-bind="$ctrl.statesKeyValue[transaction.state]")
                                 td
-                                    .button.button-defaul.pull-right(ng-click="$ctrl.showTransaction(transaction)")
+                                    .button.button-sm.button-primary.pull-right(ng-click="$ctrl.showTransaction(transaction)")
                                         em.mdi.mdi-eye-outline.icon-start
                                         translate(translate="transactions.buttons.view")
                     
