@@ -40,6 +40,10 @@
             border: 1px solid $color-default;
         }
     }
+    &.button-disabled {
+        color: $ptc;
+        border: 1px solid $ptc;
+    }
     &.button-wide {
         background-color: #FFF;
         color: #000;

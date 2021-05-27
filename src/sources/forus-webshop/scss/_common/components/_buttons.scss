@@ -41,7 +41,7 @@
             color: $color_default_light;
         }
 
-        &:hover {
+        &:hover, &:focus {
             color: #fff;
             background: $color_default_light;
             border-color: $color_default_light;
@@ -97,7 +97,7 @@
         border: 1px solid $color_primary;
         text-transform: $tf;
 
-        &:hover {
+        &:hover, &:focus {
             color: #fff;
             background: $color_primary_light;
             background-color: $color_primary_light;
