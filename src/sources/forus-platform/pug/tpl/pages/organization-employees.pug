@@ -16,25 +16,44 @@
 
                 tr(ng-repeat="employee in $ctrl.employees.data")
                     td(ng-bind="employee.email" id="employee_email").text-primary-light
-                    td
-                        span {{ employee.rolesList | str_limit:60 }} &nbsp; &nbsp;
-                        a.text-primary-light(
-                            ng-if="$ctrl.organization.identity_address == $root.auth_user.address"
-                            ng-click="$ctrl.transferOwnership(employee)" 
-                            translate="organization_employees.buttons.transfer_ownership")
-                    td.text-right(ng-if="$ctrl.organization.identity_address == employee.identity_address")
-                        span.text-muted(translate="organization_employees.labels.owner")
 
+                    //- roles
+                    td.nowrap
+                        span(
+                            ng-if="$ctrl.organization.identity_address != employee.identity_address" 
+                            ng-bind="employee.rolesList || 'Geen rollen'"
+                            ng-class="{'text-muted': !employee.rolesList}")
+
+                        strong(
+                            ng-if="$ctrl.organization.identity_address == employee.identity_address" 
+                            translate="organization_employees.labels.owner").text-primary
+
+                    //- employee
                     td.text-right(ng-if="$ctrl.organization.identity_address != employee.identity_address")
+                        //- edit
                         a.text-primary-light(
-                            ng-click="$ctrl.editEmployee(employee)" 
+                            ng-click="$ctrl.editEmployee(employee)"
                             translate="organization_employees.buttons.adjust")
-                        span(ng-if="employee.identity_address != $root.auth_user.address") &nbsp;&nbsp;
+
+                        span(ng-if="$root.auth_user && (employee.identity_address != $root.auth_user.address)") &nbsp;&nbsp;
+                        
+                        //- delete
                         a.text-danger(
-                            id="delete_employee"
                             ng-click="$ctrl.deleteEmployee(employee)" 
-                            ng-if="employee.identity_address != $root.auth_user.address" 
+                            ng-if="$root.auth_user && (employee.identity_address != $root.auth_user.address)"
                             translate="organization_employees.buttons.delete")
-            
+
+                    //- owner
+                    td.text-right(ng-if="$ctrl.organization.identity_address == employee.identity_address")
+                        //- transfer ownership
+                        a.text-primary-light(
+                            ng-if="$ctrl.adminEmployees.length > 0 && $root.auth_user.address === $ctrl.organization.identity_address"
+                            ng-click="$ctrl.transferOwnership($ctrl.adminEmployees)" 
+                            translate="organization_employees.buttons.transfer_ownership")
+
+                        span(
+                            ng-if="!($ctrl.adminEmployees.length > 0 && $root.auth_user.address === $ctrl.organization.identity_address)" 
+                            translate="organization_employees.labels.owner").text-muted
+
             .card-section(ng-if="$ctrl.employees.meta" ng-show="$ctrl.employees.meta.last_page > 1")
-                paginator(meta="$ctrl.employees.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
+                paginator(meta="$ctrl.employees.meta" filters="$ctrl.filters" count-buttons="5" on-page-change="onPageChange(query)")

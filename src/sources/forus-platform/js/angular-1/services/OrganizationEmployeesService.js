@@ -32,12 +32,6 @@ let OrganizationEmployeesService = function(ApiRequest) {
             );
         }
 
-        this.transferOwnership = function(organization_id, values) {
-            return ApiRequest.post(
-                uriPrefix + organization_id + '/employees/transfer-ownership', values
-            );
-        }
-
         this.apiResourceToForm = function(apiResource) {
             return {
                 'roles': Array.isArray(apiResource.roles) ? apiResource.roles.map(role => role.id) : []

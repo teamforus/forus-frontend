@@ -197,6 +197,10 @@ module.exports = [
                 });
             };
 
+            this.transferOwnership = function(id, query = {}) {
+                return ApiRequest.patch('/platform/organizations/' + id + '/transfer-ownership', query);
+            }
+
             this.read = function(id, query = {}) {
                 return ApiRequest.get('/platform/organizations/' + id, query);
             };

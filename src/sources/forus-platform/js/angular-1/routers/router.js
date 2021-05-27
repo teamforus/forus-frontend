@@ -507,7 +507,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('employees-list', 'manage_employees'),
             employees: ['permission', '$transition$', 'OrganizationEmployeesService', (
                 permission, $transition$, OrganizationEmployeesService
-            ) => repackResponse(OrganizationEmployeesService.list(
+            ) => repackPagination(OrganizationEmployeesService.list(
                 $transition$.params().organization_id
             ))],
             roles: ['permission', 'RoleService', (
