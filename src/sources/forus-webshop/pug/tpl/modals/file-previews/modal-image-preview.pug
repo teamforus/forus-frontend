@@ -1,7 +1,6 @@
-.modal.modal-image-preview.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-file-preview.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
-        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
-        .modal-header(translate="image_preview.header.title")
-        .modal-body
-            .img-block: img(ng-src="{{ $ctrl.imageSrc }}")
+        .modal-close(ng-click="$ctrl.close()" aria-label="close" role="button"): .mdi.mdi-close
+        .modal-header: .modal-title(translate="image_preview.header.title")
+        .modal-content: .file-image: img(ng-src="{{ $ctrl.imageSrc }}")

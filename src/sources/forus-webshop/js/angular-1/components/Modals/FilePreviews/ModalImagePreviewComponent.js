@@ -1,5 +1,5 @@
-let ModalImagePreviewComponent = function() {
-    let $ctrl = this;
+const ModalImagePreviewComponent = function() {
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
         $ctrl.imageSrc = $ctrl.modal.scope.imageSrc;

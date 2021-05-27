@@ -2,11 +2,12 @@ require('./modules/select-control/SelectControlModule');
 require('./modules/ui-controls/UIControlsModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
 
-let appConfigs = {...{
-    fund_request_allways_bsn_confirmation: true,
-}, ...env_data};
+const appConfigs = {
+    ...{ fund_request_allways_bsn_confirmation: true },
+    ...env_data
+};
 
-let app = angular.module('forusApp', [
+const app = angular.module('forusApp', [
     'pascalprecht.translate', 'ui.router', 'ngCookies',
     'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);

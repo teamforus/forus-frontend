@@ -1,10 +1,9 @@
-let ModalPdfPreviewComponent = function() {
-    let $ctrl = this;
+const ModalPdfPreviewComponent = function() {
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
         $ctrl.rawPdfFile = $ctrl.modal.scope.rawPdfFile;
     };
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

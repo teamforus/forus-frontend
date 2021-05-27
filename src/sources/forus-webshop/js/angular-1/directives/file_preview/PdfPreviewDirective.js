@@ -1,50 +1,30 @@
-let PdfPreviewDirective = function($scope, $element) {
+const PdfPreviewDirective = function($scope, $element) {
     // Loaded via <script> tag, create shortcut to access PDF.js exports.
-    var pdfjsLib = window['pdfjs-dist/build/pdf'];
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
 
     // The workerSrc property shall be specified.
     // pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
 
-    let currPage = 1; //Pages are 1-based not 0-based
-    let numPages = 0;
-    let thePDF = null;
-
-    new Response($scope.rawPdfFile).arrayBuffer().then(buffer => {
-        // Asynchronous download of PDF
-        var loadingTask = pdfjsLib.getDocument({
-            data: buffer
-        });
-
-        loadingTask.promise.then(function(pdf) {
-            thePDF = pdf;
-
+    new Response($scope.rawPdfFile).arrayBuffer().then((data) => {
+        pdfjsLib.getDocument({ data }).promise.then(function(pdf) {
             // Fetch the first page
-            numPages = pdf.numPages;
+            let currPage = 1; // Pages are 1-based not 0-based
+            let numPages = pdf.numPages;
 
-            let fetchPage = function(fetchPageNumber) {
-                thePDF.getPage(fetchPageNumber).then(page => {
-                    let scale = 1.5;
-                    let viewport = page.getViewport({
-                        scale: scale
-                    });
-
-                    let canvas = document.createElement('canvas');
+            const fetchPage = function(fetchPageNumber) {
+                pdf.getPage(fetchPageNumber).then((page) => {
+                    const viewport = page.getViewport({ scale: 1.5 });
+                    const canvas = document.createElement('canvas');
 
                     $element.append(canvas);
 
                     // Prepare canvas using PDF page dimensions
-                    var context = canvas.getContext('2d');
+                    const canvasContext = canvas.getContext('2d');
+
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
 
-                    // Render PDF page into canvas context
-                    var renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    var renderTask = page.render(renderContext);
-
-                    renderTask.promise.then(function() {
+                    page.render({ canvasContext, viewport }).promise.then(() => {
                         if (++currPage < numPages) {
                             fetchPage(currPage)
                         }
@@ -53,10 +33,7 @@ let PdfPreviewDirective = function($scope, $element) {
             };
 
             fetchPage(currPage);
-        }, function(reason) {
-            // PDF loading error
-            console.error(reason);
-        });
+        }, console.error);
     });
 };
 
@@ -72,6 +49,6 @@ module.exports = () => {
             '$element',
             PdfPreviewDirective
         ],
-        template: '<div class="block block-pdf-preview"></div>'
+        template: '<div class="file-pdf"></div>'
     };
 };

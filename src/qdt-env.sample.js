@@ -515,7 +515,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             provider_sign_up_filters: {},
             flags: {
-                showFundRequestOverviewStep: true,
+                hideFundRequestOverviewStep: false,
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,

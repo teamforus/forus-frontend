@@ -1,7 +1,7 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 .block.block-file-uploader
-    .uploader-droparea
+    .uploader-droparea(ng-if="!$dir.readOnly")
         .droparea-icon: .mdi.mdi-file-upload-outline
         .droparea-title 
             | Document slepen &amp; neer zetten
@@ -16,5 +16,8 @@
                 .file-item-icon: img(ng-src=src_prefix + "assets/img/file-icon-{{ (fileItem.file.name.split('.')[fileItem.file.name.split('.').length - 1]) }}.svg")
                 .file-item-name(ng-bind="fileItem.file.name")
                 .file-item-progress: .file-item-progress-container: progress(max="100" value="{{ fileItem.progress }}")
-                .file-item-action: a(ng-click="$dir.removeFile(fileItem)" role="button").mdi.mdi-close
+                
+                .file-item-action(ng-if="fileItem.has_preview"): a(ng-click="$dir.previewFile($event, fileItem)" title="Bekijk file" role="button").mdi.mdi-eye
+                .file-item-action(ng-if="!fileItem.uploading"): a(ng-click="$dir.downloadFile($event, fileItem)" role="button").mdi.mdi-download
+                .file-item-action(ng-if="!$dir.readOnly"): a(ng-click="$dir.removeFile(fileItem)" role="button").mdi.mdi-close
             .file-item-error: .text-danger(ng-repeat="fileItemError in fileItem.error" ng-bind="fileItemError")

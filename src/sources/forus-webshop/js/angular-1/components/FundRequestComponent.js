@@ -1,6 +1,6 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
-let FundRequestComponent = function(
+const FundRequestComponent = function(
     $q,
     $sce,
     $state,
@@ -9,15 +9,13 @@ let FundRequestComponent = function(
     RecordService,
     FundService,
     AuthService,
-    ModalService,
-    FileService,
     FundRequestService,
     PushNotificationsService,
     appConfigs
 ) {
-    let $ctrl = this;
-    let $trans = $filter('translate');
-    let welcomeSteps = 1;
+    const $ctrl = this;
+    const $trans = $filter('translate');
+    const welcomeSteps = 1;
 
     $ctrl.step = 1;
     $ctrl.state = null;
@@ -45,22 +43,17 @@ let FundRequestComponent = function(
 
     $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
     $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
+    $ctrl.hideFundRequestOverviewStep = $ctrl.appConfigs.flags.hideFundRequestOverviewStep;
 
-    $ctrl.showFundRequestOverviewStep = $ctrl.appConfigs.flags.showFundRequestOverviewStep;
+    const trans_record_checkbox = (criteria_record_key, value) => {
+        const trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
+        const translated = $trans(trans_key, { value });
+        const trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
 
-    let trans_record_checkbox = (criteria_record_key, criteria_value) => {
-        let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
-        let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
-        let translated = $trans(trans_key, {
-            value: criteria_value
-        });
-
-        return translated === trans_key ? $trans(trans_fallback_key, {
-            value: criteria_value
-        }) : translated;
+        return translated === trans_key ? $trans(trans_fallback_key, { value: value }) : translated;
     };
 
-    let overviewSteps = $ctrl.showFundRequestOverviewStep ? 1 : 0;
+    const overviewSteps = $ctrl.hideFundRequestOverviewStep ? 0 : 1;
 
     // Submit criteria record
     $ctrl.submitStepCriteria = (criteria) => {
@@ -102,33 +95,6 @@ let FundRequestComponent = function(
         invalidCriteria.isUploadingFiles = invalidCriteria.files.filter(
             (item) => item.uploading
         ).length > 0;
-    };
-
-    $ctrl.hasFilePreview = (file) => {
-        return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.file_data.ext);
-    }
-
-    $ctrl.downloadFile = (file) => {
-        FileService.download(file.file_data).then(res => {
-            FileService.downloadFile(file.file_data.original_name, res.data);
-        }, console.error);
-    };
-
-    $ctrl.previewFile = ($event, file) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        if (file.file_data.ext == 'pdf') {
-            FileService.download(file.file_data).then(res => {
-                ModalService.open('pdfPreview', {
-                    rawPdfFile: res.data
-                });
-            }, console.error);
-        } else if (['png', 'jpeg', 'jpg'].includes(file.file_data.ext)) {
-            ModalService.open('imagePreview', {
-                imageSrc: file.file_data.url
-            });
-        }
     };
 
     $ctrl.submitRequest = () => {
@@ -243,10 +209,10 @@ let FundRequestComponent = function(
         }
 
         if (step == ($ctrl.totalSteps.length + 1) + welcomeSteps) {
-            return $ctrl.showFundRequestOverviewStep ? 'application_overview' : 'done';
+            return $ctrl.hideFundRequestOverviewStep ? 'done' : 'application_overview';
         }
 
-        if ($ctrl.showFundRequestOverviewStep && step == ($ctrl.totalSteps.length + 2) + welcomeSteps) {
+        if (!$ctrl.hideFundRequestOverviewStep && step == ($ctrl.totalSteps.length + 2) + welcomeSteps) {
             return 'done';
         }
 
@@ -391,9 +357,9 @@ let FundRequestComponent = function(
                 if ($ctrl.invalidCriteria.length == 0) {
                     $ctrl.applyFund($ctrl.fund);
                 }
-                
+
                 if ($ctrl.invalidCriteria.length == 1) {
-                    $ctrl.showFundRequestOverviewStep = false;
+                    $ctrl.hideFundRequestOverviewStep = true;
                 }
             });
 
@@ -425,8 +391,6 @@ module.exports = {
         'RecordService',
         'FundService',
         'AuthService',
-        'ModalService',
-        'FileService',
         'FundRequestService',
         'PushNotificationsService',
         'appConfigs',

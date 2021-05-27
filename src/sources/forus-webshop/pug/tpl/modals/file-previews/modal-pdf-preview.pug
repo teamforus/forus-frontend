@@ -1,6 +1,6 @@
-.modal.modal-pdf-preview.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-file-preview.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
-        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
-        .modal-header(translate="pdf_preview.header.title")
-        .modal-body: pdf-preview(raw-pdf-file="$ctrl.rawPdfFile")
+        .modal-close(ng-click="$ctrl.close()" aria-label="close" role="button"): .mdi.mdi-close
+        .modal-header: .modal-title(translate="pdf_preview.header.title")
+        .modal-content: pdf-preview(raw-pdf-file="$ctrl.rawPdfFile")

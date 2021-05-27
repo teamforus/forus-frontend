@@ -253,7 +253,7 @@ section: .wrapper
                     .col.col-lg-6.col-xs-6.text-left: button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
                         em.mdi.mdi-chevron-left.icon-left
                         translate(translate='fund_request.sign_up.pane.footer.prev')
-                    .col.col-lg-6.col-xs-6.text-right(ng-if="$ctrl.showFundRequestOverviewStep || $ctrl.invalidCriteria.length != $index + 1")
+                    .col.col-lg-6.col-xs-6.text-right(ng-if="!$ctrl.hideFundRequestOverviewStep || $ctrl.invalidCriteria.length != $index + 1")
                         button.button.button-text.button-text-padless(
                             ng-disabled="invalidCriteria.isUploadingFiles"
                             ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
@@ -261,7 +261,7 @@ section: .wrapper
                             em.mdi.mdi-chevron-right.icon-right
                             translate(translate='fund_request.sign_up.pane.footer.next')
                         
-                    .col.col-lg-6.col-xs-6.text-right(ng-if="!$ctrl.showFundRequestOverviewStep && $ctrl.invalidCriteria.length == $index + 1")
+                    .col.col-lg-6.col-xs-6.text-right(ng-if="$ctrl.hideFundRequestOverviewStep && $ctrl.invalidCriteria.length == $index + 1")
                         button.button.button-primary(
                             ng-disabled="invalidCriteria.isUploadingFiles"
                             ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
@@ -391,7 +391,7 @@ section: .wrapper
 
                 +confirm_criteria_footer()
 
-        //- Confirm net worth
+        //- Fund request overivew
         div(ng-if="$ctrl.state == 'application_overview'")
             +progress()
 
@@ -414,19 +414,11 @@ section: .wrapper
                         span 'Uw {{ critera.record_type_name }}' is 
                         strong {{ critera.input_value }}
 
-                        .block.block-attachments-list
-                            .block-attachments-inner
-                                a.attachment-item(
-                                    ng-repeat='file in critera.files' 
-                                    ng-click='$ctrl.downloadFile(file)')
-                                    .attachment-icon
-                                        .mdi.mdi-file
-                                    .attachment-name(ng-bind='file.file_data.original_name')
-                                    .attachment-preview(
-                                        title="Bekijk file"
-                                        ng-if="$ctrl.hasFilePreview(file)" 
-                                        ng-click="$ctrl.previewFile($event, file)")
-                                        .mdi.mdi-eye         
+                        file-uploader(
+                            ng-if="critera.show_attachment"
+                            type="fund_request_record_proof"
+                            files="critera.files"
+                            read-only="true")  
                 
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.col-xs-6.text-left: button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")

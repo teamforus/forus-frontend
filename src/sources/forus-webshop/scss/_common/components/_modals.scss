@@ -8,6 +8,7 @@
     z-index: 10;
     display: flex;
     align-items: center;
+    border-radius: $border_radius;
 
     .modal-backdrop {
         @include fill_parent();
@@ -87,7 +88,6 @@
         width: 1200px;
         max-width: 100%;
         background: #f7f9fc;
-        border-radius: $border_radius;
         min-height: 100px;
         overflow: hidden;
         margin: 0 auto;
@@ -164,6 +164,16 @@
             img{
                 width: 240px;
             }
+        }
+
+        &:first-child {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+        }
+
+        &:last-child {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
         }
     }
 
@@ -338,36 +348,43 @@
         }
     }
 
-    &.modal-image-preview {
-        .img-block {
-            display: flex;
-            margin: 40px auto;
-            justify-content: center;
-            max-width: 80%;
-
-            img {
-                width: 100%;
-            }
-        }
-    }
-    
-    &.modal-pdf-preview {
+    &.modal-file-preview {
         .modal-window {
-            height: 900px;
             display: flex;
             flex-direction: column;
+            max-height: 80vh;
+        }
 
-            .modal-body {
-                flex-grow: 1;
-                width: 100%;
-                display: flex;
+        .modal-content {
+            display: flex;
+        }
+
+        .file-image {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            background-color: #000;
+
+            img {
+                height: 100%;
+                display: block;
             }
+        }
 
-            .block.block-pdf-preview {
-                width: 100%;
-                flex-grow: 1;
-                overflow: auto;
-            } 
+        .file-pdf {
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+            height: initial;
+            width: 100%;
+            background-color: black;
+
+            canvas {
+                display: block;
+                width: 70%;
+                height: auto;
+                margin: 0 auto;
+            }
         }
     }
 
