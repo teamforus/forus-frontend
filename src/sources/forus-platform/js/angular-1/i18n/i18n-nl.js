@@ -1218,7 +1218,7 @@ module.exports = {
         buttons: {
             previous: "Vorige",
             next: "Volgende",
-            view: "Kijk",
+            view: "Bekijk",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
         },
