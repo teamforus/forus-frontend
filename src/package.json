@@ -57,6 +57,7 @@
     "angular-translate": "^2.18.2",
     "angular-translate-storage-cookie": "^2.18.2",
     "angular-translate-storage-local": "^2.18.2",
+    "angular-aria": "^1.8.0",
     "angularjs-datepicker": "^2.1.23",
     "bootstrap": "^3.4.1",
     "browserstack-local": "^1.4.5",

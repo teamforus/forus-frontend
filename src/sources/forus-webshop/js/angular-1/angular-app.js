@@ -8,7 +8,7 @@ const appConfigs = {
 };
 
 const app = angular.module('forusApp', [
-    'pascalprecht.translate', 'ui.router', 'ngCookies',
+    'pascalprecht.translate', 'ui.router', 'ngCookies', 'ngAria',
     'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 

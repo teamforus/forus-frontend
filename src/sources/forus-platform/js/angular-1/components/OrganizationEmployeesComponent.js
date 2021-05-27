@@ -1,52 +1,38 @@
-let OrganizationEmployeesComponent = function(
-    $q,
+const OrganizationEmployeesComponent = function(
     $scope,
-    $timeout,
+    $filter,
     ModalService,
     PushNotificationsService,
     OrganizationEmployeesService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;[];
+    const str_limit = $filter('str_limit');
 
-    $ctrl.loaded = false;
-    $ctrl.filters = {
-        values: {},
-    };
+    $ctrl.filters = {};
+    $ctrl.adminEmployees = [];
 
     $ctrl.transformEmployee = (employee) => {
-        employee.rolesList = employee.roles.map(role => role.name).sort(
-            (a, b) => a == b ? 0 : (a < b ? -1 : 1)
-        ).join(', ');
+        const rolesList = str_limit(employee.roles.map(role => role.name).sort((a, b) => {
+            return a == b ? 0 : (a < b ? -1 : 1);
+        }).join(', '), 64);
 
-        return employee;
+        return { ...employee, ...{ rolesList } };
     };
 
-    $ctrl.transformEmployeesList = (employees) => {
-        return employees.map(employee => $ctrl.transformEmployee(employee));
+    $ctrl.transformEmployees = (data) => {
+        return {
+            meta: data.meta,
+            data: data.data.map((employee) => $ctrl.transformEmployee(employee))
+        };
     };
 
-    $scope.onPageChange = async (query) => {
-        return $q((resolve, reject) => {
-            OrganizationEmployeesService.list(
-                $ctrl.organization.id, 
-                Object.assign({}, query, $ctrl.filters.values)
-            ).then((res => {
-                $ctrl.employees = {
-                    meta: res.data.meta,
-                    data: $ctrl.transformEmployeesList(res.data.data),
-                };
+    $scope.onPageChange = (query) => {
+        const filters = { ...$ctrl.filters, ...query };
 
-                resolve($ctrl.employees);
-            }), reject);
-        });
-    };
-
-    $ctrl.$onInit = function() {
-        $scope.onPageChange().then(() => {
-            $timeout(() => {
-                $ctrl.loaded = true;
-            }, 0);
-        });
+        OrganizationEmployeesService.list($ctrl.organization.id, filters).then((res => {
+            $ctrl.employees = $ctrl.transformEmployees(res.data);
+            $ctrl.adminEmployees = $ctrl.filterAdminEmplyees($ctrl.employees.data);
+        }));
     };
 
     $ctrl.createEmployee = () => {
@@ -60,8 +46,8 @@ let OrganizationEmployeesComponent = function(
             employee: employee,
             submit: () => {
                 $scope.onPageChange({
-                    page: employee ? 
-                        $ctrl.employees.meta.current_page : 
+                    page: employee ?
+                        $ctrl.employees.meta.current_page :
                         $ctrl.employees.meta.last_page
                 });
             }
@@ -69,30 +55,47 @@ let OrganizationEmployeesComponent = function(
     };
 
     $ctrl.deleteEmployee = function(employee) {
-        OrganizationEmployeesService.destroy(
-            employee.organization_id,
-            employee.id
-        ).then((res) => {
-            $scope.onPageChange({
-                page: $ctrl.employees.meta.current_page
-            });
+        OrganizationEmployeesService.destroy($ctrl.organization.ud, employee.id).then(() => {
+            $scope.onPageChange();
         }, (res) => {
-            console.error(res);
             PushNotificationsService.danger(res.data.message);
         });
     }
+
+    $ctrl.transferOwnership = function(employees) {
+        ModalService.open('transferOrganizationOwnership', {
+            organization: $ctrl.organization,
+            employees: employees,
+            submit: (employee) => {
+                $ctrl.organization.identity_address = employee.identity_address;
+                $scope.onPageChange();
+            }
+        });
+    }
+
+    $ctrl.filterAdminEmplyees = function(employees) {
+        return employees.filter(employee => {
+            return employee.roles.filter(role => role.key === 'admin').length > 0;
+        }).filter(employee => {
+            return employee.identity_address !== $ctrl.organization.identity_address;
+        });
+    };
+
+    $ctrl.$onInit = function() {
+        $ctrl.employees = $ctrl.transformEmployees($ctrl.employees);
+        $ctrl.adminEmployees = $ctrl.filterAdminEmplyees($ctrl.employees.data);
+    };
 };
 
 module.exports = {
     bindings: {
         organization: '<',
+        employees: '<',
         roles: '<',
-        employees: '<'
     },
     controller: [
-        '$q',
         '$scope',
-        '$timeout',
+        '$filter',
         'ModalService',
         'PushNotificationsService',
         'OrganizationEmployeesService',

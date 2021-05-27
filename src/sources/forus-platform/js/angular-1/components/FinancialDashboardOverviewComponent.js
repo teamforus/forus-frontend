@@ -2,32 +2,29 @@ let FinancialDashboardOverviewComponent = function(
     appConfigs,
     FundService,
     ModalService,
-    OrganizationService,
     FileService
 ) {
     const $ctrl = this;
-    const org = OrganizationService.active();
+
+    $ctrl.divide = (value, from, _default = 0) => {
+        return from ? value / from : _default;
+    };
+
+    $ctrl.getPercentage = (value, from) => {
+        return ($ctrl.divide(value, from) * 100).toFixed(2)
+    };
 
     $ctrl.transformFunds = () => {
         $ctrl.budgetFunds.forEach(fund => {
             fund.collapsedData = false;
 
-            fund.budget.percentageTotal = $ctrl.fundsFinancialOverview.vouchers_amount > 0 ? 
-                Math.round(fund.budget.vouchers_amount / $ctrl.fundsFinancialOverview.vouchers_amount * 100) : 0;
-
-            fund.budget.percentageActive = $ctrl.fundsFinancialOverview.vouchers_active > 0 ? 
-                Math.round(fund.budget.active_vouchers_amount / $ctrl.fundsFinancialOverview.vouchers_active * 100) : 0;
-
-            fund.budget.percentageInactive = $ctrl.fundsFinancialOverview.vouchers_inactive > 0 ? 
-                Math.round(fund.budget.inactive_vouchers_amount / $ctrl.fundsFinancialOverview.vouchers_inactive * 100) : 0;
-
-            fund.budget.percentageUsed = $ctrl.fundsFinancialOverview.used > 0 ? 
-                Math.round(fund.budget.used / $ctrl.fundsFinancialOverview.used * 100) : 0;
-
-            fund.budget.percentageLeft = $ctrl.fundsFinancialOverview.left > 0 ? 
-                Math.round(fund.budget.left / $ctrl.fundsFinancialOverview.left * 100) : 0;
-
-            fund.budget.averagePerVoucher = fund.budget.vouchers_count ? fund.budget.vouchers_amount / fund.budget.vouchers_count : 0;
+            fund.budget.percentageTotal = '100.00';
+            fund.budget.percentageActive = $ctrl.getPercentage(fund.budget.active_vouchers_amount, fund.budget.vouchers_amount);
+            fund.budget.percentageInactive = $ctrl.getPercentage(fund.budget.inactive_vouchers_amount, fund.budget.vouchers_amount);
+            
+            fund.budget.percentageUsed = $ctrl.getPercentage(fund.budget.used_active_vouchers, fund.budget.vouchers_amount);
+            fund.budget.percentageLeft = $ctrl.getPercentage(fund.budget.vouchers_amount - fund.budget.used_active_vouchers, fund.budget.vouchers_amount);
+            fund.budget.averagePerVoucher = $ctrl.divide(fund.budget.vouchers_amount, fund.budget.vouchers_count)
         });
     };
 
@@ -42,7 +39,11 @@ let FinancialDashboardOverviewComponent = function(
 
                     const fileData = res.data;
                     const fileType = res.headers('Content-Type') + ';charset=utf-8;';
-                    const fileName = appConfigs.panel_type + '_' + org + '_' + dateTime + '.' + data.exportType;
+                    const fileName = [
+                        appConfigs.panel_type,
+                        $ctrl.organization.name, 
+                        dateTime + '.' + data.exportType
+                    ].join('_');
 
                     FileService.downloadFile(fileName, fileData, fileType);
                 }), console.error);
@@ -51,8 +52,14 @@ let FinancialDashboardOverviewComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        $ctrl.funds.data = $ctrl.funds.data.filter((fund) => fund.state != 'waiting');
-        $ctrl.budgetFunds = $ctrl.funds.data.filter((fund) => fund.type == 'budget');
+        $ctrl.funds.data = $ctrl.funds.data.filter((fund) => {
+            return fund.state != 'waiting';
+        });
+
+        $ctrl.budgetFunds = $ctrl.funds.data.filter((fund) => {
+            return fund.state == 'active' && fund.type == 'budget';
+        });
+
         $ctrl.transformFunds();
     };
 };
@@ -67,7 +74,6 @@ module.exports = {
         'appConfigs',
         'FundService',
         'ModalService',
-        'OrganizationService',
         'FileService',
         FinancialDashboardOverviewComponent
     ],
