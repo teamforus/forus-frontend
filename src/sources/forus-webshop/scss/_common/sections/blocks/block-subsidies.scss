@@ -37,6 +37,14 @@
                     display: block;
                     width: 100%;
                 }
+
+                &:after {
+                    content: '';
+                    background: #394260;
+                    opacity: 0;
+                    @include fill_parent();
+                    transition: opacity .4s;
+                }
             }
 
             .product-details {
@@ -75,6 +83,21 @@
                 font: 700 16px/24px $bf;
                 color: #626161;
                 @include ellipsis();
+            }
+
+            &:hover {
+                .product-name {
+                    color: $tc;
+                }
+
+                .product-image {
+                    transform: translate(0, -6px);
+                    box-shadow: 0 15px 50px rgba(#000, .15);
+
+                    &:after {
+                        opacity: .5;
+                    }
+                }
             }
         }
     }
