@@ -51,6 +51,7 @@ module.exports = {
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
         modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
+        modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator')
@@ -1182,6 +1183,7 @@ module.exports = {
             adjust: "Aanpassen",
             delete: "Verwijderen",
             add: "Toevoegen",
+            transfer_ownership: "Overdragen",
         }
     },
 
