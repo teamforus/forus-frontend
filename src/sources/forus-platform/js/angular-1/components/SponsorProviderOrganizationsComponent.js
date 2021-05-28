@@ -1,4 +1,4 @@
-let SponsorProviderOrganizationsComponent = function(
+const SponsorProviderOrganizationsComponent = function(
     $q,
     $filter,
     $stateParams,
@@ -8,12 +8,10 @@ let SponsorProviderOrganizationsComponent = function(
     PushNotificationsService,
     OrganizationService
 ) {
-    let $ctrl = this;
-    let org = OrganizationService.active();
-    let $translate = $filter('translate');
-    let $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.remove_fund_provider.' + key
-    );
+    const $ctrl = this;
+    const org = OrganizationService.active();
+    const $translate = $filter('translate');
+    const $translateDangerZone = (key) => $translate('modals.danger_zone.remove_fund_provider.' + key);
 
     $ctrl.loaded = false;
     $ctrl.extendedView = localStorage.getItem('sponsor_providers.extended_view') === 'true';
