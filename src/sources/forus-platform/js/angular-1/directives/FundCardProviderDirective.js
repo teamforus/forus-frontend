@@ -1,4 +1,4 @@
-let FundCardProviderDirective = function(
+const FundCardProviderDirective = function(
     $scope,
     $filter,
     ModalService,
@@ -6,16 +6,11 @@ let FundCardProviderDirective = function(
     ProviderFundService,
     PushNotificationsService
 ) {
-    $scope.fund = $scope.providerFund.fund;
-    let $translate = $filter('translate');
-    let $translateDangerZone = (key, params) => $translate(
-        'modals.danger_zone.remove_provider_application.' + key, params
-    );
+    const $translate = $filter('translate');
+    const $translateDangerZone = (key, params) => {
+        return $translate('modals.danger_zone.remove_provider_application.' + key, params);
+    };
 
-    $scope.shownProductType = $scope.providerFund.allow_some_products && 
-        !$scope.providerFund.allow_products ?
-        'allow_some_products' : 'allow_products';
-    
     $scope.viewOffers = () => {
         ProductService.list($scope.organization.id).then(res => {
             ModalService.open('fundOffers', {
@@ -26,27 +21,44 @@ let FundCardProviderDirective = function(
             });
         }, console.error);
     };
-    
-    $scope.cancelApplication = (providerFund) => {
+
+    $scope.cancelApplicationRequest = (providerFund) => {
+        const sponsor_organisation_name = $scope.fund.organization.name;
+
         ModalService.open('dangerZone', {
             title: $translateDangerZone('title'),
-            description: $translateDangerZone('description', {sponsor_organisation_name: $scope.fund.organization.name}),
+            description: $translateDangerZone('description', { sponsor_organisation_name }),
             cancelButton: $translateDangerZone('buttons.cancel'),
             confirmButton: $translateDangerZone('buttons.confirm'),
-
-            onConfirm: () => {
-                ProviderFundService.cancelForFund(
-                    $scope.organization.id,
-                    providerFund.id
-                ).then(res => {
-                    PushNotificationsService.success('Opgeslagen!');
-
-                    $scope.providerFunds  = $scope.providerFunds.filter(item => item.id !== providerFund.id);
-                    $scope.showEmptyBlock = $scope.providerFunds.length == 0;
-                }, console.error);
-            }
+            onConfirm: () => $scope.sendCancelApplicationRequest(providerFund),
         });
     };
+
+    $scope.sendCancelApplicationRequest = (providerFund) => {
+        ProviderFundService.cancelApplicationRequest($scope.organization.id, providerFund.id).then(() => {
+            console.log($scope.providerFunds);
+
+            $scope.providerFunds = $scope.providerFunds.filter(item => item.id !== providerFund.id);
+            $scope.showEmptyBlock = $scope.providerFunds.length == 0;
+
+            PushNotificationsService.success('Opgeslagen!');
+
+            if (typeof $scope.onRemoved === 'function') {
+                $scope.onRemoved();
+            }
+        }, console.error);
+    };
+
+    $scope.init = function() {
+        $scope.fund = $scope.providerFund.fund;
+        $scope.media = $scope.fund.logo || $scope.fund.organization.logo;
+
+        $scope.shownProductType = $scope.providerFund.allow_some_products &&
+            !$scope.providerFund.allow_products ?
+            'allow_some_products' : 'allow_products';
+    };
+
+    $scope.init();
 };
 
 module.exports = () => {
@@ -56,6 +68,7 @@ module.exports = () => {
             providerFund: '=',
             providerFunds: '=',
             showEmptyBlock: '=',
+            onRemoved: '&',
             type: '@'
         },
         restrict: "EA",
@@ -69,6 +82,6 @@ module.exports = () => {
             'PushNotificationsService',
             FundCardProviderDirective
         ],
-        templateUrl: 'assets/tpl/directives/fund-card-provider.html' 
+        templateUrl: 'assets/tpl/directives/fund-card-provider.html'
     };
 };

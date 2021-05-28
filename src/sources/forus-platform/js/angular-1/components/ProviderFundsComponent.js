@@ -1,12 +1,26 @@
-let ProviderFundsComponent = function(
+const ProviderFundsComponent = function(
     $stateParams,
     $filter,
     ProviderFundService,
 ) {
-    let $ctrl = this;
-    let $translate = $filter('translate');
+    const $ctrl = this;
+    const $translate = $filter('translate');
 
-    let trans_fund_provider = (key) => {
+    const sort = {
+        'pending': 0,
+        'approved': 1,
+        'declined': 2,
+    };
+
+    const is_pending_or_rejected = (fund) => {
+        return (!fund.allow_budget && !fund.allow_products && !fund.allow_some_products) || fund.dismissed;
+    }
+
+    const is_closed = (fund) => {
+        return fund.fund.state == 'closed';
+    }
+
+    const trans_fund_provider = (key) => {
         return $translate('fund_card_provider.empty_block.' + key);
     };
 
@@ -14,21 +28,7 @@ let ProviderFundsComponent = function(
     $ctrl.showEmptyBlock = false;
 
     $ctrl.$onInit = function() {
-        let sort = {
-            'pending': 0,
-            'approved': 1,
-            'declined': 2,
-        };
-
-        let is_pending_or_rejected = (fund) => {
-            return (!fund.allow_budget && !fund.allow_products && !fund.allow_some_products) || fund.dismissed;
-        }
-
-        let is_closed = (fund) => {
-            return fund.fund.state == 'closed';
-        }
-
-        $ctrl.shownFundsType = $stateParams.fundsType || 
+        $ctrl.shownFundsType = $stateParams.fundsType ||
             ($ctrl.funds.length ? 'active' : 'available');
 
         $ctrl.fundAvailableInvitations = $ctrl.fundInvitations.filter(
@@ -45,13 +45,11 @@ let ProviderFundsComponent = function(
             return is_pending_or_rejected(fund);
         });
 
-        $ctrl.funds = $ctrl.funds.filter(fund => {
-            return !is_pending_or_rejected(fund) && !is_closed(fund);
-        });
-        $ctrl.funds = $ctrl.funds.sort((a, b) => sort[a.state] - sort[b.state]);
+        $ctrl.funds = $ctrl.funds.filter(fund => !is_pending_or_rejected(fund) && !is_closed(fund));
+        $ctrl.funds.sort((a, b) => sort[a.state] - sort[b.state]);
 
         $ctrl.showEmptyBlock = $ctrl.checkForEmptyList($ctrl.shownFundsType);
-        $ctrl.emptyBlockMsg  = $ctrl.getEmptyBlockMessage($ctrl.shownFundsType);
+        $ctrl.emptyBlockMsg = $ctrl.getEmptyBlockMessage($ctrl.shownFundsType);
     };
 
     $ctrl.filters = {
@@ -61,14 +59,9 @@ let ProviderFundsComponent = function(
         },
     };
 
-    let getAvailableFunds = (organization, query) => {
-        ProviderFundService.listAvailableFunds(
-            organization.id, query
-        ).then(res => {
-            $ctrl.fundsAvailable = {
-                meta: res.data.meta,
-                data: res.data.data
-            };
+    const getAvailableFunds = (organization, query) => {
+        ProviderFundService.listAvailableFunds(organization.id, query).then(res => {
+            $ctrl.fundsAvailable = { ...res.data };
         });
     };
 
@@ -82,7 +75,7 @@ let ProviderFundsComponent = function(
     $ctrl.filterByFundStatus = (type) => {
         $ctrl.shownFundsType = type;
         $ctrl.showEmptyBlock = $ctrl.checkForEmptyList(type);
-        $ctrl.emptyBlockMsg  = $ctrl.getEmptyBlockMessage(type);
+        $ctrl.emptyBlockMsg = $ctrl.getEmptyBlockMessage(type);
     };
 
     $ctrl.checkForEmptyList = (type) => $ctrl.getActiveFundsCount(type) == 0;
