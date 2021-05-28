@@ -514,9 +514,7 @@ module.exports = (core) => {
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             provider_sign_up_filters: {},
-            flags: {
-                hideFundRequestOverviewStep: false,
-            },
+            flags: {},
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
             android_link: android_link,

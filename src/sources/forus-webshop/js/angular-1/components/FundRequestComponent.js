@@ -43,7 +43,7 @@ const FundRequestComponent = function(
 
     $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
     $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
-    $ctrl.hideFundRequestOverviewStep = $ctrl.appConfigs.flags.hideFundRequestOverviewStep;
+    $ctrl.hideFundRequestOverviewStep = false;
 
     const trans_record_checkbox = (criteria_record_key, value) => {
         const trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
