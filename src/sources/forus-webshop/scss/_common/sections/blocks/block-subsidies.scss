@@ -20,15 +20,13 @@
             box-shadow: $base_shadow;
             border-radius: $border_radius;
             overflow: hidden;
+            transition: box-shadow 0.3s ease-in;
             @include cf();
 
             .product-image {
                 width: 100%;
-                overflow: hidden;
                 display: block;
                 position: relative;
-                transform: translate(0, 0);
-                transition: 0.4s;
                 box-shadow: 0 0 0 rgba(#000, 0.05);
                 background-size: cover;
                 background-position: 50% 50%;
@@ -43,7 +41,7 @@
                     background: #394260;
                     opacity: 0;
                     @include fill_parent();
-                    transition: opacity .4s;
+                    transition: opacity .3s ease-in;
                 }
             }
 
@@ -52,6 +50,7 @@
                 flex-direction: column;
                 background-color: #fff;
                 padding: 15px 20px;
+                border-top: 1px solid rgba(#dbdcdb, .5);
             }
 
             .product-price {
@@ -63,7 +62,9 @@
                 position: absolute;
                 z-index: 1;
                 right: 0;
-                bottom: 0;
+                bottom: -1px;
+                border-top: 1px solid rgba(#dbdcdb, .5);
+                border-left: 1px solid rgba(#dbdcdb, .5);
 
                 small {
                     font: inherit;
@@ -76,6 +77,7 @@
             .product-name {
                 color: $color_primary;
                 font: 700 16px/28px $bf;
+                transition: color .3s ease-in;
                 @include ellipsis();
             }
 
@@ -86,16 +88,15 @@
             }
 
             &:hover {
+                box-shadow: 0 5px 20px rgba(#000, .15);
+
                 .product-name {
                     color: $tc;
                 }
 
                 .product-image {
-                    transform: translate(0, -6px);
-                    box-shadow: 0 15px 50px rgba(#000, .15);
-
                     &:after {
-                        opacity: .5;
+                        opacity: .1;
                     }
                 }
             }
