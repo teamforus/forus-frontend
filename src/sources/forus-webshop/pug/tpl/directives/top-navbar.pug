@@ -87,17 +87,17 @@ nav.block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visi
                             span(translate="topnavbar.buttons.voucher") 
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
-                        .auth-user(ng-click="$ctrl.openUserMenu($event)")
+                        .auth-user
                             .auth-user-details  
-                                .auth-user-email(ng-bind="$root.auth_user.email") 
+                                .auth-user-email(ng-bind="$root.auth_user.email" ng-click="$ctrl.openUserMenu($event)") 
                                 button.auth-user-logout(ng-click="$root.signOut($event, true)")
                                     em.mdi.mdi-logout
                                     span(translate="topnavbar.buttons.logout")
 
-                            .auth-user-avatar
+                            .auth-user-avatar(ng-click="$ctrl.openUserMenu($event)")
                                 div
                                 include ../../../resources/_webshop-common/assets/img/identity-avatar.svg
-                            button.auth-user-caret(id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}")
+                            button.auth-user-caret(ng-click="$ctrl.openUserMenu($event)" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}")
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
                             .auth-user-menu.hide-sm(
@@ -170,10 +170,16 @@ nav.block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visi
                                         em.mdi.mdi-store
                                         span(translate="topnavbar.items.providers")
                                         
-                                    a.auth-user-menu-separator.show-sm
+                                    .auth-user-menu-separator.show-sm
                                     
                                     a.auth-user-menu-item.show-sm(
                                         ui-sref="vouchers" 
                                         role="link")
                                         em.mdi.mdi-ticket-confirmation
                                         span(translate="topnavbar.buttons.voucher")
+
+                                    .auth-user-menu-separator
+
+                                    button.auth-user-menu-item(ng-click="$root.signOut()" id="sign_out")
+                                        img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
+                                        span(translate="topnavbar.buttons.logout")

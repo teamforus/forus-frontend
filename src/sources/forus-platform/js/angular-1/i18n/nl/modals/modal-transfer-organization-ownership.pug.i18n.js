@@ -3,7 +3,7 @@ module.exports = {
     labels: {
         transfer_to: 'Overdragen aan:',
     },
-    info: "Nadat u de organisatie heeft overgedragen dient de nieuwe eigenaar u te verwijderen als medewerker.",
+    info: "Na het overdragen kan de nieuwe eigenaar u verwijderen als medewerker.",
     buttons: {
         cancel: "Annuleer",
         submit: "Bevestig",
