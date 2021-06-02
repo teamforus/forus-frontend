@@ -411,8 +411,8 @@ section: .wrapper
                         ng-repeat="critera in $ctrl.invalidCriteria")
                         .item-icon.item-icon-default
 
-                        span {{ critera.record_type_name }} is 
-                        strong {{ critera.input_value }}
+                        span {{ critera.title }} #[span(ng-if="critera.operator != '='") is] 
+                        strong(ng-if="critera.operator != '='") {{ critera.input_value }}
 
                         file-uploader(
                             ng-if="critera.show_attachment"
