@@ -1,6 +1,5 @@
 let ImplementationViewComponent = function(
     $q,
-    $state,
     $scope,
     $rootScope,
     FundService,
@@ -44,7 +43,6 @@ module.exports = {
     },
     controller: [
         '$q',
-        '$state',
         '$scope',
         '$rootScope',
         'FundService',
