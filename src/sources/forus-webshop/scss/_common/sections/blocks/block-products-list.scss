@@ -15,6 +15,8 @@
             overflow: hidden;
             background-size: cover;
             background-position: 50% 50%;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
             position: relative;
 
             img {
@@ -48,8 +50,9 @@
             }
 
             .product-organization {
-                font: 400 14px/30px $bf;
+                font: 400 14px/22px $bf;
                 margin-bottom: 5px;
+                max-width: 440px;
             }
         }
 
@@ -61,6 +64,11 @@
             align-items: flex-start;
             flex-wrap: wrap;
             flex-direction: row-reverse;
+
+            &.with-button {
+                align-items: center;
+                justify-content: center;
+            }
 
             .product-price {
                 font: 700 17px/30px $bf;

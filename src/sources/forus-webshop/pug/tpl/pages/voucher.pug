@@ -184,6 +184,8 @@ section.section.section-voucher-details: .wrapper: .page.page-voucher
             .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.info")
 
     .block.block-info-card(ng-if="$ctrl.voucherCard.product")
-        .block-header {{ "voucher.labels.productdetail" | translate }} #[a(ui-sref="products-show($ctrl.voucherCard.product)" ng-if="$ctrl.voucherCard.returnable").card-read_more Bekijk details #[em.mdi.mdi-arrow-right]] 
+        .block-header 
+            | {{ "voucher.labels.productdetail" | translate }} 
+            | #[a(ui-sref="product($ctrl.voucherCard.product)" ng-if="$ctrl.voucherCard.returnable").card-read_more Bekijk details #[em.mdi.mdi-arrow-right]] 
         .block-content: .block.block-markdown
             div(ng-bind-html="$ctrl.voucherCard.description")

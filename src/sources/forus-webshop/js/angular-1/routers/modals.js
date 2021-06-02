@@ -44,4 +44,12 @@ module.exports = ['ModalRouteProvider', function(
     ModalRouteProvider.modal('modalPhysicalCardUnlink', {
         component: 'modalPhysicalCardUnlinkComponent'
     });
+
+    ModalRouteProvider.modal('pdfPreview', {
+        component: 'modalPdfPreviewComponent'
+    });
+
+    ModalRouteProvider.modal('imagePreview', {
+        component: 'modalImagePreviewComponent'
+    });
 }];

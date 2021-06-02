@@ -60,6 +60,7 @@
             .subnav-inner {
                 display: flex;
                 justify-content: space-between;
+                flex-wrap: wrap-reverse;
                 align-items: center;
     
                 .navbar-logo {
@@ -70,11 +71,6 @@
                         height: $logo-height;
                         flex-shrink: 0;
                     }
-                }
-    
-                .block {
-                    display: flex;
-                    align-self: center;
                 }
             }
 
@@ -111,7 +107,6 @@
                 color: #646f79;
                 cursor: pointer;
                 border: 1px solid transparent;
-                -webkit-transition: color .4s, background .4s, box-shadow .4s, border .4s;
                 transition: color .4s, background .4s, box-shadow .4s, border .4s;
                 border-radius: 6px;
                 display: inline-block;
@@ -121,6 +116,7 @@
     
         .navbar-logo {
             justify-self: flex-start;
+            margin-right: 30px;
     
             .second-logo {
                 margin-right: 10px;
@@ -307,7 +303,7 @@
     
             .auth-code {
                 float: right;
-                margin-right: 50px;
+                margin-right: 30px;
 
                 .button {
                     background-color: $btn-start-bg;
@@ -443,6 +439,8 @@
                             cursor: pointer;
                             border: none;
                             background: none;
+                            width: 100%;
+                            text-align: left;
     
                             img {
                                 display: block;
@@ -541,6 +539,42 @@
                         .auth-user-type {
                             font: 400 11px/20px $bf;
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1300px) {   
+        &.block-navbar {
+            .block-subnav {
+                .subnav-inner {
+                    .navbar-search {
+                        width: 480px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1200px) {   
+        &.block-navbar {
+            .block-subnav {
+                .subnav-inner {
+                    .navbar-search {
+                        width: 380px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1100px) {   
+        &.block-navbar {
+            .block-subnav {
+                .subnav-inner {
+                    .navbar-search {
+                        width: 280px;
                     }
                 }
             }
@@ -664,6 +698,24 @@
     
                 &.navbar-list-show {
                     display: block;
+                }
+            }
+
+            .block-subnav {
+                .subnav-inner {
+                    .navbar-search {
+                        width: 100%;
+                        margin-bottom: 10px;
+
+                        input {
+                            padding: 14px 45px 14px 15px;
+                        }
+
+                        img {
+                            left: auto;
+                            right: 15px;
+                        }
+                    }
                 }
             }
         }

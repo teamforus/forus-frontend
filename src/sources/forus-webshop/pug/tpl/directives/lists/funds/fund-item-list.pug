@@ -1,0 +1,18 @@
+a.fund-item
+    .fund-photo: img(
+        ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
+        alt="{{ $dir.title }}")
+
+    .fund-content
+        .fund-details
+            .fund-name(ng-bind="$dir.fund.name")
+            .fund-organization(ng-bind="$dir.fund.organization.name")
+            .fund-status-label
+                .label.label-default(ng-if="$dir.fund.showPendingButton" translate="funds.buttons.is_pending")
+                .label.label-success(ng-if="$dir.fund.alreadyReceived" translate="funds.status.active")
+            
+        .fund-actions(ng-if="$dir.showActivateButton")
+            button.button.button-primary.button-fill(
+                type="button"
+                ng-click="$dir.applyFund($dir.fund)" 
+                translate="funds.buttons.is_applicable")

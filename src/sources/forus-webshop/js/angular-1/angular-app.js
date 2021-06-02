@@ -2,11 +2,12 @@ require('./modules/select-control/SelectControlModule');
 require('./modules/ui-controls/UIControlsModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
 
-let appConfigs = {...{
-    fund_request_allways_bsn_confirmation: true,
-}, ...env_data};
+const appConfigs = {
+    ...{ fund_request_allways_bsn_confirmation: true },
+    ...env_data
+};
 
-let app = angular.module('forusApp', [
+const app = angular.module('forusApp', [
     'pascalprecht.translate', 'ui.router', 'ngCookies', 'ngAria',
     'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
@@ -48,6 +49,7 @@ app.component('identityEmailsComponent', require('./components/IdentityEmailsCom
 app.component('notificationsComponent', require('./components/NotificationsComponent'));
 app.component('explanationComponent', require('./components/ExplanationComponent'));
 app.component('errorPageComponent', require('./components/ErrorPageComponent'));
+app.component('searchResultComponent', require('./components/SearchResultComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -93,10 +95,12 @@ app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
 app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequestService'));
 app.service('HelperService', require('./services/HelperService'));
+app.service('SearchService', require('./services/SearchService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
+app.directive('topNavbarSearch', require('./directives/TopNavbarSearchDirective'));
 app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
@@ -123,6 +127,9 @@ app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('fileUploader', require('./directives/controls/FileUploaderDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('productsList', require('./directives/ProductsListDirective'));
+app.directive('searchItemsList', require('./directives/SearchItemsListDirective'));
+
+app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -137,6 +144,10 @@ app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrake
 app.directive('mapPointerProvidersOffice', require('./directives/map-pointers/MapPointerProvidersOfficeDirective'));
 app.directive('mapPointerProvidersOfficeView', require('./directives/map-pointers/MapPointerProvidersOfficeViewDirective'));
 
+app.directive('fundListItem', require('./directives/lists/FundItemDirective'));
+app.directive('productListItem', require('./directives/lists/ProductItemDirective'));
+app.directive('providerListItem', require('./directives/lists/ProviderItemDirective'));
+
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalOfficesComponent', require('./components/Modals/ModalOfficesComponent'));
@@ -149,6 +160,8 @@ app.component('modalProductApplyComponent', require('./components/Modals/ModalPr
 app.component('modalIdentityProxyExpiredComponent', require('./components/Modals/ModalIdentityProxyExpiredComponent'));
 app.component('modalPhysicalCardTypeComponent', require('./components/Modals/ModalPhysicalCardTypeComponent'));
 app.component('modalPhysicalCardUnlinkComponent', require('./components/Modals/ModalPhysicalCardUnlinkComponent'));
+app.component('modalPdfPreviewComponent', require('./components/Modals/FilePreviews/ModalPdfPreviewComponent'));
+app.component('modalImagePreviewComponent', require('./components/Modals/FilePreviews/ModalImagePreviewComponent'));
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));

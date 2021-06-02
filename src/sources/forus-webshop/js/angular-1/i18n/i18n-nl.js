@@ -94,6 +94,8 @@ module.exports = {
     open_in_me: require("./nl/modals/modal-open-in-me"),
     physical_card: require("./nl/modals/modal-physical_card"),
     expired_identity: require("./nl/modals/modal-expired-identity-proxy"),
+    pdf_preview: require("./nl/modals/modal-pdf-preview"),
+    image_preview: require("./nl/modals/modal-image-preview"),
     modal: require("./nl/modals/modal"),
 
     // DIRECTIVES
@@ -106,4 +108,5 @@ module.exports = {
     fund_criterion: require("./nl/directives/fund-criterion"),
     maps: require("./nl/directives/google-map"),
     profile_menu: require("./nl/directives/profile-menu"),
+    top_navbar_search: require('./nl/directives/top-navbar-search'),
 };

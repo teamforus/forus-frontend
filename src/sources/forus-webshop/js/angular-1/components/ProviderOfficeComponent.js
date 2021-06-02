@@ -15,10 +15,7 @@ let ProviderOfficeComponent = function(
     $ctrl.goToProvider = ($event, provider) => {
         $event.preventDefault();
         $event.stopPropagation();
-
-        $state.go('provider', {
-            provider_id: provider.id
-        });
+        $state.go('provider', provider);
     };
 
     $ctrl.toggleOffices = ($event, provider) => {

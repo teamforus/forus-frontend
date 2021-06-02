@@ -2,6 +2,9 @@ top-navbar
 section.section.section-product: .wrapper
 
     .block.block-breadcrumbs
+        a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
+            em.mdi.mdi-chevron-left
+            | Terug
         a(ui-sref="home" i18n="product.headers.home").breadcrumb-item
         a(ui-sref="products" ng-if="$ctrl.useBudget" i18n="product.headers.products").breadcrumb-item
         a(ui-sref="actions" ng-if="$ctrl.useSubsidies" i18n="product.headers.subsidies").breadcrumb-item
@@ -97,9 +100,9 @@ section.section.section-product: .wrapper
                         .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund.id)" i18n="product.buttons.open_voucher")
 
         .block.block-pane(ng-class="{'last-child': $ctrl.product.organization.showOffices}")
-            a(ui-sref="provider({provider_id: $ctrl.product.organization.id})" i18n="product.headers.provider").pane-head
+            a(ui-sref="provider($ctrl.product.organization)" i18n="product.headers.provider").pane-head
             .pane-body: .block.block-organizations: .organization-item
-                a(ui-sref="provider({provider_id: $ctrl.product.organization.id})" ).organization-pane
+                a(ui-sref="provider($ctrl.product.organization)" ).organization-pane
                     .organization-logo
                         img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png'  }}" alt="{{ $ctrl.product.organization.name }}").organization-logo-img
                     .organization-title

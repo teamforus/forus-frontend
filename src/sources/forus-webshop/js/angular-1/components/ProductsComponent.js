@@ -1,14 +1,12 @@
-let ProductsComponent = function(
+const ProductsComponent = function(
     $scope,
     $state,
     $stateParams,
-    $timeout,
     appConfigs,
     FormBuilderService,
     ProductService
 ) {
-    let $ctrl = this;
-    let timeout = false;
+    const $ctrl = this;
 
     $ctrl.sortByOptions = [{
         label: 'Prijs (oplopend)',
@@ -42,18 +40,6 @@ let ProductsComponent = function(
 
     $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
 
-    $ctrl.objectOnly = (obj, props = []) => {
-        let out = {};
-
-        for (const prop in obj) {
-            if (obj.hasOwnProperty(prop) && props.indexOf(prop) != -1) {
-                out[prop] = obj[prop];
-            }
-        }
-
-        return out;
-    };
-
     $ctrl.toggleOrderDropdown = ($event) => {
         $event ? $event.stopPropagation() : '';
         $ctrl.show_order_dropdown = !$ctrl.show_order_dropdown;
@@ -76,14 +62,6 @@ let ProductsComponent = function(
     $ctrl.hideMobileMenu = () => {
         $ctrl.showModalFilters = false;
         $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
-    };
-
-    $ctrl.cancel = () => {
-        if (typeof ($ctrl.modal.scope.cancel) === 'function') {
-            $ctrl.modal.scope.cancel();
-        }
-
-        $ctrl.close();
     };
 
     $ctrl.showAs = (display_type) => {
@@ -122,32 +100,13 @@ let ProductsComponent = function(
         };
     };
 
-    $ctrl.onFormChange = (values) => {
-        if (timeout) {
-            $timeout.cancel(timeout);
-        }
-
-        timeout = $timeout(() => {
-            $ctrl.onPageChange(values);
-        }, 1000);
-    };
-
     $ctrl.onPageChange = (values) => {
         $ctrl.loadProducts($ctrl.buildQuery(values));
     };
 
-    $ctrl.goToProduct = (product) => {
-        $state.go('product', {
-            product_id: product.id,
-        });
-    };
-
     $ctrl.loadProducts = (query, location = 'replace') => {
-        ProductService.list(Object.assign({
-            fund_type: $ctrl.type
-        }, query)).then(res => {
-            $ctrl.products = res.data;
-            $ctrl.updateRows();
+        ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
+            return $ctrl.products = res.data;
         });
 
         $ctrl.updateState(query, location);
@@ -162,47 +121,23 @@ let ProductsComponent = function(
             fund_id: query.fund_id,
             organization_id: query.organization_id,
             product_category_id: query.product_category_id,
-            show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
         }, { location });
     };
 
     $ctrl.updateFiltersUsedCount = () => {
-        $ctrl.countFiltersApplied = Object.values(
-            $ctrl.objectOnly($ctrl.form.values, $ctrl.filtersList)
-        ).reduce((count, filter) => count + (filter ? (
-            typeof filter == 'object' ? (filter.id ? 1 : 0) : 1
-        ) : 0), 0);
-    };
+        let count = 0;
 
-    $ctrl.updateRows = () => {
-        $ctrl.products.data = $ctrl.products.data.map(product => {
-            if ($ctrl.form.values.fund && $ctrl.form.values.fund.id && Array.isArray(product.funds)) {
-                let prices = product.funds.filter(
-                    funds => funds.id == $ctrl.form.values.fund.id
-                ).map(fund => fund.price);
-
-                product.price_min = Math.min(prices);
-                product.price_max = Math.max(prices);
-            }
-
-            return product;
-        });
-
-        let product_rows = [];
-        let products = $ctrl.products.data.slice().reverse();
-
-        while (products.length > 0) {
-            let row = products.splice(-3);
-            row.reverse();
-
-            product_rows.push(row);
-        }
-
-        $ctrl.product_rows = product_rows;
+        $ctrl.form.values.q && count++;
+        $ctrl.form.values.organization_id && count++;
+        $ctrl.form.values.product_category_id && count++;
+        $ctrl.form.values.fund && $ctrl.form.values.fund.id && count++;
+        $ctrl.countFiltersApplied = count;
     };
 
     $ctrl.$onInit = () => {
+        $ctrl.showModalFilters = $stateParams.show_menu;
+        $ctrl.display_type = $stateParams.display_type;
         $ctrl.fund_type = $stateParams.fund_type;
         $ctrl.show_order_dropdown = false;
 
@@ -218,7 +153,17 @@ let ProductsComponent = function(
             name: 'Alle tegoeden',
         });
 
-        let fund = $ctrl.funds.filter(fund => {
+        $ctrl.productCategories.unshift({
+            name: 'Selecteer categorie...',
+            id: null
+        });
+
+        $ctrl.organizations.unshift({
+            name: 'Selecteer aanbieder...',
+            id: null
+        });
+
+        const fund = $ctrl.funds.filter(fund => {
             return fund.id == $stateParams.fund_id;
         })[0] || $ctrl.funds[0];
 
@@ -229,19 +174,7 @@ let ProductsComponent = function(
             fund: fund,
         });
 
-        $ctrl.showModalFilters = $stateParams.show_menu;
-        $ctrl.display_type = $stateParams.display_type;
-        $ctrl.productCategories.unshift({
-            name: 'Selecteer categorie...',
-            id: null
-        });
-        $ctrl.organizations.unshift({
-            name: 'Selecteer aanbieder...',
-            id: null
-        });
-
         $ctrl.updateFiltersUsedCount();
-        $ctrl.updateRows();
     };
 };
 
@@ -257,7 +190,6 @@ module.exports = {
         '$scope',
         '$state',
         '$stateParams',
-        '$timeout',
         'appConfigs',
         'FormBuilderService',
         'ProductService',

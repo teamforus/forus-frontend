@@ -253,12 +253,20 @@ section: .wrapper
                     .col.col-lg-6.col-xs-6.text-left: button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
                         em.mdi.mdi-chevron-left.icon-left
                         translate(translate='fund_request.sign_up.pane.footer.prev')
-                    .col.col-lg-6.col-xs-6.text-right: button.button.button-text.button-text-padless(
-                        ng-disabled="invalidCriteria.isUploadingFiles"
-                        ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
-                        role="button")
-                        em.mdi.mdi-chevron-right.icon-right
-                        translate(translate='fund_request.sign_up.pane.footer.next')
+                    .col.col-lg-6.col-xs-6.text-right(ng-if="!$ctrl.hideFundRequestOverviewStep || $ctrl.invalidCriteria.length != $index + 1")
+                        button.button.button-text.button-text-padless(
+                            ng-disabled="invalidCriteria.isUploadingFiles"
+                            ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
+                            role="button")
+                            em.mdi.mdi-chevron-right.icon-right
+                            translate(translate='fund_request.sign_up.pane.footer.next')
+                        
+                    .col.col-lg-6.col-xs-6.text-right(ng-if="$ctrl.hideFundRequestOverviewStep && $ctrl.invalidCriteria.length == $index + 1")
+                        button.button.button-primary(
+                            ng-disabled="invalidCriteria.isUploadingFiles"
+                            ng-click="$ctrl.submitStepCriteria(invalidCriteria)"
+                            role="button")
+                            | Verzenden
 
         //- Confirm net worth
         div(ng-if="$ctrl.state == 'confirm_criteria'")
@@ -382,6 +390,42 @@ section: .wrapper
                         data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
 
                 +confirm_criteria_footer()
+
+        //- Fund request overivew
+        div(ng-if="$ctrl.state == 'application_overview'")
+            +progress()
+
+            .sign_up-pane
+                .sign_up-pane-header Aanvraag overzicht
+                .sign_up-pane-body: .form
+                    p.sign_up-pane-text 
+                        span Controleer hieronder of de gegevens die u heeft ingevuld juist zijn. U kunt terug naar eerdere stappen met de knop 
+                        strong Vorige stap.
+
+                    p.sign_up-pane-text
+                        span Kloppen de gegevens? Klik dan op de knop 
+                        strong Vraag aan.  
+                
+                .sign_up-pane-body
+                    ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
+                        ng-repeat="critera in $ctrl.invalidCriteria")
+                        .item-icon.item-icon-default
+
+                        span {{ critera.title }} #[span(ng-if="critera.operator != '='") is] 
+                        strong(ng-if="critera.operator != '='") {{ critera.input_value }}
+
+                        file-uploader(
+                            ng-if="critera.show_attachment"
+                            type="fund_request_record_proof"
+                            files="critera.files"
+                            read-only="true")  
+                
+                .sign_up-pane-footer: .row
+                    .col.col-lg-6.col-xs-6.text-left: button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
+                        em.mdi.mdi-chevron-left.icon-left
+                        translate(translate='fund_request.sign_up.pane.footer.prev')
+                    .col.col-lg-6.col-xs-6.text-right: button.button.button-primary(ng-click="$ctrl.nextStep()" role="button")
+                        | Vraag aan
 
         //- Done
         div(ng-if="$ctrl.state == 'done'")

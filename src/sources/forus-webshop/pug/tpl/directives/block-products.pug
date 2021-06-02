@@ -5,9 +5,9 @@ section.section.section-products#products
         ng-if="products.data.length != 0")
 
     products-list(
-        ng-if="$dir.products" 
-        type="{{ $dir.type }}" 
-        display="{{ $dir.display }}" 
+        ng-if="$dir.products"
+        type="$dir.type"
+        display="$dir.display"
         products="$dir.products")
 
     empty-block(

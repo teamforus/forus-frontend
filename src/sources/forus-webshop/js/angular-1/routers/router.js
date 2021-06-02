@@ -315,12 +315,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
-        name: "products-show",
+        name: "product",
         url: "/products/{id}",
         component: "productComponent",
-        data: {
-            id: null
-        },
+        params: { searchData: null },
         resolve: {
             vouchers: ['AuthService', 'VoucherService', (
                 AuthService, VoucherService
@@ -397,6 +395,97 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: "search-result",
+        url: "/search?{q:string}&{page:int}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&search_item_types&order_by&order_by_dir",
+        params: {
+            q: {
+                dynamic: true,
+                value: "",
+                squash: true,
+            },
+            page: {
+                dynamic: true,
+                value: 1,
+                squash: true,
+            },
+            fund_id: {
+                dynamic: true,
+                value: null,
+                squash: true
+            },
+            organization_id: {
+                dynamic: true,
+                value: null,
+                squash: true
+            },
+            product_category_id: {
+                dynamic: true,
+                value: null,
+                squash: true
+            },
+            display_type: {
+                dynamic: true,
+                value: 'list',
+                squash: true
+            },
+            search_item_types: {
+                dynamic: true,
+                value: 'funds,providers,products',
+                squash: true
+            },
+            fund_type: {
+                dynamic: true,
+                value: 'budget',
+                squash: true
+            },
+            order_by: { dynamic: true, value: 'created_at' },
+            order_by_dir: { dynamic: true, value: 'desc' },
+        },
+        component: "searchResultComponent",
+        resolve: {
+            searchItems: ['$transition$', 'SearchService', ($transition$, SearchService) => {
+                return repackPagination(SearchService.search({
+                    ...{
+                        q: $transition$.params().q,
+                        overview: 0,
+                        page: $transition$.params().page,
+                        order_by: $transition$.params().order_by,
+                        order_by_dir: $transition$.params().order_by_dir,
+                        search_item_types: ($transition$.params().search_item_types || '').split(',').filter((type) => type),
+                        organization_id: $transition$.params().organization_id,
+                        product_category_id: $transition$.params().product_category_id
+                    }
+                }));
+            }],
+            funds: ['FundService', (
+                FundService
+            ) => repackResponse(FundService.list())],
+            productCategories: ['ProductCategoryService', (
+                ProductCategoryService
+            ) => repackResponse(ProductCategoryService.list({
+                parent_id: 'null',
+                used: 1,
+            }))],
+            vouchers: ['AuthService', 'VoucherService', (
+                AuthService, VoucherService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                VoucherService.list()
+            ) : promiseResolve([])],
+            organizations: ['OrganizationService', 'HelperService', (
+                OrganizationService, HelperService
+            ) => HelperService.recursiveLeacher((page) => {
+                return OrganizationService.list({
+                    is_employee: 0,
+                    has_products: 1,
+                    per_page: 100,
+                    page: page,
+                    fund_type: 'budget'
+                });
+            }, 4)],
+        }
+    });
+
+    $stateProvider.state({
         name: "provider-office",
         url: "/providers/{provider_id}/offices/{office_id}",
         component: "providerOfficeComponent",
@@ -432,19 +521,20 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "provider",
-        url: "/providers/{provider_id}",
+        url: "/providers/{id}",
         component: "providerComponent",
+        params: { searchData: null },
         resolve: {
             provider: ['$transition$', 'ProvidersService', (
                 $transition$, ProvidersService
             ) => repackResponse(ProvidersService.read(
-                $transition$.params().provider_id
+                $transition$.params().id
             ))],
             products: ['$transition$', 'ProductService', (
                 $transition$, ProductService
             ) => repackPagination(ProductService.list({
                 fund_type: 'budget',
-                organization_id: $transition$.params().provider_id,
+                organization_id: $transition$.params().id,
                 per_page: 3,
                 page: 1,
             }))],
@@ -452,7 +542,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 $transition$, ProductService
             ) => repackPagination(ProductService.list({
                 fund_type: 'subsidies',
-                organization_id: $transition$.params().provider_id,
+                organization_id: $transition$.params().id,
                 per_page: 3,
                 page: 1,
             }))],
@@ -463,9 +553,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "products-apply",
         url: "/products/{id}/apply",
         component: "productApplyComponent",
-        data: {
-            id: null
-        },
         resolve: {
             vouchers: ['AuthService', 'VoucherService', (
                 AuthService, VoucherService
@@ -657,7 +744,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "fund",
         url: "/funds/{id}",
         component: "fundComponent",
-        data: { id: null },
+        data: { id: null, searchData: null },
+        params: { searchData: null },
         resolve: {
             configs: resolveConfigs(),
             fund: ['$transition$', 'FundService', (
@@ -675,7 +763,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
             ) => repackResponse(RecordTypeService.list())],
-            products: ['$transition$','loadProducts', 'ProductService', (
+            products: ['$transition$', 'loadProducts', 'ProductService', (
                 $transition$, loadProducts, ProductService
             ) => loadProducts ? repackPagination(ProductService.list({
                 fund_type: 'budget',
@@ -683,7 +771,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 per_page: 6,
                 fund_id: $transition$.params().id,
             })) : null],
-            subsidies: ['$transition$','loadSubsidies', 'ProductService', (
+            subsidies: ['$transition$', 'loadSubsidies', 'ProductService', (
                 $transition$, loadSubsidies, ProductService
             ) => loadSubsidies ? repackPagination(ProductService.list({
                 fund_type: 'subsidies',
