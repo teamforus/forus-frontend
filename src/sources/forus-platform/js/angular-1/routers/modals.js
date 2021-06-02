@@ -122,6 +122,11 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundAppendRequestRecord', {
         component: 'modalFundAppendRequestRecordComponent'
     });
+
+    ModalRouteProvider.modal('transferOrganizationOwnership', {
+        component: 'modalTransferOrganizationOwnershipComponent'
+    });
+
     ModalRouteProvider.modal('physical_card', {
         component: 'modalPhysicalCardComponent'
     });

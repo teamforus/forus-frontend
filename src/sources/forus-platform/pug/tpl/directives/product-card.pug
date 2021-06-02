@@ -15,7 +15,7 @@
         .product-action(ng-if="product.deleted"): .label.label-default.label-round.label-lg(translate="product_card.status.archived")
         .product-action(ng-if="!product.deleted"): .label.label-success.label-round.label-lg(ng-if="!product.expired" translate="product_card.status.active")
         .product-action(ng-if="!product.deleted"): .button-group
-            .button.button-defaul(ui-sref="products-show(product)")
+            .button(ui-sref="products-show(product)")
                 em.mdi.mdi-eye-outline.icon-start
                 translate(translate="product_card.buttons.view")
 

@@ -10,6 +10,7 @@ platform = new Platform('forus-webshop');
 platform.setLibs([
     "babel_polyfill",
     "angular",
+    "angular_aria",
     "angular_cookies",
     "angular_sanitize",
     "angular_translate",

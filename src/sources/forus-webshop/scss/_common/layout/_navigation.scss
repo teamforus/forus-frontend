@@ -79,6 +79,7 @@
             }
 
             .auth-in {
+                margin-left: 25px;
                 .auth-user {
                     .auth-user-avatar {
                         border-color: $color_default;
@@ -300,8 +301,7 @@
             @include cf();
     
             .button {
-                margin-right: 20px;
-                margin: 0 auto;
+                margin: 0px 10px;
                 display: flex;
             }
     
