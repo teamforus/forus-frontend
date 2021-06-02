@@ -6,8 +6,8 @@
         .card.card-financial.form
             .card-header: .flex-row
                 .flex.flex-grow: .flex-col.card-title.tooltipped 
-                    | Huidig saldo en uitgaven 
-                    tooltip(text="'Huidige saldo en uitgaven (afgerond) van de gekoppelde bankrekening per fonds De export bevat exacte bedragen.'")
+                    | Saldo en uitgaven 
+                    tooltip(text="'Saldo en uitgaven van de gekoppelde bankrekening per fonds.'")
                 .flex: button.button.button-primary.button-sm(ng-click="$ctrl.exportFunds(false)")
                     .mdi.mdi-download.icon-start
                     translate(translate="financial_dashboard_overview.buttons.export")
@@ -19,15 +19,15 @@
                             tr
                                 th(translate="financial_dashboard_overview.labels.fund_name")
                                 th.text-right(translate="financial_dashboard_overview.labels.total_budget") 
-                                th.text-right(translate="financial_dashboard_overview.labels.current_budget")
                                 th.text-right(translate="financial_dashboard_overview.labels.used_budget") 
+                                th.text-right(translate="financial_dashboard_overview.labels.current_budget")
                                 th.text-right(translate="financial_dashboard_overview.labels.transaction_costs")
 
                             tr(ng-repeat="fund in $ctrl.funds.data")
                                 td(ng-bind="fund.name")
                                 td.text-right(ng-bind="fund.budget.total | currency_format")
-                                td.text-right(ng-bind="fund.budget.left | currency_format")
                                 td.text-right(ng-bind="fund.budget.used | currency_format")
+                                td.text-right(ng-bind="fund.budget.left | currency_format")
                                 td.text-right(ng-bind="fund.budget.transaction_costs | currency_format")
 
                             tr.table-totals
@@ -41,7 +41,7 @@
             .card-header: .flex-row
                 .flex.flex-grow: .flex-col.card-title.tooltipped 
                     | Tegoeden 
-                    tooltip(text="'De tegoeden die zijn toegekend via het systeem met de huidige status (aantallen afgerond). De export bevat exacte aantallen.'")
+                    tooltip(text="'De tegoeden die zijn toegekend via het systeem met de huidige status.'")
                 .flex: button.button.button-primary.button-sm(ng-click="$ctrl.exportFunds(true)")
                     .mdi.mdi-download.icon-start
                     translate(translate="financial_dashboard_overview.buttons.export")
@@ -49,7 +49,7 @@
             .card-section
                 .card-block.card-block-table.card-block-financial: .table-wrapper: table.table
                     thead: tr
-                        th.cell-chevron(width="5%" translate="financial_dashboard_overview.labels.funds")
+                        th.cell-chevron(width="5%" translate="financial_dashboard_overview.labels.fund_name")
                         th.text-left(width="20%")
                         th.text-right(width="10%" translate="financial_dashboard_overview.labels.total")
                         th.text-right(width="15%" translate="financial_dashboard_overview.labels.active") 

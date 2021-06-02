@@ -45,11 +45,6 @@ block content
                                 options="$ctrl.funds"
                                 placeholder="Selecteer tegoed..."
                                 id="select_fund")
-                        
-                        br
-                        a(ng-show="$ctrl.showMap" ng-click="$ctrl.showAsList()" role="button").button.button-primary-outline.button-fill.button-flat.hide-sm 
-                            em.mdi.mdi-store-outline
-                            | Lijst
 
                     a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm 
                         em.mdi.mdi-store-outline
@@ -64,14 +59,14 @@ block content
 
                         .showcase-filters-block
                             .block.block-label-tabs.pull-right
-                                .label-tab.label-tab-sm(
+                                button.label-tab.label-tab-sm(
                                     ng-class="{active: !$ctrl.showMap}"
                                     ng-click="$ctrl.showAsList()" 
                                     role="tab" 
                                     aria-selected="{{ !$ctrl.showMap ? 'true' : 'false' }}")
                                     em.mdi.mdi-format-list-text.icon-start
                                     | Lijst
-                                .label-tab.label-tab-sm(
+                                button.label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.showMap}"
                                     ng-click="$ctrl.showAsMap()" 
                                     role="tab" 
@@ -82,17 +77,17 @@ block content
                     .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
                         .organization-item(ng-repeat="provider in $ctrl.providers.data")
                             .organization-pane(ng-click="$ctrl.toggleOffices($event, provider)")
-                                .organization-logo(ng-click="$ctrl.goToProvider(provider)"): img(
+                                .organization-logo(ng-click="$ctrl.goToProvider(provider)" role="img"): img(
                                     ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
                                     alt="{{ provider.name }}"
                                     ).organization-logo-img
-                                .organization-title
-                                    .organization-title-value(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.name")
-                                .organization-chevron
-                                    .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')" role = "link")
+                                a.organization-title
+                                    .organization-title-value(ng-bind="provider.name" ng-click="$ctrl.goToProvider($event, provider)")
+                                .organization-chevron(ng-click="$ctrl.toggleOffices($event, provider)")
+                                    .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')")
 
                             .organization-offices(ng-if="$ctrl.officesShown.indexOf(provider.id) != -1"): .block.block-offices
-                                a(ng-repeat="office in provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
+                                a(ng-repeat="office in provider.offices" ng-click="$ctrl.goToOffice(office)" role="button" tabindex="0" href="#").office-item
                                     .office-item-map-icon: .mdi.mdi-map-marker
                                     .office-pane
                                         .office-pane-block
