@@ -1,70 +1,72 @@
 top-navbar
-section.section.section-voucher-details: .wrapper
-    .block.block-breadcrumbs.hide-sm
-        a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active Security
 
-    .block.block-profile
-        profile-menu
+main(id="main-content")
+    section.section.section-voucher-details: .wrapper
+        .block.block-breadcrumbs.hide-sm
+            a(ui-sref="home").breadcrumb-item Home
+            .breadcrumb-item.active Security
 
-        .profile-content
-            .profile-content-header.clearfix
-                .profile-content-title
-                    div.pull-left
-                        .profile-content-title-count(ng-bind="$ctrl.sessions.length")
-                        | Sessies
-            .card(ng-repeat="session in $ctrl.sessions")
-                .card-section.card-section-padless
-                    .block.block-sessions
-                        .session-item
-                            .session-icon: .mdi(ng-class="'mdi-' + session.type_class")
-                            
-                            .session-details
-                                .session-title
-                                    span(ng-if="session.last_request.client_type == 'general'") Onbekend 
-                                    span(ng-if="session.last_request.client_type == 'sponsor'") Sponsor beheeromgeving 
-                                    span(ng-if="session.last_request.client_type == 'provider'") Aanbieders beheeromgeving 
-                                    span(ng-if="session.last_request.client_type == 'validator'") Beoordelaars beheeromgeving 
-                                    span(ng-if="session.last_request.client_type == 'webshop'") Webshop 
-                                    span(ng-if="session.last_request.client_type == 'app-me_app'") Me-app
-                                    span(ng-if="session.last_request.client_type == 'app-me_app-android'") Me-app
-                                    span(ng-if="session.last_request.client_type == 'app-me_app-ios'") Me-app
-                                    span(ng-if="session.last_request.device_string").text-primary • 
-                                    span(ng-if="session.last_request.device_string" ng-bind="session.last_request.device_string")
+        .block.block-profile
+            profile-menu
+
+            .profile-content
+                .profile-content-header.clearfix
+                    .profile-content-title
+                        div.pull-left
+                            .profile-content-title-count(ng-bind="$ctrl.sessions.length")
+                            | Sessies
+                .card(ng-repeat="session in $ctrl.sessions")
+                    .card-section.card-section-padless
+                        .block.block-sessions
+                            .session-item
+                                .session-icon: .mdi(ng-class="'mdi-' + session.type_class")
                                 
-                                .session-properties
-                                    .session-property
-                                        .session-property-label Laatste activiteit
-                                        .session-property-value
-                                            | {{ session.last_request.time_passed | duration_last_time }}  
-                                            span(ng-if="session.last_request.location").session-property-sep.text-primary • 
-                                            span(
-                                                ng-if="session.last_request.location" 
-                                                ng-bind="session.last_request.location.ip + ' • ' +  session.last_request.location.string ")
+                                .session-details
+                                    .session-title
+                                        span(ng-if="session.last_request.client_type == 'general'") Onbekend 
+                                        span(ng-if="session.last_request.client_type == 'sponsor'") Sponsor beheeromgeving 
+                                        span(ng-if="session.last_request.client_type == 'provider'") Aanbieders beheeromgeving 
+                                        span(ng-if="session.last_request.client_type == 'validator'") Beoordelaars beheeromgeving 
+                                        span(ng-if="session.last_request.client_type == 'webshop'") Webshop 
+                                        span(ng-if="session.last_request.client_type == 'app-me_app'") Me-app
+                                        span(ng-if="session.last_request.client_type == 'app-me_app-android'") Me-app
+                                        span(ng-if="session.last_request.client_type == 'app-me_app-ios'") Me-app
+                                        span(ng-if="session.last_request.device_string").text-primary • 
+                                        span(ng-if="session.last_request.device_string" ng-bind="session.last_request.device_string")
                                     
-                                    .session-property
-                                        .session-property-label Sessie gestart
-                                        .session-property-value(ng-bind="session.started_at_locale")
-                                    
-                                .session-actions.flex
-                                    a(ng-click="session.showLocations = !session.showLocations" ng-if="session.locations.length > 1").session-action
-                                        | Bekijk alle locaties
+                                    .session-properties
+                                        .session-property
+                                            .session-property-label Laatste activiteit
+                                            .session-property-value
+                                                | {{ session.last_request.time_passed | duration_last_time }}  
+                                                span(ng-if="session.last_request.location").session-property-sep.text-primary • 
+                                                span(
+                                                    ng-if="session.last_request.location" 
+                                                    ng-bind="session.last_request.location.ip + ' • ' +  session.last_request.location.string ")
+                                        
+                                        .session-property
+                                            .session-property-label Sessie gestart
+                                            .session-property-value(ng-bind="session.started_at_locale")
+                                        
+                                    .session-actions.flex
+                                        a(ng-click="session.showLocations = !session.showLocations" ng-if="session.locations.length > 1").session-action
+                                            | Bekijk alle locaties
 
-                                        em(ng-if="session.showLocations").mdi.mdi-menu-up
-                                        em(ng-if="!session.showLocations").mdi.mdi-menu-right
+                                            em(ng-if="session.showLocations").mdi.mdi-menu-up
+                                            em(ng-if="!session.showLocations").mdi.mdi-menu-right
+                                        
+                                        a(ng-click="$ctrl.terminateSession(session)").session-action
+                                            | Beëindig sessie
+                                            em.mdi.mdi-close
                                     
-                                    a(ng-click="$ctrl.terminateSession(session)").session-action
-                                        | Beëindig sessie
-                                        em.mdi.mdi-close
+                                    .session-locations(ng-if="session.locations.length > 1 && session.showLocations")
+                                        .session-location(ng-repeat="location in session.locations" ng-bind="location.ip + ' • ' + location.string")
+
+                                .session-label(ng-if="session.current"): .label.label-lg.label-primary-light Huidig
                                 
-                                .session-locations(ng-if="session.locations.length > 1 && session.showLocations")
-                                    .session-location(ng-repeat="location in session.locations" ng-bind="location.ip + ' • ' + location.string")
-
-                            .session-label(ng-if="session.current"): .label.label-lg.label-primary-light Huidig
-                            
-                            .session-label(ng-if="session.active && !session.current"): .label.label-lg.label-success Online
-            
-            section: .card
-                .card-section.text-right: .button.button-primary(ng-click="$ctrl.terminateAllSessions()") 
-                    | Beëindig alle sessies
-                    em.mdi.mdi-close.icon-end
+                                .session-label(ng-if="session.active && !session.current"): .label.label-lg.label-success Online
+                
+                section: .card
+                    .card-section.text-right: .button.button-primary(ng-click="$ctrl.terminateAllSessions()") 
+                        | Beëindig alle sessies
+                        em.mdi.mdi-close.icon-end

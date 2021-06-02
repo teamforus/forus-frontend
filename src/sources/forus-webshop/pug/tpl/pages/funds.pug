@@ -3,93 +3,94 @@ block content
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
         top-navbar
         
-        .showcase-wrapper
-            .showcase-mobile-filters(ng-class="{active: $ctrl.funds.meta.total > 0}")
-                .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.funds.meta.total")
-                .mobile-filters-title Filter op categorieën en budgetten
-                .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
+        main(id="main-content")
+            .showcase-wrapper
+                .showcase-mobile-filters(ng-class="{active: $ctrl.funds.meta.total > 0}")
+                    .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.funds.meta.total")
+                    .mobile-filters-title Filter op categorieën en budgetten
+                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            .block.block-breadcrumbs
-                a(ui-sref="home").breadcrumb-item Home
-                .breadcrumb-item.active(
-                    translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
-                    translate-default="{{'funds.header.title' | translate }}")
+                .block.block-breadcrumbs
+                    a(ui-sref="home").breadcrumb-item Home
+                    .breadcrumb-item.active(
+                        translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
+                        translate-default="{{'funds.header.title' | translate }}")
 
-            .showcase-layout
-                .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
-                    .showcase-aside-block
-                        .form-group
-                            input.form-control(
-                                ng-model="$ctrl.form.values.q"
-                                placeholder="Zoeken..." 
-                                type="search")
+                .showcase-layout
+                    .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
+                        .showcase-aside-block
+                            .form-group
+                                input.form-control(
+                                    ng-model="$ctrl.form.values.q"
+                                    placeholder="Zoeken..." 
+                                    type="search")
 
-                        .form-group
-                            label.form-label(for="select_organization") Organisatie
-                            select(
-                                ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
-                                ng-model="$ctrl.form.values.organization_id"
-                                id="select_organization").form-control
+                            .form-group
+                                label.form-label(for="select_organization") Organisatie
+                                select(
+                                    ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
+                                    ng-model="$ctrl.form.values.organization_id"
+                                    id="select_organization").form-control
+                        
+                    .showcase-content
+                        .showcase-content-header
+                            .showcase-filters-title
+                                div(ng-if="!$ctrl.showMap")
+                                    .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
+                                    span(
+                                        translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
+                                        translate-default="{{'funds.header.title' | translate }}")
+
+                            .showcase-filters-block: .block.block-label-tabs
+                                .label-tab.label-tab-sm(
+                                    ng-class="{active: $ctrl.display_type == 'list'}"
+                                    ng-click="$ctrl.showAs('list')")
+                                    em.mdi.mdi-format-list-text.icon-start
+                                    | Lijst
+                                .label-tab.label-tab-sm(
+                                    ng-class="{active: $ctrl.display_type == 'grid'}"
+                                    ng-click="$ctrl.showAs('grid')")
+                                    em.mdi.mdi-view-grid-outline.icon-start
+                                    | Foto's
+
+                        .block.block-funds(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'grid'")
+                            .fund-item(ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
+                                .fund-item-inner
+                                    .fund-image: img(
+                                        ng-src="{{ (fund.logo || fund.organization.logo).sizes.large || './assets/img/placeholders/fund-large.png' }}" alt="{{ fund.name }}")
+                                    .fund-details
+                                        .fund-name(ng-bind="fund.name")
+                                        .fund-organization(ng-bind="fund.organization.name")
+
+                        .block.block-funds-list(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'list'" id="funds_list")
+                            .fund-item(
+                                ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
+                                .fund-photo
+                                    img(ng-src="{{ (fund.logo || fund.organization.logo).sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
+                                .fund-content
+                                    .fund-details
+                                        .fund-name(ng-bind="fund.name")
+                                        .fund-organization(ng-bind="fund.organization.name")
+                                        .fund-status-label
+                                            .label.label-default(ng-if="fund.showPendingButton" translate="funds.buttons.is_pending")
+                                            .label.label-success(ng-if="fund.alreadyReceived" translate="funds.status.active")
+                                        
+                                    .fund-actions(ng-if="fund.showActivateButton")
+                                        button.button.button-primary.button-fill(
+                                            type="button"
+                                            ng-click="$ctrl.applyFund(fund)" 
+                                            translate="funds.buttons.is_applicable")
+
+                        empty-block(
+                            title= "{{ 'block_funds.labels.title' | translate }}"
+                            description="{{ 'block_funds.labels.subtitle' | translate }}"
+                            hide-link="true" 
+                            ng-if="$ctrl.funds.data.length == 0")
                     
-                .showcase-content
-                    .showcase-content-header
-                        .showcase-filters-title
-                            div(ng-if="!$ctrl.showMap")
-                                .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
-                                span(
-                                    translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
-                                    translate-default="{{'funds.header.title' | translate }}")
-
-                        .showcase-filters-block: .block.block-label-tabs
-                            .label-tab.label-tab-sm(
-                                ng-class="{active: $ctrl.display_type == 'list'}"
-                                ng-click="$ctrl.showAs('list')")
-                                em.mdi.mdi-format-list-text.icon-start
-                                | Lijst
-                            .label-tab.label-tab-sm(
-                                ng-class="{active: $ctrl.display_type == 'grid'}"
-                                ng-click="$ctrl.showAs('grid')")
-                                em.mdi.mdi-view-grid-outline.icon-start
-                                | Foto's
-
-                    .block.block-funds(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'grid'")
-                        .fund-item(ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
-                            .fund-item-inner
-                                .fund-image: img(
-                                    ng-src="{{ (fund.logo || fund.organization.logo).sizes.large || './assets/img/placeholders/fund-large.png' }}" alt="{{ fund.name }}")
-                                .fund-details
-                                    .fund-name(ng-bind="fund.name")
-                                    .fund-organization(ng-bind="fund.organization.name")
-
-                    .block.block-funds-list(ng-if="$ctrl.funds.data.length > 0 && $ctrl.display_type == 'list'" id="funds_list")
-                        .fund-item(
-                            ng-repeat="fund in $ctrl.funds.data" ui-sref="fund(fund)")
-                            .fund-photo
-                                img(ng-src="{{ (fund.logo || fund.organization.logo).sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="{{ fund.name }}")
-                            .fund-content
-                                .fund-details
-                                    .fund-name(ng-bind="fund.name")
-                                    .fund-organization(ng-bind="fund.organization.name")
-                                    .fund-status-label
-                                        .label.label-default(ng-if="fund.showPendingButton" translate="funds.buttons.is_pending")
-                                        .label.label-success(ng-if="fund.alreadyReceived" translate="funds.status.active")
-                                    
-                                .fund-actions(ng-if="fund.showActivateButton")
-                                    button.button.button-primary.button-fill(
-                                        type="button"
-                                        ng-click="$ctrl.applyFund(fund)" 
-                                        translate="funds.buttons.is_applicable")
-
-                    empty-block(
-                        title= "{{ 'block_funds.labels.title' | translate }}"
-                        description="{{ 'block_funds.labels.subtitle' | translate }}"
-                        hide-link="true" 
-                        ng-if="$ctrl.funds.data.length == 0")
-                
-                    .card(ng-if="$ctrl.funds"): .card-section(ng-show="$ctrl.funds.meta.last_page > 1"): paginator(
-                        meta="$ctrl.funds.meta" 
-                        filters="$ctrl.form.values" 
-                        count-buttons="5" 
-                        on-page-change="$ctrl.onPageChange(query)")
+                        .card(ng-if="$ctrl.funds"): .card-section(ng-show="$ctrl.funds.meta.last_page > 1"): paginator(
+                            meta="$ctrl.funds.meta" 
+                            filters="$ctrl.form.values" 
+                            count-buttons="5" 
+                            on-page-change="$ctrl.onPageChange(query)")
 
 

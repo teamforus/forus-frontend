@@ -1,8 +1,9 @@
 top-navbar
 
-section.section.section-details: .wrapper
-    .block.block-breadcrumbs
-        a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active(i18n="Privacyverklaring")
+main(id="main-content")
+    section.section.section-details: .wrapper
+        .block.block-breadcrumbs
+            a(ui-sref="home").breadcrumb-item Home
+            .breadcrumb-item.active(i18n="Privacyverklaring")
 
-    .block.block-markdown(ng-if="$ctrl.description_html" ng-bind-html="$ctrl.description_html")
+        .block.block-markdown(ng-if="$ctrl.description_html" ng-bind-html="$ctrl.description_html")

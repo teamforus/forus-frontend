@@ -1,136 +1,137 @@
 top-navbar
 
-.page.page-home
-    .block.block-steps(ng-if="$ctrl.description_html"): .wrapper
-        .block.block-breadcrumbs
-            a(ui-sref="home").breadcrumb-item Home
-            .breadcrumb-item.active Uitleg
-        .block-steps-description: .block.block-markdown(ng-bind-html="$ctrl.description_html")
+main(id="main-content")
+    .page.page-home
+        .block.block-steps(ng-if="$ctrl.description_html"): .wrapper
+            .block.block-breadcrumbs
+                a(ui-sref="home").breadcrumb-item Home
+                .breadcrumb-item.active Uitleg
+            .block-steps-description: .block.block-markdown(ng-bind-html="$ctrl.description_html")
 
-    section.section.section-steps#steps(ng-if="!$ctrl.description_html"): .wrapper
-        .block.block-breadcrumbs
-            a(ui-sref="home").breadcrumb-item Home
-            .breadcrumb-item.active Uitleg
-        
-        .section-splash
-        .section-sprite
-        .section-title(i18n="home.guide.title")
-        .steps
-            .step-item: .step-item-content
-                h4(translate="home.guide.stepone")
-                p(translate="home.guide.{{ $root.client_key }}.one" translate-default="{{'home.guide.one' | translate }}")
-            .step-item: .step-item-content
-                h4(translate="home.guide.steptwo")
-                p(translate="home.guide.{{ $root.client_key }}.two" translate-default="{{'home.guide.two' | translate }}" scroll-to="#desc")
-            .step-item: .step-item-content
-                h4(translate="home.guide.stepthree")
-                p(translate="home.guide.{{ $root.client_key }}.three" translate-default="{{'home.guide.three' | translate }}")
-            .step-item: .step-item-content
-                h4(translate="home.guide.stepfour")
-                p(translate="home.guide.{{ $root.client_key }}.four" translate-default="{{'home.guide.four' | translate }}")
-            .step-item: .step-item-content
-                h4(i18n="home.guide.stepfive")
-                p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
+        section.section.section-steps#steps(ng-if="!$ctrl.description_html"): .wrapper
+            .block.block-breadcrumbs
+                a(ui-sref="home").breadcrumb-item Home
+                .breadcrumb-item.active Uitleg
+            
+            .section-splash
+            .section-sprite
+            .section-title(i18n="home.guide.title")
+            .steps
+                .step-item: .step-item-content
+                    h4(translate="home.guide.stepone")
+                    p(translate="home.guide.{{ $root.client_key }}.one" translate-default="{{'home.guide.one' | translate }}")
+                .step-item: .step-item-content
+                    h4(translate="home.guide.steptwo")
+                    p(translate="home.guide.{{ $root.client_key }}.two" translate-default="{{'home.guide.two' | translate }}" scroll-to="#desc")
+                .step-item: .step-item-content
+                    h4(translate="home.guide.stepthree")
+                    p(translate="home.guide.{{ $root.client_key }}.three" translate-default="{{'home.guide.three' | translate }}")
+                .step-item: .step-item-content
+                    h4(translate="home.guide.stepfour")
+                    p(translate="home.guide.{{ $root.client_key }}.four" translate-default="{{'home.guide.four' | translate }}")
+                .step-item: .step-item-content
+                    h4(i18n="home.guide.stepfive")
+                    p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
 
-    section.section.section-faq(ng-if="!$ctrl.description_html"): .wrapper
-        .section-splash
-        .section-title(i18n="home.faq.title")
-        .faq(collapse)
-            mixin faq_item(title, content, title_default, content_default, active)
-                .faq-item(class=active?'active':'' collapse-item)
-                    .faq-item-header(collapse-header)
-                        span(translate=title i18n-vars="{ fund: $ctrl.funds[0].name }" translate-default=title_default)
-                        .faq-item-chevron-down.mdi.mdi-chevron-down
-                        .faq-item-chevron-up.mdi.mdi-chevron-up
-                    .faq-item-content(translate=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }" translate-default=content_default)
+        section.section.section-faq(ng-if="!$ctrl.description_html"): .wrapper
+            .section-splash
+            .section-title(i18n="home.faq.title")
+            .faq(collapse)
+                mixin faq_item(title, content, title_default, content_default, active)
+                    .faq-item(class=active?'active':'' collapse-item)
+                        .faq-item-header(collapse-header)
+                            span(translate=title i18n-vars="{ fund: $ctrl.funds[0].name }" translate-default=title_default)
+                            .faq-item-chevron-down.mdi.mdi-chevron-down
+                            .faq-item-chevron-up.mdi.mdi-chevron-up
+                        .faq-item-content(translate=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }" translate-default=content_default)
 
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_one',
-                'home.faq.{{ $root.client_key }}.one',
-                '{{ "home.faq.faq_one" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.one" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_two',
-                'home.faq.{{ $root.client_key }}.two',
-                '{{ "home.faq.faq_two" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.two" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_three',
-                'home.faq.{{ $root.client_key }}.three',
-                '{{ "home.faq.faq_three" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.three" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_four',
-                'home.faq.{{ $root.client_key }}.four',
-                '{{ "home.faq.faq_four" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.four" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_five',
-                'home.faq.{{ $root.client_key }}.five',
-                '{{ "home.faq.faq_five" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.five" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_six',
-                'home.faq.{{ $root.client_key }}.six',
-                '{{ "home.faq.faq_six" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.six" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_seven',
-                'home.faq.{{ $root.client_key }}.seven',
-                '{{ "home.faq.faq_seven" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.seven" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_eight',
-                'home.faq.{{ $root.client_key }}.eight',
-                '{{ "home.faq.faq_eight" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.eight" | translate:{ start_date: $ctrl.funds[0].start_date_locale } }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_nine',
-                'home.faq.{{ $root.client_key }}.nine',
-                '{{ "home.faq.faq_nine" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.nine" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_ten',
-                'home.faq.{{ $root.client_key }}.ten',
-                '{{ "home.faq.faq_ten" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.ten" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_eleven',
-                'home.faq.{{ $root.client_key }}.eleven',
-                '{{ "home.faq.faq_eleven" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.eleven" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_twelve',
-                'home.faq.{{ $root.client_key }}.twelve',
-                '{{ "home.faq.faq_twelve" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.twelve" | translate:{ fund: $ctrl.funds[0].name } }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_thirteen',
-                'home.faq.{{ $root.client_key }}.thirteen',
-                '{{ "home.faq.faq_thirteen" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.thirteen" | translate }}')
-
-            +faq_item(
-                'home.faq.{{ $root.client_key }}.faq_fourteen',
-                'home.faq.{{ $root.client_key }}.fourteen',
-                '{{ "home.faq.faq_fourteen" | translate:{ fund: $ctrl.funds[0].name } }}',
-                '{{ "home.faq.fourteen" | translate }}')
-
-            if (['winterswijk', 'oostgelre', 'berkelland'].indexOf(qdt_c.platform.env_data.client_key) != -1)
                 +faq_item(
-                    'home.faq.{{ $root.client_key }}.faq_fifteen',
-                    'home.faq.{{ $root.client_key }}.fifteen',
-                    '{{ "home.faq.faq_fifteen" | translate:{ fund: $ctrl.funds[0].name } }}',
-                    '{{ "home.faq.fifteen" | translate }}')    
+                    'home.faq.{{ $root.client_key }}.faq_one',
+                    'home.faq.{{ $root.client_key }}.one',
+                    '{{ "home.faq.faq_one" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.one" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_two',
+                    'home.faq.{{ $root.client_key }}.two',
+                    '{{ "home.faq.faq_two" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.two" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_three',
+                    'home.faq.{{ $root.client_key }}.three',
+                    '{{ "home.faq.faq_three" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.three" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_four',
+                    'home.faq.{{ $root.client_key }}.four',
+                    '{{ "home.faq.faq_four" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.four" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_five',
+                    'home.faq.{{ $root.client_key }}.five',
+                    '{{ "home.faq.faq_five" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.five" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_six',
+                    'home.faq.{{ $root.client_key }}.six',
+                    '{{ "home.faq.faq_six" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.six" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_seven',
+                    'home.faq.{{ $root.client_key }}.seven',
+                    '{{ "home.faq.faq_seven" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.seven" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_eight',
+                    'home.faq.{{ $root.client_key }}.eight',
+                    '{{ "home.faq.faq_eight" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.eight" | translate:{ start_date: $ctrl.funds[0].start_date_locale } }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_nine',
+                    'home.faq.{{ $root.client_key }}.nine',
+                    '{{ "home.faq.faq_nine" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.nine" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_ten',
+                    'home.faq.{{ $root.client_key }}.ten',
+                    '{{ "home.faq.faq_ten" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.ten" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_eleven',
+                    'home.faq.{{ $root.client_key }}.eleven',
+                    '{{ "home.faq.faq_eleven" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.eleven" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_twelve',
+                    'home.faq.{{ $root.client_key }}.twelve',
+                    '{{ "home.faq.faq_twelve" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.twelve" | translate:{ fund: $ctrl.funds[0].name } }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_thirteen',
+                    'home.faq.{{ $root.client_key }}.thirteen',
+                    '{{ "home.faq.faq_thirteen" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.thirteen" | translate }}')
+
+                +faq_item(
+                    'home.faq.{{ $root.client_key }}.faq_fourteen',
+                    'home.faq.{{ $root.client_key }}.fourteen',
+                    '{{ "home.faq.faq_fourteen" | translate:{ fund: $ctrl.funds[0].name } }}',
+                    '{{ "home.faq.fourteen" | translate }}')
+
+                if (['winterswijk', 'oostgelre', 'berkelland'].indexOf(qdt_c.platform.env_data.client_key) != -1)
+                    +faq_item(
+                        'home.faq.{{ $root.client_key }}.faq_fifteen',
+                        'home.faq.{{ $root.client_key }}.fifteen',
+                        '{{ "home.faq.faq_fifteen" | translate:{ fund: $ctrl.funds[0].name } }}',
+                        '{{ "home.faq.fifteen" | translate }}')    

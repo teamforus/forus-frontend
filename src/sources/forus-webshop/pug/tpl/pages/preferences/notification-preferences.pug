@@ -1,71 +1,73 @@
 top-navbar
-section.section.section-voucher-details: .wrapper
-    .block.block-breadcrumbs.hide-sm
-        a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active(translate="notification_preferences.title_preferences")
 
-    section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
-        .block.block-profile
-            profile-menu
+main(id="main-content")
+    section.section.section-voucher-details: .wrapper
+        .block.block-breadcrumbs.hide-sm
+            a(ui-sref="home").breadcrumb-item Home
+            .breadcrumb-item.active(translate="notification_preferences.title_preferences")
 
-            .profile-content
-                p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
-                
-                .card(ng-if="$ctrl.email_unsubscribed")
-                    .card-header: h1.card-title(translate="notification_preferences.title_preferences")
-                    .card-section
-                        .card-heading(translate="{{ 'notification_preferences.subscribe_desc_' + $root.appConfigs.features.communication_type }}" translate-values="{ email: $ctrl.email }")
-                        div: button(
-                            type="button" 
-                            ng-click="$ctrl.enableSubscription()" 
-                            i18n="notification_preferences.subscribe"
-                            id="enable_subscription").button.button-primary
+        section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
+            .block.block-profile
+                profile-menu
 
-                .card(ng-if="!$ctrl.email_unsubscribed")
-                    .card-header: h1.card-title(translate="notification_preferences.title_preferences")
-                    .card-section
-                        .card-heading(translate="{{ 'notification_preferences.unsubscribe_desc' }}")
-                        div: button(
-                            type="button"
-                            ng-click="$ctrl.disableSubscription()"
-                            i18n="notification_preferences.unsubscribe"
-                            id="disable_subscription").button.button-primary 
-                
-                .card(ng-if="!$ctrl.email_unsubscribed")
-                    .card-header: h1.card-title(translate="notification_preferences.title_email_preferences")
-                    .form.block.block-preferences(ng-if="!$ctrl.email_unsubscribed"): label(
-                        ng-repeat="type in $ctrl.emailPreferences" 
-                        for="option_{{ type.key }}").preference-option
-                        .preference-option-details
-                            .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
-                            .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
-                        .preference-option-input: .form-toggle
-                            input(
-                                type="checkbox" 
-                                id="option_{{ type.key }}"
-                                ng-change="$ctrl.togglePreferenceOption()" 
-                                ng-checked="type.subscribed" 
-                                ng-model="type.subscribed")
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button")
-                                em.mdi.mdi-check-bold(ng-if="type.subscribed")
-                                .icon-disabled(ng-if="!type.subscribed")
-                
-                .card
-                    .card-header: h1.card-title(translate="notification_preferences.title_push_preferences")
-                    .form.block.block-preferences: label(
-                        ng-repeat="type in $ctrl.pushPreferences" 
-                        for="option_{{ type.key }}").preference-option
-                        .preference-option-details
-                            .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
-                            .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
-                        .preference-option-input: .form-toggle
-                            input(
-                                type="checkbox" 
-                                id="option_{{ type.key }}"
-                                ng-change="$ctrl.togglePreferenceOption()" 
-                                ng-checked="type.subscribed" 
-                                ng-model="type.subscribed")
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button")
-                                em.mdi.mdi-check-bold(ng-if="type.subscribed")
-                                .icon-disabled(ng-if="!type.subscribed") 
+                .profile-content
+                    p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
+                    
+                    .card(ng-if="$ctrl.email_unsubscribed")
+                        .card-header: h1.card-title(translate="notification_preferences.title_preferences")
+                        .card-section
+                            .card-heading(translate="{{ 'notification_preferences.subscribe_desc_' + $root.appConfigs.features.communication_type }}" translate-values="{ email: $ctrl.email }")
+                            div: button(
+                                type="button" 
+                                ng-click="$ctrl.enableSubscription()" 
+                                i18n="notification_preferences.subscribe"
+                                id="enable_subscription").button.button-primary
+
+                    .card(ng-if="!$ctrl.email_unsubscribed")
+                        .card-header: h1.card-title(translate="notification_preferences.title_preferences")
+                        .card-section
+                            .card-heading(translate="{{ 'notification_preferences.unsubscribe_desc' }}")
+                            div: button(
+                                type="button"
+                                ng-click="$ctrl.disableSubscription()"
+                                i18n="notification_preferences.unsubscribe"
+                                id="disable_subscription").button.button-primary 
+                    
+                    .card(ng-if="!$ctrl.email_unsubscribed")
+                        .card-header: h1.card-title(translate="notification_preferences.title_email_preferences")
+                        .form.block.block-preferences(ng-if="!$ctrl.email_unsubscribed"): label(
+                            ng-repeat="type in $ctrl.emailPreferences" 
+                            for="option_{{ type.key }}").preference-option
+                            .preference-option-details
+                                .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
+                                .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
+                            .preference-option-input: .form-toggle
+                                input(
+                                    type="checkbox" 
+                                    id="option_{{ type.key }}"
+                                    ng-change="$ctrl.togglePreferenceOption()" 
+                                    ng-checked="type.subscribed" 
+                                    ng-model="type.subscribed")
+                                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button")
+                                    em.mdi.mdi-check-bold(ng-if="type.subscribed")
+                                    .icon-disabled(ng-if="!type.subscribed")
+                    
+                    .card
+                        .card-header: h1.card-title(translate="notification_preferences.title_push_preferences")
+                        .form.block.block-preferences: label(
+                            ng-repeat="type in $ctrl.pushPreferences" 
+                            for="option_{{ type.key }}").preference-option
+                            .preference-option-details
+                                .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
+                                .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
+                            .preference-option-input: .form-toggle
+                                input(
+                                    type="checkbox" 
+                                    id="option_{{ type.key }}"
+                                    ng-change="$ctrl.togglePreferenceOption()" 
+                                    ng-checked="type.subscribed" 
+                                    ng-model="type.subscribed")
+                                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button")
+                                    em.mdi.mdi-check-bold(ng-if="type.subscribed")
+                                    .icon-disabled(ng-if="!type.subscribed") 
                                 

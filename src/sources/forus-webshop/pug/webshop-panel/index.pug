@@ -2,6 +2,8 @@ doctype
 html(lang="nl" ng-controller="BaseController" ng-csp ng-cloak)
     include ../layout/includes/head
     body(ng-class="{ 'signup-layout': $root.viewLayout == 'signup' }" modal-scroll-braker printable-enabler)
+        skip-links
+
         page-loading-bar
         ui-view
         include ../layout/includes/footer

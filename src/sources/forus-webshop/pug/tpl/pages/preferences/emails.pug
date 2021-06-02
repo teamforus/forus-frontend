@@ -1,77 +1,79 @@
 top-navbar
-section.section.section-voucher-details: .wrapper
-    .block.block-breadcrumbs.hide-sm
-        a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active(translate="email_preferences.title_email_preferences")
 
-    section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
-        .block.block-profile
-            profile-menu
+main(id="main-content")
+    section.section.section-voucher-details: .wrapper
+        .block.block-breadcrumbs.hide-sm
+            a(ui-sref="home").breadcrumb-item Home
+            .breadcrumb-item.active(translate="email_preferences.title_email_preferences")
 
-            .profile-content
-                .profile-content-header.clearfix
-                    .profile-content-title
-                        div.pull-left
-                            h1.profile-content-header {{ 'email_preferences.title_email_preferences' | translate }}
+        section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
+            .block.block-profile
+                profile-menu
 
-                p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
-                
-                .card(ng-repeat="email in $ctrl.emails")
-                    //- .card-header: .card-title E-mail instellingen
-                    .card-section.card-section-padless
-                        .block.block-user_emails 
-                            .user_email-item
-                                .user_email-icon: em.mdi.mdi-at(ng-class="{'text-primary':email.primary}")
-                                .user_email-details  
-                                    .user_email-address(ng-bind="email.email")
-                                    
-                                    .user_email-options(ng-if="email.primary")
-                                        .user_email-option Ontvangt inlog e-mail
-                                        .user_email-option Ontvangt notificaties
-                                
-                                    .button.button-text.button-text-padless.button-text-primary(
-                                        ng-disabled="email.disabled" 
-                                        ng-if="!email.primary && email.verified" 
-                                        ng-click="$ctrl.makePrimary(email)")
-                                        em.mdi.mdi-check-circle.icon-start
-                                        | Instellen als hoofd e-mailadres 
+                .profile-content
+                    .profile-content-header.clearfix
+                        .profile-content-title
+                            div.pull-left
+                                h1.profile-content-header {{ 'email_preferences.title_email_preferences' | translate }}
 
-                                    .button.button-text.button-text-padless.button-text-primary(
-                                        ng-disabled="email.disabled" 
-                                        ng-if="!email.primary && !email.verified" 
-                                        ng-click="$ctrl.resendVerification(email)")
-                                        em.mdi.mdi-reload.icon-start
-                                        | Bevestiging e-mail opnieuw versturen
-
-                                    .text-danger(ng-in="email.error" ng-bind="email.error")
-                                .user_email-actions: .flex-row
-                                    .flex-col.flex-center.flex
-                                        label(ng-if="email.primary").label.label-success Hoofd e-mailadres
-                                        label(ng-if="!email.verified && !email.primary").label.label-default Niet bevestigd
-
-                                    .flex-col(ng-if="!email.primary")
-                                        button(
-                                            ng-disabled="email.disabled" 
-                                            ng-click="$ctrl.deleteEmail(email)").button.button-primary-outline.button-icon: em.mdi.mdi-trash-can-outline            
-
-                .card
-                    .card-section.card-section-primary(ng-if="!$ctrl.form && !$ctrl.formSuccess")
-                        .card-heading.card-heading-lg Voeg een e-mailadres toe
-                        .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button") 
-                            em.mdi.mdi-plus-circle.icon-start
-                            | E-mail toevoegen
+                    p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
                     
-                    .card-section.card-section-primary(ng-if="$ctrl.form && !$ctrl.formSuccess")
-                        .card-heading.card-heading-lg Voeg een e-mailadres toe
-                        form(ng-submit="$ctrl.form.submit()").form.row: .col.col-lg-6.form-group
-                            .form-label E-mailadres
-                            .flex-row
-                                .flex-col.flex-grow
-                                    input(type="email" placeholder="bijv. info@example.org" ng-model="$ctrl.form.values.email").form-control
-                                    .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
-                                .flex-col: button(type="submit").button.button-primary Toevoegen
-                
-                    .card-section.card-section-primary(ng-if="!$ctrl.form && $ctrl.formSuccess")
-                        .card-heading.card-heading-lg.card-heading-padless(translate="{{ 'email_preferences.email_added.title_' +  $root.appConfigs.features.communication_type }}") Bevestig e-mailadres 
-                        .card-text(translate="{{ 'email_preferences.email_added.description_' +  $root.appConfigs.features.communication_type }}")
-                        .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button") Voeg nog een e-mailadres toe
+                    .card(ng-repeat="email in $ctrl.emails")
+                        //- .card-header: .card-title E-mail instellingen
+                        .card-section.card-section-padless
+                            .block.block-user_emails 
+                                .user_email-item
+                                    .user_email-icon: em.mdi.mdi-at(ng-class="{'text-primary':email.primary}")
+                                    .user_email-details  
+                                        .user_email-address(ng-bind="email.email")
+                                        
+                                        .user_email-options(ng-if="email.primary")
+                                            .user_email-option Ontvangt inlog e-mail
+                                            .user_email-option Ontvangt notificaties
+                                    
+                                        .button.button-text.button-text-padless.button-text-primary(
+                                            ng-disabled="email.disabled" 
+                                            ng-if="!email.primary && email.verified" 
+                                            ng-click="$ctrl.makePrimary(email)")
+                                            em.mdi.mdi-check-circle.icon-start
+                                            | Instellen als hoofd e-mailadres 
+
+                                        .button.button-text.button-text-padless.button-text-primary(
+                                            ng-disabled="email.disabled" 
+                                            ng-if="!email.primary && !email.verified" 
+                                            ng-click="$ctrl.resendVerification(email)")
+                                            em.mdi.mdi-reload.icon-start
+                                            | Bevestiging e-mail opnieuw versturen
+
+                                        .text-danger(ng-in="email.error" ng-bind="email.error")
+                                    .user_email-actions: .flex-row
+                                        .flex-col.flex-center.flex
+                                            label(ng-if="email.primary").label.label-success Hoofd e-mailadres
+                                            label(ng-if="!email.verified && !email.primary").label.label-default Niet bevestigd
+
+                                        .flex-col(ng-if="!email.primary")
+                                            button(
+                                                ng-disabled="email.disabled" 
+                                                ng-click="$ctrl.deleteEmail(email)").button.button-primary-outline.button-icon: em.mdi.mdi-trash-can-outline            
+
+                    .card
+                        .card-section.card-section-primary(ng-if="!$ctrl.form && !$ctrl.formSuccess")
+                            .card-heading.card-heading-lg Voeg een e-mailadres toe
+                            .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button") 
+                                em.mdi.mdi-plus-circle.icon-start
+                                | E-mail toevoegen
+                        
+                        .card-section.card-section-primary(ng-if="$ctrl.form && !$ctrl.formSuccess")
+                            .card-heading.card-heading-lg Voeg een e-mailadres toe
+                            form(ng-submit="$ctrl.form.submit()").form.row: .col.col-lg-6.form-group
+                                .form-label E-mailadres
+                                .flex-row
+                                    .flex-col.flex-grow
+                                        input(type="email" placeholder="bijv. info@example.org" ng-model="$ctrl.form.values.email").form-control
+                                        .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
+                                    .flex-col: button(type="submit").button.button-primary Toevoegen
+                    
+                        .card-section.card-section-primary(ng-if="!$ctrl.form && $ctrl.formSuccess")
+                            .card-heading.card-heading-lg.card-heading-padless(translate="{{ 'email_preferences.email_added.title_' +  $root.appConfigs.features.communication_type }}") Bevestig e-mailadres 
+                            .card-text(translate="{{ 'email_preferences.email_added.description_' +  $root.appConfigs.features.communication_type }}")
+                            .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button") Voeg nog een e-mailadres toe

@@ -3,140 +3,141 @@ block content
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
         top-navbar(hide-on-scroll="true")
 
-        .showcase-wrapper
-            mixin search_results(total, show = "false")
-                .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
-                .showcase-subtitle(ng-if=show) Selecteer een aanbieder voor meer informatie
+        main(id="main-content")
+            .showcase-wrapper
+                mixin search_results(total, show = "false")
+                    .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
+                    .showcase-subtitle(ng-if=show) Selecteer een aanbieder voor meer informatie
 
-            .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
-                .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
-                .mobile-filters-title Zoek op categorieen en tegoeden
-                .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
+                .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
+                    .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
+                    .mobile-filters-title Zoek op categorieen en tegoeden
+                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            .block.block-breadcrumbs
-                a(ui-sref="home").breadcrumb-item Home
-                .breadcrumb-item.active Aanbieders
+                .block.block-breadcrumbs
+                    a(ui-sref="home").breadcrumb-item Home
+                    .breadcrumb-item.active Aanbieders
 
-            .showcase-layout
-                .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
-                    .showcase-aside-block
-                        +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
+                .showcase-layout
+                    .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
+                        .showcase-aside-block
+                            +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
 
-                        .form-group
-                            input.form-control(
-                                ng-model="$ctrl.form.values.q"
-                                placeholder="Zoek aanbieder" 
-                                type="search")
+                            .form-group
+                                input.form-control(
+                                    ng-model="$ctrl.form.values.q"
+                                    placeholder="Zoek aanbieder" 
+                                    type="search")
 
-                        .form-group
-                            label.form-label(for="select_provider_type") Type aanbieder
-                            select-control(
-                                autoclear="true"
-                                ng-model="$ctrl.form.values.businessType" 
-                                options="$ctrl.businessTypes"
-                                placeholder="Selecteer type..."
-                                id="select_provider_type")
+                            .form-group
+                                label.form-label(for="select_provider_type") Type aanbieder
+                                select-control(
+                                    autoclear="true"
+                                    ng-model="$ctrl.form.values.businessType" 
+                                    options="$ctrl.businessTypes"
+                                    placeholder="Selecteer type..."
+                                    id="select_provider_type")
 
-                        .form-group
-                            label.form-label(for="select_fund") Tegoeden
-                            select-control(
-                                autoclear="true"
-                                ng-model="$ctrl.form.values.fund" 
-                                options="$ctrl.funds"
-                                placeholder="Selecteer tegoed..."
-                                id="select_fund")
-                        
-                        br
-                        a(ng-show="$ctrl.showMap" ng-click="$ctrl.showAsList()" role="button").button.button-primary-outline.button-fill.button-flat.hide-sm 
+                            .form-group
+                                label.form-label(for="select_fund") Tegoeden
+                                select-control(
+                                    autoclear="true"
+                                    ng-model="$ctrl.form.values.fund" 
+                                    options="$ctrl.funds"
+                                    placeholder="Selecteer tegoed..."
+                                    id="select_fund")
+                            
+                            br
+                            a(ng-show="$ctrl.showMap" ng-click="$ctrl.showAsList()" role="button").button.button-primary-outline.button-fill.button-flat.hide-sm 
+                                em.mdi.mdi-store-outline
+                                | Lijst
+
+                        a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm 
                             em.mdi.mdi-store-outline
-                            | Lijst
+                            | Aanmelden als aanbieder
 
-                    a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm 
-                        em.mdi.mdi-store-outline
-                        | Aanmelden als aanbieder
+                    .showcase-content
+                        .showcase-content-header.showcase-content-header-compact
+                            .showcase-filters-title
+                                div(ng-if="!$ctrl.showMap").pull-left
+                                    .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
+                                    h1.showcase-filters-title Aanbieders
 
-                .showcase-content
-                    .showcase-content-header.showcase-content-header-compact
-                        .showcase-filters-title
-                            div(ng-if="!$ctrl.showMap").pull-left
-                                .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
-                                h1.showcase-filters-title Aanbieders
+                            .showcase-filters-block
+                                .block.block-label-tabs.pull-right
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: !$ctrl.showMap}"
+                                        ng-click="$ctrl.showAsList()" 
+                                        role="tab" 
+                                        aria-selected="{{ !$ctrl.showMap ? 'true' : 'false' }}")
+                                        em.mdi.mdi-format-list-text.icon-start
+                                        | Lijst
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: $ctrl.showMap}"
+                                        ng-click="$ctrl.showAsMap()" 
+                                        role="tab" 
+                                        aria-selected="{{ $ctrl.showMap ? 'true' : 'false' }}")
+                                        em.mdi.mdi-map-marker-radius.icon-start
+                                        | Kaart
 
-                        .showcase-filters-block
-                            .block.block-label-tabs.pull-right
-                                .label-tab.label-tab-sm(
-                                    ng-class="{active: !$ctrl.showMap}"
-                                    ng-click="$ctrl.showAsList()" 
-                                    role="tab" 
-                                    aria-selected="{{ !$ctrl.showMap ? 'true' : 'false' }}")
-                                    em.mdi.mdi-format-list-text.icon-start
-                                    | Lijst
-                                .label-tab.label-tab-sm(
-                                    ng-class="{active: $ctrl.showMap}"
-                                    ng-click="$ctrl.showAsMap()" 
-                                    role="tab" 
-                                    aria-selected="{{ $ctrl.showMap ? 'true' : 'false' }}")
-                                    em.mdi.mdi-map-marker-radius.icon-start
-                                    | Kaart
+                        .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
+                            .organization-item(ng-repeat="provider in $ctrl.providers.data")
+                                .organization-pane(ng-click="$ctrl.toggleOffices($event, provider)")
+                                    .organization-logo(ng-click="$ctrl.goToProvider(provider)"): img(
+                                        ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
+                                        alt="{{ provider.name }}"
+                                        ).organization-logo-img
+                                    .organization-title
+                                        .organization-title-value(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.name")
+                                    .organization-chevron
+                                        .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')" role = "link")
 
-                    .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
-                        .organization-item(ng-repeat="provider in $ctrl.providers.data")
-                            .organization-pane(ng-click="$ctrl.toggleOffices($event, provider)")
-                                .organization-logo(ng-click="$ctrl.goToProvider(provider)"): img(
-                                    ng-src="{{ provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}"
-                                    alt="{{ provider.name }}"
-                                    ).organization-logo-img
-                                .organization-title
-                                    .organization-title-value(ng-click="$ctrl.goToProvider($event, provider)" ng-bind="provider.name")
-                                .organization-chevron
-                                    .mdi(ng-class="'mdi-chevron-' + (($ctrl.officesShown.indexOf(provider.id) != -1) ? 'up' : 'right')" role = "link")
+                                .organization-offices(ng-if="$ctrl.officesShown.indexOf(provider.id) != -1"): .block.block-offices
+                                    a(ng-repeat="office in provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
+                                        .office-item-map-icon: .mdi.mdi-map-marker
+                                        .office-pane
+                                            .office-pane-block
+                                                .office-logo: img(
+                                                    ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
+                                                    alt="Vestiging {{ office.organization.name }}"
+                                                    ).office-logo-img
+                                                .office-details
+                                                    .office-title(ng-bind="office.address")
+                                                    .office-labels
+                                                        .label.label-default(ng-bind="provider.business_type.name || 'Geen data'")
 
-                            .organization-offices(ng-if="$ctrl.officesShown.indexOf(provider.id) != -1"): .block.block-offices
-                                a(ng-repeat="office in provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
-                                    .office-item-map-icon: .mdi.mdi-map-marker
-                                    .office-pane
-                                        .office-pane-block
-                                            .office-logo: img(
-                                                ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
-                                                alt="Vestiging {{ office.organization.name }}"
-                                                ).office-logo-img
-                                            .office-details
-                                                .office-title(ng-bind="office.address")
-                                                .office-labels
-                                                    .label.label-default(ng-bind="provider.business_type.name || 'Geen data'")
+                                                    div(ng-if="office.phone || provider.phone || provider.email")
+                                                        .office-info.office-info-inline(ng-if="office.phone || provider.phone")
+                                                            .mdi.mdi-phone-outline
+                                                            | {{ office.phone ? office.phone : provider.phone }}
 
-                                                div(ng-if="office.phone || provider.phone || provider.email")
-                                                    .office-info.office-info-inline(ng-if="office.phone || provider.phone")
-                                                        .mdi.mdi-phone-outline
-                                                        | {{ office.phone ? office.phone : provider.phone }}
+                                                        .office-info.office-info-inline(ng-if="provider.email")
+                                                            .mdi.mdi-email-outline
+                                                            | {{ provider.email }}
 
-                                                    .office-info.office-info-inline(ng-if="provider.email")
-                                                        .mdi.mdi-email-outline
-                                                        | {{ provider.email }}
+                            .card(ng-if="$ctrl.providers"): .card-section(ng-show="$ctrl.providers.meta.last_page > 1"): paginator(
+                                meta="$ctrl.providers.meta" 
+                                filters="$ctrl.form.values" 
+                                count-buttons="5" 
+                                on-page-change="$ctrl.onPageChange(query)")
 
-                        .card(ng-if="$ctrl.providers"): .card-section(ng-show="$ctrl.providers.meta.last_page > 1"): paginator(
+                        empty-block(
+                            title= "{{ 'block_providers.empty.title' | translate }}"
+                            description="{{ 'block_providers.empty.subtitle' | translate }}"
+                            hide-link="true" 
+                            ng-if="$ctrl.providers.data.length == 0")
+
+                        paginator(
+                            ng-if="$ctrl.showMap"
+                            ng-show="false"
                             meta="$ctrl.providers.meta" 
                             filters="$ctrl.form.values" 
-                            count-buttons="5" 
+                            count-buttons="3" 
                             on-page-change="$ctrl.onPageChange(query)")
 
-                    empty-block(
-                        title= "{{ 'block_providers.empty.title' | translate }}"
-                        description="{{ 'block_providers.empty.subtitle' | translate }}"
-                        hide-link="true" 
-                        ng-if="$ctrl.providers.data.length == 0")
-
-                    paginator(
-                        ng-if="$ctrl.showMap"
-                        ng-show="false"
-                        meta="$ctrl.providers.meta" 
-                        filters="$ctrl.form.values" 
-                        count-buttons="3" 
-                        on-page-change="$ctrl.onPageChange(query)")
-
-                    .block.block-google-map(ng-show="$ctrl.showMap")
-                        google-map(
-                            map-pointers="$ctrl.offices" 
-                            map-pointer-template="providers-office" 
-                            map-gesture-handling="'greedy'"
-                            map-options="$ctrl.mapOptions")
+                        .block.block-google-map(ng-show="$ctrl.showMap")
+                            google-map(
+                                map-pointers="$ctrl.offices" 
+                                map-pointer-template="providers-office" 
+                                map-gesture-handling="'greedy'"
+                                map-options="$ctrl.mapOptions")
