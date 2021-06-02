@@ -785,8 +785,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     // Activate fund
     $stateProvider.state({
         name: "fund-activate",
-        url: "/funds/{fund_id}/activate?digid_success&digid_error",
+        url: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_voucher",
         component: "fundActivateComponent",
+        params: {
+            backoffice_error: null,
+            backoffice_fallback: null,
+            backoffice_voucher: null,
+        },
         data: {
             fund_id: null,
             digid_success: false,

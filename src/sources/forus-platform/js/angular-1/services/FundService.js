@@ -9,44 +9,39 @@ const FundService = function(ApiRequest, ModalService) {
                 return this.listPublic(query);
             }
 
-            return ApiRequest.get(sprintf(uriPrefix + '%s/funds', organization_id), query);
+            return ApiRequest.get(uriPrefix + `${organization_id}/funds`, query);
         };
 
         this.listPublic = function(query = {}) {
-            return ApiRequest.get(sprintf('/platform/funds'), query);
+            return ApiRequest.get('/platform/funds', query);
         };
 
         this.store = function(organization_id, data) {
-            return ApiRequest.post(
-                sprintf(uriPrefix + '%s/funds', organization_id),
-                this.apiFormToResource(data)
-            );
+            return ApiRequest.post(uriPrefix + `${organization_id}/funds`, this.apiFormToResource(data));
         };
 
-        this.update = function(organization_id, fund_id, data) {
-            return ApiRequest.patch(sprintf(
-                uriPrefix + '%s/funds/%s',
-                organization_id,
-                fund_id
-            ), this.apiFormToResource(data));
+        this.update = function(organization_id, id, data) {
+            return ApiRequest.patch(uriPrefix + `${organization_id}/funds/${id}`, this.apiFormToResource(data));
         };
 
         this.updateCriteria = function(organization_id, id, criteria) {
-            return ApiRequest.patch(uriPrefix + organization_id + '/funds/' + id + '/criteria', {
-                criteria: criteria
-            });
+            return ApiRequest.patch(uriPrefix + `${organization_id}/funds/${id}/criteria`, { criteria });
+        };
+
+        this.backofficeUpdate = function(organization_id, id, data) {
+            return ApiRequest.patch(uriPrefix + `${organization_id}/funds/${id}/backoffice`, data);
+        };
+
+        this.backofficeTest = function(organization_id, id) {
+            return ApiRequest.post(uriPrefix + `${organization_id}/funds/${id}/backoffice-test`);
         };
 
         this.read = function(organization_id, fund_id, query = {}) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s',
-                organization_id,
-                fund_id
-            ), query);
+            return ApiRequest.get(uriPrefix + `${organization_id}/funds/${fund_id}`, query);
         };
 
         this.readPublic = function(fund_id, query = {}) {
-            return ApiRequest.get(sprintf('/platform/funds/%s', fund_id), query);
+            return ApiRequest.get(`/platform/funds/${fund_id}`, query);
         };
 
         this.readFinances = function(organization_id, query = {}) {

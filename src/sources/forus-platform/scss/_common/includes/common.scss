@@ -16,6 +16,15 @@ body {
     }
 }
 
+pre.code {
+    background-color: #fff;
+    border: 1px solid $border_color;
+    border-radius: $border_radius;
+    padding: 10px 15px;
+    margin: 0 0 15px;
+    font-weight: 600;
+}
+
 // angularjsand ui-router directives
 [ui-sref],
 [ng-click] {

@@ -1,0 +1,89 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Webshops  
+            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})" ng-bind="$ctrl.fund.name")
+            .breadcrumb-item.active Backoffice integratie
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header.form
+                .flex-row
+                    .flex.flex-grow: .card-title Backoffice integratie
+                    .flex: .form-group
+                        .button.button-text.button-sm.button-disabled.button-disabled-visible(ng-if="$ctrl.isDirty")
+                            | Test de nieuwe instellingen voor het opslaan
+                        .button.button-text.button-sm.button-disabled.button-disabled-visible(ng-if="!$ctrl.isConfigured && !$ctrl.isDirty")
+                            | Vul alle velden in om de integratie te testen
+                        button(
+                            type="button" 
+                            ng-click="$ctrl.testBackofficeConnection()"
+                            ng-disabled="!$ctrl.isConfigured || $ctrl.isDirty").button.button-default.button-sm
+                            .mdi.mdi-connection.icon-start
+                            | Test instellingen
+
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline
+                    label.form-label Status
+                    .button.button-text.button-narrow: label(for="backoffice_enabled").form-toggle
+                        input(type="checkbox" id="backoffice_enabled" ng-model="$ctrl.form.values.backoffice_enabled" value="1")
+                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+                .form-group.form-group-inline
+                    label.form-label API url
+                    input(ng-model="$ctrl.form.values.backoffice_url" type="text" ng-change="$ctrl.onChange()" placeholder="Bijv. https://gemeente+1.nl/api/v1/").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.backoffice_url" ng-bind="error")
+
+                .form-group.form-group-inline
+                    label.form-label API sleutel
+                    input(ng-model="$ctrl.form.values.backoffice_key" type="text" ng-change="$ctrl.onChange()" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxx").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.backoffice_key" ng-bind="error")
+
+                .form-group.form-group-inline.tooltipped
+                    label.form-label Upload .PEM bestand
+                    .form-offset
+                        pre(
+                            ng-if="$ctrl.form.values.backoffice_certificate && $ctrl.showCertificate"
+                            ng-bind="$ctrl.form.values.backoffice_certificate").code
+
+                        pre(
+                            ng-if="$ctrl.form.values.backoffice_certificate && !$ctrl.showCertificate"
+                            ng-bind="'Certificaat geselecteerd'").code
+
+                        .button-group
+                            .button.button-primary(ng-click="$ctrl.selectCertificateFile()")
+                                .mdi.mdi-upload.icon-start
+                                | Upload bestand
+
+                            .button.button-danger(
+                                ng-if="$ctrl.form.values.backoffice_certificate"
+                                ng-click="$ctrl.form.values.backoffice_certificate = ''")
+                                .mdi.mdi-delete-outline.icon-start
+                                | Verwijderen bestand
+                            
+                            .button.button-text.button-text-primary(
+                                ng-if="$ctrl.form.values.backoffice_certificate && !$ctrl.showCertificate"
+                                ng-click="$ctrl.showCertificate = !$ctrl.showCertificate")
+                                .mdi.mdi-eye-outline.icon-start
+                                | Bekijk certificaat
+
+                            .button.button-text.button-text-primary(
+                                ng-if="$ctrl.form.values.backoffice_certificate && $ctrl.showCertificate"
+                                ng-click="$ctrl.showCertificate = !$ctrl.showCertificate")
+                                .mdi.mdi-eye-off-outline.icon-start
+                                | Verberg certificaat
+
+                    .form-error(ng-repeat="error in $ctrl.form.errors.backoffice_key" ng-bind="error")
+                    tooltip(text="'Upload het benodigde certificaat voor het tot stand brengen van een “two-sided” SSL-verbinding tussen het platform en de externe API.'")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline.tooltipped
+                    label.form-label Downtime pad
+                    select(
+                        ng-model="$ctrl.form.values.backoffice_fallback"
+                        ng-options="fallbackOption.value as fallbackOption.label for fallbackOption in $ctrl.fallbackOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
+                    tooltip(text="'Stel in wat de gebruiker ziet als de externe API downtime heeft.'")
+
+            .card-section.card-section-primary: .text-center
+                button(type="button" ng-click="$ctrl.cancel()" translate="funds_edit.buttons.cancel" id="cancel").button.button-default
+                button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
