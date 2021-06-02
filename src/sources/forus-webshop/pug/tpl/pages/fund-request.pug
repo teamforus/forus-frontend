@@ -411,7 +411,7 @@ section: .wrapper
                         ng-repeat="critera in $ctrl.invalidCriteria")
                         .item-icon.item-icon-default
 
-                        span 'Uw {{ critera.record_type_name }}' is 
+                        span {{ critera.record_type_name }} is 
                         strong {{ critera.input_value }}
 
                         file-uploader(
