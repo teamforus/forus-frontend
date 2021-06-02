@@ -1,0 +1,20 @@
+.block.block-search-results(ng-class="{'block-search-results-grid' : $dir.display === 'grid'}")
+    .search-wrapper(ng-repeat="item in $dir.items" item="{{item.item_type}}")
+        product-list-item(
+            ng-if="item.item_type === 'product'"
+            product="item.resource"
+            template="product-item-list-search"
+            ui-sref="product(item)")
+
+        fund-list-item(
+            ng-if="item.item_type === 'fund'"
+            fund="item.resource"
+            vouchers="$dir.vouchers"
+            template="fund-item-list-search"
+            ui-sref="fund(item)")
+
+        provider-list-item(
+            ng-if="item.item_type === 'provider'"
+            provider="item.resource"
+            template="provider-item-list-search"
+            ui-sref="provider(item)")

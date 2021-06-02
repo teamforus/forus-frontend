@@ -1,5 +1,6 @@
 &.block-showcase {
     position: relative;
+    cursor: default;
     margin: 0 0 30px;
 
     .block-navbar {
@@ -37,16 +38,14 @@
 
         .showcase-aside {
             height: fit-content;
-            background: #fff;
-            width: 340px;
-            max-width: 340px;
-            min-width: 340px;
+            width: 320px;
+            max-width: 320px;
+            min-width: 320px;
 
             .showcase-aside-block {
                 position: relative;
                 padding: 20px;
                 width: 100%;
-                border-bottom: 1px solid $border_color;
                 background: #fff;
                 border-radius: $border_radius;
                 box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
@@ -150,7 +149,7 @@
                 }
 
                 &:last-child {
-                    border-bottom: none;
+                    margin-bottom: 0;
                 }
             }
         }
@@ -158,7 +157,7 @@
         .showcase-content {
             padding-left: 30px;
             flex-grow: 1;
-            max-width: calc(100% - 340px);
+            max-width: calc(100% - 320px);
 
             .showcase-content-header {
                 position: relative;
@@ -170,26 +169,32 @@
                 .showcase-filters-title,
                 .showcase-filters-block {
                     display: flex;
-                    flex-grow: 1;
                 }
 
                 .showcase-filters-title {
-                    font: 600 24px/28px $bf;
+                    font: 600 18px/28px $bf;
+                    letter-spacing: -.15px;
                     color: $tc;
                     margin: 0;
+                    @include ellipsis();
 
                     .showcase-filters-title-count {
                         font: 700 16px/30px $bf;
                         background: $color_primary;
                         border-radius: $border_radius / 2;
-                        float: right;
-                        min-width: 30px;
+                        float: left;
+                        min-width: 26px;
                         height: 30px;
-                        margin: 0 0 0 10px;
+                        margin: 0 10px 0 0;
                         text-align: center;
                         color: #fff;
                         text-align: center;
                         padding: 0 5px;
+
+                        &:last-child {
+                            float: right;
+                            margin: 0 0 0 10px;
+                        }
                     }
 
                     .block-label-tabs {
@@ -200,8 +205,15 @@
                 }
 
                 .showcase-filters-block {
+                    white-space: nowrap;
+                    flex-wrap: nowrap;
+                    flex-grow: 1;
                     justify-content: flex-end;
-                    margin: 0 0 15px;
+                    margin: 0 0 15px 15px;
+
+                    .block-label-tabs {
+                        height: fit-content;
+                    }
                 }
             }
         }
@@ -236,6 +248,7 @@
                 border-radius: 0;
                 border-right: 1px solid $border_color;
                 height: 100%;
+                background-color: #fff;
                 overflow-y: auto;
                 @include webkit_scrollbar();
 
@@ -247,6 +260,10 @@
                 .showcase-subtitle {
                     font: 500 14px/18px $bf;
                 }
+
+                .showcase-aside-block {
+                    box-shadow: none;
+                }
             }
 
             .showcase-content {
@@ -255,8 +272,7 @@
 
                 .showcase-content-header {
                     .showcase-filters-title {
-                        width: auto;
-                        float: right;
+                        display: none;
                     }
                 }
 
@@ -389,10 +405,13 @@
                 border-radius: 0;
                 height: 250px;
                 height: fit-content;
-                overflow: auto;
                 box-shadow: 2px 20px 20px 2px rgba($color: #000000, $alpha: .15);
                 max-height: calc(100vh - 150px);
                 display: none;
+
+                .showcase-aside-block {
+                    margin-bottom: 0;
+                }
 
                 &.show-mobile {
                     display: block;
@@ -406,7 +425,17 @@
                 .showcase-content-header {
                     flex-direction: column;
 
+                    .showcase-filters-title, 
                     .showcase-filters-block {
+                        width: 100%;
+                    }
+
+                    .showcase-filters-title {
+                        margin: 0 0 15px;
+                    }
+
+                    .showcase-filters-block {
+                        margin: 0 0 15px;
                         justify-content: flex-start;
 
                         .block-label-tabs {
@@ -416,10 +445,6 @@
                                 flex-grow: 1;
                             }
                         }
-                    }
-
-                    &.showcase-content-header-compact {
-                        flex-direction: row;
                     }
                 }
             }

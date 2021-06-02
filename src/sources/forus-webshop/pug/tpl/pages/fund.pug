@@ -2,6 +2,9 @@ top-navbar.nar-var
 
 section.section.section-fund: .wrapper
     .block.block-breadcrumbs
+        a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
+            em.mdi.mdi-chevron-left
+            | Terug
         a(ui-sref="home").breadcrumb-item Home
         a.breadcrumb-item(
             ui-sref="funds"
@@ -72,14 +75,14 @@ section.section.section-fund: .wrapper
                         .fund-criteria-item-value(ng-bind="criterion.value")
                     ul.fund-criteria-item(ng-repeat="criterion in $ctrl.criteriaList" ng-if="criterion.title")
                         li.fund-criteria-item-value(ng-bind="criterion.title")
-            
+
             .fund-actions: +fund_menu
 
     block-products(
         type="budget"
         ng-if="$ctrl.products"
         products="$ctrl.products.data"
-        filters="{fund_id: $ctrl.fund.id}")  
+        filters="{fund_id: $ctrl.fund.id}")
 
     block-products(
         type="subsidies"

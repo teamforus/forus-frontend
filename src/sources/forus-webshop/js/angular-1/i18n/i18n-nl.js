@@ -108,4 +108,5 @@ module.exports = {
     fund_criterion: require("./nl/directives/fund-criterion"),
     maps: require("./nl/directives/google-map"),
     profile_menu: require("./nl/directives/profile-menu"),
+    top_navbar_search: require('./nl/directives/top-navbar-search'),
 };

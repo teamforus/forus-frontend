@@ -17,6 +17,7 @@ nav.block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visi
                 button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
                     div(translate="topnavbar.buttons.logout")
+
             .auth-out(ng-if="!$root.auth_user" id="login_mobile")                
                 button.button.button-mobile(ng-click="openAuthPopup()" role="button" aria-label="login").show-sm
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
@@ -66,13 +67,21 @@ nav.block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visi
                     target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
                     ng-bind="'topnavbar.items.explanation' | translate")
 
-    .block.block-subnav.hide-sm
+    .block.block-subnav
         .subnav-inner.wrapper   
-            a(ui-sref="home").navbar-logo
-                img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo" alt="{{$root.appConfigs.features.implementation_name}} alternatief logo").second-logo
-                img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" alt="{{$root.appConfigs.features.implementation_name}}")
-                
-            .block              
+            a(ui-sref="home").navbar-logo.hide-sm
+                img(
+                    ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" 
+                    ng-if="$root.appConfigs.flags.secondLogo" 
+                    alt="{{$root.appConfigs.features.implementation_name}} alternatief logo").second-logo
+
+                img(
+                    ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" 
+                    alt="{{$root.appConfigs.features.implementation_name}}")
+
+            top-navbar-search
+
+            .block.flex.hide-sm
                 .block.block-auth
                     button.button.button-default(ng-if="!$root.auth_user" ng-click="openAuthPopup()" role="button" aria-label="login").hide-sm
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
@@ -144,7 +153,7 @@ nav.block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visi
                                         em.mdi.mdi-at 
                                         translate(translate="email_preferences.title_preferences")
 
-                                    a.auth-user-menu-separator.show-sm
+                                    .auth-user-menu-separator.show-sm
                                     
                                     a.auth-user-menu-item.show-sm(
                                         ui-sref="funds" 

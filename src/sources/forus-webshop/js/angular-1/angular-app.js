@@ -49,6 +49,7 @@ app.component('identityEmailsComponent', require('./components/IdentityEmailsCom
 app.component('notificationsComponent', require('./components/NotificationsComponent'));
 app.component('explanationComponent', require('./components/ExplanationComponent'));
 app.component('errorPageComponent', require('./components/ErrorPageComponent'));
+app.component('searchResultComponent', require('./components/SearchResultComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
@@ -94,10 +95,12 @@ app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
 app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequestService'));
 app.service('HelperService', require('./services/HelperService'));
+app.service('SearchService', require('./services/SearchService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
+app.directive('topNavbarSearch', require('./directives/TopNavbarSearchDirective'));
 app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
@@ -124,6 +127,7 @@ app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('fileUploader', require('./directives/controls/FileUploaderDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('productsList', require('./directives/ProductsListDirective'));
+app.directive('searchItemsList', require('./directives/SearchItemsListDirective'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 
@@ -139,6 +143,10 @@ app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrake
 // Map pointers
 app.directive('mapPointerProvidersOffice', require('./directives/map-pointers/MapPointerProvidersOfficeDirective'));
 app.directive('mapPointerProvidersOfficeView', require('./directives/map-pointers/MapPointerProvidersOfficeViewDirective'));
+
+app.directive('fundListItem', require('./directives/lists/FundItemDirective'));
+app.directive('productListItem', require('./directives/lists/ProductItemDirective'));
+app.directive('providerListItem', require('./directives/lists/ProviderItemDirective'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
