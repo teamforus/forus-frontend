@@ -2,77 +2,78 @@ block content
     .header-splash: .splash.splash-c
     top-navbar
 
-    .block.block-provider
-        .provider-breadcrumbs
-            .wrapper: .block.block-breadcrumbs
-                a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
-                    em.mdi.mdi-chevron-left
-                    | Terug
-                a(ui-sref="providers").breadcrumb-item Aanbieders
-                .breadcrumb-item.active(ng-bind="$ctrl.provider.name")
-        
-        .provider-map: .block.block-google-map: google-map(
-            ng-if="$ctrl.mapOptions"
-            map-pointers="$ctrl.provider.offices" 
-            map-pointer-template="providers-office-view"
-            map-options="$ctrl.mapOptions"
-            map-gesture-handling="'none'")
-
-        .provider-content
-            .block.block-pane
-                .pane-head Aanbieder informatie
-                .pane-section: .provider-details
-                    .provider-description
-                        img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}" alt="{{ $ctrl.provider.name }}").provider-logo
-                        .provider-title(ng-bind="$ctrl.provider.name")
-
-                .pane-section.pane-section-compact-vertical
-                    .block.block-data-list
-                        .data-list-row(ng-if="$ctrl.office.address")
-                            .data-list-key Adres:
-                            .data-list-value(ng-bind="$ctrl.office.address")
-                        
-                        .data-list-row(ng-if="$ctrl.provider.email")
-                            .data-list-key E-mailadres:
-                            .data-list-value(ng-bind="$ctrl.provider.email")
-                        
-                        .data-list-row(ng-if="$ctrl.provider.phone")
-                            .data-list-key Telefoonnummer:
-                            .data-list-value(ng-bind="$ctrl.provider.phone")
-                        
-                        .data-list-row(ng-if="$ctrl.provider")
-                            .data-list-key Type aanbieder:
-                            .data-list-value
-                                .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen aanbieder type' }}
+    main(id="main-content")
+        .block.block-provider
+            .provider-breadcrumbs
+                .wrapper: .block.block-breadcrumbs
+                    a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
+                        em.mdi.mdi-chevron-left
+                        | Terug
+                    a(ui-sref="providers").breadcrumb-item Aanbieders
+                    .breadcrumb-item.active(ng-bind="$ctrl.provider.name")
             
-            .block.block-pane.last-child: .pane-head
-                .flex-grow Vestigingen
-                .pane-head-count(ng-bind="$ctrl.provider.offices.length")
-            
-            .block.block-organizations
-                .organization-item
-                    .organization-offices: .block.block-offices
-                        a(ng-repeat="office in $ctrl.provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
-                            .office-item-map-icon: .mdi.mdi-map-marker
-                            .office-pane
-                                .office-pane-block
-                                    .office-logo: img(
-                                        ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
-                                        alt="Vestiging {{ office.organization.name }}"
-                                        ).office-logo-img
-                                    .office-details
-                                        .office-title(ng-bind="office.address")
-                                        .office-labels
-                                            .label.label-default(ng-bind="$ctrl.provider.business_type.name || 'Geen aanbieder type'")
-                                        
-                                        div(ng-if="office.phone || provider.phone || provider.email")
-                                            .office-info.office-info-inline(ng-if="office.phone || provider.phone")
-                                                .mdi.mdi-phone-outline
-                                                | {{ office.phone ? office.phone : provider.phone }}
+            .provider-map: .block.block-google-map: google-map(
+                ng-if="$ctrl.mapOptions"
+                map-pointers="$ctrl.provider.offices" 
+                map-pointer-template="providers-office-view"
+                map-options="$ctrl.mapOptions"
+                map-gesture-handling="'none'")
+
+            .provider-content
+                .block.block-pane
+                    .pane-head Aanbieder informatie
+                    .pane-section: .provider-details
+                        .provider-description
+                            img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}" alt="{{ $ctrl.provider.name }}").provider-logo
+                            .provider-title(ng-bind="$ctrl.provider.name")
+
+                    .pane-section.pane-section-compact-vertical
+                        .block.block-data-list
+                            .data-list-row(ng-if="$ctrl.office.address")
+                                .data-list-key Adres:
+                                .data-list-value(ng-bind="$ctrl.office.address")
+                            
+                            .data-list-row(ng-if="$ctrl.provider.email")
+                                .data-list-key E-mailadres:
+                                .data-list-value(ng-bind="$ctrl.provider.email")
+                            
+                            .data-list-row(ng-if="$ctrl.provider.phone")
+                                .data-list-key Telefoonnummer:
+                                .data-list-value(ng-bind="$ctrl.provider.phone")
+                            
+                            .data-list-row(ng-if="$ctrl.provider")
+                                .data-list-key Type aanbieder:
+                                .data-list-value
+                                    .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen aanbieder type' }}
+                
+                .block.block-pane.last-child: .pane-head
+                    .flex-grow Vestigingen
+                    .pane-head-count(ng-bind="$ctrl.provider.offices.length")
+                
+                .block.block-organizations
+                    .organization-item
+                        .organization-offices: .block.block-offices
+                            a(ng-repeat="office in $ctrl.provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
+                                .office-item-map-icon: .mdi.mdi-map-marker
+                                .office-pane
+                                    .office-pane-block
+                                        .office-logo: img(
+                                            ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
+                                            alt="Vestiging {{ office.organization.name }}"
+                                            ).office-logo-img
+                                        .office-details
+                                            .office-title(ng-bind="office.address")
+                                            .office-labels
+                                                .label.label-default(ng-bind="$ctrl.provider.business_type.name || 'Geen aanbieder type'")
                                             
-                                            .office-info.office-info-inline(ng-if="provider.email")
-                                                .mdi.mdi-email-outline
-                                                | {{ provider.email }}
+                                            div(ng-if="office.phone || provider.phone || provider.email")
+                                                .office-info.office-info-inline(ng-if="office.phone || provider.phone")
+                                                    .mdi.mdi-phone-outline
+                                                    | {{ office.phone ? office.phone : provider.phone }}
+                                                
+                                                .office-info.office-info-inline(ng-if="provider.email")
+                                                    .mdi.mdi-email-outline
+                                                    | {{ provider.email }}
 
-            block-products(ng-if="$ctrl.products && $ctrl.products.data.length > 0" display="grid" type="budget" products="$ctrl.products.data" filters="{organization_id: $ctrl.provider.id}")
-            block-products(ng-if="$ctrl.subsidies && $ctrl.subsidies.data.length > 0" display="grid" type="subsidies" products="$ctrl.subsidies.data" filters="{organization_id: $ctrl.provider.id}")
+                block-products(ng-if="$ctrl.products && $ctrl.products.data.length > 0" display="grid" type="budget" products="$ctrl.products.data" filters="{organization_id: $ctrl.provider.id}")
+                block-products(ng-if="$ctrl.subsidies && $ctrl.subsidies.data.length > 0" display="grid" type="subsidies" products="$ctrl.subsidies.data" filters="{organization_id: $ctrl.provider.id}")
