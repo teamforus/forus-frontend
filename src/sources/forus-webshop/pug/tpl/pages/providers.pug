@@ -5,8 +5,7 @@ block content
 
         .showcase-wrapper
             mixin search_results(total, show = "false")
-                .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
-                .showcase-subtitle(ng-if=show) Selecteer een aanbieder voor meer informatie
+                .showcase-title: span(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
 
             .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                 .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
@@ -20,8 +19,8 @@ block content
             .showcase-layout
                 .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
                     .showcase-aside-block
-                        +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
-
+                        .showcase-subtitle(ng-if="$ctrl.showMap") Selecteer een aanbieder voor meer informatie
+                        
                         .form-group
                             input.form-control(
                                 ng-model="$ctrl.form.values.q"
@@ -45,6 +44,8 @@ block content
                                 options="$ctrl.funds"
                                 placeholder="Selecteer tegoed..."
                                 id="select_fund")
+
+                        +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
 
                     a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm 
                         em.mdi.mdi-store-outline
