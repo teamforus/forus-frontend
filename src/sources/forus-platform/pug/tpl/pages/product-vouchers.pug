@@ -148,10 +148,10 @@
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
                                 td(ng-if="!$ctrl.fundClosed")
                                     strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
-                                td(ng-if="!$ctrl.fundClosed && voucher.has_transactions"): .td-boolean
+                                td(ng-if="!$ctrl.fundClosed && voucher.in_use"): .td-boolean
                                     em.mdi.mdi-check-circle
                                     string(translate="product_vouchers.labels.yes").text-md.text-muted-dark
-                                td(ng-if="!$ctrl.fundClosed && !voucher.has_transactions"): .td-boolean
+                                td(ng-if="!$ctrl.fundClosed && !voucher.in_use"): .td-boolean
                                     em.mdi.mdi-close
                                     string(translate="product_vouchers.labels.no").text-md.text-muted-dark
                                 td
