@@ -3,103 +3,104 @@ block content
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
         top-navbar(hide-on-scroll="true")
 
-        .showcase-wrapper
-            .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
-                .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
-                .mobile-filters-title Filter op categorieën en tegoeden
-                .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
+        main(id="main-content")
+            .showcase-wrapper
+                .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
+                    .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
+                    .mobile-filters-title Filter op categorieën en tegoeden
+                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
 
-            .block.block-breadcrumbs
-                a(ui-sref="home").breadcrumb-item Home
-                .breadcrumb-item.active Aanbod
+                .block.block-breadcrumbs
+                    a(ui-sref="home").breadcrumb-item Home
+                    .breadcrumb-item.active Aanbod
 
-            .showcase-layout
-                .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
-                    .showcase-aside-block
-                        .form-group
-                            input.form-control(
-                                ng-model="$ctrl.form.values.q"
-                                placeholder="Zoek aanbod" 
-                                type="search"
-                                aria-label="search"
-                                id="products_search")
+                .showcase-layout
+                    .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
+                        .showcase-aside-block
+                            .form-group
+                                input.form-control(
+                                    ng-model="$ctrl.form.values.q"
+                                    placeholder="Zoek aanbod" 
+                                    type="search"
+                                    aria-label="search"
+                                    id="products_search")
 
-                        .form-group
-                            label.form-label(for="select_provider") Aanbieders
-                            select(
-                                ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
-                                ng-model="$ctrl.form.values.organization_id"
-                                name="provider"
-                                id="select_provider").form-control
+                            .form-group
+                                label.form-label(for="select_provider") Aanbieders
+                                select(
+                                    ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
+                                    ng-model="$ctrl.form.values.organization_id"
+                                    name="provider"
+                                    id="select_provider").form-control
 
-                        .form-group
-                            label.form-label(for="select_category") Categorie
-                            select(
-                                ng-options="category.id as category.name for category in $ctrl.productCategories" 
-                                ng-model="$ctrl.form.values.product_category_id"
-                                name="category"
-                                id="select_category").form-control
+                            .form-group
+                                label.form-label(for="select_category") Categorie
+                                select(
+                                    ng-options="category.id as category.name for category in $ctrl.productCategories" 
+                                    ng-model="$ctrl.form.values.product_category_id"
+                                    name="category"
+                                    id="select_category").form-control
 
-                        .form-group
-                            label.form-label(for="select_fund") Tegoeden
-                            select-control(
-                                autoclear="true"
-                                ng-model="$ctrl.form.values.fund" 
-                                options="$ctrl.funds"
-                                placeholder="Selecteer tegoed..."
-                                name="fund"
-                                id="select_fund")
+                            .form-group
+                                label.form-label(for="select_fund") Tegoeden
+                                select-control(
+                                    autoclear="true"
+                                    ng-model="$ctrl.form.values.fund" 
+                                    options="$ctrl.funds"
+                                    placeholder="Selecteer tegoed..."
+                                    name="fund"
+                                    id="select_fund")
 
-                .showcase-content
-                    .showcase-content-header
-                        h1.showcase-filters-title
-                            span Aanbod
-                            .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
+                    .showcase-content
+                        .showcase-content-header
+                            h1.showcase-filters-title
+                                span Aanbod
+                                .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
 
-                        .showcase-filters-block: .block.block-label-tabs
-                            .label-tab-set
-                                .label-tab.label-tab-sm.label-tab-primary-light(
-                                    ng-class="{active: $ctrl.show_order_dropdown}" 
-                                    ng-click="$ctrl.toggleOrderDropdown($event)"
-                                    role="button")
-                                    em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.show_order_dropdown ? 'up' : 'down')")
-                                    | Sorteer
-                                    .label-tab-menu(ng-show="$ctrl.show_order_dropdown" click-outside="$ctrl.hideOrderDropdown($event)")
-                                        .label-tab-menu-item(
-                                            ng-repeat="sortByOption in $ctrl.sortByOptions track by $index" 
-                                            ng-class="{active: $ctrl.sort_by.label === sortByOption.label}"
-                                            ng-click="$ctrl.sortBy($event, sortByOption)")
-                                            translate(translate="{{ sortByOption.label }}")
-                                            em.mdi.mdi-check(ng-if="$ctrl.sort_by.label === sortByOption.label")
+                            .showcase-filters-block: .block.block-label-tabs
+                                .label-tab-set
+                                    .label-tab.label-tab-sm.label-tab-primary-light(
+                                        ng-class="{active: $ctrl.show_order_dropdown}" 
+                                        ng-click="$ctrl.toggleOrderDropdown($event)"
+                                        role="button")
+                                        em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.show_order_dropdown ? 'up' : 'down')")
+                                        | Sorteer
+                                        .label-tab-menu(ng-show="$ctrl.show_order_dropdown" click-outside="$ctrl.hideOrderDropdown($event)")
+                                            .label-tab-menu-item(
+                                                ng-repeat="sortByOption in $ctrl.sortByOptions track by $index" 
+                                                ng-class="{active: $ctrl.sort_by.label === sortByOption.label}"
+                                                ng-click="$ctrl.sortBy($event, sortByOption)")
+                                                translate(translate="{{ sortByOption.label }}")
+                                                em.mdi.mdi-check(ng-if="$ctrl.sort_by.label === sortByOption.label")
 
-                                .label-tab.label-tab-sm.label-tab-disabled(translate="{{ $ctrl.sort_by.label }}")
+                                    .label-tab.label-tab-sm.label-tab-disabled(translate="{{ $ctrl.sort_by.label }}")
 
-                            .label-tab-set
-                                .label-tab.label-tab-sm(
-                                    ng-class="{active: $ctrl.display_type == 'list'}"
-                                    ng-click="$ctrl.showAs('list')"
-                                    role="button" 
-                                    aria-selected="{{ $ctrl.display_type == 'list' ? 'true' : 'false' }}")
-                                    em.mdi.mdi-format-list-text.icon-start
-                                    | Lijst
-                                .label-tab.label-tab-sm(
-                                    ng-class="{active: $ctrl.display_type == 'grid'}"
-                                    ng-click="$ctrl.showAs('grid')"
-                                    role="button"
-                                    aria-selected="{{ $ctrl.display_type == 'grid' ? 'true' : 'false' }}")
-                                    em.mdi.mdi-view-grid-outline.icon-start
-                                    | Foto's
+                                .label-tab-set
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: $ctrl.display_type == 'list'}"
+                                        ng-click="$ctrl.showAs('list')"
+                                        role="button" 
+                                        aria-selected="{{ $ctrl.display_type == 'list' ? 'true' : 'false' }}")
+                                        em.mdi.mdi-format-list-text.icon-start
+                                        | Lijst
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: $ctrl.display_type == 'grid'}"
+                                        ng-click="$ctrl.showAs('grid')"
+                                        role="button"
+                                        aria-selected="{{ $ctrl.display_type == 'grid' ? 'true' : 'false' }}")
+                                        em.mdi.mdi-view-grid-outline.icon-start
+                                        | Foto's
 
-                    products-list(display="$ctrl.display_type" type="$ctrl.fund_type" products="$ctrl.products.data")
+                        products-list(display="$ctrl.display_type" type="$ctrl.fund_type" products="$ctrl.products.data")
 
-                    empty-block(
-                        title= "{{ 'block_products.labels.title' | translate }}"
-                        description="{{ 'block_products.labels.subtitle' | translate }}"
-                        hide-link="true" 
-                        ng-if="$ctrl.products.data.length == 0")
+                        empty-block(
+                            title= "{{ 'block_products.labels.title' | translate }}"
+                            description="{{ 'block_products.labels.subtitle' | translate }}"
+                            hide-link="true" 
+                            ng-if="$ctrl.products.data.length == 0")
 
-                    .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(
-                        meta="$ctrl.products.meta" 
-                        filters="$ctrl.form.values" 
-                        count-buttons="5" 
-                        on-page-change="$ctrl.onPageChange(query)")
+                        .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(
+                            meta="$ctrl.products.meta" 
+                            filters="$ctrl.form.values" 
+                            count-buttons="5" 
+                            on-page-change="$ctrl.onPageChange(query)")

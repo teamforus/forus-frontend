@@ -1,9 +1,11 @@
 top-navbar
-section.section.section-product: .wrapper
-        
-    .block.block-sign_up: .block-wrapper
-        .sign_up-pane
-            .sign_up-pane-header.text-danger(ng-bind="$ctrl.title")
-            .sign_up-pane-body.text-center
-                p.sign_up-pane-text(ng-bind="$ctrl.message")
-                p.sign_up-pane-text: a(ui-sref="home").sign_up-pane-link Ga terug naar de startpagina
+
+main(id="main-content")
+    section.section.section-product: .wrapper
+            
+        .block.block-sign_up: .block-wrapper
+            .sign_up-pane
+                .sign_up-pane-header.text-danger(ng-bind="$ctrl.title")
+                .sign_up-pane-body.text-center
+                    p.sign_up-pane-text(ng-bind="$ctrl.message")
+                    p.sign_up-pane-text: a(ui-sref="home").sign_up-pane-link Ga terug naar de startpagina
