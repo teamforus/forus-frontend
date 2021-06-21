@@ -214,6 +214,8 @@ section: .wrapper
                         ui-control-step(
                             ng-if="invalidCriteria.control_type == 'ui_control_step'"
                             ng-model="invalidCriteria.input_value"
+                            name="{{invalidCriteria.record_type_key}}"
+                            role="spinbutton"
                             data-min="0"
                             data-max="32"
                             data-id="criterion_{{ invalidCriteria.id }}")
