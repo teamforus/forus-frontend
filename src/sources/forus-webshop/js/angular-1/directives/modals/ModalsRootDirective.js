@@ -5,14 +5,6 @@ let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
 
     $scope.modals = ModalService.getModals();
 
-    angular.element('body').on('keydown.modal', function(e) {
-        if (e.keyCode === 27) {
-            $scope.modals.forEach(modal => {
-                modal.close();
-            });
-        }
-    });
-
     $scope.$watch('modals', (modals) => {
         update(modals.filter((modal => !modal.ready)));
     }, true);

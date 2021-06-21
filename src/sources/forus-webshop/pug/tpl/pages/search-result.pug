@@ -28,24 +28,27 @@ block content
                                     span(ng-bind="searchItemType.label")
 
                         .form-group
-                            label.form-label Categorie
+                            label.form-label(for="category_id") Categorie
                             select(
                                 ng-options="category.id as category.name for category in $ctrl.productCategories" 
-                                ng-model="$ctrl.filters.product_category_id").form-control
+                                ng-model="$ctrl.filters.product_category_id"
+                                id="category_id").form-control
 
                         .form-group
-                            label.form-label Tegoeden
+                            label.form-label(for="fund_id") Tegoeden
                             select-control(
                                 autoclear="true"
                                 ng-model="$ctrl.filters.fund" 
                                 options="$ctrl.funds"
-                                placeholder="Selecteer tegoeden...")
+                                placeholder="Selecteer tegoeden..."
+                                id="fund_id")
 
                         .form-group
-                            label.form-label Aanbieders
+                            label.form-label(for="organizatie_id") Aanbieders
                             select(
                                 ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
-                                ng-model="$ctrl.filters.organization_id").form-control
+                                ng-model="$ctrl.filters.organization_id"
+                                id="organizatie_id").form-control
 
                 .showcase-content
                     .showcase-content-header
