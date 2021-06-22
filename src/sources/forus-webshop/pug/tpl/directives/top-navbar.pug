@@ -67,7 +67,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
                     ng-bind="'topnavbar.items.explanation' | translate")
 
-            .navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user")
+            .navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user" role="button" tabindex="0")
                 em.mdi.mdi-logout
                 a.navbar-item(
                     translate="topnavbar.buttons.logout" 
@@ -128,7 +128,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                                         img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
                                         span(translate="topnavbar.buttons.activate_{{ $root.client_key }}" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
 
-                                    a.auth-user-menu-item(
+                                    .auth-user-menu-item(
                                         ng-click="openPinCodePopup()" 
                                         id="open_pincode_popup"
                                         role="link")
