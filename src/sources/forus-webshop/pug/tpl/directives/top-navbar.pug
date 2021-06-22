@@ -68,9 +68,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     ng-bind="'topnavbar.items.explanation' | translate")
 
             .navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user" role="button" tabindex="0")
-                //button.auth-user-logout(ng-click="$root.signOut($event, true)")
-                    em.mdi.mdi-logout
-                    span(translate="topnavbar.buttons.logout")
                 em.mdi.mdi-logout
                 a.navbar-item(
                     translate="topnavbar.buttons.logout" 
