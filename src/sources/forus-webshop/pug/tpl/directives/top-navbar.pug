@@ -104,8 +104,6 @@ nav.block.block-navbar(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visi
                                     span(translate="topnavbar.buttons.logout")
 
                             .auth-user-avatar(ng-click="$ctrl.openUserMenu($event)")
-                                div
-                                include ../../../resources/_webshop-common/assets/img/identity-avatar.svg
                             button.auth-user-caret(ng-click="$ctrl.openUserMenu($event)" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}")
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 

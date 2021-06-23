@@ -81,6 +81,15 @@
                         border-color: $color_default;
                         border-radius: 4px;
                         background: $btn-start-bg;
+    
+                        &:after {
+                            content: '';
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 4px;
+                            background: #305dfb url(../img/identity-avatar.svg) 2px 2px no-repeat;
+                            display: inline-block;
+                        }
 
                         svg {
                             height: 40px;
