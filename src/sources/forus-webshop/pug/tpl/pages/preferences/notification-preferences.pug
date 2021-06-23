@@ -39,7 +39,7 @@ section.section.section-voucher-details: .wrapper
                         .preference-option-details
                             .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
                             .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
-                        .preference-option-input: .form-toggle
+                        .preference-option-input(role="checkbox" aria-checked="{{ type.subscribed }}" tabindex="0"): .form-toggle
                             input(
                                 type="checkbox" 
                                 id="option_{{ type.key }}"
@@ -58,7 +58,7 @@ section.section.section-voucher-details: .wrapper
                         .preference-option-details
                             .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
                             .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
-                        .preference-option-input: .form-toggle
+                        .preference-option-input(role="checkbox" aria-checked="{{ type.subscribed }}" tabindex="0"): .form-toggle
                             input(
                                 type="checkbox" 
                                 id="option_{{ type.key }}"
