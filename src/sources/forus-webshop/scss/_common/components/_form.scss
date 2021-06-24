@@ -51,7 +51,7 @@ $formPadding: 14px 15px;
         &:focus {
             outline: none;
             background-color: #ffffff;
-            border: 1px solid desaturate($color: darken($color: $border_color, $amount: 25%), $amount: 85%);
+            border: 1px solid desaturate($color: darken($color: $border_color, $amount: 75%), $amount: 85%);
         }
 
         &.form-control-fancy {
