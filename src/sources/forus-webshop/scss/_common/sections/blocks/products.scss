@@ -1,6 +1,7 @@
 .block {
     &.block-products {
-        margin: 20px -15px 30px;
+        margin: 0 -15px 30px;
+        padding: 0;
         flex-wrap: wrap;
         font-size: 0;
 
@@ -59,13 +60,13 @@
                 font: 700 18px/26px $bf;
                 margin: 0 0 15px;
                 transition: .4s;
-            }
 
-            .truncated {
-                flex: 1;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                &.product-name-ellipsis {
+                    flex: 1;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
 
             .product-price {
@@ -104,6 +105,10 @@
                 }
             }
         }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     @media screen and (max-width: 1700px) {
@@ -131,7 +136,6 @@
     @media screen and (max-width: 1000px) {
         &.block-products {
             margin: 0 -10px 15px;
-            padding: 0;
 
             .section-title {
                 text-align: center;
@@ -225,8 +229,6 @@
 
     @media screen and (max-width: 700px) {
         &.block-products {
-            padding: 0;
-
             .product-item {
                 width: 50%;
                 max-width: none;

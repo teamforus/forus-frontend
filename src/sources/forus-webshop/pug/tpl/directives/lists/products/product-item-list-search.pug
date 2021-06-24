@@ -1,0 +1,19 @@
+a.search-item.search-item-product
+    .search-media: img(
+        ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
+        alt="{{ $dir.product.name }}")
+
+    .search-content
+        .search-details
+            .search-title(ng-bind="$dir.product.name")
+            .search-subtitle(ng-bind="$dir.product.organization.name")
+
+        .search-actions
+            //- Subsidies
+            .search-price
+                span(ng-if="$dir.product.price_type === 'regular' && $dir.lowestPrice === 0") Gratis
+                span(ng-if="$dir.product.price_type !== 'regular'" ng-bind="$dir.product.price_locale")
+
+                span(
+                    ng-if="$dir.product.price_type === 'regular' && $dir.lowestPrice !== 0"
+                    ng-bind="$dir.lowestPrice | currency_format")

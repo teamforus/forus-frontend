@@ -297,6 +297,11 @@
                     padding-left: 30px;
                     margin: 0 0 20px;
 
+                    .block-file-uploader {
+                        padding: 10px 0 0;
+                        margin-left: -30px;
+                    }
+
                     &:before {
                         content: "";
                         display: inline-block;

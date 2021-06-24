@@ -60,6 +60,7 @@
             .subnav-inner {
                 display: flex;
                 justify-content: space-between;
+                flex-wrap: wrap-reverse;
                 align-items: center;
     
                 .navbar-logo {
@@ -71,11 +72,6 @@
                         flex-shrink: 0;
                     }
                 }
-    
-                .block {
-                    display: flex;
-                    align-self: center;
-                }
             }
 
             .auth-in {
@@ -83,12 +79,12 @@
                 .auth-user {
                     .auth-user-avatar {
                         border-color: $color_default;
-                        border-radius: 4px;
+                        border-radius: $border_radius / 2;
                         background: $btn-start-bg;
 
                         svg {
-                            height: 40px;
-                            width: 40px;
+                            height: 50px;
+                            width: 50px;
                             
                             path {
                                 fill: #fff;
@@ -111,7 +107,6 @@
                 color: #646f79;
                 cursor: pointer;
                 border: 1px solid transparent;
-                -webkit-transition: color .4s, background .4s, box-shadow .4s, border .4s;
                 transition: color .4s, background .4s, box-shadow .4s, border .4s;
                 border-radius: 6px;
                 display: inline-block;
@@ -121,6 +116,7 @@
     
         .navbar-logo {
             justify-self: flex-start;
+            margin-right: 30px;
     
             .second-logo {
                 margin-right: 10px;
@@ -147,7 +143,20 @@
                 display: inline-block;
                 position: relative;
                 padding-right: 50px;
-    
+                
+                &_sign-out {
+                    position: relative;
+                    padding-right: 0;
+                    float: right;
+
+                    em {
+                        margin-right: 5px;
+                        &:before {
+                            color: $tc-nav;
+                        }
+                    }
+                }
+
                 &:after {
                     content: ' ';
                     position: absolute;
@@ -261,7 +270,13 @@
                         display: block;
                     }
                 }
-    
+
+                &_first-to-last {
+                    &:after {
+                        display: none;
+                    }
+                }
+
                 &:last-of-type {
                     &:after {
                         display: none;
@@ -301,13 +316,13 @@
             @include cf();
     
             .button {
-                margin: 0px 10px;
+                margin: 0px 0px 0px 10px;
                 display: flex;
             }
     
             .auth-code {
                 float: right;
-                margin-right: 50px;
+                margin-right: 30px;
 
                 .button {
                     background-color: $btn-start-bg;
@@ -389,8 +404,8 @@
                     }
     
                     .auth-user-avatar {
-                        width: 40px;
-                        height: 40px;
+                        width: 50px;
+                        height: 50px;
                         right: 0;
                         grid-row: 1;
                         grid-column: 3 / 3;
@@ -421,7 +436,7 @@
                         background: #ffffff;
                         box-shadow: 2px 0 15px rgba(#000, .1);
                         width: 240px;
-                        right: -5px;
+                        right: 1px;
                         position: absolute;
                         top: 38px;
                         border: 1px solid #f3f4f5;
@@ -443,7 +458,16 @@
                             cursor: pointer;
                             border: none;
                             background: none;
-    
+                            width: 100%;
+                            text-align: left;
+
+                            &_no-hover {
+                                &:hover {
+                                    background: #ffffff !important;
+                                    cursor: default;
+                                }
+                            }
+
                             img {
                                 display: block;
                                 float: left;
@@ -541,6 +565,42 @@
                         .auth-user-type {
                             font: 400 11px/20px $bf;
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1300px) {   
+        &.block-navbar {
+            .block-subnav {
+                .subnav-inner {
+                    .navbar-search {
+                        width: 480px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1200px) {   
+        &.block-navbar {
+            .block-subnav {
+                .subnav-inner {
+                    .navbar-search {
+                        width: 380px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1100px) {   
+        &.block-navbar {
+            .block-subnav {
+                .subnav-inner {
+                    .navbar-search {
+                        width: 280px;
                     }
                 }
             }
@@ -664,6 +724,24 @@
     
                 &.navbar-list-show {
                     display: block;
+                }
+            }
+
+            .block-subnav {
+                .subnav-inner {
+                    .navbar-search {
+                        width: 100%;
+                        margin-bottom: 10px;
+
+                        input {
+                            padding: 14px 45px 14px 15px;
+                        }
+
+                        img {
+                            left: auto;
+                            right: 15px;
+                        }
+                    }
                 }
             }
         }

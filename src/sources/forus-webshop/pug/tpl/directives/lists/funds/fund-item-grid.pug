@@ -1,0 +1,9 @@
+a.fund-item
+    .fund-item-inner
+        .fund-image: img(
+            ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
+            alt="{{ $dir.title }}")
+
+        .fund-details
+            .fund-name(ng-bind="$dir.fund.name")
+            .fund-organization(ng-bind="$dir.fund.organization.name")

@@ -43,13 +43,17 @@
             ng-if="$ctrl.shownFundsType == 'active' && $ctrl.funds.length > 0" 
             ng-repeat="fund in $ctrl.funds" 
             provider-fund="fund" 
-            organization="$ctrl.organization")
+            organization="$ctrl.organization"
+            on-removed="$ctrl.onPageChange($ctrl.filters.values)")
 
         fund-card-provider(
             ng-if="$ctrl.shownFundsType == 'pending_rejected' && $ctrl.pendingRejectedFunds.length > 0"
             ng-repeat="fund in $ctrl.pendingRejectedFunds"
             provider-fund="fund"
-            organization="$ctrl.organization")
+            provider-funds="$ctrl.pendingRejectedFunds"
+            show-empty-block="$ctrl.showEmptyBlock"
+            organization="$ctrl.organization"
+            on-removed="$ctrl.onPageChange($ctrl.filters.values)")
 
         fund-card-invitation-provider( 
             ng-if="$ctrl.shownFundsType == 'invitations' && $ctrl.fundAvailableInvitations.length > 0" 

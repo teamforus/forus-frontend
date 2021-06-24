@@ -712,6 +712,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    $stateProvider.state({
+        name: "fund-backoffice-edit",
+        url: "/organizations/{organization_id}/funds/{id}/backoffice",
+        component: "fundBackofficeEdit",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('funds-edit', 'manage_funds'),
+            fund: ['permission', '$transition$', 'FundService', (
+                permission, $transition$, FundService
+            ) => repackResponse(FundService.read(
+                $transition$.params().organization_id,
+                $transition$.params().id
+            ))],
+        }
+    });
+
     if (!appConfigs.hide_voucher_generators) {
         /**
          * Vouchers

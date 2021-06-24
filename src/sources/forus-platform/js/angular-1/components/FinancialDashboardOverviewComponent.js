@@ -7,7 +7,7 @@ let FinancialDashboardOverviewComponent = function(
     const $ctrl = this;
 
     $ctrl.divide = (value, from, _default = 0) => {
-        return from ? value / from : _default;
+        return parseFloat(from) ? value / from : _default;
     };
 
     $ctrl.getPercentage = (value, from) => {
