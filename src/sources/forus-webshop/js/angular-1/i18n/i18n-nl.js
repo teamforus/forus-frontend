@@ -9,6 +9,7 @@ module.exports = {
         'me-app': 'Me-app',
         portfolio: 'Portfolio',
         kindpakket: 'Portofolio - Kindpakket',
+        product: 'Aanbod {{product_name}}',
         products: 'Aanbod',
         providers: 'Aanbieders',
         "products-show": 'Aanbieding',
