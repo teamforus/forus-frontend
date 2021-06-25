@@ -51,7 +51,6 @@ module.exports = {
     funds: require("./en/pages/funds"),
     home: require("./en/pages/home"),
     meapp_index: require("./en/pages/me-index"),
-    product_apply: require("./en/pages/product-apply"),
     product: require("./en/pages/product"),
     records_validations: require("./en/pages/record-validations"),
     records_create: require("./en/pages/records-create"),
@@ -59,6 +58,7 @@ module.exports = {
     records: require("./en/pages/records"),
     voucher: require("./en/pages/voucher"),
     vouchers: require("./en/pages/vouchers"),
+    reservations: require("./nl/pages/reservations"),
     notification_preferences: require("./en/pages/notification-preferences"),
     error_page: require("./en/pages/error-page"),
 

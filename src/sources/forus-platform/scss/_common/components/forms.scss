@@ -46,6 +46,14 @@
         $colorPrimary: $color_primary;
         $borderRadius: 4px;
         margin-right: 10px;
+        font: 700 12px/20px $bf;
+        color: #262626;
+
+        .mdi {
+            line-height: 20px;
+            font-size: 18px;
+            color: #262626;
+        }
 
         &>input[type=radio],
         &>input[type=checkbox] {

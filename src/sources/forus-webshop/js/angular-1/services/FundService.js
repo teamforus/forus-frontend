@@ -1,8 +1,9 @@
-let FundService = function(
+const FundService = function(
     $q,
-    ApiRequest
+    ApiRequest,
+    ModalService
 ) {
-    let uriPrefix = '/platform/organizations/';
+    const uriPrefix = '/platform/organizations/';
 
     return new (function() {
         this.list = function(organization_id, values = {}) {
@@ -249,11 +250,25 @@ let FundService = function(
         this.redeem = function(code) {
             return ApiRequest.post('/platform/funds/redeem', { code });
         };
+
+        this.showTakenByPartnerModal = () => {
+            ModalService.open('modalNotification', {
+                type: 'info',
+                title: 'Dit tegoed is al geactiveerd',
+                closeBtnText: 'Bevestig',
+                description: [
+                    "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
+                    "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
+                    "van de persoon die deze als eerste heeft geactiveerd."
+                ].join(''),
+            });
+        };
     });
 };
 
 module.exports = [
     '$q',
     'ApiRequest',
+    'ModalService',
     FundService
 ];

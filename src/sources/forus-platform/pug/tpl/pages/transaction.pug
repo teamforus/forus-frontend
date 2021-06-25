@@ -49,9 +49,10 @@
                                 .hover-actions-item View payment details
 
         .card
-            .card-header: .card-title {{ "financial_dashboard_transaction.labels.details" | translate }}
-            .card-section
-                .card-block.card-block-keyvalue
+            .card-header: .card-title(translate="financial_dashboard_transaction.labels.details")
+
+            .card-section: .flex
+                .flex: .card-block.card-block-keyvalue
                     .keyvalue-item
                         .keyvalue-key {{ "financial_dashboard_transaction.labels.id" | translate }}
                         .keyvalue-value {{ $ctrl.transaction.id }}
@@ -67,4 +68,14 @@
                     .keyvalue-item
                         .keyvalue-key {{ "financial_dashboard_transaction.labels.date" | translate }}
                         .keyvalue-value {{ $ctrl.transaction.created_at_locale }}
-                    
+                    .keyvalue-item
+                        .keyvalue-key Status
+                        .keyvalue-value
+                            | {{ {pending: 'In afwachting', success: 'Success', canceled: 'Canceled'}[$ctrl.transaction.state] }}
+                            div(ng-if="$ctrl.transaction.transaction_in > 0 && $ctrl.transaction.state == 'pending'").text-sm.text-muted-dark
+                                em.mdi.mdi-clock-outline 
+                                | {{ $ctrl.transaction.transaction_in }} dagen
+                
+                .flex.flex-column.flex-end(ng-if="$ctrl.transaction.cancelable && $ctrl.transaction.reservation")
+                    button(ng-click="$ctrl.cancelTransaction($ctrl.transaction.reservation)").button.button-default.button-sm
+                        strong.nowrap Betaling annuleren

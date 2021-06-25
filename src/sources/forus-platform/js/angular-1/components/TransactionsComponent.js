@@ -1,4 +1,4 @@
-let TransactionsComponent = function(
+const TransactionsComponent = function(
     $state,
     $timeout,
     appConfigs,
@@ -7,9 +7,8 @@ let TransactionsComponent = function(
     TransactionService,
     OrganizationService
 ) {
-    let $ctrl = this;
-
-    let org = OrganizationService.active();
+    const $ctrl = this;
+    const org = OrganizationService.active();
 
     $ctrl.empty = null;
 

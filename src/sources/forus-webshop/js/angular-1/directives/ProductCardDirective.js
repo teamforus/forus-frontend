@@ -1,7 +1,5 @@
-let ProductCardDirective = function(
-    $scope,
-) {
-    $scope.productCard = $scope.product;
+const ProductCardDirective = function($scope) {
+    $scope.$dir = { product: $scope.product };
 };
 
 module.exports = () => {

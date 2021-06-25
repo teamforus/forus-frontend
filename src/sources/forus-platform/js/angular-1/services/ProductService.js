@@ -66,7 +66,7 @@ let ProductService = function(ApiRequest) {
         };
 
         this.apiResourceToForm = function(apiResource) {
-            let values = {
+            return {
                 name: apiResource.name,
                 description: apiResource.description,
                 description_html: apiResource.description_html,
@@ -83,9 +83,10 @@ let ProductService = function(ApiRequest) {
                 unlimited_stock: apiResource.unlimited_stock,
                 sold_amount: apiResource.total_amount - apiResource.stock_amount,
                 product_category_id: apiResource.product_category_id,
-            };
 
-            return values;
+                reservation_enabled: apiResource.reservation_enabled,
+                reservation_policy: apiResource.reservation_policy,
+            };
         };
     });
 };

@@ -5,14 +5,15 @@
 
         .product-card {
             background-color: #fff;
-            border-radius: 15px;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 25px rgba(#000, .2);
+            border-radius: $border_radius;
+            margin-bottom: 30px;
+            box-shadow: $base_shadow;
             height: 150px;
             cursor: default;
             @include cf();
             position: relative;
             display: block;
+            overflow: hidden;
 
             .product-photo {
                 width: 200px;

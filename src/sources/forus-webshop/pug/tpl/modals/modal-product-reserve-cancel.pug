@@ -1,0 +1,34 @@
+.modal.modal-product-reserve.modal-animated(
+    role="dialog" 
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    aria-labelledby="productApplyDialogTitle" 
+    aria-describedby="productApplyDialogSubtitle")
+
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window: .modal-content
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+
+        .modal-section(ng-if="$ctrl.reservation.state === 'accepted'")
+            h2.title.text-center Neem contact op met {{ $ctrl.reservation.product.organization.name }}.
+
+            .description
+                p.text-center
+                    | Deze reservering is al door de aanbieder geaccepteerd. 
+                    | Wil je deze reservering annuleren? Neem dan binnen veertien dagen na reservering contact op met de aanbieder.
+                p.text-center
+                    strong Neem contact op met de {{ $ctrl.reservation.product.organization.name }}!
+                    br
+
+            .button-group.flex-center
+                button.button.button-dark(ng-click="$ctrl.close()") Sluiten
+
+        .modal-section(ng-if="$ctrl.reservation.state === 'pending'")
+            h2.title.text-center Are you sure you want to cancel your reservation?
+            .description
+                p.text-center 
+                    | You will be able to reserve the item again while it is still in stock.
+                    br
+
+            .button-group.flex-center
+                button.button.button-primary(ng-click="$ctrl.onConfirm()") Confirm
+                button.button.button-dark(ng-click="$ctrl.close()") Cancel

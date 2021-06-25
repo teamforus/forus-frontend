@@ -6,7 +6,7 @@ section.section.section-voucher-details: .wrapper
 
     section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
         .block.block-profile
-            profile-menu
+            .profile-aside: profile-menu
 
             .profile-content
                 p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error

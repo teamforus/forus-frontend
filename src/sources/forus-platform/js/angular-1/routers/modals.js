@@ -47,6 +47,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalVouchersUploadComponent'
     });
 
+    ModalRouteProvider.modal('reservationCreate', {
+        component: 'modalReservationCreateComponent'
+    });
+
     ModalRouteProvider.modal('fundRequestRecordClarify', {
         component: 'modalFundRequestRecordClarifyComponent'
     });

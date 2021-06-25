@@ -434,9 +434,7 @@ const ProviderSignUpComponent = function(
     };
 
     let getAvailableFunds = (organization, query) => {
-        ProviderFundService.listAvailableFunds(
-            organization.id, query
-        ).then(res => {
+        ProviderFundService.listAvailableFunds(organization.id, query).then(res => {
             let fundsAvailable = $ctrl.fundsAvailable = {
                 meta: res.data.meta,
                 data: res.data.data

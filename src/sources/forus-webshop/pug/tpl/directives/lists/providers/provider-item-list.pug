@@ -14,7 +14,7 @@
             .mdi(ng-class="'mdi-chevron-' + ($dir.provider.showOffices ? 'up' : 'right')" role = "link")
 
     .organization-offices(ng-if="$dir.provider.showOffices"): .block.block-offices
-        a(ng-repeat="office in $dir.provider.offices" ui-sref="provider-office(office.uiSrefParams)").office-item
+        a(ng-repeat="office in $dir.provider.offices" ui-sref="provider-office(office)").office-item
             .office-item-map-icon: .mdi.mdi-map-marker
             .office-pane
                 .office-pane-block

@@ -23,6 +23,7 @@
                 .card-title(ng-if="!$ctrl.product" i18n="product_edit.header.title_add")
                 .card-title(ng-if="$ctrl.product" i18n="product_edit.header.title_edit")
 
+            //- Product media
             .card-section.card-section-primary
                 .row 
                     .col.col-xs-12
@@ -36,6 +37,7 @@
                                     select-photo="$ctrl.selectPhoto(file)")
                                 .form-error(ng-repeat="error in $ctrl.mediaErrors" ng-bind="error")
 
+            //- Product name/description
             .card-section.card-section-primary
                 .row: .col.col-lg-9
                     .form-group.form-group-inline
@@ -51,6 +53,7 @@
                         tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
+            //- Product price
             .card-section.card-section-primary
                 .row: .col.col.col-lg-9
                     .form-group.form-group-inline
@@ -116,7 +119,10 @@
 
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.total")
-                        .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock"): .form-value.text-muted(translate="product_edit.labels.stock_unlimited")
+
+                        .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock")
+                            .form-value.text-muted(translate="product_edit.labels.stock_unlimited")
+
                         .form-offset(ng-if="!$ctrl.product || ($ctrl.product && !$ctrl.product.unlimited_stock)"): .row
                             .col.col-lg-7(ng-if="!$ctrl.form.values.unlimited_stock"): input(
                                 ng-model="$ctrl.form.values.total_amount"
@@ -131,7 +137,7 @@
                                 input(type="checkbox" id="unlimited_stock" ng-model="$ctrl.form.values.unlimited_stock" ng-disabled="!$ctrl.isEditable")
                                 label(for="unlimited_stock").checkbox-label
                                     .checkbox-box: em.mdi.mdi-check
-                                    | {{ "product_edit.labels.stock_unlimited" | translate }}
+                                    translate(translate="product_edit.labels.stock_unlimited")
                         .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
 
                     .form-group.form-group-inline(ng-if="$ctrl.product && !$ctrl.product.unlimited_stock")
@@ -140,6 +146,7 @@
                         tooltip(text="'tooltip.product.limit'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
 
+            //- Product type
             .card-section.card-section-primary
                 .row: .col.col-lg-9
                     .form-group.form-group-inline.tooltipped
@@ -163,13 +170,47 @@
                             tooltip(text="'De uiterlijke datum tot waneer uw aanbieding loopt. Aanbieding wordt na deze datum verwijderd uit de webshop en kan niet meer worden opgehaald.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
 
-            .card-section.card-section-primary
-                .row: product-categories-control(
+            //- Product reservations
+            .card-section.card-section-primary(ng-if="$ctrl.allowsReservations")
+                //- Enable product reservations
+                .row: .col.col-lg-9
+                    .form-group.form-group-inline.tooltipped
+                        label.form-label Product reservations
+                        .form-offset
+                            .checkbox
+                                input(
+                                    type="checkbox" 
+                                    id="reservation_enabled" 
+                                    ng-model="$ctrl.form.values.reservation_enabled" 
+                                    ng-disabled="!$ctrl.isEditable")
+
+                                label(for="reservation_enabled").checkbox-label
+                                    .checkbox-box: em.mdi.mdi-check
+                                    | Allow product reservations
+
+                            .form-error(ng-repeat="error in $ctrl.form.errors.reservation_enabled" ng-bind="error")
+
+                        tooltip(text="'Lorem ipsum!'")
+
+                //- Auto accept product reservations
+                .row: .col.col-lg-9(ng-if="$ctrl.form.values.reservation_enabled")
+                    .form-group.form-group-inline.tooltipped
+                        label(for="reservation_policy").form-label Review policy
+                        select(
+                            ng-model="$ctrl.form.values.reservation_policy" 
+                            ng-options="policy.value as policy.label for policy in $ctrl.reservationPolicies").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_policy" ng-bind="error")
+                        tooltip(text="'Lorem ipsum!'")
+
+            //- Product category
+            .card-section.card-section-primary: .row
+                product-categories-control(
                     disabled="{{!$ctrl.isEditable}}"
                     ng-model="$ctrl.form.values.product_category_id"
                     product-type="($ctrl.product || $ctrl.sourceProduct).product_category.service ? 'service' : 'product'"
                     errors="$ctrl.form.errors.product_category_id")
 
+            //- Actions
             .card-section.card-section-primary: .text-center
                 button(type="button" ng-click="$ctrl.cancel()" translate="product_edit.buttons.cancel" id="cancel_create_product").button.button-default
                 button(ng-if="$ctrl.isEditable" type="submit" translate="product_edit.buttons.confirm").button.button-primary

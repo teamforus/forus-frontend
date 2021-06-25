@@ -9,13 +9,25 @@ const ProductsEditComponent = function(
     MediaService,
     ModalService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
+
     let mediaFile = false;
     let alreadyConfirmed = false;
 
-    $ctrl.media;
+    $ctrl.media = null;
     $ctrl.mediaErrors = [];
     $ctrl.nonExpiring = false;
+
+    $ctrl.reservationPolicies = [{
+        value: 'global',
+        label: 'Use global settings'
+    }, {
+        value: 'review',
+        label: 'Review all reservations'
+    }, {
+        value: 'accept',
+        label: 'Auto accept'
+    }];
 
     $ctrl.goToFundProvider = (provider) => {
         $state.go('fund-provider', {
@@ -42,6 +54,8 @@ const ProductsEditComponent = function(
         const values = $ctrl.product || $ctrl.sourceProduct ? ProductService.apiResourceToForm(
             $ctrl.product ? $ctrl.product : $ctrl.sourceProduct
         ) : {
+            reservation_enabled: true,
+            reservation_policy: 'global',
             product_category_id: null,
             price_type: 'regular',
         };
@@ -210,8 +224,12 @@ const ProductsEditComponent = function(
     };
 
     $ctrl.$onInit = function() {
+        const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
+
         $ctrl.nonExpiring = !$ctrl.product || ($ctrl.product && !$ctrl.product.expire_at);
         $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
+        $ctrl.allowsReservations = reservations_budget_enabled || reservations_subsidy_enabled;
+
         $ctrl.buildForm();
         $ctrl.isEditable = !$ctrl.product || !$ctrl.product.sponsor_organization_id || (
             $ctrl.product.sponsor_organization_id === $ctrl.organization.id

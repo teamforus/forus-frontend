@@ -1241,6 +1241,33 @@ module.exports = {
         }
     },
 
+    // RESERVATION = reservations.pug
+    reservations: {
+        header: {
+            title: "Reserveringen",
+        },
+        filters: {
+            fund: "Fonds",
+            product: "Aanbod",
+            status: "Status",
+            search: "Zoeken",
+            from: "Vanaf",
+            to: "Tot en met",
+            state: "Status",
+        },
+        labels: {
+            number: "Number",
+            product: "Aanbod",
+            price: "Bedrag",
+            reserved_at: "Aangemaakt op",
+            description: "BeschrijvinG",
+            customer: "Gegevens",
+            fund: "Fonds",
+            status: "Status",
+            actions: "Opties",
+        },
+    },
+
     // VALIDATION REQUEST - validation-request.pug
     validation_request: {
         buttons: {

@@ -112,8 +112,11 @@
     @import 'sections/blocks/block-app_links.scss';
     @import 'sections/blocks/block-navbar-search';
     @import 'sections/blocks/block-search-results';
+
+    @import 'sections/blocks/block-reservations.scss';
 }
 
 .modal {
     @import 'modals/modal-physical-cards.scss';
+    @import 'modals/modal-product-reserve.scss';
 }

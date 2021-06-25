@@ -1,0 +1,141 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card
+            .card-header: .flex
+                //- .card-header-drown
+                .flex.flex-grow.card-title
+                    translate(translate="reservations.header.title")
+                    span(ng-bind="$ctrl.reservations.meta.total").span-count
+        
+
+                .flex.block.block-inline-filters
+                    .button.button-primary.button-sm(ng-click="$ctrl.makeReservation()")
+                        em.mdi.mdi-plus-circle.icon-start
+                        | Aanmaken
+
+                    //- .button.button-primary.button-sm(ng-click="$ctrl.uploadReservations()")
+                        em.mdi.mdi-upload.icon-start
+                        | Upload CSV
+
+                    .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
+                        em.mdi.mdi-close.icon-start
+                        span(i18n="Wis filters")
+
+                    .form(ng-if="!$ctrl.filters.show"): .form-group: input(
+                        ng-model="$ctrl.filters.values.q" 
+                        placeholder="{{ 'reservations.filters.search' | i18n }}").form-control
+                    
+                    .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
+                        .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
+                            .arrow-box.bg-dim: .arrow
+                            .form
+                                .form-group
+                                    form-label-toggle(label="{{ 'reservations.filters.search' | i18n }}" is-active)
+                                    input(
+                                        ng-model="$ctrl.filters.values.q" 
+                                        placeholder="{{ 'reservations.filters.search' | i18n }}").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'reservations.filters.fund' | i18n }}")
+                                    select(
+                                        ng-options="fund.fund.id as fund.fund.name for fund in $ctrl.funds" 
+                                        ng-model="$ctrl.filters.values.fund_id").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'reservations.filters.product' | i18n }}")
+                                    select(
+                                        ng-options="product.id as product.name for product in $ctrl.products" 
+                                        ng-model="$ctrl.filters.values.product_id").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'reservations.filters.from' | i18n }}")
+                                    datepicker(
+                                        date-format="yyyy-MM-dd" 
+                                        datepicker-mobile=""
+                                        date-week-start-day="1").form-control
+                                        input(ng-model="$ctrl.filters.values.from" type="text" placeholder="jjjj-MM-dd").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'reservations.filters.to' | i18n }}")
+                                    datepicker(
+                                        date-format="yyyy-MM-dd" 
+                                        datepicker-mobile="" 
+                                        date-week-start-day="1").form-control
+                                        input(ng-model="$ctrl.filters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
+                                
+                                .form-group
+                                    form-label-toggle(label="{{ 'reservations.filters.state' | i18n }}")
+                                    select(
+                                        ng-options="state.key as state.name for state in $ctrl.states" 
+                                        ng-model="$ctrl.filters.values.state").form-control
+
+                        .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
+
+            .card-section.card-section-padless(ng-if="$ctrl.reservations.meta.total > 0")
+                .table-wrapper: table.table
+                    tr
+                        th(translate='reservations.labels.number')
+                        th(translate='reservations.labels.product')
+                        th(translate='reservations.labels.price')
+                        th(translate='reservations.labels.reserved_at')
+                        th(translate='reservations.labels.customer')
+                        th(translate='reservations.labels.fund')
+                        th(translate='reservations.labels.status')
+                        th.text-right(translate='reservations.labels.actions')
+
+                    tr(ng-repeat="reservation in $ctrl.reservations.data")
+                        td: .text-strong.text-primary(ng-bind="'#' + reservation.code")
+                        td
+                            .text-strong(ng-bind="reservation.product.name" ng-class="{'text-strike' : reservation.product.deleted}")
+                            .text-strong.text-small.text-muted-dark(ng-bind="reservation.price_locale")
+                        td.text-primary: .text-strong(ng-bind="reservation.amount | currency_format")
+
+                        td(ng-bind="reservation.created_at_locale")
+
+                        td
+                            div(ng-if="reservation.identity_physical_card")
+                                .text-strong.text-primary(ng-bind="reservation.identity_physical_card")
+                                .text-strong.text-small.text-muted-dark(ng-bind="reservation.identity_email")
+
+                            div(ng-if="!reservation.identity_physical_card")
+                                .text-strong.text-primary(ng-bind="reservation.identity_email")
+                        
+                        td(ng-bind="reservation.fund.name")
+                        td(ng-bind="!reservation.expired ? reservation.state : 'expired'")
+                        td: .flex-group.flex.flex-end
+                            button.button.button-sm.button-primary-light.button-icon(
+                                ng-if="reservation.state === 'pending' && !reservation.expired && !reservation.product.deleted" 
+                                ng-click="$ctrl.acceptReservation(reservation)")
+                                em.mdi.mdi-check
+
+                            button.button.button-sm.button-danger.button-icon(
+                                ng-if="reservation.state === 'pending'" 
+                                ng-click="$ctrl.rejectReservation(reservation)")
+                                em.mdi.mdi-close
+
+                            button.button.button-sm.button-default.button-icon(
+                                ng-if='reservation.voucher_transaction && ($ctrl.organization | hasPerm:["view_finances"])'
+                                ui-sref="transaction({organization_id: $ctrl.organization.id, address: reservation.voucher_transaction.address})")
+                                em.mdi.mdi-eye-outline
+
+            .card-section(ng-if="$ctrl.reservations.meta.total == 0")
+                .card-subtitle.text-center Geen reserveringen.
+
+            .card-section.form(ng-if="$ctrl.organization.identity_address == $root.auth_user.address"): .flex.flex.flex-end
+                label
+                    .form-toggle.flex
+                        input(
+                            type="checkbox" 
+                            id="accepted_by_default"
+                            ng-change="$ctrl.toggleAcceptByDefault($ctrl.acceptedBydefault)" 
+                            ng-model="$ctrl.acceptedBydefault")
+
+                        .form-toggle-inner
+                            em.mdi.mdi-information-outline.flex
+                            | &nbsp;Reserveringen automatisch accepteren &nbsp;
+                            .toggle-input: .toggle-input-dot(role="button")
+                
+
+            .card-section(ng-if="$ctrl.reservations" ng-show="$ctrl.reservations.meta.last_page > 1")
+                paginator(meta="$ctrl.reservations.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")

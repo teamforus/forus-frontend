@@ -1,8 +1,5 @@
-let ProfileMenuDirective = function(
-    $scope,
-    appConfigs
-) {
-    $scope.appConfigs = appConfigs;
+const ProfileMenuDirective = function($scope, appConfigs) {
+    $scope.$dir = { appConfigs };
 };
 
 module.exports = () => {
@@ -15,6 +12,6 @@ module.exports = () => {
             'appConfigs',
             ProfileMenuDirective
         ],
-        templateUrl: 'assets/tpl/directives/profile-menu.html' 
+        templateUrl: 'assets/tpl/directives/profile-menu.html'
     };
 };

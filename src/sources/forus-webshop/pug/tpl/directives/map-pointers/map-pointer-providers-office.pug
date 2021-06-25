@@ -17,6 +17,6 @@
                 strong {{ 'maps.labels.email' | i18n }}: 
                 span(ng-bind="office.email ? office.email : office.organization.email")
         
-        a(ui-sref="provider-office(officeStateParams)").map-card-button
+        a(ui-sref="provider-office(office)").map-card-button
             | Bekijk details
             em.mdi.mdi-arrow-right

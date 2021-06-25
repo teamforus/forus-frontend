@@ -8,11 +8,6 @@ let MapPointerProvidersOfficeDirective = function($scope) {
     } else {
         $scope.imageUrl = 'assets/img/placeholders/office-thumbnail.png';
     }
-
-    $scope.officeStateParams = {
-        provider_id: $scope.office.organization_id,
-        office_id: $scope.office.id,
-    };
 };
 
 module.exports = () => {

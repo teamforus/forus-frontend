@@ -1,11 +1,11 @@
-let ModalPhysicalCardTypeComponent = function(
+const ModalPhysicalCardTypeComponent = function(
     $element,
     $timeout,
     FormBuilderService,
     PhysicalCardsService,
     PhysicalCardsRequestService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
     
     $ctrl.voucher = null;
     $ctrl.state = '';

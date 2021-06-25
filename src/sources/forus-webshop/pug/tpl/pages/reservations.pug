@@ -1,0 +1,69 @@
+top-navbar
+section.section.section-profile: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active(translate="reservations.header.title")
+
+    .block.block-profile
+        .profile-aside
+            profile-menu.hide-sm
+
+            .form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
+                .profile-aside-block
+                    .form-group
+                        input.form-control(
+                            ng-model="$ctrl.filters.q"
+                            placeholder="Zoek aanbod" 
+                            type="search"
+                            aria-label="search"
+                            id="products_search")
+
+                    .form-group
+                        label.form-label(for="select_fund") Tegoeden
+                        select-control(
+                            autoclear="true"
+                            ng-model="$ctrl.filters.fund_id"
+                            options="$ctrl.funds"
+                            placeholder="Selecteer tegoed..."
+                            name="fund"
+                            id="select_fund")
+
+                    .form-group
+                        label.form-label(for="select_provider") Aanbieders
+                        select(
+                            ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
+                            ng-model="$ctrl.filters.organization_id"
+                            name="provider"
+                            id="select_provider").form-control
+
+                    .form-group
+                        label.form-label(for="select_provider") Status
+                        select(
+                            ng-options="state.value as state.name for state in $ctrl.states" 
+                            ng-model="$ctrl.filters.state"
+                            name="filters"
+                            id="select_filters").form-control
+
+        .profile-content
+            .profile-content-header: .profile-content-title.flex.flex-start
+                h1.profile-content-header(translate="reservations.header.title")
+                .profile-content-title-count(ng-bind="$ctrl.reservations.meta.total")
+
+            .block.block-reservations(ng-if="$ctrl.reservations.data.length > 0")
+                reservation-card(
+                    ng-repeat="reservation in $ctrl.reservations.data"
+                    on-delete="$ctrl.onDelete()"
+                    reservation="reservation")
+
+            empty-block(
+                ng-if="$ctrl.reservations.meta.total == 0"
+                title="{{ 'reservations.empty_block.title' | translate }}"
+                description="{{ 'reservations.empty_block.subtitle' | translate }}"
+                text="{{ 'reservations.empty_block.cta' | translate }}"
+                hide-link="true")
+
+            .card(ng-if="$ctrl.reservations"): .card-section(ng-show="$ctrl.reservations.meta.last_page > 1")
+                paginator(
+                    meta="$ctrl.reservations.meta" 
+                    filters="$ctrl.filters" 
+                    on-page-change="$ctrl.onPageChange(query)")
