@@ -2,6 +2,7 @@ let FundsComponent = function(
     $state,
     appConfigs,
     FundService,
+    ModalService
 ) {
     let $ctrl = this;
 
@@ -88,6 +89,7 @@ module.exports = {
         '$state',
         'appConfigs',
         'FundService',
+        'ModalService',
         FundsComponent
     ],
     templateUrl: 'assets/tpl/pages/fund.html'
