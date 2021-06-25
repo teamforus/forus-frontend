@@ -1,12 +1,11 @@
-let ModalExportTypeComponent = function(FormBuilderService) {
-    let $ctrl = this;
+const ModalExportTypeComponent = function(FormBuilderService) {
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
         $ctrl.form = FormBuilderService.build({
             exportType: 'xls'
         }, (form) => {
             $ctrl.modal.scope.success(form.values);
-
             $ctrl.close();
         });
     };

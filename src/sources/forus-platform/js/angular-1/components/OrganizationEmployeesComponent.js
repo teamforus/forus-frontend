@@ -55,7 +55,7 @@ const OrganizationEmployeesComponent = function(
     };
 
     $ctrl.deleteEmployee = function(employee) {
-        OrganizationEmployeesService.destroy($ctrl.organization.ud, employee.id).then(() => {
+        OrganizationEmployeesService.destroy($ctrl.organization.id, employee.id).then(() => {
             $scope.onPageChange();
         }, (res) => {
             PushNotificationsService.danger(res.data.message);
