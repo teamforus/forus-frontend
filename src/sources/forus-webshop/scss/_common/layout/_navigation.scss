@@ -79,21 +79,21 @@
                 .auth-user {
                     .auth-user-avatar {
                         border-color: $color_default;
-                        border-radius: 4px;
+                        border-radius: $border_radius / 2;
                         background: $btn-start-bg;
     
                         &:after {
                             content: '';
-                            width: 40px;
-                            height: 40px;
+                            width: 50px;
+                            height: 50px;
                             border-radius: 4px;
-                            background: #305dfb url(../img/identity-avatar.svg) 2px 2px no-repeat;
+                            background: #305dfb url(../img/identity-avatar.svg) 7px 7px no-repeat;
                             display: inline-block;
                         }
 
                         svg {
-                            height: 40px;
-                            width: 40px;
+                            height: 50px;
+                            width: 50px;
                             
                             path {
                                 fill: #fff;
@@ -152,7 +152,20 @@
                 display: inline-block;
                 position: relative;
                 padding-right: 50px;
-    
+                
+                &_sign-out {
+                    position: relative;
+                    padding-right: 0;
+                    float: right;
+
+                    em {
+                        margin-right: 5px;
+                        &:before {
+                            color: $tc-nav;
+                        }
+                    }
+                }
+
                 &:after {
                     content: ' ';
                     position: absolute;
@@ -266,7 +279,13 @@
                         display: block;
                     }
                 }
-    
+
+                &_first-to-last {
+                    &:after {
+                        display: none;
+                    }
+                }
+
                 &:last-of-type {
                     &:after {
                         display: none;
@@ -306,7 +325,7 @@
             @include cf();
     
             .button {
-                margin: 0px 10px;
+                margin: 0px 0px 0px 10px;
                 display: flex;
             }
     
@@ -394,8 +413,8 @@
                     }
     
                     .auth-user-avatar {
-                        width: 40px;
-                        height: 40px;
+                        width: 50px;
+                        height: 50px;
                         right: 0;
                         grid-row: 1;
                         grid-column: 3 / 3;
@@ -426,7 +445,7 @@
                         background: #ffffff;
                         box-shadow: 2px 0 15px rgba(#000, .1);
                         width: 240px;
-                        right: -5px;
+                        right: 1px;
                         position: absolute;
                         top: 38px;
                         border: 1px solid #f3f4f5;
@@ -450,7 +469,14 @@
                             background: none;
                             width: 100%;
                             text-align: left;
-    
+
+                            &_no-hover {
+                                &:hover {
+                                    background: #ffffff !important;
+                                    cursor: default;
+                                }
+                            }
+
                             img {
                                 display: block;
                                 float: left;

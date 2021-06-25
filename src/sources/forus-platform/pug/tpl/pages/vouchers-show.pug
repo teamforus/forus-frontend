@@ -100,12 +100,12 @@
                                     strong(translate="vouchers.labels.source").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="'vouchers.labels.source_' + $ctrl.voucher.source | translate").text-black
-                                td(ng-if="!$ctrl.fundClosed && !$ctrl.voucher.has_transactions")
+                                td(ng-if="!$ctrl.fundClosed && !$ctrl.voucher.in_use")
                                     strong(translate="vouchers.labels.used").text-strong.text-md.text-muted-dark
                                     br
                                     em.mdi.mdi-close.text-black
                                     strong(translate="product_vouchers.labels.no").text-black
-                                td(ng-if="!$ctrl.fundClosed && $ctrl.voucher.has_transactions")
+                                td(ng-if="!$ctrl.fundClosed && $ctrl.voucher.in_use")
                                     strong(translate="vouchers.labels.used").text-strong.text-md.text-muted-dark
                                     br
                                     em.mdi.mdi-close.text-black

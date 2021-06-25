@@ -2,7 +2,9 @@ block content
     .header-splash: .splash.splash-c
     .block.block-error-page
         top-navbar
-        .wrapper
-            .page-not-found-title(ng-bind="$ctrl.error")
-            .page-not-found-subtitle(ng-bind="('error_page.' + $ctrl.error + '.title') | translate")
-            div: button.button.button-primary(ui-sref="home" ng-bind="('error_page.' + $ctrl.error + '.button') | translate")
+
+        main(id="main-content")
+            .wrapper
+                .page-not-found-title(ng-bind="$ctrl.error")
+                .page-not-found-subtitle(ng-bind="('error_page.' + $ctrl.error + '.title') | translate")
+                div: button.button.button-primary(ui-sref="home" ng-bind="('error_page.' + $ctrl.error + '.button') | translate")

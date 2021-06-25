@@ -1,5 +1,5 @@
-let ProviderFundService = function(ApiRequest) {
-    let uriPrefix = '/platform/organizations/';
+const ProviderFundService = function(ApiRequest) {
+    const uriPrefix = '/platform/organizations/';
 
     return new (function() {
         this.listAvailableFunds = function(organization_id, data) {
@@ -23,6 +23,10 @@ let ProviderFundService = function(ApiRequest) {
 
         this.applyForFund = function(organization_id, fund_id) {
             return ApiRequest.post(uriPrefix + organization_id + '/provider/funds', { fund_id });
+        };
+
+        this.cancelApplicationRequest = function(organization_id, fund_provider_id) {
+            return ApiRequest.delete(uriPrefix + organization_id + '/provider/funds/' + fund_provider_id);
         };
     });
 };

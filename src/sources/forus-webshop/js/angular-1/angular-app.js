@@ -3,7 +3,7 @@ require('./modules/ui-controls/UIControlsModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
 
 const appConfigs = {
-    ...{ fund_request_allways_bsn_confirmation: true },
+    ...{ fund_request_allways_bsn_confirmation: false },
     ...env_data
 };
 
@@ -102,6 +102,7 @@ app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
 app.directive('topNavbarSearch', require('./directives/TopNavbarSearchDirective'));
 app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
+app.directive('skipLinks', require('./directives/SkipLinksDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
