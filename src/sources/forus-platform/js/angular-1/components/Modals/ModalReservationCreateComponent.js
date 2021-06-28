@@ -8,7 +8,7 @@ const ModalReservationCreateComponent = function(
     $ctrl.products = false;
     $ctrl.formProducts = false;
 
-    $ctrl.makeProductForm = (voucher_address, products) => {
+    $ctrl.makeProductForm = (number, products) => {
         const product = products[0];
 
         $ctrl.products = products;
@@ -18,22 +18,25 @@ const ModalReservationCreateComponent = function(
             note: '',
         }, (form) => {
             const product_id = form.product.id;
-            const data = { product_id, voucher_address, note: form.values.note };
+            const data = { product_id, number, note: form.values.note };
             form.resetErrors();
 
             ProductReservationService.store($ctrl.organization.id, data).then((res) => {
                 $ctrl.reservation = res.data.data;
                 $ctrl.onCreated($ctrl.reservation);
-            }, console.error).finally(() => form.unlock());
+            }, (res) => {
+                const { errors, message } = res.data;
+
+                form.errors.product_id = errors ? errors.product_id || errors.number : [message];
+                $ctrl.showOverview = false;
+            }).finally(() => form.unlock());
         }, true);
 
         $ctrl.formProducts.product = product;
     };
 
-    $ctrl.makeVoucherForm = () => {
-        $ctrl.form = FormBuilderService.build({
-            number: '',
-        }, (form) => {
+    $ctrl.makeVoucherForm = (number = '') => {
+        $ctrl.form = FormBuilderService.build({ number }, (form) => {
             const number = form.values.number;
             const organization_id = $ctrl.organization.id;
 
@@ -42,7 +45,6 @@ const ModalReservationCreateComponent = function(
 
             VoucherService.readProvider(number).then((res) => {
                 const voucher = res.data.data;
-                const { allowed_organizations, address } = voucher;
 
                 if (voucher.fund.type === 'subsidies' && !$ctrl.organization.reservations_subsidy_enabled) {
                     return form.errors.number = ["Your organization doesn't allow action products reservations."];
@@ -52,7 +54,7 @@ const ModalReservationCreateComponent = function(
                     return form.errors.number = ["Your organization doesn't allow budget products reservations."];
                 }
 
-                if (!allowed_organizations.map((item) => item.id).includes($ctrl.organization.id)) {
+                if (!voucher.allowed_organizations.map((item) => item.id).includes($ctrl.organization.id)) {
                     return form.errors.number = ["The voucher is valid but can't be used with current organization."];
                 }
 
@@ -63,19 +65,21 @@ const ModalReservationCreateComponent = function(
                         return form.errors.number = ["Voucher is valid, but there are no products available for this number."];
                     }
 
-                    $ctrl.makeProductForm(address, products);
+                    $ctrl.makeProductForm(number, products);
                 });
 
             }, (res) => {
-                form.errors.number = res.data.errors ? res.data.errors.address : [res.data.message];
+                const { errors, message } = res.data;
+
+                form.errors.number = errors ? errors.address : [message];
             }).finally(() => form.unlock());
 
         }, true);
     };
 
-    $ctrl.showVoucherForm = function() {
+    $ctrl.showVoucherForm = function(number = '') {
         $ctrl.formProducts = false;
-        $ctrl.makeVoucherForm();
+        $ctrl.makeVoucherForm(number);
     }
 
     $ctrl.$onInit = () => {

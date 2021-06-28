@@ -31,8 +31,6 @@
                         .voucher-name(ng-bind="voucher.fund.name")
                         .voucher-organization(ng-bind="voucher.fund.organization.name")
                         .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount | currency_format")
-                        | {{ voucher.type }}
-                        | {{ voucher.address }}
 
                     .voucher-overview(ng-if="$ctrl.vouchers.length > 1")
                         button.button.button-primary(ng-click="$ctrl.reserveProduct($ctrl.product, voucher)") Gebruik
