@@ -1,4 +1,4 @@
-let PaginatorDirective = function(
+const PaginatorDirective = function(
     $scope,
     $state,
     $attrs,
@@ -10,14 +10,16 @@ let PaginatorDirective = function(
     let initialized;
 
     let onInit = () => {
-        $scope.filters = Object.assign({}, $scope.filters, $stateParams);
+        const filtersFromState = typeof $scope.filtersFromState !== 'undefined' ? $scope.filtersFromState : true;
+
+        $scope.filters = { ...$scope.filters, ...(filtersFromState ? $stateParams : {}) };
         $scope.pages = $scope.getPages();
     };
 
     $scope.setPage = (page) => {
         let query = {};
 
-        if (typeof($scope.filters) == 'object' && $scope.filters) {
+        if (typeof ($scope.filters) == 'object' && $scope.filters) {
             Object.assign(query, $scope.filters, {
                 page: page
             });
@@ -80,6 +82,7 @@ module.exports = () => {
             meta: '=',
             filters: '=',
             onPageChange: '&',
+            filtersFromState: '=',
             countButtons: '='
         },
         restrict: "EA",

@@ -38,10 +38,10 @@ $formPadding: 14px 15px;
         transition: background-color .4s ease, border .4s ease;
         border-radius: 6px;
         appearance: none;
-        border: 1px solid #515152;
+        border: 1px solid desaturate($color: darken($color: $border_color, $amount: 5%), $amount: 75%);;
 
         &[disabled] {
-            background-color: #fbfbfa;
+            background-color: #bababa;
         }
 
         &[type="number"] {
@@ -50,8 +50,8 @@ $formPadding: 14px 15px;
 
         &:focus {
             outline: none;
-            background-color: #F8F8F8;
-            border: 1px solid #515152;
+            background-color: #ffffff;
+            border: 1px solid desaturate($color: darken($color: $border_color, $amount: 25%), $amount: 85%);
         }
 
         &.form-control-fancy {
@@ -120,6 +120,7 @@ $formPadding: 14px 15px;
     }
 
     select.form-control {
+        background-color: #fbfbfb;
         background-image: url('../img/select-bg.png');
         background-position: 99%;
         background-repeat: no-repeat;
@@ -129,6 +130,12 @@ $formPadding: 14px 15px;
         text-overflow: '';
         padding-right: 30px;
         appearance: none;
+
+        &:focus {
+            outline: none;
+            background-color: #ffffff;
+            border: 1px solid desaturate($color: darken($color: $border_color, $amount: 15%), $amount: 90%);
+        }
 
         &::-ms-expand {
             display: none;
@@ -252,6 +259,13 @@ $formPadding: 14px 15px;
 
         &:last-child {
             margin-bottom: 0;
+        }
+
+        .checkbox-label {
+            display: inline-block;
+            font: 400 13px/13px "Open Sans",arial,sans-serif;
+            margin-left: 10px;
+            margin-bottom: 3px;
         }
     }
 
@@ -381,9 +395,7 @@ $formPadding: 14px 15px;
 
     .checkbox {
         display: inline-block;
-        padding: 10px 0;
-        padding-right: 15px;
-        padding-left: 30px;
+        padding: 5px 15px 0 20px;
         vertical-align: middle;
         @include cf();
 

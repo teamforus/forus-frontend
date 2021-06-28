@@ -90,6 +90,7 @@
                     flex-basis: 60%;
 
                     .file-item-progress-container {
+                        display: flex;
                         background-color: #ebedf0;
 
                         progress[value] {

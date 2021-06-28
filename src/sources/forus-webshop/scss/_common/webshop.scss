@@ -37,6 +37,7 @@
 'components/_triangle.scss',
 'components/_printables.scss',
 'components/card.scss',
+'components/skiplinks.scss',
 'components/table.scss';
 @import 'components/table-pagination';
 
@@ -110,6 +111,8 @@
     @import 'sections/blocks/block-about-me_app.scss';
     @import 'sections/blocks/block-provider-sign_up.scss';
     @import 'sections/blocks/block-app_links.scss';
+    @import 'sections/blocks/block-navbar-search';
+    @import 'sections/blocks/block-search-results';
 }
 
 .modal {

@@ -2,62 +2,63 @@
 
 top-navbar
 
-section.section.section-product: .wrapper
-    .block.block-sign_up(ng-if="$ctrl.clarification"): .block-wrapper
-        div(ng-if="$ctrl.state == 'clarification_form'")
-            h2.block-title(i18n="fund_request_clarification.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
-            .sign_up-pane
-                .sign_up-pane-header(ng-bind="'Bevestig uw ' + $ctrl.clarification.fund_request_record_name")
-                .sign_up-pane-body: form(ng-submit="$ctrl.form.submit()").form.row
-                    .form-group.col.col-lg-12
-                        .form-label(i18n="fund_request_clarification.labels.question")
-                        .sign_up-pane-info: p.sign_up-pane-text(ng-bind="$ctrl.clarification.question")
+main(id="main-content")
+    section.section.section-product: .wrapper
+        .block.block-sign_up(ng-if="$ctrl.clarification"): .block-wrapper
+            div(ng-if="$ctrl.state == 'clarification_form'")
+                h2.block-title(i18n="fund_request_clarification.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
+                .sign_up-pane
+                    .sign_up-pane-header(ng-bind="'Bevestig uw ' + $ctrl.clarification.fund_request_record_name")
+                    .sign_up-pane-body: form(ng-submit="$ctrl.form.submit()").form.row
+                        .form-group.col.col-lg-12
+                            .form-label(i18n="fund_request_clarification.labels.question")
+                            .sign_up-pane-info: p.sign_up-pane-text(ng-bind="$ctrl.clarification.question")
 
-                    .form-group.col.col-lg-12
-                        .form-label(i18n="fund_request_clarification.labels.message")
-                        ui-control-textarea(
-                            rows="5"
-                            ng-model="$ctrl.form.values.answer"
-                            data-placeholder="{{ fund_request_clarification.placeholder | translate }}")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.answer" ng-bind="error")
-                    
-                    .form-group.col.col-lg-12
-                        .form-label(i18n="fund_request_clarification.labels.attachment")
-                        file-uploader(
-                            type="fund_request_clarification_proof"
-                            files="$ctrl.files"
-                            on-file-removed="$ctrl.onFileInfo(files)"
-                            on-file-resolved="$ctrl.onFileInfo(files)"
-                            on-file-batch-queued="$ctrl.onFileInfo(files)")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.files" ng-bind="error")
-                    
-                    .form-group.col.col-lg-12.text-center
-                        br
-                        button(
-                            type="submit" 
-                            ng-disabled="$ctrl.isUploadingFiles"
-                            translate="fund_request_clarification.buttons.submit").button.button-primary
-        //- Done
-        div(ng-if="$ctrl.state == 'done'")
-            h2.block-title(i18n="fund_request_clarification.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
-            
-            .sign_up-pane
-                .sign_up-pane-header(i18n="fund_request_clarification.done.title")
-                .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
-                    .form-group.col.col-lg-12
-                        .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
-                        p.sign_up-pane-text.text-center(i18n="fund_request_clarification.done.desc")
+                        .form-group.col.col-lg-12
+                            .form-label(i18n="fund_request_clarification.labels.message")
+                            ui-control-textarea(
+                                rows="5"
+                                ng-model="$ctrl.form.values.answer"
+                                data-placeholder="{{ fund_request_clarification.placeholder | translate }}")
+                            .form-error(ng-repeat="error in $ctrl.form.errors.answer" ng-bind="error")
+                        
+                        .form-group.col.col-lg-12
+                            .form-label(i18n="fund_request_clarification.labels.attachment")
+                            file-uploader(
+                                type="fund_request_clarification_proof"
+                                files="$ctrl.files"
+                                on-file-removed="$ctrl.onFileInfo(files)"
+                                on-file-resolved="$ctrl.onFileInfo(files)"
+                                on-file-batch-queued="$ctrl.onFileInfo(files)")
+                            .form-error(ng-repeat="error in $ctrl.form.errors.files" ng-bind="error")
+                        
+                        .form-group.col.col-lg-12.text-center
+                            br
+                            button(
+                                type="submit" 
+                                ng-disabled="$ctrl.isUploadingFiles"
+                                translate="fund_request_clarification.buttons.submit").button.button-primary
+            //- Done
+            div(ng-if="$ctrl.state == 'done'")
+                h2.block-title(i18n="fund_request_clarification.block_title" i18n-vars="{fundname: $ctrl.fund.name}")
                 
-                        .text-center: .button.button-default(ng-click="$ctrl.finish()" i18n="fund_request_clarification.buttons.back")
-                    .form-group.col.col-lg-12: br
-        //- not pending
-        div(ng-if="$ctrl.state == 'not_pending'")
-            .sign_up-pane
-                .sign_up-pane-header(i18n="fund_request_clarification.not_pending.title")
-                .sign_up-pane-body: .row
-                    .form-group.col.col-lg-12
-                        .block-icon: .mdi.mdi-information
-                        p.sign_up-pane-text.text-check-circle.text-center(i18n="fund_request_clarification.not_pending.desc")
-                
-                        .text-center: .button.button-default(ng-click="$ctrl.finish()" i18n="fund_request_clarification.buttons.back")
-                    .form-group.col.col-lg-12: br
+                .sign_up-pane
+                    .sign_up-pane-header(i18n="fund_request_clarification.done.title")
+                    .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
+                        .form-group.col.col-lg-12
+                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
+                            p.sign_up-pane-text.text-center(i18n="fund_request_clarification.done.desc")
+                    
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()" i18n="fund_request_clarification.buttons.back")
+                        .form-group.col.col-lg-12: br
+            //- not pending
+            div(ng-if="$ctrl.state == 'not_pending'")
+                .sign_up-pane
+                    .sign_up-pane-header(i18n="fund_request_clarification.not_pending.title")
+                    .sign_up-pane-body: .row
+                        .form-group.col.col-lg-12
+                            .block-icon: .mdi.mdi-information
+                            p.sign_up-pane-text.text-check-circle.text-center(i18n="fund_request_clarification.not_pending.desc")
+                    
+                            .text-center: .button.button-default(ng-click="$ctrl.finish()" i18n="fund_request_clarification.buttons.back")
+                        .form-group.col.col-lg-12: br

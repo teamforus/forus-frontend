@@ -285,8 +285,9 @@ let FundActivateComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        let voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
-        let pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
+        const { backoffice_error, backoffice_fallback } = $stateParams;
+        const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
+        const pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
             return request.state === 'pending';
         }) : [];
 
@@ -310,6 +311,11 @@ let FundActivateComponent = function(
         // The fund is already taken by identity partner
         if ($ctrl.fund.taken_by_partner) {
             return $ctrl.state = 'taken_by_partner';
+        }
+
+        // Backoffice not responding and fallback is disabled
+        if (backoffice_error == 1 && backoffice_fallback == 0) {
+            return $ctrl.state = 'backoffice_error';
         }
 
         $ctrl.getFunds(fund => fund).then(funds => {

@@ -8,6 +8,7 @@
     z-index: 10;
     display: flex;
     align-items: center;
+    border-radius: $border_radius;
 
     .modal-backdrop {
         @include fill_parent();
@@ -87,7 +88,6 @@
         width: 1200px;
         max-width: 100%;
         background: #f7f9fc;
-        border-radius: $border_radius;
         min-height: 100px;
         overflow: hidden;
         margin: 0 auto;
@@ -164,6 +164,16 @@
             img{
                 width: 240px;
             }
+        }
+
+        &:first-child {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+        }
+
+        &:last-child {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
         }
     }
 
@@ -334,6 +344,46 @@
     
             &>.modal-window, &>.modal-content {
                 transform: scale(1.5, 1.5);
+            }
+        }
+    }
+
+    &.modal-file-preview {
+        .modal-window {
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh;
+        }
+
+        .modal-content {
+            display: flex;
+        }
+
+        .file-image {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            background-color: #000;
+
+            img {
+                height: 100%;
+                display: block;
+            }
+        }
+
+        .file-pdf {
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+            height: initial;
+            width: 100%;
+            background-color: black;
+
+            canvas {
+                display: block;
+                width: 70%;
+                height: auto;
+                margin: 0 auto;
             }
         }
     }

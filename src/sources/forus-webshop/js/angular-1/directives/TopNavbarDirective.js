@@ -66,6 +66,8 @@ module.exports = () => {
     return {
         scope: {
             hideOnScroll: '=',
+            searchResultPage: '=',
+            query: '=',
         },
         restrict: "EA",
         replace: true,

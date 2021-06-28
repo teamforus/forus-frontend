@@ -1,0 +1,27 @@
+a.product-item
+    .product-photo: img(
+        ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
+        alt="{{ $dir.product.name }}")
+
+    //- Products
+    .product-content(ng-if="$dir.productType == 'budget'")
+        .product-details
+            .product-name(ng-bind="$dir.product.name")
+            .product-organization(ng-bind="$dir.product.organization.name")
+
+        .product-actions: .product-price(ng-bind="$dir.product.price_locale")
+
+    //- Subsidies
+    .product-content(ng-if="$dir.productType == 'subsidies'")
+        .product-details
+            .product-name(ng-bind="$dir.product.name")
+            .product-provider(ng-bind="$dir.product.organization.name")
+
+        .product-actions
+            .product-price(ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min == 0") Gratis
+
+            .product-price(
+                ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min != 0" 
+                ng-bind="$dir.product.price_min | currency_format")
+            
+            .product-price(ng-if="$dir.product.price_type !== 'regular'" ng-bind="$dir.product.price_locale")

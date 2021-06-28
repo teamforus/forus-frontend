@@ -221,6 +221,10 @@
                 background: transparent !important;
                 border-color: transparent !important;
             }
+
+            &.button-disabled-visible {
+                color: #555 !important;
+            }
         }
     }
 

@@ -1,23 +1,23 @@
-let ProductsListDirective = function(
-    $scope,
-) {
-    let $dir = $scope.$dir = {};
+const ProductsListDirective = function($scope) {
+    const $dir = $scope.$dir = {};
 
-    let blockClasses = {
+    const blockClasses = {
         'budget.grid': 'block-products',
         'subsidies.grid': 'block-subsidies',
         'budget.list': 'block-products-list',
         'subsidies.list': 'block-subsidies-list',
     };
-    
-    const init = () => {
-        $dir.products = $scope.products || [];
-        $dir.display = $scope.display || 'grid';
-        $dir.type = $scope.type || 'budget';
-        $dir.blockClass = blockClasses[[$dir.type, $dir.display].join('.')];
 
-        $scope.$watch('products', (value) => $dir.products = value);
+    const init = () => {
+        $dir.type = $scope.type || 'budget';
+        $dir.display = $scope.display || 'grid';
+        $dir.products = $scope.products || [];
+        $dir.blockClass = blockClasses[[$dir.type, $dir.display].join('.')];
     };
+
+    $scope.$watch('products', (value, old) => (old && value != old) && init());
+    $scope.$watch('display', (value, old) => (old && value != old) && init());
+    $scope.$watch('type', (value, old) => (old && value != old) && init());
 
     init();
 };
@@ -25,8 +25,8 @@ let ProductsListDirective = function(
 module.exports = () => {
     return {
         scope: {
-            display: '@',
-            type: '@',
+            type: '=',
+            display: '=',
             products: '=',
         },
         restrict: "EA",

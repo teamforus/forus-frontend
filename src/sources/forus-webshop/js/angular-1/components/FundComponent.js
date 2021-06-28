@@ -1,9 +1,11 @@
-let FundsComponent = function(
+const FundsComponent = function(
     $state,
+    $stateParams,
     appConfigs,
     FundService,
+    ModalService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.fundLogo = null;
     $ctrl.appConfigs = appConfigs;
@@ -54,6 +56,7 @@ let FundsComponent = function(
     };
 
     $ctrl.$onInit = function() {
+        $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.updateFundsMeta();
 
         $ctrl.criteriaList = $ctrl.fund.criteria;
@@ -83,11 +86,14 @@ module.exports = {
         products: '<',
         subsidies: '<',
         recordTypes: '<',
+        searchData: '<',
     },
     controller: [
         '$state',
+        '$stateParams',
         'appConfigs',
         'FundService',
+        'ModalService',
         FundsComponent
     ],
     templateUrl: 'assets/tpl/pages/fund.html'
