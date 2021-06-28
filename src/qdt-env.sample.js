@@ -1,3 +1,5 @@
+const TurndownService = require("turndown");
+
 const apiUrl = "https://dev.api.forus.io/api/v1";
 const outputRoot = "../dist";
 const outputRootBackendPublic = outputRoot + '/forus-backend.general';
@@ -573,7 +575,8 @@ module.exports = (core) => {
             flags: {
                 showAccountSidebar: false,
                 accessibilityPage: true,
-
+                genericSearch: true,
+                
                 // menu settings
                 meAppMenu: false,
                 forusPlatformMenu: false,

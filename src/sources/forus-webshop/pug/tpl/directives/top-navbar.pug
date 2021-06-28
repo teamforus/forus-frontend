@@ -85,7 +85,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" 
                     alt="{{$root.appConfigs.features.implementation_name}}")
 
-            top-navbar-search
+            top-navbar-search(ng-if="$root.appConfigs.flags.genericSearch")
 
             .block.flex.hide-sm
                 .block.block-auth
