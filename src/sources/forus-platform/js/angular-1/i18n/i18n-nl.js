@@ -54,7 +54,8 @@ module.exports = {
         modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         danger_zone: {
-            remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator')
+            remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
+            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application')
         },
     },
     // PAGES
@@ -1392,7 +1393,8 @@ module.exports = {
             allow_budget: "Scan tegoed op voucher",
             allow_products: "Scan geplaatst aanbod",
             allow_some_products: "Scan specifiek aanbod",
-            view_products: "Bekijk aanbod"
+            view_products: "Bekijk aanbod",
+            cancel_application: "Annuleren"
         },
         empty_block: {
             available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",

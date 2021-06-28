@@ -76,25 +76,29 @@ section
             .col-lg-12.content-area.text-center.padded
                 h2 Samenwerkingen
                 p Forus wordt onder andere gebruikt door de volgende organisaties: 
-                .wrapped
-                    .cupa
+                ul.wrapped
+                    li.cupa
                         img.e-fb(src="assets/img/logo-nijmegen.png", alt="Gemeente Nijmegen")
-                    .cupa
+                    li.cupa
                         img.e-fb(src="assets/img/logo-westerkwartier.png", alt="Gemeente Westerkwartier")
-                    .cupa
-                        img.e-fb(src="assets/img/logo-emmen.png", alt="Gemeente Emmen")
-                    .cupa
+                    //-li.cupa
                         img.e-fb(src="assets/img/logo-barneveld.png", alt="Gemeente Barneveld")
-                    .cupa.cleared
+                    li.cupa
+                        img.e-fb(src="assets/img/logo-emmen.png", alt="Gemeente Emmen")                    
+                    li.cupa
                         img.e-fb(src="assets/img/logo-sdoa.png", alt="Sociale dienst oost achterhoek")
-                    .cupa
+                    li.cupa
                         img.e-fb(src="assets/img/logo-longfonds.png", alt="Stichting Longfonds")
-                    .cupa
+                    li.cupa
                         img.e-fb(src="assets/img/logo-noordoostpolder.png", alt="Gemeente Noordoostpolder")
-                    .cupa
+                    li.cupa
                         img.e-fb(src="assets/img/logo-groningen.png", alt="Gemeente Groningen")
-                    //-.cupa
-                        img.e-fb(src="assets/img/logo-geertruidenberg.png", alt="")
+                    li.cupa
+                        img.e-fb(src="assets/img/logo-geertruidenberg.png", alt="Gemeente Geertruidenberg")
+                    li.cupa
+                        img.e-fb(src="assets/img/logo-vng.png", alt="Vereniging Nederlandse Gemeenten")
+                    li.cupa
+                        img.e-fb(src="assets/img/logo-scauting.png", alt="Scauting")                        
 
 section.mr-tp 
     .container
@@ -103,11 +107,23 @@ section.mr-tp
                 h2 Hoe verloopt een project?
                 p Elke samenwerking begint met een verkennend gesprek: wat zijn de mogelijkheden van Forus voor jouw organisatie? We leggen je precies uit wat het inhoudt en hoe het werkt. Daarna zullen we Forus binnen enkele weken implementeren en kun je aan de slag. Na de implementatie ben je altijd welkom om (technische) vragen te stellen of ideeën aan te dragen.
                 a(ui-sref="contact").txt_link.var Vrijblijvend kennismaken
-        .wrap_cs__3a
+        .wrap_cs__2
             .row.flex-align
                 .col-6.col-md-6.holder
                     include ../../../../resources/platform-general/assets/img/graph-onderzoek.svg
                 .col-6.col-md-6
-                    h2 Altijd up-to-date
-                    p Met Forus heb je altijd toegang tot de nieuwste technologie. We verbeteren het platform op basis van onderzoek. Bijvoorbeeld over Privacy by Design, User-Centered Design en decentrale technologieën. Alle aangesloten organisaties profiteren van deze kennis. <br><br> <b>Recente onderzoeken</b> <br> In opdracht van de Rijksdienst Voor Ondernemend Nederland (RVO), Ministerie van Binnenlandse Zaken en de Provincie Groningen zijn er twee Small Business Innovation Research (SBIR) trajecten uitgevoerd. <br><br> Studenten van onder andere de Hanzehogeschool en Rijksuniversiteit Groningen onderzoeken het platform, de organisatie en de dienstverlening.
-
+                    h2 Ontwikkeling
+                    p Het platform is continu in ontwikkeling. Naast het team, helpen ook klanten, studenten en enthousiaste bijdragers om het platform verder te ontwikkelen. We verbeteren het platform op basis van onderzoek. 
+                    | Benieuwd naar de ontwikkeling van het platform? #[a(href="https://roadmap.forus.io").txt_link.var Bekijk de roadmap]
+            .cont_txt__b.text-center.sm-text-left
+                h2 Recente onderzoeken
+                p 
+                    | #[strong Small Business Innovation Research] #[br]
+                    | In opdracht van de Rijksdienst Voor Ondernemend Nederland (RVO), Ministerie van Binnenlandse Zaken en de Provincie Groningen zijn er twee Small Business Innovation Research (SBIR) trajecten uitgevoerd. #[br]#[br]
+                    | #[strong Conbavex] #[br]
+                    | Forus heeft een ontwikkelingsproject uitgevoerd, genaamd Conbavex – Condition-based Value Exchange. Het project richtte zich op de schaalbaarheid, toegankelijkheid en veiligheid van het platform. Het project is gesubsidieerd door SNN en het Europees Fonds voor regionale ontwikkeling. #[br]#[br]
+                ul.wrapped.two-cupas
+                    li.cupa.cupa__2
+                        img.e-fb(src="assets/img/logo-SNN.png", alt="SNN")
+                    li.cupa.cupa__2
+                        img.e-fb(src="assets/img/logo-EFRO.png", alt="het Europees Fonds voor regionale ontwikkeling")                

@@ -17,6 +17,10 @@ const ProviderFundService = function(ApiRequest) {
         this.applyForFund = function(organization_id, fund_id) {
             return ApiRequest.post(uriPrefix + organization_id + '/provider/funds', { fund_id });
         };
+
+        this.cancelApplicationRequest = function(organization_id, fund_provider_id) {
+            return ApiRequest.delete(uriPrefix + organization_id + '/provider/funds/' + fund_provider_id);
+        };
     });
 };
 
