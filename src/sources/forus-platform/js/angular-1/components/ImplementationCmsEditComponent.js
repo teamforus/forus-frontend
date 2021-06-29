@@ -66,6 +66,10 @@ let ImplementationCmsEditComponent = function (
         });
     };
 
+    $ctrl.resetBanner = () => {
+        $ctrl.form.values.banner_media_uid = $ctrl.bannerMedia = null;
+    }
+
     $ctrl.communicationTypes = [{
         value: '1',
         label: 'Je/jouw',
