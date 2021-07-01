@@ -9,7 +9,7 @@
             .text-center
                 .modal-icon(ng-if="$ctrl.icon")
                     img(ng-src="{{ $ctrl.icon }}" alt="")
-                .title(id="shareVoucherDialogTitle" i18n="voucher.share_voucher.popup_form.title")
+                h2.title(id="shareVoucherDialogTitle" i18n="voucher.share_voucher.popup_form.title")
                 .description(id="shareVoucherDialogSubtitle" i18n="voucher.share_voucher.popup_form.description")
 
         form.form(ng-submit="$ctrl.shareVoucherForm.submit()")

@@ -21,14 +21,14 @@ mixin progress()
 
 //-top-navbar
 main(id="main-content")
-    section: .wrapper 
+    section: .wrapper
         .block.block-sign_up: .block-wrapper
             h1.block-title(ng-if="$ctrl.state" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
             div(ng-if="$ctrl.state == 'fund_already_applied'")
                 +progress()
 
-                .sign_up-pane    
+                .sign_up-pane
                     .sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
 
                     .sign_up-pane-body
@@ -36,33 +36,33 @@ main(id="main-content")
                         p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
 
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.fund.criteria" 
+                            ng-repeat="critera in $ctrl.fund.criteria"
                             ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
                             .item-icon: em.mdi(
                                 ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[critera.request_state]")
                             span(ng-if="critera.title" ng-bind="critera.title")
                             span(
                                 ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
+                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}"
                                 i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
-                        span(translate="fund_request.sign_up.pane.fund_already_applied")    
+                        span(translate="fund_request.sign_up.pane.fund_already_applied")
 
             //- Welcome screen
             div(ng-if="$ctrl.state == 'welcome'")
                 +progress()
 
-                .sign_up-pane    
+                .sign_up-pane
                     .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_1")
 
                     .sign_up-pane-body
                         .sign_up-pane-text.text-center(translate="fund_request.sign_up.subtitles.step_1")
-                        .sign_up-pane-media: img(ng-src="./assets/img/fund-request-welcome.png") 
+                        .sign_up-pane-media: img(ng-src="./assets/img/fund-request-welcome.png")
 
                     .sign_up-pane-footer: .row
                         .col.col-lg-6.col-xs-6.text-left: button.button.button-text.button-text-padless(role="button")
                         .col.col-lg-6.col-xs-6.text-right: button.button.button-text.button-text-padless(ng-click="$ctrl.nextStep()" role="button")
                             | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
-                            em.mdi.mdi-chevron-right.icon-right 
+                            em.mdi.mdi-chevron-right.icon-right
 
             //- Fund request information
             div(ng-if="$ctrl.state == 'auth'")
@@ -98,10 +98,10 @@ main(id="main-content")
 
                                 .sign_up-pane-auth-qr_code.show-sm
                                     qr-code(
-                                        ng-if="$ctrl.authToken" 
-                                        qr-value="$ctrl.authToken" 
-                                        qr-type="auth_token" 
-                                        qr-logo=src_prefix + "./assets/img/me-logo.png") 
+                                        ng-if="$ctrl.authToken"
+                                        qr-value="$ctrl.authToken"
+                                        qr-type="auth_token"
+                                        qr-logo=src_prefix + "./assets/img/me-logo.png")
 
                                 .sign_up-pane-text(
                                     ng-repeat="line in ('fund_request.sign_up.app.description_bottom' | translate | lines_to_array)"
@@ -113,10 +113,10 @@ main(id="main-content")
 
                             .sign_up-pane-auth-qr_code.hide-sm
                                 qr-code(
-                                    ng-if="$ctrl.authToken" 
-                                    qr-value="$ctrl.authToken" 
-                                    qr-type="auth_token" 
-                                    qr-logo=src_prefix + "./assets/img/me-logo.png") 
+                                    ng-if="$ctrl.authToken"
+                                    qr-value="$ctrl.authToken"
+                                    qr-type="auth_token"
+                                    qr-logo=src_prefix + "./assets/img/me-logo.png")
 
                         .sign_up-pane-link.hide-sm(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app")
 
@@ -126,7 +126,7 @@ main(id="main-content")
 
                 //- For new users
                 .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
-                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title" role="heading") 
+                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title" role="heading")
                     .sign_up-pane-body
                         .sign_up-email_sent
                             .sign_up-email_sent-icon
@@ -136,7 +136,7 @@ main(id="main-content")
 
                 //- For existing users
                 .sign_up-pane(ng-if="$ctrl.authEmailSent")
-                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title" role="heading") 
+                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title" role="heading")
                     .sign_up-pane-body
                         .sign_up-email_sent
                             .sign_up-email_sent-icon
@@ -149,7 +149,7 @@ main(id="main-content")
                 +progress()
 
                 .sign_up-pane
-                    .sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid") 
+                    .sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid")
                     .sign_up-pane-body
 
                         .sign_up-pane-digid
@@ -160,14 +160,14 @@ main(id="main-content")
                         .col.col-lg-6.col-xs-6.text-left &nbsp;
                         .col.col-lg-6.col-xs-6.text-right: button.button.button-text.button-text-padless(ng-click="$ctrl.nextStep()" role="button")
                             em.mdi.mdi-chevron-right.icon-right
-                            | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
+                            | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
 
             //- List the criteria
             div(ng-if="$ctrl.state == 'criteria'")
                 +progress()
 
                 .sign_up-pane
-                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title")
                     .sign_up-pane-body
                         p.sign_up-pane-text(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
 
@@ -177,14 +177,14 @@ main(id="main-content")
                             span(ng-if="critera.title" ng-bind="critera.title")
                             span(
                                 ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
+                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}"
                                 i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
 
                     .sign_up-pane-footer: .row
                         .col.col-lg-6.col-xs-6.text-left &nbsp;
                         .col.col-lg-6.col-xs-6.text-right: button.button.button-text.button-text-padless(ng-click="$ctrl.nextStep()" role="button")
                             em.mdi.mdi-chevron-right.icon-right
-                            | {{ 'fund_request.sign_up.pane.footer.next' | translate }}  
+                            | {{ 'fund_request.sign_up.pane.footer.next' | translate }}
 
             div(
                 ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
@@ -202,7 +202,7 @@ main(id="main-content")
                                     ng-bind-html="invalidCriteria.description_html")
                                 .sign_up-pane-text(
                                     ng-if="!invalidCriteria.description && invalidCriteria.description !== '_'"
-                                    i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}" 
+                                    i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}"
                                     i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}")
 
                             .form-label(ng-bind="$ctrl.recordTypes[invalidCriteria.record_type_key].name")
@@ -215,6 +215,8 @@ main(id="main-content")
                             ui-control-step(
                                 ng-if="invalidCriteria.control_type == 'ui_control_step'"
                                 ng-model="invalidCriteria.input_value"
+                                name="{{invalidCriteria.record_type_key}}"
+                                role="spinbutton"
                                 data-min="0"
                                 data-max="32"
                                 data-id="criterion_{{ invalidCriteria.id }}")
@@ -261,7 +263,7 @@ main(id="main-content")
                                 role="button")
                                 em.mdi.mdi-chevron-right.icon-right
                                 translate(translate='fund_request.sign_up.pane.footer.next')
-                            
+
                         .col.col-lg-6.col-xs-6.text-right(ng-if="$ctrl.hideFundRequestOverviewStep && $ctrl.invalidCriteria.length == $index + 1")
                             button.button.button-primary(
                                 ng-disabled="invalidCriteria.isUploadingFiles"
@@ -288,7 +290,7 @@ main(id="main-content")
                     .sign_up-pane-body: .form
                         p.sign_up-pane-text U staat op het punt om een Busvoordeelabonnement aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
 
-                        ul.sign_up-pane-list 
+                        ul.sign_up-pane-list
                             li U bent 18 jaar of ouder
                             li U kunt geen gebruik maken van de OV-chipkaart voor studenten (het studentenreisproduct van de DUO)
                             li U woont in Nijmegen
@@ -317,17 +319,17 @@ main(id="main-content")
                                 td € 2.080,-
                                 td € 765,-
 
-                        p.sign_up-pane-text 
-                            | #[strong Wat hoort bij het inkomen?] 
+                        p.sign_up-pane-text
+                            | #[strong Wat hoort bij het inkomen?]
                             | #[br]
-                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst. 
+                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst.
                             | Wilt u weten op welke heffingskortingen u recht heeft? Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. #[br]
                             | #[br]
                             | #[strong Wat hoort niet bij het inkomen?] #[br]
                             | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
 
-                        p.sign_up-pane-text 
-                            | Door te verklaren dat u aan de voorwaarden voldoet, 
+                        p.sign_up-pane-text
+                            | Door te verklaren dat u aan de voorwaarden voldoet,
                             | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat er een bedrag kan
                             | worden teruggevorderd indien u achteraf niet blijkt te voldoen.
 
@@ -343,7 +345,7 @@ main(id="main-content")
                     .sign_up-pane-body: .form
                         p.sign_up-pane-text U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
 
-                        ul.sign_up-pane-list 
+                        ul.sign_up-pane-list
                             li U bent 18 jaar of ouder
                             li U bent geen student
                             li U woont in Nijmegen
@@ -371,18 +373,18 @@ main(id="main-content")
                                 td € 1.760,-
                                 td € 590,-
 
-                        p.sign_up-pane-text 
-                            | #[strong Wat hoort bij het inkomen?] 
+                        p.sign_up-pane-text
+                            | #[strong Wat hoort bij het inkomen?]
                             | #[br]
-                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst. 
+                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst.
                             | Wilt u weten op welke heffingskortingen u recht heeft? Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. #[br]
                             | #[br]
                             | #[strong Wat hoort niet bij het inkomen?] #[br]
                             | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
 
-                        p.sign_up-pane-text 
-                            | Door te verklaren dat u aan de voorwaarden voldoet, 
-                            | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat het bedrag van €150,- 
+                        p.sign_up-pane-text
+                            | Door te verklaren dat u aan de voorwaarden voldoet,
+                            | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat het bedrag van €150,-
                             | zal worden teruggevorderd indien u achteraf niet blijkt te voldoen.
 
                         p.sign_up-pane-text: ui-control-checkbox(
@@ -399,28 +401,28 @@ main(id="main-content")
                 .sign_up-pane
                     .sign_up-pane-header Aanvraag overzicht
                     .sign_up-pane-body: .form
-                        p.sign_up-pane-text 
-                            span Controleer hieronder of de gegevens die u heeft ingevuld juist zijn. U kunt terug naar eerdere stappen met de knop 
+                        p.sign_up-pane-text
+                            span Controleer hieronder of de gegevens die u heeft ingevuld juist zijn. U kunt terug naar eerdere stappen met de knop
                             strong Vorige stap.
 
                         p.sign_up-pane-text
-                            span Kloppen de gegevens? Klik dan op de knop 
-                            strong Vraag aan.  
-                    
+                            span Kloppen de gegevens? Klik dan op de knop
+                            strong Vraag aan.
+
                     .sign_up-pane-body
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
                             ng-repeat="critera in $ctrl.invalidCriteria")
                             .item-icon.item-icon-default
 
-                            span {{ critera.title }} #[span(ng-if="critera.operator != '='") is] 
+                            span {{ critera.title }} #[span(ng-if="critera.operator != '='") is]
                             strong(ng-if="critera.operator != '='") {{ critera.input_value }}
 
                             file-uploader(
                                 ng-if="critera.show_attachment"
                                 type="fund_request_record_proof"
                                 files="critera.files"
-                                read-only="true")  
-                    
+                                read-only="true")
+
                     .sign_up-pane-footer: .row
                         .col.col-lg-6.col-xs-6.text-left: button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
                             em.mdi.mdi-chevron-left.icon-left
@@ -438,7 +440,7 @@ main(id="main-content")
                         .sign_up-pane-header Aanvraag ontvangen
                         .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
                             h1.sign_up-pane-heading.text-center Verzonden!
-                            p.sign_up-pane-text.text-center 
+                            p.sign_up-pane-text.text-center
                                 | Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail.
                             .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg" role="presentation")
                             .text-center: .button.button-text.button-text-primary.button-text-padless(ng-click="$ctrl.finish()" role="button") Terug
@@ -453,9 +455,9 @@ main(id="main-content")
                         .sign_up-pane-body: .row
                             .form-group.col.col-lg-12
                                 .block-icon: .mdi.mdi-close
-                                p.sign_up-pane-text.text-center 
+                                p.sign_up-pane-text.text-center
                                     | Reden:
                                 p.sign_up-pane-text.text-center(translate="{{ $ctrl.errorReason }}")
 
                                 .text-center: .button.button-default(ng-click="$ctrl.finish()" role="button") Verlaat formulier
-                            .form-group.col.col-lg-12: br 
+                            .form-group.col.col-lg-12: br

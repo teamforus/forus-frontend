@@ -1,8 +1,10 @@
 const ProductComponent = function(
     $scope,
+    $rootScope,
     $state,
     $stateParams,
     $sce,
+    $filter,
     appConfigs,
     AuthService,
     FundService,
@@ -10,6 +12,8 @@ const ProductComponent = function(
     VoucherService
 ) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
+
     let fetchingFund = false;
 
     if (!appConfigs.features.products.show) {
@@ -125,6 +129,9 @@ const ProductComponent = function(
         $ctrl.applicableBudgetVouchers = $ctrl.product.funds.filter(
             fund => fund.meta.applicableBudgetVouchers
         ).length > 0;
+
+        const implementation = $i18n('implementation_name.' + appConfigs.client_key);
+        $rootScope.pageTitle = $i18n('page_state_titles.product', { implementation, product_name: $ctrl.product.name });
     };
 
     $ctrl.applyProduct = () => {
@@ -170,9 +177,11 @@ module.exports = {
     },
     controller: [
         '$scope',
+        '$rootScope',
         '$state',
         '$stateParams',
         '$sce',
+        '$filter',
         'appConfigs',
         'AuthService',
         'FundService',

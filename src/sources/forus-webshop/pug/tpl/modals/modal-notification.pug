@@ -9,7 +9,7 @@
             .text-center
                 .modal-icon(ng-if="$ctrl.icon")
                     img(ng-src="{{ $ctrl.icon }}" alt="")
-                .title(role="heading" id="notificationDialogTitle" translate="{{ $ctrl.title }}")
+                h2.title(role="heading" id="notificationDialogTitle" translate="{{ $ctrl.title }}")
                 .description(id="notificationDialogSubtitle" ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}" translate-values='{email: $ctrl.email}')
                 .description(id="notificationDialogSubtitle" ng-if="$ctrl.description && $ctrl.descriptionIsArray")
                     div(ng-repeat="description in $ctrl.description  track by $index" translate="{{ description }}")
