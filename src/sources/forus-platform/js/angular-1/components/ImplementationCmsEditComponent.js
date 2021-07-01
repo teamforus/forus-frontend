@@ -67,7 +67,11 @@ let ImplementationCmsEditComponent = function (
     };
 
     $ctrl.resetBanner = () => {
-        $ctrl.form.values.banner_media_uid = $ctrl.bannerMedia = null;
+        MediaService.delete($ctrl.bannerMedia.uid).then((res) => {
+            $ctrl.bannerMedia = null;
+        }, (res) => {
+            PushNotificationsService.danger('Error!', res.data.message);
+        });
     }
 
     $ctrl.communicationTypes = [{
