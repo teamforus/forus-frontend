@@ -1,6 +1,6 @@
 .modal.modal-auth.modal-animated(
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
-    role="dialog" aria-labelledby="openInMeDialogTitle" aria-describedby="openInMeDialogSubtitle")
+    role="dialog")
     
     .modal-backdrop(ng-click="$ctrl.close()")
 
@@ -39,12 +39,12 @@
             .step-item
                 img(src="./assets/img/screen1.png" alt="Me-app aanmeldscherm schermafbeelding")
                 .app-title(translate="open_in_me.app_instruction.step_1")
-                img.line-item(src="./assets/img/line1.png")
+                img.line-item(src="./assets/img/line1.png" alt="")
             .step-item
                 img(src="./assets/img/screen2.png" alt="Me-app aanmeldscherm schermafbeelding, kies koppelen")
                 .app-title(translate="open_in_me.app_instruction.step_2")
 
-            .divider-img: img(src="./assets/img/Base7.png")
+            .divider-img: img(src="./assets/img/Base7.png" alt ="")
 
         .modal-title {{ "open_in_me.app_header.title" | translate }}
         .modal-subtitle(translate="open_in_me.app_header.subtitle_{{ $root.appConfigs.features.communication_type }}")

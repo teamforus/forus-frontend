@@ -39,7 +39,7 @@ main(id="main-content")
                 .block-products-content
                     .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.product.funds")
                         .fund-item-section.fund-item-section-details
-                            .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}")
+                            .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
                             .fund-item-content
                                 .fund-item-title(ng-bind="fund.name")
                                 .fund-item-subtitle(ng-bind="fund.organization.name")

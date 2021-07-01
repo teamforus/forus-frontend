@@ -130,7 +130,7 @@ main(id="main-content")
                     .sign_up-pane-body
                         .sign_up-email_sent
                             .sign_up-email_sent-icon
-                                img(src=src_prefix + "./assets/img/modal/email_signup.svg" role="presentation").sign_up-email_sent-icon-img
+                                img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
                             .sign_up-email_sent-title(i18n="popup_auth.labels.join")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.notifications.link_' + $root.appConfigs.features.communication_type }}")
 
@@ -140,7 +140,7 @@ main(id="main-content")
                     .sign_up-pane-body
                         .sign_up-email_sent
                             .sign_up-email_sent-icon
-                                img(src=src_prefix + "./assets/img/modal/email_signup.svg" role="presentation").sign_up-email_sent-icon-img
+                                img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
                             .sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_succes_' + $root.appConfigs.features.communication_type }}")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.header.subtitle_we_succes_' + $root.appConfigs.features.communication_type }}" translate-values="{email: $ctrl.authForm.values.email}")
 

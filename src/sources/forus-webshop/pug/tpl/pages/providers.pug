@@ -27,7 +27,8 @@ block content
                                 input.form-control(
                                     ng-model="$ctrl.form.values.q"
                                     placeholder="Zoek aanbieder" 
-                                    type="search")
+                                    type="search"
+                                    aria-label="Zoeken")
 
                             .form-group
                                 label.form-label(for="select_provider_type") Type aanbieder
@@ -36,7 +37,7 @@ block content
                                     ng-model="$ctrl.form.values.businessType" 
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer type..."
-                                    id="select_provider_type")
+                                    id="select_provider_type")                        
 
                             .form-group
                                 label.form-label(for="select_fund") Tegoeden

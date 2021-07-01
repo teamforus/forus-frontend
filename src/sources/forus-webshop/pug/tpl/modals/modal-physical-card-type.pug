@@ -2,7 +2,7 @@
 
 .modal.modal-physical-cards.modal-animated(
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
-    role="dialog" aria-labelledby="physicalCardTypeDialogTitle" aria-describedby="physicalCardTypeDialogSubtitle")
+    role="dialog")
     
     .modal-backdrop(ng-click="$ctrl.close()")
     
@@ -78,37 +78,41 @@
                     .physical-card-description(translate="physical_card.modal_section.request_new_card.description")
                     .row: .col.col-sm-8.col-sm-offset-2: form.form
                         .form-group
-                            label.form-label(translate="physical_card.modal_section.request_new_card.address")
+                            label.form-label(translate="physical_card.modal_section.request_new_card.address" for="physical_card.modal_section.request_new_card.address")
                             input(
-                                id="physical_card_address"
+                                id="physical_card.modal_section.request_new_card.address"
                                 placeholder="{{ 'physical_card.modal_section.request_new_card.address_placeholder' | translate }}" 
                                 ng-model="$ctrl.requestPhysicalCardForm.values.address").form-control
                             .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.address" ng-bind="error")
 
                         .form-group
-                            label.form-label(translate="physical_card.modal_section.request_new_card.house")
+                            label.form-label(translate="physical_card.modal_section.request_new_card.house" for="physical_card.modal_section.request_new_card.house")
                             input(
+                                id="physical_card.modal_section.request_new_card.house"
                                 placeholder="{{ 'physical_card.modal_section.request_new_card.house_placeholder' | translate }}" 
                                 ng-model="$ctrl.requestPhysicalCardForm.values.house").form-control
                             .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.house" ng-bind="error")
 
                         .form-group
-                            label.form-label(translate="physical_card.modal_section.request_new_card.house_addition")
+                            label.form-label(translate="physical_card.modal_section.request_new_card.house_addition" for="physical_card.modal_section.request_new_card.house_addition")
                             input(
+                                id="physical_card.modal_section.request_new_card.house_addition"
                                 placeholder="{{ 'physical_card.modal_section.request_new_card.house_addition_placeholder' | translate }}" 
                                 ng-model="$ctrl.requestPhysicalCardForm.values.house_addition").form-control
                             .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.house_addition" ng-bind="error")
 
                         .form-group
-                            label.form-label(translate="physical_card.modal_section.request_new_card.postcode")
+                            label.form-label(translate="physical_card.modal_section.request_new_card.postcode" for="physical_card.modal_section.request_new_card.postcode")
                             input(
+                                id="physical_card.modal_section.request_new_card.postcode"
                                 placeholder="{{ 'physical_card.modal_section.request_new_card.postcode_placeholder' | translate }}" 
                                 ng-model="$ctrl.requestPhysicalCardForm.values.postcode").form-control
                             .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.postcode" ng-bind="error")
 
                         .form-group
-                            label.form-label(translate="physical_card.modal_section.request_new_card.city")
+                            label.form-label(translate="physical_card.modal_section.request_new_card.city" for="physical_card.modal_section.request_new_card.city")
                             input(
+                                id="physical_card.modal_section.request_new_card.city"
                                 placeholder="{{ 'physical_card.modal_section.request_new_card.city_placeholder' | translate }}" 
                                 ng-model="$ctrl.requestPhysicalCardForm.values.city").form-control
                             .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.city" ng-bind="error")

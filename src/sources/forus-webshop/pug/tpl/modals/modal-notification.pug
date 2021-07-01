@@ -1,6 +1,6 @@
 .modal.modal-notification.modal-animated(
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
-    role="dialog" aria-labelledby="notificationDialogTitle" aria-describedby="notificationDialogSubtitle")
+    role="dialog")
     
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-content
@@ -8,7 +8,7 @@
         .modal-section
             .text-center
                 .modal-icon(ng-if="$ctrl.icon")
-                    img(ng-src="{{ $ctrl.icon }}")
+                    img(ng-src="{{ $ctrl.icon }}" alt="")
                 .title(role="heading" id="notificationDialogTitle" translate="{{ $ctrl.title }}")
                 .description(id="notificationDialogSubtitle" ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}" translate-values='{email: $ctrl.email}')
                 .description(id="notificationDialogSubtitle" ng-if="$ctrl.description && $ctrl.descriptionIsArray")
