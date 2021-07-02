@@ -105,7 +105,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     .auth-in(ng-if="$root.auth_user").hide-sm
                         .auth-user(role="button")
                             .auth-user-avatar(ng-click="$ctrl.openUserMenu($event)")
-                            button.auth-user-caret(ng-click="$ctrl.openUserMenu($event)" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}")
+                            .auth-user-caret(ng-click="$ctrl.openUserMenu($event)" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}")
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
                             .auth-user-menu.hide-sm(
