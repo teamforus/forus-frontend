@@ -27,7 +27,8 @@ main(id="main-content")
 
             div(ng-if="$ctrl.state == 'digid'")
                 .sign_up-pane
-                    .sign_up-pane-header(i18n="fund_request.sign_up.digid.title")                   
+                    h1.sr-only Inloggen met DigiD
+                    .sign_up-pane-header(i18n="fund_request.sign_up.digid.title" role="heading")                   
                     .sign_up-pane-body
                         .sign_up-pane-auth
                             .sign_up-pane-auth-content
@@ -41,6 +42,7 @@ main(id="main-content")
             //- Fund request information
             div(ng-if="$ctrl.state == 'auth'")
                 .sign_up-pane(ng-show="!$ctrl.authForm.autofill")
+                    h1.sr-only Start aanmelden
                     .sign_up-pane-header(translate="fund_request.sign_up.header.title" role="heading")
 
                     .sign_up-pane-body(ng-if="!$ctrl.hasApp")
@@ -110,7 +112,7 @@ main(id="main-content")
             div(ng-if="$ctrl.state == 'auth_email_sent'")
                 //- For new users
                 .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
-                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title") 
+                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title" role="heading") 
                     .sign_up-pane-body
                         .sign_up-email_sent
                             .sign_up-email_sent-icon
@@ -120,7 +122,8 @@ main(id="main-content")
                 
                 //- For existing users
                 .sign_up-pane(ng-if="$ctrl.authEmailSent")
-                    .sign_up-pane-header(i18n="popup_auth.header.title") 
+                    h1.sr-only Start aanmelden
+                    .sign_up-pane-header(i18n="popup_auth.header.title" role="heading") 
                     .sign_up-pane-body
                         .sign_up-email_sent
                             .sign_up-email_sent-icon

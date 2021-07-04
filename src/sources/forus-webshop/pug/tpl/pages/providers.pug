@@ -63,16 +63,12 @@ block content
                                 .block.block-label-tabs.pull-right
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: !$ctrl.showMap}"
-                                        ng-click="$ctrl.showAsList()"
-                                        role="tab"
-                                        aria-selected="{{ !$ctrl.showMap ? 'true' : 'false' }}")
+                                        ng-click="$ctrl.showAsList()")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.showMap}"
-                                        ng-click="$ctrl.showAsMap()"
-                                        role="tab"
-                                        aria-selected="{{ $ctrl.showMap ? 'true' : 'false' }}")
+                                        ng-click="$ctrl.showAsMap()")
                                         em.mdi.mdi-map-marker-radius.icon-start
                                         | Kaart
 

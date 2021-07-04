@@ -79,15 +79,13 @@ block content
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'list'}"
                                         ng-click="$ctrl.showAs('list')"
-                                        role="button" 
-                                        aria-selected="{{ $ctrl.display_type == 'list' ? 'true' : 'false' }}")
+                                        role="button")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'grid'}"
                                         ng-click="$ctrl.showAs('grid')"
-                                        role="button"
-                                        aria-selected="{{ $ctrl.display_type == 'grid' ? 'true' : 'false' }}")
+                                        role="button")
                                         em.mdi.mdi-view-grid-outline.icon-start
                                         | Foto's
 

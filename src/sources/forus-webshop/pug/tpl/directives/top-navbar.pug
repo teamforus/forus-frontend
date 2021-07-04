@@ -94,7 +94,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
                         span(translate="topnavbar.buttons.login")
                         
-                    button.button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()" role="button" aria-label="Start aanvraag")
+                    button.button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()" role="button" aria-label="Start aanmelding")
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
                         span(translate="home.header.{{ $root.client_key }}.button" translate-default="{{ 'home.header.button' | translate }}" id="start_modal")
 
@@ -103,12 +103,13 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                             span(translate="topnavbar.buttons.voucher") 
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
-                        .auth-user(role="button")
-                            .auth-user-avatar(ng-click="$ctrl.openUserMenu($event)")
-                            .auth-user-caret(ng-click="$ctrl.openUserMenu($event)" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}")
+                        .auth-user(ng-click="$ctrl.openUserMenu($event)" aria-haspopup="true" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}" role="button" aria-label="user_menu")
+                            .auth-user-avatar
+                            .auth-user-caret
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
                             .auth-user-menu.hide-sm(
+                                aria-labelledby="user_menu"
                                 ng-class="{active: $ctrl.userMenuOpened}"
                                 ng-if="$ctrl.userMenuOpened"
                                 click-outside="$ctrl.hideUserMenu()")

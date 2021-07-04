@@ -9,10 +9,15 @@ section.section.section-voucher-details: .wrapper
             profile-menu
 
             .profile-content
+                .profile-content-header.clearfix
+                    .profile-content-title
+                        div.pull-left
+                            h1.profile-content-header Notificatievoorkeuren
+
                 p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
                 
-                .card(ng-if="$ctrl.email_unsubscribed")
-                    .card-header: h1.card-title(translate="notification_preferences.title_preferences")
+                .card(ng-if="$ctrl.email_unsubscribed")       
+                    .card-header: h2.card-title(translate="notification_preferences.title_emails_turned_on")
                     .card-section
                         .card-heading(translate="{{ 'notification_preferences.subscribe_desc_' + $root.appConfigs.features.communication_type }}" translate-values="{ email: $ctrl.email }")
                         div: button(
@@ -22,7 +27,7 @@ section.section.section-voucher-details: .wrapper
                             id="enable_subscription").button.button-primary
 
                 .card(ng-if="!$ctrl.email_unsubscribed")
-                    .card-header: h1.card-title(translate="notification_preferences.title_preferences")
+                    .card-header: h2.card-title(translate="notification_preferences.title_emails_turned_of")
                     .card-section
                         .card-heading(translate="{{ 'notification_preferences.unsubscribe_desc' }}")
                         div: button(
@@ -32,7 +37,7 @@ section.section.section-voucher-details: .wrapper
                             id="disable_subscription").button.button-primary 
                 
                 .card(ng-if="!$ctrl.email_unsubscribed")
-                    .card-header: h1.card-title(translate="notification_preferences.title_email_preferences")
+                    .card-header: h2.card-title(translate="notification_preferences.title_email_preferences")
                     .form.block.block-preferences(ng-if="!$ctrl.email_unsubscribed"): label(
                         ng-repeat="type in $ctrl.emailPreferences" 
                         for="option_{{ type.key }}").preference-option
@@ -46,12 +51,12 @@ section.section.section-voucher-details: .wrapper
                                 ng-change="$ctrl.togglePreferenceOption()" 
                                 ng-checked="type.subscribed" 
                                 ng-model="type.subscribed")
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button")
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button" aria-label="in of uitschakelen")
                                 em.mdi.mdi-check-bold(ng-if="type.subscribed")
                                 .icon-disabled(ng-if="!type.subscribed")
                 
                 .card
-                    .card-header: h1.card-title(translate="notification_preferences.title_push_preferences")
+                    .card-header: h2.card-title(translate="notification_preferences.title_push_preferences")
                     .form.block.block-preferences: label(
                         ng-repeat="type in $ctrl.pushPreferences" 
                         for="option_{{ type.key }}").preference-option
@@ -65,7 +70,7 @@ section.section.section-voucher-details: .wrapper
                                 ng-change="$ctrl.togglePreferenceOption()" 
                                 ng-checked="type.subscribed" 
                                 ng-model="type.subscribed")
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button")
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button" aria-label="in of uitschakelen")
                                 em.mdi.mdi-check-bold(ng-if="type.subscribed")
                                 .icon-disabled(ng-if="!type.subscribed") 
                                 

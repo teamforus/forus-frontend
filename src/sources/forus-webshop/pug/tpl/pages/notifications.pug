@@ -26,7 +26,7 @@ main(id="main-content")
                                 em.mdi.mdi-clock-outline 
                                 | {{ notification.created_at_locale }}
                             td
-                                .notification-title(role="heading" ng-bind="notification.title")
+                                h2.notification-title(ng-bind="notification.title")
                                 .notification-description(ng-bind="notification.description")
                                 .notification-date.show-sm
                                     em.mdi.mdi-clock-outline 
