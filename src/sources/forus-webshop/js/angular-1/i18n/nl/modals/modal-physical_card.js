@@ -45,6 +45,11 @@ module.exports = {
             title: 'Pas gekoppeld!',
             description: 'Je pas is gekoppeld aan je {{fundName}}!',
         },
+        confirm_card: {
+            header: 'Controleer de gegevens',
+            title: 'Controleer de gegevens:',
+            description: 'Klik na controle op bevestigen of pas de gegevens aan.',
+        },
         link_card_unlink: {
             title: 'Blokkeer je pas',
             buttons: {
@@ -64,6 +69,10 @@ module.exports = {
         }
     },
     buttons: {
+        confirm_card: {
+            adjust: 'Aanpassen',
+            submit: 'Bevestigen',
+        },
         close: 'Sluiten',
         link_card: {
             submit_code: 'Bevestig',

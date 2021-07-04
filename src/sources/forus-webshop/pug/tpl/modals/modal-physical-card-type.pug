@@ -120,6 +120,25 @@
 
                 .text-center: button.button.button-dark(type="button" translate="physical_card.buttons.request_new_card.confirm" ng-click="$ctrl.requestCard()")    
 
+    //- Confirmation new card
+    .modal-window(ng-if="$ctrl.state == 'confirm_new_card'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.confirm_card.header")
+        .modal-content: .modal-section
+            .physical-card-preview
+                .physical-card-title(translate="physical_card.modal_section.confirm_card.title")
+                .physical-card-description {{ $ctrl.requestPhysicalCardForm.values.address }} {{ $ctrl.requestPhysicalCardForm.values.house }} {{ $ctrl.requestPhysicalCardForm.values.house_addition }}
+                .physical-card-description {{ $ctrl.requestPhysicalCardForm.values.postcode }} {{ $ctrl.requestPhysicalCardForm.values.city }}
+                br 
+                
+                .physical-card-description(translate="physical_card.modal_section.confirm_card.description") 
+                br 
+                br
+
+                .text-center
+                    button.button.button-dark(type="button" translate="physical_card.buttons.confirm_card.adjust" ng-click="$ctrl.state = 'select_type'")
+                    button.button.button-alert(type="button" translate="physical_card.buttons.confirm_card.submit" ng-click="$ctrl.confirmCard()")   
+
     //- Success old card
     .modal-window(ng-if="$ctrl.state == 'success_old_card'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")

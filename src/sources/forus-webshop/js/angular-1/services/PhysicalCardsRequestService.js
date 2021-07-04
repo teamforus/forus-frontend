@@ -21,6 +21,14 @@ let PhysicalCardsRequestService = function(
                 voucherAddress
             ), data);
         };
+        
+        this.validate = function(voucherAddress, data) {
+            return ApiRequest.post(sprintf(
+                '%s/%s/physical-card-requests/validate',
+                apiPrefix,
+                voucherAddress
+            ), data);
+        };
 
         this.show = function(address, request_id) {
             return ApiRequest.get(sprintf(

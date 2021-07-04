@@ -63,17 +63,6 @@ let ModalPhysicalCardTypeComponent = function(
                 form.values
             ).then(res => {
                 $ctrl.state = 'success_new_card';
-            }, (res) => {
-                form.unlock();
-                form.errors = res.data.errors;
-
-                if (res.status === 429) {
-                    return form.errors = {
-                        to_many_requests: [res.data.message]
-                    };
-                }
-
-                form.errors = res.data.errors;
             });
         });
     };
@@ -107,6 +96,27 @@ let ModalPhysicalCardTypeComponent = function(
     };
 
     $ctrl.requestCard = () => {
+        PhysicalCardsRequestService.validate(
+            $ctrl.modal.scope.voucher.address, 
+            $ctrl.requestPhysicalCardForm.values
+        ).then(res => {
+            $ctrl.requestPhysicalCardForm.errors = {};
+            $ctrl.state = 'confirm_new_card';
+        }, (res) => {
+            $ctrl.requestPhysicalCardForm.unlock();
+            $ctrl.requestPhysicalCardForm.errors = res.data.errors;
+
+            if (res.status === 429) {
+                return $ctrl.requestPhysicalCardForm.errors = {
+                    to_many_requests: [res.data.message]
+                };
+            }
+
+            $ctrl.requestPhysicalCardForm.errors = res.data.errors;
+        });
+    };
+
+    $ctrl.confirmCard = () => {
         $ctrl.requestPhysicalCardForm.submit();
     };
 };

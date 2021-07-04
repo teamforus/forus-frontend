@@ -164,6 +164,16 @@
         }
     }
 
+    &.button-alert {
+        color: #fff;
+        background: #D93740;
+
+        &:hover {
+            color: rgb(206, 199, 199);
+            background: #DD0000;
+        }
+    }
+
     &.button-primary-outline {
         color: $color_primary;
         border: 1px solid $color_primary;

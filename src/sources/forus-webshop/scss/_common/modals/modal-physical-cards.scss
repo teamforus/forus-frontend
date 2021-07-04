@@ -43,6 +43,18 @@
             }
         }
 
+        .physical-card-preview {
+            .physical-card-title {
+                font: 700 14px/21px $bf;
+                color: #646f79;
+                margin-bottom: 30px;
+            }
+
+            .physical-card-description {
+                margin-bottom: 10px;
+            }
+        }
+
         .physical-card-media {
             img,
             svg {
