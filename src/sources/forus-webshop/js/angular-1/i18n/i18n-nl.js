@@ -11,6 +11,7 @@ module.exports = {
         kindpakket: 'Portofolio - Kindpakket',
         product: 'Aanbod {{product_name}}',
         products: 'Aanbod',
+        "actions": 'Aanbod',
         providers: 'Aanbieders',
         "products-show": 'Aanbieding',
         "products-apply": "Aanbieding kopen",
