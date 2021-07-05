@@ -72,6 +72,12 @@
                                 .label-tab.label-tab-sm(
                                     ng-click="$ctrl.form.values.price_type = 'free'"
                                     ng-class="{active: $ctrl.form.values.price_type === 'free', disabled: !$ctrl.isEditable}") Gratis
+                                
+                            em.mdi.mdi-information.block.block-tooltip-details.block-tooltip-hover
+                                .tooltip-content: ul.tooltip-list
+                                    li.tooltip-list-item(
+                                        ng-repeat="line in ('product_edit.tooltips.product_type' | translate | lines_to_array)"
+                                        ng-bind="line")
 
                     //- Regular price
                     .form-group.form-group-inline(ng-if="$ctrl.form.values.price_type === 'regular'")
