@@ -8,7 +8,7 @@ block content
                 .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                     .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
                     .mobile-filters-title Filter op categorieën en tegoeden
-                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
+                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()" aria-label="Filter op categorieën en tegoeden"): em.mdi.mdi-filter-outline
 
                 .block.block-breadcrumbs
                     a(ui-sref="home").breadcrumb-item Home

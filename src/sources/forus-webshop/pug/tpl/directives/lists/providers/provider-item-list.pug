@@ -11,7 +11,7 @@
             ng-bind="$dir.provider.name").organization-title-value
 
         .organization-chevron
-            .mdi(ng-class="'mdi-chevron-' + ($dir.provider.showOffices ? 'up' : 'right')" role = "link" aria-label="Klik voor meer informatie over de aanbieder")
+            .mdi(ng-class="'mdi-chevron-' + ($dir.provider.showOffices ? 'up' : 'right')")
 
     .organization-offices(ng-if="$dir.provider.showOffices"): .block.block-offices
         a(ng-repeat="office in $dir.provider.offices" ui-sref="provider-office(office.uiSrefParams)").office-item

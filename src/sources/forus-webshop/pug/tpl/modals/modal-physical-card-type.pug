@@ -4,7 +4,7 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
     role="dialog")
     
-    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
     
     //- Activation code form
     .modal-window(ng-if="$ctrl.state == 'card_code'")

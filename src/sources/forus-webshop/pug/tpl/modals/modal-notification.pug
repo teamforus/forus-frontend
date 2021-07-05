@@ -2,7 +2,7 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
     role="dialog")
     
-    .modal-backdrop(ng-click="$ctrl.cancel()")
+    .modal-backdrop(ng-click="$ctrl.cancel()" aria-label="close" role="button")
     .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="close" role="button")
         .modal-section
