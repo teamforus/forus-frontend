@@ -1,9 +1,7 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
-let PhysicalCardsRequestService = function(
-    ApiRequest
-) {
-    let apiPrefix = '/platform/vouchers';
+const PhysicalCardsRequestService = function(ApiRequest) {
+    const apiPrefix = '/platform/vouchers';
 
     return new (function() {
         this.index = function(voucherAddress, data) {

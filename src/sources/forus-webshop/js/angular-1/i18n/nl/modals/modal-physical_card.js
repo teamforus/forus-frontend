@@ -59,13 +59,8 @@ module.exports = {
         },
         request_card_success: {
             title: 'Je pas is besteld!',
-            description: [
-                '<h2>Je pas is besteld!</h2>',
-                'De pas wordt verstuurd naar het adres: <br />',
-                '{{address}} {{house}} {{house_addition}}',
-                '{{postcode}} {{city}} <br />',
-                'Je hebt een e-mail ontvangen met de bevestiging van je bestelling.',
-            ].join('<br/>'),
+            heading: 'De pas wordt verstuurd naar het adres:',
+            description: 'Je hebt een e-mail ontvangen met de bevestiging van je bestelling.',
         }
     },
     buttons: {
