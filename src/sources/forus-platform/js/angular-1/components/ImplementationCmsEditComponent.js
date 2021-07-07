@@ -39,6 +39,7 @@ let ImplementationCmsEditComponent = function (
 
     $ctrl.modelPlaceholder = '';
     $ctrl.bannerMedia;
+    $ctrl.resetMedia = false;
 
     $ctrl.bannerMeta = {
         media: null,
@@ -65,6 +66,13 @@ let ImplementationCmsEditComponent = function (
             $ctrl.bannerMeta.mediaLoading = false;
         });
     };
+
+    $ctrl.resetBanner = () => {
+        $ctrl.form.values.banner.uid = $ctrl.bannerMedia.uid;
+        $ctrl.bannerMedia = $ctrl.bannerMeta.media = null;
+        
+        $ctrl.resetMedia = true;
+    }
 
     $ctrl.communicationTypes = [{
         value: '1',
@@ -140,6 +148,12 @@ let ImplementationCmsEditComponent = function (
         }, (form) => {
             const { overlay_enabled, overlay_type, overlay_opacity } = $ctrl.bannerMeta;
             const header_text_color = $ctrl.bannerMeta.auto_text_color ? 'auto' : $ctrl.bannerMeta.header_text_color;
+
+            if (!$ctrl.bannerMedia && $ctrl.resetMedia) {
+                MediaService.delete($ctrl.form.values.banner.uid).then((res) => {}, (res) => {
+                    PushNotificationsService.danger('Error!', res.data.message);
+                });
+            }
 
             ImplementationService.updateCMS($rootScope.activeOrganization.id, $ctrl.implementation.id, {
                 ...form.values,
