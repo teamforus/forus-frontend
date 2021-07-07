@@ -405,9 +405,9 @@ const ProviderSignUpComponent = function(
     };
 
     $ctrl.loadOrganizations = () => {
-        return $q((resolve, reject) => SignUpService.organizations().then(
-            res => resolve($ctrl.organizationList = res.data.data), reject
-        ));
+        return $q((resolve, reject) => SignUpService.organizations({
+            per_page: 100,
+        }).then(res => resolve($ctrl.organizationList = res.data.data), reject));
     };
 
     let loadEmployees = (organization) => {
@@ -455,9 +455,9 @@ const ProviderSignUpComponent = function(
         });
     };
 
-    let loadAvailableFunds = (organization) => {
-        $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag;
-        let search_params = $ctrl.filters.values;
+    const loadAvailableFunds = (organization) => {
+        $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag && !$stateParams.fund_id;
+        const search_params = $ctrl.filters.values;
 
         if (!$ctrl.showFilters) {
             if ($stateParams.organization_id) {

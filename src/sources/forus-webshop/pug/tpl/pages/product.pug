@@ -13,6 +13,7 @@ main(id="main-content")
             .breadcrumb-item.active(ng-bind="$ctrl.product.name")
 
         .block.block-product
+            h1.sr-only Informatie over het aanbod
             .product-card
                 .product-photo
                     img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" alt="{{ $ctrl.product.name }}")
@@ -20,7 +21,6 @@ main(id="main-content")
                 .product-details
                     .product-name
                         span(ng-bind="$ctrl.product.name")
-                        span.label.label-success(ng-if="!$ctrl.product.deleted && !$ctrl.product.sold_out" i18n="product.status.active")
                         span.label.label-danger(ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" i18n="product.status.out_of_stock")
                     .organization-name(ng-bind="$ctrl.product.organization.name")
 
@@ -35,11 +35,11 @@ main(id="main-content")
                             .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
 
             .block.block-info-card(ng-if="$ctrl.productMeta.funds.length > 0")
-                a(i18n="product.headers.funds" ui-sref="vouchers").block-header
+                h2(i18n="product.headers.funds" ui-sref="vouchers").block-header
                 .block-products-content
                     .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds")
                         .fund-item-section.fund-item-section-details.text-left
-                            .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}")
+                            .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
                             .fund-item-content
                                 .fund-item-section-label.flex-start Tegoed:
                                 .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name")
@@ -103,7 +103,7 @@ main(id="main-content")
                             .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)" i18n="product.buttons.open_voucher")
 
             .block.block-pane(ng-class="{'last-child': $ctrl.product.organization.showOffices}")
-                a(ui-sref="provider($ctrl.product.organization)" i18n="product.headers.provider").pane-head
+                h2(ui-sref="provider($ctrl.product.organization)" i18n="product.headers.provider").pane-head
                 .pane-body: .block.block-organizations: .organization-item
                     a(ui-sref="provider($ctrl.product.organization)" ).organization-pane
                         .organization-logo
@@ -112,11 +112,11 @@ main(id="main-content")
                             .organization-title-value(ng-bind="$ctrl.product.organization.name")
                             .organization-title-count(ng-bind="$ctrl.product.offices.length")
                         .organization-chevron(ng-click="$ctrl.toggleOffices($event, $ctrl.product.organization)")
-                            .mdi(ng-class="'mdi-chevron-' + ($ctrl.product.organization.showOffices ? 'up' : 'right')" role = "link")           
+                            .mdi(ng-class="'mdi-chevron-' + ($ctrl.product.organization.showOffices ? 'up' : 'right')" role = "link" aria-label="Klik voor meer informatie over de aanbieder")           
         
             .block.block-organizations(ng-if="$ctrl.product.organization.showOffices"): .organization-item
                 .organization-offices: .block.block-offices
-                    a(ng-repeat="office in $ctrl.product.offices" ui-sref="provider-office(office)").office-item
+                    a(ng-repeat="office in $ctrl.product.offices" ui-sref="provider-office(office)" role="heading").office-item
                         .office-item-map-icon: .mdi.mdi-map-marker
                         .office-pane
                             .office-pane-block
@@ -140,7 +140,7 @@ main(id="main-content")
 
             .block.block-map_card
                 .map_card-header
-                    .map_card-title(i18n="product.headers.map")
+                    h2.map_card-title(i18n="product.headers.map")
 
                 .map_card-iframe: google-map(
                     map-gesture-handling="'greedy'"

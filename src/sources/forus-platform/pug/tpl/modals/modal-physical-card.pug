@@ -1,9 +1,9 @@
 .modal.modal-physical-cards.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
-    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
     
     //- Activation code form
     .modal-window(ng-if="$ctrl.state != 'success_old_card'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
         .modal-header
             .modal-title(translate="modals.modal_voucher_physical_card.header.card_title")
         .modal-content: form.form

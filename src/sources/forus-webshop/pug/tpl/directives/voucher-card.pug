@@ -2,7 +2,7 @@ a(ui-sref="voucher(voucher)").voucher-item
     .voucher-image: img(src='{{ voucherCard.thumbnail }}' alt="{{ voucherCard.title }}")
 
     .voucher-details
-        .voucher-name(ng-bind="voucherCard.title")
+        h2.voucher-name(ng-bind="voucherCard.title")
         .voucher-organization(ng-bind="voucherCard.subtitle")
         .voucher-value(
             ng-if="(voucherCard.fund.type == 'budget') && (voucherCard.type == 'regular')" 

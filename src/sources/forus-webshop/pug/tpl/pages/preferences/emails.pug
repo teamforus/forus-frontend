@@ -51,18 +51,19 @@ section.section.section-voucher-details: .wrapper
 
                                     .flex-col(ng-if="!email.primary")
                                         button(
+                                            aria-label="verwijder"
                                             ng-disabled="email.disabled" 
                                             ng-click="$ctrl.deleteEmail(email)").button.button-primary-outline.button-icon: em.mdi.mdi-trash-can-outline            
 
                 .card
                     .card-section.card-section-primary(ng-if="!$ctrl.form && !$ctrl.formSuccess")
-                        .card-heading.card-heading-lg Voeg een e-mailadres toe
+                        h2.card-heading.card-heading-lg Voeg een e-mailadres toe
                         .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button") 
                             em.mdi.mdi-plus-circle.icon-start
                             | E-mail toevoegen
                     
                     .card-section.card-section-primary(ng-if="$ctrl.form && !$ctrl.formSuccess")
-                        .card-heading.card-heading-lg Voeg een e-mailadres toe
+                        h2.card-heading.card-heading-lg Voeg een e-mailadres toe
                         form(ng-submit="$ctrl.form.submit()").form.row: .col.col-lg-6.form-group
                             .form-label E-mailadres
                             .flex-row
@@ -72,6 +73,6 @@ section.section.section-voucher-details: .wrapper
                                 .flex-col: button(type="submit").button.button-primary Toevoegen
                 
                     .card-section.card-section-primary(ng-if="!$ctrl.form && $ctrl.formSuccess")
-                        .card-heading.card-heading-lg.card-heading-padless(translate="{{ 'email_preferences.email_added.title_' +  $root.appConfigs.features.communication_type }}") Bevestig e-mailadres 
+                        h2.card-heading.card-heading-lg.card-heading-padless(translate="{{ 'email_preferences.email_added.title_' +  $root.appConfigs.features.communication_type }}") Bevestig e-mailadres 
                         .card-text(translate="{{ 'email_preferences.email_added.description_' +  $root.appConfigs.features.communication_type }}")
                         .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button") Voeg nog een e-mailadres toe
