@@ -271,6 +271,15 @@
                     }
                 }
             }
+
+            .profile-content {
+                .profile-content-header {
+                    .profile-content-subtitle {
+                        font: 400 14px/22px $bf;
+                        padding: 10px 0;
+                    }
+                }
+            }
         }
     }
 }
