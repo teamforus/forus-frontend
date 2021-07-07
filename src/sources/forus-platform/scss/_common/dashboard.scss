@@ -1862,10 +1862,11 @@ body {
         vertical-align: text-bottom;
     
         .tooltip-icon {
-            width: 16px;
-            height: 16px;
-            background: url('../img/Info.png') no-repeat 50% 50%;
-            background-size: contain;
+            width: 24px;
+            height: 24px;
+            font-size: 24px;
+            line-height: 24px;
+            color: #2987FD;
             cursor: pointer;
         }
     
@@ -1878,14 +1879,14 @@ body {
             background: #fff;
             z-index: 5;
             border-radius: 4px;
-            font: 500 14px/20px $bf;
+            font: 500 13px/20px $bf;
             text-transform: none;
             color: #45535e;
             display: none;
     
             &:not(.tooltip-bottom) {
                 left: 100%;
-                top: 8px;
+                top: 12px;
                 transform: translate(0, -50%);
                 
                 &:after,
@@ -1944,10 +1945,7 @@ body {
         }
     
         &:hover {
-            .tooltip-icon {
-                background-image: url('../img/Info_hover.png');
-            }
-    
+
             .tooltip {
                 display: block;
             }
