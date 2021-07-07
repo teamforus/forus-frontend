@@ -5935,6 +5935,7 @@ body {
     z-index: 20;
     display: flex;
     align-items: center;
+    cursor: default;
 
     .modal-backdrop {
         @include fill_parent();
@@ -6563,10 +6564,6 @@ body {
     }
 
     &.modal-notification {
-        .modal-close {
-            top: 50px;
-        }
-        
         .modal-content {
             .modal-section {
                 font: 400 18px/34px $bf;
@@ -6956,10 +6953,6 @@ body {
         }
 
         &.modal-notification {
-            .modal-close {
-                top: 50px;
-            }
-            
             .modal-content {
                 .modal-section {
                     font: 400 18px/34px $bf;
