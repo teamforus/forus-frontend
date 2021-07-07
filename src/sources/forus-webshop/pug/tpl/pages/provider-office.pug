@@ -15,7 +15,8 @@ block content
                 map-gesture-handling="'none'")
             .office-content
                 .block.block-pane
-                    .pane-head Vestiging informatie
+                    h1.sr-only Informatie over de aanbieder
+                    h2.pane-head Vestiging informatie
                     .pane-section.pane-section-compact-vertical
                         .block.block-data-list
                             .data-list-row(ng-if="$ctrl.office.address")
@@ -41,7 +42,7 @@ block content
                         div(ng-bind-html="$ctrl.provider.description_html")
                         
                 .block.block-pane
-                    .pane-head Openingstijden
+                    h2.pane-head Openingstijden
                     .pane-section.pane-section-compact-vertical(ng-if="$ctrl.office.schedule.length > 0")
                         .block.block-schedule-list($ctrl.schedules.lenght)
                             .schedule-item(ng-repeat="(dayIndex, weekDay) in $ctrl.weekDays")
@@ -52,7 +53,7 @@ block content
                         | Aanbieder heeft geen openingstijden ingesteld. Contacteer aanbieder voor de openingstijden.
                 
                 .block.block-pane.last-child
-                    .pane-head Aanbieder
+                    h2.pane-head Aanbieder
                     .pane-section
                         .office-organization(ng-click="$ctrl.toggleOffices($event, $ctrl.provider)")
                             a(ui-sref="provider($ctrl.provider)" ng-click="$event.stopPropagation()").organization-photo
@@ -61,7 +62,7 @@ block content
                                 .organization-title-value(ng-bind="$ctrl.provider.name")
                                 .organization-title-count(ng-bind="$ctrl.provider.offices.length")
                             
-                            .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')" role = "link")
+                            .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')" role = "link" aria-label="Klik voor meer informatie over de aanbieder")
                 
                 .block.block-organizations
                     .organization-item

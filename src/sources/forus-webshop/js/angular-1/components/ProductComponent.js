@@ -1,8 +1,10 @@
 const ProductComponent = function(
     $scope,
+    $rootScope,
     $state,
     $stateParams,
     $sce,
+    $filter,
     appConfigs,
     AuthService,
     FundService,
@@ -10,6 +12,7 @@ const ProductComponent = function(
     ProductService
 ) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
 
     if (!appConfigs.features.products.show) {
         return $state.go('home');
@@ -65,6 +68,9 @@ const ProductComponent = function(
 
         $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
         $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
+
+        const implementation = $i18n('implementation_name.' + appConfigs.client_key);
+        $rootScope.pageTitle = $i18n('page_state_titles.product', { implementation, product_name: $ctrl.product.name });
     };
 };
 
@@ -79,9 +85,11 @@ module.exports = {
     },
     controller: [
         '$scope',
+        '$rootScope',
         '$state',
         '$stateParams',
         '$sce',
+        '$filter',
         'appConfigs',
         'AuthService',
         'FundService',

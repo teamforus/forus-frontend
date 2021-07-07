@@ -21,15 +21,15 @@ const ProductsEditComponent = function(
     $ctrl.reservationPolicies = [{
         value: 'global',
         // Use global settings
-        label: 'Gebruik de globale instellingen',
-    }, {
-        value: 'review',
-        // Review all reservations
-        label: 'Handmatig controleren',
+        label: 'Gebruik standaard instelling',
     }, {
         // Auto accept
         value: 'accept',
         label: 'Automatisch accepteren'
+    }, {
+        value: 'review',
+        // Review all reservations
+        label: 'Handmatig controleren',
     }];
 
     $ctrl.goToFundProvider = (provider) => {

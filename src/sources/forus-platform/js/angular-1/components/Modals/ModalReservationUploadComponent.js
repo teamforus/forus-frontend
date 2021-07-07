@@ -117,8 +117,8 @@ const ModalReservationUploadComponent = function(
 
                 if (validation) {
                     PushNotificationsService.danger(
-                        'Error!',
-                        `${count_errors} line(s) with invalid data found, please fix/remove the line(s) and try again.`,
+                        'Foutmelding!',
+                        `${count_errors} lijn(en) met invalide data gevonden, repareer de lijnen en probeer het opnieuw.`,
                     );
 
                     $ctrl.close();
@@ -129,9 +129,8 @@ const ModalReservationUploadComponent = function(
                 ModalService.open('duplicatesPicker', {
                     hero_title: "Reserveringen aanmaken mislukt!",
                     hero_subtitle: [
-                        "Voor onderstaande nummers kan geen reservering worden aangemaakt." +
-                        "Er is geen actief tegoed beschikbaar of het gebruikerslimiet is bereikt.",
-                        "Indien u bevestigd worden alle reserveringen toegevoegd op anderstaande nummers na."
+                        "Voor onderstaande nummers is geen reservering worden aangemaakt.\n" +
+                        "Noteer goed om welke nummers en lijnen het gaat en upload hierna deze opnieuw."
                     ],
                     enableToggles: false,
                     label_on: "Aanmaken",
@@ -156,16 +155,16 @@ const ModalReservationUploadComponent = function(
 
                         if (stats.errors === 0) {
                             PushNotificationsService.success(
-                                'Success!',
-                                `All ${stats.success} line(s) from the .csv where imported.`,
+                                'Gelukt!',
+                                `Alle ${stats.success} lijnen uit het bulkbestand zijn geimporteerd.`,
                             );
                         } else {
                             const allFailed = stats.success === 0;
 
-                            PushNotificationsService.danger(allFailed ? 'Error!' : 'Warning', [
-                                allFailed ? `All ${stats.errors}` : `${stats.errors} from ${reservations.length}`,
-                                `line(s) from the .csv failed to be imported,`,
-                                `please check the list to see which one and why.`,
+                            PushNotificationsService.danger(allFailed ? 'Foutmelding!' : 'Waarschuwing', [
+                                allFailed ? `Alle ${stats.errors}` : `${stats.errors} van ${reservations.length}`,
+                                `lijn(en) uit het bulkbestand zijn niet geimporteerd,`,
+                                `bekijk het bestand bij welke lijn(en) het mis gaat.`,
                             ].join(" "));
 
 

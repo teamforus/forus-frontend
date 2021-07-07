@@ -28,10 +28,22 @@
             .reservation-overview-value(ng-bind="'#' + $dir.reservation.code")
 
         .reservation-overview-item: .reservation-overview-link(
-            ng-click="$dir.cancelReservation($dir.reservation)") Wilt u annuleren?
+            ng-click="$dir.cancelReservation($dir.reservation)") Reservering annuleren
 
     //- reservation rejected
     .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'rejected'")
+        .reservation-overview-status: .label.label-default.label-round Geweigerd
+
+        .reservation-overview-item
+            .reservation-overview-label Reserveringsnummer:
+            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code")
+
+        .reservation-overview-item
+            .reservation-overview-label Geweigerd op:
+            .reservation-overview-value(ng-bind="$dir.reservation.rejected_at_locale")
+
+    //- reservation refunded
+    .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'canceled'")
         .reservation-overview-status: .label.label-default.label-round Geannuleerd
 
         .reservation-overview-item
@@ -40,18 +52,6 @@
 
         .reservation-overview-item
             .reservation-overview-label Geannuleerd op:
-            .reservation-overview-value(ng-bind="$dir.reservation.rejected_at_locale")
-
-    //- reservation refunded
-    .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'canceled'")
-        .reservation-overview-status: .label.label-default.label-round Terugbetaald
-
-        .reservation-overview-item
-            .reservation-overview-label Reserveringsnummer:
-            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code")
-
-        .reservation-overview-item
-            .reservation-overview-label Terugbetaald op:
             .reservation-overview-value(ng-bind="$dir.reservation.canceled_at_locale")
 
     //- reservation expired

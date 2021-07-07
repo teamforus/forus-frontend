@@ -14,7 +14,7 @@ const ReservationCardDirective = function(
             onConfirm: () => {
                 ProductReservationService.destroy(reservation.id).finally(() => {
                     $scope.onDelete({ reservation })
-                    PushNotificationsService.success('Reservation canceled.');
+                    PushNotificationsService.success('Reservering geannuleerd.');
                 }, (res) => PushNotificationsService.danger('Error.', res.data.message));
             },
         });
