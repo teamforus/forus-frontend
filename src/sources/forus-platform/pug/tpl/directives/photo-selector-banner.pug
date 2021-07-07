@@ -47,7 +47,7 @@
                 span(ng-if="!templateData.mediaLoading") Upload hoofdfoto
                 span(ng-if="templateData.mediaLoading"): .mdi.mdi-loading.mdi-spin
             .button.button-default(ng-click="selectFile($event)") Kies foto
-            .button.button-default(ng-if="templateData.media" ng-click="deleteFile($event)") Elimineren foto
+            .button.button-default(ng-if="templateData.media" ng-click="deleteFile($event)") Ongedaan maken
 
 //- .block.block-photo-selector
     .photo-img: img(ng-click="selectFile($event)" ng-src="{{ thumbnail || './assets/img/placeholders/photo-selector.svg' }}", alt="")
