@@ -2,15 +2,19 @@
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-window
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
-        .modal-header(translate="{{ $ctrl.title }}")
         
         .modal-body.form
             .modal-section
                 .text-center
                     .modal-icon-rounded(ng-if="$ctrl.icon"): img(ng-src="{{ $ctrl.icon }}")
-                    
-                    p.description(ng-if="$ctrl.description && !$ctrl.descriptionIsArray" translate="{{ $ctrl.description }}" translate-values='{email: $ctrl.email}')
-                    p.description(
+                    .modal-heading(translate="{{ $ctrl.title }}")
+
+                    p.modal-text(
+                        ng-if="$ctrl.description && !$ctrl.descriptionIsArray" 
+                        translate="{{ $ctrl.description }}" 
+                        translate-values='{email: $ctrl.email}')
+
+                    p.modal-text(
                         ng-if="$ctrl.description && $ctrl.descriptionIsArray" 
                         ng-repeat="description in $ctrl.description track by $index" 
                         translate="{{ description }}")
