@@ -154,7 +154,7 @@ let FundProviderComponent = function(
 
     $ctrl.deleteProduct = (product) => {
         ModalService.open('modalNotification', {
-            type: 'action-result',
+            type: 'confirm',
             title: 'Verwijderen aanbod',
             description: sprintf("Verwijderen aanbod %s?", product.name),
             confirm: () => OrganizationService.sponsorProductDelete(
@@ -162,7 +162,7 @@ let FundProviderComponent = function(
                 $ctrl.fundProvider.organization_id,
                 product.id
             ).then(() => {
-                $state.reload();
+                $ctrl.onPageChangeSponsorProducts();
             }),
         });
     }
