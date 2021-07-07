@@ -4071,6 +4071,10 @@ body {
                     .mdi {
                         animation: none;
                     }
+
+                    &.csv-upload-icon-warning {
+                        background-color: $colorPrimary;
+                    }
                 }
             }
         }

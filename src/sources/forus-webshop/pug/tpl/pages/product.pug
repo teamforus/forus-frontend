@@ -47,7 +47,7 @@ main(id="main-content")
                         .fund-item-section
                             .fund-item-section-label(i18n="product.labels.expire")
                             .fund-item-section-value.fund-item-section-value-sm 
-                                | {{ "product.labels.expire_prefix" | translate }} {{ fund.shownExpireDate }}
+                                | {{ "product.labels.expire_prefix" | translate }} {{ fund.meta.shownExpireDate.locale }}
                         
                         .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
                             .fund-item-section-label.tooltip-block(ng-if="$root.auth_user")

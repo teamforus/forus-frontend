@@ -1,5 +1,7 @@
-.modal.modal-animated.modal-loading(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
-    .modal-backdrop(ng-click="$ctrl.close()")
+.modal.modal-animated.modal-loading(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, ($ctrl.modal.loaded && !$ctrl.hideModel) ? '' : 'modal-loading']")
+
+    .modal-backdrop(ng-click="$ctrl.closeModal()")
     .modal-window
         a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
         .modal-header Upload CSV-bestand
@@ -32,8 +34,10 @@
                 .csv-upload-progress(
                     ng-show="$ctrl.csvParser.progress >= 2" 
                     ng-class="{done: $ctrl.csvParser.progress == 3}")
-                    .csv-upload-icon: .mdi(
-                        ng-class="{'mdi-loading': $ctrl.csvParser.progress == 2, 'mdi-check': $ctrl.csvParser.progress == 3}")
+                    .csv-upload-icon(ng-class="{'csv-upload-icon-warning' : $ctrl.uploadedPartly}")
+                        .mdi.mdi-loading(ng-if="$ctrl.csvParser.progress == 2")
+                        .mdi.mdi-check(ng-if="$ctrl.csvParser.progress == 3 && !$ctrl.uploadedPartly")
+                        .mdi.mdi-alert-outline(ng-if="$ctrl.csvParser.progress == 3 && $ctrl.uploadedPartly")
                     progress-bar(progress="$ctrl.progressBar" status="$scope.progressStatus")
 
                 .csv-upload-actions

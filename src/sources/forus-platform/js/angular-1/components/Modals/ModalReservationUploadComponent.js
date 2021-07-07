@@ -1,9 +1,9 @@
 const ModalReservationUploadComponent = function(
     $q,
     $rootScope,
-    $timeout,
     $filter,
     $element,
+    $timeout,
     FileService,
     ModalService,
     ProductReservationService,
@@ -17,11 +17,10 @@ const ModalReservationUploadComponent = function(
     $ctrl.progressBar = 0;
     $ctrl.progressStatus = "";
     $ctrl.productsIds = [];
+    $ctrl.uploadedPartly = false;
+    $ctrl.hideModel = false;
 
     const $translate = $filter('translate')
-    const dataChunkSize = 1000;
-
-    let input;
 
     const setProgress = function(progress) {
         $ctrl.progressBar = progress;
@@ -32,17 +31,6 @@ const ModalReservationUploadComponent = function(
             $ctrl.progressStatus = "Klaar!";
         }
     };
-
-    const chunk = function(arr, len) {
-        const data = [...arr];
-        const chunks = [];
-
-        do {
-            chunks.push(data.splice(0, len));
-        } while (data.length);
-
-        return chunks;
-    }
 
     const makeCsvParser = () => {
         const csvParser = function() {
@@ -56,12 +44,18 @@ const ModalReservationUploadComponent = function(
                     input.remove();
                 }
 
-                input = document.createElement('input');
+                const input = document.createElement('input');
+
                 input.setAttribute("type", "file");
                 input.setAttribute("accept", ".csv");
                 input.style.display = 'none';
 
-                input.addEventListener('change', (e) => this.uploadFile(e.target.files[0]));
+                input.addEventListener('change', (e) => {
+                    const files = e.target.files;
+
+                    this.uploadFile(files[0]);
+                    input.remove();
+                });
 
                 $element[0].appendChild(input);
 
@@ -97,145 +91,93 @@ const ModalReservationUploadComponent = function(
                     !this.errors.csvMissingNumberFields);
             };
 
-            this.confirmEmailSkip = function(existingEmails, onConfirm) {
-                let items = existingEmails.map(email => ({ value: email }));
-
-                if (items.length === 0) {
-                    return onConfirm();
-                }
-
-                ModalService.open('duplicatesPicker', {
-                    hero_title: "Dubbele e-mailadressen gedetecteerd.",
-                    hero_subtitle: [
-                        `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
-                        "Deze e-mailadressen bezitten al een voucher van dit fonds."
-                    ],
-                    button_none: "Alle overslaan",
-                    button_all: "Alle aanmaken",
-                    label_on: "Aanmaken",
-                    label_off: "Overslaan",
-                    items: items,
-                    onConfirm: (items) => {
-                        let allowedEmails = items.filter(item => item.model).map(item => item.value);
-
-                        this.data = this.data.filter(csvRow => {
-                            return existingEmails.indexOf(csvRow.email) === -1 ||
-                                allowedEmails.indexOf(csvRow.email) !== -1;
-                        });
-
-                        onConfirm();
-                    },
-                    onCancel: () => $ctrl.close(),
-                });
-            };
-
-            this.confirmBsnSkip = function(existingBsn, onConfirm) {
-                let items = existingBsn.map(bsn => ({ value: bsn }));
-
-                if (items.length === 0) {
-                    return onConfirm();
-                }
-
-                ModalService.open('duplicatesPicker', {
-                    hero_title: "Dubbele bsn(s) gedetecteerd.",
-                    hero_subtitle: [
-                        `Weet u zeker dat u voor ${items.length} bsn(s) een extra voucher wilt aanmaken?`,
-                        "Deze bsn(s) bezitten al een voucher van dit fonds."
-                    ],
-                    button_none: "Alle overslaan",
-                    button_all: "Alle aanmaken",
-                    label_on: "Aanmaken",
-                    label_off: "Overslaan",
-                    items: items,
-                    onConfirm: (items) => {
-                        let allowedBsn = items.filter(item => item.model).map(item => item.value);
-
-                        this.data = this.data.filter(csvRow => {
-                            return allowedBsn.indexOf(csvRow.bsn) === -1 ||
-                                allowedBsn.indexOf(csvRow.bsn) !== -1;
-                        });
-
-                        onConfirm();
-                    },
-                    onCancel: () => $ctrl.close(),
-                });
-            };
-
             this.startUploading = function() {
                 return $q((resolve) => {
                     const data = [...this.data].map((row) => ({ ...row }));
-                    const totalRows = data.length;
-
-                    let uploadedRows = 0;
 
                     this.progress = 2;
                     setProgress(0);
 
-                    this.startUploadingData(data, (chunkData) => {
-                        uploadedRows += chunkData.length;
-                        setProgress((uploadedRows / totalRows) * 100);
-
-                        if (uploadedRows === totalRows) {
-                            $timeout(() => setProgress(100) & resolve(), 0);
-                        }
-                    }).then(resolve);
+                    this.startUploadingData(data).then((stats) => {
+                        resolve(stats);
+                        setProgress(100);
+                    });
                 });
             };
 
-            this.startUploadingData = function(groupData, onChunk = () => { }) {
+            this.showInvalidRows = function(errors = {}, reservations = [], validation = false) {
+                const items = Object.keys(errors).map(function(key) {
+                    const keyData = key.split('.');
+                    const keyDataId = keyData[keyData.length - 1];
+
+                    return [keyDataId, errors[key], reservations[keyDataId]];
+                });
+
+                const count_errors = Object.values(errors).length;
+
+                if (validation) {
+                    PushNotificationsService.danger(
+                        'Error!',
+                        `${count_errors} line(s) with invalid data found, please fix/remove the line(s) and try again.`,
+                    );
+
+                    $ctrl.close();
+                } else {
+                    $ctrl.hideModel = true;
+                }
+
+                ModalService.open('duplicatesPicker', {
+                    hero_title: "Reserveringen aanmaken mislukt!",
+                    hero_subtitle: [
+                        "Voor onderstaande nummers kan geen reservering worden aangemaakt." +
+                        "Er is geen actief tegoed beschikbaar of het gebruikerslimiet is bereikt.",
+                        "Indien u bevestigd worden alle reserveringen toegevoegd op anderstaande nummers na."
+                    ],
+                    enableToggles: false,
+                    label_on: "Aanmaken",
+                    label_off: "Overslaan",
+                    items: items.map((item) => ({ value: item[2]['number'] + ' - ' + item[1] })),
+                    onConfirm: () => $timeout(() => $ctrl.hideModel = false, 300),
+                    onCancel: () => $timeout(() => $ctrl.hideModel = false, 300),
+                });
+
+            };
+
+            this.startUploadingData = function(reservations) {
                 return new Promise((resolve) => {
-                    const submitData = chunk(groupData, dataChunkSize);
-                    const chunksCount = submitData.length;
+                    const data = { reservations };
 
-                    let currentChunkNth = 0;
+                    ProductReservationService.storeBatch($ctrl.organization.id, data).then((res) => {
+                        const hasErrors = res.data.errors && typeof res.data.errors === 'object';
+                        const stats = {
+                            success: res.data.reserved.length,
+                            errors: hasErrors ? Object.keys(res.data.errors).length : 0,
+                        };
 
-                    const uploadChunk = (data) => {
-                        $ctrl.changed = true;
+                        if (stats.errors === 0) {
+                            PushNotificationsService.success(
+                                'Success!',
+                                `All ${stats.success} line(s) from the .csv where imported.`,
+                            );
+                        } else {
+                            const allFailed = stats.success === 0;
 
-                        ProductReservationService.storeBatch($ctrl.organization.id, {
-                            reservations: data,
-                        }).then(() => {
-                            currentChunkNth++;
-                            onChunk(data);
+                            PushNotificationsService.danger(allFailed ? 'Error!' : 'Warning', [
+                                allFailed ? `All ${stats.errors}` : `${stats.errors} from ${reservations.length}`,
+                                `line(s) from the .csv failed to be imported,`,
+                                `please check the list to see which one and why.`,
+                            ].join(" "));
 
-                            if (currentChunkNth == chunksCount) {
-                                resolve(true);
-                            } else if (currentChunkNth < chunksCount) {
-                                uploadChunk(submitData[currentChunkNth]);
-                            }
-                        }, (res) => {
-                            if (res.status == 422 && res.data.errors) {
-                                const items = Object.keys(res.data.errors).map(function(key) {
-                                    const keyData = key.split('.');
-                                    const keyDataId = keyData[keyData.length - 1];
 
-                                    return [keyDataId, res.data.errors[key], data[keyDataId]];
-                                });
+                            this.showInvalidRows(res.data.errors, reservations);
+                        }
 
-                                PushNotificationsService.danger(
-                                    'Error:',
-                                    Object.values(res.data.errors).reduce((msg, arr) => msg + arr.join(''), "")
-                                );
-
-                                ModalService.open('duplicatesPicker', {
-                                    hero_title: "Reserveringen aanmaken mislukt!",
-                                    hero_subtitle: [
-                                        "Voor onderstaande nummers kan geen reservering worden aangemaakt." +
-                                        "Er is geen actief tegoed beschikbaar of het gebruikerslimiet is bereikt.",
-                                        "Indien u bevestigd worden alle reserveringen toegevoegd op anderstaande nummers na."
-                                    ],
-                                    enableToggles: false,
-                                    label_on: "Aanmaken",
-                                    label_off: "Overslaan",
-                                    items: items.map((item) => ({ value: item[2]['number'] + ' - ' + item[1] })),
-                                    onConfirm: () => $ctrl.close(),
-                                    onCancel: () => $ctrl.close(),
-                                });
-                            }
-                        });
-                    };
-
-                    uploadChunk(submitData[currentChunkNth]);
+                        resolve(stats);
+                    }, (res) => {
+                        if (res.status == 422 && res.data.errors) {
+                            this.showInvalidRows(res.data.errors, reservations, true);
+                        }
+                    });
                 });
             };
 
@@ -247,8 +189,13 @@ const ModalReservationUploadComponent = function(
                 e && (e.preventDefault() & e.stopPropagation());
 
                 this.validateReservations().then(() => {
-                    this.startUploading().then(() => {
+                    this.startUploading().then((stats) => {
                         this.progress = 3;
+                        $ctrl.uploadedPartly = stats.errors !== 0;
+
+                        if (stats.success > 0) {
+                            $ctrl.changed = true;
+                        }
                     });
                 });
             }
@@ -346,9 +293,9 @@ module.exports = {
     controller: [
         '$q',
         '$rootScope',
-        '$timeout',
         '$filter',
         '$element',
+        '$timeout',
         'FileService',
         'ModalService',
         'ProductReservationService',
