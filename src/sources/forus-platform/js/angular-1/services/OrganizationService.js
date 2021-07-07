@@ -173,6 +173,19 @@ module.exports = [
                 ), { ...data });
             };
 
+            this.sponsorProductDelete = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                product_id
+            ) {
+                return ApiRequest.delete(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products/%s',
+                    sponsor_organization_id,
+                    provider_organization_id,
+                    product_id
+                ));
+            };
+
             this.sponsorStoreProduct = function(
                 sponsor_organization_id,
                 provider_organization_id,
