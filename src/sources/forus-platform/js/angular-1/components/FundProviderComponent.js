@@ -155,8 +155,8 @@ let FundProviderComponent = function(
     $ctrl.deleteProduct = (product) => {
         ModalService.open('modalNotification', {
             type: 'confirm',
-            title: 'Verwijderen aanbod',
-            description: sprintf("Verwijderen aanbod %s?", product.name),
+            title: 'Weet u zeker dat u het aanbod wilt verwijderen?',
+            description: sprintf("U staat op het punt om %s te verwijderen. Weet u zeker dat u dit aanbod wilt verwijderen?", product.name),
             confirm: () => OrganizationService.sponsorProductDelete(
                 $ctrl.organization.id,
                 $ctrl.fundProvider.organization_id,
