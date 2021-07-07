@@ -37,7 +37,7 @@ section.section.section-profile: .wrapper
                             id="select_provider").form-control
 
                     .form-group
-                        label.form-label(for="select_provider") Status
+                        label.form-label(for="select_filters") Status
                         select(
                             ng-options="state.value as state.name for state in $ctrl.states" 
                             ng-model="$ctrl.filters.state"

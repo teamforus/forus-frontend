@@ -10,7 +10,7 @@ module.exports = {
         share: "Deel",
         copy: "Kopieer",
         vouchers: "Tegoeden",
-        reservations: "Mijn reserveringen",
+        reservations: "Reserveringen",
         records: "Eigenschappen",
         funds: "Aanvragen",
         notifications: "Notificaties",

@@ -17,6 +17,7 @@ module.exports = {
         "products-apply": "Aanbieding kopen",
         vouchers: 'Mijn tegoed',
         voucher: 'Uw tegoed',
+        "reservations": 'Reserveringen',
         provider: 'Aanbieder',
         records: 'Eigenschappen',
         explanation: 'Uitleg',

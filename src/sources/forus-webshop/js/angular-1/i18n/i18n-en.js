@@ -15,6 +15,7 @@ module.exports = {
         vouchers: 'Mijn vouchers',
         voucher: 'Uw voucher',
         records: 'Eigenschappen', 
+        "reservations": 'Reserveringen',
         "record-validate": 'Valideer eigenschap',
         "record-validations": 'Validaties',
         "record-create": 'Eigenschap toevoegen',
