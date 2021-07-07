@@ -8,9 +8,9 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                 div(translate="topnavbar.items.explanation")
 
         a(ui-sref="home").navbar-logo.show-sm
-            img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo").second-logo
-            img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}")
-            img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}").hover
+            img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo" alt="Terug naar hoofdpagina").second-logo
+            img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" alt="Terug naar hoofdpagina")
+            img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}" alt="Terug naar hoofdpagina").hover
 
         .block.block-auth.show-sm
             .auth-in(ng-if="$root.auth_user").show-sm
@@ -23,21 +23,22 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
                     div(translate="topnavbar.buttons.login")
         
-        .navbar-list#primary-menu(ng-class="mobileMenu?'navbar-list-show':''").hide-sm
-            .navbar-item-wrapper
+        ul.navbar-list#primary-menu(ng-class="mobileMenu?'navbar-list-show':''").hide-sm
+            li.navbar-item-wrapper
                 a.navbar-item(
                     ui-sref="home"
                     ui-sref-active="active"
                     translate="topnavbar.items.home")
 
-            .navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && ($root.auth_user || $root.appConfigs.flags.fundsMenuIfLoggedOut)")
+            li.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && ($root.auth_user || $root.appConfigs.flags.fundsMenuIfLoggedOut)")
                 a.navbar-item(
                     ui-sref="funds" 
+                    target="_self"
                     ui-sref-active="active"
                     translate="topnavbar.items.{{ $root.appConfigs.client_key }}.funds"
                     translate-default="{{ 'topnavbar.items.funds' | translate }}")
 
-            .navbar-item-wrapper(
+            li.navbar-item-wrapper(
                 ng-if="$root.appConfigs.features.has_budget_funds && $root.appConfigs.features.products.list && ($root.appConfigs.flags.productsMenu || $root.auth_user)")
                 a.navbar-item(
                     ui-sref="products" 
@@ -45,7 +46,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     ng-bind="'topnavbar.items.products' | translate"
                     id="products_page")
             
-            .navbar-item-wrapper(
+            li.navbar-item-wrapper(
                 ng-if="$root.appConfigs.features.has_subsidy_funds && $root.appConfigs.features.products.list && ($root.appConfigs.flags.productsMenu || $root.auth_user)")
                 a.navbar-item(
                     ui-sref="actions" 
@@ -53,21 +54,21 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     ng-bind="'topnavbar.items.subsidies' | translate"
                     id="actions_page")
             
-            .navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu")
+            li.navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu")
                 a.navbar-item(
                     id="providers_page"
                     ui-sref="providers"
                     ui-sref-active="active"
                     ng-bind="'topnavbar.items.providers' | translate")
 
-            .navbar-item-wrapper.navbar-item-wrapper_first-to-last
+            li.navbar-item-wrapper.navbar-item-wrapper_first-to-last
                 a.navbar-item(
                     ui-sref="explanation"
                     ui-sref-active="active"
                     target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
                     ng-bind="'topnavbar.items.explanation' | translate")
 
-            .navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user" role="button" tabindex="0")
+            li.navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user" role="button" tabindex="0")
                 em.mdi.mdi-logout
                 a.navbar-item(
                     translate="topnavbar.buttons.logout" 
@@ -85,7 +86,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" 
                     alt="{{$root.appConfigs.features.implementation_name}}")
 
-            top-navbar-search
+            top-navbar-search(ng-if="$root.appConfigs.flags.genericSearch")
 
             .block.flex.hide-sm
                 .block.block-auth
@@ -93,7 +94,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
                         span(translate="topnavbar.buttons.login")
                         
-                    button.button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()" role="button" aria-label="start_fund_request")
+                    button.button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()" role="button" aria-label="Start aanmelding")
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
                         span(translate="home.header.{{ $root.client_key }}.button" translate-default="{{ 'home.header.button' | translate }}" id="start_modal")
 
@@ -102,14 +103,13 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                             span(translate="topnavbar.buttons.voucher") 
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
-                        .auth-user
-                            .auth-user-avatar(ng-click="$ctrl.openUserMenu($event)")
-                                div
-                                include ../../../resources/_webshop-common/assets/img/identity-avatar.svg
-                            button.auth-user-caret(ng-click="$ctrl.openUserMenu($event)" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}")
+                        .auth-user(ng-click="$ctrl.openUserMenu($event)" aria-haspopup="true" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}" role="button" aria-label="user_menu")
+                            .auth-user-avatar
+                            .auth-user-caret
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
                             .auth-user-menu.hide-sm(
+                                aria-labelledby="user_menu"
                                 ng-class="{active: $ctrl.userMenuOpened}"
                                 ng-if="$ctrl.userMenuOpened"
                                 click-outside="$ctrl.hideUserMenu()")
@@ -125,7 +125,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                                         ng-click="startFundRequest()" 
                                         id="open_activation_code_popup"
                                         role="link")
-                                        img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg")
+                                        img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg" alt="")
                                         span(translate="topnavbar.buttons.activate_{{ $root.client_key }}" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
 
                                     .auth-user-menu-item(
@@ -196,5 +196,5 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                                     .auth-user-menu-separator
 
                                     button.auth-user-menu-item(ng-click="$root.signOut()" id="sign_out")
-                                        img(src="./assets/img/icon-menu/icon-menu-sign-out.svg")
+                                        img(src="./assets/img/icon-menu/icon-menu-sign-out.svg" alt="")
                                         span(translate="topnavbar.buttons.logout")

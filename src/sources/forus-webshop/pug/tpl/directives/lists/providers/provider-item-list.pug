@@ -1,5 +1,5 @@
 .organization-item
-    .organization-pane(ng-click="$dir.toggleOffices($event)")
+    .organization-pane(ng-click="$dir.toggleOffices($event)" aria-label="Klik voor meer informatie over de aanbieder"  role="link")
         .organization-logo(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()")
             img(
                 ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || '/assets/img/placeholders/organization-thumbnail.png' }}"
@@ -11,7 +11,7 @@
             ng-bind="$dir.provider.name").organization-title-value
 
         .organization-chevron
-            .mdi(ng-class="'mdi-chevron-' + ($dir.provider.showOffices ? 'up' : 'right')" role = "link")
+            .mdi(ng-class="'mdi-chevron-' + ($dir.provider.showOffices ? 'up' : 'right')")
 
     .organization-offices(ng-if="$dir.provider.showOffices"): .block.block-offices
         a(ng-repeat="office in $dir.provider.offices" ui-sref="provider-office(office.uiSrefParams)").office-item

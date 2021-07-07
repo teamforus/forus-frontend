@@ -46,7 +46,7 @@ div
                                     date-week-start-day="1").form-control
                                     input(ng-model="filters.values.to" type="text" placeholder="dd-MM-jjjj").form-control
                             .form-actions
-                                button(ng-click="export('xls')" ng-disabled="prevalidations.meta.total == 0").button.button-primary.button-wide
+                                button(ng-click="export(filters.values)" ng-disabled="prevalidations.meta.total == 0").button.button-primary.button-wide
                                     em.mdi.mdi-download.icon-start  
                                     span(translate="components.dropdown.export" translate-values="{ total: prevalidations.meta.total }")
                     
