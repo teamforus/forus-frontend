@@ -70,6 +70,7 @@
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
                                     a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Kopieren
                                     a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken
+                                    a(ng-click="$ctrl.deleteProduct(product)").dropdown-item Verwijderen
 
             .card-section.text-center(ng-if="$ctrl.sponsorProducts.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
@@ -131,7 +132,8 @@
                                     .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
                                     a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Kopieren
-                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken
+                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken 
+                                    a(ng-click="$ctrl.deleteProduct(product)").dropdown-item Verwijderen
 
             .card-section.text-center(ng-if="$ctrl.sponsorProducts.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")

@@ -56,7 +56,7 @@
             //- Product price
             .card-section.card-section-primary
                 .row: .col.col.col-lg-9
-                    .form-group.form-group-inline
+                    .form-group.form-group-inline.tooltipped
                         label.form-label Aanbod type
                         .form-offset: .block.block-label-tabs
                             .label-tab-set
@@ -75,6 +75,8 @@
                                 .label-tab.label-tab-sm(
                                     ng-click="$ctrl.form.values.price_type = 'free'"
                                     ng-class="{active: $ctrl.form.values.price_type === 'free', disabled: !$ctrl.isEditable}") Gratis
+
+                            tooltip(text="'product_edit.tooltips.product_type' | translate | lines_to_array")
 
                     //- Regular price
                     .form-group.form-group-inline(ng-if="$ctrl.form.values.price_type === 'regular'")

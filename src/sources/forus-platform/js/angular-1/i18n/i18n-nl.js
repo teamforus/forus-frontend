@@ -626,6 +626,14 @@ module.exports = {
             available_offers: "Resterend aanbod",
             unlimited: "Onbeperkt"
         },
+        tooltips: {
+            product_type: ["Kies het soort aanbod. Voorbeelden:",
+                "1. Normaal: een fiets voor € 200,-.",
+                "2. Korting €: € 20,- korting op een fiets.",
+                "3. Korting %: 20% korting op een fiets.",
+                "4. Gratis: gratis toegang voor een film."
+            ].join('\n')
+        },
         buttons: {
             cancel: "Annuleren",
             confirm: "Bevestig",

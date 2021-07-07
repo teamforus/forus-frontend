@@ -1,4 +1,4 @@
-.block.block-banner-picker(ng-style="{'background-image': 'url(' + thumbnail || './assets/img/placeholders/photo-selector.svg' + ')'}")
+.block.block-banner-picker(data="{{ templateData }}" ng-style="{'background-image': 'url(' + thumbnail || './assets/img/placeholders/photo-selector.svg' + ')'}")
     .picker-overlay(
         ng-show="templateData.overlay_enabled"
         ng-class="{'picker-overlay-pattern' : templateData.overlay_type !== 'color'}"
@@ -47,6 +47,7 @@
                 span(ng-if="!templateData.mediaLoading") Upload hoofdfoto
                 span(ng-if="templateData.mediaLoading"): .mdi.mdi-loading.mdi-spin
             .button.button-default(ng-click="selectFile($event)") Kies foto
+            .button.button-default(ng-if="templateData.media" ng-click="deleteFile($event)") Ongedaan maken
 
 //- .block.block-photo-selector
     .photo-img: img(ng-click="selectFile($event)" ng-src="{{ thumbnail || './assets/img/placeholders/photo-selector.svg' }}", alt="")
