@@ -9,12 +9,10 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
 
         .modal-section(ng-if="$ctrl.reservation.state === 'accepted'")
-            h2.title.text-center Neem contact op met {{ $ctrl.reservation.product.organization.name }}.
+            h2.title.text-center(translate="modal_product_reserve_cancel.header_accepted.title" translate-values="{organizationname: $ctrl.reservation.product.organization.name}")
 
             .description
-                p.text-center
-                    | Deze reservering is al door de aanbieder geaccepteerd. 
-                    | Wil je deze reservering annuleren? Neem dan binnen veertien dagen na reservering contact op met de aanbieder.
+                p.text-center(translate="modal_product_reserve_cancel.description_accepted")
                 p.text-center
                     strong 
                         | Neem contact op met de 
@@ -26,11 +24,9 @@
                 button.button.button-dark(ng-click="$ctrl.close()") Sluiten
 
         .modal-section(ng-if="$ctrl.reservation.state === 'pending'")
-            h2.title.text-center Weet je zeker dat je de reservering wilt annuleren?
+            h2.title.text-center(translate="{{ 'modal_product_reserve_cancel.header_pending.title_' + $ctrl.appConfigs.features.communication_type }}")
             .description
-                p.text-center 
-                    | Je kunt het aanbod na annuleren weer opnieuw reserveren zolang de voorraad strekt.
-                    br
+                p.text-center(translate="{{ 'modal_product_reserve_cancel.description_pending.' + $ctrl.appConfigs.features.communication_type }}")
 
             .button-group.flex-center
                 button.button.button-dark(ng-click="$ctrl.close()") Annuleren

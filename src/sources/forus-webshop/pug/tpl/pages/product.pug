@@ -38,11 +38,11 @@ main(id="main-content")
                 a(i18n="product.headers.funds" ui-sref="vouchers").block-header
                 .block-products-content
                     .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds")
-                        .fund-item-section.fund-item-section-details
+                        .fund-item-section.fund-item-section-details.text-left
                             .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}")
                             .fund-item-content
-                                .fund-item-title(ng-bind="fund.name")
-                                .fund-item-subtitle(ng-bind="fund.organization.name")
+                                .fund-item-section-label.flex-start Tegoed:
+                                .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name")
                         
                         .fund-item-section
                             .fund-item-section-label(i18n="product.labels.expire")
@@ -62,6 +62,10 @@ main(id="main-content")
                             .fund-item-section-label(
                                 ng-if="$ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular'" 
                                 translate="product.labels.price")
+
+                            .fund-item-section-label(
+                                ng-if="$ctrl.product.price_type === 'discount_fixed' || $ctrl.product.price_type === 'discount_percentage'" 
+                                translate="product.labels.discount")
 
                             //- subsidies price
                             .fund-item-section-value(
@@ -89,13 +93,13 @@ main(id="main-content")
                                 ng-click="$ctrl.reserveProduct(fund)")
 
                         //- request fund
-                        .fund-item-section(ng-if="!fund.meta.applicableVouchers.length && $ctrl.signedIn")
+                        .fund-item-section(ng-if="!fund.meta.applicableVouchers.length && $ctrl.signedIn && !fund.meta.isReservationAvailable")
                             .button.button-light.button-flat(
                                 translate="product.buttons.{{ $root.client_key }}.request" 
                                 translate-default="{{ 'product.buttons.request' | translate }}" 
                                 ng-click="$ctrl.requestFund(fund)")
 
-                        .fund-item-section(ng-if="fund.meta.applicableVouchers.length && !$ctrl.useBudget")
+                        .fund-item-section(ng-if="fund.meta.applicableVouchers.length && !$ctrl.useBudget && !fund.meta.isReservationAvailable")
                             .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)" i18n="product.buttons.open_voucher")
 
             .block.block-pane(ng-class="{'last-child': $ctrl.product.organization.showOffices}")

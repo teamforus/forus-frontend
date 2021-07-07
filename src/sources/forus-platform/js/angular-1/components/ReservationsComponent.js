@@ -17,7 +17,7 @@ const ReservationsComponent = function(
         name: 'Alle'
     }, {
         key: 'pending',
-        name: 'Wachtend', // Pending
+        name: 'In afwachting', // Pending
     }, {
         key: 'accepted',
         name: 'Geaccepteerd' // Accepted
@@ -75,8 +75,8 @@ const ReservationsComponent = function(
 
     $ctrl.rejectReservation = (reservation) => {
         ModalService.open("dangerZone", {
-            title: "Weet u zeker dat u de betaling wilt weigeren?",
-            description_text: "Wanneer u de reservering weigert kunt u deze daarna niet meer accepteren.",
+            title: "Weet u zeker dat u de betaling wilt annuleren?",
+            description_text: "Wanneer u de betaling annuleert wordt u niet meer uitbetaald.",
             cancelButton: "Annuleren",
             confirmButton: "Bevestigen",
             onConfirm: () => {
@@ -116,12 +116,12 @@ const ReservationsComponent = function(
 
         if (value) {
             ModalService.open("dangerZone", {
-                title: "De publicatie van het aanbod wordt van de website verwijderd",
+                title: "Let op! Met deze instelling worden alle reserveringen direct geaccepteerd.",
                 description_text: [
-                    "Weet u zeker dat u reserveringen automatisch wilt accepteren? Ga dan akkoord met onderstaande voorwaarden:\n",
-                    "- Ik kan het product of de dienst leveren.",
-                    "- Na accepteren wordt er na veertien dagen uitbetaald.",
-                    "- De betaling kan op verzoek van de klant binnen veertien dagen geannuleerd worden."
+                    "Wilt u reserveringen automatisch accepteren? Ga dan akkoord met onderstaande voorwaarden:\n",
+                    "- Het product of de dienst kan worden geleverd.",
+                    "- De transactie wordt na veertien dagen verwerkt.",
+                    "- De transactie kan op verzoek van de klant binnen veertien dagen worden geannuleerd."
                 ].join("\n"),
                 confirmation: "Ik ga akkoord met de voorwaarden.",
                 cancelButton: "Annuleren",

@@ -16,10 +16,10 @@ const ReservationsComponent = function(ProductReservationService) {
         name: 'Geaccepteerd',
         value: 'accepted',
     }, {
-        name: 'Geannuleerd',
+        name: 'Geweigerd',
         value: 'rejected',
     }, {
-        name: 'Terugbetaald',
+        name: 'Geannuleerd',
         value: 'canceled',
     }];
 

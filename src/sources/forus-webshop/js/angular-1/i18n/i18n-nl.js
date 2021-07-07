@@ -97,6 +97,8 @@ module.exports = {
     pdf_preview: require("./nl/modals/modal-pdf-preview"),
     image_preview: require("./nl/modals/modal-image-preview"),
     modal: require("./nl/modals/modal"),
+    modal_product_reserve: require("./nl/modals/modal-product-reserve"),
+    modal_product_reserve_cancel: require("./nl/modals/modal-product-reserve-cancel"),
 
     // DIRECTIVES
     app_footer: require("./nl/directives/app-footer"),

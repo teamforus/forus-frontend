@@ -7,13 +7,13 @@
         .modal-header Reservering aanmaken
         .modal-body.modal-body-visible: .modal-section
             .modal-text.text-center 
-                | Bij het aanmaken van een reservering geeft u een nummer op. 
+                | Vul het pasnummer van de klant in. Vraag de klant naar de 
                 br
-                | De klant dient het nummer met u te delen.
+                | persoonlijke 12-cijferige code die op de pas staat.
 
             .row: .col.col-sm-9.col-sm-offset-1.col-sm-12.col-xs-offset-0
                 .form-group.form-group-inline.form-group-inline-md
-                    label.form-label.form-label-required Nummer
+                    label.form-label.form-label-required Pasnummer
                     input(  
                         type="number" 
                         placeholder="Nummer"
@@ -34,9 +34,7 @@
                 .modal-text.text-center 
                     | Kies het aanbod waarvoor u de reservering wilt aanmaken. 
                     br
-                    | Na aanmaken van de reserving wordt er transactie aangemaakt. 
-                    br
-                    | Wanneer u een notitie invult wordt deze toegevoegd aan het transactieoverzicht.
+                    | De notitie wordt toegevoegd aan het transactieoverzicht.
 
                 .row: .col.col-sm-9.col-sm-offset-1.col-sm-12.col-xs-offset-0
                     .form-group.form-group-inline.form-group-inline-md.tooltipped
@@ -58,15 +56,11 @@
             //- Submit overview
             .modal-section(ng-if="$ctrl.showOverview")
                 .modal-text.text-center 
-                    | Controleer of u de juiste gegevens hebt ingevuld. 
-                    br
-                    | Na bevestiging wordt er een reservering aangemaakt en uitbetaald.
-                    br
-                    br
-                    | De betaling kunt u terugvinden in het transactieoverzicht.
+                    | Controleer of u de juiste gegevens heeft ingevuld. Na bevestiging wordt de reservering aangemaakt.
+
                 .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
                     .datalist-row
-                        .datalist-key: strong Nummer
+                        .datalist-key: strong Pasnummer
                         .datalist-value.text-primary.text-right: strong(ng-bind="$ctrl.form.values.number")
                     .datalist-row
                         .datalist-key: strong Aanbod
@@ -91,12 +85,7 @@
                     span De reservering is aangemaakt.
 
             .modal-text
-                | De reservering is aangemaakt en toegevoegd aan het overzicht van alle reserveringen. 
-                | De transactie wordt toegevoegd en zal na veertien werkdagen worden uitbetaald.
-                br
-                br
-                | De status van de betaling kunt u vinden in het transactieoverzicht.
-                br
+                | De reservering is toegevoegd. De transactie wordt na veertien dagen verwerkt.
 
         .modal-footer.text-center
             button(type="button" ng-click="$ctrl.close()" role="button").button.button-primary Sluiten

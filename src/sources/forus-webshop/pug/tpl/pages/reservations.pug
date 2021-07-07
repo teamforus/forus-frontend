@@ -13,7 +13,7 @@ section.section.section-profile: .wrapper
                     .form-group
                         input.form-control(
                             ng-model="$ctrl.filters.q"
-                            placeholder="Zoek aanbod" 
+                            placeholder="Zoek reservering" 
                             type="search"
                             aria-label="search"
                             id="products_search")
@@ -45,9 +45,11 @@ section.section.section-profile: .wrapper
                             id="select_filters").form-control
 
         .profile-content
-            .profile-content-header: .profile-content-title.flex.flex-start
-                h1.profile-content-header(translate="reservations.header.title")
-                .profile-content-title-count(ng-bind="$ctrl.reservations.meta.total")
+            .profile-content-header
+                .profile-content-title.flex.flex-start
+                    h1.profile-content-header(translate="reservations.header.title")
+                    .profile-content-title-count(ng-bind="$ctrl.reservations.meta.total")
+                .profile-content-subtitle(translate="reservations.header.subtitle")
 
             .block.block-reservations(ng-if="$ctrl.reservations.data.length > 0")
                 reservation-card(

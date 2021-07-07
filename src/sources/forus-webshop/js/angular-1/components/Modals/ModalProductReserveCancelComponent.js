@@ -1,7 +1,8 @@
-const ModalProductReserveCancelComponent = function() {
+const ModalProductReserveCancelComponent = function(appConfigs) {
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
+        $ctrl.appConfigs = appConfigs;
         $ctrl.reservation = $ctrl.modal.scope.reservation;
 
         $ctrl.onConfirm = () => {
@@ -17,6 +18,7 @@ module.exports = {
         modal: '='
     },
     controller: [
+        'appConfigs',
         ModalProductReserveCancelComponent
     ],
     templateUrl: () => {

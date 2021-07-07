@@ -186,11 +186,11 @@
 
                                 label(for="reservation_enabled").checkbox-label
                                     .checkbox-box: em.mdi.mdi-check
-                                    | Dit aanbod mag worden gereserveerd
+                                    | De klant mag het aanbod reserveren
 
                             .form-error(ng-repeat="error in $ctrl.form.errors.reservation_enabled" ng-bind="error")
 
-                        tooltip(text="'Een reservering kan gedaan worden via de webshop. Bij een reservaring wordt u na 14 dagen pas uitbetaald bij acceptatie'")
+                        tooltip(text="'Deze instelling zorgt ervoor dat de klant het aanbod via de webshop kan reseveren.'")
 
                 //- Auto accept product reservations
                 .row: .col.col-lg-9(ng-if="$ctrl.form.values.reservation_enabled")
@@ -200,7 +200,7 @@
                             ng-model="$ctrl.form.values.reservation_policy" 
                             ng-options="policy.value as policy.label for policy in $ctrl.reservationPolicies").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.reservation_policy" ng-bind="error")
-                        tooltip(text="'Standaard is de globale instelling dat u de reservering handmatig kunt accepteren'")
+                        tooltip(text="'Standaard instelling kunt u bij uw reserveringen aanpassen. Geef hier optioneel aan of u de reservering handmatig of automatisch wilt accepteren.'")
 
             //- Product category
             .card-section.card-section-primary: .row

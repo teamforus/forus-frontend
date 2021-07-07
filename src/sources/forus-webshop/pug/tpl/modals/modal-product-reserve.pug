@@ -9,20 +9,12 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
 
         .modal-section
-            h2.title.text-center Weet u zeker dat u een reservering wilt plaatsen?
-
-            .description: .text-center
-                | U staat op het punt om het tegoed 
-                strong(ng-bind="$ctrl.vouchers[0].fund.name")
-                | &nbsp;te gebruiken voor deze reservering.
-
-                br
-                strong
-                    | Uw e-mailadres wordt gedeeld met de aanbieder.  
-                    | De reservering kunt u na bevestigen nog annuleren.
-
+            h2.title.text-center(translate="{{ 'modal_product_reserve.header.title_' + $ctrl.appConfigs.features.communication_type }}")
+            br
+            .description: .text-center(translate="{{ 'modal_product_reserve.description_' + $ctrl.appConfigs.features.communication_type }}" translate-values="{fund: $ctrl.vouchers[0].fund.name}")
+            br
             //- Vouchers list
-            .block.block-vouchers(ng-class="{'block-vouchers-compact': $ctrl.vouchers.length === 1}")
+            .block.block-vouchers.block-vouchers-padding(ng-class="{'block-vouchers-compact': $ctrl.vouchers.length === 1}")
                 .voucher-item.voucher-item-compact.voucher-item-static(ng-repeat="voucher in $ctrl.vouchers")
                     .voucher-image
                         img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
@@ -36,8 +28,8 @@
                         button.button.button-primary(ng-click="$ctrl.reserveProduct($ctrl.product, voucher)") Kies
 
             .button-group.flex-center
+                button.button.button-dark(ng-click="$ctrl.close()" i18n="modal.buttons.cancel")
+                
                 button.button.button-primary(
                     ng-if="$ctrl.vouchers.length === 1"
                     ng-click="$ctrl.reserveProduct($ctrl.product, $ctrl.vouchers[0])") Bevestig
-
-                button.button.button-dark(ng-click="$ctrl.close()" i18n="modal.buttons.cancel")

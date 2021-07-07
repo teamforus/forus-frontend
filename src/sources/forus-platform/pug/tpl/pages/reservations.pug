@@ -5,7 +5,7 @@
             .card-header: .flex
                 //- .card-header-drown
                 .flex.flex-grow.card-title
-                    translate(translate="reservations.header.title")
+                    span {{ 'reservations.header.title' | translate }}&nbsp;
                     span(ng-bind="$ctrl.reservations.meta.total").span-count
         
 
@@ -16,7 +16,7 @@
 
                     .button.button-primary.button-sm(ng-if="$ctrl.organization.allow_batch_reservations" ng-click="$ctrl.uploadReservations()")
                         em.mdi.mdi-upload.icon-start
-                        | Upload CSV
+                        | Upload bulkbestand
 
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start
@@ -78,8 +78,8 @@
                         th(translate='reservations.labels.number')
                         th(translate='reservations.labels.product')
                         th(translate='reservations.labels.price')
-                        th(translate='reservations.labels.reserved_at')
                         th(translate='reservations.labels.customer')
+                        th(translate='reservations.labels.reserved_at')
                         th(translate='reservations.labels.fund')
                         th(translate='reservations.labels.status')
                         th.text-right(translate='reservations.labels.actions')
@@ -91,8 +91,6 @@
                             .text-strong.text-small.text-muted-dark(ng-bind="reservation.price_locale")
                         td.text-primary: .text-strong(ng-bind="reservation.amount | currency_format")
 
-                        td(ng-bind="reservation.created_at_locale")
-
                         td
                             div(ng-if="reservation.identity_physical_card")
                                 .text-strong.text-primary(ng-bind="reservation.identity_physical_card")
@@ -100,9 +98,11 @@
 
                             div(ng-if="!reservation.identity_physical_card")
                                 .text-strong.text-primary(ng-bind="reservation.identity_email")
+
+                        td(ng-bind="reservation.created_at_locale")
                         
                         td(ng-bind="reservation.fund.name")
-                        td(ng-bind="!reservation.expired ? reservation.state : 'expired'")
+                        td {{ !reservation.expired  ? {pending: 'In afwachting', accepted: 'Geaccepteerd', canceled: 'Geannuleerd', rejected: 'Geweigerd'}[reservation.state] : 'Verlopen' }}
                         td: .flex-group.flex.flex-end
                             button.button.button-sm.button-primary-light.button-icon(
                                 ng-if="reservation.state === 'pending' && !reservation.expired && !reservation.product.deleted" 

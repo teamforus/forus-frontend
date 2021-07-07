@@ -1,7 +1,8 @@
 const ModalProductReserveComponent = function(
     $state,
     PushNotificationsService,
-    ProductReservationService
+    ProductReservationService,
+    appConfigs,
 ) {
     const $ctrl = this;
 
@@ -24,6 +25,7 @@ const ModalProductReserveComponent = function(
     };
 
     $ctrl.$onInit = () => {
+        $ctrl.appConfigs = appConfigs;
         $ctrl.product = $ctrl.modal.scope.product;
         $ctrl.vouchers = $ctrl.modal.scope.vouchers;
 
@@ -45,6 +47,7 @@ module.exports = {
         '$state',
         'PushNotificationsService',
         'ProductReservationService',
+        'appConfigs',
         ModalProductReserveComponent
     ],
     templateUrl: () => {

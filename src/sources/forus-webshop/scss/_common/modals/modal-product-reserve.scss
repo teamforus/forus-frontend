@@ -17,9 +17,11 @@
         .description {
             font-size: 17px;
             line-height: 22px;
-
+            color: $color_primary;
+            
             a {
                 color: $color_primary;
+                text-decoration: underline;
             }
         }
 
@@ -33,13 +35,24 @@
             @include webkit_scrollbar();
 
             &.block-vouchers-compact {
-                padding: 0;
+                padding: 0 80px;
                 border: none;
                 background: none;
                 overflow: visible;
 
                 .voucher-item {
                     box-shadow: $base_shadow;
+                    .voucher-details {
+                        .voucher-name {
+                            font-size: 24px;
+                            line-height: 32px;
+                        }
+                        .voucher-organization {
+                            font-size: 14px;
+                            font-weight: 500;
+                            line-height: 22px;
+                        }
+                    }
                 }
             }
         }
@@ -66,7 +79,7 @@
                 flex-grow: 1;
                 justify-content: center;
                 padding: 30px 20px 20px;
-
+                
                 .title {
                     padding: 0;
                     font: 700 22px/28px $bf;
@@ -78,7 +91,7 @@
                     font: 400 15px/22px $bf;
                     margin: 0 0 20px;
                 }
-    
+
                 .block-vouchers {
                     margin: 0 -20px 20px;
                     border-radius: 0;
