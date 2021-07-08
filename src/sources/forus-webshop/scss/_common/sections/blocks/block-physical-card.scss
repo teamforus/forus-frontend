@@ -36,6 +36,12 @@
             color: $tc;
             margin: 0 0 10px;
         }
+
+        .block-card-code {
+            font: 700 18px/21px $bf;
+            color: $tc;
+            margin: 0 0 10px;
+        }
     }
 
     .block-card-actions {
@@ -44,6 +50,8 @@
         
         .button {
             font-size: 14px;
+            border: 1px solid #000;
+            border-radius: 2px;
         }
     }
     
