@@ -16,9 +16,7 @@ aside.app.app-sidebar
                 +nav_item_icon(icon)
                 | #{name} 
 
-        .sidebar-section-title(
-            translate="menu.organizational" 
-            ng-if="$root.activeOrganization | hasPerm:['manage_employees', 'manage_offices', 'view_finances', 'manage_provider_funds', 'manage_products']")
+        .sidebar-section-title(translate="menu.organizational")
 
         +nav_item(
             "Overzicht", "provider-overview", 'provider-overview', 
@@ -31,22 +29,31 @@ aside.app.app-sidebar
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_offices"]',
             'offices')
-            
+
         +nav_item(
             "Transacties", "transactions", 'transactions', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["view_finances"]',
             'transactions')
+
         +nav_item(
             "Fondsen", "funds", 'provider-funds', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_provider_funds"]',
             'funds')
+
         +nav_item(
             "Aanbod", "products", 'products', 
             '{organization_id: $root.activeOrganization.id}', 
             '($root.activeOrganization | hasPerm:["manage_products"]) && $root.appConfigs.features.organizations.products.list',
             'products')
+
+        +nav_item(
+            "Reserveringen", "reservations", 'reservations', 
+            '{organization_id: $root.activeOrganization.id}', 
+            '($root.activeOrganization | hasPerm:["scan_vouchers"]) && $root.appConfigs.features.organizations.products.list',
+            'reservations')
+
         +nav_item(
             "Medewerkers", "list", 'employees', 
             '{organization_id: $root.activeOrganization.id}',

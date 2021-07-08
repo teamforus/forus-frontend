@@ -29,6 +29,7 @@ module.exports = {
         active: 'Actief',
         pending: 'Inactief',
         uid: 'Uniek nummer',
+        limit_multiplier: 'Limit multiplier',
         physical_card: "Pasnummer",
         bsn: "Burgerservicenummer",
         from: "Aangemaakt vanaf",

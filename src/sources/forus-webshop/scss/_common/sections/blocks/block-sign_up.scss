@@ -567,12 +567,20 @@
                     line-height: 16px;
                     letter-spacing: 0.08px;
                     text-transform: uppercase;
-                    color: #7e818c;
+                    color: #1a1919;
                     padding-left: 15px;
                 }
             }
 
             .ui-control {
+                input {
+                    &.form-control {
+                        background-color: #EFF2F4;
+                        border: 1px solid #515152;
+                        color: #515152;
+                    }
+                }
+
                 &.ui-control-currency {
                     .form-control:not([type="radio"]):not([type="checkbox"]) {
                         padding-left: 40px;

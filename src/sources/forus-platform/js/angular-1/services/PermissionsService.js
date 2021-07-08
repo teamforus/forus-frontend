@@ -53,7 +53,7 @@ module.exports = [() => {
                     name: 'csv-validation',
                 }, {
                     permissions: ['scan_vouchers'],
-                    name: 'identity-emails',
+                    name: 'reservations',
                 }],
                 validator: [{
                     permissions: ['validate_records'],

@@ -1862,10 +1862,11 @@ body {
         vertical-align: text-bottom;
     
         .tooltip-icon {
-            width: 16px;
-            height: 16px;
-            background: url('../img/Info.png') no-repeat 50% 50%;
-            background-size: contain;
+            width: 24px;
+            height: 24px;
+            font-size: 24px;
+            line-height: 24px;
+            color: #2987FD;
             cursor: pointer;
         }
     
@@ -1878,14 +1879,14 @@ body {
             background: #fff;
             z-index: 5;
             border-radius: 4px;
-            font: 500 14px/20px $bf;
+            font: 500 13px/20px $bf;
             text-transform: none;
             color: #45535e;
             display: none;
     
             &:not(.tooltip-bottom) {
                 left: 100%;
-                top: 8px;
+                top: 12px;
                 transform: translate(0, -50%);
                 
                 &:after,
@@ -1944,10 +1945,7 @@ body {
         }
     
         &:hover {
-            .tooltip-icon {
-                background-image: url('../img/Info_hover.png');
-            }
-    
+
             .tooltip {
                 display: block;
             }
@@ -4071,6 +4069,10 @@ body {
                     .mdi {
                         animation: none;
                     }
+
+                    &.csv-upload-icon-warning {
+                        background-color: $colorPrimary;
+                    }
                 }
             }
         }
@@ -4358,7 +4360,7 @@ body {
 
         .button {
             height: 30px;
-            line-height: 26px;
+            line-height: 24px;
             padding-top: 2px;
             padding-bottom: 2px;
             font-size: 12px;
@@ -5844,6 +5846,10 @@ body {
             &:last-child {
                 border-bottom: none;
             }
+
+            &.switch-row-disabled {
+                cursor: default;
+            }
         }
     }
 
@@ -5935,6 +5941,7 @@ body {
     z-index: 20;
     display: flex;
     align-items: center;
+    cursor: default;
 
     .modal-backdrop {
         @include fill_parent();
@@ -6087,6 +6094,10 @@ body {
                 margin: 20px 0;
                 box-shadow: 0 7px 15px rgba(#000, 0.10);
             }
+
+            &.modal-body-visible {
+                overflow: visible;
+            }
         }
 
         .modal-hero {
@@ -6143,6 +6154,11 @@ body {
                 font: 500 14px/20px $bf;
                 color: #646f79;
                 margin: 0 0 20px;
+                cursor: default;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
 
@@ -6563,10 +6579,6 @@ body {
     }
 
     &.modal-notification {
-        .modal-close {
-            top: 50px;
-        }
-        
         .modal-content {
             .modal-section {
                 font: 400 18px/34px $bf;
@@ -6956,10 +6968,6 @@ body {
         }
 
         &.modal-notification {
-            .modal-close {
-                top: 50px;
-            }
-            
             .modal-content {
                 .modal-section {
                     font: 400 18px/34px $bf;

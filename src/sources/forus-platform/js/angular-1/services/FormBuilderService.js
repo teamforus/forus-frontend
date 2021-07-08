@@ -1,4 +1,4 @@
-let FormBuilderService = function() {
+const FormBuilderService = function() {
     return new(function() {
         this.build = function(values, submit, autoLock = false) {
             return {

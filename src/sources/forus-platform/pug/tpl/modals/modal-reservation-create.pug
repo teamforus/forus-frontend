@@ -1,0 +1,91 @@
+.modal.modal-md.modal-animated.modal-loading(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+
+    //- Voucher form
+    .modal-window(ng-if="!$ctrl.formProducts && !$ctrl.reservation"): form.form(ng-submit="$ctrl.form.submit()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+        .modal-header Reservering aanmaken
+        .modal-body.modal-body-visible: .modal-section
+            .modal-text.text-center 
+                | Vul het pasnummer van de klant in. Vraag de klant naar de 
+                br
+                | persoonlijke 12-cijferige code die op de pas staat.
+
+            .row: .col.col-sm-9.col-sm-offset-1.col-sm-12.col-xs-offset-0
+                .form-group.form-group-inline.form-group-inline-md
+                    label.form-label.form-label-required Pasnummer
+                    input(  
+                        type="number" 
+                        placeholder="Nummer"
+                        ng-model="$ctrl.form.values.number" step="1" min="1").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.number" ng-bind="error")
+
+        .modal-footer.text-center
+            button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_create.buttons.cancel")
+            button.button.button-primary(type="submit" i18n="modals.modal_voucher_create.buttons.submit")
+
+    //- Voucher form
+    .modal-window(ng-if="$ctrl.formProducts && !$ctrl.reservation"): form.form(ng-submit="$ctrl.formProducts.submit()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+        .modal-header Aanbieding selecteren
+        .modal-body.modal-body-visible
+            //- Products form
+            .modal-section(ng-if="!$ctrl.showOverview")
+                .modal-text.text-center 
+                    | Kies het aanbod waarvoor u de reservering wilt aanmaken. 
+                    br
+                    | De notitie wordt toegevoegd aan het transactieoverzicht.
+
+                .row: .col.col-sm-9.col-sm-offset-1.col-sm-12.col-xs-offset-0
+                    .form-group.form-group-inline.form-group-inline-md.tooltipped
+                        label.form-label Aanbod
+                        select(
+                            ng-options="product as product.name for product in $ctrl.products" 
+                            ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
+                            ng-model="$ctrl.formProducts.product").form-control
+                        .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
+                        tooltip(text="'Lorem ipsum!'")
+
+                    .form-group.form-group-inline.form-group-inline-md
+                        label.form-label.form-label-required Notitie
+                        textarea(  
+                            placeholder="Notitie"
+                            ng-model="$ctrl.formProducts.values.note" step="1" min="1").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
+
+            //- Submit overview
+            .modal-section(ng-if="$ctrl.showOverview")
+                .modal-text.text-center 
+                    | Controleer of u de juiste gegevens heeft ingevuld. Na bevestiging wordt de reservering aangemaakt.
+
+                .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
+                    .datalist-row
+                        .datalist-key: strong Pasnummer
+                        .datalist-value.text-primary.text-right: strong(ng-bind="$ctrl.form.values.number")
+                    .datalist-row
+                        .datalist-key: strong Aanbod
+                        .datalist-value.text-primary.text-right: strong(ng-bind="$ctrl.formProducts.product.name")
+                    .datalist-row
+                        .datalist-key: strong Bedrag
+                        .datalist-value.text-primary.text-right: strong(ng-bind="$ctrl.formProducts.product.price_locale")
+
+        .modal-footer.text-center(ng-if="!$ctrl.showOverview")
+            button.button.button-dark(type="button" ng-click="$ctrl.showVoucherForm($ctrl.form.values.number)") Annuleren
+            button.button.button-primary(type="button" ng-click="$ctrl.showOverview = true") Bevestigen
+
+        .modal-footer.text-center(ng-if="$ctrl.showOverview")
+            button.button.button-dark(type="$ctrl.showOverview" ng-click="$ctrl.showOverview = false") Annuleren
+            button.button.button-primary(ng-if="$ctrl.showOverview" type="submit") Bevestigen
+
+    .modal-window(ng-if="$ctrl.reservation")
+        .modal-body.modal-body-visible: .modal-section
+            .block.block-danger_zone.block-danger_zone-success
+                .danger_zone-title.text-left
+                    em.mdi.mdi-check
+                    span De reservering is aangemaakt.
+
+            .modal-text
+                | De reservering is toegevoegd. De transactie wordt na veertien dagen verwerkt.
+
+        .modal-footer.text-center
+            button(type="button" ng-click="$ctrl.close()" role="button").button.button-primary Sluiten

@@ -626,6 +626,14 @@ module.exports = {
             available_offers: "Resterend aanbod",
             unlimited: "Onbeperkt"
         },
+        tooltips: {
+            product_type: ["Kies het soort aanbod. Voorbeelden:",
+                "1. Normaal: een fiets voor € 200,-.",
+                "2. Korting €: € 20,- korting op een fiets.",
+                "3. Korting %: 20% korting op een fiets.",
+                "4. Gratis: gratis toegang voor een film."
+            ].join('\n')
+        },
         buttons: {
             cancel: "Annuleren",
             confirm: "Bevestig",
@@ -1240,6 +1248,33 @@ module.exports = {
                 state: 'Status'
             }
         }
+    },
+
+    // RESERVATION = reservations.pug
+    reservations: {
+        header: {
+            title: "Reserveringen ({{ total }})",
+        },
+        filters: {
+            fund: "Fonds",
+            product: "Aanbod",
+            status: "Status",
+            search: "Zoeken",
+            from: "Vanaf",
+            to: "Tot en met",
+            state: "Status",
+        },
+        labels: {
+            number: "Nummer",
+            product: "Aanbod",
+            price: "Bedrag",
+            reserved_at: "Aangemaakt op",
+            description: "Beschrijving",
+            customer: "Gegevens",
+            fund: "Fonds",
+            status: "Status",
+            actions: "Opties",
+        },
     },
 
     // VALIDATION REQUEST - validation-request.pug
