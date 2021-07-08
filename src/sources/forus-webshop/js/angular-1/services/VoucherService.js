@@ -1,17 +1,9 @@
-let VoucherService = function(
-    ApiRequest
-) {
-    let apiPrefix = '/platform/vouchers';
+const VoucherService = function(ApiRequest) {
+    const apiPrefix = '/platform/vouchers';
 
-    let addType = (type, transaction) => {
-        transaction.type = type;
-
-        return transaction;
-    };
-
-    return new(function() {
-        this.list = function() {
-            return ApiRequest.get(apiPrefix);
+    return new (function() {
+        this.list = function(query = {}) {
+            return ApiRequest.get(apiPrefix, query);
         };
 
         this.get = function(address) {
@@ -40,19 +32,16 @@ let VoucherService = function(
             );
         }
 
-        this.makeProductVoucher = function(voucherAddress, productId) {
-            return ApiRequest.post(apiPrefix, {
-                voucher_address: voucherAddress,
-                product_id: productId
-            });
-        };
-
         this.composeTransactions = function(voucher) {
-            return voucher.transactions.slice().map(
-                transaction => addType('transaction', transaction)
-            ).concat((voucher.product_vouchers || []).map(
-                product_voucher => addType('product_voucher', product_voucher)
-            )).sort((a, b) => b.timestamp - a.timestamp);
+            const transactions = voucher.transactions.slice().map(
+                transaction => ({ ...transaction, ...{ type: 'transaction' } })
+            );
+
+            const productVouchers = (voucher.product_vouchers || []).map(
+                product_voucher => ({ ...product_voucher, ...{ type: 'product_voucher' } })
+            );
+
+            return [...transactions, ...productVouchers].sort((a, b) => b.timestamp - a.timestamp);
         };
 
         this.composeCardData = function(voucher) {

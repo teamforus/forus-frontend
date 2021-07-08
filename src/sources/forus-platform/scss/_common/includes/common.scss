@@ -181,6 +181,10 @@ img {
     flex-grow: 100 !important;
 }
 
+.flex-column {
+    flex-direction: column;
+}
+
 .flex {
     display: flex;
 }

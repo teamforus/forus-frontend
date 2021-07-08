@@ -6,7 +6,7 @@ section.section.section-voucher-details: .wrapper
 
     section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
         .block.block-profile
-            profile-menu
+            .profile-aside: profile-menu
 
             .profile-content
                 .profile-content-header.clearfix
@@ -44,9 +44,11 @@ section.section.section-voucher-details: .wrapper
                         .preference-option-details
                             .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
                             .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
-                        .preference-option-input(role="checkbox"): .form-toggle
+                        .preference-option-input(aria-checked="{{ type.subscribed }}"): .form-toggle
                             input(
                                 type="checkbox" 
+                                role="checkbox"
+                                tabindex="0"
                                 id="option_{{ type.key }}"
                                 ng-change="$ctrl.togglePreferenceOption()" 
                                 ng-checked="type.subscribed" 
@@ -63,14 +65,16 @@ section.section.section-voucher-details: .wrapper
                         .preference-option-details
                             .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
                             .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
-                        .preference-option-input(role="checkbox" aria-checked="{{ type.subscribed }}" tabindex="0"): .form-toggle
+                        .preference-option-input(aria-checked="{{ type.subscribed }}"): .form-toggle
                             input(
-                                type="checkbox" 
+                                type="checkbox"
+                                role="checkbox"
+                                tabindex="0" 
                                 id="option_{{ type.key }}"
                                 ng-change="$ctrl.togglePreferenceOption()" 
                                 ng-checked="type.subscribed" 
                                 ng-model="type.subscribed")
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot(role="button" aria-label="in of uitschakelen")
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
                                 em.mdi.mdi-check-bold(ng-if="type.subscribed")
                                 .icon-disabled(ng-if="!type.subscribed") 
                                 

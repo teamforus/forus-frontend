@@ -4069,6 +4069,10 @@ body {
                     .mdi {
                         animation: none;
                     }
+
+                    &.csv-upload-icon-warning {
+                        background-color: $colorPrimary;
+                    }
                 }
             }
         }
@@ -4356,7 +4360,7 @@ body {
 
         .button {
             height: 30px;
-            line-height: 26px;
+            line-height: 24px;
             padding-top: 2px;
             padding-bottom: 2px;
             font-size: 12px;
@@ -5842,6 +5846,10 @@ body {
             &:last-child {
                 border-bottom: none;
             }
+
+            &.switch-row-disabled {
+                cursor: default;
+            }
         }
     }
 
@@ -6086,6 +6094,10 @@ body {
                 margin: 20px 0;
                 box-shadow: 0 7px 15px rgba(#000, 0.10);
             }
+
+            &.modal-body-visible {
+                overflow: visible;
+            }
         }
 
         .modal-hero {
@@ -6142,6 +6154,11 @@ body {
                 font: 500 14px/20px $bf;
                 color: #646f79;
                 margin: 0 0 20px;
+                cursor: default;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
 

@@ -1053,6 +1053,26 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
+        name: "reservations",
+        url: "/organizations/{organization_id}/reservations",
+        component: "reservationsComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('reservations-list', 'scan_vouchers'),
+            funds: ['$transition$', 'ProviderFundService', (
+                $transition$, ProviderFundService
+            ) => repackResponse(ProviderFundService.listFunds($transition$.params().organization_id, {
+                per_page: 100,
+            }))],
+            products: ['$transition$', 'ProductService', (
+                $transition$, ProductService
+            ) => repackResponse(ProductService.list($transition$.params().organization_id, {
+                per_page: 100,
+            }))]
+        }
+    });
+
+    $stateProvider.state({
         name: "products-create",
         url: "/organizations/{organization_id}/products/create",
         component: "productsEditComponent",
@@ -1128,11 +1148,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('provider-funds-list', 'manage_provider_funds'),
             fundsAvailable: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
-            ) => repackPagination(ProviderFundService.listAvailableFunds(
-                $transition$.params().organization_id, {
+            ) => repackPagination(ProviderFundService.listAvailableFunds($transition$.params().organization_id, {
                 per_page: 10
-            }
-            ))],
+            }))],
             funds: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
             ) => repackResponse(ProviderFundService.listFunds(

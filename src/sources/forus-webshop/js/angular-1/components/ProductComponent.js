@@ -9,30 +9,20 @@ const ProductComponent = function(
     AuthService,
     FundService,
     ModalService,
-    VoucherService
+    ProductService
 ) {
     const $ctrl = this;
     const $i18n = $filter('i18n');
-
-    let fetchingFund = false;
 
     if (!appConfigs.features.products.show) {
         return $state.go('home');
     }
 
-    $ctrl.goToOffice = (office) => {
-        $state.go('provider-office', {
-            provider_id: office.organization_id,
-            office_id: office.id
-        });
-    };
+    $ctrl.fetchingFund = false;
+    $ctrl.isApplicable = false;
 
-    $ctrl.goToVoucher = (fundId) => {
-        $state.go('voucher', {
-            address: $ctrl.vouchers.filter((voucher) => {
-                return voucher.fund_id == fundId && voucher.type == 'regular';
-            })[0].address
-        });
+    $ctrl.goToVoucher = (fund) => {
+        fund.meta.applicableVouchers[0] && $state.go('voucher', fund.meta.applicableVouchers[0]);
     }
 
     $ctrl.toggleOffices = ($event, provider) => {
@@ -46,123 +36,41 @@ const ProductComponent = function(
         ModalService.open('modalAuth', {});
     };
 
-    $ctrl.isApplicable = false;
-
-    let isValidProductVoucher = (voucher, fundIds) => {
-        return (fundIds.indexOf(voucher.fund_id) != -1) && !voucher.parent && !voucher.expired;
-    };
-
     $ctrl.requestFund = (fund) => {
-        fetchingFund = true;
+        $ctrl.fetchingFund = true;
 
         FundService.readById(fund.id).then(res => {
-            fetchingFund = false;
-            let fund = res.data.data;
+            const fund = res.data.data;
+            const fund_id = fund.id;
 
             if (fund.taken_by_partner) {
-                $ctrl.showPartnerModal();
-            } else {
-                $state.go('fund-activate', {
-                    fund_id: fund.id
-                });
+                return FundService.showTakenByPartnerModal();
             }
-        }, () => fetchingFund = false);
+
+            $state.go('fund-activate', { fund_id });
+        }).finally(() => $ctrl.fetchingFund = false);
     };
 
-    $ctrl.showPartnerModal = () => {
-        ModalService.open('modalNotification', {
-            type: 'info',
-            title: 'Dit tegoed is al geactiveerd',
-            closeBtnText: 'Bevestig',
-            description: [
-                "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
-                "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
-                "van de persoon die deze als eerste heeft geactiveerd."
-            ].join(''),
+    $ctrl.reserveProduct = (fund) => {
+        ModalService.open('modalProductReserve', {
+            product: $ctrl.product,
+            vouchers: $ctrl.productMeta.regularActiveVouchers.filter(voucher => voucher.fund_id == fund.id),
         });
     };
 
     $ctrl.$onInit = function() {
-        const fundIds = $ctrl.product.funds.map(fund => fund.id);
-
         $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.signedIn = AuthService.hasCredentials();
-        $ctrl.subsidyFunds = $ctrl.product.funds.filter(fund => fund.type === 'subsidies');
-        $ctrl.useSubsidies = $ctrl.subsidyFunds.length > 0
-        $ctrl.useBudget = $ctrl.product.funds.filter(fund => fund.type === 'budget').length > 0
+
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
+        $ctrl.productMeta = ProductService.checkEligibility($ctrl.product, $ctrl.vouchers);
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
 
-        $ctrl.lowAmountVouchers = $ctrl.vouchers.filter(voucher => {
-            return isValidProductVoucher(voucher, fundIds) &&
-                parseFloat($ctrl.product.price) >= parseFloat(voucher.amount) &&
-                voucher.fund.type == 'budget';
-        });
-
-        $ctrl.product.funds.forEach(fund => {
-            let product_expire_at = moment($ctrl.product.expire_at);
-            let fund_expire_at = moment(fund.end_at);
-
-            fund.meta = {};
-
-            fund.meta.applicableSubsidyVouchers = $ctrl.vouchers.filter(voucher => {
-                return isValidProductVoucher(voucher, [fund.id]) && voucher.fund.type == 'subsidies';
-            });
-
-            fund.meta.applicableBudgetVouchers = $ctrl.vouchers.filter(voucher => {
-                return isValidProductVoucher(voucher, [fund.id]) &&
-                    parseFloat($ctrl.product.price) <= parseFloat(voucher.amount) &&
-                    voucher.fund.type == 'budget';
-            });
-
-            fund.meta.isApplicable = fund.meta.applicableBudgetVouchers.length > 0;
-            fund.meta.isApplicableSubsidy = fund.meta.applicableSubsidyVouchers.length > 0;
-            
-            fund.shownExpireDate = !$ctrl.product.expire_at || product_expire_at.isAfter(fund_expire_at) ? 
-                fund.end_at_locale : $ctrl.product.expire_at_locale;
-        })
-
-        $ctrl.isApplicable = $ctrl.product.funds.filter(
-            fund => fund.meta.isApplicable
-        ).length > 0;
-
-        $ctrl.applicableBudgetVouchers = $ctrl.product.funds.filter(
-            fund => fund.meta.applicableBudgetVouchers
-        ).length > 0;
+        $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
+        $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
 
         const implementation = $i18n('implementation_name.' + appConfigs.client_key);
         $rootScope.pageTitle = $i18n('page_state_titles.product', { implementation, product_name: $ctrl.product.name });
-    };
-
-    $ctrl.applyProduct = () => {
-        if ($ctrl.applicableBudgetVouchers.length == 1) {
-            let voucher = $ctrl.applicableBudgetVouchers[0];
-
-            let fund_expire_at = moment(voucher.fund.end_date);
-            let product_expire_at = $ctrl.product.expire_at ? moment($ctrl.product.expire_at) : false;
-
-            let expire_at = product_expire_at && fund_expire_at.isBefore(
-                product_expire_at
-            ) ? voucher.last_active_day_locale : $ctrl.product.expire_at_locale;
-
-            return ModalService.open('modalProductApply', {
-                expire_at: expire_at,
-                product: $ctrl.product,
-                org_name: $ctrl.product.organization.name,
-                confirm: () => {
-                    return VoucherService.makeProductVoucher(
-                        voucher.address,
-                        $ctrl.product.id
-                    ).then(res => {
-                        $state.go('voucher', res.data.data);
-                    }, console.error);
-                }
-            });
-        } else {
-            return $state.go('products-apply', {
-                id: $ctrl.product.id
-            });
-        }
     };
 };
 
@@ -186,7 +94,7 @@ module.exports = {
         'AuthService',
         'FundService',
         'ModalService',
-        'VoucherService',
+        'ProductService',
         ProductComponent
     ],
     templateUrl: 'assets/tpl/pages/product.html'

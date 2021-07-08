@@ -22,6 +22,7 @@ app.component('fundsEditComponent', require('./components/FundsEditComponent'));
 app.component('fundsShowComponent', require('./components/FundsShowComponent'));
 app.component('fundBackofficeEdit', require('./components/FundBackofficeEditComponent'));
 app.component('transactionsComponent', require('./components/TransactionsComponent'));
+app.component('reservationsComponent', require('./components/ReservationsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('vouchersShowComponent', require('./components/VouchersShowComponent'));
 app.component('productVouchersComponent', require('./components/ProductVouchersComponent'));
@@ -68,6 +69,8 @@ app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEm
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
 app.component('modalVoucherCreateComponent', require('./components/Modals/ModalVoucherCreateComponent'));
+app.component('modalReservationCreateComponent', require('./components/Modals/ModalReservationCreateComponent'));
+app.component('modalReservationUploadComponent', require('./components/Modals/ModalReservationUploadComponent'));
 app.component('modalProductVoucherCreateComponent', require('./components/Modals/ModalProductVoucherCreateComponent'));
 app.component('modalVoucherQrCodeComponent', require('./components/Modals/ModalVoucherQrCodeComponent'));
 app.component('modalVouchersUploadComponent', require('./components/Modals/ModalVouchersUploadComponent'));
@@ -146,6 +149,7 @@ app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('ImplementationService', require('./services/ImplementationService'));
 app.service('HelperService', require('./services/HelperService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
+app.service('ProductReservationService', require('./services/ProductReservationService'));
 
 // Directives
 app.directive('menu', {

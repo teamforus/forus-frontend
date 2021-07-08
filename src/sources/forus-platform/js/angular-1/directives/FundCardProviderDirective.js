@@ -36,8 +36,6 @@ const FundCardProviderDirective = function(
 
     $scope.sendCancelApplicationRequest = (providerFund) => {
         ProviderFundService.cancelApplicationRequest($scope.organization.id, providerFund.id).then(() => {
-            console.log($scope.providerFunds);
-
             $scope.providerFunds = $scope.providerFunds.filter(item => item.id !== providerFund.id);
             $scope.showEmptyBlock = $scope.providerFunds.length == 0;
 

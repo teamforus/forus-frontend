@@ -219,6 +219,12 @@ module.exports = [
                 );
             };
 
+            this.updateAcceptReservations = function(id, auto_accept) {
+                return ApiRequest.patch(`/platform/organizations/${id}/accept-reservations`, {
+                    reservations_auto_accept: auto_accept,
+                });
+            };
+
             this.updateBusinessType = function(id, business_type_id) {
                 return ApiRequest.patch(
                     '/platform/organizations/' + id + '/update-business', {

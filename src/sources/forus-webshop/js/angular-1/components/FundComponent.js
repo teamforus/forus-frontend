@@ -11,22 +11,9 @@ const FundsComponent = function(
     $ctrl.appConfigs = appConfigs;
     $ctrl.recordsByTypesKey = {};
 
-    $ctrl.showPartnerModal = () => {
-        ModalService.open('modalNotification', {
-            type: 'info',
-            title: 'Dit tegoed is al geactiveerd',
-            closeBtnText: 'Bevestig',
-            description: [
-                "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
-                "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
-                "van de persoon die deze als eerste heeft geactiveerd."
-            ].join(''),
-        });
-    };
-
     $ctrl.applyFund = function(fund) {
         if ($ctrl.fund.taken_by_partner) {
-            return $ctrl.showPartnerModal();
+            return FundService.showTakenByPartnerModal();
         }
 
         FundService.apply(fund.id).then(function(res) {

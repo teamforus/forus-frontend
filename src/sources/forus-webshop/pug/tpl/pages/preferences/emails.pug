@@ -6,7 +6,7 @@ section.section.section-voucher-details: .wrapper
 
     section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
         .block.block-profile
-            profile-menu
+            .profile-aside: profile-menu
 
             .profile-content
                 .profile-content-header.clearfix
@@ -68,7 +68,7 @@ section.section.section-voucher-details: .wrapper
                             .form-label E-mailadres
                             .flex-row
                                 .flex-col.flex-grow
-                                    input(type="email" placeholder="bijv. info@example.org" ng-model="$ctrl.form.values.email").form-control
+                                    input(type="email" placeholder="bijv. info@example.org" ng-model="$ctrl.form.values.email" aria-label="Vul uw e-mailadres in").form-control
                                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                                 .flex-col: button(type="submit").button.button-primary Toevoegen
                 

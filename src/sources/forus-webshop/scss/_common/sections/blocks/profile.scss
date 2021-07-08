@@ -96,6 +96,16 @@
                 }
             }
 
+            .profile-aside-block {
+                position: relative;
+                padding: 20px;
+                width: 100%;
+                background: #fff;
+                border-radius: $border_radius;
+                box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+                margin-bottom: 20px;
+            }
+
             .profile-menu {
                 .profile-menu-item {
                     margin-bottom: 15px;
@@ -192,6 +202,12 @@
                         }
                     }
                 }
+                
+                .profile-content-subtitle {
+                    font: 400 14px/60px $bf;
+                    color: $tc;
+                    width: 100%;
+                }
             }
 
             &:first-child {
@@ -252,6 +268,15 @@
                         &:last-child {
                             margin: 0;
                         }
+                    }
+                }
+            }
+
+            .profile-content {
+                .profile-content-header {
+                    .profile-content-subtitle {
+                        font: 400 14px/22px $bf;
+                        padding: 10px 0;
                     }
                 }
             }

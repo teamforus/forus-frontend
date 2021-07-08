@@ -17,6 +17,7 @@ module.exports = {
         "products-apply": "Aanbieding kopen",
         vouchers: 'Mijn tegoed',
         voucher: 'Uw tegoed',
+        "reservations": 'Reserveringen',
         provider: 'Aanbieder',
         records: 'Eigenschappen',
         explanation: 'Uitleg',
@@ -74,7 +75,6 @@ module.exports = {
     funds: require("./nl/pages/funds"),
     home: require("./nl/pages/home"),
     meapp_index: require("./nl/pages/me-index"),
-    product_apply: require("./nl/pages/product-apply"),
     product: require("./nl/pages/product"),
     records_validations: require("./nl/pages/record-validations"),
     records_create: require("./nl/pages/records-create"),
@@ -82,6 +82,7 @@ module.exports = {
     records: require("./nl/pages/records"),
     voucher: require("./nl/pages/voucher"),
     vouchers: require("./nl/pages/vouchers"),
+    reservations: require("./nl/pages/reservations"),
     notification_preferences: require("./nl/pages/notification-preferences"),
     email_preferences: require("./nl/pages/email-preferences"),
     voucher_printable: require('./nl/pages/voucher-printable'),
@@ -99,6 +100,8 @@ module.exports = {
     pdf_preview: require("./nl/modals/modal-pdf-preview"),
     image_preview: require("./nl/modals/modal-image-preview"),
     modal: require("./nl/modals/modal"),
+    modal_product_reserve: require("./nl/modals/modal-product-reserve"),
+    modal_product_reserve_cancel: require("./nl/modals/modal-product-reserve-cancel"),
 
     // DIRECTIVES
     app_footer: require("./nl/directives/app-footer"),

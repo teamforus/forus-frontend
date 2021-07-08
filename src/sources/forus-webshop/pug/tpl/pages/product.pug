@@ -9,7 +9,7 @@ main(id="main-content")
                 | Terug
             a(ui-sref="home" i18n="product.headers.home").breadcrumb-item
             a(ui-sref="products" ng-if="$ctrl.useBudget" i18n="product.headers.products").breadcrumb-item
-            a(ui-sref="actions" ng-if="$ctrl.useSubsidies" i18n="product.headers.subsidies").breadcrumb-item
+            a(ui-sref="actions" ng-if="$ctrl.useSubsidies && !$ctrl.useBudget" i18n="product.headers.subsidies").breadcrumb-item
             .breadcrumb-item.active(ng-bind="$ctrl.product.name")
 
         .block.block-product
@@ -34,20 +34,20 @@ main(id="main-content")
                             .product-property-label(i18n="product.labels.description")
                             .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
 
-            .block.block-info-card(ng-if="$ctrl.product.funds.length > 0")
+            .block.block-info-card(ng-if="$ctrl.productMeta.funds.length > 0")
                 h2(i18n="product.headers.funds" ui-sref="vouchers").block-header
                 .block-products-content
-                    .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.product.funds")
-                        .fund-item-section.fund-item-section-details
+                    .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds")
+                        .fund-item-section.fund-item-section-details.text-left
                             .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
                             .fund-item-content
-                                .fund-item-title(ng-bind="fund.name")
-                                .fund-item-subtitle(ng-bind="fund.organization.name")
+                                .fund-item-section-label.flex-start Tegoed:
+                                .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name")
                         
                         .fund-item-section
                             .fund-item-section-label(i18n="product.labels.expire")
                             .fund-item-section-value.fund-item-section-value-sm 
-                                | {{ "product.labels.expire_prefix" | translate }} {{ fund.shownExpireDate }}
+                                | {{ "product.labels.expire_prefix" | translate }} {{ fund.meta.shownExpireDate.locale }}
                         
                         .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
                             .fund-item-section-label.tooltip-block(ng-if="$root.auth_user")
@@ -64,42 +64,43 @@ main(id="main-content")
                                 translate="product.labels.price")
 
                             .fund-item-section-label(
-                                ng-if="($ctrl.product.price_type === 'discount_fixed' || $ctrl.product.price_type === 'discount_percentage')" 
+                                ng-if="$ctrl.product.price_type === 'discount_fixed' || $ctrl.product.price_type === 'discount_percentage'" 
                                 translate="product.labels.discount")
 
                             //- subsidies price
                             .fund-item-section-value(
-                                ng-if="fund.type == 'subsidies' && ($ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular' && $ctrl.product.price_min == 0)"
+                                ng-if="fund.type == 'subsidies' && ($ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular' && fund.price == 0)"
                                 translate="product.status.free")
 
                             .fund-item-section-value(
-                                ng-if="fund.type == 'subsidies' && ($ctrl.product.price_type === 'regular' && $ctrl.product.price_min != 0)" 
-                                ng-bind="$ctrl.product.price_min | currency_format")
+                                ng-if="fund.type == 'subsidies' && ($ctrl.product.price_type === 'regular' && fund.price != 0)" 
+                                ng-bind="fund.price | currency_format")
                             
                             //- budget price
                             .fund-item-section-value(
                                 ng-if="fund.type == 'budget' && ($ctrl.product.price_type === 'regular' || $ctrl.product.price_type === 'free')" 
                                 ng-bind="$ctrl.product.price_locale")
-                                
+
+                            //- discount_fixed or discount_percentage (budget or subsidies)
                             .fund-item-section-value(
                                 ng-if="$ctrl.product.price_type === 'discount_fixed' || $ctrl.product.price_type === 'discount_percentage'" 
                                 ng-bind="$ctrl.product.price_discount_locale")
 
-                        //- reserve product using voucher
-                        .fund-item-section(ng-if="!fund.meta.isApplicableSubsidy && $ctrl.product.price_type === 'regular' && $ctrl.useBudget && fund.meta.isApplicable && !$ctrl.product.deleted && !$ctrl.product.sold_out")
+                        //- reserve product using voucher (product reservation)
+                        .fund-item-section(ng-if="fund.meta.isReservationAvailable")
                             .button.button-dark.button-flat(
                                 i18n="product.buttons.buy" 
-                                ng-click="$ctrl.applyProduct()")
+                                ng-click="$ctrl.reserveProduct(fund)")
 
                         //- request fund
-                        .fund-item-section(ng-if="(fund.type == 'subsidies' ? !fund.meta.isApplicableSubsidy : !fund.meta.isApplicable) && $ctrl.signedIn")
+                        .fund-item-section(ng-if="!fund.meta.applicableVouchers.length && $ctrl.signedIn && !fund.meta.isReservationAvailable")
                             .button.button-light.button-flat(
                                 translate="product.buttons.{{ $root.client_key }}.request" 
                                 translate-default="{{ 'product.buttons.request' | translate }}" 
                                 ng-click="$ctrl.requestFund(fund)")
 
-                        .fund-item-section(ng-if="fund.meta.isApplicableSubsidy && !$ctrl.useBudget")
-                            .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund.id)" i18n="product.buttons.open_voucher")
+                        .fund-item-section(ng-if="fund.meta.applicableVouchers.length && !$ctrl.useBudget && !fund.meta.isReservationAvailable")
+                            .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)" i18n="product.buttons.open_voucher")
 
             .block.block-pane(ng-class="{'last-child': $ctrl.product.organization.showOffices}")
                 h2(ui-sref="provider($ctrl.product.organization)" i18n="product.headers.provider").pane-head
@@ -115,7 +116,7 @@ main(id="main-content")
         
             .block.block-organizations(ng-if="$ctrl.product.organization.showOffices"): .organization-item
                 .organization-offices: .block.block-offices
-                    a(ng-repeat="office in $ctrl.product.offices" ng-click="$ctrl.goToOffice(office)" role="heading").office-item
+                    a(ng-repeat="office in $ctrl.product.offices" ui-sref="provider-office(office)" role="heading").office-item
                         .office-item-map-icon: .mdi.mdi-map-marker
                         .office-pane
                             .office-pane-block

@@ -1250,6 +1250,33 @@ module.exports = {
         }
     },
 
+    // RESERVATION = reservations.pug
+    reservations: {
+        header: {
+            title: "Reserveringen ({{ total }})",
+        },
+        filters: {
+            fund: "Fonds",
+            product: "Aanbod",
+            status: "Status",
+            search: "Zoeken",
+            from: "Vanaf",
+            to: "Tot en met",
+            state: "Status",
+        },
+        labels: {
+            number: "Nummer",
+            product: "Aanbod",
+            price: "Bedrag",
+            reserved_at: "Aangemaakt op",
+            description: "Beschrijving",
+            customer: "Gegevens",
+            fund: "Fonds",
+            status: "Status",
+            actions: "Opties",
+        },
+    },
+
     // VALIDATION REQUEST - validation-request.pug
     validation_request: {
         buttons: {
