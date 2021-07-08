@@ -164,6 +164,16 @@
         }
     }
 
+    &.button-danger {
+        color: #fff;
+        background: #D93740;
+
+        &:hover {
+            color: #CEC7C7;
+            background: #DD0000;
+        }
+    }
+
     &.button-primary-outline {
         color: $color_primary;
         border: 1px solid $color_primary;

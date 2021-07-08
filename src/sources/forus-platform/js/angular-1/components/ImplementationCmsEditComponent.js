@@ -1,11 +1,11 @@
-let ImplementationCmsEditComponent = function (
+const ImplementationCmsEditComponent = function(
     $rootScope,
     MediaService,
     FormBuilderService,
     ImplementationService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     const bannerPatterns = [{
         value: 'color',
@@ -41,16 +41,20 @@ let ImplementationCmsEditComponent = function (
     $ctrl.bannerMedia;
     $ctrl.resetMedia = false;
 
-    $ctrl.bannerMeta = {
-        media: null,
-        auto_text_color: true,
-        patterns: bannerPatterns,
-        opacityOptions: bannerOpacityOptions,
-        headerTextColors: headerTextColors,
-        overlay_enabled: false,
-        overlay_type: bannerPatterns[0].value,
-        overlay_opacity: bannerOpacityOptions[4].value,
-        header_text_color: headerTextColors[0].value,
+    $ctrl.bannerMeta = null;
+
+    $ctrl.getBannerMetaDefault = () => {
+        return {
+            media: null,
+            auto_text_color: true,
+            patterns: bannerPatterns,
+            opacityOptions: bannerOpacityOptions,
+            headerTextColors: headerTextColors,
+            overlay_enabled: false,
+            overlay_type: bannerPatterns[0].value,
+            overlay_opacity: bannerOpacityOptions[4].value,
+            header_text_color: headerTextColors[0].value,
+        };
     };
 
     $ctrl.selectBanner = (mediaFile) => {
@@ -60,6 +64,7 @@ let ImplementationCmsEditComponent = function (
             $ctrl.bannerMedia = res.data.data;
             $ctrl.bannerMeta.media = $ctrl.bannerMedia;
             $ctrl.form.values.banner_media_uid = $ctrl.bannerMedia.uid;
+            $ctrl.resetMedia = false;
         }, (res) => {
             PushNotificationsService.danger('Error!', res.data.message);
         }).finally(() => {
@@ -68,10 +73,9 @@ let ImplementationCmsEditComponent = function (
     };
 
     $ctrl.resetBanner = () => {
-        $ctrl.form.values.banner.uid = $ctrl.bannerMedia.uid;
-        $ctrl.bannerMedia = $ctrl.bannerMeta.media = null;
-        
         $ctrl.resetMedia = true;
+        $ctrl.bannerMedia = null;
+        $ctrl.bannerMeta = $ctrl.getBannerMetaDefault();
     }
 
     $ctrl.communicationTypes = [{
@@ -81,7 +85,7 @@ let ImplementationCmsEditComponent = function (
         value: '0',
         label: 'U/uw',
     }];
-    
+
     $ctrl.appendMedia = (media_uid, formValue) => {
         if (!Array.isArray(formValue.media_uid)) {
             formValue.media_uid = [];
@@ -120,6 +124,7 @@ let ImplementationCmsEditComponent = function (
     $ctrl.$onInit = () => {
         const { informal_communication } = $ctrl.implementation;
 
+        $ctrl.bannerMeta = $ctrl.getBannerMetaDefault();
         $ctrl.page_types = $ctrl.implementation.page_types;
         $ctrl.page_types_internal = $ctrl.implementation.page_types_internal;
         $ctrl.implementation.informal_communication = informal_communication ? '1' : '0';
@@ -149,9 +154,9 @@ let ImplementationCmsEditComponent = function (
             const { overlay_enabled, overlay_type, overlay_opacity } = $ctrl.bannerMeta;
             const header_text_color = $ctrl.bannerMeta.auto_text_color ? 'auto' : $ctrl.bannerMeta.header_text_color;
 
-            if (!$ctrl.bannerMedia && $ctrl.resetMedia) {
-                MediaService.delete($ctrl.form.values.banner.uid).then((res) => {}, (res) => {
-                    PushNotificationsService.danger('Error!', res.data.message);
+            if ($ctrl.resetMedia && $ctrl.form.values.banner_media_uid) {
+                MediaService.delete($ctrl.form.values.banner_media_uid).then(() => { }, (res) => {
+                    PushNotificationsService.danger('Error, could not delete banner image!', res.data.message);
                 });
             }
 
@@ -164,7 +169,7 @@ let ImplementationCmsEditComponent = function (
 
                 form.errors = [];
                 form.values.media_uid = [];
-                
+
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => form.errors = res.data.errors).finally(() => form.unlock());
         }, true);

@@ -9,11 +9,17 @@
     //- Activation code form
     .modal-window(ng-if="$ctrl.state == 'card_code'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
-        .modal-header
-            .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.link_card.title")
+
+        .modal-header: .modal-title(
+            id="physicalCardTypeDialogTitle" 
+            translate="physical_card.modal_section.link_card.title")
+        
         .modal-content: .modal-section: form.form
             .activation-card
-                .physical-card-title(id="physicalCardTypeDialogSubtitle" translate="physical_card.modal_section.link_card.subtitle")
+                .physical-card-title(
+                    id="physicalCardTypeDialogSubtitle" 
+                    translate="physical_card.modal_section.link_card.subtitle")
+
                 pincode-control(
                     ng-model="$ctrl.activateCodeForm.values.code" 
                     block-size="4" 
@@ -22,13 +28,18 @@
                     cant-delete-length="3").block-pincode-compact.block-pincode-mobile-collapse
                 .form-error.text-center(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
 
-                .physical-card-media: img(src=src_prefix + "./assets/img/icon-physical-cards/icon-physical-cards-preview.svg" alt="Fysieke pas: '{{$ctrl.voucher.fund.name}}'")
+                .physical-card-media: img(
+                    src=src_prefix + "./assets/img/icon-physical-cards/icon-physical-cards-preview.svg" 
+                    alt="Fysieke pas: '{{$ctrl.voucher.fund.name}}'")
+                
                 .physical-card-description(translate="physical_card.modal_section.link_card.description")
+                
                 .physical-card-description
                     span Geen oude pas? 
                     .physical-card-order(ng-click="$ctrl.requestPhysicalCard()") Bestel een pas
 
-                .text-center: button.button.button-dark(
+                
+                .button-group.flex-center: button.button.button-dark(
                     ng-class="{disabled: $ctrl.activateCodeForm.values.code.length != 12}"
                     type="button" 
                     i18n="physical_card.buttons.link_card.submit_code" 
@@ -37,22 +48,34 @@
     //- Digital password
     .modal-window(ng-if="$ctrl.state == 'select_type'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+
         .modal-header(ng-if="!$ctrl.preffersPlasticCard")
-            .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.type_selection.title" translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
+            .modal-title(
+                id="physicalCardTypeDialogTitle" 
+                translate="physical_card.modal_section.type_selection.title" 
+                translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
+
         .modal-content 
             .modal-section(ng-if="!$ctrl.preffersPlasticCard")
                 .physical-card: .physical-card-row
-                    .physical-card-item.physical-card-item-sm(ng-click="$ctrl.sendVoucherEmail()")
+                    .physical-card-item.physical-card-item-sm(
+                        ng-click="$ctrl.sendVoucherEmail()")
+                        
                         .physical-card-item-inner
                             .physical-card-item-icon: em.mdi.mdi-email-outline
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.email_to_me")
+                        
                         .physical-card-item-details
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.email_to_me")
                     
-                    .physical-card-item.physical-card-item-sm(ng-click="$ctrl.printQrCode()" ng-if="!$root.appConfigs.flags.noPrintOption")
+                    .physical-card-item.physical-card-item-sm(
+                        ng-click="$ctrl.printQrCode()" 
+                        ng-if="!$root.appConfigs.flags.noPrintOption")
+                        
                         .physical-card-item-inner
                             .physical-card-item-icon: em.mdi.mdi-printer
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.print_pass")
+                        
                         .physical-card-item-details
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.print_pass")
                     
@@ -60,23 +83,31 @@
                         .physical-card-item-inner
                             .physical-card-item-icon: em.mdi.mdi-account-circle
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.open_in_app")
+                        
                         .physical-card-item-details
                             .physical-card-item-title(translate="physical_card.modal_section.request_new_card.open_in_app")
                             
-                    .physical-card-item.physical-card-item-sm(ng-click="$ctrl.prefferPlasticCard()" ng-if="!$ctrl.preffersPlasticCard && $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular') && !$ctrl.voucher.physical_card")
+                    .physical-card-item.physical-card-item-sm(
+                        ng-click="$ctrl.prefferPlasticCard()" 
+                        ng-if="!$ctrl.preffersPlasticCard && $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular') && !$ctrl.voucher.physical_card")
+                        
                         .physical-card-item-inner
                             .physical-card-item-icon: em.mdi.mdi-email-newsletter
                             .physical-card-item-title(translate="physical_card.modal_section.type_selection.card_new.title")
+                        
                         .physical-card-item-details
                             .physical-card-item-title(translate="physical_card.modal_section.type_selection.card_new.title")
 
             .modal-header(ng-if="$ctrl.preffersPlasticCard")
-                .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.request_new_card.title" translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
+                .modal-title(
+                    id="physicalCardTypeDialogTitle" 
+                    translate="physical_card.modal_section.request_new_card.title" 
+                    translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
 
-            .modal-section(ng-if="$ctrl.preffersPlasticCard")
+            .modal-section(ng-if="$ctrl.preffersPlasticCard"): form(ng-submit="$ctrl.requestCard()").form
                 .order-block
                     .physical-card-description(translate="physical_card.modal_section.request_new_card.description")
-                    .row: .col.col-sm-8.col-sm-offset-2: form.form
+                    .row: .col.col-sm-8.col-sm-offset-2
                         .form-group
                             label.form-label(translate="physical_card.modal_section.request_new_card.address" for="physical_card.modal_section.request_new_card.address")
                             input(
@@ -118,11 +149,33 @@
                             .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.city" ng-bind="error")
                             .form-group: .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.to_many_requests" ng-bind="error")
                     
-                    .physical-card-media.physical-card-media-sm
-                        img(src=src_prefix + "./assets/img/icon-physical-cards/icon-physical-cards-preview-variant.png" alt="Fysieke pas: '{{$ctrl.voucher.fund.name}}'")
+                    .physical-card-media.physical-card-media-sm: img(
+                        src=src_prefix + "./assets/img/icon-physical-cards/icon-physical-cards-preview-variant.png" 
+                        alt="Fysieke pas: '{{$ctrl.voucher.fund.name}}'")
 
+                .button-group.flex-center
+                    button.button.button-dark(type="submit" translate="physical_card.buttons.request_new_card.confirm")
 
-                .text-center: button.button.button-dark(type="button" translate="physical_card.buttons.request_new_card.confirm" ng-click="$ctrl.requestCard()")    
+    //- Confirmation new card
+    .modal-window(ng-if="$ctrl.state == 'confirm_new_card'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.confirm_card.header")
+        .modal-content: .modal-section
+            .physical-card-preview
+                .physical-card-description 
+                    translate="physical_card.modal_section.confirm_card.title"
+                    br
+                    br
+                    div(ng-bind="$ctrl.requestPhysicalCardForm.addressPreview[0]")
+                    div(ng-bind="$ctrl.requestPhysicalCardForm.addressPreview[1]")
+                    br 
+                    translate="physical_card.modal_section.confirm_card.description"
+                    br 
+                    br 
+
+                .button-group.flex-center
+                    button.button.button-dark(type="button" translate="physical_card.buttons.confirm_card.adjust" ng-click="$ctrl.state = 'select_type'")
+                    button.button.button-danger(type="button" translate="physical_card.buttons.confirm_card.submit" ng-click="$ctrl.confirmCard()")   
 
     //- Success old card
     .modal-window(ng-if="$ctrl.state == 'success_old_card'")
@@ -131,8 +184,13 @@
         .modal-content: .modal-section
             .physical-card-result
                 .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg
-                .physical-card-description(i18n="physical_card.modal_section.link_card_success.description" i18n-vars="{ fundName: $ctrl.voucher.fund.name }")        
-                .text-center: button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")   
+
+                .physical-card-description(
+                    i18n="physical_card.modal_section.link_card_success.description" 
+                    i18n-vars="{ fundName: $ctrl.voucher.fund.name }")        
+
+                .button-group.flex-center
+                    button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")   
 
     //- Success new card
     .modal-window(ng-if="$ctrl.state == 'success_new_card'")
@@ -141,8 +199,21 @@
         .modal-content: .modal-section
             .physical-card-result
                 .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg
-                .physical-card-description(
+
+                .physical-card-title(
                     id="physicalCardTypeDialogSubtitle"
-                    translate="physical_card.modal_section.request_card_success.description" 
-                    translate-values="$ctrl.requestPhysicalCardForm.values")
-                .text-center: button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")
+                    translate="physical_card.modal_section.request_card_success.title")
+
+                .physical-card-description 
+                    translate="physical_card.modal_section.request_card_success.heading"
+                    br
+                    br
+                    div(ng-bind="$ctrl.requestPhysicalCardForm.addressPreview[0]")
+                    div(ng-bind="$ctrl.requestPhysicalCardForm.addressPreview[1]")
+                    br 
+                    translate="physical_card.modal_section.request_card_success.description"
+                    br 
+                    br 
+
+                .button-group.flex-center
+                    button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")
