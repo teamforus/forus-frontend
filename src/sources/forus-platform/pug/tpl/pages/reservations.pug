@@ -3,18 +3,20 @@
     section.app.app-content
         .card
             .card-header: .flex
-                //- .card-header-drown
-                .flex.flex-grow.card-title
-                    span {{ 'reservations.header.title' | translate }}&nbsp;
-                    span(ng-bind="$ctrl.reservations.meta.total").span-count
-        
+                .flex.flex-grow.card-title(
+                    translate="reservations.header.title" 
+                    translate-values="$ctrl.reservations.meta")
 
                 .flex.block.block-inline-filters
-                    .button.button-primary.button-sm(ng-click="$ctrl.makeReservation()")
+                    .button.button-primary.button-sm(
+                        ng-if="$ctrl.reservationEnabled"
+                        ng-click="$ctrl.makeReservation()")
                         em.mdi.mdi-plus-circle.icon-start
                         | Aanmaken
 
-                    .button.button-primary.button-sm(ng-if="$ctrl.organization.allow_batch_reservations" ng-click="$ctrl.uploadReservations()")
+                    .button.button-primary.button-sm(
+                        ng-if="$ctrl.organization.allow_batch_reservations && $ctrl.reservationEnabled" 
+                        ng-click="$ctrl.uploadReservations()")
                         em.mdi.mdi-upload.icon-start
                         | Upload bulkbestand
 

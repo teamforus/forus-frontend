@@ -148,14 +148,14 @@ const ReservationsComponent = function(
         });
     };
 
-    $ctrl.init = () => {
+    $ctrl.$onInit = () => {
+        const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
+
         $ctrl.filters.reset();
         $ctrl.onPageChange($ctrl.filters.values);
-        $ctrl.acceptedBydefault = $ctrl.organization.reservations_auto_accept;
-    };
 
-    $ctrl.$onInit = () => {
-        $ctrl.init();
+        $ctrl.acceptedBydefault = $ctrl.organization.reservations_auto_accept;
+        $ctrl.reservationEnabled = reservations_budget_enabled || reservations_subsidy_enabled;
 
         $ctrl.funds.unshift({
             fund: {

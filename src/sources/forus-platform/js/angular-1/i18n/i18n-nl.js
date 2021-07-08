@@ -1253,7 +1253,7 @@ module.exports = {
     // RESERVATION = reservations.pug
     reservations: {
         header: {
-            title: "Reserveringen",
+            title: "Reserveringen ({{ total }})",
         },
         filters: {
             fund: "Fonds",
