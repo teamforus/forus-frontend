@@ -103,7 +103,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                             span(translate="topnavbar.buttons.voucher") 
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
-                        .auth-user(ng-click="$ctrl.openUserMenu($event)" aria-haspopup="true" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}" role="button" aria-label="user_menu")
+                        .auth-user(ng-click="$ctrl.openUserMenu($event)" aria-haspopup="true" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}" role="link" aria-label="user_menu")
                             .auth-user-avatar
                             .auth-user-caret
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi

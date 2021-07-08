@@ -121,7 +121,7 @@ let SignUpComponent = function(
 
     $ctrl.onSignedIn = () => {
         VoucherService.list({
-            per_page: 1000,
+            per_page: 100,
         }).then((res) => {
             const vouchers = res.data.data;
             const takenFundIds = vouchers.map(voucher => voucher.fund_id && !voucher.expired);
