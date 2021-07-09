@@ -1,5 +1,5 @@
 a(ui-sref="voucher(voucher)").voucher-item
-    .voucher-image: img(src='{{ voucherCard.thumbnail }}' alt="{{ voucherCard.title }}")
+    .voucher-image: img(ng-src='{{ voucherCard.thumbnail }}' alt="{{ voucherCard.title }}")
 
     .voucher-details
         h2.voucher-name(ng-bind="voucherCard.title")

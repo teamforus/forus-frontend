@@ -17,7 +17,8 @@ block content
                 map-pointers="$ctrl.provider.offices" 
                 map-pointer-template="providers-office-view"
                 map-options="$ctrl.mapOptions"
-                map-gesture-handling="'none'")
+                map-gesture-handling="'none'"
+                open-first-pointer="true")
 
             .provider-content
                 .block.block-pane
@@ -75,5 +76,16 @@ block content
                                                     .mdi.mdi-email-outline
                                                     | {{ provider.email }}
 
-                block-products(ng-if="$ctrl.products && $ctrl.products.data.length > 0" display="grid" type="budget" products="$ctrl.products.data" filters="{organization_id: $ctrl.provider.id}")
-                block-products(ng-if="$ctrl.subsidies && $ctrl.subsidies.data.length > 0" display="grid" type="subsidies" products="$ctrl.subsidies.data" filters="{organization_id: $ctrl.provider.id}")
+                block-products(
+                    ng-if="$ctrl.products && $ctrl.products.data.length > 0" 
+                    display="grid" 
+                    type="budget" 
+                    products="$ctrl.products.data" 
+                    filters="{organization_id: $ctrl.provider.id}")
+
+                block-products(
+                    ng-if="$ctrl.subsidies && $ctrl.subsidies.data.length > 0" 
+                    display="grid" 
+                    type="subsidies" 
+                    products="$ctrl.subsidies.data" 
+                    filters="{organization_id: $ctrl.provider.id}")
