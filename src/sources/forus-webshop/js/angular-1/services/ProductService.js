@@ -62,7 +62,7 @@ const ProductService = function(ApiRequest, ArrService) {
                 ] : null).filter(date => date);
 
                 const productAndFundDates = [
-                    fund.expire_at ? [fund.expire_at, fund.expire_at_locale] : null,
+                    fund.end_at ? [fund.end_at, fund.end_at_locale] : null,
                     product.expire_at ? [product.expire_at, product.expire_at_locale] : null
                 ].filter(date => date);
 

@@ -15,13 +15,17 @@ main(id="main-content")
         .block.block-product
             h1.sr-only Informatie over het aanbod
             .product-card
-                .product-photo
-                    img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" alt="{{ $ctrl.product.name }}")
+                .product-photo: img(
+                    ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" 
+                    alt="{{ $ctrl.product.name }}")
                 
                 .product-details
                     .product-name
                         span(ng-bind="$ctrl.product.name")
-                        span.label.label-danger(ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" i18n="product.status.out_of_stock")
+                        span.label.label-danger(
+                            ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" 
+                            i18n="product.status.out_of_stock")
+
                     .organization-name(ng-bind="$ctrl.product.organization.name")
 
                     .product-properties
@@ -39,7 +43,9 @@ main(id="main-content")
                 .block-products-content
                     .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds")
                         .fund-item-section.fund-item-section-details.text-left
-                            .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
+                            .fund-item-media: img.fund-item-media-img(
+                                ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
+
                             .fund-item-content
                                 .fund-item-section-label.flex-start Tegoed:
                                 .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name")

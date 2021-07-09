@@ -115,7 +115,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                                 click-outside="$ctrl.hideUserMenu()")
                                 .triangle
                                 .inner(prevent-propagation)
-                                    .auth-user-menu-item.auth-user-menu-item_no-hover
+                                    .auth-user-menu-user
                                         span.text-strong-half Ingelogd als: #[br]
                                         span(ng-bind="$root.auth_user.email | str_limit:27")
 
