@@ -470,13 +470,6 @@
                             width: 100%;
                             text-align: left;
 
-                            &_no-hover {
-                                &:hover {
-                                    background: #ffffff !important;
-                                    cursor: default;
-                                }
-                            }
-
                             img {
                                 display: block;
                                 float: left;
@@ -505,6 +498,22 @@
                             width: 100%;
                             height: 5px;
                             margin: 0 0 5px
+                        }
+
+                        .inner {
+                            .auth-user-menu-item {
+                                &_no-hover {
+                                    &:hover {
+                                        background: #ffffff;
+                                        cursor: default;
+                                        color: $tc;
+
+                                        span {
+                                            cursor: default;
+                                        }
+                                    }
+                                }
+                            }
                         }
     
                         &.active {
