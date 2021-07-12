@@ -63,6 +63,7 @@
                 .voucher-name {
                     font: 700 16px/26px $bf;
                     color: #00122a;
+                    margin: 0 0 0;
                     @include ellipsis();
                 }
 

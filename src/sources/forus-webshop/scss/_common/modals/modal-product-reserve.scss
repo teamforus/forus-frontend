@@ -42,15 +42,14 @@
 
                 .voucher-item {
                     box-shadow: $base_shadow;
+
                     .voucher-details {
                         .voucher-name {
-                            font-size: 24px;
-                            line-height: 32px;
+                            font: 700 24px/32px $bf;
                         }
+
                         .voucher-organization {
-                            font-size: 14px;
-                            font-weight: 500;
-                            line-height: 22px;
+                            font: 500 14px/22px $bf;
                         }
                     }
                 }
