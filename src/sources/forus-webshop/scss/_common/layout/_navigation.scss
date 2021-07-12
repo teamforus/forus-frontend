@@ -339,6 +339,11 @@
             .button {
                 margin: 0px 0px 0px 10px;
                 display: flex;
+
+                &.button-mobile {
+                    background: none;
+                    border: none;
+                }
             }
 
             .auth-code {
