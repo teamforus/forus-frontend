@@ -54,7 +54,7 @@ const ProductComponent = function(
     $ctrl.reserveProduct = (fund) => {
         ModalService.open('modalProductReserve', {
             product: $ctrl.product,
-            vouchers: $ctrl.productMeta.regularActiveVouchers.filter(voucher => voucher.fund_id == fund.id),
+            vouchers: fund.meta.reservableVouchers,
         });
     };
 
