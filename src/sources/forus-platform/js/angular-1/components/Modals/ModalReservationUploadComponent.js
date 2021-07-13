@@ -129,7 +129,7 @@ const ModalReservationUploadComponent = function(
                 ModalService.open('duplicatesPicker', {
                     hero_title: "Reserveringen aanmaken mislukt!",
                     hero_subtitle: [
-                        "Voor onderstaande nummers kan een reserveringen worden aangemaakt. Er is geen actief tegoed beschikaar of het gebruikerslimiet is bereikt\n" +
+                        "Voor onderstaande nummers kan een reserveringen worden aangemaakt. Er is geen actief tegoed beschikbaar of het gebruikerslimiet is bereikt.\n" +
                         "Om de reserveringen alsnog aan te maken dient het bestand aangepast en opnieuw aangeboden te worden."
                     ],
                     enableToggles: false,
