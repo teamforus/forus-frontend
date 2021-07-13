@@ -83,7 +83,7 @@
                                     strong(translate="vouchers.labels.uid").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="$ctrl.voucher.activation_code_uid").text-black
-                                td
+                                td(ng-if="$ctrl.voucher.fund.type == 'subsidies'")
                                     strong(translate="vouchers.labels.limit_multiplier").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="$ctrl.voucher.limit_multiplier").text-black
