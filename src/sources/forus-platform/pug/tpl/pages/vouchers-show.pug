@@ -87,6 +87,7 @@
                                     strong(translate="vouchers.labels.limit_multiplier").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="$ctrl.voucher.limit_multiplier").text-black
+                                td(ng-if="$ctrl.voucher.fund.type != 'subsidies'")
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
                                 td(ng-if="!$ctrl.voucher.physical_card")
 
