@@ -118,7 +118,7 @@ const ModalReservationUploadComponent = function(
                 if (validation) {
                     PushNotificationsService.danger(
                         'Foutmelding!',
-                        `${count_errors} lijn(en) met invalide data gevonden, repareer de lijnen en probeer het opnieuw.`,
+                        `Kan geen reserveringen aanmaken voor ${count_errors} rij(en).`,
                     );
 
                     $ctrl.close();
@@ -129,8 +129,8 @@ const ModalReservationUploadComponent = function(
                 ModalService.open('duplicatesPicker', {
                     hero_title: "Reserveringen aanmaken mislukt!",
                     hero_subtitle: [
-                        "Voor onderstaande nummers is geen reservering worden aangemaakt.\n" +
-                        "Noteer goed om welke nummers en lijnen het gaat en upload hierna deze opnieuw."
+                        "Voor onderstaande nummers kan een reserveringen worden aangemaakt. Er is geen actief tegoed beschikaar of het gebruikerslimiet is bereikt\n" +
+                        "Om de reserveringen alsnog aan te maken dient het bestand aangepast en opnieuw aangeboden te worden."
                     ],
                     enableToggles: false,
                     label_on: "Aanmaken",
@@ -156,15 +156,15 @@ const ModalReservationUploadComponent = function(
                         if (stats.errors === 0) {
                             PushNotificationsService.success(
                                 'Gelukt!',
-                                `Alle ${stats.success} lijnen uit het bulkbestand zijn geimporteerd.`,
+                                `Alle ${stats.success} rijen uit het bulkbestand zijn geimporteerd.`,
                             );
                         } else {
                             const allFailed = stats.success === 0;
 
                             PushNotificationsService.danger(allFailed ? 'Foutmelding!' : 'Waarschuwing', [
                                 allFailed ? `Alle ${stats.errors}` : `${stats.errors} van ${reservations.length}`,
-                                `lijn(en) uit het bulkbestand zijn niet geimporteerd,`,
-                                `bekijk het bestand bij welke lijn(en) het mis gaat.`,
+                                `rij(en) uit het bulkbestand zijn niet geimporteerd,`,
+                                `bekijk het bestand bij welke rij(en) het mis gaat.`,
                             ].join(" "));
 
 
