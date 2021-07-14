@@ -90,7 +90,7 @@ let GoogleMapDirective = function(
                 }
             })(marker, mapPointer));
 
-            if (mapPointers.length == 1 && index == 0) {
+            if ($scope.openFirstPointer && mapPointers.length == 1 && index == 0) {
                 google.maps.event.trigger(marker, 'click');
             }
         });
@@ -113,6 +113,7 @@ let GoogleMapDirective = function(
 module.exports = () => {
     return {
         scope: {
+            openFirstPointer: '=',
             offices: '=',
             mapPointers: '=',
             mapPointerTemplate: '@',

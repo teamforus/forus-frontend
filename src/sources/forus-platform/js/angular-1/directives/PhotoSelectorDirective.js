@@ -46,6 +46,11 @@ let PhotoSelectorDirective = function(
 
         input.click();
     };
+
+
+    $scope.deleteFile = (e) => {
+        $scope.resetPhoto();
+    }
 };
 
 module.exports = () => {
@@ -53,6 +58,7 @@ module.exports = () => {
         scope: {
             'fillStyle': '=',
             'selectPhoto': '&',
+            'resetPhoto': '&',
             'thumbnail': '=',
             'thumbnailSize': '=',
             'label': '@',

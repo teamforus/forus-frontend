@@ -46,6 +46,14 @@
         $colorPrimary: $color_primary;
         $borderRadius: 4px;
         margin-right: 10px;
+        font: 700 12px/20px $bf;
+        color: #262626;
+
+        .mdi {
+            line-height: 20px;
+            font-size: 18px;
+            color: #262626;
+        }
 
         &>input[type=radio],
         &>input[type=checkbox] {
@@ -263,7 +271,7 @@
             .block-form_tooltip {
                 position: absolute;
                 top: 18px;
-                right: -35px;
+                right: -45px;
                 transform: translate(0, -50%);
                 z-index: 5;
             }
@@ -278,6 +286,7 @@
                 text-align: right;
                 padding-right: 15px;
                 float: left;
+                color: black;
 
                 &.form-label-required {
                     &:before {

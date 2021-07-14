@@ -118,6 +118,10 @@
                     color: #646F79;
                     justify-content: flex-end;
                 }
+                
+                .flex-start {
+                    justify-content: flex-start;
+                }
 
                 .fund-item-section-value {
                     display: flex;
@@ -166,6 +170,7 @@
             
                 &:last-child {
                     border-right: 0;
+                    min-width: 200px;
                 }
             }
 

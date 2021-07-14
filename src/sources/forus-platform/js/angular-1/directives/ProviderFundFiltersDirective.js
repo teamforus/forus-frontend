@@ -50,9 +50,7 @@ let ProviderFundFiltersDirective = function(
             $scope.fundsAvailable = $scope.allFunds;
         }
 
-        return ProviderFundService.listAvailableFunds(
-            organization.id, search_params
-        ).then(res => {
+        return ProviderFundService.listAvailableFunds(organization.id, search_params).then(res => {
             $scope.fundsAvailable = {
                 meta: res.data.meta,
                 data: res.data.data

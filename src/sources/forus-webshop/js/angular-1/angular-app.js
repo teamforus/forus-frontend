@@ -23,10 +23,10 @@ app.component('signUpComponent', require('./components/SignUpComponent')); // to
 app.component('signUpSelectionComponent', require('./components/SignUpSelectionComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
+app.component('reservationsComponent', require('./components/ReservationsComponent'));
 app.component('recordsComponent', require('./components/RecordsComponent'));
 app.component('productsComponent', require('./components/ProductsComponent'));
 app.component('productComponent', require('./components/ProductComponent'));
-app.component('productApplyComponent', require('./components/ProductApplyComponent'));
 app.component('providersComponent', require('./components/ProvidersComponent'));
 app.component('providerOfficeComponent', require('./components/ProviderOfficeComponent'));
 app.component('providerComponent', require('./components/ProviderComponent'));
@@ -52,6 +52,7 @@ app.component('errorPageComponent', require('./components/ErrorPageComponent'));
 app.component('searchResultComponent', require('./components/SearchResultComponent'));
 
 // Services
+app.service('ArrService', require('./services/ArrService'));
 app.service('AuthService', require('./services/AuthService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('TransactionService', require('./services/TransactionService'));
@@ -68,7 +69,7 @@ app.service('RecordValidationService', require('./services/RecordValidationServi
 app.service('ProductCategoryService', require('./services/ProductCategoryService'));
 app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
-app.service('ProviderFundService', require('./services/ProviderFundService'));
+app.service('ProductReservationService', require('./services/ProductReservationService'));
 app.service('OrganizationValidatorService', require('./services/OrganizationValidatorService'));
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
@@ -114,6 +115,7 @@ app.directive('dashInputControl', require('./directives/DashInputControlDirectiv
 app.directive('scrollTo', require('./directives/ScrollToDirective'));
 app.directive('collapse', require('./directives/CollapseDirective'));
 app.directive('voucherCard', require('./directives/VoucherCardDirective'));
+app.directive('reservationCard', require('./directives/ReservationCardDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
@@ -157,7 +159,8 @@ app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCode
 app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
-app.component('modalProductApplyComponent', require('./components/Modals/ModalProductApplyComponent'));
+app.component('modalProductReserveComponent', require('./components/Modals/ModalProductReserveComponent'));
+app.component('modalProductReserveCancelComponent', require('./components/Modals/ModalProductReserveCancelComponent'));
 app.component('modalIdentityProxyExpiredComponent', require('./components/Modals/ModalIdentityProxyExpiredComponent'));
 app.component('modalPhysicalCardTypeComponent', require('./components/Modals/ModalPhysicalCardTypeComponent'));
 app.component('modalPhysicalCardUnlinkComponent', require('./components/Modals/ModalPhysicalCardUnlinkComponent'));
@@ -182,6 +185,7 @@ app.directive('printableEnabler', require('./directives/printables/PrintableEnab
 app.filter('currency_format', require('./filters/CurrencyFormatFilter'));
 app.filter('percentage_format', require('./filters/PercentageFormatFilter'));
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
+app.filter('json_pretty', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('duration', require('./filters/DurationFilter'));

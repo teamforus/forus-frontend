@@ -12,7 +12,7 @@
                         em.mdi.mdi-close.icon-start
                         span(i18n="Wis filters")
                     
-                    .form(ng-if="!$ctrl.filters.show").form-group: input(
+                    .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q" 
                         placeholder="{{ 'transactions.labels.search' | i18n }}").form-control
                     

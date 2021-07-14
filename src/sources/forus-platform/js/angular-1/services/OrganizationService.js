@@ -173,6 +173,19 @@ module.exports = [
                 ), { ...data });
             };
 
+            this.sponsorProductDelete = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                product_id
+            ) {
+                return ApiRequest.delete(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products/%s',
+                    sponsor_organization_id,
+                    provider_organization_id,
+                    product_id
+                ));
+            };
+
             this.sponsorStoreProduct = function(
                 sponsor_organization_id,
                 provider_organization_id,
@@ -204,6 +217,12 @@ module.exports = [
                     '/platform/organizations/' + id + '/roles',
                     this.apiFormToResource(values)
                 );
+            };
+
+            this.updateAcceptReservations = function(id, auto_accept) {
+                return ApiRequest.patch(`/platform/organizations/${id}/accept-reservations`, {
+                    reservations_auto_accept: auto_accept,
+                });
             };
 
             this.updateBusinessType = function(id, business_type_id) {

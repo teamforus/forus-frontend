@@ -6,13 +6,12 @@ block content
         main(id="main-content")
             .showcase-wrapper
                 mixin search_results(total, show = "false")
-                    .showcase-title(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
-                    .showcase-subtitle(ng-if=show) Selecteer een aanbieder voor meer informatie
+                    .showcase-title: span(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
 
                 .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                     .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
                     .mobile-filters-title Zoek op categorieen en tegoeden
-                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
+                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()" aria-label="Filter op categorieën en tegoeden"): em.mdi.mdi-filter-outline
 
                 .block.block-breadcrumbs
                     a(ui-sref="home").breadcrumb-item Home
@@ -21,33 +20,36 @@ block content
                 .showcase-layout
                     .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
                         .showcase-aside-block
-                            +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
+                            .showcase-subtitle(ng-if="$ctrl.showMap") Selecteer een aanbieder voor meer informatie
 
                             .form-group
                                 input.form-control(
                                     ng-model="$ctrl.form.values.q"
                                     placeholder="Zoek aanbieder" 
-                                    type="search")
+                                    type="search"
+                                    aria-label="Zoeken")
 
                             .form-group
                                 label.form-label(for="select_provider_type") Type aanbieder
                                 select-control(
                                     autoclear="true"
-                                    ng-model="$ctrl.form.values.businessType" 
+                                    ng-model="$ctrl.form.values.businessType"
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer type..."
-                                    id="select_provider_type")
+                                    id="select_provider_type")                        
 
                             .form-group
                                 label.form-label(for="select_fund") Tegoeden
                                 select-control(
                                     autoclear="true"
-                                    ng-model="$ctrl.form.values.fund" 
+                                    ng-model="$ctrl.form.values.fund"
                                     options="$ctrl.funds"
                                     placeholder="Selecteer tegoed..."
                                     id="select_fund")
 
-                        a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm 
+                            +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
+
+                        a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm
                             em.mdi.mdi-store-outline
                             | Aanmelden als aanbieder
 
@@ -61,47 +63,43 @@ block content
                                 .block.block-label-tabs.pull-right
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: !$ctrl.showMap}"
-                                        ng-click="$ctrl.showAsList()" 
-                                        role="tab" 
-                                        aria-selected="{{ !$ctrl.showMap ? 'true' : 'false' }}")
+                                        ng-click="$ctrl.showAsList()")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.showMap}"
-                                        ng-click="$ctrl.showAsMap()" 
-                                        role="tab" 
-                                        aria-selected="{{ $ctrl.showMap ? 'true' : 'false' }}")
+                                        ng-click="$ctrl.showAsMap()")
                                         em.mdi.mdi-map-marker-radius.icon-start
                                         | Kaart
 
                         .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
                             provider-list-item(
-                                ng-repeat="provider in $ctrl.providers.data" 
+                                ng-repeat="provider in $ctrl.providers.data"
                                 provider="provider")
 
                             .card(ng-if="$ctrl.providers"): .card-section(ng-show="$ctrl.providers.meta.last_page > 1"): paginator(
-                                meta="$ctrl.providers.meta" 
-                                filters="$ctrl.form.values" 
-                                count-buttons="5" 
+                                meta="$ctrl.providers.meta"
+                                filters="$ctrl.form.values"
+                                count-buttons="5"
                                 on-page-change="$ctrl.onPageChange(query)")
 
                         empty-block(
                             title= "{{ 'block_providers.empty.title' | translate }}"
                             description="{{ 'block_providers.empty.subtitle' | translate }}"
-                            hide-link="true" 
+                            hide-link="true"
                             ng-if="$ctrl.providers.data.length == 0")
 
                         paginator(
                             ng-if="$ctrl.showMap"
                             ng-show="false"
-                            meta="$ctrl.providers.meta" 
-                            filters="$ctrl.form.values" 
-                            count-buttons="3" 
+                            meta="$ctrl.providers.meta"
+                            filters="$ctrl.form.values"
+                            count-buttons="3"
                             on-page-change="$ctrl.onPageChange(query)")
 
                         .block.block-google-map(ng-show="$ctrl.showMap")
                             google-map(
-                                map-pointers="$ctrl.offices" 
-                                map-pointer-template="providers-office" 
+                                map-pointers="$ctrl.offices"
+                                map-pointer-template="providers-office"
                                 map-gesture-handling="'greedy'"
                                 map-options="$ctrl.mapOptions")

@@ -1,0 +1,33 @@
+.modal.modal-product-reserve.modal-animated(
+    role="dialog" 
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window: .modal-content
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+
+        .modal-section
+            h2.title.text-center(translate="{{ 'modal_product_reserve.header.title_' + $ctrl.appConfigs.features.communication_type }}")
+            br
+            .description: .text-center(translate="{{ 'modal_product_reserve.description_' + $ctrl.appConfigs.features.communication_type }}" translate-values="{fund: $ctrl.vouchers[0].fund.name}")
+            br
+            //- Vouchers list
+            .block.block-vouchers.block-vouchers-padding(ng-class="{'block-vouchers-compact': $ctrl.vouchers.length === 1}")
+                .voucher-item.voucher-item-compact.voucher-item-static(ng-repeat="voucher in $ctrl.vouchers")
+                    .voucher-image
+                        img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+
+                    .voucher-details
+                        .voucher-name(ng-bind="voucher.fund.name")
+                        .voucher-organization(ng-bind="voucher.fund.organization.name")
+                        .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount | currency_format")
+
+                    .voucher-overview(ng-if="$ctrl.vouchers.length > 1")
+                        button.button.button-primary(ng-click="$ctrl.reserveProduct($ctrl.product, voucher)") Kies
+
+            .button-group.flex-center
+                button.button.button-dark(ng-click="$ctrl.close()" i18n="modal.buttons.cancel")
+                
+                button.button.button-primary(
+                    ng-if="$ctrl.vouchers.length === 1"
+                    ng-click="$ctrl.reserveProduct($ctrl.product, $ctrl.vouchers[0])") Bevestig

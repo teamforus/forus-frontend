@@ -1,11 +1,11 @@
-let ProductsComponent = function(
+const ProductsComponent = function(
     $q,
     $state,
     $stateParams,
     appConfigs,
     ProductService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.filters = {
         values: {
@@ -18,10 +18,9 @@ let ProductsComponent = function(
 
     $ctrl.onPageChange = async (query) => {
         return $q((resolve, reject) => {
-            ProductService.list(
-                $ctrl.organization.id,
-                Object.assign({}, query, $ctrl.filters.values)
-            ).then((res => {
+            const data = { ...query, ...$ctrl.filters.values };
+
+            ProductService.list($ctrl.organization.id, data).then((res => {
                 $ctrl.products = { meta: res.data.meta, data: res.data.data };
                 resolve($ctrl.products);
             }), reject);

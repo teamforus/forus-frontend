@@ -15,11 +15,11 @@
 
             form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()")
                 .auth-form-input
-                    input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mailadres" id="email_login").form-control.email-auth
+                    input(ng-model="$ctrl.signInEmailForm.values.email" type="email" placeholder="E-mailadres" id="email_login" aria-label="email").form-control.email-auth
                     .form-error(ng-repeat="error in $ctrl.signInEmailForm.errors.email" ng-bind="error")
                 div: button(type="submit").button.button-primary Login
 
-            .auth-digid(ng-if="$ctrl.digidAvailable"): a(ng-click="$ctrl.useDigId()" role="button").auth-digid-link
+            .auth-digid(ng-if="$ctrl.digidAvailable" role="button" tabindex="0"): a(ng-click="$ctrl.useDigId()" role="button").auth-digid-link
                 translate(translate="{{ 'popup_auth.restore_' + $ctrl.appConfigs.features.communication_type }}")
                 em.mdi.mdi-chevron-right
 

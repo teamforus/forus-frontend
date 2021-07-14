@@ -1,18 +1,36 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 .modal.modal-md
-    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-window
         .modal-header(ng-if="$ctrl.header")
             span(ng-bind="$ctrl.header")
-            .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
 
-        .modal-body: .modal-section
-            .block.block-danger_zone
+        .modal-body: .modal-section(ng-class="'text-' + $ctrl.text_align")
+            .block.block-danger_zone(ng-if="$ctrl.title || $ctrl.description")
                 .danger_zone-title
                     em.mdi.mdi-alert
                     span(ng-bind="$ctrl.title")
-                .danger_zone-description: div(ng-repeat="description in ($ctrl.description | lines_to_array)" ng-bind="description")
+
+                .danger_zone-description(ng-if="$ctrl.description")
+                    div(ng-repeat="description in $ctrl.description")
+                        div(ng-if="description" ng-bind="description")
+                        div(ng-if="!description") &nbsp;
+
+            .modal-heading(ng-if="$ctrl.description_title" ng-bind="$ctrl.description_title")
+
+            .modal-text(ng-if="$ctrl.description_text")
+                div(ng-repeat="description in $ctrl.description_text")
+                    div(ng-if="description" ng-bind="description")
+                    div(ng-if="!description") &nbsp;
+
+            .form(ng-if="$ctrl.confirmation").text-center: label.checkbox.checkbox-narrow
+                input(type='checkbox' ng-model="$ctrl.confirmed" hidden)
+                .checkbox-label
+                    .checkbox-box: .mdi.mdi-check
+                    span(ng-bind="$ctrl.confirmation")
+
         .modal-footer
-            .button.button-default(ng-click="$ctrl.close()" ng-bind="$ctrl.cancelButton")
-            .button.button-danger(ng-click="$ctrl.confirm()" ng-bind="$ctrl.confirmButton")
+            .button.button-default(ng-click="$ctrl.cancel()" ng-bind="$ctrl.cancelButton")
+            .button.button-danger(ng-disabled="!$ctrl.confirmed" ng-click="$ctrl.confirm()" ng-bind="$ctrl.confirmButton")

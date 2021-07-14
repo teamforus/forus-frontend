@@ -37,11 +37,11 @@ const ProviderFundsComponent = function(
 
         $ctrl.archiveFunds = $ctrl.fundInvitations.filter(
             fundInvitation => fundInvitation.expired
-        ).concat($ctrl.funds.filter(fund => {
+        ).concat($ctrl.funds.filter((fund) => {
             return is_closed(fund);
         }));
 
-        $ctrl.pendingRejectedFunds = $ctrl.funds.filter(fund => {
+        $ctrl.pendingRejectedFunds = $ctrl.funds.filter((fund) => {
             return is_pending_or_rejected(fund);
         });
 
@@ -60,7 +60,7 @@ const ProviderFundsComponent = function(
     };
 
     const getAvailableFunds = (organization, query) => {
-        ProviderFundService.listAvailableFunds(organization.id, query).then(res => {
+        ProviderFundService.listAvailableFunds(organization.id, query).then((res) => {
             $ctrl.fundsAvailable = { ...res.data };
         });
     };

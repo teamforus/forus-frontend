@@ -4,6 +4,7 @@ let FundProviderComponent = function(
     $timeout,
     FundService,
     $stateParams,
+    ModalService,
     OrganizationService,
     PushNotificationsService
 ) {
@@ -151,6 +152,21 @@ let FundProviderComponent = function(
         }, 500), console.error);
     };
 
+    $ctrl.deleteProduct = (product) => {
+        ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: 'Weet u zeker dat u het aanbod wilt verwijderen?',
+            description: sprintf("U staat op het punt om %s te verwijderen. Weet u zeker dat u dit aanbod wilt verwijderen?", product.name),
+            confirm: () => OrganizationService.sponsorProductDelete(
+                $ctrl.organization.id,
+                $ctrl.fundProvider.organization_id,
+                product.id
+            ).then(() => {
+                $ctrl.onPageChangeSponsorProducts();
+            }),
+        });
+    }
+
     $ctrl.prepareProperties = () => {
         let organization = $ctrl.fundProvider.organization;
         let properties = [];
@@ -200,6 +216,7 @@ module.exports = {
         '$timeout',
         'FundService',
         '$stateParams',
+        'ModalService',
         'OrganizationService',
         'PushNotificationsService',
         FundProviderComponent
