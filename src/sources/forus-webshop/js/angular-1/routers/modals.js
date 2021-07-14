@@ -29,8 +29,12 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalOpenInMeComponent'
     });
 
-    ModalRouteProvider.modal('modalProductApply', {
-        component: 'modalProductApplyComponent'
+    ModalRouteProvider.modal('modalProductReserve', {
+        component: 'modalProductReserveComponent'
+    });
+
+    ModalRouteProvider.modal('modalProductReserveCancel', {
+        component: 'modalProductReserveCancelComponent'
     });
     
     ModalRouteProvider.modal('identityProxyExpired', {

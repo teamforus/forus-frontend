@@ -10,15 +10,6 @@ const ProviderItemDirective = function($scope) {
 
     $dir.media = $scope.provider.logo || null;
     $dir.provider = $scope.provider;
-
-    $dir.provider.offices = $dir.provider.offices.map((office) => {
-        const uiSrefParams = {
-            provider_id: office.organization_id,
-            office_id: office.id
-        };
-
-        return { ...office, ...{ uiSrefParams } };
-    });
 };
 
 module.exports = () => {

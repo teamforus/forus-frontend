@@ -96,6 +96,7 @@ const ProductsComponent = function(
             product_category_id: values.product_category_id,
             fund_id: values.fund ? values.fund.id : null,
             display_type: $ctrl.display_type,
+            fund_type: $ctrl.fund_type,
             ...orderByValue
         };
     };

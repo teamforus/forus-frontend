@@ -239,6 +239,17 @@
         }
     }
 
+    &.button-success {
+        background: #2cc6ab;
+        border-color: #2cc6ab;
+        color: #fff;
+
+        &:hover {
+            background: darken($color: #2cc6ab, $amount: 2.5);
+            border-color: darken($color: #2cc6ab, $amount: 2.5);
+        }
+    }
+
     &.button-icon {
         padding: 6px 15px;
 

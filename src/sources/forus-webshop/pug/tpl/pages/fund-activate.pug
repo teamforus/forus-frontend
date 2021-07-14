@@ -82,7 +82,8 @@ main(id="main-content")
             //- DigiD login
             div(ng-if="$ctrl.state == 'digid_login'")
                 .sign_up-pane
-                    .sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid") 
+                    h1.sr-only Start aanvraag
+                    h2.sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid") 
                     .sign_up-pane-body(ng-class="{'sign_up-pane-body-padless-bottom': $ctrl.fundRequestAvailable}")
                         
                         .sign_up-pane-digid

@@ -1,6 +1,9 @@
 .block.block-voucher-product
     .product-card
-        .product-photo: img(src="{{ productCard.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" alt="{{ product.name }}")
+        .product-photo: img(
+            src="{{ $dir.product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" 
+            alt="{{ product.name }}")
+
         .product-details
-            .product-name(ng-bind="productCard.name")
-            .product-price: .product-price-new(ng-bind="productCard.price | currency_format")
+            .product-name(ng-bind="$dir.product.name")
+            .product-price: .product-price-new(ng-bind="$dir.product.price | currency_format")

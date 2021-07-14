@@ -8,7 +8,7 @@ block content
                 .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                     .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
                     .mobile-filters-title Filter op categorieën en tegoeden
-                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()"): em.mdi.mdi-filter-outline
+                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()" aria-label="Filter op categorieën en tegoeden"): em.mdi.mdi-filter-outline
 
                 .block.block-breadcrumbs
                     a(ui-sref="home").breadcrumb-item Home
@@ -79,15 +79,13 @@ block content
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'list'}"
                                         ng-click="$ctrl.showAs('list')"
-                                        role="button" 
-                                        aria-selected="{{ $ctrl.display_type == 'list' ? 'true' : 'false' }}")
+                                        role="button")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'grid'}"
                                         ng-click="$ctrl.showAs('grid')"
-                                        role="button"
-                                        aria-selected="{{ $ctrl.display_type == 'grid' ? 'true' : 'false' }}")
+                                        role="button")
                                         em.mdi.mdi-view-grid-outline.icon-start
                                         | Foto's
 

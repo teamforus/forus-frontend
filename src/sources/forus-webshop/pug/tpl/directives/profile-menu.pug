@@ -1,28 +1,34 @@
-.profile-aside: .profile-menu
+.profile-menu
     a(ui-sref="vouchers" ui-sref-active="active" role="button").profile-menu-item.hide-sm
-        | {{ "profile_menu.buttons.vouchers" | translate }}
-        em.mdi.mdi-arrow-right
-    
-    a(ui-sref="funds" ui-sref-active="active" ng-if="appConfigs.flags.fundsMenu" role="button").profile-menu-item.show-sm
-        span(translate="funds.buttons.{{ $root.appConfigs.client_key }}.start_request" translate-default="{{ 'funds.buttons.start_request' | translate }}")
-        em.mdi.mdi-arrow-right
-    
-    a(ui-sref="records" ui-sref-active="active" ng-if="appConfigs.features.records.list" role="button").profile-menu-item 
-        | {{ "profile_menu.buttons.records" | translate }}
-        em.mdi.mdi-arrow-right
-    
-    a(ui-sref="notifications" ui-sref-active="active" role="button").profile-menu-item 
-        | {{ "profile_menu.buttons.notifications" | translate }}
-        em.mdi.mdi-arrow-right
-    
-    a(ui-sref="preferences-notifications" ui-sref-active="active" role="button").profile-menu-item 
-        | {{ "profile_menu.buttons.notification_preferences" | translate }}
+        translate(translate="profile_menu.buttons.vouchers")
         em.mdi.mdi-arrow-right
 
-    a(ui-sref="security-sessions" ui-sref-active="active" ng-if="appConfigs.sessions" role="button").profile-menu-item  
-        | {{ "profile_menu.buttons.sessions" | translate }}
+    a(ui-sref="reservations" ui-sref-active="active" role="button").profile-menu-item
+        translate(translate="profile_menu.buttons.reservations")
         em.mdi.mdi-arrow-right
-    
+
+    a(ui-sref="funds" ui-sref-active="active" ng-if="$dir.appConfigs.flags.fundsMenu" role="button").profile-menu-item.show-sm
+        translate(
+            translate="funds.buttons.{{ $dir.appConfigs.client_key }}.start_request" 
+            translate-default="{{ 'funds.buttons.start_request' | translate }}")
+        em.mdi.mdi-arrow-right
+
+    a(ui-sref="records" ui-sref-active="active" ng-if="$dir.appConfigs.features.records.list" role="button").profile-menu-item 
+        translate(translate="profile_menu.buttons.records")
+        em.mdi.mdi-arrow-right
+
+    a(ui-sref="notifications" ui-sref-active="active" role="button").profile-menu-item 
+        translate(translate="profile_menu.buttons.notifications")
+        em.mdi.mdi-arrow-right
+
+    a(ui-sref="preferences-notifications" ui-sref-active="active" role="button").profile-menu-item 
+        translate(translate="profile_menu.buttons.notification_preferences")
+        em.mdi.mdi-arrow-right
+
+    a(ui-sref="security-sessions" ui-sref-active="active" ng-if="$dir.appConfigs.sessions" role="button").profile-menu-item
+        translate(translate="profile_menu.buttons.sessions")
+        em.mdi.mdi-arrow-right
+
     a(ui-sref="identity-emails" ui-sref-active="active" role="button").profile-menu-item 
-        | {{ "profile_menu.buttons.email_settings" | translate }}
+        translate(translate="profile_menu.buttons.email_settings")
         em.mdi.mdi-arrow-right
