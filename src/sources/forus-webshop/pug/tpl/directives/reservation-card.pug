@@ -4,8 +4,8 @@
         alt="{{ $dir.product.name }}")
 
     .reservation-details
-        .reservation-name(ng-bind="$dir.product.name") 
-        .reservation-organization(ng-bind="$dir.product.organization.name")
+        .reservation-name(ui-sref="product($dir.product)" ng-bind="$dir.product.name") 
+        .reservation-organization(ui-sref="provider($dir.product.organization)" ng-bind="$dir.product.organization.name")
         .reservation-value(ng-bind="$dir.reservation.price_locale")
 
     //- reservation pending

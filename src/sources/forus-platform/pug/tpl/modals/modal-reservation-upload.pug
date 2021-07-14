@@ -52,17 +52,17 @@
                         .text-left(ng-if="!$ctrl.csvParser.isValid")
                             //- No `product_id` fields in the .csv file
                             .form-error(ng-if="$ctrl.csvParser.errors.csvMissingProductIdFields")
-                                | De kolom `product_id` mist waardes op de volgende lijnen: 
+                                | De kolom `product_id` mist waardes op de volgende rijen: 
                                 | "{{ $ctrl.csvParser.errors.csvMissingProductIdFields }}".
 
                             //- No `number` fields in the .csv file
                             .form-error(ng-if="$ctrl.csvParser.errors.csvMissingNumberFields")
-                                | De kolom `number` mist waardes op de volgende lijnen: 
+                                | De kolom `number` mist waardes op de volgende rijen: 
                                 | "{{ $ctrl.csvParser.errors.csvMissingProductIdFields }}".
 
                             //- The `number` fields in the .csv file is the sample value "000000000000" and has to be replaced
                             .form-error(ng-if="$ctrl.csvParser.errors.csvSampleNumberFields")
-                                | De kolom `product_id` heeft de voorbeeld waarde "000000000000" op de volgende lijnen: 
+                                | De kolom `product_id` heeft de voorbeeld waarde "000000000000" op de volgende rijen: 
                                 | "{{ $ctrl.csvParser.errors.csvSampleNumberFields }}".
 
                     .text-center(ng-show="$ctrl.csvParser.progress == 1 && $ctrl.csvParser.isValid")

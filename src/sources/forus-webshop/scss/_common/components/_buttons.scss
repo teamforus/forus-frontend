@@ -5,7 +5,7 @@
     border: 1px solid transparent;
     padding: 12px 25px;
     transition: color 0.4s, background 0.4s, box-shadow 0.4s, border 0.4s;
-    border-radius: 6px;
+    border-radius: $border_radius;
     display: inline-block;
     text-align: center;
     margin-right: 15px;

@@ -173,7 +173,9 @@ let MarkdownDirective = function($scope, $element, $timeout, ModalService) {
             ['para', ['ol', 'ul']],
         ], ...($scope.extendedOptions ? [
             ['cms', ['cmsLink', 'unlink', 'cmsMedia', 'cmsLinkYoutube']],
-        ] : []), ...[
+        ] : [
+            ['cms', ['cmsLink', 'unlink']]
+        ]), ...[
             ['view', ['fullscreen']],
         ]],
         buttons: {

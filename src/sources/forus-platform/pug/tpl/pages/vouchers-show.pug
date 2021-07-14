@@ -6,16 +6,19 @@
                 ui-sref="vouchers({organization_id:$root.activeOrganization.id})" 
                 ng-bind="'Vouchers'"
                 ng-if="!$ctrl.voucher.product")
+
             .breadcrumb-item(
                 ui-sref="product-vouchers({organization_id:$root.activeOrganization.id})" 
                 ng-bind="'Aanbiedingsvouchers'"
                 ng-if="$ctrl.voucher.product")
+
             .breadcrumb-item(
                 ng-if="$ctrl.appConfigs.panel_type == 'sponsor'"
                 ui-sref="vouchers({organization_id:$root.activeOrganization.id})" 
                 ng-bind="$ctrl.voucher.fund.name")
+
             .breadcrumb-item.active(ng-bind="$ctrl.voucher.fund.name + ' #' + $ctrl.voucher.id")
-   
+
         .card(ng-if="$ctrl.voucher")
             .card-header: .row
                 .col.col-lg-7.col-xs-12: .card-title
@@ -24,40 +27,43 @@
                     .tag.tag-success.tag-sm(
                         ng-if="$ctrl.voucher.state == 'active' && !$ctrl.voucher.expired" 
                         translate="vouchers.labels.active")
-                    
+
                     .tag.tag-default.tag-sm(
                         ng-if="$ctrl.voucher.state == 'pending'" 
                         translate="vouchers.labels.pending")
-                    
+
                     .tag.tag-warning.tag-sm(
                         ng-if="$ctrl.voucher.expired" 
                         translate="vouchers.labels.expired")
                     br
                     span(ng-bind="$ctrl.voucher.product.organization.name" ng-if="$ctrl.voucher.product").text-primary
                     span(ng-if="$ctrl.voucher.fund.type == 'budget' && !$ctrl.voucher.product" ng-bind="$ctrl.voucher.amount | currency_format").text-primary
-            
+
                 .block.block-inline-buttons.col.col-lg-5.col-xs-12
-                        .button.button-default.button-hover(
-                            ng-if="!$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies'"
-                            ng-click="$ctrl.addPhysicalCard()")
-                            em.mdi.mdi-ticket-account.icon-start 
-                            span(translate="vouchers.buttons.physical_card_add")
-                        .button.button-default.button-hover(
-                            ng-if="$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies'"
-                            ng-click="$ctrl.deletePhysicalCard()")
-                            em.mdi.mdi-ticket-account.icon-start 
-                            span(translate="vouchers.buttons.physical_card_delete")
-                        .button.button-primary.button-hover(
-                            ng-if="!$ctrl.fundClosed && !$ctrl.voucher.expired && !$ctrl.voucher.is_granted  && $ctrl.voucher.state === 'pending'"
-                            ng-click="$ctrl.showQrCode()")
-                            em.mdi.mdi-clipboard-account.icon-start 
-                            span(translate="vouchers.buttons.activate")
-                        .button.button-primary.button-hover(
-                            ng-if="!$ctrl.fundClosed && !$ctrl.voucher.is_granted && !$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"
-                            ng-click="$ctrl.showQrCode()")
-                            em.mdi.mdi-qrcode.icon-start 
-                            string(translate="vouchers.labels.qr_code")
-                                            
+                    .button.button-default.button-hover(
+                        ng-if="!$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies'"
+                        ng-click="$ctrl.addPhysicalCard()")
+                        em.mdi.mdi-ticket-account.icon-start 
+                        span(translate="vouchers.buttons.physical_card_add")
+
+                    .button.button-default.button-hover(
+                        ng-if="$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies'"
+                        ng-click="$ctrl.deletePhysicalCard()")
+                        em.mdi.mdi-ticket-account.icon-start 
+                        span(translate="vouchers.buttons.physical_card_delete")
+
+                    .button.button-primary.button-hover(
+                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.expired && !$ctrl.voucher.is_granted  && $ctrl.voucher.state === 'pending'"
+                        ng-click="$ctrl.showQrCode()")
+                        em.mdi.mdi-clipboard-account.icon-start 
+                        span(translate="vouchers.buttons.activate")
+
+                    .button.button-primary.button-hover(
+                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.is_granted && !$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"
+                        ng-click="$ctrl.showQrCode()")
+                        em.mdi.mdi-qrcode.icon-start 
+                        string(translate="vouchers.labels.qr_code")
+
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
@@ -83,10 +89,11 @@
                                     strong(translate="vouchers.labels.uid").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="$ctrl.voucher.activation_code_uid").text-black
-                                td
+                                td(ng-if="$ctrl.voucher.fund.type == 'subsidies'")
                                     strong(translate="vouchers.labels.limit_multiplier").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="$ctrl.voucher.limit_multiplier").text-black
+                                td(ng-if="$ctrl.voucher.fund.type != 'subsidies'")
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
                                 td(ng-if="!$ctrl.voucher.physical_card")
 

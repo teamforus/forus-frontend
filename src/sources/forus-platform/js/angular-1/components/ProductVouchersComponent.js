@@ -85,7 +85,7 @@ let ProductVouchersComponent = function(
         $timeout(() => $ctrl.filters.show = false, 0);
     };
 
-    $ctrl.showQrCode = (voucher) => {
+    $ctrl.showQrCode = ($event, voucher) => {
         $event.stopPropagation();
         $event.preventDefault();
 

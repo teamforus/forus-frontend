@@ -36,7 +36,6 @@
         .auth_type-item {
             .auth_type-icon {
                 box-shadow: $base_shadow;
-                border-radius: 2px;
             }
 
             .auth_type-item-inner {
@@ -46,12 +45,6 @@
                     }
                 }
             }
-        }
-    }
-
-    &.block-auth-qr-code {
-        .qr_code {
-            border-radius: 2px;
         }
     }
 }
