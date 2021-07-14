@@ -249,15 +249,17 @@ module.exports = {
             faq_eleven: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger tegoed?",
             eleven: "Ja, dat kan. Neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200.",
             faq_twelve: "Hoe kom ik in aanmerking voor de Kindregelingen en/of het Meedoenarrangement voor volwassenen?",
-            twelve: "Als u denkt recht te hebben op een Kindregeling, neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden. <br> Alle volwassen inwoners met een minimum inkomen (tot 130% bijstandsnorm) komen in aanmerking voor het Meedoenarrangement. Als u denkt in aanmerking te komen voor het Meedoenarrangement, neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden.",
+            twelve: "Als u denkt recht te hebben op een Kindregeling, neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden. <br>" + 
+            "Alle volwassen inwoners met een minimum inkomen (tot 130% bijstandsnorm) komen in aanmerking voor het Meedoenarrangement. Als u denkt in aanmerking te komen voor het Meedoenarrangement, neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden.",
             faq_thirteen: "Kan ik het tegoed aan iemand anders geven?",
             thirteen: "Nee, het tegoed is strikt persoonlijk. U mag het tegoed niet aan iemand anders geven. Maakt iemand anders wel gebruik van uw voucher, dan gaat dit van uw eigen bedrag af.",
             faq_fourteen: "Ik zie aanbod op de webshop staan, hoe kan ik een product of dienst kopen?",
-            fourteen: "Log in op de webshop en klik op 'Aanbod'. Kies vervolgens het aanbod dat u wilt en klik op 'Koop'. Kies vervolgens het tegoed om het aanbod mee te kopen. Het bedrag van het aanbod wordt van uw tegoed afgehaald en het aanbod is voor u gereserveerd. Hierna ontvangt u een QR-code per e-mail. U ziet het ook staan in de lijst met tegoeden in uw app. De daadwerkelijke betaling vindt plaats wanneer u bij de aanbieder de QR-code laat scannen. Toch geen gebruik maken van het aanbod? Dan kunt u de reservering annuleren. Heeft u na de betaling nog een bedrag over, dan kunt u met dat bedrag verder winkelen.",
+            fourteen: "Log in op de webshop en klik op 'Aanbod'. Kies vervolgens het aanbod dat u wilt en klik op 'Koop'. Kies vervolgens het tegoed om het aanbod mee te kopen." + 
+            "Het bedrag van het aanbod wordt van uw tegoed afgehaald en het aanbod is voor u gereserveerd. Hierna ontvangt u een QR-code per e-mail. U ziet het ook staan in de lijst met tegoeden in uw app." + 
+            "De daadwerkelijke betaling vindt plaats wanneer u bij de aanbieder de QR-code laat scannen. Toch geen gebruik maken van het aanbod? Dan kunt u de reservering annuleren. Heeft u na de betaling nog een bedrag over, dan kunt u met dat bedrag verder winkelen.",
             faq_fifteen: "Welke organisaties kunnen mij ook ondersteuning bieden?",
             fifteen: "De kledingbank kan u ondersteunen u door het verstrekken van kleding, schoenen en textiel. Tweemaal per jaar kunt u bij hen terecht, hiervoor heeft u een doorverwijzing nodig. De informatie hierover vindt u op <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a><br/><br/>" + 
-                "Voor vragen over welzijn, gezondheid, wonen, zorg, werk, meedoen en geldzaken kunt u ook terecht op <a target='_blank' href='https://www.berkellandwijzer.nl'>www.berkellandwijzer.nl</a>"
-                "Voor vragen over o.a. inkomensondersteuning, kunt u terecht bij de SDOA."
+            "Voor vragen over welzijn, gezondheid, wonen, zorg, werk, meedoen en geldzaken kunt u ook terecht op <a target='_blank' href='https://www.berkellandwijzer.nl'>www.berkellandwijzer.nl</a> <br> Voor vragen over o.a. inkomensondersteuning, kunt u terecht bij de SDOA.",
         },
     },
     guide: {
