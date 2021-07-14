@@ -16,10 +16,12 @@
                     ng-class="{active : $ctrl.filters.values.source == 'provider'}" 
                     ui-sref="products($ctrl.srefData.provider)")
                     | In uw beheer ({{ $ctrl.products.meta.total_provider }})
+
                 .label-tab.label-tab-sm(
                     ng-class="{active : $ctrl.filters.values.source == 'sponsor'}" 
                     ui-sref="products($ctrl.srefData.sponsor)")
                     | In beheer van sponsor ({{ $ctrl.products.meta.total_sponsor }})
+
                 .label-tab.label-tab-sm(
                     ng-class="{active : $ctrl.filters.values.source == 'archive'}" 
                     ui-sref="products($ctrl.srefData.archive)")

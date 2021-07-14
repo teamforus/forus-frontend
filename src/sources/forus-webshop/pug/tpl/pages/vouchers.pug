@@ -14,15 +14,15 @@ main(id="main-content")
                     .profile-content-header.clearfix
                         .profile-content-title
                             div.pull-left
-                                .profile-content-title-count(ng-bind="$ctrl.regularVouchers.length")
+                                .profile-content-title-count(ng-bind="$ctrl.vouchers.length")
                                 h1.profile-content-header(translate="vouchers.header.regular.title")
 
-                    .block.block-vouchers(ng-if="($ctrl.regularVouchers.length + $ctrl.productVouchers.length) > 0")
+                    .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
                         voucher-card(ng-repeat="voucher in $ctrl.regularVouchers" voucher="voucher")
                         voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
 
                     empty-block(
-                        ng-if="($ctrl.regularVouchers.length + $ctrl.productVouchers.length) == 0"
+                        ng-if="($ctrl.vouchers.length == 0"
                         title="{{ 'vouchers.empty_block.title' | translate }}"
                         description="{{ 'vouchers.empty_block.subtitle' | translate }}"
                         text="{{ 'vouchers.empty_block.cta' | translate }}"
