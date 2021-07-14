@@ -63,7 +63,7 @@ main(id="main-content")
                                 ng-bind="fund.meta.applicableVouchers.length ? fund.limit_available : fund.limit_per_identity" ng-if="$root.auth_user")
 
                             .fund-item-section-label(translate="product.labels.max_limit" ng-if="!$root.auth_user")
-                            .fund-item-section-value(ng-bind="fund.limit_available" ng-if="!$root.auth_user")
+                            .fund-item-section-value(ng-bind="fund.limit_per_identity" ng-if="!$root.auth_user")
 
                         //- product price
                         .fund-item-section.fund-item-price.text-right

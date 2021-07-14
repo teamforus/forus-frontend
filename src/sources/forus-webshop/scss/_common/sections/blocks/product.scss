@@ -305,12 +305,17 @@
                     .button {
                         width: 100%;
                     }
-
                     .fund-item-section-label,
                     .fund-item-section-value {
                         width: 50%;
                         flex-direction: column;
                         justify-content: flex-start;
+                    }
+
+                    .fund-item-content {
+                        .fund-item-section-value {
+                            width: 100%;
+                        }
                     }
 
                     .fund-item-section-label {
