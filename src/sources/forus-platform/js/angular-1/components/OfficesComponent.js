@@ -2,6 +2,7 @@ let OfficesComponent = function(
     $state,
     $stateParams,
     OfficeService,
+    OrganizationService,
     ModalService
 ) {
     let $ctrl = this;
@@ -29,6 +30,17 @@ let OfficesComponent = function(
             ).then(() => $state.reload()),
         });
     };
+
+    $ctrl.deleteOrganization = () => {
+        ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: 'organization_delete.title',
+            description: 'organization_delete.description',
+            confirm: () => OrganizationService.destroy(
+                $ctrl.organization.id
+            ).then(() => $state.go('home')),
+        });
+    };
 };
 
 module.exports = {
@@ -40,6 +52,7 @@ module.exports = {
         '$state',
         '$stateParams',
         'OfficeService',
+        'OrganizationService',
         'ModalService',
         OfficesComponent
     ],

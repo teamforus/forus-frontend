@@ -8,6 +8,10 @@
                         em.mdi.mdi-pen.icon-start
                         span(translate="offices.buttons.adjust")
 
+                    a(ng-if="$ctrl.organization | hasPerm:'manage_organization'" ng-click="$ctrl.deleteOrganization()").button.button-default
+                        em.mdi.mdi-delete.icon-start
+                        span(translate="offices.buttons.delete")
+
                 .card-block.card-block-provider
                     .provider-img: img(
                         ng-src="{{ $ctrl.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")

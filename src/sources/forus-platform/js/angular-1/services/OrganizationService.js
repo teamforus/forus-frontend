@@ -212,6 +212,12 @@ module.exports = [
                 );
             };
 
+            this.destroy = function(id) {
+                return ApiRequest.delete(
+                    '/platform/organizations/' + id
+                );
+            };
+
             this.updateRole = function(id, values) {
                 return ApiRequest.patch(
                     '/platform/organizations/' + id + '/roles',

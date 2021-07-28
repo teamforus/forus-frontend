@@ -501,6 +501,12 @@ module.exports = {
         }
     },
 
+    // Organization confirmation modal
+    organization_delete: {
+        title: "Weet u zeker dat u deze organisatie wilt verwijderen?",
+        description: "Wanneer u de organisatie verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten."
+    },
+
     // ORGANIZATION PROVIDERS = organization-providers.pug
     organization_providers: {
         header: {
