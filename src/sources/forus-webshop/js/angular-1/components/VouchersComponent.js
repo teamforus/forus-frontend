@@ -1,5 +1,5 @@
-let VouchersComponent = function() {
-    let $ctrl = this;
+const VouchersComponent = function() {
+    const $ctrl = this;
 
     $ctrl.$onInit = function() {
         $ctrl.regularVouchers = $ctrl.vouchers.filter(function(voucher) {

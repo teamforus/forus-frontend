@@ -1,34 +1,20 @@
-const FundItemDirective = function($scope, ModalService, FundService) {
+const FundItemDirective = function($scope, FundService) {
     const $dir = $scope.$dir = {};
 
     $dir.applyFund = function(fund) {
-        if (fund.taken_by_partner) {
-            return $dir.showPartnerModal();
-        }
-
         if ($dir.applyingFund) {
             return;
-        } else {
-            $dir.applyingFund = true;
         }
 
-        FundService.apply(fund.id).then(function(res) {
-            $dir.applyingFund = false;
-            $state.go('voucher', res.data.data);
-        }, console.error).finally(() => $dir.applyingFund = false);
-    };
+        if (fund.taken_by_partner) {
+            return FundService.showTakenByPartnerModal();
+        }
 
-    $dir.showPartnerModal = () => {
-        ModalService.open('modalNotification', {
-            type: 'info',
-            title: 'Dit tegoed is al geactiveerd',
-            closeBtnText: 'Bevestig',
-            description: [
-                "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
-                "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
-                "van de persoon die deze als eerste heeft geactiveerd."
-            ].join(''),
-        });
+        $dir.applyingFund = true;
+
+        FundService.apply(fund.id).then((res) => {
+            return $state.go('voucher', res.data.data);
+        }).finally(() => $dir.applyingFund = false);
     };
 
     $dir.addFundMeta = (fund, vouchers) => {
@@ -57,7 +43,6 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
-            'ModalService',
             'FundService',
             FundItemDirective
         ],

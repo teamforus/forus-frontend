@@ -5,10 +5,12 @@
             background-size: 50% 50%;
             background-color: #E4E4E4;
 
-            .subnav-inner {
-                .navbar-logo {
-                    img {
-                        height: 90px;
+            @media screen and (min-width: 1200px) { 
+                .subnav-inner {
+                    .navbar-logo {
+                        img {
+                            height: 90px;
+                        }
                     }
                 }
             }
@@ -21,10 +23,6 @@
                 &.button-primary {
                     border: none;
                 }
-            }
-            .button-mobile {
-                background: none;
-                border: none;
             }
         }
 

@@ -127,22 +127,21 @@ let PrevalidatedTableDirective = async function(
     $scope.$watch('fund', () => $scope.init(), true);
 
     // Export to XLS file
-    $scope.export = (type, filters = {}) => {
+    $scope.export = (filters = {}) => {
         ModalService.open('exportType', {
             success: (data) => {
-                PrevalidationService.export(
-                    Object.assign(filters, {
-                        fund_id: $scope.fund.id,
-                        export_format: data.exportType
-                    })
-                ).then((res => {
+                const export_format = data.exportType;
+
+                PrevalidationService.export({ ...filters, export_format }).then((res => {
+                    const fileName = ($scope.fund.key || 'fund') + '_';
+
                     FileService.downloadFile(
-                        ($scope.fund.key || 'fund') + '_' + moment().format(
-                            'YYYY-MM-DD HH:mm:ss'
-                        ) + '.' + type,
+                        fileName + moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType,
                         res.data,
                         res.headers('Content-Type') + ';charset=utf-8;'
                     );
+
+                    $scope.onPageChange(filters);
                 }), console.error);
             }
         });

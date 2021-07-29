@@ -1,22 +1,26 @@
-.voucher-item: a(ui-sref="voucher(voucher)")
-    .voucher-image: img(src='{{ voucherCard.thumbnail }}' alt="{{ voucherCard.title }}")
+a(ui-sref="voucher(voucher)").voucher-item
+    .voucher-image: img(ng-src='{{ voucherCard.thumbnail }}' alt="{{ voucherCard.title }}")
 
     .voucher-details
-        .voucher-name(ng-bind="voucherCard.title")
+        h2.voucher-name(ng-bind="voucherCard.title")
         .voucher-organization(ng-bind="voucherCard.subtitle")
-        .voucher-value(ng-if="(voucherCard.fund.type == 'budget') && (voucherCard.type == 'regular')" ng-bind="voucherCard.amount | currency_format")
+        .voucher-value(
+            ng-if="(voucherCard.fund.type == 'budget') && (voucherCard.type == 'regular')" 
+            ng-bind="voucherCard.amount | currency_format")
+
         .voucher-status-label
             .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
             .label(ng-class="{true: 'label-success', false: 'label-warning'}[!voucherCard.used]" ng-if="voucherCard.type == 'product' && !voucher.expired" ng-bind="!voucherCard.used ? 'Ongebruikt' : 'Gebruikt'")
-        .voucher-cancel-label(ng-if="voucher.expired && !voucherCard.used && voucherCard.type == 'product' && voucherCard.returnable"): a(
-            ng-click="deleteVoucher($event, voucher)" 
-            i18n="voucher.voucher_card.delete")
+
+        .voucher-cancel-label(ng-if="voucher.expired && !voucherCard.used && voucherCard.type == 'product' && voucherCard.returnable")
+            label(ng-click="deleteVoucher($event, voucher)" i18n="voucher.voucher_card.delete")
 
     .voucher-overview.voucher-overview-stats
         .voucher-overview-item(ng-if="!voucherCard.used")
             .voucher-overview-label(i18n="vouchers.labels.expire" ng-if="!voucher.expired")
             .voucher-overview-label(i18n="vouchers.labels.expired_on" ng-if="voucher.expired")
             .voucher-overview-value(ng-bind="voucherCard.last_active_day_locale")  
+
         .voucher-overview-item(ng-if="voucherCard.used && voucherCard.type == 'product'")
             .voucher-overview-label(i18n="vouchers.labels.used_on")
             .voucher-overview-value(ng-bind="voucherCard.last_transaction_at_locale")

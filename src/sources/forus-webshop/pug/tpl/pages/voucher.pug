@@ -5,10 +5,11 @@ main(id="main-content")
         .block.block-breadcrumbs.hide-sm
             a(ui-sref="home").breadcrumb-item Home
             a(ui-sref="vouchers").breadcrumb-item Mijn tegoeden
-            .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
-            .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
+            .breadcrumb-item.active(ng-if="!$ctrl.voucher.physical_card") {{ $ctrl.voucherCard.title }}
+            .breadcrumb-item.active(ng-if="$ctrl.voucher.physical_card") Uw {{ $ctrl.voucherCard.title }} \#{{ $ctrl.voucher.physical_card.code }}
 
         .block.block-voucher(ng-if="$ctrl.voucherCanUse")
+            h1.sr-only Jouw tegoed
             //- voucher details
             .base-card.base-card-voucher
                 .card-inner
@@ -17,7 +18,7 @@ main(id="main-content")
                         .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}" alt="{{$ctrl.voucherCard.title}}").voucher-img
 
                         .card-section
-                            .card-title(ng-bind="$ctrl.voucherCard.title | str_limit:40")
+                            h2.card-title(ng-bind="$ctrl.voucherCard.title | str_limit:40")
                             .card-subtitle(ng-if="!$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.fund.organization.name")
                             .card-subtitle(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.product.organization.name")
                             div(ng-if="$ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product")
@@ -75,13 +76,7 @@ main(id="main-content")
                                 .action-item-icon
                                     em.mdi.mdi-card-bulleted-outline
                                     //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
-                                .action-item-name Activeer mijn pas                            
-                            .action-col(ng-if="$ctrl.voucher.physical_card"): .action-item(
-                                ng-click="$ctrl.unlinkPhysicalCard($ctrl.voucher)")
-                                .action-item-icon
-                                    em.mdi.mdi-card-bulleted-outline
-                                    //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
-                                .action-item-name Ik ben mijn pas kwijt                      
+                                .action-item-name Activeer mijn pas                      
                             .action-col(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts"): .action-item(
                                 ng-click="$ctrl.shareVoucher($ctrl.voucher)")
                                 .action-item-icon
@@ -99,7 +94,7 @@ main(id="main-content")
                 .card-body
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="{{ $ctrl.voucherCard.fund.organization.name }}")
                     .card-section
-                        .card-title {{ "voucher.voucher_card.header.title" | translate }}
+                        h2.card-title {{ "voucher.voucher_card.header.title" | translate }}
                         .card-description(i18n="voucher.voucher_card.labels.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
                 .card-footer
                     .card-label(i18n="voucher.voucher_card.labels.contact_sponsor" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
@@ -115,7 +110,7 @@ main(id="main-content")
                 .card-body
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.product.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="{{ $ctrl.voucherCard.product.organization.name }}")
                     .card-section
-                        .card-title {{ "voucher.voucher_card.header.title" | translate }}
+                        h2.card-title {{ "voucher.voucher_card.header.title" | translate }}
                         .card-description {{ "voucher.voucher_card.labels.description" | translate }}
                 .card-footer
                     .card-label(i18n="voucher.voucher_card.labels.contact_sponsor")
@@ -129,15 +124,23 @@ main(id="main-content")
         .block.block-physical-cards(ng-if="$ctrl.showPhysicalCardsOption")
             .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
             .block-card-details 
-                .block-card-title(i18n="voucher.physical_card.title")
+                h3.block-card-title(i18n="voucher.physical_card.title")
                 //-.block-card-description(i18n="voucher.physical_card.description")
             .block-card-actions: .button.button-primary(
                 i18n="voucher.physical_card.buttons.reactivate" 
                 ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
             //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
+        .block.block-physical-cards(ng-if="$ctrl.voucher.physical_card")
+            .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
+            .block-card-details 
+                .block-card-code Pasnummer: {{ $ctrl.voucher.physical_card.code }}
+            .block-card-actions: .button.button-primary-outline(
+                i18n="voucher.physical_card.buttons.lost_pass" 
+                ng-click="$ctrl.unlinkPhysicalCard($ctrl.voucher)")  
+
         .block.block-transactions(ng-if="!$ctrl.voucherCard.product && ($ctrl.voucherCard.transactions.length > 0 || $ctrl.voucher.expired)")
-            .transactions-header: .transactions-title {{ "voucher.labels.transactions" | translate }} #[span(ng-if="$ctrl.voucher.expired").text-strong-half - Verlopen op {{ $ctrl.voucherCard.last_active_day_locale }}]
+            .transactions-header: h2.transactions-title {{ "voucher.labels.transactions" | translate }} #[span(ng-if="$ctrl.voucher.expired").text-strong-half - Verlopen op {{ $ctrl.voucherCard.last_active_day_locale }}]
             .transactions-body(ng-if="$ctrl.voucher.expired && $ctrl.voucherCard.transactions.length == 0"): .transactions-list
                 .transactions-item 
                     .transactions-item-details 
@@ -170,9 +173,9 @@ main(id="main-content")
         .block.block-map_card(ng-if="$ctrl.voucherCanUse && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
             .map_card-header
                 //- regular voucher
-                .map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
+                h2.map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
                 //- product voucher voucher
-                .map_card-title(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.office")
+                h2.map_card-title(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.office")
                 //-.map_card-subtitle(ng-if="$ctrl.voucherCard.product" translate="voucher.labels.voucher")
 
             .map_card-iframe: google-map(

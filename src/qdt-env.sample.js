@@ -1,3 +1,5 @@
+const TurndownService = require("turndown");
+
 const apiUrl = "https://dev.api.forus.io/api/v1";
 const outputRoot = "../dist";
 const outputRootBackendPublic = outputRoot + '/forus-backend.general';
@@ -573,7 +575,8 @@ module.exports = (core) => {
             flags: {
                 showAccountSidebar: false,
                 accessibilityPage: true,
-
+                genericSearch: true,
+                
                 // menu settings
                 meAppMenu: false,
                 forusPlatformMenu: false,
@@ -786,6 +789,50 @@ module.exports = (core) => {
             client_type: 'webshop',
             log_out_time: false,
             flags: {
+                accessibilityPage: false,
+            },
+            sessions: sessions,
+        });
+
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_waalwijk', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'waalwijk',
+            client_type: 'webshop',
+            log_out_time: false,
+            flags: {
+                logoExtension: '.png',
+                accessibilityPage: false,
+            },
+            sessions: sessions,
+        });
+
+        platform.editTask('js', (task) => {
+            task.minify = minify;
+            task.sourcemap = sourcemap;
+            return task;
+        });
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_heumen', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'heumen',
+            client_type: 'webshop',
+            log_out_time: false,
+            flags: {
+                logoExtension: '.png',
                 accessibilityPage: false,
             },
             sessions: sessions,

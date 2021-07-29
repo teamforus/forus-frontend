@@ -1053,6 +1053,26 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
+        name: "reservations",
+        url: "/organizations/{organization_id}/reservations",
+        component: "reservationsComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('reservations-list', 'scan_vouchers'),
+            funds: ['$transition$', 'ProviderFundService', (
+                $transition$, ProviderFundService
+            ) => repackResponse(ProviderFundService.listFunds($transition$.params().organization_id, {
+                per_page: 100,
+            }))],
+            products: ['$transition$', 'ProductService', (
+                $transition$, ProductService
+            ) => repackResponse(ProductService.list($transition$.params().organization_id, {
+                per_page: 100,
+            }))]
+        }
+    });
+
+    $stateProvider.state({
         name: "products-create",
         url: "/organizations/{organization_id}/products/create",
         component: "productsEditComponent",
@@ -1128,11 +1148,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('provider-funds-list', 'manage_provider_funds'),
             fundsAvailable: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
-            ) => repackPagination(ProviderFundService.listAvailableFunds(
-                $transition$.params().organization_id, {
+            ) => repackPagination(ProviderFundService.listAvailableFunds($transition$.params().organization_id, {
                 per_page: 10
-            }
-            ))],
+            }))],
             funds: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
             ) => repackResponse(ProviderFundService.listFunds(
@@ -1230,8 +1248,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'appConfigs', (
-            $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, appConfigs
+        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', (
+            $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, PushNotificationsService
         ) => {
             IdentityService.authorizeAuthEmailToken(
                 $state.params.token
@@ -1262,11 +1280,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                     }
                 });
             }, () => {
-                alert([
-                    "Helaas, het is niet gelukt om in te loggen. " +
-                    "De link is reeds gebruikt of niet meer geldig. " +
-                    "Probeer het opnieuw met een andere link."
-                ].join());
+                PushNotificationsService.danger(
+                    "Helaas, het is niet gelukt om in te loggen. ",
+                    "De link is reeds gebruikt of niet meer geldig, probeer het opnieuw met een andere link.",
+                    'close', { timeout: 8000 }
+                );
 
                 $state.go('home');
             });
@@ -1279,8 +1297,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', (
-            $rootScope, $state, IdentityService, CredentialsService
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
+            $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService
         ) => {
             let target = $state.params.target || '';
 
@@ -1296,7 +1314,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                     }
                 });
             }, () => {
-                alert("Token expired or unknown.");
+                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
+                    timeout: 8000,
+                });
+
                 $state.go('home');
             });
         }]
@@ -1311,13 +1332,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
             $state, $rootScope, IdentityService, CredentialsService, PushNotificationsService
         ) => {
-            IdentityService.exchangeShortToken(
-                $state.params.token
-            ).then(res => {
+            IdentityService.exchangeShortToken($state.params.token).then(res => {
                 CredentialsService.set(res.data.access_token);
                 $rootScope.loadAuthUser().then(() => $state.go('organizations'));
             }, () => {
-                PushNotificationsService.danger("Deze link is reeds gebruikt of ongeldig.");
+                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
+                    timeout: 8000,
+                });
+
                 $state.go('home');
             });
         }]

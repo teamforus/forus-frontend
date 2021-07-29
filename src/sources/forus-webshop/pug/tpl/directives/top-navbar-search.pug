@@ -11,7 +11,9 @@
             placeholder="Waar ben je naar op zoek?"
             ng-model="$dir.query"
             ng-change="$dir.doSearch()"
-            ng-keydown="$dir.cancelSearch($event)")
+            ng-keydown="$dir.cancelSearch($event)"
+            aria-label="Zoeken"
+            )
 
         .search-result(ng-if="$dir.dropdown")
             //- Result sections

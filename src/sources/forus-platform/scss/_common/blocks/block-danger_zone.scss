@@ -1,16 +1,18 @@
 &.block-danger_zone {
     display: flex;
     flex-direction: column;
-
     border: 1px solid $bec;
     border-radius: 3px;
     background: #fff;
     align-items: center;
+    margin-bottom: 20px;
+    cursor: default;
 
     .danger_zone-title {
         font: 600 16px/20px $bf;
         padding: 15px;
         color: #282B39;
+        width: 100%;
 
         .mdi {
             float: left;
@@ -28,5 +30,19 @@
         width: 100%;
         padding: 15px;
         text-align: center;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.block-danger_zone-success {
+        border-color: #134478;
+
+        .danger_zone-title {
+            .mdi {
+                color: rgba($color: #000000, $alpha: .4);
+            }
+        }
     }
 }

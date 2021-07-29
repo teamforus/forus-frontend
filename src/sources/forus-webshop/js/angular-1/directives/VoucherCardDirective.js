@@ -18,7 +18,7 @@ let VoucherCardDirective = function(
         ModalService.open('modalNotification', {
             type: 'confirm',
             title: 'Annuleer reservering',
-            icon: 'voucher_apply',
+            icon: 'voucher-apply',
             description: 'voucher.delete_voucher.popup_form.description',
             confirmBtnText: 'voucher.delete_voucher.buttons.submit',
             cancelBtnText: 'voucher.delete_voucher.buttons.close',

@@ -1,4 +1,4 @@
-let OrganizationsEditComponent = function(
+const OrganizationsEditComponent = function(
     $state,
     $rootScope,
     $stateParams,
@@ -6,7 +6,8 @@ let OrganizationsEditComponent = function(
     FormBuilderService,
     MediaService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
+
     let mediaFile = false;
 
     $ctrl.selectPhoto = (file) => {

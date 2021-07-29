@@ -81,6 +81,7 @@ let ModalVoucherCreateComponent = function(
         $ctrl.form = FormBuilderService.build({
             fund_id: $ctrl.fund.id,
             expire_at: $ctrl.fund.end_date,
+            limit_multiplier: 1,
         }, (form) => {
             VoucherService.storeValidate($ctrl.organization.id, {
                 ...form.values,

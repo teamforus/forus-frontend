@@ -118,6 +118,10 @@
                     color: #646F79;
                     justify-content: flex-end;
                 }
+                
+                .flex-start {
+                    justify-content: flex-start;
+                }
 
                 .fund-item-section-value {
                     display: flex;
@@ -166,6 +170,7 @@
             
                 &:last-child {
                     border-right: 0;
+                    min-width: 200px;
                 }
             }
 
@@ -300,12 +305,17 @@
                     .button {
                         width: 100%;
                     }
-
                     .fund-item-section-label,
                     .fund-item-section-value {
                         width: 50%;
                         flex-direction: column;
                         justify-content: flex-start;
+                    }
+
+                    .fund-item-content {
+                        .fund-item-section-value {
+                            width: 100%;
+                        }
                     }
 
                     .fund-item-section-label {
