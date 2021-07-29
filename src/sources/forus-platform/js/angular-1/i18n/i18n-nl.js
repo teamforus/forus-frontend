@@ -55,7 +55,8 @@ module.exports = {
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
-            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application')
+            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
+            remove_organization: require('./nl/modals/danger-zone/remove-organization')
         },
     },
     // PAGES
@@ -499,12 +500,6 @@ module.exports = {
             title: "Weet u zeker dat u deze vestiging wilt verwijderen?",
             description: "Wanneer u de vestiging verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten."
         }
-    },
-
-    // Organization confirmation modal
-    organization_delete: {
-        title: "Weet u zeker dat u deze organisatie wilt verwijderen?",
-        description: "Wanneer u de organisatie verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten."
     },
 
     // ORGANIZATION PROVIDERS = organization-providers.pug

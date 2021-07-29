@@ -6602,6 +6602,17 @@ body {
                 }
             }
         }
+
+        .modal-body {
+            .modal-text {
+                text-align: left;
+
+                ul {
+                    list-style: disc;
+                    list-style-position: inside;
+                }
+            }
+        }
     }
 
     &.modal-fund-offers {

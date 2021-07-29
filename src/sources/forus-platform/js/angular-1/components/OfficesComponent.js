@@ -1,11 +1,16 @@
 let OfficesComponent = function(
     $state,
     $stateParams,
+    $filter,
     OfficeService,
     OrganizationService,
     ModalService
 ) {
     let $ctrl = this;
+    let $translate = $filter('translate');
+    let $translateDangerZone = (key) => $translate(
+        'modals.danger_zone.remove_organization.' + key
+    );
 
     $ctrl.weekDays = OfficeService.scheduleWeekDays();
 
@@ -34,11 +39,20 @@ let OfficesComponent = function(
     $ctrl.deleteOrganization = () => {
         ModalService.open('modalNotification', {
             type: 'confirm',
-            title: 'organization_delete.title',
-            description: 'organization_delete.description',
+            title: $translateDangerZone('title'),
+            description: $translateDangerZone('description'),
             confirm: () => OrganizationService.destroy(
                 $ctrl.organization.id
-            ).then(() => $state.go('home')),
+            ).then(() => $state.go('home'), (err) => {
+                ModalService.open('modalNotification', {
+                    type: 'info',
+                    title: $translateDangerZone('errors.title'),
+                    description: $translateDangerZone('errors.description'),
+                    modalClass: 'modal-md',
+                });
+
+                console.error(err);
+            }),
         });
     };
 };
@@ -51,6 +65,7 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        '$filter',
         'OfficeService',
         'OrganizationService',
         'ModalService',
