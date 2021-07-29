@@ -8,7 +8,7 @@
                         em.mdi.mdi-pen.icon-start
                         span(translate="offices.buttons.adjust")
 
-                    a(ng-if="$ctrl.organization | hasPerm:'manage_organization'" ng-click="$ctrl.deleteOrganization()").button.button-default
+                    a(ng-if="($ctrl.organization | hasPerm:'manage_organization') && $root.auth_user.address === $ctrl.organization.identity_address" ng-click="$ctrl.deleteOrganization()").button.button-default
                         em.mdi.mdi-delete.icon-start
                         span(translate="offices.buttons.delete")
 
