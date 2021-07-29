@@ -145,6 +145,7 @@ let FundsEditComponent = function(
         ProductService.listAll({
             per_page: 1000,
             unlimited_stock: 1,
+            simplified: 1,
         }).then(res => {
             $ctrl.form.products = $ctrl.products = res.data.data.map(product => ({
                 id: product.id,

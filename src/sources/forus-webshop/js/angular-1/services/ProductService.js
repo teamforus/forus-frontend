@@ -41,20 +41,17 @@ const ProductService = function(ApiRequest, ArrService) {
             const regularActiveVouchers = vouchers.filter((voucher) => {
                 return (fundIds.indexOf(voucher.fund_id) != -1) &&
                     (voucher.type === 'regular') &&
-                    !voucher.expired &&
-                    voucher.query_product
-                    && voucher.query_product.reservable;
+                    !voucher.expired;
             });
 
             const funds = [...product.funds].map((fund) => {
                 const { reservations_enabled } = fund;
 
-                const applicableVouchers = regularActiveVouchers
-                    .filter(voucher => voucher.fund.id == fund.id)
-                    .filter(voucher => voucher.fund.type == 'budget' ? parseFloat(product.price) <= parseFloat(voucher.amount) : true);
+                const applicableVouchers = regularActiveVouchers.filter(voucher => voucher.fund.id == fund.id);
+                const reservableVouchers = applicableVouchers.filter(voucher => voucher.query_product && voucher.query_product.reservable);
 
-                const isApplicable = applicableVouchers.length > 0;
-                const isReservationAvailable = isApplicable && productAvailable && reservations_enabled;
+                const isReservable = reservableVouchers.length > 0;
+                const isReservationAvailable = isReservable && productAvailable && reservations_enabled;
 
                 const voucherDates = applicableVouchers.map((voucher) => voucher.query_product ? [
                     voucher.query_product.reservable_expire_at,
@@ -62,7 +59,7 @@ const ProductService = function(ApiRequest, ArrService) {
                 ] : null).filter(date => date);
 
                 const productAndFundDates = [
-                    fund.expire_at ? [fund.expire_at, fund.expire_at_locale] : null,
+                    fund.end_at ? [fund.end_at, fund.end_at_locale] : null,
                     product.expire_at ? [product.expire_at, product.expire_at_locale] : null
                 ].filter(date => date);
 
@@ -70,7 +67,7 @@ const ProductService = function(ApiRequest, ArrService) {
 
                 return {
                     ...fund,
-                    ...{ meta: { shownExpireDate, applicableVouchers, isReservationAvailable } },
+                    ...{ meta: { shownExpireDate, applicableVouchers, reservableVouchers, isReservationAvailable } },
                 };
             })
 

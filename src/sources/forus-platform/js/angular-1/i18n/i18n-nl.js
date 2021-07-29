@@ -1249,7 +1249,15 @@ module.exports = {
             }
         }
     },
-
+    // RESERVATION = modals/modal-reservation-create.pug
+    reservation_create: {
+        tooltips: {
+            product: ["Kies het aanbod waarvoor u de reservering wilt aanmaken. Staat uw aanbod er niet tussen? Dit kan de volgende redenen hebben:",
+                "- De klant heeft geen tegoed meer",
+                "- Uw aanbod is inactief",
+            ].join('\n')
+        },
+    },
     // RESERVATION = reservations.pug
     reservations: {
         header: {

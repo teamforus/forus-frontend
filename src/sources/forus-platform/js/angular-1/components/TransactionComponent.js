@@ -19,9 +19,9 @@ const TransactionComponent = function(
 
     $ctrl.cancelTransaction = (reservation) => {
         ModalService.open("dangerZone", {
-            title: "Weet u zeker dat u de betaling wilt weigeren?",
-            description_text: "Wanneer u de reservering weigert kunt u deze daarna niet meer accepteren.",
-            cancelButton: "Annuleer",
+            title: "Weet u zeker dat u de betaling wilt annuleren?",
+            description_text: "Als u de betaling annuleert wordt de bestelling ongedaan gemaakt. U ontvangt geen betaling en de klant krijgt het tegoed terug.",
+            cancelButton: "Sluiten",
             confirmButton: "Bevestigen",
             onConfirm: () => {
                 ProductReservationService.reject($ctrl.organization.id, reservation.id).then(() => {

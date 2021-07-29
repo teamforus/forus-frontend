@@ -12,17 +12,21 @@
 
     .product-actions
         .product-action: .product-price(ng-bind="product.price_locale")
-        .product-action(ng-if="product.deleted"): .label.label-default.label-round.label-lg(translate="product_card.status.archived")
-        .product-action(ng-if="!product.deleted"): .label.label-success.label-round.label-lg(ng-if="!product.expired" translate="product_card.status.active")
+        .product-action(ng-if="product.deleted")
+            .label.label-default.label-round.label-lg(translate="product_card.status.archived")
+
+        .product-action(ng-if="!product.deleted")
+            .label.label-success.label-round.label-lg(ng-if="!product.expired" translate="product_card.status.active")
+
         .product-action(ng-if="!product.deleted"): .button-group
-            .button(ui-sref="products-show(product)")
+            a(ui-sref="products-show(product)").button
                 em.mdi.mdi-eye-outline.icon-start
                 translate(translate="product_card.buttons.view")
 
             .button.button-primary(ng-if="product.sponsor_organization" ng-click="deleteProduct(product)") 
                 em.mdi.mdi-close.icon-start
                 | Stop
-            
+
             .button.button-primary-light.button-icon(
                 ng-if="!product.sponsor_organization"
                 ui-sref="products-show(product)"
