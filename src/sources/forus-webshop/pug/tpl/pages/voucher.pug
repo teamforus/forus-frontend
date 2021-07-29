@@ -135,7 +135,7 @@ main(id="main-content")
             .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
             .block-card-details 
                 .block-card-code Pasnummer: {{ $ctrl.voucher.physical_card.code }}
-            .block-card-actions: .button.button-light(
+            .block-card-actions: .button.button-primary-outline(
                 i18n="voucher.physical_card.buttons.lost_pass" 
                 ng-click="$ctrl.unlinkPhysicalCard($ctrl.voucher)")  
 
