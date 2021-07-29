@@ -1,0 +1,72 @@
+@import '../general/vars.scss';
+
+/*==========  Style Sheet - Vars  ==========*/
+
+// navbar
+$bg-nav:            #ECECEC;
+$tc-nav-hov:        #4a60b3;
+$tc-nav:            #22398E;
+$logo-padding:      30px 0px;
+$logo-height:       75px;
+
+// navbar (auth)
+$tc-auth-menu:      #22398E; 
+$tc-auth-btn:       #fff; 
+$btn-auth-bg:       #22398E; 
+$btn-auth-border:   transparent;
+
+// navbar (start modal primary)
+$tc-start-btn:       #fff; 
+$btn-start-bg:       #61BA90; 
+$btn-start-btn:      #61BA90;
+$btn-start-border:   transparent;
+
+$bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
+
+// base font
+$bf:                Arial, Verdana;
+
+// text color
+$tc:                #1a1919;
+$tc-var:            #fff;
+$tc-link:           inherit;
+
+// base color
+$bc:                #22398E;
+
+// background color
+$bg:                #fff;
+
+$bg_2:              none;
+
+// text formatting
+$tf:                inherit;
+
+// footer color
+$fbc:                #22398E;
+$fc:                #ffffff;
+
+// displayed or not
+$fd:                block;
+
+// product image
+$pi:                0px;
+
+// placeholder text color
+$ptc:               #515152;
+
+$border_color:      #dce0e0;
+
+$border_radius:     0px;
+$base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+
+$color_primary:         #22398E;
+$color_primary_light:   #22398E;
+
+$color_default:         #22398E;
+$color_default_light:   #22398E;
+
+// Login button
+
+$lb:                #fff;
+
