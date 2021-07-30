@@ -68,12 +68,11 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
                     ng-bind="'topnavbar.items.explanation' | translate")
 
-            li.navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user" role="button" tabindex="0")
-                span.navbar-item staging+groningen@forus.io -
-                em.mdi.mdi-logout
-                a.navbar-item(
-                    translate="topnavbar.buttons.logout" 
-                    ng-click="$root.signOut($event, true)")
+            li.navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user")
+                span.navbar-user(ng-bind="$root.auth_user.email | str_limit:27")
+                a(role="button" tabindex="0" href="" ng-click="$root.signOut($event, true)")
+                    em.mdi.mdi-logout
+                    span.navbar-item(translate="topnavbar.buttons.logout")
 
     .block.block-subnav
         .subnav-inner.wrapper   
