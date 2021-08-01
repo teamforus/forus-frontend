@@ -5,8 +5,8 @@ main(id="main-content")
         .block.block-breadcrumbs.hide-sm
             a(ui-sref="home").breadcrumb-item Home
             a(ui-sref="vouchers").breadcrumb-item Mijn tegoeden
-            .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
-            .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
+            .breadcrumb-item.active(ng-if="!$ctrl.voucher.physical_card") {{ $ctrl.voucherCard.title }}
+            .breadcrumb-item.active(ng-if="$ctrl.voucher.physical_card") Uw {{ $ctrl.voucherCard.title }} \#{{ $ctrl.voucher.physical_card.code }}
 
         .block.block-voucher(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse")
             h1.sr-only Jouw tegoed
@@ -133,20 +133,32 @@ main(id="main-content")
                         br
                         | Telefoonnummer: 
                         strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
-                        
+
+        //- Voucher physical card (activation)
         .block.block-physical-cards(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.showPhysicalCardsOption")
             .block-card-logo: img(
                 src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" 
                 alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
-
+            
             .block-card-details 
                 h3.block-card-title(i18n="voucher.physical_card.title")
                 //-.block-card-description(i18n="voucher.physical_card.description")
+            
             .block-card-actions: .button.button-primary(
                 i18n="voucher.physical_card.buttons.reactivate" 
                 ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
             //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
+        //- Voucher physical card (deactivation)
+        .block.block-physical-cards(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucher.physical_card")
+            .block-card-logo: img(
+                src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" 
+                alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
+
+            .block-card-details: .block-card-code Pasnummer: {{ $ctrl.voucher.physical_card.code }}
+            .block-card-actions: .button.button-primary-outline(
+                i18n="voucher.physical_card.buttons.lost_pass" 
+                ng-click="$ctrl.unlinkPhysicalCard($ctrl.voucher)")  
 
         //- Voucher state history
         .block.block-transactions(ng-if="$ctrl.voucherCard.history")
@@ -166,6 +178,7 @@ main(id="main-content")
                     .transactions-item-details
                         .transactions-item-counterpart(ng-bind="log.event_locale")
                         .transactions-item-date(ng-bind="log.created_at_locale")
+
 
         //- Voucher transactions
         .block.block-transactions(ng-if="!$ctrl.voucherCard.product && ($ctrl.voucherCard.transactions.length > 0 || $ctrl.voucher.expired)")
@@ -188,18 +201,19 @@ main(id="main-content")
                         .transactions-item-type {{ "voucher.labels.subtract" | translate }}
 
         block-products(
-            ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'budget'"
+            ng-if="!$ctrl.voucherCard.deactivated && $root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'budget'"
             type="budget"
             products="$ctrl.products.data"
             filters="{fund_id: $ctrl.voucher.fund_id}")
         
         block-products(
-            ng-if="$root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'subsidies'"
+            ng-if="!$ctrl.voucherCard.deactivated && $root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'subsidies'"
             type="subsidies"
             products="$ctrl.subsidies.data"
             filters="{fund_id: $ctrl.voucher.fund_id}")
             
-        .block.block-map_card(ng-if="$ctrl.voucherCanUse && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
+        .block.block-map_card(
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
             .map_card-header
                 //- regular voucher
                 h2.map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
@@ -217,7 +231,7 @@ main(id="main-content")
             .map_card-footer
                 .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.info")
 
-        .block.block-info-card(ng-if="$ctrl.voucherCard.product")
+        .block.block-info-card(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCard.product")
             .block-header 
                 | {{ "voucher.labels.productdetail" | translate }} 
                 | #[a(ui-sref="product($ctrl.voucherCard.product)" ng-if="$ctrl.voucherCard.returnable").card-read_more Bekijk details #[em.mdi.mdi-arrow-right]] 
