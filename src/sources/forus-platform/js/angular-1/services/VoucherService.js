@@ -64,6 +64,13 @@ const VoucherService = function(ApiRequest) {
             ].join(''));
         };
 
+        this.deactivate = (organization_id, voucher_id, data = {}) => {
+            return ApiRequest.patch([
+                '/platform/organizations/' + organization_id,
+                '/sponsor/vouchers/' + voucher_id + '/deactivate',
+            ].join(''), data);
+        };
+
         this.makeActivationCode = (organization_id, voucher_id) => {
             return ApiRequest.patch([
                 '/platform/organizations/' + organization_id,

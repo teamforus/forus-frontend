@@ -8,7 +8,7 @@ main(id="main-content")
             .breadcrumb-item.active(ng-if="!$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
             .breadcrumb-item.active(ng-if="$ctrl.voucherCard.product") {{ $ctrl.voucherCard.title }}
 
-        .block.block-voucher(ng-if="$ctrl.voucherCanUse")
+        .block.block-voucher(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse")
             h1.sr-only Jouw tegoed
             //- voucher details
             .base-card.base-card-voucher
@@ -18,7 +18,7 @@ main(id="main-content")
                         .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}" alt="{{$ctrl.voucherCard.title}}").voucher-img
 
                         .card-section
-                            h2.card-title(ng-bind="$ctrl.voucherCard.title | str_limit:40")
+                            h2(ng-bind="$ctrl.voucherCard.title | str_limit:40").card-title
                             .card-subtitle(ng-if="!$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.fund.organization.name")
                             .card-subtitle(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.product.organization.name")
                             div(ng-if="$ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product")
@@ -48,52 +48,59 @@ main(id="main-content")
                             .card-label Gebruikt op:
                             .card-value {{ transaction.created_at_locale }}
 
+                        //- Voucher actions
                         .card-actions
+                            //- Send voucher to requester email
                             .action-col: .action-item(ng-click="$ctrl.sendVoucherEmail($ctrl.voucher)")
-                                .action-item-icon
-                                    em.mdi.mdi-email-outline
-                                    //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.open_in_me")
+                                .action-item-icon: em.mdi.mdi-email-outline
                                 .action-item-name(translate="physical_card.modal_section.request_new_card.email_to_me")
+                            
+                            //- Send me-app download link via sms
                             .action-col: .action-item(ng-click="$ctrl.openInMeModal()")
-                                .action-item-icon
-                                    em.mdi.mdi-account-circle
-                                    //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                                .action-item-icon: em.mdi.mdi-account-circle
                                 .action-item-name(translate="physical_card.modal_section.request_new_card.open_in_app")
+                            
+                            //- Print the qr-code
                             .action-col(ng-if="!$root.appConfigs.flags.noPrintOption"): .action-item(
                                 ng-click="$ctrl.printQrCode()")
-                                .action-item-icon
-                                    em.mdi.mdi-printer
-                                    //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                                .action-item-icon: em.mdi.mdi-printer
                                 .action-item-name(translate="physical_card.modal_section.request_new_card.print_pass")
+                            
+                            //- Request physical card
                             .action-col(ng-if="!$ctrl.preffersPlasticCard && $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular') && !$ctrl.voucher.physical_card")
                                 .action-item(ng-click="$ctrl.usePhysicalCard($ctrl.voucher)")
-                                    .action-item-icon
-                                        em.mdi.mdi-card-bulleted-outline
-                                        //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                                    .action-item-icon: em.mdi.mdi-card-bulleted-outline
                                     .action-item-name(translate="physical_card.modal_section.type_selection.card_new.title")
+
+                            //- Attach physical card
                             .action-col(ng-if="$ctrl.showPhysicalCardsOption"): .action-item(
                                 ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')" )
-                                .action-item-icon
-                                    em.mdi.mdi-card-bulleted-outline
-                                    //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                                .action-item-icon: em.mdi.mdi-card-bulleted-outline
                                 .action-item-name Activeer mijn pas                            
+
+                            //- Unlink physical card
                             .action-col(ng-if="$ctrl.voucher.physical_card"): .action-item(
                                 ng-click="$ctrl.unlinkPhysicalCard($ctrl.voucher)")
-                                .action-item-icon
-                                    em.mdi.mdi-card-bulleted-outline
-                                    //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                                .action-item-icon: em.mdi.mdi-card-bulleted-outline
                                 .action-item-name Ik ben mijn pas kwijt                      
+
+                            //- Share voucher to provider by email
                             .action-col(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts"): .action-item(
                                 ng-click="$ctrl.shareVoucher($ctrl.voucher)")
-                                .action-item-icon
-                                    em.mdi.mdi-share-variant
-                                    //- .action-item-tooltip(i18n="voucher.voucher_card.footer.tooltips.share")
+                                .action-item-icon: em.mdi.mdi-share-variant
                                 .action-item-name Delen
+
+                            //- Cancel reservation of product voucehr
                             .action-col(ng-if="!$ctrl.voucherCard.used && $ctrl.voucherCard.product && $ctrl.voucherCard.returnable"): .action-item( 
                                 ng-click="$ctrl.deleteVoucher($ctrl.voucher)")
-                                .action-item-icon
-                                    em.mdi.mdi-cancel
+                                .action-item-icon: em.mdi.mdi-cancel
                                 .action-item-name Annuleren
+
+                            //- Deactivate voucher
+                            .action-col(ng-if="!$ctrl.voucher.expired"): .action-item( 
+                                ng-click="$ctrl.deactivateVoucher($ctrl.voucher)")
+                                .action-item-icon: em.mdi.mdi-logout
+                                .action-item-name Stop deelname
 
             //- regular voucher
             div(ng-if="!$ctrl.voucherCard.product").base-card.base-card-sponsor: .card-inner
@@ -127,8 +134,11 @@ main(id="main-content")
                         | Telefoonnummer: 
                         strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
                         
-        .block.block-physical-cards(ng-if="$ctrl.showPhysicalCardsOption")
-            .block-card-logo: img(src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
+        .block.block-physical-cards(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.showPhysicalCardsOption")
+            .block-card-logo: img(
+                src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" 
+                alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
+
             .block-card-details 
                 h3.block-card-title(i18n="voucher.physical_card.title")
                 //-.block-card-description(i18n="voucher.physical_card.description")
@@ -137,6 +147,27 @@ main(id="main-content")
                 ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
             //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
+
+        //- Voucher state history
+        .block.block-transactions(ng-if="$ctrl.voucherCard.history")
+            .transactions-header: h2.transactions-title 
+                | Status 
+                .label(
+                    ng-class="$ctrl.voucherCard.deactivated ? 'label-default' : 'label-primary-light'" 
+                    ng-bind="$ctrl.voucherCard.state_locale")
+
+            .transactions-body: .transactions-list
+                .transactions-item(ng-repeat="log in $ctrl.voucherCard.history" class="transactions-item-out")
+                    .transactions-item-icon(ng-if="log.event.startsWith('created')").text-primary: em.mdi.mdi-ticket-confirmation
+                    .transactions-item-icon(ng-if="log.event.startsWith('expired')").text-danger: em.mdi.mdi-close-octagon-outline
+                    .transactions-item-icon(ng-if="log.event == 'activated'").text-primary: em.mdi.mdi-ticket
+                    .transactions-item-icon(ng-if="log.event == 'deactivated'").text-danger: em.mdi.mdi-close-octagon-outline
+
+                    .transactions-item-details
+                        .transactions-item-counterpart(ng-bind="log.event_locale")
+                        .transactions-item-date(ng-bind="log.created_at_locale")
+
+        //- Voucher transactions
         .block.block-transactions(ng-if="!$ctrl.voucherCard.product && ($ctrl.voucherCard.transactions.length > 0 || $ctrl.voucher.expired)")
             .transactions-header: h2.transactions-title {{ "voucher.labels.transactions" | translate }} #[span(ng-if="$ctrl.voucher.expired").text-strong-half - Verlopen op {{ $ctrl.voucherCard.last_active_day_locale }}]
             .transactions-body(ng-if="$ctrl.voucher.expired && $ctrl.voucherCard.transactions.length == 0"): .transactions-list

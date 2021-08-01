@@ -1,75 +1,125 @@
-let VouchersShowComponent = function(
+const VouchersShowComponent = function(
+    $filter,
+    $timeout,
     ModalService,
     VoucherService,
-    FundService,
     PhysicalCardsService,
-    $filter
+    PageLoadingBarService,
+    PushNotificationsService,
 ) {
-    let $ctrl = this;
-    let $translate = $filter('translate');
+    const $ctrl = this;
+    const $str_limit = $filter('str_limit');
+    const $translate = $filter('translate');
+
+    const onStateChanged = function(promise, action = 'deactivation') {
+        promise.then((res) => {
+            $ctrl.voucher = res.data.data;
+            $ctrl.parseHistory($ctrl.voucher.history);
+
+            switch (action) {
+                case 'deactivation': PushNotificationsService.success('Success!', 'Voucher deactivated'); break;
+                case 'activation': PushNotificationsService.success('Success!', 'Voucher activated'); break;
+            }
+        }, (res) => {
+            const data = res.data;
+            const message = data.errors ? (Object.values(data.errors)[0] || [data.message])[0] : data.message;
+
+            PushNotificationsService.danger('Error!', message);
+        }).finally(() => PageLoadingBarService.setProgress(100))
+    }
+
+    $ctrl.deactivateVoucher = () => {
+        ModalService.open('voucherDeactivation', {
+            onSubmit: (data) => {
+                PageLoadingBarService.setProgress(0);
+                onStateChanged(VoucherService.deactivate($ctrl.organization.id, $ctrl.voucher.id, data));
+            },
+            voucher: $ctrl.voucher,
+            organization: $ctrl.organization,
+        });
+    };
+
+    $ctrl.activateVoucher = () => {
+        PageLoadingBarService.setProgress(0);
+        onStateChanged(VoucherService.activate($ctrl.organization.id, $ctrl.voucher.id), 'activation');
+    };
 
     $ctrl.showQrCode = () => {
-        ModalService.open('voucher_qr_code', {
+        ModalService.open('voucherQrCode', {
             voucher: $ctrl.voucher,
-            fund: $ctrl.fund,
+            fund: $ctrl.voucher.fund,
             organization: $ctrl.organization,
-            onSent: () => {
-                $ctrl.onPageChange();
-            },
-            onAssigned: () => {
-                $ctrl.onPageChange();
-            }
+            onSent: () => $ctrl.fetchVoucher(),
+            onAssigned: () => $ctrl.fetchVoucher(),
         });
     };
 
     $ctrl.addPhysicalCard = () => {
-        ModalService.open('physical_card', {
+        ModalService.open('physicalCard', {
             voucher: $ctrl.voucher,
             organization: $ctrl.organization,
-            onSent: () => {
-                $ctrl.onPageChange();
-            },
-            onAssigned: () => {
-                $ctrl.onPageChange();
-            },
-            onAttached: () => {
-                $ctrl.onPageChange();
-            }
+            onSent: () => $ctrl.fetchVoucher(),
+            onAssigned: () => $ctrl.fetchVoucher(),
+            onAttached: () => $ctrl.fetchVoucher(),
         });
+    };
+
+    $ctrl.showTooltip = (e, target) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        $ctrl.history.forEach((history) => {
+            history.showTooltip = history === target;
+        });
+    };
+
+    $ctrl.hideTooltip = (e, target) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        $timeout(() => target.showTooltip = false, 0);
     };
 
     $ctrl.deletePhysicalCard = () => {
         ModalService.open('dangerZone', {
             header: $translate('modals.modal_voucher_physical_card.delete_card.header'),
-            title: $translate('modals.modal_voucher_physical_card.delete_card.title', {code: $ctrl.voucher.physical_card.code}),
+            title: $translate('modals.modal_voucher_physical_card.delete_card.title', { code: $ctrl.voucher.physical_card.code }),
             description: $translate('modals.modal_voucher_physical_card.delete_card.description'),
             cancelButton: $translate('modals.modal_voucher_physical_card.delete_card.cancelButton'),
             confirmButton: $translate('modals.modal_voucher_physical_card.delete_card.confirmButton'),
 
             onConfirm: () => {
                 PhysicalCardsService.destroy(
-                    $ctrl.organization.id, 
-                    $ctrl.voucher.id, 
+                    $ctrl.organization.id,
+                    $ctrl.voucher.id,
                     $ctrl.voucher.physical_card.id
-                ).then(() => {
-                    $ctrl.onPageChange();
-                });
+                ).then(() => $ctrl.fetchVoucher());
             }
         });
     };
 
-    $ctrl.onPageChange = (query = {}) => {
-        VoucherService.show(
-            $ctrl.organization.id,
-            $ctrl.voucher.id,
-        ).then((res => {$ctrl.voucher = res.data.data;}));
+    $ctrl.dateLocaleFormat = (dateLocale) => {
+        return dateLocale ? dateLocale.split('-')[1] || dateLocale : dateLocale;
+    }
+
+    $ctrl.parseHistory = (history) => {
+        $ctrl.history = history.map((item) => {
+            const date = $ctrl.dateLocaleFormat(item.created_at_locale);
+            const note_substr = item.note ? $str_limit(item.note, 40) : null;
+
+            return { ...item, date, note_substr };
+        });
     };
-    
+
+    $ctrl.fetchVoucher = () => {
+        VoucherService.show($ctrl.organization.id, $ctrl.voucher.id).then(((res) => {
+            $ctrl.voucher = res.data.data;
+            $ctrl.parseHistory($ctrl.voucher.history);
+        }));
+    };
+
     $ctrl.$onInit = function() {
-        FundService.read(
-            $ctrl.organization.id,
-            $ctrl.voucher.fund.id
-        ).then((res) => {$ctrl.fund = res.data.data;})
+        $ctrl.parseHistory($ctrl.voucher.history);
     }
 };
 
@@ -79,11 +129,13 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$filter',
+        '$timeout',
         'ModalService',
         'VoucherService',
-        'FundService',
         'PhysicalCardsService',
-        '$filter',
+        'PageLoadingBarService',
+        'PushNotificationsService',
         VouchersShowComponent
     ],
     templateUrl: 'assets/tpl/pages/vouchers-show.html'

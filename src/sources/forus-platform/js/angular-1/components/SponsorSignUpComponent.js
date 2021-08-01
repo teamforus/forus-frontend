@@ -176,7 +176,7 @@ let SponsorSignUpComponent = function(
                     $ctrl.next();
                 }
             });
-        }, console.log);
+        }, console.error);
     };
 
     $ctrl.selectOrganization = (organization) => {

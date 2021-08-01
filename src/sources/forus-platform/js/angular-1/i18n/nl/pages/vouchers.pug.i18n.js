@@ -27,6 +27,7 @@ module.exports = {
         source_employee: "Medewerker",
         source_user: "Gebruiker",
         active: 'Actief',
+        deactivated: 'Gedeactiveerd',
         pending: 'Inactief',
         uid: 'Uniek nummer',
         limit_multiplier: 'Aantal personen',
@@ -34,6 +35,12 @@ module.exports = {
         bsn: "Burgerservicenummer",
         from: "Aangemaakt vanaf",
         to: "Aangemaakt tot en met",
+    },
+    events: {
+        created_budget: 'Aangemaakt',
+        created_product: 'Aangemaakt',
+        activated: 'Geactiveerd',
+        deactivated: 'Gedeactiveerd',
     },
     buttons: {
         add_new: "Aanmaken",

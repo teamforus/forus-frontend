@@ -248,7 +248,7 @@ let SignUpComponent = function(
             $ctrl.authToken = res.data.auth_token;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
-        }, console.log);
+        }, console.error);
     };
 
     $scope.authorizePincodeForm = FormBuilderService.build({

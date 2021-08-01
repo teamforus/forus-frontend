@@ -56,4 +56,8 @@ module.exports = ['ModalRouteProvider', function(
     ModalRouteProvider.modal('imagePreview', {
         component: 'modalImagePreviewComponent'
     });
+
+    ModalRouteProvider.modal('deactivateVoucher', {
+        component: 'modalDeactivateVoucherComponent'
+    });
 }];

@@ -89,7 +89,7 @@ let ProductVouchersComponent = function(
         $event.stopPropagation();
         $event.preventDefault();
 
-        ModalService.open('voucher_qr_code', {
+        ModalService.open('voucherQrCode', {
             voucher: voucher,
             fund: $ctrl.fund,
             organization: $ctrl.organization,
@@ -99,7 +99,7 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.createProductVoucher = () => {
-        ModalService.open('product_voucher_create', {
+        ModalService.open('productVoucherCreate', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange($ctrl.filters.values)

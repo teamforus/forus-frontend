@@ -61,7 +61,11 @@ img {
 }
 
 .text-danger {
-    color: #AD0003;
+    color: #AD0003 !important;
+}
+
+.text-success {
+    color: darken($color: #2cc6ab, $amount: 2.5) !important;
 }
 
 .text-strong {

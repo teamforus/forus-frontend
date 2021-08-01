@@ -183,7 +183,7 @@ let ValidatorSignUpComponent = function(
                     $ctrl.next();
                 }
             });
-        }, console.log);
+        }, console.error);
     };
 
 

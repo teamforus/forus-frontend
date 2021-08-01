@@ -1,20 +1,18 @@
-let ModalShareVoucherComponent = function(
+const ModalShareVoucherComponent = function(
     VoucherService,
     FormBuilderService,
     ModalService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        let voucher = $ctrl.modal.scope.voucher;
+        const voucher = $ctrl.modal.scope.voucher;
+        const reason = '';
 
-        $ctrl.shareVoucherForm = FormBuilderService.build({
-            reason: ''
-        }, function(form) {
+        $ctrl.shareVoucherForm = FormBuilderService.build({ reason }, (form) => {
             form.lock();
 
-            VoucherService.shareVoucher(voucher.address, form.values).then(res => {
-
+            VoucherService.shareVoucher(voucher.address, form.values).then(() => {
                 $ctrl.close();
 
                 ModalService.open('modalNotification', {
