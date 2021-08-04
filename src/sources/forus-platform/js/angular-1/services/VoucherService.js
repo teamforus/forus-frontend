@@ -57,11 +57,18 @@ const VoucherService = function(ApiRequest) {
             ].join(''), query);
         };
 
-        this.activate = (organization_id, voucher_id) => {
+        this.activate = (organization_id, voucher_id, data) => {
             return ApiRequest.patch([
                 '/platform/organizations/' + organization_id,
                 '/sponsor/vouchers/' + voucher_id + '/activate',
-            ].join(''));
+            ].join(''), data);
+        };
+
+        this.deactivate = (organization_id, voucher_id, data = {}) => {
+            return ApiRequest.patch([
+                '/platform/organizations/' + organization_id,
+                '/sponsor/vouchers/' + voucher_id + '/deactivate',
+            ].join(''), data);
         };
 
         this.makeActivationCode = (organization_id, voucher_id) => {
@@ -121,6 +128,22 @@ const VoucherService = function(ApiRequest) {
             const values = [product_id, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0];
 
             return Papa.unparse([headers, values]);
+        };
+
+        this.getStates = () => {
+            return [{
+                value: null,
+                name: 'Alle'
+            }, {
+                value: 'pending',
+                name: 'Inactief'
+            }, {
+                value: 'active',
+                name: 'Actief'
+            }, {
+                value: 'deactivated',
+                name: 'Gedeactiveerd'
+            }];
         };
     });
 };

@@ -9,6 +9,7 @@
     display: flex;
     align-items: center;
     border-radius: $border_radius;
+    cursor: default;
 
     .modal-backdrop {
         @include fill_parent();
@@ -68,7 +69,7 @@
 
         .modal-title {
             font: 700 22px/30px $bf;
-            margin: 0 0 10;
+            margin: 0 0 10px;
             color: $tc;
 
             &:last-child {
@@ -91,6 +92,7 @@
         min-height: 100px;
         overflow: hidden;
         margin: 0 auto;
+        border-radius: $border_radius;
         box-shadow: 0 20px 40px rgba(#000000, 0.3);
 
         &.modal-description-pad{

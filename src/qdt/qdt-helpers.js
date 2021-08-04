@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const colors = require('colors');
-const readline = require('readline');
-const glob = require('glob');
-const _string = require('underscore.string');
+var fs = require('fs');
+var path = require('path');
+var colors = require('colors');
+var readline = require('readline');
+var glob = require('glob');
+var camelCase = require("lodash/camelCase");
 const { spawnSync } = require('child_process');
 
 // plugins: pug, sass, autoprefixer, minify-css, rename, concat and other
@@ -74,7 +74,8 @@ const getParams = function() {
 
     argv.forEach(function(arg) {
         arg = arg.slice(2, arg.length).split('=');
-        params[_string.camelize(arg[0])] = typeof (arg[1]) == 'undefined' ? true : arg[1];
+
+        params[camelCase(arg[0])] = typeof (arg[1]) == 'undefined' ? true : arg[1];
         params._length++;
     });
 

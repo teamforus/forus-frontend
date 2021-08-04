@@ -76,7 +76,7 @@ let AuthDirective = function(
             $scope.qrValue = $scope.authToken;
 
             $scope.checkAccessTokenStatus('token', res.data.access_token);
-        }, console.log);
+        }, console.error);
     };
 
     $scope.$watch(() => !!CredentialsService.get(), (value) => {

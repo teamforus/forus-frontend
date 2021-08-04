@@ -1,0 +1,73 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.modal.modal-physical-cards.modal-animated.modal-sm(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog")
+    
+    .modal-backdrop(ng-click="$ctrl.closeModal()" aria-label="close" role="button")
+    
+    //- Deactivation reason
+    .modal-window
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" aria-label="close" role="button")
+
+        .modal-content 
+            .modal-header(ng-if="!$ctrl.preffersPlasticCard")
+                h4.modal-title Deelname stoppen
+
+            .modal-section(ng-if="$ctrl.state == 'reason'")
+                .physical-card-result
+                    .physical-card-media: em.mdi.mdi-alert-outline.text-danger
+                    .physical-card-title 
+                        | Je {{ $ctrl.voucher.fund.name }} deelname stoppen.
+                        .physical-card-description Reden van stoppen:
+                
+                form(ng-if="$ctrl.form" ng-submit="$ctrl.showConfirmation()").form: .row: .col.col-xs-12.col-sm-10.col-sm-offset-1
+                    .form-group.form-group-inline
+                        input-radio-control(
+                            fill="true"
+                            ng-repeat="reason in $ctrl.reasons"
+                            compact="true"
+                            name="reason" 
+                            label="{{ reason.value }}" 
+                            value="{{ reason.key }}"
+                            ng-model="$ctrl.reason")
+
+                    .form-group(ng-if="$ctrl.reason == 'other'")
+                        .form-label Reden
+                        textarea(
+                            maxlength="140"
+                            ng-model="$ctrl.form.note" 
+                            placeholder="Reden").form-control.r-n
+                        .form-hint Max. 140 tekens
+                        .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
+
+                    br
+                    .button-group.flex-center
+                        button.button.button-dark(type="button" ng-click="$ctrl.closeModal()") Annuleer
+                        button.button.button-danger(type="submit" ng-if="$ctrl.reason != null") Volgende
+
+            //- Deactivation confirmation
+            .modal-section(ng-if="$ctrl.state == 'confirmation'")
+                .physical-card-result
+                    .physical-card-media: em.mdi.mdi-alert-outline.text-danger
+                    br
+                    .physical-card-title 
+                        | Weet u zeker dat u uw deelname wilt stoppen?
+                        .physical-card-description Let op: Je kunt hierna geen gebruik meer maken van je tegoed. Je {{ $ctrl.voucher.fund.name }} tegoed wordt gedeactiveerd.
+                    br
+
+                    .button-group.flex-center
+                        button.button.button-dark(type="button" ng-click="$ctrl.showReasonForm()") Terug
+                        button.button.button-danger(type="button" ng-click="$ctrl.form.submit()") Bevestig
+
+            //- Deactivation succcess
+            .modal-section(ng-if="$ctrl.state == 'success'")
+                .physical-card-result
+                    .physical-card-media: em.mdi.mdi-check-outline.text-primary
+                    br
+                    .physical-card-title 
+                        | Deelname gestopt
+                        .physical-card-description Je {{ $ctrl.voucher.fund.name }} deelname is gestopt.
+
+                    .button-group.flex-center
+                        button.button.button-sm.button-dark(type="button" ng-click="$ctrl.closeModal()") Sluiten

@@ -1,16 +1,18 @@
-const InputCheckboxControlDirective = function() {};
+const InputRadioControlDirective = function() { };
 
 module.exports = () => {
     return {
         scope: {
+            fill: '=',
             label: "@",
+            value: "@",
             name: "@",
             compact: '=',
             ngModel: '=',
         },
         restrict: "EA",
         replace: true,
-        controller: InputCheckboxControlDirective,
-        templateUrl: 'assets/tpl/directives/input-checkbox-control.html' 
+        controller: [InputRadioControlDirective],
+        templateUrl: 'assets/tpl/directives/input-radio-control.html'
     };
 };

@@ -32,7 +32,7 @@
     "gulp-insert": "^0.5.0",
     "gulp-load-plugins": "^2.0.6",
     "gulp-notify": "^3.2.0",
-    "gulp-pug": "^4.0.1",
+    "gulp-pug": "^5.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^3.0.0",
@@ -68,6 +68,7 @@
     "imap": "^0.8.19",
     "jquery": "^3.5.1",
     "jszip": "^3.5.0",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "nanoscroller": "^0.8.7",
     "node-sass": "^5.0.0",
@@ -77,10 +78,9 @@
     "protractor": "^7.0.0",
     "qrcodejs": "^1.0.0",
     "selenium": "^2.20.0",
+    "sprintf-js": "^1.1.2",
     "summernote": "^0.8.18",
     "turndown": "^7.0.0",
-    "ui-cropper": "^1.0.9",
-    "underscore": "^1.13.1",
-    "underscore.string": "^3.3.5"
+    "ui-cropper": "^1.0.9"
   }
 }
