@@ -40,13 +40,48 @@
                         ng-if="$ctrl.voucher.fund.type == 'budget' && !$ctrl.voucher.product" 
                         ng-bind="$ctrl.voucher.amount | currency_format")
 
-                .flex.flex-col.flex-end: .flex.flex-column: .card-title
-                    span(ng-if="!$ctrl.voucher.in_use")
-                        em.mdi.mdi-close.text-black
-                        span.text-primary Niet gebruikt
-                    span(ng-if="$ctrl.voucher.in_use")
-                        em.mdi.mdi-check-circle
-                        span.text-primary In gebruik 
+                //- voucher actions
+                .flex.flex-col.flex-end: .flex.flex-column: .button-group
+                    //- deactivate voucher
+                    .button.button-danger(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"
+                        ng-click="$ctrl.deactivateVoucher()")
+                        em.mdi.mdi-close.icon-start
+                        | Deactiveren
+
+                    //- reactivate voucher
+                    .button.button-danger(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'deactivated'"
+                        ng-click="$ctrl.activateVoucher()")
+                        em.mdi.mdi-alert-outline.icon-start
+                        | Activeren
+
+                    //- attach physical card
+                    .button.button-default(
+                        ng-if="!$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
+                        ng-click="$ctrl.addPhysicalCard()")
+                        em.mdi.mdi-ticket-account.icon-start 
+                        span(translate="vouchers.buttons.physical_card_add")
+
+                    //- remove physical card
+                    .button.button-default(
+                        ng-if="$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
+                        ng-click="$ctrl.deletePhysicalCard()")
+                        em.mdi.mdi-ticket-account.icon-start 
+                        span(translate="vouchers.buttons.physical_card_delete")
+
+                    .button.button-primary(
+                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.expired && !$ctrl.voucher.is_granted  && $ctrl.voucher.state === 'pending'"
+                        ng-click="$ctrl.showQrCode()")
+                        em.mdi.mdi-clipboard-account.icon-start 
+                        span(translate="vouchers.buttons.activate")
+
+                    .button.button-primary(
+                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.is_granted && !$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"
+                        ng-click="$ctrl.showQrCode()")
+                        em.mdi.mdi-qrcode.icon-start 
+                        string(translate="vouchers.labels.qr_code")
+
 
             .card-section
                 .card-block.card-block-table
@@ -91,9 +126,11 @@
         .card(ng-if="$ctrl.voucher")
             .card-header: .flex.flex-row
                 .flex.flex-col: .card-title 
-                    span(ng-if="!$ctrl.voucher.expired") Status - geldig t/m {{ $ctrl.voucher.expire_at_locale }}
+                    span(ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state !== 'deactivated'") Status - geldig t/m {{ $ctrl.voucher.expire_at_locale }}
 
                     span(ng-if="$ctrl.voucher.expired") Status - verlopen op {{ $ctrl.voucher.expire_at_locale }}
+
+                    span(ng-if="$ctrl.voucher.state === 'deactivated'") Status
 
                     //- is active
                     span: .tag.tag-success.tag-sm(
@@ -114,49 +151,15 @@
                     span: .tag.tag-warning.tag-sm(
                         ng-if="$ctrl.voucher.expired" 
                         translate="vouchers.labels.expired")
-                
-                //- voucher actions
-                .flex.flex-col.flex-end: .flex.flex-column: .button-group
-                    //- deactivate voucher
-                    .button.button-danger(
-                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"
-                        ng-click="$ctrl.deactivateVoucher()")
-                        em.mdi.mdi-close.icon-start
-                        | Deactiveren
 
-                    //- reactivate voucher
-                    .button.button-danger(
-                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'deactivated'"
-                        ng-click="$ctrl.activateVoucher()")
-                        em.mdi.mdi-alert-outline.icon-start
-                        | Activeren
+                .flex.flex-col.flex-end: .flex.flex-column: .card-title
+                    span(ng-if="!$ctrl.voucher.in_use")
+                        em.mdi.mdi-close.text-black
+                        span.text-primary Niet gebruikt
+                    span(ng-if="$ctrl.voucher.in_use")
+                        em.mdi.mdi-check-circle
+                        span.text-primary In gebruik 
 
-                    //- attach physical card
-                    .button.button-default(
-                        ng-if="!$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
-                        ng-click="$ctrl.addPhysicalCard()")
-                        em.mdi.mdi-ticket-account.icon-start 
-                        span(translate="vouchers.buttons.physical_card_add")
-
-                    //- remove physical card
-                    .button.button-default(
-                        ng-if="$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
-                        ng-click="$ctrl.deletePhysicalCard()")
-                        em.mdi.mdi-ticket-account.icon-start 
-                        span(translate="vouchers.buttons.physical_card_delete")
-
-                    .button.button-primary(
-                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.expired && !$ctrl.voucher.is_granted  && $ctrl.voucher.state === 'pending'"
-                        ng-click="$ctrl.showQrCode()")
-                        em.mdi.mdi-clipboard-account.icon-start 
-                        span(translate="vouchers.buttons.activate")
-
-                    .button.button-primary(
-                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.is_granted && !$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"
-                        ng-click="$ctrl.showQrCode()")
-                        em.mdi.mdi-qrcode.icon-start 
-                        string(translate="vouchers.labels.qr_code")
-                            
             .card-section: .card-block.card-block-table
                 .table-wrapper
                     table.table
