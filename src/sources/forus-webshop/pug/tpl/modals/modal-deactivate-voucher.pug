@@ -18,7 +18,7 @@
                 .physical-card-result
                     .physical-card-media: em.mdi.mdi-alert-outline.text-danger
                     .physical-card-title 
-                        | Je Stadjerspas deelname stoppen.
+                        | Je {{ $ctrl.voucher.fund.name }} deelname stoppen.
                         .physical-card-description Reden van stoppen:
                 
                 form(ng-if="$ctrl.form" ng-submit="$ctrl.showConfirmation()").form: .row: .col.col-xs-12.col-sm-10.col-sm-offset-1
@@ -57,7 +57,7 @@
                     br
 
                     .button-group.flex-center
-                        button.button.button-dark(type="button" ng-click="$ctrl.askForReason()") Annuleer
+                        button.button.button-dark(type="button" ng-click="$ctrl.showReasonForm()") Annuleer
                         button.button.button-danger(type="button" ng-click="$ctrl.form.submit()") Opzeggen
 
             //- Deactivation succcess
@@ -67,7 +67,7 @@
                     br
                     .physical-card-title 
                         | Deelname gestopt
-                        .physical-card-description Je Stadjerspas deelname is gestopt.
+                        .physical-card-description Je {{ $ctrl.voucher.fund.name }} deelname is gestopt.
 
                     .button-group.flex-center
                         button.button.button-sm.button-dark(type="button" ng-click="$ctrl.closeModal()") Sluiten

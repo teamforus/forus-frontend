@@ -142,4 +142,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('voucherDeactivation', {
         component: 'modalVoucherDeactivationComponent'
     });
+
+    ModalRouteProvider.modal('voucherActivation', {
+        component: 'modalVoucherActivationComponent'
+    });
 }];

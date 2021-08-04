@@ -34,17 +34,6 @@ let VouchersComponent = function(
         name: 'Medewerker'
     }];
 
-    $ctrl.voucher_states = [{
-        value: null,
-        name: 'Alle'
-    }, {
-        value: 'pending',
-        name: 'Inactief'
-    }, {
-        value: 'active',
-        name: 'Actief'
-    }];
-
     $ctrl.in_use = [{
         value: null,
         name: 'Selecteer...'
@@ -55,6 +44,8 @@ let VouchersComponent = function(
         value: 0,
         name: 'Nee'
     }];
+
+    $ctrl.voucher_states = VoucherService.getStates();
 
     $ctrl.filters = {
         show: false,

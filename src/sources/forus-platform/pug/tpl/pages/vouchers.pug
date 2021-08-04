@@ -171,9 +171,9 @@
 
                                     .td-boolean(ng-if="!voucher.expired")
                                         em(ng-if="voucher.state === 'active'").mdi.mdi-check-circle
-                                        em(ng-if="voucher.state === 'pending'").mdi.mdi-close
+                                        em(ng-if="voucher.state === 'pending' || voucher.state === 'deactivated'").mdi.mdi-close
                                         span.block.block-tooltip-details.block-tooltip-hover.text-md.text-muted-dark 
-                                            | {{ ( voucher.state === 'active' ? 'Actief' : 'Inactief' ) }}
+                                            | {{ voucher.state_locale }}
                                             .tooltip-content.tooltip-content-left.tooltip-content-fit
                                                 .tooltip-text
                                                     span
@@ -200,12 +200,14 @@
                                                         span.text-primary.text-sm.text-strong PASNUMMER:
                                                         br
                                                         span(ng-bind="voucher.physical_card.code || 'Nee'").text-strong                                                    
+
                                 td: .button-group.flex-end
                                     button.button.button-default.button-icon.pull-right(
-                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired"
+                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired && !voucher.disabled"
                                         ng-click="$ctrl.showQrCode($event, voucher)")
                                         em(ng-if="voucher.state === 'active'").mdi.mdi-qrcode 
                                         em(ng-if="voucher.state === 'pending'").mdi.mdi-bookmark
+
                                     a.button.button-primary.button-icon.pull-right(
                                         ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
                                         em.mdi.mdi-eye-outline.icon-start

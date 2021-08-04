@@ -125,6 +125,10 @@ const VoucherComponent = function(
         $ctrl.qrCodeValue = $ctrl.voucher.address;
         $ctrl.voucherCanUse = !$ctrl.voucher.expired;
 
+        $ctrl.showHistory = $ctrl.voucher.history.filter((history) => {
+            return !history.event.startsWith('created_');
+        }).length > 0;
+
         $ctrl.isPhysicalCardLinkable = $ctrl.physicalCardIsLinkable();
         $ctrl.showPhysicalCardsOption =
             $ctrl.physicalCardIsLinkable() &&

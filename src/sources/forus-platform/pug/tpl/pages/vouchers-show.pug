@@ -60,7 +60,7 @@
                         ng-bind="$ctrl.voucher.amount | currency_format")
 
                 //- voucher actions
-                .flex.flex-col.flex-end: .button-group
+                .flex.flex-col.flex-end: .flex.flex-column: .button-group
                     //- deactivate voucher
                     .button.button-danger(
                         ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"

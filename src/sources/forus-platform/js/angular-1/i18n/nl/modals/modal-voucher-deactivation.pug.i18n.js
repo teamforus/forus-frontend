@@ -13,22 +13,26 @@ module.exports = {
     },
     buttons: {
         cancel: 'Annuleer',
-        submit: 'Bevestig'
+        submit: 'Bevestig',
     },
-
     danger_zone: {
         title: 'Let op! Weet u zeker dat u dit tegoed wilt deactiveren?',
+        description_no_email: [
+            'Tegoed: {{ fund_name }}',
+            '',
+            'Na deactivatie kan de gebruiker het tegoed niet meer gebruiken.',
+        ].join("\n"),
         description_notification: [
             'U staat op het punt om het tegoed {{ fund_name }} van {{ email }} te deactiveren. Klik op deactiveren als u dit tegoed wilt stoppen.',
             '',
-            'De gebruiker ontvangt hiervan een bericht.'
+            'De gebruiker ontvangt hiervan een bericht.',
         ].join("\n"),
         description_no_notification: [
             'Tegoed: {{ fund_name }}',
             'E-mailadres: {{ email }}',
             '',
             'Na deactivatie kan de gebruiker het tegoed niet meer gebruiken.',
-            'De gebruiker ontvangt na het deactiveren een e-mailbericht.'
+            'De gebruiker ontvangt na het deactiveren een e-mailbericht.',
         ].join("\n"),
-    }
+    },
 };

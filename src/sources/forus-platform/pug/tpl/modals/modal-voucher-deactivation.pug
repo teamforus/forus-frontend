@@ -15,11 +15,11 @@
                     textarea(
                         maxlength="140"
                         ng-model="$ctrl.form.values.note" 
-                        placeholder="{{ modals.modal_voucher_deactivation.placeholders.note | translate }}").form-control.r-n
+                        placeholder="{{ 'modals.modal_voucher_deactivation.placeholders.note' | translate }}").form-control.r-n
                     .form-hint(translate="modals.modal_voucher_deactivation.hints.note")
                     .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
 
-                .form-group.form-group-inline
+                .form-group.form-group-inline(ng-if="$ctrl.hasEmail")
                     input-checkbox-control(
                         compact="true"
                         name="notify_by_email" 

@@ -40,8 +40,14 @@ const VouchersShowComponent = function(
     };
 
     $ctrl.activateVoucher = () => {
-        PageLoadingBarService.setProgress(0);
-        onStateChanged(VoucherService.activate($ctrl.organization.id, $ctrl.voucher.id), 'activation');
+        ModalService.open('voucherActivation', {
+            onSubmit: (data) => {
+                PageLoadingBarService.setProgress(0);
+                onStateChanged(VoucherService.activate($ctrl.organization.id, $ctrl.voucher.id, data), 'activation');
+            },
+            voucher: $ctrl.voucher,
+            organization: $ctrl.organization,
+        });
     };
 
     $ctrl.showQrCode = () => {

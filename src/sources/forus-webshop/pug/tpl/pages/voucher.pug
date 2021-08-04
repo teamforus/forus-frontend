@@ -97,7 +97,7 @@ main(id="main-content")
                                 .action-item-name Annuleren
 
                             //- Deactivate voucher
-                            .action-col(ng-if="!$ctrl.voucher.expired"): .action-item( 
+                            .action-col(ng-if="!$ctrl.voucher.expired && $ctrl.voucher.fund.allow_blocking_vouchers"): .action-item( 
                                 ng-click="$ctrl.deactivateVoucher($ctrl.voucher)")
                                 .action-item-icon: em.mdi.mdi-logout
                                 .action-item-name Stop deelname
@@ -161,7 +161,7 @@ main(id="main-content")
                 ng-click="$ctrl.unlinkPhysicalCard($ctrl.voucher)")  
 
         //- Voucher state history
-        .block.block-transactions(ng-if="$ctrl.voucherCard.history")
+        .block.block-transactions(ng-if="$ctrl.showHistory")
             .transactions-header: h2.transactions-title 
                 | Status 
                 .label(
