@@ -203,7 +203,7 @@
 
                                 td: .button-group.flex-end
                                     button.button.button-default.button-icon.pull-right(
-                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired && !voucher.disabled"
+                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired && voucher.state != 'deactivated'"
                                         ng-click="$ctrl.showQrCode($event, voucher)")
                                         em(ng-if="voucher.state === 'active'").mdi.mdi-qrcode 
                                         em(ng-if="voucher.state === 'pending'").mdi.mdi-bookmark

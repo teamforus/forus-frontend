@@ -44,7 +44,7 @@
                     br
                     .button-group.flex-center
                         button.button.button-dark(type="button" ng-click="$ctrl.closeModal()") Annuleer
-                        button.button.button-danger(type="submit" ng-if="$ctrl.reason != null") Opzeggen
+                        button.button.button-danger(type="submit" ng-if="$ctrl.reason != null") Volgende
 
             //- Deactivation confirmation
             .modal-section(ng-if="$ctrl.state == 'confirmation'")
@@ -53,12 +53,12 @@
                     br
                     .physical-card-title 
                         | Weet u zeker dat u uw deelname wilt stoppen?
-                        .physical-card-description Let op: Je kunt hierna geen gebruik meer maken van je tegoeden.
+                        .physical-card-description Let op: Je kunt hierna geen gebruik meer maken van je tegoed. Je {{ $ctrl.voucher.fund.name }} tegoed wordt gedeactiveerd.
                     br
 
                     .button-group.flex-center
-                        button.button.button-dark(type="button" ng-click="$ctrl.showReasonForm()") Annuleer
-                        button.button.button-danger(type="button" ng-click="$ctrl.form.submit()") Opzeggen
+                        button.button.button-dark(type="button" ng-click="$ctrl.showReasonForm()") Terug
+                        button.button.button-danger(type="button" ng-click="$ctrl.form.submit()") Bevestig
 
             //- Deactivation succcess
             .modal-section(ng-if="$ctrl.state == 'success'")

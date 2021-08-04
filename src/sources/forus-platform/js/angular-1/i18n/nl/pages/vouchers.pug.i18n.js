@@ -48,7 +48,7 @@ module.exports = {
         export: "Export",
         clear_filter: "Wis filter",
         physical_card_add: "Plastic pas koppelen",
-        physical_card_delete: "Pas blokkeren",
+        physical_card_delete: "Pas ontkoppelen",
         activate: "Activeren"
     },
     csv: {

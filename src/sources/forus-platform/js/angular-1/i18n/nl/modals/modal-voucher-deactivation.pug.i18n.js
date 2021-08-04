@@ -2,11 +2,11 @@ module.exports = {
     title: "Deactiveren",
     description: "Klik op bevestig om de Stadjerspas te deactiveren. Het tegoed is hierna direct niet meer geldig.",
     labels: {
-        note: 'Reden van deactivatie * (niet zichtbaar voor gebuiker)',
-        notify_by_email: 'Informeer de gebruiker zonder reden via een e-mailbericht.',
+        note: 'Notitie*',
+        notify_by_email: 'Informeer de gebruiker via een e-mailbericht.',
     },
     placeholders: {
-        note: 'Reason',
+        note: 'Optionele notitie...',
     },
     hints: {
         note: 'Max. 140 tekens',

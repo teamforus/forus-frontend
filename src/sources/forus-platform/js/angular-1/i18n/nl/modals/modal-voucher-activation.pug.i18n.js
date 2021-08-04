@@ -1,18 +1,18 @@
 module.exports = {
-    title: "Activation",
-    description: "Activation description.",
+    title: "Activeren",
+    description: "U staat op het punt om dit tegoed opnieuw te activeren.",
     labels: {
-        note: 'Reden',
+        note: 'Notitie',
     },
     placeholders: {
-        note: 'Reden',
+        note: 'Optionele notitie...',
     },
     hints: {
         note: 'Max. 140 tekens',
     },
     buttons: {
         cancel: 'Annuleer',
-        submit_activate: 'Bevestig (activate)',
-        submit_reactivate: 'Bevestig (reactivate)',
+        submit_activate: 'Activeer',
+        submit_reactivate: 'Heractiveer',
     },
 };

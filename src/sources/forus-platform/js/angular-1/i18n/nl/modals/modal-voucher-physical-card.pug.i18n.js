@@ -16,10 +16,10 @@ module.exports = {
         button: 'Sluit venster'
     },
     delete_card: {
-        header: 'Pas blokkeren',
-        title: 'De pas met pasnummer {{ code }} wordt geblokkeerd',
+        header: 'Pas ontkoppelen',
+        title: 'De pas met pasnummer {{ code }} wordt ontkoppeld',
         description: 'De pas kan direct niet meer gebruikt worden. Om de pas opnieuw te activeren is het pasnummer vereist.',
         cancelButton: 'Annuleer',
-        confirmButton: 'Blokkeer',
+        confirmButton: 'Bevestig',
     }
 };

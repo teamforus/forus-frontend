@@ -17,8 +17,8 @@ const VouchersShowComponent = function(
             $ctrl.parseHistory($ctrl.voucher.history);
 
             switch (action) {
-                case 'deactivation': PushNotificationsService.success('Success!', 'Voucher deactivated'); break;
-                case 'activation': PushNotificationsService.success('Success!', 'Voucher activated'); break;
+                case 'deactivation': PushNotificationsService.success('Gelukt!', 'Voucher gedeactiveerd'); break;
+                case 'activation': PushNotificationsService.success('Gelukt!', 'Voucher geactiveerd'); break;
             }
         }, (res) => {
             const data = res.data;
