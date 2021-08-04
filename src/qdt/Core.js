@@ -1,5 +1,5 @@
-let Core = function() {
-    let platforms = {};
+const Core = function() {
+    const platforms = {};
 
     this.addPlatform = (platform) => {
         platforms[platform.getName()] = platform;
