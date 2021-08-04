@@ -1,14 +1,8 @@
-const dasherize = require("underscore.string/dasherize");
+const kebabCase = require("lodash/kebabCase");
 
 const PrintablesRootDirective = function($scope, PrintableService, PrintableRoute) {
-    const printables = PrintableService.getPrintables();;
+    const printables = PrintableService.getPrintables();
     const routePrintables = PrintableRoute.printables();
-
-    $scope.printables = printables;
-
-    $scope.$watch('printables', (printables) => {
-        update(printables.filter((printable => !printable.ready)));
-    }, true);
 
     const update = (printables) => {
         printables.forEach(_printable => {
@@ -16,7 +10,8 @@ const PrintablesRootDirective = function($scope, PrintableService, PrintableRout
 
             printable.ready = true;
             printable.component = routePrintables[printable.key].component;
-            printable.componentType = dasherize(routePrintables[printable.key].component);
+            printable.componentType = kebabCase(routePrintables[printable.key].component);
+
             printable.close = function() {
                 if (typeof printable.events.onClose === 'function') {
                     printable.events.onClose(printable);
@@ -26,6 +21,12 @@ const PrintablesRootDirective = function($scope, PrintableService, PrintableRout
             };
         });
     };
+
+    $scope.printables = printables;
+
+    $scope.$watch('printables', (printables) => update(printables.filter((printable) => {
+        return !printable.ready;
+    })), true);
 };
 
 module.exports = () => {

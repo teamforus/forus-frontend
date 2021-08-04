@@ -3,7 +3,7 @@ var path = require('path');
 var colors = require('colors');
 var readline = require('readline');
 var glob = require('glob');
-var _string = require('underscore.string');
+var camelCase = require("lodash/camelCase");
 
 // plugins: pug, sass, autoprefixer, minify-css, rename, concat and other
 var plugins = require('gulp-load-plugins')();
@@ -75,7 +75,7 @@ var getParams = function() {
 
     argv.forEach(function(arg) {
         arg = arg.slice(2, arg.length).split('=');
-        params[_string.camelize(arg[0])] = typeof(arg[1]) == 'undefined' ? true : arg[1];
+        params[camelCase(arg[0])] = typeof(arg[1]) == 'undefined' ? true : arg[1];
         params._length++;
     });
 

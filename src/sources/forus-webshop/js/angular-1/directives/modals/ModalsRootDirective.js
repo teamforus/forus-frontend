@@ -1,14 +1,8 @@
-const dasherize = require("underscore.string/dasherize");
+const kebabCase = require("lodash/kebabCase");
 
 let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
     const modals = ModalService.getModals();
     const routeModals = ModalRoute.modals();
-
-    $scope.modals = modals;
-
-    $scope.$watch('modals', (modals) => {
-        update(modals.filter((modal => !modal.ready)));
-    }, true);
 
     const update = (modals) => {
         modals.forEach(_modal => {
@@ -16,7 +10,8 @@ let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
 
             modal.ready = true;
             modal.component = routeModals[modal.key].component;
-            modal.componentType = dasherize(routeModals[modal.key].component);
+            modal.componentType = kebabCase(routeModals[modal.key].component);
+
             modal.close = function() {
                 if (typeof modal.events.onClose === 'function') {
                     modal.events.onClose(modal);
@@ -26,6 +21,9 @@ let ModalsRootDirective = function($scope, ModalService, ModalRoute) {
             };
         });
     };
+
+    $scope.modals = modals;
+    $scope.$watch('modals', (modals) => update(modals.filter((modal) => !modal.ready)), true);
 };
 
 module.exports = () => {
