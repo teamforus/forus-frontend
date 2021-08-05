@@ -55,7 +55,9 @@ module.exports = {
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
-            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application')
+            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
+            archive_fund: require('./nl/modals/danger-zone/archive-fund'),
+            restore_fund: require('./nl/modals/danger-zone/restore-fund')
         },
     },
     // PAGES

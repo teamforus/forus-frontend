@@ -317,6 +317,18 @@ const FundService = function(ApiRequest, ModalService) {
             );
         };
 
+        this.archive = function(organization_id, fund_id) {
+            return ApiRequest.post(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/archive'
+            );
+        };
+
+        this.unarchive = function(organization_id, fund_id) {
+            return ApiRequest.post(
+                uriPrefix + organization_id + '/funds/' + fund_id + '/unarchive'
+            );
+        };
+
         this.sampleCSV = (fund) => {
             return Papa.unparse([
                 fund.csv_required_keys.filter(key => key.indexOf('_eligible') == -1)

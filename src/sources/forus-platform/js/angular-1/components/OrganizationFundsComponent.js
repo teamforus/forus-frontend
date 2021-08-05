@@ -1,3 +1,5 @@
+let sprintf = require('sprintf-js').sprintf;
+
 let OrganizationFundsComponent = function(
     $state,
     $filter,
@@ -9,6 +11,21 @@ let OrganizationFundsComponent = function(
 ) {
     let $ctrl = this;
     let $translate = $filter('translate');
+    let $translateDangerZone = (type, key) => $translate(
+        sprintf('modals.danger_zone.%s.%s', type, key)
+    );
+
+    $ctrl.askConfirmation = (type, onConfirm) => {
+        ModalService.open("dangerZone", {
+            title: $translateDangerZone(type, 'title'),
+            description: $translateDangerZone(type, 'description'),
+            cancelButton: $translateDangerZone(type, 'buttons.cancel'),
+            confirmButton: $translateDangerZone(type, 'buttons.confirm'),
+            onConfirm: onConfirm
+        });
+    };
+
+    $ctrl.shownFundsType = $stateParams.funds_type || 'opened';
 
     $ctrl.topUpModal = (fund) => {
         if (!fund.topUpInProgress) {
@@ -86,6 +103,43 @@ let OrganizationFundsComponent = function(
         });
     };
 
+    $ctrl.archiveFund = (fund) => {
+        $ctrl.askConfirmation('archive_fund', () => {
+            FundService.archive(
+                fund.organization_id,
+                fund.id
+            ).then((res) => {
+                fund.state = 'archive';
+                $state.reload();
+                PushNotificationsService.success('Opgeslagen!');
+            }, err => {
+                PushNotificationsService.danger(err.data.message || 'Error!');
+            });
+        });
+    };
+
+    $ctrl.restoreFund = (fund) => {
+        $ctrl.askConfirmation('restore_fund', () => {
+            FundService.unarchive(
+                fund.organization_id,
+                fund.id
+            ).then((res) => {
+                fund.state = 'archive';
+                $state.reload();
+                PushNotificationsService.success('Opgeslagen!');
+            }, err => {
+                PushNotificationsService.danger(err.data.message || 'Error!');
+            });
+        });
+    };
+
+    $ctrl.checkForEmptyList = (type) => $ctrl.getActiveFundsCount(type) == 0;
+
+    $ctrl.getActiveFundsCount = (type) => ({
+        opened: $ctrl.openedFunds.length,
+        archived: $ctrl.archivedFunds.length,
+    }[type]);
+
     $ctrl.$onInit = function() {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
         $ctrl.funds.forEach(fund => {
@@ -104,12 +158,21 @@ let OrganizationFundsComponent = function(
                 $translate('fund_card_sponsor.labels.employees'),
             );
         });
+
+        $ctrl.openedFunds = $ctrl.funds.filter(
+            fund => !fund.is_archived
+        );
+
+        $ctrl.archivedFunds = $ctrl.funds.filter(
+            fund => fund.is_archived
+        );
     };
 };
 
 module.exports = {
     bindings: {
         funds: '<',
+        archivedFunds: '<',
         fundLevel: '<',
         recordTypes: '<',
         organization: '<',
