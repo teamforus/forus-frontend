@@ -1,11 +1,15 @@
-let DigIdService = function(ApiRequest) {
-    let apiPrefix = '/platform/digid';
+const DigIdService = function(ApiRequest, appConfigs) {
+    const apiPrefix = '/platform/digid';
 
-    return new(function() {
-        let self = this;
+    return new (function() {
+        const self = this;
 
         self.start = (query) => {
-            return ApiRequest.post(apiPrefix, query);
+            const { digid_api_url } = appConfigs.features;
+
+            return ApiRequest.post(apiPrefix, query, {}, true, (config) => {
+                return { ...config, url: digid_api_url + apiPrefix };
+            });
         };
 
         self.startFundRequst = (fund_id) => {
@@ -25,5 +29,6 @@ let DigIdService = function(ApiRequest) {
 
 module.exports = [
     'ApiRequest',
+    'appConfigs',
     DigIdService
 ];

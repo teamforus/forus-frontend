@@ -22,7 +22,7 @@ main(id="main-content")
                         voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
 
                     empty-block(
-                        ng-if="($ctrl.vouchers.length == 0"
+                        ng-if="$ctrl.vouchers.length == 0"
                         title="{{ 'vouchers.empty_block.title' | translate }}"
                         description="{{ 'vouchers.empty_block.subtitle' | translate }}"
                         text="{{ 'vouchers.empty_block.cta' | translate }}"
