@@ -1,5 +1,5 @@
 const scssCompiler = require("../compilers/scssCompiler");
-const { grouped_platforms } = require("../lib");
+const { grouped_platforms } = require("../Library");
 
 const _iif_scss = async function(_k_scss, platform, group) {
     const _path = 'sources/' + _k_scss + '/scss/';

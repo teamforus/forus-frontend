@@ -1,6 +1,6 @@
 const gulp = require('gulp');
-const { assetsSuffix, reloadBrowserSync, makeNotifier } = require('../lib');
-const { composeDestPath } = require('../qdt-helpers');
+const { assetsSuffix, reloadBrowserSync, makeNotifier } = require('../Library');
+const { composeDestPath } = require('../Helpers');
 const plugins = require('gulp-load-plugins')();
 const streamCombiner = require('stream-combiner');
 
@@ -12,7 +12,7 @@ const scssCompiler = async function(platform, src, task) {
     const onError = makeNotifier('SCSS', resolve);
 
     const scssSettings = {
-        outputStyle: (task.minify || true).minify ? "compressed" : "expanded",
+        outputStyle: (typeof task.minify == 'undefined' ? true : task.minify) ? "compressed" : "expanded",
         indentWidth: 4
     };
 

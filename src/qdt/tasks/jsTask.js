@@ -1,5 +1,5 @@
 const jsCompiler = require("../compilers/jsCompiler");
-const { grouped_platforms } = require("../lib");
+const { grouped_platforms } = require("../Library");
 
 const _iif_js = async function(_k_js, platform, group) {
     const _path = 'sources/' + _k_js + '/js/';

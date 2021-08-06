@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const { makeNotifier, grouped_platforms, qdt_core } = require('../lib');
+const { makeNotifier, grouped_platforms, qdt_core } = require('../Library');
 const streamCombiner = require('stream-combiner');
 
 const assetsCompiler = async function(source) {

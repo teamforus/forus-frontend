@@ -6,13 +6,13 @@ const outputRootBackendPublic = outputRoot + '/forus-backend.general';
 // gulp --env-file=./qdt-env.js 
 // gulp --env-file=../production.qdt-env.js
 
-let minify = false;
-let sourcemap = false;
-let baseImplementationKey = 'general';
-let autoLogOutTime = 15;
-let chatId = false;
-let sessions = false;
-let google_maps_api_key = '';
+const minify = true;
+const sourcemap = true;
+const baseImplementationKey = 'general';
+const autoLogOutTime = 15;
+const chatId = false;
+const sessions = false;
+const google_maps_api_key = '';
 
 const me_app_link = 'https://forus.io/DL';
 const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
@@ -63,11 +63,7 @@ module.exports = (core) => {
         platform.setDestRootPath(outputRoot + '/forus-platform.sponsor.general');
 
         // Change js taks options (enable minification)
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -89,11 +85,7 @@ module.exports = (core) => {
             ios_iphone_link: ios_iphone_link,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -117,11 +109,7 @@ module.exports = (core) => {
             ios_iphone_link: ios_iphone_link,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -139,11 +127,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -161,11 +145,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -182,11 +162,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -203,11 +179,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -227,11 +199,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -250,11 +218,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -274,11 +238,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -297,11 +257,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -321,11 +277,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -343,11 +295,7 @@ module.exports = (core) => {
             sessions: sessions,
          });
       
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
         return platform;
     });
 
@@ -365,11 +313,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -389,11 +333,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -409,11 +349,7 @@ module.exports = (core) => {
             sessions: sessions,
          });      
       
-         platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+         platform.editTask('js', (task) => ({...task, minify, sourcemap}));
       
         return platform;
     });
@@ -429,11 +365,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -451,11 +383,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -472,11 +400,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -494,11 +418,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -523,11 +443,7 @@ module.exports = (core) => {
             ios_iphone_link: ios_iphone_link,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -554,11 +470,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -588,11 +500,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -609,11 +517,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -641,11 +545,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -665,11 +565,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -696,11 +592,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -727,11 +619,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -749,11 +637,7 @@ module.exports = (core) => {
             google_maps_api_key: google_maps_api_key,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -771,11 +655,7 @@ module.exports = (core) => {
             sessions: sessions,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -792,11 +672,7 @@ module.exports = (core) => {
             sessions: sessions,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -814,11 +690,7 @@ module.exports = (core) => {
             sessions: sessions,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -836,11 +708,7 @@ module.exports = (core) => {
             sessions: sessions,
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -858,11 +726,7 @@ module.exports = (core) => {
             android_link: '/',
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         return platform;
     });
@@ -876,11 +740,7 @@ module.exports = (core) => {
             disable_timestamps: true
         });
 
-        platform.editTask('js', (task) => {
-            task.minify = minify;
-            task.sourcemap = sourcemap;
-            return task;
-        });
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
 
         // Change building path
         platform.setDestRootPath(outputRootBackendPublic);

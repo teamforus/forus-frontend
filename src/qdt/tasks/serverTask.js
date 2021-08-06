@@ -1,6 +1,6 @@
 const compress = require('compression');
 const historyApiFallback = require('connect-history-api-fallback')
-const { grouped_platforms, browserSync } = require("../lib");
+const { grouped_platforms, browserSync } = require("../Library");
 
 const serverTask = function() {
     Object.values(grouped_platforms).reduce(

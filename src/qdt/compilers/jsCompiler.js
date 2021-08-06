@@ -1,7 +1,7 @@
 const glob = require('glob');
 const gulp = require('gulp');
-const { assetsSuffix, reloadBrowserSync, makeNotifier } = require('../lib');
-const { composeDestPath } = require('../qdt-helpers');
+const { assetsSuffix, reloadBrowserSync, makeNotifier } = require('../Library');
+const { composeDestPath } = require('../Helpers');
 const plugins = require('gulp-load-plugins')();
 const streamCombiner = require('stream-combiner');
 
@@ -97,7 +97,7 @@ const jsCompiler = function(platform, src, task) {
         const stream = task.browserify ? jsCompilerBrowserify(name, sourcesList, useTs) : jsCompilerValila(name, sourcesList);
 
         // uglify output
-        if (task.minify) {
+        if (typeof task.minify == 'undefined' ? true : task.minify) {
             stream.push(plugins.uglify());
         }
 

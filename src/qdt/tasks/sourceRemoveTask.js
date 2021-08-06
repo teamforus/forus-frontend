@@ -1,5 +1,5 @@
 const colors = require('colors');
-const { qdt_verbose } = require("../lib");
+const { qdt_verbose } = require("../Library");
 
 const sourceRemoveTask = function(done) {
     if (params.length === 0 || typeof params.name == 'undefined') {
