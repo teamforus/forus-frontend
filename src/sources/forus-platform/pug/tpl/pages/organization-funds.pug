@@ -161,12 +161,12 @@
         div(ng-if="$ctrl.openedFunds.length == 0 && $ctrl.shownFundsType == 'opened'")
             block-empty(
                 ng-if="($root.activeOrganization | hasPerm:'manage_funds')"
-                text="Je hebt momenteel geen lopend fondsen." 
+                text="Je hebt momenteel geen lopende fondsen." 
                 button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
 
             block-empty(
                 ng-if="!($root.activeOrganization | hasPerm:'manage_funds')"
-                text="Je hebt momenteel geen lopend fondsen.")
+                text="Je hebt momenteel geen lopende fondsen.")
 
         div(ng-if="$ctrl.archivedFunds.length == 0 && $ctrl.shownFundsType == 'archived'")
-            block-empty(text="Je hebt momenteel geen archief fondsen.")
+            block-empty(text="Je hebt momenteel geen gearchiveerde fondsen.")
