@@ -1,6 +1,6 @@
 const fse = require('fs-extra');
 const path = require('path');
-const { assetsSuffix, grouped_platforms, qdt_core } = require('../lib');
+const { assetsSuffix, grouped_platforms, qdt_core } = require('../Lib');
 const { composeDestPath } = qdt_core;
 
 const libsTask = (done) => {
@@ -26,10 +26,17 @@ const libsTask = (done) => {
             ), bundle.css);
 
             fse.mkdirpSync(assestPath('/dist/bundle/fonts'));
-            bundle.fonts.forEach(font => {
+            bundle.fonts.forEach((font) => {
                 fse.copyFileSync(
                     path.resolve(__dirname, '../../', font),
                     assestPath('/dist/bundle/fonts/' + path.parse(font).base)
+                );
+            });
+
+            bundle.assets.forEach((asset) => {
+                fse.copyFileSync(
+                    path.resolve(__dirname, '../../', asset),
+                    assestPath('/dist/bundle/css/' + path.parse(asset).base)
                 );
             });
         });

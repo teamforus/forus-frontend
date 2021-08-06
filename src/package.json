@@ -38,6 +38,7 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
     "jadeify": "^4.7.0",
     "mail-listener2": "^0.3.1",
     "pugify": "^2.2.0",

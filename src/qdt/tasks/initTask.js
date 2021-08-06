@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { qdt_core, qdt_verbose, envFile, params } = require('../lib');
+const { qdt_core, qdt_verbose, envFile, params } = require('../Lib');
 const sourceAddTask = require('./sourceAddTask');
 
 const initTask = (done) => {
