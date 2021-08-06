@@ -13,13 +13,14 @@
         padding: 15px;
         color: #282B39;
         width: 100%;
+        text-align: center;
 
         .mdi {
-            float: left;
             color: $bec;
             font-size: 20px;
             line-height: 20px;
-            margin: 0 10px 0 0;
+            margin: 0 5px 0 0;
+            vertical-align: bottom;
         }
     }
 

@@ -1,4 +1,4 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
 let OrganizationFundsComponent = function(
     $state,
@@ -9,11 +9,9 @@ let OrganizationFundsComponent = function(
     PermissionsService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
-    let $translate = $filter('translate');
-    let $translateDangerZone = (type, key) => $translate(
-        sprintf('modals.danger_zone.%s.%s', type, key)
-    );
+    const $ctrl = this;
+    const $translate = $filter('translate');
+    const $translateDangerZone = (type, key) => $translate(`modals.danger_zone.${type}.${key}`);
 
     $ctrl.askConfirmation = (type, onConfirm) => {
         ModalService.open("dangerZone", {
@@ -59,7 +57,7 @@ let OrganizationFundsComponent = function(
                 confirm: (res) => {
                     PushNotificationsService.success(
                         "Aanbieders uitgenodigd!",
-                        sprintf("%s uitnodigingen verstuurt naar aanbieders!", res.length),
+                        `${res.length} uitnodigingen verstuurt naar aanbieders!`,
                     );
 
                     $state.reload();
@@ -74,9 +72,7 @@ let OrganizationFundsComponent = function(
 
     $ctrl.goToCSVValiationPage = (fund) => {
         if (fund.canAccessFund) {
-            $state.go('csv-validation', {
-                fund_id: fund.id
-            });
+            $state.go('csv-validation', { fund_id: fund.id });
         }
     };
 
@@ -91,30 +87,19 @@ let OrganizationFundsComponent = function(
     };
 
     $ctrl.onSaveCriteria = (fund) => {
-        FundService.updateCriteria(
-            fund.organization_id,
-            fund.id,
-            fund.criteria
-        ).then((res) => {
+        FundService.updateCriteria(fund.organization_id, fund.id, fund.criteria).then((res) => {
             fund.criteria = Object.assign(fund.criteria, res.data.data.criteria);
             PushNotificationsService.success('Opgeslagen!');
-        }, err => {
-            PushNotificationsService.danger(err.data.message || 'Error!');
-        });
+        }, (err) => PushNotificationsService.danger(err.data.message || 'Error!'));
     };
 
     $ctrl.archiveFund = (fund) => {
         $ctrl.askConfirmation('archive_fund', () => {
-            FundService.archive(
-                fund.organization_id,
-                fund.id
-            ).then((res) => {
+            FundService.archive(fund.organization_id, fund.id).then(() => {
                 fund.state = 'archive';
                 $state.reload();
                 PushNotificationsService.success('Opgeslagen!');
-            }, err => {
-                PushNotificationsService.danger(err.data.message || 'Error!');
-            });
+            }, (err) => PushNotificationsService.danger(err.data.message || 'Error!'));
         });
     };
 
@@ -148,24 +133,16 @@ let OrganizationFundsComponent = function(
                 fund.organization,
                 'manage_funds'
             ) && (fund.state != 'closed') && $ctrl.funds.length > 1;
-            fund.form = {
-                criteria: fund.criteria
-            };
-            fund.providersDescription = sprintf(
-                "%s (%s %s)",
-                fund.provider_organizations_count,
-                fund.provider_employees_count,
-                $translate('fund_card_sponsor.labels.employees'),
-            );
+
+            fund.form = { criteria: fund.criteria };
+            fund.providersDescription = [
+                `${fund.provider_organizations_count}`,
+                `(${fund.provider_employees_count} ${$translate('fund_card_sponsor.labels.employees')})`,
+            ].join(' ');
         });
 
-        $ctrl.openedFunds = $ctrl.funds.filter(
-            fund => !fund.is_archived
-        );
-
-        $ctrl.archivedFunds = $ctrl.funds.filter(
-            fund => fund.is_archived
-        );
+        $ctrl.openedFunds = $ctrl.funds.filter((fund) => !fund.is_archived);
+        $ctrl.archivedFunds = $ctrl.funds.filter((fund) => fund.is_archived);
     };
 };
 
