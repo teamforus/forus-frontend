@@ -1,4 +1,4 @@
-let ModalAuthComponent = function(
+const ModalAuthComponent = function(
     $state,
     $timeout,
     $rootScope,
@@ -10,9 +10,10 @@ let ModalAuthComponent = function(
     ModalService,
     appConfigs
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
+    const index = Math.floor(Math.random() * 100000) + 1;
+
     let timeout;
-    let index = Math.floor(Math.random() * 100000) + 1;
 
     $ctrl.qrValue = null;
     $ctrl.showChoose = true;
@@ -41,11 +42,11 @@ let ModalAuthComponent = function(
     $ctrl.startDigId = () => {
         DigIdService.startAuthRestore().then((res) => {
             document.location = res.data.redirect_url;
-        }, res => {
+        }, (res) => {
             $ctrl.close();
 
             $state.go('error', {
-                errorCode: res.headers('Error-Code')
+                errorCode: res.headers('Error-Code'),
             });
         });
     }
