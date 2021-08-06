@@ -1,5 +1,5 @@
 const pugCompiler = require("../compilers/pugCompiler");
-const { grouped_platforms } = require("../lib");
+const { grouped_platforms } = require("../Library");
 
 const _iif_pug = async function(_k_pug, platform, task) {
     var _raw_src = [];

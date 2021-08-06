@@ -1,4 +1,4 @@
-const { grouped_platforms } = require("../lib");
+const { grouped_platforms } = require("../Library");
 const assetsCompiler = require("../compilers/assetsCompiler");
 
 const assetsTask = async (done) => {

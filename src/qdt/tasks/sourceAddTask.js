@@ -1,4 +1,4 @@
-const { qdt_verbose } = require("../lib");
+const { qdt_verbose } = require("../Library");
 
 const sourceAddTask = function(nameParam) {
     if (params.length === 0 || typeof params[nameParam] == 'undefined') {

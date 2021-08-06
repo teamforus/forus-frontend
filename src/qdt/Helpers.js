@@ -8,7 +8,7 @@ const { spawnSync } = require('child_process');
 
 // plugins: pug, sass, autoprefixer, minify-css, rename, concat and other
 const plugins = require('gulp-load-plugins')();
-const qdt_verbose = require('./qdt-verbose.js');
+const qdt_verbose = require('./Lang.js');
 
 // build list paths for specified platform
 const qdtBuidAssetPaths = function(platform) {
@@ -43,11 +43,13 @@ const buildLibsBundle = (requiredLibs) => {
     let js = fetchLibAsset(paths, 'js');
     let css = fetchLibAsset(paths, 'css');
     let fonts = fetchLibAsset(paths, 'fonts');
+    let assets = fetchLibAsset(paths, 'assets');
 
     return {
         js: concatFiles(js),
         css: concatFiles(css),
-        fonts: fonts
+        fonts: fonts,
+        assets: assets,
     }
 };
 

@@ -1,9 +1,9 @@
 const gulp = require('gulp');
-const { assetsSuffix, reloadBrowserSync, makeNotifier, params } = require('../lib');
+const { assetsSuffix, reloadBrowserSync, makeNotifier, params } = require('../Library');
 const plugins = require('gulp-load-plugins')();
 const streamCombiner = require('stream-combiner');
 
-const qdt_core = require("../qdt-helpers");
+const qdt_core = require("../Helpers");
 const { getGitCommitHash } = qdt_core;
 
 const pugCompiler = function(source, platform, src, dest, task) {
@@ -21,7 +21,7 @@ const pugCompiler = function(source, platform, src, dest, task) {
                 platform: platform
             }
         },
-        pretty: !(task.minify || false)
+        pretty: !(typeof task.minify == 'undefined' ? true : task.minify)
     };
 
     streams.push(gulp.src(src, { base: source }));

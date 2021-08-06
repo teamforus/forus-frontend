@@ -1,10 +1,11 @@
 // file system
 const fs = require('fs');
 const path = require('path');
+const noop = require('gulp-util/lib/noop');
 
 // qdt helper
-const qdt_core = require("./qdt-helpers");
-const qdt_verbose = require("./qdt-verbose");
+const qdt_core = require("./Helpers");
+const qdt_verbose = require("./Lang");
 
 const params = qdt_core.getParams() || {};
 const envFile = params.envFile ? params.envFile : path.resolve(__dirname, '../', 'qdt-env.js');
@@ -61,7 +62,7 @@ if (fs.existsSync(envFile)) {
 }
 
 const reloadBrowserSync = (platform) => {
-    return platform.server ? browserSync[platform.name].reload(pluginSettings.browserSyncReload) : null;
+    return platform.server ? browserSync[platform.name].reload(pluginSettings.browserSyncReload) : noop();
 }
 
 // test required

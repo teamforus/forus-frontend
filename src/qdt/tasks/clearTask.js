@@ -1,5 +1,5 @@
 const del = require('del');
-const { qdt_c } = require("../lib");
+const { qdt_c } = require("../Library");
 
 const clearTask = (done) => {
     const paths = Object.values(qdt_c.platforms).map((platform) => {

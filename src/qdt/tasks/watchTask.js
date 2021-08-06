@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const { grouped_platforms } = require('../lib');
+const { grouped_platforms } = require('../Library');
 
 const jsCompiler = require('../compilers/jsCompiler');
 const pugCompiler = require('../compilers/pugCompiler');
