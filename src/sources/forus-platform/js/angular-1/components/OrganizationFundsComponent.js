@@ -1,17 +1,17 @@
-const sprintf = require('sprintf-js').sprintf;
-
-let OrganizationFundsComponent = function(
+const OrganizationFundsComponent = function(
     $state,
     $filter,
     $stateParams,
     FundService,
     ModalService,
-    PermissionsService,
     PushNotificationsService
 ) {
     const $ctrl = this;
+    const $hasPerm = $filter('hasPerm');
     const $translate = $filter('translate');
     const $translateDangerZone = (type, key) => $translate(`modals.danger_zone.${type}.${key}`);
+
+    $ctrl.hasManagerPermission = false;
 
     $ctrl.askConfirmation = (type, onConfirm) => {
         ModalService.open("dangerZone", {
@@ -23,15 +23,13 @@ let OrganizationFundsComponent = function(
         });
     };
 
-    $ctrl.shownFundsType = $stateParams.funds_type || 'opened';
+    $ctrl.shownFundsType = $stateParams.funds_type || 'active';
 
     $ctrl.topUpModal = (fund) => {
         if (!fund.topUpInProgress) {
             fund.topUpInProgress = true;
 
-            ModalService.open('fundTopUp', {
-                fund: fund
-            }, {
+            ModalService.open('fundTopUp', { fund }, {
                 onClose: () => fund.topUpInProgress = false
             });
         }
@@ -43,10 +41,9 @@ let OrganizationFundsComponent = function(
             title: 'fund_card_sponsor.confirm_delete.title',
             icon: 'product-error',
             description: 'fund_card_sponsor.confirm_delete.description',
-            confirm: () => FundService.destroy(
-                fund.organization_id,
-                fund.id
-            ).then(() => $state.reload())
+            confirm: () => {
+                FundService.destroy(fund.organization_id, fund.id).then(() => $state.reload());
+            }
         });
     };
 
@@ -63,16 +60,6 @@ let OrganizationFundsComponent = function(
                     $state.reload();
                 }
             });
-        }
-    };
-
-    $ctrl.goToEmployeePage = () => $state.go('employees', {
-        organization_id: $ctrl.organization.id
-    });
-
-    $ctrl.goToCSVValiationPage = (fund) => {
-        if (fund.canAccessFund) {
-            $state.go('csv-validation', { fund_id: fund.id });
         }
     };
 
@@ -97,7 +84,7 @@ let OrganizationFundsComponent = function(
         $ctrl.askConfirmation('archive_fund', () => {
             FundService.archive(fund.organization_id, fund.id).then(() => {
                 fund.state = 'archive';
-                $state.reload();
+                $state.go($state.$current.name, { funds_type: 'archived' });
                 PushNotificationsService.success('Opgeslagen!');
             }, (err) => PushNotificationsService.danger(err.data.message || 'Error!'));
         });
@@ -105,34 +92,27 @@ let OrganizationFundsComponent = function(
 
     $ctrl.restoreFund = (fund) => {
         $ctrl.askConfirmation('restore_fund', () => {
-            FundService.unarchive(
-                fund.organization_id,
-                fund.id
-            ).then((res) => {
+            FundService.unarchive(fund.organization_id, fund.id).then(() => {
                 fund.state = 'archive';
-                $state.reload();
+                $state.go($state.$current.name, { funds_type: 'active' });
                 PushNotificationsService.success('Opgeslagen!');
-            }, err => {
-                PushNotificationsService.danger(err.data.message || 'Error!');
-            });
+            }, (err) => PushNotificationsService.danger(err.data.message || 'Error!'));
         });
     };
 
-    $ctrl.checkForEmptyList = (type) => $ctrl.getActiveFundsCount(type) == 0;
-
     $ctrl.getActiveFundsCount = (type) => ({
-        opened: $ctrl.openedFunds.length,
+        active: $ctrl.activeFunds.length,
         archived: $ctrl.archivedFunds.length,
     }[type]);
 
     $ctrl.$onInit = function() {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
-        $ctrl.funds.forEach(fund => {
+        $ctrl.hasManagerPermission = $hasPerm($ctrl.organization, 'manage_funds');
+        $ctrl.canInviteProviders = $ctrl.hasManagerPermission && $ctrl.funds.length > 1;
+
+        $ctrl.funds.forEach((fund) => {
             fund.canAccessFund = fund.state != 'closed';
-            fund.canInviteProviders = PermissionsService.hasPermission(
-                fund.organization,
-                'manage_funds'
-            ) && (fund.state != 'closed') && $ctrl.funds.length > 1;
+            fund.canInviteProviders = $ctrl.hasManagerPermission && fund.state != 'closed';
 
             fund.form = { criteria: fund.criteria };
             fund.providersDescription = [
@@ -141,8 +121,8 @@ let OrganizationFundsComponent = function(
             ].join(' ');
         });
 
-        $ctrl.openedFunds = $ctrl.funds.filter((fund) => !fund.is_archived);
-        $ctrl.archivedFunds = $ctrl.funds.filter((fund) => fund.is_archived);
+        $ctrl.activeFunds = $ctrl.funds.filter((fund) => !fund.archived);
+        $ctrl.archivedFunds = $ctrl.funds.filter((fund) => fund.archived);
     };
 };
 
@@ -161,7 +141,6 @@ module.exports = {
         '$stateParams',
         'FundService',
         'ModalService',
-        'PermissionsService',
         'PushNotificationsService',
         OrganizationFundsComponent
     ],

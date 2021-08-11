@@ -52,7 +52,7 @@
 
     .card-section.card-section-warning(ng-if="fund.state != 'waiting' && $dir.fund.organization | hasPerm:'view_finances'")
         .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
-            .col.col-lg-2.keyvalue-item(ng-click="$dir.goToEmployeePage()")
+            a.col.col-lg-2.keyvalue-item(ui-sref="employees({organization_id: $dir.fund.organization_id})")
                 .keyvalue-key(translate="fund_card_sponsor.labels.your_employees")
                 .keyvalue-value
                     span(ng-bind="fund.sponsor_count")

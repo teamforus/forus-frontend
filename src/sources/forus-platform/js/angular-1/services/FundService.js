@@ -184,10 +184,9 @@ const FundService = function(ApiRequest, ModalService) {
          * @param {object} query 
          * @returns {Promise}
          */
-        this.financialOverview = function(organization_id, query = {}) 
-        {
+        this.financialOverview = function(organization_id, query = {}) {
             return ApiRequest.get(sprintf(
-                uriPrefix + '%s/sponsor/finances-overview', 
+                uriPrefix + '%s/sponsor/finances-overview',
                 organization_id
             ), query);
         };
@@ -201,12 +200,9 @@ const FundService = function(ApiRequest, ModalService) {
          * @param {object} query 
          * @returns {Promise}
          */
-         this.financialOverviewExport = function(
-            organization_id,
-            query = {}
-        ) {
+        this.financialOverviewExport = function(organization_id, query = {}) {
             return ApiRequest.get(sprintf(
-                uriPrefix + '%s/sponsor/finances-overview-export', 
+                uriPrefix + '%s/sponsor/finances-overview-export',
                 organization_id
             ), query, {}, true, (_cfg) => {
                 _cfg.responseType = 'arraybuffer';
@@ -318,15 +314,11 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.archive = function(organization_id, fund_id) {
-            return ApiRequest.post(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/archive'
-            );
+            return ApiRequest.post(`${uriPrefix}${organization_id}/funds/${fund_id}/archive`);
         };
 
         this.unarchive = function(organization_id, fund_id) {
-            return ApiRequest.post(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/unarchive'
-            );
+            return ApiRequest.post(`${uriPrefix}${organization_id}/funds/${fund_id}/unarchive`);
         };
 
         this.sampleCSV = (fund) => {
@@ -336,7 +328,7 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.criterionValidate = (organization_id, fund_id, criteria) => {
-            let path = fund_id ? sprintf(
+            const path = fund_id ? sprintf(
                 uriPrefix + '%s/funds/%s/criteria/validate',
                 organization_id,
                 fund_id
@@ -345,11 +337,7 @@ const FundService = function(ApiRequest, ModalService) {
                 organization_id
             );
 
-            return fund_id ? ApiRequest.patch(path, {
-                criteria: criteria
-            }) : ApiRequest.post(path, {
-                criteria: criteria
-            });
+            return fund_id ? ApiRequest.patch(path, { criteria }) : ApiRequest.post(path, { criteria });
         };
 
         this.stopActionConfirmationModal = (onConfirm) => {

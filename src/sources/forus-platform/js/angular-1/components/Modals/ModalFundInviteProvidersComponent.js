@@ -1,16 +1,16 @@
-let ModalFundInviteProvidersComponent = function(
+const ModalFundInviteProvidersComponent = function(
     $timeout,
     FundService,
     FormBuilderService,
     PageLoadingBarService,
     FundProviderInvitationsService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
         $ctrl.fund = $ctrl.modal.scope.fund;
-        
-        FundService.list($ctrl.fund.organization_id).then(res => {
+
+        FundService.list($ctrl.fund.organization_id, { with_archived: 1 }).then((res) => {
             $ctrl.modal.setLoaded();
 
             $ctrl.funds = res.data.data.filter(fund => fund.id != $ctrl.fund.id);

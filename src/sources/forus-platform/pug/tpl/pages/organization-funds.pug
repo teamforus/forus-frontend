@@ -14,16 +14,16 @@
             
             .flex-col: .block.block-label-tabs.nowrap.pull-right: .label-tab-set
                 .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'opened'}"
-                    ui-sref="organization-funds({funds_type: 'opened'})")
-                    | Lopend ({{ $ctrl.openedFunds.length }})
+                    ng-class="{'active' : $ctrl.shownFundsType == 'active'}"
+                    ui-sref="organization-funds({funds_type: 'active'})")
+                    | Lopend ({{ $ctrl.activeFunds.length }})
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'archived'}"
                     ui-sref="organization-funds({funds_type: 'archived'})")
                     | Archief ({{ $ctrl.archivedFunds.length }})
 
-        .block.block-funds(ng-if="$ctrl.shownFundsType == 'opened'")
-            .fund-item(ng-repeat="fund in $ctrl.openedFunds")
+        .block.block-funds(ng-if="$ctrl.shownFundsType == 'active'")
+            .fund-item(ng-repeat="fund in $ctrl.activeFunds")
                 .fund-item-section: .flex-col
                     .flex-row
                         .fund-logo: img(
@@ -98,8 +98,8 @@
                 
                 .fund-item-section.fund-item-section-warning.fund-item-section-with-arrow(ng-if="fund.show_stats")
                     .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
-                        .keyvalue-item.col.col-lg-3(
-                            ng-click="$ctrl.goToEmployeePage(fund)")
+                        a.keyvalue-item.col.col-lg-3(
+                            ui-sref="employees({organization_id: $ctrl.organization.id})")
                             .keyvalue-key(translate="fund_card_sponsor.labels.your_employees")
                             .keyvalue-value
                                 span(ng-bind="fund.sponsor_count")
@@ -113,9 +113,9 @@
                                 span(ng-bind="fund.providersDescription")
                                 span.icon.mdi.mdi-account-multiple-plus(ng-if="fund.canInviteProviders")
 
-                        .keyvalue-item.col.col-lg-3(
+                        a.keyvalue-item.col.col-lg-3(
                             ng-class="{'keyvalue-item-disabled': !fund.canAccessFund}" 
-                            ng-click="$ctrl.goToCSVValiationPage(fund)")
+                            ui-sref="csv-validation({ fund_id: fund.id })")
                             .keyvalue-key(translate="fund_card_sponsor.labels.applicants")
                             .keyvalue-value
                                 span(ng-bind="fund.requester_count")
@@ -138,7 +138,7 @@
                             .keyvalue-value
                                 span(ng-bind="fund.budget.total - fund.budget.used | currency_format")
 
-        .block.block-funds(ng-if="$ctrl.shownFundsType == 'archived'")
+        .block.block-funds(ng-if="$ctrl.shownFundsType == 'archived' && $ctrl.archivedFunds.length > 0")
             .fund-item(ng-repeat="fund in $ctrl.archivedFunds")
                 .fund-item-section: .flex-col
                     .flex-row
@@ -157,16 +157,16 @@
                                 ng-click="$ctrl.restoreFund(fund)")
                                 em.mdi.mdi-lock-reset.icon-start
                                 translate(translate="components.organization_funds.buttons.restore")
-                                
-        div(ng-if="$ctrl.openedFunds.length == 0 && $ctrl.shownFundsType == 'opened'")
-            block-empty(
-                ng-if="($root.activeOrganization | hasPerm:'manage_funds')"
-                text="Je hebt momenteel geen lopende fondsen." 
-                button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
 
-            block-empty(
-                ng-if="!($root.activeOrganization | hasPerm:'manage_funds')"
-                text="Je hebt momenteel geen lopende fondsen.")
+        block-empty(
+            ng-if="$ctrl.activeFunds.length == 0 && $ctrl.shownFundsType == 'active' && $ctrl.hasManagerPermission"
+            text="Je hebt momenteel geen lopende fondsen." 
+            button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
 
-        div(ng-if="$ctrl.archivedFunds.length == 0 && $ctrl.shownFundsType == 'archived'")
-            block-empty(text="Je hebt momenteel geen gearchiveerde fondsen.")
+        block-empty(
+            ng-if="$ctrl.activeFunds.length == 0 && $ctrl.shownFundsType == 'active' && !$ctrl.hasManagerPermission"
+            text="Je hebt momenteel geen lopende fondsen.")
+
+        block-empty(
+            ng-if="$ctrl.archivedFunds.length == 0 && $ctrl.shownFundsType == 'archived'"
+            text="Je hebt momenteel geen gearchiveerde fondsen.")
