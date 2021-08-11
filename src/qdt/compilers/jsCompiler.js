@@ -95,6 +95,7 @@ const jsCompiler = function(platform, src, task) {
 
     for (var i = dest.length - 1; i >= 0; i--) {
         const stream = task.browserify ? jsCompilerBrowserify(name, sourcesList, useTs) : jsCompilerValila(name, sourcesList);
+        stream.push(plugins.insert.prepend('var env_data = ' + JSON.stringify(platform.env_data) + ';'));
 
         // uglify output
         if (typeof task.minify == 'undefined' ? true : task.minify) {
@@ -107,7 +108,6 @@ const jsCompiler = function(platform, src, task) {
             stream.push(plugins.sourcemaps.write('./'));
         }
 
-        stream.push(plugins.insert.prepend('var env_data = ' + JSON.stringify(platform.env_data) + ';'));
         stream.push(gulp.dest(platform.paths.assets + '/js/' + dest[i]));
         stream.push(reloadBrowserSync(platform));
 

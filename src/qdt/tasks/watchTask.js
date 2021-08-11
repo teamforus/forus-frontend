@@ -77,11 +77,11 @@ const _iif_pug = function(_group, platform, group) {
     }
 
     gulp.watch(_raw_src).on('change', async (path) => {
-        await pugCompiler(__dirname + '/' + _path + '/' + group.path, platform, path, group.dest, group);
+        await pugCompiler(__dirname + '/../../' + _path + '/' + group.path, platform, path, group.dest, group);
     });
 
     gulp.watch(_watch_src).on('change', async () => {
-        await pugCompiler(__dirname + '/' + _path + '/' + group.path, platform, _raw_src, group.dest, group);
+        await pugCompiler(__dirname + '/../../' + _path + '/' + group.path, platform, _raw_src, group.dest, group);
     });
 };
 
