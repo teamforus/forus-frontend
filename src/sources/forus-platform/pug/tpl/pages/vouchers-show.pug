@@ -58,14 +58,14 @@
 
                     //- attach physical card
                     .button.button-default(
-                        ng-if="!$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
+                        ng-if="!$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.fund.allow_physical_cards && $ctrl.voucher.state !== 'deactivated'"
                         ng-click="$ctrl.addPhysicalCard()")
                         em.mdi.mdi-ticket-account.icon-start 
                         span(translate="vouchers.buttons.physical_card_add")
 
                     //- remove physical card
                     .button.button-default(
-                        ng-if="$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
+                        ng-if="$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.fund.allow_physical_cards && $ctrl.voucher.state !== 'deactivated'"
                         ng-click="$ctrl.deletePhysicalCard()")
                         em.mdi.mdi-ticket-account.icon-start 
                         span(translate="vouchers.buttons.physical_card_delete")
