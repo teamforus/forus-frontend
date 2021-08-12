@@ -1,6 +1,7 @@
 .app.app-container(ng-if="$root.activeOrganization && $root.auth_user")
     menu
     section.app.app-content
+        //- Navigation
         .block.block-breadcrumbs(ng-if="$root.activeOrganization")
             .breadcrumb-item(
                 ui-sref="vouchers({organization_id:$root.activeOrganization.id})" 
@@ -19,50 +20,68 @@
 
             .breadcrumb-item.active(ng-bind="$ctrl.voucher.fund.name + ' #' + $ctrl.voucher.id")
 
+        //- Base voucher details
         .card(ng-if="$ctrl.voucher")
-            .card-header: .row
-                .col.col-lg-7.col-xs-12: .card-title
+            .card-header: .flex.flex-row
+                .flex.flex-col: .card-title
+                    //- voucher fund or product name
                     span(ng-bind="$ctrl.voucher.fund.name" ng-if="!$ctrl.voucher.product") 
                     span(ng-bind="$ctrl.voucher.product.name" ng-if="$ctrl.voucher.product")
-                    .tag.tag-success.tag-sm(
-                        ng-if="$ctrl.voucher.state == 'active' && !$ctrl.voucher.expired" 
-                        translate="vouchers.labels.active")
 
-                    .tag.tag-default.tag-sm(
-                        ng-if="$ctrl.voucher.state == 'pending'" 
-                        translate="vouchers.labels.pending")
-
-                    .tag.tag-warning.tag-sm(
-                        ng-if="$ctrl.voucher.expired" 
-                        translate="vouchers.labels.expired")
                     br
-                    span(ng-bind="$ctrl.voucher.product.organization.name" ng-if="$ctrl.voucher.product").text-primary
-                    span(ng-if="$ctrl.voucher.fund.type == 'budget' && !$ctrl.voucher.product" ng-bind="$ctrl.voucher.amount | currency_format").text-primary
 
-                .block.block-inline-buttons.col.col-lg-5.col-xs-12
-                    .button.button-default.button-hover(
-                        ng-if="!$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies'"
+                    //- voucher product (product vouchers only)
+                    span.text-primary(
+                        ng-if="$ctrl.voucher.product"
+                        ng-bind="$ctrl.voucher.product.organization.name")
+
+                    //- voucher amount (budget funds only)
+                    span.text-primary(
+                        ng-if="$ctrl.voucher.fund.type == 'budget' && !$ctrl.voucher.product" 
+                        ng-bind="$ctrl.voucher.amount | currency_format")
+
+                //- voucher actions
+                .flex.flex-col.flex-end: .flex.flex-column: .button-group
+                    //- deactivate voucher
+                    .button.button-danger(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"
+                        ng-click="$ctrl.deactivateVoucher()")
+                        em.mdi.mdi-close.icon-start
+                        | Deactiveren
+
+                    //- reactivate voucher
+                    .button.button-danger(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'deactivated'"
+                        ng-click="$ctrl.activateVoucher()")
+                        em.mdi.mdi-alert-outline.icon-start
+                        | Activeren
+
+                    //- attach physical card
+                    .button.button-default(
+                        ng-if="!$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
                         ng-click="$ctrl.addPhysicalCard()")
                         em.mdi.mdi-ticket-account.icon-start 
                         span(translate="vouchers.buttons.physical_card_add")
 
-                    .button.button-default.button-hover(
-                        ng-if="$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies'"
+                    //- remove physical card
+                    .button.button-default(
+                        ng-if="$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
                         ng-click="$ctrl.deletePhysicalCard()")
                         em.mdi.mdi-ticket-account.icon-start 
                         span(translate="vouchers.buttons.physical_card_delete")
 
-                    .button.button-primary.button-hover(
+                    .button.button-primary(
                         ng-if="!$ctrl.fundClosed && !$ctrl.voucher.expired && !$ctrl.voucher.is_granted  && $ctrl.voucher.state === 'pending'"
                         ng-click="$ctrl.showQrCode()")
                         em.mdi.mdi-clipboard-account.icon-start 
                         span(translate="vouchers.buttons.activate")
 
-                    .button.button-primary.button-hover(
+                    .button.button-primary(
                         ng-if="!$ctrl.fundClosed && !$ctrl.voucher.is_granted && !$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"
                         ng-click="$ctrl.showQrCode()")
                         em.mdi.mdi-qrcode.icon-start 
                         string(translate="vouchers.labels.qr_code")
+
 
             .card-section
                 .card-block.card-block-table
@@ -73,57 +92,106 @@
                                     strong(translate="vouchers.labels.email").text-strong.text-md.text-muted-dark
                                     br
                                     strong.text-black(ng-bind="$ctrl.voucher.identity_email || 'Niet toegewezen'")
+
                                 td(ng-if="$ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn")
                                     strong(translate="vouchers.labels.bsn").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)").text-black
+
                                 td(ng-if="$ctrl.voucher.physical_card")
                                     strong(translate="vouchers.labels.physical_card").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="$ctrl.voucher.physical_card.code").text-black
+
                                 td(ng-if="$ctrl.voucher.activation_code")
                                     strong(translate="vouchers.labels.details_activation_code").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="$ctrl.voucher.activation_code").text-black
+
                                 td(ng-if="$ctrl.voucher.activation_code_uid")
                                     strong(translate="vouchers.labels.uid").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="$ctrl.voucher.activation_code_uid").text-black
+
                                 td(ng-if="$ctrl.voucher.fund.type == 'subsidies'")
                                     strong(translate="vouchers.labels.limit_multiplier").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="$ctrl.voucher.limit_multiplier").text-black
+
                                 td(ng-if="$ctrl.voucher.fund.type != 'subsidies'")
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
                                 td(ng-if="!$ctrl.voucher.physical_card")
 
-                            tr
-                                td(ng-if="!$ctrl.fundClosed")
-                                    strong(translate="vouchers.labels.expire_date").text-strong.text-md.text-muted-dark
-                                    br
-                                    strong(ng-bind="$ctrl.voucher.expire_at_locale").text-black
-                                td(ng-if="!$ctrl.fundClosed")
-                                    strong(translate="vouchers.labels.created_date").text-strong.text-md.text-muted-dark
-                                    br
-                                    strong(ng-bind="$ctrl.voucher.created_at_locale.split(' - ')[1]").text-black    
-                                td 
-                                    strong(translate="vouchers.labels.source").text-strong.text-md.text-muted-dark
-                                    br
-                                    strong(ng-bind="'vouchers.labels.source_' + $ctrl.voucher.source | translate").text-black
-                                td(ng-if="!$ctrl.fundClosed && !$ctrl.voucher.in_use")
-                                    strong(translate="vouchers.labels.used").text-strong.text-md.text-muted-dark
-                                    br
-                                    em.mdi.mdi-close.text-black
-                                    strong(translate="product_vouchers.labels.no").text-black
-                                td(ng-if="!$ctrl.fundClosed && $ctrl.voucher.in_use")
-                                    strong(translate="vouchers.labels.used").text-strong.text-md.text-muted-dark
-                                    br
-                                    em.mdi.mdi-close.text-black
-                                    strong(translate="product_vouchers.labels.yes").text-black
+        //- Voucher history
+        .card(ng-if="$ctrl.voucher")
+            .card-header: .flex.flex-row
+                .flex.flex-col: .card-title 
+                    span(ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state !== 'deactivated'") Status - geldig t/m {{ $ctrl.voucher.expire_at_locale }}
 
+                    span(ng-if="$ctrl.voucher.expired") Status - verlopen op {{ $ctrl.voucher.expire_at_locale }}
+
+                    span(ng-if="$ctrl.voucher.state === 'deactivated'") Status
+
+                    //- is active
+                    span: .tag.tag-success.tag-sm(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'active'" 
+                        ng-bind="$ctrl.voucher.state_locale")
+
+                    //- is pending
+                    span: .tag.tag-default.tag-sm(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'pending'"
+                        ng-bind="$ctrl.voucher.state_locale")
+
+                    //- is deactivated
+                    span: .tag.tag-danger.tag-sm(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'deactivated'" 
+                        ng-bind="$ctrl.voucher.state_locale")
+
+                    //- is expired
+                    span: .tag.tag-warning.tag-sm(
+                        ng-if="$ctrl.voucher.expired" 
+                        translate="vouchers.labels.expired")
+
+                .flex.flex-col.flex-end: .flex.flex-column: .card-title
+                    span(ng-if="!$ctrl.voucher.in_use")
+                        em.mdi.mdi-close.text-black
+                        span.text-primary Niet gebruikt
+                    span(ng-if="$ctrl.voucher.in_use")
+                        em.mdi.mdi-check-circle
+                        span.text-primary In gebruik 
+
+            .card-section: .card-block.card-block-table
+                .table-wrapper
+                    table.table
+                        tr
+                            th Datum
+                            th Actie
+                            th Door
+                            th Notitie
+
+                        tr(ng-repeat="history in $ctrl.history")
+                            td: .text-strong(ng-bind="history.date")
+                            td: .flex.text-strong(
+                                ng-bind="history.event_locale"
+                                ng-class="{'text-danger-dark' : history.event === 'deactivated'}")
+
+                            td
+                                div(ng-if="!history.employee_id").text-strong Gebruiker
+                                div(ng-if="history.employee_id").text-strong Medewerker
+                                div(ng-if="history.employee_id" ng-bind="history.employee_email").text-muted-dark
+
+                            td
+                                em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
+                                    ng-if="history.note && (history.note != history.note_substr)"
+                                    ng-click="$ctrl.showTooltip($event, history)"
+                                    ng-class="history.showTooltip ? 'active' : ''")
+                                    .tooltip-content(ng-if="history.showTooltip" click-outside="$ctrl.hideTooltip($event, history)")
+                                        .tooltip-text(ng-bind="history.note" title="{{ history.note }}")
+                                    | &nbsp;
+                                div(ng-if="!history.note").text-muted Geen notitie
+                                div(ng-if="history.note" ng-bind="history.note_substr").text-dim.text-strong-half
+
+        //- Voucher sponsor note set upon creation
         .card(ng-if="$ctrl.voucher.note")
-            .card-section
-                p
-                    strong(translate="vouchers.labels.note")
-                    br
-                    | {{ $ctrl.voucher.note }}  
+            .card-header: .card-title(translate="vouchers.labels.note")
+            .card-section: .card-text(ng-bind="$ctrl.voucher.note")

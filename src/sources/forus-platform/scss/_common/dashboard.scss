@@ -871,6 +871,10 @@ body {
         .tag {
             margin-left: 10px;
         }
+
+        em {
+            margin-right: 5px;
+        }
     }
 
     .card-header {
@@ -921,7 +925,7 @@ body {
     }
 
     .card-text {
-        font: 500 13px/18px $bf;
+        font: 500 14px/20px $bf;
         color: #646f79;
         margin: 0 0 15px;
         cursor: inherit;
@@ -4543,17 +4547,6 @@ body {
                     border-bottom-right-radius: $cardHeaderDropdownRadius;
                 }
             }
-        }
-    }
-
-    &.block-inline-buttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-
-        .button {
-            margin: 5px 5px 10px 0;
         }
     }
     

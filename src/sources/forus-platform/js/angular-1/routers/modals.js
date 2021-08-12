@@ -31,15 +31,15 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalAuth2Component'
     });
 
-    ModalRouteProvider.modal('voucher_create', {
+    ModalRouteProvider.modal('voucherCreate', {
         component: 'modalVoucherCreateComponent'
     });
 
-    ModalRouteProvider.modal('product_voucher_create', {
+    ModalRouteProvider.modal('productVoucherCreate', {
         component: 'modalProductVoucherCreateComponent'
     });
 
-    ModalRouteProvider.modal('voucher_qr_code', {
+    ModalRouteProvider.modal('voucherQrCode', {
         component: 'modalVoucherQrCodeComponent'
     });
 
@@ -135,7 +135,15 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalTransferOrganizationOwnershipComponent'
     });
 
-    ModalRouteProvider.modal('physical_card', {
+    ModalRouteProvider.modal('physicalCard', {
         component: 'modalPhysicalCardComponent'
+    });
+
+    ModalRouteProvider.modal('voucherDeactivation', {
+        component: 'modalVoucherDeactivationComponent'
+    });
+
+    ModalRouteProvider.modal('voucherActivation', {
+        component: 'modalVoucherActivationComponent'
     });
 }];

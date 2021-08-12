@@ -675,7 +675,7 @@ const ProviderSignUpComponent = function(
                     $ctrl.next();
                 }
             });
-        }, console.log);
+        }, console.error);
     };
 
     $ctrl.selectPhoto = (file) => {

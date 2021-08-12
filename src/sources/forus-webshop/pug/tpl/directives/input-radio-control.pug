@@ -1,0 +1,5 @@
+label(for="{{ name + '_' + value }}" ng-class="{'radio-narrow': narrow, 'radio-compact': compact, 'radio-fill' : fill}").radio
+    input(id="{{ name + '_' + value }}" name="name" ng-model="ngModel" type="radio" ng-value="value")
+    .radio-label 
+        .radio-circle 
+        span(ng-bind="label")

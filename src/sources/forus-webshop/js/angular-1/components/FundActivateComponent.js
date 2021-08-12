@@ -25,9 +25,15 @@ let FundActivateComponent = function(
     $ctrl.startDigId = () => {
         DigIdService.startFundRequst($ctrl.fund.id).then(res => {
             document.location = res.data.redirect_url;
-        }, res => $state.go('error', {
-            errorCode: res.headers('Error-Code')
-        }));
+        }, (res) => {
+            if (res.status === 403 && res.data.message) {
+                return PushNotificationsService.danger(res.data.message);
+            }
+
+            $state.go('error', {
+                errorCode: res.headers('Error-Code')
+            })
+        });
     };
 
     $ctrl.applyFund = function(fund) {

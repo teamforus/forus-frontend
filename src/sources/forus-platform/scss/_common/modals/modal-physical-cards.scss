@@ -56,6 +56,12 @@
                 height: auto;
             }
 
+            .mdi {
+                font-size: 100px;
+                display: flex;
+                justify-content: center;
+            }
+
             &.physical-card-media-sm {
                 img {
                     height: 130px;

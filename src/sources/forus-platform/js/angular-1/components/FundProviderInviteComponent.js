@@ -105,7 +105,7 @@ let FundProviderInviteComponent = function(
             $ctrl.qrValue = $ctrl.authToken;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
-        }, console.log);
+        }, console.error);
     };
 
     $ctrl.goToOfficePage = () => {

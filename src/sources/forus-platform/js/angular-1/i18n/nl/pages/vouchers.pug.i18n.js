@@ -27,6 +27,7 @@ module.exports = {
         source_employee: "Medewerker",
         source_user: "Gebruiker",
         active: 'Actief',
+        deactivated: 'Gedeactiveerd',
         pending: 'Inactief',
         uid: 'Uniek nummer',
         limit_multiplier: 'Aantal personen',
@@ -35,13 +36,19 @@ module.exports = {
         from: "Aangemaakt vanaf",
         to: "Aangemaakt tot en met",
     },
+    events: {
+        created_budget: 'Aangemaakt',
+        created_product: 'Aangemaakt',
+        activated: 'Geactiveerd',
+        deactivated: 'Gedeactiveerd',
+    },
     buttons: {
         add_new: "Aanmaken",
         upload_csv: "Upload bulkbestand",
         export: "Export",
         clear_filter: "Wis filter",
         physical_card_add: "Plastic pas koppelen",
-        physical_card_delete: "Pas blokkeren",
+        physical_card_delete: "Pas ontkoppelen",
         activate: "Activeren"
     },
     csv: {

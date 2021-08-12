@@ -16,10 +16,8 @@
     }
 
     .modal-content {
-        background-color: #f3f3f3;
-
         .physical-card-title {
-            font: 700 18px/26px $bf;
+            font: 700 18px/24px $bf;
             text-align: center;
             margin-bottom: 15px;
             color: $tc;
@@ -53,6 +51,12 @@
 
             svg {
                 height: auto;
+            }
+
+            .mdi {
+                font-size: 100px;
+                display: flex;
+                justify-content: center;
             }
 
             &.physical-card-media-sm {

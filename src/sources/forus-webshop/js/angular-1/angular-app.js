@@ -131,6 +131,8 @@ app.directive('fileUploader', require('./directives/controls/FileUploaderDirecti
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
 app.directive('productsList', require('./directives/ProductsListDirective'));
 app.directive('searchItemsList', require('./directives/SearchItemsListDirective'));
+app.directive('inputRadioControl', require('./directives/InputRadioControlDirective'));
+app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 
@@ -166,6 +168,7 @@ app.component('modalPhysicalCardTypeComponent', require('./components/Modals/Mod
 app.component('modalPhysicalCardUnlinkComponent', require('./components/Modals/ModalPhysicalCardUnlinkComponent'));
 app.component('modalPdfPreviewComponent', require('./components/Modals/FilePreviews/ModalPdfPreviewComponent'));
 app.component('modalImagePreviewComponent', require('./components/Modals/FilePreviews/ModalImagePreviewComponent'));
+app.component('modalDeactivateVoucherComponent', require('./components/Modals/ModalDeactivateVoucherComponent'));
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
