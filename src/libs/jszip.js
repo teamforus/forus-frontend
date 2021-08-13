@@ -1,5 +1,3 @@
 module.exports = {
-    js: [
-        './node_modules/jszip/dist/jszip.min.js'
-    ],
+    js: './node_modules/jszip/dist/jszip.min.js',
 };

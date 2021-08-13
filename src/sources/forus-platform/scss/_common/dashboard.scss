@@ -871,6 +871,10 @@ body {
         .tag {
             margin-left: 10px;
         }
+
+        em {
+            margin-right: 5px;
+        }
     }
 
     .card-header {
@@ -921,7 +925,7 @@ body {
     }
 
     .card-text {
-        font: 500 13px/18px $bf;
+        font: 500 14px/20px $bf;
         color: #646f79;
         margin: 0 0 15px;
         cursor: inherit;
@@ -4545,17 +4549,6 @@ body {
             }
         }
     }
-
-    &.block-inline-buttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-
-        .button {
-            margin: 5px 5px 10px 0;
-        }
-    }
     
     &.block-information {
         background: #fff;
@@ -6102,27 +6095,21 @@ body {
 
         .modal-hero {
             text-align: center;
-            padding: 30px 0 20px;
+            padding: 30px 30px 20px;
             cursor: default;
 
             .hero-icon {
-                background-color: #134478;
-                width: 100px;
-                height: 100px;
-                border: 5px solid #fff;
-                border-radius: 100px;
-                line-height: 90px;
-                box-shadow: 2px 1px 10px 2px rgba($color: #000000, $alpha: .2);
-                margin: 0 auto 20px;
-                font-size: 40px;
+                line-height: 65px;
+                margin: 0 auto 0;
+                font-size: 60px;
 
                 .mdi {
-                    color: #fff;
+                    color: #134478;
                 }
             }
 
             .hero-title {
-                font: 600 16px/26px $bf;
+                font: 600 16px/20px $bf;
                 margin: 0 0 10px;
             }
 

@@ -15,13 +15,17 @@ main(id="main-content")
         .block.block-product
             h1.sr-only Informatie over het aanbod
             .product-card
-                .product-photo
-                    img(ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" alt="{{ $ctrl.product.name }}")
+                .product-photo: img(
+                    ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" 
+                    alt="{{ $ctrl.product.name }}")
                 
                 .product-details
                     .product-name
                         span(ng-bind="$ctrl.product.name")
-                        span.label.label-danger(ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" i18n="product.status.out_of_stock")
+                        span.label.label-danger(
+                            ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" 
+                            i18n="product.status.out_of_stock")
+
                     .organization-name(ng-bind="$ctrl.product.organization.name")
 
                     .product-properties
@@ -39,7 +43,9 @@ main(id="main-content")
                 .block-products-content
                     .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds")
                         .fund-item-section.fund-item-section-details.text-left
-                            .fund-item-media: img.fund-item-media-img(ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
+                            .fund-item-media: img.fund-item-media-img(
+                                ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
+
                             .fund-item-content
                                 .fund-item-section-label.flex-start Tegoed:
                                 .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name")
@@ -53,9 +59,11 @@ main(id="main-content")
                             .fund-item-section-label.tooltip-block(ng-if="$root.auth_user")
                                 | #[span(translate="product.labels.limit")]
                                 | #[tooltip(text="'product.tooltip'" ng-if="$root.auth_user")]
-                            .fund-item-section-value(ng-bind="fund.limit_available" ng-if="$root.auth_user")
+                            .fund-item-section-value(
+                                ng-bind="fund.meta.applicableVouchers.length ? fund.limit_available : fund.limit_per_identity" ng-if="$root.auth_user")
+
                             .fund-item-section-label(translate="product.labels.max_limit" ng-if="!$root.auth_user")
-                            .fund-item-section-value(ng-bind="fund.limit_available" ng-if="!$root.auth_user")
+                            .fund-item-section-value(ng-bind="fund.limit_per_identity" ng-if="!$root.auth_user")
 
                         //- product price
                         .fund-item-section.fund-item-price.text-right
@@ -99,7 +107,7 @@ main(id="main-content")
                                 translate-default="{{ 'product.buttons.request' | translate }}" 
                                 ng-click="$ctrl.requestFund(fund)")
 
-                        .fund-item-section(ng-if="fund.meta.applicableVouchers.length && !$ctrl.useBudget && !fund.meta.isReservationAvailable")
+                        .fund-item-section(ng-if="fund.meta.applicableVouchers.length && !fund.meta.isReservationAvailable")
                             .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)" i18n="product.buttons.open_voucher")
 
             .block.block-pane(ng-class="{'last-child': $ctrl.product.organization.showOffices}")

@@ -1,5 +1,5 @@
-let Core = function() {
-    let platforms = {};
+const Core = function() {
+    const platforms = {};
 
     this.addPlatform = (platform) => {
         platforms[platform.getName()] = platform;
@@ -23,15 +23,16 @@ let Core = function() {
     
     this.enableOnly = (only = []) => {
         Object.keys(platforms).forEach(prop => {
-            let platform = platforms[prop];
+            const platform = platforms[prop];
+            const list = (Array.isArray(only) ? only : [only]);
             
-            only.indexOf(prop) != -1 ? platform.enable() : platform.disable();
+            list.indexOf(prop) != -1 ? platform.enable() : platform.disable();
         });
     };
     
     this.disableOnly = (only = []) => {
         this.enableOnly(Object.keys(platforms).filter(prop => {
-            return only.indexOf(prop) == -1;
+            return (Array.isArray(only) ? only : [only]).indexOf(prop) == -1;
         }));
     };
 };

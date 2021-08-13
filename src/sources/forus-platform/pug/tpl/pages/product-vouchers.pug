@@ -9,7 +9,7 @@
                 .col.col-lg-4.col-xs-12: .card-title
                     span(translate="product_vouchers.header.title") 
                     span(ng-bind="$ctrl.vouchers.meta.total").span-count
-            
+
                 .block.block-inline-filters.col.col-lg-8.col-xs-12.text-right
                     .button.button-primary(
                         ng-if="!$ctrl.fundClosed"
@@ -102,7 +102,7 @@
                                         ng-disabled="$ctrl.fundClosed || ($ctrl.vouchers.meta.total == 0)")
                                         em.mdi.mdi-download.icon-start  
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.vouchers.meta.total }")
-                 
+
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
             .card-section
@@ -131,37 +131,48 @@
                                     span(ng-if="(!voucher.identity_email && voucher.activation_code) || ((!voucher.identity_bsn && !voucher.relation_bsn) && voucher.physical_card.code)").text-strong.text-md.text-muted-dark
                                         br
                                         | {{ 'NR: ' + (voucher.activation_code_uid || voucher.physical_card.code || 'Nee') }}
+
                                 td: strong(ng-bind="'vouchers.labels.source_' + voucher.source | translate").text-md.text-muted-dark
+
                                 td
                                     strong(ng-bind="voucher.product.organization.name | str_limit:25").text-primary
                                     br
                                     span(ng-bind="voucher.product.name | str_limit:25").text-strong.text-md.text-muted-dark
+
                                 td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
                                     ng-if="voucher.note"
                                     ng-click="$ctrl.showTooltip($event, voucher)"
                                     ng-class="{active: voucher.showTooltip}")
                                     .tooltip-content(ng-if="voucher.showTooltip" click-outside="$ctrl.hideTooltip($event, voucher)")
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
+
                                 td(ng-if="!$ctrl.fundClosed")
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[0]").text-primary
                                     br
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+
                                 td(ng-if="!$ctrl.fundClosed")
                                     strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
+
                                 td(ng-if="!$ctrl.fundClosed && voucher.in_use"): .td-boolean
                                     em.mdi.mdi-check-circle
                                     string(translate="product_vouchers.labels.yes").text-md.text-muted-dark
+
                                 td(ng-if="!$ctrl.fundClosed && !voucher.in_use"): .td-boolean
                                     em.mdi.mdi-close
                                     string(translate="product_vouchers.labels.no").text-md.text-muted-dark
+
+                                //- voucher state
                                 td
                                     .td-boolean.pull-right(ng-if="voucher.expired")
                                         em.mdi.mdi-close
                                         span.text-md.text-muted-dark Verlopen               
+
                                     .td-boolean.pull-right(ng-if="!voucher.expired")
                                         em(ng-if="voucher.state === 'active'").mdi.mdi-check-circle
-                                        em(ng-if="voucher.state === 'pending'").mdi.mdi-close
-                                        span.block.block-tooltip-details.block-tooltip-hover.text-md.text-muted-dark {{ ( voucher.state === 'active' ? 'Actief' : 'Inactief' ) }}
+                                        em(ng-if="voucher.state === 'pending' || voucher.state === 'deactivated'").mdi.mdi-close
+                                        span.block.block-tooltip-details.block-tooltip-hover.text-md.text-muted-dark
+                                            | {{ voucher.state_locale }}
                                             .tooltip-content.tooltip-content-left.tooltip-content-fit
                                                 .tooltip-text
                                                     span
@@ -188,25 +199,27 @@
                                                         span.text-primary.text-sm.text-strong PASNUMMER:
                                                         br
                                                         span(ng-bind="voucher.physical_card.code || 'Nee'").text-strong                                                    
+
                                 td: .button-group.flex-end
                                     button.button.button-default.button-icon.pull-right(
-                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired"
+                                        ng-if="!$ctrl.fundClosed && !voucher.is_granted && !voucher.expired && voucher.state != 'deactivated'"
                                         ng-click="$ctrl.showQrCode($event, voucher)")
                                         em(ng-if="voucher.state === 'active'").mdi.mdi-qrcode 
                                         em(ng-if="voucher.state === 'pending'").mdi.mdi-bookmark
+
                                     a.button.button-primary.button-icon.pull-right(
                                         ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
                                         em.mdi.mdi-eye-outline.icon-start
 
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
-    
+
         div(ng-if="$ctrl.funds.length == 0")
             block-empty(
                 ng-if="($root.activeOrganization | hasPerm:'manage_funds')"
                 text="Je hebt momenteel geen fondsen." 
                 button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
-            
+
             block-empty(
                 ng-if="!($root.activeOrganization | hasPerm:'manage_funds')"
                 text="Je hebt momenteel geen fondsen." )

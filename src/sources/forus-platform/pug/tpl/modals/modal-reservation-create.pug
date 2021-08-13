@@ -44,7 +44,7 @@
                             ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
                             ng-model="$ctrl.formProducts.product").form-control
                         .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
-                        tooltip(text="'Lorem ipsum!'")
+                        tooltip(text="'reservation_create.tooltips.product' | translate | lines_to_array")
 
                     .form-group.form-group-inline.form-group-inline-md
                         label.form-label.form-label-required Notitie

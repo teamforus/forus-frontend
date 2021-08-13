@@ -48,6 +48,8 @@ module.exports = {
         modal_voucher_physical_card: require('./nl/modals/modal-voucher-physical-card.pug.i18n'),
         modal_product_voucher_create: require('./nl/modals/modal-product-voucher-create.pug.i18n'),
         modal_voucher_qr_code: require('./nl/modals/modal-voucher-qr_code.pug.i18n'),
+        modal_voucher_deactivation: require('./nl/modals/modal-voucher-deactivation.pug.i18n'),
+        modal_voucher_activation: require('./nl/modals/modal-voucher-activation.pug.i18n'),
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
         modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
@@ -1250,7 +1252,15 @@ module.exports = {
             }
         }
     },
-
+    // RESERVATION = modals/modal-reservation-create.pug
+    reservation_create: {
+        tooltips: {
+            product: ["Kies het aanbod waarvoor u de reservering wilt aanmaken. Staat uw aanbod er niet tussen? Dit kan de volgende redenen hebben:",
+                "- De klant heeft geen tegoed meer",
+                "- Uw aanbod is inactief",
+            ].join('\n')
+        },
+    },
     // RESERVATION = reservations.pug
     reservations: {
         header: {

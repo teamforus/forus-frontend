@@ -7,7 +7,8 @@ const OrganizationsEditComponent = function(
     MediaService
 ) {
     const $ctrl = this;
-    const mediaFile = false;
+
+    let mediaFile = false;
 
     $ctrl.selectPhoto = (file) => {
         mediaFile = file;

@@ -40,6 +40,14 @@
                         date-week-start-day="1").form-control
                         input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="jjjj-MM-dd").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
+
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.fund.type === 'subsidies'")
+                    label.form-label.form-label-required(i18n="modals.modal_voucher_create.labels.limit_multiplier")
+                    input(  
+                        type="number" 
+                        placeholder="{{ 'modals.modal_voucher_create.labels.limit_multiplier' | i18n }}"
+                        ng-model="$ctrl.form.values.limit_multiplier" step=".01" min="0.01").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.limit_multiplier" ng-bind="error")
                 
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.note")

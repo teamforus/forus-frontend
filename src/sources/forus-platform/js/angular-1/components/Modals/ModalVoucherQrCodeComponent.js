@@ -1,4 +1,5 @@
 let ModalVoucherQrCodeComponent = function(
+    PushNotificationsService,
     FormBuilderService,
     PrintableService,
     VoucherService
@@ -91,16 +92,18 @@ let ModalVoucherQrCodeComponent = function(
         $ctrl.form = FormBuilderService.build({}, (form) => {
             form.lock();
 
-            let promise = $ctrl.assigning ?
-                $ctrl.assignToIdentity(form.values) : $ctrl.sendToEmail(form.values.email);
+            const promise = $ctrl.assigning ? $ctrl.assignToIdentity(
+                form.values
+            ) : $ctrl.sendToEmail(form.values.email);
 
-            promise.then(res => {
+            promise.then((res) => {
                 $ctrl.onSent(res.data.data);
                 $ctrl.onAssigned(res.data.data);
                 $ctrl.success = true;
-            }, res => {
+            }, (res) => {
                 form.errors = res.data.errors;
                 form.unlock();
+                PushNotificationsService.danger('Error!', res.data.message);
             });
         });
     };
@@ -114,6 +117,7 @@ module.exports = {
         modal: '=',
     },
     controller: [
+        'PushNotificationsService',
         'FormBuilderService',
         'PrintableService',
         'VoucherService',

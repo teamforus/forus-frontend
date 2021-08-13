@@ -23,7 +23,6 @@ platform.setLibs([
     "ui_router",
     "ui_select",
     "file_saver",
-    "underscore",
     "pdfjs",
 ]);
 
@@ -45,7 +44,7 @@ platform.addTask('js', {
     ],
     dest: "/",
     name: "app.min.js",
-    minify: false,
+    minify: true,
     sourcemap: true,
     browserify: true
 }, 'js');

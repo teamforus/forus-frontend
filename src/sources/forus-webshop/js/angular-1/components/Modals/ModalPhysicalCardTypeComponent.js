@@ -38,10 +38,7 @@ const ModalPhysicalCardTypeComponent = function(
         $ctrl.activateCodeForm = FormBuilderService.build({
             code: '100'
         }, (form) => {
-            PhysicalCardsService.store(
-                $ctrl.modal.scope.voucher.address,
-                form.values
-            ).then(() => {
+            PhysicalCardsService.store($ctrl.modal.scope.voucher.address, form.values).then(() => {
                 $ctrl.state = 'success_old_card';
                 $ctrl.onAttached();
             }, (res) => {
