@@ -48,6 +48,7 @@ core.addPlatform(require('./platforms/Webshops/WebshopWinterswijkPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopNoordoostpolderPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopGeertruidenbergPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopWaalwijkPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopHeumenPlatform'));
 
 // Register meapp landings
 core.addPlatform(require('./platforms/Website/Website'));

@@ -3,22 +3,22 @@
 /*==========  Style Sheet - Vars  ==========*/
 
 // navbar
-$bg-nav:            #2A2A7F;
-$tc-nav-hov:        #ECECEC;
-$tc-nav:            #FFFFFF;
+$bg-nav:            #ECECEC;
+$tc-nav-hov:        #4a60b3;
+$tc-nav:            #22398E;
 $logo-padding:      30px 0px;
 $logo-height:       75px;
 
 // navbar (auth)
-$tc-auth-menu:      #2A2A7F; 
+$tc-auth-menu:      #22398E; 
 $tc-auth-btn:       #fff; 
-$btn-auth-bg:       #2A2A7F; 
+$btn-auth-bg:       #22398E; 
 $btn-auth-border:   transparent;
 
 // navbar (start modal primary)
 $tc-start-btn:       #fff; 
-$btn-start-bg:       #ed7c20; 
-$btn-start-btn:      #ed7c20;
+$btn-start-bg:       #61BA90; 
+$btn-start-btn:      #61BA90;
 $btn-start-border:   transparent;
 
 $bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
@@ -32,7 +32,7 @@ $tc-var:            #fff;
 $tc-link:           inherit;
 
 // base color
-$bc:                #2A2A7F;
+$bc:                #22398E;
 
 // background color
 $bg:                #fff;
@@ -43,7 +43,7 @@ $bg_2:              none;
 $tf:                inherit;
 
 // footer color
-$fbc:                #2A2A7F;
+$fbc:                #22398E;
 $fc:                #ffffff;
 
 // displayed or not
@@ -60,11 +60,11 @@ $border_color:      #dce0e0;
 $border_radius:     0px;
 $base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 
-$color_primary:         #2A2A7F;
-$color_primary_light:   #2A2A7F;
+$color_primary:         #22398E;
+$color_primary_light:   #22398E;
 
-$color_default:         #2A2A7F;
-$color_default_light:   #2A2A7F;
+$color_default:         #22398E;
+$color_default_light:   #22398E;
 
 // Login button
 
