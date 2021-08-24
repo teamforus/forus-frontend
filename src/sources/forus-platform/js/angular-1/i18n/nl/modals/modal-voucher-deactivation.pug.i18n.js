@@ -18,21 +18,15 @@ module.exports = {
     danger_zone: {
         title: 'Let op! Weet u zeker dat u dit tegoed wilt deactiveren?',
         description_no_email: [
-            'Tegoed: {{ fund_name }}',
-            '',
+            'Tegoed: {{ fund_name }}\n\n',
             'Na deactivatie kan de gebruiker het tegoed niet meer gebruiken.',
-        ].join("\n"),
+        ].join(" "),
         description_notification: [
-            'U staat op het punt om het tegoed {{ fund_name }} van {{ email }} te deactiveren. Klik op deactiveren als u dit tegoed wilt stoppen.',
-            '',
-            'De gebruiker ontvangt hiervan een bericht.',
-        ].join("\n"),
-        description_no_notification: [
-            'Tegoed: {{ fund_name }}',
-            'E-mailadres: {{ email }}',
-            '',
-            'Na deactivatie kan de gebruiker het tegoed niet meer gebruiken.',
-            'De gebruiker ontvangt na het deactiveren een e-mailbericht.',
-        ].join("\n"),
+            'U staat op het punt om het tegoed {{ fund_name }} van {{ email }} te deactiveren.',
+            'Klik op deactiveren als u dit tegoed wilt stoppen.',
+        ].join(" "),
+        description_notification_email: [
+            '\n\nDe gebruiker ontvangt hiervan een bericht.',
+        ].join(" "),
     },
 };

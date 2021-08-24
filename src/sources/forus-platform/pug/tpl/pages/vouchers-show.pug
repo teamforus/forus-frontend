@@ -28,6 +28,26 @@
                     span(ng-bind="$ctrl.voucher.fund.name" ng-if="!$ctrl.voucher.product") 
                     span(ng-bind="$ctrl.voucher.product.name" ng-if="$ctrl.voucher.product")
 
+                    //- is active
+                    span: .tag.tag-success.tag-sm(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'active'" 
+                        ng-bind="$ctrl.voucher.state_locale")
+
+                    //- is pending
+                    span: .tag.tag-default.tag-sm(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'pending'"
+                        ng-bind="$ctrl.voucher.state_locale")
+
+                    //- is deactivated
+                    span: .tag.tag-danger.tag-sm(
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'deactivated'" 
+                        ng-bind="$ctrl.voucher.state_locale")
+
+                    //- is expired
+                    span: .tag.tag-warning.tag-sm(
+                        ng-if="$ctrl.voucher.expired" 
+                        translate="vouchers.labels.expired")
+
                     br
 
                     //- voucher product (product vouchers only)
@@ -82,7 +102,6 @@
                         em.mdi.mdi-qrcode.icon-start 
                         string(translate="vouchers.labels.qr_code")
 
-
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
@@ -122,44 +141,37 @@
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
                                 td(ng-if="!$ctrl.voucher.physical_card")
 
+                            tr
+                                td(ng-if="!$ctrl.fundClosed")
+                                    strong(translate="vouchers.labels.expire_date").text-strong.text-md.text-muted-dark
+                                    br
+                                    strong(ng-bind="$ctrl.voucher.expire_at_locale").text-black
+
+                                td(ng-if="!$ctrl.fundClosed")
+                                    strong(translate="vouchers.labels.created_date").text-strong.text-md.text-muted-dark
+                                    br
+                                    strong(ng-bind="$ctrl.voucher.created_at_locale.split(' - ')[1]").text-black    
+
+                                td 
+                                    strong(translate="vouchers.labels.source").text-strong.text-md.text-muted-dark
+                                    br
+                                    strong(ng-bind="'vouchers.labels.source_' + $ctrl.voucher.source | translate").text-black
+
+                                td(ng-if="!$ctrl.fundClosed && !$ctrl.voucher.in_use")
+                                    strong(translate="vouchers.labels.used").text-strong.text-md.text-muted-dark
+                                    br
+                                    em.mdi.mdi-close.text-black
+                                    strong(translate="product_vouchers.labels.no").text-black
+
+                                td(ng-if="!$ctrl.fundClosed && $ctrl.voucher.in_use")
+                                    strong(translate="vouchers.labels.used").text-strong.text-md.text-muted-dark
+                                    br
+                                    em.mdi.mdi-close.text-black
+                                    strong(translate="product_vouchers.labels.yes").text-black
+
         //- Voucher history
         .card(ng-if="$ctrl.voucher")
-            .card-header: .flex.flex-row
-                .flex.flex-col: .card-title 
-                    span(ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state !== 'deactivated'") Status - geldig t/m {{ $ctrl.voucher.expire_at_locale }}
-
-                    span(ng-if="$ctrl.voucher.expired") Status - verlopen op {{ $ctrl.voucher.expire_at_locale }}
-
-                    span(ng-if="$ctrl.voucher.state === 'deactivated'") Status
-
-                    //- is active
-                    span: .tag.tag-success.tag-sm(
-                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'active'" 
-                        ng-bind="$ctrl.voucher.state_locale")
-
-                    //- is pending
-                    span: .tag.tag-default.tag-sm(
-                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'pending'"
-                        ng-bind="$ctrl.voucher.state_locale")
-
-                    //- is deactivated
-                    span: .tag.tag-danger.tag-sm(
-                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'deactivated'" 
-                        ng-bind="$ctrl.voucher.state_locale")
-
-                    //- is expired
-                    span: .tag.tag-warning.tag-sm(
-                        ng-if="$ctrl.voucher.expired" 
-                        translate="vouchers.labels.expired")
-
-                .flex.flex-col.flex-end: .flex.flex-column: .card-title
-                    span(ng-if="!$ctrl.voucher.in_use")
-                        em.mdi.mdi-close.text-black
-                        span.text-primary Niet gebruikt
-                    span(ng-if="$ctrl.voucher.in_use")
-                        em.mdi.mdi-check-circle
-                        span.text-primary In gebruik 
-
+            .card-header: .card-title Geschiedenis
             .card-section: .card-block.card-block-table
                 .table-wrapper
                     table.table
@@ -188,6 +200,7 @@
                                     .tooltip-content(ng-if="history.showTooltip" click-outside="$ctrl.hideTooltip($event, history)")
                                         .tooltip-text(ng-bind="history.note" title="{{ history.note }}")
                                     | &nbsp;
+
                                 div(ng-if="!history.note").text-muted Geen notitie
                                 div(ng-if="history.note" ng-bind="history.note_substr").text-dim.text-strong-half
 
