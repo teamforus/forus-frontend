@@ -73,7 +73,7 @@ let ModalAuth2Component = function(
             $ctrl.qrValue = $ctrl.authToken;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
-        }, console.log);
+        }, console.error);
     };
 
     $ctrl.showEmailForm = function() {

@@ -33,17 +33,6 @@ let ProductVouchersComponent = function(
         name: 'Medewerker'
     }];
 
-    $ctrl.voucher_states = [{
-        value: null,
-        name: 'Alle'
-    }, {
-        value: 'pending',
-        name: 'Inactief'
-    }, {
-        value: 'active',
-        name: 'Actief'
-    }];
-
     $ctrl.in_use = [{
         value: null,
         name: 'Selecteer...'
@@ -54,6 +43,8 @@ let ProductVouchersComponent = function(
         value: 0,
         name: 'Nee'
     }];
+
+    $ctrl.voucher_states = VoucherService.getStates();
 
     $ctrl.filters = {
         show: false,
@@ -89,7 +80,7 @@ let ProductVouchersComponent = function(
         $event.stopPropagation();
         $event.preventDefault();
 
-        ModalService.open('voucher_qr_code', {
+        ModalService.open('voucherQrCode', {
             voucher: voucher,
             fund: $ctrl.fund,
             organization: $ctrl.organization,
@@ -99,7 +90,7 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.createProductVoucher = () => {
-        ModalService.open('product_voucher_create', {
+        ModalService.open('productVoucherCreate', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange($ctrl.filters.values)

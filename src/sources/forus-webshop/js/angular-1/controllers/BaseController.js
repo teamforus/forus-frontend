@@ -34,7 +34,7 @@ const BaseController = function(
                             confirm: () => ModalService.open('modalAuth', {}),
                         });
                     }
-                }, console.log);
+                }, console.error);
             }
 
             RecordService.list().then((res) => {

@@ -139,7 +139,7 @@ const ModalAuthComponent = function(
             $ctrl.qrValue = $ctrl.authToken;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
-        }, console.log);
+        }, console.error);
     };
 
     $ctrl.stopQrCodeVerification = () => $timeout.cancel(timeout);

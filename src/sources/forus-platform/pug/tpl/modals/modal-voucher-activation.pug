@@ -1,0 +1,35 @@
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        .modal-icon.modal-icon-primary: .mdi.mdi-message-alert-outline
+        .modal-body.form: .modal-section.modal-section-pad
+            .text-center
+                .modal-heading(translate="modals.modal_voucher_activation.title")
+                .modal-text(translate="modals.modal_voucher_activation.description")
+                span
+
+            form(ng-submit="$ctrl.form.submit()").form
+                .form-group
+                    .form-label(translate="modals.modal_voucher_activation.labels.note")
+                    textarea(
+                        maxlength="140"
+                        ng-model="$ctrl.form.values.note" 
+                        placeholder="{{ 'modals.modal_voucher_activation.placeholders.note' | translate }}").form-control.r-n
+                    .form-hint(translate="modals.modal_voucher_activation.hints.note")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
+
+        .modal-footer.text-center
+            button.button.button-default(
+                ng-click="$ctrl.close()" 
+                translate="modals.modal_voucher_activation.buttons.cancel")
+
+            button.button.button-primary(
+                ng-if="$ctrl.voucher.state === 'pending' && $ctrl.form.values.note.length <= 140"
+                ng-click="$ctrl.form.submit()" 
+                translate="modals.modal_voucher_activation.buttons.submit_activate")
+
+            button.button.button-primary(
+                ng-if="$ctrl.voucher.state === 'deactivated' && $ctrl.form.values.note.length <= 140"
+                ng-click="$ctrl.form.submit()" 
+                translate="modals.modal_voucher_activation.buttons.submit_reactivate")

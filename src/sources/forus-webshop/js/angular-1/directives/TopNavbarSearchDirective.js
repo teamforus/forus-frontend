@@ -1,3 +1,5 @@
+const escape = require('lodash/escape');
+
 const TopNavbarSearchDirective = function(
     $sce,
     $scope,
@@ -72,7 +74,7 @@ const TopNavbarSearchDirective = function(
     $dir.sanitize = (value) => {
         const el = document.createElement('div');
         el.innerHTML = value;
-        return _.escape(el.innerText);
+        return escape(el.innerText);
     };
 
     $dir.transformName = (value, q) => {

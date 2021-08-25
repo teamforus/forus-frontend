@@ -1,7 +1,5 @@
-const { OperationCanceledException } = require("typescript");
-
-let OfficeService = function(ApiRequest) {
-    let uriPrefix = '/platform/organizations/';
+const OfficeService = function(ApiRequest) {
+    const uriPrefix = '/platform/organizations/';
 
     return new (function() {
         this.list = function(organization_id, query = {}) {

@@ -1,0 +1,37 @@
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        .modal-icon.modal-icon-primary: .mdi.mdi-message-alert-outline
+        .modal-body.form: .modal-section.modal-section-pad
+            .text-center
+                .modal-heading(translate="modals.modal_voucher_deactivation.title")
+                .modal-text(translate="modals.modal_voucher_deactivation.description")
+                span
+
+            form(ng-submit="$ctrl.form.submit()").form
+                .form-group
+                    .form-label(translate="modals.modal_voucher_deactivation.labels.note")
+                    textarea(
+                        maxlength="140"
+                        ng-model="$ctrl.form.values.note" 
+                        placeholder="{{ 'modals.modal_voucher_deactivation.placeholders.note' | translate }}").form-control.r-n
+                    .form-hint(translate="modals.modal_voucher_deactivation.hints.note")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
+
+                .form-group.form-group-inline(ng-if="$ctrl.hasEmail")
+                    input-checkbox-control(
+                        compact="true"
+                        name="notify_by_email" 
+                        label="Informeer de gebruiker via een e-mailbericht." 
+                        ng-model="$ctrl.form.values.notify_by_email")
+            
+        .modal-footer.text-center
+            button.button.button-default(
+                ng-click="$ctrl.close()" 
+                translate="modals.modal_voucher_deactivation.buttons.cancel")
+
+            button.button.button-primary(
+                ng-if="$ctrl.form.values.note.length <= 140"
+                ng-click="$ctrl.form.submit()" 
+                translate="modals.modal_voucher_deactivation.buttons.submit")

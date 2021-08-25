@@ -133,15 +133,34 @@ ui-view {
     text-align: center;
 
     .step-item {
-        padding: 50px 80px;
+        padding: 0px 80px 20px;
         position: relative;
         width: 400px;
         margin: 0 auto;
         display: inline-block;
 
+        .step-title {
+            font: 700 24px/30px $bf;
+            margin: 0 0 0;
+        }
+
+        .step-description {
+            font: 500 15px/24px $bf;
+            margin: 0 0 10px;
+
+            a {
+                font: 400 16px/22px $bf;
+                text-decoration: underline;
+                color: #2B2BFF;
+            }
+        }
+
         img {
+            display: block;
+            margin: auto;
+
             &:not(.line-item) {
-                width:215px;
+                width:200px;
                 border-radius: 5px;
                 box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                 position: relative;
@@ -150,7 +169,6 @@ ui-view {
 
             &.line-item {
                 position: absolute;
-
                 top: 200px;
                 left: calc(100% - 80px);
                 min-width: 70px;
@@ -163,10 +181,14 @@ ui-view {
             padding: 5px 0 15px 0;
             text-align: center;
         }
+
     }
 
     .divider-img {
+        margin: 0 0 5px;
+
         img {
+            display: block;
             width: 100%;
         }
     }
@@ -175,7 +197,7 @@ ui-view {
 @media screen and (max-width: 1500px) {
     .app-instruction {
         .step-item {
-            padding: 10px 70px;
+            padding: 0px 0px 20px;
             width: 25%;
             
             img {
