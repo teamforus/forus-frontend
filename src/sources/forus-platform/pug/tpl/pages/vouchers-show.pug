@@ -49,6 +49,13 @@
                         em.mdi.mdi-close.icon-start
                         | Deactiveren
 
+                    //- deactivate voucher
+                    .button.button-default(
+                        ng-if="!$ctrl.voucher.expired"
+                        ng-click="$ctrl.orderPhysicalCard()")
+                        em.mdi.mdi-card-text-outline.icon-start
+                        | Plastic pas bestellen 
+
                     //- reactivate voucher
                     .button.button-danger(
                         ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'deactivated'"

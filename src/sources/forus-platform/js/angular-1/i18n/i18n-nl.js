@@ -55,6 +55,7 @@ module.exports = {
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
         modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
+        modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application')

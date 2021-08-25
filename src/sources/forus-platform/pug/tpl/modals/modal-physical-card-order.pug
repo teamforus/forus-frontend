@@ -1,0 +1,111 @@
+.modal.modal-physical-card-order.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
+    
+    //- Fill order card details
+    .modal-window(ng-if="$ctrl.state == 'fill_data'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+
+        .modal-header
+            .modal-title(
+                id="physicalCardTypeDialogTitle" 
+                translate="modals.modal_physical_card_order.modal_section.request_new_card.title" 
+                translate-values="{ fund_name: $ctrl.voucher.fund.name } ")
+
+        .modal-body
+            .modal-section: form.form
+                .order-block
+                    .physical-card-description(translate="modals.modal_physical_card_order.modal_section.request_new_card.description")
+                    .row: .col.col-sm-8
+                        .form-group
+                            label.form-label(translate="modals.modal_physical_card_order.modal_section.request_new_card.address" for="modals.modal_physical_card_order.modal_section.request_new_card.address")
+                            input(
+                                id="modals.modal_physical_card_order.modal_section.request_new_card.address"
+                                placeholder="{{ 'modals.modal_physical_card_order.modal_section.request_new_card.address_placeholder' | translate }}" 
+                                ng-model="$ctrl.requestPhysicalCardForm.values.address").form-control
+                            .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.address" ng-bind="error")
+
+                        .form-group
+                            label.form-label(translate="modals.modal_physical_card_order.modal_section.request_new_card.house" for="modals.modal_physical_card_order.modal_section.request_new_card.house")
+                            input(
+                                id="modals.modal_physical_card_order.modal_section.request_new_card.house"
+                                placeholder="{{ 'modals.modal_physical_card_order.modal_section.request_new_card.house_placeholder' | translate }}" 
+                                ng-model="$ctrl.requestPhysicalCardForm.values.house").form-control
+                            .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.house" ng-bind="error")
+
+                        .form-group
+                            label.form-label(translate="modals.modal_physical_card_order.modal_section.request_new_card.house_addition" for="modals.modal_physical_card_order.modal_section.request_new_card.house_addition")
+                            input(
+                                id="modals.modal_physical_card_order.modal_section.request_new_card.house_addition"
+                                placeholder="{{ 'modals.modal_physical_card_order.modal_section.request_new_card.house_addition_placeholder' | translate }}" 
+                                ng-model="$ctrl.requestPhysicalCardForm.values.house_addition").form-control
+                            .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.house_addition" ng-bind="error")
+
+                        .form-group
+                            label.form-label(translate="modals.modal_physical_card_order.modal_section.request_new_card.postcode" for="modals.modal_physical_card_order.modal_section.request_new_card.postcode")
+                            input(
+                                id="modals.modal_physical_card_order.modal_section.request_new_card.postcode"
+                                placeholder="{{ 'modals.modal_physical_card_order.modal_section.request_new_card.postcode_placeholder' | translate }}" 
+                                ng-model="$ctrl.requestPhysicalCardForm.values.postcode").form-control
+                            .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.postcode" ng-bind="error")
+
+                        .form-group
+                            label.form-label(translate="modals.modal_physical_card_order.modal_section.request_new_card.city" for="modals.modal_physical_card_order.modal_section.request_new_card.city")
+                            input(
+                                id="modals.modal_physical_card_order.modal_section.request_new_card.city"
+                                placeholder="{{ 'modals.modal_physical_card_order.modal_section.request_new_card.city_placeholder' | translate }}" 
+                                ng-model="$ctrl.requestPhysicalCardForm.values.city").form-control
+                            .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.city" ng-bind="error")
+                            .form-group: .form-error(ng-repeat="error in $ctrl.requestPhysicalCardForm.errors.to_many_requests" ng-bind="error")
+
+        .modal-footer.text-center
+            .button-group.flex-center
+                button.button.button-default(type="submit" ng-click="$ctrl.close()" translate="modals.modal_physical_card_order.buttons.request_new_card.cancel")
+                button.button.button-primary(type="submit" ng-click="$ctrl.requestCard()" translate="modals.modal_physical_card_order.buttons.request_new_card.confirm")
+
+    //- Confirmation new card
+    .modal-window(ng-if="$ctrl.state == 'confirm_new_card'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="modals.modal_physical_card_order.modal_section.confirm_card.header")
+        .modal-content
+            .modal-body: .modal-section
+                .physical-card-preview
+                    .physical-card-description 
+                        translate="modals.modal_physical_card_order.modal_section.confirm_card.title"
+                        br
+                        br
+                        div(ng-bind="$ctrl.requestPhysicalCardForm.addressPreview[0]")
+                        div(ng-bind="$ctrl.requestPhysicalCardForm.addressPreview[1]")
+                        br 
+                        translate="modals.modal_physical_card_order.modal_section.confirm_card.description"
+                        br 
+                        br 
+
+        .modal-footer.text-center
+            .button-group.flex-center
+                button.button.button-dark(type="button" translate="modals.modal_physical_card_order.buttons.confirm_card.adjust" ng-click="$ctrl.state = 'fill_data'")
+                button.button.button-primary(type="button" translate="modals.modal_physical_card_order.buttons.confirm_card.submit" ng-click="$ctrl.confirmCard()")   
+
+    //- Success new card
+    .modal-window(ng-if="$ctrl.state == 'success_new_card'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="modals.modal_physical_card_order.modal_section.request_card_success.title")
+        .modal-content: .modal-section
+            .physical-card-result
+                .physical-card-media: include ../../../resources/platform-general/assets/img/svg/icon-physical-cards-success.svg
+
+                .physical-card-title(
+                    id="physicalCardTypeDialogSubtitle"
+                    translate="modals.modal_physical_card_order.modal_section.request_card_success.title")
+
+                .physical-card-description 
+                    translate="modals.modal_physical_card_order.modal_section.request_card_success.heading"
+                    br
+                    br
+                    div(ng-bind="$ctrl.requestPhysicalCardForm.addressPreview[0]")
+                    div(ng-bind="$ctrl.requestPhysicalCardForm.addressPreview[1]")
+                    br
+                    br 
+
+        .modal-footer.text-center
+            .button-group.flex-center
+                button.button.button-primary(type="button" ng-click="$ctrl.close()" i18n="modals.modal_physical_card_order.buttons.close")

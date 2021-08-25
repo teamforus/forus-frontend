@@ -86,6 +86,12 @@ const VouchersShowComponent = function(
         $timeout(() => target.showTooltip = false, 0);
     };
 
+    $ctrl.orderPhysicalCard = () => {
+        ModalService.open('orderPhysicalCard', {
+            voucher: $ctrl.voucher,
+        });
+    };
+
     $ctrl.deletePhysicalCard = () => {
         ModalService.open('dangerZone', {
             header: $translate('modals.modal_voucher_physical_card.delete_card.header'),
