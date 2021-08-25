@@ -188,7 +188,8 @@
                                 ng-class="{'text-danger-dark' : history.event === 'deactivated'}")
 
                             td
-                                div(ng-if="!history.employee_id").text-strong Gebruiker
+                                div(ng-if="!history.employee_id && history.event.startsWith('transaction')").text-strong Aanbieder
+                                div(ng-if="!history.employee_id && !history.event.startsWith('transaction')").text-strong Gebruiker
                                 div(ng-if="history.employee_id").text-strong Medewerker
                                 div(ng-if="history.employee_id" ng-bind="history.employee_email").text-muted-dark
 
