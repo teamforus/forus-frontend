@@ -76,9 +76,7 @@ let AuthService = function(
             CredentialsService.set(null);
 
             if (subscriptions.signIn && Array.isArray(subscriptions.signOut)) {
-                subscriptions.signOut.forEach((callback) => {
-                    callback();
-                });
+                subscriptions.signOut.forEach((callback) => callback());
             }
         };
 

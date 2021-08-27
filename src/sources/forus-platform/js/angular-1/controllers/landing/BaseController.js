@@ -107,8 +107,8 @@ let BaseController = function(
 
     $rootScope.activeOrganization = OrganizationService.active();
 
-    $rootScope.signOut = () => {
-        AuthService.signOut();
+    $rootScope.signOut = (deleteToken = true) => {
+        AuthService.signOut(deleteToken);
         $rootScope.auth_user = false;
         $rootScope.activeOrganization = null;
     };
