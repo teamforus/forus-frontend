@@ -1,4 +1,4 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 const isEmpty = require('lodash/isEmpty');
 
 let CsvUploadDirective = function(
