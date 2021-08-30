@@ -30,7 +30,7 @@ const ProductService = function(ApiRequest, ArrService) {
 
             return sortDateLocale(dates.filter(date => date).map((date) => {
                 return dateParse(date[0], date[1]);
-            }), false)[0] || null;
+            }), true)[0] || null;
         }
 
         this.checkEligibility = function(product, vouchers) {
@@ -63,7 +63,7 @@ const ProductService = function(ApiRequest, ArrService) {
                     product.expire_at ? [product.expire_at, product.expire_at_locale] : null
                 ].filter(date => date);
 
-                const shownExpireDate = this.calcExpireDate(voucherDates.length ? voucherDates : productAndFundDates);
+                const shownExpireDate = this.calcExpireDate([...voucherDates, ...productAndFundDates]);
 
                 return {
                     ...fund,
