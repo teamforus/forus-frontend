@@ -1,3 +1,5 @@
+const isEmpty = require('lodash/isEmpty');
+
 const ModalReservationUploadComponent = function(
     $q,
     $rootScope,
@@ -211,7 +213,7 @@ const ModalReservationUploadComponent = function(
 
                     // clean empty rows, trim fields and add default note
                     const data = body.filter((row) => {
-                        return row.filter(col => !_.isEmpty(col)).length > 0;
+                        return row.filter(col => !isEmpty(col)).length > 0;
                     }).map((val) => {
                         const row = {};
 
@@ -223,7 +225,7 @@ const ModalReservationUploadComponent = function(
 
                         row.note = row.note || this.defaultNote(row);
 
-                        return _.isEmpty(row) ? false : row;
+                        return isEmpty(row) ? false : row;
                     }).filter(row => !!row);
 
                     this.isValid = this.validateCsvData(data);

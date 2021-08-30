@@ -1,25 +1,28 @@
 .modal.modal-auth.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-content: .modal-section
+    .modal-window: .modal-body: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .block.block-app-instruction
-            .step-item
-                .modal-title Stap 1
-                .step-description(translate="open_in_me.app_instruction.step_1")
-                img(src="./assets/img/screen1.png")
-            .step-item
-                .modal-title Stap 2
-                .step-description(translate="open_in_me.app_instruction.step_2")
-                img(src="./assets/img/screen2.png")
+            .step-items
+                .step-item
+                    .step-item-title Stap 1
+                    .step-item-subtitle(translate="open_in_me.app_instruction.step_1")
+                    img(src="./assets/img/screen1.png")
+
+                .step-item
+                    .step-item-title Stap 2
+                    .step-item-subtitle(translate="open_in_me.app_instruction.step_2")
+                    img(src="./assets/img/screen2.png")
 
             .divider-img: img(src="./assets/img/Base7.png")
 
-        .modal-title {{ "open_in_me.app_header.title" | translate }}
-        .modal-subtitle {{ "open_in_me.app_header.subtitle" | translate }}
+        .modal-title(translate="open_in_me.app_header.title")
+        .modal-subtitle(translate="open_in_me.app_header.subtitle")
 
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
             .form-group
                 pincode-control(ng-if="$ctrl.authorizePincodeForm" ng-model="$ctrl.authorizePincodeForm.values.auth_code")
                 .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
+
             .form-group.text-center
-                button(type="submit").button.button-primary {{ "open_in_me.authorize.submit" | translate }}
+                button(type="submit" translate="open_in_me.authorize.submit").button.button-primary
