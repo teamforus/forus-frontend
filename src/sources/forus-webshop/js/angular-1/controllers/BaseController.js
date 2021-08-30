@@ -68,9 +68,7 @@ const BaseController = function(
                 title: "logout.title_" + $rootScope.appConfigs.features.communication_type,
                 confirmBtnText: "buttons.confirm",
                 cancelBtnText: "buttons.cancel",
-                confirm: () => {
-                    $rootScope.signOut();
-                },
+                confirm: () => $rootScope.signOut(),
                 cancel: () => {}
             });
         }

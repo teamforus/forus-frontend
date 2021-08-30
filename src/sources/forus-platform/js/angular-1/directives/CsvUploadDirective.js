@@ -1,4 +1,5 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
+const isEmpty = require('lodash/isEmpty');
 
 let CsvUploadDirective = function(
     $q,
@@ -167,7 +168,7 @@ let CsvUploadDirective = function(
                         }
                     });
 
-                    if (_.isEmpty(row)) {
+                    if (isEmpty(row)) {
                         return result;
                     }
 

@@ -102,7 +102,7 @@ module.exports = function() {
                     return $q((done, reject) => {
                         $http(cfg(params)).then((res) => done(res), function(response) {
                             if (response.status == 401) {
-                                $rootScope.signOut(false);
+                                $rootScope.signOut(false, false, false);
                             }
 
                             reject(response);
