@@ -713,6 +713,24 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('webshop_midzomermokum', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_key: 'midzomermokum',
+            client_type: 'webshop',
+            log_out_time: false,
+            flags: {
+                logoExtension: '.png',
+                accessibilityPage: false,
+            },
+            sessions: sessions,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
     // Config meapp landings
     core.editPlatform('website', (platform) => {
         platform.setEnvData({
