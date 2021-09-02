@@ -1,56 +1,51 @@
-let ModalPhysicalCardOrderComponent = function(
+const ModalPhysicalCardOrderComponent = function(
     FormBuilderService,
     PhysicalCardsRequestService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.fund = $ctrl.modal.scope.fund || null;
-        $ctrl.organization = $ctrl.modal.scope.organization;
+        $ctrl.state = $ctrl.modal.scope.state || 'form';
         $ctrl.voucher = $ctrl.modal.scope.voucher;
-        $ctrl.state = $ctrl.modal.scope.state || 'fill_data';
 
-        $ctrl.requestPhysicalCardForm = FormBuilderService.build({}, (form) => {
+        $ctrl.form = FormBuilderService.build({}, (form) => {
             PhysicalCardsRequestService.store(
-                $ctrl.modal.scope.voucher.address,
+                $ctrl.voucher.fund.organization_id,
+                $ctrl.voucher.address,
                 form.values
-            ).then(() => $ctrl.state = 'success_new_card', (res) => {
-                $ctrl.requestPhysicalCardForm.unlock();
-                $ctrl.requestPhysicalCardForm.errors = res.data.errors;
-                $ctrl.state = 'success_new_card';
-                
-                if (res.status === 429) {
-                    return $ctrl.requestPhysicalCardForm.errors = {
-                        to_many_requests: [res.data.message]
-                    };
-                }
+            ).then(() => {
+                $ctrl.form.resetErrors();
+                $ctrl.state = 'success';
+            }, (res) => {
+                form.unlock();
+                form.errors = res.data.errors;
+                $ctrl.state = 'form';
             });
-        });
+        }, true);
     };
 
     $ctrl.requestCard = () => {
         PhysicalCardsRequestService.validate(
-            $ctrl.modal.scope.voucher.address,
-            $ctrl.requestPhysicalCardForm.values
+            $ctrl.voucher.fund.organization_id,
+            $ctrl.voucher.address,
+            $ctrl.form.values
         ).then(() => {
-            $ctrl.requestPhysicalCardForm.errors = {};
-            $ctrl.state = 'confirm_new_card';
-            $ctrl.requestPhysicalCardForm.addressPreview = [[
-                $ctrl.requestPhysicalCardForm.values.address,
-                $ctrl.requestPhysicalCardForm.values.house,
-                $ctrl.requestPhysicalCardForm.values.house_addition
-            ].filter((value) => value).join(' '), [
-                $ctrl.requestPhysicalCardForm.values.postcode,
-                $ctrl.requestPhysicalCardForm.values.city,
-            ].filter((value) => value).join(' ')];
+            const { address, house, house_addition, postcode, city } = $ctrl.form.values;
+
+            $ctrl.form.resetErrors();
+            $ctrl.state = 'confirmation';
+
+            $ctrl.form.addressPreview = [
+                [address, house, house_addition].filter((value) => value).join(' '),
+                [postcode, city].filter((value) => value).join(' '),
+            ];
         }, (res) => {
-            $ctrl.requestPhysicalCardForm.unlock();
-            $ctrl.requestPhysicalCardForm.errors = res.data.errors;
+            $ctrl.form.errors = res.data.errors;
         });
     };
 
     $ctrl.confirmCard = () => {
-        $ctrl.requestPhysicalCardForm.submit();
+        $ctrl.form.submit();
     };
 };
 

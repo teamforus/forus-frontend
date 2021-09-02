@@ -15,6 +15,7 @@ const VouchersShowComponent = function(
         promise.then((res) => {
             $ctrl.voucher = res.data.data;
             $ctrl.parseHistory($ctrl.voucher.history);
+            $ctrl.updateFlags();
 
             switch (action) {
                 case 'deactivation': PushNotificationsService.success('Gelukt!', 'Voucher gedeactiveerd'); break;
@@ -87,7 +88,7 @@ const VouchersShowComponent = function(
     };
 
     $ctrl.orderPhysicalCard = () => {
-        ModalService.open('orderPhysicalCard', {
+        ModalService.open('physicalCardOrder', {
             voucher: $ctrl.voucher,
         });
     };
@@ -127,11 +128,20 @@ const VouchersShowComponent = function(
         VoucherService.show($ctrl.organization.id, $ctrl.voucher.id).then(((res) => {
             $ctrl.voucher = res.data.data;
             $ctrl.parseHistory($ctrl.voucher.history);
+            $ctrl.updateFlags();
         }));
     };
 
+    $ctrl.updateFlags = () => {
+        $ctrl.physicalCardsAvailable =
+            $ctrl.voucher.fund.allow_physical_cards &&
+            $ctrl.voucher.fund.type == 'subsidies' &&
+            $ctrl.voucher.state !== 'deactivated';
+    }
+
     $ctrl.$onInit = function() {
         $ctrl.parseHistory($ctrl.voucher.history);
+        $ctrl.updateFlags();
     }
 };
 

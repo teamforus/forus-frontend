@@ -147,7 +147,7 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalVoucherActivationComponent'
     });
     
-    ModalRouteProvider.modal('orderPhysicalCard', {
+    ModalRouteProvider.modal('physicalCardOrder', {
         component: 'modalPhysicalCardOrderComponent'
     });
 }];

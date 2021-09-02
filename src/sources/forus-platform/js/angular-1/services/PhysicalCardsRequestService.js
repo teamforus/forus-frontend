@@ -1,23 +1,13 @@
-const sprintf = require('sprintf-js').sprintf;
-
 const PhysicalCardsRequestService = function(ApiRequest) {
-    const apiPrefix = '/platform/vouchers';
+    const apiPrefix = '/platform/organizations';
 
     return new (function() {
-        this.store = function(voucherAddress, data) {
-            return ApiRequest.post(sprintf(
-                '%s/%s/physical-card-requests',
-                apiPrefix,
-                voucherAddress
-            ), data);
+        this.store = function(organizationId, voucherAddress, data) {
+            return ApiRequest.post(`${apiPrefix}/${organizationId}/sponsor/vouchers/${voucherAddress}/physical-card-requests`, data);
         };
         
-        this.validate = function(voucherAddress, data) {
-            return ApiRequest.post(sprintf(
-                '%s/%s/physical-card-requests/validate',
-                apiPrefix,
-                voucherAddress
-            ), data);
+        this.validate = function(organizationId, voucherAddress, data) {
+            return ApiRequest.post(`${apiPrefix}/${organizationId}/sponsor/vouchers/${voucherAddress}/physical-card-requests/validate`, data);
         };
     });
 };
