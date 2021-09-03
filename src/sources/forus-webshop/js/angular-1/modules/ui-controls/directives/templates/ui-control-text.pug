@@ -7,4 +7,4 @@
         placeholder="{{ $dir.placeholder }}"
         ng-disabled="{{ $dir.disabled }}"
         ng-model="ngModel").form-control
-    label(for="{{ $dir.id }}" ng-click="$dir.clear()").ui-control-clear: .mdi.mdi-close-circle
+    .ui-control-clear(for="{{ $dir.id }}" ng-click="$dir.clear()"): .mdi.mdi-close-circle
