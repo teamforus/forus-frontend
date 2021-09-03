@@ -3,7 +3,7 @@
 top-navbar
 
 mixin progress()
-    .sign_up-progress(ng-class="{'sign_up-progress-compact':$ctrl.totalSteps.length >= 5}" role="progressbar" aria-valuenow="{{$ctrl.step - 1}}" aria-valuemax="{{$ctrl.totalSteps.length}}")
+    .sign_up-progress(ng-class="{'sign_up-progress-compact':$ctrl.totalSteps.length >= 5}" role="progressbar" aria-valuenow="{{$ctrl.step - 1}}" aria-valuemax="{{$ctrl.totalSteps.length}}" aria-label="progressbar")
         .sign_up-step.sign_up-step-info(
             ng-class="$ctrl.step == 1 ? 'sign_up-step-active' : 'sign_up-step-done'"
             )
@@ -32,7 +32,7 @@ main(id="main-content")
                     .sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
 
                     .sign_up-pane-body
-                        .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" role="presentation")
+                        .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="")
                         p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
 
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
@@ -443,7 +443,7 @@ main(id="main-content")
                             h1.sign_up-pane-heading.text-center Verzonden!
                             p.sign_up-pane-text.text-center
                                 | Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail.
-                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg" role="presentation")
+                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg" alt="")
                             .text-center: .button.button-text.button-text-primary.button-text-padless(ng-click="$ctrl.finish()" role="button") Terug
                             .form-group.col.col-lg-12.hidden-xs: br
 
