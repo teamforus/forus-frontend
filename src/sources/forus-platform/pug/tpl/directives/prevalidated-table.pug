@@ -46,9 +46,9 @@ div
                                     date-week-start-day="1").form-control
                                     input(ng-model="filters.values.to" type="text" placeholder="dd-MM-jjjj").form-control
                             .form-actions
-                                button(ng-click="export(filters.values)").button.button-primary.button-wide
+                                button(ng-click="export(filters.values)" ng-disabled="prevalidations.meta.total == 0").button.button-primary.button-wide
                                     em.mdi.mdi-download.icon-start  
-                                    span(translate="prevalidated_table.buttons.export_selected")
+                                    span(translate="components.dropdown.export" translate-values="{ total: prevalidations.meta.total }")
                     
                     .button.button-default.button-icon(ng-click="filters.show = !filters.show"): em.mdi.mdi-filter-outline
 
@@ -79,11 +79,4 @@ div
 
         .card-section(ng-show="prevalidations.meta.last_page > 1")
             paginator(meta="prevalidations.meta" filters="filters.values" count-buttons="5" on-page-change="onPageChange(query)")
-        
-        //- .card-section(ng-show="prevalidations.meta.last_page > 1")
-            paginator-loader(meta="prevalidations.meta" filters="filter" on-reset="onReset(query)" on-load-more="onLoadMore(query)")
-
-        .card-section: .table-pagination.text-right
-            button(ng-click="export()").button.button-primary
-                em.mdi.mdi-download.icon-start 
-                span(i18n="prevalidated_table.buttons.export")
+    

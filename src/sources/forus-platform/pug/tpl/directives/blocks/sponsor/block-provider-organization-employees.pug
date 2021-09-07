@@ -1,0 +1,6 @@
+.card
+    .card-header: .card-title Medewerkers
+    .card-section.card-section-padless: .table-wrapper: table.table
+        tr: th E-Mailadres
+        tr(ng-repeat="employee in $dir.employees"): td(ng-bind="employee.email")
+    .card-section.text-center(ng-if="$dir.employees.length == 0") Geen vestigingen

@@ -1,11 +1,12 @@
-let ModalOpenInMeComponent = function(
+const ModalOpenInMeComponent = function(
     $filter,
     IdentityService,
     FormBuilderService,
     ModalService,
+    appConfigs,
     ShareService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.sentSms = false;
 
@@ -20,7 +21,7 @@ let ModalOpenInMeComponent = function(
                 type: 'me_app_download_link'
             }).then((res) => {
                 $ctrl.sentSms = true;
-            }, (res) => {          
+            }, (res) => {
                 $ctrl.phoneForm.unlock();
                 $ctrl.phoneForm.errors = res.data.errors;
 
@@ -31,26 +32,22 @@ let ModalOpenInMeComponent = function(
                 }
             });
         });
-        
+
         $ctrl.authorizePincodeForm = FormBuilderService.build({
             auth_code: "",
         }, function(form) {
             form.lock();
 
-            IdentityService.authorizeAuthCode(
-                form.values.auth_code
-            ).then((res) => {
-
+            IdentityService.authorizeAuthCode(form.values.auth_code).then(() => {
                 $ctrl.close();
 
                 ModalService.open('modalNotification', {
                     type: 'confirm',
-                    title: 'popup_auth.pin_code.confirmation.title',
+                    title: 'popup_auth.pin_code.confirmation.title_' + appConfigs.features.communication_type,
                     description: 'popup_auth.pin_code.confirmation.description',
                     cancelBtnText: 'popup_auth.pin_code.confirmation.buttons.try_again',
                     confirmBtnText: 'popup_auth.pin_code.confirmation.buttons.confirm'
                 });
-
             }, (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
@@ -79,6 +76,7 @@ module.exports = {
         'IdentityService',
         'FormBuilderService',
         'ModalService',
+        'appConfigs',
         'ShareService',
         ModalOpenInMeComponent
     ],

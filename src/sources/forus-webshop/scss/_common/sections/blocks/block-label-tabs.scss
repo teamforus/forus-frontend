@@ -163,7 +163,7 @@
             }
         }
 
-        &.active {
+        &.active, &:active, &:focus {
             background: $color_primary;
             border-color: $color_primary;
             color: #fff;

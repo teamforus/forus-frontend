@@ -34,6 +34,7 @@ $bf:                'Source Sans Pro', sans-serif;
 // text color
 $tc:                #353535;
 $tc-var:            inherit;
+$tc-link:           #d13b3b;
 
 // base color
 $bc:                #d13b3b;
@@ -50,6 +51,8 @@ $tf:                uppercase;
 $fbc:                #3a3a3a;
 $fc:                #fff;
 
+$fc-link:           #fff;
+
 // displayed or not
 $fd:                block;
 
@@ -57,11 +60,11 @@ $fd:                block;
 $pi:                0px;
 
 // placeholder text color
-$ptc:               #646f79;
+$ptc:               #515152;
 
 $border_color:      #ececec;
 
-$border_radius:     0px;
+$border_radius:     2px;
 $base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 
 $color_primary:         #157c68;

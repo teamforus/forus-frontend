@@ -405,9 +405,9 @@ const ProviderSignUpComponent = function(
     };
 
     $ctrl.loadOrganizations = () => {
-        return $q((resolve, reject) => SignUpService.organizations().then(
-            res => resolve($ctrl.organizationList = res.data.data), reject
-        ));
+        return $q((resolve, reject) => SignUpService.organizations({
+            per_page: 100,
+        }).then(res => resolve($ctrl.organizationList = res.data.data), reject));
     };
 
     let loadEmployees = (organization) => {
@@ -434,9 +434,7 @@ const ProviderSignUpComponent = function(
     };
 
     let getAvailableFunds = (organization, query) => {
-        ProviderFundService.listAvailableFunds(
-            organization.id, query
-        ).then(res => {
+        ProviderFundService.listAvailableFunds(organization.id, query).then(res => {
             let fundsAvailable = $ctrl.fundsAvailable = {
                 meta: res.data.meta,
                 data: res.data.data
@@ -457,9 +455,9 @@ const ProviderSignUpComponent = function(
         });
     };
 
-    let loadAvailableFunds = (organization) => {
-        $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag;
-        let search_params = $ctrl.filters.values;
+    const loadAvailableFunds = (organization) => {
+        $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag && !$stateParams.fund_id;
+        const search_params = $ctrl.filters.values;
 
         if (!$ctrl.showFilters) {
             if ($stateParams.organization_id) {
@@ -677,7 +675,7 @@ const ProviderSignUpComponent = function(
                     $ctrl.next();
                 }
             });
-        }, console.log);
+        }, console.error);
     };
 
     $ctrl.selectPhoto = (file) => {

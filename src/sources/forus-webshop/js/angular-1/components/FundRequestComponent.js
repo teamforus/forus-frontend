@@ -1,6 +1,6 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
-let FundRequestComponent = function(
+const FundRequestComponent = function(
     $q,
     $sce,
     $state,
@@ -13,9 +13,9 @@ let FundRequestComponent = function(
     PushNotificationsService,
     appConfigs
 ) {
-    let $ctrl = this;
-    let $trans = $filter('translate');
-    let welcomeSteps = 1;
+    const $ctrl = this;
+    const $trans = $filter('translate');
+    const welcomeSteps = 1;
 
     $ctrl.step = 1;
     $ctrl.state = null;
@@ -43,18 +43,17 @@ let FundRequestComponent = function(
 
     $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
     $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
+    $ctrl.hideFundRequestOverviewStep = false;
 
-    let trans_record_checkbox = (criteria_record_key, criteria_value) => {
-        let trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
-        let trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
-        let translated = $trans(trans_key, {
-            value: criteria_value
-        });
+    const trans_record_checkbox = (criteria_record_key, value) => {
+        const trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
+        const translated = $trans(trans_key, { value });
+        const trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
 
-        return translated === trans_key ? $trans(trans_fallback_key, {
-            value: criteria_value
-        }) : translated;
+        return translated === trans_key ? $trans(trans_fallback_key, { value: value }) : translated;
     };
+
+    const overviewSteps = $ctrl.hideFundRequestOverviewStep ? 0 : 1;
 
     // Submit criteria record
     $ctrl.submitStepCriteria = (criteria) => {
@@ -210,6 +209,10 @@ let FundRequestComponent = function(
         }
 
         if (step == ($ctrl.totalSteps.length + 1) + welcomeSteps) {
+            return $ctrl.hideFundRequestOverviewStep ? 'done' : 'application_overview';
+        }
+
+        if (!$ctrl.hideFundRequestOverviewStep && step == ($ctrl.totalSteps.length + 2) + welcomeSteps) {
             return 'done';
         }
 
@@ -238,7 +241,7 @@ let FundRequestComponent = function(
     $ctrl.nextStep = () => {
         $ctrl.buildSteps();
 
-        if ($ctrl.step == (welcomeSteps + $ctrl.totalSteps.length)) {
+        if ($ctrl.step == (welcomeSteps + $ctrl.totalSteps.length + overviewSteps)) {
             return $ctrl.submitRequest();
         }
 
@@ -282,18 +285,12 @@ let FundRequestComponent = function(
         });
     };
 
-    $ctrl.getFundVouchers = (fund, vouchers) => {
-        return vouchers.filter(voucher => voucher.fund_id === fund.id);
+    $ctrl.getActiveFundVouchers = (fund, vouchers) => {
+        return vouchers.filter(voucher => !voucher.expired && (voucher.fund_id === fund.id));
     };
 
     $ctrl.getFirstFundVoucher = (fund, vouchers) => {
-        let fundVouchers = $ctrl.getFundVouchers(fund, vouchers);
-
-        if (fundVouchers.length > 0) {
-            return fundVouchers[0];
-        }
-
-        return false;
+        return $ctrl.getActiveFundVouchers(fund, vouchers)[0] || false;
     }
 
     $ctrl.finish = () => $state.go('funds');
@@ -314,9 +311,15 @@ let FundRequestComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        let pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
+        const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
+        const pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
             return request.state === 'pending';
         }) : [];
+
+        // Voucher already received, go to the voucher
+        if (voucher) {
+            return $state.go('voucher', voucher);
+        }
 
         $ctrl.signedIn = AuthService.hasCredentials();
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
@@ -353,6 +356,10 @@ let FundRequestComponent = function(
             FundRequestService.index($ctrl.fund.id).then(() => {
                 if ($ctrl.invalidCriteria.length == 0) {
                     $ctrl.applyFund($ctrl.fund);
+                }
+
+                if ($ctrl.invalidCriteria.length == 1) {
+                    $ctrl.hideFundRequestOverviewStep = true;
                 }
             });
 

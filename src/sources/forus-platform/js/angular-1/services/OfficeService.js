@@ -1,14 +1,9 @@
-const { OperationCanceledException } = require("typescript");
-
-let OfficeService = function(ApiRequest) {
-    let uriPrefix = '/platform/organizations/';
+const OfficeService = function(ApiRequest) {
+    const uriPrefix = '/platform/organizations/';
 
     return new (function() {
         this.list = function(organization_id, query = {}) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/offices',
-                query
-            );
+            return ApiRequest.get(uriPrefix + organization_id + '/offices', query);
         };
 
         this.store = function(organization_id, values) {
@@ -26,15 +21,11 @@ let OfficeService = function(ApiRequest) {
         };
 
         this.read = function(organization_id, id) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/offices/' + id
-            );
+            return ApiRequest.get(uriPrefix + organization_id + '/offices/' + id);
         };
 
         this.destroy = function(organization_id, id) {
-            return ApiRequest.delete(
-                uriPrefix + organization_id + '/offices/' + id
-            );
+            return ApiRequest.delete(uriPrefix + organization_id + '/offices/' + id);
         };
 
         this.states = function() {
@@ -53,9 +44,7 @@ let OfficeService = function(ApiRequest) {
         this.apiFormToResource = function(formData) {
             let values = JSON.parse(JSON.stringify(formData));
             let schedule = values.schedule ? Object.values(values.schedule) : [];
-            let fields = [
-                'week_day', 'start_time', 'end_time', 'break_start_time', 'break_end_time'
-            ];
+            let fields = ['week_day', 'start_time', 'end_time', 'break_start_time', 'break_end_time'];
 
             schedule = schedule.filter(schedule_item => schedule_item).map(schedule_item => {
                 let _schedule_item = {};

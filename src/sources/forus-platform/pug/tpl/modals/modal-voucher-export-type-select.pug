@@ -2,7 +2,7 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Select type
     .modal-window: form.form
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header(i18n="modals.modal_voucher_export.title")
 
         .modal-body: .modal-section
@@ -18,10 +18,15 @@
                         .voucher-export-type-item-icon: em.mdi.mdi-file-pdf
                         | {{ 'modals.modal_voucher_export.modal_section.export_type_pdf' | i18n }}
                     
-                    .voucher-export-type-item(ng-click="$ctrl.form.values.exportType = 'data'" ng-class="{active: $ctrl.form.values.exportType == 'data'}")
+                    .voucher-export-type-item(ng-click="$ctrl.form.values.exportType = 'csv'" ng-class="{active: $ctrl.form.values.exportType == 'csv'}")
                         .voucher-export-type-item-check: em.mdi.mdi-check-bold
                         .voucher-export-type-item-icon: em.mdi.mdi-file-delimited
-                        | {{ 'modals.modal_voucher_export.modal_section.export_type_data' | i18n }}
+                        | {{ 'modals.modal_voucher_export.modal_section.export_type_csv' | i18n }}
+                    
+                    .voucher-export-type-item(ng-click="$ctrl.form.values.exportType = 'xls'" ng-class="{active: $ctrl.form.values.exportType == 'xls'}")
+                        .voucher-export-type-item-check: em.mdi.mdi-check-bold
+                        .voucher-export-type-item-icon: em.mdi.mdi-file-delimited
+                        | {{ 'modals.modal_voucher_export.modal_section.export_type_xls' | i18n }}
 
         .modal-footer.text-center
             button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_create.buttons.cancel")

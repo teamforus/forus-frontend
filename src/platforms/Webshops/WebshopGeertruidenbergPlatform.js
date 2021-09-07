@@ -23,6 +23,6 @@ platform.editTask('scss', (task) => {
 });
 
 // change server port
-platform.serve(6510, '/');
+platform.serve(5600, '/');
 
 module.exports = platform;

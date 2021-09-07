@@ -1,29 +1,24 @@
 top-navbar
 
-section.section.section-details: .wrapper
-    .block.block-about-me_app
-        .me_app-overview
-            .block-title Over de Me-app
-            .block-description
-                | De Me-app is een digitale portemonnee en kassa in één. 
-                | Gemeenten gebruiken de Me-app voor het uitgeven van tegoeden. 
-                | Met de app kunnen inwoners gemakkelijk hun tegoeden beheren. 
-                | Aanbieders gebruiken de app om QR-codes te scannen.
+main(id="main-content")
+    section.section.section-details: .wrapper
+        .block.block-about-me_app
+            .me_app-overview
+                h1 Over de Me-app
+                .block-description
+                    | De Me-app is een digitale portemonnee en kassa in één. 
+                    | Gemeenten gebruiken de Me-app voor het uitgeven van tegoeden. 
+                    | Met de app kunnen inwoners gemakkelijk hun tegoeden beheren. 
+                    | Aanbieders gebruiken de app om QR-codes te scannen.
+                br
+                h2 Download Me op je telefoon of tablet
+                .block-description
+                    | Download de Me-app via onderstaande app stores. #[a(href="{{ $root.appConfigs.me_app_link }}") Klik hier om direct de juiste app store] te openen op je telefoon of tablet.
+            
+                app-links(type="lg").hide-sm
+            .me_app-download.flex-center: app-links
 
-            .me_app-download-apps.hide-sm
-                a(href="{{ $root.appConfigs.android_link }}" target="_blank")
-                    img(src="assets/img/dl_android.svg" class="dl_buttons")
-                a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
-                    img(src="assets/img/dl_ios.svg" class="dl_buttons")
-
-        .me_app-images
-            .me_app-image: img(src="assets/img/app-android.png")
-            .me_app-image: img(src="assets/img/app-ios.png")
-
-        .me_app-download
-            .me_app-download-apps
-                a(href="{{ $root.appConfigs.android_link }}" target="_blank")
-                    img(src="assets/img/dl_android.svg" class="dl_buttons")
-                a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
-                    img(src="assets/img/dl_ios.svg" class="dl_buttons")
-    
+            .me_app-images
+                .me_app-image: img(src="assets/img/me/app-1.jpg" alt="Me-app")
+                .me_app-image: img(src="assets/img/me/app-2.jpg" alt="Me-app")
+                .me_app-image: img(src="assets/img/me/app-3.jpg" alt="Me-app")

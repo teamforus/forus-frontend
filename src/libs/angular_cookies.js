@@ -1,5 +1,3 @@
 module.exports = {
-    js: [
-        './node_modules/angular-cookies/angular-cookies.min.js'
-    ]
+    js: './node_modules/angular-cookies/angular-cookies.min.js',
 };

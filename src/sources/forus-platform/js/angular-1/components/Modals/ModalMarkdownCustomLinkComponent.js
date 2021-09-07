@@ -1,22 +1,58 @@
 let ModalMarkdownCustomLinkComponent = function(
-    FormBuilderService
+    $element,
+    MediaService,
+    FormBuilderService,
 ) {
     let $ctrl = this;
+    let input = false;
+
+    $ctrl.errors = {};
 
     $ctrl.$onInit = () => {
-        $ctrl.params = {
-            type: $ctrl.modal.scope.type,
-            hasDescription: $ctrl.modal.scope.hasDescription,
-            description: $ctrl.modal.scope.selection
-        };
+        const { type } = $ctrl.modal.scope;
+        const { text, url } = $ctrl.modal.scope.values;
+        const values = { url, text };
 
-        $ctrl.form = FormBuilderService.build({}, (form) => {
+        $ctrl.linkType = type;
+
+        $ctrl.form = FormBuilderService.build(values, (form) => {
             $ctrl.modal.scope.success(form.values);
             $ctrl.close();
         });
     };
 
-    $ctrl.$onDestroy = function() {};
+    $ctrl.selectMedia = (e) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        if (input && input.remove) {
+            input.remove();
+        }
+
+        input = document.createElement('input');
+        input.setAttribute("type", "file");
+        input.setAttribute("accept", "image/*");
+        input.style.display = 'none';
+
+        input.addEventListener('change', async (e) => {
+            MediaService.store('cms_media', e.target.files[0], [
+                'public'
+            ]).then((res) => {
+                $ctrl.errors = {};
+                $ctrl.media = res.data.data;
+                $ctrl.form.values.url = $ctrl.media.sizes.public;
+                $ctrl.form.values.uid = $ctrl.media.uid;
+            }, (res) => $ctrl.errors = res.data.errors);
+        });
+
+        $element[0].appendChild(input);
+
+        input.click();
+    };
+
+    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {
@@ -26,6 +62,8 @@ module.exports = {
         type: '='
     },
     controller: [
+        '$element',
+        'MediaService',
         'FormBuilderService',
         ModalMarkdownCustomLinkComponent
     ],

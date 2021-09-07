@@ -23,7 +23,7 @@ let ProductCardDirective = function(
                 ProductService.destroy(
                     product.organization_id,
                     product.id
-                ).then((res) => {
+                ).then(() => {
                     $state.reload();
                 });
             }

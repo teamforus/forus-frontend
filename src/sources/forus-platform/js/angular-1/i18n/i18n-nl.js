@@ -1,10 +1,6 @@
 module.exports = {
     test: "{{name}} {{foo}}",
-    permissions: {
-        title: "Geen rechten",
-        description: "U heeft geen rechten om deze actie uit te voeren."
-    },
-    //permissions: require("./en/permissions"),
+    permissions: require('./nl/permissions'),
     page_title: 'Platform Forus',
     page_state_titles: {
         home: 'Forus platform home',
@@ -43,19 +39,25 @@ module.exports = {
     menu: {
         organizational: 'Organisatie',
         implementation: 'Webshop',
+        financial: 'Financieel',
         personal: 'Persoonlijk',
     },
     // MODALS
     modals: {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
+        modal_voucher_physical_card: require('./nl/modals/modal-voucher-physical-card.pug.i18n'),
         modal_product_voucher_create: require('./nl/modals/modal-product-voucher-create.pug.i18n'),
         modal_voucher_qr_code: require('./nl/modals/modal-voucher-qr_code.pug.i18n'),
+        modal_voucher_deactivation: require('./nl/modals/modal-voucher-deactivation.pug.i18n'),
+        modal_voucher_activation: require('./nl/modals/modal-voucher-activation.pug.i18n'),
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
         modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
+        modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         danger_zone: {
-            remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator')
+            remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
+            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application')
         },
     },
     // PAGES
@@ -299,7 +301,7 @@ module.exports = {
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
     financial_dashboard: {
         header: {
-            title: "Je bekijkt nu het financiële dashboard van: ",
+            title: "Financieel statistieken",
         },
         labels: {
             product: "Fietsen, Computers",
@@ -343,6 +345,30 @@ module.exports = {
         },
     },
 
+    financial_dashboard_overview: {
+        header: {
+            title: "Financieel overzicht",
+        },
+        labels: {
+            funds: "Fonds",
+            fund_name: "Fondsnaam",
+            total_budget: "Totaal gestort",
+            current_budget: "Huidig saldo",
+            used_budget: "Uitgaven",
+            transaction_costs: "Transactiekosten",
+            total: "Totaal",
+            active: "Actief",
+            inactive: "Inactief",
+            used: "Uitgaven",
+            left: "Restant",
+            total_percentage: "Totaal percentage",
+            total_count: "Totaalaantal"
+        },
+        buttons: {
+            export: "Exporteren"
+        }
+    },
+
     // EDIT IMPLEMENTATION = implementation-edit.pug
     implementation_edit: {
         header: {
@@ -357,7 +383,7 @@ module.exports = {
 
             provider: "Aanbiederpagina content",
             privacy: "Privacy content",
-            explanation: "Externe uitleg URL",
+            explanation: "Uitleg pagina content",
             accessibility: "Toegankelijkheidsverklaring",
             terms_and_conditions: "Algemene voorwaarden",
 
@@ -379,14 +405,14 @@ module.exports = {
             terms_and_conditions: "bijv. http://uwgemeente.nl/algemene-voorwaarden",
         },
         tooltips: {
-            provider: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
-            privacy: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
-            explanation: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
-            accessibility: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
+            provider: "Plaats hier de informatie voor aanbieders. Deze tekst staat op de aanbieder uitleg pagina. De algemene tekst is zichtbaar als beide opties uit staan.",
+            privacy: "Plaats een link naar de privacy tekst of vul een eigen tekst in. De algemene tekst is zichtbaar als beide opties uit staan.",
+            explanation: "Plaats hier de informatie voor inwoners. Deze tekst staat op de uitleg pagina. De algemene tekst is zichtbaar als beide opties uit staan.",
+            accessibility: "Plaats een link naar de toegankelijkheidsverklaring of vul een eigen tekst in. De algemene tekst is zichtbaar als beide opties uit staan.",
             terms_and_conditions: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
         
-            footer_contact_details: "Contact informatie voor in de footer van de homepagina",
-            footer_opening_times: "Openingstijden voor in de footer van de homepagina",
+            footer_contact_details: "Vul hier de contactinformatie van uw organisatie in. De tekst staat in de footer op de homepagina.",
+            footer_opening_times: "Vul hier de openingstijden van uw organisatie in. De tekst staat in de footer op de homepagina.",
         },
         buttons: {
             cancel: "Annuleren",
@@ -480,7 +506,7 @@ module.exports = {
     // ORGANIZATION PROVIDERS = organization-providers.pug
     organization_providers: {
         header: {
-            title: "Aanbieders per fonds"
+            title: "Aanbieders"
         },
         status: {
             accepted: "Geaccepteerd",
@@ -504,7 +530,9 @@ module.exports = {
         buttons: {
             reject: "Weigeren",
             accept: "Accepteren",
-            view_request: "Bekijk aanvraag"
+            view_request: "Bekijk aanvraag",
+            export_csv: "Exporteer als .CSV",
+            export_xls: "Exporteer als .XLS",
         },
     },
 
@@ -599,6 +627,14 @@ module.exports = {
             expire: "Vervaldatum van aanbod",
             available_offers: "Resterend aanbod",
             unlimited: "Onbeperkt"
+        },
+        tooltips: {
+            product_type: ["Kies het soort aanbod. Voorbeelden:",
+                "1. Normaal: een fiets voor € 200,-.",
+                "2. Korting €: € 20,- korting op een fiets.",
+                "3. Korting %: 20% korting op een fiets.",
+                "4. Gratis: gratis toegang voor een film."
+            ].join('\n')
         },
         buttons: {
             cancel: "Annuleren",
@@ -709,13 +745,15 @@ module.exports = {
             main_header: "Aanmelden als aanbieder",
             go_back: "Terug",
             title_step_1: "Welkom",
-            subtitle_step_1: "Door dit online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 5 minuten.",
-            title_step_1_paragrah_1: "Aanbiedingen plaatsen en betalingen ontvangen",
-            subtitle_step_1_paragrah_1: "Na het aanmelden krijgt u toegang tot uw aanbieders webomgeving. Nadat uw aamelding is geaccepteerd kunt u producten en/of diensten aanbieden en betalingen ontvangen.",
+            subtitle_step_1: "Meld uw organisatie aan door dit formulier in te vullen. Als aanbieder plaatst u aanbod en ontvangt u betalingen. Het invullen duurt ongeveer 15 minuten.",
+            title_step_1_paragrah_1: "Hoe werkt het?",
+            subtitle_step_1_point_1: "Doorloop de stappen in het aanmeldformulier.",
+            subtitle_step_1_point_2: "Hierna komt u in de beheeromgeving. Plaats hier uw aanbod.",
+            subtitle_step_1_point_3: "Gebruik de Me-app om betalingen te ontvangen. Deze app downloadt u in de volgende stappen.",
             title_step_1_paragrah_2: "Heeft u al een account?",
-            subtitle_step_1_paragrah_2: "of rechts bovenin om in te loggen met een bestaand account. U hoeft het aanmeldformulier dan niet te doorlopen.",
+            subtitle_step_1_paragrah_2: "of rechts bovenin om in te loggen met een bestaand account.",
             title_step_1_paragrah_3: "Hulp nodig?",
-            subtitle_step_1_paragrah_3: "Tijdens het doorlopen van het formulier vindt u rechts onderin het blauwe vraagteken. Hiermee opent u de helpdesk.",
+            subtitle_step_1_paragrah_3: "Klik op het vraagteken rechtsonder in beeld. Hiermee opent u de helpdesk.",
             title_step_2: "Benodigdheden",
             subtitle_step_2: "U gaat de me app gebruiken om betalingen te ontvangen. In de volgende stap downloadt u de app. Aan het gebruik van de app zijn geen kosten verbonden. <br/><br/>" +
                 "De Me app is beschikbaar voor Android en iOS telefoons en tablets.<br/><br/>" +
@@ -840,7 +878,7 @@ module.exports = {
                 '1. Open de link',
                 '2. Installeer de app',
                 '3. Open de app en meld u aan',
-                '4. Druk op QR om de de scanner te openen',
+                '4. Druk op QR om de scanner te openen',
                 '5. Scan de QR-code die rechts wordt weergegeven'
             ].join('<br>'),
         },
@@ -993,7 +1031,7 @@ module.exports = {
             to_app: 'Ik wil inloggen met de me app >',
         },
         app: {
-            title: "Heeft u de Me-app al?",
+            title: "Login met de Me-app",
             description_top: [
                 "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
@@ -1120,12 +1158,12 @@ module.exports = {
             to_app: 'Ik wil inloggen met de me app >',
         },
         app: {
-            title: "Heeft u de Me-app al?",
+            title: "Login met de Me-app",
             description_top: [
                 "Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.",
             ].join("\n"),
             description_bottom: [
-                "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren"
+                "De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren"
             ].join("\n"),
             no_app: "Ik wil inloggen met mijn e-mailadres >"
         },
@@ -1156,6 +1194,7 @@ module.exports = {
             adjust: "Aanpassen",
             delete: "Verwijderen",
             add: "Toevoegen",
+            transfer_ownership: "Overdragen",
         }
     },
 
@@ -1192,7 +1231,9 @@ module.exports = {
         buttons: {
             previous: "Vorige",
             next: "Volgende",
-            export: 'Exporteren',
+            view: "Bekijk",
+            export_csv: "Exporteer als .CSV",
+            export_xls: "Exporteer als .XLS",
         },
         paginator: {
             one: "1",
@@ -1209,6 +1250,41 @@ module.exports = {
                 state: 'Status'
             }
         }
+    },
+    // RESERVATION = modals/modal-reservation-create.pug
+    reservation_create: {
+        tooltips: {
+            product: ["Kies het aanbod waarvoor u de reservering wilt aanmaken. Staat uw aanbod er niet tussen? Dit kan de volgende redenen hebben:",
+                "- De klant heeft geen tegoed meer",
+                "- Uw aanbod is inactief",
+            ].join('\n')
+        },
+    },
+    // RESERVATION = reservations.pug
+    reservations: {
+        header: {
+            title: "Reserveringen ({{ total }})",
+        },
+        filters: {
+            fund: "Fonds",
+            product: "Aanbod",
+            status: "Status",
+            search: "Zoeken",
+            from: "Vanaf",
+            to: "Tot en met",
+            state: "Status",
+        },
+        labels: {
+            number: "Nummer",
+            product: "Aanbod",
+            price: "Bedrag",
+            reserved_at: "Aangemaakt op",
+            description: "Beschrijving",
+            customer: "Gegevens",
+            fund: "Fonds",
+            status: "Status",
+            actions: "Opties",
+        },
     },
 
     // VALIDATION REQUEST - validation-request.pug
@@ -1257,8 +1333,9 @@ module.exports = {
             alldecline: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
-            export: "Exporteren",
-            clear_filter: "Wis filter"
+            clear_filter: "Wis filter",
+            export_csv: "Exporteer als .CSV",
+            export_xls: "Exporteer als .XLS",
         },
     },
 
@@ -1300,40 +1377,17 @@ module.exports = {
             nocategories: "Geen Categorieën",
         },
     },
-
-    // FINANCIAL FUNDS FOR PROVIDERS = fund-card-provider-finances.pug
+    // FUND CARD FOR PROVIDERS = fund-card-provider.pug
     fund_card_provider_finances: {
         status: {
-            accepted: "Geaccepteerd",
-            rejected: "Geweigerd",
-            hold: "In behandeling",
+            hold: "Wachten",
         },
         labels: {
-            mail: "E-mail",
-            categories: "Categorieën",
-            nocategories: "Geen categorieën",
-            join: "Aanmelding voor fonds",
-            year: "Jaar",
-            quarter: "Kwartaal",
-            month: "Maand",
-            week: "Week",
-            all: "Alles",
-            usage: "omzet",
-            average: "Gemiddelde transactiegrootte",
-            transaction: "transacties",
-            price: "BEDRAG",
-            date: "DATUM",
-            status: "STATUS",
-            share: "Aandeel van fonds (totaal)",
+            price: "Bedrag",
+            date: "Datum",
+            status: "Status",
         },
-        buttons: {
-            view: "Bekijk statistieken",
-            transactions: "Transacties",
-            previous: "Vorige",
-            next: "Volgende",
-        }
     },
-
     // FUND CARD FOR PROVIDERS = fund-card-provider.pug
     fund_card_provider: {
         status: {
@@ -1357,7 +1411,8 @@ module.exports = {
             allow_budget: "Scan tegoed op voucher",
             allow_products: "Scan geplaatst aanbod",
             allow_some_products: "Scan specifiek aanbod",
-            view_products: "Bekijk aanbod"
+            view_products: "Bekijk aanbod",
+            cancel_application: "Annuleren"
         },
         empty_block: {
             available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
@@ -1494,7 +1549,8 @@ module.exports = {
         },
         buttons: {
             export_selected: "Exporteer selectie",
-            export: "Exporteer alles",
+            export_csv: "Exporteer als .CSV",
+            export_xls: "Exporteer als .XLS",
         }
     },
 
@@ -1504,6 +1560,7 @@ module.exports = {
             active: "Actief",
             paused: "Gepauzeerd",
             closed: "Gesloten",
+            archived: "Gearchiveerd",
         },
         buttons: {
             delete: "Verwijderen",

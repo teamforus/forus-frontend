@@ -1,7 +1,7 @@
-.block.block-navbar: .navbar-inner.wrapper
+.block.block-navbar#navigation-menu: .navbar-inner.wrapper
     a(href="./index.html").navbar-logo.hide-sm
-        img(src="./assets/img/logo-normal.svg")
-        img(src="./assets/img/logo-hover.svg").hover
+        img(src="./assets/img/logo-normal.svg" alt="{{$root.appConfigs.features.implementation_name}}")
+        img(src="./assets/img/logo-hover.svg" alt="{{$root.appConfigs.features.implementation_name}}").hover
     nav.navbar-list
         .navbar-item-wrapper: a(ui-sref="funds").navbar-item FONDSEN
         .navbar-item-wrapper: a(scroll-to="products").navbar-item PRODUCTEN

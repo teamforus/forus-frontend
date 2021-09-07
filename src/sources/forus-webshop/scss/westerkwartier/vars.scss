@@ -29,7 +29,8 @@ $bf:                'Lato' ,"Lucida Sans","Lucida Sans Unicode","Lucida Grande",
 
 // text color
 $tc:                #4e4d40;
-$tc-var:            #fff;
+$tc-var:            #fff;      
+$tc-link:           inherit;
 
 // base color
 $bc:                #4990b5;
@@ -45,6 +46,9 @@ $tf:                inherit;
 // footer color
 $fbc:                #4e4d40;
 $fc:                #fff;
+$fc-link:           $fc;
+$fc-link-hover:     $fc;
+
 // Displayed or not
 $fd:                block;
 
@@ -52,11 +56,11 @@ $fd:                block;
 $pi:                10px 0 0 10px;
 
 // placeholder text color
-$ptc:               #c4c4c4;
+$ptc:               #515152;
 
 $border_color:      #EBEDF0;
 
-$border_radius:     0px;
+$border_radius:     6px;
 $base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 
 $color_primary:         #b9cb18;

@@ -1,15 +1,32 @@
 .app.app-container
     menu
-    section.app.app-content
+    section.app.app-content(ng-if="$ctrl.products.meta")
         //- information-block(text="'products.cannot_delete'" type="'danger'")
-        .card-heading
-            | {{ "products.offers" | translate }}
-            a(ng-if="$ctrl.products.meta.total < $ctrl.maxProductCount" ng-click="$ctrl.addProduct()" id="add_product").link
-                em.mdi.mdi-plus-circle 
-                | {{ "products.add" | translate }}
-                |
-                span(ng-if="$ctrl.maxProductCount > 0 && $ctrl.products.meta.total >= $ctrl.maxProductSoftLimit") ({{ $ctrl.products.meta.total }}/{{ $ctrl.maxProductCount }})
-        
+        .card-heading: .flex-row
+            .flex-col: .flex.nowrap
+                translate(translate="products.offers")
+                a(ng-if="$ctrl.products.meta.total_provider < $ctrl.maxProductCount" ng-click="$ctrl.addProduct()" id="add_product").link
+                    em.mdi.mdi-plus-circle 
+                    | {{ "products.add" | translate }}
+                    span(ng-if="$ctrl.maxProductCount > 0 && $ctrl.products.meta.total_provider >= $ctrl.maxProductSoftLimit") 
+                        | ({{ $ctrl.products.meta.total_provider }}/{{ $ctrl.maxProductCount }})
+
+            .flex-col: .block.block-label-tabs.nowrap.pull-right: .label-tab-set
+                .label-tab.label-tab-sm(
+                    ng-class="{active : $ctrl.filters.values.source == 'provider'}" 
+                    ui-sref="products($ctrl.srefData.provider)")
+                    | In uw beheer ({{ $ctrl.products.meta.total_provider }})
+
+                .label-tab.label-tab-sm(
+                    ng-class="{active : $ctrl.filters.values.source == 'sponsor'}" 
+                    ui-sref="products($ctrl.srefData.sponsor)")
+                    | In beheer van sponsor ({{ $ctrl.products.meta.total_sponsor }})
+
+                .label-tab.label-tab-sm(
+                    ng-class="{active : $ctrl.filters.values.source == 'archive'}" 
+                    ui-sref="products($ctrl.srefData.archive)")
+                    | Archief ({{ $ctrl.products.meta.total_archived }})
+
         .block.block-products: product-card(
             ng-if="$ctrl.products.meta.total > 0" 
             ng-repeat="product in $ctrl.products.data" 
@@ -18,8 +35,19 @@
 
         .card-section(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
             paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
-        
+
+        //- No provider offers
         block-empty(
-            ng-if="$ctrl.products.meta.total == 0" 
+            ng-if="$ctrl.filters.values.source == 'provider' && $ctrl.products.meta.total == 0" 
             text="Er zijn momenteel geen aanbiedingen." 
             button="{text: 'Aanbieding toevoegen', href: $ctrl.emptyBlockLink}")
+
+        //- No sponsor offers
+        block-empty(
+            ng-if="$ctrl.filters.values.source == 'sponsor' && $ctrl.products.meta.total == 0" 
+            text="Er zijn momenteel geen aanbiedingen.")
+
+        //- No archived/deleted offers
+        block-empty(
+            ng-if="$ctrl.filters.values.source == 'archive' && $ctrl.products.meta.total == 0" 
+            text="Er zijn momenteel geen aanbiedingen." )

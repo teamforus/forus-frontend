@@ -15,6 +15,7 @@ module.exports = {
         vouchers: 'Mijn vouchers',
         voucher: 'Uw voucher',
         records: 'Eigenschappen', 
+        "reservations": 'Reserveringen',
         "record-validate": 'Valideer eigenschap',
         "record-validations": 'Validaties',
         "record-create": 'Eigenschap toevoegen',
@@ -46,12 +47,11 @@ module.exports = {
     topnavbar: require("./en/layout/navbar"),
 
     // PAGES
-    fund_apply: require("./en/pages/fund-apply"),
+    fund: require("./en/pages/fund"),
     fund_request: require("./en/pages/fund-request"),
     funds: require("./en/pages/funds"),
     home: require("./en/pages/home"),
     meapp_index: require("./en/pages/me-index"),
-    product_apply: require("./en/pages/product-apply"),
     product: require("./en/pages/product"),
     records_validations: require("./en/pages/record-validations"),
     records_create: require("./en/pages/records-create"),
@@ -59,6 +59,7 @@ module.exports = {
     records: require("./en/pages/records"),
     voucher: require("./en/pages/voucher"),
     vouchers: require("./en/pages/vouchers"),
+    reservations: require("./nl/pages/reservations"),
     notification_preferences: require("./en/pages/notification-preferences"),
     error_page: require("./en/pages/error-page"),
 
@@ -72,10 +73,9 @@ module.exports = {
     app_footer: require("./en/directives/app-footer"),
     block_products: require("./en/directives/block-products"),
     block_providers: require("./en/directives/block-providers"),
-    contact: require("./en/directives/contact"),
     empty_block: require("./en/directives/empty-block"),
     fund_criterion: require("./en/directives/fund-criterion"),
     maps: require("./en/directives/google-map"),
     profile_menu: require("./en/directives/profile-menu"),
-
+    top_navbar_search: require('./en/directives/top-navbar-search'),
 };

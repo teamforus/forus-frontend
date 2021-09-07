@@ -1,9 +1,11 @@
-let FileUploaderDirective = function(
+const FileUploaderDirective = function(
     $scope,
+    $timeout,
     $element,
-    FileService
+    FileService,
+    ModalService
 ) {
-    let $dir = $scope.$dir = {};
+    const $dir = $scope.$dir = {};
     let input = false;
 
     const $dropArea = $element.find('.uploader-droparea');
@@ -43,7 +45,9 @@ let FileUploaderDirective = function(
         FileService.store(item.file, $scope.type, (e) => item.progress = e.progress, item).then(
             (res) => {
                 item.uploaded = true;
+                item.file_data = res.data.data;
                 item.file_uid = res.data.data.uid;
+                item.has_preview = ['pdf', 'png', 'jpeg', 'jpg'].includes(item.file_data.ext);
                 onFileUploaded(eventInfo(item));
             },
             (res) => {
@@ -67,6 +71,7 @@ let FileUploaderDirective = function(
 
     $dir.selectFile = (e) => {
         e && e.preventDefault() && e.stopPropagation();
+
 
         if (input && input.remove) {
             input.remove();
@@ -101,21 +106,45 @@ let FileUploaderDirective = function(
         onFileRemoved(eventInfo());
     };
 
+    $dir.previewFile = ($event, file) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        if (file.file_data.ext == 'pdf') {
+            FileService.download(file.file_data).then(
+                res => ModalService.open('pdfPreview', { rawPdfFile: res.data }),
+                console.error
+            );
+        } else if (['png', 'jpeg', 'jpg'].includes(file.file_data.ext)) {
+            ModalService.open('imagePreview', { imageSrc: file.file_data.url });
+        }
+    };
+
+    $dir.downloadFile = ($event, file) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        FileService.download(file.file_data).then(res => {
+            FileService.downloadFile(file.file_data.original_name, res.data);
+        }, console.error);
+    };
+
     $scope.addFiles = (files) => {
-        $scope.$apply(() => $scope.files = [
+        $timeout(() => $scope.files = [
             ...$scope.files,
             ...filterValidFiles([...files]).map((file) => uploadFile({
                 file: file,
                 uploaded: false,
                 progress: 0,
             }))
-        ]);
-
+        ], 0);
 
         onFileBatchQueued(eventInfo());
     };
 
     const onInit = () => {
+        $dir.readOnly = $scope.readOnly || false;
+
         $dropArea.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -136,6 +165,7 @@ module.exports = () => {
             files: '=',
             accept: '=',
             multiple: '@',
+            readOnly: '=',
             onFileError: '&',
             onFileQueued: '&',
             onFileRemoved: '&',
@@ -147,8 +177,10 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$timeout',
             '$element',
             'FileService',
+            'ModalService',
             FileUploaderDirective
         ],
         templateUrl: 'assets/tpl/directives/controls/file-uploader.html'

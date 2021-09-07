@@ -92,9 +92,7 @@
                                 ng-repeat="line in ('sign_up_sponsor.app.description_bottom' | translate | lines_to_array)"
                                 ng-bind="line")
 
-                            .sign_up-pane-auth-apps
-                                a(href="{{ $root.appConfigs.ios_iphone_link }}").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-ios.svg")
-                                a(href="{{ $root.appConfigs.android_link }}").sign_up-pane-auth-app-item: img(src=src_prefix + "./assets/img/icon-app-android.svg")
+                            app-links
                         
                         .sign_up-pane-auth-qr_code.visible-md.visible-lg
                             qr-code(

@@ -1,15 +1,16 @@
-let ProductsComponent = function(
+const ProductsComponent = function(
     $q,
     $state,
     $stateParams,
     appConfigs,
-    ProductService,
-    ModalService
+    ProductService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.filters = {
-        values: {},
+        values: {
+            source: $stateParams.source || 'provider',
+        },
     };
 
     $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
@@ -17,15 +18,10 @@ let ProductsComponent = function(
 
     $ctrl.onPageChange = async (query) => {
         return $q((resolve, reject) => {
-            ProductService.list(
-                $ctrl.organization.id,
-                Object.assign({}, query, $ctrl.filters.values)
-            ).then((res => {
-                $ctrl.products = {
-                    meta: res.data.meta,
-                    data: res.data.data,
-                };
+            const data = { ...query, ...$ctrl.filters.values };
 
+            ProductService.list($ctrl.organization.id, data).then((res => {
+                $ctrl.products = { meta: res.data.meta, data: res.data.data };
                 resolve($ctrl.products);
             }), reject);
         });
@@ -40,17 +36,21 @@ let ProductsComponent = function(
 
     $ctrl.addProduct = function() {
         if (!$ctrl.maxProductCount || $ctrl.products.meta.total < $ctrl.maxProductCount) {
-            $state.go('products-create', {
-                organization_id: $stateParams.organization_id
-            });
+            $state.go('products-create', { organization_id: $stateParams.organization_id });
         }
+    };
+
+    $ctrl.srefData = {
+        provider: { ...$stateParams, ...{ source: 'provider' } },
+        sponsor: { ...$stateParams, ...{ source: 'sponsor' } },
+        archive: { ...$stateParams, ...{ source: 'archive' } },
     };
 };
 
 module.exports = {
     bindings: {
+        products: '<',
         organization: '<',
-        products: '<'
     },
     controller: [
         '$q',
@@ -58,7 +58,6 @@ module.exports = {
         '$stateParams',
         'appConfigs',
         'ProductService',
-        'ModalService',
         ProductsComponent
     ],
     templateUrl: 'assets/tpl/pages/products.html'

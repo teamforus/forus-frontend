@@ -7,19 +7,30 @@
 
     .me_app-overview {
         padding-right: 50px;
-        padding-top: 60px;
         flex-basis: 55%;
-
-        .block-title {
-            font: 600 54px/60px $bf;
+        z-index: 2;
+        
+        h1 {
+            font: 600 40px/54px $bf;
             color: #000000;
             margin-bottom: 30px;
+        }
+
+        h2 {
+            font: 600 28px/34px $bf;
+            color: #000000;
         }
     
         .block-description {
             font: 400 20px/30px $bf;
             color: #000000;
             margin-bottom: 30px;
+
+            a {
+                color: #3661ff;
+                text-decoration: underline;
+                font: 400 20px/30px $bf;
+            }
         }
     }
 
@@ -31,6 +42,7 @@
         margin-bottom: 30px;
         flex-basis: 45%;
         pointer-events: none;
+        padding-top: 60px;
 
         .me_app-image {
             margin-right: 30px;
@@ -57,7 +69,7 @@
 
             img {
                 display: block;
-                width: 150px;
+                height: 50px;
                 max-width: 100%;
             }
 
@@ -82,23 +94,33 @@
         .me_app-overview {
             padding: 0 0;
 
-            .block-title {
+            h1 {
                 font: 600 28px/36px $bf;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            h2 {
+                font: 600 21px/34px $bf;
                 margin-bottom: 20px;
                 text-align: center;
             }
         
             .block-description {
                 font: 400 16px/24px $bf;
-                margin-bottom: 20px;
+                margin-bottom: 5px;
                 text-align: center;
+
+                a {
+                    font: 400 16px/24px $bf;
+                }
             }
         }
 
         .me_app-images {
             width: 100%;
             margin-bottom: 20px;
-
+            padding: 30px;
             .me_app-image {
                 margin-right: 15px;
             }

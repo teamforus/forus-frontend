@@ -9,8 +9,8 @@ platform = new Platform('forus-webshop');
 // add libs to bundle (see libs folder)
 platform.setLibs([
     "babel_polyfill",
-    "jquery",
     "angular",
+    "angular_aria",
     "angular_cookies",
     "angular_sanitize",
     "angular_translate",
@@ -19,11 +19,11 @@ platform.setLibs([
     "angular_datepicker",
     "mdi",
     "moment",
-    "nanoscroller",
     "qrcodejs",
     "ui_router",
     "ui_select",
-    "underscore",
+    "file_saver",
+    "pdfjs",
 ]);
 
 // tweaking output and cleaned paths config
@@ -44,7 +44,7 @@ platform.addTask('js', {
     ],
     dest: "/",
     name: "app.min.js",
-    minify: false,
+    minify: true,
     sourcemap: true,
     browserify: true
 }, 'js');

@@ -1,50 +1,54 @@
-.modal.modal-auth.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
-    .modal-backdrop(ng-click="$ctrl.close()")
+.modal.modal-auth.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog")
+    
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
 
     .modal-content(ng-if="!$ctrl.sentSms"): .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
 
-        .modal-title(translate="open_in_me.sms.title")
-        .modal-subtitle.hide-sm(translate="open_in_me.sms.description")
-        .modal-subtitle.show-sm De app kan gebruikt worden om vouchers te beheren en makkelijk in te loggen.
-         
+        .me-logo
+            include ../../../resources/_webshop-common/assets/img/me-logo.svg
+
+        .modal-title(translate="open_in_me.sms.title_{{ $root.appConfigs.features.communication_type }}")
+        .modal-subtitle.hide-sm(translate="open_in_me.sms.description_{{ $root.appConfigs.features.communication_type }}")
+        .modal-subtitle.show-sm De app kan gebruikt worden om tegoeden te beheren en makkelijk in te loggen.
+
+        div: app-links(dl-id="me_download_button_lg" show-ios="false" show-android='false').flex.flex-center.hide-sm
+
         form.hide-sm.form.f-w(ng-submit="$ctrl.phoneForm.submit()")
             phone-control(ng-model="$ctrl.phoneForm.values.phone" cant-delete-length="2")
             .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
             .text-center
-                .description-small(translate="open_in_me.sms.subdescription")
+                .description-small(translate="open_in_me.sms.subdescription_{{ $root.appConfigs.features.communication_type }}")
             .modal-footer.text-center.no-border
                 button.button.button-primary(type="submit") {{ "open_in_me.sms.button.send" | translate }}
                 button.button.button-dark(type="button" ng-click="$ctrl.skip()") {{ "open_in_me.sms.button.skip" | translate }}
-        .text-center.show-sm
-            .block.block-app_download
-                .download-button: a(href="{{ $root.appConfigs.android_link }}" id="android_button")
-                    .download-icon: img(src="./assets/img/icon-app/icon-app-android.svg")
-                .download-button: a(href="{{ $root.appConfigs.ios_iphone_link }}" id="ios_button")
-                    .download-icon: img(src="./assets/img/icon-app/icon-app-ios.svg")
+
+        .text-center.show-sm: app-links
 
     .modal-content(ng-if="$ctrl.sentSms"): .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
 
-        .modal-title(translate="open_in_me.app_instruction.title")
-        .modal-subtitle.hide-sm
+        .modal-title(id="openInMeDialogTitle" translate="open_in_me.app_instruction.title")
+        .modal-subtitle.hide-sm(id="openInMeDialogSubtitle")
             span(translate="open_in_me.app_instruction.description")
             a(ui-sref="me-app" target="_blank" class="text-primary"): u Me-app
 
         .app-instruction
             .step-item
-                img(src="./assets/img/screen1.png")
+                img(src="./assets/img/screen1.png" alt="Me-app aanmeldscherm schermafbeelding")
                 .app-title(translate="open_in_me.app_instruction.step_1")
-                img.line-item(src="./assets/img/line1.png")
+                img.line-item(src="./assets/img/line1.png" alt="")
             .step-item
-                img(src="./assets/img/screen2.png")
+                img(src="./assets/img/screen2.png" alt="Me-app aanmeldscherm schermafbeelding, kies koppelen")
                 .app-title(translate="open_in_me.app_instruction.step_2")
 
-            .divider-img: img(src="./assets/img/Base7.png")
+            .divider-img: img(src="./assets/img/Base7.png" alt ="")
 
         .modal-title {{ "open_in_me.app_header.title" | translate }}
-        .modal-subtitle {{ "open_in_me.app_header.subtitle" | translate }}
-
+        .modal-subtitle(translate="open_in_me.app_header.subtitle_{{ $root.appConfigs.features.communication_type }}")
+        
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
             .form-group
                 div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")

@@ -9,52 +9,43 @@ const FundService = function(ApiRequest, ModalService) {
                 return this.listPublic(query);
             }
 
-            return ApiRequest.get(sprintf(uriPrefix + '%s/funds', organization_id), query);
+            return ApiRequest.get(uriPrefix + `${organization_id}/funds`, query);
         };
 
         this.listPublic = function(query = {}) {
-            return ApiRequest.get(sprintf('/platform/funds'), query);
+            return ApiRequest.get('/platform/funds', query);
         };
 
         this.store = function(organization_id, data) {
-            return ApiRequest.post(
-                sprintf(uriPrefix + '%s/funds', organization_id),
-                this.apiFormToResource(data)
-            );
+            return ApiRequest.post(uriPrefix + `${organization_id}/funds`, this.apiFormToResource(data));
         };
 
-        this.update = function(organization_id, fund_id, data) {
-            return ApiRequest.patch(sprintf(
-                uriPrefix + '%s/funds/%s',
-                organization_id,
-                fund_id
-            ), this.apiFormToResource(data));
+        this.update = function(organization_id, id, data) {
+            return ApiRequest.patch(uriPrefix + `${organization_id}/funds/${id}`, this.apiFormToResource(data));
         };
 
         this.updateCriteria = function(organization_id, id, criteria) {
-            return ApiRequest.patch(uriPrefix + organization_id + '/funds/' + id + '/criteria', {
-                criteria: criteria
-            });
+            return ApiRequest.patch(uriPrefix + `${organization_id}/funds/${id}/criteria`, { criteria });
+        };
+
+        this.backofficeUpdate = function(organization_id, id, data) {
+            return ApiRequest.patch(uriPrefix + `${organization_id}/funds/${id}/backoffice`, data);
+        };
+
+        this.backofficeTest = function(organization_id, id) {
+            return ApiRequest.post(uriPrefix + `${organization_id}/funds/${id}/backoffice-test`);
         };
 
         this.read = function(organization_id, fund_id, query = {}) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s',
-                organization_id,
-                fund_id
-            ), query);
+            return ApiRequest.get(uriPrefix + `${organization_id}/funds/${fund_id}`, query);
         };
 
         this.readPublic = function(fund_id, query = {}) {
-            return ApiRequest.get(sprintf('/platform/funds/%s', fund_id), query);
+            return ApiRequest.get(`/platform/funds/${fund_id}`, query);
         };
 
-        this.readFinances = function(organization_id, fund_id, query = {}) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/finances',
-                organization_id,
-                fund_id
-            ), query);
+        this.readFinances = function(organization_id, query = {}) {
+            return ApiRequest.get(uriPrefix + `${organization_id}/sponsor/finances`, query);
         };
 
         this.listProviders = function(organization_id, fund_id, state, query = {}) {
@@ -105,7 +96,8 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         /**
-         * Get provider transactions lsit
+         * TODO: check for cleanup
+         * Get provider transactions list
          * 
          * @param {number} organization_id 
          * @param {number} fund_id 
@@ -128,6 +120,7 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         /**
+         * TODO: check for cleanup
          * Get provider transaction
          * 
          * @param {number} organization_id 
@@ -154,7 +147,8 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         /**
-         * Export provider transactions lsit
+         * TODO: check for cleanup
+         * Export provider transactions list
          * 
          * @param {number} organization_id 
          * @param {number} fund_id 
@@ -173,6 +167,47 @@ const FundService = function(ApiRequest, ModalService) {
                 organization_id,
                 fund_id,
                 provider_id
+            ), query, {}, true, (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
+
+                return _cfg;
+            });
+        };
+
+        /**
+         * Export funds data
+         * 
+         * @param {number} organization_id 
+         * @param {number} fund_id 
+         * @param {number} provider_id 
+         * @param {object} query 
+         * @returns {Promise}
+         */
+        this.financialOverview = function(organization_id, query = {}) 
+        {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/sponsor/finances-overview', 
+                organization_id
+            ), query);
+        };
+
+        /**
+         * Export funds data
+         * 
+         * @param {number} organization_id 
+         * @param {number} fund_id 
+         * @param {number} provider_id 
+         * @param {object} query 
+         * @returns {Promise}
+         */
+         this.financialOverviewExport = function(
+            organization_id,
+            query = {}
+        ) {
+            return ApiRequest.get(sprintf(
+                uriPrefix + '%s/sponsor/finances-overview-export', 
+                organization_id
             ), query, {}, true, (_cfg) => {
                 _cfg.responseType = 'arraybuffer';
                 _cfg.cache = false;
@@ -307,14 +342,14 @@ const FundService = function(ApiRequest, ModalService) {
 
         this.stopActionConfirmationModal = (onConfirm) => {
             ModalService.open("dangerZone", {
-                header: "Actie stoppen",
-                title: "De publicatie van het aanbod wordt van de website verwijderd.",
+                header: "Subsidie stoppen",
+                title: "De publicatie van het aanbod wordt van de website verwijderd",
                 description:
-                    "Hierna kan er van deze actie geen gebruik meer worden gemaakt.\n" +
-                    "De gebruikte tegoeden blijven bewaard." +
-                    "Wanneer u de actie opnieuw start, worden de gebruikte tegoeden verrekend met het nieuwe ingestelde limiet.",
+                    "Hierna kan er van dit aanbod geen gebruik meer worden gemaakt.\n" +
+                    "De gebruikte tegoeden blijven bewaard. " +
+                    "Wanneer u de subsidie opnieuw start, worden de gebruikte tegoeden verrekend met het nieuwe ingestelde limiet.",
                 cancelButton: "Annuleer",
-                confirmButton: "Stop actie",
+                confirmButton: "Stop subsidie",
                 onConfirm,
             })
         };

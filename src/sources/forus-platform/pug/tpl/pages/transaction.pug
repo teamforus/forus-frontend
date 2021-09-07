@@ -2,7 +2,13 @@
     menu
     section.app.app-content
         .block.block-breadcrumbs(ng-if="$root.activeOrganization")
-            .breadcrumb-item(ui-sref="transactions({organization_id:$root.activeOrganization.id})" translate="page_state_titles.transactions")
+            .breadcrumb-item(
+                ui-sref="transactions({organization_id:$root.activeOrganization.id})" 
+                translate="page_state_titles.transactions")
+            .breadcrumb-item(
+                ng-if="$ctrl.appConfigs.panel_type == 'sponsor'"
+                ui-sref="transactions({organization_id:$root.activeOrganization.id})" 
+                ng-bind="$ctrl.transaction.fund.name")
             .breadcrumb-item.active(ng-bind="'#' + $ctrl.transaction.id")
         .card
             .card-section
@@ -43,13 +49,14 @@
                                 .hover-actions-item View payment details
 
         .card
-            .card-header: .card-title {{ "financial_dashboard_transaction.labels.details" | translate }}
-            .card-section
-                .card-block.card-block-keyvalue
+            .card-header: .card-title(translate="financial_dashboard_transaction.labels.details")
+
+            .card-section: .flex
+                .flex: .card-block.card-block-keyvalue
                     .keyvalue-item
                         .keyvalue-key {{ "financial_dashboard_transaction.labels.id" | translate }}
                         .keyvalue-value {{ $ctrl.transaction.id }}
-                    .keyvalue-item
+                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
                         .keyvalue-key {{ "financial_dashboard_transaction.labels.bunq_id" | translate }}
                         .keyvalue-value {{ $ctrl.transaction.payment_id }}
                     .keyvalue-item
@@ -61,4 +68,14 @@
                     .keyvalue-item
                         .keyvalue-key {{ "financial_dashboard_transaction.labels.date" | translate }}
                         .keyvalue-value {{ $ctrl.transaction.created_at_locale }}
-                    
+                    .keyvalue-item
+                        .keyvalue-key Status
+                        .keyvalue-value
+                            | {{ {pending: 'In afwachting', success: 'Succes', canceled: 'Geannuleerd'}[$ctrl.transaction.state] }}
+                            div(ng-if="$ctrl.transaction.transaction_in > 0 && $ctrl.transaction.state == 'pending'").text-sm.text-muted-dark
+                                em.mdi.mdi-clock-outline 
+                                | {{ $ctrl.transaction.transaction_in }} dagen
+                
+                .flex.flex-column.flex-end(ng-if="$ctrl.transaction.cancelable && $ctrl.transaction.reservation")
+                    button(ng-click="$ctrl.cancelTransaction($ctrl.transaction.reservation)").button.button-default.button-sm
+                        strong.nowrap Betaling annuleren

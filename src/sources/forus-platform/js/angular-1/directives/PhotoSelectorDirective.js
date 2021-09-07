@@ -17,6 +17,10 @@ let PhotoSelectorDirective = function(
             input.remove();
         }
 
+        const thumbnailSize = $scope.thumbnailSize || { x: 100, y: 100 };
+        const fillStyle = typeof $scope.fillStyle === 'undefined' ? '#ffffff' : $scope.fillStyle;
+
+
         input = document.createElement('input');
         input.setAttribute("type", "file");
         input.setAttribute("accept", "image/*");
@@ -25,18 +29,14 @@ let PhotoSelectorDirective = function(
         input.addEventListener('change', function(e) {
             ModalService.open('photoUploader', {
                 type: $scope.type,
-                getFile: () => {
-                    return e.target.files[0];
-                },
+                getFile: () => e.target.files[0],
                 submit: (file) => {
+                    $scope.selectPhoto({ file });
+
                     ImageConvertorService.instance(file).then((converter) => {
                         $timeout(() => {
-                            $scope.thumbnail = converter.resize(100, 100);
+                            $scope.thumbnail = converter.resize(thumbnailSize.x, thumbnailSize.y, fillStyle)
                         }, 0);
-                    });
-
-                    $scope.selectPhoto({
-                        file: file
                     });
                 }
             });
@@ -46,17 +46,28 @@ let PhotoSelectorDirective = function(
 
         input.click();
     };
+
+
+    $scope.deleteFile = (e) => {
+        $scope.resetPhoto();
+    }
 };
 
 module.exports = () => {
     return {
         scope: {
+            'fillStyle': '=',
             'selectPhoto': '&',
+            'resetPhoto': '&',
             'thumbnail': '=',
+            'thumbnailSize': '=',
             'label': '@',
+            'disabled': '@',
             'descriptionTranslate': '@',
             'description': '@',
             'type': '@',
+            'templateData': '=',
+            'templateCallback': '&'
         },
         restrict: "EA",
         replace: true,

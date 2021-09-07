@@ -1,12 +1,12 @@
 module.exports = {
     header: {
-        title: "Reserveringen",
+        title: "Aanbiedingsvouchers",
     },
     labels: {
         amount: "Bedrag",
         product: "Aanbod",
         created_date: "Aangemaakt op",
-        expire_date: "Geldig tot",
+        expire_date: "Geldig tot en  met",
         fund: "Fonds",
         granted: "Toegekend",
         used: "In gebruik",

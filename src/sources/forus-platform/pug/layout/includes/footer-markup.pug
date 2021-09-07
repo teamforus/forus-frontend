@@ -1,0 +1,32 @@
+.app.app-footer
+    .block.block-dashboard-switcher
+        .switcher-wrapper: a(href='#').switcher-item Aanbieder
+        .switcher-wrapper: a(href='#').switcher-item.active Beoordelaar
+        .switcher-wrapper: a(href='#').switcher-item Sponsor
+
+//- section.section.section-footer
+    .wrapper
+        .block.block-footer: .row
+            //- .col.col-md-4: .block.block-markdown
+            //- .col.col-md-4: .block.block-markdown
+
+            .col.col-md-4
+                .block.block-markdown
+                    h3 Navigatie
+                    nav.footer-nav: .footer-nav-item: a(href="#") Aanmelden als aanbieder
+
+            .col.col-md-3
+                .block.block-markdown
+                    h3 Download Me-app
+
+                    .block.block-app_download
+                        a(href="#" target="_blank"): img(src="/assets/img/icon-app/icon-app-android.svg" alt="Google Play Store")
+                        a(href="#" target="_blank"): img(src="/assets/img/icon-app/app-store-badge.svg" alt="Apple App Store")
+
+                    nav.footer-nav: .footer-nav-item: a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
+
+    .block.block-copyrights: .wrapper
+        .copyrights 
+        .links
+            .link-item: a(href="#") Privacyverklaring
+            .link-item: a(href="#") Toegankelijkheid

@@ -1,13 +1,13 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 .block.block-file-uploader
-    .uploader-droparea
+    .uploader-droparea(ng-if="!$dir.readOnly")
         .droparea-icon: .mdi.mdi-file-upload-outline
         .droparea-title 
             | Document slepen &amp; neer zetten
             br
             small of
-        .droparea-button: .button.button-primary-outline(ng-click="$dir.selectFile()") Upload een document
+        .droparea-button: .button.button-primary-outline(ng-click="$dir.selectFile()" role="button") Upload een document
         .droparea-size max. grootte 8Mb
     
     .uploader-files(ng-if="files.length > 0")
@@ -15,6 +15,9 @@
             .file-item-container
                 .file-item-icon: img(ng-src=src_prefix + "assets/img/file-icon-{{ (fileItem.file.name.split('.')[fileItem.file.name.split('.').length - 1]) }}.svg")
                 .file-item-name(ng-bind="fileItem.file.name")
-                .file-item-progress: .file-item-progress-container: .file-item-progress-bar(style="width: {{ fileItem.progress }}%")
-                .file-item-action: a(ng-click="$dir.removeFile(fileItem)").mdi.mdi-close
+                .file-item-progress: .file-item-progress-container: progress(max="100" value="{{ fileItem.progress }}")
+                
+                .file-item-action(ng-if="fileItem.has_preview"): a(ng-click="$dir.previewFile($event, fileItem)" title="Bekijk file" role="button" tabindex="0").mdi.mdi-eye
+                .file-item-action(ng-if="!fileItem.uploading"): a(ng-click="$dir.downloadFile($event, fileItem)" role="button" tabindex="0").mdi.mdi-download
+                .file-item-action(ng-if="!$dir.readOnly"): a(ng-click="$dir.removeFile(fileItem)" role="button" tabindex="0").mdi.mdi-close
             .file-item-error: .text-danger(ng-repeat="fileItemError in fileItem.error" ng-bind="fileItemError")

@@ -1,4 +1,4 @@
-let BaseController = function(
+const BaseController = function(
     $q,
     $state,
     $rootScope,
@@ -19,7 +19,6 @@ let BaseController = function(
 
         AuthService.identity().then((res) => {
             let auth_user = res.data;
-            let count = 0;
             let timer = (appConfigs.log_out_time || 15) * 60 * 1000;
 
             if (appConfigs.log_out_time !== false) {
@@ -32,12 +31,10 @@ let BaseController = function(
                             type: 'confirm',
                             description: 'modal.logout.description',
                             confirmBtnText: 'Inloggen',
-                            confirm: () => {
-                                ModalService.open('modalAuth', {});
-                            }
+                            confirm: () => ModalService.open('modalAuth', {}),
                         });
                     }
-                }, () => {});
+                }, console.error);
             }
 
             RecordService.list().then((res) => {
@@ -68,12 +65,10 @@ let BaseController = function(
         if (needConfirmation) {
             return ModalService.open('modalNotification', {
                 type: "confirm",
-                title: "Weet u zeker dat u wilt uitloggen?",
-                confirmBtnText: "Bevestig",
-                cancelBtnText: "Annuleer",
-                confirm: () => {
-                    $rootScope.signOut();
-                },
+                title: "logout.title_" + $rootScope.appConfigs.features.communication_type,
+                confirmBtnText: "buttons.confirm",
+                cancelBtnText: "buttons.cancel",
+                confirm: () => $rootScope.signOut(),
                 cancel: () => {}
             });
         }

@@ -1,0 +1,110 @@
+.block.block-navbar-search(
+    ng-class="{'block-navbar-search-results': $dir.dropdown}"
+    ng-keydown="$dir.navigateItems($event)")
+    form(ng-submit="$dir.doSearch()" click-outside="$dir.hideDropDown()").search-form.form
+        //- Search icon
+        .navbar-search-icon: .mdi.mdi-magnify
+
+        //- Search input
+        input.form-control(
+            type="text"
+            placeholder="Waar ben je naar op zoek?"
+            ng-model="$dir.query"
+            ng-change="$dir.doSearch()"
+            ng-keydown="$dir.cancelSearch($event)"
+            aria-label="Zoeken"
+            )
+
+        .search-result(ng-if="$dir.dropdown")
+            //- Result sections
+            .search-result-section(
+                ng-repeat="(key, values) in $dir.results"
+                ng-if="values.count > 0 && $dir.resultsExists && $dir.results && !$dir.searchResultPage")
+
+                //- Section title
+                .search-result-title
+                    span(translate="top_navbar_search.result.{{ key }}_label")
+                    a.search-result-title-link(
+                        ui-sref="search-result({q: $dir.lastQuery, search_item_types: key})" 
+                        ng-if="values.count > 3")  {{ values.count }} resultaten gevonden...
+                
+                //- Result sections list
+                .search-result-items(ng-if="values")
+                    a.search-result-item(
+                        ng-repeat="value in values.items"
+                        ui-sref="{{value.uiSref}}(value.uiSrefParams)"
+                        ng-class="{ selected: $dir.selectedItem == {{value.navigation_key}} }"
+                        ng-bind-html="value.name")
+
+            //- Actions
+            .search-result-actions(ng-if="$dir.resultsExists && $dir.results && !$dir.searchResultPage")
+                button.button.button-primary(ui-sref="search-result({q: $dir.query})" translate="top_navbar_search.result.btn")
+
+            //- No results
+            .search-noresult(ng-if="!$dir.resultsExists && $dir.results && !$dir.searchResultPage")
+                .search-noresult-description(
+                    translate="top_navbar_search.noresult.subtitle" 
+                    translate-values="{ query: $dir.lastQuery }") 
+
+                .search-noresult-items
+                    a(ui-sref="providers" translate="top_navbar_search.noresult.providers_label").search-noresult-item
+                    a(ui-sref="products" translate="top_navbar_search.noresult.products_label").search-noresult-item
+                    a(ui-sref="funds" translate="top_navbar_search.noresult.funds_label").search-noresult-item
+
+//- .block.block-navbar-search
+    .search-form.form
+        //- Search icon
+        .navbar-search-icon: .mdi.mdi-magnify
+
+        //- Search input
+        input.form-control(type="text" placeholder="Waar ben je naar op zoek?")
+
+    .search-result
+        //- Result sections
+        .search-result-section
+            .search-result-title
+                | Products
+                a(href="#").search-result-title-link Found 420 results...
+            
+            //- Result sections list
+            .search-result-items
+                a(href="#").search-result-item Lorem ipsum #1
+                a(href="#").search-result-item Lorem ipsum #2
+                a(href="#").search-result-item Lorem ipsum #3
+        
+        //- Result sections
+        .search-result-section
+            .search-result-title 
+                | Providers
+                a(href="#").search-result-title-link Found 420 results...
+            
+            //- Result sections list
+            .search-result-items
+                a(href="#").search-result-item Lorem ipsum #1
+                a(href="#").search-result-item Lorem ipsum #2
+                a(href="#").search-result-item Lorem ipsum #3
+        
+        //- Result sections
+        .search-result-section
+            .search-result-title 
+                | Funds
+                a(href="#").search-result-title-link Found 420 results...
+            
+            //- Result sections list
+            .search-result-items
+                a(href="#").search-result-item Lorem ipsum #1
+                a(href="#").search-result-item Lorem ipsum #2
+                a(href="#").search-result-item Lorem ipsum #3
+
+        //- Actions
+        .search-result-actions
+            button.button.button-primary(ui-sref="search-result({keyword: $dir.query})" translate="top_navbar_search.result.btn")
+
+        //- No results
+        //- .search-noresult
+            .search-noresult-description Geen resultaten gevonden voor ”Smiley”. Probeer het nog een keer met andere zoektermen.
+
+            .search-noresult-items
+                a(href="#").search-noresult-item="Bekijk alle potjes >"
+                a(href="#").search-noresult-item="Bekijk al het aanbod >"
+                a(href="#").search-noresult-item="Bekijk alle aanbieders >"

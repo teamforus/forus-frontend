@@ -10,16 +10,16 @@ module.exports = {
     },
     labels: {
         fund: "Aanvragen",
-        limit: "Aantal keer dat u gebruik kan maken:",
+        limit: "Resterend tegoed:&nbsp;",
         max_limit: "Maximaal per persoon:",
         find: "U kunt ons hier vinden",  
         description: "Omschrijving:",
         category: "Categorie:",
-        expire: "Geldigheid van aanbod:",
+        expire: "Geldig tot en met:",
         pay_from_voucher: "U betaalt vanuit het tegoed:",
         price: "Prijs:",
         discount: "Korting:",
-        expire_prefix: "Geldig tot"
+        expire_prefix: ""
     },
     status: {
         active: "Actief",
@@ -43,4 +43,5 @@ module.exports = {
     },
     low_amount: "U heeft geen tegoed met voldoende saldo.",
     no_vouchers: "U heeft geen tegoed om dit aanbod mee te reserveren",
+    tooltip: "Hoevaak je nog gebruik kunt maken van dit aanbod",
 };

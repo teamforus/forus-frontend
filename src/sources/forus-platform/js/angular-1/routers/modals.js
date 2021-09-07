@@ -31,20 +31,28 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalAuth2Component'
     });
 
-    ModalRouteProvider.modal('voucher_create', {
+    ModalRouteProvider.modal('voucherCreate', {
         component: 'modalVoucherCreateComponent'
     });
 
-    ModalRouteProvider.modal('product_voucher_create', {
+    ModalRouteProvider.modal('productVoucherCreate', {
         component: 'modalProductVoucherCreateComponent'
     });
 
-    ModalRouteProvider.modal('voucher_qr_code', {
+    ModalRouteProvider.modal('voucherQrCode', {
         component: 'modalVoucherQrCodeComponent'
     });
 
     ModalRouteProvider.modal('vouchersUpload', {
         component: 'modalVouchersUploadComponent'
+    });
+
+    ModalRouteProvider.modal('reservationCreate', {
+        component: 'modalReservationCreateComponent'
+    });
+
+    ModalRouteProvider.modal('reservationUpload', {
+        component: 'modalReservationUploadComponent'
     });
 
     ModalRouteProvider.modal('fundRequestRecordClarify', {
@@ -95,6 +103,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalVoucherExportTypeComponent'
     });
 
+    ModalRouteProvider.modal('exportType', {
+        component: 'modalExportTypeComponent'
+    });
+
     ModalRouteProvider.modal('dangerZone', {
         component: 'modalDangerZoneComponent'
     });
@@ -111,15 +123,27 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundProviderChatMessageComponent'
     });
 
-    ModalRouteProvider.modal('subsidyProductEdit', {
-        component: 'modalSubsidyProductEditComponent'
-    });
-
     ModalRouteProvider.modal('duplicatesPicker', {
         component: 'modalDuplicatesPickerComponent'
     });
 
     ModalRouteProvider.modal('fundAppendRequestRecord', {
         component: 'modalFundAppendRequestRecordComponent'
+    });
+
+    ModalRouteProvider.modal('transferOrganizationOwnership', {
+        component: 'modalTransferOrganizationOwnershipComponent'
+    });
+
+    ModalRouteProvider.modal('physicalCard', {
+        component: 'modalPhysicalCardComponent'
+    });
+
+    ModalRouteProvider.modal('voucherDeactivation', {
+        component: 'modalVoucherDeactivationComponent'
+    });
+
+    ModalRouteProvider.modal('voucherActivation', {
+        component: 'modalVoucherActivationComponent'
     });
 }];

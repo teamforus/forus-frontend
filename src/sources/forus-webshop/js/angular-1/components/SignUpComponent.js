@@ -121,12 +121,14 @@ let SignUpComponent = function(
 
     $ctrl.onSignedIn = () => {
         VoucherService.list({
-            per_page: 1000,
+            per_page: 100,
         }).then((res) => {
-            let vouchers = res.data.data;
-            let takenFundIds = vouchers.map(voucher => voucher.fund_id && !voucher.expired);
-            let fundsNoVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
-            let fundsWithVouchers = $ctrl.funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
+            const vouchers = res.data.data;
+            const takenFundIds = vouchers.map(voucher => voucher.fund_id && !voucher.expired);
+            
+            const funds = $ctrl.funds.filter(fund => fund.allow_direct_requests);
+            const fundsNoVouchers = funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
+            const fundsWithVouchers = funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
 
             if (appConfigs.flags.activateFirstFund && fundsNoVouchers.length > 1) {
                 $state.go('fund-activate', {

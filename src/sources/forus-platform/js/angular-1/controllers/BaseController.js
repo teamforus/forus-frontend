@@ -22,7 +22,7 @@ let BaseController = function(
     let loadOrganizations = () => {
         return $q((resolve, reject) => {
             OrganizationService.list({
-                per_page: 100,
+                per_page: 300,
             }).then(res => {
                 resolve($scope.organizations = res.data.data);
             }, reject);
@@ -129,7 +129,11 @@ let BaseController = function(
         let route = PermissionsService.getAvailableRoutes(
             appConfigs.panel_type,
             $rootScope.auth_user.organizationsMap[selectedOrganizationId]
-        ).map(route => route.name)[0] || 'home';
+        ).map(route => route.name)[0] || null;
+
+        if (!route) {
+            return $state.go('no-permission');
+        }
 
         $state.go(route, { organization_id: selectedOrganizationId });
     };
@@ -159,7 +163,7 @@ let BaseController = function(
 
                 OrganizationService.list({
                     dependency: "permissions,logo",
-                    per_page: 100,
+                    per_page: 300,
                 }).then((res) => {
                     auth_user.organizations = res.data.data;
                     auth_user.organizationsMap = {};

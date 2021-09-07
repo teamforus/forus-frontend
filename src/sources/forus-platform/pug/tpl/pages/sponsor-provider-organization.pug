@@ -1,0 +1,61 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="sponsor-provider-organizations({organization_id:$ctrl.organization.id})" translate="page_state_titles.organization-providers")
+            .breadcrumb-item.active(ng-bind="$ctrl.providerOrganization.name")
+
+        //- Provider details
+        block-provider-organization-overview(organization="$ctrl.providerOrganization")
+
+        //- Funds list
+        .card
+            .card-header: .flex-row
+                .flex-col: .card-title Fondsen en aanbod
+                .flex-col: .card-header-drown: .block.block-inline-filters: .form: .form-group: input(
+                    ng-model="$ctrl.providerFilters.values.q"
+                    placeholder="Zoeken").form-control
+
+            .card-section.card-section-padless: .table-wrapper: table.table.form
+                tr
+                    th.td-narrow Afbeelding
+                    th Fondsnaam
+                    th.td-narrow Accepteer budget
+                    th.td-narrow Alle aanbiedingen
+                    th Opties
+
+                tr(ng-repeat="fundProvider in $ctrl.fundProviders.data")
+                    td.td-narrow: img(ng-src="{{ fundProvider.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").td-media
+                    td(ng-bind="fundProvider.fund.name")
+                    td(ng-if="fundProvider.fund.type === 'budget'"): label(for="option_{{ fundProvider.id }}_allow_budget").form-toggle
+                        input(
+                            type="checkbox" 
+                            id="option_{{ fundProvider.id }}_allow_budget"
+                            ng-checked="fundProvider.allow_budget"
+                            ng-change="$ctrl.updateFundProviderAllow(fundProvider, 'allow_budget')"
+                            ng-model="fundProvider.allow_budget")
+                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                    td(ng-if="fundProvider.fund.type !== 'budget'"): .text-muted -
+                    td(ng-if="fundProvider.fund.type === 'budget'"): label(for="option_{{ fundProvider.id }}_allow_products").form-toggle
+                        input(
+                            type="checkbox" 
+                            id="option_{{ fundProvider.id }}_allow_products" 
+                            ng-checked="fundProvider.allow_products" 
+                            ng-change="$ctrl.updateFundProviderAllow(fundProvider, 'allow_products')"
+                            ng-model="fundProvider.allow_products")
+                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                    td(ng-if="fundProvider.fund.type !== 'budget'"): .text-muted -
+                    td.text-right
+                        a(ui-sref="fund-provider({organization_id: $ctrl.organization.id, fund_id: fundProvider.fund_id, fund_provider_id: fundProvider.id})").button.button-default 
+                            em.mdi.mdi-eye-outline.icon-start
+                            | Bekijk aanbod
+
+            .card-section.text-center(ng-if="$ctrl.fundProviders.meta.total == 0") Geen aanmeldingen
+            .card-section.card-section-narrow(ng-if="$ctrl.fundProviders.meta" ng-show="$ctrl.fundProviders.meta.last_page > 1")
+                paginator(meta="$ctrl.fundProviders.meta" filters="$ctrl.providerFilters.values" on-page-change="$ctrl.onProviderFundsPageChange(query)")
+
+        //- Provider offices
+        block-provider-organization-offices(offices="$ctrl.providerOrganization.offices")
+        
+        //- Provider employees
+        block-provider-organization-employees(employees="$ctrl.providerOrganization.employees")

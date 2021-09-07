@@ -25,9 +25,15 @@ let FundActivateComponent = function(
     $ctrl.startDigId = () => {
         DigIdService.startFundRequst($ctrl.fund.id).then(res => {
             document.location = res.data.redirect_url;
-        }, res => $state.go('error', {
-            errorCode: res.headers('Error-Code')
-        }));
+        }, (res) => {
+            if (res.status === 403 && res.data.message) {
+                return PushNotificationsService.danger(res.data.message);
+            }
+
+            $state.go('error', {
+                errorCode: res.headers('Error-Code')
+            })
+        });
     };
 
     $ctrl.applyFund = function(fund) {
@@ -157,9 +163,18 @@ let FundActivateComponent = function(
         if ($ctrl.hasDigiDResponse($stateParams)) {
             // got digid error, abort
             if ($stateParams.digid_error) {
-                $state.go('error', {
-                    errorCode: 'digid_' + $stateParams.digid_error
-                });
+                if ($stateParams.digid_error === 'error_0040') {
+                    PushNotificationsService.info(
+                        'DigiD - Inlogpoging geannuleerd.',
+                        'U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan.'
+                    );
+
+                    $state.go('fund-activate', { ...$stateParams, ...{ digid_error: undefined } }, {
+                        reload: true
+                    });
+                } else {
+                    $state.go('error', { errorCode: 'digid_' + $stateParams.digid_error });
+                }
 
                 return true;
             }
@@ -216,7 +231,7 @@ let FundActivateComponent = function(
                     }, {
                         reload: true
                     });
-                } else if (fundsValidCriteria.map(fund => fund.id).indexOf($ctrl.fund.id).length != -1) {
+                } else if (!fundsValidCriteria.map(fund => fund.id).includes($ctrl.fund.id)) {
                     // The current fund is now available for request (possible because bsn is now available)
                     $state.go('fund-request', {
                         fund_id: $ctrl.fund.id
@@ -276,8 +291,9 @@ let FundActivateComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        let voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
-        let pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
+        const { backoffice_error, backoffice_fallback } = $stateParams;
+        const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
+        const pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
             return request.state === 'pending';
         }) : [];
 
@@ -301,6 +317,11 @@ let FundActivateComponent = function(
         // The fund is already taken by identity partner
         if ($ctrl.fund.taken_by_partner) {
             return $ctrl.state = 'taken_by_partner';
+        }
+
+        // Backoffice not responding and fallback is disabled
+        if (backoffice_error == 1 && backoffice_fallback == 0) {
+            return $ctrl.state = 'backoffice_error';
         }
 
         $ctrl.getFunds(fund => fund).then(funds => {

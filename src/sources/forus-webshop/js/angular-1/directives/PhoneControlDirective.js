@@ -10,7 +10,7 @@ let PhoneControlDirective = function(
 
     $scope.cantDeleteLength = $scope.cantDeleteLength ? $scope.cantDeleteLength : 0;
 
-    $('body').bind('keydown', (e) => {
+    angular.element(document).bind('keydown', (e) => {
         $timeout(function() {
             var key = e.charCode || e.keyCode || 0;
 

@@ -1,25 +1,5 @@
-let ProviderOfficeComponent = function(
-    $sce,
-    $state,
-    OfficeService
-) {
-    let $ctrl = this;
-
-    $ctrl.goToOffice = (office) => {
-        $state.go('provider-office', {
-            provider_id: office.organization_id,
-            office_id: office.id
-        });
-    };
-
-    $ctrl.goToProvider = ($event, provider) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $state.go('provider', {
-            provider_id: provider.id
-        });
-    };
+const ProviderOfficeComponent = function($sce, OfficeService) {
+    const $ctrl = this;
 
     $ctrl.toggleOffices = ($event, provider) => {
         $event.preventDefault();
@@ -27,7 +7,7 @@ let ProviderOfficeComponent = function(
 
         provider.showOffices = !provider.showOffices;
     };
-    
+
     $ctrl.$onInit = () => {
         $ctrl.weekDays = OfficeService.scheduleWeekFullDays();
         $ctrl.schedules = $ctrl.office.schedule.reduce((schedules, schedule) => {
@@ -45,8 +25,8 @@ let ProviderOfficeComponent = function(
 
         $ctrl.provider.description_html = $sce.trustAsHtml($ctrl.provider.description_html);
     };
-    
-    $ctrl.$onDestroy = () => {};
+
+    $ctrl.$onDestroy = () => { };
 };
 
 module.exports = {
@@ -58,7 +38,6 @@ module.exports = {
     },
     controller: [
         '$sce',
-        '$state',
         'OfficeService',
         ProviderOfficeComponent
     ],

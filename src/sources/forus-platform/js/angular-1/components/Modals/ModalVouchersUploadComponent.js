@@ -1,3 +1,10 @@
+const isEmpty = require('lodash/isEmpty');
+const groupBy = require('lodash/groupBy');
+const countBy = require('lodash/countBy');
+const sortBy = require('lodash/sortBy');
+const uniq = require('lodash/uniq');
+const map = require('lodash/map');
+
 let ModalVouchersUploadComponent = function(
     $q,
     $rootScope,
@@ -85,7 +92,7 @@ let ModalVouchersUploadComponent = function(
                     ) === -1
                 }).map(row => row.fund_id);
 
-                this.errors.hasInvalidFundIdsList = _.unique(this.errors.hasInvalidFundIds).join(', ');
+                this.errors.hasInvalidFundIdsList = uniq(this.errors.hasInvalidFundIds).join(', ');
 
                 if (this.errors.hasInvalidFundIds.length > 0) {
                     return false;
@@ -132,11 +139,11 @@ let ModalVouchersUploadComponent = function(
                 this.errors.csvProductsInvalidStockIds = validation.invalidStockIds;
                 this.errors.csvProductsInvalidUnknownIds = validation.invalidProductIds;
 
-                this.errors.csvProductsInvalidStockIdsList = _.unique(_.pluck(
+                this.errors.csvProductsInvalidStockIdsList = uniq(map(
                     this.errors.csvProductsInvalidStockIds, 'product_id'
                 )).join(', ');
 
-                this.errors.csvProductsInvalidUnknownIdsList = _.unique(_.pluck(
+                this.errors.csvProductsInvalidUnknownIdsList = uniq(map(
                     this.errors.csvProductsInvalidUnknownIds, 'product_id'
                 )).join(', ');
 
@@ -156,7 +163,7 @@ let ModalVouchersUploadComponent = function(
                     let header = res.data.shift();
 
                     let data = body.filter(row => {
-                        return row.filter(col => !_.isEmpty(col)).length > 0;
+                        return row.filter(col => !isEmpty(col)).length > 0;
                     }).map((val) => {
                         let row = {};
 
@@ -168,7 +175,7 @@ let ModalVouchersUploadComponent = function(
 
                         row.note = row.note || this.defaultNote(row);
 
-                        return _.isEmpty(row) ? false : row;
+                        return isEmpty(row) ? false : row;
                     }).filter(row => !!row);
 
                     this.isValid = this.validateCsvData(data);
@@ -179,7 +186,7 @@ let ModalVouchersUploadComponent = function(
             };
 
             this.validateProductId = function(data = []) {
-                let allProductIds = _.countBy(data, 'product_id')
+                let allProductIds = countBy(data, 'product_id')
 
                 let hasMissingProductId = data.filter(row => row.product_id === undefined).length > 0;
                 let invalidProductIds = data.filter(row => !$ctrl.productsByIds[row.product_id]);
@@ -210,9 +217,9 @@ let ModalVouchersUploadComponent = function(
                         `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
                         "Deze e-mailadressen bezitten al een voucher van dit fonds."
                     ],
-                    button_none: "Alle tegoed overslaan",
-                    button_all: "Alle tegoed aanmaken",
-                    label_on: "Aanmaken tegoed",
+                    button_none: "Alle overslaan",
+                    button_all: "Alle aanmaken",
+                    label_on: "Aanmaken",
                     label_off: "Overslaan",
                     items: items,
                     onConfirm: (items) => {
@@ -242,9 +249,9 @@ let ModalVouchersUploadComponent = function(
                         `Weet u zeker dat u voor ${items.length} bsn(s) een extra voucher wilt aanmaken?`,
                         "Deze bsn(s) bezitten al een voucher van dit fonds."
                     ],
-                    button_none: "Alle tegoed overslaan",
-                    button_all: "Alle tegoed aanmaken",
-                    label_on: "Aanmaken tegoed",
+                    button_none: "Alle overslaan",
+                    button_all: "Alle aanmaken",
+                    label_on: "Aanmaken",
                     label_off: "Overslaan",
                     items: items,
                     onConfirm: (items) => {
@@ -332,7 +339,7 @@ let ModalVouchersUploadComponent = function(
                         return { ...row, ...{ fund_id: row.fund_id || $ctrl.fund.id } };
                     });
 
-                    let dataGrouped = _.groupBy(data, 'fund_id');
+                    let dataGrouped = groupBy(data, 'fund_id');
                     this.progress = 2;
 
                     setProgress(0);
@@ -415,7 +422,7 @@ let ModalVouchersUploadComponent = function(
         } else {
             FileService.downloadFile(
                 'product_voucher_upload_sample.csv',
-                VoucherService.sampleCSVProuctVoucher(
+                VoucherService.sampleCSVProductVoucher(
                     $ctrl.productsIds[0] || null,
                     $ctrl.fund.end_date
                 )
@@ -459,7 +466,7 @@ let ModalVouchersUploadComponent = function(
                     per_page: 1000,
                 });
             }, 4).then((data) => {
-                $ctrl.products = _.sortBy(data, 'id');
+                $ctrl.products = sortBy(data, 'id');
                 $ctrl.productsIds = $ctrl.products.map(product => parseInt(product.id));
                 $ctrl.productsByIds = $ctrl.products.reduce((obj, product) => {
                     obj[product.id] = product;

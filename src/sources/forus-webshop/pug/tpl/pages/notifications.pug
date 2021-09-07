@@ -1,43 +1,45 @@
 top-navbar
-section.section.section-voucher-details: .wrapper
-    .block.block-breadcrumbs.hide-sm
-        a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active Notificaties
 
-    .block.block-profile
-        profile-menu
+main(id="main-content")
+    section.section.section-voucher-details: .wrapper
+        .block.block-breadcrumbs.hide-sm
+            a(ui-sref="home").breadcrumb-item Home
+            .breadcrumb-item.active Notificaties
 
-        .profile-content
-            .profile-content-header.clearfix
-                .profile-content-title
-                    div.pull-left
-                        .profile-content-title-count(ng-bind="$ctrl.notifications.meta.total_unseen" ng-if="$ctrl.notifications.meta.total_unseen > 0") 
-                        | Notificaties
-            .card.block.block-notifications-table(ng-if="$ctrl.notifications.data.length > 0")
-                .card-section.card-section-padless: table.table
-                    tr
-                        th.hide-sm Datum
-                        th Notificatie
-                    
-                    tr(ng-repeat="notification in $ctrl.notifications.data" ng-class="{dim: !notification.seen}")
-                        td.notification-date.hide-sm
-                            em.mdi.mdi-clock-outline 
-                            | {{ notification.created_at_locale }}
-                        td
-                            .notification-title(ng-bind="notification.title")
-                            .notification-description(ng-bind="notification.description")
-                            .notification-date.show-sm
+        .block.block-profile
+            .profile-aside: profile-menu
+
+            .profile-content
+                .profile-content-header.clearfix
+                    .profile-content-title
+                        div.pull-left
+                            .profile-content-title-count(ng-bind="$ctrl.notifications.meta.total_unseen" ng-if="$ctrl.notifications.meta.total_unseen > 0") 
+                            h1.profile-content-header Notificaties
+                .card.block.block-notifications-table(ng-if="$ctrl.notifications.data.length > 0")
+                    .card-section.card-section-padless: table.table
+                        tr
+                            th.hide-sm Datum
+                            th Notificatie
+                        
+                        tr(ng-repeat="notification in $ctrl.notifications.data" ng-class="{dim: !notification.seen}")
+                            td.notification-date.hide-sm
                                 em.mdi.mdi-clock-outline 
                                 | {{ notification.created_at_locale }}
-                    
-            empty-block(
-                title= "{{ 'block_notifications.labels.title' | translate }}"
-                description="{{ 'block_notifications.labels.subtitle' | translate }}"
-                hide-link="true" 
-                ng-if="$ctrl.notifications.data.length == 0")
+                            td
+                                h2.notification-title(ng-bind="notification.title")
+                                .notification-description(ng-bind="notification.description")
+                                .notification-date.show-sm
+                                    em.mdi.mdi-clock-outline 
+                                    | {{ notification.created_at_locale }}
+                        
+                empty-block(
+                    title= "{{ 'block_notifications.labels.title' | translate }}"
+                    description="{{ 'block_notifications.labels.subtitle' | translate }}"
+                    hide-link="true" 
+                    ng-if="$ctrl.notifications.data.length == 0")
 
-            .card(ng-if="$ctrl.notifications"): .card-section(ng-show="$ctrl.notifications.meta.last_page > 1"): paginator(
-                meta="$ctrl.notifications.meta" 
-                filters="$ctrl.form.values" 
-                count-buttons="5" 
-                on-page-change="$ctrl.onPageChange(query)")
+                .card(ng-if="$ctrl.notifications"): .card-section(ng-show="$ctrl.notifications.meta.last_page > 1"): paginator(
+                    meta="$ctrl.notifications.meta" 
+                    filters="$ctrl.form.values" 
+                    count-buttons="5" 
+                    on-page-change="$ctrl.onPageChange(query)")

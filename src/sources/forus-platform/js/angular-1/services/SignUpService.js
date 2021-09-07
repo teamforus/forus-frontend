@@ -1,6 +1,4 @@
-let SignUpService = function(
-    OrganizationService
-) {
+const SignUpService = function(OrganizationService) {
     class ProgressStorrage {
         constructor(namespace, storage = localStorage) {
             this.namespace = namespace;
@@ -49,8 +47,8 @@ let SignUpService = function(
             return new ProgressStorrage(namespace)
         };
 
-        this.organizations = () => {
-            return OrganizationService.list();
+        this.organizations = (query = {}) => {
+            return OrganizationService.list(query);
         };
 
         this.organizationStore = (values) => {

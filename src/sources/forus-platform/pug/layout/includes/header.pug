@@ -1,4 +1,4 @@
-header.app.app-header(ng-if="$root.auth_user")
+header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
     .wrapper.flex-row
         a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
             img(ng-src="./assets/img/logo.svg").header-logo-img
@@ -57,7 +57,7 @@ header.app.app-header(ng-if="$root.auth_user")
                 .auth-user-menu(ng-if="$root.userMenuOpened" click-outside="$root.hideUserMenu()")
                     a(ui-sref="identity-emails" ng-if="$root.appConfigs.sessions && !$root.activeOrganization").auth-user-menu-item
                         em.mdi.mdi-at
-                        | Email instellingen
+                        | E-mail instellingen
                     
                     a(ui-sref="security-sessions" ng-if="$root.appConfigs.sessions && !$root.activeOrganization" ).auth-user-menu-item
                         em.mdi.mdi-shield-account

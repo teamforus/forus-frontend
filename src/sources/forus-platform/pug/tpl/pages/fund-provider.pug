@@ -2,57 +2,154 @@
     menu
     section.app.app-content
         .block.block-breadcrumbs
-            .breadcrumb-item(ui-sref="organization-providers({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id})" translate="page_state_titles.organization-providers")
-            .breadcrumb-item.active(ng-bind="$ctrl.fundProvider.organization.name")
-        .card
-            .card-section.card-section-narrow
-                .block.block-entity-overview
-                    .entity-photo
-                        img(ng-src="{{ $ctrl.fundProvider.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}").entity-photo-img
-                        .entity-photo-abbr
-                    .entity-details: .entity-title(ng-bind="$ctrl.fundProvider.organization.name")
+            .breadcrumb-item(
+                ui-sref="sponsor-provider-organizations({organization_id: $ctrl.organization.id})" 
+                translate="page_state_titles.organization-providers")
+            .breadcrumb-item(
+                ui-sref="sponsor-provider-organization({organization_id: $ctrl.organization.id, provider_organization_id:$ctrl.fundProvider.organization.id})" 
+                ng-bind="$ctrl.fundProvider.organization.name")
+            .breadcrumb-item.active(
+                ng-bind="$ctrl.fundProvider.fund.name")
 
-                .card-section-actions
-                    button(ng-if="!$ctrl.fundProvider.dismissed" ng-click="$ctrl.dismissProvider($ctrl.fundProvider)").button.button-default.button-sm
-                        | Weigeren en verberg
-                        em.mdi.mdi-close.icon-end
-                    .button.button-text.button-text.button-text-muted.button-narrow.button-sm(disabled 
-                        ng-if="$ctrl.fundProvider.dismissed")
-                        | Verborgen
+        block-provider-organization-overview(
+            organization="$ctrl.fundProvider.organization" 
+            fund-provider="$ctrl.fundProvider" 
+            update-fund-provider-allow="$ctrl.updateFundProviderAllow")
+
+        //- Products for subsidy fund (managed by sponsor)
+        .card(ng-if="$ctrl.organization.manage_provider_products && $ctrl.fundProvider.fund.type == 'subsidies'")
+            .card-header: .row
+                .col-lg-8.flex
+                    .card-title Aanbod in beheer van {{ $ctrl.organization.name }}
+                    a(ui-sref="fund-provider-product-create($ctrl.stateParams)").button.button-text.button-text.button-text-muted 
+                        em.mdi.mdi-plus-circle.icon-start
+                        | Voeg een aanbod toe
+                .col-lg-4: .card-header-drown: .block.block-inline-filters: .form: .form-group: input(
+                    ng-model="$ctrl.filtersSponsorProducts.values.q"
+                    placeholder="Zoeken").form-control
             
-            .card-section.card-section-primary.card-section-narrow(ng-repeat="properties in $ctrl.properties" ng-if="properties.length > 0")
-                .flex-row.flex-grow
-                    .flex-col(ng-repeat="property in properties")
-                        .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                            .card-block-listing-label(ng-bind="property.label")
-                            .card-block-listing-value(ng-bind="property.value" ng-class="property.primary ? 'text-primary-light' : ''")
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th.td-narrow Afbeelding
+                    th Naam
+                    th Aantal
+                    th Bijdrage
+                    th Prijs
+                    th
+                
+                tr(ng-repeat="product in $ctrl.sponsorProducts.data")
+                    td.td-narrow: img(ng-src="{{ product.photo ? product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}").td-media
+                    td(ng-bind="product.name")
+                    td(ng-if="product.unlimited_stock") Ongelimiteerd
+                    td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
+                    td(ng-bind="product.active_deal ? (product.active_deal.amount | currency_format) : '-'")
+                    td(ng-bind="product.price_locale")
+                    td.td-narrow.text-right: .button-group.flex-end
+                        .flex.flex-center(ng-if="product.is_available && product.allowed"): .flex-self-center
+                            .tag.tag-success.nowrap.flex
+                                | Subsidie actief 
+                                .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, product)")
+                            .hidden
 
-            //- budget fund only
-            .card-section.card-section-primary.card-section-narrow.form(ng-show="$ctrl.fundProvider.fund.type == 'budget'"): .row: .col.col-lg-8: .flex-row
-                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                    .card-block-listing-label Accepteer budget
-                    .button.button-text.button-narrow: label(for="provider_allow_budget").form-toggle
-                        input(
-                            type="checkbox" 
-                            id="provider_allow_budget"
-                            ng-change="$ctrl.updateAllowBudget($ctrl.fundProvider)"
-                            ng-model="$ctrl.fundProvider.allow_budget")
-                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                        .flex.flex-center(ng-if="!product.is_available"): .flex-self-center
+                            .tag.tag-text.nowrap Niet beschikbaar 
+                            .hidden
+
+                        a.button.button-primary.button-sm.nowrap(
+                            ng-if="product.is_available && !product.allowed" 
+                            ui-sref="fund-provider-product-subsidy-edit(product.subsidyEditParams)")
+                            em.mdi.mdi-play.icon-start
+                            | Start subsidie
+
+                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                            em.mdi.mdi-dots-horizontal
+                            .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
+                                .menu-dropdown-arrow
+                                .dropdown.dropdown-actions
+                                    .dropdown-heading Opties
+                                    a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Kopieren
+                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken
+                                    a(ng-click="$ctrl.deleteProduct(product)").dropdown-item Verwijderen
+
+            .card-section.text-center(ng-if="$ctrl.sponsorProducts.meta.total == 0") Geen aanbiedingen
+            .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
+                paginator(
+                    meta="$ctrl.sponsorProducts.meta" 
+                    filters="$ctrl.filtersSponsorProducts.values" 
+                    on-page-change="$ctrl.onPageChangeSponsorProducts(query)")
+
+        //- Products for budget fund (managed by sponsor)
+        .card(ng-if="$ctrl.organization.manage_provider_products && $ctrl.fundProvider.fund.type == 'budget'")
+            .card-header: .row
+                .col-lg-8.flex
+                    .card-title Aanbod in beheer van {{ $ctrl.organization.name }}
+                    a(ui-sref="fund-provider-product-create($ctrl.stateParams)").button.button-text.button-text.button-text-muted 
+                        em.mdi.mdi-plus-circle.icon-start
+                        | Voeg een aanbod toe
+                .col-lg-4: .card-header-drown: .block.block-inline-filters: .form: .form-group: input(
+                    ng-model="$ctrl.filtersSponsorProducts.values.q"
+                    placeholder="Zoeken").form-control
+
+            .card-section.card-section-success.card-section-narrow(
+                ng-if="$ctrl.fundProvider.allow_products && $ctrl.sponsorProducts.meta.total > 0"): em
+                | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat. 
+                | Zet de globale instelling uit om individuele producten goed te keuren.
+            
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th.td-narrow Afbeelding
+                    th Naam
+                    th Aantal
+                    th Prijs
+                    th Geaccepteerd
+                    th
+                
+                tr(ng-repeat="product in $ctrl.sponsorProducts.data")
+                    td.td-narrow: img(
+                        ng-src="{{ product.photo ? product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}").td-media
+                    td(ng-bind="product.name")
+                    td(ng-if="product.unlimited_stock") Ongelimiteerd
+                    td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
+                    td(ng-bind="product.price_locale")
                     
-                .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-                    .card-block-listing-label Accepteer aanbiedingen
-                    .button.button-text.button-narrow: label(for="provider_allow_products").form-toggle
+                    td.td-narrow: .form.pull-right: label(
+                        for=("product_{{ product.id }}_enabled") 
+                        ng-class="$ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
                         input(
                             type="checkbox" 
-                            id="provider_allow_products"
-                            ng-change="$ctrl.updateAllowProducts($ctrl.fundProvider)"
-                            ng-model="$ctrl.fundProvider.allow_products")
-                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                            id=("product_{{ product.id }}_enabled") 
+                            ng-model="product.allowed"
+                            ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, product)")
+                        .form-toggle-inner: .toggle-input: .toggle-input-dot
+
+                    td.td-narrow.text-right: .button-group.flex-end
+                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                            em.mdi.mdi-dots-horizontal
+                            .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
+                                .menu-dropdown-arrow
+                                .dropdown.dropdown-actions
+                                    .dropdown-heading Opties
+                                    a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Kopieren
+                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken 
+                                    a(ng-click="$ctrl.deleteProduct(product)").dropdown-item Verwijderen
+
+            .card-section.text-center(ng-if="$ctrl.sponsorProducts.meta.total == 0") Geen aanbiedingen
+            .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
+                paginator(
+                    meta="$ctrl.sponsorProducts.meta" 
+                    filters="$ctrl.filtersSponsorProducts.values" 
+                    on-page-change="$ctrl.onPageChangeSponsorProducts(query)")
         
         //- Products for budget fund
-        .card(ng-show="$ctrl.fundProvider.fund.type == 'budget'")
+        .card(ng-if="$ctrl.fundProvider.fund.type == 'budget'")
             .card-header: .flex-row
+<<<<<<< HEAD
                 .flex-col: .card-title.text-left Aanbiedingen
+=======
+                .flex-col: .card-title Aanbod in beheer van {{ $ctrl.fundProvider.organization.name }}
+>>>>>>> origin/master
                 .flex-col: .card-header-drown: .block.block-inline-filters
                     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
@@ -89,20 +186,28 @@
                             ng-model="product.allowed"
                             ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, product)")
                         .form-toggle-inner: .toggle-input: .toggle-input-dot
-                    
-                    td.td-narrow.text-right
-                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm
-                            em.mdi.mdi-eye-outline.icon-start
-                            | Kijk
+                    td.td-narrow.text-right: .button-group.flex-end
+                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                            em.mdi.mdi-dots-horizontal
+                            .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
+                                .menu-dropdown-arrow
+                                .dropdown.dropdown-actions
+                                    .dropdown-heading Opties
+                                    a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Kopieren
             
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
                 paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
-        
+
         //- Products for subsidy fund
-        .card(ng-show="$ctrl.fundProvider.fund.type == 'subsidies'")
+        .card(ng-if="$ctrl.fundProvider.fund.type == 'subsidies'")
             .card-header: .flex-row
+<<<<<<< HEAD
                 .flex-col: .card-title.text-left Aanbiedingen
+=======
+                .flex-col: .card-title Aanbod in beheer van {{ $ctrl.fundProvider.organization.name }}
+>>>>>>> origin/master
                 .flex-col: .card-header-drown: .block.block-inline-filters
                     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
@@ -125,58 +230,37 @@
                     td(ng-bind="product.active_deal ? (product.active_deal.amount | currency_format) : '-'")
                     td(ng-bind="product.price_locale")
                     td.td-narrow.text-right: .button-group.flex-end
-                        .button.button-primary.button-sm.nowrap(ng-if="product.is_available && !product.allowed" ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, product)")
+                        a.button.button-primary.button-sm.nowrap(
+                            ng-if="product.is_available && !product.allowed" 
+                            ui-sref="fund-provider-product-subsidy-edit(product.subsidyEditParams)")
                             em.mdi.mdi-play.icon-start
-                            | Start actie
-                        div(ng-if="product.is_available && product.allowed")
-                            .tag.tag-success.nowrap
-                                | Actie actief 
+                            | Start subsidie
+
+                        .flex.flex-center(ng-if="product.is_available && product.allowed"): .flex-self-center
+                            .tag.tag-success.nowrap.flex
+                                | Subsidie actief 
                                 .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, product)")
                             .hidden
+
                         div(ng-if="!product.is_available")
                             .tag.tag-text.nowrap Niet beschikbaar 
                             .hidden
-                        button(ng-click="$ctrl.openProductDetails(product)").button.button-default.button-sm
-                            em.mdi.mdi-eye-outline.icon-start
-                            | Bekijken
+
+                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                            em.mdi.mdi-dots-horizontal
+                            .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
+                                .menu-dropdown-arrow
+                                .dropdown.dropdown-actions
+                                    .dropdown-heading Opties
+                                    a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
+                                    a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Kopieren
 
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
                 paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
 
-        //- Employees
-        .card(ng-if="$ctrl.tab == 'employees'")
-            .card-header: .card-header-drown
-                .block.block-label-tabs
-                    button(
-                        ng-class="{active: $ctrl.tab == 'employees'}"
-                        ng-click="$ctrl.tab = 'employees'").label-tab Medewerkers
-                    button(
-                        ng-class="{active: $ctrl.tab == 'offices'}"
-                        ng-click="$ctrl.tab = 'offices'").label-tab Vestigingen
-            
-            .card-section.text-center(ng-if="$ctrl.fundProvider.employees.total == 0") Geen vestigingen
-            .card-section.card-section-padless: .table-wrapper: table.table
-                tr: th E-Mailadres
-                tr(ng-repeat="employee in $ctrl.fundProvider.employees"): td(ng-bind="employee.email")
-
-        //- Offices
-        .card(ng-if="$ctrl.tab == 'offices'")
-            .card-header: .card-header-drown
-                .block.block-label-tabs
-                    button(
-                        ng-class="{active: $ctrl.tab == 'employees'}"
-                        ng-click="$ctrl.tab = 'employees'").label-tab Medewerkers
-                    button(
-                        ng-class="{active: $ctrl.tab == 'offices'}"
-                        ng-click="$ctrl.tab = 'offices'").label-tab Vestigingen
-
-            .card-section.text-center(ng-if="$ctrl.offices.meta.total == 0") Geen vestigingen
-            .card-section.card-section-padless: .table-wrapper: table.table
-                tr
-                    th Adres
-                    th.text-right Telefoonnummer
-                
-                tr(ng-repeat="office in $ctrl.offices.data")
-                    td(ng-bind="office.address || 'n.v.t.'" ng-class="{'text-muted': !office.address}")
-                    td(ng-bind="office.phone || 'n.v.t.'" ng-class="{'text-muted': !office.phone}").text-right
+        //- Provider offices
+        //- block-provider-organization-offices(offices="$ctrl.fundProvider.offices")
+        
+        //- Provider employees
+        //- block-provider-organization-employees(employees="$ctrl.fundProvider.employees")

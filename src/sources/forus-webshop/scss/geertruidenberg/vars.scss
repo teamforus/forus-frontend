@@ -29,6 +29,7 @@ $bf:                Roboto, Verdana, arial;
 // text color
 $tc:                #1a1919;
 $tc-var:            #fff;
+$tc-link:           inherit;
 
 // base color
 $bc:                #EE8016;
@@ -42,7 +43,8 @@ $bg_2:              none;
 $tf:                inherit;
 
 // footer color
-$fbc:                #ffffff;
+$fbc:                #fff;
+$fc:                #282b39;
 
 // displayed or not
 $fd:                block;
@@ -51,7 +53,7 @@ $fd:                block;
 $pi:                0px;
 
 // placeholder text color
-$ptc:               #999999;
+$ptc:               #515152;
 
 $border_color:      #dce0e0;
 

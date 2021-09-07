@@ -45,10 +45,10 @@ let ModalVoucherCreateComponent = function(
         ModalService.open('duplicatesPicker', {
             hero_title: "Dubbele e-mailadressen gedetecteerd.",
             hero_subtitle: [
-                `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra tegoed wilt aanmaken?`,
-                "Deze e-mailadressen bezitten al een tegoed van dit fonds."
+                `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
+                "Deze e-mailadressen bezitten al een voucher van dit fonds."
             ],
-            label_on: "Aanmaken tegoed",
+            label_on: "Aanmaken",
             label_off: "Overslaan",
             items: items,
             onConfirm: onConfirm,
@@ -62,10 +62,10 @@ let ModalVoucherCreateComponent = function(
         ModalService.open('duplicatesPicker', {
             hero_title: "Dubbele bsn(s) gedetecteerd.",
             hero_subtitle: [
-                `Weet u zeker dat u voor ${items.length} bsn(s) een extra tegoed wilt aanmaken?`,
-                "Deze burgerservicenummers bezitten al een tegoed van dit fonds."
+                `Weet u zeker dat u voor ${items.length} bsn(s) een extra voucher wilt aanmaken?`,
+                "Deze burgerservicenummers bezitten al een voucher van dit fonds."
             ],
-            label_on: "Aanmaken tegoed",
+            label_on: "Aanmaken",
             label_off: "Overslaan",
             items: items,
             onConfirm: onConfirm,
@@ -81,6 +81,7 @@ let ModalVoucherCreateComponent = function(
         $ctrl.form = FormBuilderService.build({
             fund_id: $ctrl.fund.id,
             expire_at: $ctrl.fund.end_date,
+            limit_multiplier: 1,
         }, (form) => {
             VoucherService.storeValidate($ctrl.organization.id, {
                 ...form.values,

@@ -1,6 +1,7 @@
-section.section.section-footer
+footer.section.section-footer
     .wrapper
         .block.block-footer: .row
+            h2.sr-only Site informatie
             .col.col-md-4(ng-if="description_contact_details_html")
                 .block.block-markdown(ng-bind-html="description_contact_details_html")
 
@@ -15,26 +16,17 @@ section.section.section-footer
             .col.col-md-3
                 .block.block-markdown
                     h3 Download Me-app
-                    .block.block-app_download
-                        a(href="{{ $root.appConfigs.android_link }}" target="_blank" aria-label="Download Me-app")
-                            img(src="./assets/img/icon-app/icon-app-android.svg" alt="Google Play Store")
-                        a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank" aria-label="Download Me-app")
-                            img(src="./assets/img/icon-app/app-store-badge.svg" alt="Apple App Store")
+                    app-links
+                    
                     nav.footer-nav
-                        .footer-nav-item: a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
+                        .footer-nav-item
+                            include ../../../resources/_webshop-common/assets/img/me-logo.svg
+                            a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
             
     .block.block-copyrights: .wrapper
         .copyrights 
-        //- pre {{ $dir.pageLinks}}
         .links
             .link-item(ng-repeat="pageLink in $dir.pageLinks"): a(
                 ui-sref="{{ pageLink.page_type }}"
                 target="{{ pageLink.external ? _blank : '_self' }}"
                 translate="app_footer.links.{{ pageLink.page_type }}")
-
-            //- div
-                a(ng-if="settings.privacy_statement_url" href="{{ settings.privacy_statement_url }}" target="_blank") Privacyverklaring
-                a(ng-if="!settings.privacy_statement_url" ui-sref="privacy" target="_self") Privacyverklaring
-                .link-separator
-                a(ng-if="settings.accessibility_url" href="{{ settings.accessibility_url }}" target="_blank") Toegankelijkheid
-                a(ng-if="!settings.accessibility_url" ui-sref="accessibility" target="_self") Toegankelijkheid

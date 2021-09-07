@@ -2,53 +2,24 @@ module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
     header: {
         title: 'Login met e-mail',
-
         subtitle_formal: 'Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.',
         subtitle_informal: 'Vul jouw e-mailadres in om een link te ontvangen waarmee je kunt inloggen.',
 
-        // todo: check if can be deleted
-        nijmegen: {
-            title: "Inloggen bij de Meedoen-regeling",
-            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
-        },
-        berkelland: {
-            title: "Inloggen op de Meedoenapplicatie",
-            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
-        },
-        oostgelre: {
-            title: "Inloggen op de Meedoenapplicatie",
-            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
-        },
-        winterswijk: {
-            title: "Inloggen op de Meedoenapplicatie",
-            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
-        },
-        kerstpakket: {
-            title: "Inloggen op het Kerstpakket",
-            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
-        },
-        zuidhorn: {
-            title: "Inloggen op het Kindpakket",
-            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
-        },
-        westerkwartier: {
-            title: "Inloggen op het Kindpakket",
-            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
-        },
-        general: {
-            title: "Inloggen op Platform Forus",
-            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
-        },
-        forus: {
-            title: "Inloggen op Platform Forus",
-            subtitle: "<span>Scan de QR-code met de</span> <strong><u>Me-app</u></strong><span> of log in met uw e-mailadres</span>",
-        }
+        title_succes_formal: 'Bevestig dat u toegang heeft tot dit e-mailadres.',
+        title_succes_informal: 'Bevestig dat je toegang hebt tot dit e-mailadres.',
+
+        subtitle_we_succes_formal: 'U heeft een e-mail ontvangen op {{email}}. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op "Bevestigen".',
+        subtitle_we_succes_informal: 'Je hebt een e-mail ontvangen op {{email}}. Ga naar je inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op "Bevestigen".',
+
+        subtitle_succes_formal: 'U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.',
+        subtitle_succes_informal: 'Je hebt een e-mail ontvangen op het e-mailadres dat je zojuist hebt ingevuld. Ga naar je inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.',
     },
     notifications: {
         confirmation: "Het is gelukt!",
-        link: "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om u aan te melden.",
+        link_formal: "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om u aan te melden.",
+        link_informal: "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om je aan te melden.",
         invalid: "De activatiecode is ongeldig of al gebruikt.",
-        voucher_email: "Uw tegoed is verstuurd naar uw mail.",
+        voucher_email: "De QR-code is verstuurd.",
     },
     buttons: {
         qrcode: "Log in via de Me-app",
@@ -96,7 +67,7 @@ module.exports = {
         dont_have_account: "Heeft u geen account en wilt u één aanmaken door een activatiecode te gebruiken?",
     },
     input: {
-        mail: "Vul uw e-mailadres in",
+        mail: "E-mailadres",
         coding: "Vul de activatiecode in",
         code: "Activatiecode",
         mailing: "E-mail",
@@ -104,9 +75,11 @@ module.exports = {
     },
     pin_code: {
         confirmation: {
-            title: "De app wordt gekoppeld aan uw profiel",
+            title_formal: "De app wordt gekoppeld aan uw account",
+            title_informal: "De app wordt gekoppeld aan je account",
             description: "Na vijf tot tien seconden wordt de app gekoppeld. Is het gelukt? Klik dan op volgende.",
-            notice: "Ziet u na dertig seconden nog steeds de zes cijfers in de app? Probeer het dan opnieuw.",
+            notice_formal: "Ziet u na dertig seconden nog steeds de zes cijfers in de app? Probeer het dan opnieuw.",
+            notice_informal: "Zie je na dertig seconden nog steeds de zes cijfers in de app? Probeer het dan opnieuw.",
             buttons: {
                 try_again: "Opnieuw proberen",
                 confirm: "Volgende"
@@ -118,4 +91,6 @@ module.exports = {
     },
     restore_formal: 'Vergeten welk e-mailadres u heeft gebruikt?',
     restore_informal: 'Vergeten welk e-mailadres je hebt gebruikt?',
+    restore_subtitle_formal: 'Herstel uw account door opnieuw in te loggen met DigiD',
+    restore_subtitle_informal: 'Herstel je account door opnieuw in te loggen met DigiD',
 }

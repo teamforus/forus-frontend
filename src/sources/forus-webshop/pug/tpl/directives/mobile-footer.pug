@@ -1,29 +1,36 @@
 .block.block-sticky-footer.show-sm(ng-class='{ "scrolled" : !visible }')
     ul.sticky-footer-list
-        li.sticky-footer-item(ui-sref="providers" ui-sref-active="active")
-            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
-            span(translate="topnavbar.buttons.providers")
+        li(ui-sref="providers" ui-sref-active="active")
+            button.sticky-footer-item(ui-sref="providers")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
+                span(translate="topnavbar.buttons.providers")
 
-        li.sticky-footer-item(ng-if="$root.appConfigs.features.has_subsidy_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="actions" ui-sref-active="active")
-            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
-            span(translate="topnavbar.buttons.subsidies")
+        li(ng-if="$root.appConfigs.features.has_subsidy_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="actions" ui-sref-active="active")
+            button.sticky-footer-item(ui-sref="actions")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
+                span(translate="topnavbar.buttons.subsidies")
 
-        li.sticky-footer-item(ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="products" ui-sref-active="active")
-            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
-            span(translate="topnavbar.buttons.products")
+        li(ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="products" ui-sref-active="active")
+            button.sticky-footer-item(ui-sref="products")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
+                span(translate="topnavbar.buttons.products")
 
-        li.sticky-footer-item(ng-if="!$root.auth_user" ng-click="startFundRequest()" ui-sref-active="active")
-            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
-            span(translate="topnavbar.buttons.{{ $root.client_key }}.activate" translate-default="{{ 'topnavbar.buttons.activate' | translate }}") 
+        li(ng-if="!$root.auth_user" ng-click="startFundRequest()" ui-sref-active="active")
+            button.sticky-footer-item(ng-click="startFundRequest()")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
+                span(translate="topnavbar.buttons.{{ $root.client_key }}.activate" translate-default="{{ 'topnavbar.buttons.activate' | translate }}") 
 
-        li.sticky-footer-item-wrapper(ng-if="$root.auth_user" ui-sref="vouchers" ui-sref-active="active")
-            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
-            span(translate="topnavbar.buttons.mobile.voucher") 
+        li(ng-if="$root.auth_user" ui-sref="vouchers" ui-sref-active="active")
+            button.sticky-footer-item-wrapper(ui-sref="vouchers")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
+                span(translate="topnavbar.buttons.mobile.voucher") 
 
-        li.sticky-footer-item-wrapper(ng-if="$root.auth_user && !$root.appConfigs.features.records.list" ui-sref="preferences-notifications" ui-sref-active="active")
-            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
-            span(translate="topnavbar.buttons.mobile.profile")
+        li(ng-if="$root.auth_user && !$root.appConfigs.features.records.list" ui-sref="preferences-notifications" ui-sref-active="active")
+            button.sticky-footer-item-wrapper(ui-sref="preferences-notifications")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
+                span(translate="topnavbar.buttons.mobile.profile")
         
-        li.sticky-footer-item-wrapper(ng-if="$root.auth_user && $root.appConfigs.features.records.list" ui-sref="records" ui-sref-active="active")
-            include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
-            span(translate="topnavbar.buttons.mobile.profile")
+        li(ng-if="$root.auth_user && $root.appConfigs.features.records.list" ui-sref="records" ui-sref-active="active")
+            button.sticky-footer-item-wrapper(ui-sref="records")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
+                span(translate="topnavbar.buttons.mobile.profile")

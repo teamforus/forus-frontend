@@ -1,0 +1,39 @@
+.modal.modal-physical-cards.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
+    
+    //- Activation code form
+    .modal-window(ng-if="$ctrl.state != 'success_old_card'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-header
+            .modal-title(translate="modals.modal_voucher_physical_card.header.card_title")
+        .modal-content: form.form
+            .activation-card
+                .physical-card-title(translate="modals.modal_voucher_physical_card.content.title")
+                p(translate="modals.modal_voucher_physical_card.content.subtitle").text-center
+                pincode-control(
+                    ng-model="$ctrl.activateCodeForm.values.code" 
+                    block-size="4" 
+                    block-count="3" 
+                    block-input-type="num"
+                    cant-delete-length="3").block-pincode-compact.block-pincode-mobile-collapse
+                .form-error.text-center(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
+            
+        .modal-footer.text-center
+            button(
+                ng-click="$ctrl.close()" 
+                translate="modals.modal_voucher_physical_card.buttons.cancel").button.button-default
+            
+            button(
+                ng-class="{disabled: $ctrl.activateCodeForm.values.code.length != 12}" 
+                ng-click="$ctrl.submitActivationCode()" 
+                translate="modals.modal_voucher_physical_card.buttons.submit").button.button-primary
+    
+    //- Success old card
+    .modal-window(ng-if="$ctrl.state == 'success_old_card'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-header: .modal-title(translate="modals.modal_voucher_physical_card.success_card.title")
+        .modal-content: .modal-section
+            .physical-card-result
+                .physical-card-media: include ../../../resources/_platform-common/assets/img/modal/icon-physical-cards-success.svg
+                .physical-card-description(translate="modals.modal_voucher_physical_card.success_card.description" translate-values="{ code: $ctrl.code}")        
+                .text-center: button.button.button-primary(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_physical_card.success_card.button")   

@@ -8,12 +8,11 @@ head
     if (!qdt_c.platform.env_data.allow_indexing)
         meta(name="robots" content="noindex")
 
-    //- disable resize on mobiles
-    meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=5.0')
 
     //- fonts
     link(href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,700" rel="stylesheet")
-    link(href="//fonts.googleapis.com/css?family=Cantarell" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet")
     
     //- preconnect to api
     link(rel="preconnect" href=qdt_c.platform.env_data.api_url)
@@ -22,7 +21,7 @@ head
     link(rel="shortcut icon" type="image/x-icon", href=src_prefix + "assets/img/favicon.ico")
 
     //- libs bundle
-    link(rel="stylesheet" href=src_prefix + "assets/dist/bundle/css/bundle.min.css")
+    link(rel="stylesheet" href=src_prefix + "assets/dist/bundle/css/bundle.min" + qdt_c.append_assets + ".css")
 
     //- custom style
     link(rel="stylesheet" href=src_prefix + "assets/css/style.min" + qdt_c.append_assets + ".css")

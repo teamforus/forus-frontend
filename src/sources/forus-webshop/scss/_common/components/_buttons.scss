@@ -5,7 +5,7 @@
     border: 1px solid transparent;
     padding: 12px 25px;
     transition: color 0.4s, background 0.4s, box-shadow 0.4s, border 0.4s;
-    border-radius: 6px;
+    border-radius: $border_radius;
     display: inline-block;
     text-align: center;
     margin-right: 15px;
@@ -16,7 +16,6 @@
         margin-right: 10px;
         margin-left: -10px;
         float: left;
-        transition: 0.4s;
 
         &.icon-right {
             float: right;
@@ -42,7 +41,7 @@
             color: $color_default_light;
         }
 
-        &:hover {
+        &:hover, &:focus {
             color: #fff;
             background: $color_default_light;
             border-color: $color_default_light;
@@ -98,7 +97,7 @@
         border: 1px solid $color_primary;
         text-transform: $tf;
 
-        &:hover {
+        &:hover, &:focus {
             color: #fff;
             background: $color_primary_light;
             background-color: $color_primary_light;
@@ -165,6 +164,16 @@
         }
     }
 
+    &.button-danger {
+        color: #fff;
+        background: #D93740;
+
+        &:hover {
+            color: #CEC7C7;
+            background: #DD0000;
+        }
+    }
+
     &.button-primary-outline {
         color: $color_primary;
         border: 1px solid $color_primary;
@@ -177,6 +186,9 @@
     }
 
     &.button-text {
+        background: none;
+        border: none;
+        
         &.button-text-padless {
             padding-left: 0;
             padding-right: 0;
@@ -231,7 +243,7 @@
     &.button-disabled {
         background: #eff2f4 !important;
         border-color: #eff2f4;
-        color: #ccd0e0;
+        color: #3B3B3B;
         box-shadow: none;
         pointer-events: none;
         cursor: default;
@@ -258,6 +270,8 @@
         box-shadow: none;
         cursor: default;
         pointer-events: none;
+        height: 48px; 
+        width: 48px;
     }
 }
 

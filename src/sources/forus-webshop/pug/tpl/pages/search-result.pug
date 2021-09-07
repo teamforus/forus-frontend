@@ -1,0 +1,120 @@
+block content
+    .header-splash: .splash.splash-c
+    .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
+        top-navbar(hide-on-scroll="true")
+
+        main(id="main-content")
+            .showcase-wrapper
+                .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
+                    .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
+                    .mobile-filters-title Filter op categorieën en tegoeden
+                    .mobile-filters-icon(ng-click="$ctrl.setMobileMenu($event, !$ctrl.showModalFilters)"): em.mdi.mdi-filter-outline
+
+                .block.block-breadcrumbs
+                    a(ui-sref="home").breadcrumb-item Home
+                    .breadcrumb-item.active Zoekresultaten
+
+                .showcase-layout
+                    .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
+                        .showcase-aside-block
+                            .form-label Uitgelicht
+                            .form-group(ng-repeat="searchItemType in $ctrl.searchItemTypes track by $index")
+                                .checkbox(ng-click="$ctrl.toggleType($event, searchItemType.key)")
+                                    input(
+                                        type="checkbox"
+                                        id="{{ 'type_' + $index }}"
+                                        ng-checked="$ctrl.filters.search_item_types.indexOf(searchItemType.key) != -1")
+                                    label(for="{{ 'type_' + $index }}").checkbox-label
+                                        .checkbox-box: em.mdi.mdi-check
+                                        span(ng-bind="searchItemType.label")
+
+                            .form-group
+                                label.form-label(for="category_id") Categorie
+                                select(
+                                    ng-options="category.id as category.name for category in $ctrl.productCategories"
+                                    ng-model="$ctrl.filters.product_category_id"
+                                    id="category_id").form-control
+
+                            .form-group
+                                label.form-label Tegoeden
+                                select-control(
+                                    autoclear="true"
+                                    ng-model="$ctrl.filters.fund"
+                                    options="$ctrl.funds"
+                                    placeholder="Selecteer tegoeden...")
+
+                            .form-group
+                                label.form-label(for="fund_id") Tegoeden
+                                select-control(
+                                    autoclear="true"
+                                    ng-model="$ctrl.filters.fund"
+                                    options="$ctrl.funds"
+                                    placeholder="Selecteer tegoeden..."
+                                    id="fund_id")
+
+                            .form-group
+                                label.form-label(for="organizatie_id") Aanbieders
+                                select(
+                                    ng-options="organization.id as organization.name for organization in $ctrl.organizations"
+                                    ng-model="$ctrl.filters.organization_id"
+                                    id="organizatie_id").form-control
+
+                    .showcase-content
+                        .showcase-content-header
+                            .showcase-filters-title
+                                div(ng-if="!$ctrl.showMap")
+                                    .showcase-filters-title-count(ng-bind="$ctrl.searchItems.meta.total")
+                                    div.ellipsis(ng-if="$ctrl.filters.q") Zoekresultaten gevonden voor "{{ $ctrl.filters.q }}"
+                                    div.ellipsis(ng-if="!$ctrl.filters.q") Zoekresultaten
+
+                            .showcase-filters-block: .block.block-label-tabs
+                                .label-tab-set
+                                    .label-tab.label-tab-sm.label-tab-primary-light(
+                                        ng-class="{active: $ctrl.showOrderDropdown}"
+                                        ng-click="$ctrl.setOrderDropdown($event, !$ctrl.showOrderDropdown)")
+                                        em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.showOrderDropdown ? 'up' : 'down')")
+                                        | Sorteer
+                                        .label-tab-menu(ng-if="$ctrl.showOrderDropdown" click-outside="$ctrl.setOrderDropdown($event, false)")
+                                            .label-tab-menu-item(
+                                                ng-repeat="sortByOption in $ctrl.sortByOptions track by $index"
+                                                ng-class="{active: $ctrl.sortBy.label === sortByOption.label}"
+                                                ng-click="$ctrl.setSortBy($event, sortByOption)")
+                                                translate(translate="{{ sortByOption.label }}")
+                                                em.mdi.mdi-check(ng-if="$ctrl.sortBy.label === sortByOption.label")
+
+                                    .label-tab.label-tab-sm.label-tab-disabled(ng-bind="$ctrl.sortBy.label")
+
+                                .label-tab-set
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: $ctrl.display_type == 'list'}"
+                                        ng-click="$ctrl.showAs('list')")
+                                        em.mdi.mdi-format-list-text.icon-start
+                                        | Lijst
+
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: $ctrl.display_type == 'grid'}"
+                                        ng-click="$ctrl.showAs('grid')")
+                                        em.mdi.mdi-view-grid-outline.icon-start
+                                        | Foto's
+
+                        search-items-list(
+                            ng-if="$ctrl.searchItems.data.length > 0"
+                            items="$ctrl.searchItems.data"
+                            vouchers="$ctrl.vouchers"
+                            display="$ctrl.display_type")
+
+                        empty-block(
+                            title= "{{ 'block_products.labels.title' | translate }}"
+                            description="{{ 'block_products.labels.subtitle' | translate }}"
+                            hide-link="true"
+                            ng-if="$ctrl.searchItems.data.length == 0")
+
+                        .card(ng-if="$ctrl.searchItems"): .card-section(ng-show="$ctrl.searchItems.meta.last_page > 1")
+                            paginator(
+                                ng-show="$ctrl.searchItems.meta.total > 0"
+                                ng-if="$ctrl.searchItems.meta"
+                                meta="$ctrl.searchItems.meta"
+                                filters="$ctrl.filters"
+                                filters-from-state="false"
+                                count-buttons="5"
+                                on-page-change="$ctrl.onPageChange(query)")

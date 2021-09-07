@@ -41,8 +41,8 @@ let ModalAuthComponent = function(
                         ModalService.open('modalNotification', {
                             type: 'info',
                             icon: 'email',
-                            title: 'Stap 2 van 3: Bevestig dat u toegang heeft tot dit e-mailadres.',
-                            description: 'U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.',
+                            title: 'popup_auth.header.title_succes_' + $ctrl.appConfigs.features.communication_type,
+                            description: 'popup_auth.header.subtitle_succes_' + $ctrl.appConfigs.features.communication_type,
                         });
                     }, (res) => {
                         form.unlock();
@@ -56,7 +56,7 @@ let ModalAuthComponent = function(
                             type: 'action-result',
                             class: 'modal-description-pad',
                             title: 'popup_auth.labels.join',
-                            description: 'popup_auth.notifications.link',
+                            description: 'popup_auth.notifications.link_' + appConfigs.features.communication_type,
                             confirmBtnText: 'popup_auth.buttons.submit'
                         });
 

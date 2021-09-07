@@ -206,6 +206,10 @@
                 background: transparent !important;
                 border-color: transparent !important;
             }
+
+            &.button-disabled-visible {
+                color: #555 !important;
+            }
         }
     }
 
@@ -217,6 +221,17 @@
         &:hover {
             background: darken($color: #bf0a0a, $amount: 2.5);
             border-color: darken($color: #bf0a0a, $amount: 2.5);
+        }
+    }
+
+    &.button-success {
+        background: #2cc6ab;
+        border-color: #2cc6ab;
+        color: #fff;
+
+        &:hover {
+            background: darken($color: #2cc6ab, $amount: 2.5);
+            border-color: darken($color: #2cc6ab, $amount: 2.5);
         }
     }
 
@@ -287,6 +302,7 @@
             top: 0 !important;
         }
     }
+<<<<<<< HEAD
 }    
 .button {
     transform: translate(0, 0);
@@ -313,6 +329,91 @@
     &.button-text {
         &:hover {
             color: #305dfb;
+=======
+
+    &.button-menu {
+        position: relative;
+        outline: none;
+
+        .menu-dropdown {
+            position: absolute;
+            display: flex;
+            cursor: default;
+            top: 100%;
+            right: -5px;
+            padding: 0;
+            margin: 10px 0 0;
+            z-index: 10;
+
+            &>* {
+                z-index: 2;
+            }
+
+            .menu-dropdown-arrow {
+                position: absolute;
+                bottom: 100%;
+                right: 5px;
+                z-index: 10;
+                pointer-events: none;
+
+                &:before, &:after {
+                    display: block;
+                    position: absolute;
+                    content: '';
+                    width: 0;
+                    height: 0;
+                    top: -18px;
+                    right: 7px;
+                    border: 10px solid transparent;
+                    border-bottom: 10px solid #ffffff;
+                    cursor: pointer;
+                    z-index: 1;
+                }
+    
+                &:before {
+                    border-bottom-color: #ededed;
+                    top: -20px;
+                }
+    
+                &:after {
+                    z-index: 2;
+                }
+
+                &.menu-dropdown-arrow-primary {
+                    &:after {
+                        border-bottom-color: #f7fafc;
+                    }
+                }
+            }
+            
+            &.menu-dropdown-right {
+                right: auto;
+                left: -10px;
+                
+                .menu-dropdown-arrow {
+                    right: auto;
+                    left: 35px;
+                }
+            }
+
+            &.menu-dropdown-stick {
+                margin-top: 0;
+            }
+        }
+
+        @include visible_on_toggle('.menu-dropdown', '.active');
+
+        &.button-menu-hover {
+            @include visible_on_hover('.menu-dropdown');
+        }
+
+        &.button-text {
+            .menu-dropdown {
+                .menu-dropdown-arrow {
+                    right: 0;
+                }
+            }
+>>>>>>> origin/master
         }
     }
 }

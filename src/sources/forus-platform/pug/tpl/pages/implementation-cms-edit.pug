@@ -7,8 +7,24 @@
             .breadcrumb-item.active Content Management System
 
         .card: form(ng-submit="$ctrl.form.submit()").form
-            //-  pre {{ $ctrl.form.values | pretty_json }}
-            .card-header: .card-title(i18n="implementation_edit.header.title")
+            .card-header.flex-row
+                .card-title(i18n="implementation_edit.header.title")
+                .flex.flex-grow.flex-end: .flex
+                    a(href="{{ $ctrl.implementation.url_webshop }}" target="_blank").button.button-text.button-sm 
+                        | Open webshop
+                        .mdi.mdi-link-variant.icon-end
+                    button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
+
+            .card-section.card-section-padless
+                photo-selector(
+                    fill-style="false"
+                    type="implementation_banner"
+                    template="photo-selector-banner"
+                    template-data="$ctrl.bannerMeta"
+                    thumbnail="$ctrl.bannerMedia.sizes.medium"
+                    thumbnail-size="{x: 1000, y: 250}"
+                    select-photo="$ctrl.selectBanner(file)"
+                    reset-photo="$ctrl.resetBanner()")
 
             .card-section.card-section-primary: .row: .col.col-lg-9
                 .form-group.form-group-inline.form-group-inline-lg
@@ -18,7 +34,15 @@
 
                 .form-group.form-group-inline.form-group-inline-lg
                     label(translate="implementation_edit.labels.header_description").form-label
-                    .form-offset: markdown(ng-model="$ctrl.form.values.description" extended-options="true")
+                    text-angular(ng-model="$ctrl.form.values.description_html")
+
+                    .form-offset: markdown(
+                        extended-options="true"
+                        value="$ctrl.form.values.description_html" 
+                        ng-model="$ctrl.form.values.description"
+                        allow-alignment="true"
+                        block-alignment="$ctrl.form.values.description_alignment"
+                        media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
             .card-section.card-section-primary
@@ -26,12 +50,12 @@
                     //- Formal/Informal communication
                     .form-group.form-group-inline.form-group-inline-lg.tooltipped
                         label(for="info_url" translate="implementation_edit.labels.communication").form-label
-                        select(name="informal_communication" id="informal_communication" ng-model="$ctrl.form.values.informal_communication").form-control
-                            option(value="1") Je/jouw
-                            option(value="0") U/uw
+                        select(
+                            ng-model="$ctrl.form.values.informal_communication" 
+                            ng-options="type.value as type.label for type in $ctrl.communicationTypes").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.informal_communication" ng-bind="error")
 
-                        tooltip(text="'Kies de gewenste aanspreekvorm. Je/jouw en u/uw wordt gebruikt op de website en in alle berichten die worden verstuurd.'")
+                        tooltip(text="'Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten op de website en in de berichten die het systeem verstuurt.'")
 
             .card-section.card-section-primary(ng-repeat="key in $ctrl.implementation.page_types")
                 .row: .col.col-lg-9
@@ -58,7 +82,14 @@
 
                     .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="!$ctrl.form.values.pages[key].external")
                         label.form-label(translate="implementation_edit.labels.{{ key }}")
-                        .form-offset: markdown(ng-model="$ctrl.form.values.pages[key].content" extended-options="true")
+                        .form-offset
+                            markdown(
+                                extended-options="true"
+                                value="$ctrl.form.values.pages[key].content_html" 
+                                ng-model="$ctrl.form.values.pages[key].content"
+                                allow-alignment="true"
+                                block-alignment="$ctrl.form.values.pages[key].content_alignment"
+                                media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values.pages[key])")
 
                         tooltip(text="'implementation_edit.tooltips.' + key | translate")
                         .form-error(ng-repeat="error in $ctrl.form.errors['pages.' + key + '.content']" ng-bind="error")

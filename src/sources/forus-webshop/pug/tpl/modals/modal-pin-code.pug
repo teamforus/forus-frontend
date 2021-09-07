@@ -1,23 +1,26 @@
-.modal.modal-auth.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
-    .modal-backdrop(ng-click="$ctrl.close()")
+.modal.modal-auth.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog" aria-labelledby="pinCodeDialogTitle" aria-describedby="pinCodeDialogSubtitle")
+
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close")
     .modal-content: .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="close" role="button")
         .app-instruction
             .step-item
-                .step-title Stap 1
+                h2.step-title Stap 1
                 .step-description 
                     a(ng-click="$ctrl.openInMeModal()") Download
                     |  en open de me app
-                img(src="./assets/img/screen1.png")
+                img(src="./assets/img/screen1.png" alt="Me-app aanmeldscherm schermafbeelding")
             .step-item
-                .step-title Stap 2
+                h2.step-title Stap 2
                 .step-description Kies “Koppelen”
-                img(src="./assets/img/screen2.png")
+                img(src="./assets/img/screen2.png"  alt="Me-app aanmeldscherm schermafbeelding, kies koppelen")
 
-            .divider-img: img(src="./assets/img/Base7.png")
+            .divider-img: img(src="./assets/img/Base7.png" alt="")
 
-        .modal-title Stap 3: {{ "open_in_me.app_header.title" | translate }}
-        .modal-subtitle {{ "open_in_me.app_header.subtitle" | translate }}
+        .modal-title(id="pinCodeDialogTitle") Stap 3: {{ "open_in_me.app_header.title" | translate }}
+        .modal-subtitle(id="pinCodeDialogSubtitle" translate="open_in_me.app_header.subtitle_{{ $root.appConfigs.features.communication_type }}")
 
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
             .form-group

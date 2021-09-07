@@ -51,6 +51,9 @@ module.exports = [() => {
                 }, {
                     permissions: ['validate_records'],
                     name: 'csv-validation',
+                }, {
+                    permissions: ['scan_vouchers'],
+                    name: 'reservations',
                 }],
                 validator: [{
                     permissions: ['validate_records'],

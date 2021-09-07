@@ -4,6 +4,6 @@
     .photo-label(ng-if="!label" translate="photo_selector.labels.image")
     .photo-label(ng-if="label" ng-bind="label" )
     .photo-description(ng-if="description" ng-bind="description")
-    a(href="#" ng-click="selectFile($event)").button.button-primary
+    a(href="#" ng-click="selectFile($event)" ng-disabled="{{disabled}}").button.button-primary
         em.mdi.mdi-upload.icon-start
         translate(translate="photo_selector.buttons.change")

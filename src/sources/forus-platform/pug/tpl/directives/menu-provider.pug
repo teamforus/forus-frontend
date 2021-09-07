@@ -27,24 +27,33 @@ aside.app.app-sidebar
         +nav_item(
             "Vestigingen", "offices", 'offices', 
             '{organization_id: $root.activeOrganization.id}', 
-            '$root.activeOrganization.id',
+            '$root.activeOrganization | hasPerm:["manage_offices"]',
             'offices')
-            
+
         +nav_item(
             "Transacties", "transactions", 'transactions', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["view_finances"]',
             'transactions')
+
         +nav_item(
             "Fondsen", "funds", 'provider-funds', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_provider_funds"]',
             'funds')
+
         +nav_item(
             "Aanbod", "products", 'products', 
             '{organization_id: $root.activeOrganization.id}', 
             '($root.activeOrganization | hasPerm:["manage_products"]) && $root.appConfigs.features.organizations.products.list',
             'products')
+
+        +nav_item(
+            "Reserveringen", "reservations", 'reservations', 
+            '{organization_id: $root.activeOrganization.id}', 
+            '($root.activeOrganization | hasPerm:["scan_vouchers"]) && $root.appConfigs.features.organizations.products.list',
+            'reservations')
+
         +nav_item(
             "Medewerkers", "list", 'employees', 
             '{organization_id: $root.activeOrganization.id}',
@@ -53,6 +62,6 @@ aside.app.app-sidebar
 
         .sidebar-section-title(ng-if="$root.activeOrganization" translate="menu.personal")
 
-        +nav_item('Email instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
+        +nav_item('E-mail instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
         +nav_item('Notificatievoorkeuren', 'notifications', 'preferences-notifications')

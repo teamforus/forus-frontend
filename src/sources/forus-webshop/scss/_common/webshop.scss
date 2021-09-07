@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+
 @import 'includes/resetter';
 @import 'includes/helpers';
 @import 'includes/placeholders';
@@ -35,6 +37,7 @@
 'components/_triangle.scss',
 'components/_printables.scss',
 'components/card.scss',
+'components/skiplinks.scss',
 'components/table.scss';
 @import 'components/table-pagination';
 
@@ -48,7 +51,7 @@
 'sections/vouchers.scss';
 
 // BLOCKS
-@import 'sections/blocks/apply_fund.scss',
+@import 'sections/blocks/block-fund.scss',
 'sections/blocks/cards.scss',
 'sections/blocks/empty.scss',
 'sections/blocks/fund_criteria.scss',
@@ -107,8 +110,14 @@
     @import 'sections/blocks/block-error-page.scss';
     @import 'sections/blocks/block-about-me_app.scss';
     @import 'sections/blocks/block-provider-sign_up.scss';
+    @import 'sections/blocks/block-app_links.scss';
+    @import 'sections/blocks/block-navbar-search';
+    @import 'sections/blocks/block-search-results';
+
+    @import 'sections/blocks/block-reservations.scss';
 }
 
 .modal {
     @import 'modals/modal-physical-cards.scss';
+    @import 'modals/modal-product-reserve.scss';
 }

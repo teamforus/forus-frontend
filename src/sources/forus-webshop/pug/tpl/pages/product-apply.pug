@@ -1,25 +1,29 @@
 top-navbar
 
-section.section.section-product: .wrapper
-    .block.block-breadcrumbs
-        a(ui-sref="home").breadcrumb-item Home
-        a(ui-sref="products").breadcrumb-item Aanbod
-        a(ui-sref="products-show($ctrl.product)" ng-bind="$ctrl.product.name").breadcrumb-item
-        .breadcrumb-item.active Reserveren
-    
-    product-card(product="$ctrl.product")
-        
-    .block.block-vouchers(ng-if="$ctrl.applicableVouchers.length > 0")
-        .block-title {{ "product_apply.header.title" | translate }}
-        
-        .voucher-item.voucher-item-use(
-            ng-repeat="voucher in $ctrl.applicableVouchers")
-            .voucher-image(style="background-image: url({{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }})")
-            .voucher-details
-                .voucher-name(ng-bind="voucher.fund.name")
-                .voucher-organization(ng-bind="voucher.fund.organization.name")
-                .voucher-value(ng-bind="voucher.amount | currency_format")
-            .voucher-overview:  button.button.button-primary(
-                ng-click="$ctrl.applyForProduct(voucher)"
-                ng-bind="'product_apply.buttons.use' | translate")
-            .voucher-item-overlay(ng-click="$ctrl.applyForProduct(voucher)")
+main(id="main-content")
+    section.section.section-product: .wrapper
+        .block.block-breadcrumbs
+            a(ui-sref="home").breadcrumb-item Home
+            a(ui-sref="products").breadcrumb-item Aanbod
+            a(ui-sref="product($ctrl.product)" ng-bind="$ctrl.product.name").breadcrumb-item
+            .breadcrumb-item.active Reserveren
+
+        product-card(product="$ctrl.product")
+
+        .block.block-vouchers(ng-if="$ctrl.applicableVouchers.length > 0")
+            .block-title(translate="product_apply.header.title")
+
+            .voucher-item.voucher-item-use(ng-repeat="voucher in $ctrl.applicableVouchers")
+                .voucher-image
+                    img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+
+                .voucher-details
+                    .voucher-name(ng-bind="voucher.fund.name")
+                    .voucher-organization(ng-bind="voucher.fund.organization.name")
+                    .voucher-value(ng-bind="voucher.amount | currency_format")
+
+                .voucher-overview:  button.button.button-primary(
+                    ng-click="$ctrl.applyForProduct(voucher)"
+                    ng-bind="'product_apply.buttons.use' | translate")
+
+                .voucher-item-overlay(ng-click="$ctrl.applyForProduct(voucher)")

@@ -1,60 +1,66 @@
 let BrowserService = function() {
     let idleInterval = false;
 
-    return new(function() {
+    return new (function() {
         let idleTime;
+        let keyEvent;
+        let mouseEvent;
+        let activityTimeout;
 
-        let resetIdleTime = function() {
+        const resetIdleTime = function() {
             idleTime = 0;
-            localStorage.setItem('lastAcivity', moment.now());
+            activityTimeout = 0;
+            localStorage.setItem('lastActivity', moment.now());
         };
 
+        const updateActivityTimeout = () => {
+            const lastActivityTimeout = activityTimeout;
+            activityTimeout = moment.now();
+            return lastActivityTimeout > 0 ? moment.now() - lastActivityTimeout : 0;
+        }
+
         this.detectInactivity = function(seconds) {
+            this.unsetInactivity();
+
             return new Promise((resolve, reject) => {
                 if (idleInterval != false) {
-                    reject();
+                    return reject("Listener alreadty registered.");
                 }
 
-                let timerIncrement = function(increment = 0) {
-                    if ((idleTime += increment) > seconds) {
-                        clearInterval(idleInterval);
-                        resetIdleTime();
+                this.addEventListeners();
 
-                        $(document).off('mousemove.activity');
-                        $(document).off('keypress.activity');
+                idleInterval = setInterval(() => {
+                    if (!isNaN(parseInt(localStorage.getItem('lastActivity')))) {
+                        idleTime = moment.now() - parseInt(localStorage.getItem('lastActivity'));
+                    }
 
-                        idleInterval = false;
-                        localStorage.removeItem('lastAcivity');
-
+                    if ((idleTime += updateActivityTimeout()) > seconds) {
+                        this.unsetInactivity();
                         resolve();
                     }
-                };
-
-                idleTime = 0;
-                idleInterval = setInterval(() => timerIncrement(1000), 1000);
-
-                if (!isNaN(parseInt(localStorage.getItem('lastAcivity')))) {
-                    idleTime = moment.now() - parseInt(
-                        localStorage.getItem('lastAcivity')
-                    );
-                }
-
-                $(document).on('mousemove.activity', (e) => resetIdleTime());
-                $(document).on('keypress.activity', (e) => resetIdleTime());
-
-                timerIncrement(0);
+                }, 1000);
             });
         };
 
-        this.unsetInactivity = function () {
+        this.addEventListeners = () => {
+            keyEvent = document.addEventListener('keypress', resetIdleTime, { passive: true });
+            mouseEvent = document.addEventListener('mousemove', resetIdleTime, { passive: true });
+        };
+
+        this.removeEventListeners = () => {
+            document.removeEventListener('keypress', resetIdleTime, { passive: false });
+            document.removeEventListener('mousemove', resetIdleTime, { passive: false });
+        };
+
+        this.unsetInactivity = function() {
             clearInterval(idleInterval);
             resetIdleTime();
+            this.removeEventListeners();
 
-            $(document).off('mousemove.activity');
-            $(document).off('keypress.activity');
-
+            idleTime = 0;
             idleInterval = false;
-            localStorage.removeItem('lastAcivity');
+            localStorage.removeItem('lastActivity');
+            localStorage.removeItem('lastActivityTick');
         };
     });
 };

@@ -43,6 +43,8 @@ section.section.section-footer
                     .footer-nav-item: a(href="/provider/" target="_self") Bent u een aanbieder en wilt u meer informatie?
                 .block.block-app_download(style="margin-top:15px;"): .footer-label(style="margin-bottom:0px;") Download Me-app
                     .wrapper
+                        a(href="{{ $root.appConfigs.me_app_link }}" target="_blank")
+                            img(src="./assets/img/icon-app/icon-app-me.svg")
                         a(href="{{ $root.appConfigs.android_link }}" target="_blank")
                             img(src="./assets/img/icon-app/play-store-badge.png" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
                         a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")

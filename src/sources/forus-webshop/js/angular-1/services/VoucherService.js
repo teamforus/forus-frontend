@@ -1,106 +1,111 @@
-let VoucherService = function(
-    ApiRequest
-) {
-    let apiPrefix = '/platform/vouchers';
+const VoucherService = function(ApiRequest) {
+    const apiPrefix = '/platform/vouchers';
 
-    let addType = (type, transaction) => {
-        transaction.type = type;
-
-        return transaction;
-    };
-
-    return new(function() {
-        this.list = function() {
-            return ApiRequest.get(apiPrefix);
+    return new (function() {
+        /**
+         * Send all voucher
+         * 
+         * @param {string} address 
+         * @param {object} query 
+         * @returns 
+         */
+        this.list = function(query = {}) {
+            return ApiRequest.get(`${apiPrefix}`, query);
         };
 
+        /**
+         * Get voucher
+         * 
+         * @param {string} address
+         * @returns 
+         */
         this.get = function(address) {
-            return ApiRequest.get(apiPrefix + '/' + address);
+            return ApiRequest.get(`${apiPrefix}/${address}`);
         }
 
-        this.getAsProvider = function(address) {
-            return ApiRequest.get(apiPrefix + '/' + address + '/provider');
-        }
+        /**
+         * Send voucher to own email
+         * 
+         * @param {string} address 
+         * @returns 
+         */
 
         this.sendToEmail = function(address) {
-            return ApiRequest.post(apiPrefix + '/' + address + '/send-email');
+            return ApiRequest.post(`${apiPrefix}/${address}/send-email`);
         }
 
-        this.shareVoucher = function(address, values) {
-            return ApiRequest.post(apiPrefix + '/' + address + '/share', values);
+        /**
+         * Send voucher to the provider
+         * 
+         * @param {string} address 
+         * @param {object} values 
+         * @returns 
+         */
+        this.shareVoucher = function(address, values = {}) {
+            return ApiRequest.post(`${apiPrefix}/${address}/share`, values);
         }
 
-        this.makeTransaction = function(address, values) {
-            return ApiRequest.post(apiPrefix + '/' + address + '/transactions', values);
-        }
-
+        /**
+         * Delete voucher (cancel reservation)
+         * 
+         * @param {string} address 
+         * @returns 
+         */
         this.destroy = function(address) {
-            return ApiRequest.delete(
-                apiPrefix + '/' + address
-            );
+            return ApiRequest.delete(`${apiPrefix}/${address}`);
         }
 
-        this.makeProductVoucher = function(voucherAddress, productId) {
-            return ApiRequest.post(apiPrefix, {
-                voucher_address: voucherAddress,
-                product_id: productId
-            });
-        };
+        /**
+         * Deactivate own voucher
+         * 
+         * @param {string} address 
+         * @param {object} data 
+         * @returns 
+         */
+        this.deactivate = function(address, data = {}) {
+            return ApiRequest.post(`${apiPrefix}/${address}/deactivate`, data);
+        }
 
         this.composeTransactions = function(voucher) {
-            return voucher.transactions.slice().map(
-                transaction => addType('transaction', transaction)
-            ).concat((voucher.product_vouchers || []).map(
-                product_voucher => addType('product_voucher', product_voucher)
-            )).sort((a, b) => b.timestamp - a.timestamp);
+            const transactions = voucher.transactions.slice().map(
+                transaction => ({ ...transaction, ...{ type: 'transaction' } })
+            );
+
+            const productVouchers = (voucher.product_vouchers || []).map(
+                product_voucher => ({ ...product_voucher, ...{ type: 'product_voucher' } })
+            );
+
+            return [...transactions, ...productVouchers].sort((a, b) => b.timestamp - a.timestamp);
         };
 
-        this.composeCardData = function(voucher) {
-            let thumbnail, title, subtitle, description;
-
+        this.getVoucherThumbnail = function(voucher) {
             if (voucher.type == 'regular') {
-                title = voucher.fund.name;
-                subtitle = voucher.fund.organization.name;
-                description = voucher.fund.description;
-
                 if (voucher.fund.logo) {
-                    thumbnail = voucher.fund.logo.sizes.thumbnail;
+                    return voucher.fund.logo.sizes.thumbnail;
                 } else if (voucher.fund.organization.logo) {
-                    thumbnail = voucher.fund.organization.logo.sizes.thumbnail;
-                } else {
-                    thumbnail = "./assets/img/placeholders/product-thumbnail.png";
-                }
-            } else if (voucher.type == 'product') {
-                title = voucher.product.name;
-                subtitle = voucher.product.organization.name;
-                description = voucher.product.description_html;
-
-                if (voucher.product.photo) {
-                    thumbnail = voucher.product.photo.sizes.thumbnail;
-                } else {
-                    thumbnail = "./assets/img/placeholders/product-thumbnail.png";
+                    return voucher.fund.organization.logo.sizes.thumbnail;
                 }
             }
 
+            if (voucher.type == 'product' && voucher.product.photo) {
+                return voucher.product.photo.sizes.thumbnail;
+            }
+
+            return "./assets/img/placeholders/product-thumbnail.png";
+        };
+
+        this.composeCardData = function(voucher) {
+            const { transactions, product, fund } = voucher;
+
             return {
-                title: title,
-                subtitle: subtitle,
-                description: description,
-                amount: voucher.amount,
-                type: voucher.type,
-                returnable: voucher.returnable,
-                used: voucher.used,
-                last_transaction_at_locale: voucher.last_transaction_at_locale,
-                transactions: voucher.transactions ? this.composeTransactions(voucher) : [],
-                created_at_locale: voucher.created_at_locale,
-                expire_at_locale: voucher.expire_at_locale,
-                last_active_day_locale: voucher.last_active_day_locale,
-                expire_at: voucher.expire_at,
-                last_active_day: voucher.last_active_day,
-                thumbnail: thumbnail,
+                ...voucher,
+                thumbnail: this.getVoucherThumbnail(voucher),
+                title: product ? product.name : fund.name,
+                subtitle: product ? product.organization.name : fund.organization.name,
+                description: product ? product.description_html : fund.description,
+                transactions: transactions ? this.composeTransactions(voucher) : [],
                 product: voucher.product || null,
-                fund: voucher.fund,
-                offices: voucher.offices || []
+                offices: voucher.offices || [],
             };
         }
     });

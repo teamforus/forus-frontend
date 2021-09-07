@@ -51,16 +51,22 @@ let ModalNotificationComponent = function(
         }
 
         $timeout(() => {
+            let btn = null;
+
             switch (type) {
                 case 'info': {
-                    $element.find('[data-close]').focus();
+                    btn = document.querySelector('[data-close]');
                 }; break;
                 case 'confirm':
                 case 'action-result': {
-                    $element.find('[data-confirm]').focus();
+                    btn = document.querySelector('[data-confirm]');
                 }; break;
             }
-        }, 0);
+
+            if (btn) {
+                btn.focus();
+            }
+        }, 1000);
     };
 
     let getIcon = (icon, filetype) => {

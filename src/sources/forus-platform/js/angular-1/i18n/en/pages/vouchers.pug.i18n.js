@@ -7,15 +7,24 @@ module.exports = {
         activation_code: "Code",
         amount: "Bedrag",
         created_date: "Aangemaakt op",
-        expire_date: "Geldig tot",
+        expire_date: "Geldig tot en met",
         fund: "Fonds",
         granted: "Toegekend",
         note: "Notitie",
         search: "Zoeken",
-        qr_code: "QR-Code"
+        qr_code: "QR-Code",
+        pending: 'Pending',
+        active: 'Active',
+        deactivated: 'Deactivated',
     },
     buttons: {
         add_new: "Aanmaken"
+    },
+    events: {
+        created_budget: 'Created',
+        created_product: 'Created',
+        activated: 'Activated',
+        deactivated: 'Deactivated',
     },
     csv: {
         default_note: "Uploaded at {{ upload_date }} by {{ uploader_email }}, assigned to {{ target_email }}",

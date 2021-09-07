@@ -29,8 +29,12 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalOpenInMeComponent'
     });
 
-    ModalRouteProvider.modal('modalProductApply', {
-        component: 'modalProductApplyComponent'
+    ModalRouteProvider.modal('modalProductReserve', {
+        component: 'modalProductReserveComponent'
+    });
+
+    ModalRouteProvider.modal('modalProductReserveCancel', {
+        component: 'modalProductReserveCancelComponent'
     });
     
     ModalRouteProvider.modal('identityProxyExpired', {
@@ -43,5 +47,17 @@ module.exports = ['ModalRouteProvider', function(
     
     ModalRouteProvider.modal('modalPhysicalCardUnlink', {
         component: 'modalPhysicalCardUnlinkComponent'
+    });
+
+    ModalRouteProvider.modal('pdfPreview', {
+        component: 'modalPdfPreviewComponent'
+    });
+
+    ModalRouteProvider.modal('imagePreview', {
+        component: 'modalImagePreviewComponent'
+    });
+
+    ModalRouteProvider.modal('deactivateVoucher', {
+        component: 'modalDeactivateVoucherComponent'
     });
 }];

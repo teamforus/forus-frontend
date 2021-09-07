@@ -35,7 +35,7 @@
             .invite-fund-subtitle Aangeboden door: {{ $ctrl.invitation.sponsor_organization.name }}
             .invite-fund-description(ng-bind="$ctrl.invitation.fund.description")
         .invite-fund-expiration
-            .invite-fund-expiration-label UITNODIGING GELDIG TOT
+            .invite-fund-expiration-label UITNODIGING GELDIG TOT EN MET
             .invite-fund-expiration-value {{ $ctrl.invitation.expire_at_locale }}
             .button.button-primary.button-slim(ng-if="$ctrl.invitation.state == 'pending'" ng-click="$ctrl.acceptInvitation()") Accepteer
 
@@ -59,14 +59,11 @@
                         .auth-title Login met Me-app
                         | Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app. 
                         | #[br] #[br]
-                        | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                        | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren.
                         | #[br] #[br]
 
-                        .qr_code-download-app
-                            a(href="{{ $root.appConfigs.ios_iphone_link }}").download-link
-                                img(src=src_prefix + "./assets/img/landing/icon-app-ios.svg")
-                            a(href="{{ $root.appConfigs.android_link }}")
-                                img(src=src_prefix + "./assets/img/landing/icon-app-android.svg").download-link
+                        app-links
+
                     .qr_code-block: qr-code(
                         ng-if="$ctrl.qrValue" 
                         qr-value="$ctrl.qrValue" 

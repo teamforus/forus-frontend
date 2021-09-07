@@ -3,12 +3,16 @@
     section.app.app-content
         .block.block-breadcrumbs
             .breadcrumb-item(
-                ui-sref="organization-providers({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id})" 
+                ui-sref="sponsor-provider-organizations({organization_id: $ctrl.organization.id})" 
                 translate="page_state_titles.organization-providers")
             .breadcrumb-item(
-                ui-sref="fund-provider({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id, fund_provider_id: $ctrl.fundProvider.id})" 
+                ui-sref="sponsor-provider-organization({organization_id: $ctrl.organization.id, provider_organization_id:$ctrl.fundProvider.organization.id})" 
                 ng-bind="$ctrl.fundProvider.organization.name")
-            .breadcrumb-item.active(ng-bind="$ctrl.product.name")
+            .breadcrumb-item(
+                ui-sref="fund-provider({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id, fund_provider_id: $ctrl.fundProvider.id})" 
+                ng-bind="$ctrl.fundProvider.fund.name")
+            .breadcrumb-item.active(
+                ng-bind="$ctrl.product.name")
 
         .block.block-provider-product
             .product-overview
@@ -44,27 +48,35 @@
                             .form-toggle-inner: .toggle-input: .toggle-input-dot
 
                     //- subsidy fund button
-                    div.flex.flex-end
-                        .button.button-primary.button-sm.nowrap(
-                            ng-if="($ctrl.fundProvider.fund.type == 'subsidies') && $ctrl.product.is_available && !$ctrl.product.allowed"
-                            ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, $ctrl.product)")
+                    div.flex.flex-end(ng-if="$ctrl.fundProvider.fund.type == 'subsidies'")
+                        a.button.button-primary.button-sm.nowrap(
+                            ui-sref="fund-provider-product-subsidy-edit($ctrl.product.approvedActionParams)"
+                            ng-if="$ctrl.product.is_available && !$ctrl.product.allowed")
                             em.mdi.mdi-play.icon-start
-                            | Start actie
+                            | Start subsidie
 
                         .tag.tag-success.nowrap(ng-if="$ctrl.product.is_available && $ctrl.product.allowed")
-                            | Actie actief 
+                            | Subsidie actief 
                             .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, $ctrl.product)")
 
             .product-description
                 .description-header
                     | Beschrijving
 
-                    .description-header-action(ng-if="!$ctrl.fundProviderProductChat")
-                        .button.button-primary-light(ng-click="$ctrl.makeChat()")
+                    .description-header-action
+                        .button.button-primary-light(
+                            ng-if="!$ctrl.product.sponsor_organization_id && !$ctrl.fundProviderProductChat" 
+                            ng-click="$ctrl.makeChat()")
                             em.mdi.mdi-message-text.icon-start
                             | Nieuw aanpassingsverzoek
 
-                    .description-header-action(ng-if="$ctrl.fundProviderProductChat")
+                        .button.button-primary(
+                            ng-if="$ctrl.product.sponsor_organization_id === $ctrl.organization.id && !$ctrl.fundProviderProductChat" 
+                            ui-sref="fund-provider-product-edit($ctrl.product.editParams)")
+                            em.mdi.mdi-pencil.icon-start
+                            | Bewerken
+
+                    .description-header-action(ng-if="!$ctrl.product.sponsor_organization && $ctrl.fundProviderProductChat")
                         span(ng-if="$ctrl.fundProviderProductChat.sponsor_unseen_messages") 
                             | {{ $ctrl.fundProviderProductChat.sponsor_unseen_messages }} nieuwe 
 
@@ -90,10 +102,11 @@
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th.td-narrow Gebruikt
-                    th Totaal aantal acties #[tooltip(text="'Totaal aantal acties waaraan uw organisatie wilt bijdragen'")]
+                    th Totaal aantal aanbiedingen #[tooltip(text="'Totaal aantal aanbiedingen waaraan uw organisatie wilt bijdragen'")]
                     th Limiet per aanvrager
                     th Bijdrage
                     th Status
+                    th Verloopdatum
                     th
 
                 tr(ng-repeat="item in $ctrl.product.deals_history")
@@ -101,10 +114,11 @@
                     td(ng-bind="item.limit_total_unlimited ? 'Onbeperkt' : item.limit_total")
                     td(ng-bind="item.limit_per_identity")
                     td(ng-bind="item.amount | currency_format")
+                    td(ng-bind="item.expire_at_locale ? item.expire_at_locale : 'Verloopt met het fonds'")
                     td
                         .tag.tag-success(ng-if="item.active") Actief
                         .tag.tag-default(ng-if="!item.active") Afgelopen
                     td.td-narrow
-                        .button.button-default.button-sm(ng-click="$ctrl.openSubsidyProductModal($ctrl.fundProvider, $ctrl.product, true, item)")
+                        a(ui-sref="fund-provider-product-subsidy-edit(item.showSubsidyDealParams)").button.button-default.button-sm
                             em.mdi.mdi-eye-outline.icon-start
                             | Kijk

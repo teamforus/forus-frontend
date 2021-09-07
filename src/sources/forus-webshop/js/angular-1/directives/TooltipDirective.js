@@ -1,7 +1,4 @@
-let TooltipDirective = function(
-    $scope,
-    $filter
-) {
+let TooltipDirective = function($scope, $filter) {
     $scope.text = $filter('i18n')($scope.text);
 };
 

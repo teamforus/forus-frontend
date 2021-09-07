@@ -34,7 +34,11 @@
 
         .card.card-collapsed
             .card-header: .flex-row
+<<<<<<< HEAD
                 .flex-col: .card-title.text-left Fonds
+=======
+                .flex-col: .card-title Fonds gekoppeld aan webshop
+>>>>>>> origin/master
                 .flex-col: .card-header-drown: .block.block-inline-filters
                     .form(ng-if="!$ctrl.filters.show"): .form-group
                         input(ng-model="$ctrl.filters.values.q" placeholder="Zoeken").form-control
@@ -47,6 +51,7 @@
                                 th.th-narrow Afbeelding
                                 th Naam
                                 th Status
+                                th(ng-if="$root.activeOrganization.backoffice_available").th-narrow Acties
                             
                             tr(ng-repeat="fund in $ctrl.funds")
                                 td: img(
@@ -86,11 +91,17 @@
                                                 translate(translate="fund_card_sponsor.buttons.restart")
 
                                             .tag.tag-default(translate="fund_card_sponsor.status.closed")
+
+                                td(ng-if="$root.activeOrganization.backoffice_available")
+                                    a(ng-if="fund.key" ui-sref="fund-backoffice-edit(fund)").button.button-default
+                                        em.mdi.mdi-cog.icon-start 
+                                        | Backoffice
+                                        
                             
                 .card-title.text-center(ng-if="$ctrl.funds.length == 0") Geen fondsen gekoppeld aan deze implementatie. 
 
             .card-section: .table-pagination
-                .table-pagination-counter {{ $ctrl.funds.length }} resultaten
+                .table-pagination-counter(ng-bind="$ctrl.funds.length + ' resultaten'")
 
             //- .card-section(ng-show="$ctrl.implementations.meta.last_page > 1")
             //-     paginator(meta="$ctrl.implementations.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")

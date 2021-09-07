@@ -16,9 +16,7 @@ let TopNavbarDirective = function(
 
     let $ctrl = this;
     
-    FundService.list().then(res => {
-        $ctrl.funds = res.data.data;
-    })
+    FundService.list().then(res => $ctrl.funds = res.data.data);
 
     $scope.startFundRequest = () => $state.go('start');
     $scope.openAuthPopup = () => ModalService.open('modalAuth', {});
@@ -39,9 +37,9 @@ let TopNavbarDirective = function(
         $scope.i18nActive = $translate.use();
     };
 
-    $scope.$ctrl.openUserMenu = (e) => {
-        e.originalEvent.stopPropagation();
-        e.originalEvent.preventDefault();
+    $scope.$ctrl.openUserMenu = ($e) => {
+        $e.stopPropagation();
+        $e.preventDefault();
         
         $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
     }
@@ -68,6 +66,8 @@ module.exports = () => {
     return {
         scope: {
             hideOnScroll: '=',
+            searchResultPage: '=',
+            query: '=',
         },
         restrict: "EA",
         replace: true,

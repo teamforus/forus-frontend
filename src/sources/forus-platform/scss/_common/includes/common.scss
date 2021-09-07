@@ -16,6 +16,15 @@ body {
     }
 }
 
+pre.code {
+    background-color: #fff;
+    border: 1px solid $border_color;
+    border-radius: $border_radius;
+    padding: 10px 15px;
+    margin: 0 0 15px;
+    font-weight: 600;
+}
+
 // angularjsand ui-router directives
 [ui-sref],
 [ng-click] {
@@ -90,6 +99,10 @@ img {
     color: #818181 !important;
 }
 
+.text-black {
+    color: #000000;
+}
+
 .text-primary {
     color: #000 !important;
 }
@@ -110,6 +123,18 @@ img {
     color: #e63b3b;
 }
 
+.text-danger-dark {
+    color: #8b0f0f;
+}
+
+.text-dim {
+    color: #454545 !important;
+}
+
+.text-dark {
+    color: #333 !important;
+}
+
 .text-underline {
     text-decoration: underline !important;
 }
@@ -127,7 +152,7 @@ img {
 }
 
 .text-strong-half {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .text-wrap {
@@ -154,8 +179,22 @@ img {
     justify-items: center;
 }
 
+.flex-self-end {
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+.flex-self-center {
+    align-self: center;
+    justify-self: center;
+}
+
 .flex-grow {
     flex-grow: 100 !important;
+}
+
+.flex-column {
+    flex-direction: column;
 }
 
 .flex {

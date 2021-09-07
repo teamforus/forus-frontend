@@ -37,9 +37,41 @@
     text-overflow: ellipsis;
 }
 
+@mixin visible_on_hover($item, $timeout: .3s) {
+    #{$item}, #{$item} * {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity $timeout / 3, visibility $timeout / 3 linear;
+    }
+
+    &:hover {
+        #{$item}, #{$item} * {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity $timeout, visibility $timeout linear;
+        }
+    }
+}
+
+@mixin visible_on_toggle($item, $class, $timeout: .3s) {
+    #{$item}, #{$item} {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity $timeout / 3, visibility $timeout / 3 linear;
+    }
+
+    &#{$class} {
+        #{$item} {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
 @mixin webkit_scrollbar($color: $color_primary_light) {
     &::-webkit-scrollbar {
         width: 8px;
+        height: 8px;
     }
 
     &::-webkit-scrollbar-track {

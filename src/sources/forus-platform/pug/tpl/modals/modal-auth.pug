@@ -4,7 +4,7 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Sign In by qr-code
     .modal-window: .modal-content
-        a.modal-close.mdi.mdi-close(href="#" ng-click="$ctrl.close()" id="close")
+        a.modal-close.mdi.mdi-close(href="#" ng-click="$ctrl.close()" id="close" role="button")
 
         .block.block-auth-widget(ng-if="!$ctrl.restoreWithDigId")
             .auth-title Login met e-mail
@@ -27,14 +27,11 @@
                         .auth-title Login met Me-app
                         | Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app. 
                         | #[br] #[br]
-                        | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en vouchers te beheren.
+                        | De Me-app wordt gebruikt om makkelijk en veilig in te loggen, betalingen te doen en tegoeden te beheren.
                         | #[br] #[br]
 
-                        .qr_code-download-app
-                            a(href="{{ $root.appConfigs.ios_iphone_link }}").download-link
-                                img(src="./assets/img/landing/icon-app-ios.svg")
-                            a(href="{{ $root.appConfigs.android_link }}")
-                                img(src="./assets/img/landing/icon-app-android.svg").download-link
+                        app-links
+
                     .qr_code-block: qr-code(
                         ng-if="$ctrl.qrValue" 
                         qr-value="$ctrl.qrValue" 

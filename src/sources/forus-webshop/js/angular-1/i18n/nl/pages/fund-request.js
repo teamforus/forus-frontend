@@ -22,7 +22,7 @@ module.exports = {
         header: {
             main: "{{ fundname }} aanvraag",
             title: "Aanmelden",
-            title_log_digid: "Log in met DigiD",
+            title_log_digid: "Eenmalig inloggen met DigiD",
             title_fund_already_applied: "Aanvraag in behandeling"
         },
         subtitles: {
@@ -31,12 +31,13 @@ module.exports = {
             fund_already_applied: "Er is al een aanvraag in behandeling",
         },
         labels: {
-            has_app: "Ik wil inloggen met de Me-app >",
-            restore_with_digid: "Vergeten welk e-mailadres u heeft gebruikt? >",
+            has_app: "Aanmelden met Me-app >",
+            restore_with_digid_formal: "Vergeten welk e-mailadres u heeft gebruikt? >",
+            restore_with_digid_informal: "Vergeten welk e-mailadres je hebt gebruikt? >",
             no_app: "Ik wil inloggen met mijn e-mailadres >",
         },
         app: {
-            title: "Heeft u de Me-app al?",
+            title: "Login met de Me-app",
             description_top: [
                 'Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app.',
             ].join("\n"),
@@ -45,8 +46,8 @@ module.exports = {
             ].join("\n")
         },
         digid: {
-            title: "Vergeten welk e-mailadres u heeft gebruikt?",
-            description: "Herstel uw account door opnieuw in te loggen met DigiD",
+            title: "Account herstel",
+            description: "Herstel account door opnieuw in te loggen met DigiD",
             button: "Login"
         },
         record_checkbox: {

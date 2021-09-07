@@ -1,33 +1,24 @@
 let ExplanationComponent = function(
     $sce,
-    $scope,
-    appConfigs
+    FundService
 ) {
     let $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $scope.appConfigs = appConfigs;
-        $scope.$watch('appConfigs', (_appConfigs) => {
-            if (_appConfigs.features && _appConfigs.features.settings) {
-                $ctrl.appConfigs = _appConfigs;
-
-                $ctrl.description_steps_html = $sce.trustAsHtml(
-                    $ctrl.appConfigs.features.settings.description_steps_html
-                );
-            }
-        }, true);
+        FundService.list().then(res => $ctrl.funds = res.data.data);
+        
+        $ctrl.description_html = $sce.trustAsHtml($ctrl.page.content_html);
     };
 };
 
 module.exports = {
     bindings: {
-        provider: '<',
         funds: '<',
+        page: '<',
     },
     controller: [
         '$sce',
-        '$scope',
-        'appConfigs',
+        'FundService',
         ExplanationComponent
     ],
     templateUrl: 'assets/tpl/pages/explanation.html'

@@ -128,17 +128,23 @@ let PrevalidatedTableDirective = async function(
 
     // Export to XLS file
     $scope.export = (filters = {}) => {
-        PrevalidationService.export(Object.assign(filters, {
-            fund_id: $scope.fund.id
-        })).then((res => {
-            FileService.downloadFile(
-                ($scope.fund.key || 'fund') + '_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.xls',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }));
+        ModalService.open('exportType', {
+            success: (data) => {
+                const export_format = data.exportType;
+
+                PrevalidationService.export({ ...filters, export_format }).then((res => {
+                    const fileName = ($scope.fund.key || 'fund') + '_';
+
+                    FileService.downloadFile(
+                        fileName + moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType,
+                        res.data,
+                        res.headers('Content-Type') + ';charset=utf-8;'
+                    );
+
+                    $scope.onPageChange(filters);
+                }), console.error);
+            }
+        });
     };
 
     $scope.deletePrevalidation = (prevalidation) => {

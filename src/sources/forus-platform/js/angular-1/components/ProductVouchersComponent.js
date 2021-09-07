@@ -1,4 +1,5 @@
 let ProductVouchersComponent = function(
+    $q,
     $state,
     $stateParams,
     $timeout,
@@ -32,17 +33,6 @@ let ProductVouchersComponent = function(
         name: 'Medewerker'
     }];
 
-    $ctrl.voucher_states = [{
-        value: null,
-        name: 'Alle'
-    }, {
-        value: 'pending',
-        name: 'Inactief'
-    }, {
-        value: 'active',
-        name: 'Actief'
-    }];
-
     $ctrl.in_use = [{
         value: null,
         name: 'Selecteer...'
@@ -53,6 +43,8 @@ let ProductVouchersComponent = function(
         value: 0,
         name: 'Nee'
     }];
+
+    $ctrl.voucher_states = VoucherService.getStates();
 
     $ctrl.filters = {
         show: false,
@@ -84,8 +76,11 @@ let ProductVouchersComponent = function(
         $timeout(() => $ctrl.filters.show = false, 0);
     };
 
-    $ctrl.showQrCode = (voucher) => {
-        ModalService.open('voucher_qr_code', {
+    $ctrl.showQrCode = ($event, voucher) => {
+        $event.stopPropagation();
+        $event.preventDefault();
+
+        ModalService.open('voucherQrCode', {
             voucher: voucher,
             fund: $ctrl.fund,
             organization: $ctrl.organization,
@@ -95,7 +90,7 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.createProductVoucher = () => {
-        ModalService.open('product_voucher_create', {
+        ModalService.open('productVoucherCreate', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange($ctrl.filters.values)
@@ -124,35 +119,6 @@ let ProductVouchersComponent = function(
         };
     };
 
-    /* $ctrl.exportQRCodes = () => {
-        ModalService.open('voucherExportType', {
-            success: (data) => {
-                VoucherService.downloadQRCodes($ctrl.organization.id, {
-                    ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                        export_type: data.exportType
-                    }
-                }).then(res => {
-                    FileService.downloadFile(
-                        'vouchers_' + moment().format(
-                            'YYYY-MM-DD HH:mm:ss'
-                        ) + '.zip',
-                        res.data,
-                        res.headers('Content-Type') + ';charset=utf-8;'
-                    );
-                }, res => {
-                    res.data.text().then((data) => {
-                        data = JSON.parse(data);
-
-                        if (data.message) {
-                            PushNotificationsService.danger(data.message);
-                        }
-                    });
-                });
-            }
-        });
-    }; */
-
-
     $ctrl.exportPdf = () => {
         VoucherService.downloadQRCodes($ctrl.organization.id, {
             ...$ctrl.getQueryParams($ctrl.filters.values),
@@ -176,27 +142,62 @@ let ProductVouchersComponent = function(
         });
     };
 
+    $ctrl.exportQRCodesXls = () => {
+        return $q((resolve, reject) => {
+            VoucherService.downloadQRCodesXls($ctrl.organization.id, {
+                ...$ctrl.getQueryParams($ctrl.filters.values)
+            }).then(res => resolve(
+                $ctrl.xlsData = res.data
+            ), reject);
+        });
+    };
+
+    $ctrl.exportQRCodesData = (type) => {
+        return $q((resolve, reject) => {
+            VoucherService.downloadQRCodesData($ctrl.organization.id, {
+                ...$ctrl.getQueryParams($ctrl.filters.values), ...{
+                    export_type: 'png', 
+                    export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
+                }
+            }).then(res => resolve(
+                $ctrl.qrCodesData = res.data
+            ), reject);
+        });
+    };
 
     $ctrl.exportImages = (type) => {
+        const promisses = [];
+
+        if (type == 'xls' || type == 'png') {
+            promisses.push($ctrl.exportQRCodesXls());
+        };
+
+        if (type == 'csv' || type == 'png') {
+            promisses.push($ctrl.exportQRCodesData(type));
+        };
+
         PageLoadingBarService.setProgress(0);
-        VoucherService.downloadQRCodesData($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                export_type: 'png',
-                export_only_data: type === 'data' ? 1 : 0,
-            }
-        }).then(async res => {
-            let data = res.data;
-            let csvContent = data.rawCsv;
-            let csvName = 'qr_codes.csv';
-            let vouchersData = data.vouchersData;
-            let zip = new JSZip();
-            let img = vouchersData.length > 0 ? zip.folder("images") : null;
-            let promises = [];
+
+        $q.all(promisses).then(() => {
+            const zip = new JSZip();
+            const csvName = 'qr_codes.csv';
+
+            const qrCodesData = $ctrl.qrCodesData;
+            const vouchersData = type == 'png' ? qrCodesData.vouchersData : [];
+            const imgDirectory = vouchersData.length > 0 ? zip.folder("images") : null;
+            const promises = [];
 
             PageLoadingBarService.setProgress(10);
             console.info('- data loaded from the api.');
 
-            zip.file(csvName, csvContent);
+            if (type == 'png' || type == 'csv') {
+                zip.file(csvName, qrCodesData.rawCsv);
+            }
+
+            if (type == 'png' || type == 'xls') {
+                zip.file('qr_codes.xls', $ctrl.xlsData);
+            }
+
             PageLoadingBarService.setProgress(20);
             vouchersData.forEach((voucherData, index) => {
                 promises.push(new Promise((resolve) => {
@@ -212,7 +213,7 @@ let ProductVouchersComponent = function(
 
             Promise.all(promises).then((data) => {
                 console.info('- inserting images into .zip archive.');
-                data.forEach((imgData) => img.file(imgData.name + ".png", imgData.imageData, { base64: true }));
+                data.forEach((imgData) => imgDirectory.file(imgData.name + ".png", imgData.imageData, { base64: true }));
 
                 PageLoadingBarService.setProgress(80);
 
@@ -307,6 +308,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$q',
         '$state',
         '$stateParams',
         '$timeout',

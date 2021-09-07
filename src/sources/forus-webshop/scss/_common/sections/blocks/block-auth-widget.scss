@@ -11,7 +11,6 @@
         color: #333;
         margin-bottom: 10px;
     }
-
     
     .auth-form {
         margin: 0 0 30px;
@@ -44,7 +43,7 @@
         .auth-digid-link {
             color: #3661ff;
             font: 600 14px/20px $bf;
-            display: flex;
+            display: inline-flex;
             flex-direction: row;
 
             .mdi {
@@ -127,17 +126,13 @@
             flex-direction: row;
             font: 400 14px/20px $bf;
 
-            .qr_code-description {
-                padding-right: 10px;
+            .qr_code-description { 
+                flex-grow: 1;
 
-                .qr_code-download-app {
-                    display: flex;
-
-                    .download-link {
-                        height: 40px;
-                        display: inline-flex;
-                        margin-right: 10px;
-                    }
+                a {
+                    color: #3661ff;
+                    text-decoration: underline;
+                    font: 600 14px $bf;
                 }
             }
 

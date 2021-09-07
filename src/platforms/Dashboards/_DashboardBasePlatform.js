@@ -18,6 +18,8 @@ platform.setLibs([
     "angular_translate",
     "angular_translate_storage_cookies",
     "angular_translate_storage_local",
+    "summernote",
+    "turndown",
     "moment",
     "chart_js",
     "mdi",
@@ -30,7 +32,6 @@ platform.setLibs([
     "ui_router",
     "ui_select",
     "file_saver",
-    "underscore",
     "pdfjs",
 ]);
 

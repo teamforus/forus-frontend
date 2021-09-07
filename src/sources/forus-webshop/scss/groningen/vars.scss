@@ -22,7 +22,7 @@ $btn-start-border:   transparent;
 
 // sign up
 $sign_up_accent_color: #191A1C;
-$sign_up_accent_color_light: #7E818C;
+$sign_up_accent_color_light: #45535E;
 $sign_up_link_color: #E60004;
 $sign_up_step_btns_color: #E60004;
 $sign_up_digid_btn_bkg: #fff;
@@ -38,6 +38,7 @@ $bf:                Verdana, arial;
 // text color
 $tc:                #1a1919;
 $tc-var:            #fff;
+$tc-link:           #2b2bff;
 
 // base color
 $bc:                #e60003;
@@ -53,6 +54,8 @@ $tf:                inherit;
 // footer color
 $fbc:                #e60004;
 $fc:                #fff;
+$fc-link:           #fff;
+$fc-link-hover:     #fff;
 
 // displayed or not
 $fd:                block;
@@ -61,7 +64,7 @@ $fd:                block;
 $pi:                0px;
 
 // placeholder text color
-$ptc:               #999999;
+$ptc:               #515152;
 
 $border_color:      #dce0e0;
 

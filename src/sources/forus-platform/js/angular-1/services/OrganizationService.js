@@ -90,6 +90,114 @@ module.exports = [
                 );
             };
 
+            this.providerOrganizations = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers',
+                    organization_id
+                ), query);
+            };
+
+            this.financeProviders = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/finances',
+                    organization_id
+                ), query);
+            };
+
+            this.financeProvidersExport = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/finances-export',
+                    organization_id
+                ), query, {}, true, (_cfg) => {
+                    return { ..._cfg, ...{ responseType: 'arraybuffer', cache: false } };
+                });
+            };
+
+            this.providerOrganizationsExport = function(organization_id, query = {}) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/export',
+                    organization_id
+                ), query, {}, true, (_cfg) => {
+                    return { ..._cfg, ...{ responseType: 'arraybuffer', cache: false } };
+                });
+            };
+
+            this.providerOrganization = function(
+                organization_id,
+                provider_organization_id,
+                query = {}
+            ) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s',
+                    organization_id,
+                    provider_organization_id
+                ), query);
+            };
+
+            this.sponsorProducts = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                query = {}
+            ) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products',
+                    sponsor_organization_id,
+                    provider_organization_id
+                ), { ...query });
+            };
+
+            this.sponsorProduct = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                product_id
+            ) {
+                return ApiRequest.get(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products/%s',
+                    sponsor_organization_id,
+                    provider_organization_id,
+                    product_id
+                ));
+            };
+
+            this.sponsorProductUpdate = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                product_id,
+                data = {}
+            ) {
+                return ApiRequest.patch(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products/%s',
+                    sponsor_organization_id,
+                    provider_organization_id,
+                    product_id
+                ), { ...data });
+            };
+
+            this.sponsorProductDelete = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                product_id
+            ) {
+                return ApiRequest.delete(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products/%s',
+                    sponsor_organization_id,
+                    provider_organization_id,
+                    product_id
+                ));
+            };
+
+            this.sponsorStoreProduct = function(
+                sponsor_organization_id,
+                provider_organization_id,
+                data = {}
+            ) {
+                return ApiRequest.post(sprintf(
+                    '/platform/organizations/%s/sponsor/providers/%s/products',
+                    sponsor_organization_id,
+                    provider_organization_id
+                ), { ...data });
+            };
+
             this.store = function(values) {
                 return ApiRequest.post(
                     '/platform/organizations',
@@ -111,13 +219,22 @@ module.exports = [
                 );
             };
 
+            this.updateAcceptReservations = function(id, auto_accept) {
+                return ApiRequest.patch(`/platform/organizations/${id}/accept-reservations`, {
+                    reservations_auto_accept: auto_accept,
+                });
+            };
+
             this.updateBusinessType = function(id, business_type_id) {
                 return ApiRequest.patch(
                     '/platform/organizations/' + id + '/update-business', {
-                        business_type_id: business_type_id
-                    }
-                );
+                    business_type_id: business_type_id
+                });
             };
+
+            this.transferOwnership = function(id, query = {}) {
+                return ApiRequest.patch('/platform/organizations/' + id + '/transfer-ownership', query);
+            }
 
             this.read = function(id, query = {}) {
                 return ApiRequest.get('/platform/organizations/' + id, query);
@@ -154,6 +271,7 @@ module.exports = [
                     business_type_id: apiResource.business_type_id,
                     name: apiResource.name,
                     description: apiResource.description,
+                    description_html: apiResource.description_html,
                     iban: apiResource.iban,
                     email: apiResource.email,
                     email_public: !!apiResource.email_public,

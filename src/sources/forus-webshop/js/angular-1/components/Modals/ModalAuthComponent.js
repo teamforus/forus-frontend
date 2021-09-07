@@ -1,4 +1,4 @@
-let ModalAuthComponent = function(
+const ModalAuthComponent = function(
     $state,
     $timeout,
     $rootScope,
@@ -10,7 +10,9 @@ let ModalAuthComponent = function(
     ModalService,
     appConfigs
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
+    const index = Math.floor(Math.random() * 100000) + 1;
+
     let timeout;
 
     $ctrl.qrValue = null;
@@ -40,11 +42,11 @@ let ModalAuthComponent = function(
     $ctrl.startDigId = () => {
         DigIdService.startAuthRestore().then((res) => {
             document.location = res.data.redirect_url;
-        }, res => {
+        }, (res) => {
             $ctrl.close();
 
             $state.go('error', {
-                errorCode: res.headers('Error-Code')
+                errorCode: res.headers('Error-Code'),
             });
         });
     }
@@ -52,7 +54,7 @@ let ModalAuthComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.appConfigs = appConfigs;
 
-        $(document).bind('keydown', (e) => {
+        angular.element(document).bind('keydown.auth_model_' + index, (e) => {
             $timeout(function() {
                 var key = e.charCode || e.keyCode || 0;
 
@@ -96,7 +98,7 @@ let ModalAuthComponent = function(
                     icon: "email_signup",
                     icon_filetype: ".svg",
                     title: 'popup_auth.labels.mail_sent',
-                    description: 'popup_auth.notifications.link',
+                    description: 'popup_auth.notifications.link_' + appConfigs.features.communication_type,
                     confirmBtnText: 'popup_auth.buttons.submit'
                 });
             }, (res) => handleErrors);
@@ -137,15 +139,18 @@ let ModalAuthComponent = function(
             $ctrl.qrValue = $ctrl.authToken;
 
             $ctrl.checkAccessTokenStatus('token', res.data.access_token);
-        }, console.log);
+        }, console.error);
     };
 
     $ctrl.stopQrCodeVerification = () => $timeout.cancel(timeout);
-    $ctrl.$onDestroy = () => $ctrl.stopQrCodeVerification();
+
+    $ctrl.$onDestroy = () => {
+        $ctrl.stopQrCodeVerification();
+        angular.element(document).unbind('keydown.auth_model_' + index);
+    };
 
     $ctrl.openAuthCodePopup = function() {
         $ctrl.close();
-
         ModalService.open('modalAuthCode', {});
     };
 };

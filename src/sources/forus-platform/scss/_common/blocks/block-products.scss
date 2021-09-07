@@ -47,6 +47,31 @@
             .product-subtitle {
                 font: 600 11px/15px $bf;
                 color: #626F79;
+                margin: 0 0 5px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .product-sponsor {
+                display: block;
+                @include cf();
+
+                .product-sponsor-media {
+                    width: 35px;
+                    height: 35px;
+                    margin-right: 10px;
+                    float: left;
+                    display: block;
+                    border: 1px solid $borderColor;
+                    border-radius: $border_radius;
+                }
+
+                .product-sponsor-name {
+                    float: left;
+                    font: 600 16px/35px $bf;
+                }
             }
         }
 
@@ -67,6 +92,24 @@
 
                 &:first-child {
                     margin-left: 0;
+                }
+            }
+        }
+
+        &.product-item-sponsor {
+            border-radius: 5px;
+
+            .product-media {
+                padding: 15px 0 15px 15px;
+
+                .product-media-img {
+                    border-radius: 5px 5px 5px 5px;
+                }
+            }
+
+            .product-details {
+                .product-title {
+                    margin-bottom: 5px;
                 }
             }
         }

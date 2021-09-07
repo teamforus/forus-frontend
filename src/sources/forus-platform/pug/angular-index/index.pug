@@ -8,13 +8,12 @@ html(lang="nl" ng-controller="BaseController" ng-cloak)
         
         page-loading-bar
         
-        div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")
-            .ie-hide: div(ng-if="$root.showAppHeader"): include ../layout/includes/header
+        div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''").ie-hide
+            include ../layout/includes/header
 
             ui-view
 
-            .ie-hide
-                div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/footer
+            div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/footer
             div(forus-chat chat-id="{{ appConfigs.chat_id }}" ng-if="appConfigs.chat_id")
             div(forus-support support-id="{{ appConfigs.support_id}}" ng-if="appConfigs.support_id")
 

@@ -1,5 +1,6 @@
 .block.block-map-office-card
-    .map-office-photo(style="background-image: url('{{ imageUrl }}'")
+    .map-office-photo 
+        img(src="{{ imageUrl }}")
     .map-office-details
         .map-office-title(ng-bind="office.organization.name")
         .row

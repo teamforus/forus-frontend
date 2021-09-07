@@ -1,8 +1,12 @@
 module.exports = {
     title_preferences: 'Notificatievoorkeuren',
+    title_emails_turned_on: "Inschrijven voor alle e-mails",
+    title_emails_turned_of: "Uitschrijven voor alle e-mails",
     title_email_preferences: 'E-mail notificaties',
     title_push_preferences: 'Push notificaties via app',
-    subscribe_desc: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
+    subscribe_desc_formal: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
+    subscribe_desc_informal: 'Met dit e-mailadres "{{email}}" ben je momenteel voor alle notificaties uitgeschreven. Wanneer je notificaties wilt ontvangen, kun je dit hieronder per notificatie instellen.',
+
     unsubscribe: 'Uitschrijven voor alle e-mail notificaties',
     unsubscribe_desc:  'Ik wil me uitschrijven van alle e-mail notificaties.',
     unsubscribe_button: 'Uitschrijven',
@@ -34,7 +38,7 @@ module.exports = {
             },
             fund_expires: {
                 title: 'Herinnering einddatum tegoed',
-                description: 'Ontvang een e-mail notificatie 1 maand voor de einddatum van uw tegoed.'
+                description: 'Ontvang een e-mail notificatie 1 maand voor de einddatum.'
             },
             product_added: {
                 title: 'Nieuwe aanbieding toegevoegd',
@@ -92,7 +96,7 @@ module.exports = {
         voucher: {
             assigned: {
                 title: 'Nieuw tegoed geactiveerd of toegekend.',
-                description: 'Ontvang een push notificatie wanneer u een tegoed activeert of toegekend krijgt.'
+                description: 'Ontvang een push notificatie bij een nieuw tegoed.'
             },
             transaction: {
                 title: 'Betaling gelukt',

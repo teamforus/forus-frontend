@@ -49,6 +49,14 @@
 }
 .block {
     &.block-footer {
+        a {
+            color: $fc-link;
+
+            &:hover {
+                color: $fc-link-hover;
+                text-decoration: none;
+            }
+        }
         .footer-label {
             color: #fff;
         }

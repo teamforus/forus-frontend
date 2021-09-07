@@ -1,0 +1,11 @@
+.card
+    .card-header: .card-title Vestigingen
+    .card-section.card-section-padless: .table-wrapper: table.table
+        tr
+            th Adres
+            th.text-right Telefoonnummer
+
+        tr(ng-repeat="office in $dir.offices")
+            td(ng-bind="office.address || 'n.v.t.'" ng-class="{'text-muted': !office.address}")
+            td(ng-bind="office.phone || 'n.v.t.'" ng-class="{'text-muted': !office.phone}").text-right
+    .card-section.text-center(ng-if="$dir.offices.length == 0") Geen vestigingen

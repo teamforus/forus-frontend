@@ -15,7 +15,7 @@
 }
 
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1600px) {
     .nav-var {
         &.block {
             &.block-navbar {
@@ -31,7 +31,7 @@
                         img {
                             height: 140px;
                             position: absolute;
-                            left: 70px;
+                            left: 60px;
                             margin-top: -50px;
         
                             &.hover {

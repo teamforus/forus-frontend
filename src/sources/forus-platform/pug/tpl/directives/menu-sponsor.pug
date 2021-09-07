@@ -25,7 +25,6 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_funds","view_finances","view_funds"]:false',
             'funds')
-            
 
         if (!qdt_c.platform.env_data.hide_voucher_generators)
             +nav_item(
@@ -41,25 +40,13 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
                 'product_vouchers')
 
         +nav_item(
-            "Transacties", "transactions", 'transactions', 
-            '{organization_id: $root.activeOrganization.id}', 
-            '$root.activeOrganization | hasPerm:["view_finances"]',
-            'transactions')
-
-        +nav_item(
-            "Financiën", "financial_dashboard", 'financial-dashboard', 
-            '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["view_finances"]',
-            'financial_dashboard')
-
-        +nav_item(
             "Medewerkers", "list", 'employees', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_employees"]',
             'employees')
 
         +nav_item(
-            "Aanbieders", "people", 'organization-providers', 
+            "Aanbieders", "people", 'sponsor-provider-organizations', 
             '{organization_id: $root.activeOrganization.id, fund_id: null}',
             '$root.activeOrganization | hasPerm:["manage_providers"]',
             'providers')
@@ -75,6 +62,28 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             '$root.activeOrganization | hasPerm:["manage_organization"]')
         
         .sidebar-section-title(
+            ng-if="$root.activeOrganization | hasPerm:['view_finances']:false" 
+            translate="menu.financial")
+        
+        +nav_item(
+            "Overzicht", "financial_dashboard_overview", 'financial-dashboard-overview', 
+            '{organization_id: $root.activeOrganization.id, state: "overview"}',
+            '$root.activeOrganization | hasPerm:["view_finances"]',
+            'financial_dashboard')
+
+        +nav_item(
+            "Statistieken", "financial_dashboard", 'financial-dashboard', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["view_finances"]',
+            'financial_dashboard')
+
+        +nav_item(
+            "Transacties", "transactions", 'transactions', 
+            '{organization_id: $root.activeOrganization.id}', 
+            '$root.activeOrganization | hasPerm:["view_finances"]',
+            'transactions')
+
+        .sidebar-section-title(
             ng-if="$root.activeOrganization | hasPerm:['manage_implementation', 'manage_implementation_cms']:false" 
             translate="menu.implementation")
         
@@ -85,6 +94,6 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
 
         .sidebar-section-title(ng-if="$root.activeOrganization" translate="menu.personal")
 
-        +nav_item('Email instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
+        +nav_item('E-mail instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
         +nav_item('Notificatievoorkeuren', 'notifications', 'preferences-notifications')

@@ -5,28 +5,27 @@ module.exports = {
             subtitle: 'Dit zijn de opties om uw QR-code mee te nemen naar de aanbieder:',
             card_old: {
                 title: 'Oude pas opnieuw activeren',
-                description: 'Heeft u al een pas?<br/>Activeer uw pas opnieuw.',
+                description: 'Heb je al een pas?<br/>Activeer je pas opnieuw.',
                 success: 'Pas gekoppeld!'
             },
             card_new: {
                 title: 'Bestel een pas',
-                description: 'Heeft u nog geen pas?<br/>Bestel een nieuwe pas.',
+                description: 'Heb je nog geen pas?<br/>Bestel een nieuwe pas.',
             },
         },
         link_card: {
-            title: 'Activeer uw oude pas',
-            subtitle: 'Voer uw persoonlijke klantcode in',
+            title: 'Activeer je oude pas',
+            subtitle: 'Voer je persoonlijke klantcode in',
             description: [
-                'Op uw pasje staat een QR-code, hieronder staat uw persoonlijke code.',
-                'Als u de oude pas opnieuw activeert kunt u deze blijven gebruiken.',
+                'Op je pasje staat een QR-code, hieronder staat je persoonlijke code.',
+                'Als je de oude pas opnieuw activeert kun je deze blijven gebruiken.',
                 'Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00.',
             ].join('<br/>'),
         },
         request_new_card: {
             title: 'Bestel een pas',
-            subtitle: 'Uw digitale pas:',
-            preffer_plastic_card: 'Liever een plastic pas?',
-            description: 'Vul uw adresgegevens in. De pas wordt via de post naar u verstuurd.',
+            subtitle: 'Je digitale pas:',
+            description: 'Vul je adresgegevens in. De pas wordt via de post naar je verstuurd.',
             order: 'Bestellen',
             postcode: 'Postcode',
             postcode_placeholder: 'Postcode',
@@ -44,27 +43,31 @@ module.exports = {
         },
         link_card_success: {
             title: 'Pas gekoppeld!',
-            description: 'Uw pas is gekoppeld aan uw {{fundName}}-tegoed!',
+            description: 'Je pas is gekoppeld aan je {{fundName}}!',
+        },
+        confirm_card: {
+            header: 'Controleer de gegevens',
+            title: 'Controleer de gegevens:',
+            description: 'Klik na controle op bevestigen of pas de gegevens aan.',
         },
         link_card_unlink: {
-            title: 'Blokkeer uw pas',
+            title: 'Blokkeer je pas',
             buttons: {
                 submit: "Blokkeer",
                 cancel: "Annuleer"
             }
         },
         request_card_success: {
-            title: 'Uw pas is besteld!',
-            description: [
-                '<h2>Uw pas is besteld!</h2>',
-                'De pas wordt verstuurd naar het adres: <br />',
-                '{{address}} {{house}} {{house_addition}}',
-                '{{postcode}} {{city}} <br />',
-                'U heeft een e-mail ontvangen met de bevestiging van uw bestelling.',
-            ].join('<br/>'),
+            title: 'Je pas is besteld!',
+            heading: 'De pas wordt verstuurd naar het adres:',
+            description: 'Je hebt een e-mail ontvangen met de bevestiging van je bestelling.',
         }
     },
     buttons: {
+        confirm_card: {
+            adjust: 'Aanpassen',
+            submit: 'Bevestigen',
+        },
         close: 'Sluiten',
         link_card: {
             submit_code: 'Bevestig',

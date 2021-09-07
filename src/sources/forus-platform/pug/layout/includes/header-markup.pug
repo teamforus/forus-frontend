@@ -1,6 +1,13 @@
 header.app.app-header
     .wrapper.flex-row
-        a(href="./index.html").header-logo: img(src="./assets/img/general-logo.svg").header-logo-img
+        //- Logo
+        //- a(href="./index.html").header-logo: img(src="./assets/img/general-logo.svg").header-logo-img
+        .header-organization-switcher
+            .organization-preview
+                img.organization-logo(src='./assets/img/placeholders/organization-thumbnail.png')
+                .organization-name Westerkwartier
+                .organization-switcher-arrow
+
         
         .flex-grow &nbsp;
         
@@ -39,6 +46,7 @@ header.app.app-header
                     .auth-user-name info@rminds.nl
                     .auth-user-role Sponsor
                 img(src="./assets/img/organization-logo.jpg").auth-user-img
+                .auth-user-caret: em.mdi.mdi-chevron-down
                 //- .auth-user-menu
                     a(href="#").auth-user-menu-item
                         em.mdi.mdi-account

@@ -1,13 +1,13 @@
 section.section.section-products#products
-    a.section-title(
+    h2.section-title(
         translate="{{ 'block_products.header.title_' + $dir.type }}"
         ui-sref="{{ $dir.type == 'budget' ? 'products($dir.filters)' : 'actions($dir.filters)' }}"
         ng-if="products.data.length != 0")
 
     products-list(
-        ng-if="$dir.products" 
-        type="{{ $dir.type }}" 
-        display="{{ $dir.display }}" 
+        ng-if="$dir.products"
+        type="$dir.type"
+        display="$dir.display"
         products="$dir.products")
 
     empty-block(

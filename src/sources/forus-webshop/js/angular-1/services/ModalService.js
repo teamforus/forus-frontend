@@ -21,21 +21,19 @@ let ModalService = function(ModalRoute, $timeout) {
     };
 
     this.open = (key, scope = {}, configs = {}) => {
-        let _configs = Object.assign(defaultConfigs, configs);
+        const _configs = {...defaultConfigs, ...configs};
 
         if (!this.modalKeyExists(key)) {
             throw new Error(`Unknown modal key "${key}".`);
         }
 
         $timeout(() => {
-            let modal = {
+            const modal = {
                 key: key,
                 scope: scope,
                 animated: _configs.animated,
                 loaded: _configs.animated ? false : true,
-                events: {
-                    onClose: _configs.onClose,
-                },
+                events: { onClose: _configs.onClose },
                 setLoaded: function() {
                     if (!this.loaded) {
                         this.loaded = true;

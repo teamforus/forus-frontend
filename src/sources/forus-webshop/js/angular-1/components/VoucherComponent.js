@@ -1,11 +1,11 @@
-let VoucherComponent = function(
-    $state,
+const VoucherComponent = function(
     $sce,
+    $state,
     VoucherService,
     PrintableService,
     ModalService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.qrValue = null;
 
@@ -31,31 +31,22 @@ let VoucherComponent = function(
             description: 'voucher.delete_voucher.popup_form.description',
             confirmBtnText: 'voucher.delete_voucher.buttons.submit',
             cancelBtnText: 'voucher.delete_voucher.buttons.close',
-            confirm: () => {
-                VoucherService.destroy(
-                    voucher.address
-                ).then(function(res) {
-                    $state.go('vouchers')
-                })
-            }
+            confirm: () => VoucherService.destroy(voucher.address).then(() => $state.go('vouchers'))
         })
     }
 
     $ctrl.printQrCode = () => {
-        $ctrl.organization = !$ctrl.voucher.product ?
-            $ctrl.voucher.fund.organization : $ctrl.voucher.product.organization;
+        const { voucher } = $ctrl;
+        const organization = !voucher.product ? voucher.fund.organization : voucher.product.organization;
 
-        PrintableService.open('voucherQrCode', {
-            voucher: $ctrl.voucher,
-            organization: $ctrl.organization,
-        });
+        PrintableService.open('voucherQrCode', { voucher, organization });
     }
 
     $ctrl.sendVoucherEmail = function(voucher) {
         return ModalService.open('modalNotification', {
             type: 'confirm',
-            title: "E-mail tegoed naar uzelf",
-            description: "U kunt uw tegoed naar uzelf mailen. Laat het tegoed, in de vorm van een QR-code, aan de aanbieder zien vanuit uw vertrouwde e-mailbox.",
+            title: "E-mail naar mij",
+            description: "Stuur de QR-code naar mijn e-mailadres",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
                     ModalService.open('modalNotification', {
@@ -63,7 +54,7 @@ let VoucherComponent = function(
                         class: 'modal-description-pad',
                         title: 'popup_auth.labels.voucher_email',
                         description: 'popup_auth.notifications.voucher_email',
-                        confirmBtnText: 'popup_auth.buttons.confirm'
+                        confirmBtnText: 'buttons.close'
                     });
                 });
             }
@@ -75,8 +66,13 @@ let VoucherComponent = function(
     };
 
     $ctrl.shareVoucher = function(voucher) {
-        return ModalService.open('modalShareVoucher', {
-            voucher: voucher
+        return ModalService.open('modalShareVoucher', { voucher });
+    };
+
+    $ctrl.deactivateVoucher = function(voucher) {
+        return ModalService.open('deactivateVoucher', {
+            voucher: voucher,
+            onDeactivated: (voucher) => $ctrl.setVoucher(voucher),
         });
     };
 
@@ -89,13 +85,17 @@ let VoucherComponent = function(
             openInMeModal: $ctrl.openInMeModal,
             printQrCode: $ctrl.printQrCode,
             physicalCardIsLinkable: () => $ctrl.physicalCardIsLinkable(),
-            onAttached: () => {
-                VoucherService.get($ctrl.voucher.address).then(res => {
-                    $ctrl.voucher = res.data.data;
-                    $ctrl.$onInit();
-                });
-            }
+            onAttached: () => $ctrl.fetchVoucher()
         });
+    };
+
+    $ctrl.setVoucher = (voucher) => {
+        $ctrl.voucher = voucher;
+        $ctrl.$onInit();
+    };
+
+    $ctrl.fetchVoucher = () => {
+        VoucherService.get($ctrl.voucher.address).then((res) => $ctrl.setVoucher(res.data.data));
     };
 
     $ctrl.unlinkPhysicalCard = (voucher) => {
@@ -115,8 +115,7 @@ let VoucherComponent = function(
     };
 
     $ctrl.physicalCardIsLinkable = () => {
-        return $ctrl.voucher.fund.allow_physical_cards &&
-            ($ctrl.voucher.type === 'regular');
+        return $ctrl.voucher.fund.allow_physical_cards && ($ctrl.voucher.type === 'regular');
     }
 
     $ctrl.$onInit = function() {
@@ -126,11 +125,16 @@ let VoucherComponent = function(
         $ctrl.qrCodeValue = $ctrl.voucher.address;
         $ctrl.voucherCanUse = !$ctrl.voucher.expired;
 
+        $ctrl.showHistory = $ctrl.voucher.history.filter((history) => {
+            return !history.event.startsWith('created_');
+        }).length > 0;
+
         $ctrl.isPhysicalCardLinkable = $ctrl.physicalCardIsLinkable();
         $ctrl.showPhysicalCardsOption =
             $ctrl.physicalCardIsLinkable() &&
             !$ctrl.voucher.physical_card &&
-            !$ctrl.isPhysicalCardDismissed();
+            !$ctrl.isPhysicalCardDismissed() &&
+            $ctrl.voucherCanUse;
     };
 };
 
@@ -141,8 +145,8 @@ module.exports = {
         subsidies: '<',
     },
     controller: [
-        '$state',
         '$sce',
+        '$state',
         'VoucherService',
         'PrintableService',
         'ModalService',

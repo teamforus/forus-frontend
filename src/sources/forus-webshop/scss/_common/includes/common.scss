@@ -61,7 +61,11 @@ img {
 }
 
 .text-danger {
-    color: #e63b3b;
+    color: #AD0003 !important;
+}
+
+.text-success {
+    color: darken($color: #2cc6ab, $amount: 2.5) !important;
 }
 
 .text-strong {
@@ -74,6 +78,10 @@ img {
 
 .hidden {
     display: none;
+}
+
+.ellipsis {
+    @include ellipsis();
 }
 
 .hard-disabled {
