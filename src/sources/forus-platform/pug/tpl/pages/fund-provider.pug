@@ -145,11 +145,7 @@
         //- Products for budget fund
         .card(ng-if="$ctrl.fundProvider.fund.type == 'budget'")
             .card-header: .flex-row
-<<<<<<< HEAD
-                .flex-col: .card-title.text-left Aanbiedingen
-=======
                 .flex-col: .card-title Aanbod in beheer van {{ $ctrl.fundProvider.organization.name }}
->>>>>>> origin/master
                 .flex-col: .card-header-drown: .block.block-inline-filters
                     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
@@ -203,11 +199,7 @@
         //- Products for subsidy fund
         .card(ng-if="$ctrl.fundProvider.fund.type == 'subsidies'")
             .card-header: .flex-row
-<<<<<<< HEAD
-                .flex-col: .card-title.text-left Aanbiedingen
-=======
                 .flex-col: .card-title Aanbod in beheer van {{ $ctrl.fundProvider.organization.name }}
->>>>>>> origin/master
                 .flex-col: .card-header-drown: .block.block-inline-filters
                     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"

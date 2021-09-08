@@ -302,34 +302,6 @@
             top: 0 !important;
         }
     }
-<<<<<<< HEAD
-}    
-.button {
-    transform: translate(0, 0);
-    text-align: center;
-    border-radius: 5px;     
-
-    &.button-primary {
-        background: #305dfb;
-        border-color: #305dfb;
-        color: #fff;
-
-        &:hover {
-            background: #4c74ff;
-            border-color: #4c74ff;
-        }
-    }
-
-    &.button-text {
-        &.button-text-primary {
-            color: #305dfb;
-        }
-    }
-
-    &.button-text {
-        &:hover {
-            color: #305dfb;
-=======
 
     &.button-menu {
         position: relative;
@@ -413,7 +385,6 @@
                     right: 0;
                 }
             }
->>>>>>> origin/master
         }
     }
 }

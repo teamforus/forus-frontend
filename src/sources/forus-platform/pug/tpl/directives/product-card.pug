@@ -12,11 +12,6 @@
 
     .product-actions
         .product-action: .product-price(ng-bind="product.price_locale")
-<<<<<<< HEAD
-        .product-action: .label.label-round.label-lg.label-success(ng-if="!product.expired" translate="product_card.status.active")
-        .product-action: .button-group
-            .button.button-default(ui-sref="products-show(product)")
-=======
         .product-action(ng-if="product.deleted")
             .label.label-default.label-round.label-lg(translate="product_card.status.archived")
 
@@ -25,7 +20,6 @@
 
         .product-action(ng-if="!product.deleted"): .button-group
             a(ui-sref="products-show(product)").button
->>>>>>> origin/master
                 em.mdi.mdi-eye-outline.icon-start
                 translate(translate="product_card.buttons.view")
 
