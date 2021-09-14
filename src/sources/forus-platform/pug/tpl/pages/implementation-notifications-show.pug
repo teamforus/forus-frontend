@@ -1,0 +1,63 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card.card-collapsed
+            .card-header: .card-title Systeem berichten afwijzing
+            .card-section
+                .card-block.card-block-keyvalue
+                    .keyvalue-item
+                        .keyvalue-key.text-right: .text-strong Status
+                        .keyvalue-value: .label.label-success.label-round Actief
+                    .keyvalue-item
+                        .keyvalue-key.text-right: .text-strong Moment van versturen
+                        .keyvalue-value Bij afwijzing van aanvraag
+
+        //- mail template
+        .card.card-collapsed(ng-if="$ctrl.templates.mail")
+            .card-header: .card-title.flex 
+                .flex.flex-grow
+                    em.mdi.mdi-email-outline
+                    | Mail notification
+
+                .flex: .block.block-label-tabs
+                    .label-tab(ng-class="{active: !$ctrl.informalTypes.mail}" ng-click="$ctrl.informalTypes.mail = false") Formal
+                    .label-tab(ng-class="{active: $ctrl.informalTypes.mail}" ng-click="$ctrl.informalTypes.mail = true") Informal
+
+            .card-section
+                .card-title.text-center(ng-bind="$ctrl.templates.mail[$ctrl.informalTypes.mail ? 'informal' : 'formal'].title")
+
+                .block.block-mail_preview: .mail_preview-wrapper: .mail_preview-inner: .mail_preview-body
+                    .block.block-markdown.block-markdown-center(
+                        ng-bind-html="$ctrl.templates.mail[$ctrl.informalTypes.mail ? 'informal' : 'formal'].content_html")
+
+                    .mail_preview-footer
+
+        //- push template
+        .card.card-collapsed(ng-if="$ctrl.templates.push")
+            .card-header: .card-title.flex 
+                .flex.flex-grow
+                    em.mdi.mdi-bell-ring-outline
+                    | Push notification
+
+                .flex: .block.block-label-tabs
+                    .label-tab(ng-class="{active: !$ctrl.informalTypes.push}" ng-click="$ctrl.informalTypes.push = false") Formal
+                    .label-tab(ng-class="{active: $ctrl.informalTypes.push}" ng-click="$ctrl.informalTypes.push = true") Informal
+
+            .card-section
+                .card-title(ng-bind="$ctrl.templates.push[$ctrl.informalTypes.push ? 'informal' : 'formal'].title")
+                .card-text(ng-bind="$ctrl.templates.push[$ctrl.informalTypes.push ? 'informal' : 'formal'].content")
+
+        //- mail template
+        .card.card-collapsed(ng-if="$ctrl.templates.database")
+            .card-header: .card-title.flex 
+                .flex.flex-grow
+                    em.mdi.mdi-message-alert-outline
+                    | On site notification
+
+                .flex: .block.block-label-tabs
+                    .label-tab(ng-class="{active: !$ctrl.informalTypes.database}" ng-click="$ctrl.informalTypes.database = false") Formal
+                    .label-tab(ng-class="{active: $ctrl.informalTypes.database}" ng-click="$ctrl.informalTypes.database = true") Informal
+
+            .card-section
+                .card-title(ng-bind="$ctrl.templates.database[$ctrl.informalTypes.database ? 'informal' : 'formal'].title")
+                .card-text(ng-bind="$ctrl.templates.database[$ctrl.informalTypes.database ? 'informal' : 'formal'].content")

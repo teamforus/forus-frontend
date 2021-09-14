@@ -55,6 +55,7 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-banner-picker.scss';
     @import 'blocks/block-markdownable.scss';
     @import 'blocks/block-markdown.scss';
+    @import 'blocks/block-mail_preview.scss';
 }
 
 
@@ -1211,6 +1212,7 @@ body {
                 color: $color_primary;
                 font: 500 13px/20px $bf;
                 width: 210px;
+                padding-right: 20px;
             }
 
             .keyvalue-value {

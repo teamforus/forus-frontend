@@ -59,6 +59,8 @@ app.component('implementationViewComponent', require('./components/Implementatio
 app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
 app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
 app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
+app.component('implementationNotificationsComponent', require('./components/ImplementationNotificationsComponent'));
+app.component('implementationNotificationsShowComponent', require('./components/ImplementationNotificationsShowComponent'));
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 
 // Modal Components
@@ -149,6 +151,7 @@ app.service('ProductChatService', require('./services/ProductChatService'));
 app.service('FundProviderChatService', require('./services/FundProviderChatService'));
 app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('ImplementationService', require('./services/ImplementationService'));
+app.service('ImplementationNotificationsService', require('./services/ImplementationNotificationsService'));
 app.service('HelperService', require('./services/HelperService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
 app.service('ProductReservationService', require('./services/ProductReservationService'));

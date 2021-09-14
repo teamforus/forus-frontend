@@ -858,6 +858,52 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+
+    /**
+     * Implementations
+     */
+     $stateProvider.state({
+        name: "implementation-notifications",
+        url: "/organizations/{organization_id}/implementation-notifications",
+        component: "implementationNotificationsComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', [
+                'manage_implementation', 'manage_implementation_cms'
+            ], false),
+            implementations: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackPagination(ImplementationService.list(
+                $transition$.params().organization_id
+            ))],
+        }
+    });
+
+
+    /**
+     * Implementations
+     */
+     $stateProvider.state({
+        name: "implementation-notifications-show",
+        url: "/organizations/{organization_id}/implementations/{implementation_id}/implementation-notifications/{notification_key}",
+        component: "implementationNotificationsShowComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', [
+                'manage_implementation', 'manage_implementation_cms'
+            ], false),
+            notificationKey: ['permission', '$transition$', (permission, $transition$) => {
+                return $transition$.params().notification_key;
+            }],
+            implementation: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id
+            ))],
+        }
+    });
+
     /**
      * Implementation view
      */
