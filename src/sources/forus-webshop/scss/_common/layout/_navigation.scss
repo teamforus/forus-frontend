@@ -282,9 +282,40 @@
                     position: relative;
                     padding-right: 0;
                     float: right;
+                    display: flex;
+                    flex-direction: row; 
+                    align-items: center;
 
+                    .navbar-user {
+                        font-weight: 600;
+                        font-size: 16px;
+                        color: $tc-nav;
+                        display: flex; 
+                        margin-right: 20px;
+                        position: relative;
+                        
+                        &:hover {
+                            text-decoration: none;
+                        }
+
+                        &:after {
+                            content: " ";
+                            position: absolute;
+                            top: 50%;
+                            right: -10px;
+                            bottom: 0;
+                            width: 1px;
+                            height: 20px;
+                            border-radius: 10px;
+                            background-color: #646464;
+                            transform: translate(50%, -50%);
+                            display: block;
+                        }
+                    }
+                    
                     em {
-                        margin-right: 5px;
+                        margin-left: 5px;
+
                         &:before {
                             color: $tc-nav;
                         }

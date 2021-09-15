@@ -31,7 +31,7 @@ const VoucherService = function(ApiRequest) {
          */
 
         this.sendToEmail = function(address) {
-            return ApiRequest.post(`${apiPrefix}/${address}/send-email`, values);
+            return ApiRequest.post(`${apiPrefix}/${address}/send-email`);
         }
 
         /**

@@ -1,8 +1,8 @@
-let ModalOfficesComponent = function(
-    $timeout,
-    OfficeService
-) {
-    let $ctrl = this;
+const uniq = require('lodash/uniq'); 
+const pluck = require('lodash/map'); 
+
+const ModalOfficesComponent = function($timeout, OfficeService) {
+    const $ctrl = this;
     let timeout = false;
 
     $ctrl.weekDays = OfficeService.scheduleWeekDays();
@@ -35,17 +35,12 @@ let ModalOfficesComponent = function(
         }).then(res => {
             $ctrl.offices = res.data.data;
             $ctrl.shownOffices = $ctrl.offices;
-            $ctrl.providersCount = _.uniq(
-                _.pluck($ctrl.offices, 'organization_id')
-            ).length;
+            $ctrl.providersCount = uniq(pluck($ctrl.offices, 'organization_id')).length;
         });
     };
 
-    $ctrl.$onInit = () => {
-        $ctrl.loadOffices();
-    };
-
-    $ctrl.$onDestroy = function() {};
+    $ctrl.$onInit = () => $ctrl.loadOffices();
+    $ctrl.$onDestroy = () => {};
 };
 
 module.exports = {
