@@ -3,7 +3,7 @@ require('./modules/ui-controls/UIControlsModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
 
 const appConfigs = {
-    ...{ fund_request_allways_bsn_confirmation: true },
+    ...{ fund_request_allways_bsn_confirmation: false },
     ...env_data
 };
 
@@ -133,6 +133,7 @@ app.directive('productsList', require('./directives/ProductsListDirective'));
 app.directive('searchItemsList', require('./directives/SearchItemsListDirective'));
 app.directive('inputRadioControl', require('./directives/InputRadioControlDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
+app.directive('emailServiceSwitcher', require('./directives/EmailServiceSwitcherDirective'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 

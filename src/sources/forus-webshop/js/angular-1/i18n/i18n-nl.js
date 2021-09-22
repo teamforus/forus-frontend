@@ -62,6 +62,9 @@ module.exports = {
         en: 'English',
         nl: 'Dutch',
     },
+    email_service_switch: {
+        confirm: 'Breng me naar mijn e-mail'
+    },
 
     // COMPONENTS
     buttons: require("./nl/components/buttons"),

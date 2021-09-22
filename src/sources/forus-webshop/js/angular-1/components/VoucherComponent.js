@@ -3,7 +3,8 @@ const VoucherComponent = function(
     $state,
     VoucherService,
     PrintableService,
-    ModalService
+    ModalService,
+    HelperService
 ) {
     const $ctrl = this;
 
@@ -49,12 +50,15 @@ const VoucherComponent = function(
             description: "Stuur de QR-code naar mijn e-mailadres",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
+                    let emailServiceUrl = HelperService.getEmailService(res.data.email);
+
                     ModalService.open('modalNotification', {
                         type: 'action-result',
                         class: 'modal-description-pad',
                         title: 'popup_auth.labels.voucher_email',
                         description: 'popup_auth.notifications.voucher_email',
-                        confirmBtnText: 'buttons.close'
+                        confirmBtnText: emailServiceUrl ? 'email_service_switch.confirm' : 'buttons.close',
+                        confirm: () => HelperService.openInNewTab(emailServiceUrl)
                     });
                 });
             }
@@ -150,6 +154,7 @@ module.exports = {
         'VoucherService',
         'PrintableService',
         'ModalService',
+        'HelperService',
         VoucherComponent
     ],
     templateUrl: 'assets/tpl/pages/voucher.html'

@@ -58,7 +58,10 @@ const ModalPhysicalCardTypeComponent = function(
             PhysicalCardsRequestService.store(
                 $ctrl.modal.scope.voucher.address,
                 form.values
-            ).then(() => $ctrl.state = 'success_new_card', (res) => {
+            ).then(res => {
+                $ctrl.state = 'success_new_card';
+                $ctrl.identityEmail = res.data.data.identity_email;
+            }, (res) => {
                 $ctrl.requestPhysicalCardForm.unlock();
                 $ctrl.requestPhysicalCardForm.errors = res.data.errors;
                 $ctrl.state = 'select_type';

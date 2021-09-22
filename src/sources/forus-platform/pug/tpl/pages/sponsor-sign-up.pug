@@ -111,6 +111,10 @@
                         | {{ "sign_up_sponsor.labels.confirm_email_description" | translate }} 
                         span.sign_up-pane-link.text-underline(ng-bind="$ctrl.signUpForm.values.email")
 
+                        br
+                        br
+                        email-service-switcher(email="$ctrl.signUpForm.values.email")
+
         //- Select organization step
         div(ng-if="$ctrl.step == $ctrl.STEP_SELECT_ORGANIZATION")
             +progress()

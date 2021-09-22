@@ -275,6 +275,10 @@
                         translate(translate="sign_up_sponsor.labels.confirm_email_description")
                         | &nbsp;
                         span.sign_up-pane-link(ng-bind="$ctrl.signUpForm.values.email")
+
+                        br
+                        br
+                        email-service-switcher(email="$ctrl.signUpForm.values.email")
                 
                 .sign_up-pane-footer(ng-if="$ctrl.shareSmsSent || $ctrl.shareEmailSent || $ctrl.appDownloadSkip"): .row
                     .col.col-lg-6.text-left

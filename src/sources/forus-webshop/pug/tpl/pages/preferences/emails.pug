@@ -43,6 +43,8 @@ section.section.section-voucher-details: .wrapper
                                         em.mdi.mdi-reload.icon-start
                                         | Bevestiging e-mail opnieuw versturen
 
+                                    email-service-switcher(ng-if="!email.primary && !email.verified" email="email.email" align="left" as-text)    
+
                                     .text-danger(ng-in="email.error" ng-bind="email.error")
                                 .user_email-actions: .flex-row
                                     .flex-col.flex-center.flex
