@@ -2,7 +2,7 @@ require('./modules/select-control/SelectControlModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
 require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModule');
 
-let app = angular.module('forusApp', [
+const app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper',
     'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
     'forus.uiControls', 'forus.pageLoadingBarModule',
@@ -100,6 +100,7 @@ app.component('modalExportTypeComponent', require('./components/Modals/ModalExpo
 app.component('modalTransferOrganizationOwnershipComponent', require('./components/Modals/ModalTransferOrganizationOwnershipComponent'));
 app.component('modalVoucherDeactivationComponent', require('./components/Modals/ModalVoucherDeactivationComponent'));
 app.component('modalVoucherActivationComponent', require('./components/Modals/ModalVoucherActivationComponent'));
+app.component('modalMailPreviewComponent', require('./components/Modals/ModalMailPreviewComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -208,6 +209,7 @@ app.directive('fundCriteriaEditor', require('./directives/FundCriteriaEditorDire
 app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditorItemDirective'));
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
+app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 
@@ -231,6 +233,11 @@ app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissio
 app.directive('blockProviderOrganizationOffices', require('./directives/blocks/sponsor/BlockProviderOrganizationOfficesDirective'));
 app.directive('blockProviderOrganizationEmployees', require('./directives/blocks/sponsor/BlockProviderOrganizationEmployeesDirective'));
 app.directive('blockProviderOrganizationOverview', require('./directives/blocks/sponsor/BlockProviderOrganizationOverviewDirective'));
+
+// System nitification editor 
+app.directive('systemNotificationEditor', require('./directives/elements/SystemNotificationEditorDirective'));
+app.directive('systemNotificationTemplateEditor', require('./directives/elements/SystemNotificationTemplateEditorDirective'));
+
 
 // Providers
 app.provider('PrintableRoute', require('./providers/PrintableRouteProvider'));

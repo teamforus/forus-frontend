@@ -1,0 +1,28 @@
+&.block-system-notification-editor {
+    .editor-variables {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: $border_radius / 2;
+        border: 1px solid rgba($color: $borderColor, $alpha: .5);
+
+        .variables-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .button {
+                margin-bottom: 10px;
+            }
+        }
+
+        .variables-hint {
+            display: flex;
+            font: 400 12px/20px $bf;
+            color: #666;
+            margin: -5px 0 -5px;
+        }
+    }
+}

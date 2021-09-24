@@ -89,12 +89,15 @@
                     color: #fefefe;
                     transition: all .4s ease-in-out;
                     position: relative;
+                    margin-top: -1px;
                 }
             }
 
             .toggle-label {
                 font: 700 12px/20px $bf;
-                color: #262626;
+                color: #323232;
+                margin-right: 10px;
+                transition: color .4s;
 
                 span {
                     color: #bcc1d3;
@@ -109,14 +112,19 @@
                         color: $bc;
                     }
                 }
+
+                &:last-child {
+                    margin-left: 10px;
+                    margin-right: 0px;
+                }
             }
         }
 
         &.form-toggle-active .form-toggle-inner,
         &.active .form-toggle-inner,
         &.checked .form-toggle-inner,
-        &>input[type=radio]:checked+.form-toggle-inner,
-        &>input[type=checkbox]:checked+.form-toggle-inner {
+        &:not(.form-toggle-off)>input[type=radio]:checked+.form-toggle-inner,
+        &:not(.form-toggle-off)>input[type=checkbox]:checked+.form-toggle-inner {
             .toggle-input {
                 background: lighten($colorPrimary, 50);
                 border-color: desaturate(lighten($colorPrimary, 50), 20);
@@ -135,6 +143,19 @@
             pointer-events: none;
             opacity: .5;
             filter: saturate(0);
+        }
+
+        &.form-toggle-danger {
+            &>input[type=checkbox]:not(:checked)+.form-toggle-inner,
+            &>input[type=radio]:not(:checked)+.form-toggle-inner {
+                .toggle-input {
+                    background-color: #c52929;
+                }
+
+                .toggle-label {
+                    color: #c52929;
+                }
+            }
         }
 
         &:last-child {
@@ -171,8 +192,9 @@
 
     textarea.form-control:not([type='radio']):not([type='checkbox']) {
         padding: 6px 10px;
-        line-height: initial;
-        height: 80px;
+        min-height: 90px;
+        height: auto;
+        display: block;
 
         &.r-n {
             resize: none;
@@ -184,6 +206,10 @@
 
         &.r-h {
             resize: horizontal;
+        }
+
+        &[rows] {
+            min-height: auto;
         }
 
         &[disabled] {

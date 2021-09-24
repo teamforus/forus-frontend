@@ -1,0 +1,10 @@
+.block.block-photo-selector-notifications
+    .photo-selector-notifications-media
+        img(ng-click="selectFile($event)" ng-src="{{ thumbnail || './assets/img/placeholders/photo-selector.svg' }}", alt="")
+
+    .photo-details
+        .button.button-primary.button-sm(ng-click="selectFile($event)") Afbeelding uploaden
+        .photo-selector-notifications-hint 
+            | De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.
+            br
+            | Toegestaande formaten: JPG, PNG

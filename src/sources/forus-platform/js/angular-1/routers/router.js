@@ -862,7 +862,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     /**
      * Implementations
      */
-     $stateProvider.state({
+    $stateProvider.state({
         name: "implementation-notifications",
         url: "/organizations/{organization_id}/implementation-notifications",
         component: "implementationNotificationsComponent",
@@ -883,23 +883,27 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     /**
      * Implementations
      */
-     $stateProvider.state({
+    $stateProvider.state({
         name: "implementation-notifications-show",
-        url: "/organizations/{organization_id}/implementations/{implementation_id}/implementation-notifications/{notification_key}",
+        url: "/organizations/{organization_id}/implementations/{implementation_id}/implementation-notifications/{id}",
         component: "implementationNotificationsShowComponent",
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('implementation-manage', [
                 'manage_implementation', 'manage_implementation_cms'
             ], false),
-            notificationKey: ['permission', '$transition$', (permission, $transition$) => {
-                return $transition$.params().notification_key;
-            }],
             implementation: ['permission', '$transition$', 'ImplementationService', (
                 permission, $transition$, ImplementationService
             ) => repackResponse(ImplementationService.read(
                 $transition$.params().organization_id,
                 $transition$.params().implementation_id
+            ))],
+            notification: ['ImplementationNotificationsService', '$transition$', 'permission', (
+                ImplementationNotificationsService, $transition$
+            ) => repackResponse(ImplementationNotificationsService.show(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id,
+                $transition$.params().id
             ))],
         }
     });

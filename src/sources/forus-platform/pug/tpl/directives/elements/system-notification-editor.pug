@@ -1,0 +1,65 @@
+.block.block-system-notification-editor
+    .card.card-collapsed(ng-if="$dir.templates")
+        .card-header(ng-class="$dir.notification.enable_all ? '' : 'card-header-danger'"): .flex.flex-row
+            .flex.flex-pad.flex-grow
+                .card-title(ng-class="$dir.notification.enable_all ? '' : 'text-muted-dark'")
+                    em.mdi.mdi-web
+                    span(ng-bind="$dir.notification.title")
+
+            .flex.flex-pad.flex-vertical.flex-center(ng-if="$dir.notification.editable")
+                control-toggle.form-toggle-danger(
+                    label="{{ $dir.notification.enable_all ? '' : $dir.notificationToggleLabel.disabled }}" 
+                    ng-change="$dir.toggleSwitched()"
+                    ng-model="$dir.notification.enable_all" form-id="enable_all")
+            
+        .card-section(ng-class="$dir.notification.enable_all ? '' : 'card-section-danger'")
+            .card-block.card-block-keyvalue
+                .keyvalue-item
+                    .keyvalue-key.text-right: .text-strong Toestand
+                    .keyvalue-value: .transition-background.label.label-round(
+                        ng-bind="$dir.state.stateLabel"
+                        ng-class="{active: 'label-success', inactive: 'label-danger', active_partly: 'label-warning'}[$dir.state.state]")
+
+                .keyvalue-item
+                    .keyvalue-key.text-right: .text-strong Moment van versturen
+                    .keyvalue-value(ng-bind="$dir.notification.description")
+
+                .keyvalue-item
+                    .keyvalue-key.text-right: .text-strong Aanspreekvorm
+                    .keyvalue-value(ng-bind="$dir.implementation.informal_communication ? 'Je/jouw' : 'U/uw'")
+
+    //- Mail tempalte
+    system-notification-template-editor(
+        type="mail" 
+        ng-if="$dir.templates.mail"
+        template="$dir.templates.mail"
+        notification="$dir.notification"
+        organization="$dir.organization"
+        implementation="$dir.implementation"
+        reset-template="$dir.resetTemplate('mail')"
+        toggle-updated="$dir.updateStateLabel()"
+        template-updated="$dir.onTemplateUpdated(notification)")
+
+    //- Push tempalte
+    system-notification-template-editor(
+        type="push" 
+        ng-if="$dir.templates.push"
+        template="$dir.templates.push"
+        notification="$dir.notification"
+        organization="$dir.organization"
+        implementation="$dir.implementation"
+        reset-template="$dir.resetTemplate('push')"
+        toggle-updated="$dir.updateStateLabel()"
+        template-updated="$dir.onTemplateUpdated(notification)")
+
+    //- Database tempalte
+    system-notification-template-editor(
+        type="database" 
+        ng-if="$dir.templates.database"
+        template="$dir.templates.database"
+        notification="$dir.notification"
+        organization="$dir.organization"
+        implementation="$dir.implementation"
+        reset-template="$dir.resetTemplate('database')"
+        toggle-updated="$dir.updateStateLabel()"
+        template-updated="$dir.onTemplateUpdated(notification)")

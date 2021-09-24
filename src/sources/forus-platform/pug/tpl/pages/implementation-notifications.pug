@@ -1,7 +1,7 @@
 .app.app-container
     menu
     section.app.app-content
-        .card-heading(ng-if="$ctrl.implementations.data.length > 1") Systeem e-mails per webshop
+        .card-heading(ng-if="$ctrl.implementations.data.length > 1" translate="system_notifications.header.title") 
         .block.block-choose-organization(ng-if="$ctrl.implementations.data.length > 1")
             div(
                 ng-repeat="implementation in $ctrl.implementations.data"
@@ -10,40 +10,79 @@
                     .organization-logo: img(ng-src="{{ implementation.logo || './assets/img/placeholders/organization-thumbnail.png' }}")
                     .organization-name(ng-bind="implementation.name")
 
-        .card-heading
-            | Systeem berichten 
-            tooltip(text="'Het platform verstuurt automatische berichten naar gebruikers. Dit gebeurt via e-mails, webshop meldingen en pushberichten via de app. '")
+        .card-heading: .flex.flex-horizontal
+            .flex.flex-grow.flex-vertical.flex-center: div
+                | Systeem berichten 
+                tooltip(text="'system_notifications.header.tooltip' | translate")
+            .flex: .button-group
+                .button.button-primary(ng-if="!$ctrl.stylesForm" ng-click="$ctrl.stylesForm = true") 
+                    em.mdi.mdi-pencil.icon-start
+                    | Edit branding styles
+                .button.button-primary(ng-if="$ctrl.stylesForm" ng-click="$ctrl.stylesForm = false")  
+                    em.mdi.mdi-format-list-bulleted.icon-start
+                    | Show notifications
 
-        .card.card-collapsed(ng-if="$ctrl.implementation && $ctrl.notifications.length > 0")
-            .card-header: .card-title Aanvraag en beoordeling
+        //- Motifications list
+        .card.card-collapsed(ng-repeat="notificationGroup in $ctrl.notificationGroups" ng-if="!$ctrl.stylesForm")
+            .card-header: .card-title(ng-bind="notificationGroup.groupLabel")
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
                                 th Onderwerp
-                                th Aanvraag en beoordeling
-                                th Status
-                                th.text-right Bekijken
+                                th.nowrap Aanvraag en beoordeling
+                                th.nowrap Status
+                                th.nowrap.text-right Bekijken
 
-                            tr(ng-repeat="notification in $ctrl.notifications")
-                                td 
-                                    div {{ notification.title }}
-                                    small {{ notification.key }}
-                                td: .td-icons
-                                    em.mdi.mdi-email-outline(
-                                        ng-class="notification.channels.includes('mail') ? 'text-primary' : 'text-muted'")
+                            tr(ng-repeat="notification in notificationGroup.notifications")
+                                td
+                                    
+                                    div
+                                        em.mdi.mdi-lock-outline.text-muted-dark(ng-if="!notification.editable")  
+                                        em.mdi.mdi-pencil-outline.text-muted-dark(ng-if="notification.editable")  
+                                        span(ng-bind="notification.title")
+                                    small(ng-bind="notification.description")
 
-                                    em.mdi.mdi-bell-ring-outline(
-                                        ng-class="notification.channels.includes('push') ? 'text-primary' : 'text-muted'")
+                                td.nowrap: .td-icons: em.block.block-tooltip-details.block-tooltip-hover.mdi(
+                                    ng-repeat="icon in notification.icons" 
+                                    ng-class="['mdi-' + icon.icon, icon.color]")
+                                    .tooltip-content.tooltip-content-fit.tooltip-content-ghost
+                                        .tooltip-heading.text-left(ng-bind="icon.tooltip.heading")
+                                        .tooltip-text.text-left(ng-bind="icon.tooltip.text")
 
-                                    em.mdi.mdi-message-alert-outline(
-                                        ng-class="notification.channels.includes('database') ? 'text-primary' : 'text-muted'")
+                                td.nowrap: .label.label-round.nowrap(
+                                    ng-bind="notification.state.stateLabel"
+                                    ng-class="{active: 'label-success', inactive: 'label-danger', active_partly: 'label-warning'}[notification.state.state]")
 
-                                td: .label.label-success.label-round Actief
-
-                                td: .button-group.flex-end
+                                td.nowrap: .button-group.flex-end
                                     a.button.button-default(
                                         ui-sref="implementation-notifications-show(notification.srefData)")
                                         em.mdi.mdi-eye-outline.icon-start
                                         | Bekijken
+        
+
+        //- Branding form
+        .card.card-collapsed(ng-if="$ctrl.stylesForm")
+            .card-header: .card-title Branding and communication 
+            .card-section: .form
+                .form-group.form-group-inline.form-group-inline-md
+                    .form-label Signature
+                    .form-offset
+                        textarea.form-control
+                        .form-hint(
+                            translate="system_notifications.hints.maxlen" 
+                            translate-values="{attribute: 'beschrijving', size: 200}")
+
+                .form-group.form-group-inline.form-group-inline-md
+                    .form-label Logo
+                    .form-offset: photo-selector(
+                        template="photo-selector-notifications"
+                        type="organization_logo"
+                        thumbnail="$ctrl.media.sizes.thumbnail"
+                        description-translate="organization_edit.labels.photo_description"
+                        select-photo="$ctrl.selectPhoto(file)")
+
+                .form-group.form-group-inline.form-group-inline-md
+                    .form-label Kleur
+                    .form-offset: input(type="color")

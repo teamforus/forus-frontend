@@ -9,17 +9,23 @@
     cursor: default;
 
     .danger_zone-title {
+        display: flex;
+        flex-direction: row;
         font: 600 16px/20px $bf;
         padding: 15px;
         color: #282B39;
         width: 100%;
 
         .mdi {
-            float: left;
+            display: flex;
             color: $bec;
             font-size: 20px;
             line-height: 20px;
             margin: 0 10px 0 0;
+
+            &:before {
+                line-height: inherit;
+            }
         }
     }
 

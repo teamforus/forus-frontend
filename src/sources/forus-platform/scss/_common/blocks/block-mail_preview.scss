@@ -39,7 +39,11 @@ $mailFont: Verdana, Arial, sans-serif;
         text-align: center;
     }
 
-    h1, h2, h3, h4, h5 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
         color: #1e1e1e;
         cursor: default;
     }
@@ -67,5 +71,22 @@ $mailFont: Verdana, Arial, sans-serif;
     h5 {
         font: 700 16px/20px $mailFont;
         margin: 0 0 10px;
+    }
+
+    .mail_btn {
+        display: inline-block;
+        padding: 5px 75px;
+        font: 600 14px/40px $mailFont;
+        color: #fff;
+        border-radius: 3px;
+        text-decoration: none;
+        background-color: #315efd;
+        cursor: pointer;
+    }
+
+    .mail_qr {
+        display: block;
+        margin: 0 auto;
+        width: 300px;
     }
 }
