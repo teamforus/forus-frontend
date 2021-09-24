@@ -17,6 +17,7 @@
         color: #ffffff;
     }
 }
+
 .block {
     &.block-copyrights{
         .links{
@@ -24,5 +25,22 @@
                 color: #ffffff;
             }
         } 
+    }
+}
+
+.block.block-navbar {
+    .navbar-list {
+        text-align: right;
+
+        li:last-of-type {
+            padding-right: 0;
+        }
+
+        .navbar-item-wrapper {
+            .navbar-item:before {
+                top: auto;
+                bottom: 0;
+            }
+        }
     }
 }
