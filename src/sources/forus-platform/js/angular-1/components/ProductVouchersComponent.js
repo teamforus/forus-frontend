@@ -57,6 +57,8 @@ let ProductVouchersComponent = function(
             to: null,
             state: null,
             in_use: null,
+            amount_per_identity_min: null,
+            amount_per_identity_max: null,
             type: 'product_voucher',
             source: 'all',
             sort_by: 'created_at',

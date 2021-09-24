@@ -58,6 +58,8 @@ let VouchersComponent = function(
             to: null,
             state: null,
             in_use: null,
+            amount_per_identity_min: null,
+            amount_per_identity_max: null,
             type: 'fund_voucher',
             source: 'all',
             sort_by: 'created_at',
