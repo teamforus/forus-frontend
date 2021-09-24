@@ -29,7 +29,7 @@ main(id="main-content")
                 +progress()
 
                 .sign_up-pane
-                    .sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
+                    h2.sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
 
                     .sign_up-pane-body
                         .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="")
@@ -52,7 +52,7 @@ main(id="main-content")
                 +progress()
 
                 .sign_up-pane
-                    .sign_up-pane-header(translate="fund_request.sign_up.header.title_step_1")
+                    h2.sign_up-pane-header(translate="fund_request.sign_up.header.title_step_1")
 
                     .sign_up-pane-body
                         .sign_up-pane-text.text-center(translate="fund_request.sign_up.subtitles.step_1")
@@ -150,7 +150,7 @@ main(id="main-content")
 
                 .sign_up-pane
                     h1.sr-only Start aanmelden
-                    h1.sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid" rol="heading")
+                    h2.sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid" rol="heading")
                     .sign_up-pane-body
 
                         .sign_up-pane-digid
@@ -168,7 +168,7 @@ main(id="main-content")
                 +progress()
 
                 .sign_up-pane
-                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title")
+                    h2.sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title" role="heading")
                     .sign_up-pane-body
                         p.sign_up-pane-text(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
 
@@ -193,7 +193,7 @@ main(id="main-content")
                 +progress()
 
                 .sign_up-pane
-                    .sign_up-pane-header(ng-if="invalidCriteria.title" ng-bind="invalidCriteria.title")
+                    h2.sign_up-pane-header(ng-if="invalidCriteria.title" ng-bind="invalidCriteria.title")
                     .sign_up-pane-header(ng-if="!invalidCriteria.title" ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
                     .sign_up-pane-body: form(ng-submit="$ctrl.submitStepCriteria(invalidCriteria)").form.row
                         .form-group.col.col-lg-12
@@ -400,14 +400,14 @@ main(id="main-content")
                 +progress()
 
                 .sign_up-pane
-                    .sign_up-pane-header Aanvraag overzicht
+                    h2.sign_up-pane-header Aanvraag overzicht
                     .sign_up-pane-body: .form
                         p.sign_up-pane-text
-                            span Controleer hieronder of de gegevens die u heeft ingevuld juist zijn. U kunt terug naar eerdere stappen met de knop
+                            span Controleer hieronder of de gegevens die u heeft ingevuld juist zijn. U kunt terug naar eerdere stappen met de knop 
                             strong Vorige stap.
 
                         p.sign_up-pane-text
-                            span Kloppen de gegevens? Klik dan op de knop
+                            span Kloppen de gegevens? Klik dan op de knop 
                             strong Vraag aan.
 
                     .sign_up-pane-body
@@ -415,7 +415,7 @@ main(id="main-content")
                             ng-repeat="critera in $ctrl.invalidCriteria")
                             .item-icon.item-icon-default
 
-                            span {{ critera.title }} #[span(ng-if="critera.operator != '='") is]
+                            span {{ critera.title }} #[span(ng-if="critera.operator != '='") is] 
                             strong(ng-if="critera.operator != '='") {{ critera.input_value }}
 
                             file-uploader(
@@ -438,9 +438,9 @@ main(id="main-content")
                     +progress()
 
                     .sign_up-pane
-                        .sign_up-pane-header Aanvraag ontvangen
+                        h2.sign_up-pane-header Aanvraag ontvangen
                         .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
-                            h1.sign_up-pane-heading.text-center Verzonden!
+                            h2.sign_up-pane-heading.text-center Verzonden!
                             p.sign_up-pane-text.text-center
                                 | Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail.
                             .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg" alt="")
@@ -452,7 +452,8 @@ main(id="main-content")
                     +progress()
 
                     .sign_up-pane
-                        .sign_up-pane-header Er is een fout opgetreden tijdens het aanvragen.
+                        h1.sr-only Aanmelden
+                        h2.sign_up-pane-header Er is een fout opgetreden tijdens het aanvragen.
                         .sign_up-pane-body: .row
                             .form-group.col.col-lg-12
                                 .block-icon: .mdi.mdi-close
