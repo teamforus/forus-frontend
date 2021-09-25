@@ -162,11 +162,13 @@ main(id="main-content")
 
         //- Voucher state history
         .block.block-transactions(ng-if="$ctrl.showHistory")
-            .transactions-header: h2.transactions-title 
-                | Status 
+            .transactions-header
+                h2.transactions-title Status 
                 .label(
+                    ng-if="!$ctrl.voucher.expired"
                     ng-class="$ctrl.voucherCard.deactivated ? 'label-default' : 'label-primary-light'" 
-                    ng-bind="$ctrl.voucherCard.state_locale")
+                    ng-bind="$ctrl.voucherCard.state_locale") 
+                .label.label-danger(ng-if="$ctrl.voucher.expired") Verlopen
 
             .transactions-body: .transactions-list
                 .transactions-item(ng-repeat="log in $ctrl.voucherCard.history" class="transactions-item-out")
