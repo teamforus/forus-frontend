@@ -4,10 +4,21 @@
         //- Heading
         .card-heading: .row
             //- Title
-            .col.col-lg-6.col-xs-12
+            .col.col-lg-2.col-xs-4
                 span(translate="organization_providers.header.title")
                 span(ng-bind="$ctrl.providerOrganizations.meta.total").span-count
-            
+
+            .col.col-lg-4.col-xs-8
+                .form(ng-submit="$ctrl.onPageChange()")
+                    .form-group.form-group-inline
+                        select(
+                            id="sortBy"
+                            ng-model="$ctrl.filters.values.sort_by" 
+                            ng-options="sortField.value as sortField.name for sortField in $ctrl.sortByOptions").form-control
+
+                        span &nbsp    
+                        button(type="button").button.button-primary Sort    
+
             //- Filters
             .block.block-inline-filters.col.col-lg-6.col-xs-12
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")

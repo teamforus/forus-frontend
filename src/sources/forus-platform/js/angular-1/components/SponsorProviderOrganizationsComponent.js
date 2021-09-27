@@ -13,14 +13,25 @@ let SponsorProviderOrganizationsComponent = function(
 
     $ctrl.filters = {
         show: false,
-        values: {},
+        values: {
+            sort_by: 'created_at',
+        },
         reset: function() {
             this.values.q = '';
+            this.values.sort_by = 'created_at';
             this.values.fund_id = null;
             this.values.allow_budget = '';
             this.values.allow_products = '';
         }
     };
+
+    $ctrl.sortByOptions = [{
+        value: 'created_at',
+        name: 'Created at'
+    }, {
+        value: 'name',
+        name: 'Name'
+    }];
 
     $ctrl.setExtendedView = function(extendedView) {
         localStorage.setItem('sponsor_providers.extended_view', extendedView)
