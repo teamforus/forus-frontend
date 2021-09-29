@@ -10,7 +10,7 @@ block content
                         em.mdi.mdi-chevron-left
                         | Terug
                     a(ui-sref="providers").breadcrumb-item Aanbieders
-                    .breadcrumb-item.active(ng-bind="$ctrl.provider.name")
+                    .breadcrumb-item.active(ng-bind="$ctrl.provider.name" aria-current="location")
             
             .provider-map: .block.block-google-map: google-map(
                 ng-if="$ctrl.mapOptions"
