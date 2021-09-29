@@ -127,7 +127,7 @@ let FundProviderInviteComponent = function(
             IdentityService.makeAuthEmailToken(form.values.email).then(() => {
                 $ctrl.screen = 'sign_in-email-sent';
 
-                let emailServiceUrl = HelperService.getEmailService(form.values.email);
+                let emailServiceUrl = HelperService.getEmailServiceProviderUrl(form.values.email);
 
                 ModalService.open('modalNotification', {
                     type: 'action-result',

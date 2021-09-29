@@ -122,7 +122,7 @@ main(id="main-content")
                             h2.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.notifications.link_' + $root.appConfigs.features.communication_type }}" translate-values="{{ $ctrl.authForm.values }}")
 
-                            email-service-switcher(email="$ctrl.authForm.values.email")
+                            email-provider-link(email="$ctrl.authForm.values.email")
 
                 //- For existing users
                 .sign_up-pane(ng-if="$ctrl.authEmailSent")
@@ -135,4 +135,4 @@ main(id="main-content")
                             .sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_succes_' + $root.appConfigs.features.communication_type }}")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.header.subtitle_we_succes_' + $root.appConfigs.features.communication_type }}" translate-values="{email: $ctrl.authForm.values.email}")
                             
-                            email-service-switcher(email="$ctrl.authForm.values.email")
+                            email-provider-link(email="$ctrl.authForm.values.email")

@@ -92,7 +92,7 @@ const ModalAuthComponent = function(
                 $ctrl.screen = 'sign_in-email-sent';
                 $ctrl.close();
 
-                let emailServiceUrl = HelperService.getEmailService(form.values.email);
+                let emailServiceUrl = HelperService.getEmailServiceProviderUrl(form.values.email);
 
                 ModalService.open('modalNotification', {
                     type: 'action-result',

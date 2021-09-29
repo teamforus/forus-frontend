@@ -133,7 +133,7 @@ app.directive('productsList', require('./directives/ProductsListDirective'));
 app.directive('searchItemsList', require('./directives/SearchItemsListDirective'));
 app.directive('inputRadioControl', require('./directives/InputRadioControlDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
-app.directive('emailServiceSwitcher', require('./directives/EmailServiceSwitcherDirective'));
+app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 

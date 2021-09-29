@@ -33,27 +33,21 @@ let HelperService = function($q) {
         };
 
         this.openInNewTab = (url) => {
-            if (!url) {
-                return;
-            }
-            
-            window.open(url, '_blank').focus();
+            return url ? window.open(url, '_blank').focus() : null;
         };
 
-        this.getEmailService = (email) => {
-            let emailServiceList = [
-                'aol.com', 'fastmail.com', 'googlemail.com', 'gmail.com', 'gmx.net', 
-                'gmx.de', 'hotmail.com', 'icloud.com', 'inbox.com', 'mail.com', 'mail.ru', 
+
+        this.getEmailServiceProviderUrl = (email) => {
+            const host = email.split('@')[0];
+            const provider = typeof host === 'string' ? host.toLocaleLowerCase().trim() : null;
+
+            const providersList = [
+                'aol.com', 'fastmail.com', 'googlemail.com', 'gmail.com', 'gmx.net',
+                'gmx.de', 'hotmail.com', 'icloud.com', 'inbox.com', 'mail.com', 'mail.ru',
                 'me.com', 'outlook.com', 'protonmail.com', 'yahoo.com', 'yandex.ru'
             ];
 
-            let [, service] = email.split('@');
-
-            if (emailServiceList.indexOf(service) == -1) {
-                return null;
-            }
-
-            return 'https://' + service;
+            return provider && providersList.includes(provider) ? ('https://' + provider) : null;
         };
     });
 };

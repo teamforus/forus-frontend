@@ -1,0 +1,6 @@
+a(
+    href="{{ $dir.url }}" 
+    ng-show="$dir.url" 
+    ng-class="$dir.type == 'button' ? 'button-primary' : 'button-text button-text-primary'").button
+    em.mdi.icon-start(ng-if="$dir.icon" ng-class="'mdi-' + $dir.icon")
+    translate(translate="email_service_switch.confirm")

@@ -50,7 +50,7 @@ const VoucherComponent = function(
             description: "Stuur de QR-code naar mijn e-mailadres",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
-                    let emailServiceUrl = HelperService.getEmailService(res.data.email);
+                    let emailServiceUrl = HelperService.getEmailServiceProviderUrl(res.data.email);
 
                     ModalService.open('modalNotification', {
                         type: 'action-result',
