@@ -1,6 +1,7 @@
 const VoucherComponent = function(
     $sce,
     $state,
+    $rootScope,
     VoucherService,
     PrintableService,
     ModalService,
@@ -50,7 +51,7 @@ const VoucherComponent = function(
             description: "Stuur de QR-code naar mijn e-mailadres",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
-                    let emailServiceUrl = HelperService.getEmailServiceProviderUrl(res.data.email);
+                    const emailServiceUrl = HelperService.getEmailServiceProviderUrl($rootScope.auth_user.email);
 
                     ModalService.open('modalNotification', {
                         type: 'action-result',
@@ -151,6 +152,7 @@ module.exports = {
     controller: [
         '$sce',
         '$state',
+        '$rootScope',
         'VoucherService',
         'PrintableService',
         'ModalService',
