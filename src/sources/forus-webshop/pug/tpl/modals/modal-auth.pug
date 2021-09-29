@@ -10,7 +10,8 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" role="button" tabindex="0" ng-keydown="$ctrl.close()" aria-label="Sluiten")
         
         .block.block-auth-widget(ng-if="!$ctrl.restoreWithDigId")
-            .auth-title(id="authDialogTitle" translate="popup_auth.header.title" for="email_login")
+            h1.sr-only Inloggen
+            h2.auth-title(id="authDialogTitle" translate="popup_auth.header.title" for="email_login")
             .auth-subtitle(id="authDialogSubtitle" translate="{{ 'popup_auth.header.subtitle_' + $ctrl.appConfigs.features.communication_type }}")
 
             form.form.auth-form(ng-submit="$ctrl.signInEmailForm.submit()")
@@ -26,7 +27,7 @@
             .auth-qr_code.hidden-xs
                 .qr_code-container
                     .qr_code-description
-                        .auth-title Login met Me-app
+                        h2.auth-title Login met Me-app
                         | Scan de QR-code aan de rechterzijde met de QR-scanner in de Me-app. 
                         | #[br] #[br]
                         | #[a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app]

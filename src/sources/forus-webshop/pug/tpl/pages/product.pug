@@ -10,7 +10,7 @@ main(id="main-content")
             a(ui-sref="home" i18n="product.headers.home").breadcrumb-item
             a(ui-sref="products" ng-if="$ctrl.useBudget" i18n="product.headers.products").breadcrumb-item
             a(ui-sref="actions" ng-if="$ctrl.useSubsidies && !$ctrl.useBudget" i18n="product.headers.subsidies").breadcrumb-item
-            .breadcrumb-item.active(ng-bind="$ctrl.product.name")
+            .breadcrumb-item.active(ng-bind="$ctrl.product.name" aria-current="location")
 
         .block.block-product
             h1.sr-only Informatie over het aanbod

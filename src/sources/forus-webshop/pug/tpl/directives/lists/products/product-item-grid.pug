@@ -3,7 +3,7 @@
     a(ui-sref="product(product)" ng-if="$dir.productType == 'budget'").product-item-inner
         .product-image: img(
             ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
-            alt="{{ $dir.product.name }}")
+            alt="")
 
         .product-details
             .product-name.product-name-ellipsis(ng-bind="$dir.product.name")
@@ -15,7 +15,7 @@
         .product-image
             img(
                 ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
-                alt="{{ $dir.product.name }}")
+                alt="")
 
             .product-price(ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min == 0") Gratis
             .product-price(
