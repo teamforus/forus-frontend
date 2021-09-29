@@ -1,7 +1,7 @@
 .reservation-item
     .reservation-image: img(
         ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
-        alt="{{ $dir.product.name }}")
+        alt="")
 
     .reservation-details
         .reservation-name(ui-sref="product($dir.product)" ng-bind="$dir.product.name") 
