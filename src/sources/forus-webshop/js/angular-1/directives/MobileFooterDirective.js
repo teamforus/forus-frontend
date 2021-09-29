@@ -1,6 +1,7 @@
 let MobileFooterDirective = function(
     $scope,
     $state,
+    $location,
     $translate,
     ModalService,
     FundService
@@ -12,6 +13,10 @@ let MobileFooterDirective = function(
     $scope.i18nLangs = $translate.getAvailableLanguageKeys();
     $scope.i18nActive = $translate.use();
 
+    $scope.isActive = function(destination) {
+        return destination === $location.path();
+    } 
+    
     $scope.startFundRequest = () => {
         if ($ctrl.funds.length > 0) {
             $state.go('start');
@@ -66,6 +71,7 @@ module.exports = () => {
         controller: [
             '$scope',
             '$state',
+            '$location',
             '$translate',
             'ModalService',
             'FundService',

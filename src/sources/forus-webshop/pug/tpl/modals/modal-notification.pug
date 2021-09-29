@@ -2,9 +2,9 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
     role="dialog")
     
-    .modal-backdrop(ng-click="$ctrl.cancel()" aria-label="close" role="button")
+    .modal-backdrop(ng-click="$ctrl.cancel()" aria-label="Sluiten" role="button")
     .modal-content
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="Sluiten" role="button")
         .modal-section
             .text-center
                 .modal-icon(ng-if="$ctrl.icon"): img(ng-src="{{ $ctrl.icon }}" alt="")

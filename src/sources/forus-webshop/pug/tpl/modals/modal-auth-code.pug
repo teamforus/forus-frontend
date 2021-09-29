@@ -2,9 +2,9 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']" 
     role="dialog" aria-labelledby="authDialogTitle" aria-describedby="authDialogSubtitle")
 
-    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
     .modal-content: .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
         .modal-title(id="authDialogTitle" translate="popup_auth.labels.activate")
         .modal-subtitle(id="authDialogSubtitle" translate="popup_auth.labels.{{ $root.client_key }}.mail")
