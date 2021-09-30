@@ -17,7 +17,7 @@ main(id="main-content")
             .product-card
                 .product-photo: img(
                     ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" 
-                    alt="{{ $ctrl.product.name }}")
+                    alt="")
                 
                 .product-details
                     .product-name
@@ -115,7 +115,7 @@ main(id="main-content")
                 .pane-body: .block.block-organizations: .organization-item
                     a(ui-sref="provider($ctrl.product.organization)" ).organization-pane
                         .organization-logo
-                            img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png'  }}" alt="{{ $ctrl.product.organization.name }}").organization-logo-img
+                            img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png'  }}" alt="").organization-logo-img
                         .organization-title
                             .organization-title-value(ng-bind="$ctrl.product.organization.name")
                             .organization-title-count(ng-bind="$ctrl.product.offices.length")

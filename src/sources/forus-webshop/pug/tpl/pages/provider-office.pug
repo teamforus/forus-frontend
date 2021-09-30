@@ -15,7 +15,7 @@ block content
                 map-gesture-handling="'none'")
             .office-content
                 .block.block-pane
-                    h1.sr-only Informatie over de aanbieder
+                    h1.sr-only(ng-bind="$ctrl.office.address")
                     h2.pane-head Vestiging informatie
                     .pane-section.pane-section-compact-vertical
                         .block.block-data-list
