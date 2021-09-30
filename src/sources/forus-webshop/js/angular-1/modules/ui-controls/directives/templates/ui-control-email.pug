@@ -6,4 +6,4 @@
         ng-change="$dir.onChange()"
         placeholder="{{ $dir.placeholder }}" 
         ng-model="ngModel").form-control
-    .ui-control-clear(for="{{ $dir.id }}" ng-click="$dir.clear()"): .mdi.mdi-close-circle
+    .ui-control-clear(for="{{ $dir.id }}" ng-click="$dir.clear()" aria-label="cancel"): .mdi.mdi-close-circle

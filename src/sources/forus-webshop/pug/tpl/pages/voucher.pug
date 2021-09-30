@@ -5,8 +5,8 @@ main(id="main-content")
         .block.block-breadcrumbs.hide-sm
             a(ui-sref="home").breadcrumb-item Home
             a(ui-sref="vouchers").breadcrumb-item Mijn tegoeden
-            .breadcrumb-item.active(ng-if="!$ctrl.voucher.physical_card") {{ $ctrl.voucherCard.title }}
-            .breadcrumb-item.active(ng-if="$ctrl.voucher.physical_card") Uw {{ $ctrl.voucherCard.title }} \#{{ $ctrl.voucher.physical_card.code }}
+            .breadcrumb-item.active(ng-if="!$ctrl.voucher.physical_card" aria-current="location") {{ $ctrl.voucherCard.title }}
+            .breadcrumb-item.active(ng-if="$ctrl.voucher.physical_card" aria-current="location") Uw {{ $ctrl.voucherCard.title }} \#{{ $ctrl.voucher.physical_card.code }}
 
         .block.block-voucher(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse")
             h1.sr-only Jouw tegoed
