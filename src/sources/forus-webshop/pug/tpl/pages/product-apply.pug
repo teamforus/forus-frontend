@@ -6,7 +6,7 @@ main(id="main-content")
             a(ui-sref="home").breadcrumb-item Home
             a(ui-sref="products").breadcrumb-item Aanbod
             a(ui-sref="product($ctrl.product)" ng-bind="$ctrl.product.name").breadcrumb-item
-            .breadcrumb-item.active Reserveren
+            .breadcrumb-item.active(aria-current="location") Reserveren
 
         product-card(product="$ctrl.product")
 

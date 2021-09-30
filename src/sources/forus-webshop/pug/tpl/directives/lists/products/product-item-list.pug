@@ -1,7 +1,7 @@
 a.product-item
     .product-photo: img(
         ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
-        alt="{{ $dir.product.name }}")
+        alt="")
 
     //- Products
     .product-content(ng-if="$dir.productType == 'budget'")

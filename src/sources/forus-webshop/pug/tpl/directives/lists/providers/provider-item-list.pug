@@ -3,7 +3,7 @@
         .organization-logo(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()")
             img(
                 ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || '/assets/img/placeholders/organization-thumbnail.png' }}"
-                alt="{{ $dir.provider.name }}").organization-logo-img
+                alt="").organization-logo-img
 
         .organization-title: a(
             ui-sref="provider($dir.provider)" 

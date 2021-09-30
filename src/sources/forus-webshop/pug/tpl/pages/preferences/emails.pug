@@ -25,9 +25,9 @@ section.section.section-voucher-details: .wrapper
                                 .user_email-details  
                                     .user_email-address(ng-bind="email.email")
                                     
-                                    .user_email-options(ng-if="email.primary")
-                                        .user_email-option Ontvangt inlog e-mail
-                                        .user_email-option Ontvangt notificaties
+                                    ul.user_email-options(ng-if="email.primary")
+                                        li.user_email-option Ontvangt inlog e-mail
+                                        li.user_email-option Ontvangt notificaties
 
                                     .flex-row: .button.button-text.button-text-primary(
                                         ng-disabled="email.disabled" 

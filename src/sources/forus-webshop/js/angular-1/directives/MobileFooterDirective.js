@@ -14,7 +14,11 @@ let MobileFooterDirective = function(
     $scope.i18nActive = $translate.use();
 
     $scope.isActive = function(destination) {
-        return destination === $location.path();
+        if (destination === $location.path()) {
+            return 'page'
+        } else {
+            return false;
+        }
     } 
     
     $scope.startFundRequest = () => {
