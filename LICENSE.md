@@ -22,7 +22,7 @@ d. Those who convey the Software, whether or not in modified form, to third part
 
 4. Information
 More information about the Forus Foundation, including contact details, can be found at www.forus.io. The source code of the Software can be downloaded from www.github.com/teamforus.                  
-```
+``
                   GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
 
@@ -684,4 +684,4 @@ specific requirements.
 if any, to sign a "copyright disclaimer" for the program, if necessary.
 For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
-```
+``
