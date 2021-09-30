@@ -37,7 +37,7 @@ let HelperService = function($q) {
         };
 
         this.getEmailServiceProviderUrl = (email) => {
-            const host = email.split('@')[1];
+            const host = email ? email.split("@").splice(-1)[0] : '';
             const provider = typeof host === 'string' ? host.toLocaleLowerCase().trim() : null;
 
             const providersList = [
