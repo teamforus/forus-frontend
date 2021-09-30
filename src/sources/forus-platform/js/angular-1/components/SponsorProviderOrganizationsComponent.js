@@ -1,37 +1,35 @@
-let SponsorProviderOrganizationsComponent = function(
-    $q,
-    $stateParams,
+const SponsorProviderOrganizationsComponent = function(
     FileService,
     ModalService,
     OrganizationService
 ) {
-    let $ctrl = this;
-    let org = OrganizationService.active();
+    const $ctrl = this;
 
     $ctrl.loaded = false;
     $ctrl.extendedView = localStorage.getItem('sponsor_providers.extended_view') === 'true';
 
-    $ctrl.filters = {
-        show: false,
-        values: {
-            sort_by: 'created_at',
-        },
-        reset: function() {
-            this.values.q = '';
-            this.values.sort_by = 'created_at';
-            this.values.fund_id = null;
-            this.values.allow_budget = '';
-            this.values.allow_products = '';
-        }
-    };
-
-    $ctrl.sortByOptions = [{
-        value: 'created_at',
-        name: 'Created at'
+    $ctrl.orderByOptions = [{
+        value: 'application_date',
+        name: 'bestel op: aanvraagdatum'
     }, {
         value: 'name',
-        name: 'Name'
+        name: 'bestel op: naam'
     }];
+
+    $ctrl.filters = {
+        show: false,
+        values: {},
+        defaultValues: {
+            q: '',
+            order_by: $ctrl.orderByOptions[0].value,
+            fund_id: null,
+            allow_budget: '',
+            allow_products: '',
+        },
+        reset: function() {
+            this.values = { ...this.defaultValues };
+        }
+    };
 
     $ctrl.setExtendedView = function(extendedView) {
         localStorage.setItem('sponsor_providers.extended_view', extendedView)
@@ -39,30 +37,25 @@ let SponsorProviderOrganizationsComponent = function(
     };
 
     $ctrl.onPageChange = (query) => {
-        return $q((resolve, reject) => {
-            OrganizationService.providerOrganizations($stateParams.organization_id, {
-                ...query,
-                ...$ctrl.filters.values,
-            }).then((res => {
-                $ctrl.providerOrganizations = {
-                    meta: res.data.meta,
-                    data: $ctrl.transformList(res.data.data),
-                };
+        const filter = { ...query, ...{ order_dir: query.order_by == 'name' ? 'asc' : 'desc' } };
 
-                resolve($ctrl.providerOrganizations);
-            }), reject);
-        });
+        OrganizationService.providerOrganizations($ctrl.organization.id, filter).then((res => {
+            $ctrl.providerOrganizations = {
+                meta: res.data.meta,
+                data: $ctrl.transformList(res.data.data),
+            };
+        }));
     };
 
     // Export to XLS file
     $ctrl.exportList = () => {
         ModalService.open('exportType', {
             success: (data) => {
-                const fileName = 'providers_' + org + '_' + moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType;
+                const fileName = 'providers_' + $ctrl.organization.id + '_' + moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType;
 
-                OrganizationService.providerOrganizationsExport($stateParams.organization_id, {
+                OrganizationService.providerOrganizationsExport($ctrl.organization.id, {
                     ...$ctrl.filters.values,
-                    ...{ export_format: data.exportType } 
+                    ...{ export_format: data.exportType }
                 }).then((res => {
                     FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
                 }));
@@ -95,19 +88,16 @@ let SponsorProviderOrganizationsComponent = function(
     $ctrl.$onInit = function() {
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds]
         $ctrl.filters.reset();
-        $ctrl.providerOrganizations.data = $ctrl.transformList($ctrl.providerOrganizations.data);
+        $ctrl.onPageChange($ctrl.filters.values);
     };
 };
 
 module.exports = {
     bindings: {
-        providerOrganizations: '<',
-        organization: '<',
         funds: '<',
+        organization: '<',
     },
     controller: [
-        '$q',
-        '$stateParams',
         'FileService',
         'ModalService',
         'OrganizationService',
