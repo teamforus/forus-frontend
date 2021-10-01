@@ -10,10 +10,10 @@ const SponsorProviderOrganizationsComponent = function(
 
     $ctrl.orderByOptions = [{
         value: 'application_date',
-        name: 'bestel op: aanvraagdatum'
+        name: 'Sorteer op: Nieuwste eerst'
     }, {
         value: 'name',
-        name: 'bestel op: naam'
+        name: 'Sorteer op: Naam aflopend'
     }];
 
     $ctrl.filters = {
