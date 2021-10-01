@@ -2,9 +2,9 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
     role="dialog" aria-labelledby="pinCodeDialogTitle" aria-describedby="pinCodeDialogSubtitle")
 
-    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close")
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten")
     .modal-content: .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
         .app-instruction
             .step-item
                 h2.step-title Stap 1

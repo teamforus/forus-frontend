@@ -38,7 +38,7 @@ $formPadding: 14px 15px;
         transition: background-color .4s ease, border .4s ease;
         border-radius: 6px;
         appearance: none;
-        border: 1px solid desaturate($color: darken($color: $border_color, $amount: 5%), $amount: 75%);;
+        border: 1px solid desaturate($color: darken($color: $border_color, $amount: 35%), $amount: 75%);;
 
         &[disabled] {
             background-color: #e1e1e1;

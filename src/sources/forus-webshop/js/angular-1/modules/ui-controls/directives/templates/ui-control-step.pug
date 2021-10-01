@@ -1,5 +1,5 @@
-.ui-control.ui-control-step(ng-class="$dir.class" id="{{ $dir.id }}")
-    input(type="number" name="$dir.name" ng-model="ngModel" hidden)
-    .ui-control-step-icon(ng-click="$dir.decrease()"): .mdi.mdi-minus
+.ui-control.ui-control-step(ng-class="$dir.class" id="{{ $dir.id }}" aria-label="adjust" aria-valuenow="{{$dir.value.toString()}}")
+    input(type="number" name="$dir.name" id="$dir.name" ng-model="ngModel" hidden)
+    .ui-control-step-icon(ng-click="$dir.decrease()" aria-label="Aantal verlagen"): .mdi.mdi-minus
     .ui-control-step-value(ng-bind="$dir.value.toString()")
-    .ui-control-step-icon(ng-click="$dir.increase()"): .mdi.mdi-plus
+    .ui-control-step-icon(ng-click="$dir.increase()" aria-label="Aantal verhogen"): .mdi.mdi-plus

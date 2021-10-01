@@ -6,8 +6,8 @@
 $bg-nav:            #2A2A7F;
 $tc-nav-hov:        #ECECEC;
 $tc-nav:            #FFFFFF;
-$logo-padding:      30px 0px;
-$logo-height:       75px;
+$logo-padding:      25px 0px;
+$logo-height:       100px;
 
 // navbar (auth)
 $tc-auth-menu:      #2A2A7F; 
@@ -24,7 +24,7 @@ $btn-start-border:   transparent;
 $bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
 
 // base font
-$bf:                Arial, Verdana;
+$bf:                'Lato' ,"Lucida Sans","Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif;
 
 // text color
 $tc:                #1a1919;
@@ -43,7 +43,7 @@ $bg_2:              none;
 $tf:                inherit;
 
 // footer color
-$fbc:                #2A2A7F;
+$fbc:                #2f2d80;
 $fc:                #ffffff;
 
 // displayed or not

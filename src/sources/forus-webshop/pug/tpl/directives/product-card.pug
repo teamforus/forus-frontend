@@ -2,7 +2,7 @@
     .product-card
         .product-photo: img(
             src="{{ $dir.product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" 
-            alt="{{ product.name }}")
+            alt="")
 
         .product-details
             .product-name(ng-bind="$dir.product.name")

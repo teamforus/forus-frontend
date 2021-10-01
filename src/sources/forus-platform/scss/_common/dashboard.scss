@@ -4387,6 +4387,16 @@ body {
                 &:last-child {
                     margin-right: 0;
                 }
+
+                &.form-group-inline {
+                    flex-direction: row;
+
+                    .form-label {
+                        line-height: 14px;
+                        padding-right: 10px;
+                        color: $colorPrimary;
+                    }
+                }
             }
 
             .form-control {
@@ -4395,6 +4405,10 @@ body {
                 margin: 0;
                 padding: 0 10px;
                 line-height: 28px;
+            }
+
+            select.form-control {
+                padding-right: 25px;
             }
 
             &:last-child {
@@ -4568,18 +4582,38 @@ body {
     }
     
     &.block-app-instruction {
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+
+        .step-items {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
     
         .step-item {
-            padding: 50px 80px;
             position: relative;
-            width: 400px;
-            margin: 0 auto;
             display: inline-block;
+            text-align: center;
+            padding: 0 20px;
+
+            .step-item-title {
+                font: 700 24px/30px $bf;
+                margin: 0 0 0;
+            }
+
+            .step-item-subtitle {
+                font: 600 14px/22px $bf;
+                margin: 0 0 10px;
+            }
     
             img {
+                margin: 0 auto;
+                display: block;
+
                 &:not(.line-item) {
-                    width: 100%;
+                    width: 220px;
                     border-radius: 5px;
                     box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                     position: relative;
@@ -4588,8 +4622,7 @@ body {
     
                 &.line-item {
                     position: absolute;
-    
-                    top: 200px;
+                    top: 220px;
                     left: calc(100% - 80px);
                     min-width: 70px;
                     z-index: 2;
@@ -5999,7 +6032,7 @@ body {
 
         .modal-body {
             min-height: 20px;
-            max-height: calc(100vh - 260px);
+            max-height: calc(100vh - 60px);
             overflow: auto;
             @include webkit_scrollbar();
 
@@ -6283,16 +6316,16 @@ body {
     &.modal-auth {
         .modal-title {
             color: #282b39;
-            font: 700 40px $bf;
+            font: 700 26px/40px $bf;
             text-align: center;
-            margin: 0 0 10px;
+            margin: 0 0 0;
         }
 
         .modal-subtitle {
             color: #646f79;
-            font: 400 18px $bf;
+            font: 400 16px/24px $bf;
             text-align: center;
-            padding-bottom: 30px;
+            margin: 0 0 10px;
 
             u {
                 cursor: pointer;
