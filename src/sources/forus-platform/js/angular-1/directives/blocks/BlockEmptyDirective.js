@@ -8,7 +8,7 @@ module.exports = () => {
             title: '@',
             text: '@',
             button: '=',
-            align: '=',
+            align: '@',
         },
         restrict: "EA",
         replace: true,
