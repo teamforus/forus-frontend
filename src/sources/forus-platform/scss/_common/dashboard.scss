@@ -4387,6 +4387,16 @@ body {
                 &:last-child {
                     margin-right: 0;
                 }
+
+                &.form-group-inline {
+                    flex-direction: row;
+
+                    .form-label {
+                        line-height: 14px;
+                        padding-right: 10px;
+                        color: $colorPrimary;
+                    }
+                }
             }
 
             .form-control {
@@ -4395,6 +4405,10 @@ body {
                 margin: 0;
                 padding: 0 10px;
                 line-height: 28px;
+            }
+
+            select.form-control {
+                padding-right: 25px;
             }
 
             &:last-child {
