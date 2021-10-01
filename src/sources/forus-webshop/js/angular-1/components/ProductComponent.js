@@ -70,7 +70,7 @@ const ProductComponent = function(
         $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
 
         const implementation = $i18n('implementation_name.' + appConfigs.client_key);
-        $rootScope.pageTitle = $i18n('page_state_titles.product', { implementation, product_name: $ctrl.product.name });
+        $rootScope.pageTitle = $i18n('page_state_titles.product', { implementation, product_name: $ctrl.product.name, organization_name: $ctrl.product.organization.name,});
     };
 };
 

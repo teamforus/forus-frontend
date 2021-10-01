@@ -33,8 +33,8 @@
                             tr.table-totals
                                 td(translate="financial_dashboard_overview.labels.total")
                                 td.text-right(ng-bind="$ctrl.fundsFinancialOverview.funds.budget | currency_format")
-                                td.text-right(ng-bind="$ctrl.fundsFinancialOverview.funds.budget_left | currency_format")
                                 td.text-right(ng-bind="$ctrl.fundsFinancialOverview.funds.budget_used | currency_format")
+                                td.text-right(ng-bind="$ctrl.fundsFinancialOverview.funds.budget_left | currency_format")
                                 td.text-right(ng-bind="$ctrl.fundsFinancialOverview.funds.transaction_costs | currency_format")
 
         .card.card-financial(ng-if="$ctrl.budgetFunds.length > 0")

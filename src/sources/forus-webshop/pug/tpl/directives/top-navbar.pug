@@ -90,11 +90,11 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
 
             .block.flex.hide-sm
                 .block.block-auth
-                    button.button.button-default(ng-if="!$root.auth_user" ng-click="openAuthPopup()" role="button" aria-label="login").hide-sm
+                    button.button.button-default(ng-if="!$root.auth_user" ng-click="openAuthPopup()" role="button" aria-label="Inloggen").hide-sm
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
                         span(translate="topnavbar.buttons.login")
                         
-                    button.button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()" role="button" aria-label="Start aanmelding")
+                    button.button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()" role="button" aria-label="{{ 'home.header.' + $root.client_key + '.button' | translate }}")
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
                         span(translate="home.header.{{ $root.client_key }}.button" translate-default="{{ 'home.header.button' | translate }}" id="start_modal")
 
@@ -103,7 +103,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                             span(translate="topnavbar.buttons.voucher") 
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
-                        .auth-user(ng-click="$ctrl.openUserMenu($event)" aria-haspopup="true" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}" role="link" aria-label="user_menu")
+                        .auth-user(ng-click="$ctrl.openUserMenu($event)" aria-haspopup="true" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}" role="link" aria-label="Gebruikersmenu")
                             .auth-user-avatar
                             .auth-user-caret
                                 em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
@@ -142,7 +142,8 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                                         em.mdi.mdi-shield-account
                                         | Sessies
                                     
-                                    a.auth-user-menu-item( 
+                                    a.auth-user-menu-item(
+                                        href="" 
                                         ui-sref="notifications" 
                                         ui-sref-active="active"
                                         role="link")

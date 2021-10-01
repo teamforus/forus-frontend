@@ -11,7 +11,7 @@ main(id="main-content")
                 ui-sref="funds"
                 translate="funds.funds.{{ $ctrl.appConfigs.client_key }}.title"
                 translate-default="{{'funds.header.title' | translate }}")
-            a.breadcrumb-item.active(ng-bind="$ctrl.fund.name")
+            a.breadcrumb-item.active(ng-bind="$ctrl.fund.name" aria-current="location")
 
         h1.sr-only Aanvragen
         h2.sr-only(ng-bind="$ctrl.fund.name")
