@@ -46,7 +46,7 @@ main(id="main-content")
                     .sign_up-pane-header(i18n="fund_request_clarification.done.title")
                     .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").form.row
                         .form-group.col.col-lg-12
-                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg")
+                            .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg" alt="")
                             p.sign_up-pane-text.text-center(i18n="fund_request_clarification.done.desc")
                     
                             .text-center: .button.button-default(ng-click="$ctrl.finish()" i18n="fund_request_clarification.buttons.back")

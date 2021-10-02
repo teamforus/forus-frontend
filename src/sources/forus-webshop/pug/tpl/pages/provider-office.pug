@@ -8,14 +8,14 @@ block content
                 .wrapper: .block.block-breadcrumbs
                     a(ui-sref="providers").breadcrumb-item Aanbieders
                     a(ui-sref="provider($ctrl.provider)" ng-bind="$ctrl.provider.name").breadcrumb-item
-                    .breadcrumb-item.active(ng-bind="$ctrl.office.address")
+                    .breadcrumb-item.active(ng-bind="$ctrl.office.address" aria-current="location")
             .office-map: .block.block-google-map: google-map(
                 map-pointers="[$ctrl.office]" 
                 map-pointer-template="providers-office-view" 
                 map-gesture-handling="'none'")
             .office-content
                 .block.block-pane
-                    h1.sr-only Informatie over de aanbieder
+                    h1.sr-only(ng-bind="$ctrl.office.address")
                     h2.pane-head Vestiging informatie
                     .pane-section.pane-section-compact-vertical
                         .block.block-data-list

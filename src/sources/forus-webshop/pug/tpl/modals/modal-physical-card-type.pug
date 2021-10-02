@@ -4,11 +4,11 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
     role="dialog")
     
-    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
     
     //- Activation code form
     .modal-window(ng-if="$ctrl.state == 'card_code'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-header: .modal-title(
             id="physicalCardTypeDialogTitle" 
@@ -47,7 +47,7 @@
     
     //- Digital password
     .modal-window(ng-if="$ctrl.state == 'select_type'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-header(ng-if="!$ctrl.preffersPlasticCard")
             .modal-title(
@@ -158,7 +158,7 @@
 
     //- Confirmation new card
     .modal-window(ng-if="$ctrl.state == 'confirm_new_card'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
         .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.confirm_card.header")
         .modal-content: .modal-section
             .physical-card-preview
@@ -179,7 +179,7 @@
 
     //- Success old card
     .modal-window(ng-if="$ctrl.state == 'success_old_card'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
         .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.link_card_success.title")
         .modal-content: .modal-section
             .physical-card-result
@@ -194,7 +194,7 @@
 
     //- Success new card
     .modal-window(ng-if="$ctrl.state == 'success_new_card'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
         .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.request_card_success.title")
         .modal-content: .modal-section
             .physical-card-result

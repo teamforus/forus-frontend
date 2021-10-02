@@ -230,6 +230,12 @@
         &::-ms-expand {
             display: none;
         }
+
+        &.form-control-text {
+            background-color: transparent;
+            border-color: transparent;
+            outline: none;
+        }
     }
 
     .form-limit {

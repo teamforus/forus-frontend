@@ -291,11 +291,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundService.list($transition$.params().organization_id, {
                 per_page: 100
             }))],
-            providerOrganizations: ['permission', 'OrganizationService', '$transition$', (
-                permission, OrganizationService, $transition$
-            ) => permission ? repackPagination(OrganizationService.providerOrganizations(
-                $transition$.params().organization_id
-            )) : permission],
         }
     });
 

@@ -8,6 +8,9 @@ module.exports = {
         title_succes_formal: 'Bevestig dat u toegang heeft tot dit e-mailadres.',
         title_succes_informal: 'Bevestig dat je toegang hebt tot dit e-mailadres.',
 
+        title_existing_user_succes_formal: 'Controleer uw e-mail.',
+        title_existing_user_succes_informal: 'Controleer je e-mail.',
+
         subtitle_we_succes_formal: 'U heeft een e-mail ontvangen op {{email}}. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op "Bevestigen".',
         subtitle_we_succes_informal: 'Je hebt een e-mail ontvangen op {{email}}. Ga naar je inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op "Bevestigen".',
 

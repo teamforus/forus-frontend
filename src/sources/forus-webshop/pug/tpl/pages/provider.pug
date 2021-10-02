@@ -10,7 +10,7 @@ block content
                         em.mdi.mdi-chevron-left
                         | Terug
                     a(ui-sref="providers").breadcrumb-item Aanbieders
-                    .breadcrumb-item.active(ng-bind="$ctrl.provider.name")
+                    .breadcrumb-item.active(ng-bind="$ctrl.provider.name" aria-current="location")
             
             .provider-map: .block.block-google-map: google-map(
                 ng-if="$ctrl.mapOptions"
@@ -22,10 +22,11 @@ block content
 
             .provider-content
                 .block.block-pane
-                    .pane-head Aanbieder informatie
+                    h1.sr-only(ng-bind="$ctrl.provider.name") 
+                    h2.pane-head Aanbieder informatie
                     .pane-section: .provider-details
                         .provider-description
-                            img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}" alt="{{ $ctrl.provider.name }}").provider-logo
+                            img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}" alt="").provider-logo
                             .provider-title(ng-bind="$ctrl.provider.name")
 
                     .pane-section.pane-section-compact-vertical
@@ -48,7 +49,7 @@ block content
                                     .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen aanbieder type' }}
                 
                 .block.block-pane.last-child: .pane-head
-                    .flex-grow Vestigingen
+                    h2.flex-grow Vestigingen
                     .pane-head-count(ng-bind="$ctrl.provider.offices.length")
                 
                 .block.block-organizations
