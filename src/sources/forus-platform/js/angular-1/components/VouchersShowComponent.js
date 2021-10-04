@@ -90,6 +90,7 @@ const VouchersShowComponent = function(
     $ctrl.orderPhysicalCard = () => {
         ModalService.open('physicalCardOrder', {
             voucher: $ctrl.voucher,
+            onRequested: () => $ctrl.fetchVoucher(),
         });
     };
 

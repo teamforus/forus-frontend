@@ -7,6 +7,7 @@ const ModalPhysicalCardOrderComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.state = $ctrl.modal.scope.state || 'form';
         $ctrl.voucher = $ctrl.modal.scope.voucher;
+        $ctrl.onRequested = $ctrl.modal.scope.onRequested;
 
         $ctrl.form = FormBuilderService.build({}, (form) => {
             PhysicalCardsRequestService.store(
@@ -16,6 +17,7 @@ const ModalPhysicalCardOrderComponent = function(
             ).then(() => {
                 $ctrl.form.resetErrors();
                 $ctrl.state = 'success';
+                $ctrl.onRequested();
             }, (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
@@ -40,7 +42,7 @@ const ModalPhysicalCardOrderComponent = function(
                 [postcode, city].filter((value) => value).join(' '),
             ];
         }, (res) => {
-            $ctrl.form.errors = res.data.errors;
+            $ctrl.form.errors = res.data.errors
         });
     };
 
