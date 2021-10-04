@@ -4,11 +4,11 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
     role="dialog")
     
-    .modal-backdrop(ng-click="$ctrl.closeModal()" aria-label="close" role="button")
+    .modal-backdrop(ng-click="$ctrl.closeModal()" aria-label="Sluiten" role="button")
     
     //- Deactivation reason
     .modal-window
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" aria-label="Sluiten" role="button")
 
         .modal-content 
             .modal-header(ng-if="!$ctrl.preffersPlasticCard")

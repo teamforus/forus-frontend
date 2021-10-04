@@ -1,14 +1,15 @@
 .organization-item
-    .organization-pane(ng-click="$dir.toggleOffices($event)" aria-label="Klik voor meer informatie over de aanbieder" role="link")
+    .organization-pane(ng-click="$dir.toggleOffices($event)" role="button")
         .organization-logo(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()")
             img(
                 ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || '/assets/img/placeholders/organization-thumbnail.png' }}"
-                alt="{{ $dir.provider.name }}").organization-logo-img
+                alt="").organization-logo-img
 
         .organization-title: a(
             ui-sref="provider($dir.provider)" 
             ng-click="$event.stopPropagation()" 
-            ng-bind="$dir.provider.name").organization-title-value
+            ng-bind="$dir.provider.name"
+            role="link").organization-title-value
 
         .organization-chevron
             .mdi(ng-class="'mdi-chevron-' + ($dir.provider.showOffices ? 'up' : 'right')")

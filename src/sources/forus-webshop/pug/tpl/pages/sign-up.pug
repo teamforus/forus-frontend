@@ -7,10 +7,11 @@ main(id="main-content")
         .wrapper: .block.block-sign_up: .block-wrapper
             div(ng-if="$ctrl.state == 'fund_already_applied'")
                 .sign_up-pane    
-                    .sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
+                    h1.sr-only Aanmelden
+                    h2.sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
 
                     .sign_up-pane-body
-                        .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" role="presentation")
+                        .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="")
                         p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
                         
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
@@ -28,7 +29,7 @@ main(id="main-content")
             div(ng-if="$ctrl.state == 'digid'")
                 .sign_up-pane
                     h1.sr-only Inloggen met DigiD
-                    .sign_up-pane-header(i18n="fund_request.sign_up.digid.title" role="heading")                   
+                    h2.sign_up-pane-header(i18n="fund_request.sign_up.digid.title" role="heading")                   
                     .sign_up-pane-body
                         .sign_up-pane-auth
                             .sign_up-pane-auth-content
@@ -43,7 +44,7 @@ main(id="main-content")
             div(ng-if="$ctrl.state == 'auth'")
                 .sign_up-pane(ng-show="!$ctrl.authForm.autofill")
                     h1.sr-only Start aanmelden
-                    .sign_up-pane-header(translate="fund_request.sign_up.header.title" role="heading")
+                    h2.sign_up-pane-header(translate="fund_request.sign_up.header.title")
 
                     .sign_up-pane-body(ng-if="!$ctrl.hasApp")
                         form(ng-submit="$ctrl.authForm.submit()").form
@@ -53,7 +54,7 @@ main(id="main-content")
                                     ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email")
                                     .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
                                 .form-group.col.col-lg-3
-                                    label.form-label.hide-sm &nbsp;
+                                    .form-label.hide-sm(for="submit") &nbsp;
                                     button(
                                         ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
                                         translate="popup_auth.buttons.submit"
@@ -112,18 +113,19 @@ main(id="main-content")
             div(ng-if="$ctrl.state == 'auth_email_sent'")
                 //- For new users
                 .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
-                    .sign_up-pane-header(i18n="fund_request.sign_up.pane.header_title" role="heading") 
-                    .sign_up-pane-body
+                    h1.sr-only(role="heading") Start aanmelden
+                    h2.sign_up-pane-header(role="heading") Aanmelding bevestigen
+                    .sign_up-pane-body 
                         .sign_up-email_sent
                             .sign_up-email_sent-icon
                                 img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
-                            .sign_up-email_sent-title(translate="popup_auth.labels.join")
+                            h2.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.notifications.link_' + $root.appConfigs.features.communication_type }}" translate-values="{{ $ctrl.authForm.values }}")
                 
                 //- For existing users
                 .sign_up-pane(ng-if="$ctrl.authEmailSent")
                     h1.sr-only Start aanmelden
-                    .sign_up-pane-header(i18n="popup_auth.header.title" role="heading") 
+                    h2.sign_up-pane-header(i18n="popup_auth.header.title") 
                     .sign_up-pane-body
                         .sign_up-email_sent
                             .sign_up-email_sent-icon

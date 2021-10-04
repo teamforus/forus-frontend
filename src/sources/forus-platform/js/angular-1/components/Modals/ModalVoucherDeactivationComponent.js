@@ -18,13 +18,17 @@ const ModalVoucherDeactivationComponent = function(
             notify_by_email: false,
         }, (form) => {
             const { notify_by_email } = form.values;
+
             const $transKey = 'modals.modal_voucher_deactivation.danger_zone';
             const $transData = { fund_name: voucher.fund.name, email: voucher.identity_email };
 
             const descNoEmail = $translate(`${$transKey}.description_no_email`, $transData);
             const descNotification = $translate(`${$transKey}.description_notification`, $transData);
-            const descNoNotification = $translate(`${$transKey}.description_no_notification`, $transData);
-            const description = $ctrl.hasEmail ? (notify_by_email ? descNotification : descNoNotification) : descNoEmail;
+            const descNotificationEmail = $translate(`${$transKey}.description_notification_email`, $transData);
+
+            const description = $ctrl.hasEmail ? (
+                notify_by_email ? descNotification + descNotificationEmail : descNotification
+            ) : descNoEmail;
 
             $ctrl.modal.loaded = false;
 

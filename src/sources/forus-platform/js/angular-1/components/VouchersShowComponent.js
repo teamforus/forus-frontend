@@ -115,12 +115,22 @@ const VouchersShowComponent = function(
         return dateLocale ? dateLocale.split('-')[1] || dateLocale : dateLocale;
     }
 
+    $ctrl.parseHistoryNote = (item) => {
+        return item.employee_id ? item.note : {
+            other: 'Anders',
+            moved: 'Verhuizing',
+            income_change: 'Verandering in inkomen',
+            not_interested: 'Aanbod is niet aantrekkelijk',
+        }[item.note || ''] || item.note;
+    };
+
     $ctrl.parseHistory = (history) => {
         $ctrl.history = history.map((item) => {
             const date = $ctrl.dateLocaleFormat(item.created_at_locale);
-            const note_substr = item.note ? $str_limit(item.note, 40) : null;
+            const note = $ctrl.parseHistoryNote(item);
+            const note_substr = note ? $str_limit(note, 40) : null;
 
-            return { ...item, date, note_substr };
+            return { ...item, date, note, note_substr };
         });
     };
 

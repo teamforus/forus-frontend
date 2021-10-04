@@ -2,9 +2,9 @@
     role="dialog" 
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
 
-    .modal-backdrop(ng-click="$ctrl.close()" aria-label="close")
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten")
     .modal-window: .modal-content
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-section(ng-if="$ctrl.reservation.state === 'accepted'")
             h2.title.text-center(translate="modal_product_reserve_cancel.header_accepted.title" translate-values="{organizationname: $ctrl.reservation.product.organization.name}")
