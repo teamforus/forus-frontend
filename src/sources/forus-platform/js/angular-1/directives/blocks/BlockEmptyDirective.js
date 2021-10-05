@@ -1,5 +1,5 @@
-let BlockEmptyDirective = function($scope) {
-    $scope.align = 'center';
+const BlockEmptyDirective = function($scope) {
+    $scope.align = $scope.align || 'center';
 };
 
 module.exports = () => {
@@ -8,6 +8,7 @@ module.exports = () => {
             title: '@',
             text: '@',
             button: '=',
+            align: '@',
         },
         restrict: "EA",
         replace: true,

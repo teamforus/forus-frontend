@@ -6,6 +6,8 @@ module.exports = {
             edit: "Instellingen",
             delete: "Verwijderen",
             top_up: "Budget toevoegen",
+            archive: "Archiveren",
+            restore: "Herstellen",
             criteria: "Voorwaarden",
             statistics: "Statistieken",
         },
@@ -13,6 +15,7 @@ module.exports = {
             active: "Actief",
             paused: "Gepauzeerd",
             closed: "Gestopt",
+            archived: "Gearchiveerd",
         },
         labels: {
             remaining: "Resterend:"

@@ -6573,17 +6573,7 @@ body {
 
     &.modal-lg {
         .modal-window {
-            width: 820px;
-        }
-
-        .modal-footer {
-            padding: 20px 20px;
-        }
-    }
-
-    &.modal-md {
-        .modal-window {
-            width: 680px;
+            width: 1000px;
         }
 
         .modal-footer {
@@ -6591,9 +6581,9 @@ body {
         }
     }
 
-    &.modal-lg {
+    &.modal-md {
         .modal-window {
-            width: 1000px;
+            width: 680px;
         }
 
         .modal-footer {

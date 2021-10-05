@@ -58,7 +58,9 @@ module.exports = {
         modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
-            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application')
+            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
+            archive_fund: require('./nl/modals/danger-zone/archive-fund'),
+            restore_fund: require('./nl/modals/danger-zone/restore-fund')
         },
     },
     // PAGES

@@ -1,4 +1,4 @@
-let FinancialDashboardComponent = function(
+const FinancialDashboardComponent = function(
     $state,
     $filter,
     $stateParams,
