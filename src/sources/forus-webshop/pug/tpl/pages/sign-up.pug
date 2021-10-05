@@ -121,7 +121,9 @@ main(id="main-content")
                                 img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
                             h2.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.notifications.link_' + $root.appConfigs.features.communication_type }}" translate-values="{{ $ctrl.authForm.values }}")
-                
+
+                            email-provider-link(email="$ctrl.authForm.values.email")
+
                 //- For existing users
                 .sign_up-pane(ng-if="$ctrl.authEmailSent")
                     h1.sr-only Start aanmelden
@@ -132,3 +134,5 @@ main(id="main-content")
                                 img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
                             .sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_succes_' + $root.appConfigs.features.communication_type }}")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.header.subtitle_we_succes_' + $root.appConfigs.features.communication_type }}" translate-values="{email: $ctrl.authForm.values.email}")
+                            
+                            email-provider-link(email="$ctrl.authForm.values.email")

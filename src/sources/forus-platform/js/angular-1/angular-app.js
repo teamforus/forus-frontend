@@ -101,6 +101,7 @@ app.component('modalTransferOrganizationOwnershipComponent', require('./componen
 app.component('modalVoucherDeactivationComponent', require('./components/Modals/ModalVoucherDeactivationComponent'));
 app.component('modalVoucherActivationComponent', require('./components/Modals/ModalVoucherActivationComponent'));
 app.component('modalMailPreviewComponent', require('./components/Modals/ModalMailPreviewComponent'));
+app.component('modalPhysicalCardOrderComponent', require('./components/Modals/ModalPhysicalCardOrderComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -155,6 +156,7 @@ app.service('ImplementationService', require('./services/ImplementationService')
 app.service('ImplementationNotificationsService', require('./services/ImplementationNotificationsService'));
 app.service('HelperService', require('./services/HelperService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
+app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequestService'));
 app.service('ProductReservationService', require('./services/ProductReservationService'));
 
 // Directives
@@ -210,6 +212,7 @@ app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditor
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
+app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 

@@ -150,4 +150,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('mailPreview', {
         component: 'modalMailPreviewComponent'
     });
+    
+    ModalRouteProvider.modal('physicalCardOrder', {
+        component: 'modalPhysicalCardOrderComponent'
+    });
 }];

@@ -8,6 +8,7 @@ const ModalAuthComponent = function(
     CredentialsService,
     DigIdService,
     ModalService,
+    HelperService,
     appConfigs
 ) {
     const $ctrl = this;
@@ -91,6 +92,8 @@ const ModalAuthComponent = function(
                 $ctrl.screen = 'sign_in-email-sent';
                 $ctrl.close();
 
+                let emailServiceUrl = HelperService.getEmailServiceProviderUrl(form.values.email);
+
                 ModalService.open('modalNotification', {
                     type: 'action-result',
                     class: 'modal-description-pad',
@@ -99,7 +102,8 @@ const ModalAuthComponent = function(
                     icon_filetype: ".svg",
                     title: 'popup_auth.labels.mail_sent',
                     description: 'popup_auth.notifications.link_' + appConfigs.features.communication_type,
-                    confirmBtnText: 'popup_auth.buttons.submit'
+                    confirmBtnText: emailServiceUrl ? 'email_service_switch.confirm' : 'popup_auth.buttons.submit',
+                    confirm: () => HelperService.openInNewTab(emailServiceUrl)
                 });
             }, (res) => handleErrors);
         }, true);
@@ -170,6 +174,7 @@ module.exports = {
         'CredentialsService',
         'DigIdService',
         'ModalService',
+        'HelperService',
         'appConfigs',
         ModalAuthComponent
     ],

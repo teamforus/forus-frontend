@@ -13,6 +13,7 @@ module.exports = {
         source: "Aangemaakt door",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot en met",
+        voucher_count_per_identity: "Aantal tegoeden",
         expired: "Verlopen",
         email: "E-mailadres",
         fund: "Fonds",

@@ -15,6 +15,7 @@
         padding: 15px;
         color: #282B39;
         width: 100%;
+        text-align: center;
 
         .mdi {
             display: flex;
@@ -22,6 +23,7 @@
             font-size: 20px;
             line-height: 20px;
             margin: 0 10px 0 0;
+            vertical-align: bottom;
 
             &:before {
                 line-height: inherit;

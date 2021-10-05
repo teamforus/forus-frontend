@@ -6221,6 +6221,19 @@ body {
                 padding: 30px 0 0;
             }
 
+            .modal-heading-icon {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                margin-bottom: 20px;
+
+                .mdi {
+                    font-size: 100px;
+                    display: flex;
+                    line-height: initial;
+                }
+            }
+
             .modal-heading {
                 font: 600 16px/26px $bf;
                 color: #282b39;
@@ -6617,11 +6630,11 @@ body {
 
     &.modal-lg {
         .modal-window {
-            width: 820px;
+            width: 1000px;
         }
 
         .modal-footer {
-            padding: 20px 20px;
+            padding: 20px 30px;
         }
     }
 
@@ -6635,19 +6648,9 @@ body {
         }
     }
 
-    &.modal-lg {
-        .modal-window {
-            width: 1000px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
-        }
-    }
-
     &.modal-sm {
         .modal-window {
-            width: 440px;
+            width: 480px;
         }
 
         .modal-footer {
