@@ -42,6 +42,9 @@ module.exports = {
         financial: 'Financieel',
         personal: 'Persoonlijk',
     },
+    email_service_switch: {
+        confirm: 'Breng me naar mijn e-mail'
+    },
     // MODALS
     modals: {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
