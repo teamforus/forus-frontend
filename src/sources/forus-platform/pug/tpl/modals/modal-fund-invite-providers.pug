@@ -4,17 +4,17 @@
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Aanbieders uitnodigen")
         .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Aanbieders uitnodigen")
+
         .modal-body.form
-            .modal-section: .row: .col.col-lg-11
-                .form-group.form-group-inline.form-group-inline-md
-                    label.form-label Nodig aanbieders uit van:
-                    //- ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
-                    select(
-                        ng-options="fund.id as fund.name for fund in $ctrl.funds" 
-                        ng-model="$ctrl.form.values.fund_id").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
-                    .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
-            .modal-section: .block.block-info
+            .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .form-group
+                label.form-label Nodig aanbieders uit van:
+                select(
+                    ng-options="fund.id as fund.name for fund in $ctrl.funds" 
+                    ng-model="$ctrl.form.values.fund_id").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
+                .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
+
+            .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .block.block-info
                 em.mdi.mdi-information.block-info-icon
                 | Deze functie nodigt alle aanbieders uit van het bovenstaande geselecteerde fonds.
                 | Uitnodigingen worden gelijk verstuurd na bevestiging.

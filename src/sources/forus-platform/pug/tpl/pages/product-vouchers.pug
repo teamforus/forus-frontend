@@ -5,12 +5,12 @@
         fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
 
         .card(ng-if="$ctrl.vouchers")
-            .card-header: .row
-                .col.col-lg-4.col-xs-12: .card-title
+            .card-header: .flex
+                .flex.flex-grow: .card-title
                     span(translate="product_vouchers.header.title") 
                     span(ng-bind="$ctrl.vouchers.meta.total").span-count
 
-                .block.block-inline-filters.col.col-lg-8.col-xs-12.text-right
+                .flex: .block.block-inline-filters
                     .button.button-primary(
                         ng-if="!$ctrl.fundClosed"
                         ng-click="$ctrl.createProductVoucher()"
@@ -51,6 +51,19 @@
                                     select(
                                         ng-options="state.value as state.name for state in $ctrl.voucher_states" 
                                         ng-model="$ctrl.filters.values.state").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'vouchers.labels.voucher_count_per_identity' | translate }}")
+                                    .row
+                                        .col.col-sm-6: input(
+                                            type="number" 
+                                            ng-model="$ctrl.filters.values.count_per_identity_min" 
+                                            placeholder="{{ 'transactions.labels.amount_min' | translate }}").form-control
+
+                                        .col.col-sm-6: input(
+                                            type="number" 
+                                            ng-model="$ctrl.filters.values.count_per_identity_max" 
+                                            placeholder="{{ 'transactions.labels.amount_max' | translate }}").form-control    
 
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.used' | translate }}")

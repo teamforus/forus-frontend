@@ -1,9 +1,11 @@
 const VoucherComponent = function(
     $sce,
     $state,
+    $rootScope,
     VoucherService,
     PrintableService,
-    ModalService
+    ModalService,
+    HelperService
 ) {
     const $ctrl = this;
 
@@ -49,12 +51,15 @@ const VoucherComponent = function(
             description: "Stuur de QR-code naar mijn e-mailadres",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
+                    const emailServiceUrl = HelperService.getEmailServiceProviderUrl($rootScope.auth_user.email);
+
                     ModalService.open('modalNotification', {
                         type: 'action-result',
                         class: 'modal-description-pad',
                         title: 'popup_auth.labels.voucher_email',
                         description: 'popup_auth.notifications.voucher_email',
-                        confirmBtnText: 'buttons.close'
+                        confirmBtnText: emailServiceUrl ? 'email_service_switch.confirm' : 'buttons.close',
+                        confirm: () => HelperService.openInNewTab(emailServiceUrl)
                     });
                 });
             }
@@ -147,9 +152,11 @@ module.exports = {
     controller: [
         '$sce',
         '$state',
+        '$rootScope',
         'VoucherService',
         'PrintableService',
         'ModalService',
+        'HelperService',
         VoucherComponent
     ],
     templateUrl: 'assets/tpl/pages/voucher.html'

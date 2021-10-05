@@ -82,12 +82,6 @@ let FundCardSponsorDirective = function(
         }
     };
 
-    $dir.goToEmployeePage = () => {
-        $state.go('employees', {
-            organization_id: $dir.fund.organization.id
-        });
-    }
-
     $dir.goToCSVValiationPage = () => {
         if ($dir.canAccessFund) {
             $state.go('csv-validation', {

@@ -8,7 +8,8 @@ let FundProviderInviteComponent = function(
     PushNotificationsService,
     FundProviderInvitationsService,
     OrganizationService,
-    ModalService
+    ModalService,
+    HelperService
 ) {
     let $ctrl = this;
     let timeout;
@@ -126,12 +127,15 @@ let FundProviderInviteComponent = function(
             IdentityService.makeAuthEmailToken(form.values.email).then(() => {
                 $ctrl.screen = 'sign_in-email-sent';
 
+                let emailServiceUrl = HelperService.getEmailServiceProviderUrl(form.values.email);
+
                 ModalService.open('modalNotification', {
                     type: 'action-result',
                     class: 'modal-description-pad modal-content',
                     title: 'popup_auth.labels.join',
                     description: 'popup_auth.notifications.link',
-                    confirmBtnText: 'popup_auth.buttons.confirm',
+                    confirmBtnText: emailServiceUrl ? 'email_service_switch.confirm' : 'popup_auth.buttons.confirm',
+                    confirm: () => HelperService.openInNewTab(emailServiceUrl)
                 });
 
                 $ctrl.showAuth = false;
@@ -161,6 +165,7 @@ module.exports = {
         'FundProviderInvitationsService',
         'OrganizationService',
         'ModalService',
+        'HelperService',
         FundProviderInviteComponent
     ],
     templateUrl: 'assets/tpl/pages/fund-provider-invite.html'

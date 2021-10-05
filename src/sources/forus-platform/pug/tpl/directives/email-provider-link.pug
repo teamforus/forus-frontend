@@ -1,0 +1,13 @@
+div(ng-show="emailServiceUrl")
+    button.button.button-primary.flex(
+        ng-if="!asText"
+        ng-click="onSwitchHandler()"
+        ng-class="'flex-' + alignDir"
+        translate="email_service_switch.confirm")
+
+    .button.button-text.button-text-padless.button-text-primary(
+        ng-if="asText"
+        ng-click="onSwitchHandler()"
+        ng-class="'flex-' + alignDir")
+        em.mdi.mdi-email.icon-start
+        span(translate="email_service_switch.confirm")

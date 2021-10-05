@@ -28,20 +28,26 @@ section.section.section-voucher-details: .wrapper
                                     ul.user_email-options(ng-if="email.primary")
                                         li.user_email-option Ontvangt inlog e-mail
                                         li.user_email-option Ontvangt notificaties
-                                
-                                    .button.button-text.button-text-padless.button-text-primary(
+
+                                    .flex-row: .button.button-text.button-text-primary(
                                         ng-disabled="email.disabled" 
                                         ng-if="!email.primary && email.verified" 
                                         ng-click="$ctrl.makePrimary(email)")
                                         em.mdi.mdi-check-circle.icon-start
                                         | Instellen als hoofd e-mailadres 
 
-                                    .button.button-text.button-text-padless.button-text-primary(
+                                    .flex-row: .button.button-text.button-text-primary(
                                         ng-disabled="email.disabled" 
                                         ng-if="!email.primary && !email.verified" 
                                         ng-click="$ctrl.resendVerification(email)")
                                         em.mdi.mdi-reload.icon-start
                                         | Bevestiging e-mail opnieuw versturen
+
+                                    .flex-row: email-provider-link(
+                                        type="text"
+                                        icon="open-in-new"
+                                        email="email.email"
+                                        ng-if="!email.primary && !email.verified")
 
                                     .text-danger(ng-in="email.error" ng-bind="email.error")
                                 .user_email-actions: .flex-row
