@@ -6164,6 +6164,19 @@ body {
                 padding: 30px 0 0;
             }
 
+            .modal-heading-icon {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                margin-bottom: 20px;
+
+                .mdi {
+                    font-size: 100px;
+                    display: flex;
+                    line-height: initial;
+                }
+            }
+
             .modal-heading {
                 font: 600 16px/26px $bf;
                 color: #282b39;
@@ -6590,7 +6603,7 @@ body {
 
     &.modal-sm {
         .modal-window {
-            width: 440px;
+            width: 480px;
         }
 
         .modal-footer {

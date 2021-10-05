@@ -76,16 +76,23 @@
                         em.mdi.mdi-alert-outline.icon-start
                         | Activeren
 
+                    //- make physical card request
+                    .button.button-default(
+                        ng-if="$ctrl.physicalCardsAvailable && !$ctrl.voucher.expired"
+                        ng-click="$ctrl.orderPhysicalCard()")
+                        em.mdi.mdi-card-text-outline.icon-start
+                        | Plastic pas bestellen 
+
                     //- attach physical card
                     .button.button-default(
-                        ng-if="!$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
+                        ng-if="$ctrl.physicalCardsAvailable && !$ctrl.voucher.physical_card"
                         ng-click="$ctrl.addPhysicalCard()")
                         em.mdi.mdi-ticket-account.icon-start 
                         span(translate="vouchers.buttons.physical_card_add")
 
                     //- remove physical card
                     .button.button-default(
-                        ng-if="$ctrl.voucher.physical_card && $ctrl.voucher.fund.type == 'subsidies' && $ctrl.voucher.state !== 'deactivated'"
+                        ng-if="$ctrl.physicalCardsAvailable && $ctrl.voucher.physical_card"
                         ng-click="$ctrl.deletePhysicalCard()")
                         em.mdi.mdi-ticket-account.icon-start 
                         span(translate="vouchers.buttons.physical_card_delete")
