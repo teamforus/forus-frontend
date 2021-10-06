@@ -66,13 +66,14 @@ let VouchersComponent = function(
             sort_order: 'desc',
         },
         values: {},
-        reset: function() {
+        reset: function(fund_start_date) {
             this.values = { ...this.defaultValues };
+            this.values.from = moment(fund_start_date).format('DD-MM-YYYY');
         }
     };
 
     $ctrl.resetFilters = () => {
-        $ctrl.filters.reset();
+        $ctrl.filters.reset($ctrl.fund.start_date);
     };
 
     $ctrl.hideFilters = () => {

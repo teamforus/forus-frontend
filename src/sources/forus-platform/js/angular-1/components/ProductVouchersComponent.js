@@ -57,7 +57,7 @@ let ProductVouchersComponent = function(
             to: null,
             state: null,
             in_use: null,
-            count_per_identity_min: 1,
+            count_per_identity_min: 0,
             count_per_identity_max: null,
             type: 'product_voucher',
             source: 'all',
@@ -65,13 +65,16 @@ let ProductVouchersComponent = function(
             sort_order: 'desc',
         },
         values: {},
-        reset: function() {
+        reset: function(fund_start_date) {
             this.values = { ...this.defaultValues };
+            this.values.from = moment(fund_start_date).format(
+                'DD-MM-YYYY'
+            );
         }
     };
 
     $ctrl.resetFilters = () => {
-        $ctrl.filters.reset();
+        $ctrl.filters.reset($ctrl.fund.start_date);
     };
 
     $ctrl.hideFilters = () => {
