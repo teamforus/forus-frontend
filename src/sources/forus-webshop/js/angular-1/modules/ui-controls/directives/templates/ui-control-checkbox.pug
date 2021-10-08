@@ -1,11 +1,17 @@
 .ui-control.ui-control-checkbox(ng-class="$dir.class")
     input(
         hidden
+        tabindex="-1"
         type="checkbox" 
         id="{{ $dir.id }}" 
         name="{{ $dir.name }}" 
         ng-change="$dir.onChange()"
         ng-model="ngModel").form-control
-    label(for="{{ $dir.id }}").ui-checkbox-label
+    label(
+        for="{{ $dir.id }}" 
+        role="checkbox"
+        tabindex="0"
+        aria-checked="{{ ngModel }}"
+        ng-click="$dir.simulateCheckboxClick($event, !ngModel)").ui-checkbox-label
         .ui-checkbox-box: .mdi.mdi-check
         | {{ $dir.label }}

@@ -1,5 +1,6 @@
 let UIControlCheckboxDirective = function(
-    $scope
+    $scope,
+    $timeout
 ) {
     let $dir = {
         id: $scope.id,
@@ -22,6 +23,19 @@ let UIControlCheckboxDirective = function(
         });
     }
 
+    $dir.simulateCheckboxClick = ($event, newValue) => {
+        $event.stopPropagation();
+
+        if (!$event.key || $scope.ngModel == newValue) {
+            return;
+        }
+
+        $timeout(() => {
+            $scope.ngModel = !$scope.ngModel;
+            $scope.ngChange();
+        }, 100);
+    };
+
     $scope.$dir = $dir;
 };
 
@@ -39,6 +53,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$timeout',
             UIControlCheckboxDirective
         ],
         template: require('./templates/ui-control-checkbox.pug')

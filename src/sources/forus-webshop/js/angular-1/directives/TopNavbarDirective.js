@@ -55,6 +55,10 @@ let TopNavbarDirective = function(
         $scope.$ctrl.prevOffsetY = currentOffsetY;
     };
 
+    $scope.stateGo = function(stateName) {
+        $state.go(stateName);
+    };
+
     window.addEventListener('scroll', $scope.updateScrolled);
 
     $scope.$on('$destroy', function() {

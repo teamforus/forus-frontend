@@ -8,6 +8,11 @@
         aria-label="invulveld").hidden-input
 
     .pincode-number(
+        role="textbox"
+        contenteditable="true"
+        placeholder="pincode digit (0-9)"
+        aria-required="true"
+        aria-valuenow="{{ code !== 'active' ? code : '_' }}"
         ng-repeat="code in chars track by $index" 
         ng-class=`{
             'pincode-number-divider': code=='split', 

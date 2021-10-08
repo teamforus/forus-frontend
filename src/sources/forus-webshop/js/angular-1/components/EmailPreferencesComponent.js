@@ -1,5 +1,6 @@
 let EmailPreferencesComponent = function(
     $state,
+    $timeout,
     AuthService,
     ModalService,
     EmailPreferencesService,
@@ -23,6 +24,16 @@ let EmailPreferencesComponent = function(
             $ctrl.email_unsubscribed = res.data.data.email_unsubscribed;
         });
     };
+
+    $ctrl.simulateToggleClick = ($event, type, newValue) => {
+        $event.stopPropagation();
+
+        if (type.subscribed == newValue) {
+            return;
+        }
+
+        $timeout(() => type.subscribed = !type.subscribed, 100);
+    }
 
     $ctrl.enableSubscription = () => {
         return toggleSubscription(false);
@@ -73,6 +84,7 @@ let EmailPreferencesComponent = function(
 module.exports = {
     controller: [
         '$state',
+        '$timeout',
         'AuthService',
         'ModalService',
         'EmailPreferencesService',

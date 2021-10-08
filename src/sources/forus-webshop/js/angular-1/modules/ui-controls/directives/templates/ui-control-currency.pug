@@ -9,4 +9,4 @@
         step="{{ $dir.step }}" 
         ng-change="$dir.onChange()"
         ng-model="ngModel").form-control
-    label(for="{{ $dir.id }}" ng-click="$dir.clear()").ui-control-clear: .mdi.mdi-close-circle
+    .ui-control-clear(ng-click="$dir.clear()"): .mdi.mdi-close-circle
