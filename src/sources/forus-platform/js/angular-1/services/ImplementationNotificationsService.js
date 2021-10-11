@@ -26,7 +26,7 @@ const ImplementationNotificationsService = function($sce, ApiRequest) {
         this.variablesMapLabels = () => require('../constants/notification_templates/variables_labels.json');
 
         this.isMailOnlyVariable = (variable) => {
-            const mailOnlyVars = ['qr_token'];
+            const mailOnlyVars = ['qr_token', 'email_logo', 'email_signature'];
             const mailOnlyVarEndings = ['_link', '_link_clarification', '_button'];
 
             return mailOnlyVars.includes(variable) ||
@@ -49,9 +49,18 @@ const ImplementationNotificationsService = function($sce, ApiRequest) {
             }, template.replace(/\\/g, ''));
         };
 
-        this.labelsToBlocks = (template) => {
+        this.labelsToBlocks = (template, implementation = null) => {
             const AwesomeQR = require('../libs/AwesomeQrCode');
             const qrCodeEl = document.createElement('img');
+            const { email_signature, email_signature_default } = implementation;
+            const { email_color, email_color_default } = implementation;
+            const { email_logo, email_logo_default } = implementation;
+
+            const logo = implementation ? (email_logo ? email_logo : email_logo_default) : null;
+            const color = implementation ? (email_color ? email_color : email_color_default) : null;
+            const signature = implementation ? (email_signature ? email_signature : email_signature_default) : null;
+
+            const logo_url = logo ? logo.sizes.large : null;
 
             AwesomeQR.create({
                 text: JSON.stringify({
@@ -67,17 +76,23 @@ const ImplementationNotificationsService = function($sce, ApiRequest) {
             });
 
             return template
-                .replaceAll("[webshop_button]", '<div class="text-center"><span class="mail_btn">Ga naar webshop</span></div>')
+                .replaceAll("[webshop_button]", [
+                    `<div class="text-center">`,
+                    `<span class="mail_btn" style="${color ? `background-color: ${color}` : ''};">Ga naar webshop</span>`,
+                    `</div>`,
+                ].join(""))
+                .replaceAll("[email_logo]", '<img style="width: 300px; display: block; margin: 0 auto;" src="' + logo_url + '"/>')
+                .replaceAll("[email_signature]", signature)
                 .replaceAll("[qr_code]", '<img class="mail_qr" src="' + qrCodeEl.src + '"/>');
         };
 
-        this.templatesToFront = (templates) => {
+        this.templatesToFront = (templates, implementation = null) => {
             return templates.map((template) => {
                 const title = this.varsToLabels(template.title);
                 const content = this.varsToLabels(template.content);
- 
+
                 const content_html = template.content_html ? this.varsToLabels(template.content_html) : null;
-                const content_html_sce = template.content_html ? this.labelsToBlocks(content_html) : null;
+                const content_html_sce = template.content_html ? this.labelsToBlocks(content_html, implementation) : null;
 
                 return { ...template, title, content, content_html, content_html_sce: $sce.trustAsHtml(content_html_sce) };
             })

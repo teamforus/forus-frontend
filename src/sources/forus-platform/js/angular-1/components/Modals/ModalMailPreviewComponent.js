@@ -5,7 +5,7 @@ const ModalMailPreviewComponent = function($sce) {
         const { title, content_html } = $ctrl.modal.scope;
 
         $ctrl.title = title;
-        $ctrl.content_html = content_html;
+        $ctrl.content_html = $sce.trustAsHtml(content_html);
     };
 };
 

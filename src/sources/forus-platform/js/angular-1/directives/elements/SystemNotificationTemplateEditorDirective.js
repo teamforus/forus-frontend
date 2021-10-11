@@ -133,7 +133,10 @@ const NotificationTemplateEditorDirective = function(
         handler: ($editor) => {
             ModalService.open('mailPreview', {
                 title: $dir.editForm.values.title,
-                content_html: ImplementationNotificationsService.labelsToBlocks($editor.summernote('code')),
+                content_html: ImplementationNotificationsService.labelsToBlocks(
+                    $editor.summernote('code'),
+                    $dir.implementation
+                ),
             });
         }
     }];

@@ -62,8 +62,8 @@ const NotificationEditor = function(
         const description = $translate('system_notifications.notifications.' + notification.key + '.description');
 
         const channels = notification.channels.reduce((obj, channel) => ({ ...obj, [channel]: true }), {});
-        const templatesLocal = keyBy(templatesToFront(notification.templates), 'type');
-        const templatesDefault = keyBy(templatesToFront(notification.templates_default), 'type');
+        const templatesLocal = keyBy(templatesToFront(notification.templates, $dir.implementation), 'type');
+        const templatesDefault = keyBy(templatesToFront(notification.templates_default, $dir.implementation), 'type');
 
         const templates = {
             mail: channels.mail ? templatesLocal.mail || templatesDefault.mail : null,

@@ -18,8 +18,6 @@ const ImplementationNotificationsComponent = function(
     const $ctrl = this;;
     const $translate = $filter('translate');
 
-    $ctrl.stylesForm = false;
-
     $ctrl.$onInit = () => {
         $ctrl.groupLabels = groupLabels
 
@@ -83,6 +81,11 @@ const ImplementationNotificationsComponent = function(
     $ctrl.selectImplementation = (implementation) => {
         $ctrl.implementation = implementation;
         $ctrl.notifications = [];
+
+        $ctrl.brandingParams = {
+            organization_id: $ctrl.organization.id,
+            implementation_id: $ctrl.implementation.id,
+        };
 
         ImplementationNotificationsService.list($ctrl.organization.id, $ctrl.implementation.id).then((res) => {
             const groupOrder = Object.keys($ctrl.groupLabels);

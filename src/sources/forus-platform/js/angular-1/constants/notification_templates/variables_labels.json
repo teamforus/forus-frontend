@@ -47,5 +47,7 @@
     "huisnummer_toevoeging": "Huisnummer toevoeging",
     "plaatsnaam": "Plaatsnaam",
     "woonadres": "Woonadres",
-    "tegoed_naam": "Tegoednaam"
+    "tegoed_naam": "Tegoednaam",
+    "email_logo": "Email logo",
+    "email_signature": "Email signature"
 }

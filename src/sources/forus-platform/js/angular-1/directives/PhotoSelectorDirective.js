@@ -1,4 +1,4 @@
-let PhotoSelectorDirective = function(
+const PhotoSelectorDirective = function(
     $timeout,
     $scope,
     $element,
@@ -48,7 +48,8 @@ let PhotoSelectorDirective = function(
     };
 
 
-    $scope.deleteFile = (e) => {
+    $scope.deleteFile = () => {
+        $scope.thumbnail = null;
         $scope.resetPhoto();
     }
 };
@@ -61,6 +62,7 @@ module.exports = () => {
             'resetPhoto': '&',
             'thumbnail': '=',
             'thumbnailSize': '=',
+            'media': '=',
             'label': '@',
             'disabled': '@',
             'descriptionTranslate': '@',

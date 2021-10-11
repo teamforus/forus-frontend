@@ -3,8 +3,16 @@
         img(ng-click="selectFile($event)" ng-src="{{ thumbnail || './assets/img/placeholders/photo-selector.svg' }}", alt="")
 
     .photo-details
-        .button.button-primary.button-sm(ng-click="selectFile($event)") Afbeelding uploaden
         .photo-selector-notifications-hint 
             | De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.
             br
             | Toegestaande formaten: JPG, PNG
+
+        .button-group
+            .button.button-primary.button-sm(ng-click="selectFile($event)")
+                mdi.icon-start.mdi.mdi-upload
+                | Afbeelding uploaden
+
+            .button.button-default.button-sm(ng-if="media" ng-click="deleteFile($event)")
+                mdi.icon-start.mdi.mdi-refresh
+                | Reset

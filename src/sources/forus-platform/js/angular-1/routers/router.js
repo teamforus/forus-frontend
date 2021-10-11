@@ -871,9 +871,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationNotificationsComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('implementation-manage', [
-                'manage_implementation', 'manage_implementation_cms'
-            ], false),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
             implementations: ['permission', '$transition$', 'ImplementationService', (
                 permission, $transition$, ImplementationService
             ) => repackPagination(ImplementationService.list(
@@ -881,7 +879,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ))],
         }
     });
-
 
     /**
      * Implementations
@@ -892,9 +889,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationNotificationsShowComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('implementation-manage', [
-                'manage_implementation', 'manage_implementation_cms'
-            ], false),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
             implementation: ['permission', '$transition$', 'ImplementationService', (
                 permission, $transition$, ImplementationService
             ) => repackResponse(ImplementationService.read(
@@ -907,6 +902,25 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$.params().organization_id,
                 $transition$.params().implementation_id,
                 $transition$.params().id
+            ))],
+        }
+    });
+
+    /**
+     * Notifications branding
+     */
+    $stateProvider.state({
+        name: "implementation-notifications-branding",
+        url: "/organizations/{organization_id}/implementations/{implementation_id}/notifications-branding",
+        component: "implementationNotificationsBrandingComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
+            implementation: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id
             ))],
         }
     });

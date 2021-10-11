@@ -14,16 +14,13 @@
             .flex.flex-grow.flex-vertical.flex-center: div
                 | Systeem berichten 
                 tooltip(text="'system_notifications.header.tooltip' | translate")
-            .flex: .button-group
-                .button.button-primary(ng-if="!$ctrl.stylesForm" ng-click="$ctrl.stylesForm = true") 
-                    em.mdi.mdi-pencil.icon-start
-                    | Edit branding styles
-                .button.button-primary(ng-if="$ctrl.stylesForm" ng-click="$ctrl.stylesForm = false")  
-                    em.mdi.mdi-format-list-bulleted.icon-start
-                    | Show notifications
+
+            .flex: .button-group: a(ui-sref="implementation-notifications-branding($ctrl.brandingParams)").button.button-primary
+                em.mdi.mdi-pencil.icon-start
+                | Edit branding styles
 
         //- Motifications list
-        .card.card-collapsed(ng-repeat="notificationGroup in $ctrl.notificationGroups" ng-if="!$ctrl.stylesForm")
+        .card.card-collapsed(ng-repeat="notificationGroup in $ctrl.notificationGroups")
             .card-header: .card-title(ng-bind="notificationGroup.groupLabel")
             .card-section
                 .card-block.card-block-table
@@ -60,29 +57,3 @@
                                         ui-sref="implementation-notifications-show(notification.srefData)")
                                         em.mdi.mdi-eye-outline.icon-start
                                         | Bekijken
-        
-
-        //- Branding form
-        .card.card-collapsed(ng-if="$ctrl.stylesForm")
-            .card-header: .card-title Branding and communication 
-            .card-section: .form
-                .form-group.form-group-inline.form-group-inline-md
-                    .form-label Signature
-                    .form-offset
-                        textarea.form-control
-                        .form-hint(
-                            translate="system_notifications.hints.maxlen" 
-                            translate-values="{attribute: 'beschrijving', size: 200}")
-
-                .form-group.form-group-inline.form-group-inline-md
-                    .form-label Logo
-                    .form-offset: photo-selector(
-                        template="photo-selector-notifications"
-                        type="organization_logo"
-                        thumbnail="$ctrl.media.sizes.thumbnail"
-                        description-translate="organization_edit.labels.photo_description"
-                        select-photo="$ctrl.selectPhoto(file)")
-
-                .form-group.form-group-inline.form-group-inline-md
-                    .form-label Kleur
-                    .form-offset: input(type="color")

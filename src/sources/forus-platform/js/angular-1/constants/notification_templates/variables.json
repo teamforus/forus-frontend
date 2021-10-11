@@ -47,5 +47,7 @@
     "house_addition": "huisnummer_toevoeging",
     "city": "plaatsnaam",
     "address": "woonadres",
-    "voucher_product_or_fund_name": "tegoed_naam"
+    "voucher_product_or_fund_name": "tegoed_naam",
+    "email_logo": "email_logo",
+    "email_signature": "email_signature"
 }

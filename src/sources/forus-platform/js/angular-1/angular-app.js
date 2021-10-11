@@ -60,6 +60,7 @@ app.component('implementationCmsEditComponent', require('./components/Implementa
 app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
 app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
 app.component('implementationNotificationsComponent', require('./components/ImplementationNotificationsComponent'));
+app.component('implementationNotificationsBrandingComponent', require('./components/ImplementationNotificationsBrandingComponent'));
 app.component('implementationNotificationsShowComponent', require('./components/ImplementationNotificationsShowComponent'));
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 

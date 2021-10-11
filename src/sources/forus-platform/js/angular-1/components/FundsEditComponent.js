@@ -1,4 +1,4 @@
-let FundsEditComponent = function(
+const FundsEditComponent = function(
     $state,
     $scope,
     $timeout,
@@ -9,7 +9,7 @@ let FundsEditComponent = function(
     FormBuilderService,
     MediaService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
     let mediaFile = false;
 
     $ctrl.products = [];

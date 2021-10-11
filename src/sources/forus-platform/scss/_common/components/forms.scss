@@ -190,7 +190,18 @@
         }
     }
 
-    textarea.form-control:not([type='radio']):not([type='checkbox']) {
+    .form-control[type=color]:not([type='radio']):not([type='checkbox']) {
+        width: 36px;
+        height: 36px;
+        padding: 4px;
+
+        &::-webkit-color-swatch-wrapper {
+            padding: 0;
+            border-radius: inherit;
+        }
+    }
+
+    textarea.form-control:not([type='radio']):not([type='checkbox']):not([type='color']) {
         padding: 6px 10px;
         min-height: 90px;
         height: auto;
