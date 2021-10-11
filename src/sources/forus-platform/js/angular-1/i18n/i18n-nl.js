@@ -42,6 +42,9 @@ module.exports = {
         financial: 'Financieel',
         personal: 'Persoonlijk',
     },
+    email_service_switch: {
+        confirm: 'Breng me naar mijn e-mail'
+    },
     // MODALS
     modals: {
         modal_voucher_create: require('./nl/modals/modal-voucher-create.pug.i18n'),
@@ -55,9 +58,12 @@ module.exports = {
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
         modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
+        modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
-            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application')
+            remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
+            archive_fund: require('./nl/modals/danger-zone/archive-fund'),
+            restore_fund: require('./nl/modals/danger-zone/restore-fund')
         },
     },
     // PAGES

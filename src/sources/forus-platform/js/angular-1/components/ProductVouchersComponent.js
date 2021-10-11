@@ -57,19 +57,24 @@ let ProductVouchersComponent = function(
             to: null,
             state: null,
             in_use: null,
+            count_per_identity_min: 0,
+            count_per_identity_max: null,
             type: 'product_voucher',
             source: 'all',
             sort_by: 'created_at',
             sort_order: 'desc',
         },
         values: {},
-        reset: function() {
+        reset: function(fund_start_date) {
             this.values = { ...this.defaultValues };
+            this.values.from = moment(fund_start_date).format(
+                'DD-MM-YYYY'
+            );
         }
     };
 
     $ctrl.resetFilters = () => {
-        $ctrl.filters.reset();
+        $ctrl.filters.reset($ctrl.fund.start_date);
     };
 
     $ctrl.hideFilters = () => {
@@ -156,7 +161,7 @@ let ProductVouchersComponent = function(
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesData($ctrl.organization.id, {
                 ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                    export_type: 'png', 
+                    export_type: 'png',
                     export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
                 }
             }).then(res => resolve(

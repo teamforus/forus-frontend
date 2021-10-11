@@ -211,8 +211,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "organization-funds",
-        url: "/organizations/{organization_id}/funds",
+        url: "/organizations/{organization_id}/funds?funds_type",
         component: "organizationFundsComponent",
+        params: {
+            funds_type: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-funds', [
@@ -221,7 +227,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => repackResponse(FundService.list(
-                $transition$.params().organization_id
+                $transition$.params().organization_id, {
+                    with_archived: 1
+                }
             ))],
             fundLevel: [('permission'), (permission) => "organizationFunds"],
             recordTypes: ['permission', 'RecordTypeService', (
@@ -291,11 +299,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundService.list($transition$.params().organization_id, {
                 per_page: 100
             }))],
-            providerOrganizations: ['permission', 'OrganizationService', '$transition$', (
-                permission, OrganizationService, $transition$
-            ) => permission ? repackPagination(OrganizationService.providerOrganizations(
-                $transition$.params().organization_id
-            )) : permission],
         }
     });
 

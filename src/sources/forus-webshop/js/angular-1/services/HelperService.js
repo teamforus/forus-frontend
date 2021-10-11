@@ -31,6 +31,23 @@ let HelperService = function($q) {
                 }, reject);
             });
         };
+
+        this.openInNewTab = (url) => {
+            return url ? window.open(url, '_blank').focus() : null;
+        };
+
+        this.getEmailServiceProviderUrl = (email) => {
+            const host = email ? email.split("@").splice(-1)[0] : '';
+            const provider = typeof host === 'string' ? host.toLocaleLowerCase().trim() : null;
+
+            const providersList = [
+                'aol.com', 'fastmail.com', 'googlemail.com', 'gmail.com', 'gmx.net',
+                'gmx.de', 'hotmail.com', 'icloud.com', 'inbox.com', 'mail.com', 'mail.ru',
+                'me.com', 'outlook.com', 'protonmail.com', 'yahoo.com', 'yandex.ru'
+            ];
+
+            return provider && providersList.includes(provider) ? ('https://' + provider) : null;
+        };
     });
 };
 

@@ -2,27 +2,32 @@
     menu
     section.app.app-content
         //- Heading
-        .card-heading: .row
+        .card-heading: .flex.form
             //- Title
-            .col.col-lg-6.col-xs-12
+            .flex.flex-grow
                 span(translate="organization_providers.header.title")
                 span(ng-bind="$ctrl.providerOrganizations.meta.total").span-count
-            
+
             //- Filters
-            .block.block-inline-filters.col.col-lg-6.col-xs-12
+            .flex.block.block-inline-filters
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                     em.mdi.mdi-close.icon-start
                     span(i18n="Wis filters")
 
-                .button.button-default(ng-if="!$ctrl.extendedView" ng-click="$ctrl.setExtendedView(true)")
+                .button.button-primary(ng-if="!$ctrl.extendedView" ng-click="$ctrl.setExtendedView(true)")
                     em.mdi.mdi-arrow-expand-vertical.icon-start
                     | Alles uitklappen
 
-                .button.button-default(ng-if="$ctrl.extendedView" ng-click="$ctrl.setExtendedView(false)")
+                .button.button-primary(ng-if="$ctrl.extendedView" ng-click="$ctrl.setExtendedView(false)")
                     em.mdi.mdi-arrow-collapse-vertical.icon-start
                     | Alles inklappen
                 
                 .form(ng-if="!$ctrl.filters.show")
+                    .form-group: select(
+                        id="orderBy"
+                        ng-model="$ctrl.filters.values.order_by" 
+                        ng-options="sortField.value as sortField.name for sortField in $ctrl.orderByOptions").form-control.form-control-text
+
                     .form-group.inline-filters-search
                         input(ng-model="$ctrl.filters.values.q" placeholder="{{ 'search' | i18n }}").form-control
 

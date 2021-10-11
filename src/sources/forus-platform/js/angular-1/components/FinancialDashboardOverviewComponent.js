@@ -1,4 +1,4 @@
-let FinancialDashboardOverviewComponent = function(
+const FinancialDashboardOverviewComponent = function(
     appConfigs,
     FundService,
     ModalService,
