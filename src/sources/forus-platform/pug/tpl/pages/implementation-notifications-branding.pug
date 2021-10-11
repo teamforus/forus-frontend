@@ -26,29 +26,35 @@
             .card-section: .form
                 .form-group.form-group-inline.form-group-inline-md
                     .form-label Logo
-                    .form-offset: photo-selector(
-                        template="photo-selector-notifications"
-                        type="email_logo"
-                        media="$ctrl.logoMedia || $ctrl.mediaFile"
-                        thumbnail="$ctrl.thumbnailMedia.sizes.thumbnail"
-                        description-translate="organization_edit.labels.photo_description"
-                        reset-photo="$ctrl.resetPhoto()"
-                        select-photo="$ctrl.selectPhoto(file)")
+                    .form-offset
+                        photo-selector(
+                            template="photo-selector-notifications"
+                            type="email_logo"
+                            media="$ctrl.logoMedia || $ctrl.mediaFile"
+                            thumbnail="$ctrl.thumbnailMedia.sizes.thumbnail"
+                            description-translate="organization_edit.labels.photo_description"
+                            reset-photo="$ctrl.resetPhoto()"
+                            select-photo="$ctrl.selectPhoto(file)")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.email_logo_uid" ng-bind="error")
 
                 .form-group.form-group-inline.form-group-inline-md
                     .form-label Handtekening
                     .form-offset
                         textarea(
                             ng-model="$ctrl.form.values.email_signature"
-                            placeholder="{{ $ctrl.defaultSignature }}").form-control
+                            placeholder="{{ $ctrl.defaultSignature ? $ctrl.defaultSignature : 'Handtekening' }}").form-control
 
                         .form-hint(
                             translate="system_notifications.hints.maxlen" 
                             translate-values="{attribute: 'handtekening', size: 4096}")
 
+                        .form-error(ng-repeat="error in $ctrl.form.errors.email_signature" ng-bind="error")
+
                 .form-group.form-group-inline.form-group-inline-md
                     .form-label Kleur
-                    .form-offset: input(ng-model="$ctrl.form.values.email_color" type="color").form-control
+                    .form-offset
+                        input(ng-model="$ctrl.form.values.email_color" type="color").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.email_color" ng-bind="error")
 
             .card-section: .button-group.flex-center
                 button(type="submit").button.button-primary Opslaan

@@ -53,17 +53,21 @@ const ImplementationNotificationsBrandingComponent = function(
             email_signature: email_signature ? email_signature : ''
         }, (form) => {
             $ctrl.storeMedia($ctrl.mediaFile).then((media) => {
-                ImplementationService.updateEmailBranding(
-                    $ctrl.organization.id,
-                    $ctrl.implementation.id,
-                    { ...form.values, ...(media ? { email_logo_uid: media.uid } : {}) }
-                ).then(() => {
+                const values = form.values;
+                const email_color = values.email_color ? values.email_color.toUpperCase().trim() : null;
+                const email_signature = values.email_signature ? values.email_signature.trim() : null;
+
+                ImplementationService.updateEmailBranding($ctrl.organization.id, $ctrl.implementation.id, {
+                    email_color: email_color && email_color != email_color_default ? email_color : null,
+                    email_signature: email_signature && email_signature != email_signature_default ? email_signature : null,
+                    ...(media ? { email_logo_uid: media.uid } : {})
+                }).then(() => {
                     PushNotificationsService.success('Success!', 'Email notifications branding updated!');
                     $state.go('implementation-notifications', {
                         organization_id: $ctrl.organization.id,
                     });
                 }, (res) => {
-                    PushNotificationsService.success('Error!', 'Please fix validation errors and try again!');
+                    PushNotificationsService.danger('Error!', 'Please fix validation errors and try again!');
                     form.errors = res.data.errors;
                     form.unlock();
                 });

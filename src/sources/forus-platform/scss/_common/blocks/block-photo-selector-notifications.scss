@@ -9,8 +9,10 @@
 
         img {
             display: flex;
-            max-height: 200px;
-            max-width: 400px;
+            max-height: 100px;
+            max-width: 100px;
+            width: 100px;
+            height: 100px;
             border-radius: $border_radius;
             border: 1px solid $border_color;
         }
