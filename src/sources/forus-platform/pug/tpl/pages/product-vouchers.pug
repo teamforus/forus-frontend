@@ -159,7 +159,7 @@
                                     .tooltip-content(ng-if="voucher.showTooltip" click-outside="$ctrl.hideTooltip($event, voucher)")
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
 
-                                td(ng-if="!$ctrl.fundClosed")
+                                td
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[0]").text-primary
                                     br
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
@@ -177,11 +177,11 @@
 
                                 //- voucher state
                                 td
-                                    .td-boolean.pull-right(ng-if="voucher.expired")
+                                    .td-boolean(ng-if="voucher.expired")
                                         em.mdi.mdi-close
                                         span.text-md.text-muted-dark Verlopen               
 
-                                    .td-boolean.pull-right(ng-if="!voucher.expired")
+                                    .td-boolean(ng-if="!voucher.expired")
                                         em(ng-if="voucher.state === 'active'").mdi.mdi-check-circle
                                         em(ng-if="voucher.state === 'pending' || voucher.state === 'deactivated'").mdi.mdi-close
                                         span.block.block-tooltip-details.block-tooltip-hover.text-md.text-muted-dark
