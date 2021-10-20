@@ -99,6 +99,7 @@ app.component('modalTransferOrganizationOwnershipComponent', require('./componen
 app.component('modalVoucherDeactivationComponent', require('./components/Modals/ModalVoucherDeactivationComponent'));
 app.component('modalVoucherActivationComponent', require('./components/Modals/ModalVoucherActivationComponent'));
 app.component('modalPhysicalCardOrderComponent', require('./components/Modals/ModalPhysicalCardOrderComponent'));
+app.component('modalReservationNotesComponent', require('./components/Modals/ModalReservationNotesComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));

@@ -1,0 +1,27 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window
+        .modal-header.text-center
+            span Bericht bij reservering
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+
+        .modal-body: .modal-section.text-center
+            .modal-text
+                b Van:
+                div(ng-bind="$ctrl.reservation.identity_email")
+
+            .modal-text
+                b Gegevens:
+                br
+                
+                span Voornaam: {{ $ctrl.reservation.first_name || 'Geen' }}, 
+                span Achternaam: {{ $ctrl.reservation.last_name || 'Geen' }}  
+
+            .modal-text
+                b Opmerking:
+                div {{ $ctrl.reservation.user_note || 'Geen' }}
+
+        .modal-footer
+            button.button.button-dark(ng-click="$ctrl.close()") Sluit

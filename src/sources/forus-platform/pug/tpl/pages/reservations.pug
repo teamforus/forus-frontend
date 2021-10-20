@@ -121,6 +121,10 @@
                                 ui-sref="transaction({organization_id: $ctrl.organization.id, address: reservation.voucher_transaction.address})")
                                 em.mdi.mdi-eye-outline
 
+                            button.button.button-sm.button-default.button-icon(
+                                ng-click="$ctrl.viewNotes(reservation)")
+                                em.mdi.mdi-message-text
+
             .card-section(ng-if="$ctrl.reservations.meta.total == 0")
                 .card-subtitle.text-center Geen reserveringen.
 
