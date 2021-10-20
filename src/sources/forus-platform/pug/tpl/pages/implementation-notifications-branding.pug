@@ -13,16 +13,16 @@
         //- Title
         .card-heading: .flex.flex-horizontal
             .flex.flex-grow.flex-vertical.flex-center: div
-                | Mail notifications branding  
+                | Handtekening en huisstijl  
                 tooltip(text="'system_notifications.header.tooltip' | translate")
 
             .flex: .button-group: a(ui-sref="implementation-notifications({organization_id: $ctrl.organization.id})").button.button-text
                 em.mdi.mdi-chevron-left.icon-start
-                | Back
+                | Terug
 
         //- Branding form
         .card.card-collapsed: form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title Branding and communication 
+            .card-header: .card-title Huisstijl
             .card-section: .form
                 .form-group.form-group-inline.form-group-inline-md
                     .form-label Logo

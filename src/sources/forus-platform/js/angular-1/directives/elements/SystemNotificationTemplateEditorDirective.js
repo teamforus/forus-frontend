@@ -165,8 +165,8 @@ const NotificationTemplateEditorDirective = function(
         };
 
         const disabledNotes = {
-            enable: `${header.title} zijn nu ingeschakeld.`,
-            disabled: `${header.title} zijn nu uitgeschakeld.`,
+            enable: `${header.title} staat nu aan.`,
+            disabled: `${header.title} staat nu uit.`,
         };
 
         const variables = $dir.notification.variables.map((variable) => {

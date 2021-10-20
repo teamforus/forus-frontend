@@ -12,9 +12,9 @@ const NotificationEditor = function(
     const { notificationHasDisabledChannels, notificationToStateLabel } = ImplementationNotificationsService;
 
     const notificationToggleLabel = {
-        disabled: `Alle meldingen zijn uitgeschakeld`,
-        enabled_all: 'Alle meldingen zijn nu ingeschakeld.',
-        enabled_partial: 'Meldingen ingeschakeld, maar sommige kanalen zijn afzonderlijk uitgeschakeld.',
+        disabled: `Uitgezet, alle kanalen zijn uitgezet.`,
+        enabled_all: 'Aangezet, alle kanalen zijn aangezet.',
+        enabled_partial: 'Aangezet, sommige kanalen staan afzonderlijk uit.',
     };
 
     const notificationStateLabel = ImplementationNotificationsService.notificationStateLabel();

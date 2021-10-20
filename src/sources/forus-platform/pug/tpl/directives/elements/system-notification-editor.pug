@@ -15,13 +15,13 @@
         .card-section(ng-class="$dir.notification.enable_all ? '' : 'card-section-danger'")
             .card-block.card-block-keyvalue
                 .keyvalue-item
-                    .keyvalue-key.text-right: .text-strong Toestand
+                    .keyvalue-key.text-right: .text-strong Status
                     .keyvalue-value: .transition-background.label.label-round(
                         ng-bind="$dir.state.stateLabel"
                         ng-class="{active: 'label-success', inactive: 'label-danger', active_partly: 'label-warning'}[$dir.state.state]")
 
                 .keyvalue-item
-                    .keyvalue-key.text-right: .text-strong Moment van versturen
+                    .keyvalue-key.text-right: .text-strong Beschrijving
                     .keyvalue-value(ng-bind="$dir.notification.description")
 
                 .keyvalue-item

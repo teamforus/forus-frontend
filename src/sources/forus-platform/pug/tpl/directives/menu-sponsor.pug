@@ -93,7 +93,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             '$root.activeOrganization | hasPerm:["manage_implementation", "manage_implementation_cms"]:false')
         
         +nav_item(
-            "Systeem berichten", "system_notifications", 'implementation-notifications', 
+            "Systeemberichten", "system_notifications", 'implementation-notifications', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["manage_implementation_cms"]:false')
 

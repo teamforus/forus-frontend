@@ -19,7 +19,7 @@
         .flex.flex-pad.flex-end(ng-if="$dir.editForm")
             button(ng-click="$dir.resetToDefault()").button.button-danger.button-sm.button-flat
                 em.mdi.mdi-refresh.icon-start
-                | Resert to default
+                | Opnieuw instellen
 
     //- The details
     .card-section(ng-class="($dir.enable && $dir.enable_all) ? '' : 'card-section-danger'"): form(ng-submit="$dir.editForm.submit()")
@@ -28,7 +28,7 @@
             //- Edit template
             button(type="button" ng-if="!$dir.editForm" ng-click="$dir.editTemplate()").button.button-primary.button-sm.button-flat
                 em.mdi.mdi-pencil-outline.icon-start
-                | Bewerking
+                | Bewerken
 
         //- Template title
         .form-group
@@ -127,5 +127,5 @@
 
         .form-group(ng-if="$dir.editForm")
             .button-group.flex-center
-                button.button.button-primary(type="submit") Save
-                button.button.button-default(type="button" ng-click="$dir.cancelTemplateEdit()") Cancel
+                button.button.button-primary(type="submit") Opslaan
+                button.button.button-default(type="button" ng-click="$dir.cancelTemplateEdit()") Annuleren

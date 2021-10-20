@@ -1,7 +1,7 @@
 {
     "header": {
-        "title": "Systeem e-mails per webshop",
-        "tooltip": "Het platform verstuurt automatische berichten naar gebruikers. Dit gebeurt via e-mails, webshop meldingen en pushberichten via de app."
+        "title": "Systeemberichten per webshop",
+        "tooltip": "Het platform verstuurt automatische berichten naar gebruikers. Dit gebeurt via e-mailberichten, pushberichten via de app en standaardberichten in webshop/beheeromgeving."
     },
     "notifications": {
         "notifications_identities.added_employee": {
@@ -186,15 +186,15 @@
         },
         "notifications_identities.product_voucher_expired": {
             "title": "Aanbod tegoed verlopen",
-            "description": "Wordt verstuurd naar de aanvrager "
+            "description": "Wordt verstuurd naar de aanvrager wanneer zijn/haar aanbod tegoed is verlopen."
         },
         "notifications_identities.voucher_expire_soon_budget": {
             "title": "Financieel tegoed verloopt binnenkort",
-            "description": "Wordt verstuurd naar de aanvrager "
+            "description": "Wordt verstuurd naar de aanvrager wanneer zijn financieel tegoed bijna verloopt."
         },
         "notifications_identities.voucher_expire_soon_product": {
             "title": "Aanbod tegoed verloopt binnenkort",
-            "description": "Wordt verstuurd naar de aanvrager "
+            "description": "Wordt verstuurd naar de aanvrager wanneer zijn aanbod tegoed bijna verloopt."
         },
         "notifications_identities.voucher_physical_card_requested": {
             "title": "Fysieke pas besteld",
@@ -224,21 +224,21 @@
     "types": {
         "mail": {
             "icon": "email-outline",
-            "title": "E-mailmelding"
+            "title": "E-mailbericht"
         },
         "push": {
             "icon": "bell-ring-outline",
-            "title": "Push notificatie"
+            "title": "Pushbericht"
         },
         "database": {
             "icon": "message-alert-outline",
-            "title": "Melding ter plaatse"
+            "title": "Standaardbericht"
         }
     },
     "tooltips": {
         "channel_not_available": "Niet beschikbaar",
         "disabled_by_you": "Door jou uitgeschakeld",
-        "enabled_edited": "Door jou gewijzigde meldingstekst",
+        "enabled_edited": "Door jou gewijzigde tekst",
         "enabled_default": "Ingeschakeld met standaardtekst"
     },
     "hints": {
