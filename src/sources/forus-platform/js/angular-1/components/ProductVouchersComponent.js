@@ -65,16 +65,13 @@ let ProductVouchersComponent = function(
             sort_order: 'desc',
         },
         values: {},
-        reset: function(fund_start_date) {
+        reset: function() {
             this.values = { ...this.defaultValues };
-            this.values.from = moment(fund_start_date).format(
-                'DD-MM-YYYY'
-            );
         }
     };
 
     $ctrl.resetFilters = () => {
-        $ctrl.filters.reset($ctrl.fund.start_date);
+        $ctrl.filters.reset();
     };
 
     $ctrl.hideFilters = () => {
