@@ -35,16 +35,18 @@ const ImplementationNotificationsService = function($sce, ApiRequest) {
 
         this.varsToLabels = (template) => {
             const vars = this.variablesMap();
+            const varsKeys = Object.keys(vars).sort((a, b) => b.length - a.length);
 
-            return Object.keys(vars).reduce((template, key) => {
+            return varsKeys.reduce((template, key) => {
                 return template.replaceAll(":" + key, "[" + vars[key] + "]");
             }, template);
         };
 
         this.labelsToVars = (template) => {
             const vars = this.variablesMap();
+            const varsKeys = Object.keys(vars).sort((a, b) => b.length - a.length);
 
-            return Object.keys(vars).reduce((template, key) => {
+            return varsKeys.reduce((template, key) => {
                 return template.replaceAll("[" + vars[key] + "]", ":" + key);
             }, template.replace(/\\/g, ''));
         };
