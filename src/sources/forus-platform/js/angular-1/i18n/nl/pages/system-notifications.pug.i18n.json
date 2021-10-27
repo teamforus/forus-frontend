@@ -17,32 +17,32 @@
             "description": "Wordt verstuurd naar de medewerker wanneer hij verwijderd wordt van een organisatie."
         },
         "notifications_fund_providers.approved_budget": {
-            "title": "Aanbieder geaccepteerd voor budget scannen",
-            "description": "Wordt verstuurd naar de organisatie wanneer deze geaccepteerd wordt voor budget scannen."
+            "title": "Aanbieder goedgekeurd voor het scannen van een financieel-tegoed",
+            "description": "Aanbieders ontvangen dit bericht wanneer ze door de sponsor zijn goedgekeurd voor het scannen van een financieel-tegoed."
         },
         "notifications_fund_providers.approved_products": {
-            "title": "Aanbieder geaccepteerd voor aanbiedingen",
-            "description": "Wordt verstuurd naar de organisatie wanneer deze geaccepteerd wordt al zijn aanbod."
+            "title": "Aanbieder geaccepteerd voor het aanbieden van alle aanbiedingen",
+            "description": "Aanbieders ontvangen dit bericht wanneer ze door de sponsor zijn goedgekeurd voor het aanbieden van al hun aanbod."
         },
         "notifications_fund_providers.revoked_budget": {
-            "title": "Aanbieder geweigerd voor budget scannen",
-            "description": "Wordt verstuurd naar de organisatie wanneer deze geweigerd wordt voor budget scannen."
+            "title": "Aanbieder geweigerd voor het scannen van een financieel-tegoed",
+            "description": "Aanbieders ontvangen dit bericht wanneer de sponsor ze weigert voor het scannen van een financieel-tegoed."
         },
         "notifications_fund_providers.revoked_products": {
-            "title": "Aanbieder geweigerd voor aanbiedingen",
-            "description": "Wordt verstuurd naar de organisatie wanneer deze geweigerd wordt al zijn aanbod."
+            "title": "Aanbieder geweigerd voor het aanbieden van alle aanbiedingen",
+            "description": "Aanbieders ontvangen dit bericht wanneer de sponsor al hun aanbod weigert."
         },
         "notifications_fund_providers.sponsor_message": {
-            "title": "Aanbieder nieuw chatbericht van sponsor",
-            "description": "Wordt verstuurd wanneer sponsor een bericht stuurt naar aanbieder"
+            "title": "Aanbieder heeft een nieuw chatbericht ontvangen van sponsor",
+            "description": "Aanbieders ontvangen dit bericht wanneer de sponsor ze een chatbericht stuurt."
         },
         "notifications_identities.requester_provider_approved_budget": {
-            "title": "Aanbieder goedgekeurd voor budget scannen",
-            "description": "Wordt verstuurd naar aanvrager wanneer aanbieder wordt geaccepteerd voor budget scannen."
+            "title": "Aanbieder goedgekeurd voor het scannen van financiële tegoeden.",
+            "description": "Aanvragers ontvangen dit bericht wanneer een aanbieder wordt goedgekeurd om hun financiële tegoeden te mogen scannen."
         },
         "notifications_identities.requester_provider_approved_products": {
-            "title": "Aanbieder geaccepteerd voor aanbiedingen",
-            "description": "Wordt verstuurd naar de aanvrager wanneer aanbieder wordt geaccepteerd voor al zijn aanbod."
+            "title": "Aanbieder goedgekeurd voor aanbiedingen",
+            "description": "Aanvragers ontvangen dit bericht wanneer het aanbod van een aanbieder wordt toegevoegd aan een fonds."
         },
         "notifications_fund_requests.created_validator_employee": {
             "title": "Nieuwe aanvraag is binnen gekomen",
