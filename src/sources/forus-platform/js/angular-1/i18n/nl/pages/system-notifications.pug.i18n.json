@@ -1,7 +1,7 @@
 {
     "header": {
         "title": "Systeemberichten per webshop",
-        "tooltip": "Het platform verstuurt automatische berichten naar gebruikers. Dit gebeurt via e-mailberichten, pushberichten via de app en standaardberichten in webshop/beheeromgeving."
+        "tooltip": "Het platform verstuurt automatische berichten naar gebruikers. Dit gebeurt via e-mailberichten, pushberichten via de app en webberichten in webshop/beheeromgeving."
     },
     "notifications": {
         "notifications_identities.added_employee": {
@@ -227,12 +227,12 @@
             "title": "E-mailbericht"
         },
         "push": {
-            "icon": "bell-ring-outline",
+            "icon": "cellphone",
             "title": "Pushbericht"
         },
         "database": {
-            "icon": "message-alert-outline",
-            "title": "Standaardbericht"
+            "icon": "bell-ring-outline",
+            "title": "Webbericht"
         }
     },
     "tooltips": {
@@ -242,7 +242,7 @@
         "enabled_default": "Ingeschakeld met standaardtekst"
     },
     "hints": {
-        "maxlen": "{{ attribute }} moet {{ size }} karakters lang zijn."
+        "maxlen": "{{ attribute }} mag maximaal {{ size }} karakters lang zijn."
     },
     "labels": {
         "state": "Status"

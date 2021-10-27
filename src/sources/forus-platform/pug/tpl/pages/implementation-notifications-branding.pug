@@ -23,9 +23,9 @@
         //- Branding form
         .card.card-collapsed: form(ng-submit="$ctrl.form.submit()").form
             .card-header: .card-title Huisstijl
-            .card-section: .form
+            .card-section: .row: .col.col-lg-9.col-lg-12: .form
                 .form-group.form-group-inline.form-group-inline-md
-                    .form-label Logo
+                    label.form-label Logo
                     .form-offset
                         photo-selector(
                             template="photo-selector-notifications"
@@ -38,7 +38,14 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.email_logo_uid" ng-bind="error")
 
                 .form-group.form-group-inline.form-group-inline-md
-                    .form-label Handtekening
+                    label.form-label Kleur van de elementen
+                    .form-offset
+                        input(ng-model="$ctrl.form.values.email_color" type="color").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.email_color" ng-bind="error")
+                        tooltip(text="'Kleur van knoppen en links in de e-mailberichten.'")
+
+                .form-group.form-group-inline.form-group-inline-md
+                    label.form-label Handtekening
                     .form-offset
                         textarea(
                             ng-model="$ctrl.form.values.email_signature"
@@ -49,13 +56,6 @@
                             translate-values="{attribute: 'handtekening', size: 4096}")
 
                         .form-error(ng-repeat="error in $ctrl.form.errors.email_signature" ng-bind="error")
-
-                .form-group.form-group-inline.form-group-inline-md
-                    .form-label Kleur
-                    .form-offset
-                        input(ng-model="$ctrl.form.values.email_color" type="color").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.email_color" ng-bind="error")
-
             .card-section: .button-group.flex-center
                 button(type="submit").button.button-primary Opslaan
                 a(ui-sref="implementation-notifications({organization_id: $ctrl.organization.id})").button.button-default Annuleren

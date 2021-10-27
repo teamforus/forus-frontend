@@ -45,14 +45,14 @@ const ImplementationNotificationsComponent = function(
     $ctrl.notificationIcon = (notification, type) => {
         const iconOff = {
             mail: 'email-off-outline',
-            push: 'bell-off-outline',
-            database: 'message-off-outline',
+            push: 'cellphone-off',
+            database: 'bell-off-outline',
         }[type];
 
         const iconsOn = {
             mail: 'email',
-            push: 'bell',
-            database: 'message-alert',
+            push: 'cellphone',
+            database: 'bell',
         }[type];
 
         if (!notification.channels.includes(type) || !notification.enable_all || !notification['enable_' + type]) {

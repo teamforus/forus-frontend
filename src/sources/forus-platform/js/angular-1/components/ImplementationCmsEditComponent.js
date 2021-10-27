@@ -179,14 +179,14 @@ const ImplementationCmsEditComponent = function(
 
             if ($ctrl.initialCommunicationType != form.values.informal_communication) {
                 return ModalService.open("dangerZone", {
-                    title: "Changing type changed!",
+                    title: "Aanspreekvorm veranderd!",
                     description_text: [
-                        `You changed the communication type for the '${$ctrl.implementation.name}' implementation.\n`,
-                        `Formal and informal communication types uses separate notifications templates, and`,
-                        `if you changed the default notifications texts provided by Forus, you will have to apply the same changes again.`
+                        `U heeft de aanspreekvorm veranderd voor '${$ctrl.implementation.name}' webshop.\n`,
+                        `Formele en informele aanspreekvormen gebruiken verschillende templates voor berichten,`,
+                        `hierdoor zullen al uw aangepaste systeemberichten ingesteld worden naar de door u gekozen aanspreekvorm.`
                     ].join(''),
-                    cancelButton: "Cancel",
-                    confirmButton: "Confirm",
+                    cancelButton: "Annuleren",
+                    confirmButton: "Bevestigen",
                     text_align: "center",
                     onConfirm: () => submit(),
                     onCancel: () => form.unlock(),
