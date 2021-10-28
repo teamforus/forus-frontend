@@ -145,80 +145,80 @@
             "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer zijn aanbod is uitverkocht."
         },
         "notifications_identities.product_voucher_shared": {
-            "title": "Reservering gedeeld met aanbieder",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij dit zelf aangeeft een kopie van het bericht te willen ontvangen"
+            "title": "Reservering en eventueel bericht gedeeld met aanbieder",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze aangeven een kopie te willen ontvangen van een reservering en een eventueel bericht dat ze zelf naar de aanbieder sturen."
         },
         "notifications_identities.identity_voucher_assigned_budget": {
-            "title": "Financieel tegoed toegekend",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een financieel tegoed toegekend krijgt."
+            "title": "Financieel-tegoed toegekend",
+            "description": "Aanvragers ontvangen dit bericht wanneer zij een financieel-tegoed toegekend krijgen door de sponsor."
         },
         "notifications_identities.identity_voucher_assigned_subsidy": {
-            "title": "Actie tegoed toegekend",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een actie tegoed toegekend krijgt."
+            "title": "Actie-tegoed is toegekend",
+            "description": "Aanvragers ontvangen dit bericht wanneer een actie-tegoed is toegekend door de sponsor."
         },
         "notifications_identities.identity_voucher_assigned_product": {
-            "title": "Aanbod tegoed toegekend",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een aanbod tegoed toegekend krijgt."
+            "title": "Aanbod-tegoed toegekend",
+            "description": "Aanvragers ontvangen dit bericht wanneer een aanbod-tegoed is toegekend door de sponsor.."
         },
         "notifications_identities.product_voucher_added": {
-            "title": "Aanbod tegoed is aangemaakt",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een aanbod tegoed activeert."
+            "title": "Aanbod-tegoed is geactiveerd",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een aanbod-tegoed zelf activeren."
         },
         "notifications_identities.product_voucher_reserved": {
-            "title": "Aanbod tegoed is aangemaakt door een reservering",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een aanbod tegoed activeert door een reservering."
+            "title": "Aanbod-tegoed is geactiveerd door een reservering",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een aanbod-tegoed reserveren en daardoor ook activeren."
         },
         "notifications_identities.voucher_added_subsidy": {
-            "title": "Actie tegoed is aangemaakt",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een actie tegoed activeert."
+            "title": "Actie-tegoed is geactiveerd",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een actie-tegoed zelf activeren."
         },
         "notifications_identities.voucher_added_budget": {
-            "title": "Financieel tegoed is aangemaakt",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een financieel tegoed activeert."
+            "title": "Financieel-tegoed is geactiveerd",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een financieel-tegoed zelf activeren."
         },
         "notifications_identities.voucher_deactivated": {
             "title": "Tegoed is gedeactiveerd",
-            "description": "Wordt verstuurd naar de aanvrager wanneer de sponsor zijn/haar tegoed deactiveert."
+            "description": "Aanvragers ontvangen dit bericht wanneer de sponsor hun tegoed deactiveert."
         },
         "notifications_identities.budget_voucher_expired": {
-            "title": "Financieel tegoed verlopen",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zijn/haar tegoed is verlopen."
+            "title": "Financieel-tegoed verlopen",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun financieel-tegoed is verlopen."
         },
         "notifications_identities.product_voucher_expired": {
-            "title": "Aanbod tegoed verlopen",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zijn/haar aanbod tegoed is verlopen."
+            "title": "Aanbod-tegoed verlopen",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanbod-tegoed is verlopen."
         },
         "notifications_identities.voucher_expire_soon_budget": {
-            "title": "Financieel tegoed verloopt binnenkort",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zijn financieel tegoed bijna verloopt."
+            "title": "Financieel-tegoed verloopt binnenkort",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun financieel-tegoed binnenkort verloopt."
         },
         "notifications_identities.voucher_expire_soon_product": {
-            "title": "Aanbod tegoed verloopt binnenkort",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zijn aanbod tegoed bijna verloopt."
+            "title": "Aanbod-tegoed verloopt binnenkort",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanbod-tegoed binnenkort verloopt."
         },
         "notifications_identities.voucher_physical_card_requested": {
             "title": "Fysieke pas besteld",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een pas heeft besteld."
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een fysieke pas bestellen."
         },
         "notifications_identities.voucher_shared_by_email": {
-            "title": "Tegoed verstuurd naar jezelf",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zij/hij een tegoed naar zichzelf laat sturen."
+            "title": "Tegoed verstuurd naar zelf",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een tegoed naar zichzelf sturen."
         },
         "notifications_identities.voucher_budget_transaction": {
-            "title": "Transactie op financieel tegoed",
-            "description": "Wordt verstuurd naar de aanvrager wanneer de aanbieder een transactie heeft geïnitieerd."
+            "title": "Transactie van financieel-tegoed",
+            "description": "Aanvragers ontvangen dit bericht wanneer de aanbieder een transactie heeft geïnitieerd van hun financieel-tegoed."
         },
         "notifications_identities.voucher_subsidy_transaction": {
-            "title": "Transactie op actie tegoed",
-            "description": "Wordt verstuurd naar de aanvrager wanneer de aanbieder een transactie heeft geïnitieerd."
+            "title": "Transactie van actie-tegoed",
+            "description": "Aanvragers ontvangen dit bericht wanneer de aanbieder een transactie heeft geïnitieerd van hun actie-tegoed."
         },
         "notifications_identities.product_voucher_transaction": {
-            "title": "Transactie op aanbod tegoed",
-            "description": "Wordt verstuurd naar de aanvrager wanneer de aanbieder een transactie heeft geïnitieerd."
+            "title": "Transactie van aanbod-tegoed",
+            "description": "Aanvragers ontvangen dit bericht wanneer de aanbieder een transactie heeft geïnitieerd van hun aanbod-tegoed."
         },
         "notifications_fund_providers.bunq_transaction_success": {
             "title": "Uitbetaling van een transactie",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer een transactie wordt uitbetaald."
+            "description": "Aanbieders ontvangen dit bericht wanneer de sponsor een transactie uitbetaald."
         }
     },
     "types": {
