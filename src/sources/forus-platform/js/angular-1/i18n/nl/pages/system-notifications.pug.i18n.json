@@ -1,7 +1,7 @@
 {
     "header": {
         "title": "Systeemberichten per webshop",
-        "tooltip": "Het platform verstuurt automatische berichten naar gebruikers. Dit gebeurt via e-mailberichten, pushberichten via de app en standaardberichten in webshop/beheeromgeving."
+        "tooltip": "Het platform verstuurt automatische berichten naar gebruikers. Dit gebeurt via e-mailberichten, pushberichten via de app en webberichten in de beheeromgeving."
     },
     "notifications": {
         "notifications_identities.added_employee": {
@@ -110,19 +110,19 @@
         },
         "notifications_identities.product_reservation_created": {
             "title": "Reservering aangemaakt",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij of zij een reservering heeft aangemaakt."
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een reservering maken."
         },
         "notifications_identities.product_reservation_accepted": {
-            "title": "Reservering geaccepteerd",
-            "description": "Wordt verstuurd naar de aanvrager wanneer een reservering is geaccepteerd."
+            "title": "Reservering goedgekeurd",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun reservering door de aanbieder is goedgekeurd."
         },
         "notifications_identities.product_reservation_canceled": {
             "title": "Reservering geannuleerd",
-            "description": "Wordt verstuurd naar de aanvrager wanneer een reservering is geannuleerd."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun reservering door de aanbieder is geannuleerd."
         },
         "notifications_identities.product_reservation_rejected": {
             "title": "Reservering geweigerd",
-            "description": "Wordt verstuurd naar de aanvrager wanneer een reservering is geweigerd."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun reservering door de aanbieder is geweigerd."
         },
         "notifications_products.approved": {
             "title": "Aanbod geaccepteerd",
