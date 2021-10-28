@@ -50,23 +50,23 @@
         },
         "notifications_identities.fund_request_created": {
             "title": "Aanvraag is ontvangen",
-            "description": "Wordt verstuurd naar de aanvrager dat zijn aanvraag is ontvangen door de beoordelaar."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is ontvangen door de beoordelaar."
         },
         "notifications_identities.fund_request_denied": {
             "title": "Aanvraag is geweigerd",
-            "description": "Wordt verstuurd naar de aanvrager dat zijn aanvraag is geweigerd door de beoordelaar."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is geweigerd door de beoordelaar."
         },
         "notifications_identities.fund_request_approved": {
             "title": "Aanvraag is goedgekeurd",
-            "description": "Wordt verstuurd naar de aanvrager dat zijn aanvraag is goedgekeurd door de beoordelaar."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is goedgekeurd door de beoordelaar."
         },
         "notifications_identities.fund_request_record_declined": {
-            "title": "Een onderdeel uit de aanvraag is geweigerd",
-            "description": "Wordt verstuurd naar de aanvrager dat een onderdeel van zijn aanvraag is geweigerd door de beoordelaar."
+            "title": "Een onderdeel van de aanvraag is geweigerd",
+            "description": "Aanvragers ontvangen dit bericht wanneer een onderdeel van hun aanvraag voor een fonds is geweigerd door de beoordelaar."
         },
         "notifications_identities.fund_request_feedback_requested": {
             "title": "Aanvulverzoek op aanvraag",
-            "description": "Wordt verstuurd naar de aanvrager dat de beoordelaar een aanvulling vereist."
+            "description": "Aanvragers ontvangen dit bericht wanneer een aanvulling op de aanvraag voor een fonds is verzocht door de beoordelaar."
         },
         "notifications_funds.created": {
             "title": "Fonds is aangemaakt",
