@@ -6,15 +6,15 @@
     "notifications": {
         "notifications_identities.added_employee": {
             "title": "Medewerker toegevoegd aan organisatie",
-            "description": "Wordt verstuurd naar de medewerker wanneer deze toegevoegd wordt aan de organisatie."
+            "description": "Medewerkers ontvangen dit bericht wanneer ze zijn toegevoegd aan een organisatie."
         },
         "notifications_identities.changed_employee_roles": {
-            "title": "Medewerker rechten aangepast",
-            "description": "Wordt verstuurd naar de medewerker wanneer zijn rechten worden aangepast."
+            "title": "Medewerker rechten gewijzigd",
+            "description": "Medewerkers ontvangen dit bericht wanneer hun rechten worden gewijzigd."
         },
         "notifications_identities.removed_employee": {
-            "title": "Medewerker verwijderd van organisatie",
-            "description": "Wordt verstuurd naar de medewerker wanneer hij verwijderd wordt van een organisatie."
+            "title": "Medewerker verwijderd uit organisatie",
+            "description": "Medewerkers ontvangen dit bericht wanneer ze verwijderd worden uit een organisatie."
         },
         "notifications_fund_providers.approved_budget": {
             "title": "Aanbieder goedgekeurd voor het scannen van een financieel-tegoed",
@@ -46,7 +46,7 @@
         },
         "notifications_fund_requests.created_validator_employee": {
             "title": "Nieuwe aanvraag is binnen gekomen",
-            "description": "Wordt verstuurd naar de beoordelaar dat de aanvrager een nieuwe aanvraag heeft ingediend."
+            "description": "Beoordelaars ontvangen dit bericht wanneer een aanvrager een nieuwe aanvraag voor een fonds heeft ingediend."
         },
         "notifications_identities.fund_request_created": {
             "title": "Aanvraag is ontvangen",
@@ -70,43 +70,43 @@
         },
         "notifications_funds.created": {
             "title": "Fonds is aangemaakt",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer zij een fonds aanmaken."
+            "description": "Sponsors ontvangen dit bericht wanneer ze een fonds aanmaken."
         },
         "notifications_funds.started": {
             "title": "Fonds is gestart",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer een fonds is gestart."
+            "description": "Sponsors ontvangen dit bericht wanneer hun fonds is gestart."
         },
         "notifications_funds.ended": {
             "title": "Fonds is afgelopen",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer een fonds is afgelopen."
+            "description": "Sponsors ontvangen dit bericht wanneer hun fonds is afgelopen."
         },
         "notifications_funds.expiring": {
             "title": "Fonds verloopt bijna",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer een fonds bijna verloopt."
+            "description": "Sponsors ontvangen dit bericht wanneer een fonds binnenkort verloopt."
         },
         "notifications_funds.product_added": {
-            "title": "Product toegevoegd door aanbieder",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer de aanbieder een product toevoegd."
+            "title": "Aanbod toegevoegd door aanbieder",
+            "description": "Sponsors ontvangen dit bericht wanneer de aanbieder een aanbod toevoegd."
         },
         "notifications_funds.provider_applied": {
             "title": "Aanbieder heeft zich aangemeld voor een fonds",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer de aanbieder zich aanmeld voor een fonds."
+            "description": "Sponsors ontvangen dit bericht wanneer een aanbieder zich aanmeld voor een fonds."
         },
         "notifications_funds.provider_message": {
             "title": "Bericht van aanbieder ontvangen",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer de aanbieder een bericht stuurt over een aanbod."
+            "description": "Sponsors ontvangen dit bericht wanneer een aanbieder een bericht stuurt over een aanbod."
         },
         "notifications_funds.product_subsidy_removed": {
             "title": "Subsidie stopgezet door aanbieder",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer de aanbieder de prijs veranderd van zijn aanbod."
+            "description": "Sponsors ontvangen dit bericht wanneer de aanbieder de prijs veranderd en daardoor de subsidie wordt stop gezet."
         },
         "notifications_funds.balance_low": {
             "title": "Fonds heeft aanvulgrens bereikt",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor met de rol 'Financiën' wanneer de aanvulgrens is bereikt."
+            "description": "Sponsors met de rol 'Financiën' ontvangen dit bericht wanneer de aanvulgrens van een fonds is bereikt."
         },
         "notifications_funds.balance_supplied": {
             "title": "Fonds aangevuld!",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor met de rol 'Financiën' wanneer het fonds is aangevuld."
+            "description": "Sponsors met de rol 'Financiën' ontvangen dit bericht wanneer het fonds is aangevuld."
         },
         "notifications_identities.product_reservation_created": {
             "title": "Reservering aangemaakt",
