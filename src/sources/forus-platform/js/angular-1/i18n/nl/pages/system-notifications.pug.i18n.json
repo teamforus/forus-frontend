@@ -126,23 +126,23 @@
         },
         "notifications_products.approved": {
             "title": "Aanbod geaccepteerd",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer de sponsor zijn aanbod goedkeurd."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod door de sponsor is geaccepteerd."
         },
         "notifications_products.expired": {
             "title": "Aanbod verlopen",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer zijn aanbod is verlopen."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod is verlopen."
         },
         "notifications_products.reserved": {
             "title": "Aanbod gereserveerd",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer zijn aanbod is gereserveerd."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod door de aanvrager is gereserveerd."
         },
         "notifications_products.revoked": {
             "title": "Aanbod geweigerd",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer zijn aanbod is geweigerd."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod door de sponsor is geweigerd."
         },
         "notifications_products.sold_out": {
             "title": "Aanbod uitverkocht",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer zijn aanbod is uitverkocht."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod is uitverkocht."
         },
         "notifications_identities.product_voucher_shared": {
             "title": "Reservering en eventueel bericht gedeeld met aanbieder",
@@ -232,13 +232,13 @@
         },
         "database": {
             "icon": "message-alert-outline",
-            "title": "Standaardbericht"
+            "title": "webbericht"
         }
     },
     "tooltips": {
         "channel_not_available": "Niet beschikbaar",
-        "disabled_by_you": "Door jou uitgeschakeld",
-        "enabled_edited": "Door jou gewijzigde tekst",
+        "disabled_by_you": "Uitgeschakeld",
+        "enabled_edited": "Ingeschakeld met gewijzigde tekst",
         "enabled_default": "Ingeschakeld met standaardtekst"
     },
     "hints": {
