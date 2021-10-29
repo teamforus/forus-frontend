@@ -82,6 +82,7 @@
     "sprintf-js": "^1.1.2",
     "summernote": "^0.8.18",
     "turndown": "^7.0.0",
+    "turndown-plugin-gfm": "^1.0.2",
     "ui-cropper": "^1.0.9"
   }
 }

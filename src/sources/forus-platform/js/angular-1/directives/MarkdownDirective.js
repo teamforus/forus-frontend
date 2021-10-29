@@ -1,4 +1,6 @@
-const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
+const tables = require('turndown-plugin-gfm').tables;
+
+const MarkdownDirective = function($scope, $element, $timeout, ModalService, HelperService) {
     const $theEditor = $($element.find('[editor]')[0]);
 
     const getCustomLink = (type, values) => {
@@ -171,6 +173,8 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
         ] : []), ...[
             ['font', ['bold', 'italic', 'clear']],
             ['para', ['ol', 'ul']],
+        ], ...[
+            ['table', ['table']],
         ], ...($scope.extendedOptions ? [
             ['cms', ['cmsLink', 'unlink', 'cmsMedia', 'cmsLinkYoutube']],
         ] : [
@@ -201,10 +205,17 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                     }
                 });
 
+                turndownService.use(tables);
+
                 const markdown = turndownService.turndown(contents).split("\n");
 
                 $scope.value = contents;
                 $scope.ngModel = markdown.map((line, index) => {
+                    // Fix issue with html to markdown conversion when a table doesn't have the thead element
+
+                    let formattedTable = HelperService.addTableHeader(line);
+                    line = formattedTable ? turndownService.turndown(formattedTable) : line;
+
                     return ((index != 0) && (markdown[index - 1] === '') && (line.trim() === '')) ? "&nbsp;  " : line;
                 }).join("\n");
             },
@@ -247,6 +258,7 @@ module.exports = () => {
             '$element',
             '$timeout',
             'ModalService',
+            'HelperService',
             MarkdownDirective
         ],
         templateUrl: 'assets/tpl/directives/markdown.html'
