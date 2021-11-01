@@ -48,52 +48,6 @@ let HelperService = function($q) {
 
             return provider && providersList.includes(provider) ? ('https://' + provider) : null;
         };
-
-        this.isHTML = (str) => {
-            var a = document.createElement('div');
-            a.innerHTML = str;
-          
-            for (var c = a.childNodes, i = c.length; i--; ) {
-                if (c[i].nodeType == 1) return true; 
-            }
-            
-            return false;
-        }
-
-        this.createElementFromHTML = (htmlString) => {
-            var div = document.createElement('div');
-            div.innerHTML = htmlString.trim();
-            
-            // Change this to div.childNodes to support multiple top-level nodes
-            return div.firstChild; 
-        }
-
-        this.addTableHeader = (string) => {
-            let element; 
-            
-            try {
-                element = (angular.element(string) && angular.element(string).length) ? angular.element(string)[0] : null;
-            } catch (error) {
-                return null;
-            }
-
-            // Check if table or already has the thead element
-            if (!element || element.tagName != 'TABLE' || element.getElementsByTagName('thead').length) {
-                return null;
-            }
-
-            let tempTable   = angular.element("<table><thead><tr></tr></thead></table>")[0];
-            let thead       = tempTable.querySelector('thead');
-            let theadRow    = thead.querySelector('tr');
-
-            for (let i = 0; i < element.querySelector('tbody tr').querySelectorAll('td').length; i++) {
-                theadRow.innerHTML += '<th></th>';
-            }
-
-            element.insertBefore(thead, element.querySelector('tbody'));
-            
-            return element.outerHTML;
-        }
     });
 };
 

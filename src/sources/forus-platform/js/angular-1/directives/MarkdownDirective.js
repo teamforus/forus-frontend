@@ -1,4 +1,4 @@
-const tables = require('turndown-plugin-gfm').tables;
+const gfm = require('joplin-turndown-plugin-gfm').gfm;
 
 const MarkdownDirective = function($scope, $element, $timeout, ModalService, HelperService) {
     const $theEditor = $($element.find('[editor]')[0]);
@@ -205,17 +205,12 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService, Hel
                     }
                 });
 
-                turndownService.use(tables);
+                turndownService.use(gfm);
 
                 const markdown = turndownService.turndown(contents).split("\n");
 
                 $scope.value = contents;
                 $scope.ngModel = markdown.map((line, index) => {
-                    // Fix issue with html to markdown conversion when a table doesn't have the thead element
-
-                    let formattedTable = HelperService.addTableHeader(line);
-                    line = formattedTable ? turndownService.turndown(formattedTable) : line;
-
                     return ((index != 0) && (markdown[index - 1] === '') && (line.trim() === '')) ? "&nbsp;  " : line;
                 }).join("\n");
             },
