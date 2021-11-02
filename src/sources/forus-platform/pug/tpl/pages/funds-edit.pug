@@ -38,6 +38,15 @@
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
+                    label(translate="funds_edit.labels.description_long").form-label
+                    .form-offset: markdown(
+                        extended-options="true"
+                        value="$ctrl.form.values.description_long_html"
+                        ng-model="$ctrl.form.values.description_long")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.description_long" ng-bind="error")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline
                     label.form-label Soort fonds
                     .form-offset(ng-if="!$ctrl.fund"): .block.block-fund_types
                         .fund_type-item(

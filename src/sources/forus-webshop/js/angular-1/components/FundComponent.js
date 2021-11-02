@@ -1,4 +1,5 @@
 const FundsComponent = function(
+    $sce,
     $state,
     $stateParams,
     appConfigs,
@@ -62,6 +63,8 @@ const FundsComponent = function(
                 }).name,
             })),
         };
+
+        $ctrl.fund.description_long_html = $sce.trustAsHtml($ctrl.fund.description_long_html);
     };
 };
 
@@ -76,6 +79,7 @@ module.exports = {
         searchData: '<',
     },
     controller: [
+        '$sce',
         '$state',
         '$stateParams',
         'appConfigs',
