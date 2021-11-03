@@ -6,219 +6,219 @@
     "notifications": {
         "notifications_identities.added_employee": {
             "title": "Medewerker toegevoegd aan organisatie",
-            "description": "Wordt verstuurd naar de medewerker wanneer deze toegevoegd wordt aan de organisatie."
+            "description": "Medewerkers ontvangen dit bericht wanneer ze zijn toegevoegd aan een organisatie."
         },
         "notifications_identities.changed_employee_roles": {
-            "title": "Medewerker rechten aangepast",
-            "description": "Wordt verstuurd naar de medewerker wanneer zijn rechten worden aangepast."
+            "title": "Medewerker rechten gewijzigd",
+            "description": "Medewerkers ontvangen dit bericht wanneer hun rechten worden gewijzigd."
         },
         "notifications_identities.removed_employee": {
-            "title": "Medewerker verwijderd van organisatie",
-            "description": "Wordt verstuurd naar de medewerker wanneer hij verwijderd wordt van een organisatie."
+            "title": "Medewerker verwijderd uit organisatie",
+            "description": "Medewerkers ontvangen dit bericht wanneer ze verwijderd worden uit een organisatie."
         },
         "notifications_fund_providers.approved_budget": {
-            "title": "Aanbieder geaccepteerd voor budget scannen",
-            "description": "Wordt verstuurd naar de organisatie wanneer deze geaccepteerd wordt voor budget scannen."
+            "title": "Aanbieder goedgekeurd voor het scannen van een financieel-tegoed",
+            "description": "Aanbieders ontvangen dit bericht wanneer ze door de sponsor zijn goedgekeurd voor het scannen van een financieel-tegoed."
         },
         "notifications_fund_providers.approved_products": {
-            "title": "Aanbieder geaccepteerd voor aanbiedingen",
-            "description": "Wordt verstuurd naar de organisatie wanneer deze geaccepteerd wordt al zijn aanbod."
+            "title": "Aanbieder geaccepteerd voor het aanbieden van alle aanbiedingen",
+            "description": "Aanbieders ontvangen dit bericht wanneer ze door de sponsor zijn goedgekeurd voor het aanbieden van al hun aanbod."
         },
         "notifications_fund_providers.revoked_budget": {
-            "title": "Aanbieder geweigerd voor budget scannen",
-            "description": "Wordt verstuurd naar de organisatie wanneer deze geweigerd wordt voor budget scannen."
+            "title": "Aanbieder geweigerd voor het scannen van een financieel-tegoed",
+            "description": "Aanbieders ontvangen dit bericht wanneer de sponsor ze weigert voor het scannen van een financieel-tegoed."
         },
         "notifications_fund_providers.revoked_products": {
-            "title": "Aanbieder geweigerd voor aanbiedingen",
-            "description": "Wordt verstuurd naar de organisatie wanneer deze geweigerd wordt al zijn aanbod."
+            "title": "Aanbieder geweigerd voor het aanbieden van alle aanbiedingen",
+            "description": "Aanbieders ontvangen dit bericht wanneer de sponsor al hun aanbod weigert."
         },
         "notifications_fund_providers.sponsor_message": {
-            "title": "Aanbieder nieuw chatbericht van sponsor",
-            "description": "Wordt verstuurd wanneer sponsor een bericht stuurt naar aanbieder"
+            "title": "Aanbieder heeft een nieuw chatbericht ontvangen van de sponsor",
+            "description": "Aanbieders ontvangen dit bericht wanneer de sponsor ze een chatbericht stuurt."
         },
         "notifications_identities.requester_provider_approved_budget": {
-            "title": "Aanbieder goedgekeurd voor budget scannen",
-            "description": "Wordt verstuurd naar aanvrager wanneer aanbieder wordt geaccepteerd voor budget scannen."
+            "title": "Aanbieder goedgekeurd voor het scannen van financiële tegoeden.",
+            "description": "Aanvragers ontvangen dit bericht wanneer een aanbieder wordt goedgekeurd om hun financiële tegoeden te mogen scannen."
         },
         "notifications_identities.requester_provider_approved_products": {
-            "title": "Aanbieder geaccepteerd voor aanbiedingen",
-            "description": "Wordt verstuurd naar de aanvrager wanneer aanbieder wordt geaccepteerd voor al zijn aanbod."
+            "title": "Aanbieder goedgekeurd voor aanbiedingen",
+            "description": "Aanvragers ontvangen dit bericht wanneer het aanbod van een aanbieder wordt toegevoegd aan een fonds."
         },
         "notifications_fund_requests.created_validator_employee": {
             "title": "Nieuwe aanvraag is binnen gekomen",
-            "description": "Wordt verstuurd naar de beoordelaar dat de aanvrager een nieuwe aanvraag heeft ingediend."
+            "description": "Beoordelaars ontvangen dit bericht wanneer een aanvrager een nieuwe aanvraag voor een fonds heeft ingediend."
         },
         "notifications_identities.fund_request_created": {
             "title": "Aanvraag is ontvangen",
-            "description": "Wordt verstuurd naar de aanvrager dat zijn aanvraag is ontvangen door de beoordelaar."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is ontvangen door de beoordelaar."
         },
         "notifications_identities.fund_request_denied": {
             "title": "Aanvraag is geweigerd",
-            "description": "Wordt verstuurd naar de aanvrager dat zijn aanvraag is geweigerd door de beoordelaar."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is geweigerd door de beoordelaar."
         },
         "notifications_identities.fund_request_approved": {
             "title": "Aanvraag is goedgekeurd",
-            "description": "Wordt verstuurd naar de aanvrager dat zijn aanvraag is goedgekeurd door de beoordelaar."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is goedgekeurd door de beoordelaar."
         },
         "notifications_identities.fund_request_record_declined": {
-            "title": "Een onderdeel uit de aanvraag is geweigerd",
-            "description": "Wordt verstuurd naar de aanvrager dat een onderdeel van zijn aanvraag is geweigerd door de beoordelaar."
+            "title": "Een onderdeel van de aanvraag is geweigerd",
+            "description": "Aanvragers ontvangen dit bericht wanneer een onderdeel van hun aanvraag voor een fonds is geweigerd door de beoordelaar."
         },
         "notifications_identities.fund_request_feedback_requested": {
             "title": "Aanvulverzoek op aanvraag",
-            "description": "Wordt verstuurd naar de aanvrager dat de beoordelaar een aanvulling vereist."
+            "description": "Aanvragers ontvangen dit bericht wanneer een aanvulling op de aanvraag voor een fonds is verzocht door de beoordelaar."
         },
         "notifications_funds.created": {
             "title": "Fonds is aangemaakt",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer zij een fonds aanmaken."
+            "description": "Sponsors ontvangen dit bericht wanneer ze een fonds aanmaken."
         },
         "notifications_funds.started": {
             "title": "Fonds is gestart",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer een fonds is gestart."
+            "description": "Sponsors ontvangen dit bericht wanneer hun fonds is gestart."
         },
         "notifications_funds.ended": {
             "title": "Fonds is afgelopen",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer een fonds is afgelopen."
+            "description": "Sponsors ontvangen dit bericht wanneer hun fonds is afgelopen."
         },
         "notifications_funds.expiring": {
             "title": "Fonds verloopt bijna",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer een fonds bijna verloopt."
+            "description": "Sponsors ontvangen dit bericht wanneer een fonds binnenkort verloopt."
         },
         "notifications_funds.product_added": {
-            "title": "Product toegevoegd door aanbieder",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer de aanbieder een product toevoegd."
+            "title": "Aanbod toegevoegd door aanbieder",
+            "description": "Sponsors ontvangen dit bericht wanneer de aanbieder een aanbod toevoegd."
         },
         "notifications_funds.provider_applied": {
             "title": "Aanbieder heeft zich aangemeld voor een fonds",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer de aanbieder zich aanmeld voor een fonds."
+            "description": "Sponsors ontvangen dit bericht wanneer een aanbieder zich aanmeld voor een fonds."
         },
         "notifications_funds.provider_message": {
             "title": "Bericht van aanbieder ontvangen",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer de aanbieder een bericht stuurt over een aanbod."
+            "description": "Sponsors ontvangen dit bericht wanneer een aanbieder een bericht stuurt over een aanbod."
         },
         "notifications_funds.product_subsidy_removed": {
             "title": "Subsidie stopgezet door aanbieder",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor wanneer de aanbieder de prijs veranderd van zijn aanbod."
+            "description": "Sponsors ontvangen dit bericht wanneer de aanbieder de prijs veranderd en daardoor de subsidie wordt stop gezet."
         },
         "notifications_funds.balance_low": {
             "title": "Fonds heeft aanvulgrens bereikt",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor met de rol 'Financiën' wanneer de aanvulgrens is bereikt."
+            "description": "Sponsors met de rol 'Financiën' ontvangen dit bericht wanneer de aanvulgrens van een fonds is bereikt."
         },
         "notifications_funds.balance_supplied": {
             "title": "Fonds aangevuld!",
-            "description": "Wordt verstuurd naar de organisatie van de sponsor met de rol 'Financiën' wanneer het fonds is aangevuld."
+            "description": "Sponsors met de rol 'Financiën' ontvangen dit bericht wanneer het fonds is aangevuld."
         },
         "notifications_identities.product_reservation_created": {
             "title": "Reservering aangemaakt",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij of zij een reservering heeft aangemaakt."
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een reservering maken."
         },
         "notifications_identities.product_reservation_accepted": {
-            "title": "Reservering geaccepteerd",
-            "description": "Wordt verstuurd naar de aanvrager wanneer een reservering is geaccepteerd."
+            "title": "Reservering goedgekeurd",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun reservering door de aanbieder is goedgekeurd."
         },
         "notifications_identities.product_reservation_canceled": {
             "title": "Reservering geannuleerd",
-            "description": "Wordt verstuurd naar de aanvrager wanneer een reservering is geannuleerd."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun reservering door de aanbieder is geannuleerd."
         },
         "notifications_identities.product_reservation_rejected": {
             "title": "Reservering geweigerd",
-            "description": "Wordt verstuurd naar de aanvrager wanneer een reservering is geweigerd."
+            "description": "Aanvragers ontvangen dit bericht wanneer hun reservering door de aanbieder is geweigerd."
         },
         "notifications_products.approved": {
             "title": "Aanbod geaccepteerd",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer de sponsor zijn aanbod goedkeurd."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod door de sponsor is geaccepteerd."
         },
         "notifications_products.expired": {
             "title": "Aanbod verlopen",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer zijn aanbod is verlopen."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod is verlopen."
         },
         "notifications_products.reserved": {
             "title": "Aanbod gereserveerd",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer zijn aanbod is gereserveerd."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod door de aanvrager is gereserveerd."
         },
         "notifications_products.revoked": {
             "title": "Aanbod geweigerd",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer zijn aanbod is geweigerd."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod door de sponsor is geweigerd."
         },
         "notifications_products.sold_out": {
             "title": "Aanbod uitverkocht",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer zijn aanbod is uitverkocht."
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanbod is uitverkocht."
         },
         "notifications_identities.product_voucher_shared": {
-            "title": "Reservering gedeeld met aanbieder",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij dit zelf aangeeft een kopie van het bericht te willen ontvangen"
+            "title": "Reservering en eventueel bericht gedeeld met aanbieder",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze aangeven een kopie te willen ontvangen van een reservering en een eventueel bericht dat ze zelf naar de aanbieder sturen."
         },
         "notifications_identities.identity_voucher_assigned_budget": {
-            "title": "Financieel tegoed toegekend",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een financieel tegoed toegekend krijgt."
+            "title": "Financieel-tegoed toegekend",
+            "description": "Aanvragers ontvangen dit bericht wanneer zij een financieel-tegoed toegekend krijgen door de sponsor."
         },
         "notifications_identities.identity_voucher_assigned_subsidy": {
-            "title": "Actie tegoed toegekend",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een actie tegoed toegekend krijgt."
+            "title": "Actie-tegoed is toegekend",
+            "description": "Aanvragers ontvangen dit bericht wanneer een actie-tegoed is toegekend door de sponsor."
         },
         "notifications_identities.identity_voucher_assigned_product": {
-            "title": "Aanbod tegoed toegekend",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een aanbod tegoed toegekend krijgt."
+            "title": "Aanbod-tegoed toegekend",
+            "description": "Aanvragers ontvangen dit bericht wanneer een aanbod-tegoed is toegekend door de sponsor.."
         },
         "notifications_identities.product_voucher_added": {
-            "title": "Aanbod tegoed is aangemaakt",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een aanbod tegoed activeert."
+            "title": "Aanbod-tegoed is geactiveerd",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een aanbod-tegoed zelf activeren."
         },
         "notifications_identities.product_voucher_reserved": {
-            "title": "Aanbod tegoed is aangemaakt door een reservering",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een aanbod tegoed activeert door een reservering."
+            "title": "Aanbod-tegoed is geactiveerd door een reservering",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een aanbod-tegoed reserveren en daardoor ook activeren."
         },
         "notifications_identities.voucher_added_subsidy": {
-            "title": "Actie tegoed is aangemaakt",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een actie tegoed activeert."
+            "title": "Actie-tegoed is geactiveerd",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een actie-tegoed zelf activeren."
         },
         "notifications_identities.voucher_added_budget": {
-            "title": "Financieel tegoed is aangemaakt",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een financieel tegoed activeert."
+            "title": "Financieel-tegoed is geactiveerd",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een financieel-tegoed zelf activeren."
         },
         "notifications_identities.voucher_deactivated": {
             "title": "Tegoed is gedeactiveerd",
-            "description": "Wordt verstuurd naar de aanvrager wanneer de sponsor zijn/haar tegoed deactiveert."
+            "description": "Aanvragers ontvangen dit bericht wanneer de sponsor hun tegoed deactiveert."
         },
         "notifications_identities.budget_voucher_expired": {
-            "title": "Financieel tegoed verlopen",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zijn/haar tegoed is verlopen."
+            "title": "Financieel-tegoed verlopen",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun financieel-tegoed is verlopen."
         },
         "notifications_identities.product_voucher_expired": {
-            "title": "Aanbod tegoed verlopen",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zijn/haar aanbod tegoed is verlopen."
+            "title": "Aanbod-tegoed verlopen",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanbod-tegoed is verlopen."
         },
         "notifications_identities.voucher_expire_soon_budget": {
-            "title": "Financieel tegoed verloopt binnenkort",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zijn financieel tegoed bijna verloopt."
+            "title": "Financieel-tegoed verloopt binnenkort",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun financieel-tegoed binnenkort verloopt."
         },
         "notifications_identities.voucher_expire_soon_product": {
-            "title": "Aanbod tegoed verloopt binnenkort",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zijn aanbod tegoed bijna verloopt."
+            "title": "Aanbod-tegoed verloopt binnenkort",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanbod-tegoed binnenkort verloopt."
         },
         "notifications_identities.voucher_physical_card_requested": {
             "title": "Fysieke pas besteld",
-            "description": "Wordt verstuurd naar de aanvrager wanneer hij/zij een pas heeft besteld."
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een fysieke pas bestellen."
         },
         "notifications_identities.voucher_shared_by_email": {
-            "title": "Tegoed verstuurd naar jezelf",
-            "description": "Wordt verstuurd naar de aanvrager wanneer zij/hij een tegoed naar zichzelf laat sturen."
+            "title": "Tegoed verstuurd naar zelf",
+            "description": "Aanvragers ontvangen dit bericht wanneer ze een tegoed naar zichzelf sturen."
         },
         "notifications_identities.voucher_budget_transaction": {
-            "title": "Transactie op financieel tegoed",
-            "description": "Wordt verstuurd naar de aanvrager wanneer de aanbieder een transactie heeft geïnitieerd."
+            "title": "Transactie van financieel-tegoed",
+            "description": "Aanvragers ontvangen dit bericht wanneer de aanbieder een transactie heeft geïnitieerd van hun financieel-tegoed."
         },
         "notifications_identities.voucher_subsidy_transaction": {
-            "title": "Transactie op actie tegoed",
-            "description": "Wordt verstuurd naar de aanvrager wanneer de aanbieder een transactie heeft geïnitieerd."
+            "title": "Transactie van actie-tegoed",
+            "description": "Aanvragers ontvangen dit bericht wanneer de aanbieder een transactie heeft geïnitieerd van hun actie-tegoed."
         },
         "notifications_identities.product_voucher_transaction": {
-            "title": "Transactie op aanbod tegoed",
-            "description": "Wordt verstuurd naar de aanvrager wanneer de aanbieder een transactie heeft geïnitieerd."
+            "title": "Transactie van aanbod-tegoed",
+            "description": "Aanvragers ontvangen dit bericht wanneer de aanbieder een transactie heeft geïnitieerd van hun aanbod-tegoed."
         },
         "notifications_fund_providers.bunq_transaction_success": {
             "title": "Uitbetaling van een transactie",
-            "description": "Wordt verstuurd naar de organisatie van de aanbieder wanneer een transactie wordt uitbetaald."
+            "description": "Aanbieders ontvangen dit bericht wanneer de sponsor een transactie uitbetaald."
         }
     },
     "types": {
@@ -237,8 +237,8 @@
     },
     "tooltips": {
         "channel_not_available": "Niet beschikbaar",
-        "disabled_by_you": "Door jou uitgeschakeld",
-        "enabled_edited": "Door jou gewijzigde tekst",
+        "disabled_by_you": "Uitgeschakeld",
+        "enabled_edited": "Ingeschakeld met gewijzigde tekst",
         "enabled_default": "Ingeschakeld met standaardtekst"
     },
     "hints": {
