@@ -33,7 +33,7 @@
             "description": "Aanbieders ontvangen dit bericht wanneer de sponsor al hun aanbod weigert."
         },
         "notifications_fund_providers.sponsor_message": {
-            "title": "Aanbieder heeft een nieuw chatbericht ontvangen van sponsor",
+            "title": "Aanbieder heeft een nieuw chatbericht ontvangen van de sponsor",
             "description": "Aanbieders ontvangen dit bericht wanneer de sponsor ze een chatbericht stuurt."
         },
         "notifications_identities.requester_provider_approved_budget": {
