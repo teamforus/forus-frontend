@@ -111,13 +111,13 @@ const NotificationTemplateEditorDirective = function(
 
     const resetToDefault = () => {
         ModalService.open("dangerZone", {
-            title: "Reset to default",
+            title: "Opnieuw instellen",
             description: [
-                "By resetting template to default, all the changes you made will be",
-                "reverted to the initial template provided by Forus."
+                "Door het bericht opnieuw in te stellen wordt uw bericht hersteld naar de oorsponkelijke template.",
+                "Deze actie is niet ongedaan te maken."
             ].join(" "),
-            cancelButton: "Cancel",
-            confirmButton: "Confirm",
+            cancelButton: "Annuleren",
+            confirmButton: "Bevestigen",
             text_align: "center",
             onConfirm: () => {
                 updateTemplate({ templates_remove: [{ formal: $dir.template.formal, type: $dir.type }] });
@@ -144,7 +144,7 @@ const NotificationTemplateEditorDirective = function(
     $dir.toggleSwitched = () => {
         const data = { ["enable_" + $dir.type]: $dir.enable };
         const pushTitle = 'Opgeslagen';
-        const pushMessage = `${$dir.header.title} zijn nu ${$dir.enable ? 'ingeschakeld.' : 'uitgeschakeld.'}`
+        const pushMessage = `${$dir.header.title} is nu ${$dir.enable ? 'ingeschakeld.' : 'uitgeschakeld.'}`
 
         ImplementationNotificationsService.update(
             $dir.organization.id,

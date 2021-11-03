@@ -20,6 +20,9 @@
             button(ng-click="$dir.resetToDefault()").button.button-danger.button-sm.button-flat
                 em.mdi.mdi-refresh.icon-start
                 | Opnieuw instellen
+            button(type="button" ng-click="$dir.cancelTemplateEdit()").button.button-default.button-sm.button-flat
+                em.mdi.mdi-close.icon-start
+                | Annuleren
 
     //- The details
     .card-section(ng-class="($dir.enable && $dir.enable_all) ? '' : 'card-section-danger'"): form(ng-submit="$dir.editForm.submit()")
@@ -32,25 +35,15 @@
 
         //- Template title
         .form-group
-            label(for="{{ $dir.titleId }}").form-label Titel
+            label(for="{{ $dir.titleId }}").form-label Onderwerp
 
             //- Title preview
             .card-title(
                 ng-if="!$dir.editForm"
-                ng-bind="$dir.template.title || 'Geen titel'")
+                ng-bind="$dir.template.title || 'Geen onderwerp'")
 
             //- Title edit
             div(ng-if="$dir.editForm")
-                input(
-                    id="{{ $dir.titleId }}" 
-                    ng-model="$dir.editForm.values.title"
-                    maxlength="{{ $dir.type == 'push' ? 40 : 160 }}").form-control
-
-                .form-hint(
-                    ng-if="$dir.editForm" 
-                    translate="system_notifications.hints.maxlen" 
-                    translate-values="{attribute: 'titel', size: $dir.type == 'push' ? 40 : 140}")
-
                 //- Title variables
                 .editor-variables(ng-if="$dir.editForm")
                     .variables-list: button(
@@ -60,22 +53,33 @@
                         ng-bind="variable.label"
                         ng-click="$dir.addVariable('title', variable)").button.button-primary.button-flat.button-xs
 
-                    .variables-hint Selecteer positie in de tekst en klik op de knoppen om de variabele toe te voegen.
+                    //-.variables-hint Selecteer positie in de tekst en klik op de knoppen om de variabele toe te voegen.
+
+                    input(
+                        id="{{ $dir.titleId }}" 
+                        ng-model="$dir.editForm.values.title"
+                        maxlength="{{ $dir.type == 'push' ? 40 : 160 }}").form-control
+
+                    .form-hint(
+                        ng-if="$dir.editForm" 
+                        translate="system_notifications.hints.maxlen" 
+                        translate-values="{attribute: 'onderwerp', size: $dir.type == 'push' ? 40 : 140}")
 
         //- Template content
         .form-group
-            label(for="{{ $dir.descriptionId }}").form-label Beschrijving
+            label(for="{{ $dir.descriptionId }}" ng-if="!$dir.editForm").form-label Voorbeeld
+            label(for="{{ $dir.descriptionId }}" ng-if="$dir.editForm").form-label Bericht
 
             //- Text content preview
             div(ng-if="$dir.type != 'mail'")
                 //- Preview
                 .card-text(
                     ng-if="!$dir.editForm && $dir.type === 'push'"
-                    ng-bind="$dir.template.content || 'Geen beschrijving'")
+                    ng-bind="$dir.template.content || 'Geen bericht'")
 
                 .card-text: div(
                     ng-if="!$dir.editForm && $dir.type === 'database'"
-                    ng-repeat="description in (($dir.template.content || 'Geen beschrijving') | lines_to_array)"
+                    ng-repeat="description in (($dir.template.content || 'Geen bericht') | lines_to_array)"
                     ng-bind="description")
 
                 //- Edit
@@ -89,7 +93,7 @@
                 .form-hint(
                     ng-if="$dir.editForm" 
                     translate="system_notifications.hints.maxlen" 
-                    translate-values="{attribute: 'beschrijving', size: $dir.type == 'push' ? 170 : 400}")
+                    translate-values="{attribute: 'bericht', size: $dir.type == 'push' ? 170 : 400}")
 
             //- Markdown content preview
             div(ng-if="$dir.type == 'mail'")
@@ -98,34 +102,33 @@
                     .block.block-markdown.block-markdown-center(ng-bind-html="$dir.template.content_html_sce")
                     .mail_preview-footer
 
-                //- Edit
-                markdown(
-                    ng-if="$dir.editForm &&  $dir.template"
-                    editor-id="{{ $dir.descriptionId }}"
-                    value="$dir.editForm.values.content_html" 
-                    ng-model="$dir.editForm.values.content"
-                    bind-editor="$dir.bindEditor(editor)"
-                    allow-lists="false"
-                    buttons="$dir.editorButtons")
+                //- Content variables
+                .editor-variables(ng-if="$dir.editForm")
+                    .variables-list: button.button.button-primary.button-flat.button-xs(
+                        type="button"
+                        ng-repeat="variable in $dir.variables"
+                        ng-if="variable.types.includes($dir.type)"
+                        ng-bind="variable.label"
+                        ng-click="$dir.addVariable('description', variable)")
 
-                .form-hint(
-                    ng-if="$dir.editForm" 
-                    translate="system_notifications.hints.maxlen" 
-                    translate-values="{attribute: 'beschrijving', size: 16384}")
+                    //-.variables-hint Selecteer positie in de tekst en klik op de knoppen om de variabele toe te voegen.
 
-            //- Content variables
-            .editor-variables(ng-if="$dir.editForm")
-                .variables-list: button.button.button-primary.button-flat.button-xs(
-                    type="button"
-                    ng-repeat="variable in $dir.variables"
-                    ng-if="variable.types.includes($dir.type)"
-                    ng-bind="variable.label"
-                    ng-click="$dir.addVariable('description', variable)")
+                    //- Edit
+                    markdown(
+                        ng-if="$dir.editForm &&  $dir.template"
+                        editor-id="{{ $dir.descriptionId }}"
+                        value="$dir.editForm.values.content_html" 
+                        ng-model="$dir.editForm.values.content"
+                        bind-editor="$dir.bindEditor(editor)"
+                        allow-lists="false"
+                        buttons="$dir.editorButtons")
 
-                .variables-hint Selecteer positie in de tekst en klik op de knoppen om de variabele toe te voegen.
-
+                    .form-hint(
+                        ng-if="$dir.editForm" 
+                        translate="system_notifications.hints.maxlen" 
+                        translate-values="{attribute: 'bericht', size: 16384}")
 
         .form-group(ng-if="$dir.editForm")
             .button-group.flex-center
-                button.button.button-primary(type="submit") Opslaan
                 button.button.button-default(type="button" ng-click="$dir.cancelTemplateEdit()") Annuleren
+                button.button.button-primary(type="submit") Opslaan

@@ -62,12 +62,12 @@ const ImplementationNotificationsBrandingComponent = function(
                     email_signature: email_signature && email_signature != email_signature_default ? email_signature : null,
                     ...(media ? { email_logo_uid: media.uid } : {})
                 }).then(() => {
-                    PushNotificationsService.success('Success!', 'Email notifications branding updated!');
+                    PushNotificationsService.success('Gelukt!', 'De aanpassingen zijn opgeslagen!');
                     $state.go('implementation-notifications', {
                         organization_id: $ctrl.organization.id,
                     });
                 }, (res) => {
-                    PushNotificationsService.danger('Error!', 'Please fix validation errors and try again!');
+                    PushNotificationsService.danger('Mislukt!', 'Er zijn een aantal problemen opgetreden, probeer het opnieuw!');
                     form.errors = res.data.errors;
                     form.unlock();
                 });

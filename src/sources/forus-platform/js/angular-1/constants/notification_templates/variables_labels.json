@@ -1,4 +1,6 @@
 {
+    "email_logo": "E-mail logo",
+    "email_signature": "E-mail handtekening",
     "fonds_naam": "Fondsnaam",
     "fonds_type": "Fondstype",
     "fonds_startdatum": "Fonds startdatum",
@@ -32,7 +34,7 @@
     "medewerker_rollen_verwijderd": "Medewerker rollen verwijderd",
     "medewerker_rollen_aangewezen": "Medewerker rollen aangewezen",
     "webshop_link": "Webshop link",
-    "webshop_button": "Webshop button",
+    "webshop_button": "Webshop knop",
     "webshop_aanvulverzoek_link": "Webshop aanvulverzoek link",
     "geweigerd_notitie": "Geweigerd notitie",
     "fonds_budget_over": "Fonds budget over",
@@ -48,6 +50,8 @@
     "plaatsnaam": "Plaatsnaam",
     "woonadres": "Woonadres",
     "tegoed_naam": "Tegoednaam",
-    "email_logo": "Email logo",
-    "email_signature": "Email signature"
+    "app_link": "App link",
+    "voucher_share_message": "Tegoed deelbericht",
+    "webshop_clarification_button": "Aanvulverzoek link",
+    "subsidy_new_limit": "Tegoed nieuw saldo"
 }
