@@ -99,7 +99,7 @@ const jsCompiler = function(platform, src, task) {
 
         // uglify output
         if (typeof task.minify == 'undefined' ? true : task.minify) {
-            stream.push(plugins.terser());
+            stream.push(plugins.uglify());
         }
 
         // sourcemap

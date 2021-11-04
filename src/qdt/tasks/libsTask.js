@@ -26,16 +26,10 @@ const libsTask = (done) => {
             ), bundle.css);
 
             fse.mkdirpSync(assestPath('/dist/bundle/fonts'));
-            fse.mkdirpSync(assestPath('/dist/bundle/css/font'));
             bundle.fonts.forEach((font) => {
                 fse.copyFileSync(
                     path.resolve(__dirname, '../../', font),
                     assestPath('/dist/bundle/fonts/' + path.parse(font).base)
-                );
-
-                fse.copyFileSync(
-                    path.resolve(__dirname, '../../', font),
-                    assestPath('/dist/bundle/css/font/' + path.parse(font).base)
                 );
             });
 

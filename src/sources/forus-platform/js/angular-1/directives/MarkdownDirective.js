@@ -1,6 +1,5 @@
-const gfm = require('joplin-turndown-plugin-gfm').gfm;
 
-const MarkdownDirective = function($scope, $element, $timeout, ModalService, HelperService) {
+const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
     const $theEditor = $($element.find('[editor]')[0]);
 
     const getCustomLink = (type, values) => {
@@ -163,6 +162,16 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService, Hel
             unlink: 'mdi mdi-link-off',
             picture: 'mdi mdi-image',
             video: 'mdi mdi-youtube',
+
+            rowBelow: 'mdi mdi-table-row-plus-after',
+            rowAbove: 'mdi mdi-table-row-plus-before',
+            
+            colBefore: 'mdi mdi-table-column-plus-before',
+            colAfter: 'mdi mdi-table-column-plus-after',
+
+            rowRemove: 'mdi mdi-table-row-remove',
+            colRemove: 'mdi mdi-table-column-remove',
+            trash: 'mdi mdi-delete-outline',
         },
 
         styleTags: ['h1', 'h2', 'h3', 'h4', 'p'],
@@ -173,9 +182,8 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService, Hel
         ] : []), ...[
             ['font', ['bold', 'italic', 'clear']],
             ['para', ['ol', 'ul']],
-        ], ...[
-            ['table', ['table']],
         ], ...($scope.extendedOptions ? [
+            ['table', ['table']],
             ['cms', ['cmsLink', 'unlink', 'cmsMedia', 'cmsLinkYoutube']],
         ] : [
             ['cms', ['cmsLink', 'unlink']]
@@ -205,7 +213,9 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService, Hel
                     }
                 });
 
-                turndownService.use(gfm);
+                if (turndownPluginGfm) {
+                    turndownService.use(turndownPluginGfm.gfm);   
+                }
 
                 const markdown = turndownService.turndown(contents).split("\n");
 
@@ -253,7 +263,6 @@ module.exports = () => {
             '$element',
             '$timeout',
             'ModalService',
-            'HelperService',
             MarkdownDirective
         ],
         templateUrl: 'assets/tpl/directives/markdown.html'
