@@ -47,8 +47,9 @@ const FundsComponent = function(
         $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.updateFundsMeta();
 
-        $ctrl.criteriaList = $ctrl.fund.criteria;
         $ctrl.fundLogo = $ctrl.fund.logo || $ctrl.fund.organization.logo;
+        $ctrl.criteriaList = $ctrl.fund.criteria;
+        $ctrl.fund.description_html = $sce.trustAsHtml($ctrl.fund.description_html);
 
         $ctrl.recordTypes.forEach(function(recordType) {
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
@@ -64,7 +65,6 @@ const FundsComponent = function(
             })),
         };
 
-        $ctrl.fund.description_long_html = $sce.trustAsHtml($ctrl.fund.description_long_html);
     };
 };
 

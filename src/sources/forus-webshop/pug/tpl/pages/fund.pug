@@ -64,9 +64,9 @@ main(id="main-content")
                                     .fund-details-item-label Einddatum
                                     .fund-details-item-value(ng-bind="$ctrl.fund.end_date_locale")        
 
-                    .fund-description(ng-if="$ctrl.fund.description")
+                    .fund-description(ng-if="$ctrl.fund.description_short")
                         .fund-description-label Omschrijving
-                        .fund-description-value(ng-bind="$ctrl.fund.description")
+                        .fund-description-value(ng-bind="$ctrl.fund.description_short")
 
                 .fund-actions(ng-if="!(!$ctrl.fund.auto_validation && $ctrl.fund.allow_fund_requests)"): +fund_menu()
 
@@ -82,7 +82,18 @@ main(id="main-content")
 
                 .fund-actions: +fund_menu
 
+        block-products(
+            type="budget"
+            ng-if="!$ctrl.fund.description_html && $ctrl.products"
+            products="$ctrl.products.data"
+            filters="{fund_id: $ctrl.fund.id}")
+
+        block-products(
+            type="subsidies"
+            ng-if="!$ctrl.fund.description_html && $ctrl.subsidies"
+            products="$ctrl.subsidies.data"
+            filters="{fund_id: $ctrl.fund.id}") 
+
         .block.block-markdown(
-            ng-class="'block-markdown-' + $ctrl.page.content_alignment"
-            ng-if="$ctrl.fund.description_long_html" 
-            ng-bind-html="$ctrl.fund.description_long_html")
+            ng-if="$ctrl.fund.description_html" 
+            ng-bind-html="$ctrl.fund.description_html")
