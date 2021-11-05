@@ -70,8 +70,8 @@
                         em.mdi.mdi-circle-slice-8.icon-start
                         | Geaccepteerd
                     .card-section-actions-details
-                        .card-section-actions-label &nbsp;
-                        .card-section-actions-value {{ validatorRequest.resolve_interval_days }} dagen
+                        .card-section-actions-label(translate="validation_requests.labels.accepted_at")
+                        .card-section-actions-value(ng-bind="validatorRequest.resolved_at_locale")
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
                     .tag.tag-success 
@@ -79,12 +79,12 @@
                         | Aanvulling gevraagd
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'declined'")
-                    .tag.tag-danger 
+                    .flex.flex-end: .tag.tag-danger 
                         em.mdi.mdi-circle-off-outline.icon-start
                         | Geweigerd
                     .card-section-actions-details
-                        .card-section-actions-label &nbsp;
-                        .card-section-actions-value {{ validatorRequest.resolve_interval_days }} dagen
+                        .card-section-actions-label(translate="validation_requests.labels.declined_at")
+                        .card-section-actions-value(ng-bind="validatorRequest.resolved_at_locale")
                 
                 .card-title(ng-class="{'text-muted':!validatorRequest.bsn}")
                     | BSN: 
