@@ -71,7 +71,7 @@
                         | Geaccepteerd
                     .card-section-actions-details
                         .card-section-actions-label &nbsp;
-                        .card-section-actions-value(ng-bind="validatorRequest.updated_at_locale")
+                        .card-section-actions-value {{ validatorRequest.resolve_interval_days }} dagen
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
                     .tag.tag-success 
@@ -82,6 +82,9 @@
                     .tag.tag-danger 
                         em.mdi.mdi-circle-off-outline.icon-start
                         | Geweigerd
+                    .card-section-actions-details
+                        .card-section-actions-label &nbsp;
+                        .card-section-actions-value {{ validatorRequest.resolve_interval_days }} dagen
                 
                 .card-title(ng-class="{'text-muted':!validatorRequest.bsn}")
                     | BSN: 
