@@ -124,6 +124,20 @@
                 font: 500 13px/20px $bf;
                 border-right: 1px solid #d4d9dd;
             }
+
+            &:first-child {
+                th, td {
+                    color: #646f79;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    font: 700 12px/20px $bf;
+
+                    * {
+                        color: inherit !important;
+                        font: inherit !important;
+                    }
+                }
+            }
         }
 
         &>tr,

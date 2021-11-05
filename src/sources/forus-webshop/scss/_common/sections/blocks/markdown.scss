@@ -78,51 +78,60 @@
         table {
             border-collapse: collapse;
             width: 100%;
+            margin: 0 0 20px;
             font: inherit;
-            border: 1px solid #d4d9dd;
-            border-right: none;
-            background-color: #fff;
 
             thead {
                 display: none;
             }
-    
+        
             tr {
                 text-align: left;
                 font: inherit;
-    
+        
                 td,
                 th {
-                    padding: 10px 12px;
+                    padding: 15px 15px;
                     cursor: default;
                     border-bottom: 1px solid #d4d9dd;
                     transition: 0.3s;
-                    font: inherit;
-    
+        
                     &>a {
                         font: inherit;
                     }
                 }
-    
-                th {
-                    color: #646f79;
-                    padding-top: 6px;
-                    padding-bottom: 6px;
-                    font: 500 12px/18px $bf;
-    
+        
+                td {
+                    color: #444a4f;
+                    font: inherit;
+        
                     &:first-child {
                         padding-left: 25px;
                     }
-    
+        
                     &:last-child {
                         padding-right: 25px;
                     }
                 }
-    
-                td {
-                    color: #444a4f;
-                    font: 500 13px/20px $bf;
-                    border-right: 1px solid #d4d9dd;
+
+                &:first-child {
+                    th, td {
+                        color: #646f79;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                        font: 700 12px/20px $bf;
+
+                        * {
+                            color: inherit;
+                            font: inherit;
+                        }
+                    }
+                }
+        
+                &:last-child {
+                    td {
+                        border-bottom: none;
+                    }
                 }
             }
     
