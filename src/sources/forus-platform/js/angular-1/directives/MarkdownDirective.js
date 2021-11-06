@@ -8,7 +8,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 values: values,
                 hasDescription: type != 'youtubeLink',
                 success: (data) => {
-                    const { url, text, uid } = data;
+                    const { url, text, uid, alt } = data;
 
                     if (uid && $scope.mediaUploaded) {
                         $scope.mediaUploaded({
@@ -16,7 +16,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                         });
                     }
 
-                    resolve({ ...values, ...{ url, text } });
+                    resolve({ ...values, ...{ url, text, alt } });
                 }
             });
         }, 0));
@@ -108,7 +108,10 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                             context.invoke('editor.restoreRange');
 
                             if (type === 'imageLink') {
-                                context.invoke('editor.insertImage', data.url || '', 'filename');
+                                context.invoke('editor.insertImage', data.url || '', function (image) {
+                                    image.attr('alt', data.alt || '')
+                                        .attr('data-filename', 'filename');
+                                });
                             }
 
                             if (type === 'youtubeLink') {
