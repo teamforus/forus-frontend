@@ -181,9 +181,9 @@ const ImplementationCmsEditComponent = function(
                 return ModalService.open("dangerZone", {
                     title: "Aanspreekvorm veranderd!",
                     description_text: [
-                        `U heeft de aanspreekvorm veranderd voor '${$ctrl.implementation.name}' webshop.\n`,
-                        `Formele en informele aanspreekvormen gebruiken verschillende templates voor berichten,`,
-                        `hierdoor zullen al uw aangepaste systeemberichten ingesteld worden naar de door u gekozen aanspreekvorm.`
+                        `U heeft de aanspreekvorm veranderd voor de '${$ctrl.implementation.name}' webshop.\n`,
+                        `Dit heeft ook invloed op de templates van de e-mailberichten, pushberichten en webberichten.\n`,
+                        `Weet u zeker dat u wilt doorgaan?`
                     ].join(''),
                     cancelButton: "Annuleren",
                     confirmButton: "Bevestigen",
