@@ -1,0 +1,12 @@
+.app.app-container
+    menu
+    section.app.app-content: .form
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementation-notifications({organization_id: $root.activeOrganization.id})") Systeemberichten
+            .breadcrumb-item.active(ng-bind="$ctrl.notification.title")
+
+        system-notification-editor(
+            ng-if="$ctrl.notification" 
+            notification="$ctrl.notification"
+            organization="$ctrl.organization"
+            implementation="$ctrl.implementation")

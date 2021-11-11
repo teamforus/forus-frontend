@@ -162,7 +162,7 @@
                                     .tooltip-content(ng-if="voucher.showTooltip" click-outside="$ctrl.hideTooltip($event, voucher)")
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
 
-                                td(ng-if="!$ctrl.fundClosed")
+                                td
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[0]").text-primary
                                     br
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark

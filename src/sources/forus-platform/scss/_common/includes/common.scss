@@ -87,16 +87,32 @@ img {
     flex-grow: 100 !important;
 }
 
+.text-muted-light {
+    color: #c1c1c1 !important;
+    transition: color .3s;
+}
+
 .text-muted {
     color: #a1a1a1 !important;
+    transition: color .3s;
 }
 
 .text-muted-dim {
     color: #919191 !important;
+    transition: color .3s;
 }
 
 .text-muted-dark {
     color: #818181 !important;
+    transition: color .3s;
+}
+
+.transition-color {
+    transition: color .3s;
+}
+
+.transition-background {
+    transition: background-color .3s;
 }
 
 .text-black {
@@ -115,16 +131,20 @@ img {
     color: #009ef4 !important;
 }
 
+.text-primary-dark {
+    color: #3b5672 !important;
+}
+
 .text-warning {
     color: #f8b857 !important;
 }
 
 .text-danger {
-    color: #e63b3b;
+    color: #e63b3b !important;
 }
 
 .text-danger-dark {
-    color: #8b0f0f;
+    color: #8b0f0f !important;
 }
 
 .text-dim {
@@ -135,16 +155,24 @@ img {
     color: #333 !important;
 }
 
+.text-black {
+    color: #000 !important;
+}
+
 .text-underline {
     text-decoration: underline !important;
 }
 
+.text-success-dark {
+    color: #2cc6ab !important;
+}
+
 .text-success {
-    color: #226f24;
+    color: #226f24 !important;
 }
 
 .text-success-light {
-    color: #2cc678;
+    color: #2cc678 !important;
 }
 
 .text-strong {
@@ -197,8 +225,21 @@ img {
     flex-direction: column;
 }
 
+.flex-horizontal {
+    flex-direction: row;
+}
+
+.flex-vertical {
+    flex-direction: column;
+}
+
 .flex {
     display: flex;
+}
+
+.flex-pad {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .span-count {

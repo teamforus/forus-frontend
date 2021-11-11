@@ -286,6 +286,8 @@ const FundService = function(ApiRequest, ModalService) {
                 formula_products: apiResource.formula_products || [],
                 name: apiResource.name,
                 description: apiResource.description,
+                description_html: apiResource.description_html,
+                description_short: apiResource.description_short,
                 state: apiResource.state,
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),
