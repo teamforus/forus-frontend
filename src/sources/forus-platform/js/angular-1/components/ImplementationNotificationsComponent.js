@@ -1,9 +1,9 @@
 const groupBy = require('lodash/groupBy');
 
 const groupLabels = {
-    requester_fund_request: "Inwoner aanvraag en beoordeling",
-    requester_vouchers: "Inwoner tegoeden",
-    requester_transactions: "Inwoner reserveringen en transacties",
+    requester_fund_request: "Deelnemers aanvraag en beoordeling",
+    requester_vouchers: "Deelnemers tegoeden",
+    requester_transactions: "Deelnemers reserveringen en transacties",
     provider_fund_requests: "Aanbieder aanvraag en beoordeling",
     provider_voucher_and_transactions: "Aanbieder reserveringen en transacties",
     sponsor: "Sponsor",
