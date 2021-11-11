@@ -176,8 +176,8 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 caret: 'mdi mdi-menu-down',
                 magic: 'mdi mdi-format-size',
 
-                unorderedlist: 'mdi mdi-format-list-numbered',
-                orderedlist: 'mdi mdi-format-list-bulleted',
+                unorderedlist: 'mdi mdi-format-list-bulleted',
+                orderedlist: 'mdi mdi-format-list-numbered',
 
                 table: 'mdi mdi-table',
                 close: 'mdi mdi-close',
