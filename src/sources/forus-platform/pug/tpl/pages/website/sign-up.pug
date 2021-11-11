@@ -1,6 +1,10 @@
 .block.block-sign-up
+    a.block-sign-up-item-back(ng-if="$ctrl.fromLoginPage" ui-sref="login")
+        em.mdi.mdi-chevron-left.icon-start
+        | Ga terug
+
     .block-sign-up-header
-        .block-sign-up-title Inschrijven
+        .block-sign-up-title Maak een nieuw account
     .block-sign-up-options
         .block-sign-up-option: a(href="{{ $ctrl.appConfigs.frontends.url_provider + 'sign-up' }}" target="_self").block-sign-up-option-inner
             .block-sign-up-option-img: div
@@ -20,6 +24,6 @@
                 img.img-hover(src="./assets/img/website/sponsor-hover.svg")
             .block-sign-up-option-description Als sponsor
 
-    .block-sign-up-footer
+    .block-sign-up-footer(ng-if="!$ctrl.fromLoginPage")
         .block-sign-up-footer-title Al ingeschreven?
         a(ui-sref="login").block-sign-up-footer-button Inloggen
