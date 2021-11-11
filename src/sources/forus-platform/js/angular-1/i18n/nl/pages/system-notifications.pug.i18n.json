@@ -57,8 +57,8 @@
             "description": "Deelnemers ontvangen dit bericht wanneer een aanbieding van een aanbieder wordt toegevoegd aan een fonds."
         },
         "notifications_identities.requester_fund_ended": {
-            "title": "Aanbieder goedgekeurd voor aanbiedingen",
-            "description": "Deelnemers ontvangen dit bericht wanneer het aanbod van een aanbieder wordt toegevoegd aan een fonds."
+            "title": "Fonds is afgelopen",
+            "description": "Deelnemers ontvangen dit bericht wanneer een fonds van hun tegoed is afgelopen."
         },
         "notifications_fund_requests.created_validator_employee": {
             "title": "Nieuwe aanvraag is binnen gekomen",
