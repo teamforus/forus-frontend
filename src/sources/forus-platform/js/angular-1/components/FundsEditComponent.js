@@ -70,6 +70,14 @@ const FundsEditComponent = function(
         $ctrl.criteriaEditor = childRef;
     }
 
+    $ctrl.appendMedia = (media_uid, formValue) => {
+        if (!Array.isArray(formValue.description_media_uid)) {
+            formValue.description_media_uid = [];
+        }
+
+        formValue.description_media_uid.push(media_uid);
+    };
+
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm($ctrl.fund) : {
             default_validator_employee_id: null,

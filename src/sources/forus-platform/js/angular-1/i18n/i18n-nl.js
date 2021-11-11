@@ -435,6 +435,7 @@ module.exports = {
         },
         labels: {
             name: "Naam",
+            description_short: "Korte omschrijving",
             description: "Omschrijving",
             products: "Aanbod",
             status: "Status",
