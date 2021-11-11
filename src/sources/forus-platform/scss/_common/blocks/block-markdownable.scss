@@ -10,7 +10,7 @@
 
             .mdi {
                 display: block;
-                width: 34px;
+                width: 33px;
                 text-align: center;
                 line-height: 33px;
                 font-size: 20px;
@@ -93,6 +93,14 @@
                         background: #ebebeb;
                     }
                 }
+
+                &:last-child {
+                    .note-btn {
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
             }
         }
 
@@ -105,6 +113,12 @@
         .note-editable {
             @extend .block.block-markdown;
             @include webkit_scrollbar_gray();
+
+            table {
+                thead {
+                    display: none;
+                }
+            }
         }
 
         &.fullscreen {

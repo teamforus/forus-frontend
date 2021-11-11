@@ -189,6 +189,16 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 video: 'mdi mdi-youtube',
                 view: 'mdi mdi-eye-outline',
 
+                rowBelow: 'mdi mdi-table-row-plus-after',
+                rowAbove: 'mdi mdi-table-row-plus-before',
+
+                colBefore: 'mdi mdi-table-column-plus-before',
+                colAfter: 'mdi mdi-table-column-plus-after',
+
+                rowRemove: 'mdi mdi-table-row-remove',
+                colRemove: 'mdi mdi-table-column-remove',
+                trash: 'mdi mdi-delete-outline',
+
                 ...icons
             },
 
@@ -202,6 +212,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
             ], ...(allowLists ? [
                 ['para', ['ol', 'ul']],
             ] : []), ...(extendedOptions ? [
+                ['table', ['table']],
                 ['cms', ['cmsLink', 'unlink', 'cmsMedia', 'cmsLinkYoutube']],
             ] : [
                 ['cms', ['cmsLink', 'unlink']]
@@ -232,6 +243,10 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                             )})`;
                         }
                     });
+
+                    if (turndownPluginGfm) {
+                        turndownService.use(turndownPluginGfm.gfm);
+                    }
 
                     const markdown = turndownService.turndown(contents).split("\n");
 

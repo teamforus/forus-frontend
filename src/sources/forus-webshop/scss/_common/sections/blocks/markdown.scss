@@ -74,6 +74,79 @@
             max-width: 100% !important;
             height: auto !important;
         }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 0 0 20px;
+            font: inherit;
+
+            thead {
+                display: none;
+            }
+        
+            tr {
+                text-align: left;
+                font: inherit;
+        
+                td,
+                th {
+                    padding: 15px 15px;
+                    cursor: default;
+                    border-bottom: 1px solid #d4d9dd;
+                    transition: 0.3s;
+        
+                    &>a {
+                        font: inherit;
+                    }
+                }
+        
+                td {
+                    color: #444a4f;
+                    font: inherit;
+        
+                    &:first-child {
+                        padding-left: 25px;
+                    }
+        
+                    &:last-child {
+                        padding-right: 25px;
+                    }
+                }
+
+                &:first-child {
+                    th, td {
+                        color: #646f79;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                        font: 700 12px/20px $bf;
+
+                        * {
+                            color: inherit;
+                            font: inherit;
+                        }
+                    }
+                }
+        
+                &:last-child {
+                    td {
+                        border-bottom: none;
+                    }
+                }
+            }
+    
+            &>tr,
+            &>thead:last-child>tr,
+            &>tbody:last-child>tr {
+                &:last-child {
+    
+                    td,
+                    th {
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
     
         .youtube-root {
             padding-top: 56.25%;
