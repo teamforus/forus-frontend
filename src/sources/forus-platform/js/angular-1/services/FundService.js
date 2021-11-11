@@ -283,6 +283,7 @@ const FundService = function(ApiRequest, ModalService) {
             return {
                 type: apiResource.type,
                 criteria: apiResource.criteria,
+                faq: apiResource.faq || [],
                 formula_products: apiResource.formula_products || [],
                 name: apiResource.name,
                 description: apiResource.description,

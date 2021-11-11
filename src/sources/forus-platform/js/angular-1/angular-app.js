@@ -208,6 +208,7 @@ app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditor
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
+app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 

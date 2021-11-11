@@ -1,0 +1,40 @@
+.block.block-faq-editor
+    .question-item(ng-repeat="question in $dir.faq" ng-show="question.is_editing")
+        .question-title(ng-bind="question.title_hint")
+
+        .question-actions
+            .button.button-default(
+                ng-if="!question.is_editing"
+                ng-click="$dir.questionEdit(question)")
+                em.mdi.mdi-pencil.icon-start
+                translate(translate="components.fund_faq_editor.item.buttons.edit")
+                
+            .button.button-default(
+                ng-click="$dir.removeQuestion()")
+                em.mdi.mdi-close.icon-start
+                translate(translate="components.fund_faq_editor.item.buttons.delete")  
+
+            .button.button-default(
+                ng-if="question.is_editing"
+                ng-click="$dir.questionEditCancel(question)")
+                em.mdi.mdi-close.icon-start
+                translate(translate="components.fund_faq_editor.item.buttons.cancel")
+
+        div(ng-if="question.is_editing")
+            .form-group
+                label.form-label Title
+                input(type="text" ng-model="question.title").form-control
+                .form-error(ng-repeat="error in $dir.errors['question.0.title']" ng-bind="error")
+            
+            .form-group
+                label.form-label Description
+                markdown(
+                    extended-options="true"
+                    value="question.description_html"
+                    ng-model="question.description")
+                    .form-error(ng-repeat="error in $dir.errors['question.0.description']" ng-bind="error")
+
+    .faq-editor-actions
+        .button.button-primary(ng-click="$dir.addQuestion()")
+            em.mdi.mdi-plus-circle.icon-start
+            translate(translate="components.fund_faq_editor.buttons.add_question")

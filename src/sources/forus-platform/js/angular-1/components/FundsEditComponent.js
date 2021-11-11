@@ -76,6 +76,7 @@ let FundsEditComponent = function(
             auto_requests_validation: false,
             formula_products: [],
             criteria: [],
+            faq: [],
             state: $ctrl.fundStates[0].value,
             type: 'budget',
         };
