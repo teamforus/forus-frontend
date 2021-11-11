@@ -1,0 +1,61 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card-heading(ng-if="$ctrl.implementations.data.length > 1" translate="system_notifications.header.title") 
+        .block.block-choose-organization(ng-if="$ctrl.implementations.data.length > 1")
+            div(
+                ng-repeat="implementation in $ctrl.implementations.data"
+                ng-click="$ctrl.selectImplementation(implementation)").organization-item
+                .organization-item-inner(ng-class="{ 'active' : $ctrl.implementation == implementation }")
+                    .organization-logo: img(ng-src="{{ implementation.logo || './assets/img/placeholders/organization-thumbnail.png' }}")
+                    .organization-name(ng-bind="implementation.name")
+
+        //- Title
+        .card-heading: .flex.flex-horizontal
+            .flex.flex-grow.flex-vertical.flex-center: div
+                | Handtekening en huisstijl  
+                tooltip(text="'system_notifications.header.tooltip' | translate")
+
+            .flex: .button-group: a(ui-sref="implementation-notifications({organization_id: $ctrl.organization.id})").button.button-text
+                em.mdi.mdi-chevron-left.icon-start
+                | Terug
+
+        //- Branding form
+        .card.card-collapsed: form(ng-submit="$ctrl.form.submit()").form
+            .card-header: .card-title Huisstijl
+            .card-section: .row: .col.col-lg-9.col-lg-12: .form
+                .form-group.form-group-inline.form-group-inline-md
+                    label.form-label Logo
+                    .form-offset
+                        photo-selector(
+                            template="photo-selector-notifications"
+                            type="email_logo"
+                            media="$ctrl.logoMedia || $ctrl.mediaFile"
+                            thumbnail="$ctrl.thumbnailMedia.sizes.thumbnail"
+                            description-translate="organization_edit.labels.photo_description"
+                            reset-photo="$ctrl.resetPhoto()"
+                            select-photo="$ctrl.selectPhoto(file)")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.email_logo_uid" ng-bind="error")
+
+                .form-group.form-group-inline.form-group-inline-md
+                    label.form-label Kleur van de elementen
+                    .form-offset
+                        input(ng-model="$ctrl.form.values.email_color" type="color").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.email_color" ng-bind="error")
+                        tooltip(text="'Kleur van knoppen en links in de e-mailberichten.'")
+
+                .form-group.form-group-inline.form-group-inline-md
+                    label.form-label Handtekening
+                    .form-offset
+                        textarea(
+                            ng-model="$ctrl.form.values.email_signature"
+                            placeholder="{{ $ctrl.defaultSignature ? $ctrl.defaultSignature : 'Handtekening' }}").form-control
+
+                        .form-hint(
+                            translate="system_notifications.hints.maxlen" 
+                            translate-values="{attribute: 'handtekening', size: 4096}")
+
+                        .form-error(ng-repeat="error in $ctrl.form.errors.email_signature" ng-bind="error")
+            .card-section: .button-group.flex-center
+                button(type="submit").button.button-primary Opslaan
+                a(ui-sref="implementation-notifications({organization_id: $ctrl.organization.id})").button.button-default Annuleren

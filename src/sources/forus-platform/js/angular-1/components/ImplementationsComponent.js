@@ -1,10 +1,10 @@
-let ImplementationsComponent = function(
-    $state,
+const ImplementationsComponent = function(
     $q,
+    $state,
     $rootScope,
     ImplementationService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.filters = {
         values: {
@@ -18,12 +18,10 @@ let ImplementationsComponent = function(
             ImplementationService.list(
                 $rootScope.activeOrganization.id,
                 Object.assign({}, query)
-            ).then((res) => {
-                resolve($ctrl.implementations = {
-                    data: res.data.data,
-                    meta: res.data.meta,
-                });
-            }, reject);
+            ).then((res) => resolve($ctrl.implementations = {
+                data: res.data.data,
+                meta: res.data.meta,
+            }), reject);
         });
     };
 
@@ -47,8 +45,8 @@ module.exports = {
         implementations: '<',
     },
     controller: [
-        '$state',
         '$q',
+        '$state',
         '$rootScope',
         'ImplementationService',
         ImplementationsComponent

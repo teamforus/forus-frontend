@@ -70,6 +70,7 @@ module.exports = {
     vouchers: require('./nl/pages/vouchers.pug.i18n'),
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
     voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
+    system_notifications: require('./nl/pages/system-notifications.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
