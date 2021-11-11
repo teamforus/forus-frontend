@@ -27,6 +27,7 @@
     "reservering_status": "Reserveringstatus",
     "reservering_bedrag": "Reserveringsbedrag",
     "tegoed_transactie_bedrag": "Tegoed transactiebedrag",
+    "tegoed_transactie_bedrag_euro": "Tegoed transactiebedrag in Euro's",
     "tegoed_transactie_iban_naar": "IBAN naar",
     "tegoed_transactie_iban_van": "IBAN van",
     "tegoed_transactie_uitbetalingstijd": "Uitbetalingstijd",

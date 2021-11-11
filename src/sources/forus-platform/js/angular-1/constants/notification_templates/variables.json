@@ -27,6 +27,7 @@
     "product_reservation_state": "reservering_status",
     "product_reservation_amount_locale": "reservering_bedrag",
     "voucher_transaction_amount": "tegoed_transactie_bedrag",
+    "voucher_transaction_amount_locale": "tegoed_transactie_bedrag_euro",
     "voucher_transaction_iban_to": "tegoed_transactie_iban_naar",
     "voucher_transaction_iban_from": "tegoed_transactie_iban_van",
     "voucher_transaction_payment_time_locale": "tegoed_transactie_uitbetalingstijd",
