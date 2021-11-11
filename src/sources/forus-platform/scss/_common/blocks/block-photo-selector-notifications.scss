@@ -1,0 +1,26 @@
+&.block-photo-selector-notifications {
+    display: flex;
+    flex-direction: row;
+
+    .photo-selector-notifications-media {
+        display: flex;
+        margin-bottom: 10px;
+        margin-right: 20px;
+
+        img {
+            display: flex;
+            max-height: 100px;
+            max-width: 100px;
+            width: 100px;
+            height: 100px;
+            border-radius: $border_radius;
+            border: 1px solid $border_color;
+        }
+    }
+
+    .photo-selector-notifications-hint  {
+        display: flex;
+        font: 400 12px/20px $bf;
+        margin-bottom: 10px;
+    }
+}
