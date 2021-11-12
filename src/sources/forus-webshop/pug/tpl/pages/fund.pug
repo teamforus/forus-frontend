@@ -92,4 +92,19 @@ main(id="main-content")
             type="subsidies"
             ng-if="$ctrl.subsidies"
             products="$ctrl.subsidies.data"
-            filters="{fund_id: $ctrl.fund.id}")  
+            filters="{fund_id: $ctrl.fund.id}")
+
+        section.section.section-faq(ng-if="$ctrl.fund.faq"): .wrapper
+            .section-splash
+            .section-title(i18n="home.faq.title")
+            .faq(collapse ng-repeat="question in $ctrl.fund.faq")
+                mixin faq_item(title, content, active)
+                    .faq-item(class=active ? 'active':'' collapse-item)
+                        .faq-item-header(collapse-header)
+                            span(ng-bind=title)
+                            .faq-item-chevron-down.mdi.mdi-chevron-down
+                            .faq-item-chevron-up.mdi.mdi-chevron-up
+                        .faq-item-content
+                            .block.block-markdown(ng-bind-html=content)
+
+                +faq_item("question.title", "question.description_html")

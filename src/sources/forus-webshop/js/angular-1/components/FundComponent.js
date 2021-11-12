@@ -1,4 +1,5 @@
 const FundsComponent = function(
+    $sce,
     $state,
     $stateParams,
     appConfigs,
@@ -62,6 +63,13 @@ const FundsComponent = function(
                 }).name,
             })),
         };
+
+        if ($ctrl.fund.faq) {
+            $ctrl.fund.faq = $ctrl.fund.faq.map(question => {
+                question.description_html = $sce.trustAsHtml(question.description_html);
+                return question;
+            });
+        }
     };
 };
 
@@ -76,6 +84,7 @@ module.exports = {
         searchData: '<',
     },
     controller: [
+        '$sce',
         '$state',
         '$stateParams',
         'appConfigs',

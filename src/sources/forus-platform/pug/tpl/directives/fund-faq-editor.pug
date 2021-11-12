@@ -1,8 +1,14 @@
 .block.block-faq-editor
-    .question-item(ng-repeat="question in $dir.faq" ng-show="question.is_editing")
+    .question-item(ng-repeat="question in $dir.faq")
         .question-title(ng-bind="question.title_hint")
 
         .question-actions
+            .button.button-default(
+                ng-if="question.is_editing"
+                ng-click="$dir.questionEditCancel(question)")
+                em.mdi.mdi-close.icon-start
+                translate(translate="components.fund_faq_editor.item.buttons.cancel")
+
             .button.button-default(
                 ng-if="!question.is_editing"
                 ng-click="$dir.questionEdit(question)")
@@ -10,21 +16,15 @@
                 translate(translate="components.fund_faq_editor.item.buttons.edit")
                 
             .button.button-default(
-                ng-click="$dir.removeQuestion()")
-                em.mdi.mdi-close.icon-start
-                translate(translate="components.fund_faq_editor.item.buttons.delete")  
-
-            .button.button-default(
-                ng-if="question.is_editing"
-                ng-click="$dir.questionEditCancel(question)")
-                em.mdi.mdi-close.icon-start
-                translate(translate="components.fund_faq_editor.item.buttons.cancel")
+                ng-click="$dir.removeQuestion($index)")
+                em.mdi.mdi-trash-can-outline.icon-start
+                translate(translate="components.fund_faq_editor.item.buttons.delete")
 
         div(ng-if="question.is_editing")
             .form-group
                 label.form-label Title
                 input(type="text" ng-model="question.title").form-control
-                .form-error(ng-repeat="error in $dir.errors['question.0.title']" ng-bind="error")
+                .form-error(ng-repeat="error in $dir.getErrorField('title', $parent.$index)" ng-bind="error")
             
             .form-group
                 label.form-label Description
@@ -32,7 +32,7 @@
                     extended-options="true"
                     value="question.description_html"
                     ng-model="question.description")
-                    .form-error(ng-repeat="error in $dir.errors['question.0.description']" ng-bind="error")
+                    .form-error(ng-repeat="error in $dir.getErrorField('description', $parent.$index)" ng-bind="error")
 
     .faq-editor-actions
         .button.button-primary(ng-click="$dir.addQuestion()")

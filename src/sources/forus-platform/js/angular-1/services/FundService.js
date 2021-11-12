@@ -341,6 +341,13 @@ const FundService = function(ApiRequest, ModalService) {
             return fund_id ? ApiRequest.patch(path, { criteria }) : ApiRequest.post(path, { criteria });
         };
 
+        this.faqValidate = (organization_id, faq) => {
+            return ApiRequest.post(sprintf(
+                uriPrefix + '%s/funds/faq/validate',
+                organization_id
+            ), { faq });
+        };
+
         this.stopActionConfirmationModal = (onConfirm) => {
             ModalService.open("dangerZone", {
                 header: "Subsidie stoppen",

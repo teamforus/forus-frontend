@@ -14,6 +14,7 @@ let FundsEditComponent = function(
 
     $ctrl.products = [];
     $ctrl.criteriaEditor = null;
+    $ctrl.faqEditor = null;
 
     $ctrl.getProductOptions = (product) => ($ctrl.productOptions || []).concat(product);
     $ctrl.setType = (type) => $ctrl.form.values.type = type;
@@ -70,6 +71,10 @@ let FundsEditComponent = function(
         $ctrl.criteriaEditor = childRef;
     }
 
+    $ctrl.registerFaqEditor = function(childRef) {
+        $ctrl.faqEditor = childRef;
+    }
+
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm($ctrl.fund) : {
             default_validator_employee_id: null,
@@ -100,39 +105,41 @@ let FundsEditComponent = function(
                     return form.unlock();
                 }
 
-                let promise;
+                $ctrl.faqEditor.faqValidate().then(async (success) => {
+                    let promise;
 
-                if (mediaFile) {
-                    let res = await MediaService.store('fund_logo', mediaFile);
+                    if (mediaFile) {
+                        let res = await MediaService.store('fund_logo', mediaFile);
 
-                    $ctrl.media = res.data.data;
-                    $ctrl.form.values.media_uid = $ctrl.media.uid;
-                }
+                        $ctrl.media = res.data.data;
+                        $ctrl.form.values.media_uid = $ctrl.media.uid;
+                    }
 
-                form.values.formula_products = form.products.map(product => product.id);
+                    form.values.formula_products = form.products.map(product => product.id);
 
-                if ($ctrl.fund) {
-                    promise = FundService.update(
-                        $stateParams.organization_id,
-                        $stateParams.id,
-                        form.values
-                    );
-                } else {
-                    promise = FundService.store(
-                        $stateParams.organization_id,
-                        form.values
-                    );
-                }
+                    if ($ctrl.fund) {
+                        promise = FundService.update(
+                            $stateParams.organization_id,
+                            $stateParams.id,
+                            form.values
+                        );
+                    } else {
+                        promise = FundService.store(
+                            $stateParams.organization_id,
+                            form.values
+                        );
+                    }
 
-                promise.then((res) => {
-                    $state.go('organization-funds', {
-                        organization_id: $stateParams.organization_id
+                    promise.then((res) => {
+                        $state.go('organization-funds', {
+                            organization_id: $stateParams.organization_id
+                        });
+                    }, (res) => {
+                        $timeout(() => {
+                            form.errors = res.data.errors;
+                            form.unlock();
+                        }, 0);
                     });
-                }, (res) => {
-                    $timeout(() => {
-                        form.errors = res.data.errors;
-                        form.unlock();
-                    }, 0);
                 });
             });
         }, true);
