@@ -1,6 +1,7 @@
 const ImplementationCmsEditComponent = function(
     $rootScope,
     MediaService,
+    ModalService,
     FormBuilderService,
     ImplementationService,
     PushNotificationsService
@@ -128,6 +129,7 @@ const ImplementationCmsEditComponent = function(
         $ctrl.page_types = $ctrl.implementation.page_types;
         $ctrl.page_types_internal = $ctrl.implementation.page_types_internal;
         $ctrl.implementation.informal_communication = informal_communication ? '1' : '0';
+        $ctrl.initialCommunicationType = informal_communication;
 
         $ctrl.bannerMedia = $ctrl.implementation.banner;
         $ctrl.bannerMeta.media = $ctrl.implementation.banner;
@@ -151,27 +153,47 @@ const ImplementationCmsEditComponent = function(
                 media_uid: [],
             }
         }, (form) => {
-            const { overlay_enabled, overlay_type, overlay_opacity } = $ctrl.bannerMeta;
-            const header_text_color = $ctrl.bannerMeta.auto_text_color ? 'auto' : $ctrl.bannerMeta.header_text_color;
+            const submit = () => {
+                const { overlay_enabled, overlay_type, overlay_opacity } = $ctrl.bannerMeta;
+                const header_text_color = $ctrl.bannerMeta.auto_text_color ? 'auto' : $ctrl.bannerMeta.header_text_color;
 
-            if ($ctrl.resetMedia && $ctrl.form.values.banner_media_uid) {
-                MediaService.delete($ctrl.form.values.banner_media_uid).then(() => { }, (res) => {
-                    PushNotificationsService.danger('Error, could not delete banner image!', res.data.message);
+                if ($ctrl.resetMedia && $ctrl.form.values.banner_media_uid) {
+                    MediaService.delete($ctrl.form.values.banner_media_uid).then(() => { }, (res) => {
+                        PushNotificationsService.danger('Error, could not delete banner image!', res.data.message);
+                    });
+                }
+
+                ImplementationService.updateCMS($rootScope.activeOrganization.id, $ctrl.implementation.id, {
+                    ...form.values,
+                    ...{ overlay_enabled, overlay_type, overlay_opacity, header_text_color }
+                }).then(() => {
+                    delete form.values.banner_media_uid;
+                    Object.keys(form.values.pages).forEach((pageKey) => form.values.pages[pageKey].media_uid = []);
+
+                    form.errors = [];
+                    form.values.media_uid = [];
+
+                    PushNotificationsService.success('Opgeslagen!');
+                }, (res) => form.errors = res.data.errors).finally(() => form.unlock());
+            };
+
+            if ($ctrl.initialCommunicationType != form.values.informal_communication) {
+                return ModalService.open("dangerZone", {
+                    title: "Aanspreekvorm veranderd!",
+                    description_text: [
+                        `U heeft de aanspreekvorm veranderd voor de '${$ctrl.implementation.name}' webshop.\n`,
+                        `Dit heeft ook invloed op de templates van de e-mailberichten, pushberichten en webberichten.\n`,
+                        `Weet u zeker dat u wilt doorgaan?`
+                    ].join(''),
+                    cancelButton: "Annuleren",
+                    confirmButton: "Bevestigen",
+                    text_align: "center",
+                    onConfirm: () => submit(),
+                    onCancel: () => form.unlock(),
                 });
             }
 
-            ImplementationService.updateCMS($rootScope.activeOrganization.id, $ctrl.implementation.id, {
-                ...form.values,
-                ...{ overlay_enabled, overlay_type, overlay_opacity, header_text_color }
-            }).then(() => {
-                delete form.values.banner_media_uid;
-                Object.keys(form.values.pages).forEach((pageKey) => form.values.pages[pageKey].media_uid = []);
-
-                form.errors = [];
-                form.values.media_uid = [];
-
-                PushNotificationsService.success('Opgeslagen!');
-            }, (res) => form.errors = res.data.errors).finally(() => form.unlock());
+            submit();
         }, true);
     };
 };
@@ -183,6 +205,7 @@ module.exports = {
     controller: [
         '$rootScope',
         'MediaService',
+        'ModalService',
         'FormBuilderService',
         'ImplementationService',
         'PushNotificationsService',

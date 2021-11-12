@@ -16,9 +16,7 @@ let ProductsShowComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.cardLevel = "show";
-        $ctrl.product.description_html = $sce.trustAsHtml(
-            $ctrl.product.description_html
-        );
+        $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
 
         $ctrl.mapFundsWithChats();
         $ctrl.updateFundToggles($ctrl.funds);
