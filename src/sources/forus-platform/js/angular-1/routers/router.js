@@ -1,30 +1,23 @@
-let targetHome = 'homeStart';
-let targetNewSignup = 'newSignup';
+const targetHome = 'homeStart';
+const targetNewSignup = 'newSignup';
 
-let repackResponse = (promise, onError = () => { }) => new Promise((resolve, reject) => {
-    promise.then((res) => resolve(
-        res.data.data ? res.data.data : res.data
-    ), (res) => {
-        onError(res);
-        reject(res);
+const repackResponse = (promise, onError = () => { }) => new Promise((resolve, reject) => {
+    promise.then((res) => resolve(res.data.data ? res.data.data : res.data), (res) => {
+        onError(res) & reject(res);
     });
 });
 
-let repackPagination = (promise) => new Promise((resolve, reject) => {
+const repackPagination = (promise) => new Promise((resolve, reject) => {
     promise.then((res) => resolve(res.data), reject);
 });
 
-let objectOnlyKeys = (obj, keys) => {
-    let out = {};
-    keys.forEach(key => out[key] = obj[key]);
-    return out;
+const only = (obj = {}, ...args) => {
+    return args.reduce((res, key) => ({ ...res, [key]: obj[key] }), {});
 };
 
-let handleAuthTarget = ($state, target) => {
+const handleAuthTarget = ($state, target) => {
     if (target[0] == targetHome) {
-        $state.go('home', {
-            confirmed: true
-        });
+        $state.go('home', { confirmed: true });
 
         return true;
     }
@@ -35,6 +28,7 @@ let handleAuthTarget = ($state, target) => {
             fund_id: target[2] || undefined,
             tag: target[3] || undefined,
         });
+
         return true;
     }
 
@@ -50,7 +44,7 @@ let handleAuthTarget = ($state, target) => {
  * @param {string} dependencyKey Other resolver dependency
  * @param {function|bool} dependencyResolver Custom organization resolver from dependency
  */
-let permissionMiddleware = (
+const permissionMiddleware = (
     messageKey,
     permissions,
     permissionsAll = true,
@@ -86,10 +80,8 @@ let permissionMiddleware = (
     ];
 };
 
-let organziationResolver = (uriKey = 'organization_id') => {
-    return ['$transition$', 'OrganizationService', (
-        $transition$, OrganizationService
-    ) => repackResponse(
+const organziationResolver = (uriKey = 'organization_id') => {
+    return ['$transition$', 'OrganizationService', ($transition$, OrganizationService) => repackResponse(
         OrganizationService.read($transition$.params()[uriKey])
     )];
 };
@@ -186,11 +178,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/organizations/create",
         component: "organizationsEditComponent",
         resolve: {
-            businessTypes: ['BusinessTypeService', (
-                BusinessTypeService
-            ) => repackResponse(BusinessTypeService.list({
-                per_page: 9999
-            }))]
+            businessTypes: ['BusinessTypeService', (BusinessTypeService) => {
+                return repackResponse(BusinessTypeService.list({ per_page: 9999 }));
+            }]
         }
     });
 
@@ -201,11 +191,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             permission: permissionMiddleware('organization-edit', 'manage_organization'),
             organization: organziationResolver('id'),
-            businessTypes: ['BusinessTypeService', (
-                BusinessTypeService
-            ) => repackResponse(BusinessTypeService.list({
-                per_page: 9999
-            }))]
+            businessTypes: ['BusinessTypeService', (BusinessTypeService) => {
+                return repackResponse(BusinessTypeService.list({ per_page: 9999 }));
+            }]
         }
     });
 
@@ -221,27 +209,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('organization-funds', [
-                'manage_funds', 'view_finances', 'view_funds',
-            ], false),
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.list(
-                $transition$.params().organization_id, {
-                    with_archived: 1
-                }
-            ))],
-            fundLevel: [('permission'), (permission) => "organizationFunds"],
-            recordTypes: ['permission', 'RecordTypeService', (
-                permission, RecordTypeService
-            ) => repackResponse(RecordTypeService.list())],
-            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', (
-                permission, $transition$, OrganizationService
-            ) => repackPagination(OrganizationService.readListValidators(
-                $transition$.params().organization_id, {
-                per_page: 100
-            }
-            ))],
+            permission: permissionMiddleware('organization-funds', ['manage_funds', 'view_finances', 'view_funds'], false),
+            fundLevel: [('permission'), () => "organizationFunds"],
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.list($transition$.params().organization_id, { with_archived: 1 }))
+            }],
+            recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
+                return repackResponse(RecordTypeService.list());
+            }],
+            validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
+                return repackPagination(OrganizationService.readListValidators($transition$.params().organization_id, { per_page: 100 }));
+            }],
         }
     });
 
@@ -508,14 +486,29 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('employees-list', 'manage_employees'),
-            employees: ['permission', '$transition$', 'OrganizationEmployeesService', (
-                permission, $transition$, OrganizationEmployeesService
-            ) => repackPagination(OrganizationEmployeesService.list(
-                $transition$.params().organization_id
-            ))],
-            roles: ['permission', 'RoleService', (
-                permission, RoleService
-            ) => repackResponse(RoleService.list())]
+            employees: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
+                return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id));
+            }],
+            roles: ['RoleService', 'permission', (RoleService) => {
+                return repackResponse(RoleService.list());
+            }],
+        }
+    });
+
+    // Organization employees
+    $stateProvider.state({
+        name: "bank-connections",
+        url: "/organizations/{organization_id}/bank-connections?error&success",
+        component: "organizationBankConnectionsComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('bank-connections', 'manage_organization'),
+            banks: ['BanksService', 'permission', (BanksService) => {
+                return repackPagination(BanksService.list());
+            }],
+            bankConnections: ['$transition$', 'BankConnectionService', 'permission', ($transition$, BankConnectionService) => {
+                return repackPagination(BankConnectionService.list($transition$.params().organization_id, { per_page: 20 }));
+            }]
         }
     });
 
@@ -745,29 +738,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             resolve: {
                 organization: organziationResolver(),
                 permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
-                funds: [
-                    'permission', '$transition$', 'FundService',
-                    function(permission, $transition$, FundService) {
-                        return repackResponse(
-                            FundService.list(
-                                $transition$.params().organization_id, {
-                                per_page: 100
-                            }
-                            )
-                        );
-                    }
-                ],
-                fund: [
-                    'funds', '$transition$',
-                    function(funds, $transition$) {
-                        // $state.params.token
-                        let fund_id = $transition$.params().fund_id;
-
-                        return $transition$.params().fund_id ? funds.filter(
-                            fund => fund.id == $transition$.params().fund_id
-                        )[0] || false : null;
-                    }
-                ],
+                funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                    return repackResponse(FundService.list($transition$.params().organization_id, { per_page2: 100 }));
+                }],
+                fund: ['funds', '$transition$', (funds, $transition$) => {
+                    return $transition$.params().fund_id ? funds.filter(fund => fund.id == $transition$.params().fund_id)[0] || false : null;
+                }],
             }
         });
 
@@ -873,8 +849,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('implementation-manage', [
                 'manage_implementation', 'manage_implementation_cms'
             ], false),
-            implementation: ['permission', '$transition$', '$timeout', '$state', 'ImplementationService', (
-                permission, $transition$, $timeout, $state, ImplementationService
+            implementation: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
+                $transition$, $timeout, $state, ImplementationService
             ) => {
                 return repackResponse(ImplementationService.read(
                     $transition$.params().organization_id,
@@ -887,13 +863,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                     }, 100);
                 });
             }],
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.list(
-                $transition$.params().organization_id, {
-                implementation_id: $transition$.params().id
-            }
-            ))]
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                repackResponse(FundService.list($transition$.params().organization_id, {
+                    implementation_id: $transition$.params().id
+                }))
+            }],
         }
     });
 
@@ -1037,6 +1011,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$.params().organization_id,
                 $transition$.params().address
             ))]
+        }
+    });
+
+    $stateProvider.state({
+        name: "transaction-bulk",
+        url: "/organizations/{organization_id}/transaction-bulks/{id}",
+        component: "transactionBulkComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('transactions-show', 'view_finances'),
+            transactionBulk: ['$transition$', 'TransactionService', 'permission', ($transition$, TransactionService) => {
+                return repackResponse(TransactionService.showBulk(
+                    $transition$.params().organization_id,
+                    $transition$.params().id
+                ));
+            }]
         }
     });
 
@@ -1190,14 +1180,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundService.list(null, {
                 state: 'active_and_closed'
             }))],
-            prevalidations: ['$transition$', 'PrevalidationService', (
-                $transition$, PrevalidationService
-            ) => repackPagination(PrevalidationService.list(objectOnlyKeys($transition$.params(), [
-                'page', 'q'
-            ])))],
-            recordTypes: ['RecordTypeService', (
-                RecordTypeService
-            ) => repackResponse(RecordTypeService.list())]
+            prevalidations: ['$transition$', 'PrevalidationService', function($transition$, PrevalidationService) {
+                return repackPagination(PrevalidationService.list(only($transition$.params(), 'page', 'q')));
+            }],
+            recordTypes: ['RecordTypeService', (RecordTypeService) => repackResponse(RecordTypeService.list())]
         }
     });
 

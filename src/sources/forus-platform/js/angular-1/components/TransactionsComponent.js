@@ -12,6 +12,14 @@ const TransactionsComponent = function(
 
     $ctrl.empty = null;
 
+    $ctrl.viewTypes = [{
+        key: 'transactions',
+        label: 'Transactions',
+    }, {
+        key: 'bulks',
+        label: 'Bulks',
+    }];
+
     $ctrl.states = [{
         key: null,
         name: 'Alle'
@@ -34,6 +42,10 @@ const TransactionsComponent = function(
         name: 'Actief'
     }];
 
+    $ctrl.statesKeyValue = $ctrl.states.reduce((obj, item) => {
+        return { ...obj, [item.key]: item.name };
+    }, {});
+
     $ctrl.filters = {
         show: false,
         values: {},
@@ -48,10 +60,11 @@ const TransactionsComponent = function(
         }
     };
 
-    $ctrl.statesKeyValue = $ctrl.states.reduce((obj, item) => {
-        obj[item.key] = item.name;
-        return obj;
-    }, {});
+    $ctrl.bulkFilters = {
+        values: {},
+        valuesDefault: { per_page: 20 },
+        reset: () => $ctrl.bulkFilters.values = { ...$ctrl.bulkFilters.valuesDefault }
+    };
 
     $ctrl.resetFilters = () => {
         $ctrl.filters.reset();
@@ -63,65 +76,91 @@ const TransactionsComponent = function(
         }, 0);
     };
 
-    // Export to XLS file
-    $ctrl.exportList = () => {
-        ModalService.open('exportType', {
-            success: (data) => {
-                TransactionService.export(
-                    appConfigs.panel_type,
-                    $ctrl.organization.id,
-                    Object.assign($ctrl.filters.values, {
-                        export_format: data.exportType
-                    })
-                ).then((res => {
-                    FileService.downloadFile(
-                        appConfigs.panel_type + '_' + org + '_' + moment().format(
-                            'YYYY-MM-DD HH:mm:ss'
-                        ) + '.' + data.exportType,
-                        res.data,
-                        res.headers('Content-Type') + ';charset=utf-8;'
-                    );
-                }), console.error);
-            }
-        });
+    $ctrl.fetchBulks = (query) => {
+        return TransactionService.listBulks($ctrl.organization.id, query);
     };
 
-    $ctrl.showTransaction = (transaction) => {
-        $state.go('transaction', appConfigs.panel_type == 'sponsor' ? {
-            address: transaction.address,
-            organization_id: transaction.fund.organization_id
-        } : transaction);
+    $ctrl.fetchTransactions = (query) => {
+        return TransactionService.list(appConfigs.panel_type, $ctrl.organization.id, query);
+    };
+
+    $ctrl.setViewType = (viewType) => {
+        $ctrl.viewType = viewType;
+
+        if ($ctrl.viewType.key == 'bulks') {
+            $ctrl.bulkFilters.reset();
+        } else {
+            $ctrl.filters.reset();
+        }
+    };
+
+    $ctrl.onBulkPageChange = (query) => {
+        $ctrl.fetchBulks(query).then(((res) => {
+            const data = res.data.data.map((transactionBulk) => {
+                const ui_sref = {
+                    organization_id: $ctrl.organization.id,
+                    id: transactionBulk.id
+                };
+
+                return { ...transactionBulk, ui_sref };
+            });
+
+            $ctrl.transactionBulks = { ...res.data, data };
+        }));
     };
 
     $ctrl.onPageChange = (query) => {
-        TransactionService.list(
-            appConfigs.panel_type,
-            $ctrl.organization.id,
-            query
-        ).then((res => {
-            $ctrl.transactions = res.data;
+        $ctrl.fetchTransactions(query).then((res => {
+            const data = res.data.data.map((transaction) => {
+                const ui_sref = ({
+                    address: transaction.address,
+                    organization_id: $ctrl.organization.id,
+                });
 
-            if ($ctrl.empty === null) {
-                $ctrl.empty = res.data.meta.total == 0;
-            }
-            
+                const ui_sref_bulk = {
+                    organization_id: $ctrl.organization.id,
+                    id: transaction.voucher_transaction_bulk_id
+                };
+
+                return { ...transaction, ui_sref, ui_sref_bulk };
+            });
+
+            $ctrl.transactions = { ...res.data, data };
             $ctrl.transactionsTotal = res.data.meta.total_amount;
         }));
     };
 
-    $ctrl.init = async () => {
-        $ctrl.filters.reset();
-        $ctrl.onPageChange($ctrl.filters.values);
+    // Export to XLS file
+    $ctrl.exportList = () => {
+        ModalService.open('exportType', {
+            success: (data) => {
+                const filters = { ...$ctrl.filters.values, ...{ export_format: data.exportType } };
+                const fileName = appConfigs.panel_type + '_' + org + '_' + moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType;
+
+                TransactionService.export(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
+                    FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+                }, console.error);
+            }
+        });
     };
 
     $ctrl.$onInit = () => {
-        $ctrl.init();
+        $ctrl.isSponsor = appConfigs.panel_type == 'sponsor';
+        $ctrl.viewType = $ctrl.viewTypes[0];
+
+        $ctrl.filters.reset();
+        $ctrl.onPageChange($ctrl.filters.values);
+
+        if ($ctrl.isSponsor) {
+            $ctrl.bulkFilters.reset();
+            $ctrl.onBulkPageChange($ctrl.bulkFilters.values);
+        }
     };
 };
 
 module.exports = {
     bindings: {
-        organization: '<'
+        organization: '<',
     },
     controller: [
         '$state',

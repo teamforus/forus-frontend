@@ -1208,6 +1208,7 @@ module.exports = {
     transactions: {
         header: {
             title: "Transacties",
+            titleBulks: "Transaction bulks",
         },
         labels: {
             price: "BEDRAG",
@@ -1226,6 +1227,7 @@ module.exports = {
             provider: "AANBIEDER",
             search: "Zoeken",
             from: "Vanaf",
+            bulk: "BULK",
             to: "Tot en met",
             state: "Status",
             fund_state: "Status fonds",
