@@ -861,6 +861,70 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+
+    /**
+     * Implementations
+     */
+    $stateProvider.state({
+        name: "implementation-notifications",
+        url: "/organizations/{organization_id}/implementation-notifications",
+        component: "implementationNotificationsComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
+            implementations: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackPagination(ImplementationService.list(
+                $transition$.params().organization_id
+            ))],
+        }
+    });
+
+    /**
+     * Implementations
+     */
+    $stateProvider.state({
+        name: "implementation-notifications-show",
+        url: "/organizations/{organization_id}/implementations/{implementation_id}/implementation-notifications/{id}",
+        component: "implementationNotificationsShowComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
+            implementation: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id
+            ))],
+            notification: ['ImplementationNotificationsService', '$transition$', 'permission', (
+                ImplementationNotificationsService, $transition$
+            ) => repackResponse(ImplementationNotificationsService.show(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id,
+                $transition$.params().id
+            ))],
+        }
+    });
+
+    /**
+     * Notifications branding
+     */
+    $stateProvider.state({
+        name: "implementation-notifications-branding",
+        url: "/organizations/{organization_id}/implementations/{implementation_id}/notifications-branding",
+        component: "implementationNotificationsBrandingComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
+            implementation: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id
+            ))],
+        }
+    });
+
     /**
      * Implementation view
      */

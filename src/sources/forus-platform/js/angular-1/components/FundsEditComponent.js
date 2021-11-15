@@ -1,4 +1,4 @@
-let FundsEditComponent = function(
+const FundsEditComponent = function(
     $state,
     $scope,
     $timeout,
@@ -9,7 +9,7 @@ let FundsEditComponent = function(
     FormBuilderService,
     MediaService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
     let mediaFile = false;
 
     $ctrl.products = [];
@@ -74,6 +74,14 @@ let FundsEditComponent = function(
     $ctrl.registerFaqEditor = function(childRef) {
         $ctrl.faqEditor = childRef;
     }
+
+    $ctrl.appendMedia = (media_uid, formValue) => {
+        if (!Array.isArray(formValue.description_media_uid)) {
+            formValue.description_media_uid = [];
+        }
+
+        formValue.description_media_uid.push(media_uid);
+    };
 
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm($ctrl.fund) : {
