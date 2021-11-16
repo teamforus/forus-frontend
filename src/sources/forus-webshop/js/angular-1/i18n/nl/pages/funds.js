@@ -75,6 +75,9 @@ module.exports = {
         already_received: "Open tegoed",
     },
     status: {
+        is_applicable: "Aanmelden",
+        activateable: "Activeerbaar",
         active: "Actief",
+        is_pending: "In behandeling"
     }
 }
