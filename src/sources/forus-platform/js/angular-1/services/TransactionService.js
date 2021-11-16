@@ -18,6 +18,16 @@ const TransactionService = function(ApiRequest) {
             return ApiRequest.get(`${path}/${organization_id}/sponsor/transaction-bulks/${bulk_id}`, filters);
         };
 
+        this.bulkNow = (organization_id) => {
+            return ApiRequest.post(`${path}/${organization_id}/sponsor/transaction-bulks`);
+        };
+
+        this.bulkReset = (organization_id, bulk_id) => {
+            return ApiRequest.patch(`${path}/${organization_id}/sponsor/transaction-bulks/${bulk_id}`, {
+                state: 'pending',
+            });
+        };
+
         this.export = (type, organization_id, filters = {}) => {
             const transform = (_cfg) => {
                 _cfg.responseType = 'arraybuffer';

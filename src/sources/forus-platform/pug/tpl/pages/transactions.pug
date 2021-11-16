@@ -119,7 +119,7 @@
                                     ng-bind="'#' + transaction.voucher_transaction_bulk_id").text-primary-light
 
                                 td(ng-if="$ctrl.isSponsor && !transaction.voucher_transaction_bulk_id"): .text-muted(
-                                    ng-bind="transaction.state == 'pending' ? 'Queued' : '-'")
+                                    ng-bind="(transaction.state == 'pending' && transaction.attempts <= 3) ? 'Queued' : '-'")
 
                                 td
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
@@ -130,11 +130,23 @@
                                     translate(translate="transactions.buttons.view")
 
             //- Transactions totals
-            .card-section(ng-if="$ctrl.viewType.key == 'transactions'"): .table-pagination
-                .table-pagination-counter(ng-if="$ctrl.transactions.data.length")
+            .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.data.length"): .flex.flex-vertical
+                //- Totals and pending bulk transactions
+                .flex.flex-grow: card-text
                     translate(translate="transactions.labels.total_amount")
-                    | &nbsp;
+                    | :&nbsp;
                     span(ng-bind="$ctrl.transactionsTotal | currency_format")
+                    span(ng-if="$ctrl.pendingBulkingTotal && ($ctrl.organization | hasPerm:'manage_transaction_bulks')") 
+                        br
+                        | Transaction prepared for the the next bulk: {{ $ctrl.pendingBulkingTotal }}
+
+                //- Build the bulk now
+                .flex.flex-center(ng-if="$ctrl.pendingBulkingTotal && ($ctrl.organization | hasPerm:'manage_transaction_bulks')")
+                    div: .flex.flex-center
+                        button(ng-click="$ctrl.bulkPendingNow()" ng-disabled="$ctrl.buildingBulks").button.button-primary.button-sm
+                            em(ng-if="!$ctrl.buildingBulks").mdi.mdi-cube-send.icon-start
+                            em(ng-if="$ctrl.buildingBulks").mdi.mdi-spin.mdi-loading.icon-start
+                            | Build the bulk now
 
             //- Transactions pagination
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
@@ -143,7 +155,6 @@
             //- Empty transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total == 0"): .block.block-empty.text-center
                 .empty-title No transaction found
-
 
             //- Bulk transactions
             .card-section(ng-if="$ctrl.viewType.key == 'bulks'  && $ctrl.transactionBulks.meta.total > 0")

@@ -1,16 +1,20 @@
 const TransactionsComponent = function(
+    $q,
     $state,
     $timeout,
     appConfigs,
     FileService,
     ModalService,
     TransactionService,
-    OrganizationService
+    OrganizationService,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
     const org = OrganizationService.active();
 
     $ctrl.empty = null;
+    $ctrl.buildingBulks = false;
+    $ctrl.pendingBulkingTotal = 0;
 
     $ctrl.viewTypes = [{
         key: 'transactions',
@@ -94,6 +98,63 @@ const TransactionsComponent = function(
         }
     };
 
+    $ctrl.confirmDangerAction = (title, description, cancelButton = 'Cancel', confirmButton = 'Confirm') => {
+        return $q((resolve) => {
+            ModalService.open("dangerZone", {
+                ...{ title, description, cancelButton, confirmButton },
+                onConfirm: () => resolve(true),
+                onCancel: () => resolve(false),
+            });
+        });
+    }
+
+    $ctrl.confirmBulkNow = () => {
+        return $ctrl.confirmDangerAction('Confirmation!', [
+            'The bulk payments are usually generated once a day.',
+            'This will generate them immediately and send a draft payment to your mobile app.',
+            'Are you sure you want to continue?',
+        ].join("\n"));
+    }
+
+    $ctrl.bulkPendingNow = () => {
+        $ctrl.confirmBulkNow().then((confirmed) => {
+            if (!confirmed) {
+                return;
+            }
+
+            $ctrl.buildingBulks = true;
+
+            TransactionService.bulkNow($ctrl.organization.id).then((res) => {
+                const bulks = res.data.data;
+    
+                if (bulks.length > 1) {
+                    $ctrl.setViewType($ctrl.viewTypes.filter((viewType) => viewType.key == 'bulks')[0]);
+                    $ctrl.onBulkPageChange($ctrl.bulkFilters.values);
+    
+                    PushNotificationsService.success(
+                        'Success!',
+                        `${bulks.length} bulk(s) where created, please approve the transactions in your banking app.`
+                    );
+                } else if (bulks.length == 1) {
+                    $state.go('transaction-bulk', {
+                        organization_id: $ctrl.organization.id,
+                        id: bulks[0].id
+                    });
+    
+                    PushNotificationsService.success(
+                        `Success!`,
+                        `Please approve the transactions in your banking app.`
+                    );
+                }
+            }, (res) => {
+                PushNotificationsService.danger('Error!', res.data.message || 'Something went wrong!')
+            }).finally(() => {
+                $ctrl.buildingBulks = false;
+                $ctrl.updateHasPendingBulking();
+            });
+        });
+    };
+
     $ctrl.onBulkPageChange = (query) => {
         $ctrl.fetchBulks(query).then(((res) => {
             const data = res.data.data.map((transactionBulk) => {
@@ -144,6 +205,15 @@ const TransactionsComponent = function(
         });
     };
 
+    $ctrl.updateHasPendingBulking = () => {
+        $ctrl.fetchTransactions({
+            pending_bulking: 1,
+            per_page: 1,
+        }).then((res) => {
+            $ctrl.pendingBulkingTotal = res.data.meta.total;
+        })
+    };
+
     $ctrl.$onInit = () => {
         $ctrl.isSponsor = appConfigs.panel_type == 'sponsor';
         $ctrl.viewType = $ctrl.viewTypes[0];
@@ -154,6 +224,7 @@ const TransactionsComponent = function(
         if ($ctrl.isSponsor) {
             $ctrl.bulkFilters.reset();
             $ctrl.onBulkPageChange($ctrl.bulkFilters.values);
+            $ctrl.updateHasPendingBulking();
         }
     };
 };
@@ -163,6 +234,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$q',
         '$state',
         '$timeout',
         'appConfigs',
@@ -170,6 +242,7 @@ module.exports = {
         'ModalService',
         'TransactionService',
         'OrganizationService',
+        'PushNotificationsService',
         TransactionsComponent
     ],
     templateUrl: 'assets/tpl/pages/transactions.html'
