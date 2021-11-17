@@ -39,12 +39,13 @@
                             span.label.label-success(ng-if="$ctrl.transactionBulk.state == 'accepted'" ng-bind="$ctrl.transactionBulk.state_locale")
                             span.label.label-default(ng-if="$ctrl.transactionBulk.state == 'pending'" ng-bind="$ctrl.transactionBulk.state_locale")
 
-        .card
+        //- Lit bulk transactions
+        .card(ng-if="$ctrl.transactions")
             .card-header: .flex-row
                 //- Transactions title
                 .flex.flex-grow: .card-title
                     span(i18n="transactions.header.title") 
-                    span(ng-bind="$ctrl.transactionBulk.transactions.length").span-count
+                    span(ng-bind="$ctrl.transactions.meta.total").span-count
                 
                 //- Resend draft payment
                 .flex(ng-if="$ctrl.transactionBulk.state == 'rejected' && ($ctrl.organization | hasPerm:'manage_transaction_bulks')")
@@ -70,7 +71,7 @@
                                 th(i18n="transactions.labels.status")
                                 th
 
-                            tr(ng-repeat="transaction in $ctrl.transactionBulk.transactions")
+                            tr(ng-repeat="transaction in $ctrl.transactions.data")
                                 td(ng-bind="transaction.id")
                                 td: a.text-primary-light(
                                     ng-bind="transaction.amount | currency_format" 
@@ -87,3 +88,7 @@
                                 td: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.pull-right
                                     em.mdi.mdi-eye-outline.icon-start
                                     translate(translate="transactions.buttons.view")
+
+            //- Transactions pagination
+            .card-section(ng-if="$ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
+                paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters" on-page-change="$ctrl.onPageChange(query)")

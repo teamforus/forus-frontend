@@ -4,12 +4,17 @@ const TransactionBulkComponent = function(
     appConfigs,
     ModalService,
     TransactionService,
+    PageLoadingBarService,
     PushNotificationsService
 ) {
     const $ctrl = this;
 
     $ctrl.resettingBulk = false;
     $ctrl.approvingBulk = false;
+
+    $ctrl.filters = {
+        per_page: 20,
+    };
 
     $ctrl.confirmDangerAction = (title, description, cancelButton = 'Cancel', confirmButton = 'Confirm') => {
         return $q((resolve) => {
@@ -38,6 +43,7 @@ const TransactionBulkComponent = function(
             }
 
             $ctrl.resettingBulk = true;
+            PageLoadingBarService.setProgress(0);
 
             TransactionService.bulkReset($ctrl.organization.id, transactionBulk.id).then((res) => {
                 PushNotificationsService.success(
@@ -49,21 +55,39 @@ const TransactionBulkComponent = function(
             }).finally(() => {
                 $ctrl.resettingBulk = false;
                 $state.reload();
+                PageLoadingBarService.setProgress(100);
             });
         });
     };
 
-    $ctrl.$onInit = () => {
-        $ctrl.appConfigs = appConfigs;
+    $ctrl.fetchTransactions = (query) => {
+        return $q((resolve, reject) => {
+            PageLoadingBarService.setProgress(0);
+            TransactionService.list(appConfigs.panel_type, $ctrl.organization.id, query).then(resolve, reject);
+        }).finally(() => PageLoadingBarService.setProgress(100));
+    };
 
-        $ctrl.transactionBulk.transactions = $ctrl.transactionBulk.transactions.map((transaction) => {
-            const ui_sref = ({
-                address: transaction.address,
-                organization_id: $ctrl.organization.id,
+    $ctrl.onPageChange = (query) => {
+        $ctrl.fetchTransactions(query).then((res => {
+            const data = res.data.data.map((transaction) => {
+                const ui_sref = ({
+                    address: transaction.address,
+                    organization_id: $ctrl.organization.id,
+                });
+
+                return { ...transaction, ui_sref };
             });
 
-            return { ...transaction, ui_sref };
-        });
+            $ctrl.transactions = { ...res.data, data };
+            $ctrl.transactionsTotal = res.data.meta.total_amount;
+        }));
+    };
+
+    $ctrl.$onInit = () => {
+        $ctrl.appConfigs = appConfigs;
+        $ctrl.filters.voucher_transaction_bulk_id = $ctrl.transactionBulk.id;
+
+        $ctrl.onPageChange($ctrl.filters);
     };
 };
 
@@ -78,6 +102,7 @@ module.exports = {
         'appConfigs',
         'ModalService',
         'TransactionService',
+        'PageLoadingBarService',
         'PushNotificationsService',
         TransactionBulkComponent
     ],

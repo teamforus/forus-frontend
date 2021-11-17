@@ -90,7 +90,7 @@
                         ng-bind="viewType.label")
 
             //- Transactions
-            .card-section(ng-if="$ctrl.viewType.key == 'transactions'")
+            .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total > 0")
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
@@ -157,7 +157,7 @@
                 .empty-title No transaction found
 
             //- Bulk transactions
-            .card-section(ng-if="$ctrl.viewType.key == 'bulks'  && $ctrl.transactionBulks.meta.total > 0")
+            .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total > 0")
                 .card-block.card-block-table: .table-wrapper: table.table
                     tr
                         th ID
