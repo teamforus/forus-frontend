@@ -242,7 +242,10 @@ const TransactionsComponent = function(
         if ($ctrl.isSponsor) {
             $ctrl.bulkFilters.reset();
             $ctrl.onBulkPageChange($ctrl.bulkFilters.values);
-            $ctrl.updateHasPendingBulking();
+
+            if ($ctrl.organization.has_bank_connection) {
+                $ctrl.updateHasPendingBulking();
+            }
         }
     };
 };
