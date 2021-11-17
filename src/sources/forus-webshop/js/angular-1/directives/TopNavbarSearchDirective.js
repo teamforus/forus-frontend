@@ -6,6 +6,7 @@ const TopNavbarSearchDirective = function(
     $state,
     $timeout,
     $rootScope,
+    appConfigs,
     SearchService
 ) {
     const $dir = $scope.$dir = {};
@@ -28,6 +29,8 @@ const TopNavbarSearchDirective = function(
         $dir.resultsExists = false;
         $dir.dropdown = false;
     };
+
+    $dir.appConfigs = appConfigs;
 
     $dir.hideDropDown = () => $dir.dropdown = false;
     $dir.showDropDown = () => $dir.dropdown = true;
@@ -144,6 +147,7 @@ module.exports = () => {
             '$state',
             '$timeout',
             '$rootScope',
+            'appConfigs',
             'SearchService',
             TopNavbarSearchDirective
         ],

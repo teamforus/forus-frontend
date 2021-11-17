@@ -20,6 +20,7 @@ platform.setLibs([
     "angular_translate_storage_local",
     "summernote",
     "turndown",
+    "joplin_turndown_plugin",
     "moment",
     "chart_js",
     "mdi",
@@ -51,6 +52,7 @@ platform.addTask('js', {
     watch: [
         "angular-1/**/**.js",
         "angular-1/**/**.pug",
+        "angular-1/**/**.json",
     ],
     dest: "/",
     name: "app.min.js",

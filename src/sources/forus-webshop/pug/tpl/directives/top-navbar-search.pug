@@ -8,7 +8,7 @@
         //- Search input
         input.form-control(
             type="text"
-            placeholder="Waar ben je naar op zoek?"
+            placeholder="{{ 'top_navbar_search.placeholders.search_' + $dir.appConfigs.features.communication_type | translate }}"
             ng-model="$dir.query"
             ng-change="$dir.doSearch()"
             ng-keydown="$dir.cancelSearch($event)"
