@@ -7,15 +7,25 @@
                 translate="page_state_titles.transactions")
             .breadcrumb-item.active(ng-bind="'#' + $ctrl.transactionBulk.id")
 
-        .card: .card-section: .card-title
-            strong(ng-bind="$ctrl.transactionBulk.voucher_transactions_amount | currency_format")
-            strong.text-primary.pull-right Totaal
-
         .card
-            .card-header: .card-title(translate="financial_dashboard_transaction.labels.details")
+            .card-header: .flex-row
+            
+                .flex.flex-grow: .card-title(translate="financial_dashboard_transaction.labels.details")
+                
+                //- Resend draft payment
+                .flex(ng-if="$ctrl.transactionBulk.state == 'rejected' && ($ctrl.organization | hasPerm:'manage_transaction_bulks')")
+                    button(
+                        ng-click="$ctrl.resetPaymentRequest($ctrl.transactionBulk)" 
+                        ng-disabled="$ctrl.resettingBulk").button.button-danger.button-sm
 
+                        em.mdi.mdi-reload.icon-start(ng-if="!$ctrl.resettingBulk")
+                        em.mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.resettingBulk")
+                        | Verstuur bulktransactie opnieuw
             .card-section: .flex
                 .flex: .card-block.card-block-keyvalue
+                    .keyvalue-item
+                        .keyvalue-key Transactiewaarde
+                        .keyvalue-value(ng-bind="$ctrl.transactionBulk.voucher_transactions_amount | currency_format")
                     .keyvalue-item
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.id")
                         .keyvalue-value(ng-bind="$ctrl.transactionBulk.id")
@@ -45,16 +55,6 @@
                 .flex.flex-grow: .card-title
                     span(i18n="transactions.header.title") 
                     span(ng-bind="$ctrl.transactionBulk.transactions.length").span-count
-                
-                //- Resend draft payment
-                .flex(ng-if="$ctrl.transactionBulk.state == 'rejected' && ($ctrl.organization | hasPerm:'manage_transaction_bulks')")
-                    button(
-                        ng-click="$ctrl.resetPaymentRequest($ctrl.transactionBulk)" 
-                        ng-disabled="$ctrl.resettingBulk").button.button-danger.button-sm
-
-                        em.mdi.mdi-reload.icon-start(ng-if="!$ctrl.resettingBulk")
-                        em.mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.resettingBulk")
-                        | Resend payment request
 
             //- Transactions
             .card-section

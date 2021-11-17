@@ -18,10 +18,10 @@ const TransactionsComponent = function(
 
     $ctrl.viewTypes = [{
         key: 'transactions',
-        label: 'Transactions',
+        label: 'Individueel',
     }, {
         key: 'bulks',
-        label: 'Bulks',
+        label: 'Bulk',
     }];
 
     $ctrl.states = [{
@@ -109,10 +109,10 @@ const TransactionsComponent = function(
     }
 
     $ctrl.confirmBulkNow = () => {
-        return $ctrl.confirmDangerAction('Confirmation!', [
-            'The bulk payments are usually generated once a day.',
-            'This will generate them immediately and send a draft payment to your mobile app.',
-            'Are you sure you want to continue?',
+        return $ctrl.confirmDangerAction('Nu een bulktransactie maken', [
+            'U staat op het punt om een bulktransactie aan te maken. De nog niet uitbetaalde transacties worden gebundeld tot één bulktransactie.',
+            'De [amount of transactions in bulk] individuele transacties hebben een totaal waarde van [ total sum € of transaction in bulk ].',
+            'Weet u zeker dat u wilt verdergaan?',
         ].join("\n"));
     }
 
@@ -132,8 +132,8 @@ const TransactionsComponent = function(
                     $ctrl.onBulkPageChange($ctrl.bulkFilters.values);
     
                     PushNotificationsService.success(
-                        'Success!',
-                        `${bulks.length} bulk(s) where created, please approve the transactions in your banking app.`
+                        'Succes!',
+                        `${bulks.length} bulktransactie(s) aangemaakt. Accepteer de transactie in uw mobiele app van bunq.`
                     );
                 } else if (bulks.length == 1) {
                     $state.go('transaction-bulk', {
@@ -142,12 +142,12 @@ const TransactionsComponent = function(
                     });
     
                     PushNotificationsService.success(
-                        `Success!`,
-                        `Please approve the transactions in your banking app.`
+                        `Succes!`,
+                        `Accepteer de transactie in uw mobiele app van bunq.`
                     );
                 }
             }, (res) => {
-                PushNotificationsService.danger('Error!', res.data.message || 'Something went wrong!')
+                PushNotificationsService.danger('Error!', res.data.message || 'Er ging iets mis!')
             }).finally(() => {
                 $ctrl.buildingBulks = false;
                 $ctrl.updateHasPendingBulking();

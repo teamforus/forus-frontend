@@ -119,7 +119,7 @@
                                     ng-bind="'#' + transaction.voucher_transaction_bulk_id").text-primary-light
 
                                 td(ng-if="$ctrl.isSponsor && !transaction.voucher_transaction_bulk_id"): .text-muted(
-                                    ng-bind="(transaction.state == 'pending' && transaction.attempts <= 3) ? 'Queued' : '-'")
+                                    ng-bind="(transaction.state == 'pending' && transaction.attempts <= 3) ? 'In de wachtrij' : '-'")
 
                                 td
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
@@ -138,7 +138,7 @@
                     span(ng-bind="$ctrl.transactionsTotal | currency_format")
                     span(ng-if="$ctrl.pendingBulkingTotal && ($ctrl.organization | hasPerm:'manage_transaction_bulks')") 
                         br
-                        | Transaction prepared for the the next bulk: {{ $ctrl.pendingBulkingTotal }}
+                        | Bundel #[strong {{ $ctrl.pendingBulkingTotal }}] individuele transacties tot één bulktransactie.
 
                 //- Build the bulk now
                 .flex.flex-center(ng-if="$ctrl.pendingBulkingTotal && ($ctrl.organization | hasPerm:'manage_transaction_bulks')")
@@ -146,7 +146,7 @@
                         button(ng-click="$ctrl.bulkPendingNow()" ng-disabled="$ctrl.buildingBulks").button.button-primary.button-sm
                             em(ng-if="!$ctrl.buildingBulks").mdi.mdi-cube-send.icon-start
                             em(ng-if="$ctrl.buildingBulks").mdi.mdi-spin.mdi-loading.icon-start
-                            | Build the bulk now
+                            | Maak nu een bulktransactie
 
             //- Transactions pagination
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
@@ -188,8 +188,9 @@
             
             //- Empty bulk transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total == 0"): .block.block-empty.text-center
-                .empty-title No transaction bulks found
+                .empty-title Geen bulktransacties gevonden
                 .empty-description
-                    | Bulks are generated once a day at a fixed time and include all pending transactions
+                    | Bulktransacties worden dagelijks om 09:00 gegereneerd en bevatten alle nog niet uitbetaalde transacties uit de wachtrij.
                     br
-                    | Currently you don't have any transaction bulks.
+                    br
+                    | Momenteel zijn er geen bulk transacties beschikbaar.

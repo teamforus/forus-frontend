@@ -15,10 +15,10 @@ const OrganizationBankConnectionsComponent = function(
     $ctrl.showErrors = (error) => {
         return $q((resolve) => {
             if (error) {
-                PushNotificationsService.danger('Connection failed', {
-                    invalid_grant: "The authorization code is invalid or expired.",
-                    access_denied: "You declined authorization request.",
-                    not_pending: "Connection request already resolved.",
+                PushNotificationsService.danger('Verbinding mislukt', {
+                    invalid_grant: "De autorisatiecode is ongeldig of verlopen.",
+                    access_denied: "Het autorisatieverzoek is geweigerd.",
+                    not_pending: "Verzoek voor verbinding is al behandeld.",
                 }[error] || error);
             }
 
@@ -29,7 +29,7 @@ const OrganizationBankConnectionsComponent = function(
     $ctrl.showSuccess = (success) => {
         return $q((resolve) => {
             if (success) {
-                PushNotificationsService.success('Success!', "Authorization successfully approved.");
+                PushNotificationsService.success('Succes!', "De verbinding met bunq is tot stand gebracht.");
             }
 
             resolve(!!success);
@@ -37,10 +37,10 @@ const OrganizationBankConnectionsComponent = function(
     }
 
     $ctrl.onRequestError = (res) => {
-        PushNotificationsService.danger('Error', res.data.message || 'Something went wrong, please retry later.');
+        PushNotificationsService.danger('Error', res.data.message || 'Er is iets misgegaan, probeer het later opnieuw.');
     };
 
-    $ctrl.confirmDangerAction = (title, description, cancelButton = 'Cancel', confirmButton = 'Confirm') => {
+    $ctrl.confirmDangerAction = (title, description, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
         return $q((resolve) => {
             ModalService.open("dangerZone", {
                 ...{ title, description, cancelButton, confirmButton },
@@ -52,17 +52,17 @@ const OrganizationBankConnectionsComponent = function(
 
     $ctrl.confirmNewConnection = () => {
         return $q((resolve) => $ctrl.fetchActiveBankConnection().then((bankConnection) => {
-            return bankConnection ? $ctrl.confirmDangerAction('You already have an active bunq connection!', [
-                'You are about to replace your active bunq connection with a new one.',
-                'Are you sure you want to continue?',
+            return bankConnection ? $ctrl.confirmDangerAction('U heeft al een actieve verbinding met uw bank', [
+                'U staat op het punt om opnieuw toestemming te geven en daarmee de verbinding opnieuw tot stand te brengen.',
+                'Weet u zeker dat u verder wilt gaan?',
             ].join("\n")).then(resolve) : resolve(true);
         }));
     }
 
     $ctrl.confirmConnectionDisabling = () => {
-        return $ctrl.confirmDangerAction('Disable your bunq connection!', [
-            'You are about to disable your active bunq connection, this may lead to you not being able to payout the providers before you set a new one.',
-            'Are you sure you want to continue?'
+        return $ctrl.confirmDangerAction('Verbinding met uw bank stopzetten', [
+            'U staat op het punt om de verbinding vanuit Forus met uw bank stop te zetten. Hierdoor stopt Forus met het uitlezen van de rekeninginformatie en het initiëren van transacties.',
+            'Weet u zeker dat u verder wilt gaan?'
         ].join("\n"));
     }
 

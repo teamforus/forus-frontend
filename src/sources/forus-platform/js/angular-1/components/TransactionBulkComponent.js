@@ -11,7 +11,7 @@ const TransactionBulkComponent = function(
     $ctrl.resettingBulk = false;
     $ctrl.approvingBulk = false;
 
-    $ctrl.confirmDangerAction = (title, description, cancelButton = 'Cancel', confirmButton = 'Confirm') => {
+    $ctrl.confirmDangerAction = (title, description, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
         return $q((resolve) => {
             ModalService.open("dangerZone", {
                 ...{ title, description, cancelButton, confirmButton },
@@ -22,10 +22,9 @@ const TransactionBulkComponent = function(
     }
 
     $ctrl.confirmReset = () => {
-        return $ctrl.confirmDangerAction('Reset bulk!', [
-            'You declined previous bulk payment request.',
-            'This will reset the status of the bulk, and send a new draft payment to your mobile app.',
-            'Are you sure you want to continue?',
+        return $ctrl.confirmDangerAction('Bulktransactie opnieuw versturen', [
+            'U staat op het punt om een bulktransactie opnieuw te versturen. De vorige bulkbetaling was geannuleerd. Het opnieuw versturen stelt de bulktransactie opnieuw in en stuurt de transactie naar uw mobiele app.',
+            'Weet u zeker dat u wilt verdergaan?',            
         ].join("\n"));
     }
 
@@ -41,11 +40,11 @@ const TransactionBulkComponent = function(
 
             TransactionService.bulkReset($ctrl.organization.id, transactionBulk.id).then((res) => {
                 PushNotificationsService.success(
-                    `Success!`,
-                    `Please approve the transactions in your banking app.`
+                    `Succes!`,
+                    `Accepteer de transacties in de mobiele app van bunq.`
                 );
             }, (res) => {
-                PushNotificationsService.danger('Error!', res.data.message || 'Something went wrong!');
+                PushNotificationsService.danger('Error!', res.data.message || 'Er ging iets mis!');
             }).finally(() => {
                 $ctrl.resettingBulk = false;
                 $state.reload();

@@ -1207,8 +1207,8 @@ module.exports = {
     // TRANSACTIONS = transaction.pug
     transactions: {
         header: {
-            title: "Transacties",
-            titleBulks: "Transaction bulks",
+            title: "Individuele transacties",
+            titleBulks: "Bulktransacties",
         },
         labels: {
             price: "BEDRAG",
