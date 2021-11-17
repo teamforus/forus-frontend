@@ -11,4 +11,5 @@ a.fund-item
                 .label.label-default(ng-if="$dir.fund.canApply && !$dir.fund.canActivate" translate="funds.status.is_applicable")
                 .label.label-success(ng-if="$dir.fund.canActivate" translate="funds.status.activateable")
                 .label.label-primary(ng-if="$dir.fund.alreadyReceived" translate="funds.status.active")
-                .label.label-warning(ng-if="$dir.fund.isPending" translate="funds.buttons.is_pending")
+                .label.label-warning(ng-if="$dir.fund.isPending" translate="funds.status.is_pending")
+                .label.label-danger(ng-if="!$dir.fund.isApplicable" translate="funds.status.denied")

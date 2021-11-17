@@ -78,6 +78,7 @@ module.exports = {
         is_applicable: "Aanmelden",
         activateable: "Activeerbaar",
         active: "Actief",
-        is_pending: "In behandeling"
+        is_pending: "In behandeling",
+        denied: "Geweigerd"
     }
 }
