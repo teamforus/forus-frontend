@@ -69,6 +69,10 @@
     &:not(:last-child):not(:last-of-type) {
         margin: 0 5px 5px 0;
     }
+
+    &[ng-click] {
+        cursor: pointer;
+    }
 }
 
 @media screen and (max-width: 1000px) {

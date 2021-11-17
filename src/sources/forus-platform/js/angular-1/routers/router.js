@@ -837,6 +837,70 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+
+    /**
+     * Implementations
+     */
+    $stateProvider.state({
+        name: "implementation-notifications",
+        url: "/organizations/{organization_id}/implementation-notifications",
+        component: "implementationNotificationsComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
+            implementations: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackPagination(ImplementationService.list(
+                $transition$.params().organization_id
+            ))],
+        }
+    });
+
+    /**
+     * Implementations
+     */
+    $stateProvider.state({
+        name: "implementation-notifications-show",
+        url: "/organizations/{organization_id}/implementations/{implementation_id}/implementation-notifications/{id}",
+        component: "implementationNotificationsShowComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
+            implementation: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id
+            ))],
+            notification: ['ImplementationNotificationsService', '$transition$', 'permission', (
+                ImplementationNotificationsService, $transition$
+            ) => repackResponse(ImplementationNotificationsService.show(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id,
+                $transition$.params().id
+            ))],
+        }
+    });
+
+    /**
+     * Notifications branding
+     */
+    $stateProvider.state({
+        name: "implementation-notifications-branding",
+        url: "/organizations/{organization_id}/implementations/{implementation_id}/notifications-branding",
+        component: "implementationNotificationsBrandingComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
+            implementation: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id
+            ))],
+        }
+    });
+
     /**
      * Implementation view
      */
@@ -986,7 +1050,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
      */
     $stateProvider.state({
         name: "transactions",
-        url: "/organizations/{organization_id}/transactions",
+        url: "/organizations/{organization_id}/transactions?{type:string}",
+        params: {
+            type: { dynamic: true, value: null, squash: true },
+        },
         component: "transactionsComponent",
         resolve: {
             organization: organziationResolver(),
@@ -998,9 +1065,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         name: "transaction",
         url: "/organizations/{organization_id}/transactions/{address}",
         component: "transactionComponent",
-        params: {
-            fund_id: null,
-        },
+        params: { fund_id: null },
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-show', 'view_finances'),
@@ -1022,11 +1087,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-show', 'view_finances'),
             transactionBulk: ['$transition$', 'TransactionService', 'permission', ($transition$, TransactionService) => {
-                return repackResponse(TransactionService.showBulk(
-                    $transition$.params().organization_id,
-                    $transition$.params().id
-                ));
-            }]
+                return repackResponse(TransactionService.showBulk($transition$.params().organization_id, $transition$.params().id));
+            }],
         }
     });
 
@@ -1037,11 +1099,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('products-list', 'manage_products'),
-            products: ['$transition$', 'ProductService', (
-                $transition$, ProductService
-            ) => repackResponse(ProductService.list(
-                $transition$.params().organization_id
-            ))]
+            products: ['$transition$', 'ProductService', ($transition$, ProductService) => {
+                return repackResponse(ProductService.list($transition$.params().organization_id));
+            }],
         }
     });
 
@@ -1052,11 +1112,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('reservations-list', 'scan_vouchers'),
-            funds: ['$transition$', 'ProviderFundService', (
-                $transition$, ProviderFundService
-            ) => repackResponse(ProviderFundService.listFunds($transition$.params().organization_id, {
-                per_page: 100,
-            }))],
+            funds: ['$transition$', 'ProviderFundService', ($transition$, ProviderFundService) => {
+                return repackResponse(ProviderFundService.listFunds($transition$.params().organization_id, { per_page: 100 }))
+            }],
             products: ['$transition$', 'ProductService', (
                 $transition$, ProductService
             ) => repackResponse(ProductService.list($transition$.params().organization_id, {

@@ -1,8 +1,9 @@
-let ModalFundTopUpComponent = function(
+const ModalFundTopUpComponent = function(
+    $state,
     FundService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
         let fund = $ctrl.modal.scope.fund;
@@ -13,11 +14,11 @@ let ModalFundTopUpComponent = function(
 
             $ctrl.modal.setLoaded();
         }, res => {
-            alert(res.data.message);
+            PushNotificationsService.danger("Error!", res.data.message);
+            $state.reload();
             $ctrl.close();
         });
     };
-    $ctrl.$onDestroy = function() { };
 
     $ctrl.copyToClipboard = (str) => {
         const el = document.createElement('textarea');
@@ -39,6 +40,7 @@ module.exports = {
         modal: '='
     },
     controller: [
+        '$state',
         'FundService',
         'PushNotificationsService',
         ModalFundTopUpComponent

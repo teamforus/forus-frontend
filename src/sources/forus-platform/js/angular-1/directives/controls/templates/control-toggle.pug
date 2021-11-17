@@ -1,0 +1,14 @@
+label.form-toggle(
+    for="{{ $dir.formId }}" 
+    ng-class="{'form-toggle-disabled': $dir.disabled, 'form-toggle-off': $dir.off}")
+    input(
+        type="checkbox"
+        id="{{ $dir.formId }}"
+        name="{{ $dir.formName }}"
+        ng-model="$dir.ngModel" 
+        ng-disabled="$dir.disabled"
+        ng-change="$dir.ngModelCtrl.$setViewValue($dir.ngModel)" )
+
+    .form-toggle-inner.flex-end
+        .toggle-label(ng-if="$dir.label" ng-bind="$dir.label" ng-class="$dir.labelClass")
+        .toggle-input: .toggle-input-dot

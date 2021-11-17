@@ -5,8 +5,10 @@ const TransactionsComponent = function(
     appConfigs,
     FileService,
     ModalService,
+    $stateParams,
     TransactionService,
     OrganizationService,
+    PageLoadingBarService,
     PushNotificationsService,
 ) {
     const $ctrl = this;
@@ -61,6 +63,7 @@ const TransactionsComponent = function(
             this.values.to = null;
             this.values.amount_min = null;
             this.values.amount_max = null;
+            this.values.per_page = 20;
         }
     };
 
@@ -75,17 +78,21 @@ const TransactionsComponent = function(
     };
 
     $ctrl.hideFilters = () => {
-        $timeout(() => {
-            $ctrl.filters.show = false;
-        }, 0);
+        $timeout(() => $ctrl.filters.show = false, 0);
     };
 
     $ctrl.fetchBulks = (query) => {
-        return TransactionService.listBulks($ctrl.organization.id, query);
+        return $q((resolve, reject) => {
+            PageLoadingBarService.setProgress(0);
+            TransactionService.listBulks($ctrl.organization.id, query).then(resolve, reject);
+        }).finally(() => PageLoadingBarService.setProgress(100));
     };
 
     $ctrl.fetchTransactions = (query) => {
-        return TransactionService.list(appConfigs.panel_type, $ctrl.organization.id, query);
+        return $q((resolve, reject) => {
+            PageLoadingBarService.setProgress(0);
+            TransactionService.list(appConfigs.panel_type, $ctrl.organization.id, query).then(resolve, reject);
+        }).finally(() => PageLoadingBarService.setProgress(100));
     };
 
     $ctrl.setViewType = (viewType) => {
@@ -96,6 +103,15 @@ const TransactionsComponent = function(
         } else {
             $ctrl.filters.reset();
         }
+
+        $state.transitionTo($state.$current.name, {
+            organization_id: $ctrl.organization.id,
+            type: $ctrl.viewType.key
+        }, {
+            notify: false,
+            location: 'replace',
+            reload: false,
+        });
     };
 
     $ctrl.confirmDangerAction = (title, description, cancelButton = 'Cancel', confirmButton = 'Confirm') => {
@@ -123,14 +139,15 @@ const TransactionsComponent = function(
             }
 
             $ctrl.buildingBulks = true;
+            PageLoadingBarService.setProgress(0);
 
             TransactionService.bulkNow($ctrl.organization.id).then((res) => {
                 const bulks = res.data.data;
-    
+
                 if (bulks.length > 1) {
                     $ctrl.setViewType($ctrl.viewTypes.filter((viewType) => viewType.key == 'bulks')[0]);
                     $ctrl.onBulkPageChange($ctrl.bulkFilters.values);
-    
+
                     PushNotificationsService.success(
                         'Succes!',
                         `${bulks.length} bulktransactie(s) aangemaakt. Accepteer de transactie in uw mobiele app van bunq.`
@@ -140,7 +157,7 @@ const TransactionsComponent = function(
                         organization_id: $ctrl.organization.id,
                         id: bulks[0].id
                     });
-    
+
                     PushNotificationsService.success(
                         `Succes!`,
                         `Accepteer de transactie in uw mobiele app van bunq.`
@@ -151,6 +168,7 @@ const TransactionsComponent = function(
             }).finally(() => {
                 $ctrl.buildingBulks = false;
                 $ctrl.updateHasPendingBulking();
+                PageLoadingBarService.setProgress(100);
             });
         });
     };
@@ -216,7 +234,7 @@ const TransactionsComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.isSponsor = appConfigs.panel_type == 'sponsor';
-        $ctrl.viewType = $ctrl.viewTypes[0];
+        $ctrl.viewType = $ctrl.viewTypes.filter(type => type.key == $stateParams.type)[0] || $ctrl.viewTypes[0];
 
         $ctrl.filters.reset();
         $ctrl.onPageChange($ctrl.filters.values);
@@ -224,7 +242,10 @@ const TransactionsComponent = function(
         if ($ctrl.isSponsor) {
             $ctrl.bulkFilters.reset();
             $ctrl.onBulkPageChange($ctrl.bulkFilters.values);
-            $ctrl.updateHasPendingBulking();
+
+            if ($ctrl.organization.has_bank_connection) {
+                $ctrl.updateHasPendingBulking();
+            }
         }
     };
 };
@@ -240,8 +261,10 @@ module.exports = {
         'appConfigs',
         'FileService',
         'ModalService',
+        '$stateParams',
         'TransactionService',
         'OrganizationService',
+        'PageLoadingBarService',
         'PushNotificationsService',
         TransactionsComponent
     ],
