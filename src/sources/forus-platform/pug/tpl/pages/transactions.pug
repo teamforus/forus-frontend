@@ -128,11 +128,10 @@
                                 td.td-narrow.text-right: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.pull-right
                                     em.mdi.mdi-eye-outline.icon-start
                                     translate(translate="transactions.buttons.view")
-
             //- Transactions totals
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.data.length"): .flex.flex-vertical
                 //- Totals and pending bulk transactions
-                .flex.flex-grow: card-text
+                .flex.flex-grow: .card-text
                     translate(translate="transactions.labels.total_amount")
                     | :&nbsp;
                     span(ng-bind="$ctrl.transactionsTotal | currency_format")
@@ -148,13 +147,14 @@
                             em(ng-if="$ctrl.buildingBulks").mdi.mdi-spin.mdi-loading.icon-start
                             | Maak nu een bulktransactie
 
+
             //- Transactions pagination
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
                 paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
 
             //- Empty transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total == 0"): .block.block-empty.text-center
-                .empty-title No transaction found
+                .empty-title Geen transacties gevonden
 
             //- Bulk transactions
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total > 0")

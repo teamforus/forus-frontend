@@ -40,10 +40,10 @@ const OrganizationBankConnectionsComponent = function(
         PushNotificationsService.danger('Error', res.data.message || 'Er is iets misgegaan, probeer het later opnieuw.');
     };
 
-    $ctrl.confirmDangerAction = (title, description, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
+    $ctrl.confirmDangerAction = (header, description_text, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
         return $q((resolve) => {
             ModalService.open("dangerZone", {
-                ...{ title, description, cancelButton, confirmButton },
+                ...{ header, description_text, cancelButton, confirmButton },
                 onConfirm: () => resolve(true),
                 onCancel: () => resolve(false),
             });
