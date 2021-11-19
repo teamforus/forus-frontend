@@ -1209,7 +1209,8 @@ module.exports = {
     // TRANSACTIONS = transaction.pug
     transactions: {
         header: {
-            title: "Transacties",
+            title: "Individuele transacties",
+            titleBulks: "Bulktransacties",
         },
         labels: {
             price: "BEDRAG",
@@ -1228,13 +1229,18 @@ module.exports = {
             provider: "AANBIEDER",
             search: "Zoeken",
             from: "Vanaf",
+            bulk: "BULK",
             to: "Tot en met",
             state: "Status",
             fund_state: "Status fonds",
             amount: "Bedrag",
             amount_min: "0",
             amount_max: "Alles",
-            total_amount: "Som van transacties",
+            total_amount: "Som van transacties <strong>{{ total_amount }}</strong>",
+            bulk_total_amount: [
+                "Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie ter waarde van <strong>{{ total_amount }}</strong>.",
+                "Gebeurt automatisch dagelijks om 09:00."
+            ].join("</br>"),
         },
         buttons: {
             previous: "Vorige",

@@ -57,7 +57,7 @@ let ProductVouchersComponent = function(
             to: null,
             state: null,
             in_use: null,
-            count_per_identity_min: 1,
+            count_per_identity_min: 0,
             count_per_identity_max: null,
             type: 'product_voucher',
             source: 'all',
