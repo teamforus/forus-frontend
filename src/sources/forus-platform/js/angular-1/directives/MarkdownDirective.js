@@ -105,24 +105,23 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
 
                     if (type === 'imageLink' || type === 'youtubeLink') {
                         showLinkDialog({}).then((data) => {
+                            const { alt, url } = data;
+
                             context.invoke('editor.restoreRange');
 
                             if (type === 'imageLink') {
-                                context.invoke('editor.insertImage', data.url || '', function (image) {
-                                    image.attr('alt', data.alt || '')
-                                        .attr('data-filename', 'filename');
-                                });
+                                context.invoke('editor.insertImage', url || '', (img) => img.attr('alt', alt || ''));
                             }
 
                             if (type === 'youtubeLink') {
-                                const url = data.url
+                                const ytUrl = url
                                     .replace('https://youtu.be/', 'https://www.youtube.com/embed/')
                                     .replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/')
                                     .split('&')[0];
 
                                 const template =
                                     `<div class="youtube-root">` +
-                                    `<iframe src="${url}" frameborder="0" allowfullscreen="1"></iframe>` +
+                                    `<iframe src="${ytUrl}" frameborder="0" allowfullscreen="1"></iframe>` +
                                     `</div>`;
 
                                 context.invoke('editor.insertNode', $(template)[0]);
