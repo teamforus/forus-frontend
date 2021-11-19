@@ -1238,8 +1238,8 @@ module.exports = {
             amount_max: "Alles",
             total_amount: "Som van transacties <strong>{{ total_amount }}</strong>",
             bulk_total_amount: [
-                "Som van transacties <strong>{{ total_amount }}</strong>",
-                "Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie."
+                "Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie ter waarde van <strong>{{ total_amount }}</strong>.",
+                "Gebeurt automatisch dagelijks om 09:00."
             ].join("</br>"),
         },
         buttons: {

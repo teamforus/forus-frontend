@@ -114,7 +114,7 @@ const TransactionsComponent = function(
         });
     };
 
-    $ctrl.confirmDangerAction = (title, description_text, cancelButton = 'Cancel', confirmButton = 'Confirm') => {
+    $ctrl.confirmDangerAction = (title, description_text, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
         return $q((resolve) => {
             ModalService.open("dangerZone", {
                 ...{ title, description_text, cancelButton, confirmButton, text_align: 'center' },
