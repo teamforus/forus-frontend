@@ -1,18 +1,18 @@
 const TransactionsComponent = function(
     $q,
     $state,
+    $filter,
     $timeout,
     appConfigs,
     FileService,
     ModalService,
     $stateParams,
     TransactionService,
-    OrganizationService,
     PageLoadingBarService,
     PushNotificationsService,
 ) {
     const $ctrl = this;
-    const org = OrganizationService.active();
+    const $currencyFormat = $filter('currency_format');
 
     $ctrl.empty = null;
     $ctrl.buildingBulks = false;
@@ -114,10 +114,10 @@ const TransactionsComponent = function(
         });
     };
 
-    $ctrl.confirmDangerAction = (title, description, cancelButton = 'Cancel', confirmButton = 'Confirm') => {
+    $ctrl.confirmDangerAction = (title, description_text, cancelButton = 'Cancel', confirmButton = 'Confirm') => {
         return $q((resolve) => {
             ModalService.open("dangerZone", {
-                ...{ title, description, cancelButton, confirmButton },
+                ...{ title, description_text, cancelButton, confirmButton, text_align: 'center' },
                 onConfirm: () => resolve(true),
                 onCancel: () => resolve(false),
             });
@@ -125,9 +125,12 @@ const TransactionsComponent = function(
     }
 
     $ctrl.confirmBulkNow = () => {
+        const total = $ctrl.pendingBulkingMeta.total;
+        const totalAmount = $currencyFormat($ctrl.pendingBulkingMeta.total_amount);
+
         return $ctrl.confirmDangerAction('Nu een bulktransactie maken', [
             'U staat op het punt om een bulktransactie aan te maken. De nog niet uitbetaalde transacties worden gebundeld tot één bulktransactie.',
-            'De [amount of transactions in bulk] individuele transacties hebben een totaal waarde van [ total sum € of transaction in bulk ].',
+            `De ${total} individuele transacties hebben een totaal waarde van ${totalAmount}.`,
             'Weet u zeker dat u wilt verdergaan?',
         ].join("\n"));
     }
@@ -214,7 +217,12 @@ const TransactionsComponent = function(
         ModalService.open('exportType', {
             success: (data) => {
                 const filters = { ...$ctrl.filters.values, ...{ export_format: data.exportType } };
-                const fileName = appConfigs.panel_type + '_' + org + '_' + moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType;
+
+                const fileName = [
+                    appConfigs.panel_type,
+                    $ctrl.organization.id,
+                    moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType
+                ].join('_');
 
                 TransactionService.export(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
                     FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
@@ -227,9 +235,7 @@ const TransactionsComponent = function(
         $ctrl.fetchTransactions({
             pending_bulking: 1,
             per_page: 1,
-        }).then((res) => {
-            $ctrl.pendingBulkingTotal = res.data.meta.total;
-        })
+        }).then((res) => $ctrl.pendingBulkingMeta = res.data.meta);
     };
 
     $ctrl.$onInit = () => {
@@ -257,13 +263,13 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$filter',
         '$timeout',
         'appConfigs',
         'FileService',
         'ModalService',
         '$stateParams',
         'TransactionService',
-        'OrganizationService',
         'PageLoadingBarService',
         'PushNotificationsService',
         TransactionsComponent

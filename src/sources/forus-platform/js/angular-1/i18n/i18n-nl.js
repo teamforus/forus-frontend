@@ -1236,7 +1236,11 @@ module.exports = {
             amount: "Bedrag",
             amount_min: "0",
             amount_max: "Alles",
-            total_amount: "Som van transacties",
+            total_amount: "Som van transacties <strong>{{ total_amount }}</strong>",
+            bulk_total_amount: [
+                "Som van transacties <strong>{{ total_amount }}</strong>",
+                "Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie."
+            ].join("</br>"),
         },
         buttons: {
             previous: "Vorige",

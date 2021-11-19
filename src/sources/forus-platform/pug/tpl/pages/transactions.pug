@@ -128,25 +128,33 @@
                                 td.td-narrow.text-right: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.pull-right
                                     em.mdi.mdi-eye-outline.icon-start
                                     translate(translate="transactions.buttons.view")
-            //- Transactions totals
-            .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.data.length"): .flex.flex-vertical
+
+            //- Transaction totals
+            .card-section(
+                ng-if="!$ctrl.isSponsor && $ctrl.transactions.meta.total"
+                ng-show="$ctrl.viewType.key == 'transactions'"): .flex.flex-horizontal
+
+                //- Totals
+                .flex.flex-grow: .flex.flex-vertical.flex-center: card-text(
+                    translate="transactions.labels.total_amount"
+                    translate-values="{total_amount: ($ctrl.transactions.meta.total_amount | currency_format)}")
+
+            //- Transactions, next bulk totals
+            .card-section(
+                ng-if="$ctrl.isSponsor && $ctrl.pendingBulkingMeta.total && ($ctrl.organization | hasPerm:'manage_transaction_bulks')"
+                ng-show="$ctrl.viewType.key == 'transactions'"): .flex.flex-horizontal
+
                 //- Totals and pending bulk transactions
-                .flex.flex-grow: .card-text
-                    translate(translate="transactions.labels.total_amount")
-                    | :&nbsp;
-                    span(ng-bind="$ctrl.transactionsTotal | currency_format")
-                    span(ng-if="$ctrl.pendingBulkingTotal && ($ctrl.organization | hasPerm:'manage_transaction_bulks')") 
-                        br
-                        | Bundel #[strong {{ $ctrl.pendingBulkingTotal }}] individuele transacties tot één bulktransactie.
+                .flex.flex-grow: .flex.flex-vertical.flex-center: .card-text(
+                    translate="transactions.labels.bulk_total_amount"
+                    translate-values="{total: $ctrl.pendingBulkingMeta.total, total_amount: ($ctrl.pendingBulkingMeta.total_amount | currency_format)}")
 
                 //- Build the bulk now
-                .flex.flex-center(ng-if="$ctrl.pendingBulkingTotal && ($ctrl.organization | hasPerm:'manage_transaction_bulks')")
-                    div: .flex.flex-center
-                        button(ng-click="$ctrl.bulkPendingNow()" ng-disabled="$ctrl.buildingBulks").button.button-primary.button-sm
-                            em(ng-if="!$ctrl.buildingBulks").mdi.mdi-cube-send.icon-start
-                            em(ng-if="$ctrl.buildingBulks").mdi.mdi-spin.mdi-loading.icon-start
-                            | Maak nu een bulktransactie
-
+                .flex: .flex.flex-vertical.flex-center
+                    button(ng-click="$ctrl.bulkPendingNow()" ng-disabled="$ctrl.buildingBulks").button.button-primary.button-sm
+                        em(ng-if="!$ctrl.buildingBulks").mdi.mdi-cube-send.icon-start
+                        em(ng-if="$ctrl.buildingBulks").mdi.mdi-spin.mdi-loading.icon-start
+                        | Maak nu een bulktransactie
 
             //- Transactions pagination
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
@@ -191,6 +199,5 @@
                 .empty-title Geen bulktransacties gevonden
                 .empty-description
                     | Bulktransacties worden dagelijks om 09:00 gegereneerd en bevatten alle nog niet uitbetaalde transacties uit de wachtrij.
-                    br
                     br
                     | Momenteel zijn er geen bulk transacties beschikbaar.
