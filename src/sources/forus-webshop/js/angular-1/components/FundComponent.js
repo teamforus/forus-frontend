@@ -2,11 +2,24 @@ const FundsComponent = function(
     $sce,
     $state,
     $stateParams,
+    $filter,
     appConfigs,
     FundService,
     ModalService
 ) {
     const $ctrl = this;
+
+    let $translate = $filter('translate');
+
+    let trans = (key) => {
+        let transKey = 'funds.buttons.' + appConfigs.client_key + '.' + key;
+
+        if ($translate(transKey) && $translate(transKey) != transKey) {
+            return $translate(transKey);
+        }
+
+        return $translate('funds.buttons.' + key);
+    }
 
     $ctrl.fundLogo = null;
     $ctrl.appConfigs = appConfigs;
@@ -41,6 +54,9 @@ const FundsComponent = function(
         if ($ctrl.fund.vouchers[0] && $ctrl.fund.vouchers[0].address) {
             $ctrl.fund.voucherStateName = 'voucher({ address: $ctrl.fund.vouchers[0].address })';
         }
+
+        $ctrl.fund.requestButtonText = $ctrl.fund.request_btn_text ? $ctrl.fund.request_btn_text : trans('start_request');
+        $ctrl.fund.activateButtonText = $ctrl.fund.request_btn_text ? $ctrl.fund.request_btn_text : trans('is_applicable');
     };
 
     $ctrl.$onInit = function() {
@@ -82,6 +98,7 @@ module.exports = {
         '$sce',
         '$state',
         '$stateParams',
+        '$filter',
         'appConfigs',
         'FundService',
         'ModalService',

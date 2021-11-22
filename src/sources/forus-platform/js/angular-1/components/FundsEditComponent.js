@@ -14,6 +14,19 @@ const FundsEditComponent = function(
 
     $ctrl.products = [];
     $ctrl.criteriaEditor = null;
+    $ctrl.applicationMethods = [{
+        'key': 'application_form',
+        'name': 'Aanvraagformulier',
+    }, {
+        'key': 'activation_codes',
+        'name': 'Activatiecodes',
+    }, {
+        'key': 'application_form_and_activation_codes',
+        'name': 'Aanvraagformulier en activatiecodes',
+    }, {
+        'key': 'external',
+        'name': 'Geen aanvraagformulier en activatiecodes (extern)',
+    }];
 
     $ctrl.getProductOptions = (product) => ($ctrl.productOptions || []).concat(product);
     $ctrl.setType = (type) => $ctrl.form.values.type = type;
@@ -86,6 +99,8 @@ const FundsEditComponent = function(
             criteria: [],
             state: $ctrl.fundStates[0].value,
             type: 'budget',
+            application_method: 'application_form',
+            allow_direct_requests: false
         };
 
         $ctrl.validators.unshift({
@@ -117,6 +132,8 @@ const FundsEditComponent = function(
                 }
 
                 form.values.formula_products = form.products.map(product => product.id);
+
+                form.values = Object.assign(form.values, FundService.getFundApplicationParams(form.values.application_method));
 
                 if ($ctrl.fund) {
                     promise = FundService.update(

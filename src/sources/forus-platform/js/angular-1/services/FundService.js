@@ -294,6 +294,10 @@ const FundService = function(ApiRequest, ModalService) {
                 notification_amount: apiResource.notification_amount,
                 default_validator_employee_id: apiResource.default_validator_employee_id,
                 auto_requests_validation: apiResource.auto_requests_validation,
+                application_method: this.getApplicationMethodName(apiResource),
+                allow_direct_requests: apiResource.allow_direct_requests,
+                request_btn_text: apiResource.request_btn_text,
+                request_btn_link: apiResource.request_btn_link,
             };
         };
 
@@ -340,6 +344,27 @@ const FundService = function(ApiRequest, ModalService) {
             );
 
             return fund_id ? ApiRequest.patch(path, { criteria }) : ApiRequest.post(path, { criteria });
+        };
+
+        this.getApplicationMethodName = (fund) => {
+            if (fund.allow_fund_requests) {
+                return fund.allow_prevalidations ? 'application_form_and_activation_codes' : 'application_form';
+            }
+
+            return fund.allow_prevalidations ? 'activation_codes' : 'external';
+        };
+
+        this.getFundApplicationParams = (application_method_name) => {
+            let configs = {};
+
+            switch (application_method_name) {
+                case 'application_form_and_activation_codes' : configs = { allow_fund_requests: 1, allow_prevalidations: 1 }; break;
+                case 'application_form' : configs = { allow_fund_requests: 1, allow_prevalidations: 0 }; break;
+                case 'activation_codes' : configs = { allow_fund_requests: 0, allow_prevalidations: 1 }; break;
+                case 'external' : configs = { allow_fund_requests: 0, allow_prevalidations: 0 }; break;
+            }
+
+            return configs;
         };
 
         this.stopActionConfirmationModal = (onConfirm) => {

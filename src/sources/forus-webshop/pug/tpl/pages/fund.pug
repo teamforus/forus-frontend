@@ -20,10 +20,15 @@ main(id="main-content")
             mixin fund_menu
                 .fund-menu
                     button.button.button-primary.button-fill(
-                        ng-if="$ctrl.fund.showRequestButton"
+                        ng-if="$ctrl.fund.showRequestButton && !$ctrl.fund.request_btn_link"
                         ui-sref="fund-activate({fund_id: $ctrl.fund.id})"
-                        translate="funds.buttons.{{ $root.client_key }}.start_request" 
-                        translate-default="{{ 'funds.buttons.start_request' | translate }}")
+                        ng-bind="$ctrl.fund.requestButtonText")
+
+                    a.button.button.button-primary.button-fill(
+                        ng-if="$ctrl.fund.showRequestButton && $ctrl.fund.request_btn_link"
+                        target="_blank"
+                        ng-href="{{ $ctrl.fund.request_btn_link }}"
+                        ng-bind="$ctrl.fund.requestButtonText")
 
                     button.button.button-primary.button-fill.button-disabled(
                         ng-if="$ctrl.fund.showPendingButton"
@@ -31,9 +36,16 @@ main(id="main-content")
 
                     button.button.button-primary.button-fill(
                         type="button"
-                        ng-if="$ctrl.fund.showActivateButton" 
-                        ng-click="$ctrl.applyFund($ctrl.fund)" 
-                        translate="funds.buttons.is_applicable")
+                        ng-if="$ctrl.fund.showActivateButton && !$ctrl.fund.request_btn_link" 
+                        ng-click="$ctrl.applyFund($ctrl.fund)"
+                        ng-bind="$ctrl.fund.activateButtonText")
+
+                    button.button.button-primary.button-fill(
+                        type="button"
+                        ng-if="$ctrl.fund.showActivateButton && $ctrl.fund.request_btn_link"
+                        target="_blank"
+                        ng-href="{{ $ctrl.fund.request_btn_link }}"
+                        ng-bind="$ctrl.fund.activateButtonText")
 
                     button.button.button-primary.button-fill(
                         ng-if="$ctrl.fund.alreadyReceived" 

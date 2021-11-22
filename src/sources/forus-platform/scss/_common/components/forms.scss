@@ -357,6 +357,20 @@
                 float: left;
             }
 
+            &>.form-toggle {
+                align-items: center;
+
+                .form-label {
+                    width: 200px;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+                    margin: 0;
+                    text-align: right;
+                    padding-right: 15px;
+                    color: black;
+                }
+            }
+
             &.form-group-inline-lg {
                 &>.form-label {
                     width: 250px;

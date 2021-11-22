@@ -441,7 +441,13 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens €"
+            notification_amount: "Aanvulherinnering grens €",
+            application_method: "Aanvraagmethode",
+            request_btn: {
+                state: "Aanvraagknop aan/uit",
+                text: "Aanvragen",
+                external_link: "External link",
+            }
         },
         buttons: {
             cancel: "Annuleren",
