@@ -61,9 +61,13 @@
                     .flex.flex-end: .tag.tag-primary-light
                         em.mdi.mdi-circle-outline.icon-start
                         span(translate='validation_requests.status.hold')
-                    .card-section-actions-details
-                        .card-section-actions-label(translate="validation_requests.labels.pending_since")
-                        .card-section-actions-value(ng-bind="validatorRequest.created_at_locale")
+                    .card-section-actions-details: .flex-row.nowrap
+                        .flex-col
+                            .card-section-actions-label(translate="validation_requests.labels.lead_time")
+                            .card-section-actions-value(ng-bind="validatorRequest.lead_time_locale")
+                        .flex-col
+                            .card-section-actions-label(translate="validation_requests.labels.pending_since")
+                            .card-section-actions-value(ng-bind="validatorRequest.created_at_locale")
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
                     .flex.flex-end: .tag.tag-success 
