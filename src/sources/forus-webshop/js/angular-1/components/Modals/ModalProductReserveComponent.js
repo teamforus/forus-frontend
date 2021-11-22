@@ -1,16 +1,13 @@
 const ModalProductReserveComponent = function(
-    ModalService,
     appConfigs,
+    ModalService,
 ) {
     const $ctrl = this;
 
     $ctrl.reserveProduct = (product, voucher) => {
         $ctrl.close();
 
-        ModalService.open('modalReservationNotes', {
-            product: product,
-            voucher: voucher,
-        });
+        ModalService.open('modalProductReserveDetails', { product, voucher });
     };
 
     $ctrl.$onInit = () => {
@@ -33,8 +30,8 @@ module.exports = {
         modal: '='
     },
     controller: [
-        'ModalService',
         'appConfigs',
+        'ModalService',
         ModalProductReserveComponent
     ],
     templateUrl: () => {

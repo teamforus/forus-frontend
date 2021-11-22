@@ -12,10 +12,6 @@ module.exports = {
         modal: '=',
         reservation: '<',
     },
-    controller: [
-        ModalReservationNotesComponent
-    ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-reservation-notes.html';
-    }
+    controller: ModalReservationNotesComponent,
+    templateUrl: 'assets/tpl/modals/modal-reservation-notes.html',
 };

@@ -61,7 +61,7 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalDeactivateVoucherComponent'
     });
 
-    ModalRouteProvider.modal('modalReservationNotes', {
-        component: 'modalReservationNotesComponent'
+    ModalRouteProvider.modal('modalProductReserveDetails', {
+        component: 'modalProductReserveDetailsComponent'
     });
 }];

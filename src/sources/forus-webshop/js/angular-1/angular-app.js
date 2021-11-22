@@ -163,6 +163,7 @@ app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCo
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 app.component('modalProductReserveComponent', require('./components/Modals/ModalProductReserveComponent'));
+app.component('modalProductReserveDetailsComponent', require('./components/Modals/ModalProductReserveDetailsComponent'));
 app.component('modalProductReserveCancelComponent', require('./components/Modals/ModalProductReserveCancelComponent'));
 app.component('modalIdentityProxyExpiredComponent', require('./components/Modals/ModalIdentityProxyExpiredComponent'));
 app.component('modalPhysicalCardTypeComponent', require('./components/Modals/ModalPhysicalCardTypeComponent'));
@@ -170,7 +171,6 @@ app.component('modalPhysicalCardUnlinkComponent', require('./components/Modals/M
 app.component('modalPdfPreviewComponent', require('./components/Modals/FilePreviews/ModalPdfPreviewComponent'));
 app.component('modalImagePreviewComponent', require('./components/Modals/FilePreviews/ModalImagePreviewComponent'));
 app.component('modalDeactivateVoucherComponent', require('./components/Modals/ModalDeactivateVoucherComponent'));
-app.component('modalReservationNotesComponent', require('./components/Modals/ModalReservationNotesComponent'));
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));

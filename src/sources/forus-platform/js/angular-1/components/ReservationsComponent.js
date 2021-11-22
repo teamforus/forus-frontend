@@ -149,9 +149,7 @@ const ReservationsComponent = function(
     };
 
     $ctrl.viewNotes = (reservation) => {
-        ModalService.open('reservationNotes', {
-            reservation: reservation,
-        });
+        ModalService.open('reservationNotes', { reservation });
     };
 
     $ctrl.$onInit = () => {

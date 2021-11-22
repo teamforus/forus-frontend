@@ -1,4 +1,4 @@
-const ModalReservationNotesComponent = function(
+const ModalProductReserveDetailsComponent = function(
     $state,
     ProductReservationService,
     PushNotificationsService,
@@ -7,19 +7,18 @@ const ModalReservationNotesComponent = function(
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.product = $ctrl.modal.scope.product;
-        $ctrl.voucher = $ctrl.modal.scope.voucher;
-        $ctrl.providerName = $ctrl.voucher.fund.organization.name;
-
         $ctrl.state = 'fill_notes';
 
+        $ctrl.product = $ctrl.modal.scope.product;
+        $ctrl.voucher = $ctrl.modal.scope.voucher;
+        $ctrl.provider = $ctrl.voucher.fund.organization;
+
         $ctrl.form = FormBuilderService.build({}, (form) => {
-            ProductReservationService.reserve(
-                Object.assign(form.values, {
-                    voucher_address: $ctrl.voucher.address,
-                    product_id: $ctrl.product.id,
-                })
-            ).then($ctrl.onReserved, $ctrl.onError);
+            ProductReservationService.reserve({
+                ...form.values,
+                voucher_address: $ctrl.voucher.address,
+                product_id: $ctrl.product.id
+            }).then($ctrl.onReserved, $ctrl.onError);
         });
     };
 
@@ -38,12 +37,11 @@ const ModalReservationNotesComponent = function(
     };
 
     $ctrl.productReserve = () => {
-        ProductReservationService.validate(
-            Object.assign($ctrl.form.values, {
-                voucher_address: $ctrl.voucher.address,
-                product_id: $ctrl.product.id,
-            })
-        ).then(() => {
+        ProductReservationService.validate({
+            ...$ctrl.form.values,
+            voucher_address: $ctrl.voucher.address,
+            product_id: $ctrl.product.id,
+        }).then(() => {
             $ctrl.form.errors = {};
             $ctrl.state = 'confirm_notes';
         }, res => {
@@ -69,9 +67,9 @@ module.exports = {
         'ProductReservationService',
         'PushNotificationsService',
         'FormBuilderService',
-        ModalReservationNotesComponent
+        ModalProductReserveDetailsComponent
     ],
     templateUrl: () => {
-        return 'assets/tpl/modals/modal-reservation-notes.html';
+        return 'assets/tpl/modals/modal-product-reserve-details.html';
     }
 };

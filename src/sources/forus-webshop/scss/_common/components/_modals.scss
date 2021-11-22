@@ -11,26 +11,6 @@
     border-radius: $border_radius;
     cursor: default;
 
-    &.modal-sm {
-        .modal-window {
-            width: 480px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
-        }
-    }
-
-    &.modal-md {
-        .modal-window {
-            width: 680px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
-        }
-    }
-
     .modal-backdrop {
         @include fill_parent();
         cursor: pointer;
