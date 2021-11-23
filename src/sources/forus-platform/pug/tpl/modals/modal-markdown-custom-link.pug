@@ -2,22 +2,22 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
-        .modal-header(ng-if="$ctrl.linkType == 'imageLink'") Afbeelding link toevoegen
-        .modal-header(ng-if="$ctrl.linkType == 'customLink'") Link toevoegen
-        .modal-header(ng-if="$ctrl.linkType == 'youtubeLink'") Youtube link
+        .modal-header(ng-if="$ctrl.linkType == 'imageLink'" translate="modals.modal_markdown_custom_link.header.image")
+        .modal-header(ng-if="$ctrl.linkType == 'customLink'" translate="modals.modal_markdown_custom_link.header.link")
+        .modal-header(ng-if="$ctrl.linkType == 'youtubeLink'" translate="modals.modal_markdown_custom_link.header.youtube")
         .modal-body
             .modal-section
                 .form-group(ng-if="$ctrl.linkType === 'customLink'")
-                    label(for="link_text").form-label Beschrijving
+                    label(for="link_text" translate="modals.modal_markdown_custom_link.labels.desc").form-label
                     input(id="link_text" type="text" ng-model="$ctrl.form.values.text").form-control
 
                 .form-group(ng-if="$ctrl.linkType === 'customLink' || $ctrl.linkType === 'youtubeLink'")
-                    label(for="link_url").form-label URL
+                    label(for="link_url" translate="modals.modal_markdown_custom_link.labels.url").form-label
                     input(id="link_url" type="text" ng-model="$ctrl.form.values.url").form-control
 
                 .form-group(ng-if="$ctrl.linkType == 'imageLink'"): .flex-row
                     .flex-col.flex-grow
-                        label(for="media_url").form-label URL Afbeelding
+                        label(for="media_url" translate="modals.modal_markdown_custom_link.labels.url_image").form-label
                         input(id="media_url" type="text" ng-model="$ctrl.form.values.url").form-control
                         .form-error(ng-repeat="error in $ctrl.errors.file" ng-bind="error")
 
@@ -25,12 +25,12 @@
                         label.form-label &nbsp;
                         button(type="button" ng-click="$ctrl.selectMedia()").button.button-primary.nowrap
                             em.mdi.mdi-upload.icon-start
-                            | Upload afbeelding
+                            | {{ 'modals.modal_markdown_custom_link.buttons.upload_image' | translate }}
 
                 .form-group(ng-if="$ctrl.linkType === 'imageLink'")
-                    label(for="media_alt").form-label Alt
+                    label(for="media_alt" translate="modals.modal_markdown_custom_link.labels.alt_text").form-label
                     input(id="media_alt" type="text" ng-model="$ctrl.form.values.alt").form-control
 
         .modal-footer.text-center
-            button.button.button-primary(type="submit") Bevestig
-            button.button.button-dark(type="button" ng-click="$ctrl.close()") Sluit
+            button.button.button-primary(type="submit" translate="modal.buttons.confirm")
+            button.button.button-dark(type="button" ng-click="$ctrl.close()" translate="modal.buttons.close")
