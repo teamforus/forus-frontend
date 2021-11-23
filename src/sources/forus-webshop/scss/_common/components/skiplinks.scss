@@ -1,15 +1,15 @@
 .skiplinks {
     a {
         text-decoration: underline;
-        color: #707070;
+        color: #2b2bff;
 
         &:hover {
             text-decoration: none;
         }
 
-        &.active, &:focus {
+        &.active, &:focus, &:hover {
             background-color: #e6e6e6;
-            color: #4a494a;
+            color: #4447f5;
             display: block;
             font-size: 1em;
             left: 0;
@@ -20,10 +20,12 @@
             top: 0;
             width: 100%;
             z-index: 10;
-        }
-
-        &:hover, &:focus {
-            color: #4447f5 !important;
+            -webkit-transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
+            -moz-transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
+            -o-transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
+            transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
+            outline: 5px auto -webkit-focus-ring-color;
+            outline-offset: -2px;
         }
     }
 }
