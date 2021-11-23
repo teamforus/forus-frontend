@@ -1,6 +1,7 @@
 .skiplinks {
     a {
         text-decoration: underline;
+        color: #707070;
 
         &:hover {
             text-decoration: none;
@@ -19,6 +20,10 @@
             top: 0;
             width: 100%;
             z-index: 10;
+        }
+
+        &:hover, &:focus {
+            color: #4447f5 !important;
         }
     }
 }
