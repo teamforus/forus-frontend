@@ -1,0 +1,23 @@
+.block {
+    &.block-sitemap {
+        font: 400 16px/28px $bf;
+        color: #191A1C;
+        margin: 0 0 30px;
+
+        h2 {
+            font: 600 28px/34px $bf;
+            color: #000000;
+        }
+
+        a {
+            color: #004D93;
+            text-decoration: underline;
+            transition: color 0.4s;
+
+            &:hover {
+                color: #349aff;
+                text-decoration: none;
+            }
+        }
+    }
+}
