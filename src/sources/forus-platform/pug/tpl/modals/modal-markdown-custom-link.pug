@@ -8,17 +8,17 @@
         .modal-body
             .modal-section
                 .form-group(ng-if="$ctrl.linkType === 'customLink'")
-                    label.form-label Beschrijving
-                    input(type="text" ng-model="$ctrl.form.values.text").form-control
+                    label(for="link_text").form-label Beschrijving
+                    input(id="link_text" type="text" ng-model="$ctrl.form.values.text").form-control
 
                 .form-group(ng-if="$ctrl.linkType === 'customLink' || $ctrl.linkType === 'youtubeLink'")
-                    label.form-label URL
-                    input(type="text" ng-model="$ctrl.form.values.url").form-control
+                    label(for="link_url").form-label URL
+                    input(id="link_url" type="text" ng-model="$ctrl.form.values.url").form-control
 
                 .form-group(ng-if="$ctrl.linkType == 'imageLink'"): .flex-row
                     .flex-col.flex-grow
-                        label.form-label URL Afbeelding
-                        input(type="text" ng-model="$ctrl.form.values.url").form-control
+                        label(for="media_url").form-label URL Afbeelding
+                        input(id="media_url" type="text" ng-model="$ctrl.form.values.url").form-control
                         .form-error(ng-repeat="error in $ctrl.errors.file" ng-bind="error")
 
                     .flex-col
@@ -26,6 +26,10 @@
                         button(type="button" ng-click="$ctrl.selectMedia()").button.button-primary.nowrap
                             em.mdi.mdi-upload.icon-start
                             | Upload afbeelding
+
+                .form-group(ng-if="$ctrl.linkType === 'imageLink'")
+                    label(for="media_alt").form-label Alt
+                    input(id="media_alt" type="text" ng-model="$ctrl.form.values.alt").form-control
 
         .modal-footer.text-center
             button.button.button-primary(type="submit") Bevestig
