@@ -7,7 +7,7 @@ main(id="main-content")
             .breadcrumb-item.active Sitemap
 
         .block.block-sitemap
-            h2 Public area
+            h1 Sitemap
             ul
                 li: a(
                     ui-sref="home"
@@ -19,8 +19,7 @@ main(id="main-content")
                         translate="topnavbar.items.{{ $root.appConfigs.client_key }}.funds"
                         translate-default="{{ 'topnavbar.items.funds' | translate }}")
 
-                li(
-                    ng-if="$root.appConfigs.features.has_budget_funds && $root.appConfigs.features.products.list && ($root.appConfigs.flags.productsMenu || $root.auth_user)")
+                li(ng-if="$root.appConfigs.features.has_budget_funds && $root.appConfigs.features.products.list && ($root.appConfigs.flags.productsMenu || $root.auth_user)")
                     a(
                         ui-sref="products"
                         ng-bind="'topnavbar.items.products' | translate")
@@ -44,8 +43,6 @@ main(id="main-content")
 
                 li: a(ui-sref="sign-up") Aanmelden als aanbieder
 
-
-            h2(ng-if="$root.auth_user") User area
             ul(ng-if="$root.auth_user")
                 li: a(
                     ui-sref="vouchers"
@@ -55,9 +52,8 @@ main(id="main-content")
                     ui-sref="reservations"
                     ng-bind="'profile_menu.buttons.reservations' | translate")
 
-                li: a(
+                li(ng-if="$root.appConfigs.features.records.list"): a(
                     ui-sref="records"
-                    ng-if="$root.appConfigs.features.records.list"
                     ng-bind="'profile_menu.buttons.records' | translate")
 
                 li: a(
@@ -68,9 +64,8 @@ main(id="main-content")
                     ui-sref="preferences-notifications"
                     ng-bind="'profile_menu.buttons.notification_preferences' | translate")
 
-                li: a(
+                li(ng-if="$root.appConfigs.sessions"): a(
                     ui-sref="security-sessions"
-                    ng-if="$root.appConfigs.sessions"
                     ng-bind="'profile_menu.buttons.sessions' | translate")
 
                 li: a(
