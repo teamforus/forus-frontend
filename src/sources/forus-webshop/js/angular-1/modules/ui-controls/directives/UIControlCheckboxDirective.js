@@ -23,17 +23,11 @@ let UIControlCheckboxDirective = function(
         });
     }
 
-    $dir.simulateCheckboxClick = ($event, newValue) => {
-        $event.stopPropagation();
-
-        if (!$event.key || $scope.ngModel == newValue) {
-            return;
-        }
-
-        $timeout(() => {
+    $dir.toggleCheckbox = ($event) => {
+        if ($event?.key == 'Enter') {
             $scope.ngModel = !$scope.ngModel;
-            $scope.ngChange();
-        }, 100);
+            $scope.ngChange(); 
+        }
     };
 
     $scope.$dir = $dir;

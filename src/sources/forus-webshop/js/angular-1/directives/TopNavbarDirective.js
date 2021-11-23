@@ -38,8 +38,10 @@ let TopNavbarDirective = function(
     };
 
     $scope.$ctrl.openUserMenu = ($e) => {
-        $e.stopPropagation();
-        $e.preventDefault();
+        if ($e?.target?.tagName != 'A') {
+            $e.stopPropagation();
+            $e.preventDefault();
+        }
         
         $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
     }
@@ -53,10 +55,6 @@ let TopNavbarDirective = function(
 
         $scope.$ctrl.visible = ($scope.$ctrl.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
         $scope.$ctrl.prevOffsetY = currentOffsetY;
-    };
-
-    $scope.stateGo = function(stateName) {
-        $state.go(stateName);
     };
 
     window.addEventListener('scroll', $scope.updateScrolled);

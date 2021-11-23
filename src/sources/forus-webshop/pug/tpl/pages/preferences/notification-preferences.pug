@@ -43,7 +43,7 @@ section.section.section-voucher-details: .wrapper
                             ng-repeat="type in $ctrl.emailPreferences" 
                             for="option_{{ type.key }}"
                             role="checkbox" tabindex="0" aria-checked="{{ type.subscribed }}"
-                            ng-click="$ctrl.simulateToggleClick($event, type, !type.subscribed)").preference-option
+                            ng-click="$ctrl.togglePreference($event, type)").preference-option
                             .preference-option-details
                                 .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
                                 .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
@@ -52,7 +52,7 @@ section.section.section-voucher-details: .wrapper
                                     type="checkbox"
                                     tabindex="-1"
                                     id="option_{{ type.key }}"
-                                    ng-change="$ctrl.togglePreferenceOption($event)" 
+                                    ng-change="$ctrl.togglePreferenceOption()" 
                                     ng-checked="type.subscribed" 
                                     ng-model="type.subscribed")
                                 .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
@@ -65,7 +65,7 @@ section.section.section-voucher-details: .wrapper
                         ng-repeat="type in $ctrl.pushPreferences" 
                         for="option_{{ type.key }}"
                         role="checkbox" tabindex="0" aria-checked="{{ type.subscribed }}"
-                        ng-click="$ctrl.simulateToggleClick($event, type, !type.subscribed)").preference-option
+                        ng-click="$ctrl.togglePreference($event, type)").preference-option
                         .preference-option-details
                             .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
                             .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
@@ -74,7 +74,7 @@ section.section.section-voucher-details: .wrapper
                                 type="checkbox"
                                 tabindex="-1"
                                 id="option_{{ type.key }}"
-                                ng-change="$ctrl.togglePreferenceOption($event)" 
+                                ng-change="$ctrl.togglePreferenceOption()" 
                                 ng-checked="type.subscribed" 
                                 ng-model="type.subscribed"
                                 aria-hidden="true")

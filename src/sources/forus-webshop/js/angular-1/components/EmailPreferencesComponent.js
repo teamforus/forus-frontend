@@ -1,13 +1,12 @@
-let EmailPreferencesComponent = function(
+const EmailPreferencesComponent = function(
     $state,
-    $timeout,
     AuthService,
     ModalService,
     EmailPreferencesService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
-    let keysEditableOnWebshop = [
+    const $ctrl = this;
+    const keysEditableOnWebshop = [
         'vouchers.payment_success', 
         'funds.fund_expires',
         'voucher.assigned',
@@ -15,9 +14,7 @@ let EmailPreferencesComponent = function(
         'digest.daily_requester',
     ];
 
-    $ctrl.loaded = false;
-
-    let toggleSubscription = (email_unsubscribed = true) => {
+    const toggleSubscription = (email_unsubscribed = true) => {
         return EmailPreferencesService.update({
             email_unsubscribed: email_unsubscribed,
         }).then((res) => {
@@ -25,14 +22,15 @@ let EmailPreferencesComponent = function(
         });
     };
 
-    $ctrl.simulateToggleClick = ($event, type, newValue) => {
-        $event.stopPropagation();
 
-        if (type.subscribed == newValue) {
-            return;
+    $ctrl.loaded = false;
+
+    $ctrl.togglePreference = ($event, option) => {
+        console.log('$event?.key', $event?.key);
+        if ($event?.key == 'Enter') {
+            option.subscribed = !option.subscribed;
+            $ctrl.togglePreferenceOption();
         }
-
-        $timeout(() => type.subscribed = !type.subscribed, 100);
     }
 
     $ctrl.enableSubscription = () => {
@@ -47,9 +45,7 @@ let EmailPreferencesComponent = function(
         EmailPreferencesService.update({
             email_unsubscribed: $ctrl.email_unsubscribed,
             preferences: $ctrl.preferences
-        }).then(res => {
-            PushNotificationsService.success('Opgeslagen!');
-        });
+        }).then(() => PushNotificationsService.success('Opgeslagen!'));
     }
 
     $ctrl.$onInit = () => {
@@ -84,7 +80,6 @@ let EmailPreferencesComponent = function(
 module.exports = {
     controller: [
         '$state',
-        '$timeout',
         'AuthService',
         'ModalService',
         'EmailPreferencesService',

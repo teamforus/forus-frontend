@@ -90,29 +90,47 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
 
             .block.flex.hide-sm
                 .block.block-auth
-                    button.button.button-default(ng-if="!$root.auth_user" ng-click="openAuthPopup()" role="button" aria-label="Inloggen").hide-sm
+                    button.button.button-default(
+                        ng-if="!$root.auth_user" 
+                        ng-click="openAuthPopup()" 
+                        role="button" 
+                        aria-label="Inloggen").hide-sm
+
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
                         span(translate="topnavbar.buttons.login")
                         
-                    button.button.button-primary(ng-if="!$root.auth_user" ng-click="startFundRequest()" role="button" aria-label="{{ 'home.header.' + $root.client_key + '.button' | translate }}")
+                    button.button.button-primary(
+                        ng-if="!$root.auth_user"
+                        ng-click="startFundRequest()"
+                        role="button"
+                        aria-label="{{ 'home.header.' + $root.client_key + '.button' | translate }}")
+
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
-                        span(translate="home.header.{{ $root.client_key }}.button" translate-default="{{ 'home.header.button' | translate }}" id="start_modal")
+                        span(
+                            translate="home.header.{{ $root.client_key }}.button" 
+                            translate-default="{{ 'home.header.button' | translate }}" 
+                            id="start_modal")
 
                     a(ng-if="$root.auth_user" ui-sref="vouchers" id="vouchers").button.button-primary
-                            em.mdi.mdi-ticket-confirmation
-                            span(translate="topnavbar.buttons.voucher") 
+                        em.mdi.mdi-ticket-confirmation
+                        span(translate="topnavbar.buttons.voucher") 
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
-                        .auth-user(ng-click="$ctrl.openUserMenu($event)" aria-haspopup="true" id="user_menu" aria-expanded="{{$ctrl.userMenuOpened}}" role="link" aria-label="Gebruikersmenu")
-                            .auth-user-avatar
-                            .auth-user-caret
-                                em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
+                        .auth-user(
+                            ng-click="$ctrl.openUserMenu($event)" 
+                            aria-haspopup="true" 
+                            id="user_menu" 
+                            aria-expanded="{{$ctrl.userMenuOpened}}" 
+                            role="link" 
+                            aria-label="Gebruikersmenu")
 
-                            .auth-user-menu.hide-sm(
+                            .auth-user-avatar
+                            .auth-user-caret: em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
+
+                            .auth-user-menu.hide-sm.active(
                                 aria-labelledby="user_menu"
                                 ng-class="{active: $ctrl.userMenuOpened}"
-                                ng-if="$ctrl.userMenuOpened"
-                                click-outside="$ctrl.hideUserMenu()")
+                                ng-show="$ctrl.userMenuOpened")
                                 .triangle
                                 .inner(prevent-propagation)
                                     .auth-user-menu-user
@@ -135,47 +153,57 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                                         em.mdi.mdi-cellphone
                                         span(translate="topnavbar.buttons.authorize")
                                         
-                                    .auth-user-menu-item(
-                                        ng-if="$root.appConfigs.sessions"
-                                        ng-click="stateGo('security-sessions')"
+                                    a.auth-user-menu-item(
+                                        ng-if="$root.appConfigs.sessions" 
+                                        ui-sref="security-sessions"
                                         role="link")
                                         em.mdi.mdi-shield-account
                                         | Sessies
                                     
-                                    .auth-user-menu-item(
-                                        ng-click="stateGo('notifications')"
+                                    a.auth-user-menu-item(
+                                        ui-sref="notifications" 
+                                        ui-sref-active="active"
                                         role="link")
                                         em.mdi.mdi-bell-outline
                                         span Notificaties
                                         
-                                    .auth-user-menu-item(ng-click="stateGo('preferences-notifications')" role="link" id="notification_preferences")
+                                    a.auth-user-menu-item(
+                                        ui-sref="preferences-notifications" 
+                                        ui-sref-active="active"
+                                        id="notification_preferences"
+                                        role="link")
                                         em.mdi.mdi-cog-outline
                                         translate(translate="notification_preferences.title_preferences")
 
-                                    .auth-user-menu-item(
-                                        ng-click="stateGo('identity-emails')"
+                                    a.auth-user-menu-item(
+                                        ui-sref="identity-emails"
+                                        ui-sref-active="active"
+                                        id="identity_emails"
                                         role="link")
                                         em.mdi.mdi-at 
                                         translate(translate="email_preferences.title_preferences")
 
                                     .auth-user-menu-separator.show-sm
                                     
-                                    .auth-user-menu-item.show-sm(
-                                        ng-click="stateGo('funds')"
+                                    a.auth-user-menu-item.show-sm(
+                                        ui-sref="funds" 
+                                        ui-sref-active="active"
                                         ng-if="$root.auth_user"
                                         role="link")
                                         em.mdi.mdi-star-outline
                                         span(translate="topnavbar.buttons.logout")
                                     
-                                    .auth-user-menu-item.show-sm(
-                                        ng-click="stateGo('products')"
+                                    a.auth-user-menu-item.show-sm(
+                                        ui-sref="products" 
+                                        ui-sref-active="active"
                                         ng-if="$root.appConfigs.features.products.list"
                                         role="link")
                                         em.mdi.mdi-store
                                         span(translate="topnavbar.buttons.products")
                                     
-                                    .auth-user-menu-item.show-sm(
-                                        ng-click="stateGo('providers')"
+                                    a.auth-user-menu-item.show-sm(
+                                        ui-sref="providers" 
+                                        ui-sref-active="active"
                                         ng-if="$root.appConfigs.flags.providersMenu"
                                         role="link")
                                         em.mdi.mdi-store
@@ -183,8 +211,9 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                                         
                                     .auth-user-menu-separator.show-sm
                                     
-                                    .auth-user-menu-item.show-sm(
-                                        ng-click="stateGo('vouchers')"
+                                    a.auth-user-menu-item.show-sm(
+                                        ui-sref="vouchers" 
+                                        ui-sref-active="active"
                                         role="link")
                                         em.mdi.mdi-ticket-confirmation
                                         span(translate="topnavbar.buttons.voucher")
