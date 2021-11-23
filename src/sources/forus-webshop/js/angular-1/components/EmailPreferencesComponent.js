@@ -26,7 +26,6 @@ const EmailPreferencesComponent = function(
     $ctrl.loaded = false;
 
     $ctrl.togglePreference = ($event, option) => {
-        console.log('$event?.key', $event?.key);
         if ($event?.key == 'Enter') {
             option.subscribed = !option.subscribed;
             $ctrl.togglePreferenceOption();
