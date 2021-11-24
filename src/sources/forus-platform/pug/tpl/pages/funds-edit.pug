@@ -150,6 +150,12 @@
 
             .card-section.card-section-primary
                 .form-group.form-group-inline
+                    label.form-label FAQ title
+                    input(type="text" ng-model="$ctrl.form.values.faq_title").form-control
+                    
+                    .form-error(ng-repeat="error in $ctrl.form.errors.faq_title" ng-bind="error")
+
+                .form-group.form-group-inline
                     label.form-label FAQ
                     .form-offset: fund-faq-editor(
                         fund="$ctrl.fund"

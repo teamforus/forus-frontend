@@ -103,6 +103,63 @@
                     }
                 }
             }
+
+            &.fund-faq {
+                width: 100%;
+                padding: 0;
+                border: 0;
+                border-top: 1px solid #eee;
+                border-radius: 0.25em;
+                box-shadow: 0 2px 5px 0 #cfcfcf, 0 2px 10px 0 #fbfbfb;
+
+                .faq-item {
+                    border-radius: 0;
+
+                    .faq-item-header {
+                        font-family: Oranda,sans-serif;
+                        font-size: 1.75em;
+                        color: $tc;
+                        padding: 0;
+                        margin-bottom: -1px;
+                        background-color: rgba(0,0,0,.03);
+
+                        h2 {
+                            margin: 0;
+                            font-size: 28px;
+                            padding: 15px 30px;
+                        }
+                    }
+
+                    .faq-item-content {
+                        padding: 0.625em;
+                        border-top: 1px solid rgba(0,0,0,0.125);
+
+                        .block-markdown {
+                            p, ol, ul {
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+
+                    &.active {
+                        .faq-item-header {
+                            color: #157c68;
+
+                            h2 {
+                                outline: 3px auto #00a889;
+                                outline-offset: 1px;
+                                transition: outline 2s;
+                            }
+
+                            .faq-item-chevron-up {
+                                color: #00a889;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     &.section-faq {
