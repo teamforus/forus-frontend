@@ -10,8 +10,8 @@ let ModalMarkdownCustomLinkComponent = function(
 
     $ctrl.$onInit = () => {
         const { type } = $ctrl.modal.scope;
-        const { text, url } = $ctrl.modal.scope.values;
-        const values = { url, text };
+        const { text, url, alt } = $ctrl.modal.scope.values;
+        const values = { url, text, alt };
 
         $ctrl.linkType = type;
 

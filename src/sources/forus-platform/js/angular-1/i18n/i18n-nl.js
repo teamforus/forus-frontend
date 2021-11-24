@@ -59,6 +59,7 @@ module.exports = {
         modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
+        modal_markdown_custom_link: require("./nl/modals/modal-markdown-custom-link.pug.i18n"),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
@@ -1210,7 +1211,8 @@ module.exports = {
     // TRANSACTIONS = transaction.pug
     transactions: {
         header: {
-            title: "Transacties",
+            title: "Individuele transacties",
+            titleBulks: "Bulktransacties",
         },
         labels: {
             price: "BEDRAG",
@@ -1229,13 +1231,18 @@ module.exports = {
             provider: "AANBIEDER",
             search: "Zoeken",
             from: "Vanaf",
+            bulk: "BULK",
             to: "Tot en met",
             state: "Status",
             fund_state: "Status fonds",
             amount: "Bedrag",
             amount_min: "0",
             amount_max: "Alles",
-            total_amount: "Som van transacties",
+            total_amount: "Som van transacties <strong>{{ total_amount }}</strong>",
+            bulk_total_amount: [
+                "Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie ter waarde van <strong>{{ total_amount }}</strong>.",
+                "Gebeurt automatisch dagelijks om 09:00."
+            ].join("</br>"),
         },
         buttons: {
             previous: "Vorige",
@@ -1680,8 +1687,8 @@ module.exports = {
     modal: {
         buttons: {
             cancel: "Annuleren",
-            confirm: "Bevestig",
-            close: "Sluit"
+            confirm: "Bevestigen",
+            close: "Sluiten"
         }
     },
 

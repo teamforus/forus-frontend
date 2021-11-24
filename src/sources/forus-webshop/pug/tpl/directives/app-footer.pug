@@ -30,3 +30,7 @@ footer.section.section-footer
                 ui-sref="{{ pageLink.page_type }}"
                 target="{{ pageLink.external ? _blank : '_self' }}"
                 translate="app_footer.links.{{ pageLink.page_type }}")
+            .link-item: a(
+                ui-sref="sitemap"
+                target="_self"
+                translate="app_footer.links.sitemap")
