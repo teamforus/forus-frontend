@@ -22,12 +22,12 @@
 
         div(ng-if="question.is_editing")
             .form-group
-                label.form-label Title
+                label.form-label Vraag
                 input(type="text" ng-model="question.title").form-control
                 .form-error(ng-repeat="error in $dir.getErrorField('title', $parent.$index)" ng-bind="error")
             
             .form-group
-                label.form-label Description
+                label.form-label Antwoord
                 markdown(
                     extended-options="true"
                     value="question.description_html"

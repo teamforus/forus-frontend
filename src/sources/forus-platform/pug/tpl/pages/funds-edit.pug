@@ -150,13 +150,13 @@
 
             .card-section.card-section-primary
                 .form-group.form-group-inline
-                    label.form-label FAQ title
-                    input(type="text" ng-model="$ctrl.form.values.faq_title").form-control
+                    label.form-label Titel van blok
+                    input(type="text" ng-model="$ctrl.form.values.faq_title" placeholder="Veel gestelde vragen").form-control
                     
                     .form-error(ng-repeat="error in $ctrl.form.errors.faq_title" ng-bind="error")
 
                 .form-group.form-group-inline
-                    label.form-label FAQ
+                    label.form-label Veel gestelde vragen
                     .form-offset: fund-faq-editor(
                         fund="$ctrl.fund"
                         organization="$ctrl.organization" 

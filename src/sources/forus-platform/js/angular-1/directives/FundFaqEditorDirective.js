@@ -30,7 +30,7 @@ let FundFaqEditorDirective = function(
             is_editing: true,
             title: '',
             description: '',
-            title_hint: 'New question',
+            title_hint: 'Nieuwe vraag',
         });
     };
 

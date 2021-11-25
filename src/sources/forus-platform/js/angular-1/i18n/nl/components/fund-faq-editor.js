@@ -1,7 +1,7 @@
 module.exports = {
     fund_faq_editor: {
         buttons: {
-            add_question: "Add question",
+            add_question: "Vraag toevoegen",
             save: "Bevestigen",
         },
         item: {
