@@ -36,16 +36,9 @@ main(id="main-content")
 
                     button.button.button-primary.button-fill(
                         type="button"
-                        ng-if="$ctrl.fund.showActivateButton && !$ctrl.fund.request_btn_link" 
-                        ng-click="$ctrl.applyFund($ctrl.fund)"
-                        ng-bind="$ctrl.fund.activateButtonText")
-
-                    button.button.button-primary.button-fill(
-                        type="button"
-                        ng-if="$ctrl.fund.showActivateButton && $ctrl.fund.request_btn_link"
-                        target="_blank"
-                        ng-href="{{ $ctrl.fund.request_btn_link }}"
-                        ng-bind="$ctrl.fund.activateButtonText")
+                        ng-if="$ctrl.fund.showActivateButton" 
+                        ng-click="$ctrl.applyFund($ctrl.fund)" 
+                        translate="funds.buttons.is_applicable")
 
                     button.button.button-primary.button-fill(
                         ng-if="$ctrl.fund.alreadyReceived" 

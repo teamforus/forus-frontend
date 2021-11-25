@@ -56,7 +56,6 @@ const FundsComponent = function(
         }
 
         $ctrl.fund.requestButtonText = $ctrl.fund.request_btn_text ? $ctrl.fund.request_btn_text : trans('start_request');
-        $ctrl.fund.activateButtonText = $ctrl.fund.request_btn_text ? $ctrl.fund.request_btn_text : trans('is_applicable');
     };
 
     $ctrl.$onInit = function() {
