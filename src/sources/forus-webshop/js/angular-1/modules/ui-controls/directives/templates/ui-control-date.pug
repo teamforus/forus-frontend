@@ -1,5 +1,5 @@
 .ui-control.ui-control-date(ng-class="$dir.class")
-    datepicker(date-format="{{ $dir.dateFormat }}" datepicker-mobile="" date-week-start-day="1").form-control
+    datepicker(date-format="{{ $dir.dateFormat }}" datepicker-mobile="" date-week-start-day="1" aria-label="{{ $dir.name }}").form-control
         | &nbsp;
         input(
         id="{{ $dir.id }}" 
@@ -9,4 +9,4 @@
         type="text"
         placeholder="{{ $dir.placeholder || $dir.dateFormat }}"
         ).form-control
-    label(for="{{ $dir.id }}" ng-click="$dir.clear()").ui-control-clear: .mdi.mdi-close-circle
+    .ui-control-clear(ng-click="$dir.clear()" aria-label="cancel"): .mdi.mdi-close-circle
