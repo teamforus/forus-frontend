@@ -8,8 +8,18 @@ a.fund-item
             .fund-name(ng-bind="$dir.fund.name")
             .fund-organization(ng-bind="$dir.fund.organization.name")
             .fund-status-label
-                .label.label-default(ng-if="$dir.fund.canApply && !$dir.fund.canActivate" translate="funds.status.is_applicable")
-                .label.label-success(ng-if="$dir.fund.canActivate" translate="funds.status.activateable")
-                .label.label-primary(ng-if="$dir.fund.alreadyReceived" translate="funds.status.active")
-                .label.label-warning(ng-if="$dir.fund.isPending" translate="funds.status.is_pending")
-                .label.label-danger(ng-if="!$dir.fund.isApplicable" translate="funds.status.denied")
+                .label.label-secondary(ng-if="$dir.fund.canApply && !$dir.fund.canActivate")
+                    em.mdi.mdi-plus-circle-outline
+                    span(translate="funds.status.is_applicable")
+                .label.label-success(ng-if="$dir.fund.canActivate")
+                    .mdi.mdi-playlist-check
+                    span(translate="funds.status.activateable")
+                .label.label-primary(ng-if="$dir.fund.alreadyReceived")
+                    .mdi.mdi-qrcode
+                    span(translate="funds.status.active")
+                .label.label-warning(ng-if="$dir.fund.isPending")
+                    .mdi.mdi-clock-outline
+                    span(translate="funds.status.is_pending")
+                .label.label-secondary(ng-if="!$dir.fund.canActivate && !$dir.fund.canApply && !$dir.fund.isPending && !$dir.fund.isApplicable")
+                    em.mdi.mdi-plus-circle-outline
+                    span(translate="funds.status.is_applicable")

@@ -4,6 +4,14 @@
     padding: 0 7.5px;
     border-radius: $border_radius / 2;
     cursor: default;
+    
+    .mdi {
+        font-size: 1.4em;
+        line-height: inherit;
+        margin-right: 5px;
+        margin-left: 0px;
+        float: left;
+    }
 
     .label-close {
         color: #fff;
@@ -19,28 +27,38 @@
     }
 
     &.label-warning {
-        background: #eed77e;
+        background: #EFD77F;
         color: #030304;
     }
 
     &.label-danger {
-        background: #d4dae5;
+        background: #d38c87;
         color: #030304;
     }
 
     &.label-default {
-        background: #2b333b;
+        background: #777;
         color: #fff;
     }
 
     &.label-primary {
-        background: $color_primary;
-        color: #fff;
+        background: #82AAD5;
+        color: #030304;
     }
 
-    &.label-primary-light {
-        background: $color_primary_light;
-        color: #fff;
+    &.label-secondary {
+        background: #D2DBE4;
+        color: #030304;
+    }
+
+    &.label-info {
+        background: #5bc0de;
+        color: #030304;
+    }
+
+    &.label-light {
+        background: #e6e6e6;
+        color: #030304;
     }
 
     &.label-dark {
