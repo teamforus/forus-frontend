@@ -36,6 +36,18 @@
             "title": "Aanbieder heeft een nieuw chatbericht ontvangen van de sponsor",
             "description": "Aanbieders ontvangen dit bericht wanneer de sponsor ze een chatbericht stuurt."
         },
+        "notifications_fund_providers.fund_started": {
+            "title": "Fonds is gestart",
+            "description": "Aanbieders ontvangen dit bericht wanneer een fonds is gestart waar zij aangemeld voor staan."
+        },
+        "notifications_fund_providers.fund_ended": {
+            "title": "Fonds is afgelopen",
+            "description": "Aanbieders ontvangen dit bericht wanneer een fonds is afgelopen waar zij aangemeld voor staan."
+        },
+        "notifications_fund_providers.fund_expiring": {
+            "title": "Fonds verloopt bijna",
+            "description": "Aanbieders ontvangen dit bericht wanneer een fonds binnenkort verloopt waar zij aangemeld voor staan."
+        },        
         "notifications_identities.requester_provider_approved_budget": {
             "title": "Aanbieder goedgekeurd voor het scannen van financiële tegoeden.",
             "description": "Deelnemers ontvangen dit bericht wanneer een aanbieder wordt goedgekeurd om hun financiële tegoeden te mogen scannen."
