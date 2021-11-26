@@ -20,6 +20,6 @@ a.fund-item
                 .label.label-warning(ng-if="$dir.fund.isPending")
                     .mdi.mdi-clock-outline
                     span(translate="funds.status.is_pending")
-                .label.label-secondary(ng-if="!$dir.fund.canActivate && !$dir.fund.canApply && !$dir.fund.isPending && !$dir.fund.isApplicable")
+                .label.label-secondary(ng-if="!$dir.fund.canActivate && !$dir.fund.canApply && !$dir.fund.isPending && !$dir.fund.isApplicable && !$dir.fund.alreadyReceived")
                     em.mdi.mdi-plus-circle-outline
                     span(translate="funds.status.is_applicable")
