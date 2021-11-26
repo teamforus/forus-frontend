@@ -33,9 +33,10 @@ const FundsComponent = function(
             !$ctrl.fund.has_pending_fund_requests &&
             !$ctrl.fund.isApplicable &&
             $ctrl.configs.funds.fund_requests;
+        $ctrl.fund.showRequestButton = true;
 
         $ctrl.fund.showPendingButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.has_pending_fund_requests;
-        $ctrl.fund.showActivateButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.isApplicable;
+        $ctrl.fund.showActivateButton = false;
         $ctrl.fund.showReceivedButton = $ctrl.fund.alreadyReceived;
 
         if ($ctrl.fund.vouchers[0] && $ctrl.fund.vouchers[0].address) {
