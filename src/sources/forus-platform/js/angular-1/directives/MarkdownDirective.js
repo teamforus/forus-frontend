@@ -160,6 +160,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
         const allowLists = typeof $dir.allowLists == 'undefined' ? true : $dir.allowLists;
         const allowAlignment = typeof $dir.allowAlignment == 'undefined' ? false : $dir.allowAlignment;
         const extendedOptions = typeof $dir.extendedOptions == 'undefined' ? false : $dir.extendedOptions;
+        const allowPreview = typeof $dir.allowPreview == 'undefined' ? false : $dir.allowPreview;
 
         $theEditor.summernote({
             placeholder: '',
@@ -216,10 +217,10 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 ['cms', ['cmsLink', 'unlink', 'cmsMedia', 'cmsLinkYoutube']],
             ] : [
                 ['cms', ['cmsLink', 'unlink']]
-            ]), ...[
+            ]), ...(allowPreview ? [
                 ['view', ['fullscreen', 'cmsMailView']],
                 ['buttons', buttons.map((button) => button.key)],
-            ]],
+            ] : [])],
             buttons: {
                 cmsLink: CmsButton('customLink', 'link'),
                 cmsMedia: CmsButton('imageLink', 'picture'),
@@ -298,6 +299,7 @@ module.exports = () => {
             extendedOptions: '=',
             allowLists: '=',
             allowAlignment: '=',
+            allowPreview: '=',
         },
         require: {
             ngModelCtrl: 'ngModel',
