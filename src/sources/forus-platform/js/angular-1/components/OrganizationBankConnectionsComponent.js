@@ -24,7 +24,7 @@ const OrganizationBankConnectionsComponent = function(
 
             resolve(!!error);
         });
-    }
+    };
 
     $ctrl.showSuccess = (success) => {
         return $q((resolve) => {
@@ -34,7 +34,7 @@ const OrganizationBankConnectionsComponent = function(
 
             resolve(!!success);
         });
-    }
+    };
 
     $ctrl.onRequestError = (res) => {
         PushNotificationsService.danger('Error', res.data.message || 'Er is iets misgegaan, probeer het later opnieuw.');
@@ -48,7 +48,16 @@ const OrganizationBankConnectionsComponent = function(
                 onCancel: () => resolve(false),
             });
         });
-    }
+    };
+
+    $ctrl.switchMonetaryAccount = (bankConnection) => {
+        const onClose = () => {
+            $ctrl.fetchActiveBankConnection().then((connection) => $ctrl.bankConnection = connection);
+            $ctrl.onPageChange($ctrl.filters);
+        }
+
+        ModalService.open('switchBankConnectionAccount', { bankConnection }, { onClose });
+    };
 
     $ctrl.confirmNewConnection = () => {
         return $q((resolve) => $ctrl.fetchActiveBankConnection().then((bankConnection) => {
@@ -57,14 +66,14 @@ const OrganizationBankConnectionsComponent = function(
                 'Weet u zeker dat u verder wilt gaan?',
             ].join("\n")).then(resolve) : resolve(true);
         }));
-    }
+    };
 
     $ctrl.confirmConnectionDisabling = () => {
         return $ctrl.confirmDangerAction('Verbinding met uw bank stopzetten', [
             'U staat op het punt om de verbinding vanuit Forus met uw bank stop te zetten. Hierdoor stopt Forus met het uitlezen van de rekeninginformatie en het initiëren van transacties.',
             'Weet u zeker dat u verder wilt gaan?'
         ].join("\n"));
-    }
+    };
 
     $ctrl.makeConnection = (bank_id) => {
         $ctrl.confirmNewConnection().then((confirmed) => {
@@ -74,7 +83,7 @@ const OrganizationBankConnectionsComponent = function(
                 }, $ctrl.onRequestError);
             }
         });
-    }
+    };
 
     $ctrl.disableConnection = (connection_id) => {
         $ctrl.confirmConnectionDisabling().then((confirmed) => {
@@ -85,7 +94,7 @@ const OrganizationBankConnectionsComponent = function(
                 }, $ctrl.onRequestError);
             }
         });
-    }
+    };
 
     $ctrl.replaceConnectionModel = (bankConnection) => {
         for (let i = 0; i < $ctrl.bankConnections.data.length; i++) {

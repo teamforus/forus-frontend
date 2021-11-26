@@ -45,7 +45,5 @@ module.exports = {
         'PushNotificationsService',
         ModalFundTopUpComponent
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-fund-top-up.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-fund-top-up.html',
 };

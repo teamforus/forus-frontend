@@ -1,0 +1,20 @@
+.modal.modal-sm.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        .modal-header Select monetary account
+
+        .modal-body.form: .modal-section: form(ng-submit="$ctrl.form.submit()").form
+            //- Monetary account
+            .form-group
+                label(for="bank_connection_account_id").form-label Monetary account
+                select(
+                    id="bank_connection_account_id" 
+                    name="bank_connection_account_id"
+                    ng-model="$ctrl.form.values.bank_connection_account_id" 
+                    ng-options="account.id as account.monetary_account_iban for account in $ctrl.bankConnection.accounts").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.bank_connection_account_id" ng-bind="error")
+
+        .modal-footer.text-center
+            button.button.button-primary(ng-click="$ctrl.form.submit()") Submit
+            button.button.button-default(ng-click="$ctrl.close()") Cancel

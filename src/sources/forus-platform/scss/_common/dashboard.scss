@@ -1921,8 +1921,25 @@ body {
 
                     .card-block-bank-property-value {
                         font: 600 16px/26px $bf;
-                    }
-                        
+
+                        &.card-block-bank-property-value-link {
+                            transition: .4s;
+                            cursor: pointer;
+
+                            .mdi {
+                                transition: .4s;
+                                font-size: inherit;
+                                color: $colorPrimary;
+                                margin-left: 2.5px;
+                                line-height: inherit;
+                                font-size: 18px;
+                            }
+
+                            &:hover {
+                                color: $colorPrimary;
+                            }
+                        }
+                    }   
                 }
             }
         }
@@ -5265,7 +5282,7 @@ body {
         position: fixed;
         top: 0;
         left: 0;
-        background-color: $bc;
+        background-color: $color_primary;
         height: 3px;
         width: 0;
         transition: width .3s linear;
