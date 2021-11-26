@@ -219,8 +219,9 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 ['cms', ['cmsLink', 'unlink']]
             ]), ...(allowPreview ? [
                 ['view', ['fullscreen', 'cmsMailView']],
+            ] : []), ...[    
                 ['buttons', buttons.map((button) => button.key)],
-            ] : [])],
+            ]],
             buttons: {
                 cmsLink: CmsButton('customLink', 'link'),
                 cmsMedia: CmsButton('imageLink', 'picture'),
