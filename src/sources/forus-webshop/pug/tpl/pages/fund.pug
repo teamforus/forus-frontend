@@ -109,7 +109,7 @@ main(id="main-content")
                         .block.block-markdown(ng-bind-html=content)
 
             .section-splash
-            .section-title(ng-bind="$ctrl.fund.faq_title")
+            .section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
 
             .faq.fund-faq(collapse ng-repeat="question in $ctrl.fund.faq")
                 +faq_item("question.title", "question.description_html")
