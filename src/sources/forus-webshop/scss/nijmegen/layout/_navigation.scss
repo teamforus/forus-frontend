@@ -1,4 +1,16 @@
 .block {
+    &.block-navbar {
+        .navbar-inner {
+            margin: 0 50px;
+        }
+
+        .block-subnav {
+            .subnav-inner {
+                margin: 0 50px;
+            }
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         &.block-navbar {
             position: sticky;
