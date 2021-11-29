@@ -11,20 +11,20 @@
         flex-basis: 50%;
 
         .block-title {
-            font: 600 54px/60px $bf;
+            font: 500 2.5em $bf;
             color: #000000;
             margin: 0 0 30px;
         }
     
         .block-description {
-            font: 400 20px/30px $bf;
+            font: 400 16px/28px $bf;
             color: #000000;
             margin: 0 0 30px;
         }
 
         .block-notice {
+            font: 400 16px/28px $bf;
             margin-top: -15px;
-            font: 400 14px/16px $bf;
 
             a {
                 font: 400 14px/16px $bf;
@@ -73,6 +73,7 @@
                 text-align: center;
             }
             .block-notice {
+                font: 400 16px/24px $bf;
                 margin: 0 0 20px;
                 text-align: center;
             }
