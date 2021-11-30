@@ -29,7 +29,7 @@ const pugCompiler = function(source, platform, src, dest, task) {
     streams.push(gulp.dest(platform.paths.root + dest));
     streams.push(reloadBrowserSync(platform));
 
-    streamCombiner(streams).on('error', onError).on('end', resolve);
+    streamCombiner(streams.filter((item) => item)).on('error', onError).on('end', resolve);
 
     return promise;
 };

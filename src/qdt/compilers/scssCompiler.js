@@ -28,7 +28,7 @@ const scssCompiler = async function(platform, src, task) {
     streams.push(gulp.dest(platform.paths.assets + '/css/' + task.dest));
     streams.push(reloadBrowserSync(platform));
 
-    streamCombiner.apply(streamCombiner, streams).on('error', onError).on('end', resolve);
+    streamCombiner.apply(streamCombiner, streams.filter((item) => item)).on('error', onError).on('end', resolve);
 
     return promise;
 };
