@@ -15,7 +15,7 @@ const ModalSwitchBankConnectionAccountComponent = function(
 
             BankConnectionService.update(organization_id, id, form.values).then(() => {
                 $ctrl.close();
-                PushNotificationsService.success('Success', 'Your default monetary account updated.');
+                PushNotificationsService.success('Succes!', 'Het actieve bankaccount is gewijzigd!');
             }, (res) => form.errors = res.data.errors).finally(() => form.unlock());
         }, true);
     };
