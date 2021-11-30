@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const sass = require('gulp-sass')(require('node-sass'));
 const { assetsSuffix, reloadBrowserSync, makeNotifier } = require('../Library');
 const { composeDestPath } = require('../Helpers');
 const plugins = require('gulp-load-plugins')();
@@ -22,7 +23,7 @@ const scssCompiler = async function(platform, src, task) {
     };
 
     streams.push(gulp.src(src));
-    streams.push(plugins.sass(scssSettings));
+    streams.push(sass(scssSettings));
     streams.push(plugins.autoprefixer(prefixedSettings.autoPrefixer));
     streams.push(plugins.rename(composeDestPath(task.name, !platform.env_data.disable_timestamps ? assetsSuffix : '')));
     streams.push(gulp.dest(platform.paths.assets + '/css/' + task.dest));
