@@ -1,12 +1,12 @@
-let EmailPreferencesComponent = function(
+const EmailPreferencesComponent = function(
     $state,
     AuthService,
     ModalService,
     EmailPreferencesService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
-    let keysEditableOnWebshop = [
+    const $ctrl = this;
+    const keysEditableOnWebshop = [
         'vouchers.payment_success', 
         'funds.fund_expires',
         'voucher.assigned',
@@ -14,15 +14,23 @@ let EmailPreferencesComponent = function(
         'digest.daily_requester',
     ];
 
-    $ctrl.loaded = false;
-
-    let toggleSubscription = (email_unsubscribed = true) => {
+    const toggleSubscription = (email_unsubscribed = true) => {
         return EmailPreferencesService.update({
             email_unsubscribed: email_unsubscribed,
         }).then((res) => {
             $ctrl.email_unsubscribed = res.data.data.email_unsubscribed;
         });
     };
+
+
+    $ctrl.loaded = false;
+
+    $ctrl.togglePreference = ($event, option) => {
+        if ($event?.key == 'Enter') {
+            option.subscribed = !option.subscribed;
+            $ctrl.togglePreferenceOption();
+        }
+    }
 
     $ctrl.enableSubscription = () => {
         return toggleSubscription(false);
@@ -36,9 +44,7 @@ let EmailPreferencesComponent = function(
         EmailPreferencesService.update({
             email_unsubscribed: $ctrl.email_unsubscribed,
             preferences: $ctrl.preferences
-        }).then(res => {
-            PushNotificationsService.success('Opgeslagen!');
-        });
+        }).then(() => PushNotificationsService.success('Opgeslagen!'));
     }
 
     $ctrl.$onInit = () => {
