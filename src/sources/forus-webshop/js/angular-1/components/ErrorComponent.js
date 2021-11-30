@@ -1,4 +1,4 @@
-let ErrorComponent = function($filter, $stateParams) {
+let ErrorComponent = function($filter, $sce, $stateParams, appConfigs) {
     let $ctrl = this;
     
     // TODO: move messages to translation files 
@@ -47,9 +47,12 @@ let ErrorComponent = function($filter, $stateParams) {
             ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
         ].join(),
         'digid_uid_used': [
-            'Het BSN-nummer is al ingebruik op een ander account', 
-            ' herstel uw account op het inlog venster om verder te gaan.'
-        ].join(),
+            'Voor dit BSN nummer is een ander e-mailadres geregistreerd.', 
+            'Om in te loggen op uw account moet u het e-mailadres gebruiken wat bij ons geregistreerd staat.',
+            'Weet u niet meer welk e-mailadres dit is of heeft u een nieuw e-mailadres? Herstel dan ',
+            '<a href="' + appConfigs.features.fronts.url_webshop + '" class="button button-text button-text-padless">hier</a> ',
+            'uw account'
+        ].join(''),
         'digid_uid_dont_match': [
             'Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer gekoppelt staat aan dit profiel', 
             ' start een nieuwe aanvraag.'
@@ -82,17 +85,21 @@ let ErrorComponent = function($filter, $stateParams) {
 
     $ctrl.$onInit = () => {
         $ctrl.title = titles[$stateParams.errorCode] || 'Onbekende foutmelding';
-        $ctrl.message = messages[$stateParams.errorCode] || '';
+        $ctrl.message = $sce.trustAsHtml(messages[$stateParams.errorCode] || '');
+        $ctrl.hideHomeLinkButton = $stateParams.hideHomeLinkButton;
     };
 }
 
 module.exports = {
     bindings: {
         errorCode: '=',
+        hideHomeLinkButton: '='
     },
     controller: [
         '$filter',
+        '$sce',
         '$stateParams',
+        'appConfigs',
         ErrorComponent
     ],
     templateUrl: 'assets/tpl/pages/error.html'
