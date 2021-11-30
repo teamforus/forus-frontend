@@ -49,6 +49,7 @@ let SecuritySessionsComponent = function(
             type: 'confirm',
             title: 'Beëindig sessie',
             description: 'De sessie beëindigen kan er voor zorgen dat u uitgelogd raakt, wilt u doorgaan?',
+            modalClass: "modal-md",
             confirm: () => SessionService.terminate(session.uid).then(
                 () => $ctrl.loadSessions(),
                 () => $state.reload()
@@ -61,6 +62,7 @@ let SecuritySessionsComponent = function(
             type: 'confirm',
             title: 'Beëindig alle sessies',
             description: 'U wordt nu uitgelogd op alle apparaten, wilt u doorgaan?',
+            modalClass: "modal-md",
             confirm: () => SessionService.terminateAll().then(
                 () => $ctrl.loadSessions(),
                 () => $state.reload()

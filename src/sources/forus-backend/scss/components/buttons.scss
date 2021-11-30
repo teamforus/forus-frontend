@@ -20,6 +20,10 @@
         }
     }
 
+    &.button-sm {
+        padding: 10px 15px;
+    }
+
     &[disabled],
     &.disabled,
     &.button-disabled {

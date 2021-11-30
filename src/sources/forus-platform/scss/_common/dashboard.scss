@@ -55,6 +55,9 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-banner-picker.scss';
     @import 'blocks/block-markdownable.scss';
     @import 'blocks/block-markdown.scss';
+    @import 'blocks/block-system-notification-editor.scss';
+    @import 'blocks/block-mail_preview.scss';
+    @import 'blocks/block-photo-selector-notifications.scss';
 }
 
 
@@ -840,6 +843,10 @@ body {
     margin-bottom: 20px;
     cursor: default;
 
+    @mixin bgDanger() {
+        background: rgba(246,246,246,0.4);
+    }
+
     .card-header,
     .card-section,
     .card-footer {
@@ -903,6 +910,22 @@ body {
 
         .button {
             line-height: 22px;
+        }
+
+        &.card-header-warning {
+            background: #fcfaf6;
+        }
+
+        &.card-header-danger {
+            @include bgDanger();
+        }
+
+        &.card-header-primary {
+            background: #f6f9fc;
+        }
+
+        &.card-header-success {
+            background: #f7f9de;
         }
     }
 
@@ -1088,6 +1111,10 @@ body {
             background: #fcfaf6;
         }
 
+        &.card-section-danger {
+            @include bgDanger();
+        }
+
         &.card-section-primary {
             background: #f6f9fc;
         }
@@ -1108,6 +1135,24 @@ body {
         &.card-section-no-border,
         &:last-child {
             border-bottom: 0;
+        }
+    }
+
+    .card-footer {
+        &.card-footer-warning {
+            background: #fcfaf6;
+        }
+
+        &.card-footer-danger {
+            @include bgDanger();
+        }
+
+        &.card-footer-primary {
+            background: #f6f9fc;
+        }
+
+        &.card-footer-success {
+            background: #f7f9de;
         }
     }
 
@@ -1211,6 +1256,7 @@ body {
                 color: $color_primary;
                 font: 500 13px/20px $bf;
                 width: 210px;
+                padding-right: 20px;
             }
 
             .keyvalue-value {
@@ -2958,10 +3004,16 @@ body {
             z-index: 1;
             color: #151b26;
 
-            .tooltip-heading {
+            .tooltip-header {
                 font: 600 15px/28px $bf;
                 color: inherit;
                 margin: 0 0 10px;
+            }
+
+            .tooltip-heading {
+                font: 700 1.1em/1.5em $bf;
+                color: inherit;
+                margin: 0 0;
             }
 
             .tooltip-text {
@@ -2992,7 +3044,7 @@ body {
 
             .tooltip-text,
             .tooltip-list,
-            .tooltip-heading {
+            .tooltip-header {
                 &:last-child {
                     margin-bottom: 0;
                 }
@@ -3034,6 +3086,10 @@ body {
 
             &.tooltip-content-fit {
                 width: fit-content
+            }
+
+            &.tooltip-content-ghost {
+                pointer-events: none;
             }
         }
 
@@ -6155,6 +6211,7 @@ body {
     }
 
     .modal-body {
+        border-radius: inherit;
         border-bottom: 1px solid $border_color;
 
         .modal-section {
