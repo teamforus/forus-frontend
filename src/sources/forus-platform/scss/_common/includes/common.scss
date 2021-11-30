@@ -1,7 +1,7 @@
 body {
     background: #f1f4f7;
     min-height: 100vh;
-    @include webkit_scrollbar();
+    @include webkit_scrollbar(#848588);
 }
 
 .wrapper {

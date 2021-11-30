@@ -46,9 +46,25 @@
                     .keyvalue-item
                         .keyvalue-key Status
                         .keyvalue-value
-                            span.label.label-danger(ng-if="$ctrl.transactionBulk.state == 'rejected'" ng-bind="$ctrl.transactionBulk.state_locale")
-                            span.label.label-success(ng-if="$ctrl.transactionBulk.state == 'accepted'" ng-bind="$ctrl.transactionBulk.state_locale")
-                            span.label.label-default(ng-if="$ctrl.transactionBulk.state == 'pending'" ng-bind="$ctrl.transactionBulk.state_locale")
+                            //- Rejected
+                            span.label.label-danger(
+                                ng-if="$ctrl.transactionBulk.state == 'rejected'" 
+                                ng-bind="$ctrl.transactionBulk.state_locale")
+
+                            //- Draft
+                            span.label.label-default(
+                                ng-if="$ctrl.transactionBulk.state == 'draft'"
+                                ng-bind="$ctrl.transactionBulk.state_locale")
+
+                            //- Accepted
+                            span.label.label-success(
+                                ng-if="$ctrl.transactionBulk.state == 'accepted'"
+                                ng-bind="$ctrl.transactionBulk.state_locale")
+
+                            //- Pending
+                            span.label.label-default(
+                                ng-if="$ctrl.transactionBulk.state == 'pending'" 
+                                ng-bind="$ctrl.transactionBulk.state_locale")
 
         //- Lit bulk transactions
         .card(ng-if="$ctrl.transactions")
