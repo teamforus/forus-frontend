@@ -3,22 +3,23 @@ top-navbar
 main(id="main-content")
     section.section.section-details: .wrapper
         .block.block-provider-sign_up
-            .sign_up-overview
-                h1.sr-only Aanmelden
-                h1.block-title Aanmelden als aanbieder
-                p.block-description
-                    | Door het online formulier in te vullen meldt u uw organisatie aan als aanbieder.
-                    | Het invullen duurt ongeveer 15 minuten.
+            .sign_up-overview: .block.block-steps
+                .block.block-markdown
+                    h1.sr-only Aanmelden
+                    h1 Aanmelden als aanbieder
+                    p
+                        | Door het online formulier in te vullen meldt u uw organisatie aan als aanbieder.
+                        | Het invullen duurt ongeveer 15 minuten.
 
-                p.block-description
-                    | Lees de instructie in elke stap goed door.
+                    p
+                        | Lees de instructie in elke stap goed door.
 
-                p.block-description
-                    a(href="{{ $ctrl.signUpUrl + 'sign-up' + $ctrl.signUpUrlParams }}" target="_self").button.button-primary-outline Aanmelden
+                    p
+                        a(href="{{ $ctrl.signUpUrl + 'sign-up' + $ctrl.signUpUrlParams }}" target="_self").button.button-primary-outline Aanmelden
 
-                .block-notice
-                    | Heeft u al een account? 
-                    a(href="{{ $ctrl.signUpUrl }}" target="_self") Log dan in
+                    p
+                        | Heeft u al een account? 
+                        a(href="{{ $ctrl.signUpUrl }}" target="_self") Log dan in
 
             .sign_up-images: .sign_up-image: img(src="assets/img/provider-sign_up-preview.svg" alt="")
 
