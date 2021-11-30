@@ -10,27 +10,11 @@
     }
 
     .block-markdown {
-        ul, ol {
-            text-align: left;
-            // list-style-position: inside;
+        font: 400 16px/28px $bf;
 
-            li {
-                padding-left: 15px;
-                font: 400 16px/28px $bf;
-            }
-        }
-
-        p {
-            font: 400 16px/28px $bf;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        a {
+        a:not(.button) {
             text-decoration: underline;
-            color: #2b2bff;
+            color: $color_primary;
         }
     }
 }

@@ -98,7 +98,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "sign-up",
         url: "/aanbieders/aanmelden",
-        component: "signUpSelectionComponent",
+        component: "signUpProviderComponent",
         resolve: resolveCmsPage('provider'),
     });
 
