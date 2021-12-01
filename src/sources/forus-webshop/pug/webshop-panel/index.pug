@@ -12,7 +12,7 @@ html(lang="nl" ng-controller="BaseController" ng-csp ng-cloak)
             forus-chat(ng-if="$root.auth_user" chat-id="appConfigs.chat_id")
         
         if (qdt_c.platform.env_data.support_id)
-            forus-support(support-id="{{ appConfigs.support_id}}")
+                forus-support(ng-if="appConfigs.support_id" upport-id="{{ appConfigs.support_id }}")
 
         printables-root
         push-notifications
