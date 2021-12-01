@@ -11,6 +11,7 @@ const sourcemap = true;
 const baseImplementationKey = 'general';
 const autoLogOutTime = 15;
 const chatId = false;
+const supportSupportId = false;
 const sessions = false;
 const google_maps_api_key = '';
 
@@ -44,7 +45,7 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             panel_type: 'sponsor',
             chat_id: chatId,
-            support_id: "15870000001861118?orgId=20065804523",
+            support_id: supportSupportId,
             flags: {},
             sessions: sessions,
             hide_vouchers_csv: false,
@@ -73,7 +74,7 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             panel_type: 'provider',
-            support_id: "15870000001861118?orgId=20065804523",
+            support_id: supportSupportId,
             chat_id: chatId,
             hide_voucher_generators: false,
             flags: {},
@@ -96,7 +97,7 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             panel_type: 'validator',
             chat_id: chatId,
-            support_id: "15870000001861118?orgId=20065804523",
+            support_id: supportSupportId,
             hide_voucher_generators: false,
             flags: {
                 singleRecordValidation: true
@@ -430,10 +431,22 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: baseImplementationKey,
             client_type: 'webshop',
-            support_id: "15870000001861118?orgId=20065804523",
+            support_id: supportSupportId,
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             provider_sign_up_filters: {},
+            aws_rum: {
+                id: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                config: {
+                    sessionSampleRate: 1,
+                    guestRoleArn: "XXXXXXXXXXXXXXXXXXXXXXXX", 
+                    identityPoolId: "XXXXXXXXXXXXXXXXXXXXXXXX",
+                    endpoint: "XXXXXXXXXXXXXXXXXXXXXXXX",
+                    telemetries: ["performance", "errors", "http"],
+                    allowCookies: true, 
+                    enableXRay: false
+                },
+            },
             flags: {},
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
