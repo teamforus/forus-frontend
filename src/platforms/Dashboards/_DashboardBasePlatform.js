@@ -20,7 +20,7 @@ platform.setLibs([
     "angular_translate_storage_local",
     "summernote",
     "turndown",
-    "joplin_turndown_plugin",
+    // "joplin_turndown_plugin",
     "moment",
     "chart_js",
     "mdi",
