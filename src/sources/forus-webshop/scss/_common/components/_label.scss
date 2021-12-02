@@ -8,9 +8,15 @@
     .mdi {
         font-size: 1.4em;
         line-height: inherit;
-        margin-right: 5px;
-        margin-left: 0px;
-        float: left;
+        display: inline-block;
+        vertical-align: middle;
+        margin: -1px 0;
+        cursor: inherit;
+
+        &.icon-start {
+            margin-left: -2.5px;
+            margin-right: 2.5px;
+        }
     }
 
     .label-close {
@@ -42,13 +48,8 @@
     }
 
     &.label-primary {
-        background: #82AAD5;
-        color: #030304;
-    }
-
-    &.label-secondary {
-        background: #D2DBE4;
-        color: #030304;
+        background: $color_primary;
+        color: #fff;
     }
 
     &.label-info {
