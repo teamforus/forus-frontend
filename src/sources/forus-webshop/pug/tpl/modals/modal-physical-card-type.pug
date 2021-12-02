@@ -10,7 +10,7 @@
     .modal-window(ng-if="$ctrl.state == 'card_code'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-        .modal-header: .modal-title(
+        .modal-header: h2.modal-title(
             id="physicalCardTypeDialogTitle" 
             translate="physical_card.modal_section.link_card.title")
         
@@ -50,7 +50,7 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-header(ng-if="!$ctrl.preffersPlasticCard")
-            .modal-title(
+            h2.modal-title(
                 id="physicalCardTypeDialogTitle" 
                 translate="physical_card.modal_section.type_selection.title" 
                 translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
@@ -99,7 +99,7 @@
                             .physical-card-item-title(translate="physical_card.modal_section.type_selection.card_new.title")
 
             .modal-header(ng-if="$ctrl.preffersPlasticCard")
-                .modal-title(
+                h2.modal-title(
                     id="physicalCardTypeDialogTitle" 
                     translate="physical_card.modal_section.request_new_card.title" 
                     translate-values="{ fund_name: $ctrl.voucher.fund.name } ") 
@@ -159,7 +159,7 @@
     //- Confirmation new card
     .modal-window(ng-if="$ctrl.state == 'confirm_new_card'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
-        .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.confirm_card.header")
+        .modal-header: h2.modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.confirm_card.header")
         .modal-content: .modal-section
             .physical-card-preview
                 .physical-card-description 
@@ -180,7 +180,7 @@
     //- Success old card
     .modal-window(ng-if="$ctrl.state == 'success_old_card'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
-        .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.link_card_success.title")
+        .modal-header: h2.modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.link_card_success.title")
         .modal-content: .modal-section
             .physical-card-result
                 .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg
@@ -195,7 +195,7 @@
     //- Success new card
     .modal-window(ng-if="$ctrl.state == 'success_new_card'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
-        .modal-header: .modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.request_card_success.title")
+        .modal-header: h2.modal-title(id="physicalCardTypeDialogTitle" translate="physical_card.modal_section.request_card_success.title")
         .modal-content: .modal-section
             .physical-card-result
                 .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-cards-success.svg
