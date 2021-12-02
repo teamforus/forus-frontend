@@ -210,10 +210,11 @@ main(id="main-content")
                                     i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}"
                                     i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}")
 
-                            .form-label(ng-bind="$ctrl.recordTypes[invalidCriteria.record_type_key].name")
+                            label.form-label(ng-bind="$ctrl.recordTypes[invalidCriteria.record_type_key].name" for="{{invalidCriteria.record_type_key}}")
                             ui-control-checkbox(
                                 ng-if="invalidCriteria.control_type == 'ui_control_checkbox'"
                                 ng-model="invalidCriteria.is_checked"
+                                name="{{invalidCriteria.record_type_key}}"
                                 data-id="criterion_{{ invalidCriteria.id }}"
                                 data-label="{{ invalidCriteria.label }}"
                                 ng-change="$ctrl.setRecordValue(invalidCriteria)")
@@ -228,20 +229,24 @@ main(id="main-content")
                             ui-control-date(
                                 ng-if="invalidCriteria.control_type == 'ui_control_date'"
                                 ng-model="invalidCriteria.input_value"
+                                name="{{invalidCriteria.record_type_key}}"
                                 data-id="criterion_{{ invalidCriteria.id }}")
                             ui-control-number(
                                 ng-if="invalidCriteria.control_type == 'ui_control_number'"
                                 ng-model="invalidCriteria.input_value"
+                                name="{{invalidCriteria.record_type_key}}"
                                 data-id="criterion_{{ invalidCriteria.id }}"
                                 data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
                             ui-control-text(
                                 ng-if="invalidCriteria.control_type == 'ui_control_text'"
                                 ng-model="invalidCriteria.input_value"
+                                name="{{invalidCriteria.record_type_key}}"
                                 data-id="criterion_{{ invalidCriteria.id }}"
                                 data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
                             ui-control-currency(
                                 ng-if="invalidCriteria.control_type == 'ui_control_currency'"
                                 ng-model="invalidCriteria.input_value"
+                                name="{{invalidCriteria.record_type_key}}"
                                 data-id="criterion_{{ invalidCriteria.id }}"
                                 data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
                             .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")

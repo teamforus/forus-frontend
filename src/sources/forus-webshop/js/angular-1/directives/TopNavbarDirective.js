@@ -38,8 +38,10 @@ let TopNavbarDirective = function(
     };
 
     $scope.$ctrl.openUserMenu = ($e) => {
-        $e.stopPropagation();
-        $e.preventDefault();
+        if ($e?.target?.tagName != 'A') {
+            $e.stopPropagation();
+            $e.preventDefault();
+        }
         
         $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
     }
