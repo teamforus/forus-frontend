@@ -215,7 +215,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
             ], ...(allowLists ? [
                 ['para', ['ol', 'ul']],
             ] : []), ...(extendedOptions ? [
-                ['table', ['table']],
+                /* ['table', ['table']], */
                 ['cms', ['cmsLink', 'unlink', 'cmsMedia', 'cmsLinkYoutube']],
             ] : [
                 ['cms', ['cmsLink', 'unlink']]
@@ -248,7 +248,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                         }
                     });
 
-                    if (turndownPluginGfm) {
+                    if (typeof turndownPluginGfm != 'undefined') {
                         turndownService.use(turndownPluginGfm.gfm);
                     }
 
