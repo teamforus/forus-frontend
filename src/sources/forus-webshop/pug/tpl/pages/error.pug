@@ -2,10 +2,17 @@ top-navbar
 
 main(id="main-content")
     section.section.section-product: .wrapper
-            
-        .block.block-sign_up: .block-wrapper
-            .sign_up-pane
-                .sign_up-pane-header.text-danger(ng-bind="$ctrl.title")
-                .sign_up-pane-body.text-center
-                    p.sign_up-pane-text(ng-bind-html="$ctrl.message")
-                    p.sign_up-pane-text(ng-if="!$ctrl.hideHomeLinkButton"): a(ui-sref="home").sign_up-pane-link Ga terug naar de startpagina
+        .block.block-sign_up: .block-wrapper: .sign_up-pane
+            .sign_up-pane-header.text-danger(
+                translate="error.titles.{{ $ctrl.errorCode }}"
+                translate-values="$ctrl.transParams"
+                translate-default="Onbekende foutmelding")
+
+            .sign_up-pane-body.text-center
+                p.sign_up-pane-text(
+                    translate="error.messages.{{ $ctrl.errorCode }}"
+                    translate-values="$ctrl.transParams"
+                    translate-default="Onbekende foutmelding")
+
+                p.sign_up-pane-text(ng-trans="!$ctrl.hideHomeLinkButton")
+                    a(ui-sref="home" translate="error.home_button").sign_up-pane-link

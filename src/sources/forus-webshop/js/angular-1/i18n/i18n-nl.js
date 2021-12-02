@@ -95,6 +95,7 @@ module.exports = {
     accessibility: require('./nl/pages/accessibility'),
     error_page: require("./nl/pages/error-page"),
     privacy: require("./nl/pages/privacy"),
+    error: require("./nl/pages/error"),
 
     // MODALS
     popup_auth: require("./nl/modals/modal-auth"),
