@@ -8,11 +8,18 @@ a.fund-item
             .fund-name(ng-bind="$dir.fund.name")
             .fund-organization(ng-bind="$dir.fund.organization.name")
             .fund-status-label
-                .label.label-default(ng-if="$dir.fund.showPendingButton" translate="funds.buttons.is_pending")
-                .label.label-success(ng-if="$dir.fund.alreadyReceived" translate="funds.status.active")
-            
-        .fund-actions(ng-if="$dir.showActivateButton")
-            button.button.button-primary.button-fill(
-                type="button"
-                ng-click="$dir.applyFund($dir.fund)" 
-                translate="funds.buttons.is_applicable")
+                .label.label-light(ng-if="$dir.fund.canApply && !$dir.fund.canActivate")
+                    em.mdi.mdi-plus-circle.icon-start
+                    span(translate="funds.status.is_applicable")
+                .label.label-success(ng-if="$dir.fund.canActivate")
+                    .mdi.mdi-playlist-check.icon-start
+                    span(translate="funds.status.activateable")
+                .label.label-primary(ng-if="$dir.fund.alreadyReceived")
+                    .mdi.mdi-qrcode.icon-start
+                    span(translate="funds.status.active")
+                .label.label-warning(ng-if="$dir.fund.isPending")
+                    .mdi.mdi-clock-outline.icon-start
+                    span(translate="funds.status.is_pending")
+                .label.label-light(ng-if="!$dir.fund.canActivate && !$dir.fund.canApply && !$dir.fund.isPending && !$dir.fund.isApplicable && !$dir.fund.alreadyReceived")
+                    em.mdi.mdi-plus-circle.icon-start
+                    span(translate="funds.status.is_applicable")
