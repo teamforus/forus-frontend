@@ -739,7 +739,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 organization: organziationResolver(),
                 permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
                 funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
-                    return repackResponse(FundService.list($transition$.params().organization_id, { per_page2: 100 }));
+                    return repackResponse(FundService.list($transition$.params().organization_id, { per_page: 100, configured: 1 }));
                 }],
                 fund: ['funds', '$transition$', (funds, $transition$) => {
                     return $transition$.params().fund_id ? funds.filter(fund => fund.id == $transition$.params().fund_id)[0] || false : null;
@@ -784,18 +784,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             resolve: {
                 organization: organziationResolver(),
                 permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
-                funds: [
-                    'permission', '$transition$', 'FundService',
-                    function(permission, $transition$, FundService) {
-                        return repackResponse(
-                            FundService.list(
-                                $transition$.params().organization_id, {
-                                per_page: 100
-                            }
-                            )
-                        );
-                    }
-                ],
+                funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                    return repackResponse(FundService.list($transition$.params().organization_id, { per_page: 100, configured: 1 }));
+                }],
                 fund: [
                     'funds', '$transition$',
                     function(funds, $transition$) {

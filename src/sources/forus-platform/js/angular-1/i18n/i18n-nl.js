@@ -445,8 +445,8 @@ module.exports = {
             notification_amount: "Aanvulherinnering grens €",
             application_method: "Aanvraagmethode",
             request_btn: {
-                state: "Aanvraagknop aan/uit",
-                text: "Aanvragen",
+                allow_direct_requests: "Aanvraagknop",
+                text: "Requesting button text",
                 external_link: "External link",
             }
         },
