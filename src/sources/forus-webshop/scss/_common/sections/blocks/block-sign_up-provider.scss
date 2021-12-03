@@ -1,4 +1,4 @@
-&.block-provider-sign_up {
+&.block-sign_up-provider {
     display: flex;
     flex-direction: row;
     padding-top: 60px;
@@ -9,29 +9,6 @@
         padding-right: 110px;
         padding-top: 60px;
         flex-basis: 50%;
-
-        .block-title {
-            font: 600 54px/60px $bf;
-            color: #000000;
-            margin: 0 0 30px;
-        }
-    
-        .block-description {
-            font: 400 20px/30px $bf;
-            color: #000000;
-            margin: 0 0 30px;
-        }
-
-        .block-notice {
-            margin-top: -15px;
-            font: 400 14px/16px $bf;
-
-            a {
-                font: 400 14px/16px $bf;
-                text-decoration: underline;
-                color: #353535;
-            }
-        }
     }
 
     .sign_up-images {
@@ -60,22 +37,6 @@
 
         .sign_up-overview {
             padding: 0 0;
-
-            .block-title {
-                font: 600 28px/36px $bf;
-                margin: 0 0 20px;
-                text-align: center;
-            }
-        
-            .block-description {
-                font: 400 16px/24px $bf;
-                margin: 0 0 20px;
-                text-align: center;
-            }
-            .block-notice {
-                margin: 0 0 20px;
-                text-align: center;
-            }
         }
 
         .sign_up-images {

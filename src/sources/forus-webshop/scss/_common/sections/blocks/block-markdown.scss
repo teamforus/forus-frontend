@@ -1,6 +1,6 @@
 &.block-markdown {
     text-align: justify;
-    font: 400 14px/24px $bf !important;
+    font: 400 14px/24px $bf;
 
     h1 {
         font: 500 2.5em $bf;
@@ -32,8 +32,7 @@
         font: inherit;
     }
 
-    ul,
-    ol {
+    ul, ol {
         margin: 0 0 15px;
         padding-left: 18px;
 
@@ -47,14 +46,14 @@
     }
 
     a:not(.button) {
-        color: $bc;
+        color: $tc-link;
         font-weight: 500;
         transition: 0.4s;
         font: inherit;
         text-decoration: underline;
 
         &:hover {
-            color: $bc;
+            text-decoration: none;
         }
     }
 
@@ -78,51 +77,40 @@
     table {
         border-collapse: collapse;
         width: 100%;
+        margin: 0 0 20px;
         font: inherit;
-        border: 1px solid #d4d9dd;
-        border-right: none;
-        background-color: #fff;
 
         thead {
             display: none;
         }
-
+    
         tr {
             text-align: left;
             font: inherit;
-
+    
             td,
             th {
-                padding: 10px 12px;
+                padding: 15px 15px;
                 cursor: default;
                 border-bottom: 1px solid #d4d9dd;
                 transition: 0.3s;
-                font: inherit;
-
+    
                 &>a {
                     font: inherit;
                 }
             }
-
-            th {
-                color: #646f79;
-                padding-top: 6px;
-                padding-bottom: 6px;
-                font: 500 12px/18px $bf;
-
+    
+            td {
+                color: #444a4f;
+                font: inherit;
+    
                 &:first-child {
                     padding-left: 25px;
                 }
-
+    
                 &:last-child {
                     padding-right: 25px;
                 }
-            }
-
-            td {
-                color: #444a4f;
-                font: 500 13px/20px $bf;
-                border-right: 1px solid #d4d9dd;
             }
 
             &:first-child {
@@ -133,9 +121,15 @@
                     font: 700 12px/20px $bf;
 
                     * {
-                        color: inherit !important;
-                        font: inherit !important;
+                        color: inherit;
+                        font: inherit;
                     }
+                }
+            }
+    
+            &:last-child {
+                td {
+                    border-bottom: none;
                 }
             }
         }
@@ -189,27 +183,25 @@
             text-align: right !important;
         }
     }
+}
 
-    @media screen and (max-width: 1000px) {
+@media screen and (max-width: 1000px) {
+    &.block-markdown {
         font: 400 14px/22px $bf !important;
-    
+
         h1 {
             font: 500 1.8em $bf;
             margin-bottom: 1em;
         }
-    
+
         h2 {
             font: 500 1.6em $bf;
             margin-bottom: 1em;
         }
-    
+
         h3 {
             font: 500 1.3em $bf;
             margin-bottom: 1em;
-        }
-    
-        &.block-markdown-lg {
-            font: 400 14px/22px $bf !important;
         }
     }
 }
