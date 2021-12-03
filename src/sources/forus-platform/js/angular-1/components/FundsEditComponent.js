@@ -86,6 +86,8 @@ const FundsEditComponent = function(
             criteria: [],
             state: $ctrl.fundStates[0].value,
             type: 'budget',
+            start_date: moment().add(6, 'days').format('DD-MM-YYYY'),
+            end_date: moment().add(1, 'years').format('DD-MM-YYYY'),
         };
 
         $ctrl.validators.unshift({
