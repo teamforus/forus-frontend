@@ -6,8 +6,26 @@ const TransactionService = function(ApiRequest) {
             return ApiRequest.get(`${path}/${organization_id}/${type}/transactions`, filters);
         };
 
+        this.listBulks = (organization_id, filters = {}) => {
+            return ApiRequest.get(`${path}/${organization_id}/sponsor/transaction-bulks`, filters);
+        };
+
         this.show = function(type, organization_id, address) {
             return ApiRequest.get(`${path}/${organization_id}/${type}/transactions/${address}`);
+        };
+
+        this.showBulk = (organization_id, bulk_id, filters = {}) => {
+            return ApiRequest.get(`${path}/${organization_id}/sponsor/transaction-bulks/${bulk_id}`, filters);
+        };
+
+        this.bulkNow = (organization_id) => {
+            return ApiRequest.post(`${path}/${organization_id}/sponsor/transaction-bulks`);
+        };
+
+        this.bulkReset = (organization_id, bulk_id) => {
+            return ApiRequest.patch(`${path}/${organization_id}/sponsor/transaction-bulks/${bulk_id}`, {
+                state: 'pending',
+            });
         };
 
         this.export = (type, organization_id, filters = {}) => {

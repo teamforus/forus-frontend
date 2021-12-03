@@ -75,10 +75,11 @@
                         .flex-col: .flex-row.flex-end
                             .button.button-primary(
                                 ng-if="fund.key && fund.state != 'closed'" 
+                                ng-disabled="!fund.organization.has_bank_connection"
                                 ng-click="$ctrl.topUpModal(fund)")
                                 em.mdi.mdi-plus-circle.icon-start
                                 translate(translate="components.organization_funds.buttons.top_up")
-                        
+
                             .button.button-primary(
                                 ng-if="fund.key && fund.state == 'closed'" 
                                 ng-click="$ctrl.archiveFund(fund)")

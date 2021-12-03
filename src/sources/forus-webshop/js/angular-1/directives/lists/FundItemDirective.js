@@ -18,12 +18,13 @@ const FundItemDirective = function($scope, FundService) {
     };
 
     $dir.addFundMeta = (fund, vouchers) => {
-        fund.vouchers = vouchers.filter(voucher => voucher.fund_id == fund.id && !voucher.expired);
-        fund.isApplicable = fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
+        fund.vouchers        = vouchers.filter(voucher => voucher.fund_id == fund.id && !voucher.expired);
+        fund.isApplicable    = fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
         fund.alreadyReceived = fund.vouchers.length !== 0;
 
-        fund.showPendingButton = !fund.alreadyReceived && fund.has_pending_fund_requests;
-        fund.showActivateButton = !fund.alreadyReceived && fund.isApplicable;
+        fund.canApply    = !fund.alreadyReceived && fund.isApplicable && !fund.has_pending_fund_requests;
+        fund.canActivate = !fund.alreadyReceived && fund.has_approved_fund_requests;
+        fund.isPending   = !fund.alreadyReceived && fund.has_pending_fund_requests;
 
         return fund;
     };

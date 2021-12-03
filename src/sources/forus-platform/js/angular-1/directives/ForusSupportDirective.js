@@ -1,4 +1,4 @@
-let ForusSupportDirective = function(scope, element, attributes) {
+const ForusSupportDirective = function(scope, element, attributes) {
     element.append(`
         <script>    
         window.ZohoHCAsap=window.ZohoHCAsap||function(a,b) {

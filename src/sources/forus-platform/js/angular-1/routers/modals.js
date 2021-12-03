@@ -154,4 +154,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('physicalCardOrder', {
         component: 'modalPhysicalCardOrderComponent'
     });
+    
+    ModalRouteProvider.modal('switchBankConnectionAccount', {
+        component: 'modalSwitchBankConnectionAccountComponent'
+    });
 }];
