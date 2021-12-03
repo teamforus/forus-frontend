@@ -1340,7 +1340,10 @@ module.exports = {
             assigned_to: "Toegewezen",
             from: "Vanaf",
             to: "Tot",
-            pending_since: "In behandeling sinds"
+            pending_since: "In behandeling sinds",
+            lead_time: "Doorlooptijd",
+            accepted_at: "Geaccepteerd op",
+            declined_at: "Geweigerd op"
         },
         status: {
             hold: "Wachten",

@@ -1,4 +1,4 @@
-let SignUpSelectionComponent = function($sce, appConfigs) {
+const SignUpProviderComponent = function($sce, appConfigs) {
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
@@ -26,7 +26,7 @@ module.exports = {
     controller: [
         '$sce',
         'appConfigs',
-        SignUpSelectionComponent
+        SignUpProviderComponent
     ],
-    templateUrl: 'assets/tpl/pages/sign-up-options.html'
+    templateUrl: 'assets/tpl/pages/sign-up-provider.html'
 };
