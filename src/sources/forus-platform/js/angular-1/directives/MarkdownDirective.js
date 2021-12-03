@@ -1,4 +1,5 @@
 const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
+    const $dir = $scope.$dir;
     const $theEditor = $($element.find('[editor]')[0]);
 
     const getCustomLink = (type, values) => {
@@ -8,7 +9,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 values: values,
                 hasDescription: type != 'youtubeLink',
                 success: (data) => {
-                    const { url, text, uid } = data;
+                    const { url, text, uid, alt } = data;
 
                     if (uid && $scope.mediaUploaded) {
                         $scope.mediaUploaded({
@@ -16,7 +17,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                         });
                     }
 
-                    resolve({ ...values, ...{ url, text } });
+                    resolve({ ...values, ...{ url, text, alt } });
                 }
             });
         }, 0));
@@ -91,7 +92,10 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 contents: `<em class="${btnIcon}"/></em>`,
                 // tooltip: 'hello',
                 click: function() {
+                    const buttons = $dir.buttons || [];
+
                     context.invoke('editor.saveRange');
+                    buttons.forEach((button) => button.key == type ? button.handler($theEditor, button) : null);
 
                     if (type === 'customLink') {
                         const linkInfo = context.invoke('editor.getLinkInfo');
@@ -105,21 +109,23 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
 
                     if (type === 'imageLink' || type === 'youtubeLink') {
                         showLinkDialog({}).then((data) => {
+                            const { alt, url } = data;
+
                             context.invoke('editor.restoreRange');
 
                             if (type === 'imageLink') {
-                                context.invoke('editor.insertImage', data.url || '', 'filename');
+                                context.invoke('editor.insertImage', url || '', (img) => img.attr('alt', alt || ''));
                             }
 
                             if (type === 'youtubeLink') {
-                                const url = data.url
+                                const ytUrl = url
                                     .replace('https://youtu.be/', 'https://www.youtube.com/embed/')
                                     .replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/')
                                     .split('&')[0];
 
                                 const template =
                                     `<div class="youtube-root">` +
-                                    `<iframe src="${url}" frameborder="0" allowfullscreen="1"></iframe>` +
+                                    `<iframe src="${ytUrl}" frameborder="0" allowfullscreen="1"></iframe>` +
                                     `</div>`;
 
                                 context.invoke('editor.insertNode', $(template)[0]);
@@ -133,114 +139,178 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
         }
     }
 
-    $theEditor.html($scope.value);
-
-    $theEditor.summernote({
-        placeholder: '',
-        tabsize: 2,
-        height: 400,
-        disableDragAndDrop: true,
-        disableResizeImage: true,
-        icons: {
-            bold: 'mdi mdi-format-bold',
-            italic: 'mdi mdi-format-italic',
-            underline: 'mdi mdi-format-underline',
-            eraser: 'mdi mdi-format-clear',
-
-            caret: 'mdi mdi-menu-down',
-            magic: 'mdi mdi-format-size',
-
-            unorderedlist: 'mdi mdi-format-list-numbered',
-            orderedlist: 'mdi mdi-format-list-bulleted',
-
-            table: 'mdi mdi-table',
-            close: 'mdi mdi-close',
-            arrowsAlt: 'mdi mdi-fullscreen',
-
-            link: 'mdi mdi-link',
-            unlink: 'mdi mdi-link-off',
-            picture: 'mdi mdi-image',
-            video: 'mdi mdi-youtube',
-        },
-
-        styleTags: ['h1', 'h2', 'h3', 'h4', 'p'],
-        toolbar: [...[
-            ['style', ['style']],
-        ], ...($scope.allowAlignment ? [
-            ['align', ['cmsBlockAlign']],
-        ] : []), ...[
-            ['font', ['bold', 'italic', 'clear']],
-            ['para', ['ol', 'ul']],
-        ], ...($scope.extendedOptions ? [
-            ['cms', ['cmsLink', 'unlink', 'cmsMedia', 'cmsLinkYoutube']],
-        ] : [
-            ['cms', ['cmsLink', 'unlink']]
-        ]), ...[
-            ['view', ['fullscreen']],
-        ]],
-        buttons: {
-            cmsLink: CmsButton('customLink', 'link'),
-            cmsMedia: CmsButton('imageLink', 'picture'),
-            cmsLinkYoutube: CmsButton('youtubeLink', 'video'),
-            cmsBlockAlign: AlignButton(),
-        },
-        callbacks: {
-            onChange: function(contents, $editable) {
-                const turndownService = (new TurndownService());
-
-                turndownService.addRule('strikethrough', {
-                    filter: (node) => {
-                        return node.className === 'youtube-root' && node.children.length > 0 &&
-                            node.children[0].tagName.toLowerCase() === 'iframe';
-                    },
-                    replacement: function() {
-                        return `[](${arguments[1].children[0].src.replace(
-                            'https://www.youtube.com/embed/',
-                            'https://www.youtube.com/watch?v='
-                        )})`;
-                    }
-                });
-
-                const markdown = turndownService.turndown(contents).split("\n");
-
-                $scope.value = contents;
-                $scope.ngModel = markdown.map((line, index) => {
-                    return ((index != 0) && (markdown[index - 1] === '') && (line.trim() === '')) ? "&nbsp;  " : line;
-                }).join("\n");
-            },
-            onPaste: function(e) {
-                var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
-                e.preventDefault();
-                document.execCommand('insertText', false, bufferText);
-            }
-        },
-    });
-
-    $theEditor.summernote("removeModule", "linkPopover");
-    $theEditor.summernote("removeModule", "imagePopover");
-
-    if ($scope.disabled === 'true') {
-        $theEditor.summernote('disable');
+    const clear = () => {
+        $theEditor.summernote('reset');
     }
+
+    const insertText = (value) => {
+        $theEditor.summernote('editor.insertText', value);
+    };
+
+    const insertHTML = (value) => {
+        $theEditor.summernote('pasteHTML', value);
+    };
+
+    const replace = (value) => {
+        return $theEditor.summernote("code", value);
+    };
+
+    const initTheEditor = () => {
+        const buttons = $dir.buttons || [];
+        const icons = buttons.reduce((icons, btn) => ({ ...icons, [btn.iconKey || btn.key]: btn.icon }), {});
+
+        const allowLists = typeof $dir.allowLists == 'undefined' ? true : $dir.allowLists;
+        const allowAlignment = typeof $dir.allowAlignment == 'undefined' ? false : $dir.allowAlignment;
+        const extendedOptions = typeof $dir.extendedOptions == 'undefined' ? false : $dir.extendedOptions;
+        const allowPreview = typeof $dir.allowPreview == 'undefined' ? false : $dir.allowPreview;
+
+        $theEditor.summernote({
+            placeholder: '',
+            tabsize: 2,
+            height: 400,
+            disableDragAndDrop: true,
+            disableResizeImage: true,
+            icons: {
+                bold: 'mdi mdi-format-bold',
+                italic: 'mdi mdi-format-italic',
+                underline: 'mdi mdi-format-underline',
+                eraser: 'mdi mdi-format-clear',
+
+                caret: 'mdi mdi-menu-down',
+                magic: 'mdi mdi-format-size',
+
+                unorderedlist: 'mdi mdi-format-list-bulleted',
+                orderedlist: 'mdi mdi-format-list-numbered',
+
+                table: 'mdi mdi-table',
+                close: 'mdi mdi-close',
+                arrowsAlt: 'mdi mdi-fullscreen',
+
+                link: 'mdi mdi-link',
+                unlink: 'mdi mdi-link-off',
+                picture: 'mdi mdi-image',
+                video: 'mdi mdi-youtube',
+                view: 'mdi mdi-eye-outline',
+
+                rowBelow: 'mdi mdi-table-row-plus-after',
+                rowAbove: 'mdi mdi-table-row-plus-before',
+
+                colBefore: 'mdi mdi-table-column-plus-before',
+                colAfter: 'mdi mdi-table-column-plus-after',
+
+                rowRemove: 'mdi mdi-table-row-remove',
+                colRemove: 'mdi mdi-table-column-remove',
+                trash: 'mdi mdi-delete-outline',
+
+                ...icons
+            },
+
+            styleTags: ['h1', 'h2', 'h3', 'h4', 'p'],
+            toolbar: [...[
+                ['style', ['style']],
+            ], ...(allowAlignment ? [
+                ['align', ['cmsBlockAlign']],
+            ] : []), ...[
+                ['font', ['bold', 'italic', 'clear']],
+            ], ...(allowLists ? [
+                ['para', ['ol', 'ul']],
+            ] : []), ...(extendedOptions ? [
+                ['table', ['table']],
+                ['cms', ['cmsLink', 'unlink', 'cmsMedia', 'cmsLinkYoutube']],
+            ] : [
+                ['cms', ['cmsLink', 'unlink']]
+            ]), ...(allowPreview ? [
+                ['view', ['fullscreen', 'cmsMailView']],
+            ] : []), ...[    
+                ['buttons', buttons.map((button) => button.key)],
+            ]],
+            buttons: {
+                cmsLink: CmsButton('customLink', 'link'),
+                cmsMedia: CmsButton('imageLink', 'picture'),
+                cmsLinkYoutube: CmsButton('youtubeLink', 'video'),
+                cmsMailView: CmsButton('mailPreview', 'view'),
+                cmsBlockAlign: AlignButton(),
+            },
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    const turndownService = (new TurndownService({ headingStyle: "atx" }));
+
+                    turndownService.addRule('strikethrough', {
+                        filter: (node) => {
+                            return node.className === 'youtube-root' && node.children.length > 0 &&
+                                node.children[0].tagName.toLowerCase() === 'iframe';
+                        },
+                        replacement: function() {
+                            return `[](${arguments[1].children[0].src.replace(
+                                'https://www.youtube.com/embed/',
+                                'https://www.youtube.com/watch?v='
+                            )})`;
+                        }
+                    });
+
+                    if (turndownPluginGfm) {
+                        turndownService.use(turndownPluginGfm.gfm);
+                    }
+
+                    const markdown = turndownService.turndown(contents).split("\n");
+
+                    $dir.ngModelCtrl.$setViewValue(markdown.map((line, index) => {
+                        return ((index != 0) && (markdown[index - 1] === '') && (line.trim() === '')) ? "&nbsp;  " : line;
+                    }).join("\n"));
+                },
+                onPaste: function(e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+                    e.preventDefault();
+                    document.execCommand('insertText', false, bufferText);
+                }
+            },
+        });
+
+        $theEditor.summernote("removeModule", "linkPopover");
+        $theEditor.summernote("removeModule", "imagePopover");
+    }
+
+    $dir.$onInit = () => {
+        initTheEditor();
+
+        if ($dir.disabled === 'true') {
+            $theEditor.summernote('disable');
+        }
+
+        if (typeof $dir.bindEditor == 'function') {
+            $dir.bindEditor({ editor: { editor: $theEditor, clear, replace, insertText, insertHTML } });
+        }
+
+        $scope.$watch('$dir.value', (value) => $theEditor.summernote("code", value), true);
+    };
 };
 
 
 module.exports = () => {
     return {
         restrict: "EA",
-        scope: {
+        scope: {},
+        bindToController: {
+            bindEditor: '&',
             value: '=',
-            ngModel: '=',
+            ngModel: '<',
             modal: '=',
+            buttons: '=',
             blockAlignment: '=',
             mediaUploaded: '&',
             disabled: '@',
             extendedOptions: '=',
+            allowLists: '=',
             allowAlignment: '=',
+            allowPreview: '=',
+        },
+        require: {
+            ngModelCtrl: 'ngModel',
         },
         popover: {
             link: [],
         },
+        controllerAs: '$dir',
         replace: true,
         controller: [
             '$scope',

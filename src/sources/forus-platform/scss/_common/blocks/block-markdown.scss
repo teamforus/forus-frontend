@@ -46,7 +46,7 @@
         list-style: disc;
     }
 
-    a {
+    a:not(.button) {
         color: $bc;
         font-weight: 500;
         transition: 0.4s;
@@ -73,6 +73,84 @@
     img {
         max-width: 100% !important;
         height: auto !important;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font: inherit;
+        border: 1px solid #d4d9dd;
+        border-right: none;
+        background-color: #fff;
+
+        thead {
+            display: none;
+        }
+
+        tr {
+            text-align: left;
+            font: inherit;
+
+            td,
+            th {
+                padding: 10px 12px;
+                cursor: default;
+                border-bottom: 1px solid #d4d9dd;
+                transition: 0.3s;
+                font: inherit;
+
+                &>a {
+                    font: inherit;
+                }
+            }
+
+            th {
+                color: #646f79;
+                padding-top: 6px;
+                padding-bottom: 6px;
+                font: 500 12px/18px $bf;
+
+                &:first-child {
+                    padding-left: 25px;
+                }
+
+                &:last-child {
+                    padding-right: 25px;
+                }
+            }
+
+            td {
+                color: #444a4f;
+                font: 500 13px/20px $bf;
+                border-right: 1px solid #d4d9dd;
+            }
+
+            &:first-child {
+                th, td {
+                    color: #646f79;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    font: 700 12px/20px $bf;
+
+                    * {
+                        color: inherit !important;
+                        font: inherit !important;
+                    }
+                }
+            }
+        }
+
+        &>tr,
+        &>thead:last-child>tr,
+        &>tbody:last-child>tr {
+            &:last-child {
+
+                td,
+                th {
+                    border-bottom: 0;
+                }
+            }
+        }
     }
 
     .youtube-root {
@@ -111,25 +189,27 @@
             text-align: right !important;
         }
     }
-}
 
-@media screen and (max-width: 1000px) {
-    &.block-markdown {
-        font: 400 14px/20px $bf !important;
-
+    @media screen and (max-width: 1000px) {
+        font: 400 14px/22px $bf !important;
+    
         h1 {
             font: 500 1.8em $bf;
             margin-bottom: 1em;
         }
-
+    
         h2 {
             font: 500 1.6em $bf;
             margin-bottom: 1em;
         }
-
+    
         h3 {
             font: 500 1.3em $bf;
             margin-bottom: 1em;
+        }
+    
+        &.block-markdown-lg {
+            font: 400 14px/22px $bf !important;
         }
     }
 }

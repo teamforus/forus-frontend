@@ -20,7 +20,7 @@ app.controller('BaseController', require('./controllers/BaseController'));
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
 app.component('signUpComponent', require('./components/SignUpComponent')); // todo: cleanup
-app.component('signUpSelectionComponent', require('./components/SignUpSelectionComponent'));
+app.component('signUpProviderComponent', require('./components/SignUpProviderComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('reservationsComponent', require('./components/ReservationsComponent'));
@@ -50,6 +50,7 @@ app.component('notificationsComponent', require('./components/NotificationsCompo
 app.component('explanationComponent', require('./components/ExplanationComponent'));
 app.component('errorPageComponent', require('./components/ErrorPageComponent'));
 app.component('searchResultComponent', require('./components/SearchResultComponent'));
+app.component('sitemapComponent', require('./components/SitemapComponent'));
 
 // Services
 app.service('ArrService', require('./services/ArrService'));

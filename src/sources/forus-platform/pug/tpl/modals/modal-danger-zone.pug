@@ -9,7 +9,7 @@
 
         .modal-body: .modal-section(ng-class="'text-' + $ctrl.text_align")
             .block.block-danger_zone(ng-if="$ctrl.title || $ctrl.description")
-                .danger_zone-title
+                .danger_zone-title(ng-class="'flex-' + $ctrl.text_align")
                     em.mdi.mdi-alert
                     span(ng-bind="$ctrl.title")
 

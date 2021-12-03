@@ -1,4 +1,4 @@
-let FundsEditComponent = function(
+const FundsEditComponent = function(
     $state,
     $scope,
     $timeout,
@@ -9,7 +9,7 @@ let FundsEditComponent = function(
     FormBuilderService,
     MediaService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
     let mediaFile = false;
 
     $ctrl.products = [];
@@ -70,6 +70,14 @@ let FundsEditComponent = function(
         $ctrl.criteriaEditor = childRef;
     }
 
+    $ctrl.appendMedia = (media_uid, formValue) => {
+        if (!Array.isArray(formValue.description_media_uid)) {
+            formValue.description_media_uid = [];
+        }
+
+        formValue.description_media_uid.push(media_uid);
+    };
+
     $ctrl.$onInit = function() {
         let values = $ctrl.fund ? FundService.apiResourceToForm($ctrl.fund) : {
             default_validator_employee_id: null,
@@ -78,6 +86,8 @@ let FundsEditComponent = function(
             criteria: [],
             state: $ctrl.fundStates[0].value,
             type: 'budget',
+            start_date: moment().add(6, 'days').format('DD-MM-YYYY'),
+            end_date: moment().add(1, 'years').format('DD-MM-YYYY'),
         };
 
         $ctrl.validators.unshift({

@@ -7,28 +7,14 @@
         max-width: 100%;
         padding-top: 40px;
         margin: 0 0 30px;
+    }
 
-        ul, ol {
-            text-align: left;
-            // list-style-position: inside;
+    .block-markdown {
+        font: 400 16px/28px $bf;
 
-            li {
-                padding-left: 15px;
-                font: 400 16px/28px $bf;
-            }
-        }
-
-        p {
-            font: 400 16px/28px $bf;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        a {
+        a:not(.button) {
             text-decoration: underline;
-            color: #2b2bff;
+            color: $color_primary;
         }
     }
 }

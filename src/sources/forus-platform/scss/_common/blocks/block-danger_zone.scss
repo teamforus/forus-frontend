@@ -9,18 +9,25 @@
     cursor: default;
 
     .danger_zone-title {
+        display: flex;
+        flex-direction: row;
         font: 600 16px/20px $bf;
         padding: 15px;
-        color: #282B39;
+        color: $bec;
         width: 100%;
         text-align: center;
 
         .mdi {
+            display: flex;
             color: $bec;
             font-size: 20px;
             line-height: 20px;
-            margin: 0 5px 0 0;
+            margin: 0 10px 0 0;
             vertical-align: bottom;
+
+            &:before {
+                line-height: inherit;
+            }
         }
     }
 

@@ -18,6 +18,10 @@ $media_xs: 1000px;
     padding-right: $pad;
 }
 
+@mixin make-col-offset($i, $columns) {
+    margin-left: (100% / $columns) * $i;
+}
+
 @mixin col($media) {
     @for $i from 1 through $columns {
         .col-#{$media}-#{$i} {
@@ -26,16 +30,28 @@ $media_xs: 1000px;
     }
 }
 
+@mixin col-offset($media) {
+    @for $i from 1 through $columns {
+        .col-offset-#{$media}-#{$i} {
+            @include make-col-offset($i, $columns);
+        }
+    }
+}
+
 @include col('lg');
+@include col-offset('lg');
 
 @media screen and (max-width: $media_md) {
     @include col('md');
+    @include col-offset('md');
 }
 
 @media screen and (max-width: $media_sm) {
     @include col('sm');
+    @include col-offset('sm');
 }
 
 @media screen and (max-width: $media_xs) {
     @include col('xs');
+    @include col-offset('xs');
 }

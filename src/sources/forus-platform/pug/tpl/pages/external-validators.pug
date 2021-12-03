@@ -8,6 +8,7 @@
                 .validator-logo: img(
                     ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}"
                     ).validator-logo-img
+
                 .validator-details
                     .validator-title(ng-click="organization.show_details = !organization.show_details")
                         .validator-title-toggle.mdi(ng-class="organization.show_details ? 'mdi-menu-up' : 'mdi-menu-down'")
@@ -36,8 +37,13 @@
                         em.mdi.mdi-close.icon-start
                         | Verwijderen
 
-        .card(ng-if="$ctrl.validatorOrganizations.meta.total > 0" ng-show="$ctrl.validatorOrganizations.meta.last_page > 1"): .card-section
-                paginator(meta="$ctrl.validatorOrganizations.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+        .card(
+            ng-if="$ctrl.validatorOrganizations.meta.total > 0" 
+            ng-show="$ctrl.validatorOrganizations.meta.last_page > 1")
+            .card-section: paginator(
+                meta="$ctrl.validatorOrganizations.meta"
+                filters="$ctrl.filters.values"
+                on-page-change="$ctrl.onPageChange(query)")
 
         div(ng-if="$ctrl.validatorOrganizations.meta.total == 0")
             block-empty(text="Geen beoordelaars beschikbaar." )

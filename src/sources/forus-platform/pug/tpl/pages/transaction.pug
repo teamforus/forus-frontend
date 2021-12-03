@@ -10,11 +10,12 @@
                 ui-sref="transactions({organization_id:$root.activeOrganization.id})" 
                 ng-bind="$ctrl.transaction.fund.name")
             .breadcrumb-item.active(ng-bind="'#' + $ctrl.transaction.id")
+
         .card
-            .card-section
-                p
-                    strong(ng-bind="$ctrl.transaction.amount | currency_format")
-                    strong.text-primary.pull-right {{ "financial_dashboard_transaction.labels.payment" | translate }}
+            .card-section: .card-title
+                strong(ng-bind="$ctrl.transaction.amount | currency_format")
+                strong.text-primary.pull-right(translate="financial_dashboard_transaction.labels.payment")
+
                 //- button.button.button-primary
                     em.mdi.mdi-plus-circle 
                     | Add note
@@ -54,20 +55,20 @@
             .card-section: .flex
                 .flex: .card-block.card-block-keyvalue
                     .keyvalue-item
-                        .keyvalue-key {{ "financial_dashboard_transaction.labels.id" | translate }}
-                        .keyvalue-value {{ $ctrl.transaction.id }}
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.id")
+                        .keyvalue-value(ng-bind="$ctrl.transaction.id")
+                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor' &&  $ctrl.transaction.payment_id")
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq_id")
+                        .keyvalue-value(ng-bind="$ctrl.transaction.payment_id")
+                    .keyvalue-item
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.statement")
+                        .keyvalue-value(ng-bind="$ctrl.transaction.organization.name")
                     .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
-                        .keyvalue-key {{ "financial_dashboard_transaction.labels.bunq_id" | translate }}
-                        .keyvalue-value {{ $ctrl.transaction.payment_id }}
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq")
+                        .keyvalue-value(ng-bind="$ctrl.transaction.transaction_cost | currency_format")
                     .keyvalue-item
-                        .keyvalue-key {{ "financial_dashboard_transaction.labels.statement" | translate }}
-                        .keyvalue-value {{ $ctrl.transaction.organization.name }}
-                    .keyvalue-item
-                        .keyvalue-key {{ "financial_dashboard_transaction.labels.bunq" | translate }}
-                        .keyvalue-value {{ "financial_dashboard_transaction.labels.fee" | translate }}
-                    .keyvalue-item
-                        .keyvalue-key {{ "financial_dashboard_transaction.labels.date" | translate }}
-                        .keyvalue-value {{ $ctrl.transaction.created_at_locale }}
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.date")
+                        .keyvalue-value(ng-bind="$ctrl.transaction.created_at_locale")
                     .keyvalue-item
                         .keyvalue-key Status
                         .keyvalue-value
