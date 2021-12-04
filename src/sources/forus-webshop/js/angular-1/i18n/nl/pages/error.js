@@ -42,7 +42,7 @@ const messages = {
         'Voor dit BSN nummer is een ander e-mailadres geregistreerd.',
         'Om in te loggen op uw account moet u het e-mailadres gebruiken wat bij ons geregistreerd staat.',
         'Weet u niet meer welk e-mailadres dit is of heeft u een nieuw e-mailadres? Herstel dan ',
-        '<a href="{{ url_webshop_start }}" class="sign_up-pane-link">hier</a> ',
+        '<a href="{{ url_webshop_start_logout }}" class="sign_up-pane-link">hier</a> ',
         'uw account'
     ].join(''),
     'digid_uid_dont_match': [

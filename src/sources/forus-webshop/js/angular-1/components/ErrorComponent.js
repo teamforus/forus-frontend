@@ -1,6 +1,6 @@
 const snakeCase = require('lodash/snakeCase');
 
-const ErrorComponent = function($state, $stateParams) {
+function ErrorComponent($state, $stateParams) {
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
@@ -10,6 +10,7 @@ const ErrorComponent = function($state, $stateParams) {
         $ctrl.transParams = {
             url_webshop_home: $state.href('home', {}, { absolute: true }),
             url_webshop_start: $state.href('start', {}, { absolute: true }),
+            url_webshop_start_logout: $state.href('start', { logout: 1 }, { absolute: true }),
         };
     };
 }
@@ -17,12 +18,12 @@ const ErrorComponent = function($state, $stateParams) {
 module.exports = {
     bindings: {
         errorCode: '=',
-        hideHomeLinkButton: '='
+        hideHomeLinkButton: '=',
     },
     controller: [
         '$state',
         '$stateParams',
-        ErrorComponent
+        ErrorComponent,
     ],
-    templateUrl: 'assets/tpl/pages/error.html'
+    templateUrl: 'assets/tpl/pages/error.html',
 };

@@ -116,17 +116,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "start",
-        url: "/start",
+        url: "/start?logout",
         component: "signUpComponent",
         params: {
+            logout: null,
             confirmed: null,
             digid_error: null,
             email_address: null,
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
         }
     });
 
