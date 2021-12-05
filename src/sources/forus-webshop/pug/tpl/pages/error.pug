@@ -14,5 +14,7 @@ main(id="main-content")
                     translate-values="$ctrl.transParams"
                     translate-default="Onbekende foutmelding")
 
-                p.sign_up-pane-text(ng-trans="!$ctrl.hideHomeLinkButton")
+                p.sign_up-pane-text(ng-if="!$ctrl.hideHomeLinkButton && $ctrl.errorCode != 'digid_uid_used'")
                     a(ui-sref="home" translate="error.home_button").sign_up-pane-link
+                p(ng-if="$ctrl.errorCode == 'digid_uid_used'")
+                    button.button.button-primary(ng-click="$ctrl.WebshopStartLogout(1)" translate="Account herstellen")

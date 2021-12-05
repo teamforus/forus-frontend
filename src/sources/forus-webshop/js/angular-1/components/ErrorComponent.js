@@ -6,6 +6,10 @@ function ErrorComponent($state, $stateParams) {
     $ctrl.$onInit = () => {
         $ctrl.errorCode = snakeCase($stateParams.errorCode);
         $ctrl.hideHomeLinkButton = $stateParams.hideHomeLinkButton;
+        
+        $ctrl.WebshopStartLogout = (logout_state) => {
+            $state.go('start', { logout: logout_state }, { absolute: true });
+        };
 
         $ctrl.transParams = {
             url_webshop_home: $state.href('home', {}, { absolute: true }),

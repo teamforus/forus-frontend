@@ -156,12 +156,12 @@ let SignUpComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        const { logout, email_address } = $ctrl.$transition$.params();
+        const { logout, restore_with_digid, email_address } = $ctrl.$transition$.params();
 
         $ctrl.signedIn = AuthService.hasCredentials();
 
         if ($ctrl.signedIn && logout) {
-            return $rootScope.signOut(null, false, true, () => $state.go('start', {}, { inherit: false }));
+            return $rootScope.signOut(null, false, true, () => $state.go('start', {restore_with_digid: 1}, { inherit: false }));
         }
 
         if ($ctrl.signedIn) {
@@ -169,6 +169,10 @@ let SignUpComponent = function(
         } else {
             $ctrl.initAuthForm();
             $ctrl.setStep(1);
+
+            if (restore_with_digid){
+                $ctrl.setRestoreWithDigiD();
+            }
 
             if (email_address) {
                 $ctrl.authForm.values.email = email_address;
