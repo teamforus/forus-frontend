@@ -116,17 +116,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "start",
-        url: "/start",
+        url: "/start?logout&restore_with_digid",
         component: "signUpComponent",
         params: {
+            logout: null,
+            restore_with_digid: null,
             confirmed: null,
             digid_error: null,
             email_address: null,
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
         }
     });
 
@@ -984,9 +984,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: 'error',
         url: '/error/{errorCode}',
         component: 'errorComponent',
-        data: {
-            errorCode: 'unknown_error',
-        }
+        data: { errorCode: 'unknown_error' },
+        params: { hideHomeLinkButton: false },
     });
 
     $stateProvider.state({

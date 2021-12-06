@@ -1,5 +1,6 @@
 let SignUpComponent = function(
     $state,
+    $rootScope,
     VoucherService,
     AuthService,
     IdentityService,
@@ -73,7 +74,7 @@ let SignUpComponent = function(
     $ctrl.startDigId = () => {
         DigIdService.startAuthRestore().then(
             (res) => document.location = res.data.redirect_url,
-            (res) => $state.go('error', { 
+            (res) => $state.go('error', {
                 errorCode: res.headers('Error-Code')
             }),
         );
@@ -125,7 +126,7 @@ let SignUpComponent = function(
         }).then((res) => {
             const vouchers = res.data.data;
             const takenFundIds = vouchers.map(voucher => voucher.fund_id && !voucher.expired);
-            
+
             const funds = $ctrl.funds.filter(fund => fund.allow_direct_requests);
             const fundsNoVouchers = funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
             const fundsWithVouchers = funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
@@ -155,7 +156,13 @@ let SignUpComponent = function(
     };
 
     $ctrl.$onInit = function() {
+        const { logout, restore_with_digid, email_address } = $ctrl.$transition$.params();
+
         $ctrl.signedIn = AuthService.hasCredentials();
+
+        if ($ctrl.signedIn && logout) {
+            return $rootScope.signOut(null, false, true, () => $state.go('start', {restore_with_digid: 1}, { inherit: false }));
+        }
 
         if ($ctrl.signedIn) {
             $ctrl.onSignedIn();
@@ -163,8 +170,12 @@ let SignUpComponent = function(
             $ctrl.initAuthForm();
             $ctrl.setStep(1);
 
-            if ($ctrl.$transition$.params().email_address) {
-                $ctrl.authForm.values.email = $ctrl.$transition$.params().email_address;
+            if (restore_with_digid){
+                $ctrl.setRestoreWithDigiD();
+            }
+
+            if (email_address) {
+                $ctrl.authForm.values.email = email_address;
                 $ctrl.authForm.autofill = true;
                 $ctrl.authForm.submit();
             }
@@ -182,6 +193,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$rootScope',
         'VoucherService',
         'AuthService',
         'IdentityService',
