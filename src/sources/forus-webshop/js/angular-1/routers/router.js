@@ -204,9 +204,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             },
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
             products: ['$transition$', 'ProductService', (
                 $transition$, ProductService
             ) => repackPagination(ProductService.list({
@@ -217,12 +215,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 organization_id: $transition$.params().organization_id,
                 product_category_id: $transition$.params().product_category_id
             }))],
-            productCategories: ['ProductCategoryService', (
-                ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({
-                parent_id: 'null',
-                used: 1,
-            }))],
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({ parent_id: 'null', used: 1 }))
+            }],
             organizations: ['OrganizationService', 'HelperService', (
                 OrganizationService, HelperService
             ) => HelperService.recursiveLeacher((page) => {

@@ -6,15 +6,11 @@ function ErrorComponent($state, $stateParams) {
     $ctrl.$onInit = () => {
         $ctrl.errorCode = snakeCase($stateParams.errorCode);
         $ctrl.hideHomeLinkButton = $stateParams.hideHomeLinkButton;
-        
-        $ctrl.WebshopStartLogout = (logout_state) => {
-            $state.go('start', { logout: logout_state }, { absolute: true });
-        };
 
         $ctrl.transParams = {
             url_webshop_home: $state.href('home', {}, { absolute: true }),
             url_webshop_start: $state.href('start', {}, { absolute: true }),
-            url_webshop_start_logout: $state.href('start', { logout: 1 }, { absolute: true }),
+            url_webshop_start_logout: $state.href('start', { logout: 1, restore_with_digid: 1 }, { absolute: true }),
         };
     };
 }
