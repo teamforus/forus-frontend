@@ -39,11 +39,11 @@ const messages = {
         ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
     ].join(),
     'digid_uid_used': [
-        'Voor dit BSN nummer is een ander e-mailadres geregistreerd. ',
+        'Voor dit BSN nummer is een ander e-mailadres geregistreerd.',
         'Om in te loggen op uw account moet u het e-mailadres gebruiken wat bij ons geregistreerd staat.<br/><br/>',
-        'Weet u niet meer welk e-mailadres dit is of heeft u een nieuw e-mailadres? <br/> Herstel dan uw account door ',
-        '<a href="{{ url_webshop_start_logout }}" class="sign_up-pane-link">hier</a> te klikken of de knop hieronder.'
-    ].join(''),
+        'Weet u niet meer welk e-mailadres dit is of heeft u een nieuw e-mailadres? <br/> Herstel dan uw account door',
+        '<a href="{{ url_webshop_start_logout }}" class="sign_up-pane-link">hier</a> te klikken of de knop hieronder.</br>'
+    ].join(' '),
     'digid_uid_dont_match': [
         'Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer gekoppelt staat aan dit profiel',
         ' start een nieuwe aanvraag.'
@@ -78,5 +78,6 @@ module.exports = {
     ...{ titles, messages },
     ...{
         home_button: "Ga terug naar de startpagina",
+        start_button: "Account herstellen",
     }
 };
