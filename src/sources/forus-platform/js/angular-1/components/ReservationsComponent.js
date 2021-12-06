@@ -148,6 +148,10 @@ const ReservationsComponent = function(
         });
     };
 
+    $ctrl.viewNotes = (reservation) => {
+        ModalService.open('reservationNotes', { reservation });
+    };
+
     $ctrl.$onInit = () => {
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 

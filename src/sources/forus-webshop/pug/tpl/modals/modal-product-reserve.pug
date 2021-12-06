@@ -9,7 +9,7 @@
         .modal-section
             h2.title.text-center(translate="{{ 'modal_product_reserve.header.title_' + $ctrl.appConfigs.features.communication_type }}")
             br
-            .description: .text-center(translate="{{ 'modal_product_reserve.description_' + $ctrl.appConfigs.features.communication_type }}" translate-values="{fund: $ctrl.vouchers[0].fund.name}")
+            .description.text-center.text-primary(translate="{{ 'modal_product_reserve.description_' + $ctrl.appConfigs.features.communication_type }}" translate-values="{fund: $ctrl.vouchers[0].fund.name}")
             br
             //- Vouchers list
             .block.block-vouchers.block-vouchers-padding(ng-class="{'block-vouchers-compact': $ctrl.vouchers.length === 1}")

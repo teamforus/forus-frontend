@@ -1,0 +1,82 @@
+.modal.modal-product-reserve.modal-animated.modal-sm(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    role="dialog")
+
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
+
+    .modal-window(ng-if="$ctrl.state == 'fill_notes'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
+
+        .modal-content: .modal-section
+            .title(translate="modal_product_reserve_notes.fill_notes.header.title")
+            .description.text-center(
+                i18n="modal_product_reserve_notes.fill_notes.header.subtitle" 
+                i18n-vars="{ provider_name: $ctrl.provider.name }")
+
+            .row: .col.col-xs-12.col-md-8.col-md-offset-2: form(ng-submit="$ctrl.productReserve()").form
+                .row
+                    .col.col-lg-6.form-group
+                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.first_name")
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.first_name"
+                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.first_name' | translate }}").form-control.form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.first_name" ng-bind="error")
+
+                    .col.col-lg-6.form-group
+                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.last_name")
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.last_name"
+                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.last_name' | translate }}").form-control.form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.last_name" ng-bind="error")
+
+                .form-group
+                    .form-label(translate="modal_product_reserve_notes.fill_notes.labels.notes")
+                    textarea.form-control(
+                        ng-model="$ctrl.form.values.user_note" 
+                        placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.notes' | i18n }}")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
+
+                .form-group.text-center
+                    button(type="submit" translate="popup_auth.buttons.submit").button.button-dark.button-wide
+
+    .modal-window(ng-if="$ctrl.state == 'confirm_notes'")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
+
+        .modal-content: .modal-section
+            .title(translate="modal_product_reserve_notes.confirm_notes.header.title")
+            .description.text-center 
+                br
+                strong(translate="modal_product_reserve_notes.confirm_notes.modal_section.title")
+                br
+                br
+
+                strong(translate="modal_product_reserve_notes.confirm_notes.labels.first_name")
+                br
+                span(ng-bind="$ctrl.form.values.first_name")
+                br
+                br
+
+                strong(translate="modal_product_reserve_notes.confirm_notes.labels.last_name")
+                br
+                span(ng-bind="$ctrl.form.values.last_name")
+                br
+                br
+
+                div(ng-if="$ctrl.form.values.user_note")
+                    strong(translate="modal_product_reserve_notes.confirm_notes.labels.notes")
+                    br
+                    span(ng-bind="$ctrl.form.values.user_note")
+                br
+
+            .button-group.flex-center
+                button.button.button-light(
+                    type="button" 
+                    translate="modal_product_reserve_notes.confirm_notes.buttons.adjust" 
+                    ng-click="$ctrl.state = 'fill_notes'")
+
+                button.button.button-dark(
+                    type="button" 
+                    translate="modal_product_reserve_notes.confirm_notes.buttons.submit" 
+                    ng-click="$ctrl.confirmSubmit()")
