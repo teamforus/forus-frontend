@@ -21,6 +21,25 @@
                         select-photo="$ctrl.selectPhoto(file)")
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline   
+                    label.form-label Soort fonds
+
+                    select(
+                        ng-if="!$ctrl.fund"
+                        ng-model="$ctrl.form.values.type" 
+                        ng-options="fund_type.key as fund_type.name for fund_type in $ctrl.fundTypes").form-control
+
+                    .form-offset(ng-if="$ctrl.fund"): .block.block-fund_types
+                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'budget'"): .fund_type-item-inner
+                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions-read.svg')
+                            .fund_type-name Financieel budget
+                            .fund_type-check: .mdi.mdi-check
+                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'subsidies'"): .fund_type-item-inner
+                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget-read.svg')
+                            .fund_type-name Acties
+                            .fund_type-check: .mdi.mdi-check
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.name").form-label
                     input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
@@ -47,34 +66,6 @@
                         ng-model="$ctrl.form.values.description"
                         media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
-            
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
-                .form-group.form-group-inline
-                    label.form-label Soort fonds
-                    .form-offset(ng-if="!$ctrl.fund"): .block.block-fund_types
-                        .fund_type-item(
-                            ng-click="$ctrl.setType('budget')"
-                            ng-class="{active: $ctrl.form.values.type == 'budget'}"): .fund_type-item-inner
-                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions.svg')
-                            .fund_type-name Financieel budget
-                            .fund_type-check: .mdi.mdi-check
-
-                        .fund_type-item(
-                            ng-click="$ctrl.setType('subsidies')"
-                            ng-class="{active: $ctrl.form.values.type == 'subsidies'}"): .fund_type-item-inner
-                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget.svg')
-                            .fund_type-name Acties
-                            .fund_type-check: .mdi.mdi-check
-                    
-                    .form-offset(ng-if="$ctrl.fund"): .block.block-fund_types
-                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'budget'"): .fund_type-item-inner
-                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions-read.svg')
-                            .fund_type-name Financieel budget
-                            .fund_type-check: .mdi.mdi-check
-                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'subsidies'"): .fund_type-item-inner
-                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget-read.svg')
-                            .fund_type-name Acties
-                            .fund_type-check: .mdi.mdi-check
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline

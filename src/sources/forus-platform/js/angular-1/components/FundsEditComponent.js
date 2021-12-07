@@ -15,8 +15,18 @@ const FundsEditComponent = function(
     $ctrl.products = [];
     $ctrl.criteriaEditor = null;
 
+    $ctrl.fundTypes = [{
+        key: 'budget',
+        name: 'Waardebon'
+    }, {
+        key: 'subsidies',
+        name: 'Kortingspas'
+    }, {
+        key: 'external',
+        name: 'Geen (extern)'
+    }];
+
     $ctrl.getProductOptions = (product) => ($ctrl.productOptions || []).concat(product);
-    $ctrl.setType = (type) => $ctrl.form.values.type = type;
 
     $ctrl.addProduct = () => {
         $ctrl.form.products.push(null);
