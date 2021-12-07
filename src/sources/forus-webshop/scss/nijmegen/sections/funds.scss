@@ -1,6 +1,10 @@
 .section {
     &.section-fund {
         margin: 0 50px;
+
+        .wrapper {
+            width: 100%;
+        }
         
         .block-markdown {
             h1, h2, h3, h4, h5, h6 {
