@@ -98,7 +98,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "sign-up",
         url: "/aanbieders/aanmelden",
-        component: "signUpSelectionComponent",
+        component: "signUpProviderComponent",
         resolve: resolveCmsPage('provider'),
     });
 
@@ -325,6 +325,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) => AuthService.hasCredentials() ? repackResponse(VoucherService.list({
                 product_id: $transition$.params().id,
                 type: 'regular',
+                state: 'active',
             })) : new Promise(resolve => resolve([]))],
             product: ['$transition$', 'ProductService', (
                 $transition$, ProductService

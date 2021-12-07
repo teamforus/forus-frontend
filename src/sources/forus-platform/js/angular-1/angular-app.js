@@ -105,6 +105,8 @@ app.component('modalVoucherDeactivationComponent', require('./components/Modals/
 app.component('modalVoucherActivationComponent', require('./components/Modals/ModalVoucherActivationComponent'));
 app.component('modalMailPreviewComponent', require('./components/Modals/ModalMailPreviewComponent'));
 app.component('modalPhysicalCardOrderComponent', require('./components/Modals/ModalPhysicalCardOrderComponent'));
+app.component('modalReservationNotesComponent', require('./components/Modals/ModalReservationNotesComponent'));
+app.component('modalSwitchBankConnectionAccountComponent', require('./components/Modals/ModalSwitchBankConnectionAccountComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));

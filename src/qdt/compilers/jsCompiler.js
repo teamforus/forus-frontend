@@ -94,24 +94,24 @@ const jsCompiler = function(platform, src, task) {
     }
 
     for (var i = dest.length - 1; i >= 0; i--) {
-        const stream = task.browserify ? jsCompilerBrowserify(name, sourcesList, useTs) : jsCompilerValila(name, sourcesList);
-        stream.push(plugins.insert.prepend('var env_data = ' + JSON.stringify(platform.env_data) + ';'));
+        const streams = task.browserify ? jsCompilerBrowserify(name, sourcesList, useTs) : jsCompilerValila(name, sourcesList);
+        streams.push(plugins.insert.prepend('var env_data = ' + JSON.stringify(platform.env_data) + ';'));
 
         // uglify output
         if (typeof task.minify == 'undefined' ? true : task.minify) {
-            stream.push(plugins.uglify());
+            streams.push(plugins.uglify());
         }
 
         // sourcemap
         if (task.sourcemap) {
-            stream.push(plugins.sourcemaps.init());
-            stream.push(plugins.sourcemaps.write('./'));
+            streams.push(plugins.sourcemaps.init());
+            streams.push(plugins.sourcemaps.write('./'));
         }
 
-        stream.push(gulp.dest(platform.paths.assets + '/js/' + dest[i]));
-        stream.push(reloadBrowserSync(platform));
+        streams.push(gulp.dest(platform.paths.assets + '/js/' + dest[i]));
+        streams.push(reloadBrowserSync(platform));
 
-        streamCombiner.apply(streamCombiner, stream).on('error', onError).on('error', onError).on('end', resolveMultiple);
+        streamCombiner.apply(streamCombiner, streams.filter((item) => item)).on('error', onError).on('error', onError).on('end', resolveMultiple);
     }
 
     return promise;

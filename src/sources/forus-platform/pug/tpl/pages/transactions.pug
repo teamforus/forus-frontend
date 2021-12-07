@@ -182,8 +182,16 @@
                         td(ng-bind="transactionBulk.voucher_transactions_count")
 
                         td
+                            //- Rejected
                             .label.label-danger(ng-if="transactionBulk.state == 'rejected'" ng-bind="transactionBulk.state_locale")
+
+                            //- Draft
+                            .label.label-default(ng-if="transactionBulk.state == 'draft'" ng-bind="transactionBulk.state_locale")
+
+                            //- Accepted
                             .label.label-success(ng-if="transactionBulk.state == 'accepted'" ng-bind="transactionBulk.state_locale")
+
+                            //- Pending
                             .label.label-default(ng-if="transactionBulk.state == 'pending'" ng-bind="transactionBulk.state_locale")
 
                         td.td-narrow.text-right: a(ui-sref="transaction-bulk(transactionBulk.ui_sref)").button.button-sm.button-primary.pull-right

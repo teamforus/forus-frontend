@@ -60,7 +60,7 @@ section.section.section-voucher-details: .wrapper
                                 .session-locations(ng-if="session.locations.length > 1 && session.showLocations")
                                     .session-location(ng-repeat="location in session.locations" ng-bind="location.ip + ' • ' + location.string")
 
-                            .session-label(ng-if="session.current"): .label.label-lg.label-primary-light Huidig
+                            .session-label(ng-if="session.current"): .label.label-lg.label-primary Huidig
                             
                             .session-label(ng-if="session.active && !session.current"): .label.label-lg.label-success Online
             
