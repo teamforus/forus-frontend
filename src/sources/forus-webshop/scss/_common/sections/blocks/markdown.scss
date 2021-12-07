@@ -2,6 +2,7 @@
     &.block-markdown {
         text-align: justify;
         font: 400 14px/24px $bf !important;
+        margin-bottom: 30px;
 
         h1 {
             font: 500 2.5em $bf;
@@ -183,6 +184,10 @@
             * {
                 text-align: right !important;
             }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 

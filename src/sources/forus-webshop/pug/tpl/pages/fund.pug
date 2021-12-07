@@ -18,52 +18,54 @@ main(id="main-content")
 
         .block.block-fund
             mixin fund_actions
-                .fund-action-buttons.col.col-md-3
-                    button.button.button-primary.button-fill(
+                .fund-actions
+                    button.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.showRequestButton"
                         ui-sref="fund-activate({fund_id: $ctrl.fund.id})"
                         translate="funds.buttons.{{ $root.client_key }}.start_request" 
                         translate-default="{{ 'funds.buttons.start_request' | translate }}")
 
-                    button.button.button-primary.button-fill.button-disabled(
+                    button.button.button-primary.button-wide.button-disabled(
                         ng-if="$ctrl.fund.showPendingButton"
                         translate="funds.buttons.is_pending")
 
-                    button.button.button-primary.button-fill(
+                    button.button.button-primary.button-wide(
                         type="button"
                         ng-if="$ctrl.fund.showActivateButton" 
                         ng-click="$ctrl.applyFund($ctrl.fund)" 
                         translate="funds.buttons.is_applicable")
 
-                    button.button.button-primary.button-fill(
+                    button.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.alreadyReceived" 
                         ui-sref="{{ $ctrl.fund.voucherStateName }}" 
                         translate="funds.buttons.already_received")
 
             .fund-content
-                .fund-card
-                    .fund-details
-                        .fund-details-title
-                            .fund-name(ng-bind="$ctrl.fund.name") 
-                            .fund-description(ng-if="$ctrl.fund.description_short" ng-bind="$ctrl.fund.description_short")
-                            .fund-details-items                                 
-                                .fund-details-item
-                                    .fund-details-item-label Uitgifte door
-                                    .fund-details-item-value(ng-bind="$ctrl.fund.organization.name")
+                .fund-card: .fund-details
+                    .fund-name(ng-bind="$ctrl.fund.name") 
+                    .fund-description(ng-if="$ctrl.fund.description_short" ng-bind="$ctrl.fund.description_short")
+                    .fund-details-items                                 
+                        .fund-details-item
+                            .fund-details-item-label Uitgifte door
+                            .fund-details-item-value(ng-bind="$ctrl.fund.organization.name")
 
-                                .fund-details-item(ng-repeat="formula in $ctrl.formulaList.multiply" ng-if="$ctrl.fund.type == 'budget'")
-                                    .fund-details-item-label(translate="fund.criterias.multiplied_amount")
-                                    .fund-details-item-value(ng-bind="formula.amount | currency_format")                                 
+                        .fund-details-item(ng-repeat="formula in $ctrl.formulaList.multiply" ng-if="$ctrl.fund.type == 'budget'")
+                            .fund-details-item-label(translate="fund.criterias.multiplied_amount")
+                            .fund-details-item-value(ng-bind="formula.amount | currency_format")                                 
 
-                                .fund-details-item
-                                    .fund-details-item-label Startdatum
-                                    .fund-details-item-value(ng-bind="$ctrl.fund.start_date_locale")
+                        .fund-details-item
+                            .fund-details-item-label Startdatum
+                            .fund-details-item-value(ng-bind="$ctrl.fund.start_date_locale")
 
-                                .fund-details-item
-                                    .fund-details-item-label Einddatum
-                                    .fund-details-item-value(ng-bind="$ctrl.fund.end_date_locale")
+                        .fund-details-item
+                            .fund-details-item-label Einddatum
+                            .fund-details-item-value(ng-bind="$ctrl.fund.end_date_locale")
 
                 +fund_actions
+
+        .block.block-markdown(
+            ng-if="$ctrl.fund.description_html" 
+            ng-bind-html="$ctrl.fund.description_html")
 
         block-products(
             type="budget"
@@ -77,6 +79,4 @@ main(id="main-content")
             products="$ctrl.subsidies.data"
             filters="{fund_id: $ctrl.fund.id}") 
 
-        .block.block-markdown(
-            ng-if="$ctrl.fund.description_html" 
-            ng-bind-html="$ctrl.fund.description_html")
+        div

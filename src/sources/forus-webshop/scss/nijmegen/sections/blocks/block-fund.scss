@@ -1,8 +1,8 @@
 .block {
     &.block-fund {
         .fund-content {
-            padding-bottom: 40px;
-            border-bottom: 2px solid #e1e1e1;
+            padding-bottom: 30px;
+            border-bottom: 1px solid $border_color;
 
             .fund-card {
                 background: none;
@@ -10,10 +10,6 @@
 
                 .fund-details {
                     padding: 0;
-
-                    .fund-details-title {
-                        margin-left: 0;
-                    }
                 }
             }
         }
