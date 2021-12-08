@@ -1,24 +1,76 @@
 .app.app-container
     menu
     section.app.app-content
-        fund-card-sponsor(fund="$ctrl.fund" organization="$ctrl.fund.organization" level="$ctrl.fundLevel")
+        .block.block-breadcrumbs
+            .breadcrumb-item(
+                ui-sref="organization-funds({organization_id: $ctrl.fund.organization_id})" 
+                translate="page_state_titles.funds")
+            .breadcrumb-item.active(ng-bind="$ctrl.fund.name")
 
-        //-.card
-            .card-header: .card-title {{ "funds_show.criterion" | translate }}
-            .card-section
-                .card-block.card-block-keyvalue
-                    mixin keyvalue_item(key, value, links = [])
-                        .keyvalue-item
-                            .keyvalue-key=key
-                            .keyvalue-value
-                                | #{value}
-                                each link, key in links 
-                                    a(href=link.href).keyvalue-link
-                                        em.mdi(class=('mdi-' + link.mdi))
-                                        | #{link.text}
-                    
-                    +keyvalue_item("Locatie", "Zuidhorn")
-                    +keyvalue_item("Aantal kinderen", "1")
-                    +keyvalue_item("Leeftijd", "> 18 jaar oud")
-                    +keyvalue_item("Inkomensgrens", "< € 1118.46")
-                    
+        .block.block-fund
+            .fund-overview
+                .fund-media: img.fund-media-img(
+                    ng-src="{{ $ctrl.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+
+                .fund-details
+                    .fund-name(ng-bind="$ctrl.fund.name")
+                    .fund-description-short(ng-bind="$ctrl.fund.description_short")
+
+            .fund-description
+                .description-header
+                    | Beschrijving
+
+                    .description-header-action
+                        .button.button-default(
+                            ng-if="($ctrl.fund.organization | hasPerm:'manage_funds') && $ctrl.fund.state == 'waiting'"
+                            ng-click="$ctrl.deleteFund()")
+                            em.mdi.mdi-trash-can-outline.icon-start
+                            | Verwijderen
+
+                        .button.button-default(
+                            ng-if="($ctrl.fund.organization | hasPerm:'manage_funds')"
+                            ui-sref="funds-edit($ctrl.fund)")
+                            em.mdi.mdi-pencil.icon-start
+                            | Bewerken
+
+                .description-body(ng-if="$ctrl.fund.description_html")
+                    .arrow-box.border.bg-dim: .arrow
+                    div(ng-bind-html="$ctrl.fund.description_html")
+
+                .description-body(ng-if="!$ctrl.fund.description_html") 
+                    .arrow-box.border.bg-dim: .arrow
+                    | Geen data
+
+        .card.card-collapsed
+            .card-header: .flex-row
+                .flex-col: .card-title Webshop
+
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th.td-narrow Afbeelding
+                    th Naam
+                    th Status
+                    th
+
+                tr
+                    td.td-narrow: img(src="{{ $ctrl.fund.implementation.logo || './assets/img/placeholders/organization-thumbnail.png' }}").td-media
+                    td(ng-bind="$ctrl.fund.implementation.name")
+                    td
+                        .label.label-success(ng-if="$ctrl.fund.state == 'active'") Zichtbaar
+                        .label.label-default(ng-if="$ctrl.fund.state != 'active'") Onzichtbaar
+                    td.td-narrow.text-right
+                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event)")
+                            em.mdi.mdi-dots-horizontal
+                                .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="$ctrl.showDropdownMenuItem")
+                                    .menu-dropdown-arrow
+                                    .dropdown.dropdown-actions
+                                        .dropdown-heading Opties
+                                        a(href="{{ $ctrl.fund.implementation.url_webshop + 'funds/' + $ctrl.fund.id }}").dropdown-item
+                                            em.mdi.mdi-eye-outline.icon-start
+                                            | &nbsp; Bekijk op webshop
+                                        
+                                        a(
+                                            ng-if="$root.activeOrganization | hasPerm:['manage_implementation_cms']:false"
+                                            ui-sref="implementation-cms({organization_id: $ctrl.fund.organization_id, id: $ctrl.fund.implementation.id})").dropdown-item
+                                            em.mdi.mdi-pencil.icon-start
+                                            | &nbsp; Ga naar CMS

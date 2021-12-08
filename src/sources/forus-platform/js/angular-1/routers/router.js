@@ -644,7 +644,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
-    /* $stateProvider.state({
+    $stateProvider.state({
         name: "funds-show",
         url: "/organizations/{organization_id}/funds/{id}",
         component: "fundsShowComponent",
@@ -667,7 +667,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ],
             fundLevel: ['permission', (permission) => "fundShow"]
         }
-    }); */
+    });
 
     $stateProvider.state({
         name: "funds-edit",

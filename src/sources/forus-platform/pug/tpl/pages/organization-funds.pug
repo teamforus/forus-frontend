@@ -46,17 +46,9 @@
                                     translate="components.organization_funds.states.closed")
 
                         .fund-actions
-                            .button.button-default(
-                                ng-if="(fund.organization | hasPerm:'manage_funds')"
-                                ui-sref="funds-edit(fund)")
-                                em.mdi.mdi-cog.icon-start
-                                translate(translate="components.organization_funds.buttons.edit")
-                    
-                            .button.button-danger(
-                                ng-if="(fund.organization | hasPerm:'manage_funds') && fund.state == 'waiting'" 
-                                ng-click="$ctrl.deleteFund(fund)").button.button-danger
-                                em.mdi.mdi-delete.icon-start
-                                translate(translate="components.organization_funds.buttons.delete")
+                            .button.button-default(ui-sref="funds-show(fund)")
+                                em.mdi.mdi-eye-outline.icon-start
+                                translate(translate="product_card.buttons.view")
 
                     .flex-row.flex-end: .fund-remaining
                         .fund-remaining-label(translate="components.organization_funds.labels.remaining") 
