@@ -116,17 +116,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "start",
-        url: "/start",
+        url: "/start?logout&restore_with_digid",
         component: "signUpComponent",
         params: {
+            logout: null,
+            restore_with_digid: null,
             confirmed: null,
             digid_error: null,
             email_address: null,
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
         }
     });
 
@@ -204,9 +204,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             },
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
             products: ['$transition$', 'ProductService', (
                 $transition$, ProductService
             ) => repackPagination(ProductService.list({
@@ -217,12 +215,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 organization_id: $transition$.params().organization_id,
                 product_category_id: $transition$.params().product_category_id
             }))],
-            productCategories: ['ProductCategoryService', (
-                ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({
-                parent_id: 'null',
-                used: 1,
-            }))],
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({ parent_id: 'null', used: 1 }))
+            }],
             organizations: ['OrganizationService', 'HelperService', (
                 OrganizationService, HelperService
             ) => HelperService.recursiveLeacher((page) => {
@@ -984,9 +979,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: 'error',
         url: '/error/{errorCode}',
         component: 'errorComponent',
-        data: {
-            errorCode: 'unknown_error',
-        }
+        data: { errorCode: 'unknown_error' },
+        params: { hideHomeLinkButton: false },
     });
 
     $stateProvider.state({

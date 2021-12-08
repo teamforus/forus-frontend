@@ -173,7 +173,10 @@ let FundActivateComponent = function(
                         reload: true
                     });
                 } else {
-                    $state.go('error', { errorCode: 'digid_' + $stateParams.digid_error });
+                    $state.go('error', { 
+                        errorCode: 'digid_' + $stateParams.digid_error,
+                        hideHomeLinkButton: true 
+                    });
                 }
 
                 return true;
