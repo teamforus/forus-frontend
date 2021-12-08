@@ -61,12 +61,12 @@
                                 ng-if="$ctrl.transactionBulk.state == 'accepted'"
                                 ng-bind="$ctrl.transactionBulk.state_locale")
 
-                            //- Pending TODO: remove &nbsp;
+                            //- Pending
                             span.label.label-default(
                                 ng-if="$ctrl.transactionBulk.state == 'pending'" 
                                 ng-bind="$ctrl.transactionBulk.state_locale")
-                            span(ng-if="$ctrl.transactionBulk.state == 'pending'") &nbsp;
                             tooltip(text="'De status van bulkbetaling wordt om het uur gecontroleerd.'" ng-if="$ctrl.transactionBulk.state == 'pending'")
+
         //- Lit bulk transactions
         .card(ng-if="$ctrl.transactions")
             .card-header: .flex-row
