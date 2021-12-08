@@ -15,9 +15,6 @@ html(lang="nl" ng-controller="BaseController" ng-cloak)
 
             div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/footer
 
-            if (qdt_c.platform.env_data.chat_id)
-                forus-chat(ng-if="$root.auth_user" chat-id="appConfigs.chat_id")
-
             if (qdt_c.platform.env_data.support_id)
                 forus-support(ng-if="appConfigs.support_id" support-id="{{ appConfigs.support_id }}")
 
