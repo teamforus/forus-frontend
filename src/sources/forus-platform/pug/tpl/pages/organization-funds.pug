@@ -58,12 +58,12 @@
                                 em.mdi.mdi-delete.icon-start
                                 translate(translate="components.organization_funds.buttons.delete")
 
-                    .flex-row.flex-end: .fund-remaining
+                    .flex-row.flex-end(ng-if="!fund.is_external"): .fund-remaining
                         .fund-remaining-label(translate="components.organization_funds.labels.remaining") 
                         .fund-remaining-value(ng-bind="fund.budget.total - fund.budget.used | currency_format")
                     
                     .flex-row
-                        .flex-col: .flex-row.flex-start
+                        .flex-col(ng-if="!fund.is_external"): .flex-row.flex-start
                             .button.button-default(ng-click="$ctrl.toggleFundCriteria(fund)")
                                 em.mdi.mdi-toggle-switch.icon-start
                                 translate(translate="components.organization_funds.buttons.criteria")
@@ -74,7 +74,7 @@
                         
                         .flex-col: .flex-row.flex-end
                             .button.button-primary(
-                                ng-if="fund.key && fund.state != 'closed'" 
+                                ng-if="fund.key && fund.state != 'closed' && !fund.is_external" 
                                 ng-disabled="!fund.organization.has_bank_connection"
                                 ng-click="$ctrl.topUpModal(fund)")
                                 em.mdi.mdi-plus-circle.icon-start
