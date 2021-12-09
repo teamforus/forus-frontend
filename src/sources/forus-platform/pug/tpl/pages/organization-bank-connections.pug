@@ -33,7 +33,15 @@
                         .card-block-bank-properties
                             .card-block-bank-property
                                 .card-block-bank-property-label Actieve IBAN
-                                .card-block-bank-property-value(ng-bind="$ctrl.bankConnection.iban")
+
+                                .card-block-bank-property-value(ng-if="$ctrl.bankConnection.accounts.length == 1")
+                                    span(ng-bind="$ctrl.bankConnection.iban")
+
+                                .card-block-bank-property-value.card-block-bank-property-value-link(
+                                    ng-if="$ctrl.bankConnection.accounts.length > 1"
+                                    ng-click="$ctrl.switchMonetaryAccount($ctrl.bankConnection)")
+                                    span(ng-bind="$ctrl.bankConnection.iban")
+                                    em.mdi.mdi-pencil-outline
 
         //- Connections history
         .card.card-collapsed(ng-if="$ctrl.bank && $ctrl.bankConnections.meta.total > 0")

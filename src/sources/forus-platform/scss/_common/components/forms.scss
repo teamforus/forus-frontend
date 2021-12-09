@@ -139,7 +139,7 @@
             }
         }
 
-        &.form-toggle-disabled {
+        &.form-toggle-disabled, &[disabled] {
             pointer-events: none;
             opacity: .5;
             filter: saturate(0);
@@ -349,6 +349,11 @@
                 // max-width: 72%;
                 width: calc(100% - 200px);
                 float: left;
+
+
+                .form-toggle {
+                    padding: 8px 0;
+                }
             }
 
             &>.form-error {

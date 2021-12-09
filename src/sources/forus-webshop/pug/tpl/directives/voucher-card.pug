@@ -9,7 +9,7 @@ a(ui-sref="voucher(voucher)").voucher-item
             ng-bind="voucherCard.amount | currency_format")
 
         .voucher-status-label(ng-if="!voucher.deactivated")
-            .label.label-danger(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
+            .label.label-light(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")
             .label(ng-class="{true: 'label-success', false: 'label-warning'}[!voucherCard.used]" ng-if="voucherCard.type == 'product' && !voucher.expired" ng-bind="!voucherCard.used ? 'Ongebruikt' : 'Gebruikt'")
 
         .voucher-status-label(ng-if="voucher.deactivated")

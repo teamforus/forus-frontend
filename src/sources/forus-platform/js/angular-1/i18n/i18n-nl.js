@@ -443,7 +443,13 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens €"
+            notification_amount: "Aanvulherinnering grens €",
+            application_method: "Aanvraagmethode",
+            request_btn: {
+                allow_direct_requests: "Aanvraagknop",
+                text: "Requesting button text",
+                external_link: "External link",
+            }
         },
         buttons: {
             cancel: "Annuleren",
@@ -1335,7 +1341,10 @@ module.exports = {
             assigned_to: "Toegewezen",
             from: "Vanaf",
             to: "Tot",
-            pending_since: "In behandeling sinds"
+            pending_since: "In behandeling sinds",
+            lead_time: "Doorlooptijd",
+            accepted_at: "Geaccepteerd op",
+            declined_at: "Geweigerd op"
         },
         status: {
             hold: "Wachten",

@@ -296,6 +296,10 @@ const FundService = function(ApiRequest, ModalService) {
                 notification_amount: apiResource.notification_amount,
                 default_validator_employee_id: apiResource.default_validator_employee_id,
                 auto_requests_validation: apiResource.auto_requests_validation,
+                application_method: this.getApplicationMethodKey(apiResource),
+                allow_direct_requests: apiResource.allow_direct_requests,
+                request_btn_text: apiResource.request_btn_text,
+                request_btn_url: apiResource.request_btn_url,
             };
         };
 
@@ -346,6 +350,14 @@ const FundService = function(ApiRequest, ModalService) {
 
         this.faqValidate = (organization_id, faq) => {
             return ApiRequest.post(`${uriPrefix}${organization_id}/funds/faq/validate`, { faq });
+        };
+
+        this.getApplicationMethodKey = (fund) => {
+            if (fund.allow_fund_requests) {
+                return fund.allow_prevalidations ? 'application_form_and_activation_codes' : 'application_form';
+            }
+
+            return fund.allow_prevalidations ? 'activation_codes' : 'external';
         };
 
         this.stopActionConfirmationModal = (onConfirm) => {
