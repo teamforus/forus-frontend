@@ -1,10 +1,11 @@
-let ImplementationViewComponent = function(
+const ImplementationViewComponent = function(
     $q,
     $scope,
     $rootScope,
     FundService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
+
     $ctrl.initialFunds = [];
 
     $ctrl.filters = {
@@ -26,8 +27,6 @@ let ImplementationViewComponent = function(
     };
 
     $ctrl.$onInit = () => {
-        console.log($ctrl);
-        console.log($ctrl.funds);
         $ctrl.initialFunds = $ctrl.funds;
 
         $scope.$watch('$ctrl.filters.values.q', function(value) {
