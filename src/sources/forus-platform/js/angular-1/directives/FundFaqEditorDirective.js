@@ -1,18 +1,18 @@
-let FundFaqEditorDirective = function(
+const uniq = require('lodash/uniq');
+
+const FundFaqEditorDirective = function(
     $q,
     $filter,
     $scope,
-    $timeout,
     ModalService,
     FundService
 ) {
-    let $dir = $scope.$dir = {};
-    let $translate = $filter('translate');
-    let $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.remove_faq.' + key
-    );
+    const $dir = $scope.$dir = {};
+    const $translate = $filter('translate');
+    const $translateFaqEditor = (key) => $translate('components.fund_faq_editor.' + key);
+    const $translateDangerZone = (key) => $translate('modals.danger_zone.remove_faq.' + key);
 
-    $dir.is_editing = false;
+    $dir.collapsed = false;
 
     $dir.askConfirmation = (onConfirm) => {
         ModalService.open("dangerZone", {
@@ -20,66 +20,59 @@ let FundFaqEditorDirective = function(
             description: $translateDangerZone('description'),
             cancelButton: $translateDangerZone('buttons.cancel'),
             confirmButton: $translateDangerZone('buttons.confirm'),
-            onConfirm: onConfirm
+            text_align: "center",
+            onConfirm,
         });
     };
 
     $dir.addQuestion = () => {
         $dir.faq.push({
-            is_new: true,
-            is_editing: true,
             title: '',
             description: '',
-            title_hint: 'Nieuwe vraag',
+            collapsed: true,
         });
     };
 
     $dir.removeQuestion = (questionIndex) => {
-        $dir.askConfirmation(() => {
-            $dir.faq.splice(questionIndex, 1);
-        });
+        $dir.askConfirmation(() => $dir.faq.splice(questionIndex, 1));
     };
 
-    $dir.questionEdit = (question) => {
-        question.is_editing = true;
-    };
+    $dir.expendById = (index) => {
+        const list = Array.isArray(index) ? index : [index];
 
-    $dir.questionEditCancel = (question) => {
-        question.is_editing = false;
-    };
-
-    $dir.faqValidate = () => {
-        return $q(resolve => {
-            FundService.faqValidate($scope.organization.id, $dir.faq).then((res) => {
-                resolve(res.data);
-            }, res => { 
-                $dir.errors = res.data.errors;
-            });
-        });
-    };
-
-    $dir.getErrorField = function(fieldName, questionIndex) {
-        if (!$dir.errors) {
-            return;
+        for (let i = 0; i < list.length; i++) {
+            $dir.faq[list[i]].collapsed = true;
         }
-
-        return $dir.errors['faq.' + questionIndex + '.' + fieldName];
     }
 
-    $dir.init = function() {
-        $dir.fund = $scope.fund;
-        $dir.faq  = $scope.faq;
+    $dir.validate = () => {
+        return $q((resolve, reject) => {
+            FundService.faqValidate($scope.organization.id, $dir.faq).then(
+                (res) => resolve(res.data),
+                (res) => {
+                    const { data, status } = res;
+                    const { errors, message, } = data;
 
-        $dir.faq.map(question => { 
-            question.title_hint = question.title;
-            return question;  
+                    if (errors && typeof errors == 'object') {
+                        $dir.errors = errors;
+
+                        $dir.expendById(uniq(Object.keys($dir.errors).map((error) => {
+                            return error.split('.')[1] || null;
+                        })).filter((rowIndex) => !isNaN(parseInt(rowIndex))));
+                    }
+
+                    reject(status == 422 ? $translateFaqEditor('fix_validation_errors') : message);
+                },
+            );
         });
+    };
 
+    $dir.init = function() {
+        $dir.faq = $scope.faq;
+        $dir.fund = $scope.fund;
         $dir.organization = $scope.organization;
 
-        $timeout(() => {
-            $scope.registerParent({ childRef: $dir });
-        }, 250);
+        $scope.registerParent({ childRef: $dir });
     };
 
     $dir.init();
@@ -88,8 +81,8 @@ let FundFaqEditorDirective = function(
 module.exports = () => {
     return {
         scope: {
-            fund: '=',
             faq: '=',
+            fund: '=',
             organization: '=',
             registerParent: '&',
         },
@@ -99,7 +92,6 @@ module.exports = () => {
             '$q',
             '$filter',
             '$scope',
-            '$timeout',
             'ModalService',
             'FundService',
             FundFaqEditorDirective

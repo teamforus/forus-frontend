@@ -99,17 +99,13 @@ main(id="main-content")
             ng-bind-html="$ctrl.fund.description_html")
 
         section.section.section-faq(ng-if="$ctrl.fund.faq"): .wrapper
-            mixin faq_item(title, content, active)
-                .faq-item(class=active ? 'active' : '' collapse-item)
-                    .faq-item-header(collapse-header)
-                        h2(ng-bind=title)
-                        .faq-item-chevron-down.mdi.mdi-chevron-down
-                        .faq-item-chevron-up.mdi.mdi-chevron-up
-                    .faq-item-content
-                        .block.block-markdown(ng-bind-html=content)
-
             .section-splash
             .section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
 
-            .faq.fund-faq(collapse ng-repeat="question in $ctrl.fund.faq")
-                +faq_item("question.title", "question.description_html")
+            .faq.faq-fund
+                .faq-item(collapse ng-repeat="question in $ctrl.fund.faq" class=active ? 'active' : '' collapse-item)
+                    .faq-item-header(collapse-header)
+                        h2(ng-bind="question.title").faq-item-title
+                        .faq-item-chevron-down.mdi.mdi-chevron-down
+                        .faq-item-chevron-up.mdi.mdi-chevron-up
+                    .faq-item-content: .block.block-markdown(ng-bind-html="question.description_html")

@@ -1,7 +1,7 @@
 const sprintf = require('sprintf-js').sprintf;
 
 const FundService = function(ApiRequest, ModalService) {
-    let uriPrefix = '/platform/organizations/';
+    const uriPrefix = '/platform/organizations/';
 
     return new (function() {
         this.list = function(organization_id, query = {}) {
@@ -284,7 +284,7 @@ const FundService = function(ApiRequest, ModalService) {
                 type: apiResource.type,
                 criteria: apiResource.criteria,
                 faq: apiResource.faq || [],
-                faq_title: apiResource.faq_title || [],
+                faq_title: apiResource.faq_title || '',
                 formula_products: apiResource.formula_products || [],
                 name: apiResource.name,
                 description: apiResource.description,
@@ -345,10 +345,7 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.faqValidate = (organization_id, faq) => {
-            return ApiRequest.post(sprintf(
-                uriPrefix + '%s/funds/faq/validate',
-                organization_id
-            ), { faq });
+            return ApiRequest.post(`${uriPrefix}${organization_id}/funds/faq/validate`, { faq });
         };
 
         this.stopActionConfirmationModal = (onConfirm) => {

@@ -42,13 +42,13 @@
 @import 'components/table-pagination';
 
 // SECTIONS
-@import 'sections/faq.scss',
-'sections/flow.scss',
-'sections/funds.scss',
-'sections/map.scss',
-'sections/products.scss',
-'sections/steps.scss',
-'sections/vouchers.scss';
+@import 'sections/faq.scss';
+@import 'sections/flow.scss';
+@import 'sections/funds.scss';
+@import 'sections/map.scss';
+@import 'sections/products.scss';
+@import 'sections/steps.scss';
+@import 'sections/vouchers.scss';
 
 // BLOCKS
 @import 'sections/blocks/block-fund.scss',

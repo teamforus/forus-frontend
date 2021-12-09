@@ -158,9 +158,9 @@
                 .form-group.form-group-inline
                     label.form-label Veel gestelde vragen
                     .form-offset: fund-faq-editor(
+                        faq="$ctrl.form.values.faq"
                         fund="$ctrl.fund"
                         organization="$ctrl.organization" 
-                        faq="$ctrl.form.values.faq"
                         register-parent="$ctrl.registerFaqEditor(childRef)")
         
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12

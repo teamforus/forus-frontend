@@ -7,6 +7,7 @@ const FundsEditComponent = function(
     FundService,
     ProductService,
     FormBuilderService,
+    PushNotificationsService,
     MediaService,
 ) {
     const $ctrl = this;
@@ -14,7 +15,7 @@ const FundsEditComponent = function(
 
     $ctrl.products = [];
     $ctrl.criteriaEditor = null;
-    $ctrl.faqEditor = null;
+    $ctrl.faqEditor = null
 
     $ctrl.getProductOptions = (product) => ($ctrl.productOptions || []).concat(product);
     $ctrl.setType = (type) => $ctrl.form.values.type = type;
@@ -113,41 +114,44 @@ const FundsEditComponent = function(
                     return form.unlock();
                 }
 
-                $ctrl.faqEditor.faqValidate().then(async (success) => {
-                    let promise;
+                try {
+                    await $ctrl.faqEditor.validate();
+                } catch (e) {
+                    PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
+                    return form.unlock();
+                };
 
-                    if (mediaFile) {
-                        let res = await MediaService.store('fund_logo', mediaFile);
+                let promise;
 
-                        $ctrl.media = res.data.data;
-                        $ctrl.form.values.media_uid = $ctrl.media.uid;
-                    }
+                if (mediaFile) {
+                    let res = await MediaService.store('fund_logo', mediaFile);
 
-                    form.values.formula_products = form.products.map(product => product.id);
+                    $ctrl.media = res.data.data;
+                    $ctrl.form.values.media_uid = $ctrl.media.uid;
+                }
 
-                    if ($ctrl.fund) {
-                        promise = FundService.update(
-                            $stateParams.organization_id,
-                            $stateParams.id,
-                            form.values
-                        );
-                    } else {
-                        promise = FundService.store(
-                            $stateParams.organization_id,
-                            form.values
-                        );
-                    }
+                form.values.formula_products = form.products.map(product => product.id);
 
-                    promise.then((res) => {
-                        $state.go('organization-funds', {
-                            organization_id: $stateParams.organization_id
-                        });
-                    }, (res) => {
-                        $timeout(() => {
-                            form.errors = res.data.errors;
-                            form.unlock();
-                        }, 0);
-                    });
+                if ($ctrl.fund) {
+                    promise = FundService.update(
+                        $stateParams.organization_id,
+                        $stateParams.id,
+                        form.values
+                    );
+                } else {
+                    promise = FundService.store(
+                        $stateParams.organization_id,
+                        form.values
+                    );
+                }
+
+                promise.then((res) => {
+                    $state.go('organization-funds', { organization_id: $stateParams.organization_id });
+                }, (res) => {
+                    $timeout(() => {
+                        form.errors = res.data.errors;
+                        form.unlock();
+                    }, 0);
                 });
             });
         }, true);
@@ -199,6 +203,7 @@ module.exports = {
         'FundService',
         'ProductService',
         'FormBuilderService',
+        'PushNotificationsService',
         'MediaService',
         FundsEditComponent
     ],

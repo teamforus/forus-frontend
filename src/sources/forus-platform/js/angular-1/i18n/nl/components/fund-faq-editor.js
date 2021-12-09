@@ -1,14 +1,14 @@
 module.exports = {
     fund_faq_editor: {
+        fix_validation_errors: "Please fix all the validation errors and try again.",
         buttons: {
-            add_question: "Vraag toevoegen",
             save: "Bevestigen",
+            add_question: "Vraag toevoegen",
         },
         item: {
             buttons: {
-                edit: "Aanpassen",
-                apply: "Bevestigen",
-                cancel: "Annuleren",
+                expand: "Expand",
+                collapse: "Collapse",
                 delete: "Verwijderen",
             }
         }

@@ -67,8 +67,7 @@ const FundsComponent = function(
 
         if ($ctrl.fund.faq) {
             $ctrl.fund.faq = $ctrl.fund.faq.map(question => {
-                question.description_html = $sce.trustAsHtml(question.description_html);
-                return question;
+                return { ...question, description_html: $sce.trustAsHtml(question.description_html) };
             });
         }
     };
