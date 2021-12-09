@@ -107,6 +107,7 @@ module.exports = {
     image_preview: require("./nl/modals/modal-image-preview"),
     modal: require("./nl/modals/modal"),
     modal_product_reserve: require("./nl/modals/modal-product-reserve"),
+    modal_product_reserve_notes: require("./nl/modals/modal-product-reserve-notes"),
     modal_product_reserve_cancel: require("./nl/modals/modal-product-reserve-cancel"),
 
     // DIRECTIVES

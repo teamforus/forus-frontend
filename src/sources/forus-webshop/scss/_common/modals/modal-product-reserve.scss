@@ -17,8 +17,7 @@
         .description {
             font-size: 17px;
             line-height: 22px;
-            color: $color_primary;
-            
+
             a {
                 color: $color_primary;
                 text-decoration: underline;
@@ -57,6 +56,12 @@
         }
     }
 
+    &.modal-sm {
+        .modal-window {
+            width: 800px;
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         .modal-window {
             height: 100%;
@@ -78,13 +83,13 @@
                 flex-grow: 1;
                 justify-content: center;
                 padding: 30px 20px 20px;
-                
+
                 .title {
                     padding: 0;
                     font: 700 22px/28px $bf;
                     margin: 0 0 20px;
                 }
-    
+
                 .description {
                     padding: 0;
                     font: 400 15px/22px $bf;

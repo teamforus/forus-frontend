@@ -3,7 +3,7 @@
     .question-item(ng-repeat="question in $dir.faq")
         .question-header
             //- Question icon
-            .question-icon(ng-class="{'text-danger' : !question.collapsed && !question.title}")
+            .question-icon(ng-class="{'text-danger' : !question.collapsed && (!question.title || !question.description)}")
                 em.mdi.mdi-frequently-asked-questions
 
             //- Question title
@@ -16,8 +16,7 @@
                 //- Collapsed title
                 span(
                     ng-if="!question.collapsed" 
-                    ng-bind="question.title || 'Geen vraag'" 
-                    ng-class="{'text-danger' : !question.title}")
+                    ng-bind="question.title || 'Geen vraag'")
 
             //- Question actions
             .question-actions

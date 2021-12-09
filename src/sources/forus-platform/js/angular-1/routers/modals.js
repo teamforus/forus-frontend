@@ -155,6 +155,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalPhysicalCardOrderComponent'
     });
     
+    ModalRouteProvider.modal('reservationNotes', {
+        component: 'modalReservationNotesComponent'
+    });
+  
     ModalRouteProvider.modal('switchBankConnectionAccount', {
         component: 'modalSwitchBankConnectionAccountComponent'
     });
