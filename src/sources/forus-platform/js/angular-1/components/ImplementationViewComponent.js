@@ -26,6 +26,8 @@ let ImplementationViewComponent = function(
     };
 
     $ctrl.$onInit = () => {
+        console.log($ctrl);
+        console.log($ctrl.funds);
         $ctrl.initialFunds = $ctrl.funds;
 
         $scope.$watch('$ctrl.filters.values.q', function(value) {

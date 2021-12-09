@@ -1,5 +1,5 @@
-let FundsShowComponent = function($state, ModalService, FundService) {
-    let $ctrl = this;
+const FundsShowComponent = function($state, ModalService, FundService) {
+    const $ctrl = this;
 
     $ctrl.showDropdownMenuItem = false;
 
@@ -7,7 +7,7 @@ let FundsShowComponent = function($state, ModalService, FundService) {
         e.stopPropagation();
         $ctrl.showDropdownMenuItem = true;
     };
-    
+
     $ctrl.onClickOutsideMenu = (e) => {
         e.stopPropagation();
         $ctrl.showDropdownMenuItem = false;
@@ -20,20 +20,19 @@ let FundsShowComponent = function($state, ModalService, FundService) {
             icon: 'product-error',
             description: 'fund_card_sponsor.confirm_delete.description',
             confirm: () => {
-                FundService.destroy($ctrl.fund.organization_id, $ctrl.fund.id).then(() => $state.go('organization-funds', {
-                    organization_id: $ctrl.fund.organization_id
-                }));
+                FundService.destroy(fund.organization_id, fund.id).then(() => {
+                    $state.go('organization-funds', {
+                        organization_id: fund.organization_id
+                    });
+                });
             }
         });
     };
-
-    $ctrl.$onInit = function() {};
 };
 
 module.exports = {
     bindings: {
         fund: '<',
-        fundLevel: '<'
     },
     controller: [
         '$state',

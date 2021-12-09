@@ -88,10 +88,14 @@
 
                                             .tag.tag-default(translate="fund_card_sponsor.status.closed")
 
-                                td(ng-if="$root.activeOrganization.backoffice_available")
+                                td(ng-if="$root.activeOrganization.backoffice_available"): .button-group
                                     a(ng-if="fund.key" ui-sref="fund-backoffice-edit(fund)").button.button-default
                                         em.mdi.mdi-cog.icon-start 
                                         | Backoffice
+                                    
+                                    a(ui-sref="funds-show(fund)").button.button-primary
+                                        em.mdi.mdi-eye-outline.icon-start
+                                        | Bekijken
                                         
                             
                 .card-title.text-center(ng-if="$ctrl.funds.length == 0") Geen fondsen gekoppeld aan deze implementatie. 

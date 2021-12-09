@@ -89,6 +89,8 @@ let FundCardSponsorDirective = function(
             });
         }
     }
+
+    console.log('asdasda');
 };
 
 module.exports = () => {

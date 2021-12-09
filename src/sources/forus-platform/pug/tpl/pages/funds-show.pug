@@ -2,7 +2,7 @@
     menu
     section.app.app-content
         .block.block-breadcrumbs
-            .breadcrumb-item(
+            a.breadcrumb-item(
                 ui-sref="organization-funds({organization_id: $ctrl.fund.organization_id})" 
                 translate="page_state_titles.funds")
             .breadcrumb-item.active(ng-bind="$ctrl.fund.name")
@@ -10,7 +10,7 @@
         .block.block-fund
             .fund-overview
                 .fund-media: img.fund-media-img(
-                    ng-src="{{ $ctrl.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                    ng-src="{{ $ctrl.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
                 .fund-details
                     .fund-name(ng-bind="$ctrl.fund.name")
@@ -23,7 +23,7 @@
                     .description-header-action
                         .button.button-default(
                             ng-if="($ctrl.fund.organization | hasPerm:'manage_funds') && $ctrl.fund.state == 'waiting'"
-                            ng-click="$ctrl.deleteFund()")
+                            ng-click="$ctrl.deleteFund($ctrl.fund)")
                             em.mdi.mdi-trash-can-outline.icon-start
                             | Verwijderen
 
@@ -35,7 +35,7 @@
 
                 .description-body(ng-if="$ctrl.fund.description_html")
                     .arrow-box.border.bg-dim: .arrow
-                    div(ng-bind-html="$ctrl.fund.description_html")
+                    .block.block-markdown(ng-bind-html="$ctrl.fund.description_html")
 
                 .description-body(ng-if="!$ctrl.fund.description_html") 
                     .arrow-box.border.bg-dim: .arrow

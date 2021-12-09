@@ -650,22 +650,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "fundsShowComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-show', [
-                'manage_funds', 'view_finances'
-            ], false),
-            fund: [
-                'permission', '$transition$', 'FundService', (
-                    permission, $transition$, FundService
-                ) => {
-                    return repackResponse(
-                        FundService.read(
-                            $transition$.params().organization_id,
-                            $transition$.params().id
-                        )
-                    );
-                }
-            ],
-            fundLevel: ['permission', (permission) => "fundShow"]
+            permission: permissionMiddleware('funds-show', ['manage_funds', 'view_finances'], false),
+            fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
+            }],
         }
     });
 
@@ -928,7 +916,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 });
             }],
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
-                repackResponse(FundService.list($transition$.params().organization_id, {
+                return repackResponse(FundService.list($transition$.params().organization_id, {
                     implementation_id: $transition$.params().id
                 }))
             }],

@@ -64,65 +64,11 @@
         }
 
         .description-body {
-            padding: 25px;
-            font: 500 14px/20px $bf;
-            color: #646F79;
-            border-bottom: 1px solid $borderColor;
-            cursor: default;
-            position: relative;
+            padding: 20px 25px;
+            display: block;
 
-            .arrow-box {
-                left: 70px;
-            }
-
-            ul, ol, li, p {
-                font: 400 14px/20px $bf;
-                margin: 0 0 10px;
-            }
-
-            strong, b {
-                font: 600 14px/22px $bf;
-            }
-
-            em, i {
-                font: 600 14px/22px $bf;
-            }
-
-            ul {
-                li {
-                    margin: 0 0 5px;
-
-                    &:before {
-                        content: '•';
-                        float: left;
-                        display: block;
-                        width: 15px;
-                        padding-left: 0px;
-                        padding-right: 10px;
-                        font-size: 2em;
-                        line-height: 18px;
-                    }
-
-                    &:last-child {
-                        margin: 0 0 0;
-                    }
-                }
-            }
-
-            ol {
-                padding-left: 15px;
-                
-                li {
-                    margin: 0 0 5px;
-
-                    &:last-child {
-                        margin: 0 0 0;
-                    }
-                }
-            }
-
-            &:last-child {
-                border-bottom: none;
+            .block-markdown {
+                color: #282B39;
             }
         }
     }
