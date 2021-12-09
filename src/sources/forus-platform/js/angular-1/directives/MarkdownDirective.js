@@ -248,7 +248,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                         }
                     });
 
-                    if (turndownPluginGfm) {
+                    if (typeof turndownPluginGfm != 'undefined') {
                         turndownService.use(turndownPluginGfm.gfm);
                     }
 
