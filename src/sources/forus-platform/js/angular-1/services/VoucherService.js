@@ -143,6 +143,9 @@ const VoucherService = function(ApiRequest) {
             }, {
                 value: 'deactivated',
                 name: 'Gedeactiveerd'
+            }, {
+                value: 'expired',
+                name: 'Verlopen'
             }];
         };
     });
