@@ -83,11 +83,11 @@
                         .keyvalue-value
                             span(
                                 ng-bind="$ctrl.transaction.iban_from" 
-                                ng-class="{'text-muted-dark' : $ctrl.transaction.state == 'pending'}")
+                                ng-class="{'text-muted-dark' : !$ctrl.transaction.iban_final}")
 
                             tooltip(
                                 text="'financial_dashboard_transaction.tooltips.pending_iban_from' | translate" 
-                                ng-if="$ctrl.transaction.state == 'pending'")
+                                ng-if="!$ctrl.transaction.iban_final")
 
                     //- Provider iban
                     .keyvalue-item(ng-if="$ctrl.transaction.iban_to")
@@ -95,11 +95,11 @@
                         .keyvalue-value
                             span(
                                 ng-bind="$ctrl.transaction.iban_to" 
-                                ng-class="{'text-muted-dark' : $ctrl.transaction.state == 'pending'}")
+                                ng-class="{'text-muted-dark' : !$ctrl.transaction.iban_final}")
 
                             tooltip(
                                 text="'financial_dashboard_transaction.tooltips.pending_iban_to' | translate" 
-                                ng-if="$ctrl.transaction.state == 'pending'")
+                                ng-if="!$ctrl.transaction.iban_final")
                 
                 .flex.flex-column.flex-end(ng-if="$ctrl.transaction.cancelable && $ctrl.transaction.reservation")
                     button(ng-click="$ctrl.cancelTransaction($ctrl.transaction.reservation)").button.button-default.button-sm
