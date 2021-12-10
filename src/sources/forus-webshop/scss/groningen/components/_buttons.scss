@@ -1,12 +1,13 @@
 .button {
     border-radius: 0;
     font: 700 16px/1.5em $bf;
+
     &:hover {
         box-shadow: none;
     }
 
     &.button-default {
-        background-color: #FFF;
+        background-color: #fff;
         border: 1px solid transparent;
         border-color: #000;
         color: #000;
@@ -16,22 +17,25 @@
         }
 
         &:hover {
-            background-color: #FF0031;
+            background-color: #ff0031;
             border: 1px solid #470000;
-            color:  #FFF;
+            color: #fff;
             text-decoration: underline;
             box-shadow: none;
+
             .mdi {
-                color: #FFF;
+                color: #fff;
             }
         }
     }
+
     &.button-primary {
         color: $tc-var;
         background: $color-default;
         text-shadow: none;
         border: 1px solid transparent;
         box-shadow: none;
+
         &:hover {
             color: $color-default;
             text-decoration: underline;
@@ -40,21 +44,25 @@
             border: 1px solid $color-default;
         }
     }
+
     &.button-disabled {
         color: $ptc;
         border: 1px solid $ptc;
     }
+
     &.button-wide {
-        background-color: #FFF;
+        background-color: #fff;
         color: #000;
         border-color: #000;
     }
-    &.button-two-spans{
+
+    &.button-two-spans {
         display: flex !important;
         padding: 7px !important;
         align-items: center !important;
+
         .icon-me {
-            mask: url('../img/icon-me.svg');
+            mask: url("../img/icon-me.svg");
             background: $color_default;
             transition: background-color 0.5s ease;
             display: inline-block;
@@ -64,6 +72,7 @@
             margin: 0 7px 0px 0px;
             border: 1px;
         }
+
         .first-line-button {
             line-height: 10px;
             font-size: 16px;
@@ -71,17 +80,18 @@
             text-align: right;
             flex: 1;
             text-transform: lowercase;
-            &::first-letter{
+            &::first-letter {
                 text-transform: uppercase;
             }
         }
-        
+
         .second-line-button {
             display: none;
         }
+
         &:hover {
             .icon-me {
-                mask: url('../img/icon-me.svg');
+                mask: url("../img/icon-me.svg");
                 background: #157c68;
                 mask-size: cover;
             }
