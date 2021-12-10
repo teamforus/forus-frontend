@@ -41,7 +41,7 @@
                     .arrow-box.border.bg-dim: .arrow
                     | Geen data
 
-        .card.card-collapsed
+        .card.card-collapsed(ng-if="$ctrl.fund.implementation")
             .card-header: .flex-row
                 .flex-col: .card-title Webshop
 

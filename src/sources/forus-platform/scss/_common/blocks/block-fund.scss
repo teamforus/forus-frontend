@@ -64,8 +64,10 @@
         }
 
         .description-body {
+            font: 500 14px/24px $bf;
             padding: 20px 25px;
             display: block;
+            color: #626262;
 
             .block-markdown {
                 color: #282B39;
