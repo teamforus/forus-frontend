@@ -928,7 +928,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 });
             }],
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
-                repackResponse(FundService.list($transition$.params().organization_id, {
+                return repackResponse(FundService.list($transition$.params().organization_id, {
                     implementation_id: $transition$.params().id
                 }))
             }],
