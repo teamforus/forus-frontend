@@ -58,6 +58,43 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.description_short" ng-bind="error")
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                //- Activation method
+                .form-group.form-group-inline
+                    label(translate="funds_edit.labels.application_method").form-label
+                    select(
+                        ng-disabled="$ctrl.fund && ($ctrl.fund.state != 'waiting')"
+                        ng-model="$ctrl.form.values.application_method" 
+                        ng-change="$ctrl.onMethodChange($ctrl.form.values.application_method, '{{$ctrl.form.values.application_method}}')"
+                        ng-options="applicationMethod.key as applicationMethod.name for applicationMethod in $ctrl.applicationMethods"
+                        placeholder="Selecteer aanvraagmethode...").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.applicationMethod" ng-bind="error")
+
+                //- Allow direct fund requests
+                .form-group.form-group-inline
+                    label.form-label(for="option_request_btn_state" translate="funds_edit.labels.request_btn.allow_direct_requests")
+                    .form-offset
+                        label(ng-disabled="($ctrl.fund && ($ctrl.fund.state != 'waiting')) || ($ctrl.form.values.application_method != 'external')").form-toggle
+                            input(
+                                type="checkbox" 
+                                id="option_request_btn_state"
+                                ng-checked="($ctrl.form.values.application_method != 'external') || $ctrl.form.values.allow_direct_requests"
+                                ng-model="$ctrl.form.values.allow_direct_requests")
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+                //- Request button text
+                .form-group.form-group-inline
+                    label(translate="funds_edit.labels.request_btn.text").form-label
+                    input(ng-model="$ctrl.form.values.request_btn_text" type="text" placeholder="Aanvragen").form-control
+
+                //- Request button url
+                .form-group.form-group-inline(
+                    ng-if="($ctrl.form.values.application_method == 'external') && !$ctrl.form.values.allow_direct_requests")
+                    label(translate="funds_edit.labels.request_btn.external_link").form-label
+                    input(
+                        ng-model="$ctrl.form.values.request_btn_url" 
+                        placeholder="https://gemeente+1.nl/aanmelden").form-control
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.description").form-label
                     .form-offset: markdown(
@@ -138,6 +175,21 @@
                         record-types="$ctrl.recordTypes" 
                         validator-organizations="$ctrl.validatorOrganizations.data"
                         register-parent="$ctrl.registerCriteriaEditor(childRef)")
+
+            .card-section.card-section-primary
+                .form-group.form-group-inline
+                    label.form-label Titel van blok
+                    input(type="text" ng-model="$ctrl.form.values.faq_title" placeholder="Veel gestelde vragen").form-control
+                    
+                    .form-error(ng-repeat="error in $ctrl.form.errors.faq_title" ng-bind="error")
+
+                .form-group.form-group-inline
+                    label.form-label Veel gestelde vragen
+                    .form-offset: fund-faq-editor(
+                        faq="$ctrl.form.values.faq"
+                        fund="$ctrl.fund"
+                        organization="$ctrl.organization" 
+                        register-parent="$ctrl.registerFaqEditor(childRef)")
         
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline

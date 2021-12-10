@@ -7,6 +7,7 @@ const FundsEditComponent = function(
     FundService,
     ProductService,
     FormBuilderService,
+    PushNotificationsService,
     MediaService,
 ) {
     const $ctrl = this;
@@ -14,6 +15,54 @@ const FundsEditComponent = function(
 
     $ctrl.products = [];
     $ctrl.criteriaEditor = null;
+    $ctrl.faqEditor = null
+
+    $ctrl.applicationMethods = [{
+        key: 'application_form',
+        name: 'Aanvraagformulier',
+        default_button_text: "Aanvragen",
+        configs: {
+            allow_fund_requests: 1,
+            allow_prevalidations: 1,
+        },
+    }, {
+        key: 'activation_codes',
+        name: 'Activatiecodes',
+        default_button_text: "Activeren",
+        configs: {
+            allow_fund_requests: 1,
+            allow_prevalidations: 0,
+        },
+    }, {
+        key: 'application_form_and_activation_codes',
+        name: 'Aanvraagformulier en activatiecodes',
+        default_button_text: "Aanvragen",
+        configs: {
+            allow_fund_requests: 0,
+            allow_prevalidations: 1,
+        },
+    }, {
+        key: 'external',
+        name: 'Geen aanvraagformulier en activatiecodes (extern)',
+        default_button_text: "Aanvragen",
+        configs: {
+            allow_fund_requests: 0,
+            allow_prevalidations: 0,
+        },
+    }];
+
+    $ctrl.findMethod = (key) => {
+        return $ctrl.applicationMethods.filter((method) => method.key == key)[0] || {};
+    };
+
+    $ctrl.onMethodChange = (value, prevValue) => {
+        const method = $ctrl.findMethod(value);
+        const preMethod = $ctrl.findMethod(prevValue);
+
+        if (preMethod.default_button_text == $ctrl.form.values.request_btn_text) {
+            $ctrl.form.values.request_btn_text = method.default_button_text;
+        }
+    };
 
     $ctrl.fundTypes = [{
         key: 'budget',
@@ -80,6 +129,10 @@ const FundsEditComponent = function(
         $ctrl.criteriaEditor = childRef;
     }
 
+    $ctrl.registerFaqEditor = function(childRef) {
+        $ctrl.faqEditor = childRef;
+    }
+
     $ctrl.appendMedia = (media_uid, formValue) => {
         if (!Array.isArray(formValue.description_media_uid)) {
             formValue.description_media_uid = [];
@@ -94,8 +147,12 @@ const FundsEditComponent = function(
             auto_requests_validation: false,
             formula_products: [],
             criteria: [],
+            faq: [],
             state: $ctrl.fundStates[0].value,
             type: 'budget',
+            application_method: 'application_form',
+            request_btn_text: $ctrl.findMethod('application_form').default_button_text,
+            allow_direct_requests: true,
             start_date: moment().add(6, 'days').format('DD-MM-YYYY'),
             end_date: moment().add(1, 'years').format('DD-MM-YYYY'),
         };
@@ -119,34 +176,41 @@ const FundsEditComponent = function(
                     return form.unlock();
                 }
 
+                try {
+                    await $ctrl.faqEditor.validate();
+                } catch (e) {
+                    PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
+                    return form.unlock();
+                };
+
                 let promise;
+                const { values } = form;
 
                 if (mediaFile) {
                     let res = await MediaService.store('fund_logo', mediaFile);
 
                     $ctrl.media = res.data.data;
-                    $ctrl.form.values.media_uid = $ctrl.media.uid;
+                    values.media_uid = $ctrl.media.uid;
                 }
 
-                form.values.formula_products = form.products.map(product => product.id);
+                values.formula_products = form.products.map(product => product.id);
+                values.allow_direct_requests = (values.application_method != 'external') || values.allow_direct_requests;
 
                 if ($ctrl.fund) {
                     promise = FundService.update(
                         $stateParams.organization_id,
                         $stateParams.id,
-                        form.values
+                        { ...values, ...$ctrl.findMethod(values.application_method).configs || {} }
                     );
                 } else {
                     promise = FundService.store(
                         $stateParams.organization_id,
-                        form.values
+                        { ...values, ...$ctrl.findMethod(values.application_method).configs || {} }
                     );
                 }
 
-                promise.then((res) => {
-                    $state.go('organization-funds', {
-                        organization_id: $stateParams.organization_id
-                    });
+                promise.then(() => {
+                    $state.go('organization-funds', { organization_id: $stateParams.organization_id });
                 }, (res) => {
                     $timeout(() => {
                         form.errors = res.data.errors;
@@ -157,9 +221,7 @@ const FundsEditComponent = function(
         }, true);
 
         if ($ctrl.fund && $ctrl.fund.logo) {
-            MediaService.read($ctrl.fund.logo.uid).then((res) => {
-                $ctrl.media = res.data.data;
-            });
+            MediaService.read($ctrl.fund.logo.uid).then((res) => $ctrl.media = res.data.data);
         }
 
         ProductService.listAll({
@@ -203,6 +265,7 @@ module.exports = {
         'FundService',
         'ProductService',
         'FormBuilderService',
+        'PushNotificationsService',
         'MediaService',
         FundsEditComponent
     ],

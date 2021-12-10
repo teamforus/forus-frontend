@@ -2,11 +2,24 @@ const FundsComponent = function(
     $sce,
     $state,
     $stateParams,
+    $filter,
     appConfigs,
     FundService,
     ModalService
 ) {
     const $ctrl = this;
+
+    let $translate = $filter('translate');
+
+    let trans = (key) => {
+        let transKey = 'funds.buttons.' + appConfigs.client_key + '.' + key;
+
+        if ($translate(transKey) && $translate(transKey) != transKey) {
+            return $translate(transKey);
+        }
+
+        return $translate('funds.buttons.' + key);
+    }
 
     $ctrl.fundLogo = null;
     $ctrl.appConfigs = appConfigs;
@@ -28,11 +41,21 @@ const FundsComponent = function(
         $ctrl.fund.alreadyReceived = $ctrl.fund.vouchers.length !== 0;
         $ctrl.fund.voucherStateName = 'vouchers';
 
-        $ctrl.fund.showRequestButton = !$ctrl.fund.alreadyReceived &&
-            $ctrl.fund.allow_direct_requests &&
+        $ctrl.fund.showRequestButton = 
+            !$ctrl.fund.alreadyReceived &&
             !$ctrl.fund.has_pending_fund_requests &&
             !$ctrl.fund.isApplicable &&
+            $ctrl.fund.allow_direct_requests && 
             $ctrl.configs.funds.fund_requests;
+
+        $ctrl.fund.showRequestLinkButton = 
+            !$ctrl.fund.alreadyReceived &&
+            !$ctrl.fund.has_pending_fund_requests &&
+            !$ctrl.fund.isApplicable &&
+            !$ctrl.fund.allow_direct_requests && 
+            $ctrl.configs.funds.fund_requests &&
+            $ctrl.fund.request_btn_text &&
+            $ctrl.fund.request_btn_url;
 
         $ctrl.fund.showPendingButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.has_pending_fund_requests;
         $ctrl.fund.showActivateButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.isApplicable;
@@ -41,6 +64,8 @@ const FundsComponent = function(
         if ($ctrl.fund.vouchers[0] && $ctrl.fund.vouchers[0].address) {
             $ctrl.fund.voucherStateName = 'voucher({ address: $ctrl.fund.vouchers[0].address })';
         }
+
+        $ctrl.fund.requestButtonText = $ctrl.fund.request_btn_text ? $ctrl.fund.request_btn_text : trans('start_request');
     };
 
     $ctrl.$onInit = function() {
@@ -65,6 +90,11 @@ const FundsComponent = function(
             })),
         };
 
+        if ($ctrl.fund.faq) {
+            $ctrl.fund.faq = $ctrl.fund.faq.map(question => {
+                return { ...question, description_html: $sce.trustAsHtml(question.description_html) };
+            });
+        }
     };
 };
 
@@ -82,6 +112,7 @@ module.exports = {
         '$sce',
         '$state',
         '$stateParams',
+        '$filter',
         'appConfigs',
         'FundService',
         'ModalService',
