@@ -19,16 +19,16 @@ main(id="main-content")
         .block.block-fund
             mixin fund_actions
                 .fund-actions
-                    button.button.button-primary.button-wide(
-                        ng-if="$ctrl.fund.showRequestButton"
-                        ui-sref="fund-activate({fund_id: $ctrl.fund.id})"
-                        ng-bind="$ctrl.fund.requestButtonText")
-
-                    a.button.button.button-primary.button-fill(
+                    a.button.button.button-primary.button-wide(
                         target="_blank"
                         ng-if="$ctrl.fund.showRequestLinkButton"
                         ng-href="{{ $ctrl.fund.request_btn_url }}"
                         ng-bind="$ctrl.fund.request_btn_text")
+
+                    button.button.button-primary.button-wide(
+                        ng-if="$ctrl.fund.showRequestButton"
+                        ui-sref="fund-activate({fund_id: $ctrl.fund.id})"
+                        ng-bind="$ctrl.fund.requestButtonText")
 
                     button.button.button-primary.button-wide.button-disabled(
                         ng-if="$ctrl.fund.showPendingButton"

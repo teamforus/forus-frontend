@@ -51,6 +51,17 @@ const FundsEditComponent = function(
         },
     }];
 
+    $ctrl.fundTypes = [{
+        key: 'budget',
+        name: 'Waardebon'
+    }, {
+        key: 'subsidies',
+        name: 'Kortingspas'
+    }, {
+        key: 'external',
+        name: 'Geen (extern)'
+    }];
+
     $ctrl.findMethod = (key) => {
         return $ctrl.applicationMethods.filter((method) => method.key == key)[0] || {};
     };
@@ -63,17 +74,6 @@ const FundsEditComponent = function(
             $ctrl.form.values.request_btn_text = method.default_button_text;
         }
     };
-
-    $ctrl.fundTypes = [{
-        key: 'budget',
-        name: 'Waardebon'
-    }, {
-        key: 'subsidies',
-        name: 'Kortingspas'
-    }, {
-        key: 'external',
-        name: 'Geen (extern)'
-    }];
 
     $ctrl.getProductOptions = (product) => ($ctrl.productOptions || []).concat(product);
 
@@ -91,6 +91,12 @@ const FundsEditComponent = function(
 
         $ctrl.updateProductOptions();
     };
+
+    $ctrl.onFundTypeChange = (type) => {
+        if (type == 'external') {
+            $ctrl.form.values.application_method = 'external';
+        }
+    }
 
     $scope.$watch('$ctrl.form.products', (products) => {
         if (products && Array.isArray(products)) {

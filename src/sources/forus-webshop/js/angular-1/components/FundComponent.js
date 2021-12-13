@@ -4,8 +4,7 @@ const FundsComponent = function(
     $stateParams,
     $filter,
     appConfigs,
-    FundService,
-    ModalService
+    FundService
 ) {
     const $ctrl = this;
 
@@ -37,7 +36,7 @@ const FundsComponent = function(
 
     $ctrl.updateFundsMeta = () => {
         $ctrl.fund.vouchers = $ctrl.vouchers.filter(voucher => voucher.fund_id == $ctrl.fund.id && !voucher.expired);
-        $ctrl.fund.isApplicable = $ctrl.fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
+        $ctrl.fund.isApplicable = $ctrl.fund.criteria.length > 0 && $ctrl.fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
         $ctrl.fund.alreadyReceived = $ctrl.fund.vouchers.length !== 0;
         $ctrl.fund.voucherStateName = 'vouchers';
 
@@ -115,7 +114,6 @@ module.exports = {
         '$filter',
         'appConfigs',
         'FundService',
-        'ModalService',
         FundsComponent
     ],
     templateUrl: 'assets/tpl/pages/fund.html'

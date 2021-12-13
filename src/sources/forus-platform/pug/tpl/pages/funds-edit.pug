@@ -12,41 +12,21 @@
                 .card-title(ng-if="!$ctrl.fund" i18n="funds_edit.header.title_add")
                 .card-title(ng-if="$ctrl.fund" i18n="funds_edit.header.title_edit")
             
-            .card-section.card-section-primary: .row: .col.col-xs-12
+            .card-section.card-section-primary
                 .form-group.form-group-inline
                     label.form-label.hidden-md &nbsp;
                     .form-offset: photo-selector(
                         type="fund_logo"
                         thumbnail="$ctrl.media.sizes.thumbnail"
                         select-photo="$ctrl.selectPhoto(file)")
-            
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
-                .form-group.form-group-inline   
-                    label.form-label Soort fonds
 
-                    select(
-                        ng-if="!$ctrl.fund"
-                        ng-model="$ctrl.form.values.type" 
-                        ng-options="fund_type.key as fund_type.name for fund_type in $ctrl.fundTypes").form-control
-
-                    .form-offset(ng-if="$ctrl.fund"): .block.block-fund_types
-                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'budget'"): .fund_type-item-inner
-                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions-read.svg')
-                            .fund_type-name Financieel budget
-                            .fund_type-check: .mdi.mdi-check
-                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'subsidies'"): .fund_type-item-inner
-                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget-read.svg')
-                            .fund_type-name Acties
-                            .fund_type-check: .mdi.mdi-check
-            
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.name").form-label
                     input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                     input(type="hidden" ng-model="$ctrl.form.values.state")
-            
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.description_short").form-label
                     .form-offset
@@ -57,12 +37,38 @@
                         .form-hint Max. 140 tekens
                         .form-error(ng-repeat="error in $ctrl.form.errors.description_short" ng-bind="error")
             
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+                .form-group.form-group-inline   
+                    label.form-label Soort fonds
+
+                    select(
+                        ng-if="!$ctrl.fund"
+                        ng-model="$ctrl.form.values.type" 
+                        ng-change="$ctrl.onFundTypeChange($ctrl.form.values.type)"
+                        ng-options="fund_type.key as fund_type.name for fund_type in $ctrl.fundTypes").form-control
+
+                    .form-offset(ng-if="$ctrl.fund"): .block.block-fund_types
+                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'budget'"): .fund_type-item-inner
+                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions-read.svg')
+                            .fund_type-name Financieel budget
+                            .fund_type-check: .mdi.mdi-check
+
+                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'subsidies'"): .fund_type-item-inner
+                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget-read.svg')
+                            .fund_type-name Acties
+                            .fund_type-check: .mdi.mdi-check
+
+                        //- todo: replace th icon
+                        .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'external'"): .fund_type-item-inner
+                            .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-budget-read.svg')
+                            .fund_type-name Geen (extern)
+                            .fund_type-check: .mdi.mdi-check
+
                 //- Activation method
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.application_method").form-label
                     select(
-                        ng-disabled="$ctrl.fund && ($ctrl.fund.state != 'waiting')"
+                        ng-disabled="($ctrl.form.values.type == 'external') || ($ctrl.fund && ($ctrl.fund.state != 'waiting'))"
                         ng-model="$ctrl.form.values.application_method" 
                         ng-change="$ctrl.onMethodChange($ctrl.form.values.application_method, '{{$ctrl.form.values.application_method}}')"
                         ng-options="applicationMethod.key as applicationMethod.name for applicationMethod in $ctrl.applicationMethods"
