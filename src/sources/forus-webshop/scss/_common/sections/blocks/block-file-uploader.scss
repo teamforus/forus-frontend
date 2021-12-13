@@ -122,6 +122,13 @@
 
                 .file-item-action {
                     padding-left: 10px;
+                    
+                    button {
+                        border: none;
+                        background-color: inherit;
+                        margin: 0;
+                        padding: 0;     
+                    }
 
                     .mdi {
                         font-size: 16px;

@@ -89,6 +89,15 @@
                     }
                 }
 
+                &:focus {
+                    color: rgb(155, 70, 70);
+                    background-color: 1px solid desaturate($color: darken($color: $color_primary, $amount: 35%), $amount: 75%);;
+
+                    .mdi {
+                        color: rgb(143, 143, 143);
+                    }
+                }
+
                 &.active {
                     font-weight: bold;
                 }
@@ -151,6 +160,7 @@
         &.label-tab-sm {
             padding: 4px 8px;
             font: 500 11px/20px $bf;
+            transition: all 0.3s ease;
 
             &:first-child {
                 border-top-left-radius: $border_radius / 2;
@@ -160,6 +170,17 @@
             &:last-child {
                 border-top-right-radius: $border_radius / 2;
                 border-bottom-right-radius: $border_radius / 2;
+            }
+            &:focus {
+                outline: 2px;
+                background-color: $color_primary_light;
+                color: white; 
+                border: 1px solid black !important;
+                offset: 2px;
+                outline: 5px;
+                .mdi {
+                    color: white;
+                }  
             }
         }
 

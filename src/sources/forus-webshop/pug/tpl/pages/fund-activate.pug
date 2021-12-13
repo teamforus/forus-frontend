@@ -5,12 +5,12 @@ top-navbar
 main(id="main-content")
     section: .wrapper 
         .block.block-sign_up: .block-wrapper
-            .block-title(ng-if="$ctrl.state && $ctrl.state != 'digid_login' && $ctrl.state != 'pincode_activate'" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
+            h1.block-title(ng-if="$ctrl.state && $ctrl.state != 'digid_login' && $ctrl.state != 'pincode_activate'" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
             //- No funds received after signing-up through DigiD, fund requests are disabled
             div(ng-if="$ctrl.state == 'error_digid_no_funds'")
                 .sign_up-pane
-                    .sign_up-pane-header Aanvraag mislukt
+                    h2.sign_up-pane-header Aanvraag mislukt
                     .sign_up-pane-body
                         p.sign_up-pane-text.text-center 
                             | U kunt zich niet aanmelden voor {{ $ctrl.fund.name }}.
@@ -45,7 +45,7 @@ main(id="main-content")
 
             div(ng-if="$ctrl.state == 'backoffice_error'")
                 .sign_up-pane    
-                    .sign_up-pane-header Status
+                    h2.sign_up-pane-header Status
                     .sign_up-pane-body.text-center
                         p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
                         p.sign_up-pane-text 
@@ -60,7 +60,7 @@ main(id="main-content")
             //- Fund request in progress
             div(ng-if="$ctrl.state == 'fund_already_applied'")
                 .sign_up-pane    
-                    .sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
+                    h2.sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
 
                     .sign_up-pane-body
                         .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="")
@@ -104,7 +104,7 @@ main(id="main-content")
             //- Prevalidation pincode
             div(ng-if="$ctrl.state == 'pincode_activate'")
                 .sign_up-pane
-                    .sign_up-pane-header Vul uw activatiecode in
+                    h2.sign_up-pane-header Vul uw activatiecode in
                     .sign_up-pane-body(ng-class="{'sign_up-pane-body-padless-bottom': $ctrl.fundRequestAvailable}")
                         form.form(ng-submit="$ctrl.activateCodeForm.submit()")
                             .form-group.text-center

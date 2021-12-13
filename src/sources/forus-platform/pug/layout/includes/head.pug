@@ -39,3 +39,7 @@ head
     
     if (qdt_c.platform.env_data.html5ModeEnabled)
         base(href=qdt_c.platform.env_data.html5Mode.basePath)
+
+    if (qdt_c.platform.env_data.aws_rum && qdt_c.platform.env_data.aws_rum.id)
+        script.
+            (function(n,i,v,r,s,c,x,z){x=window.AwsRumClient={q:[],n:n,i:i,v:v,r:r,c:c};window[n]=function(c,p){x.q.push({c:c,p:p});};z=document.createElement('script');z.async=true;z.src=s;document.head.insertBefore(z,document.getElementsByTagName('script')[0]);})('cwr','#{qdt_c.platform.env_data.aws_rum.id}','1.0.0','eu-west-1','https://client.rum.us-east-1.amazonaws.com/1.0.2/cwr.js',!{JSON.stringify(qdt_c.platform.env_data.aws_rum.config)})

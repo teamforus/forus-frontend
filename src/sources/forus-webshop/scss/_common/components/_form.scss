@@ -49,7 +49,8 @@ $formPadding: 14px 15px;
         }
 
         &:focus {
-            outline: none;
+            outline: 5px auto -webkit-focus-ring-color !important;
+            outline-offset: -2px;
             background-color: #ffffff;
             border: 1px solid desaturate($color: darken($color: $border_color, $amount: 75%), $amount: 85%);
         }
@@ -612,7 +613,7 @@ $formPadding: 14px 15px;
             cursor: pointer;
 
             .toggle-input {
-                background-color: #eaf0f6;
+                background-color: #8B969C;
                 margin-right: 10px;
                 border-radius: 10px;
                 width: 45px;
@@ -645,7 +646,7 @@ $formPadding: 14px 15px;
                         &:after {
                             content: '';
                             display: block;
-                            background-color: #b4b9c9;
+                            background-color: #646F79;
                             height: 15px;
                             width: 3px;
                             position: absolute;

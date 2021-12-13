@@ -1,0 +1,115 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs(ng-if="$root.activeOrganization")
+            .breadcrumb-item(
+                ui-sref="transactions({organization_id:$ctrl.organization.id})" 
+                translate="page_state_titles.transactions")
+            .breadcrumb-item.active(ng-bind="'#' + $ctrl.transactionBulk.id")
+
+        .card
+            .card-header: .flex-row
+            
+                .flex.flex-grow: .card-title(translate="financial_dashboard_transaction.labels.details")
+                
+                //- Resend draft payment
+                .flex(ng-if="$ctrl.transactionBulk.state == 'rejected' && ($ctrl.organization | hasPerm:'manage_transaction_bulks')")
+                    button(
+                        ng-click="$ctrl.resetPaymentRequest($ctrl.transactionBulk)" 
+                        ng-disabled="$ctrl.resettingBulk").button.button-danger.button-sm
+
+                        em.mdi.mdi-reload.icon-start(ng-if="!$ctrl.resettingBulk")
+                        em.mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.resettingBulk")
+                        | Verstuur bulktransactie opnieuw
+
+            .card-section: .flex
+                .flex: .card-block.card-block-keyvalue
+                    .keyvalue-item
+                        .keyvalue-key Transactiewaarde
+                        .keyvalue-value(ng-bind="$ctrl.transactionBulk.voucher_transactions_amount | currency_format")
+                    .keyvalue-item
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.id")
+                        .keyvalue-value(ng-bind="$ctrl.transactionBulk.id")
+
+                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq_id")
+                        .keyvalue-value(ng-bind="$ctrl.transactionBulk.payment_id")
+
+                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq")
+                        .keyvalue-value(ng-bind="$ctrl.transactionBulk.voucher_transactions_cost | currency_format")
+
+                    .keyvalue-item
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.date")
+                        .keyvalue-value(ng-bind="$ctrl.transactionBulk.created_at_locale")
+
+                    .keyvalue-item
+                        .keyvalue-key Status
+                        .keyvalue-value
+                            //- Rejected
+                            span.label.label-danger(
+                                ng-if="$ctrl.transactionBulk.state == 'rejected'" 
+                                ng-bind="$ctrl.transactionBulk.state_locale")
+
+                            //- Draft
+                            span.label.label-default(
+                                ng-if="$ctrl.transactionBulk.state == 'draft'"
+                                ng-bind="$ctrl.transactionBulk.state_locale")
+
+                            //- Accepted
+                            span.label.label-success(
+                                ng-if="$ctrl.transactionBulk.state == 'accepted'"
+                                ng-bind="$ctrl.transactionBulk.state_locale")
+
+                            //- Pending
+                            span.label.label-default(
+                                ng-if="$ctrl.transactionBulk.state == 'pending'" 
+                                ng-bind="$ctrl.transactionBulk.state_locale")
+
+                            tooltip(
+                                text="'De status van bulkbetaling wordt om het uur gecontroleerd.'" 
+                                ng-if="$ctrl.transactionBulk.state == 'pending'")
+
+        //- Lit bulk transactions
+        .card(ng-if="$ctrl.transactions")
+            .card-header: .flex-row
+                //- Transactions title
+                .flex.flex-grow: .card-title
+                    span(i18n="transactions.header.title") 
+                    span(ng-bind="$ctrl.transactions.meta.total").span-count
+
+            //- Transactions
+            .card-section
+                .card-block.card-block-table
+                    .table-wrapper
+                        table.table
+                            tr
+                                th(i18n="financial_dashboard_transaction.labels.id")
+                                th(i18n="transactions.labels.price")
+                                th(i18n="transactions.labels.date")
+                                th(i18n="transactions.labels.fund")
+                                th(i18n="transactions.labels.provider")
+                                th(i18n="transactions.labels.status")
+                                th
+
+                            tr(ng-repeat="transaction in $ctrl.transactions.data")
+                                td(ng-bind="transaction.id")
+                                td: a.text-primary-light(
+                                    ng-bind="transaction.amount | currency_format" 
+                                    ui-sref="transaction(transaction.ui_sref)")
+
+                                td(ng-bind="transaction.created_at_locale")
+                                td(ng-bind="transaction.fund.name")
+                                td(ng-bind="transaction.organization.name")
+
+                                td
+                                    .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
+                                    .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
+
+                                td: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.pull-right
+                                    em.mdi.mdi-eye-outline.icon-start
+                                    translate(translate="transactions.buttons.view")
+
+            //- Transactions pagination
+            .card-section(ng-if="$ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
+                paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters" on-page-change="$ctrl.onPageChange(query)")

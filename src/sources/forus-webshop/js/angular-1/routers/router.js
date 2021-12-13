@@ -1012,6 +1012,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: 'sitemap',
+        url: '/sitemap',
+        component: 'sitemapComponent'
+    });
+
+    $stateProvider.state({
         name: 'error-404',
         url: '/*params',
         component: 'errorPageComponent',

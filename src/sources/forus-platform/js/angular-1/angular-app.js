@@ -63,6 +63,8 @@ app.component('implementationNotificationsComponent', require('./components/Impl
 app.component('implementationNotificationsBrandingComponent', require('./components/ImplementationNotificationsBrandingComponent'));
 app.component('implementationNotificationsShowComponent', require('./components/ImplementationNotificationsShowComponent'));
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
+app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
+app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -103,6 +105,7 @@ app.component('modalVoucherDeactivationComponent', require('./components/Modals/
 app.component('modalVoucherActivationComponent', require('./components/Modals/ModalVoucherActivationComponent'));
 app.component('modalMailPreviewComponent', require('./components/Modals/ModalMailPreviewComponent'));
 app.component('modalPhysicalCardOrderComponent', require('./components/Modals/ModalPhysicalCardOrderComponent'));
+app.component('modalSwitchBankConnectionAccountComponent', require('./components/Modals/ModalSwitchBankConnectionAccountComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -159,6 +162,8 @@ app.service('HelperService', require('./services/HelperService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
 app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequestService'));
 app.service('ProductReservationService', require('./services/ProductReservationService'));
+app.service('BanksService', require('./services/BanksService'));
+app.service('BankConnectionService', require('./services/BankConnectionService'));
 
 // Directives
 app.directive('menu', {
