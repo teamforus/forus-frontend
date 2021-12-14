@@ -51,6 +51,11 @@
                                 ng-if="$ctrl.transactionBulk.state == 'rejected'" 
                                 ng-bind="$ctrl.transactionBulk.state_locale")
 
+                            //- Error
+                            span.label.label-danger(
+                                ng-if="$ctrl.transactionBulk.state == 'error'" 
+                                ng-bind="$ctrl.transactionBulk.state_locale")
+
                             //- Draft
                             span.label.label-default(
                                 ng-if="$ctrl.transactionBulk.state == 'draft'"
