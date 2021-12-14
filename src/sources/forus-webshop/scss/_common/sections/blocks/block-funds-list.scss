@@ -11,17 +11,18 @@
 
         .fund-photo {
             display: block;
-            width: 100px;
+            width: 130px;
             min-width: 100px;
             overflow: hidden;
-            background-size: cover;
-            background-position: 50% 50%;
             position: relative;
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
 
             img {
-                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto;
                 width: 100%;
             }
 
@@ -69,6 +70,7 @@
                 font: 400 16px/28px $bf;
                 margin-top: 10px;
                 color: $tc;
+                max-width: 75ch;
             }
 
             .fund-organization {

@@ -6,7 +6,7 @@ a.fund-item
     .fund-content
         .fund-details
             .fund-name(ng-bind="$dir.fund.name")
-            .fund-organization(ng-bind="$dir.fund.organization.name")
+            .fund-description(ng-bind="$dir.fund.description_short")
             .fund-status-label
                 .label.label-light(ng-if="$dir.fund.canApply && !$dir.fund.canActivate")
                     em.mdi.mdi-plus-circle.icon-start

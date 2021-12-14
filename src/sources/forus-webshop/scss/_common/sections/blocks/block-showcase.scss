@@ -175,7 +175,7 @@
                     font: 600 18px/28px $bf;
                     letter-spacing: -.15px;
                     color: $tc;
-                    margin: 0;
+                    margin: 0 0 15px;
                     @include ellipsis();
 
                     .showcase-filters-title-count {
