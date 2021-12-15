@@ -6,7 +6,7 @@
 
         .organization-pane {
             background: #ffffff;
-            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+            box-shadow: $base_shadow;
             border-radius: $border_radius;
             display: flex;
             flex-direction: row;
@@ -26,7 +26,7 @@
                 display: flex;
                 flex-direction: row;
                 flex-grow: 1;
-                font: 700 14px/20px $bf;
+                font: 600 16px/20px $hf;
                 text-align: left;
 
                 .organization-title-value {
@@ -34,6 +34,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
+                    font: inherit;
                 }
 
                 .organization-title-count {

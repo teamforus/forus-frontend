@@ -37,7 +37,7 @@ block content
                                     .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen type geselecteerd' }}
 
                 .block.block-pane(ng-if="$ctrl.provider.description_html")
-                    .pane-head Omschrijving
+                    h2.pane-head Omschrijving
                     .pane-section: .block.block-markdown
                         div(ng-bind-html="$ctrl.provider.description_html")
                         

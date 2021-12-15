@@ -4,25 +4,29 @@
     margin-bottom: 30px;
 
     h1 {
-        font: 500 2.5em $bf;
+        font: 500 2.5em $hf;
+        color: $htc;
         margin: 0 0 0.6em;
         text-align: left;
     }
 
     h2 {
-        font: 500 2em $bf;
+        font: 500 2em $hf;
+        color: $htc;
         margin: 0 0 0.7em;
         text-align: left;
     }
 
     h3 {
-        font: 500 1.5em $bf;
+        font: 500 1.5em $hf;
+        color: $htc;
         margin: 0 0 0.9em;
         text-align: left;
     }
 
     h4 {
-        font: 500 1.25em $bf;
+        font: 500 1.25em $hf;
+        color: $htc;
         margin: 0 0 0.9em;
         text-align: left;
     }
@@ -195,17 +199,17 @@
         font: 400 14px/22px $bf !important;
 
         h1 {
-            font: 500 1.8em $bf;
+            font: 500 1.8em $hf;
             margin-bottom: 1em;
         }
 
         h2 {
-            font: 500 1.6em $bf;
+            font: 500 1.6em $hf;
             margin-bottom: 1em;
         }
 
         h3 {
-            font: 500 1.3em $bf;
+            font: 500 1.3em $hf;
             margin-bottom: 1em;
         }
     }
