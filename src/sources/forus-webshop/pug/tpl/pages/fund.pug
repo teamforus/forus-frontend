@@ -18,31 +18,32 @@ main(id="main-content")
 
         .block.block-fund
             mixin fund_actions
-                .fund-actions
-                    a.button.button.button-primary.button-wide(
+                .fund-actions: .button-group
+                    a.button.button.button-wide(
                         target="_blank"
-                        ng-if="$ctrl.fund.showRequestLinkButton"
-                        ng-href="{{ $ctrl.fund.request_btn_url }}"
-                        ng-bind="$ctrl.fund.request_btn_text")
+                        ng-class="$ctrl.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'"
+                        ng-if="$ctrl.fund.external_link_text && $ctrl.fund.external_link_url"
+                        ng-href="{{ $ctrl.fund.external_link_url }}"
+                        ng-bind="$ctrl.fund.external_link_text")
 
-                    button.button.button-primary.button-wide(
+                    a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.showRequestButton"
                         ui-sref="fund-activate({fund_id: $ctrl.fund.id})"
-                        ng-bind="$ctrl.fund.requestButtonText")
+                        ng-bind="$ctrl.fund.request_btn_text")
 
-                    button.button.button-primary.button-wide.button-disabled(
+                    a.button.button-primary.button-wide.button-disabled(
                         ng-if="$ctrl.fund.showPendingButton"
                         translate="funds.buttons.is_pending")
 
-                    button.button.button-primary.button-wide(
+                    a.button.button-primary.button-wide(
                         type="button"
                         ng-if="$ctrl.fund.showActivateButton" 
-                        ng-click="$ctrl.applyFund($ctrl.fund)" 
+                        ng-click="$ctrl.applyFund($event, $ctrl.fund)" 
                         translate="funds.buttons.is_applicable")
 
-                    button.button.button-primary.button-wide(
+                    a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.alreadyReceived" 
-                        ui-sref="{{ $ctrl.fund.voucherStateName }}" 
+                        ui-sref="voucher({ address: $ctrl.fund.vouchers[0].address })" 
                         translate="funds.buttons.already_received")
 
             .fund-content

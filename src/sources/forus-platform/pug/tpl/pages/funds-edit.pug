@@ -1,32 +1,37 @@
 .app.app-container
     menu
     section.app.app-content
+        //- Breadcrumbs
         .block.block-breadcrumbs(ng-if="$root.activeOrganization")
-            .breadcrumb-item(
-                ui-sref="organization-funds({organization_id:$root.activeOrganization.id})" 
-                ng-bind="'Fondsen'")
+            .breadcrumb-item(ui-sref="organization-funds({organization_id:$root.activeOrganization.id})") Fondsen
             .breadcrumb-item.active(ng-if="$ctrl.fund" ng-bind="$ctrl.fund.name")
             .breadcrumb-item.active(ng-if="!$ctrl.fund" i18n="funds_edit.header.title_add")
+
+        //- Fund edit form
         .card: form(ng-submit="$ctrl.form.submit()").form
+            //- Header
             .card-header
                 .card-title(ng-if="!$ctrl.fund" i18n="funds_edit.header.title_add")
                 .card-title(ng-if="$ctrl.fund" i18n="funds_edit.header.title_edit")
             
-            .card-section.card-section-primary
-                .form-group.form-group-inline
-                    label.form-label.hidden-md &nbsp;
-                    .form-offset: photo-selector(
-                        type="fund_logo"
-                        thumbnail="$ctrl.media.sizes.thumbnail"
-                        select-photo="$ctrl.selectPhoto(file)")
+            //- Fund logo
+            .card-section.card-section-primary: .form-group.form-group-inline
+                label.form-label.hidden-md &nbsp;
+                .form-offset: photo-selector(
+                    type="fund_logo"
+                    thumbnail="$ctrl.media.sizes.thumbnail"
+                    select-photo="$ctrl.selectPhoto(file)")
 
+            //- Fund name and description
             .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+                //- Fund name
                 .form-group.form-group-inline
-                    label(translate="funds_edit.labels.name").form-label
+                    label(translate="funds_edit.labels.name").form-label.form-label-required
                     input(ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
                     input(type="hidden" ng-model="$ctrl.form.values.state")
 
+                //- Fund description
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.description_short").form-label
                     .form-offset
@@ -38,15 +43,18 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.description_short" ng-bind="error")
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+                //- Fund type
                 .form-group.form-group-inline   
-                    label.form-label Soort fonds
+                    label.form-label.form-label-required Soort fonds
 
+                    //- Fund type selector
                     select(
                         ng-if="!$ctrl.fund"
                         ng-model="$ctrl.form.values.type" 
-                        ng-change="$ctrl.onFundTypeChange($ctrl.form.values.type)"
                         ng-options="fund_type.key as fund_type.name for fund_type in $ctrl.fundTypes").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
 
+                    //- Fund type icon for edit
                     .form-offset(ng-if="$ctrl.fund"): .block.block-fund_types
                         .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'budget'"): .fund_type-item-inner
                             .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-actions-read.svg')
@@ -58,48 +66,43 @@
                             .fund_type-name Acties
                             .fund_type-check: .mdi.mdi-check
 
-                        //- todo: replace th icon
                         .fund_type-item.fund_type-item-read(ng-if="$ctrl.form.values.type == 'external'"): .fund_type-item-inner
                             .fund_type-media: img.fund_type-media-img(src='./assets/img/fund-types/icon-fund-external-read.svg')
                             .fund_type-name Geen (extern)
                             .fund_type-check: .mdi.mdi-check
 
+            //- Activation method and button text
+            .card-section.card-section-primary(ng-if="$ctrl.form.values.type != 'external'"): .row: .col.col-lg-9.col-xs-12
                 //- Activation method
                 .form-group.form-group-inline
-                    label(translate="funds_edit.labels.application_method").form-label
+                    label(translate="funds_edit.labels.application_method").form-label.form-label-required
                     select(
-                        ng-disabled="($ctrl.form.values.type == 'external') || ($ctrl.fund && ($ctrl.fund.state != 'waiting'))"
                         ng-model="$ctrl.form.values.application_method" 
                         ng-change="$ctrl.onMethodChange($ctrl.form.values.application_method, '{{$ctrl.form.values.application_method}}')"
                         ng-options="applicationMethod.key as applicationMethod.name for applicationMethod in $ctrl.applicationMethods"
-                        placeholder="Selecteer aanvraagmethode...").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.applicationMethod" ng-bind="error")
-
-                //- Allow direct fund requests
-                .form-group.form-group-inline
-                    label.form-label(for="option_request_btn_state" translate="funds_edit.labels.request_btn.allow_direct_requests")
-                    .form-offset
-                        label(ng-disabled="($ctrl.fund && ($ctrl.fund.state != 'waiting')) || ($ctrl.form.values.application_method != 'external')").form-toggle
-                            input(
-                                type="checkbox" 
-                                id="option_request_btn_state"
-                                ng-checked="($ctrl.form.values.application_method != 'external') || $ctrl.form.values.allow_direct_requests"
-                                ng-model="$ctrl.form.values.allow_direct_requests")
-                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                        ng-disabled="$ctrl.fund && ($ctrl.fund.state != 'waiting')").form-control
 
                 //- Request button text
+                .form-group.form-group-inline(ng-if="$ctrl.form.values.application_method != 'none'")
+                    label(translate="funds_edit.labels.request_btn_text").form-label.form-label-required
+                    input(type="text" ng-model="$ctrl.form.values.request_btn_text" placeholder="Aanvragen").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.request_btn_text" ng-bind="error")
+
+            //- External link
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+                //- Request button text
                 .form-group.form-group-inline
-                    label(translate="funds_edit.labels.request_btn.text").form-label
-                    input(ng-model="$ctrl.form.values.request_btn_text" type="text" placeholder="Aanvragen").form-control
+                    label(translate="funds_edit.labels.external_link_text").form-label
+                    input(type="text" ng-model="$ctrl.form.values.external_link_text" placeholder="Aanvragen").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.external_link_text" ng-bind="error")
 
                 //- Request button url
-                .form-group.form-group-inline(
-                    ng-if="($ctrl.form.values.application_method == 'external') && !$ctrl.form.values.allow_direct_requests")
-                    label(translate="funds_edit.labels.request_btn.external_link").form-label
-                    input(
-                        ng-model="$ctrl.form.values.request_btn_url" 
-                        placeholder="https://gemeente+1.nl/aanmelden").form-control
+                .form-group.form-group-inline
+                    label(translate="funds_edit.labels.external_link_url").form-label
+                    input(type="text" ng-model="$ctrl.form.values.external_link_url" placeholder="https://gemeente+1.nl/aanmelden").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.external_link_url" ng-bind="error")
             
+            //- Fund long description
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.description").form-label
@@ -110,29 +113,29 @@
                         media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             
+            //- Fund start date and end date
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                //- Fund start date
                 .form-group.form-group-inline
-                    label(translate="funds_edit.labels.start").form-label
+                    label(translate="funds_edit.labels.start").form-label.form-label-required
                     datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control: input(
                         ng-model="$ctrl.form.values.start_date"
                         type="text"
                         placeholder="dd-MM-jjjj"
-                        ng-disabled="$ctrl.form.values.state != 'waiting'"
-                        ).form-control
-
+                        ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.start_date" ng-bind="error")
                 
+                //- Fund end date
                 .form-group.form-group-inline
-                    label(translate="funds_edit.labels.end").form-label
+                    label(translate="funds_edit.labels.end").form-label.form-label-required
                     datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control: input(
                         ng-model="$ctrl.form.values.end_date"
                         type="text"
                         placeholder="dd-MM-jjjj"
-                        ng-disabled="$ctrl.form.values.state != 'waiting'"
-                        ).form-control
-
+                        ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
 
+            //- Formula products
             .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.formula_products")
                 .row: .col.col-lg-9.col-md-12
                     .form-group.form-group-inline(ng-repeat="product in $ctrl.form.products track by $index")
@@ -152,6 +155,7 @@
                             em.mdi.mdi-plus-circle.icon-start
                             translate Aanbieding toevoegen
             
+            //- Default validator employee
             .card-section.card-section-primary: .row
                 .form-group.form-group-inline.col.col-lg-9.col-md-12
                     label.form-label Standaard validator
@@ -170,6 +174,7 @@
                     
                     .form-error(ng-repeat="error in $ctrl.form.errors.auto_requests_validation" ng-bind="error")
 
+            //- Fund criteria editor
             .card-section.card-section-primary
                 .form-group.form-group-inline
                     label.form-label Criteria
@@ -182,13 +187,16 @@
                         validator-organizations="$ctrl.validatorOrganizations.data"
                         register-parent="$ctrl.registerCriteriaEditor(childRef)")
 
+            //- FAQ
             .card-section.card-section-primary
+                //- FAQ Title
                 .form-group.form-group-inline
                     label.form-label Titel van blok
                     input(type="text" ng-model="$ctrl.form.values.faq_title" placeholder="Veel gestelde vragen").form-control
                     
                     .form-error(ng-repeat="error in $ctrl.form.errors.faq_title" ng-bind="error")
 
+                //- FAQ Editor
                 .form-group.form-group-inline
                     label.form-label Veel gestelde vragen
                     .form-offset: fund-faq-editor(
@@ -197,12 +205,14 @@
                         organization="$ctrl.organization" 
                         register-parent="$ctrl.registerFaqEditor(childRef)")
         
+            //- Notification amount
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label(translate="funds_edit.labels.notification_amount")
                     input(ng-model="$ctrl.form.values.notification_amount" type="text" placeholder="{{ funds_edit.labels.notification_amount | translate }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.notification_amount" ng-bind="error")
 
+            //- Submit
             .card-section.card-section-primary: .text-center
                 button(type="button" ng-click="$ctrl.cancel()" translate="funds_edit.buttons.cancel" id="cancel").button.button-default
                 button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary

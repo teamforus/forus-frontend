@@ -23,31 +23,35 @@ const FundsEditComponent = function(
         default_button_text: "Aanvragen",
         configs: {
             allow_fund_requests: 1,
-            allow_prevalidations: 1,
+            allow_prevalidations: 0,
+            allow_direct_requests: 1,
         },
     }, {
         key: 'activation_codes',
         name: 'Activatiecodes',
         default_button_text: "Activeren",
         configs: {
-            allow_fund_requests: 1,
-            allow_prevalidations: 0,
+            allow_fund_requests: 0,
+            allow_prevalidations: 1,
+            allow_direct_requests: 1,
         },
     }, {
-        key: 'application_form_and_activation_codes',
+        key: 'all',
         name: 'Aanvraagformulier en activatiecodes',
         default_button_text: "Aanvragen",
         configs: {
-            allow_fund_requests: 0,
+            allow_fund_requests: 1,
             allow_prevalidations: 1,
+            allow_direct_requests: 1,
         },
     }, {
-        key: 'external',
-        name: 'Geen aanvraagformulier en activatiecodes (extern)',
+        key: 'none',
+        name: 'Geen aanvraagformulier en activatiecodes',
         default_button_text: "Aanvragen",
         configs: {
             allow_fund_requests: 0,
             allow_prevalidations: 0,
+            allow_direct_requests: 0,
         },
     }];
 
@@ -92,12 +96,6 @@ const FundsEditComponent = function(
         $ctrl.updateProductOptions();
     };
 
-    $ctrl.onFundTypeChange = (type) => {
-        if (type == 'external') {
-            $ctrl.form.values.application_method = 'external';
-        }
-    }
-
     $scope.$watch('$ctrl.form.products', (products) => {
         if (products && Array.isArray(products)) {
             $ctrl.updateProductOptions();
@@ -114,9 +112,7 @@ const FundsEditComponent = function(
 
             $ctrl.productOptions = [];
             $ctrl.form.products.forEach((product, $index) => {
-                $ctrl.productOptions[$index] = productOptions.concat(
-                    product ? [product] : []
-                );
+                $ctrl.productOptions[$index] = productOptions.concat(product ? [product] : []);
             });
         }, 250);
     };
@@ -177,6 +173,11 @@ const FundsEditComponent = function(
         }
 
         $ctrl.form = FormBuilderService.build(values, (form) => {
+            const onError = (res) => {
+                form.errors = res.data.errors;
+                form.unlock();
+            };
+
             $ctrl.criteriaEditor.saveCriteria().then(async (success) => {
                 if (!success) {
                     return form.unlock();
@@ -189,40 +190,31 @@ const FundsEditComponent = function(
                     return form.unlock();
                 };
 
-                let promise;
                 const { values } = form;
 
                 if (mediaFile) {
-                    let res = await MediaService.store('fund_logo', mediaFile);
-
+                    const res = await MediaService.store('fund_logo', mediaFile);
                     $ctrl.media = res.data.data;
                     values.media_uid = $ctrl.media.uid;
                 }
 
-                values.formula_products = form.products.map(product => product.id);
-                values.allow_direct_requests = (values.application_method != 'external') || values.allow_direct_requests;
+                const data = {
+                    ...values,
+                    ...$ctrl.findMethod(values.application_method).configs || {},
+                    ...{ formula_products: form.products.map(product => product.id) },
+                };
 
                 if ($ctrl.fund) {
-                    promise = FundService.update(
-                        $stateParams.organization_id,
-                        $stateParams.id,
-                        { ...values, ...$ctrl.findMethod(values.application_method).configs || {} }
-                    );
-                } else {
-                    promise = FundService.store(
-                        $stateParams.organization_id,
-                        { ...values, ...$ctrl.findMethod(values.application_method).configs || {} }
-                    );
+                    return FundService.update($stateParams.organization_id, $stateParams.id, data).then(() => {
+                        $state.go('organization-funds', { organization_id: $stateParams.organization_id });
+                        PushNotificationsService.success('Success!', 'Fund updated!');
+                    }, onError)
                 }
 
-                promise.then(() => {
+                FundService.store($stateParams.organization_id, data).then(() => {
                     $state.go('organization-funds', { organization_id: $stateParams.organization_id });
-                }, (res) => {
-                    $timeout(() => {
-                        form.errors = res.data.errors;
-                        form.unlock();
-                    }, 0);
-                });
+                    PushNotificationsService.success('Success!', 'Fund created!');
+                }, onError);
             });
         }, true);
 

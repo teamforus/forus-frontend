@@ -445,11 +445,9 @@ module.exports = {
             end: "Einddatum",
             notification_amount: "Aanvulherinnering grens €",
             application_method: "Aanvraagmethode",
-            request_btn: {
-                allow_direct_requests: "Aanvraagknop",
-                text: "Requesting button text",
-                external_link: "External link",
-            }
+            request_btn_text: "Knoptekst aanvragen",
+            external_link_text: "Externe linktekst",
+            external_link_url: "Externe link-url",
         },
         buttons: {
             cancel: "Annuleren",

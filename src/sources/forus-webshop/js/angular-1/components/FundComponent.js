@@ -24,7 +24,9 @@ const FundsComponent = function(
     $ctrl.appConfigs = appConfigs;
     $ctrl.recordsByTypesKey = {};
 
-    $ctrl.applyFund = function(fund) {
+    $ctrl.applyFund = function($e, fund) {
+        $e.preventDefault();
+
         if ($ctrl.fund.taken_by_partner) {
             return FundService.showTakenByPartnerModal();
         }
@@ -47,24 +49,18 @@ const FundsComponent = function(
             $ctrl.fund.allow_direct_requests && 
             $ctrl.configs.funds.fund_requests;
 
-        $ctrl.fund.showRequestLinkButton = 
-            !$ctrl.fund.alreadyReceived &&
-            !$ctrl.fund.has_pending_fund_requests &&
-            !$ctrl.fund.isApplicable &&
-            !$ctrl.fund.allow_direct_requests && 
-            $ctrl.configs.funds.fund_requests &&
-            $ctrl.fund.request_btn_text &&
-            $ctrl.fund.request_btn_url;
+        $ctrl.fund.showExternalLink = $ctrl.fund.external_link_text && $ctrl.fund.external_link_url;
 
         $ctrl.fund.showPendingButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.has_pending_fund_requests;
         $ctrl.fund.showActivateButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.isApplicable;
         $ctrl.fund.showReceivedButton = $ctrl.fund.alreadyReceived;
 
-        if ($ctrl.fund.vouchers[0] && $ctrl.fund.vouchers[0].address) {
-            $ctrl.fund.voucherStateName = 'voucher({ address: $ctrl.fund.vouchers[0].address })';
-        }
-
-        $ctrl.fund.requestButtonText = $ctrl.fund.request_btn_text ? $ctrl.fund.request_btn_text : trans('start_request');
+        $ctrl.linkPrimaryButton = [
+            $ctrl.fund.showRequestButton,
+            $ctrl.fund.showPendingButton,
+            $ctrl.fund.showActivateButton,
+            $ctrl.fund.alreadyReceived,
+        ].filter((flag) => flag).length === 0;
     };
 
     $ctrl.$onInit = function() {

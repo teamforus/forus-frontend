@@ -245,8 +245,7 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.updateProvider = function(organization_id, fund_id, id, data = {}) {
-            return ApiRequest.patch(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, data);
+            return ApiRequest.post(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${id}`, data);
         };
 
         this.states = function() {
@@ -266,52 +265,44 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.makeTopUp = function(organization_id, fund_id) {
-            return ApiRequest.post(
-                uriPrefix + organization_id + '/funds/' + fund_id + '/top-up');
+            return ApiRequest.post(`${uriPrefix}${organization_id}/funds/${fund_id}/top-up`);
         };
 
         this.apiFormToResource = function(formData) {
-            let values = JSON.parse(JSON.stringify(formData));
+            const values = JSON.parse(JSON.stringify(formData));
 
-            values.start_date = moment(values.start_date, 'DD-MM-YYYY').format('YYYY-MM-DD');
-            values.end_date = moment(values.end_date, 'DD-MM-YYYY').format('YYYY-MM-DD');
-
-            return values;
+            return {
+                ...values,
+                start_date: moment(values.start_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+                end_date: moment(values.end_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+            };
         };
 
         this.apiResourceToForm = function(apiResource) {
+            const { name, state, type, criteria } = apiResource;
+            const { faq, faq_title, formula_products } = apiResource;
+            const { description, description_html, description_short } = apiResource;
+            const { notification_amount, default_validator_employee_id, auto_requests_validation } = apiResource;
+            const { request_btn_text, external_link_text, external_link_url, allow_direct_requests } = apiResource;
+
             return {
-                type: apiResource.type,
-                criteria: apiResource.criteria,
-                faq: apiResource.faq || [],
-                faq_title: apiResource.faq_title || '',
-                formula_products: apiResource.formula_products || [],
-                name: apiResource.name,
-                description: apiResource.description,
-                description_html: apiResource.description_html,
-                description_short: apiResource.description_short,
-                state: apiResource.state,
+                ...{ name, state, type, criteria },
+                ...{ faq: faq || [], faq_title: faq_title || '', formula_products: formula_products || [] },
+                ...{ description, description_html, description_short },
+                ...{ notification_amount, default_validator_employee_id, auto_requests_validation },
+                ...{ request_btn_text, external_link_text, external_link_url, allow_direct_requests },
+
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),
-                notification_amount: apiResource.notification_amount,
-                default_validator_employee_id: apiResource.default_validator_employee_id,
-                auto_requests_validation: apiResource.auto_requests_validation,
                 application_method: this.getApplicationMethodKey(apiResource),
-                allow_direct_requests: apiResource.allow_direct_requests,
-                request_btn_text: apiResource.request_btn_text,
-                request_btn_url: apiResource.request_btn_url,
             };
         };
 
         this.changeState = function(apiResource, state) {
-            let formValues = this.apiResourceToForm(apiResource);
-
-            formValues.state = state;
-
             return this.update(
                 apiResource.organization_id,
                 apiResource.id,
-                formValues
+                { ...this.apiResourceToForm(apiResource), state }
             );
         };
 
@@ -354,10 +345,10 @@ const FundService = function(ApiRequest, ModalService) {
 
         this.getApplicationMethodKey = (fund) => {
             if (fund.allow_fund_requests) {
-                return fund.allow_prevalidations ? 'application_form_and_activation_codes' : 'application_form';
+                return fund.allow_prevalidations ? 'all' : 'application_form';
             }
 
-            return fund.allow_prevalidations ? 'activation_codes' : 'external';
+            return fund.allow_prevalidations ? 'activation_codes' : 'none';
         };
 
         this.stopActionConfirmationModal = (onConfirm) => {
