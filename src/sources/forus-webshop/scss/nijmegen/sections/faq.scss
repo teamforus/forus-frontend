@@ -3,19 +3,10 @@
         .section-splash {
             display: none;
         }
-
+        
         .faq {
-            .faq-item {
-                &:hover:not(.active) {
-                    .faq-item-header {
-                        color: #157c68;
-
-                        .faq-item-chevron-up,
-                        .faq-item-chevron-down {
-                            color: #157c68;
-                        }
-                    }
-                }
+            &.faq-fund {
+                width: 100%;
             }
         }
     }
