@@ -121,6 +121,7 @@ let ModalVoucherCreateComponent = function(
                         bsn: form.values.bsn,
                         fund_id: $ctrl.fund.id,
                         source: 'all',
+                        expired: 0,
                     }).then((res) => {
                         $ctrl.close();
 
