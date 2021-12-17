@@ -69,7 +69,8 @@ block content
                                             .label-tab-menu-item(
                                                 ng-repeat="sortByOption in $ctrl.sortByOptions track by $index" 
                                                 ng-class="{active: $ctrl.sort_by.label === sortByOption.label}"
-                                                ng-click="$ctrl.sortBy($event, sortByOption)")
+                                                ng-click="$ctrl.sortBy($event, sortByOption)"
+                                                aria-selected="{{ $ctrl.sort_by.label === sortByOption.label }}")
                                                 translate(translate="{{ sortByOption.label }}")
                                                 em.mdi.mdi-check(ng-if="$ctrl.sort_by.label === sortByOption.label")
 
