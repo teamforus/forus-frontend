@@ -58,17 +58,17 @@
                                 em.mdi.mdi-delete.icon-start
                                 translate(translate="components.organization_funds.buttons.delete")
 
-                    .flex-row.flex-end: .fund-remaining
+                    .flex-row.flex-end(ng-if="!fund.is_external"): .fund-remaining
                         .fund-remaining-label(translate="components.organization_funds.labels.remaining") 
                         .fund-remaining-value(ng-bind="fund.budget.total - fund.budget.used | currency_format")
                     
-                    .flex-row
+                    .flex-row(ng-if="!fund.is_external")
                         .flex-col: .flex-row.flex-start
                             .button.button-default(ng-click="$ctrl.toggleFundCriteria(fund)")
                                 em.mdi.mdi-toggle-switch.icon-start
                                 translate(translate="components.organization_funds.buttons.criteria")
                             
-                            .button.button-default(ng-click="$ctrl.toggleFundStats(fund)")
+                            .button.button-default(ng-if="fund.key && fund.is_configured " ng-click="$ctrl.toggleFundStats(fund)")
                                 em.mdi.mdi-poll.icon-start
                                 translate(translate="components.organization_funds.buttons.statistics")
                         
@@ -97,7 +97,7 @@
                         on-save-criteria='$ctrl.onSaveCriteria(fund)'
                         validator-organizations="$ctrl.validatorOrganizations.data")
                 
-                .fund-item-section.fund-item-section-warning.fund-item-section-with-arrow(ng-if="fund.show_stats")
+                .fund-item-section.fund-item-section-warning.fund-item-section-with-arrow(ng-if="fund.is_configured && fund.show_stats")
                     .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
                         a.keyvalue-item.col.col-lg-3(
                             ui-sref="employees({organization_id: $ctrl.organization.id})")
