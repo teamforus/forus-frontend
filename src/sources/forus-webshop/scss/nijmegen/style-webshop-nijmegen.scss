@@ -7,10 +7,13 @@
 @font-face { 
     font-family: Oranda; 
     src: local(Oranda BT Roman), 
-    url("https://componenten.nijmegen.nl/v6.0.1/oranda_bt.bde3d05f.woff2") format("woff2"), 
-    url("https://componenten.nijmegen.nl/v6.0.1/oranda_bt.05235f9a.woff") format("woff");
-    font-style: normal; font-weight: 400; font-display: swap; 
+    url("https://media.forus.io/assets/fonts/oranda_bt.bde3d05f.woff2") format("woff2"), 
+    url("https://media.forus.io/assets/fonts/oranda_bt.05235f9a.woff") format("woff");
+    font-style: normal; 
+    font-weight: 400; 
+    font-display: swap; 
 }
+
 // LAYOUTS
 @import 'layout/_footer.scss',
 'layout/_navigation.scss',
