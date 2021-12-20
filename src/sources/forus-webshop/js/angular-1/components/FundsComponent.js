@@ -32,6 +32,7 @@ const FundsComponent = function(
             page: query.page,
             organization_id: query.organization_id,
             show_menu: $ctrl.showModalFilters,
+            with_external: 1,
         });
     };
 
@@ -74,6 +75,7 @@ const FundsComponent = function(
             q: $stateParams.q || '',
             organization_id: $stateParams.organization_id || null,
             per_page: $stateParams.per_page || 10,
+            with_external: 1,
         });
 
         $ctrl.updateFiltersUsedCount();

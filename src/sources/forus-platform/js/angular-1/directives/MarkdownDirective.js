@@ -165,8 +165,8 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
         const allowPreview = typeof $dir.allowPreview == 'undefined' ? false : $dir.allowPreview;
 
         $theEditor.summernote({
-            placeholder: '',
-            tabsize: 2,
+            placeholder: $dir.placeholder || '',
+            tabsize: 4,
             height: 400,
             disableDragAndDrop: true,
             disableResizeImage: true,
@@ -248,7 +248,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                         }
                     });
 
-                    if (turndownPluginGfm) {
+                    if (typeof turndownPluginGfm != 'undefined') {
                         turndownService.use(turndownPluginGfm.gfm);
                     }
 
@@ -299,6 +299,7 @@ module.exports = () => {
             blockAlignment: '=',
             mediaUploaded: '&',
             disabled: '@',
+            placeholder: '@',
             extendedOptions: '=',
             allowLists: '=',
             allowAlignment: '=',
