@@ -651,6 +651,7 @@ body {
                 display: block;
                 font: 500 14px/20px $bf;
                 transition: 0.4s;
+                color: #646F79;
 
                 .sidebar-nav-item-icon {
                     top: 5px;
@@ -693,11 +694,14 @@ body {
                     }
                 }
 
-                &.active,
                 &:focus,
                 &:hover {
-                    color: #d91d46;
+                    color: #009EF4;
                     text-decoration: none;
+                }
+
+                &.active {
+                    color: #004195;
                 }
 
                 &:hover:not(.active) {
