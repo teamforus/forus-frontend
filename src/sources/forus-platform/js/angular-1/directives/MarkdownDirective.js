@@ -181,8 +181,8 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
         const icons = buttons.reduce((icons, btn) => ({ ...icons, [btn.iconKey || btn.key]: btn.icon }), {});
 
         $theEditor.summernote({
-            placeholder: '',
-            tabsize: 2,
+            placeholder: $dir.placeholder || '',
+            tabsize: 4,
             height: 400,
             disableDragAndDrop: true,
             disableResizeImage: true,
@@ -296,6 +296,7 @@ module.exports = () => {
             blockAlignment: '=',
             mediaUploaded: '&',
             disabled: '@',
+            placeholder: '@',
             extendedOptions: '=',
             allowLists: '=',
             allowAlignment: '=',

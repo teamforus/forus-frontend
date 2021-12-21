@@ -98,7 +98,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "sign-up",
         url: "/aanbieders/aanmelden",
-        component: "signUpSelectionComponent",
+        component: "signUpProviderComponent",
         resolve: resolveCmsPage('provider'),
     });
 
@@ -724,6 +724,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 page: $transition$.params().page,
                 organization_id: $transition$.params().organization_id,
                 per_page: 10,
+                with_external: 1
             }))],
             records: ['AuthService', 'RecordService', (
                 AuthService, RecordService

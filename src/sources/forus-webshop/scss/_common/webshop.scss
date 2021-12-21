@@ -42,13 +42,13 @@
 @import 'components/table-pagination';
 
 // SECTIONS
-@import 'sections/faq.scss',
-'sections/flow.scss',
-'sections/funds.scss',
-'sections/map.scss',
-'sections/products.scss',
-'sections/steps.scss',
-'sections/vouchers.scss';
+@import 'sections/faq.scss';
+@import 'sections/flow.scss';
+@import 'sections/funds.scss';
+@import 'sections/map.scss';
+@import 'sections/products.scss';
+@import 'sections/steps.scss';
+@import 'sections/vouchers.scss';
 
 // BLOCKS
 @import 'sections/blocks/block-fund.scss',
@@ -59,7 +59,6 @@
 'sections/blocks/info-card.scss',
 'sections/blocks/map_card.scss',
 'sections/blocks/map.scss',
-'sections/blocks/markdown.scss',
 'sections/blocks/phone-number.scss',
 'sections/blocks/pincode.scss',
 'sections/blocks/product.scss',
@@ -85,6 +84,7 @@
 'sections/blocks/block-sitemap.scss';
 
 .block {
+    @import 'sections/blocks/block-markdown.scss';
     @import 'sections/blocks/block-showcase.scss';
     @import 'sections/blocks/block-products-list.scss';
     @import 'sections/blocks/block-label-tabs.scss';
@@ -103,6 +103,7 @@
     @import 'sections/blocks/block-map-office-card.scss';
     @import 'sections/blocks/block-sessions.scss';
     @import 'sections/blocks/block-sign_up.scss';
+    @import 'sections/blocks/block-sign_up-provider.scss';
     @import 'sections/blocks/block-notifications-table.scss';
     
     @import 'sections/blocks/block-subsidies.scss';
@@ -110,7 +111,6 @@
     @import 'sections/blocks/block-physical-card.scss';
     @import 'sections/blocks/block-error-page.scss';
     @import 'sections/blocks/block-about-me_app.scss';
-    @import 'sections/blocks/block-provider-sign_up.scss';
     @import 'sections/blocks/block-app_links.scss';
     @import 'sections/blocks/block-navbar-search';
     @import 'sections/blocks/block-search-results';
