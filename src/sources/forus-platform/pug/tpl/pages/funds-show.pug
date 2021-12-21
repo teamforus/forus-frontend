@@ -71,6 +71,6 @@
                                         
                                         a(
                                             ng-if="$root.activeOrganization | hasPerm:['manage_implementation_cms']:false"
-                                            ui-sref="implementation-cms({organization_id: $ctrl.fund.organization_id, id: $ctrl.fund.implementation.id})").dropdown-item
+                                            ui-sref="implementation-view({organization_id: $ctrl.fund.organization_id, id: $ctrl.fund.implementation.id})").dropdown-item
                                             em.mdi.mdi-pencil.icon-start
                                             | &nbsp; Ga naar CMS

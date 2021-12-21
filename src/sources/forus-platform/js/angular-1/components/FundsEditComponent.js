@@ -134,8 +134,9 @@ const FundsEditComponent = function(
                 }
 
                 promise.then((res) => {
-                    $state.go('organization-funds', {
-                        organization_id: $stateParams.organization_id
+                    $state.go('funds-show', {
+                        id: $ctrl.fund.id,
+                        organization_id: $ctrl.fund.organization_id
                     });
                 }, (res) => {
                     $timeout(() => {
