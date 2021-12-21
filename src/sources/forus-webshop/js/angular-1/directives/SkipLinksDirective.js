@@ -7,7 +7,7 @@ const SkipLinksDirective = function($scope, $state) {
 
     $scope.focusMobileNavigation = () => {
         angular.element(document.querySelector('.block-sticky-footer')).removeClass('scrolled');
-        angular.element(document.querySelector('.sticky-footer-list')).find('li')[0].focus();
+        angular.element(document.querySelector('.sticky-footer-list')).find('a')[0].focus();
     };
 };
 

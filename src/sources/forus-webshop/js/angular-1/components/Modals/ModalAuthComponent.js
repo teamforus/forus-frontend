@@ -105,7 +105,7 @@ const ModalAuthComponent = function(
                     confirmBtnText: emailServiceUrl ? 'email_service_switch.confirm' : 'popup_auth.buttons.submit',
                     confirm: () => HelperService.openInNewTab(emailServiceUrl)
                 });
-            }, (res) => handleErrors);
+            }, handleErrors);
         }, true);
     };
 

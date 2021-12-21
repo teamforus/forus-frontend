@@ -502,7 +502,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "organizationBankConnectionsComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('bank-connections', 'manage_organization'),
+            permission: permissionMiddleware('bank-connections', 'manage_bank_connections'),
             banks: ['BanksService', 'permission', (BanksService) => {
                 return repackPagination(BanksService.list());
             }],
@@ -919,7 +919,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 });
             }],
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
-                repackResponse(FundService.list($transition$.params().organization_id, {
+                return repackResponse(FundService.list($transition$.params().organization_id, {
                     implementation_id: $transition$.params().id
                 }))
             }],
