@@ -16,7 +16,8 @@
 
 // SECTIONS
 @import 'sections/faq.scss',
-'sections/steps.scss';
+'sections/steps.scss',
+'sections/funds.scss';
 
 // BLOCKS
 @import 'sections/blocks/apply_fund.scss',
@@ -31,5 +32,7 @@
  'sections/blocks/records.scss',
  'sections/blocks/shops_map.scss',
  'sections/blocks/transactions.scss',
+ 'sections/blocks/block-fund.scss',
+ 'sections/funds.scss',
  'sections/blocks/validations.scss',
  'sections/blocks/validators.scss';

@@ -60,4 +60,8 @@ module.exports = ['ModalRouteProvider', function(
     ModalRouteProvider.modal('deactivateVoucher', {
         component: 'modalDeactivateVoucherComponent'
     });
+
+    ModalRouteProvider.modal('modalProductReserveDetails', {
+        component: 'modalProductReserveDetailsComponent'
+    });
 }];

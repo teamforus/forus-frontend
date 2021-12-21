@@ -26,18 +26,13 @@ const FundsComponent = function(
         $ctrl.updateState($ctrl.form.values);
     };
 
-    $ctrl.showAs = (display_type) => {
-        $ctrl.display_type = display_type;
-        $ctrl.updateState($ctrl.form.values);
-    };
-
     $ctrl.updateState = (query) => {
         $state.go('funds', {
             q: query.q || '',
             page: query.page,
-            display_type: query.display_type,
             organization_id: query.organization_id,
             show_menu: $ctrl.showModalFilters,
+            with_external: 1,
         });
     };
 
@@ -70,7 +65,6 @@ const FundsComponent = function(
         }
 
         $ctrl.showModalFilters = $stateParams.show_menu;
-        $ctrl.display_type = $stateParams.display_type;
 
         $ctrl.organizations.unshift({
             id: null,
@@ -81,6 +75,7 @@ const FundsComponent = function(
             q: $stateParams.q || '',
             organization_id: $stateParams.organization_id || null,
             per_page: $stateParams.per_page || 10,
+            with_external: 1,
         });
 
         $ctrl.updateFiltersUsedCount();

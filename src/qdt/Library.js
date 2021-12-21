@@ -1,7 +1,6 @@
 // file system
 const fs = require('fs');
 const path = require('path');
-const noop = require('gulp-util/lib/noop');
 
 // qdt helper
 const qdt_core = require("./Helpers");
@@ -62,7 +61,7 @@ if (fs.existsSync(envFile)) {
 }
 
 const reloadBrowserSync = (platform) => {
-    return platform.server ? browserSync[platform.name].reload(pluginSettings.browserSyncReload) : noop();
+    return platform.server ? browserSync[platform.name].reload(pluginSettings.browserSyncReload) : null;
 }
 
 // test required

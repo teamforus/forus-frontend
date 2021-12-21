@@ -1,27 +1,13 @@
 const ModalProductReserveComponent = function(
-    $state,
-    PushNotificationsService,
-    ProductReservationService,
     appConfigs,
+    ModalService,
 ) {
     const $ctrl = this;
 
-    $ctrl.onReserved = () => {
+    $ctrl.reserveProduct = (product, voucher) => {
         $ctrl.close();
 
-        $state.go('reservations');
-        PushNotificationsService.success('Gelukt!', 'Het aanbod is gereserveerd!.');
-    };
-
-    $ctrl.onError = (res) => {
-        const { errors, message } = res.data;
-        const firstError = typeof errors === 'object' ? Object.values(errors)[0] : null
-
-        PushNotificationsService.danger(firstError ? firstError[0] || message : message);
-    };
-
-    $ctrl.reserveProduct = (product, voucher) => {
-        ProductReservationService.reserve(product.id, voucher.address).then($ctrl.onReserved, $ctrl.onError);
+        ModalService.open('modalProductReserveDetails', { product, voucher });
     };
 
     $ctrl.$onInit = () => {
@@ -44,10 +30,8 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$state',
-        'PushNotificationsService',
-        'ProductReservationService',
         'appConfigs',
+        'ModalService',
         ModalProductReserveComponent
     ],
     templateUrl: () => {

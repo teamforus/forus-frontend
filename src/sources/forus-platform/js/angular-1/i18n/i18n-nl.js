@@ -64,7 +64,8 @@ module.exports = {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
-            restore_fund: require('./nl/modals/danger-zone/restore-fund')
+            restore_fund: require('./nl/modals/danger-zone/restore-fund'),
+            remove_faq: require('./nl/modals/danger-zone/remove-faq')
         },
     },
     // PAGES
@@ -446,7 +447,11 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens €"
+            notification_amount: "Aanvulherinnering grens €",
+            application_method: "Aanvraagmethode",
+            request_btn_text: "Knoptekst aanvragen",
+            external_link_text: "Externe linktekst",
+            external_link_url: "Externe link-url",
         },
         buttons: {
             cancel: "Annuleren",
@@ -1338,7 +1343,10 @@ module.exports = {
             assigned_to: "Toegewezen",
             from: "Vanaf",
             to: "Tot",
-            pending_since: "In behandeling sinds"
+            pending_since: "In behandeling sinds",
+            lead_time: "Doorlooptijd",
+            accepted_at: "Geaccepteerd op",
+            declined_at: "Geweigerd op"
         },
         status: {
             hold: "Wachten",

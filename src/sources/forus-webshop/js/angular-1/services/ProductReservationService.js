@@ -10,8 +10,12 @@ const ProductReservationService = function(ApiRequest) {
             return ApiRequest.get(`${uriPrefix}/${id}`);
         }
 
-        this.reserve = function(product_id, voucher_address) {
-            return ApiRequest.post(uriPrefix, { product_id, voucher_address });
+        this.validate = function(data) {
+            return ApiRequest.post(uriPrefix + '/validate', data);
+        }
+
+        this.reserve = function(data) {
+            return ApiRequest.post(uriPrefix, data);
         }
 
         this.destroy = function(id = {}) {

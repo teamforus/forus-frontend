@@ -2,17 +2,31 @@ const FundsComponent = function(
     $sce,
     $state,
     $stateParams,
+    $filter,
     appConfigs,
-    FundService,
-    ModalService
+    FundService
 ) {
     const $ctrl = this;
+
+    let $translate = $filter('translate');
+
+    let trans = (key) => {
+        let transKey = 'funds.buttons.' + appConfigs.client_key + '.' + key;
+
+        if ($translate(transKey) && $translate(transKey) != transKey) {
+            return $translate(transKey);
+        }
+
+        return $translate('funds.buttons.' + key);
+    }
 
     $ctrl.fundLogo = null;
     $ctrl.appConfigs = appConfigs;
     $ctrl.recordsByTypesKey = {};
 
-    $ctrl.applyFund = function(fund) {
+    $ctrl.applyFund = function($e, fund) {
+        $e.preventDefault();
+
         if ($ctrl.fund.taken_by_partner) {
             return FundService.showTakenByPartnerModal();
         }
@@ -24,23 +38,29 @@ const FundsComponent = function(
 
     $ctrl.updateFundsMeta = () => {
         $ctrl.fund.vouchers = $ctrl.vouchers.filter(voucher => voucher.fund_id == $ctrl.fund.id && !voucher.expired);
-        $ctrl.fund.isApplicable = $ctrl.fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
+        $ctrl.fund.isApplicable = $ctrl.fund.criteria.length > 0 && $ctrl.fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
         $ctrl.fund.alreadyReceived = $ctrl.fund.vouchers.length !== 0;
         $ctrl.fund.voucherStateName = 'vouchers';
 
-        $ctrl.fund.showRequestButton = !$ctrl.fund.alreadyReceived &&
-            $ctrl.fund.allow_direct_requests &&
+        $ctrl.fund.showRequestButton = 
+            !$ctrl.fund.alreadyReceived &&
             !$ctrl.fund.has_pending_fund_requests &&
             !$ctrl.fund.isApplicable &&
+            $ctrl.fund.allow_direct_requests && 
             $ctrl.configs.funds.fund_requests;
+
+        $ctrl.fund.showExternalLink = $ctrl.fund.external_link_text && $ctrl.fund.external_link_url;
 
         $ctrl.fund.showPendingButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.has_pending_fund_requests;
         $ctrl.fund.showActivateButton = !$ctrl.fund.alreadyReceived && $ctrl.fund.isApplicable;
         $ctrl.fund.showReceivedButton = $ctrl.fund.alreadyReceived;
 
-        if ($ctrl.fund.vouchers[0] && $ctrl.fund.vouchers[0].address) {
-            $ctrl.fund.voucherStateName = 'voucher({ address: $ctrl.fund.vouchers[0].address })';
-        }
+        $ctrl.linkPrimaryButton = [
+            $ctrl.fund.showRequestButton,
+            $ctrl.fund.showPendingButton,
+            $ctrl.fund.showActivateButton,
+            $ctrl.fund.alreadyReceived,
+        ].filter((flag) => flag).length === 0;
     };
 
     $ctrl.$onInit = function() {
@@ -65,6 +85,11 @@ const FundsComponent = function(
             })),
         };
 
+        if ($ctrl.fund.faq) {
+            $ctrl.fund.faq = $ctrl.fund.faq.map(question => {
+                return { ...question, description_html: $sce.trustAsHtml(question.description_html) };
+            });
+        }
     };
 };
 
@@ -82,9 +107,9 @@ module.exports = {
         '$sce',
         '$state',
         '$stateParams',
+        '$filter',
         'appConfigs',
         'FundService',
-        'ModalService',
         FundsComponent
     ],
     templateUrl: 'assets/tpl/pages/fund.html'
