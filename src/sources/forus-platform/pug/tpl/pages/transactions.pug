@@ -185,6 +185,9 @@
                             //- Rejected
                             .label.label-danger(ng-if="transactionBulk.state == 'rejected'" ng-bind="transactionBulk.state_locale")
 
+                            //- Error
+                            .label.label-danger(ng-if="transactionBulk.state == 'error'" ng-bind="transactionBulk.state_locale")
+
                             //- Draft
                             .label.label-default(ng-if="transactionBulk.state == 'draft'" ng-bind="transactionBulk.state_locale")
 

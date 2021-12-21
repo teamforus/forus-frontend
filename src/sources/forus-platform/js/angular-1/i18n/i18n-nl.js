@@ -351,6 +351,10 @@ module.exports = {
             fee: "€ 0.10",
             date: "Datum",
         },
+        tooltips: {
+            pending_iban_from: "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
+            pending_iban_to: "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
+        }
     },
 
     financial_dashboard_overview: {
