@@ -13,7 +13,22 @@
                     ng-src="{{ $ctrl.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
                 .fund-details
-                    .fund-name(ng-bind="$ctrl.fund.name")
+                    .fund-name: .flex-row
+                        .flex-col.flex-grow(ng-bind="$ctrl.fund.name")
+      
+                        .flex-col
+                            .tag.tag-success.tag-sm(
+                                ng-if="$ctrl.fund.state == 'active'" 
+                                translate="components.organization_funds.states.active")
+                                
+                            .tag.tag-warning.tag-sm(
+                                ng-if="$ctrl.fund.state == 'paused'" 
+                                translate="components.organization_funds.states.paused")
+                            
+                            .tag.tag-default.tag-sm(
+                                ng-if="$ctrl.fund.state == 'closed'" 
+                                translate="components.organization_funds.states.closed")
+
                     .fund-description-short(ng-bind="$ctrl.fund.description_short")
 
             .fund-description
@@ -65,12 +80,12 @@
                                     .menu-dropdown-arrow
                                     .dropdown.dropdown-actions
                                         .dropdown-heading Opties
-                                        a(href="{{ $ctrl.fund.implementation.url_webshop + 'funds/' + $ctrl.fund.id }}").dropdown-item
-                                            em.mdi.mdi-eye-outline.icon-start
+                                        a(href="{{ $ctrl.fund.implementation.url_webshop + 'funds/' + $ctrl.fund.id }}" target="_blank").dropdown-item
+                                            em.mdi.mdi-open-in-new.icon-start
                                             | &nbsp; Bekijk op webshop
                                         
                                         a(
                                             ng-if="$root.activeOrganization | hasPerm:['manage_implementation_cms']:false"
                                             ui-sref="implementation-view({organization_id: $ctrl.fund.organization_id, id: $ctrl.fund.implementation.id})").dropdown-item
-                                            em.mdi.mdi-pencil.icon-start
+                                            em.mdi.mdi-store-outline.icon-start
                                             | &nbsp; Ga naar CMS
