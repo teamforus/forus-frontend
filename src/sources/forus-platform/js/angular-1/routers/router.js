@@ -502,7 +502,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "organizationBankConnectionsComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('bank-connections', 'manage_organization'),
+            permission: permissionMiddleware('bank-connections', 'manage_bank_connections'),
             banks: ['BanksService', 'permission', (BanksService) => {
                 return repackPagination(BanksService.list());
             }],
