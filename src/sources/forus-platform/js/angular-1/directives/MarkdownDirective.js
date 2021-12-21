@@ -155,14 +155,27 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
         return $theEditor.summernote("code", value);
     };
 
-    const initTheEditor = () => {
-        const buttons = $dir.buttons || [];
-        const icons = buttons.reduce((icons, btn) => ({ ...icons, [btn.iconKey || btn.key]: btn.icon }), {});
-
+    const buildToolbarsList = (buttons) => {
         const allowLists = typeof $dir.allowLists == 'undefined' ? true : $dir.allowLists;
         const allowAlignment = typeof $dir.allowAlignment == 'undefined' ? false : $dir.allowAlignment;
         const extendedOptions = typeof $dir.extendedOptions == 'undefined' ? false : $dir.extendedOptions;
         const allowPreview = typeof $dir.allowPreview == 'undefined' ? false : $dir.allowPreview;
+        const toolbars = [];
+
+        toolbars.push(['style', ['style']]);
+        toolbars.push(allowAlignment ? ['align', ['cmsBlockAlign']] : null);
+        toolbars.push(['font', ['bold', 'italic', 'clear']]);
+        toolbars.push(allowLists ? ['para', ['ol', 'ul']] : null);
+        toolbars.push(['cms', ['cmsLink', 'unlink', ...(extendedOptions ? ['cmsMedia', 'cmsLinkYoutube'] : [])]]);
+        toolbars.push(['view', ['fullscreen', ...(allowPreview ? ['cmsMailView'] : [])]]);
+        toolbars.push(['buttons', buttons.map((button) => button.key)]);
+
+        return toolbars.filter((group) => group);
+    };
+
+    const initTheEditor = () => {
+        const buttons = $dir.buttons || [];
+        const icons = buttons.reduce((icons, btn) => ({ ...icons, [btn.iconKey || btn.key]: btn.icon }), {});
 
         $theEditor.summernote({
             placeholder: $dir.placeholder || '',
@@ -206,24 +219,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
             },
 
             styleTags: ['h1', 'h2', 'h3', 'h4', 'p'],
-            toolbar: [...[
-                ['style', ['style']],
-            ], ...(allowAlignment ? [
-                ['align', ['cmsBlockAlign']],
-            ] : []), ...[
-                ['font', ['bold', 'italic', 'clear']],
-            ], ...(allowLists ? [
-                ['para', ['ol', 'ul']],
-            ] : []), ...(extendedOptions ? [
-                /* ['table', ['table']], */
-                ['cms', ['cmsLink', 'unlink', 'cmsMedia', 'cmsLinkYoutube']],
-            ] : [
-                ['cms', ['cmsLink', 'unlink']]
-            ]), ...(allowPreview ? [
-                ['view', ['fullscreen', 'cmsMailView']],
-            ] : []), ...[    
-                ['buttons', buttons.map((button) => button.key)],
-            ]],
+            toolbar: buildToolbarsList(buttons),
             buttons: {
                 cmsLink: CmsButton('customLink', 'link'),
                 cmsMedia: CmsButton('imageLink', 'picture'),
