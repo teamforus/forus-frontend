@@ -28,7 +28,7 @@ const FundsShowComponent = function($state, ModalService, FundService) {
     };
 
     $ctrl.$onInit = () => {
-        $ctrl.implementations = [{...$ctrl.fund.implementation}, {...$ctrl.fund.implementation}];
+        $ctrl.implementations = [$ctrl.fund.implementation];
     }
 };
 
