@@ -45,7 +45,7 @@ const jsCompilerBrowserify = (name, sourcesList, useTypescript) => {
     return stream;
 };
 
-const jsCompilerValila = (name, sourcesList) => {
+const jsCompilerVanilla = (name, sourcesList) => {
     const stream = [];
 
     if (hasTypeScript) {
@@ -94,7 +94,7 @@ const jsCompiler = function(platform, src, task) {
     }
 
     for (var i = dest.length - 1; i >= 0; i--) {
-        const stream = task.browserify ? jsCompilerBrowserify(name, sourcesList, useTs) : jsCompilerValila(name, sourcesList);
+        const stream = task.browserify ? jsCompilerBrowserify(name, sourcesList, useTs) : jsCompilerVanilla(name, sourcesList);
         stream.push(plugins.insert.prepend('var env_data = ' + JSON.stringify(platform.env_data) + ';'));
 
         // uglify output

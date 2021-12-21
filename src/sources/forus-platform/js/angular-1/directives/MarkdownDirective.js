@@ -1,3 +1,5 @@
+const turndownPluginGfm = require('../libs/turndown-plugin-gfm.cjs')
+
 const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
     const $dir = $scope.$dir;
     const $theEditor = $($element.find('[editor]')[0]);
@@ -166,6 +168,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
         toolbars.push(allowAlignment ? ['align', ['cmsBlockAlign']] : null);
         toolbars.push(['font', ['bold', 'italic', 'clear']]);
         toolbars.push(allowLists ? ['para', ['ol', 'ul']] : null);
+        toolbars.push(extendedOptions ? ['table', ['table']] : null);
         toolbars.push(['cms', ['cmsLink', 'unlink', ...(extendedOptions ? ['cmsMedia', 'cmsLinkYoutube'] : [])]]);
         toolbars.push(['view', ['fullscreen', ...(allowPreview ? ['cmsMailView'] : [])]]);
         toolbars.push(['buttons', buttons.map((button) => button.key)]);
@@ -244,9 +247,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                         }
                     });
 
-                    if (typeof turndownPluginGfm != 'undefined') {
-                        turndownService.use(turndownPluginGfm.gfm);
-                    }
+                    turndownService.use(turndownPluginGfm.gfm);
 
                     const markdown = turndownService.turndown(contents).split("\n");
 
