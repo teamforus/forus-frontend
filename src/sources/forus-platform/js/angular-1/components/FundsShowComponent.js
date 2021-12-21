@@ -1,16 +1,14 @@
 const FundsShowComponent = function($state, ModalService, FundService) {
     const $ctrl = this;
 
-    $ctrl.showDropdownMenuItem = false;
-
-    $ctrl.toggleActions = (e) => {
-        e.stopPropagation();
-        $ctrl.showDropdownMenuItem = true;
+    $ctrl.toggleActions = (e, implementation) => {
+        $ctrl.onClickOutsideMenu(e);
+        implementation.showMenu = true;
     };
 
     $ctrl.onClickOutsideMenu = (e) => {
         e.stopPropagation();
-        $ctrl.showDropdownMenuItem = false;
+        $ctrl.implementations.forEach((implementation) => implementation.showMenu = false);
     };
 
     $ctrl.deleteFund = function(fund) {
@@ -28,6 +26,10 @@ const FundsShowComponent = function($state, ModalService, FundService) {
             }
         });
     };
+
+    $ctrl.$onInit = () => {
+        $ctrl.implementations = [{...$ctrl.fund.implementation}, {...$ctrl.fund.implementation}];
+    }
 };
 
 module.exports = {
