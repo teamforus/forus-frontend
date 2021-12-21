@@ -219,6 +219,7 @@ app.directive('headerNotifications', require('./directives/HeaderNotificationsDi
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
+app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 

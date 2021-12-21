@@ -18,26 +18,32 @@ main(id="main-content")
 
         .block.block-fund
             mixin fund_actions
-                .fund-actions
-                    button.button.button-primary.button-wide(
+                .fund-actions: .button-group
+                    a.button.button.button-wide(
+                        target="_blank"
+                        ng-class="$ctrl.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'"
+                        ng-if="$ctrl.fund.external_link_text && $ctrl.fund.external_link_url"
+                        ng-href="{{ $ctrl.fund.external_link_url }}"
+                        ng-bind="$ctrl.fund.external_link_text")
+
+                    a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.showRequestButton"
                         ui-sref="fund-activate({fund_id: $ctrl.fund.id})"
-                        translate="funds.buttons.{{ $root.client_key }}.start_request" 
-                        translate-default="{{ 'funds.buttons.start_request' | translate }}")
+                        ng-bind="$ctrl.fund.request_btn_text")
 
-                    button.button.button-primary.button-wide.button-disabled(
+                    a.button.button-primary.button-wide.button-disabled(
                         ng-if="$ctrl.fund.showPendingButton"
                         translate="funds.buttons.is_pending")
 
-                    button.button.button-primary.button-wide(
+                    a.button.button-primary.button-wide(
                         type="button"
                         ng-if="$ctrl.fund.showActivateButton" 
-                        ng-click="$ctrl.applyFund($ctrl.fund)" 
+                        ng-click="$ctrl.applyFund($event, $ctrl.fund)" 
                         translate="funds.buttons.is_applicable")
 
-                    button.button.button-primary.button-wide(
+                    a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.alreadyReceived" 
-                        ui-sref="{{ $ctrl.fund.voucherStateName }}" 
+                        ui-sref="voucher({ address: $ctrl.fund.vouchers[0].address })" 
                         translate="funds.buttons.already_received")
 
             .fund-content
@@ -63,10 +69,6 @@ main(id="main-content")
 
                 +fund_actions
 
-        .block.block-markdown(
-            ng-if="$ctrl.fund.description_html" 
-            ng-bind-html="$ctrl.fund.description_html")
-
         block-products(
             type="budget"
             ng-if="!$ctrl.fund.description_html && $ctrl.products"
@@ -77,6 +79,21 @@ main(id="main-content")
             type="subsidies"
             ng-if="!$ctrl.fund.description_html && $ctrl.subsidies"
             products="$ctrl.subsidies.data"
-            filters="{fund_id: $ctrl.fund.id}") 
+            filters="{fund_id: $ctrl.fund.id}")
 
+        .block.block-markdown(
+            ng-if="$ctrl.fund.description_html"
+            ng-bind-html="$ctrl.fund.description_html")
+
+        section.section.section-faq(ng-if="$ctrl.fund.faq"): .wrapper
+            .section-splash
+            .section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
+
+            .faq.faq-fund
+                .faq-item(collapse ng-repeat="question in $ctrl.fund.faq" class=active ? 'active' : '' collapse-item)
+                    .faq-item-header(collapse-header)
+                        h2(ng-bind="question.title").faq-item-title
+                        .faq-item-chevron-down.mdi.mdi-chevron-down
+                        .faq-item-chevron-up.mdi.mdi-chevron-up
+                    .faq-item-content: .block.block-markdown(ng-bind-html="question.description_html")
         div

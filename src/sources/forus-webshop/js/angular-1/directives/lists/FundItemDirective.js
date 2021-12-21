@@ -22,8 +22,8 @@ const FundItemDirective = function($scope, FundService) {
         fund.isApplicable    = fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
         fund.alreadyReceived = fund.vouchers.length !== 0;
 
-        fund.canApply    = !fund.alreadyReceived && fund.isApplicable && !fund.has_pending_fund_requests;
-        fund.canActivate = !fund.alreadyReceived && fund.has_approved_fund_requests;
+        fund.canApply    = !fund.is_external && !fund.alreadyReceived && fund.isApplicable && !fund.has_pending_fund_requests;
+        fund.canActivate = !fund.is_external && !fund.alreadyReceived && fund.has_approved_fund_requests;
         fund.isPending   = !fund.alreadyReceived && fund.has_pending_fund_requests;
 
         return fund;
