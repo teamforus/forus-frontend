@@ -176,7 +176,6 @@ app.directive('menu', {
 app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('dashboardSwitcher', require('./directives/DashboardSwitcherDirective'));
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
-app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'));
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
 app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
 app.directive('fundCardProviderCanJoin', require('./directives/FundCardProviderCanJoinDirective'));

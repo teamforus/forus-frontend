@@ -1464,16 +1464,11 @@ module.exports = {
         }
     },
 
-    //FUND CARD FOR SPONSOR = fund-card-sponsor.pug
+    // FUND INFO SPONSOR = fund-show/implementation-view/organization-funds
     fund_card_sponsor: {
         buttons: {
-            join: "Aanmelden",
             close: "Sluit",
-            restart: "Herstart",
             pause: "Pauze",
-            add: "Budget toevoegen",
-            delete: 'Verwijderen',
-            invite_providers: 'Aanbieders'
         },
         status: {
             active: "Actief",
@@ -1481,25 +1476,10 @@ module.exports = {
             closed: "Gestopt",
         },
         labels: {
-            categories: "Categorieën",
-            nocategories: "Geen Categorieën",
-            setting: "Instellingen",
-            statistics: "Statistieken",
-            price: "BEDRAG",
-            description: "BESCHRIJVING",
-            customer: "KLANT",
-            date: "DATUM",
-            action: "ACTIE",
-            refund: "Terugbetalen",
-            chargeid: "Kopieer het transactienummer",
-            connections: "CONNECTIE",
-            details: "Bekijk transactiedetails",
-            results: "x resultaten",
-            payment: "Betaling -",
-            providers: "Aanbieders",
+            employees: "medewerkers",
             your_employees: "Uw medewerkers",
+            providers: "Aanbieders",
             applicants: "Aanvragers",
-            employees: "medewerkers"
         },
         confirm_delete: {
             title: 'Weet u zeker dat u dit fonds wilt verwijderen?',
