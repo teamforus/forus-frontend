@@ -1266,6 +1266,19 @@ body {
                 font: 500 13px/20px $bf;
                 width: calc(100% - 210px);
 
+                .block-form_tooltip {
+                    vertical-align: middle;
+                    margin-top: -2px;
+                    
+                    &:not(:first-child) {
+                        margin-left: 5px;
+                    }
+                    
+                    &:not(:last-child) {
+                        margin-right: 5px;
+                    }
+                }
+
                 .icon {
                     margin-left: 7px;
                 }

@@ -1,5 +1,5 @@
 .organization-item
-    .organization-pane(ng-click="$dir.toggleOffices($event)" role="button")
+    .organization-pane(ng-click="$dir.toggleOffices($event)" aria-expanded="{{ $dir.provider.showOffices }}" role="button")
         .organization-logo(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()")
             img(
                 ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || '/assets/img/placeholders/organization-thumbnail.png' }}"

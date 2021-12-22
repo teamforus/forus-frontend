@@ -246,6 +246,10 @@
         &:hover {
             box-shadow: none;
         }
+
+        &:focus {
+            color: #3B3B3B !important;
+        }
     }
 
     &.button-icon {

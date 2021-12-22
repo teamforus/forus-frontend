@@ -6,7 +6,7 @@
     .modal-content: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
-        .modal-title(id="authDialogTitle" translate="popup_auth.labels.activate")
+        h2.modal-title(id="authDialogTitle" translate="popup_auth.labels.activate")
         .modal-subtitle(id="authDialogSubtitle" translate="popup_auth.labels.{{ $root.client_key }}.mail")
 
         form.form(ng-submit="$ctrl.signUpForm.submit()")

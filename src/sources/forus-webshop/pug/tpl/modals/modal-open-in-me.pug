@@ -10,7 +10,7 @@
         .me-logo
             include ../../../resources/_webshop-common/assets/img/me-logo.svg
 
-        .modal-title(translate="open_in_me.sms.title_{{ $root.appConfigs.features.communication_type }}")
+        h2.modal-title(translate="open_in_me.sms.title_{{ $root.appConfigs.features.communication_type }}")
         .modal-subtitle.hide-sm(translate="open_in_me.sms.description_{{ $root.appConfigs.features.communication_type }}")
         .modal-subtitle.show-sm De app kan gebruikt worden om tegoeden te beheren en makkelijk in te loggen.
 
@@ -30,7 +30,7 @@
     .modal-content(ng-if="$ctrl.sentSms"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-        .modal-title(id="openInMeDialogTitle" translate="open_in_me.app_instruction.title")
+        h2.modal-title(id="openInMeDialogTitle" translate="open_in_me.app_instruction.title")
         .modal-subtitle.hide-sm(id="openInMeDialogSubtitle")
             span(translate="open_in_me.app_instruction.description")
             a(ui-sref="me-app" target="_blank" class="text-primary"): u Me-app
@@ -46,7 +46,7 @@
 
             .divider-img: img(src="./assets/img/Base7.png" alt ="")
 
-        .modal-title {{ "open_in_me.app_header.title" | translate }}
+        h2.modal-title {{ "open_in_me.app_header.title" | translate }}
         .modal-subtitle(translate="open_in_me.app_header.subtitle_{{ $root.appConfigs.features.communication_type }}")
         
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")

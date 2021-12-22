@@ -55,7 +55,8 @@ const BaseController = function(
     $rootScope.signOut = (
         $event = null,
         needConfirmation = false,
-        deleteToken = true
+        deleteToken = true,
+        redirect = 'home'
     ) => {
         if ($event && typeof $event.preventDefault != 'undefined') {
             $event.preventDefault();
@@ -69,7 +70,7 @@ const BaseController = function(
                 confirmBtnText: "buttons.confirm",
                 cancelBtnText: "buttons.cancel",
                 confirm: () => $rootScope.signOut(),
-                cancel: () => {}
+                cancel: () => { }
             });
         }
 
@@ -78,9 +79,15 @@ const BaseController = function(
         }
 
         AuthService.signOut();
-
-        $state.go('home');
         $rootScope.auth_user = false;
+
+        if (redirect && typeof redirect == 'function') {
+            redirect();
+        }
+
+        if (redirect && typeof redirect == 'string') {
+            $state.go(redirect);
+        }
     };
 
     $rootScope.appConfigs = appConfigs;
