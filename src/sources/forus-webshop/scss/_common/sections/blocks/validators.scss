@@ -14,8 +14,8 @@
         .block-header {
             border-bottom: 1px solid #d4d9dd;
             padding: 20px 25px;
-            font: 700 22px $bf;
-            color: #282b39;
+            font: 700 22px $hf;
+            color: $tc;
             position: relative;
         }
 
@@ -93,7 +93,7 @@
     @media screen and (max-width: 1000px) {
         &.block-validators {
             .block-header {
-                font: 700 16px $bf;
+                font: 700 16px $hf;
                 padding: 15px 20px;
             }
 
