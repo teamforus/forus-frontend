@@ -28,6 +28,11 @@
         color: $tc;
         margin: 0 0 0;
 
+        .pane-head-title {
+            font: inherit;
+            margin: 0;
+        }
+
         .pane-head-count {
             height: 30px;
             min-width: 30px;
