@@ -1,14 +1,18 @@
-let MultiSelectDirective = function($scope) {
+let MultiSelectDirective = function($scope, $filter) {
 
     if (!$scope.options) {
         $scope.options = [];
+    }
+
+    if (!$scope.labelText) {
+        $scope.labelText = $filter('translate')('multi_select.title');
     }
 
     let buildOptions = function() {
         $scope.optionsById = {};
         $scope.selectorOptions = [{
             id: 0,
-            name: "Selecteer categorie"
+            name: $scope.optionSelectText || 'Selecteer categorie'
         }];
         $scope.selectedOption = 0;
 
@@ -44,12 +48,15 @@ module.exports = () => {
     return {
         scope: {
             ngModel: '=',
-            options: '='
+            options: '=',
+            labelText: '@',
+            optionSelectText: '@',
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
+            '$filter',
             MultiSelectDirective
         ],
         templateUrl: 'assets/tpl/directives/multi-select.html' 

@@ -153,6 +153,7 @@ const FundsEditComponent = function(
             state: $ctrl.fundStates[0].value,
             type: 'budget',
             application_method: 'application_form',
+            tag_ids: [],
             request_btn_text: $ctrl.findMethod('application_form').default_button_text,
             allow_direct_requests: true,
             start_date: moment().add(6, 'days').format('DD-MM-YYYY'),
