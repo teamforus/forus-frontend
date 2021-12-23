@@ -36,10 +36,10 @@
                     label(translate="funds_edit.labels.description_short").form-label
                     .form-offset
                         textarea(
-                            maxlength="140"
+                            maxlength="280"
                             placeholder="Omschrijving"
                             ng-model="$ctrl.form.values.description_short").form-control.r-n
-                        .form-hint Max. 140 tekens
+                        .form-hint Max. 280 tekens
                         .form-error(ng-repeat="error in $ctrl.form.errors.description_short" ng-bind="error")
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
