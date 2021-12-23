@@ -172,11 +172,17 @@
                 }
 
                 .showcase-filters-title {
-                    font: 600 18px/28px $bf;
+                    font: 600 18px/30px $hf;
                     letter-spacing: -.15px;
                     color: $tc;
-                    margin: 0;
+                    margin: 0 0 15px;
                     @include ellipsis();
+
+                    span {
+                        vertical-align: top;
+                        line-height: inherit;
+                        display: inline-block;
+                    }
 
                     .showcase-filters-title-count {
                         font: 700 16px/30px $bf;

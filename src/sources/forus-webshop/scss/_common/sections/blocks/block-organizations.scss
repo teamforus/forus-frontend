@@ -6,11 +6,12 @@
 
         .organization-pane {
             background: #ffffff;
-            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
             border-radius: $border_radius;
             display: flex;
             flex-direction: row;
             padding: 25px 15px;
+            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+            transition: box-shadow .4s;
 
             .organization-logo {
                 margin: -10px 15px -10px 0;
@@ -26,7 +27,7 @@
                 display: flex;
                 flex-direction: row;
                 flex-grow: 1;
-                font: 700 14px/20px $bf;
+                font: 600 16px/20px $hf;
                 text-align: left;
 
                 .organization-title-value {
@@ -34,6 +35,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
+                    font: inherit;
                 }
 
                 .organization-title-count {
@@ -68,6 +70,10 @@
                     color: $color_primary;
                 }
             }
+
+            &:hover {
+                box-shadow: $base_shadow;
+            }
         }
 
         .organization-offices {
@@ -76,9 +82,10 @@
             .block-offices {
                 margin-top: 15px;
                 background: #fff;
-                box-shadow: $base_shadow;
                 border-radius: $border_radius;
-    
+                box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+                transition: box-shadow .4s;
+                
                 .office-item {
                     margin-bottom: 0;
                     position: relative;
@@ -126,6 +133,10 @@
                             height: 60px
                         }
                     }
+                }
+
+                &:hover {
+                    box-shadow: $base_shadow;
                 }
             }
         }

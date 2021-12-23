@@ -9,14 +9,18 @@ block content
                     a(ui-sref="providers").breadcrumb-item Aanbieders
                     a(ui-sref="provider($ctrl.provider)" ng-bind="$ctrl.provider.name").breadcrumb-item
                     .breadcrumb-item.active(ng-bind="$ctrl.office.address" aria-current="location")
+
             .office-map: .block.block-google-map: google-map(
                 map-pointers="[$ctrl.office]" 
                 map-pointer-template="providers-office-view" 
                 map-gesture-handling="'none'")
+
             .office-content
                 .block.block-pane
-                    h1.sr-only(ng-bind="$ctrl.office.address")
-                    h2.pane-head Vestiging informatie
+                    .pane-head
+                        h1.sr-only(ng-bind="$ctrl.office.address")
+                        h2.pane-head-title Vestiging informatie
+
                     .pane-section.pane-section-compact-vertical
                         .block.block-data-list
                             .data-list-row(ng-if="$ctrl.office.address")
@@ -37,12 +41,12 @@ block content
                                     .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen type geselecteerd' }}
 
                 .block.block-pane(ng-if="$ctrl.provider.description_html")
-                    .pane-head Omschrijving
+                    .pane-head: h2.pane-head-title Omschrijving
                     .pane-section: .block.block-markdown
                         div(ng-bind-html="$ctrl.provider.description_html")
                         
                 .block.block-pane
-                    h2.pane-head Openingstijden
+                    .pane-head: h2.pane-head-title Openingstijden
                     .pane-section.pane-section-compact-vertical(ng-if="$ctrl.office.schedule.length > 0")
                         .block.block-schedule-list($ctrl.schedules.lenght)
                             .schedule-item(ng-repeat="(dayIndex, weekDay) in $ctrl.weekDays")
@@ -53,7 +57,7 @@ block content
                         | Aanbieder heeft geen openingstijden ingesteld. Contacteer aanbieder voor de openingstijden.
                 
                 .block.block-pane.last-child
-                    h2.pane-head Aanbieder
+                    .pane-head: h2.pane-head-title Aanbieder
                     .pane-section
                         .office-organization(ng-click="$ctrl.toggleOffices($event, $ctrl.provider)")
                             a(ui-sref="provider($ctrl.provider)" ng-click="$event.stopPropagation()").organization-photo
@@ -88,5 +92,16 @@ block content
                                                     .mdi.mdi-email-outline
                                                     | {{ provider.email }}
 
-                block-products(ng-if="$ctrl.products.data.length > 0" display="grid" type="budget" products="$ctrl.products.data" filters="{organization_id: $ctrl.provider.id}")
-                block-products(ng-if="$ctrl.subsidies.data.length > 0" display="grid" type="subsidies" products="$ctrl.subsidies.data" filters="{organization_id: $ctrl.provider.id}")
+                block-products(
+                    ng-if="$ctrl.products.data.length > 0" 
+                    type="budget"
+                    display="grid"
+                    products="$ctrl.products.data" 
+                    filters="{organization_id: $ctrl.provider.id}")
+
+                block-products(
+                    ng-if="$ctrl.subsidies.data.length > 0" 
+                    type="subsidies" 
+                    display="grid" 
+                    products="$ctrl.subsidies.data" 
+                    filters="{organization_id: $ctrl.provider.id}")

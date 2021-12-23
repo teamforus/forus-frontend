@@ -35,18 +35,6 @@ const OrganizationFundsComponent = function(
         }
     };
 
-    $ctrl.deleteFund = function(fund) {
-        ModalService.open('modalNotification', {
-            type: 'confirm',
-            title: 'fund_card_sponsor.confirm_delete.title',
-            icon: 'product-error',
-            description: 'fund_card_sponsor.confirm_delete.description',
-            confirm: () => {
-                FundService.destroy(fund.organization_id, fund.id).then(() => $state.reload());
-            }
-        });
-    };
-
     $ctrl.inviteProvider = (fund) => {
         if (fund.canInviteProviders) {
             ModalService.open('fundInviteProviders', {

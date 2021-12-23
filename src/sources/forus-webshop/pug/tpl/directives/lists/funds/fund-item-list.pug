@@ -3,16 +3,30 @@ a.fund-item
         ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
         alt="")
 
-    .fund-content
-        .fund-details
-            .fund-name(ng-bind="$dir.fund.name")
-            .fund-organization(ng-bind="$dir.fund.organization.name")
-            .fund-status-label
-                .label.label-default(ng-if="$dir.fund.showPendingButton" translate="funds.buttons.is_pending")
-                .label.label-success(ng-if="$dir.fund.alreadyReceived" translate="funds.status.active")
-            
-        .fund-actions(ng-if="$dir.showActivateButton")
-            button.button.button-primary.button-fill(
-                type="button"
-                ng-click="$dir.applyFund($dir.fund)" 
-                translate="funds.buttons.is_applicable")
+    .fund-content: .fund-details
+        .fund-name(ng-bind="$dir.fund.name")
+
+        .fund-description(
+            ng-if="$dir.fund.description_short" 
+            ng-bind="$dir.fund.description_short")
+
+        .fund-status-label
+            .label.label-light(
+                ng-if="$dir.fund.canApply && !$dir.fund.canActivate"
+                translate="funds.status.is_applicable")
+
+            .label.label-success(
+                ng-if="$dir.fund.canActivate"
+                translate="funds.status.activateable")
+
+            .label.label-primary(
+                ng-if="$dir.fund.alreadyReceived"
+                translate="funds.status.active")
+
+            .label.label-warning(
+                ng-if="$dir.fund.isPending"
+                translate="funds.status.is_pending")
+
+            .label.label-light(
+                ng-if="!$dir.fund.canActivate && !$dir.fund.canApply && !$dir.fund.isPending && !$dir.fund.isApplicable && !$dir.fund.alreadyReceived"
+                translate="funds.status.is_applicable")
