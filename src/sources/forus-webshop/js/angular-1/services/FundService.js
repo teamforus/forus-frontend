@@ -247,12 +247,6 @@ const FundService = function(
             });
         };
 
-        this.fundCategoriesList = (organization_id) => {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds'
-            );
-        }
-
         this.redeem = function(code) {
             return ApiRequest.post('/platform/funds/redeem', { code });
         };
