@@ -32,6 +32,13 @@ block content
                                     ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
                                     ng-model="$ctrl.form.values.organization_id"
                                     id="select_organization").form-control
+
+                            .form-group
+                                label.form-label(for="select_category") Categorie
+                                select(
+                                    ng-options="fundCategory.tag_id as fundCategory.tag_name for fundCategory in $ctrl.fundCategories" 
+                                    ng-model="$ctrl.form.values.category_tag_id"
+                                    id="select_category").form-control
                         
                     .showcase-content
                         .showcase-content-header

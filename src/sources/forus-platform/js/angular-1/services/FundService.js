@@ -296,7 +296,7 @@ const FundService = function(ApiRequest, ModalService) {
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),
                 application_method: this.getApplicationMethodKey(apiResource),
                 tags: apiResource.tags,
-                tag_ids: Array.isArray(apiResource.categories) ? apiResource.categories.map(category => category.tag_id) : []
+                category_tag_ids: Array.isArray(apiResource.categories) ? apiResource.categories.map(category => category.tag_id) : []
             };
         };
 

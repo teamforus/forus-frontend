@@ -688,7 +688,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "funds",
-        url: "/funds?{page:int}&{q:string}&{display_type:string}&{organization_id:int}&{show_menu:bool}",
+        url: "/funds?{page:int}&{q:string}&{display_type:string}&{organization_id:int}&{category_tag_id:int}&{show_menu:bool}",
         component: "fundsComponent",
         params: {
             q: {
@@ -702,6 +702,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 squash: true,
             },
             organization_id: {
+                value: null,
+                squash: true
+            },
+            category_tag_id: {
                 value: null,
                 squash: true
             },
@@ -723,6 +727,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 q: $transition$.params().q,
                 page: $transition$.params().page,
                 organization_id: $transition$.params().organization_id,
+                category_tag_id: $transition$.params().category_tag_id,
                 per_page: 10,
                 with_external: 1
             }))],

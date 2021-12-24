@@ -4,13 +4,14 @@ const FundsComponent = function(
     $stateParams,
     appConfigs,
     FundService,
-    FormBuilderService
+    FormBuilderService,
 ) {
     const $ctrl = this;
 
     $ctrl.applyingFund = false;
     $ctrl.appConfigs = appConfigs;
     $ctrl.countFiltersApplied = 0;
+    $ctrl.fundCategories = [];
 
     $ctrl.toggleMobileMenu = () => {
         $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
@@ -31,6 +32,7 @@ const FundsComponent = function(
             q: query.q || '',
             page: query.page,
             organization_id: query.organization_id,
+            category_tag_id: query.category_tag_id,
             show_menu: $ctrl.showModalFilters,
             with_external: 1,
         });
@@ -71,9 +73,23 @@ const FundsComponent = function(
             name: 'Alle organisaties',
         });
 
+        $ctrl.fundCategories.unshift({
+            tag_id: null,
+            tag_name: 'Alle categories',
+        });
+
+        $ctrl.funds.data.forEach(fund => {
+            $ctrl.fundCategories = [...$ctrl.fundCategories, ...fund.categories];
+        });
+
+        $ctrl.fundCategories = [
+            ...new Map($ctrl.fundCategories.map(fundCategory => [fundCategory['tag_id'], fundCategory])).values()
+        ];
+
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
             organization_id: $stateParams.organization_id || null,
+            category_tag_id: $stateParams.category_tag_id || null,
             per_page: $stateParams.per_page || 10,
             with_external: 1,
         });
