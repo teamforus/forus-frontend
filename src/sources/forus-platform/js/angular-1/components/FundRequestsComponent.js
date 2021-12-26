@@ -11,6 +11,8 @@ let FundRequestsComponent = function(
     OrganizationEmployeesService,
     FundRequestValidatorService,
     PushNotificationsService,
+    PersonBSNService,
+    PageLoadingBarService,
     appConfigs
 ) {
     let $ctrl = this;
@@ -75,6 +77,8 @@ let FundRequestsComponent = function(
         ).then((res) => {
             res.data.data.hasContent = request.hasContent;
             res.data.data.collapsed = request.collapsed;
+            res.data.data.person = request.person;
+            res.data.data.person_breadcrumbs = request.person_breadcrumbs;
 
             request.records.forEach((record) => {
                 let newRecord = res.data.data.records.filter(_record => _record.id == record.id)[0];
@@ -243,6 +247,9 @@ let FundRequestsComponent = function(
             request.is_assigned = request.records.filter(
                 record => record.is_assigned && record.state === 'pending'
             ).length > 0;
+
+            request.person = false;
+            request.person_breadcrumbs = [];
         });
 
         return validatorRequests;
@@ -373,6 +380,66 @@ let FundRequestsComponent = function(
     $ctrl.onPageChange = (query) => {
         reloadRequests(query);
     };
+
+    $ctrl.persons = {};
+    let fetchingPerson = false;
+    $ctrl.getPerson = (validatorRequest, bsn, parent = null) => {
+        if (!bsn || fetchingPerson) {
+            return;
+        }
+
+        fetchingPerson = true;
+        if ($ctrl.persons[bsn]) {
+            validatorRequest.person = $ctrl.persons[bsn];
+            validatorRequest.bsn_collapsed = false;
+            setBreadcrumbs(validatorRequest, parent);
+            fetchingPerson = false;
+            return;
+        }
+
+        PageLoadingBarService.setProgress(0);
+
+        PersonBSNService.read($ctrl.organization.id, bsn).then((res) => {
+            $ctrl.persons[bsn] = res.data.data;
+            validatorRequest.person = $ctrl.persons[bsn];
+            validatorRequest.bsn_collapsed = false;
+            setBreadcrumbs(validatorRequest, parent);
+            PageLoadingBarService.setProgress(100);
+            fetchingPerson = false;
+        }, (res) => {
+            PageLoadingBarService.setProgress(100);
+            fetchingPerson = false;
+            if (res.status === 404) {
+                // not found message
+            }
+        });
+    }
+
+    function setBreadcrumbs(validatorRequest, parent) {
+        if (parent) {
+            let parentIndex = validatorRequest.person_breadcrumbs.findIndex(breadcrumb => breadcrumb.bsn === parent);
+            if (parentIndex !== -1) {
+                validatorRequest.person_breadcrumbs.splice(parentIndex + 1);
+            }
+
+            let index = validatorRequest.person_breadcrumbs.findIndex(breadcrumb => breadcrumb.bsn === validatorRequest.person.bsn);
+            if (index !== -1) {
+                validatorRequest.person_breadcrumbs.splice(index + 1);
+            } else if (parent !== validatorRequest.person.bsn) {
+                validatorRequest.person_breadcrumbs.push(validatorRequest.person);
+            }
+
+            return;
+        }
+
+        validatorRequest.person_breadcrumbs = [];
+        // let index = validatorRequest.person_breadcrumbs.findIndex(breadcrumb => breadcrumb.bsn === validatorRequest.person.bsn);
+        // if (index === -1) {
+            validatorRequest.person_breadcrumbs.push(validatorRequest.person);
+        // }
+    }
+
+
 };
 
 module.exports = {
@@ -393,6 +460,8 @@ module.exports = {
         'OrganizationEmployeesService',
         'FundRequestValidatorService',
         'PushNotificationsService',
+        'PersonBSNService',
+        'PageLoadingBarService',
         'appConfigs',
         FundRequestsComponent
     ],
