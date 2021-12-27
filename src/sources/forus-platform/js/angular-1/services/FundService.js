@@ -245,7 +245,7 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.updateProvider = function(organization_id, fund_id, id, data = {}) {
-            return ApiRequest.post(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${id}`, data);
+            return ApiRequest.patch(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${id}`, data);
         };
 
         this.states = function() {

@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 const ModalProductReserveComponent = function(
     appConfigs,
     ModalService,
@@ -15,11 +17,16 @@ const ModalProductReserveComponent = function(
         $ctrl.product = $ctrl.modal.scope.product;
         $ctrl.vouchers = $ctrl.modal.scope.vouchers;
 
+        const reservationExpireDate = moment().startOf('day').add(14, 'day').unix();
+        const closestDate = Math.min(reservationExpireDate, $ctrl.modal.scope.meta.shownExpireDate.unix);
+        const daysToCancel = moment.unix(closestDate).diff(moment().startOf('day'), 'days');
+
         $ctrl.transValues = {
-            expire_at: $ctrl.expire_at,
+            days_to_cancel: daysToCancel,
             product_name: $ctrl.product.name,
             product_price: $ctrl.product.price,
-            org_name: $ctrl.product.organization.name,
+            provider_name: $ctrl.product.organization.name,
+            fund_name: $ctrl.vouchers[0].fund.name
         };
     };
 };

@@ -26,9 +26,7 @@
             .fund-item(ng-repeat="fund in $ctrl.activeFunds")
                 .fund-item-section: .flex-col
                     .flex-row
-                        .fund-logo: img(
-                            ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}"
-                            ).fund-logo-img
+                        .fund-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").fund-logo-img
                         .fund-details
                             .fund-title
                                 span(ng-bind="fund.name")
