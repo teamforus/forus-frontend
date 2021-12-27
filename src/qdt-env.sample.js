@@ -571,7 +571,6 @@ module.exports = (core) => {
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
-                secondLogo: 'sdoa-logo.svg',
                 accessibilityPage: true,
             },
             sessions: sessions,
@@ -591,7 +590,6 @@ module.exports = (core) => {
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
-                secondLogo: 'sdoa-logo.svg',
                 accessibilityPage: true,
                 showAccountSidebar: false,
 
@@ -618,7 +616,6 @@ module.exports = (core) => {
             log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
-                secondLogo: 'sdoa-logo.svg',
                 accessibilityPage: true,
                 showAccountSidebar: false,
 
