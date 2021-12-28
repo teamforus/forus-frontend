@@ -80,9 +80,10 @@
                 color: $fc-link;
                 display: block;
                 transition: 0.4s;
-
+                text-decoration: underline;
+                
                 &:hover {
-                    color: $fc-link-hover;
+                    text-decoration: none;
                 }
             }
         }
@@ -182,12 +183,8 @@
 
                 a {
                     color: $fc-link;
-                    font: 700 14px/24px $bf;
+                    font: 400 14px/24px $bf;
                     transition: color 0.4s;
-
-                    &:hover {
-                        color: $fc-link-hover;
-                    }
                 }
 
                 &:last-child {
@@ -253,23 +250,23 @@
     @media screen and (max-width: 1700px) {
         &.block-footer {
             .footer-label {
-                font: 700 16px $bf;
+                font: 400 16px $bf;
             }
 
             .footer-schedule {
                 .schedule-label {
-                    font: 400 12px/24px $bf;
+                    font: 400 16px/24px $bf;
                 }
 
                 .schedule-value {
-                    font: 700 12px/24px $bf;
+                    font: 400 16px/24px $bf;
                 }
             }
 
             .footer-nav {
                 .footer-nav-item {
                     a {
-                        font: 700 12px/24px $bf;
+                        font: 400 16px/24px $bf;
                     }
                 }
             }
@@ -346,11 +343,7 @@
                 text-align: center;
 
                 .footer-nav-item {
-                    font: 700 13px/20px $bf;
-
-                    a {
-                        font: inherit;
-                    }
+                    font: 400 13px/20px $bf;
                 }
             }
 
