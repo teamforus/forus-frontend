@@ -9,7 +9,7 @@ const ProviderItemDirective = function($scope) {
     }
 
     $dir.media = $scope.provider.logo || null;
-    $dir.provider = $scope.provider;
+    $dir.provider = { ...$scope.provider, showOffices: false };
 };
 
 module.exports = () => {

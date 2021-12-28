@@ -2,8 +2,27 @@
     font: 600 11px/20px $bf;
     display: inline-block;
     padding: 0 7.5px;
-    border-radius: $border_radius / 2;
+    border-radius: max(2px, $border-radius / 2);
     cursor: default;
+
+    .mdi {
+        font-size: 1.4em;
+        line-height: inherit;
+        display: inline-block;
+        vertical-align: middle;
+        margin: -1px 0;
+        cursor: inherit;
+
+        &.icon-start {
+            margin-left: -2.5px;
+            margin-right: 2.5px;
+        }
+
+        &.icon-end {
+            margin-left: 2.5px;
+            margin-right: -2.5px;
+        }
+    }
 
     .label-close {
         color: #fff;
@@ -19,17 +38,17 @@
     }
 
     &.label-warning {
-        background: #eed77e;
+        background: #EFD77F;
         color: #030304;
     }
 
     &.label-danger {
-        background: #d4dae5;
+        background: #d38c87;
         color: #030304;
     }
 
     &.label-default {
-        background: #2b333b;
+        background: #777;
         color: #fff;
     }
 
@@ -38,9 +57,14 @@
         color: #fff;
     }
 
-    &.label-primary-light {
-        background: $color_primary_light;
-        color: #fff;
+    &.label-info {
+        background: #5bc0de;
+        color: #030304;
+    }
+
+    &.label-light {
+        background: #e6e6e6;
+        color: #030304;
     }
 
     &.label-dark {

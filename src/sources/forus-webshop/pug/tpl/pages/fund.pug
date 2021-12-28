@@ -13,74 +13,58 @@ main(id="main-content")
                 translate-default="{{'funds.header.title' | translate }}")
             a.breadcrumb-item.active(ng-bind="$ctrl.fund.name" aria-current="location")
 
-        h1.sr-only Aanvragen
-        h2.sr-only(ng-bind="$ctrl.fund.name")
-
         .block.block-fund
-            mixin fund_menu
-                .fund-menu
-                    button.button.button-primary.button-fill(
+            mixin fund_actions
+                .fund-actions: .button-group
+                    a.button.button.button-wide(
+                        target="_blank"
+                        ng-class="$ctrl.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'"
+                        ng-if="$ctrl.fund.external_link_text && $ctrl.fund.external_link_url"
+                        ng-href="{{ $ctrl.fund.external_link_url }}"
+                        ng-bind="$ctrl.fund.external_link_text")
+
+                    a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.showRequestButton"
                         ui-sref="fund-activate({fund_id: $ctrl.fund.id})"
-                        translate="funds.buttons.{{ $root.client_key }}.start_request" 
-                        translate-default="{{ 'funds.buttons.start_request' | translate }}")
+                        ng-bind="$ctrl.fund.request_btn_text")
 
-                    button.button.button-primary.button-fill.button-disabled(
+                    a.button.button-primary.button-wide.button-disabled(
                         ng-if="$ctrl.fund.showPendingButton"
                         translate="funds.buttons.is_pending")
 
-                    button.button.button-primary.button-fill(
+                    a.button.button-primary.button-wide(
                         type="button"
                         ng-if="$ctrl.fund.showActivateButton" 
-                        ng-click="$ctrl.applyFund($ctrl.fund)" 
+                        ng-click="$ctrl.applyFund($event, $ctrl.fund)" 
                         translate="funds.buttons.is_applicable")
 
-                    button.button.button-primary.button-fill(
+                    a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.alreadyReceived" 
-                        ui-sref="{{ $ctrl.fund.voucherStateName }}" 
+                        ui-sref="voucher({ address: $ctrl.fund.vouchers[0].address })" 
                         translate="funds.buttons.already_received")
 
             .fund-content
-                .fund-card
-                    .fund-details
-                        .fund-image: img(ng-src="{{ $ctrl.fundLogo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="")
-                        .fund-details-title
-                            .fund-name(ng-bind="$ctrl.fund.name") 
-                            .organization-name(ng-bind="$ctrl.fund.organization.name")
-                            .fund-details-items
-                                .fund-details-item(ng-repeat="formula in $ctrl.formulaList.fixed" ng-if="$ctrl.fund.type == 'budget'")
-                                    .fund-details-item-label(translate="fund.criterias.fixed_amount")
-                                    .fund-details-item-value(ng-bind="formula.amount | currency_format")
+                .fund-card: .fund-details
+                    h1.fund-name(ng-bind="$ctrl.fund.name") 
+                    .fund-description(ng-if="$ctrl.fund.description_short" ng-bind="$ctrl.fund.description_short")
+                    .fund-details-items                                 
+                        .fund-details-item
+                            .fund-details-item-label Uitgifte door:
+                            .fund-details-item-value(ng-bind="$ctrl.fund.organization.name")
 
-                                .fund-details-item(ng-repeat="formula in $ctrl.formulaList.multiply" ng-if="$ctrl.fund.type == 'budget'")
-                                    .fund-details-item-label(translate="fund.criterias.multiplied_amount")
-                                    .fund-details-item-value(ng-bind="formula.amount | currency_format")                                 
+                        .fund-details-item(ng-repeat="formula in $ctrl.formulaList.multiply" ng-if="$ctrl.fund.type == 'budget'")
+                            .fund-details-item-label(translate="fund.criterias.multiplied_amount")
+                            .fund-details-item-value(ng-bind="formula.amount | currency_format")                                 
 
-                                .fund-details-item
-                                    .fund-details-item-label Startdatum
-                                    .fund-details-item-value(ng-bind="$ctrl.fund.start_date_locale")
+                        .fund-details-item
+                            .fund-details-item-label Startdatum:
+                            .fund-details-item-value(ng-bind="$ctrl.fund.start_date_locale")
 
-                                .fund-details-item
-                                    .fund-details-item-label Einddatum
-                                    .fund-details-item-value(ng-bind="$ctrl.fund.end_date_locale")        
+                        .fund-details-item
+                            .fund-details-item-label Einddatum:
+                            .fund-details-item-value(ng-bind="$ctrl.fund.end_date_locale")
 
-                    .fund-description(ng-if="$ctrl.fund.description_short")
-                        .fund-description-label Omschrijving
-                        .fund-description-value(ng-bind="$ctrl.fund.description_short")
-
-                .fund-actions(ng-if="!(!$ctrl.fund.auto_validation && $ctrl.fund.allow_fund_requests)"): +fund_menu()
-
-            .fund-aside(ng-if="!$ctrl.fund.auto_validation && $ctrl.fund.allow_fund_requests")
-                .fund-card
-                    .fund-criterias(ng-if="$ctrl.criteriaList.length > 0")
-                        .fund-criterias-label Doorloop de volgende stappen:
-                        .fund-criteria-item(ng-repeat="criterion in $ctrl.criteriaList" ng-if="!criterion.title")
-                            .fund-criteria-item-label(ng-bind="criterion.record_type_name")
-                            .fund-criteria-item-value(ng-bind="criterion.value")
-                        ul.fund-criteria-item(ng-repeat="criterion in $ctrl.criteriaList" ng-if="criterion.title")
-                            li.fund-criteria-item-value(ng-bind="criterion.title")
-
-                .fund-actions: +fund_menu
+                +fund_actions
 
         block-products(
             type="budget"
@@ -92,8 +76,21 @@ main(id="main-content")
             type="subsidies"
             ng-if="!$ctrl.fund.description_html && $ctrl.subsidies"
             products="$ctrl.subsidies.data"
-            filters="{fund_id: $ctrl.fund.id}") 
+            filters="{fund_id: $ctrl.fund.id}")
 
         .block.block-markdown(
-            ng-if="$ctrl.fund.description_html" 
+            ng-if="$ctrl.fund.description_html"
             ng-bind-html="$ctrl.fund.description_html")
+
+        section.section.section-faq(ng-if="$ctrl.fund.faq"): .wrapper
+            .section-splash
+            .section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
+
+            .faq.faq-fund
+                .faq-item(collapse ng-repeat="question in $ctrl.fund.faq" class=active ? 'active' : '' collapse-item)
+                    .faq-item-header(collapse-header)
+                        h2(ng-bind="question.title").faq-item-title
+                        .faq-item-chevron-down.mdi.mdi-chevron-down
+                        .faq-item-chevron-up.mdi.mdi-chevron-up
+                    .faq-item-content: .block.block-markdown(ng-bind-html="question.description_html")
+        div

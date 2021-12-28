@@ -212,7 +212,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('organization-funds', ['manage_funds', 'view_finances', 'view_funds'], false),
             fundLevel: [('permission'), () => "organizationFunds"],
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
-                return repackResponse(FundService.list($transition$.params().organization_id, { with_archived: 1 }))
+                return repackResponse(FundService.list($transition$.params().organization_id, { with_archived: 1, with_external: 1 }))
             }],
             recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
                 return repackResponse(RecordTypeService.list());
@@ -644,30 +644,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
-    /* $stateProvider.state({
+    $stateProvider.state({
         name: "funds-show",
         url: "/organizations/{organization_id}/funds/{id}",
         component: "fundsShowComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-show', [
-                'manage_funds', 'view_finances'
-            ], false),
-            fund: [
-                'permission', '$transition$', 'FundService', (
-                    permission, $transition$, FundService
-                ) => {
-                    return repackResponse(
-                        FundService.read(
-                            $transition$.params().organization_id,
-                            $transition$.params().id
-                        )
-                    );
-                }
-            ],
-            fundLevel: ['permission', (permission) => "fundShow"]
+            permission: permissionMiddleware('funds-show', ['manage_funds', 'view_finances'], false),
+            fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
+            }],
         }
-    }); */
+    });
 
     $stateProvider.state({
         name: "funds-edit",
@@ -739,7 +727,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 organization: organziationResolver(),
                 permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
                 funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
-                    return repackResponse(FundService.list($transition$.params().organization_id, { per_page: 100 }));
+                    return repackResponse(FundService.list($transition$.params().organization_id, { per_page: 100, configured: 1 }));
                 }],
                 fund: ['funds', '$transition$', (funds, $transition$) => {
                     return $transition$.params().fund_id ? funds.filter(fund => fund.id == $transition$.params().fund_id)[0] || false : null;
@@ -784,18 +772,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             resolve: {
                 organization: organziationResolver(),
                 permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
-                funds: [
-                    'permission', '$transition$', 'FundService',
-                    function(permission, $transition$, FundService) {
-                        return repackResponse(
-                            FundService.list(
-                                $transition$.params().organization_id, {
-                                per_page: 100
-                            }
-                            )
-                        );
-                    }
-                ],
+                funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                    return repackResponse(FundService.list($transition$.params().organization_id, { per_page: 100, configured: 1 }));
+                }],
                 fund: [
                     'funds', '$transition$',
                     function(funds, $transition$) {

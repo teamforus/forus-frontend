@@ -4,14 +4,13 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700');
 
 // LAYOUTS
-@import 'layout/_footer.scss',
-'layout/_header.scss',
-'layout/_navigation.scss';
+@import 'layout/_footer.scss';
+@import 'layout/_header.scss';
+@import 'layout/_navigation.scss';
 
 // COMPONENTS
 @import 'components/_buttons.scss';
 
 // BLOCKS
-@import 'sections/blocks/block-steps.scss',
-'sections/blocks/map.scss',
-'sections/blocks/products.scss';
+@import 'sections/blocks/map.scss';
+@import 'sections/blocks/products.scss';

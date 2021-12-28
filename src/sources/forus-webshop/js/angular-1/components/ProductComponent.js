@@ -55,6 +55,7 @@ const ProductComponent = function(
         ModalService.open('modalProductReserve', {
             product: $ctrl.product,
             vouchers: fund.meta.reservableVouchers,
+            meta: fund.meta,
         });
     };
 

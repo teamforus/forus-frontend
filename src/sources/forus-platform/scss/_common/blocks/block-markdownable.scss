@@ -108,6 +108,11 @@
             border: 1px solid $borderColor;
             border-radius: 3px;
             background-color: #ffffff;
+
+            .note-placeholder {
+                color: $ptc;
+                font: 400 14px/24px $bf;
+            }
         }
 
         .note-editable {

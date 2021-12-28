@@ -35,18 +35,18 @@ module.exports = {
         },
         berkelland: {
             title_multi: "Kindregeling gemeente Berkelland",
-            subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Berkelland. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
+            subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Berkelland. Heeft u via Fijnder een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen."
         },
         oostgelre: {
             title: "Kindregeling gemeente Oost Gelre",
             title_multi: "Kindregeling gemeente Oost Gelre",
-            subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Oost Gelre. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
+            subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Oost Gelre. Heeft u via Fijnder een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen."
         },
         winterswijk: {
             title_multi: "Kindregeling gemeente Winterswijk",
-            subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Winterswijk. Heeft u via de Sociale Dienst Oost Achterhoek een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
+            subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Winterswijk. Heeft u via Fijnder een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
             header_note: "Fotograaf: H. van Ommen"
         },
@@ -175,11 +175,11 @@ module.exports = {
             faq_nine: "Kan ik het tegoed omruilen voor contant geld?",
             nine: "Nee, de waarde van het tegoed krijgt u niet in contant geld uitbetaald.",
             faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
-            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met de Sociale Dienst Oost Achterhoek, 0544-474200.",
+            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met Fijnder, 0544-474200.",
             faq_eleven: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger tegoed?",
-            eleven: "Ja, dat kan. Neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200.",
+            eleven: "Ja, dat kan. Neem dan contact op met Fijnder, 0544-474200.",
             faq_twelve: "Hoe kom ik in aanmerking voor de Kindregeling?",
-            twelve: "Als u denkt recht te hebben op een Kindregeling, neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden.",
+            twelve: "Als u denkt recht te hebben op een Kindregeling, neem dan contact op met Fijnder, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden.",
             faq_thirteen: "Kan ik het tegoed aan iemand anders geven?",
             thirteen: "Nee, het tegoed is strikt persoonlijk. U mag het tegoed niet aan iemand anders geven. Maakt iemand anders wel gebruik van uw tegoed, dan gaat dit van uw eigen bedrag af.",
             faq_fourteen: "Ik zie aanbod op de webshop staan, hoe kan ik een product of dienst kopen?",
@@ -188,7 +188,7 @@ module.exports = {
             "De daadwerkelijke betaling vindt plaats wanneer u bij de aanbieder de QR-code laat scannen. Toch geen gebruik maken van het aanbod? Dan kunt u de reservering annuleren. Heeft u na de betaling nog een bedrag over, dan kunt u met dat bedrag verder winkelen.",
             faq_fifteen: "Welke organisaties kunnen mij ook ondersteuning bieden?",
             fifteen: "De kledingbank kan u ondersteunen u door het verstrekken van kleding, schoenen en textiel. Tweemaal per jaar kunt u bij hen terecht, hiervoor heeft u een doorverwijzing nodig. De informatie hierover vindt u op <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a><br/><br/>" + 
-                "Stichting leergeld kan u ondersteunen op het vlak van schoolkosten of kosten voor sport, wanneer deze kosten niet vergoed worden door Sociale Dienst Oost Achterhoek, meer informatie hierover vindt u op <a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a><br/><br/>" +
+                "Stichting leergeld kan u ondersteunen op het vlak van schoolkosten of kosten voor sport, wanneer deze kosten niet vergoed worden door Fijnder, meer informatie hierover vindt u op <a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a><br/><br/>" +
                 "Bij de speelgoedbank kunt u speelgoed lenen, hiervoor heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a><br/><br/>" +
                 "De voedselbank kan u ondersteunen wanneer u niet voldoende inkomen hebt om boodschappen te doen, voor de voedselbank heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a><br/><br/>" +
                 "Voor extra financiële ondersteuning kunt u contact opnemen met het jeugdsportfonds voor de gemeente Berkelland en de gemeente Winterswijk. De voorwaarden vindt u op <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a><br/><br/>" +
@@ -215,11 +215,11 @@ module.exports = {
             faq_nine: "Kan ik het tegoed omruilen voor contant geld?",
             nine: "Nee, de waarde van het tegoed krijgt u niet in contant geld uitbetaald.",
             faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
-            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met de Sociale Dienst Oost Achterhoek, 0544-474200.",
+            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met Fijnder, 0544-474200.",
             faq_eleven: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger tegoed?",
-            eleven: "Ja, dat kan. Neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200.",
+            eleven: "Ja, dat kan. Neem dan contact op met Fijnder, 0544-474200.",
             faq_twelve: "Hoe kom ik in aanmerking voor de Kindregeling?",
-            twelve: "Als u denkt recht te hebben op een Kindregeling, neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden.",
+            twelve: "Als u denkt recht te hebben op een Kindregeling, neem dan contact op met Fijnder, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden.",
             faq_thirteen: "Kan ik het tegoed aan iemand anders geven?",
             thirteen: "Nee, het tegoed is strikt persoonlijk. U mag het tegoed niet aan iemand anders geven. Maakt iemand anders wel gebruik van uw tegoed, dan gaat dit van uw eigen bedrag af.",
             faq_fourteen: "Ik zie aanbod op de webshop staan, hoe kan ik een product of dienst kopen?",
@@ -228,7 +228,7 @@ module.exports = {
             "De daadwerkelijke betaling vindt plaats wanneer u bij de aanbieder de QR-code laat scannen. Toch geen gebruik maken van het aanbod? Dan kunt u de reservering annuleren. Heeft u na de betaling nog een bedrag over, dan kunt u met dat bedrag verder winkelen.",
             faq_fifteen: "Welke organisaties kunnen mij ook ondersteuning bieden?",
             fifteen: "De kledingbank kan u ondersteunen u door het verstrekken van kleding, schoenen en textiel. Tweemaal per jaar kunt u bij hen terecht, hiervoor heeft u een doorverwijzing nodig. De informatie hierover vindt u op <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a><br/><br/>" + 
-                "Stichting leergeld kan u ondersteunen op het vlak van schoolkosten of kosten voor sport, wanneer deze kosten niet vergoed worden door Sociale Dienst Oost Achterhoek, meer informatie hierover vindt u op <a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a><br/><br/>" +
+                "Stichting leergeld kan u ondersteunen op het vlak van schoolkosten of kosten voor sport, wanneer deze kosten niet vergoed worden door Fijnder, meer informatie hierover vindt u op <a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a><br/><br/>" +
                 "Bij de speelgoedbank kunt u speelgoed lenen, hiervoor heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a><br/><br/>" +
                 "De voedselbank kan u ondersteunen wanneer u niet voldoende inkomen hebt om boodschappen te doen, voor de voedselbank heeft u een doorverwijzing nodig. Meer informatie vindt u op <a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a><br/><br/>" +
                 "Voor extra financiële ondersteuning kunt u contact opnemen met het jeugdsportfonds voor de gemeente Berkelland en de gemeente Winterswijk. De voorwaarden vindt u op <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a><br/><br/>" +
@@ -255,12 +255,12 @@ module.exports = {
             faq_nine: "Kan ik het tegoed omruilen voor contant geld?",
             nine: "Nee, de waarde van het tegoed krijgt u niet in contant geld uitbetaald.",
             faq_ten: "Kan ik iets kopen bij een andere aanbieder die niet op de webshop staat?",
-            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met de Sociale Dienst Oost Achterhoek, 0544-474200.",
+            ten: "Nee, het tegoed kan alleen uitgegeven worden bij aanbieders die op de webshop staan. U kunt een winkelier wijzen op de meedoenapplicatie en contact op laten nemen met Fijnder, 0544-474200.",
             faq_eleven: "Ik heb nog een kind gekregen, kom ik in aanmerking voor een hoger tegoed?",
-            eleven: "Ja, dat kan. Neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200.",
+            eleven: "Ja, dat kan. Neem dan contact op met Fijnder, 0544-474200.",
             faq_twelve: "Hoe kom ik in aanmerking voor de Kindregelingen en/of het Meedoenarrangement voor volwassenen?",
-            twelve: "Als u denkt recht te hebben op een Kindregeling, neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden. <br>" + 
-            "Alle volwassen inwoners met een minimum inkomen (tot 130% bijstandsnorm) komen in aanmerking voor het Meedoenarrangement. Als u denkt in aanmerking te komen voor het Meedoenarrangement, neem dan contact op met de Sociale Dienst Oost Achterhoek, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden.",
+            twelve: "Als u denkt recht te hebben op een Kindregeling, neem dan contact op met Fijnder, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden. <br>" + 
+            "Alle volwassen inwoners met een minimum inkomen (tot 130% bijstandsnorm) komen in aanmerking voor het Meedoenarrangement. Als u denkt in aanmerking te komen voor het Meedoenarrangement, neem dan contact op met Fijnder, 0544-474200. Zij bekijken of u voldoet aan de voorwaarden.",
             faq_thirteen: "Kan ik het tegoed aan iemand anders geven?",
             thirteen: "Nee, het tegoed is strikt persoonlijk. U mag het tegoed niet aan iemand anders geven. Maakt iemand anders wel gebruik van uw voucher, dan gaat dit van uw eigen bedrag af.",
             faq_fourteen: "Ik zie aanbod op de webshop staan, hoe kan ik een product of dienst kopen?",
@@ -268,7 +268,7 @@ module.exports = {
             "Het bedrag van het aanbod wordt van uw tegoed afgehaald en het aanbod is voor u gereserveerd. U ziet de reservering ook staan in de lijst met reserveringen op de website. " + 
             "De daadwerkelijke betaling vindt plaats wanneer u bij de aanbieder de QR-code laat scannen. Toch geen gebruik maken van het aanbod? Dan kunt u de reservering annuleren. Heeft u na de betaling nog een bedrag over, dan kunt u met dat bedrag verder winkelen.",
             faq_fifteen: "Welke organisaties kunnen mij ook ondersteuning bieden?",
-            fifteen: "Voor vragen over welzijn, gezondheid, wonen, zorg, werk, meedoen en geldzaken kunt u ook terecht op <a target='_blank' href='https://www.berkellandwijzer.nl'>www.berkellandwijzer.nl</a> <br> Voor vragen over o.a. inkomensondersteuning, kunt u terecht bij de SDOA.",
+            fifteen: "Voor vragen over welzijn, gezondheid, wonen, zorg, werk, meedoen en geldzaken kunt u ook terecht op <a target='_blank' href='https://www.berkellandwijzer.nl'>www.berkellandwijzer.nl</a> <br> Voor vragen over o.a. inkomensondersteuning, kunt u terecht bij Fijnder.",
         },
     },
     guide: {
@@ -317,7 +317,7 @@ module.exports = {
         winterswijk: {
             title: "Hoe het werkt",
             stepone: "Stap #1",
-            one: "U hebt een brief ontvangen van de Sociale Dienst Oost Achterhoek. In de brief staat een activatiecode.",
+            one: "U hebt een brief ontvangen van Fijnder. In de brief staat een activatiecode.",
             steptwo: "Stap #2",
             two: "Klik op de ‘Start’ knop om uw activatiecode in te vullen. Gebruik uw eigen e-mailadres.",
             stepthree: "Stap #3",
@@ -331,7 +331,7 @@ module.exports = {
         oostgelre: {
             title: "Hoe het werkt",
             stepone: "Stap #1",
-            one: "U hebt een brief ontvangen van de Sociale Dienst Oost Achterhoek. In de brief staat een activatiecode.",
+            one: "U hebt een brief ontvangen van Fijnder. In de brief staat een activatiecode.",
             steptwo: "Stap #2",
             two: "Klik op de ‘Start’ knop om uw activatiecode in te vullen. Gebruik uw eigen e-mailadres.",
             stepthree: "Stap #3",
@@ -345,7 +345,7 @@ module.exports = {
         berkelland: {
             title: "Hoe het werkt",
             stepone: "Stap #1",
-            one: "U hebt een brief ontvangen van de Sociale Dienst Oost Achterhoek. In de brief staat een activatiecode.",
+            one: "U hebt een brief ontvangen van Fijnder. In de brief staat een activatiecode.",
             steptwo: "Stap #2",
             two: "Klik op de ‘Start’ knop om uw activatiecode in te vullen. Gebruik uw eigen e-mailadres.",
             stepthree: "Stap #3",

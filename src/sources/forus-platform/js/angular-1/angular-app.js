@@ -105,6 +105,7 @@ app.component('modalVoucherDeactivationComponent', require('./components/Modals/
 app.component('modalVoucherActivationComponent', require('./components/Modals/ModalVoucherActivationComponent'));
 app.component('modalMailPreviewComponent', require('./components/Modals/ModalMailPreviewComponent'));
 app.component('modalPhysicalCardOrderComponent', require('./components/Modals/ModalPhysicalCardOrderComponent'));
+app.component('modalReservationNotesComponent', require('./components/Modals/ModalReservationNotesComponent'));
 app.component('modalSwitchBankConnectionAccountComponent', require('./components/Modals/ModalSwitchBankConnectionAccountComponent'));
 
 // Modal Components
@@ -175,7 +176,6 @@ app.directive('menu', {
 app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('dashboardSwitcher', require('./directives/DashboardSwitcherDirective'));
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
-app.directive('fundCardSponsor', require('./directives/FundCardSponsorDirective'));
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
 app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
 app.directive('fundCardProviderCanJoin', require('./directives/FundCardProviderCanJoinDirective'));
@@ -219,6 +219,7 @@ app.directive('headerNotifications', require('./directives/HeaderNotificationsDi
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
+app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 

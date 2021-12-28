@@ -1,6 +1,5 @@
 module.exports = {
     logoExtension: '.svg',
-    secondLogo: false,
     showAccountSidebar: true,
 
     // menu settings
