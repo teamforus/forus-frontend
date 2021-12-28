@@ -9,8 +9,17 @@
         .modal-section
             h2.title.text-center(translate="{{ 'modal_product_reserve.header.title_' + $ctrl.appConfigs.features.communication_type }}")
             br
-            .description: .text-center(translate="{{ 'modal_product_reserve.description_' + $ctrl.appConfigs.features.communication_type }}" translate-values="{fund: $ctrl.vouchers[0].fund.name}")
+
+            .description.text-center.text-primary(
+                translate="{{ 'modal_product_reserve.description_' + $ctrl.appConfigs.features.communication_type }}"
+                translate-values="$ctrl.transValues")
+
+            .description.text-center.text-primary(
+                ng-if="$ctrl.transValues.days_to_cancel > 0"
+                translate="{{ 'modal_product_reserve.description_' + $ctrl.appConfigs.features.communication_type + '_time'}}"
+                translate-values="$ctrl.transValues")
             br
+
             //- Vouchers list
             .block.block-vouchers.block-vouchers-padding(ng-class="{'block-vouchers-compact': $ctrl.vouchers.length === 1}")
                 .voucher-item.voucher-item-compact.voucher-item-static(ng-repeat="voucher in $ctrl.vouchers")

@@ -46,7 +46,7 @@
         list-style: disc;
     }
 
-    a {
+    a:not(.button) {
         color: $bc;
         font-weight: 500;
         transition: 0.4s;
@@ -189,25 +189,27 @@
             text-align: right !important;
         }
     }
-}
 
-@media screen and (max-width: 1000px) {
-    &.block-markdown {
-        font: 400 14px/20px $bf !important;
-
+    @media screen and (max-width: 1000px) {
+        font: 400 14px/22px $bf !important;
+    
         h1 {
             font: 500 1.8em $bf;
             margin-bottom: 1em;
         }
-
+    
         h2 {
             font: 500 1.6em $bf;
             margin-bottom: 1em;
         }
-
+    
         h3 {
             font: 500 1.3em $bf;
             margin-bottom: 1em;
+        }
+    
+        &.block-markdown-lg {
+            font: 400 14px/22px $bf !important;
         }
     }
 }

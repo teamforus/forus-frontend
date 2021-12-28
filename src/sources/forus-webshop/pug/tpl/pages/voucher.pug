@@ -166,7 +166,7 @@ main(id="main-content")
                 h2.transactions-title Status 
                 .label(
                     ng-if="!$ctrl.voucher.expired"
-                    ng-class="$ctrl.voucherCard.deactivated ? 'label-default' : 'label-primary-light'" 
+                    ng-class="$ctrl.voucherCard.deactivated ? 'label-light' : 'label-primary'" 
                     ng-bind="$ctrl.voucherCard.state_locale") 
                 .label.label-danger(ng-if="$ctrl.voucher.expired") Verlopen
 

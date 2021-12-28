@@ -59,7 +59,7 @@ const ReservationsComponent = function(
             description_text: [
                 "U staat op het punt om een reservering te accepteren voor het aanbod ",
                 reservation.product.name + " voor " + $currencyFormat(reservation.amount) + "\n",
-                "U kunt de transactie binnen 14 dagen annuleren, daarna volgt de uitbetaling."
+                `U kunt de transactie annuleren tot en met ${reservation.expire_at_locale}, daarna volgt de uitbetaling.`,
             ].join("\n"),
             text_align: 'center',
             cancelButton: "Annuleren",
@@ -146,6 +146,10 @@ const ReservationsComponent = function(
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange(),
         });
+    };
+
+    $ctrl.viewNotes = (reservation) => {
+        ModalService.open('reservationNotes', { reservation });
     };
 
     $ctrl.$onInit = () => {

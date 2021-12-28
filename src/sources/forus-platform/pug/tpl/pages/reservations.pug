@@ -82,7 +82,6 @@
                         th(translate='reservations.labels.price')
                         th(translate='reservations.labels.customer')
                         th(translate='reservations.labels.reserved_at')
-                        th(translate='reservations.labels.fund')
                         th(translate='reservations.labels.status')
                         th.text-right(translate='reservations.labels.actions')
 
@@ -94,6 +93,9 @@
                         td.text-primary: .text-strong(ng-bind="reservation.amount | currency_format")
 
                         td
+                            strong(
+                                ng-if="reservation.first_name || reservation.last_name"
+                                ng-bind="(reservation.first_name) + ' ' + reservation.last_name")
                             div(ng-if="reservation.identity_physical_card")
                                 .text-strong.text-primary(ng-bind="reservation.identity_physical_card")
                                 .text-strong.text-small.text-muted-dark(ng-bind="reservation.identity_email")
@@ -101,10 +103,9 @@
                             div(ng-if="!reservation.identity_physical_card")
                                 .text-strong.text-primary(ng-bind="reservation.identity_email")
 
-                        td(ng-bind="reservation.created_at_locale")
-                        
-                        td(ng-bind="reservation.fund.name")
-                        td {{ !reservation.expired  ? {pending: 'In afwachting', accepted: 'Geaccepteerd', canceled: 'Geannuleerd', rejected: 'Geweigerd'}[reservation.state] : 'Verlopen' }}
+                        td: strong(ng-bind="reservation.created_at_locale").text-primary
+
+                        td: strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
                         td: .flex-group.flex.flex-end
                             button.button.button-sm.button-primary-light.button-icon(
                                 ng-if="reservation.state === 'pending' && !reservation.expired && !reservation.product.deleted" 
@@ -120,6 +121,10 @@
                                 ng-if='reservation.voucher_transaction && ($ctrl.organization | hasPerm:["view_finances"])'
                                 ui-sref="transaction({organization_id: $ctrl.organization.id, address: reservation.voucher_transaction.address})")
                                 em.mdi.mdi-eye-outline
+
+                            button.button.button-sm.button-default.button-icon(
+                                ng-click="$ctrl.viewNotes(reservation)")
+                                em.mdi.mdi-message-text
 
             .card-section(ng-if="$ctrl.reservations.meta.total == 0")
                 .card-subtitle.text-center Geen reserveringen.

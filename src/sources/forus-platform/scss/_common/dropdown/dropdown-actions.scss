@@ -45,11 +45,18 @@ $boxShadow: $box_shadow;
         transition: all .3s;
         cursor: pointer;
 
-        em {
+        .mdi {
             color: #150ae9;
             font-size: 16px;
-            margin-left: 5px;
             transition: all .3s;
+            
+            &.icon-start {
+                margin-right: 5px;
+            }
+
+            &.icon-end {
+                margin-left: 5px;
+            }
         }
 
         &:hover {
@@ -57,7 +64,7 @@ $boxShadow: $box_shadow;
             background: #eaf0f6;
             transition: all .3s;
 
-            em {
+            .mdi {
                 color: #586ada;
                 transition: all .3s;
             }

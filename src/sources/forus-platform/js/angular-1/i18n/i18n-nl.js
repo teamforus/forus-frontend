@@ -64,7 +64,8 @@ module.exports = {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
-            restore_fund: require('./nl/modals/danger-zone/restore-fund')
+            restore_fund: require('./nl/modals/danger-zone/restore-fund'),
+            remove_faq: require('./nl/modals/danger-zone/remove-faq')
         },
     },
     // PAGES
@@ -351,6 +352,10 @@ module.exports = {
             fee: "€ 0.10",
             date: "Datum",
         },
+        tooltips: {
+            pending_iban_from: "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
+            pending_iban_to: "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
+        }
     },
 
     financial_dashboard_overview: {
@@ -442,7 +447,11 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens €"
+            notification_amount: "Aanvulherinnering grens €",
+            application_method: "Aanvraagmethode",
+            request_btn_text: "Knoptekst aanvragen",
+            external_link_text: "Externe linktekst",
+            external_link_url: "Externe link-url",
         },
         buttons: {
             cancel: "Annuleren",
@@ -1334,7 +1343,10 @@ module.exports = {
             assigned_to: "Toegewezen",
             from: "Vanaf",
             to: "Tot",
-            pending_since: "In behandeling sinds"
+            pending_since: "In behandeling sinds",
+            lead_time: "Doorlooptijd",
+            accepted_at: "Geaccepteerd op",
+            declined_at: "Geweigerd op"
         },
         status: {
             hold: "Wachten",
@@ -1452,16 +1464,11 @@ module.exports = {
         }
     },
 
-    //FUND CARD FOR SPONSOR = fund-card-sponsor.pug
+    // FUND INFO SPONSOR = fund-show/implementation-view/organization-funds
     fund_card_sponsor: {
         buttons: {
-            join: "Aanmelden",
             close: "Sluit",
-            restart: "Herstart",
             pause: "Pauze",
-            add: "Budget toevoegen",
-            delete: 'Verwijderen',
-            invite_providers: 'Aanbieders'
         },
         status: {
             active: "Actief",
@@ -1469,25 +1476,10 @@ module.exports = {
             closed: "Gestopt",
         },
         labels: {
-            categories: "Categorieën",
-            nocategories: "Geen Categorieën",
-            setting: "Instellingen",
-            statistics: "Statistieken",
-            price: "BEDRAG",
-            description: "BESCHRIJVING",
-            customer: "KLANT",
-            date: "DATUM",
-            action: "ACTIE",
-            refund: "Terugbetalen",
-            chargeid: "Kopieer het transactienummer",
-            connections: "CONNECTIE",
-            details: "Bekijk transactiedetails",
-            results: "x resultaten",
-            payment: "Betaling -",
-            providers: "Aanbieders",
+            employees: "medewerkers",
             your_employees: "Uw medewerkers",
+            providers: "Aanbieders",
             applicants: "Aanvragers",
-            employees: "medewerkers"
         },
         confirm_delete: {
             title: 'Weet u zeker dat u dit fonds wilt verwijderen?',

@@ -9,7 +9,7 @@
         .card(ng-if="$ctrl.bank && !$ctrl.bankConnection"): .card-section: .block.block-empty.text-center
             .empty-icon: img(src="./assets/img/bunq-logo.jpg").empty-icon-img
             .empty-title Bank integratie
-            .empty-details: .row: .col-lg-6.col-sm-8.col-offset-lg-3
+            .empty-details: .row: .col-lg-6.col-sm-8.col-offset-sm-2.col-offset-lg-3
                 | Gebruik de koppeling met uw bank om rekeninginformatie uit te lezen en transacties klaar te zetten.
             .empty-actions: button(ng-click="$ctrl.makeConnection($ctrl.bank.id)").button.button-primary
                 em.mdi.mdi-qrcode-scan.icon-start

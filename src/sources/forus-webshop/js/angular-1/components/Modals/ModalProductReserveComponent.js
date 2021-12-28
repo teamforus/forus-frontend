@@ -1,27 +1,15 @@
+const moment = require("moment");
+
 const ModalProductReserveComponent = function(
-    $state,
-    PushNotificationsService,
-    ProductReservationService,
     appConfigs,
+    ModalService,
 ) {
     const $ctrl = this;
 
-    $ctrl.onReserved = () => {
+    $ctrl.reserveProduct = (product, voucher) => {
         $ctrl.close();
 
-        $state.go('reservations');
-        PushNotificationsService.success('Gelukt!', 'Het aanbod is gereserveerd!.');
-    };
-
-    $ctrl.onError = (res) => {
-        const { errors, message } = res.data;
-        const firstError = typeof errors === 'object' ? Object.values(errors)[0] : null
-
-        PushNotificationsService.danger(firstError ? firstError[0] || message : message);
-    };
-
-    $ctrl.reserveProduct = (product, voucher) => {
-        ProductReservationService.reserve(product.id, voucher.address).then($ctrl.onReserved, $ctrl.onError);
+        ModalService.open('modalProductReserveDetails', { product, voucher });
     };
 
     $ctrl.$onInit = () => {
@@ -29,11 +17,16 @@ const ModalProductReserveComponent = function(
         $ctrl.product = $ctrl.modal.scope.product;
         $ctrl.vouchers = $ctrl.modal.scope.vouchers;
 
+        const reservationExpireDate = moment().startOf('day').add(14, 'day').unix();
+        const closestDate = Math.min(reservationExpireDate, $ctrl.modal.scope.meta.shownExpireDate.unix);
+        const daysToCancel = moment.unix(closestDate).diff(moment().startOf('day'), 'days');
+
         $ctrl.transValues = {
-            expire_at: $ctrl.expire_at,
+            days_to_cancel: daysToCancel,
             product_name: $ctrl.product.name,
             product_price: $ctrl.product.price,
-            org_name: $ctrl.product.organization.name,
+            provider_name: $ctrl.product.organization.name,
+            fund_name: $ctrl.vouchers[0].fund.name
         };
     };
 };
@@ -44,10 +37,8 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$state',
-        'PushNotificationsService',
-        'ProductReservationService',
         'appConfigs',
+        'ModalService',
         ModalProductReserveComponent
     ],
     templateUrl: () => {
