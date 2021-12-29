@@ -39,8 +39,10 @@ module.exports = {
         },
         winterswijk: {
             title: "Activeren",
-        }
-
+        },
+        geertruidenberg: {
+            title: "Activeren",
+        },
     },
     labels: {
         categorie: "Categoriën",

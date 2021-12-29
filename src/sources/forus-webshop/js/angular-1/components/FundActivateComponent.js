@@ -327,6 +327,11 @@ let FundActivateComponent = function(
             return $ctrl.state = 'backoffice_error';
         }
 
+        // Fund requesting is not available after successfull signin with DigiD
+        if (backoffice_error == 2) {
+            return $ctrl.state = 'error_digid_no_funds';
+        }
+
         $ctrl.getFunds(fund => fund).then(funds => {
             // The request has digid auth success or error meta
             if ($ctrl.hasDigiDResponse($stateParams) && $ctrl.handleDigiDResponse($stateParams, funds)) {

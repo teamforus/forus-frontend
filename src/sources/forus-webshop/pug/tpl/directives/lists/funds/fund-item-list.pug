@@ -30,3 +30,9 @@ a.fund-item
             .label.label-light(
                 ng-if="!$dir.fund.canActivate && !$dir.fund.canApply && !$dir.fund.isPending && !$dir.fund.isApplicable && !$dir.fund.alreadyReceived"
                 translate="funds.status.is_applicable")
+                
+    .fund-actions(ng-if="$dir.fund.canActivate")
+        button.button.button-primary.button-fill(
+            type="button"
+            ng-click="$dir.applyFund($event,$dir.fund)" 
+            translate="funds.buttons.is_applicable")
