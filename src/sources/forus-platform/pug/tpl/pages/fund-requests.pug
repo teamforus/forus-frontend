@@ -68,6 +68,18 @@
                         .flex-col
                             .card-section-actions-label(translate="validation_requests.labels.pending_since")
                             .card-section-actions-value(ng-bind="validatorRequest.created_at_locale")
+
+                .card-section-actions(ng-show="validatorRequest.state == 'disregarded'")
+                    .flex.flex-end: .tag.tag-default
+                        em.mdi.mdi-circle-outline.icon-start
+                        span(translate='validation_requests.status.disregarded')
+                    .card-section-actions-details: .flex-row.nowrap
+                        .flex-col
+                            .card-section-actions-label(translate="validation_requests.labels.lead_time")
+                            .card-section-actions-value(ng-bind="validatorRequest.lead_time_locale")
+                        .flex-col
+                            .card-section-actions-label(translate="validation_requests.labels.disregarded_at")
+                            .card-section-actions-value(ng-bind="validatorRequest.resolved_at_locale")         
                 
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
                     .flex.flex-end: .tag.tag-success 
@@ -117,7 +129,7 @@
                     .card-block-listing-value
                         span(ng-bind="validatorRequest.note")
             
-            .card-header(ng-hide='validatorRequest.collapsed')
+            .card-header(ng-hide='validatorRequest.collapsed' state="{{ validatorRequest.state }}" assigned="{{ validatorRequest.is_assigned }}")
                 .arrow-box.border.bg-dim: .arrow
                 .card-title: .row
                     .col.col-lg-6(ng-if="!validatorRequest.is_assigned" translate='validation_requests.labels.records')
@@ -141,6 +153,9 @@
                         button.button.button-primary(ng-click='$ctrl.requestApprove(validatorRequest)')
                             em.mdi.mdi-check-circle.icon-start
                             | {{ "validation_requests.buttons.allaccept" | translate }}
+                        button.button.button-default(ng-click='$ctrl.requestDisregard(validatorRequest)')
+                            em.mdi.mdi-timer-sand-empty.icon-start
+                            | {{ "validation_requests.buttons.disregard" | translate }}
         
             .card-section(ng-hide='validatorRequest.collapsed'): .card-block.card-block-table: .table-wrapper: table.table
                 thead: tr
@@ -161,7 +176,7 @@
                         td(ng-bind='record.is_visible ? record.value : "Niet beschikbaar"' ng-class="{'text-muted': !record.is_visible}")
                         td(ng-bind='record.created_at_locale')
                         td: .tag(
-                            ng-class="{pending: 'tag-primary-light', declined: 'tag-danger', approved: 'tag-success'}[record.state]" 
+                            ng-class="{pending: 'tag-primary-light', declined: 'tag-danger', approved: 'tag-success', disregarded: 'tag-default'}[record.state]" 
                             translate='validation_requests.status.{{ record.state }}')
                         
                         td.text-right(ng-if="record.state != 'pending'")

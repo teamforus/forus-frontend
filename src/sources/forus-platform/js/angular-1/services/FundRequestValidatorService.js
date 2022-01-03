@@ -64,6 +64,16 @@ let FundRequestValidatorService = function(ApiRequest) {
             });
         };
 
+        this.disregard = function(organization_id, request_id, note = '') {
+            return ApiRequest.patch(sprintf(
+                uriPrefixAll + '/%s/disregard',
+                organization_id,
+                request_id
+            ), {
+                note: note
+            });
+        };
+
         this.appendRecord = function(organziation_id, request_id, values = {}) {
             return ApiRequest.post(sprintf(
                 uriPrefixAll + '/%s/records',

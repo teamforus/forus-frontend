@@ -1,0 +1,20 @@
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        .modal-icon.modal-icon-primary: .mdi.mdi-message-text-outline
+        .modal-body.form: .modal-section.modal-section-pad
+            .text-center
+                .modal-heading Weiger aanvraag
+                .modal-text
+                    | U staat op het punt om een aanvraag te weigeren. 
+                    | Weet u zeker dat u deze aanvraag wilt weigeren?
+                    | Optioneel kunt u een bericht sturen naar de aanvrager.
+            form(ng-submit="$ctrl.form.submit()").form: .form-group
+                .form-label Bericht (optioneel)
+                textarea(ng-model="$ctrl.form.values.note" placeholder="Bericht naar aanvrager").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
+        
+        .modal-footer.text-center
+            button.button.button-default(ng-click="$ctrl.close()") Annuleer
+            button.button.button-primary(ng-click="$ctrl.form.submit()") Bevestig

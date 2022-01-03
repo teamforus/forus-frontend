@@ -196,6 +196,24 @@ let FundRequestsComponent = function(
         });
     };
 
+    $ctrl.requestDisregard = (request) => {
+        ModalService.open('fundRequestRecordsDisregard', {
+            organization: $ctrl.organization,
+            request: request,
+            submit: (err) => {
+                if (err) {
+                    return showInfoModal(
+                        'U kunt op dit moment deze aanvragen niet weigeren.',
+                        'Reden: ' + err.data.message
+                    );
+                }
+
+                $ctrl.reloadRequest(request);
+                PushNotificationsService.success('Gelukt! Aanvraag is niet behandelen');
+            }
+        });
+    };
+
     $ctrl.requestAssign = (request) => {
         FundRequestValidatorService.assign(
             $ctrl.organization.id,
@@ -234,14 +252,16 @@ let FundRequestsComponent = function(
 
             request.record_types = request.records.map(record => record.record_type_key);
             request.records.forEach(record => record.shown = true);
-            request.collapsed = request.state != 'pending';
+            request.collapsed = request.state != 'pending' && request.state != 'disregarded';
 
             request.is_assignable = request.records.filter(
                 record => record.is_assignable
             ).length > 0;
 
             request.is_assigned = request.records.filter(
-                record => record.is_assigned && record.state === 'pending'
+                record => record.is_assigned && (
+                    record.state === 'pending' || record.state === 'disregarded'
+                )
             ).length > 0;
         });
 
