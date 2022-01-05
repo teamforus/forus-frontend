@@ -91,9 +91,9 @@ const ProductsComponent = function(
 
         return {
             q: values.q,
-            organization_id: values.organization_id,
             page: values.page,
-            product_category_id: values.product_category_id,
+            organization_id: values.organization ? values.organization.id : null,
+            product_category_id: values.product_category ? values.product_category.id : null,
             fund_id: values.fund ? values.fund.id : null,
             display_type: $ctrl.display_type,
             fund_type: $ctrl.fund_type,
@@ -130,8 +130,8 @@ const ProductsComponent = function(
         let count = 0;
 
         $ctrl.form.values.q && count++;
-        $ctrl.form.values.organization_id && count++;
-        $ctrl.form.values.product_category_id && count++;
+        $ctrl.form.values.organization && $ctrl.form.values.organization.id && count++;
+        $ctrl.form.values.product_category && $ctrl.form.values.product_category.id && count++;
         $ctrl.form.values.fund && $ctrl.form.values.fund.id && count++;
         $ctrl.countFiltersApplied = count;
     };
@@ -168,10 +168,18 @@ const ProductsComponent = function(
             return fund.id == $stateParams.fund_id;
         })[0] || $ctrl.funds[0];
 
+        const product_category = $ctrl.productCategories.filter(product_category => {
+            return product_category.id == $stateParams.product_category_id;
+        })[0] || $ctrl.productCategories[0];
+
+        const organization = $ctrl.organizations.filter(organization => {
+            return organization.id == $stateParams.organization_id;
+        })[0] || $ctrl.organizations[0];
+
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
-            organization_id: $stateParams.organization_id || null,
-            product_category_id: $stateParams.product_category_id || null,
+            organization: organization,
+            product_category: product_category,
             fund: fund,
         });
 

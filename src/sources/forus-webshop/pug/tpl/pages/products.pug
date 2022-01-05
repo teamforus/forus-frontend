@@ -27,19 +27,23 @@ block content
 
                             .form-group
                                 label.form-label(for="select_provider") Aanbieders
-                                select(
-                                    ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
-                                    ng-model="$ctrl.form.values.organization_id"
+                                select-control(
+                                    autoclear="true" 
+                                    ng-model="$ctrl.form.values.organization"
+                                    options="$ctrl.organizations"
+                                    placeholder="Selecteer aanbieder..."
                                     name="provider"
-                                    id="select_provider").form-control
+                                    id="select_provider")
 
                             .form-group
                                 label.form-label(for="select_category") Categorie
-                                select(
-                                    ng-options="category.id as category.name for category in $ctrl.productCategories" 
-                                    ng-model="$ctrl.form.values.product_category_id"
+                                select-control(
+                                    autoclear="true" 
+                                    ng-model="$ctrl.form.values.product_category"
+                                    options="$ctrl.productCategories"
+                                    placeholder="Selecteer categorie..."
                                     name="category"
-                                    id="select_category").form-control
+                                    id="select_category")    
 
                             .form-group
                                 label.form-label(for="select_fund") Tegoeden
