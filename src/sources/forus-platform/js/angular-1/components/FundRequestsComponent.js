@@ -433,10 +433,7 @@ let FundRequestsComponent = function(
         }
 
         validatorRequest.person_breadcrumbs = [];
-        // let index = validatorRequest.person_breadcrumbs.findIndex(breadcrumb => breadcrumb.bsn === validatorRequest.person.bsn);
-        // if (index === -1) {
-            validatorRequest.person_breadcrumbs.push(validatorRequest.person);
-        // }
+        validatorRequest.person_breadcrumbs.push(validatorRequest.person);
     }
 
 
