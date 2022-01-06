@@ -228,17 +228,16 @@
                                                         .mdi.mdi-eye
 
             .card-header(
-                ng-if="validatorRequest.bsn"
+                ng-if="$ctrl.organization.has_person_bsn_api && validatorRequest.bsn"
                 ng-click='validatorRequest.bsn_collapsed = !validatorRequest.bsn_collapsed')
                 .card-title
                     | BSN data &nbsp;
                     .button.button-default(
-                        ng-if="validatorRequest.bsn"
                         ng-click="$event.stopPropagation(); $ctrl.getPerson(validatorRequest, validatorRequest.bsn)")
                         em.mdi.mdi-eye.icon-start
                         | Kijk
 
-            .card-section(ng-if="validatorRequest.person" ng-hide='validatorRequest.bsn_collapsed')
+            .card-section(ng-if="$ctrl.organization.has_person_bsn_api && validatorRequest.person" ng-hide='validatorRequest.bsn_collapsed')
                 .arrow-box.border.bg-dim: .arrow
 
                 .block.block-breadcrumbs
@@ -283,7 +282,7 @@
 
                     .col.col-lg-6: .flex: .card-block.card-block-keyvalue
                         .keyvalue-item(ng-repeat="parent in validatorRequest.person.parents track by $index" ng-init="parentIndex = $index")
-                            .keyvalue-key(translate="validation_requests.labels.parent")
+                            .keyvalue-key(translate="validation_requests.labels.parent" translate-values="{ index: parentIndex + 1 }")
                             .keyvalue-value(
                                 ng-bind="parent.name"
                                 ng-class="parent.bsn ? 'card-text-link' : ''"
@@ -297,7 +296,7 @@
                                 ng-click="$ctrl.getPerson(validatorRequest, partner.bsn, validatorRequest.person.bsn)")
 
                         .keyvalue-item(ng-repeat="child in validatorRequest.person.children track by $index" ng-init="childIndex = $index")
-                            .keyvalue-key(translate="validation_requests.labels.child")
+                            .keyvalue-key(translate="validation_requests.labels.child" translate-values="{ index: childIndex + 1 }")
                             .keyvalue-value(
                                 ng-bind="child.name"
                                 ng-class="child.bsn ? 'card-text-link' : ''"

@@ -281,6 +281,7 @@ module.exports = [
                     btw: apiResource.btw,
                     website: apiResource.website || 'https://',
                     website_public: !!apiResource.website_public,
+                    person_bsn_api_id: apiResource.person_bsn_api_id
                 };
             };
         });
