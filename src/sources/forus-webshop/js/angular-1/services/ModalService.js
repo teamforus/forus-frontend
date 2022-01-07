@@ -1,27 +1,28 @@
-let ModalService = function(ModalRoute, $timeout) {
-    let defaultConfigs = {
+const ModalService = function (ModalRoute, $timeout) {
+    const defaultConfigs = {
         animated: true,
-        max_load_time: 300,
+        maxLoadTime: 300,
+        closeOnEscape: true,
     };
 
-    let modals = {
+    const modals = {
         list: []
     };
 
-    let listeners = {
+    const listeners = {
         open: [],
         close: [],
         loaded: [],
     };
 
-    let modalKeys = Object.keys(ModalRoute.modals());
+    const modalKeys = Object.keys(ModalRoute.modals());
 
     this.modalKeyExists = (key) => {
         return modalKeys.indexOf(key) !== -1;
     };
 
     this.open = (key, scope = {}, configs = {}) => {
-        const _configs = {...defaultConfigs, ...configs};
+        const _configs = { ...defaultConfigs, ...configs };
 
         if (!this.modalKeyExists(key)) {
             throw new Error(`Unknown modal key "${key}".`);
@@ -32,9 +33,10 @@ let ModalService = function(ModalRoute, $timeout) {
                 key: key,
                 scope: scope,
                 animated: _configs.animated,
+                closeOnEscape: _configs.closeOnEscape,
                 loaded: _configs.animated ? false : true,
                 events: { onClose: _configs.onClose },
-                setLoaded: function() {
+                setLoaded: function () {
                     if (!this.loaded) {
                         this.loaded = true;
                         listeners.loaded.forEach(subscriber => subscriber(modal));
@@ -42,8 +44,8 @@ let ModalService = function(ModalRoute, $timeout) {
                 },
             };
 
-            if (_configs.animated && _configs.max_load_time) {
-                $timeout(() => modal.setLoaded(), _configs.max_load_time);
+            if (_configs.animated && _configs.maxLoadTime) {
+                $timeout(() => modal.setLoaded(), _configs.maxLoadTime);
             }
 
             modals.list.push(modal);
@@ -95,6 +97,6 @@ let ModalService = function(ModalRoute, $timeout) {
     };
 };
 
-module.exports = ['ModalRoute', '$timeout', function(ModalRoute, $timeout) {
+module.exports = ['ModalRoute', '$timeout', function (ModalRoute, $timeout) {
     return new ModalService(ModalRoute, $timeout);
 }];

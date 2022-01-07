@@ -137,7 +137,7 @@ let VouchersComponent = function(
 
     $ctrl.exportPdf = () => {
         VoucherService.downloadQRCodes($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values), 
+            ...$ctrl.getQueryParams($ctrl.filters.values),
             ...{ export_type: 'pdf' }
         }).then(res => {
             FileService.downloadFile(
@@ -172,7 +172,7 @@ let VouchersComponent = function(
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesData($ctrl.organization.id, {
                 ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                    export_type: 'png', 
+                    export_type: 'png',
                     export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
                 }
             }).then(res => resolve(

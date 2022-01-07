@@ -1,4 +1,4 @@
-const OrganizationEmployeesComponent = function(
+const OrganizationEmployeesComponent = function (
     $scope,
     $filter,
     ModalService,
@@ -40,29 +40,28 @@ const OrganizationEmployeesComponent = function(
     };
 
     $ctrl.editEmployee = (employee) => {
+        const meta = $ctrl.employees.meta;
+        const page = employee ? meta.current_page : meta.last_page;
+
         ModalService.open('employeeEdit', {
             organization: $ctrl.organization,
             roles: $ctrl.roles,
             employee: employee,
             submit: () => {
-                $scope.onPageChange({
-                    page: employee ?
-                        $ctrl.employees.meta.current_page :
-                        $ctrl.employees.meta.last_page
-                });
+                $scope.onPageChange({ page });
+                PushNotificationsService.success('Added', 'New employee added!');
             }
         });
     };
 
-    $ctrl.deleteEmployee = function(employee) {
+    $ctrl.deleteEmployee = function (employee) {
         OrganizationEmployeesService.destroy($ctrl.organization.id, employee.id).then(() => {
             $scope.onPageChange();
-        }, (res) => {
-            PushNotificationsService.danger(res.data.message);
-        });
+            PushNotificationsService.success('Removed', 'Employee removed!');
+        }, (res) => PushNotificationsService.danger(res.data.message));
     }
 
-    $ctrl.transferOwnership = function(employees) {
+    $ctrl.transferOwnership = function (employees) {
         ModalService.open('transferOrganizationOwnership', {
             organization: $ctrl.organization,
             employees: employees,
@@ -73,7 +72,7 @@ const OrganizationEmployeesComponent = function(
         });
     }
 
-    $ctrl.filterAdminEmplyees = function(employees) {
+    $ctrl.filterAdminEmplyees = function (employees) {
         return employees.filter(employee => {
             return employee.roles.filter(role => role.key === 'admin').length > 0;
         }).filter(employee => {
@@ -81,7 +80,7 @@ const OrganizationEmployeesComponent = function(
         });
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.employees = $ctrl.transformEmployees($ctrl.employees);
         $ctrl.adminEmployees = $ctrl.filterAdminEmplyees($ctrl.employees.data);
     };
