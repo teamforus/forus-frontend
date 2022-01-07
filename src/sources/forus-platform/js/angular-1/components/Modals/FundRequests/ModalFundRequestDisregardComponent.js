@@ -1,4 +1,4 @@
-let ModalFundRequestRecordsDisregardComponent = function(
+let ModalFundRequestDisregardComponent = function(
     FundRequestValidatorService,
     FormBuilderService
 ) {
@@ -42,9 +42,9 @@ module.exports = {
     controller: [
         'FundRequestValidatorService',
         'FormBuilderService',
-        ModalFundRequestRecordsDisregardComponent
+        ModalFundRequestDisregardComponent
     ],
     templateUrl: () => {
-        return 'assets/tpl/modals/fund-requests/modal-fund-request-records-disregard.html';
+        return 'assets/tpl/modals/fund-requests/modal-fund-request-disregard.html';
     }
 };

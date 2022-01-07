@@ -67,8 +67,12 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundRequestRecordsDeclineComponent'
     });
 
-    ModalRouteProvider.modal('fundRequestRecordsDisregard', {
-        component: 'modalFundRequestRecordsDisregardComponent'
+    ModalRouteProvider.modal('fundRequestDisregard', {
+        component: 'modalFundRequestDisregardComponent'
+    });
+
+    ModalRouteProvider.modal('fundRequestDisregardUndo', {
+        component: 'modalFundRequestDisregardUndoComponent'
     });
 
     ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {

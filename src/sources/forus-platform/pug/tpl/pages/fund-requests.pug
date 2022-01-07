@@ -156,6 +156,11 @@
                         button.button.button-default(ng-click='$ctrl.requestDisregard(validatorRequest)')
                             em.mdi.mdi-timer-sand-empty.icon-start
                             | {{ "validation_requests.buttons.disregard" | translate }}
+                    
+                    .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'disregarded'")
+                        button.button.button-default(ng-click='$ctrl.requestDisregardUndo(validatorRequest)')
+                            em.mdi.mdi-timer-sand-empty.icon-start
+                            | {{ "validation_requests.buttons.disregard_undo" | translate }}
         
             .card-section(ng-hide='validatorRequest.collapsed'): .card-block.card-block-table: .table-wrapper: table.table
                 thead: tr

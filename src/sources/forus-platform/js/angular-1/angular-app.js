@@ -85,7 +85,8 @@ app.component('modalImagePreviewComponent', require('./components/Modals/FilePre
 app.component('modalFundRequestRecordClarifyComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordClarifyComponent'));
 app.component('modalFundRequestRecordDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordDeclineComponent'));
 app.component('modalFundRequestRecordsDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordsDeclineComponent'));
-app.component('modalFundRequestRecordsDisregardComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordsDisregardComponent'));
+app.component('modalFundRequestDisregardComponent', require('./components/Modals/FundRequests/ModalFundRequestDisregardComponent'));
+app.component('modalFundRequestDisregardUndoComponent', require('./components/Modals/FundRequests/ModalFundRequestDisregardUndoComponent'));
 app.component('modalFundCriteriaDescriptionEditComponent', require('./components/Modals/ModalFundCriteriaDescriptionEditComponent'));
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
 app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));

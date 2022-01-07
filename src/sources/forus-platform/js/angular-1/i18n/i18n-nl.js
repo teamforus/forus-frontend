@@ -1363,6 +1363,7 @@ module.exports = {
             accept: "Valideren",
             decline: "Weigeren",
             disregard: "Niet behandelen",
+            disregard_undo: "Opnieuw beoordelen",
             clear_filter: "Wis filter",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",

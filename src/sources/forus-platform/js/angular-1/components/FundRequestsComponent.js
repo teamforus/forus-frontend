@@ -197,7 +197,25 @@ let FundRequestsComponent = function(
     };
 
     $ctrl.requestDisregard = (request) => {
-        ModalService.open('fundRequestRecordsDisregard', {
+        ModalService.open('fundRequestDisregard', {
+            organization: $ctrl.organization,
+            request: request,
+            submit: (err) => {
+                if (err) {
+                    return showInfoModal(
+                        'U kunt op dit moment deze aanvragen niet weigeren.',
+                        'Reden: ' + err.data.message
+                    );
+                }
+
+                $ctrl.reloadRequest(request);
+                PushNotificationsService.success('Gelukt! Aanvraag is niet behandelen');
+            }
+        });
+    };
+
+    $ctrl.requestDisregardUndo = (request) => {
+        ModalService.open('fundRequestDisregardUndo', {
             organization: $ctrl.organization,
             request: request,
             submit: (err) => {
