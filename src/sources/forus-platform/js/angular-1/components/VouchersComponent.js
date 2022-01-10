@@ -87,12 +87,8 @@ let VouchersComponent = function(
             voucher: voucher,
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onSent: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            },
-            onAssigned: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
+            onSent: () => $ctrl.onPageChange($ctrl.filters.values),
+            onAssigned: () => $ctrl.onPageChange($ctrl.filters.values),
         });
     };
 
@@ -100,9 +96,7 @@ let VouchersComponent = function(
         ModalService.open('voucherCreate', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onCreated: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
+            onCreated: () => $ctrl.onPageChange($ctrl.filters.values),
         });
     }
 
@@ -124,7 +118,7 @@ let VouchersComponent = function(
     };
 
     $ctrl.getQueryParams = (query) => {
-        let _query = JSON.parse(JSON.stringify(query));
+        const _query = JSON.parse(JSON.stringify(query));
 
         return {
             ..._query, ...{
