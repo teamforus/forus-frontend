@@ -26,14 +26,15 @@ const ModalsRootDirective = function ($scope, ModalService, ModalRoute) {
     const keyDownListner = (e, modal, isLast) => {
         if (isLast) {
             const listners = Array.isArray(modal.onkeyDown) ? modal.onkeyDown : [modal.onkeyDown];
+            const code = e.charCode || e.keyCode || 0;
 
-            if (e.key === 'Escape') {
+            if (modal.closeOnEscape && code == 27) {
                 modal.close();
             }
 
             listners.forEach((listner) => {
                 if (typeof listner === 'function') {
-                    listner(e.key, e);
+                    listner(code, e);
                 }
             });
         }
@@ -42,7 +43,7 @@ const ModalsRootDirective = function ($scope, ModalService, ModalRoute) {
     const updateFocus = (modals) => {
         for (let i = 0; i < modals.length; i++) {
             const modal = modals[i];
-            const window = modal.getElement()[0]?.querySelector('.modal-window');
+            const window = modal.getElement()[0]?.querySelector('.modal');
             const isLast = modals.length - 1 == i;
 
             if (window) {

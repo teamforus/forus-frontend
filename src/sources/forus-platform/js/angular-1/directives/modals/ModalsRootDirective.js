@@ -43,7 +43,7 @@ const ModalsRootDirective = function ($scope, ModalService, ModalRoute) {
     const updateFocus = (modals) => {
         for (let i = 0; i < modals.length; i++) {
             const modal = modals[i];
-            const window = modal.getElement()[0]?.querySelector('.modal-window');
+            const window = modal.getElement()[0]?.querySelector('.modal');
             const isLast = modals.length - 1 == i;
 
             if (window) {
