@@ -145,9 +145,11 @@
                                 ng-model="$ctrl.form.products[$index]" 
                                 options="$ctrl.productOptions[$index]"
                                 placeholder="Selecteer aanbieding...").flex-grow
+
                             .flex-col: .button.button-primary.button-icon(
                                 ng-click="$ctrl.removeProduct($ctrl.form.products[$index])"
                                 ): em.mdi.mdi-close
+
                         .form-error(ng-repeat="error in $ctrl.form.errors['products.' + ($index - 1)]" ng-bind="error")
                     .form-group.form-group-inline
                         label(translate="{{ !$ctrl.form.products.length ? 'funds_edit.labels.products' : '' }}").form-label

@@ -38,8 +38,6 @@ const ProductsComponent = function(
         'q', 'product_category_id', 'fund', 'sortBy',
     ];
 
-    $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
-
     $ctrl.toggleOrderDropdown = ($event) => {
         $event ? $event.stopPropagation() : '';
         $ctrl.show_order_dropdown = !$ctrl.show_order_dropdown;
@@ -92,9 +90,9 @@ const ProductsComponent = function(
         return {
             q: values.q,
             page: values.page,
-            organization_id: values.organization ? values.organization.id : null,
-            product_category_id: values.product_category ? values.product_category.id : null,
-            fund_id: values.fund ? values.fund.id : null,
+            fund_id: values.fund_id,
+            organization_id: values.organization_id,
+            product_category_id: values.product_category_id,
             display_type: $ctrl.display_type,
             fund_type: $ctrl.fund_type,
             ...orderByValue
@@ -130,24 +128,20 @@ const ProductsComponent = function(
         let count = 0;
 
         $ctrl.form.values.q && count++;
-        $ctrl.form.values.organization && $ctrl.form.values.organization.id && count++;
-        $ctrl.form.values.product_category && $ctrl.form.values.product_category.id && count++;
+        $ctrl.form.values.organization_id && count++;
+        $ctrl.form.values.product_category_id && count++;
         $ctrl.form.values.fund && $ctrl.form.values.fund.id && count++;
         $ctrl.countFiltersApplied = count;
     };
 
     $ctrl.$onInit = () => {
         $ctrl.showModalFilters = $stateParams.show_menu;
-        $ctrl.display_type = $stateParams.display_type;
-        $ctrl.fund_type = $stateParams.fund_type;
-        $ctrl.show_order_dropdown = false;
+        $ctrl.appConfigs = appConfigs;
 
-        $scope.appConfigs = appConfigs;
-        $scope.$watch('appConfigs', (_appConfigs) => {
-            if (_appConfigs.features && !_appConfigs.features.products.list) {
-                $state.go('home');
-            }
-        }, true);
+        $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
+        $ctrl.fund_type = $stateParams.fund_type;
+        $ctrl.display_type = $stateParams.display_type;
+        $ctrl.show_order_dropdown = false;
 
         $ctrl.funds.unshift({
             id: null,
@@ -164,26 +158,20 @@ const ProductsComponent = function(
             id: null
         });
 
-        const fund = $ctrl.funds.filter(fund => {
-            return fund.id == $stateParams.fund_id;
-        })[0] || $ctrl.funds[0];
-
-        const product_category = $ctrl.productCategories.filter(product_category => {
-            return product_category.id == $stateParams.product_category_id;
-        })[0] || $ctrl.productCategories[0];
-
-        const organization = $ctrl.organizations.filter(organization => {
-            return organization.id == $stateParams.organization_id;
-        })[0] || $ctrl.organizations[0];
-
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
-            organization: organization,
-            product_category: product_category,
-            fund: fund,
+            fund_id: $stateParams.fund_id || null,
+            organization_id: $stateParams.organization_id || null,
+            product_category_id: $stateParams.product_category_id || null,
         });
 
         $ctrl.updateFiltersUsedCount();
+
+        $scope.$watch('$ctrl.appConfigs', (_appConfigs) => {
+            if (_appConfigs.features && !_appConfigs.features.products.list) {
+                $state.go('home');
+            }
+        }, true);
     };
 };
 

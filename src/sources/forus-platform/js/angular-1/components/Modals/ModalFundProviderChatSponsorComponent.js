@@ -58,12 +58,12 @@ let ModalFundProviderChatSponsorComponent = function(
 
     $ctrl.scrollTheChat = (forceScroll, scrollSpeed) => {
         let $root = $element.find('#chat_root');
-        let trashold = $root.find(
+        let threshold = $root.find(
             '.chat-interval:last-child() .chat-message:last-child()'
         ).innerHeight() + 25;
 
         let fullHeight = $root.scrollTop() + $root.innerHeight();
-        let autoScrollThreshold = $root[0].scrollHeight - trashold;
+        let autoScrollThreshold = $root[0].scrollHeight - threshold;
 
         if (forceScroll || (fullHeight >= autoScrollThreshold)) {
             $root.animate({

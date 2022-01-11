@@ -49,6 +49,5 @@ module.exports = () => {
             SelectControlOptions
         ],
         template: require('./templates/select-control-options.pug'),
-        //templateUrl: 'assets/tpl/modules/select-control/select-control-options.html'
     };
 };

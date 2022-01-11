@@ -1,9 +1,10 @@
-let ScrollEndDirective = function($scope, $element) {
-    let trashold = $scope.trashold ? parseInt($scope.trashold) : 10;
-    let scrollHandler = function() {
-        let top = $element.scrollTop() + $element.innerHeight();
+const ScrollEndDirective = function($scope, $element) {
+    const threshold = $scope.threshold ? parseInt($scope.threshold) : 10;
 
-        if (top >= ($element[0].scrollHeight - trashold)) {
+    const scrollHandler = function() {
+        const top = $element[0].scrollTop + $element[0].clientHeight;
+
+        if (top >= ($element[0].scrollHeight - threshold)) {
             $scope.scrollEnd();
         }
     };
@@ -19,7 +20,7 @@ module.exports = () => {
     return {
         scope: {
             'scrollEnd': '&',
-            'trashold': '='
+            'threshold': '='
         },
         restrict: "EA",
         link: ScrollEndDirective

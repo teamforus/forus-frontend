@@ -3,13 +3,13 @@
         label.select-control-search.form-control(
             for="{{ $dir.controlId }}"
             ng-show="$dir.mode == 'strict' && !$dir.showOptions" 
-            ng-bind="ngModel ? ngModel.name : placeholder"
+            ng-bind="$dir.value.name || $dir.placeholder"
             ng-click="$dir.searchOption()")
         
         input(
             id="{{ $dir.controlId }}"
             type="search"
-            placeholder="{{ placeholder }}"
+            placeholder="{{ $dir.placeholder }}"
             ng-click="$dir.onInputClick()"
             ng-keydown="$dir.searchKeydown($event)"
             ng-show="$dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions)"
@@ -19,5 +19,5 @@
         select-control-options(
             ng-if="$dir.showOptions" 
             change="$dir.selectOption(option)" 
-            options="$dir.options"
+            options="$dir.optionsFiltered"
             options-preload-size="{{ optionsPreloadSize }}")
