@@ -1,17 +1,13 @@
-let ModalFundRequestDisregardUndoComponent = function(
+const ModalFundRequestDisregardUndoComponent = function(
     FundRequestValidatorService,
     FormBuilderService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        let submit = $ctrl.modal.scope.submit;
-        let organization = $ctrl.modal.scope.organization;
-        let request = $ctrl.modal.scope.request;
+        const { submit, organization, request } = $ctrl.modal.scope;
 
-        $ctrl.form = FormBuilderService.build({
-            note: ''
-        }, (form) => {
+        $ctrl.form = FormBuilderService.build({}, (form) => {
             FundRequestValidatorService.disregardUndo(
                 organization.id,
                 request.id,
@@ -31,7 +27,6 @@ let ModalFundRequestDisregardUndoComponent = function(
             });
         }, true);
     };
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

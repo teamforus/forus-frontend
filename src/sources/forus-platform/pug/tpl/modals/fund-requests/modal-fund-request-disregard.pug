@@ -10,23 +10,24 @@
                     | Bevestig dat u deze aanvraag buiten behandeling wilt plaatsen.
                     | De aanvrager kunt u hierover informeren door een bericht in te vullen.
 
-            .modal-warning
-                em.mdi.mdi-alert-circle.text-warning &nbsp
-                span Let op: de aanvrager kan hierna een nieuwe aanvraag starten.
+                .modal-warning
+                    em.mdi.mdi-alert-circle.text-warning &nbsp
+                    span Let op: de aanvrager kan hierna een nieuwe aanvraag starten.
 
-            br
             form(ng-submit="$ctrl.form.submit()").form
                 .form-group.text-center
                     label.checkbox.checkbox-narrow
-                        input(type='checkbox' ng-model="$ctrl.confirmed" hidden)
+                        input(type='checkbox' ng-model="$ctrl.form.values.notify" hidden)
                         .checkbox-label
                             .checkbox-box: .mdi.mdi-check
                             .modal-text Verstuur de aanvrager een bericht
+                    .form-error(ng-repeat="error in $ctrl.form.errors.notify" ng-bind="error")
 
-                .form-group
+                .form-group(ng-if="$ctrl.form.values.notify")
+                    .form-label Bericht (optioneel)
                     textarea(ng-model="$ctrl.form.values.note" placeholder="Bericht naar aanvrager").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
-        
+
         .modal-footer.text-center
             button.button.button-default(ng-click="$ctrl.close()") Annuleer
             button.button.button-primary(ng-click="$ctrl.form.submit()") Bevestig

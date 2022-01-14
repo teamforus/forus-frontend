@@ -54,8 +54,6 @@ let ModalEmployeeEditComponent = function(
             })
         })
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

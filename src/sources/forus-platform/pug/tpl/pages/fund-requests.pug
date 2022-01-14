@@ -131,34 +131,58 @@
             
             .card-header(ng-hide='validatorRequest.collapsed' state="{{ validatorRequest.state }}" assigned="{{ validatorRequest.is_assigned }}")
                 .arrow-box.border.bg-dim: .arrow
-                .card-title: .row
-                    .col.col-lg-6(ng-if="!validatorRequest.is_assigned" translate='validation_requests.labels.records')
-                    .col.col-lg-6(ng-if="validatorRequest.is_assigned")
+                .card-title: .flex-row
+                    .flex.flex-grow(ng-if="!validatorRequest.is_assigned" translate='validation_requests.labels.records')
+                    .flex.flex-grow(ng-if="validatorRequest.is_assigned")
                         .button.button-text(ng-if="validatorRequest.record_types.indexOf('partner_bsn') === -1" ng-click="$ctrl.appendRecord(validatorRequest)")
                             | {{ 'validation_requests.labels.records' | translate }}
                             em.mdi.mdi-plus-circle.icon-end.text-primary
-                    
-                    .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'pending' && validatorRequest.is_assignable")
-                        button.button.button-primary(ng-click='$ctrl.requestAssign(validatorRequest)')
+
+                    .flex(ng-show="validatorRequest.state == 'pending' || validatorRequest.state == 'disregarded'")
+                        //- Assign request
+                        button.button.button-primary(
+                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assignable"
+                            ng-click='$ctrl.requestAssign(validatorRequest)')
+
                             em.mdi.mdi-account-plus.icon-start
                             | Toewijzen aan mij
-                    
-                    .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'pending' && validatorRequest.is_assigned")
-                        button.button.button-primary-light(ng-click='$ctrl.requestResign(validatorRequest)')
+
+                        //- Resign request
+                        button.button.button-primary-light(
+                            ng-if="validatorRequest.has_assigned_pending || validatorRequest.has_assigned_disregarded" 
+                            ng-click='$ctrl.requestResign(validatorRequest)')
+
                             em.mdi.mdi-account-minus.icon-start
                             | Meld af
-                        button.button.button-default(ng-click='$ctrl.requestDecline(validatorRequest)')
+
+                        //- Decline
+                        button.button.button-default(
+                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned" 
+                            ng-click='$ctrl.requestDecline(validatorRequest)')
+
                             em.mdi.mdi-close.icon-start
                             | {{ "validation_requests.buttons.alldecline" | translate }}
-                        button.button.button-primary(ng-click='$ctrl.requestApprove(validatorRequest)')
+
+                        //- Approve
+                        button.button.button-primary(
+                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned" 
+                            ng-click='$ctrl.requestApprove(validatorRequest)')
+
                             em.mdi.mdi-check-circle.icon-start
                             | {{ "validation_requests.buttons.allaccept" | translate }}
-                        button.button.button-default(ng-click='$ctrl.requestDisregard(validatorRequest)')
+
+                        //- Disregard
+                        button.button.button-default(
+                            ng-if="validatorRequest.is_sponsor_employee && validatorRequest.has_assigned_pending" 
+                            ng-click='$ctrl.requestDisregard(validatorRequest)')
+
                             em.mdi.mdi-timer-sand-empty.icon-start
                             | {{ "validation_requests.buttons.disregard" | translate }}
                     
-                    .col.col-lg-6.text-right(ng-show="validatorRequest.state == 'disregarded'")
-                        button.button.button-default(ng-click='$ctrl.requestDisregardUndo(validatorRequest)')
+                        //- Disregard undo
+                        button.button.button-default(
+                            ng-if="validatorRequest.is_sponsor_employee && validatorRequest.has_assigned_disregarded"
+                            ng-click='$ctrl.requestDisregardUndo(validatorRequest)')
                             em.mdi.mdi-timer-sand-empty.icon-start
                             | {{ "validation_requests.buttons.disregard_undo" | translate }}
         

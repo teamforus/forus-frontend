@@ -1,37 +1,33 @@
-let ModalFundRequestDisregardComponent = function(
+const ModalFundRequestDisregardComponent = function(
     FundRequestValidatorService,
     FormBuilderService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        let submit = $ctrl.modal.scope.submit;
-        let organization = $ctrl.modal.scope.organization;
-        let request = $ctrl.modal.scope.request;
+        const { submit, organization, request } = $ctrl.modal.scope;
 
         $ctrl.form = FormBuilderService.build({
-            note: ''
+            note: '',
+            notify: true,
         }, (form) => {
             FundRequestValidatorService.disregard(
                 organization.id,
                 request.id,
-                form.values.note
+                form.values
             ).then(() => {
-                form.unlock();
-                $ctrl.close();
                 submit(null);
+                $ctrl.close();
             }, (res) => {
-                form.unlock();
                 if (res.status === 422) {
                     return form.errors = res.data.errors;
                 }
 
-                $ctrl.close();
                 submit(res);
-            });
+                $ctrl.close();
+            }).finally(() => form.unlock());
         }, true);
     };
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
@@ -44,7 +40,5 @@ module.exports = {
         'FormBuilderService',
         ModalFundRequestDisregardComponent
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/fund-requests/modal-fund-request-disregard.html';
-    }
+    templateUrl: 'assets/tpl/modals/fund-requests/modal-fund-request-disregard.html',
 };

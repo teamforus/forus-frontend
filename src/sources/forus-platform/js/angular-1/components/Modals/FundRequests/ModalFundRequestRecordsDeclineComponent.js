@@ -31,7 +31,6 @@ let ModalFundRequestRecordsDeclineComponent = function(
             });
         }, true);
     };
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

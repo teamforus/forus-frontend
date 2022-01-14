@@ -33,8 +33,6 @@ let ModalFundCriteriaDescriptionEditComponent = function(
             });
         });
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
