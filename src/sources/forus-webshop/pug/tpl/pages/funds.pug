@@ -35,6 +35,16 @@ block content
                                     ng-model="$ctrl.form.values.organization_id"
                                     options="$ctrl.organizations"
                                     placeholder="{{ $ctrl.organizations[0].name }}")
+
+                            .form-group
+                                label.form-label(for="select_category") Categorie
+                                select-control(
+                                    id="select_category"
+                                    prop="id"
+                                    autoclear="true" 
+                                    ng-model="$ctrl.form.values.tag_id"
+                                    options="$ctrl.tags"
+                                    placeholder="{{ $ctrl.tags[0].name }}")
                         
                     .showcase-content
                         .showcase-content-header
