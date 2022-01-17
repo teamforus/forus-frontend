@@ -49,7 +49,7 @@ const OrganizationEmployeesComponent = function (
             employee: employee,
             submit: () => {
                 $scope.onPageChange({ page });
-                PushNotificationsService.success('Added', 'New employee added!');
+                PushNotificationsService.success('Gelukt!', 'Nieuwe medewerker toegevoegd.');
             }
         });
     };
