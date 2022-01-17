@@ -149,7 +149,7 @@
 
                         //- Resign request
                         button.button.button-primary-light(
-                            ng-if="validatorRequest.has_assigned_pending || validatorRequest.has_assigned_disregarded" 
+                            ng-if="validatorRequest.has_assigned_pending && !validatorRequest.has_assigned_disregarded" 
                             ng-click='$ctrl.requestResign(validatorRequest)')
 
                             em.mdi.mdi-account-minus.icon-start
