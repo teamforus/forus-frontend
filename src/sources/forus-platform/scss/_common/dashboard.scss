@@ -32,6 +32,7 @@ $colorPrimaryLight: $color_primary_light;
 .block {
     @import 'blocks/block-chat';
     @import 'blocks/block-funds';
+    @import 'blocks/block-fund';
     @import 'blocks/block-critera-editor';
     @import 'blocks/block-faq-editor';
     @import 'blocks/block-card-toggleable';

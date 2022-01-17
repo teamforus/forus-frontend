@@ -11,17 +11,18 @@
 
         .fund-photo {
             display: block;
-            width: 100px;
+            width: 130px;
             min-width: 100px;
             overflow: hidden;
-            background-size: cover;
-            background-position: 50% 50%;
             position: relative;
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
 
             img {
-                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto;
                 width: 100%;
             }
 
@@ -60,15 +61,19 @@
             }
 
             .fund-name {
-                font: 700 24px/36px $bf;
-                margin: 0;
+                font: 700 22px/30px $hf;
+                margin: 0 0 5px;
                 color: $tc;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
 
             .fund-description {
-                font: 400 16px/28px $bf;
-                margin-top: 10px;
+                font: 400 14px/22px $bf;
                 color: $tc;
+                max-width: 80ch;
             }
 
             .fund-organization {

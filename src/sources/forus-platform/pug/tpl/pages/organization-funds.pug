@@ -26,9 +26,7 @@
             .fund-item(ng-repeat="fund in $ctrl.activeFunds")
                 .fund-item-section: .flex-col
                     .flex-row
-                        .fund-logo: img(
-                            ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}"
-                            ).fund-logo-img
+                        .fund-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").fund-logo-img
                         .fund-details
                             .fund-title
                                 span(ng-bind="fund.name")
@@ -46,17 +44,9 @@
                                     translate="components.organization_funds.states.closed")
 
                         .fund-actions
-                            .button.button-default(
-                                ng-if="(fund.organization | hasPerm:'manage_funds')"
-                                ui-sref="funds-edit(fund)")
-                                em.mdi.mdi-cog.icon-start
-                                translate(translate="components.organization_funds.buttons.edit")
-                    
-                            .button.button-danger(
-                                ng-if="(fund.organization | hasPerm:'manage_funds') && fund.state == 'waiting'" 
-                                ng-click="$ctrl.deleteFund(fund)").button.button-danger
-                                em.mdi.mdi-delete.icon-start
-                                translate(translate="components.organization_funds.buttons.delete")
+                            a(ui-sref="funds-show(fund)").button.button-primary
+                                em.mdi.mdi-eye-outline.icon-start
+                                translate(translate="product_card.buttons.view")
 
                     .flex-row.flex-end(ng-if="!fund.is_external"): .fund-remaining
                         .fund-remaining-label(translate="components.organization_funds.labels.remaining") 
@@ -73,14 +63,14 @@
                                 translate(translate="components.organization_funds.buttons.statistics")
                         
                         .flex-col: .flex-row.flex-end
-                            .button.button-primary(
+                            .button.button-default(
                                 ng-if="fund.key && fund.state != 'closed'" 
                                 ng-disabled="!fund.organization.has_bank_connection"
                                 ng-click="$ctrl.topUpModal(fund)")
                                 em.mdi.mdi-plus-circle.icon-start
                                 translate(translate="components.organization_funds.buttons.top_up")
 
-                            .button.button-primary(
+                            .button.button-default(
                                 ng-if="fund.key && fund.state == 'closed'" 
                                 ng-click="$ctrl.archiveFund(fund)")
                                 em.mdi.mdi-download-box-outline.icon-start

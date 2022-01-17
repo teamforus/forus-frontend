@@ -1,7 +1,11 @@
-const FundItemDirective = function($scope, FundService) {
+const FundItemDirective = function($state, $scope, FundService, PushNotificationsService) {
     const $dir = $scope.$dir = {};
+    let $ctrl = this;
 
-    $dir.applyFund = function(fund) {
+    $dir.applyFund = function($event, fund) {
+        $event.stopPropagation();
+        $event.preventDefault();
+
         if ($dir.applyingFund) {
             return;
         }
@@ -13,8 +17,19 @@ const FundItemDirective = function($scope, FundService) {
         $dir.applyingFund = true;
 
         FundService.apply(fund.id).then((res) => {
-            return $state.go('voucher', res.data.data);
-        }).finally(() => $dir.applyingFund = false);
+            PushNotificationsService.success('Tegoed geactiveerd.');
+            if ($scope.funds.data.filter(fund => {
+               return fund.isApplicable && !fund.alreadyReceived
+            }).length === 0) {       
+                return $state.go('voucher', res.data.data);
+            } else {
+                $state.reload()
+            }
+        }, res => {
+            PushNotificationsService.danger(res.data.message);
+        }).finally(() => { 
+            $dir.applyingFund = false 
+        });
     };
 
     $dir.addFundMeta = (fund, vouchers) => {
@@ -23,9 +38,10 @@ const FundItemDirective = function($scope, FundService) {
         fund.alreadyReceived = fund.vouchers.length !== 0;
 
         fund.canApply    = !fund.is_external && !fund.alreadyReceived && fund.isApplicable && !fund.has_pending_fund_requests;
-        fund.canActivate = !fund.is_external && !fund.alreadyReceived && fund.has_approved_fund_requests;
+        fund.canActivate = !fund.is_external && !fund.alreadyReceived && (fund.has_approved_fund_requests || fund.isApplicable);
         fund.isPending   = !fund.alreadyReceived && fund.has_pending_fund_requests;
 
+        fund.showActivateButton = !fund.alreadyReceived && fund.isApplicable;
         return fund;
     };
 
@@ -38,13 +54,16 @@ module.exports = () => {
     return {
         scope: {
             fund: '=',
+            funds: '=',
             vouchers: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
+            '$state',
             '$scope',
             'FundService',
+            'PushNotificationsService',
             FundItemDirective
         ],
         templateUrl: ($el, $attr) => {

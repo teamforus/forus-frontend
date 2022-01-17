@@ -8,7 +8,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                 div(translate="topnavbar.items.explanation")
 
         a(ui-sref="home").navbar-logo.show-sm
-            img(ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" ng-if="$root.appConfigs.flags.secondLogo" alt="Terug naar hoofdpagina").second-logo
             img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" alt="Terug naar hoofdpagina")
             img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}" alt="Terug naar hoofdpagina").hover
 
@@ -77,11 +76,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
     .block.block-subnav
         .subnav-inner.wrapper   
             a(ui-sref="home").navbar-logo.hide-sm
-                img(
-                    ng-src="{{ './assets/img/' + $root.appConfigs.flags.secondLogo }}" 
-                    ng-if="$root.appConfigs.flags.secondLogo" 
-                    alt="{{$root.appConfigs.features.implementation_name}} alternatief logo").second-logo
-
                 img(
                     ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" 
                     alt="{{$root.appConfigs.features.implementation_name}}")

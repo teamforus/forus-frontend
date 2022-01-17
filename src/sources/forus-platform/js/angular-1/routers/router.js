@@ -644,30 +644,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
-    /* $stateProvider.state({
+    $stateProvider.state({
         name: "funds-show",
         url: "/organizations/{organization_id}/funds/{id}",
         component: "fundsShowComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-show', [
-                'manage_funds', 'view_finances'
-            ], false),
-            fund: [
-                'permission', '$transition$', 'FundService', (
-                    permission, $transition$, FundService
-                ) => {
-                    return repackResponse(
-                        FundService.read(
-                            $transition$.params().organization_id,
-                            $transition$.params().id
-                        )
-                    );
-                }
-            ],
-            fundLevel: ['permission', (permission) => "fundShow"]
+            permission: permissionMiddleware('funds-show', ['manage_funds', 'view_finances'], false),
+            fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
+            }],
         }
-    }); */
+    });
 
     $stateProvider.state({
         name: "funds-edit",

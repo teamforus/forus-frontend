@@ -1,4 +1,4 @@
-const ModalAuthComponent = function(
+const ModalAuthComponent = function (
     $state,
     $timeout,
     $rootScope,
@@ -12,7 +12,6 @@ const ModalAuthComponent = function(
     appConfigs
 ) {
     const $ctrl = this;
-    const index = Math.floor(Math.random() * 100000) + 1;
 
     let timeout;
 
@@ -28,7 +27,7 @@ const ModalAuthComponent = function(
         IdentityService.identity().then(() => { }, $ctrl.close);
     }
 
-    $ctrl.showQrForm = function() {
+    $ctrl.showQrForm = function () {
         $ctrl.showQrCodeBlock = true;
         $ctrl.showChoose = false;
 
@@ -52,24 +51,51 @@ const ModalAuthComponent = function(
         });
     }
 
-    $ctrl.$onInit = () => {
-        $ctrl.appConfigs = appConfigs;
+    $ctrl.applyAccessToken = function (access_token) {
+        CredentialsService.set(access_token);
+        $rootScope.$broadcast('auth:update');
+        $ctrl.close();
+    };
 
-        angular.element(document).bind('keydown.auth_model_' + index, (e) => {
-            $timeout(function() {
-                var key = e.charCode || e.keyCode || 0;
-
-                if (key == 27) {
-                    $ctrl.close();
-                }
-            }, 0);
+    $ctrl.checkAccessTokenStatus = (type, access_token) => {
+        IdentityService.checkAccessToken(access_token).then((res) => {
+            if (res.data.message == 'active') {
+                $ctrl.applyAccessToken(access_token);
+                $timeout(function () {
+                    if ($ctrl.modal.scope.has_redirect) {
+                        $state.go($ctrl.modal.scope.target_name, $ctrl.modal.scope.target_params);
+                    } else {
+                        $state.go('vouchers');
+                    }
+                }, 2500);
+            } else if (res.data.message == 'pending') {
+                timeout = $timeout(function () {
+                    $ctrl.checkAccessTokenStatus(type, access_token);
+                }, 2500);
+            } else {
+                document.location.reload();
+            }
         });
+    };
 
-        $ctrl.showQrForm();
+    $ctrl.requestAuthQrToken = () => {
+        IdentityService.makeAuthToken().then((res) => {
+            $ctrl.authToken = res.data.auth_token;
+            $ctrl.qrValue = $ctrl.authToken;
 
-        $ctrl.signInEmailForm = FormBuilderService.build({
-            email: ""
-        }, async (form) => {
+            $ctrl.checkAccessTokenStatus('token', res.data.access_token);
+        }, console.error);
+    };
+
+    $ctrl.stopQrCodeVerification = () => $timeout.cancel(timeout);
+
+    $ctrl.openAuthCodePopup = function () {
+        $ctrl.close();
+        ModalService.open('modalAuthCode', {});
+    };
+
+    $ctrl.buildForm = () => {
+        $ctrl.signInEmailForm = FormBuilderService.build({ email: "" }, async (form) => {
             const handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : {
@@ -107,55 +133,17 @@ const ModalAuthComponent = function(
                 });
             }, handleErrors);
         }, true);
+    }
+
+    $ctrl.$onInit = () => {
+        $ctrl.appConfigs = appConfigs;
+
+        $ctrl.showQrForm();
+        $ctrl.buildForm();
     };
-
-
-    $ctrl.applyAccessToken = function(access_token) {
-        CredentialsService.set(access_token);
-        $rootScope.$broadcast('auth:update');
-        $ctrl.close();
-    };
-
-    $ctrl.checkAccessTokenStatus = (type, access_token) => {
-        IdentityService.checkAccessToken(access_token).then((res) => {
-            if (res.data.message == 'active') {
-                $ctrl.applyAccessToken(access_token);
-                $timeout(function() {
-                    if ($ctrl.modal.scope.has_redirect) {
-                        $state.go($ctrl.modal.scope.target_name, $ctrl.modal.scope.target_params);
-                    } else {
-                        $state.go('vouchers');
-                    }
-                }, 2500);
-            } else if (res.data.message == 'pending') {
-                timeout = $timeout(function() {
-                    $ctrl.checkAccessTokenStatus(type, access_token);
-                }, 2500);
-            } else {
-                document.location.reload();
-            }
-        });
-    };
-
-    $ctrl.requestAuthQrToken = () => {
-        IdentityService.makeAuthToken().then((res) => {
-            $ctrl.authToken = res.data.auth_token;
-            $ctrl.qrValue = $ctrl.authToken;
-
-            $ctrl.checkAccessTokenStatus('token', res.data.access_token);
-        }, console.error);
-    };
-
-    $ctrl.stopQrCodeVerification = () => $timeout.cancel(timeout);
 
     $ctrl.$onDestroy = () => {
         $ctrl.stopQrCodeVerification();
-        angular.element(document).unbind('keydown.auth_model_' + index);
-    };
-
-    $ctrl.openAuthCodePopup = function() {
-        $ctrl.close();
-        ModalService.open('modalAuthCode', {});
     };
 };
 

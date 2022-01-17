@@ -296,9 +296,10 @@ const FundRequestComponent = function(
     $ctrl.finish = () => $state.go('funds');
     $ctrl.goToMain = () => $state.go('home');
 
-    $ctrl.goToActivationComponent = () => {
+    $ctrl.goToActivationComponent = (error = 0) => {
         return $state.go('fund-activate', {
-            fund_id: $ctrl.fund.id
+            fund_id: $ctrl.fund.id,
+            backoffice_error: error
         });
     };
 
@@ -337,7 +338,7 @@ const FundRequestComponent = function(
         }
 
         if (!$ctrl.fundRequestAvailable) {
-            return $ctrl.goToActivationComponent();
+            return $ctrl.goToActivationComponent(2);
         }
 
         // The fund is already taken by identity partner

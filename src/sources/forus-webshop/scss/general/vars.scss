@@ -38,8 +38,12 @@ $bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
 // base font
 $bf:                'Open Sans', arial, sans-serif;
 
+// heading font
+$hf:                $bf;
+
 // text color
 $tc:                #353535;
+$htc:               $tc;
 $tc-var:            inherit;
 $tc-link:           inherit;
 

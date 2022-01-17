@@ -4,9 +4,10 @@
         background: none;
 
         .section-title {
-            font: 700 24px/36px $bf;
+            font: 600 24px/36px $hf;
             margin: 0 0 30px;
             text-align:center;
+            color: $tc;
         }
 
         .steps {
@@ -105,7 +106,7 @@
 
             .section-title {
                 text-align: center;
-                font: 700 40px/60px $bf;
+                font: 600 40px/60px $hf;
                 margin: 0 0 70px;
             }
 
