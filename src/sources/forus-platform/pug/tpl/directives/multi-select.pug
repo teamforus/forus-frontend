@@ -7,7 +7,7 @@ div
             ng-model="selectedOption"
             placeholder="Status").form-control
 
-    .form-group.form-group-inline
+    .form-group.form-group-inline(ng-if="ngModel.length > 0")
         label.form-label &nbsp;
         .form-offset
             div(ng-repeat="modelId in ngModel").tag.tag-primary.tag-square.pull-left 
