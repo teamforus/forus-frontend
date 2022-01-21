@@ -1,4 +1,4 @@
-const ModalExportDataComponent = function(FormBuilderService) {
+const ModalExportDataComponent = function(FormBuilderService, PushNotificationsService) {
     const $ctrl = this;
     
     $ctrl.fileType = 'csv';
@@ -51,6 +51,11 @@ const ModalExportDataComponent = function(FormBuilderService) {
                 ];
             });
 
+            if (form.values.exportFieldsRawList.length == 0) {
+                PushNotificationsService.danger('You should select at least one field!');
+                return;
+            }
+
             $ctrl.modal.scope.success(form.values);
             $ctrl.close();
         });
@@ -64,6 +69,7 @@ module.exports = {
     },
     controller: [
         'FormBuilderService',
+        'PushNotificationsService',
         ModalExportDataComponent
     ],
     templateUrl: () => {
