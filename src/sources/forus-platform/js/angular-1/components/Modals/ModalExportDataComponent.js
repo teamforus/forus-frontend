@@ -3,7 +3,7 @@ const ModalExportDataComponent = function(FormBuilderService, PushNotificationsS
     
     $ctrl.fileType = 'csv';
     $ctrl.qrCodesExportType = 'none';
-    $ctrl.enableAllFields   = false;
+    $ctrl.enableAllFields   = true;
     $ctrl.exportFields      = [];
     
     let exportFieldsPerRowShown = 3;
@@ -34,7 +34,7 @@ const ModalExportDataComponent = function(FormBuilderService, PushNotificationsS
 
         $ctrl.modal.scope.fields.forEach((field, index) => {
             let tableRowNr = Math.floor(index / exportFieldsPerRowShown);
-            $ctrl.exportFields[tableRowNr].push({...field, enabled: false});
+            $ctrl.exportFields[tableRowNr].push({...field, enabled: true});
         });
 
         $ctrl.form = FormBuilderService.build({
