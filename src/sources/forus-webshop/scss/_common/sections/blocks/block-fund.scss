@@ -41,15 +41,15 @@
                 padding: 20px 30px;
 
                 .fund-name {
-                    font: 700 30px/40px $bf;
+                    font: 500 2.5em $hf;
                     margin: 0 0 10px;
                     color: $tc;
                 }
 
                 .fund-description {
-                    font: 500 18px/26px $bf;
+                    font: 300 1.25rem $bf;
                     color: #5c5c5c;
-                    margin: 0 0 15px;
+                    margin: 0 0 25px;
                 }
 
                 .organization-name {
@@ -66,7 +66,7 @@
                         width: 100%;
 
                         .fund-details-item-label {
-                            font: 700 12px $bf;
+                            font: 600 14px $bf;
                             color: #646f79;
                             margin-bottom: 5px;
                         }
@@ -132,7 +132,7 @@
                 .fund-card {
                     .fund-details {
                         .fund-name {
-                            font: 700 16px/28px $bf;
+                            font: 700 16px/28px $hf;
                             margin: 0 0;
                         }
 

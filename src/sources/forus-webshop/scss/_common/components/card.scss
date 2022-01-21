@@ -22,8 +22,8 @@
     }
 
     .card-title {
-        font: 500 16px/28px $bf;
-        color: #282b39;
+        font: 500 16px/28px $hf;
+        color: $tc;
         cursor: inherit;
         margin: 0;
 
@@ -58,8 +58,8 @@
         @include cf();
 
         .card-title {
-            font: 500 16px/30px $bf;
-            color: #282b39;
+            font: 500 16px/30px $hf;
+            color: $tc;
             cursor: inherit;
             margin: 0 0 10px;
 

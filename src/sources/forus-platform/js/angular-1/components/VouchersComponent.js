@@ -12,49 +12,49 @@ let VouchersComponent = function(
 ) {
     let $ctrl = this;
 
-    $ctrl.exportFields = [{ 
+    $ctrl.exportFields = [{
         name: 'Toegekend',
         key:  'granted'
-    }, { 
+    }, {
         name: 'E-mailadres',
         key:  'identity_email'
-    }, { 
+    }, {
         name: 'Aanmaker',
         key:  'source'
-    }, { 
+    }, {
         name: 'In gebruik',
         key:  'in_use'
-    }, { 
+    }, {
         name: 'Status',
         key:  'state'
-    }, { 
+    }, {
         name: 'Bedrag',
         key:  'amount'
-    }, { 
+    }, {
         name: 'In gebruik datum',
         key:  'in_use_date'
-    }, { 
+    }, {
         name: 'Activatiecode',
         key:  'activation_code'
-    }, { 
+    }, {
         name: 'Fondsnaam',
         key:  'fund_name'
-    }, { 
+    }, {
         name: 'BSN (door medewerker)',
         key:  'reference_bsn'
-    }, { 
+    }, {
         name: 'Uniek nummer',
         key:  'activation_code_uid'
-    }, { 
+    }, {
         name: 'Aangemaakt op',
         key:  'created_at'
-    }, { 
+    }, {
         name: 'BSN (DigiD)',
         key:  'identity_bsn'
-    }, { 
+    }, {
         name: 'Notitie',
         key:  'note'
-    }, { 
+    }, {
         name: 'Verlopen op',
         key:  'expire_at'
     }];
@@ -134,12 +134,8 @@ let VouchersComponent = function(
             voucher: voucher,
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onSent: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            },
-            onAssigned: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
+            onSent: () => $ctrl.onPageChange($ctrl.filters.values),
+            onAssigned: () => $ctrl.onPageChange($ctrl.filters.values),
         });
     };
 
@@ -147,9 +143,7 @@ let VouchersComponent = function(
         ModalService.open('voucherCreate', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onCreated: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
+            onCreated: () => $ctrl.onPageChange($ctrl.filters.values),
         });
     }
 
@@ -171,7 +165,7 @@ let VouchersComponent = function(
     };
 
     $ctrl.getQueryParams = (query) => {
-        let _query = JSON.parse(JSON.stringify(query));
+        const _query = JSON.parse(JSON.stringify(query));
 
         return {
             ..._query, ...{
@@ -184,7 +178,7 @@ let VouchersComponent = function(
 
     $ctrl.exportPdf = (fieldsList) => {
         VoucherService.downloadQRCodes($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values), 
+            ...$ctrl.getQueryParams($ctrl.filters.values),
             ...{ export_type: 'pdf', fields_list: fieldsList }
         }).then(res => {
             FileService.downloadFile(
@@ -221,7 +215,7 @@ let VouchersComponent = function(
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesData($ctrl.organization.id, {
                 ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                    export_type: 'png', 
+                    export_type: 'png',
                     fields_list: fieldsList,
                     export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
                 }

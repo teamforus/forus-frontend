@@ -36,7 +36,7 @@ block content
                     .showcase-content
                         .showcase-content-header
                             h1.showcase-filters-title
-                                translate(
+                                span(
                                     translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
                                     translate-default="{{'funds.header.title' | translate }}")
                                 .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
@@ -45,6 +45,7 @@ block content
                             fund-list-item(
                                 ng-repeat="fund in $ctrl.funds.data" 
                                 vouchers="$ctrl.vouchers" 
+                                funds="$ctrl.funds" 
                                 template="fund-item-list"
                                 ui-sref="fund(fund)"
                                 fund="fund")

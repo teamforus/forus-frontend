@@ -206,14 +206,14 @@ const FundsEditComponent = function(
 
                 if ($ctrl.fund) {
                     return FundService.update($stateParams.organization_id, $stateParams.id, data).then(() => {
-                        $state.go('organization-funds', { organization_id: $stateParams.organization_id });
-                        PushNotificationsService.success('Success!', 'Fund updated!');
+                        $state.go('funds-show', { organization_id: $stateParams.organization_id, id: $ctrl.fund.id });
+                        PushNotificationsService.success('Gelukt!', 'Het fonds is aangepast!');
                     }, onError)
                 }
 
                 FundService.store($stateParams.organization_id, data).then(() => {
                     $state.go('organization-funds', { organization_id: $stateParams.organization_id });
-                    PushNotificationsService.success('Success!', 'Fund created!');
+                    PushNotificationsService.success('Gelukt!', 'Een fonds is aangemaakt!');
                 }, onError);
             });
         }, true);
