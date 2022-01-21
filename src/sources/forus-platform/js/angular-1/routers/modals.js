@@ -107,6 +107,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalExportTypeComponent'
     });
 
+    ModalRouteProvider.modal('exportData', {
+        component: 'modalExportDataComponent'
+    });
+
     ModalRouteProvider.modal('dangerZone', {
         component: 'modalDangerZoneComponent'
     });

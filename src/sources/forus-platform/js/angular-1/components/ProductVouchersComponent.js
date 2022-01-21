@@ -11,6 +11,53 @@ let ProductVouchersComponent = function(
 ) {
     let $ctrl = this;
 
+    $ctrl.exportFields = [{ 
+        name: 'Toegekend',
+        key:  'granted'
+    }, { 
+        name: 'E-mailadres',
+        key:  'identity_email'
+    }, { 
+        name: 'Aanmaker',
+        key:  'source'
+    }, { 
+        name: 'In gebruik',
+        key:  'in_use'
+    }, { 
+        name: 'Status',
+        key:  'state'
+    }, { 
+        name: 'Bedrag',
+        key:  'amount'
+    }, { 
+        name: 'In gebruik datum',
+        key:  'in_use_date'
+    }, { 
+        name: 'Activatiecode',
+        key:  'activation_code'
+    }, { 
+        name: 'Fondsnaam',
+        key:  'fund_name'
+    }, { 
+        name: 'BSN (door medewerker)',
+        key:  'reference_bsn'
+    }, { 
+        name: 'Uniek nummer',
+        key:  'activation_code_uid'
+    }, { 
+        name: 'Aangemaakt op',
+        key:  'created_at'
+    }, { 
+        name: 'BSN (DigiD)',
+        key:  'identity_bsn'
+    }, { 
+        name: 'Notitie',
+        key:  'note'
+    }, { 
+        name: 'Verlopen op',
+        key:  'expire_at'
+    }];
+
     $ctrl.states = [{
         value: null,
         name: 'Selecteer...'
@@ -121,10 +168,10 @@ let ProductVouchersComponent = function(
         };
     };
 
-    $ctrl.exportPdf = () => {
+    $ctrl.exportPdf = (fieldsList) => {
         VoucherService.downloadQRCodes($ctrl.organization.id, {
             ...$ctrl.getQueryParams($ctrl.filters.values),
-            ...{ export_type: 'pdf' }
+            ...{ export_type: 'pdf', fields_list: fieldsList }
         }).then(res => {
             FileService.downloadFile(
                 'vouchers_' + moment().format(
@@ -144,21 +191,24 @@ let ProductVouchersComponent = function(
         });
     };
 
-    $ctrl.exportQRCodesXls = () => {
+    $ctrl.exportQRCodesXls = (fieldsList) => {
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesXls($ctrl.organization.id, {
-                ...$ctrl.getQueryParams($ctrl.filters.values)
+                ...$ctrl.getQueryParams($ctrl.filters.values), ...{
+                    fields_list: fieldsList
+                }
             }).then(res => resolve(
                 $ctrl.xlsData = res.data
             ), reject);
         });
     };
 
-    $ctrl.exportQRCodesData = (type) => {
+    $ctrl.exportQRCodesData = (type, fieldsList) => {
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesData($ctrl.organization.id, {
                 ...$ctrl.getQueryParams($ctrl.filters.values), ...{
                     export_type: 'png',
+                    fields_list: fieldsList,
                     export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
                 }
             }).then(res => resolve(
@@ -167,15 +217,15 @@ let ProductVouchersComponent = function(
         });
     };
 
-    $ctrl.exportImages = (type) => {
+    $ctrl.exportImages = (type, fieldsList) => {
         const promisses = [];
 
         if (type == 'xls' || type == 'png') {
-            promisses.push($ctrl.exportQRCodesXls());
+            promisses.push($ctrl.exportQRCodesXls(fieldsList));
         };
 
         if (type == 'csv' || type == 'png') {
-            promisses.push($ctrl.exportQRCodesData(type));
+            promisses.push($ctrl.exportQRCodesData(type, fieldsList));
         };
 
         PageLoadingBarService.setProgress(0);
@@ -241,12 +291,13 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.exportQRCodes = () => {
-        ModalService.open('voucherExportType', {
+        ModalService.open('exportData', {
+            fields: $ctrl.exportFields,
             success: (data) => {
-                if (data.exportType === 'pdf') {
-                    $ctrl.exportPdf();
+                if (data.fileType === 'pdf') {
+                    $ctrl.exportPdf(data.exportFieldsRawList);
                 } else {
-                    $ctrl.exportImages(data.exportType);
+                    $ctrl.exportImages(data.fileType, data.exportFieldsRawList);
                 }
             }
         });

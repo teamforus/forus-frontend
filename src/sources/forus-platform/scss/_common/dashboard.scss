@@ -6709,6 +6709,93 @@ body {
             }
         }
     }
+
+    &.modal-export-data {
+        .modal-window {
+            width: 940px;
+
+            .modal-body {
+                display: flex;
+                justify-content: center;
+                justify-items: center;
+                padding: 0 50px;
+
+                .modal-section {
+                    width: 100%;
+                }
+
+                .export-data-options-block {
+                    margin-bottom: 20px;
+
+                    .export-data-options-label {
+                        font: 600 11px/13px $bf;
+                        margin-bottom: 10px;
+                    }
+
+                    .export-data-options-list {
+                        display: flex;
+                        justify-content: space-between;
+
+                        table {
+                            width: 100%;
+                        }
+    
+                        .export-data-option {
+                            display: flex;
+                            align-items: center;
+                            width: 48%;
+                            background: #FFF;
+                            border: 1px solid #D4D9DD;
+                            border-radius: 3px;
+                            padding: 10px 15px;
+
+                            .export-data-option-icon {
+                                font-size: 20px;
+                                margin-right: 10px;
+                            }
+
+                            .export-data-option-label {
+                                width: 100%;
+                                font: 600 13px/16px $bf;
+                                
+                                &.radio-label {
+                                    .radio-circle {
+                                        display: block;
+                                        float: right;
+                                        margin-right: 0;
+                                        border: 1px solid #D4D9DD;
+                                        width: 18px;
+                                        height: 18px;
+    
+                                        &:before {
+                                            border: 6px solid #009DF3;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        &.qr-codes-options-list {
+                            .export-data-option {
+                                width: 32%;
+                            }
+                        }
+                    }
+
+                    .export-data-row {
+                        display: flex;
+                        align-items: flex-end;
+                    }
+                }
+            }
+        }
+
+        &.modal-export-data-narrow {
+            .modal-window {
+                width: 720px;
+            }
+        }
+    }
     
     &.modal-pdf-preview {
         .modal-window {
