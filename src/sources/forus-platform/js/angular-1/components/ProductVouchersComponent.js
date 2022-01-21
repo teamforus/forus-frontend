@@ -169,29 +169,17 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.exportPdf = (fieldsList) => {
-        VoucherService.downloadQRCodes($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values),
-            ...{ export_type: 'pdf', fields_list: fieldsList }
-        }).then(res => {
-            FileService.downloadFile(
-                'vouchers_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.zip',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }, res => {
-            res.data.text().then((data) => {
-                data = JSON.parse(data);
-
-                if (data.message) {
-                    PushNotificationsService.danger(data.message);
-                }
-            });
+        return $q((resolve, reject) => {
+            VoucherService.downloadQRCodes($ctrl.organization.id, {
+                ...$ctrl.getQueryParams($ctrl.filters.values),
+                ...{ export_type: 'pdf', fields_list: fieldsList }
+            }).then(res => resolve(
+                $ctrl.pdfData = res.data
+            ), reject);
         });
     };
 
-    $ctrl.exportQRCodesXls = (fieldsList) => {
+    $ctrl.exportQRCodesXls = (fieldsList, qrCodesType) => {
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesXls($ctrl.organization.id, {
                 ...$ctrl.getQueryParams($ctrl.filters.values), ...{
@@ -203,13 +191,13 @@ let ProductVouchersComponent = function(
         });
     };
 
-    $ctrl.exportQRCodesData = (type, fieldsList) => {
+    $ctrl.exportQRCodesData = (type, fieldsList, qrCodesType) => {
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesData($ctrl.organization.id, {
                 ...$ctrl.getQueryParams($ctrl.filters.values), ...{
                     export_type: 'png',
                     fields_list: fieldsList,
-                    export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
+                    export_only_data: qrCodesType == 'none' || qrCodesType == 'pdf' ? 1 : 0,
                 }
             }).then(res => resolve(
                 $ctrl.qrCodesData = res.data
@@ -217,15 +205,19 @@ let ProductVouchersComponent = function(
         });
     };
 
-    $ctrl.exportImages = (type, fieldsList) => {
+    $ctrl.exportImages = (type, fieldsList, qrCodesType) => {
         const promisses = [];
 
-        if (type == 'xls' || type == 'png') {
-            promisses.push($ctrl.exportQRCodesXls(fieldsList));
+        if (type == 'xls') {
+            promisses.push($ctrl.exportQRCodesXls(fieldsList, qrCodesType));
         };
 
-        if (type == 'csv' || type == 'png') {
-            promisses.push($ctrl.exportQRCodesData(type, fieldsList));
+        if (type == 'csv') {
+            promisses.push($ctrl.exportQRCodesData(type, fieldsList, qrCodesType));
+        };
+
+        if (qrCodesType == 'pdf') {
+            promisses.push($ctrl.exportPdf(fieldsList));
         };
 
         PageLoadingBarService.setProgress(0);
@@ -233,9 +225,11 @@ let ProductVouchersComponent = function(
         $q.all(promisses).then(() => {
             const zip = new JSZip();
             const csvName = 'qr_codes.csv';
+            const pdfName = 'qr_codes.pdf';
 
             const qrCodesData = $ctrl.qrCodesData;
-            const vouchersData = type == 'png' ? qrCodesData.vouchersData : [];
+            const pdfData = $ctrl.pdfData;
+            const vouchersData = qrCodesType != 'none' && qrCodesType != 'pdf' ? qrCodesData.vouchersData : [];
             const imgDirectory = vouchersData.length > 0 ? zip.folder("images") : null;
             const promises = [];
 
@@ -297,7 +291,7 @@ let ProductVouchersComponent = function(
                 if (data.fileType === 'pdf') {
                     $ctrl.exportPdf(data.exportFieldsRawList);
                 } else {
-                    $ctrl.exportImages(data.fileType, data.exportFieldsRawList);
+                    $ctrl.exportImages(data.fileType, data.exportFieldsRawList, data.qrCodesExportType);
                 }
             }
         });
