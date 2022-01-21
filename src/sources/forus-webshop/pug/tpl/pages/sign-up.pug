@@ -119,7 +119,7 @@ main(id="main-content")
                         .sign_up-email_sent
                             .sign_up-email_sent-icon
                                 img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
-                            h2.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")
+                            h3.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.notifications.link_' + $root.appConfigs.features.communication_type }}" translate-values="{{ $ctrl.authForm.values }}")
 
                             email-provider-link(email="$ctrl.authForm.values.email")
