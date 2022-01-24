@@ -24,13 +24,15 @@
 
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
-                    select(
-                        ng-options="product.id as product.name for product in $ctrl.products" 
-                        ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
-                        ng-model="$ctrl.form.values.product_id").form-control
+                    .form-offset: select-control(
+                        autoclear="true"
+                        ng-model="$ctrl.product"
+                        ng-change="$ctrl.productChanged(value)"
+                        options="$ctrl.products"
+                        placeholder="Selecteer aanbod...")
                     .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
                     .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
-                
+
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
                     datepicker(
