@@ -1522,11 +1522,6 @@ module.exports = {
         }
     },
 
-    // SELECT MULTIPLE CATEGORIES = multi-select.pug
-    multi_select: {
-        title: "Categorieën",
-    },
-
     // SELECT PHOTO = photo-selector.pug
     photo_selector: {
         labels: {

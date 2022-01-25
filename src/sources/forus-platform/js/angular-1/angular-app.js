@@ -165,6 +165,7 @@ app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequ
 app.service('ProductReservationService', require('./services/ProductReservationService'));
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
+app.service('TagService', require('./services/TagService'));
 
 // Directives
 app.directive('menu', {
