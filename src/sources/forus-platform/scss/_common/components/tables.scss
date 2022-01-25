@@ -1,4 +1,6 @@
 .table-wrapper {
+    @include webkit_scrollbar_gray();
+
     table.table {
         border-collapse: collapse;
         width: 100%;
@@ -172,6 +174,10 @@
                 }
             }
         }
+    }
+
+    &.table-wrapper-scroll {
+        overflow: auto;
     }
 
     @media screen and (max-width: 1000px) {
