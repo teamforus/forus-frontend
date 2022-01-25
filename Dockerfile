@@ -26,7 +26,7 @@ RUN cd src && gulp init && gulp compile
 
 ### STAGE 2: Setup ###
 
-FROM nginx:1.21.4-alpine
+FROM nginx:1.21.6-alpine
 
 ## Copy our default nginx config
 COPY nginx/default.conf /etc/nginx/conf.d/
