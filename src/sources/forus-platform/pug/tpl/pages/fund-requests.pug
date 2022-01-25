@@ -157,7 +157,7 @@
 
                         //- Decline
                         button.button.button-default(
-                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned" 
+                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.has_assigned_disregarded" 
                             ng-click='$ctrl.requestDecline(validatorRequest)')
 
                             em.mdi.mdi-close.icon-start
@@ -165,7 +165,7 @@
 
                         //- Approve
                         button.button.button-primary(
-                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned" 
+                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.has_assigned_disregarded" 
                             ng-click='$ctrl.requestApprove(validatorRequest)')
 
                             em.mdi.mdi-check-circle.icon-start
@@ -181,7 +181,7 @@
                     
                         //- Disregard undo
                         button.button.button-default(
-                            ng-if="validatorRequest.is_sponsor_employee && validatorRequest.has_assigned_disregarded"
+                            ng-if="validatorRequest.is_sponsor_employee && validatorRequest.has_assigned_disregarded && !validatorRequest.replaced"
                             ng-click='$ctrl.requestDisregardUndo(validatorRequest)')
                             em.mdi.mdi-timer-sand-empty.icon-start
                             | {{ "validation_requests.buttons.disregard_undo" | translate }}
