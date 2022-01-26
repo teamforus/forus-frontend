@@ -1,4 +1,4 @@
-let app = angular.module('forusApp', [
+const app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'ngLocale'
 ]);
 
@@ -7,6 +7,7 @@ app.constant('appConfigs', env_data);
 // Controllers
 app.controller('BaseController', require('./controllers/landing/BaseController'));
 app.controller('ToggleController', require('./controllers/landing/ToggleController.js'));
+
 // Components
 app.component('homeComponent', require('./components/website/HomeComponent'));
 app.component('platformComponent', require('./components/website/PlatformComponent'));
@@ -31,7 +32,6 @@ app.service('OrganizationService', require('./services/OrganizationService'));
 
 
 // Modal Components
-app.component('modalAuth2Component', require('./components/Modals/ModalAuth2Component'));
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
 app.component('modalPhotoUploaderComponent', require('./components/Modals/ModalPhotoUploaderComponent'));
 app.component('modalFundTopUpComponent', require('./components/Modals/ModalFundTopUpComponent'));

@@ -11,7 +11,6 @@ const ModalVoucherActivationComponent = function(FormBuilderService) {
             onSubmit(form.values);
         }, false);
     };
-    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {

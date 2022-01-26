@@ -87,12 +87,8 @@ let VouchersComponent = function(
             voucher: voucher,
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onSent: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            },
-            onAssigned: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
+            onSent: () => $ctrl.onPageChange($ctrl.filters.values),
+            onAssigned: () => $ctrl.onPageChange($ctrl.filters.values),
         });
     };
 
@@ -100,9 +96,7 @@ let VouchersComponent = function(
         ModalService.open('voucherCreate', {
             fund: $ctrl.fund,
             organization: $ctrl.organization,
-            onCreated: () => {
-                $ctrl.onPageChange($ctrl.filters.values);
-            }
+            onCreated: () => $ctrl.onPageChange($ctrl.filters.values),
         });
     }
 
@@ -124,7 +118,7 @@ let VouchersComponent = function(
     };
 
     $ctrl.getQueryParams = (query) => {
-        let _query = JSON.parse(JSON.stringify(query));
+        const _query = JSON.parse(JSON.stringify(query));
 
         return {
             ..._query, ...{
@@ -137,7 +131,7 @@ let VouchersComponent = function(
 
     $ctrl.exportPdf = () => {
         VoucherService.downloadQRCodes($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values), 
+            ...$ctrl.getQueryParams($ctrl.filters.values),
             ...{ export_type: 'pdf' }
         }).then(res => {
             FileService.downloadFile(
@@ -172,7 +166,7 @@ let VouchersComponent = function(
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesData($ctrl.organization.id, {
                 ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                    export_type: 'png', 
+                    export_type: 'png',
                     export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
                 }
             }).then(res => resolve(

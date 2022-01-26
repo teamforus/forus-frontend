@@ -36,15 +36,15 @@ main(id="main-content")
                         p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
 
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.fund.criteria"
-                            ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
+                            ng-repeat="criteria in $ctrl.fund.criteria"
+                            ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[criteria.request_state]")
                             .item-icon: em.mdi(
-                                ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[critera.request_state]")
-                            span(ng-if="critera.title" ng-bind="critera.title")
+                                ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[criteria.request_state]")
+                            span(ng-if="criteria.title" ng-bind="criteria.title")
                             span(
-                                ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}"
-                                i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
+                                ng-if="!criteria.title"
+                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[criteria.operator]}}"
+                                i18n-vars="{name: criteria.record_type_name, value: ($ctrl.criterionValuePrefix[criteria.record_type_key]) + criteria.value}")
                         span(translate="fund_request.sign_up.pane.fund_already_applied")
 
             //- Welcome screen
@@ -177,13 +177,13 @@ main(id="main-content")
                         p.sign_up-pane-text(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
 
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.fund.criteria")
+                            ng-repeat="criteria in $ctrl.fund.criteria")
                             .item-icon.item-icon-default
-                            span(ng-if="critera.title" ng-bind="critera.title")
+                            span(ng-if="criteria.title" ng-bind="criteria.title")
                             span(
-                                ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}"
-                                i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
+                                ng-if="!criteria.title"
+                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[criteria.operator]}}"
+                                i18n-vars="{name: criteria.record_type_name, value: ($ctrl.criterionValuePrefix[criteria.record_type_key]) + criteria.value}")
 
                     .sign_up-pane-footer: .row
                         .col.col-lg-6.col-xs-6.text-left &nbsp;
@@ -425,16 +425,16 @@ main(id="main-content")
 
                     .sign_up-pane-body
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.invalidCriteria")
+                            ng-repeat="criteria in $ctrl.invalidCriteria")
                             .item-icon.item-icon-default
 
-                            span {{ critera.title }} #[span(ng-if="critera.operator != '='") is] 
-                            strong(ng-if="critera.operator != '='") {{ critera.input_value }}
+                            span {{ criteria.title || criteria.record_type_name }} #[span(ng-if="criteria.operator != '='") is] 
+                            strong(ng-if="criteria.operator != '='") {{ criteria.input_value }}
 
                             file-uploader(
-                                ng-if="critera.show_attachment"
+                                ng-if="criteria.show_attachment"
                                 type="fund_request_record_proof"
-                                files="critera.files"
+                                files="criteria.files"
                                 read-only="true")
 
                     .sign_up-pane-footer: .row

@@ -413,11 +413,13 @@
                                     .col.col-md-8.col-xs-12: ui-control-text(
                                         ng-model="$ctrl.organizationForm.values.website"
                                         placeholder="Voorbeeld: https://bedrijfsnaam.nl")
+
                                     .col.col-md-4.col-xs-12: ui-control-checkbox.make-public(
                                         name="website_public"
                                         data-id="website_public_input"
                                         data-label="{{ 'organization_edit.labels.make_public' | translate }}"
                                         ng-model="$ctrl.organizationForm.values.website_public")
+
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
 
                     .sign_up-pane-body.sign_up-pane-body-padless: .sign_up-pane-section(style="padding-right: 30px;")
@@ -427,7 +429,7 @@
 
                                 .form-offset: select-control(
                                     ng-model="$ctrl.businessType"
-                                    ng-change="$ctrl.chageBusinessType(value)"
+                                    ng-change="$ctrl.chageBusinessType($ctrl.businessType)"
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer organisatie type...")
 

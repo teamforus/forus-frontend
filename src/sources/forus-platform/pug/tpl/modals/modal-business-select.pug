@@ -11,7 +11,7 @@
                     .form-label(translate="modals.modal_business_add.labels.business_type")
                     .form-offset: select-control(
                         ng-model="$ctrl.businessType" 
-                        ng-change="$ctrl.changeBusinessType(value)"
+                        ng-change="$ctrl.changeBusinessType($ctrl.businessType)"
                         options="$ctrl.businessTypes"
                         placeholder="Selecteer organisatie type...")
                     .form-error(

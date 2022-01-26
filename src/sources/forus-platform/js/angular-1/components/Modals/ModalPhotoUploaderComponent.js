@@ -78,8 +78,6 @@ let ModalPhotoUploaderComponent = function(
         $ctrl.modal.scope.submit(file);
         $ctrl.close();
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

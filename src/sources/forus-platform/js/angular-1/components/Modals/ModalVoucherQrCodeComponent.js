@@ -107,8 +107,6 @@ let ModalVoucherQrCodeComponent = function(
             });
         });
     };
-
-    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {

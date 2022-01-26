@@ -27,10 +27,6 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalAuthComponent'
     });
 
-    ModalRouteProvider.modal('modalAuth2', {
-        component: 'modalAuth2Component'
-    });
-
     ModalRouteProvider.modal('voucherCreate', {
         component: 'modalVoucherCreateComponent'
     });
@@ -65,6 +61,14 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('fundRequestRecordsDecline', {
         component: 'modalFundRequestRecordsDeclineComponent'
+    });
+
+    ModalRouteProvider.modal('fundRequestDisregard', {
+        component: 'modalFundRequestDisregardComponent'
+    });
+
+    ModalRouteProvider.modal('fundRequestDisregardUndo', {
+        component: 'modalFundRequestDisregardUndoComponent'
     });
 
     ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {

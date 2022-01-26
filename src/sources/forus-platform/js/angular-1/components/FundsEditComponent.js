@@ -247,6 +247,7 @@ const FundsEditComponent = function(
 module.exports = {
     bindings: {
         fund: '<',
+        tags: '<',
         validators: '<',
         recordTypes: '<',
         organization: '<',
