@@ -1346,13 +1346,15 @@ module.exports = {
             pending_since: "In behandeling sinds",
             lead_time: "Doorlooptijd",
             accepted_at: "Geaccepteerd op",
-            declined_at: "Geweigerd op"
+            declined_at: "Geweigerd op",
+            disregarded_at: "Buiten behandeling gesteld op"
         },
         status: {
             hold: "Wachten",
             pending: 'Wachtend',
             declined: 'Geweigerd',
-            approved: 'Geaccepteerd'
+            approved: 'Geaccepteerd',
+            disregarded: 'Niet beoordeeld',
         },
         buttons: {
             show: "Bekijk eigenschappen",
@@ -1360,6 +1362,8 @@ module.exports = {
             alldecline: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
+            disregard: "Niet behandelen",
+            disregard_undo: "Opnieuw beoordelen",
             clear_filter: "Wis filter",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",

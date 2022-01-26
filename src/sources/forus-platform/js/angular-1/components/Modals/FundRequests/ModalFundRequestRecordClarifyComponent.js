@@ -32,7 +32,6 @@ let ModalFundRequestRecordClarifyComponent = function(
             });
         }, true);
     };
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

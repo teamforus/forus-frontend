@@ -4,12 +4,12 @@
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-icon.modal-icon-primary: .mdi.mdi-message-text-outline
         .modal-body.form: .modal-section.modal-section-pad
-            .text-center
-                .modal-heading Weiger aanvraag
-                .modal-text
-                    | U staat op het punt om een aanvraag te weigeren. 
-                    | Weet u zeker dat u deze aanvraag wilt weigeren?
-                    | Optioneel kunt u een bericht sturen naar de aanvrager.
+            .modal-heading.text-center Weiger aanvraag
+            .modal-text.text-center
+                | U staat op het punt om een aanvraag te weigeren. 
+                | Weet u zeker dat u deze aanvraag wilt weigeren?
+                | Optioneel kunt u een bericht sturen naar de aanvrager.
+
             form(ng-submit="$ctrl.form.submit()").form: .form-group
                 .form-label Bericht (optioneel)
                 textarea(ng-model="$ctrl.form.values.note" placeholder="Bericht naar aanvrager").form-control

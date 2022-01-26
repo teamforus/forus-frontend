@@ -38,6 +38,9 @@ let FundRequestsComponent = function(
         key: 'approved',
         name: 'Geaccepteerd'
     }, {
+        key: 'disregarded',
+        name: 'Niet beoordeeld'
+    }, {
         key: 'declined',
         name: 'Geweigerd'
     }, {
@@ -125,7 +128,7 @@ let FundRequestsComponent = function(
                     requestRecord.id
                 ).then(() => {
                     $ctrl.reloadRequest(request);
-                    showInfoModal('Eigenschap gevalideert');
+                    PushNotificationsService.success('Gelukt!', 'Eigenschap gevalideert.');
                 }, res => showInfoModal('Fout: U kunt deze eigenschap op dit moment niet beoordelen.', res.data.message));
             }
         });
@@ -144,7 +147,7 @@ let FundRequestsComponent = function(
                 }
 
                 $ctrl.reloadRequest(request);
-                showInfoModal('Eigenschap geweigerd.');
+                PushNotificationsService.success('Gelukt!', 'Eigenschap geweigerd.');
             }
         });
     };
@@ -162,19 +165,27 @@ let FundRequestsComponent = function(
                 }
 
                 $ctrl.reloadRequest(request);
-                showInfoModal('Gelukt! Aanvullingsverzoek op aanvraag verstuurd.');
+                PushNotificationsService.success('Gelukt!', 'Aanvullingsverzoek op aanvraag verstuurd.');
             }
         });
     };
 
     $ctrl.requestApprove = (request) => {
-        FundRequestValidatorService.approve($ctrl.organization.id, request.id).then(() => {
-            $ctrl.reloadRequest(request);
-        }, (res) => {
-            showInfoModal(
-                'Validatie van eigenschap mislukt.',
-                'Reden: ' + res.data.message
-            );
+        ModalService.open('modalNotification', {
+            modalClass: 'modal-md',
+            type: 'confirm',
+            title: 'Weet u zeker dat u deze eigenschap wil goedkeuren?',
+            description: 'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
+            confirm: () => {
+                FundRequestValidatorService.approve($ctrl.organization.id, request.id).then(() => {
+                    $ctrl.reloadRequest(request);
+                }, (res) => {
+                    showInfoModal(
+                        'Validatie van eigenschap mislukt.',
+                        'Reden: ' + res.data.message
+                    );
+                });
+            }
         });
     };
 
@@ -191,7 +202,43 @@ let FundRequestsComponent = function(
                 }
 
                 $ctrl.reloadRequest(request);
-                PushNotificationsService.success('Gelukt! Aanvraag is geweigerd');
+                PushNotificationsService.success('Gelukt!', 'Aanvraag is geweigerd.');
+            }
+        });
+    };
+
+    $ctrl.requestDisregard = (request) => {
+        ModalService.open('fundRequestDisregard', {
+            organization: $ctrl.organization,
+            request: request,
+            submit: (err) => {
+                if (err) {
+                    return showInfoModal(
+                        'U kunt op dit moment deze aanvragen niet weigeren.',
+                        'Reden: ' + err.data.message
+                    );
+                }
+
+                $ctrl.reloadRequest(request);
+                PushNotificationsService.success('Gelukt!', 'Aanvraag is niet behandelen.');
+            }
+        });
+    };
+
+    $ctrl.requestDisregardUndo = (request) => {
+        ModalService.open('fundRequestDisregardUndo', {
+            organization: $ctrl.organization,
+            request: request,
+            submit: (err) => {
+                if (err) {
+                    return showInfoModal(
+                        'U kunt op dit moment deze aanvragen niet weigeren.',
+                        'Reden: ' + err.data.message
+                    );
+                }
+
+                $ctrl.reloadRequest(request);
+                PushNotificationsService.success('Gelukt!', 'Aanvraag is niet behandelen.');
             }
         });
     };
@@ -201,10 +248,10 @@ let FundRequestsComponent = function(
             $ctrl.organization.id,
             request.id
         ).then(() => {
-            PushNotificationsService.success('Gelukt! U bent nu toegewezen aan deze aanvraag.');
+            PushNotificationsService.success('Gelukt!', 'U bent nu toegewezen aan deze aanvraag.');
             $ctrl.reloadRequest(request);
         }, res => {
-            PushNotificationsService.danger('U kunt op dit moment geen aanvullingsverzoek doen.');
+            PushNotificationsService.danger('Mislukt!', 'U kunt op dit moment geen aanvullingsverzoek doen.');
             console.error(res);
         });
     };
@@ -214,10 +261,10 @@ let FundRequestsComponent = function(
             $ctrl.organization.id,
             request.id
         ).then(() => {
-            PushNotificationsService.success('Gelukt! U heeft zich afgemeld van deze aanvraag.');
+            PushNotificationsService.success('Gelukt!', 'U heeft zich afgemeld van deze aanvraag.');
             $ctrl.reloadRequest(request);
         }, res => {
-            PushNotificationsService.danger('Mislukt! U kunt u zelf niet van deze aanvraag afhalen.');
+            PushNotificationsService.danger('Mislukt!', 'U kunt u zelf niet van deze aanvraag afhalen.');
             console.error(res);
         })
     };
@@ -228,21 +275,29 @@ let FundRequestsComponent = function(
         }
 
         validatorRequests.data.forEach(request => {
+            const recordsAssigned = request.records.filter((record) => {
+                return record.employee_id == $ctrl.employee.id;
+            });
+
             request.hasContent = request.records.filter(record => {
                 return record.files.length > 0 || record.clarifications.length > 0;
             }).length > 0;
 
             request.record_types = request.records.map(record => record.record_type_key);
             request.records.forEach(record => record.shown = true);
-            request.collapsed = request.state != 'pending';
+            request.collapsed = request.state != 'pending' && request.state != 'disregarded';
+            request.is_sponsor_employee = $ctrl.employee.organization_id === request.fund.organization_id;
 
-            request.is_assignable = request.records.filter(
-                record => record.is_assignable
-            ).length > 0;
+            request.has_assigned_pending = recordsAssigned.filter((record) => record.state === 'pending').length > 0;
+            request.has_assigned_disregarded = recordsAssigned.filter((record) => record.state === 'disregarded').length > 0;
 
-            request.is_assigned = request.records.filter(
-                record => record.is_assigned && record.state === 'pending'
-            ).length > 0;
+            request.is_assignable = request.records.filter((record) => {
+                return record.is_assignable;
+            }).length > 0;
+
+            request.is_assigned = request.records.filter((record) => {
+                return record.is_assigned && ['pending', 'disregarded'].includes(record.state);
+            }).length > 0;
         });
 
         return validatorRequests;
@@ -253,7 +308,7 @@ let FundRequestsComponent = function(
             fundRequest: fundRequest,
             organization: $ctrl.organization,
             onAppend: () => {
-                PushNotificationsService.success('Gelukt! Eigenschap toegevoegd.');
+                PushNotificationsService.success('Gelukt!', 'Eigenschap toegevoegd.');
                 reloadRequests($ctrl.filters.values);
             }
         });

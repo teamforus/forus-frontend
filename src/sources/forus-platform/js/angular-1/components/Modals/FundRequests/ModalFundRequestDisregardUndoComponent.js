@@ -1,18 +1,14 @@
-let ModalFundRequestRecordsDeclineComponent = function(
+const ModalFundRequestDisregardUndoComponent = function(
     FundRequestValidatorService,
     FormBuilderService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        let submit = $ctrl.modal.scope.submit;
-        let organization = $ctrl.modal.scope.organization;
-        let request = $ctrl.modal.scope.request;
+        const { submit, organization, request } = $ctrl.modal.scope;
 
-        $ctrl.form = FormBuilderService.build({
-            note: ''
-        }, (form) => {
-            FundRequestValidatorService.decline(
+        $ctrl.form = FormBuilderService.build({}, (form) => {
+            FundRequestValidatorService.disregardUndo(
                 organization.id,
                 request.id,
                 form.values.note
@@ -41,9 +37,9 @@ module.exports = {
     controller: [
         'FundRequestValidatorService',
         'FormBuilderService',
-        ModalFundRequestRecordsDeclineComponent
+        ModalFundRequestDisregardUndoComponent
     ],
     templateUrl: () => {
-        return 'assets/tpl/modals/fund-requests/modal-fund-request-records-decline.html';
+        return 'assets/tpl/modals/fund-requests/modal-fund-request-disregard-undo.html';
     }
 };

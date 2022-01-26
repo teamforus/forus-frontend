@@ -1,4 +1,4 @@
-let ValidationRequestComponent = function(
+const ValidationRequestComponent = function(
     $state,
     ValidatorRequestService,
     appConfigs
@@ -6,20 +6,16 @@ let ValidationRequestComponent = function(
     if (!appConfigs.features.organizations.funds.fund_requests) {
         return $state.go('csv-validation');
     }
-    
-    let $ctrl = this;
+
+    const $ctrl = this;
 
     $ctrl.$onInit = function() {
         $ctrl.approve = function(request) {
-            ValidatorRequestService.approve(request.id).then(
-                () => $state.reload()
-            );
+            ValidatorRequestService.approve(request.id).then(() => $state.reload());
         };
 
         $ctrl.decline = function(request) {
-            ValidatorRequestService.decline(request.id).then(
-                () => $state.reload()
-            );
+            ValidatorRequestService.decline(request.id).then(() => $state.reload());
         };
     };
 };

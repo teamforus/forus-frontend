@@ -44,14 +44,12 @@ let FundRequestValidatorService = function(ApiRequest) {
             );
         };
 
-        this.approve = function(organziation_id, request_id, note) {
+        this.approve = function(organziation_id, request_id, values = {}) {
             return ApiRequest.patch(sprintf(
                 uriPrefixAll + '/%s/approve',
                 organziation_id,
                 request_id
-            ), {
-                note: note
-            });
+            ), values);
         };
 
         this.decline = function(organziation_id, request_id, note = '') {
@@ -59,9 +57,23 @@ let FundRequestValidatorService = function(ApiRequest) {
                 uriPrefixAll + '/%s/decline',
                 organziation_id,
                 request_id
-            ), {
-                note: note
-            });
+            ), { note });
+        };
+
+        this.disregard = function(organization_id, request_id, values = {}) {
+            return ApiRequest.patch(sprintf(
+                uriPrefixAll + '/%s/disregard',
+                organization_id,
+                request_id
+            ), values);
+        };
+
+        this.disregardUndo = function(organization_id, request_id, note = '') {
+            return ApiRequest.patch(sprintf(
+                uriPrefixAll + '/%s/disregard-undo',
+                organization_id,
+                request_id
+            ));
         };
 
         this.appendRecord = function(organziation_id, request_id, values = {}) {
