@@ -176,36 +176,47 @@ let VouchersComponent = function(
         };
     };
 
-    $ctrl.exportPdf = (fieldsList) => {
-        return $q((resolve, reject) => {
-            VoucherService.downloadQRCodes($ctrl.organization.id, {
-                ...$ctrl.getQueryParams($ctrl.filters.values),
-                ...{ export_type: 'pdf', fields_list: fieldsList }
-            }).then(res => resolve(
-                $ctrl.pdfData = res.data
-            ), reject);
+    $ctrl.exportPdf = (type, fields_list) => {
+        VoucherService.downloadQRCodes($ctrl.organization.id, {
+            ...$ctrl.getQueryParams($ctrl.filters.values),
+            ...{ table_data_type: type, qr_codes_type: 'pdf', fields_list: fields_list }
+        }).then(res => {
+            FileService.downloadFile(
+                'vouchers_' + moment().format(
+                    'YYYY-MM-DD HH:mm:ss'
+                ) + '.zip',
+                res.data,
+                res.headers('Content-Type') + ';charset=utf-8;'
+            );
+        }, res => {
+            res.data.text().then((data) => {
+                data = JSON.parse(data);
+
+                if (data.message) {
+                    PushNotificationsService.danger(data.message);
+                }
+            });
         });
     };
 
-    $ctrl.exportQRCodesXls = (fieldsList, qrCodesType) => {
+    $ctrl.exportQRCodesXls = (fields_list) => {
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesXls($ctrl.organization.id, {
-                ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                    fields_list: fieldsList
-                }
+                ...$ctrl.getQueryParams($ctrl.filters.values),
+                fields_list: fields_list,
             }).then(res => resolve(
                 $ctrl.xlsData = res.data
             ), reject);
         });
     };
 
-    $ctrl.exportQRCodesData = (type, fieldsList, qrCodesType) => {
+    $ctrl.exportQRCodesData = (fields_list, qr_codes_type) => {
         return $q((resolve, reject) => {
             VoucherService.downloadQRCodesData($ctrl.organization.id, {
                 ...$ctrl.getQueryParams($ctrl.filters.values), ...{
                     export_type: 'png',
-                    fields_list: fieldsList,
-                    export_only_data: qrCodesType == 'none' || qrCodesType == 'pdf' ? 1 : 0,
+                    fields_list: fields_list,
+                    export_only_data: qr_codes_type !== 'png' ? 1 : 0,
                 }
             }).then(res => resolve(
                 $ctrl.qrCodesData = res.data
@@ -213,19 +224,15 @@ let VouchersComponent = function(
         });
     };
 
-    $ctrl.exportImages = (type, fieldsList, qrCodesType) => {
+    $ctrl.exportImages = (type, fields_list, qr_codes_type) => {
         const promisses = [];
 
         if (type == 'xls') {
-            promisses.push($ctrl.exportQRCodesXls(fieldsList, qrCodesType));
+            promisses.push($ctrl.exportQRCodesXls(fields_list));
         };
 
-        if (type == 'csv') {
-            promisses.push($ctrl.exportQRCodesData(type, fieldsList, qrCodesType));
-        };
-
-        if (qrCodesType == 'pdf') {
-            promisses.push($ctrl.exportPdf(fieldsList));
+        if (type == 'csv' || qr_codes_type == 'png') {
+            promisses.push($ctrl.exportQRCodesData(fields_list, qr_codes_type));
         };
 
         PageLoadingBarService.setProgress(0);
@@ -233,22 +240,20 @@ let VouchersComponent = function(
         $q.all(promisses).then(() => {
             const zip = new JSZip();
             const csvName = 'qr_codes.csv';
-            const pdfName = 'qr_codes.pdf';
 
             const qrCodesData = $ctrl.qrCodesData;
-            const pdfData = $ctrl.pdfData;
-            const vouchersData = qrCodesType != 'none' && qrCodesType != 'pdf' ? qrCodesData.vouchersData : [];
+            const vouchersData = qr_codes_type == 'png' ? qrCodesData.vouchersData : [];
             const imgDirectory = vouchersData.length > 0 ? zip.folder("images") : null;
             const promises = [];
 
             PageLoadingBarService.setProgress(10);
             console.info('- data loaded from the api.');
 
-            if (type == 'png' || type == 'csv') {
+            if (type == 'csv') {
                 zip.file(csvName, qrCodesData.rawCsv);
             }
 
-            if (type == 'png' || type == 'xls') {
+            if (type == 'xls') {
                 zip.file('qr_codes.xls', $ctrl.xlsData);
             }
 
@@ -296,10 +301,14 @@ let VouchersComponent = function(
         ModalService.open('exportData', {
             fields: $ctrl.exportFields,
             success: (data) => {
-                if (data.fileType === 'pdf') {
-                    $ctrl.exportPdf(data.exportFieldsRawList);
+                if (data.qrCodesExportType === 'pdf') {
+                    $ctrl.exportPdf(data.fileType, data.exportFieldsRawList);
                 } else {
-                    $ctrl.exportImages(data.fileType, data.exportFieldsRawList, data.qrCodesExportType);
+                    $ctrl.exportImages(
+                        data.fileType, 
+                        data.exportFieldsRawList, 
+                        data.qrCodesExportType
+                    );
                 }
             }
         });
