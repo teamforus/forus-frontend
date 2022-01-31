@@ -168,6 +168,7 @@ const FundRequestComponent = function(
                 'children_nth': 'ui_control_step',
                 'waa_kind_0_tm_4_2021_eligible_nth': 'ui_control_step',
                 'waa_kind_4_tm_18_2021_eligible_nth': 'ui_control_step',
+                'adults_nth': 'ui_control_step',
                 // numbers
                 'tax_id': 'ui_control_number',
                 'bsn': 'ui_control_number',
