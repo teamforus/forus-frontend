@@ -89,9 +89,9 @@ const SearchResultComponent = function(
         return {
             q: values.q,
             order_by: values.order_by,
+            fund_id: values.fund_id,
             order_by_dir: values.order_by_dir,
             organization_id: values.organization_id,
-            fund_id: values.fund ? values.fund.id : null,
             product_category_id: values.product_category_id,
             overview: 0,
             page: values.page,

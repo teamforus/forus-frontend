@@ -279,14 +279,14 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.apiResourceToForm = function(apiResource) {
-            const { name, state, type, criteria } = apiResource;
+            const { name, state, type, criteria, tags } = apiResource;
             const { faq, faq_title, formula_products } = apiResource;
             const { description, description_html, description_short } = apiResource;
             const { notification_amount, default_validator_employee_id, auto_requests_validation } = apiResource;
             const { request_btn_text, external_link_text, external_link_url, allow_direct_requests } = apiResource;
 
             return {
-                ...{ name, state, type, criteria },
+            ...{ name, state, type, criteria },
                 ...{ faq: faq || [], faq_title: faq_title || '', formula_products: formula_products || [] },
                 ...{ description, description_html, description_short },
                 ...{ notification_amount, default_validator_employee_id, auto_requests_validation },
@@ -295,6 +295,7 @@ const FundService = function(ApiRequest, ModalService) {
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),
                 application_method: this.getApplicationMethodKey(apiResource),
+                tag_ids: Array.isArray(tags) ? tags.map((tag) => tag.id) : []
             };
         };
 

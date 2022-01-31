@@ -78,8 +78,6 @@ const ModalDuplicatesPickerComponent = function($timeout) {
 
         $ctrl.loadMore();
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

@@ -156,10 +156,6 @@ $formPadding: 14px 15px;
                 box-shadow: 0 3px 5px rgba(#000000, 0.3);
             }
         }
-
-        label.form-control:not([type='radio']):not([type='checkbox']) {
-            line-height: 26px;
-        }
             
         .select-control-search {
             cursor: pointer;

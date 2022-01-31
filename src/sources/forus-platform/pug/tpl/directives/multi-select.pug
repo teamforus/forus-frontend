@@ -1,13 +1,15 @@
 div
     .form-group.form-group-inline
-        label.form-label {{ "multi_select.title"  | translate }}
+        label.form-label(ng-bind="label" for="{{ id }}")
         select(
+            id="{{ id }}"
             ng-options="option.id as option.name for option in selectorOptions" 
             ng-model="selectedOption"
             placeholder="Status").form-control
-    .form-group.form-group-inline
+
+    .form-group.form-group-inline(ng-if="ngModel.length > 0")
         label.form-label &nbsp;
         .form-offset
-            div(ng-repeat="id in ngModel").tag.tag-primary.tag-square.pull-left 
-                | {{ optionsById[id] }}
-                .tag-link.mdi.mdi-close.icon-end(ng-click="removeItem(id)")
+            div(ng-repeat="modelId in ngModel").tag.tag-primary.tag-square.pull-left 
+                | {{ optionsById[modelId] }}
+                .tag-link.mdi.mdi-close.icon-end(ng-click="removeItem(modelId)")

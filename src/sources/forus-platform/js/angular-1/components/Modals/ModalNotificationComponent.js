@@ -81,8 +81,6 @@ let ModalNotificationComponent = function(
 
         $ctrl.close();
     };
-
-    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {

@@ -98,6 +98,7 @@ app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
 app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequestService'));
 app.service('HelperService', require('./services/HelperService'));
 app.service('SearchService', require('./services/SearchService'));
+app.service('TagService', require('./services/TagService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));

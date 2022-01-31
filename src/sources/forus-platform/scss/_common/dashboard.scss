@@ -6353,6 +6353,23 @@ body {
                     margin-bottom: 0;
                 }
             }
+
+            .modal-warning {
+                display: flex;
+                justify-content: center;
+                width: fit-content;
+                margin: 0 auto 10px auto;
+                padding: 20px;
+                background-color: #fcfaf6;
+                font: 500 13px/16px $bf;
+                color: #292B39;
+                border: 1px solid $borderColor;
+                border-radius: $borderRadius;
+
+                em {
+                    font-size: 22px;
+                }
+            }
         }
 
         .modal-funds-added {

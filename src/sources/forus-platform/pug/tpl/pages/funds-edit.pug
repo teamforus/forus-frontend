@@ -71,6 +71,15 @@
                             .fund_type-name Geen (extern)
                             .fund_type-check: .mdi.mdi-check
 
+            //- Fund webshop tags
+            .card-section.card-section-primary(ng-if="$ctrl.tags.length"): .row: .col.col-lg-9.col-xs-12
+                .form-group.form-group-inline
+                    multi-select(
+                        label="Categorieën"
+                        options="$ctrl.tags"
+                        ng-model="$ctrl.form.values.tag_ids" )
+                    .form-error(ng-repeat="error in $ctrl.form.errors.tag" ng-bind="error")
+
             //- Activation method and button text
             .card-section.card-section-primary(ng-if="$ctrl.form.values.type != 'external'"): .row: .col.col-lg-9.col-xs-12
                 //- Activation method
@@ -145,9 +154,11 @@
                                 ng-model="$ctrl.form.products[$index]" 
                                 options="$ctrl.productOptions[$index]"
                                 placeholder="Selecteer aanbieding...").flex-grow
+
                             .flex-col: .button.button-primary.button-icon(
                                 ng-click="$ctrl.removeProduct($ctrl.form.products[$index])"
                                 ): em.mdi.mdi-close
+
                         .form-error(ng-repeat="error in $ctrl.form.errors['products.' + ($index - 1)]" ng-bind="error")
                     .form-group.form-group-inline
                         label(translate="{{ !$ctrl.form.products.length ? 'funds_edit.labels.products' : '' }}").form-label
