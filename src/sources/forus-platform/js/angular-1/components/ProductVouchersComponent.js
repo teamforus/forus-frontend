@@ -11,52 +11,7 @@ let ProductVouchersComponent = function(
 ) {
     let $ctrl = this;
 
-    $ctrl.exportFields = [{ 
-        name: 'Toegekend',
-        key:  'granted'
-    }, { 
-        name: 'E-mailadres',
-        key:  'identity_email'
-    }, { 
-        name: 'Aanmaker',
-        key:  'source'
-    }, { 
-        name: 'In gebruik',
-        key:  'in_use'
-    }, { 
-        name: 'Status',
-        key:  'state'
-    }, { 
-        name: 'Bedrag',
-        key:  'amount'
-    }, { 
-        name: 'In gebruik datum',
-        key:  'in_use_date'
-    }, { 
-        name: 'Activatiecode',
-        key:  'activation_code'
-    }, { 
-        name: 'Fondsnaam',
-        key:  'fund_name'
-    }, { 
-        name: 'BSN (door medewerker)',
-        key:  'reference_bsn'
-    }, { 
-        name: 'Uniek nummer',
-        key:  'activation_code_uid'
-    }, { 
-        name: 'Aangemaakt op',
-        key:  'created_at'
-    }, { 
-        name: 'BSN (DigiD)',
-        key:  'identity_bsn'
-    }, { 
-        name: 'Notitie',
-        key:  'note'
-    }, { 
-        name: 'Verlopen op',
-        key:  'expire_at'
-    }];
+    $ctrl.exportFields = [];
 
     $ctrl.states = [{
         value: null,
@@ -125,6 +80,12 @@ let ProductVouchersComponent = function(
         $timeout(() => $ctrl.filters.show = false, 0);
     };
 
+    $ctrl.getExportFields = () => {
+        return VoucherService.getExportFields($ctrl.organization.id).then(res =>
+            $ctrl.exportFields = res.data     
+        );
+    };
+
     $ctrl.showQrCode = ($event, voucher) => {
         $event.stopPropagation();
         $event.preventDefault();
@@ -190,18 +151,6 @@ let ProductVouchersComponent = function(
             });
         });
     };
-
-    // $ctrl.exportQRCodesXls = (fieldsList, qrCodesType) => {
-    //     return $q((resolve, reject) => {
-    //         VoucherService.downloadQRCodesXls($ctrl.organization.id, {
-    //             ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-    //                 fields_list: fieldsList
-    //             }
-    //         }).then(res => resolve(
-    //             $ctrl.xlsData = res.data
-    //         ), reject);
-    //     });
-    // };
 
     $ctrl.exportQRCodesXls = (fields_list) => {
         return $q((resolve, reject) => {
@@ -302,19 +251,21 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.exportQRCodes = () => {
-        ModalService.open('exportData', {
-            fields: $ctrl.exportFields,
-            success: (data) => {
-                if (data.qrCodesExportType === 'pdf') {
-                    $ctrl.exportPdf(data.fileType, data.exportFieldsRawList);
-                } else {
-                    $ctrl.exportImages(
-                        data.fileType, 
-                        data.exportFieldsRawList, 
-                        data.qrCodesExportType
-                    );
+        $ctrl.getExportFields().then(res => {
+            ModalService.open('exportData', {
+                fields: $ctrl.exportFields,
+                success: (data) => {
+                    if (data.qrCodesExportType === 'pdf') {
+                        $ctrl.exportPdf(data.fileType, data.exportFieldsRawList);
+                    } else {
+                        $ctrl.exportImages(
+                            data.fileType, 
+                            data.exportFieldsRawList, 
+                            data.qrCodesExportType
+                        );
+                    }
                 }
-            }
+            });
         });
     };
 

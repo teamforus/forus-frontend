@@ -87,6 +87,13 @@ const VoucherService = function(ApiRequest) {
             });
         };
 
+        this.getExportFields = function(organization_id, query) {
+            return ApiRequest.get([
+                '/platform/organizations/' + organization_id,
+                '/sponsor/vouchers/export-fields-list',
+            ].join(''), query);
+        };
+
         this.downloadQRCodesXls = function(organization_id, query) {
             return ApiRequest.get([
                 '/platform/organizations/' + organization_id,
