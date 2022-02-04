@@ -6,11 +6,19 @@
 .block {
     &.block-footer {
         .footer-nav {
-            a {
-                color: $bc;
-
-                &:hover {
-                    color: $bc;
+            .footer-nav-item {
+                color: $tc-var;
+                a {
+                    color: $tc-var;
+    
+                    &:hover {
+                        color: $tc-var;
+                    }
+                }
+                svg {
+                    path {
+                        fill: $tc-var;
+                    }
                 }
             }
         }
@@ -20,24 +28,30 @@
                 padding: 0;
             }
         }
+        .block {
+            &.block-markdown {
+                h3, p{
+                    color: #ffffff;
+                }
+            }
+        }
     }
     &.block-copyrights {
+        background-color: $tc-nav;
         .links {
             a {
-                color: $bc;
-
                 &:hover {
-                    color: $bc;
+                    text-decoration: none;
                 }
             }
         }
 
         .developed {
             a {
-                color: $bc;
+                color: $tc-var;
 
                 &:hover {
-                    color: $bc;
+                    color: $tc-var;
                 }
             }
         }

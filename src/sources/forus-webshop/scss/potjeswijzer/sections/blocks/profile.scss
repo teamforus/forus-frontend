@@ -1,5 +1,15 @@
 .block {
     &.block-profile {
+        .profile-content {   
+            .profile-content-header {  
+                .profile-content-title {
+                    .profile-content-title-count {
+                        color: #666666 !important;
+                    }
+                }
+            }
+        }
+
         .profile-aside {
             .profile-card {
                 .profile-details {
@@ -13,11 +23,11 @@
                         color: $tc;
 
                         .mdi {
-                            color: $color_primary;
+                            color: #666666;
                         }
 
                         &:hover {
-                            color: $color_primary;
+                            color: #666666;
                         }
                     }
                 }
@@ -25,14 +35,27 @@
 
             .profile-menu {
                 .profile-menu-item {
-                    color: $color_primary;
+                    color: #666666;
 
                     .mdi {
-                        color: $color_primary;
+                        color: #666666;
+                    }
+
+                    &:hover {
+                        color:#666666;
+                        
+                        .mdi {
+                            color: #666666;
+                        }
                     }
 
                     &.active {
                         background-color: $color_primary;
+                        color: #666666;
+
+                        .mdi {
+                            color: #666666;
+                        }
                     }
                 }
             }
