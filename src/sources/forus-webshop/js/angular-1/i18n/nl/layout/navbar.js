@@ -13,6 +13,9 @@ module.exports = {
         groningen: {
             funds:"Aanvragen",
         },
+        waalwijk: {
+            funds:"Aanvragen",
+        },
         nijmegen: {
             funds:"Aanvragen",
         }
@@ -23,6 +26,9 @@ module.exports = {
             activate: "Aanvragen",
         },
         groningen: {
+            activate: "Aanvragen",
+        },
+        waalwijk: {
             activate: "Aanvragen",
         },
         nijmegen: {
