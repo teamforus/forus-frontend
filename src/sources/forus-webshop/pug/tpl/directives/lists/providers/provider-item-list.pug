@@ -1,18 +1,23 @@
 .organization-item
-    .organization-pane(ng-click="$dir.toggleOffices($event)" aria-expanded="{{ $dir.provider.showOffices }}" role="button")
-        .organization-logo(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()")
-            img(
-                ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || '/assets/img/placeholders/organization-thumbnail.png' }}"
-                alt="").organization-logo-img
+    .organization-pane(aria-expanded="{{ $dir.provider.showOffices }}" ng-class="$dir.provider.showOffices ? 'active' : ''")
+        .col.col-lg-9.flex.organization-pane-info(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()" role="link")
+            .organization-logo(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()")
+                img(
+                    ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || '/assets/img/placeholders/organization-thumbnail.png' }}"
+                    alt="").organization-logo-img
 
-        .organization-title: a(
-            ui-sref="provider($dir.provider)" 
-            ng-click="$event.stopPropagation()" 
-            ng-bind="$dir.provider.name"
-            role="link").organization-title-value
+            .organization-title
+                span(ng-bind="$dir.provider.name").organization-title-value
+                
+                .flex.organization-page-link
+                    span Open aanbieder
+                    em.mdi.mdi-chevron-right         
 
-        .organization-chevron
-            .mdi(ng-class="'mdi-chevron-' + ($dir.provider.showOffices ? 'up' : 'right')")
+        .col.col-lg-3.flex-grow.flex.organization-pane-collapse(ng-click="$dir.toggleOffices($event)" role="button")
+            .organization-chevron
+                .mdi(ng-class="'mdi-chevron-' + ($dir.provider.showOffices ? 'up' : 'down')")
+            .organization-total-offices Toon locaties
+            .organization-total-offices-count(ng-class="$dir.provider.showOffices ? 'active' : ''") {{ $dir.provider.offices.length }} 
 
     .organization-offices(ng-if="$dir.provider.showOffices"): .block.block-offices
         a(ng-repeat="office in $dir.provider.offices" ui-sref="provider-office(office)").office-item
@@ -36,3 +41,5 @@
                             .office-info.office-info-inline(ng-if="$dir.provider.email")
                                 .mdi.mdi-email-outline
                                 | {{ $dir.provider.email }}
+
+                    .office-chevron: .mdi.mdi-chevron-right          
