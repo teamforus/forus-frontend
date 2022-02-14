@@ -12,8 +12,8 @@ let ProviderOverviewComponent = function(
         $state.go('provider-funds', { ...$ctrl.routeData, ...{ fundsType: 'available' } });
     };
 
-    let is_pending_or_rejected = (fund) => {
-        return (!fund.allow_budget && !fund.allow_products && !fund.allow_some_products) || fund.dismissed;
+    const is_approved = (fund) => {
+        return fund.state === 'approved';
     }
 
     let is_closed = (fund) => {
@@ -22,7 +22,8 @@ let ProviderOverviewComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.routeData = { organization_id: $stateParams.organization_id };
-        $ctrl.funds = $ctrl.funds.filter(fund => !is_pending_or_rejected(fund) && !is_closed(fund));
+
+        $ctrl.funds = $ctrl.funds.filter(fund => is_approved(fund) && !is_closed(fund));
     };
 };
 

@@ -2,7 +2,20 @@
     .card-section.card-section-narrow
         .block.block-entity-overview
             .entity-photo: img(ng-src="{{ $dir.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}").entity-photo-img
-            .entity-details: .entity-title(ng-bind="$dir.organization.name")
+            .entity-details
+                .entity-title(ng-bind="$dir.organization.name")
+
+        .card-section-actions(ng-if="$dir.fundProvider")
+            .button.button-default(
+                ng-if="['pending', 'approved'].includes($dir.fundProvider.state)"
+                ng-click="$dir.fundProviderDecline($dir.fundProvider)")
+                em.mdi.mdi-close
+                | Weigeren
+            .button.button-primary(
+                ng-if="['pending', 'declined'].includes($dir.fundProvider.state)"
+                ng-click="$dir.fundProviderApprove($dir.fundProvider)")
+                em.mdi.mdi-check
+                | Accepteren
 
     .card-section.card-section-primary.card-section-narrow(ng-repeat="properties in $dir.properties" ng-if="properties.length > 0")
         .flex-row.flex-grow: .flex-col(ng-repeat="property in properties")
@@ -15,7 +28,10 @@
         ng-if="$dir.fundProvider && $dir.fundProvider.fund.type == 'budget'"): .row: .col.col-lg-8: .flex-row
         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
             .card-block-listing-label Accepteer budget
-            .button.button-text.button-narrow: label(for="provider_allow_budget").form-toggle
+            .button.button-text.button-narrow: label(
+                ng-class="$dir.fundProvider.active ? '' : 'form-toggle-disabled'"
+                for="provider_allow_budget"
+                ).form-toggle
                 input(
                     type="checkbox" 
                     id="provider_allow_budget"
@@ -25,7 +41,10 @@
             
         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
             .card-block-listing-label Accepteer aanbiedingen
-            .button.button-text.button-narrow: label(for="provider_allow_products").form-toggle
+            .button.button-text.button-narrow: label(
+                ng-class="$dir.fundProvider.active ? '' : 'form-toggle-disabled'"
+                for="provider_allow_products"
+                ).form-toggle
                 input(
                     type="checkbox" 
                     id="provider_allow_products"

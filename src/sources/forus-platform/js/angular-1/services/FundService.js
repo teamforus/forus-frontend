@@ -235,13 +235,12 @@ const FundService = function(ApiRequest, ModalService) {
             ), query);
         };
 
-        this.dismissProvider = function(organization_id, fund_id, id) {
-            return this.updateProvider(organization_id, fund_id, id, {
-                dismissed: true,
-                allow_budget: false,
-                allow_products: false,
-                allow_some_products: false,
-            });
+        this.approveProvider = function(organization_id, fund_id, id) {
+            return ApiRequest.patch(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${id}/approve`);
+        };
+
+        this.declineProvider = function(organization_id, fund_id, id) {
+            return ApiRequest.patch(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${id}/decline`);
         };
 
         this.updateProvider = function(organization_id, fund_id, id, data = {}) {
