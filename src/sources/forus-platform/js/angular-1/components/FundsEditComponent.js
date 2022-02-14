@@ -222,25 +222,34 @@ const FundsEditComponent = function(
             MediaService.read($ctrl.fund.logo.uid).then((res) => $ctrl.media = res.data.data);
         }
 
-        ProductService.listAll({
-            per_page: 1000,
-            unlimited_stock: 1,
-            simplified: 1,
+        FundService.list($stateParams.organization_id, {
+            per_page: 100
         }).then(res => {
-            $ctrl.form.products = $ctrl.products = res.data.data.map(product => ({
-                id: product.id,
-                price: product.price,
-                name: `${product.name} - €${product.price} (${product.organization.name})`,
-            }));
-
-            if ($rootScope.appConfigs.features.organizations.funds.formula_products) {
-                $ctrl.form.products = $ctrl.form.products.filter(
-                    product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
-                );
+            if (res.data.data.length == 0) {
+                $ctrl.form.products = [];
+            } else {
+                ProductService.listAll({
+                    per_page: 1000,
+                    unlimited_stock: 1,
+                    simplified: 1,
+                    fund_id: res.data.data.map(fund => fund.id),
+                }).then(res => {
+                    $ctrl.form.products = $ctrl.products = res.data.data.map(product => ({
+                        id: product.id,
+                        price: product.price,
+                        name: `${product.name} - €${product.price} (${product.organization.name})`,
+                    }));
+        
+                    if ($rootScope.appConfigs.features.organizations.funds.formula_products) {
+                        $ctrl.form.products = $ctrl.form.products.filter(
+                            product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
+                        );
+                    }
+        
+                    $ctrl.updateProductOptions();
+                }, console.error);
             }
-
-            $ctrl.updateProductOptions();
-        }, console.error);
+        });
     };
 };
 
