@@ -1,8 +1,5 @@
 let BlockProviderOrganizationOverviewDirective = function($scope) {
-    const {
-        organization, fundProvider, updateFundProviderAllow, fundProviderDecline,
-        fundProviderApprove
-    } = $scope;
+    const { organization, fundProvider, updateFundProviderAllow } = $scope;
 
     const makeProperties = (organization) => {
         const properties = [];
@@ -25,14 +22,8 @@ let BlockProviderOrganizationOverviewDirective = function($scope) {
         organization: organization,
         fundProvider: fundProvider,
         updateFundProviderAllow: updateFundProviderAllow,
-        fundProviderDecline: fundProviderDecline,
-        fundProviderApprove: fundProviderApprove,
         properties: makeProperties($scope.organization),
     };
-
-    $scope.$watch('fundProvider', (newVal) => {
-        $scope.$dir.fundProvider = $scope.fundProvider;
-    });
 };
 
 module.exports = () => {
@@ -41,8 +32,6 @@ module.exports = () => {
             fundProvider: "=",
             organization: "=",
             updateFundProviderAllow: "=",
-            fundProviderDecline: "=",
-            fundProviderApprove: "="
         },
         restrict: "EA",
         replace: true,

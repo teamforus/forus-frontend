@@ -98,11 +98,11 @@ const FundService = function(ApiRequest, ModalService) {
         /**
          * TODO: check for cleanup
          * Get provider transactions list
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {object} query 
+         *
+         * @param {number} organization_id
+         * @param {number} fund_id
+         * @param {number} provider_id
+         * @param {object} query
          * @returns {Promise}
          */
         this.readProvidersTransactions = function(
@@ -122,12 +122,12 @@ const FundService = function(ApiRequest, ModalService) {
         /**
          * TODO: check for cleanup
          * Get provider transaction
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {number} transaction_id 
-         * @param {object} query 
+         *
+         * @param {number} organization_id
+         * @param {number} fund_id
+         * @param {number} provider_id
+         * @param {number} transaction_id
+         * @param {object} query
          * @returns {Promise}
          */
         this.readProvidersTransaction = function(
@@ -149,11 +149,11 @@ const FundService = function(ApiRequest, ModalService) {
         /**
          * TODO: check for cleanup
          * Export provider transactions list
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {object} query 
+         *
+         * @param {number} organization_id
+         * @param {number} fund_id
+         * @param {number} provider_id
+         * @param {object} query
          * @returns {Promise}
          */
         this.exportProvidersTransactions = function(
@@ -177,11 +177,11 @@ const FundService = function(ApiRequest, ModalService) {
 
         /**
          * Export funds data
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {object} query 
+         *
+         * @param {number} organization_id
+         * @param {number} fund_id
+         * @param {number} provider_id
+         * @param {object} query
          * @returns {Promise}
          */
         this.financialOverview = function(organization_id, query = {}) {
@@ -193,11 +193,11 @@ const FundService = function(ApiRequest, ModalService) {
 
         /**
          * Export funds data
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {object} query 
+         *
+         * @param {number} organization_id
+         * @param {number} fund_id
+         * @param {number} provider_id
+         * @param {object} query
          * @returns {Promise}
          */
         this.financialOverviewExport = function(organization_id, query = {}) {
@@ -214,11 +214,11 @@ const FundService = function(ApiRequest, ModalService) {
 
         /**
          * Get provider finances overview
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {object} query 
+         *
+         * @param {number} organization_id
+         * @param {number} fund_id
+         * @param {number} provider_id
+         * @param {object} query
          * @returns {Promise}
          */
         this.readProvidersFinances = function(
@@ -235,12 +235,13 @@ const FundService = function(ApiRequest, ModalService) {
             ), query);
         };
 
-        this.approveProvider = function(organization_id, fund_id, id) {
-            return ApiRequest.patch(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${id}/approve`);
-        };
-
-        this.declineProvider = function(organization_id, fund_id, id) {
-            return ApiRequest.patch(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${id}/decline`);
+        this.dismissProvider = function(organization_id, fund_id, id) {
+            return this.updateProvider(organization_id, fund_id, id, {
+                dismissed: true,
+                allow_budget: false,
+                allow_products: false,
+                allow_some_products: false,
+            });
         };
 
         this.updateProvider = function(organization_id, fund_id, id, data = {}) {

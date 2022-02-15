@@ -7572,17 +7572,3 @@ body {
         }
     }
 }
-
-.hover-items-group > * {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .3s / 3, visibility .3s / 3 linear;
-}
-
-.has-hover-items:hover {
-    .hover-items-group > * {
-        opacity: 1;
-        visibility: visible;
-        transition: opacity .3s, visibility .3s linear;
-    }
-}
