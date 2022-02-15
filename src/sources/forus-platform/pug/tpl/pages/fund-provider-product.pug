@@ -39,7 +39,7 @@
                     .form-group.form-group-inline(ng-if="$ctrl.fundProvider.fund.type == 'budget'")
                         label(
                             for=("product_{{ $ctrl.product.id }}_enabled")
-                            ng-class="$ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
+                            ng-class="$ctrl.fundProvider.productToggleClass").form-toggle
                             input(
                                 type="checkbox"
                                 id=("product_{{ $ctrl.product.id }}_enabled")
@@ -51,12 +51,12 @@
                     div.flex.flex-end(ng-if="$ctrl.fundProvider.fund.type == 'subsidies'")
                         a.button.button-primary.button-sm.nowrap(
                             ui-sref="fund-provider-product-subsidy-edit($ctrl.product.approvedActionParams)"
-                            ng-if="$ctrl.product.is_available && !$ctrl.product.allowed")
+                            ng-if="$ctrl.fundProvider.active && $ctrl.product.is_available && !$ctrl.product.allowed")
                             em.mdi.mdi-play.icon-start
                             | Start subsidie
 
                         .tag.tag-success.nowrap(ng-if="$ctrl.product.is_available && $ctrl.product.allowed")
-                            | Subsidie actief 
+                            | Subsidie actief
                             .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, $ctrl.product)")
 
             .product-description
@@ -78,7 +78,7 @@
 
                     .description-header-action(ng-if="!$ctrl.product.sponsor_organization && $ctrl.fundProviderProductChat")
                         span(ng-if="$ctrl.fundProviderProductChat.sponsor_unseen_messages")
-                            | {{ $ctrl.fundProviderProductChat.sponsor_unseen_messages }} nieuwe 
+                            | {{ $ctrl.fundProviderProductChat.sponsor_unseen_messages }} nieuwe
 
                         .button.button-icon(
                             ng-class="$ctrl.fundProviderProductChat.sponsor_unseen_messages > 0 ? 'button-primary-light' : 'button-default'"

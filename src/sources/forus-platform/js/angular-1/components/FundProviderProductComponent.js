@@ -15,18 +15,20 @@ const FundProviderProductComponent = function(
     };
 
     $ctrl.updateAllowBudgetItem = function(fundProvider, product) {
-        FundService.updateProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id, {
-                enable_products: product.allowed ? [{ id: product.id }] : [],
-                disable_products: !product.allowed ? [product.id] : [],
-            }).then((res) => {
-            PushNotificationsService.success('Opgeslagen!');
-            $ctrl.fundProvider = res.data.data;
-            $ctrl.updateProviderProduct();
-            $ctrl.$onInit();
-        }, console.error);
+        if (fundProvider.active) {
+            FundService.updateProvider(
+                fundProvider.fund.organization_id,
+                fundProvider.fund.id,
+                fundProvider.id, {
+                    enable_products: product.allowed ? [{id: product.id}] : [],
+                    disable_products: !product.allowed ? [product.id] : [],
+                }).then((res) => {
+                PushNotificationsService.success('Opgeslagen!');
+                $ctrl.fundProvider = res.data.data;
+                $ctrl.updateProviderProduct();
+                $ctrl.$onInit();
+            }, console.error);
+        }
     };
 
     $ctrl.makeChat = () => {
@@ -89,9 +91,17 @@ const FundProviderProductComponent = function(
         $ctrl.product.editParams = { ...$stateParams };
     };
 
+    function setClassForFundProvider() {
+        $ctrl.fundProvider.productToggleClass = $ctrl.fundProvider.active ?
+            ($ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : '')
+            : 'form-toggle-disabled form-toggle-off';
+    }
+
     $ctrl.$onInit = function() {
         $ctrl.fundProviderProductChat = $ctrl.fundProviderProductChats[0] || null;
         $ctrl.updateProductMeta();
+        $ctrl.fundProvider.active = $ctrl.fundProvider.state === 'approved';
+        setClassForFundProvider();
 
         if ($ctrl.product.deals_history && Array.isArray($ctrl.product.deals_history)) {
             $ctrl.product.deals_history = $ctrl.product.deals_history.map(deal => ({

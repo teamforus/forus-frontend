@@ -1,6 +1,7 @@
 let SponsorProviderOrganizationComponent = function(
     $q,
     $timeout,
+    $state,
     FundService,
     OrganizationService,
     PushNotificationsService
@@ -19,20 +20,56 @@ let SponsorProviderOrganizationComponent = function(
     $ctrl.onProviderFundsPageChange = (query = {}) => {
         fetchFundProviders($ctrl.providerOrganization, query).then((fundProviders) => {
             $ctrl.fundProviders = fundProviders;
+            $ctrl.fundProviders.data.forEach((fundProvider) => fundProvider.active = fundProvider.state === 'accepted');
         });
     };
 
     $ctrl.updateFundProviderAllow = function(fundProvider, allowType) {
-        FundService.updateProvider(
+        if (fundProvider.active) {
+            FundService.updateProvider(
+                fundProvider.fund.organization_id,
+                fundProvider.fund.id,
+                fundProvider.id,
+                {[allowType]: fundProvider[allowType]}
+            ).then((res) => $timeout(() => {
+                PushNotificationsService.success('Opgeslagen!');
+                res.data.data.active = res.data.data.state === 'approved'
+                $ctrl.fundProviders.data[$ctrl.fundProviders.data.indexOf(fundProvider)] = res.data.data;
+            }, 500), console.error);
+        }
+    };
+
+    $ctrl.fundProviderDecline = (fundProvider) => {
+        FundService.declineProvider(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
-            fundProvider.id,
-            { [allowType]: fundProvider[allowType] }
+            fundProvider.id
         ).then((res) => $timeout(() => {
             PushNotificationsService.success('Opgeslagen!');
+            res.data.data.active = res.data.data.state === 'approved'
             $ctrl.fundProviders.data[$ctrl.fundProviders.data.indexOf(fundProvider)] = res.data.data;
         }, 500), console.error);
     };
+
+    $ctrl.fundProviderApprove = (fundProvider) => {
+        FundService.approveProvider(
+            fundProvider.fund.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id
+        ).then((res) => $timeout(() => {
+            PushNotificationsService.success('Opgeslagen!');
+            res.data.data.active = res.data.data.state === 'approved'
+            $ctrl.fundProviders.data[$ctrl.fundProviders.data.indexOf(fundProvider)] = res.data.data;
+        }, 500), console.error);
+    };
+
+    $ctrl.viewProvider = (fundProvider) => {
+        $state.go('fund-provider', {
+            organization_id: $ctrl.organization.id,
+            fund_id: fundProvider.fund_id,
+            fund_provider_id: fundProvider.id
+        });
+    }
 
     $ctrl.$onInit = function() {
         $ctrl.tab = "employees";
@@ -51,6 +88,7 @@ module.exports = {
     controller: [
         '$q',
         '$timeout',
+        '$state',
         'FundService',
         'OrganizationService',
         'PushNotificationsService',

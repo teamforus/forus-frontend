@@ -14,7 +14,9 @@
         block-provider-organization-overview(
             organization="$ctrl.fundProvider.organization"
             fund-provider="$ctrl.fundProvider"
-            update-fund-provider-allow="$ctrl.updateFundProviderAllow")
+            update-fund-provider-allow="$ctrl.updateFundProviderAllow"
+            fund-provider-decline="$ctrl.fundProviderDecline"
+            fund-provider-approve="$ctrl.fundProviderApprove")
 
         //- Products for subsidy fund (managed by sponsor)
         .card(ng-if="$ctrl.organization.manage_provider_products && $ctrl.fundProvider.fund.type == 'subsidies'")
@@ -56,7 +58,7 @@
                             .hidden
 
                         a.button.button-primary.button-sm.nowrap(
-                            ng-if="product.is_available && !product.allowed"
+                            ng-if="$ctrl.fundProvider.active && product.is_available && !product.allowed"
                             ui-sref="fund-provider-product-subsidy-edit(product.subsidyEditParams)")
                             em.mdi.mdi-play.icon-start
                             | Start subsidie
@@ -115,7 +117,7 @@
 
                     td.td-narrow: .form.pull-right: label(
                         for=("product_{{ product.id }}_enabled")
-                        ng-class="$ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
+                        ng-class="$ctrl.fundProvider.productToggleClass").form-toggle
                         input(
                             type="checkbox"
                             id=("product_{{ product.id }}_enabled")
@@ -175,7 +177,7 @@
 
                     td.td-narrow: .form.pull-right: label(
                         for=("product_{{ product.id }}_enabled")
-                        ng-class="$ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
+                        ng-class="$ctrl.fundProvider.productToggleClass").form-toggle
                         input(
                             type="checkbox"
                             id=("product_{{ product.id }}_enabled")
@@ -223,7 +225,7 @@
                     td(ng-bind="product.price_locale")
                     td.td-narrow.text-right: .button-group.flex-end
                         a.button.button-primary.button-sm.nowrap(
-                            ng-if="product.is_available && !product.allowed"
+                            ng-if="$ctrl.fundProvider.active && product.is_available && !product.allowed"
                             ui-sref="fund-provider-product-subsidy-edit(product.subsidyEditParams)")
                             em.mdi.mdi-play.icon-start
                             | Start subsidie

@@ -20,32 +20,29 @@
                 tr
                     th.td-narrow Afbeelding
                     th Fondsnaam
-                    th.td-narrow Accepteer budget
-                    th.td-narrow Alle aanbiedingen
-                    th Opties
+                    th.td-narrow State
+                    th
 
-                tr(ng-repeat="fundProvider in $ctrl.fundProviders.data")
+                tr.has-hover-items(ng-repeat="fundProvider in $ctrl.fundProviders.data" ng-click="$ctrl.viewProvider(fundProvider)")
                     td.td-narrow: img(ng-src="{{ fundProvider.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").td-media
                     td(ng-bind="fundProvider.fund.name")
-                    td(ng-if="fundProvider.fund.type === 'budget'"): label(for="option_{{ fundProvider.id }}_allow_budget").form-toggle
-                        input(
-                            type="checkbox"
-                            id="option_{{ fundProvider.id }}_allow_budget"
-                            ng-checked="fundProvider.allow_budget"
-                            ng-change="$ctrl.updateFundProviderAllow(fundProvider, 'allow_budget')"
-                            ng-model="fundProvider.allow_budget")
-                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-                    td(ng-if="fundProvider.fund.type !== 'budget'"): .text-muted -
-                    td(ng-if="fundProvider.fund.type === 'budget'"): label(for="option_{{ fundProvider.id }}_allow_products").form-toggle
-                        input(
-                            type="checkbox"
-                            id="option_{{ fundProvider.id }}_allow_products"
-                            ng-checked="fundProvider.allow_products"
-                            ng-change="$ctrl.updateFundProviderAllow(fundProvider, 'allow_products')"
-                            ng-model="fundProvider.allow_products")
-                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-                    td(ng-if="fundProvider.fund.type !== 'budget'"): .text-muted -
-                    td.text-right
+                    td
+                        .tag.tag-sm.tag-success(ng-if="fundProvider.state === 'approved'") Geaccepteerd
+                        .tag.tag-sm.tag-default(ng-if="fundProvider.state === 'pending'") Wachtend
+                        .tag.tag-sm.tag-warning(ng-if="fundProvider.state === 'declined'") Geweigerd
+
+                    td.text-right.hover-items-group
+                        .button.button-default.button-icon(
+                            ng-if="['pending', 'approved'].includes(fundProvider.state)"
+                            ng-click="$event.stopPropagation(); $ctrl.fundProviderDecline(fundProvider);"
+                            )
+                            em.mdi.mdi-close
+                        .button.button-primary.button-icon(
+                            ng-if="['pending', 'declined'].includes(fundProvider.state)"
+                            ng-click="$event.stopPropagation(); $ctrl.fundProviderApprove(fundProvider);"
+                            )
+                            em.mdi.mdi-check
+
                         a(ui-sref="fund-provider({organization_id: $ctrl.organization.id, fund_id: fundProvider.fund_id, fund_provider_id: fundProvider.id})").button.button-default
                             em.mdi.mdi-eye-outline.icon-start
                             | Bekijk aanbod
