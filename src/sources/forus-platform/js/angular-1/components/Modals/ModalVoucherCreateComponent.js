@@ -16,10 +16,6 @@ let ModalVoucherCreateComponent = function(
         key: 'email',
         label: 'E-mailadres',
         inputLabel: 'E-mailadres',
-    }, {
-        key: 'bsn',
-        label: 'BSN',
-        inputLabel: 'BSN',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
@@ -77,6 +73,14 @@ let ModalVoucherCreateComponent = function(
         $ctrl.fund = $ctrl.modal.scope.fund || null;
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onCreated = $ctrl.modal.scope.onCreated;
+
+        if ($ctrl.organization.bsn_enabled) {
+            $ctrl.assignTypes.push({
+                key: 'bsn',
+                label: 'BSN',
+                inputLabel: 'BSN',
+            });
+        }
 
         $ctrl.form = FormBuilderService.build({
             fund_id: $ctrl.fund.id,

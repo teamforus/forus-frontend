@@ -12,9 +12,6 @@ let ModalVoucherQrCodeComponent = function(
     $ctrl.assignTypes = [{
         key: 'email',
         label: 'E-mailadres',
-    }, {
-        key: 'bsn',
-        label: 'BSN',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
@@ -78,6 +75,13 @@ let ModalVoucherQrCodeComponent = function(
         $ctrl.voucherActive = $ctrl.voucher.state === 'active';
         $ctrl.assigning = !$ctrl.voucherActive;
         $ctrl.qrCodeValue = $ctrl.voucher.address;
+
+        if ($ctrl.organization.bsn_enabled) {
+            $ctrl.assignTypes.push({
+                key: 'bsn',
+                label: 'BSN'
+            });
+        }
 
         if (!$ctrl.voucherActive && !$ctrl.voucher.activation_code) {
             $ctrl.assignTypes.unshift({ key: 'activation_code', label: 'Create an activation code' });
