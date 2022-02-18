@@ -16,9 +16,6 @@ module.exports = {
         waalwijk: {
             funds:"Aanvragen",
         },
-        geertruidenberg: {
-            funds:"Aanvragen",
-        },
         nijmegen: {
             funds:"Aanvragen",
         }
@@ -33,9 +30,6 @@ module.exports = {
         },
         waalwijk: {
             activate: "Aanvragen",
-        },
-        geertruidenberg: {
-            funds:"Aanvragen",
         },
         nijmegen: {
             activate: "Aanvragen",
