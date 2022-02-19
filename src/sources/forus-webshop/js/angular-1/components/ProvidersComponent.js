@@ -10,6 +10,17 @@ const ProvidersComponent = function(
     $ctrl.officesShown = [];
     $ctrl.countFiltersApplied = 0;
 
+    $ctrl.distances = [
+        {id: null, name: 'Overal'},
+        {id: 3, name: '< 3 km'},
+        {id: 5, name: '< 5 km'},
+        {id: 10, name: '< 10 km'},
+        {id: 15, name: '< 15 km'},
+        {id: 25, name: '< 25 km'},
+        {id: 50, name: '< 50 km'},
+        {id: 75, name: '< 75 km'}
+    ];
+
     $ctrl.filtersList = [
         'q', 'fund', 'businessType',
     ];
@@ -39,6 +50,8 @@ const ProvidersComponent = function(
         page: values.page,
         fund_id: values.fund ? values.fund.id : null,
         business_type_id: values.businessType ? values.businessType.id : null,
+        postcode: values.postcode,
+        distance: values.distance ? values.distance.id : null
     });
 
     $ctrl.onPageChange = (values) => {
@@ -123,6 +136,8 @@ const ProvidersComponent = function(
             q: $stateParams.q || '',
             fund: fund,
             businessType: businessType,
+            postcode: '',
+            distance: null
         });
 
         if ($ctrl.showMap) {

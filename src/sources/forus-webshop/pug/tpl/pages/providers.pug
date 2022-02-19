@@ -47,6 +47,24 @@ block content
                                     placeholder="Selecteer tegoed..."
                                     id="select_fund")
 
+                            .row
+                                .col.col-md-6: .form-group
+                                    label.form-label(for="distance") Postcode
+                                    input.form-control(
+                                        ng-model="$ctrl.form.values.postcode"
+                                        placeholder="Postcode"
+                                        type="text"
+                                        aria-label="Postcode...")
+
+                                .col.col-md-6: .form-group
+                                    label.form-label(for="distance") Afstand
+                                    select-control(
+                                        autoclear="true"
+                                        ng-model="$ctrl.form.values.distance"
+                                        options="$ctrl.distances"
+                                        placeholder="Afstand..."
+                                        id="distance")
+
                             +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
 
                         a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm
