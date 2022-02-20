@@ -160,7 +160,7 @@ const VouchersShowComponent = function(
             cancelButton: $translateDangerZone('buttons.cancel'),
             confirmButton: $translateDangerZone('buttons.confirm'),
             onConfirm: () => {
-                VoucherService.updateLimitMultiplier(
+                VoucherService.update(
                     $ctrl.organization.id, 
                     $ctrl.voucher.id, {
                         limit_multiplier: $ctrl.voucher.limit_multiplier + 1

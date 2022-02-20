@@ -50,10 +50,10 @@ const VoucherService = function(ApiRequest) {
             ].join(''));
         };
 
-        this.updateLimitMultiplier = (organization_id, voucher_id, query) => {
+        this.update = (organization_id, voucher_id, query) => {
             return ApiRequest.patch([
                 '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/update-limit-multiplier',
+                '/sponsor/vouchers/' + voucher_id,
             ].join(''), query);
         };
 
