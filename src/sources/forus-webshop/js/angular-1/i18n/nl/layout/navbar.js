@@ -17,7 +17,7 @@ module.exports = {
             funds:"Aanvragen",
         },
         geertruidenberg: {
-            funds:"Aanvragen",
+            funds:"Regelingen",
         },
         nijmegen: {
             funds:"Aanvragen",
