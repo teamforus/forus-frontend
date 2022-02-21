@@ -27,7 +27,7 @@ let FundProviderProductSubsidyEditComponent = function(
         const dealsHistory = $ctrl.product.deals_history;
         const deal = dealsHistory.filter((deal) => deal_id ? deal.id == deal_id : deal.active)[0] || false;
 
-        if (deal_id && !deal || $ctrl.fund.type !== 'subsidies') {
+        if (deal_id && !deal || $ctrl.fund.type !== 'subsidies' || $ctrl.fundProvider.state !== 'approved') {
             return $state.go('fund-provider', $stateParams);
         }
 

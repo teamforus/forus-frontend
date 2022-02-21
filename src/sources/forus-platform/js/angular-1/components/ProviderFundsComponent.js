@@ -13,7 +13,11 @@ const ProviderFundsComponent = function(
     };
 
     const is_pending_or_rejected = (fund) => {
-        return (!fund.allow_budget && !fund.allow_products && !fund.allow_some_products) || fund.dismissed;
+        return ['pending', 'declined'].includes(fund.state);
+    }
+
+    const is_approved = (fund) => {
+        return fund.state === 'approved';
     }
 
     const is_closed = (fund) => {
@@ -45,7 +49,7 @@ const ProviderFundsComponent = function(
             return is_pending_or_rejected(fund);
         });
 
-        $ctrl.funds = $ctrl.funds.filter(fund => !is_pending_or_rejected(fund) && !is_closed(fund));
+        $ctrl.funds = $ctrl.funds.filter(fund => is_approved(fund) && !is_closed(fund));
         $ctrl.funds.sort((a, b) => sort[a.state] - sort[b.state]);
 
         $ctrl.showEmptyBlock = $ctrl.checkForEmptyList($ctrl.shownFundsType);

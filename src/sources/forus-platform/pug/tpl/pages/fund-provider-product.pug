@@ -3,13 +3,13 @@
     section.app.app-content
         .block.block-breadcrumbs
             .breadcrumb-item(
-                ui-sref="sponsor-provider-organizations({organization_id: $ctrl.organization.id})" 
+                ui-sref="sponsor-provider-organizations({organization_id: $ctrl.organization.id})"
                 translate="page_state_titles.organization-providers")
             .breadcrumb-item(
-                ui-sref="sponsor-provider-organization({organization_id: $ctrl.organization.id, provider_organization_id:$ctrl.fundProvider.organization.id})" 
+                ui-sref="sponsor-provider-organization({organization_id: $ctrl.organization.id, provider_organization_id:$ctrl.fundProvider.organization.id})"
                 ng-bind="$ctrl.fundProvider.organization.name")
             .breadcrumb-item(
-                ui-sref="fund-provider({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id, fund_provider_id: $ctrl.fundProvider.id})" 
+                ui-sref="fund-provider({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id, fund_provider_id: $ctrl.fundProvider.id})"
                 ng-bind="$ctrl.fundProvider.fund.name")
             .breadcrumb-item.active(
                 ng-bind="$ctrl.product.name")
@@ -38,11 +38,11 @@
                     //- budget fund toggle
                     .form-group.form-group-inline(ng-if="$ctrl.fundProvider.fund.type == 'budget'")
                         label(
-                            for=("product_{{ $ctrl.product.id }}_enabled") 
-                            ng-class="$ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
+                            for=("product_{{ $ctrl.product.id }}_enabled")
+                            ng-class="$ctrl.fundProvider.productToggleClass").form-toggle
                             input(
-                                type="checkbox" 
-                                id=("product_{{ $ctrl.product.id }}_enabled") 
+                                type="checkbox"
+                                id=("product_{{ $ctrl.product.id }}_enabled")
                                 ng-model="$ctrl.product.allowed"
                                 ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, $ctrl.product)")
                             .form-toggle-inner: .toggle-input: .toggle-input-dot
@@ -51,12 +51,12 @@
                     div.flex.flex-end(ng-if="$ctrl.fundProvider.fund.type == 'subsidies'")
                         a.button.button-primary.button-sm.nowrap(
                             ui-sref="fund-provider-product-subsidy-edit($ctrl.product.approvedActionParams)"
-                            ng-if="$ctrl.product.is_available && !$ctrl.product.allowed")
+                            ng-if="$ctrl.fundProvider.active && $ctrl.product.is_available && !$ctrl.product.allowed")
                             em.mdi.mdi-play.icon-start
                             | Start subsidie
 
                         .tag.tag-success.nowrap(ng-if="$ctrl.product.is_available && $ctrl.product.allowed")
-                            | Subsidie actief 
+                            | Subsidie actief
                             .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, $ctrl.product)")
 
             .product-description
@@ -65,24 +65,24 @@
 
                     .description-header-action
                         .button.button-primary-light(
-                            ng-if="!$ctrl.product.sponsor_organization_id && !$ctrl.fundProviderProductChat" 
+                            ng-if="!$ctrl.product.sponsor_organization_id && !$ctrl.fundProviderProductChat"
                             ng-click="$ctrl.makeChat()")
                             em.mdi.mdi-message-text.icon-start
                             | Nieuw aanpassingsverzoek
 
                         .button.button-primary(
-                            ng-if="$ctrl.product.sponsor_organization_id === $ctrl.organization.id && !$ctrl.fundProviderProductChat" 
+                            ng-if="$ctrl.product.sponsor_organization_id === $ctrl.organization.id && !$ctrl.fundProviderProductChat"
                             ui-sref="fund-provider-product-edit($ctrl.product.editParams)")
                             em.mdi.mdi-pencil.icon-start
                             | Bewerken
 
                     .description-header-action(ng-if="!$ctrl.product.sponsor_organization && $ctrl.fundProviderProductChat")
-                        span(ng-if="$ctrl.fundProviderProductChat.sponsor_unseen_messages") 
-                            | {{ $ctrl.fundProviderProductChat.sponsor_unseen_messages }} nieuwe 
+                        span(ng-if="$ctrl.fundProviderProductChat.sponsor_unseen_messages")
+                            | {{ $ctrl.fundProviderProductChat.sponsor_unseen_messages }} nieuwe
 
                         .button.button-icon(
-                            ng-class="$ctrl.fundProviderProductChat.sponsor_unseen_messages > 0 ? 'button-primary-light' : 'button-default'" 
-                            ng-disabled="!$ctrl.fundProviderProductChat" 
+                            ng-class="$ctrl.fundProviderProductChat.sponsor_unseen_messages > 0 ? 'button-primary-light' : 'button-default'"
+                            ng-disabled="!$ctrl.fundProviderProductChat"
                             ng-click="$ctrl.showTheChat()")
                             em.mdi.mdi-message-text(
                                 ng-class="{'text-primary':$ctrl.fundProviderProductChat && !$ctrl.fundProviderProductChat.sponsor_unseen_messages}")
@@ -91,7 +91,7 @@
                     .arrow-box.border.bg-dim: .arrow
                     div(ng-bind-html="$ctrl.product.description_html")
 
-                .description-body(ng-if="!$ctrl.product.description_html") 
+                .description-body(ng-if="!$ctrl.product.description_html")
                     .arrow-box.border.bg-dim: .arrow
                     | Geen data
 

@@ -1,11 +1,8 @@
 .card(ng-class="{'card-outline' : fund.state == 'closed'}")
     .card-section
         .card-section-actions(ng-if="fund.state != 'closed'")
-            div(ng-show="providerFund.dismissed")
-                .tag.tag-default(translate="fund_card_provider.status.rejected")
-
-            div(ng-show="!providerFund.allow_budget && !providerFund.allow_products && !providerFund.allow_some_products && !providerFund.dismissed")
-                .tag.tag-warning(translate="fund_card_provider.status.hold")
+            .tag.tag-default(ng-if="providerFund.state === 'pending'" translate="fund_card_provider.status.pending")
+            .tag.tag-warning(ng-if="providerFund.state === 'declined'" translate="fund_card_provider.status.rejected")
 
         .card-block.card-block-fund.card-block-fund-margin-bottom
             .fund-img: img(ng-src="{{ media.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
@@ -45,15 +42,15 @@
                     .col.col-md-6: .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.allow_budget")
                         .tag.tag-sm(
-                            ng-class="'tag-' + (providerFund.allow_budget ? 'success' : 'warning')" 
-                            ng-bind="providerFund.allow_budget ? 'Ja' : 'Nee'")      
+                            ng-class="'tag-' + (providerFund.allow_budget ? 'success' : 'warning')"
+                            ng-bind="providerFund.allow_budget ? 'Ja' : 'Nee'")
 
                     .col.col-md-6: .card-block-listing-item
                         .card-block-listing-label(
                             translate="fund_card_provider.labels.{{ shownProductType }}")
                         .tag.tag-sm(
-                            ng-class="'tag-' + (providerFund[shownProductType] ? 'success' : 'warning')" 
-                            ng-bind="providerFund[shownProductType] ? 'Ja' : 'Nee'")  
+                            ng-class="'tag-' + (providerFund[shownProductType] ? 'success' : 'warning')"
+                            ng-bind="providerFund[shownProductType] ? 'Ja' : 'Nee'")
 
                 .col.col-md-4: .button-group.flex-end
                     .button.button-default(

@@ -143,7 +143,10 @@
                         th Opties
                     tr(ng-repeat="fund in providerOrganization.funds")
                         td(ng-bind="fund.name")
-                        td: .tag.tag-sm(ng-class="'tag-' + (fund.active ? 'success' : 'warning')"   ng-bind="fund.active ? 'Geaccepteerd' : 'Wachtend'")  
+                        td
+                            .tag.tag-sm.tag-success(ng-if="fund.state === 'approved'") Geaccepteerd
+                            .tag.tag-sm.tag-default(ng-if="fund.state === 'pending'") Wachtend
+                            .tag.tag-sm.tag-warning(ng-if="fund.state === 'declined'") Geweigerd
                         td.td-narrow.text-right
                             a(ui-sref="fund-provider(fund.uiViewParams)").button.button-default.nowrap  
                                 em.mdi.mdi-eye-outline.icon-start

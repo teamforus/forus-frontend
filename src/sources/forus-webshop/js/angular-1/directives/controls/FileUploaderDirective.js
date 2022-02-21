@@ -108,7 +108,7 @@ const FileUploaderDirective = function(
 
     $dir.previewFile = ($event, file) => {
         $event.preventDefault();
-        $event.stopPropagation();
+        $event.stopPropagation();e
 
         if (file.file_data.ext == 'pdf') {
             FileService.download(file.file_data).then(

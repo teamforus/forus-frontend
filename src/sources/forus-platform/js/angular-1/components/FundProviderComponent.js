@@ -30,7 +30,7 @@ let FundProviderComponent = function(
         e.stopPropagation();
         $ctrl.dropdownMenuItem = item;
     };
-    
+
     $ctrl.onClickOutsideMenu = (e) => {
         e.stopPropagation();
         $ctrl.dropdownMenuItem = false;
@@ -44,19 +44,21 @@ let FundProviderComponent = function(
     };
 
     $ctrl.updateAllowBudgetItem = function(fundProvider, product) {
-        FundService.updateProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id, {
-            enable_products: product.allowed ? [{
-                id: product.id
-            }] : [],
-            disable_products: !product.allowed ? [product.id] : [],
+        if (fundProvider.active) {
+            FundService.updateProvider(
+                fundProvider.fund.organization_id,
+                fundProvider.fund.id,
+                fundProvider.id, {
+                    enable_products: product.allowed ? [{
+                        id: product.id
+                    }] : [],
+                    disable_products: !product.allowed ? [product.id] : [],
+                }
+            ).then((res) => {
+                PushNotificationsService.success('Opgeslagen!');
+                $ctrl.fundProvider = res.data.data;
+            }, console.error);
         }
-        ).then((res) => {
-            PushNotificationsService.success('Opgeslagen!');
-            $ctrl.fundProvider = res.data.data;
-        }, console.error);
     };
 
     $ctrl.fetchProducts = (fundProvider, query = {}) => {
@@ -124,31 +126,56 @@ let FundProviderComponent = function(
         });
     };
 
-    $ctrl.dismissProvider = function(fundProvider) {
-        FundService.dismissProvider(
+    $ctrl.updateFundProviderAllow = function(fundProvider, allowType) {
+        if (fundProvider.active) {
+            FundService.updateProvider(
+                fundProvider.fund.organization_id,
+                fundProvider.fund.id,
+                fundProvider.id,
+                { [allowType]: fundProvider[allowType] }
+            ).then((res) => $timeout(() => {
+                PushNotificationsService.success('Opgeslagen!');
+                $ctrl.fundProvider = res.data.data;
+
+                checkFundProviderState();
+                setClassForFundProvider();
+            }, 500), console.error);
+        }
+    };
+
+    $ctrl.fundProviderDecline = (fundProvider) => {
+        FundService.declineProvider(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
             fundProvider.id
-        ).then((res) => {
-            PushNotificationsService.success(
-                'Verborgen!',
-                "Pas de filters aan om verborgen aanbieders terug te vinden."
-            );
-
-            $ctrl.fundProvider = res.data.data;
-            $ctrl.transformProductsList($ctrl.products.data);
-        });
-    };
-
-    $ctrl.updateFundProviderAllow = function(fundProvider, allowType) {
-        FundService.updateProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id,
-            { [allowType]: fundProvider[allowType] }
         ).then((res) => $timeout(() => {
             PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
+
+            checkFundProviderState();
+            setClassForFundProvider();
+            if ($ctrl.organization.manage_provider_products) {
+                $ctrl.onPageChangeSponsorProducts();
+            }
+            $ctrl.onPageChange();
+        }, 500), console.error);
+    };
+
+    $ctrl.fundProviderApprove = (fundProvider) => {
+        FundService.approveProvider(
+            fundProvider.fund.organization_id,
+            fundProvider.fund.id,
+            fundProvider.id
+        ).then((res) => $timeout(() => {
+            PushNotificationsService.success('Opgeslagen!');
+            $ctrl.fundProvider = res.data.data;
+
+            checkFundProviderState();
+            setClassForFundProvider();
+            if ($ctrl.organization.manage_provider_products) {
+                $ctrl.onPageChangeSponsorProducts();
+            }
+            $ctrl.onPageChange();
         }, 500), console.error);
     };
 
@@ -201,7 +228,20 @@ let FundProviderComponent = function(
         if ($ctrl.organization.manage_provider_products) {
             $ctrl.onPageChangeSponsorProducts();
         }
+
+        checkFundProviderState();
+        setClassForFundProvider();
     };
+
+    function setClassForFundProvider() {
+        $ctrl.fundProvider.productToggleClass = $ctrl.fundProvider.active ?
+            ($ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : '')
+            : 'form-toggle-disabled form-toggle-off';
+    }
+
+    function checkFundProviderState() {
+        $ctrl.fundProvider.active = $ctrl.fundProvider.state === 'approved';
+    }
 };
 
 module.exports = {

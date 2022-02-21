@@ -3,31 +3,33 @@
     section.app.app-content
         .block.block-breadcrumbs
             .breadcrumb-item(
-                ui-sref="sponsor-provider-organizations({organization_id: $ctrl.organization.id})" 
+                ui-sref="sponsor-provider-organizations({organization_id: $ctrl.organization.id})"
                 translate="page_state_titles.organization-providers")
             .breadcrumb-item(
-                ui-sref="sponsor-provider-organization({organization_id: $ctrl.organization.id, provider_organization_id:$ctrl.fundProvider.organization.id})" 
+                ui-sref="sponsor-provider-organization({organization_id: $ctrl.organization.id, provider_organization_id:$ctrl.fundProvider.organization.id})"
                 ng-bind="$ctrl.fundProvider.organization.name")
             .breadcrumb-item.active(
                 ng-bind="$ctrl.fundProvider.fund.name")
 
         block-provider-organization-overview(
-            organization="$ctrl.fundProvider.organization" 
-            fund-provider="$ctrl.fundProvider" 
-            update-fund-provider-allow="$ctrl.updateFundProviderAllow")
+            organization="$ctrl.fundProvider.organization"
+            fund-provider="$ctrl.fundProvider"
+            update-fund-provider-allow="$ctrl.updateFundProviderAllow"
+            fund-provider-decline="$ctrl.fundProviderDecline"
+            fund-provider-approve="$ctrl.fundProviderApprove")
 
         //- Products for subsidy fund (managed by sponsor)
         .card(ng-if="$ctrl.organization.manage_provider_products && $ctrl.fundProvider.fund.type == 'subsidies'")
             .card-header: .row
                 .col-lg-8.flex
                     .card-title Aanbod in beheer van {{ $ctrl.organization.name }}
-                    a(ui-sref="fund-provider-product-create($ctrl.stateParams)").button.button-text.button-text.button-text-muted 
+                    a(ui-sref="fund-provider-product-create($ctrl.stateParams)").button.button-text.button-text.button-text-muted
                         em.mdi.mdi-plus-circle.icon-start
                         | Voeg een aanbod toe
                 .col-lg-4: .card-header-drown: .block.block-inline-filters: .form: .form-group: input(
                     ng-model="$ctrl.filtersSponsorProducts.values.q"
                     placeholder="Zoeken").form-control
-            
+
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th.td-narrow Afbeelding
@@ -36,7 +38,7 @@
                     th Bijdrage
                     th Prijs
                     th
-                
+
                 tr(ng-repeat="product in $ctrl.sponsorProducts.data")
                     td.td-narrow: img(ng-src="{{ product.photo ? product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}").td-media
                     td(ng-bind="product.name")
@@ -47,16 +49,16 @@
                     td.td-narrow.text-right: .button-group.flex-end
                         .flex.flex-center(ng-if="product.is_available && product.allowed"): .flex-self-center
                             .tag.tag-success.nowrap.flex
-                                | Subsidie actief 
+                                | Subsidie actief
                                 .mdi.mdi-close.icon-end(ng-click="$ctrl.disableProductItem($ctrl.fundProvider, product)")
                             .hidden
 
                         .flex.flex-center(ng-if="!product.is_available"): .flex-self-center
-                            .tag.tag-text.nowrap Niet beschikbaar 
+                            .tag.tag-text.nowrap Niet beschikbaar
                             .hidden
 
                         a.button.button-primary.button-sm.nowrap(
-                            ng-if="product.is_available && !product.allowed" 
+                            ng-if="$ctrl.fundProvider.active && product.is_available && !product.allowed"
                             ui-sref="fund-provider-product-subsidy-edit(product.subsidyEditParams)")
                             em.mdi.mdi-play.icon-start
                             | Start subsidie
@@ -75,8 +77,8 @@
             .card-section.text-center(ng-if="$ctrl.sponsorProducts.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
                 paginator(
-                    meta="$ctrl.sponsorProducts.meta" 
-                    filters="$ctrl.filtersSponsorProducts.values" 
+                    meta="$ctrl.sponsorProducts.meta"
+                    filters="$ctrl.filtersSponsorProducts.values"
                     on-page-change="$ctrl.onPageChangeSponsorProducts(query)")
 
         //- Products for budget fund (managed by sponsor)
@@ -84,7 +86,7 @@
             .card-header: .row
                 .col-lg-8.flex
                     .card-title Aanbod in beheer van {{ $ctrl.organization.name }}
-                    a(ui-sref="fund-provider-product-create($ctrl.stateParams)").button.button-text.button-text.button-text-muted 
+                    a(ui-sref="fund-provider-product-create($ctrl.stateParams)").button.button-text.button-text.button-text-muted
                         em.mdi.mdi-plus-circle.icon-start
                         | Voeg een aanbod toe
                 .col-lg-4: .card-header-drown: .block.block-inline-filters: .form: .form-group: input(
@@ -93,9 +95,9 @@
 
             .card-section.card-section-success.card-section-narrow(
                 ng-if="$ctrl.fundProvider.allow_products && $ctrl.sponsorProducts.meta.total > 0"): em
-                | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat. 
+                | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat.
                 | Zet de globale instelling uit om individuele producten goed te keuren.
-            
+
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th.td-narrow Afbeelding
@@ -104,7 +106,7 @@
                     th Prijs
                     th Geaccepteerd
                     th
-                
+
                 tr(ng-repeat="product in $ctrl.sponsorProducts.data")
                     td.td-narrow: img(
                         ng-src="{{ product.photo ? product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}").td-media
@@ -112,13 +114,13 @@
                     td(ng-if="product.unlimited_stock") Ongelimiteerd
                     td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
                     td(ng-bind="product.price_locale")
-                    
+
                     td.td-narrow: .form.pull-right: label(
-                        for=("product_{{ product.id }}_enabled") 
-                        ng-class="$ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
+                        for=("product_{{ product.id }}_enabled")
+                        ng-class="$ctrl.fundProvider.productToggleClass").form-toggle
                         input(
-                            type="checkbox" 
-                            id=("product_{{ product.id }}_enabled") 
+                            type="checkbox"
+                            id=("product_{{ product.id }}_enabled")
                             ng-model="product.allowed"
                             ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, product)")
                         .form-toggle-inner: .toggle-input: .toggle-input-dot
@@ -132,16 +134,16 @@
                                     .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
                                     a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Kopieren
-                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken 
+                                    a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken
                                     a(ng-click="$ctrl.deleteProduct(product)").dropdown-item Verwijderen
 
             .card-section.text-center(ng-if="$ctrl.sponsorProducts.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
                 paginator(
-                    meta="$ctrl.sponsorProducts.meta" 
-                    filters="$ctrl.filtersSponsorProducts.values" 
+                    meta="$ctrl.sponsorProducts.meta"
+                    filters="$ctrl.filtersSponsorProducts.values"
                     on-page-change="$ctrl.onPageChangeSponsorProducts(query)")
-        
+
         //- Products for budget fund
         .card(ng-if="$ctrl.fundProvider.fund.type == 'budget'")
             .card-header: .flex-row
@@ -153,9 +155,9 @@
 
             .card-section.card-section-success.card-section-narrow(
                 ng-if="$ctrl.fundProvider.allow_products && $ctrl.products.meta.total > 0"): em
-                | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat. 
+                | U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat.
                 | Zet de globale instelling uit om individuele producten goed te keuren.
-            
+
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th.td-narrow Afbeelding
@@ -164,7 +166,7 @@
                     th Prijs
                     th Geaccepteerd
                     th
-                
+
                 tr(ng-repeat="product in $ctrl.products.data")
                     td.td-narrow: img(
                         ng-src="{{ product.photo ? product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}").td-media
@@ -172,13 +174,13 @@
                     td(ng-if="product.unlimited_stock") Ongelimiteerd
                     td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
                     td(ng-bind="product.price_locale")
-                    
+
                     td.td-narrow: .form.pull-right: label(
-                        for=("product_{{ product.id }}_enabled") 
-                        ng-class="$ctrl.fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''").form-toggle
+                        for=("product_{{ product.id }}_enabled")
+                        ng-class="$ctrl.fundProvider.productToggleClass").form-toggle
                         input(
-                            type="checkbox" 
-                            id=("product_{{ product.id }}_enabled") 
+                            type="checkbox"
+                            id=("product_{{ product.id }}_enabled")
                             ng-model="product.allowed"
                             ng-change="$ctrl.updateAllowBudgetItem($ctrl.fundProvider, product)")
                         .form-toggle-inner: .toggle-input: .toggle-input-dot
@@ -191,7 +193,7 @@
                                     .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
                                     a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Kopieren
-            
+
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
                 paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
@@ -204,7 +206,7 @@
                     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
                         placeholder="Zoeken").form-control
-            
+
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th.td-narrow Afbeelding
@@ -213,7 +215,7 @@
                     th Bijdrage
                     th Prijs
                     th
-                
+
                 tr(ng-repeat="product in $ctrl.products.data")
                     td.td-narrow: img(ng-src="{{ product.photo ? product.photo.sizes.small : './assets/img/placeholders/product-small.png' }}").td-media
                     td(ng-bind="product.name")
@@ -223,7 +225,7 @@
                     td(ng-bind="product.price_locale")
                     td.td-narrow.text-right: .button-group.flex-end
                         a.button.button-primary.button-sm.nowrap(
-                            ng-if="product.is_available && !product.allowed" 
+                            ng-if="$ctrl.fundProvider.active && product.is_available && !product.allowed"
                             ui-sref="fund-provider-product-subsidy-edit(product.subsidyEditParams)")
                             em.mdi.mdi-play.icon-start
                             | Start subsidie
@@ -253,6 +255,6 @@
 
         //- Provider offices
         //- block-provider-organization-offices(offices="$ctrl.fundProvider.offices")
-        
+
         //- Provider employees
         //- block-provider-organization-employees(employees="$ctrl.fundProvider.employees")
