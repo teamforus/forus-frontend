@@ -70,7 +70,7 @@ const FundsComponent = function(
 
         $ctrl.tags.unshift({
             id: null,
-            name: 'Alle categories',
+            name: 'Alle categorieën',
         });
 
         $ctrl.organizations.unshift({
