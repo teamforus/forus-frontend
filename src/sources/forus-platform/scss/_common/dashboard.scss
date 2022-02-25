@@ -1899,12 +1899,13 @@ body {
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
             overflow: hidden;
+            border-right: 1px solid $borderColor;
 
             img {
                 width: 140px;
                 height: 140px;
                 overflow: hidden;
-                background-color: #f1f4f7;
+                background-color: #f9fafa;
             }
         }
 
@@ -3213,17 +3214,23 @@ body {
                 width: 50px;
                 height: 50px;
                 display: flex;
+                border: 1px solid transparent;
                 border-radius: 50px;
+
+                &.empty-icon-img-border {
+                    border-color: lighten($borderColor, 5%);
+                }
             }
         }
 
         .empty-title {
             font: 700 16px/28px $bf;
+            margin: 0px;
         }
 
         .empty-details {
             font: 500 14px/24px $bf;
-            margin: 0 0 20px;
+            margin: 0px;
 
             &:last-child {
                 margin-bottom: 0;
@@ -3233,6 +3240,7 @@ body {
         .empty-actions {
             font: 500 14px $bf;
             display: flex;
+            padding: 15px 0 0;
             justify-content: center;
         }
     }

@@ -347,6 +347,7 @@ module.exports = {
             details: "Transactie details",
             id: "ID",
             bunq_id: "ID bunq",
+            bng_id: "ID BNG",
             statement: "Naam begunstigde",
             bunq: "Transactiekosten",
             fee: "€ 0.10",
