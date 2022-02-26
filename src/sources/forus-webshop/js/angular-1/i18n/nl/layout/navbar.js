@@ -13,6 +13,12 @@ module.exports = {
         groningen: {
             funds:"Aanvragen",
         },
+        waalwijk: {
+            funds:"Aanvragen",
+        },
+        geertruidenberg: {
+            funds:"Regelingen",
+        },
         nijmegen: {
             funds:"Aanvragen",
         }
@@ -23,6 +29,12 @@ module.exports = {
             activate: "Aanvragen",
         },
         groningen: {
+            activate: "Aanvragen",
+        },
+        waalwijk: {
+            activate: "Aanvragen",
+        },
+        geertruidenberg: {
             activate: "Aanvragen",
         },
         nijmegen: {
