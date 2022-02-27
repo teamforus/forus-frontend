@@ -1,10 +1,10 @@
-let ModalVoucherQrCodeComponent = function(
+const ModalVoucherQrCodeComponent = function(
     PushNotificationsService,
     FormBuilderService,
     PrintableService,
     VoucherService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.assigning = $ctrl.assigning || false;
     $ctrl.success = false;
@@ -16,7 +16,7 @@ let ModalVoucherQrCodeComponent = function(
 
     $ctrl.assignType = $ctrl.assignTypes[0];
 
-    $ctrl.onAsignTypeChange = (assignType) => {
+    $ctrl.onAssignTypeChange = (assignType) => {
         if (assignType.key !== 'bsn') {
             delete $ctrl.form.values.bsn;
         }
