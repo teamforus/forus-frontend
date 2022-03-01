@@ -15,10 +15,6 @@ const VoucherService = function(ApiRequest) {
             return ApiRequest.get('/platform/provider/vouchers/' + address + '/products', query);
         };
 
-        this.get = function(address) {
-            return ApiRequest.get('/platform/organizations/' + address);
-        };
-
         this.store = (organization_id, data) => {
             return ApiRequest.post([
                 '/platform/organizations/' + organization_id,
@@ -51,47 +47,27 @@ const VoucherService = function(ApiRequest) {
         };
 
         this.update = (organization_id, voucher_id, query) => {
-            return ApiRequest.patch([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id,
-            ].join(''), query);
-        };
-
-        this.assign = (organization_id, voucher_id, query) => {
-            return ApiRequest.patch([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/assign',
-            ].join(''), query);
-        };
-
-        this.activate = (organization_id, voucher_id, data) => {
-            return ApiRequest.patch([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/activate',
-            ].join(''), data);
-        };
-
-        this.deactivate = (organization_id, voucher_id, data = {}) => {
-            return ApiRequest.patch([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/deactivate',
-            ].join(''), data);
-        };
-
-        this.makeActivationCode = (organization_id, voucher_id) => {
-            return ApiRequest.patch([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/activation-code',
-            ].join(''));
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}`, query);
         };
 
         this.sendToEmail = (organization_id, voucher_id, email) => {
-            return ApiRequest.post([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/send',
-            ].join(''), {
-                email: email
-            });
+            return ApiRequest.post(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/send`, { email });
+        };
+
+        this.assign = (organization_id, voucher_id, data) => {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/assign`, data);
+        };
+
+        this.activate = (organization_id, voucher_id, data) => {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/activate`, data);
+        };
+
+        this.deactivate = (organization_id, voucher_id, data = {}) => {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/deactivate`, data);
+        };
+
+        this.makeActivationCode = (organization_id, voucher_id, data = {}) => {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/activation-code`, data);
         };
 
         this.downloadQRCodesXls = function(organization_id, query) {

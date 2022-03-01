@@ -10,8 +10,9 @@ const VouchersShowComponent = function(
     const $ctrl = this;
     const $str_limit = $filter('str_limit');
     const $translate = $filter('translate');
+
     const $translateDangerZone = (key) => $translate(
-        `modals.danger_zone.update_limit_multiplier.${key}`
+        `modals.danger_zone.increase_limit_multiplier.${key}`
     );
 
     const onStateChanged = function(promise, action = 'deactivation') {
