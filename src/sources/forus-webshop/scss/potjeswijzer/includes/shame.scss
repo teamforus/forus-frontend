@@ -2,7 +2,63 @@
     color: #666 !important;
 }
 
+.section {
+    &.section-fund {
+        .wrapper {
+            width: 1000px;
+        }
+    }
+
+    &.section-faq {
+        .faq {
+            margin: 0;
+
+            .faq-item {
+                .faq-item-header {
+                    color: #4990B5 !important;
+
+                    .faq-item-title {
+                        color: #666;
+                    }
+
+                    .faq-item-chevron-up,
+                    .faq-item-chevron-down {
+                        color: #4990B5 !important;
+                    }
+                }
+
+                &:hover:not(.active) {
+                    .faq-item-header {
+                        color: #4990B5 !important;
+
+                        .faq-item-chevron-up,
+                        .faq-item-chevron-down {
+                            color: #4990B5 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 .block {
+    &.block-fund {
+        .fund-card {
+            box-shadow: none;
+        }
+
+        .fund-content {
+            .fund-details {
+                padding: 0;
+
+                .fund-description {
+                    font: 300 16px/28px $bf;
+                }
+            }
+        }
+    }
+
     &.block-showcase {
         .showcase-layout {
             .showcase-content {
