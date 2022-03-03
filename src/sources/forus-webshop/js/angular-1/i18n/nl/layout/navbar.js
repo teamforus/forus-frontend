@@ -7,9 +7,6 @@ module.exports = {
         providers:"Aanbieders",
         explanation:"Uitleg",
         identity:"Profiel",
-        potjeswijzer: {
-            funds:"Potjes",
-        },
         groningen: {
             funds:"Aanvragen",
         },
@@ -25,9 +22,6 @@ module.exports = {
     },
     buttons: {
         activate: "Activeren",
-        potjeswijzer: {
-            activate: "Aanvragen",
-        },
         groningen: {
             activate: "Aanvragen",
         },
