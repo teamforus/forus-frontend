@@ -4731,6 +4731,23 @@ body {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         font: 400 13px/20px $bf;
         margin-bottom: 15px;
+
+        .block-information-icon {
+            margin: auto 10px auto 0;
+            color: #009EF4;
+            font-size: 15px;
+        }
+
+        .block-information-info {
+            font: 500 13px/18px $bf;
+            color: #646F79;
+
+            a {
+                color: #009EF4;
+                font-size: 13px;
+                font-weight: 500;
+            }
+        }
     
         &.block-information-danger {
             background: #fcfaf6;
