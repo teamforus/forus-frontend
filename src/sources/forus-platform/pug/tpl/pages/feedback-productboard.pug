@@ -1,0 +1,89 @@
+.app.app-container
+    menu
+    section.app.app-content: .block.block-feedback-productboard
+        .card(ng-if="$ctrl.state == 'fill_data'"): form(ng-submit="$ctrl.previewAddedData()").form
+            .card-header
+                .card-title(i18n="components.feedback_productboard.title")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9
+                .form-group.form-group-inline
+                    label(translate="components.feedback_productboard.labels.email").form-label
+                    input(ng-model="$ctrl.form.values.email" type="text" disabled).form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
+            
+                .form-group.form-group-inline
+                    label(translate="components.feedback_productboard.labels.title").form-label
+                    input(ng-model="$ctrl.form.values.title" type="text").form-control.r-n
+                    .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
+            
+                .form-group.form-group-inline
+                    label(translate="components.feedback_productboard.labels.urgency").form-label
+                    select(
+                        ng-model="$ctrl.form.values.tags" 
+                        ng-options="tag.key as tag.name for tag in $ctrl.tags").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors['tags.0']" ng-bind="error")
+
+                .form-group.form-group-inline
+                    label(translate="components.feedback_productboard.labels.content").form-label
+                    textarea(
+                        maxlength="4000"
+                        ng-model="$ctrl.form.values.content").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.content" ng-bind="error")
+
+            .card-section.card-section-primary: .text-center
+                button(type="button" translate="components.feedback_productboard.buttons.cancel").button.button-default
+                button(type="submit" translate="components.feedback_productboard.buttons.confirm").button.button-primary
+
+        
+        .card(ng-if="$ctrl.state == 'confirm_form_data'"): form(ng-submit="$ctrl.form.submit()").form
+            .card-header
+                .card-title(i18n="components.feedback_productboard.title")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9: .form-data-preview
+                .form-group.form-group-inline
+                    label(translate="components.feedback_productboard.labels.email").form-label
+                    span(ng-bind="$ctrl.form.values.email").form-input-data
+            
+                .form-group.form-group-inline
+                    label(translate="components.feedback_productboard.labels.title").form-label
+                    span(ng-bind="$ctrl.form.values.title").form-input-data
+
+                .form-group.form-group-inline(ng-if="$ctrl.selectedTag.key")
+                    label(translate="components.feedback_productboard.labels.urgency").form-label
+                    span(ng-bind="$ctrl.selectedTag['name']").form-input-data
+
+                .form-group.form-group-inline
+                    label(translate="components.feedback_productboard.labels.content").form-label
+                    span(ng-bind="$ctrl.form.values.content").form-input-data
+
+            .card-section.card-section-primary: .text-center
+                button(type="button" translate="components.feedback_productboard.buttons.back" ng-click="$ctrl.state = 'fill_data'").button.button-default
+                button(type="submit" translate="components.feedback_productboard.buttons.send" ng-click="$ctrl.form.submit()").button.button-primary 
+
+        
+        .card(ng-if="$ctrl.state == 'submit_success'"): form(ng-submit="$ctrl.form.submit()").form
+            .card-header
+                .card-title(i18n="components.feedback_productboard.title")
+
+            .card-section.card-section-primary
+                .block.block-feedback-result: .text-center
+                    img(src="./assets/img/productboard-success.svg")
+                    .feedback-result-title(translate="components.feedback_productboard.submit_success.title")
+                    .feedback-result-info(translate="components.feedback_productboard.submit_success.info")
+
+            .card-section.card-section-primary: .text-center
+                button(type="submit" translate="components.feedback_productboard.buttons.confirm" ng-click="$ctrl.startNewNote()").button.button-primary  
+
+        
+        .card(ng-if="$ctrl.state == 'submit_failure'"): form(ng-submit="$ctrl.form.submit()").form
+            .card-header
+                .card-title(i18n="components.feedback_productboard.title")
+            
+            .card-section.card-section-primary
+                .block.block-feedback-result: .text-center
+                    img(src="./assets/img/productboard-failure.svg")
+                    .feedback-result-title(translate="components.feedback_productboard.submit_failure.title")
+                    .feedback-result-info(translate="components.feedback_productboard.submit_failure.info")
+
+            .card-section.card-section-primary: .text-center
+                button(type="submit" translate="components.feedback_productboard.buttons.confirm" ng-click="$ctrl.startNewNote()").button.button-primary        

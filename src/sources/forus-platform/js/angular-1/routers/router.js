@@ -1265,6 +1265,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
+        name: 'feedback-productboard',
+        url: '/feedback-productboard',
+        component: 'feedbackProductBoardComponent'
+    });
+
+    $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",
         data: {
