@@ -1,0 +1,17 @@
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+
+        .modal-header(translate="modal_fund_request_assign.header.title")
+        .modal-body.form
+            .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .form-group
+                label.form-label(translate="modal_fund_request_assign.label.employees")
+                select(
+                    ng-options="employee.identity_address as employee.email for employee in $ctrl.employees"
+                    ng-model="$ctrl.form.values.employee").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.employee" ng-bind="error")
+
+        .modal-footer.text-center
+            button.button.button-default(type="button" translate="modal_fund_request_assign.buttons.close" ng-click="$ctrl.closeAnimated()")
+            button.button.button-primary(type="submit" translate="Bevestig")

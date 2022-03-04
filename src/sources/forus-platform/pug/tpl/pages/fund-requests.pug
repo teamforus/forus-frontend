@@ -145,11 +145,11 @@
                             ng-click='$ctrl.requestAssign(validatorRequest)')
 
                             em.mdi.mdi-account-plus.icon-start
-                            | Toewijzen aan mij
+                            | {{ $ctrl.can_manage_validators ? 'Toewijzen' : 'Toewijzen aan mij' }}
 
                         //- Resign request
                         button.button.button-primary-light(
-                            ng-if="validatorRequest.has_assigned_pending && !validatorRequest.has_assigned_disregarded" 
+                            ng-if="validatorRequest.can_resign"
                             ng-click='$ctrl.requestResign(validatorRequest)')
 
                             em.mdi.mdi-account-minus.icon-start
@@ -212,13 +212,13 @@
                             .text-muted(translate='validation_requests.status.{{ record.state }}')
 
                         td.text-right(ng-if="record.state == 'pending' && !record.is_assigned")
-                            .text-muted(ng-if="validatorRequest.employee_id")
-                                | Toegewezen aan: {{ validatorRequest.employee.email }}
-                            .text-muted(ng-if="!validatorRequest.employee_id && record.is_assignable")
+                            .text-muted(ng-if="record.employee_id")
+                                | Toegewezen aan: {{ record.employee.email }}
+                            .text-muted(ng-if="!record.employee_id && record.is_assignable")
                                 | Zelf toewijzen
-                            .text-muted(ng-if="!validatorRequest.employee_id && !record.is_assignable")
+                            .text-muted(ng-if="!record.employee_id && !record.is_assignable")
                                 | Niet beschikbaar
-                        
+
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
                                 .button.button-primary.button-icon(ng-click='$ctrl.declineRecord(validatorRequest, record)' ng-if='$root.appConfigs.flags.singleRecordValidation')

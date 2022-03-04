@@ -32,6 +32,19 @@ let FundRequestValidatorService = function(ApiRequest) {
             );
         };
 
+        this.assignBySupervisor = function(organziation_id, request_id, values = {}) {
+            return ApiRequest.patch(
+                sprintf(uriPrefixAll + '/%s/assign-employee', organziation_id, request_id),
+                values
+            );
+        };
+
+        this.resignBySupervisor = function(organziation_id, request_id) {
+            return ApiRequest.patch(
+                sprintf(uriPrefixAll + '/%s/resign-employee', organziation_id, request_id)
+            );
+        };
+
         this.assign = function(organziation_id, request_id) {
             return ApiRequest.patch(
                 sprintf(uriPrefixAll + '/%s/assign', organziation_id, request_id)

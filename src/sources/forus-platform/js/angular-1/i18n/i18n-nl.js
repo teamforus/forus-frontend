@@ -1514,6 +1514,18 @@ module.exports = {
         }
     },
 
+    modal_fund_request_assign: {
+        header: {
+            title: "Toewijzen"
+        },
+        buttons: {
+            close: "Sluiten",
+        },
+        label: {
+            employees: "Kies een medewerker"
+        }
+    },
+
     modal_pdf_preview: {
         header: {
             title: "PDF-voorbeeld"
