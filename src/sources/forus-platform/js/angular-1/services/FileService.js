@@ -10,7 +10,7 @@ let FileService = function(
             file_data,
             file_type = 'text/csv;charset=utf-8;'
         ) => {
-            var blob = new Blob([file_data], {
+            const blob = file_data instanceof Blob ? file_data : new Blob([file_data], {
                 type: file_type,
             });
 
@@ -20,6 +20,24 @@ let FileService = function(
             } else {
                 window.saveAs(blob, file_name);
             }
+        };
+
+        this.base64ToBlob = (b64Data, contentType = '', sliceSize = 512) => {
+            const byteCharacters = atob(b64Data);
+            const byteArrays = [];
+
+            for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                const slice = byteCharacters.slice(offset, offset + sliceSize);
+                const byteNumbers = new Array(slice.length);
+
+                for (let i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+
+                byteArrays.push(new Uint8Array(byteNumbers));
+            }
+
+            return new Blob(byteArrays, { type: contentType });
         };
 
         this.download = function(file) {

@@ -1,99 +1,54 @@
-.modal.modal-export-data.modal-export-data-narrow.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated(
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     
-    //- Select type
     .modal-window: form.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-header(i18n="modals.modal_export_data.title")
 
-        .modal-body: .modal-section
-            .export-data-options-block: .form-group
-                label.form-label.export-data-options-label(translate="modals.modal_export_data.labels.export_file_format")
-
-                .export-data-options-list
-                    label.radio.radio-inline.export-data-option
-                        em.mdi.mdi-account-details-outline.export-data-option-icon
-
-                        input(
-                            ng-disabled="{{disabled}}"
-                            type="radio"
-                            ng-click="$ctrl.changeFileType('csv')"
-                            ng-checked="$ctrl.form.values.fileType == 'csv'")
-                        .radio-label.export-data-option-label
-                            | {{ 'modals.modal_export_data.modal_section.export_type_csv' | i18n }} 
-                            .radio-circle
-
-                    label.radio.radio-inline.export-data-option
-                        em.mdi.mdi-account-details-outline.export-data-option-icon
-
-                        input(
-                            ng-disabled="{{disabled}}"
-                            type="radio"
-                            ng-click="$ctrl.changeFileType('xls')"
-                            ng-checked="$ctrl.form.values.fileType == 'xls'")
-                        .radio-label.export-data-option-label
-                            | {{ 'modals.modal_export_data.modal_section.export_type_xls' | i18n }}
-                            .radio-circle
-
-            .export-data-options-block: .form-group
-                .export-data-row
-                    label.form-label.flex-grow.export-data-options-label(translate="modals.modal_export_data.labels.export_fields")
-
-                    .button.button-text.button-narrow: label(for="fields_check_all").form-toggle
-                        input(type="checkbox" id="fields_check_all" ng-model="$ctrl.enableAllFields" ng-click="$ctrl.checkAllFields()")
+        .modal-body: .modal-section: .block.block-export-options
+            .export-section(ng-repeat="section in $ctrl.sections")
+                .export-section-label.flex
+                    .flex.flex-grow.flex-vertical.flex-center: .form-label(ng-bind="section.title")
+                    .flex(ng-if="section.type === 'checkbox'"): label(for="checkbox_{{ section.key }}_check_all").form-toggle
+                        input(type="checkbox" id="checkbox_{{ section.key }}_check_all" ng-model="section.selectAll" ng-click="$ctrl.toggleAllFields(section)")
                         .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
 
-                .export-data-options-list
-                    table
-                        tr(ng-repeat="rowFields in $ctrl.form.values.exportFields")
-                            td(ng-repeat="field in rowFields")
-                                input-checkbox-control(
-                                    compact="true"
-                                    name="{{ field.key }}" 
-                                    label="{{ field.name }}" 
-                                    ng-model="field.enabled")
+                //- Checkboxes
+                .export-options(ng-if="section.type === 'checkbox'"): table
+                    tr(ng-repeat="row in section.fieldsView")
+                        td(ng-repeat="field in row")
+                            input-checkbox-control(
+                                narrow="true"
+                                name="checkbox_{{ section.key }}_{{ field.key }}"
+                                label="{{ field.name }}"
+                                ng-model="field.selected"
+                                ng-change="$ctrl.updateSelectedFields(section)")
 
-            .export-data-options-block: .form-group
-                label.form-label.export-data-options-label(translate="modals.modal_export_data.labels.attach_qr_codes")
-
-                .export-data-options-list.qr-codes-options-list
-                    label.radio.radio-inline.export-data-option
-                        em.mdi.mdi-cancel.export-data-option-icon
-
+                //- Radio
+                .export-options(ng-if="section.type === 'radio'")
+                    label.export-option(
+                        ng-repeat="field in section.fields" 
+                        for="radio_{{ section.key }}_{{ field.value }}")
                         input(
-                            ng-disabled="{{disabled}}"
                             type="radio"
-                            ng-click="$ctrl.changeQrCodesExportType('none')"
-                            ng-checked="$ctrl.form.values.qrCodesExportType == 'none'")
-                        .radio-label.export-data-option-label
-                            | Geen
-                            .radio-circle
+                            id="radio_{{ section.key }}_{{ field.value }}"
+                            value="{{ field.value }}"
+                            ng-model="section.value")
 
-                    label.radio.radio-inline.export-data-option
-                        em.mdi.mdi-file-pdf-box.export-data-option-icon
-
-                        input(
-                            ng-disabled="{{disabled}}"
-                            type="radio"
-                            ng-click="$ctrl.changeQrCodesExportType('pdf')"
-                            ng-checked="$ctrl.form.values.qrCodesExportType == 'pdf'")
-                        .radio-label.export-data-option-label
-                            | PDF
-                            .radio-circle
-
-                    label.radio.radio-inline.export-data-option
-                        em.mdi.mdi-image-outline.export-data-option-icon
-
-                        input(
-                            ng-disabled="{{disabled}}"
-                            type="radio"
-                            ng-click="$ctrl.changeQrCodesExportType('png')"
-                            ng-checked="$ctrl.form.values.qrCodesExportType == 'png'")
-                        .radio-label.export-data-option-label
-                            | Afbeelding
-                            .radio-circle
-
+                        .export-option-label
+                            .export-option-icon.mdi(ng-class="'mdi-' + field.icon")
+                            span(ng-bind="field.label")
+                            .export-option-circle
 
         .modal-footer.text-center
-            button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_create.buttons.cancel")
-            button.button.button-primary(type="button" ng-click="$ctrl.form.submit()" i18n="modals.modal_export_data.buttons.submit")
+            button.button.button-default(
+                type="button" 
+                ng-click="$ctrl.close()" 
+                i18n="modals.modal_voucher_create.buttons.cancel")
+
+            button.button.button-primary(
+                ng-disabled="!$ctrl.isValid"
+                type="button" 
+                ng-click="$ctrl.onSubmit()" 
+                i18n="modals.modal_export_data.buttons.submit")
