@@ -14,7 +14,10 @@
             border: 1px solid transparent;
 
             .organization-pane-info {
+                padding: 20px 15px;
                 align-items: center;
+                display: flex;
+                flex-grow: 1;
 
                 .organization-logo {
                     margin: -10px 15px -10px 0;
@@ -57,11 +60,13 @@
                     }
 
                     .organization-page-link {
+                        display: flex;
                         font: 600 12px/14px $bf;
                         color: #595959;
 
-                        em {
+                        .mdi {
                             font-size: 18px;
+                            line-height: 14px;
                         }
                     }
                 }
@@ -70,18 +75,22 @@
             .organization-pane-collapse {
                 align-items: center;
                 border-left: 1px solid #d7d7d7;
+                padding: 25px;
                 margin: 0;
+                display: flex;
 
-                .organization-total-offices, .organization-total-offices-count {
-                    font: 600 14px/22px $bf;
+                .organization-total-offices, 
+                .organization-total-offices-count {
+                    font: 600 14px/20px $bf;
                     color: #595959;
                 }
 
                 .organization-total-offices-count {
-                    width: 21px;
-                    height: 21px;
-                    margin-left: auto;
-                    line-height: 21px;
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 15px;
+                    min-width: 20px;
+                    line-height: 20px;
                     border-radius: 50%;
                     font-size: 13px;
                     text-align: center;
@@ -100,7 +109,7 @@
                     font-size: 20px;
                     color: #595959;
                     cursor: pointer;
-                    transform: .4s;
+                    transition: .4s;
                     margin-right: 10px;
     
                     .mdi {
@@ -112,14 +121,6 @@
                         color: $color_primary;
                     }
                 }
-            }
-
-            .organization-pane-info {
-                padding: 25px 15px;
-            }
-
-            .organization-pane-collapse {
-                padding: 25px;
             }
 
             &.active {
@@ -211,5 +212,31 @@
 
     &:last-child {
         margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .organization-item {
+            .organization-pane {
+                .organization-pane-info {
+                    padding: 15px 10px;
+                }
+
+                .organization-pane-collapse {
+                    padding: 15px 10px;
+
+                    .organization-chevron {
+                        margin-right: 0;
+                    }
+
+                    .organization-total-offices {
+                        display: none;
+                    }
+
+                    .organization-total-offices-count {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
 }
