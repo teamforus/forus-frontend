@@ -28,42 +28,50 @@ block content
                                     placeholder="Zoek aanbieder" 
                                     type="search"
                                     aria-label="Zoeken")
+                                .form-error(ng-repeat="error in $ctrl.form.errors.q" ng-bind="error")
 
                             .form-group
-                                label.form-label(for="select_provider_type") Type aanbieder
+                                label.form-label(for="business_type_id") Type aanbieder
                                 select-control(
+                                    prop="id"
                                     autoclear="true"
-                                    ng-model="$ctrl.form.values.businessType"
+                                    ng-model="$ctrl.form.values.business_type_id"
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer type..."
-                                    id="select_provider_type")                        
+                                    id="business_type_id")
+                                .form-error(ng-repeat="error in $ctrl.form.errors.business_type_id" ng-bind="error")
 
                             .form-group
-                                label.form-label(for="select_fund") Tegoeden
+                                label.form-label(for="fund_id") Tegoeden
                                 select-control(
+                                    prop="id"
                                     autoclear="true"
                                     ng-model="$ctrl.form.values.fund"
                                     options="$ctrl.funds"
                                     placeholder="Selecteer tegoed..."
-                                    id="select_fund")
+                                    id="fund_id")
+                                .form-error(ng-repeat="error in $ctrl.form.errors.fund_id" ng-bind="error")
 
                             .row
                                 .col.col-md-6: .form-group
-                                    label.form-label(for="distance") Postcode
+                                    label.form-label(for="postcode") Postcode
                                     input.form-control(
                                         ng-model="$ctrl.form.values.postcode"
                                         placeholder="Postcode"
                                         type="text"
                                         aria-label="Postcode...")
+                                    .form-error(ng-repeat="error in $ctrl.form.errors.postcode" ng-bind="error")
 
                                 .col.col-md-6: .form-group
                                     label.form-label(for="distance") Afstand
                                     select-control(
+                                        prop="id"
                                         autoclear="true"
                                         ng-model="$ctrl.form.values.distance"
                                         options="$ctrl.distances"
                                         placeholder="Afstand..."
                                         id="distance")
+                                    .form-error(ng-repeat="error in $ctrl.form.errors.distance" ng-bind="error")
 
                             +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
 
@@ -90,7 +98,7 @@ block content
                                         em.mdi.mdi-map-marker-radius.icon-start
                                         | Kaart
 
-                        .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
+                        .block.block-organizations(ng-if="!$ctrl.showMap" ng-show="$ctrl.providers.data.length > 0" id="providers_list")
                             provider-list-item(
                                 ng-repeat="provider in $ctrl.providers.data"
                                 provider="provider")
