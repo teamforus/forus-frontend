@@ -15,6 +15,7 @@ let FundRequestsComponent = function(
     appConfigs
 ) {
     let $ctrl = this;
+    $ctrl.extendedView = localStorage.getItem('validator_requests.extended_view') === 'true';
 
     let showInfoModal = (title, message) => ModalService.open('modalNotification', {
         type: 'info',
@@ -71,6 +72,13 @@ let FundRequestsComponent = function(
 
     $ctrl.hideFilters = () => {
         $timeout(() => $ctrl.filters.show = false);
+    };
+
+    $ctrl.setExtendedView = function(extendedView) {
+        localStorage.setItem('validator_requests.extended_view', extendedView)
+        $ctrl.extendedView = extendedView;
+
+        $ctrl.validatorRequests.data.forEach(request => request.collapsed = $ctrl.extendedView);
     };
 
     $ctrl.reloadRequest = (request) => {
@@ -304,7 +312,7 @@ let FundRequestsComponent = function(
 
             request.record_types = request.records.map(record => record.record_type_key);
             request.records.forEach(record => record.shown = true);
-            request.collapsed = request.state != 'pending' && request.state != 'disregarded';
+            request.collapsed = $ctrl.extendedView;
             request.is_sponsor_employee = $ctrl.employee && $ctrl.employee.organization_id === request.fund.organization_id;
 
             request.has_assigned_pending = recordsAssigned.filter((record) => record.state === 'pending').length > 0;

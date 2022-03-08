@@ -4,6 +4,14 @@
         .card-heading: .row
             .col.col-lg-3.col-xs-12 Aanvragen ({{ $ctrl.validatorRequests.meta.total }})
             .block.block-inline-filters.col.col-lg-9.col-xs-12.text-right
+                .button.button-primary(ng-if="!$ctrl.extendedView" ng-click="$ctrl.setExtendedView(true)")
+                    em.mdi.mdi-arrow-expand-vertical.icon-start
+                    | Alles uitklappen
+
+                .button.button-primary(ng-if="$ctrl.extendedView" ng-click="$ctrl.setExtendedView(false)")
+                    em.mdi.mdi-arrow-collapse-vertical.icon-start
+                    | Alles inklappen
+
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                     em.mdi.mdi-close.icon-start 
                     span(i18n="validation_requests.buttons.clear_filter")
