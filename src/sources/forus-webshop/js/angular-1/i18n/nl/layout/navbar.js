@@ -16,6 +16,9 @@ module.exports = {
         geertruidenberg: {
             funds:"Regelingen",
         },
+        westerkwartier: {
+            funds:"Potjes",
+        },
         nijmegen: {
             funds:"Aanvragen",
         }
@@ -29,6 +32,9 @@ module.exports = {
             activate: "Aanvragen",
         },
         geertruidenberg: {
+            activate: "Aanvragen",
+        },
+        westerkwartier: {
             activate: "Aanvragen",
         },
         nijmegen: {
