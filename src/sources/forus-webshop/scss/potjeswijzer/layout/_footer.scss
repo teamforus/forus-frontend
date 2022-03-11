@@ -40,6 +40,13 @@
                     height: inherit !important;
                 }
 
+                @media screen and (max-width: 1000px) { 
+                    img {
+                        height: 40px !important;
+                    }
+    
+                }
+
                 h3, p{
                     color: #ffffff;
                 }
