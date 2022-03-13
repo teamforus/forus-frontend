@@ -1,3 +1,5 @@
+//- Check removal
+
 &.block-markdown {
     text-align: justify;
     font: 400 16px/24px $bf;
@@ -6,14 +8,14 @@
     h1 {
         font: 500 2.5em $hf;
         color: $htc;
-        margin: 30px 0 30px 0;
+        margin: 0 0 0.6em;
         text-align: left;
     }
 
     h2 {
         font: 500 2em $hf;
         color: $htc;
-        margin: 30px 0 30px 0;
+        margin: 0 0 0.7em;
         text-align: left;
     }
 

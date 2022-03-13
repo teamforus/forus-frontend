@@ -159,11 +159,6 @@
             margin: 0.9em 0 0.9em 0;
             color: $fc;
         }
-        
-        .block.block-markdown img {
-            width: auto !important;
-            height: auto !important;
-        }
 
         .footer-nav {
             .footer-nav-item {
@@ -183,7 +178,7 @@
 
                 a {
                     color: $fc-link;
-                    font: 400 14px/24px $bf;
+                    font: 400 16px/1.5em $bf;
                     transition: color 0.4s;
                 }
 

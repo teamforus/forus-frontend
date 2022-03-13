@@ -82,9 +82,9 @@ main(id="main-content")
             ng-if="$ctrl.fund.description_html"
             ng-bind-html="$ctrl.fund.description_html")
 
-        section.section.section-faq(ng-if="$ctrl.fund.faq"): .wrapper
+        section.section.section-faq(ng-if="$ctrl.fund.faq")
             .section-splash
-            .section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
+            h2.section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
 
             .faq.faq-fund
                 .faq-item(collapse ng-repeat="question in $ctrl.fund.faq" class=active ? 'active' : '' collapse-item)
