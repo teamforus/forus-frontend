@@ -7,7 +7,7 @@ module.exports = {
         providers:"Aanbieders",
         explanation:"Uitleg",
         identity:"Profiel",
-        potjeswijzer: {
+        westerkwartier: {
             funds:"Potjes",
         },
         groningen: {
@@ -25,7 +25,7 @@ module.exports = {
     },
     buttons: {
         activate: "Activeren",
-        potjeswijzer: {
+        westerkwartier: {
             activate: "Aanvragen",
         },
         groningen: {
