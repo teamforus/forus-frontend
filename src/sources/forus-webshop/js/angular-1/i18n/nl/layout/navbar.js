@@ -19,9 +19,12 @@ module.exports = {
         geertruidenberg: {
             funds:"Regelingen",
         },
+        potjeswijzer: {
+            funds:"Potjes",
+        },
         nijmegen: {
             funds:"Aanvragen",
-        }
+        },
     },
     buttons: {
         activate: "Activeren",
@@ -35,6 +38,9 @@ module.exports = {
             activate: "Aanvragen",
         },
         geertruidenberg: {
+            activate: "Aanvragen",
+        },
+        potjeswijzer: {
             activate: "Aanvragen",
         },
         nijmegen: {
