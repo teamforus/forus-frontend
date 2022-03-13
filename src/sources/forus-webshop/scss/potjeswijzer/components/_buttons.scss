@@ -1,4 +1,6 @@
 .button {
+    border-radius: 5px;
+
     &.button-default {
         background-color: $lb;
         border-color: $color_default;
@@ -23,13 +25,23 @@
         color: #666;
         background: $color_primary;
         border: $color_primary;
-        box-shadow: 0 10px 15px -6px #969696;
         text-shadow: none;
         
         &:hover {
             color: #666;
             background: $color_primary_light;
             background-color: $color_primary_light;
+        }
+    }
+
+    &.button-primary-outline {
+        color: #fff;
+        border: 1px solid #498fb4;
+        background: #498fb4;
+
+        &:hover {
+            background: transparent;
+            color: #498fb4;
         }
     }
     
