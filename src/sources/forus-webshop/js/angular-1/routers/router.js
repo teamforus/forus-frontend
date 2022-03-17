@@ -733,7 +733,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "fund",
-        url: "/funds/{id}",
+        url: "/funds/{id:int}",
         component: "fundComponent",
         data: { id: null, searchData: null },
         params: { searchData: null },

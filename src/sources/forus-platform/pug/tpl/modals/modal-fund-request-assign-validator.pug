@@ -8,10 +8,10 @@
             .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .form-group
                 label.form-label(translate="modal_fund_request_assign.label.employees")
                 select(
-                    ng-options="employee.identity_address as employee.email for employee in $ctrl.employees"
-                    ng-model="$ctrl.form.values.employee").form-control
-                .form-error(ng-repeat="error in $ctrl.form.errors.employee" ng-bind="error")
+                    ng-options="employee.id as employee.email for employee in $ctrl.employees"
+                    ng-model="$ctrl.form.values.employee_id").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.employee_id" ng-bind="error")
 
         .modal-footer.text-center
-            button.button.button-default(type="button" translate="modal_fund_request_assign.buttons.close" ng-click="$ctrl.closeAnimated()")
+            button.button.button-default(type="button" translate="modal_fund_request_assign.buttons.close" ng-click="$ctrl.close()")
             button.button.button-primary(type="submit" translate="Bevestig")

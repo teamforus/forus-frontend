@@ -1358,8 +1358,8 @@ module.exports = {
         },
         buttons: {
             show: "Bekijk eigenschappen",
-            allaccept: "Accepteren",
-            alldecline: "Weigeren",
+            accept_all: "Accepteren",
+            decline_all: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
             disregard: "Niet behandelen",

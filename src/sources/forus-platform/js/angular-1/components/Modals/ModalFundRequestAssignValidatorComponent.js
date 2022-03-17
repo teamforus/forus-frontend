@@ -1,5 +1,4 @@
 const ModalFundRequestAssignValidatorComponent = function(
-    $timeout,
     FormBuilderService,
     PageLoadingBarService,
     FundRequestValidatorService
@@ -7,48 +6,41 @@ const ModalFundRequestAssignValidatorComponent = function(
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.employees = $ctrl.modal.scope.employees;
+        const { confirm, employees, organization, fundRequest } = $ctrl.modal.scope;
+
+        $ctrl.confirm = confirm;
+        $ctrl.employees = employees;
 
         $ctrl.form = FormBuilderService.build({
-            employee: $ctrl.employees[0].identity_address
+            employee_id: $ctrl.employees[0]?.id
         }, (form) => {
             PageLoadingBarService.setProgress(0);
 
             FundRequestValidatorService.assignBySupervisor(
-                $ctrl.modal.scope.organization.id,
-                $ctrl.modal.scope.fundRequest.id,
+                organization.id,
+                fundRequest.id,
                 form.values
-            ).then(res => {
-                PageLoadingBarService.setProgress(100);
-                $ctrl.modal.scope.confirm(res.data.data);
+            ).then((res) => {
+                $ctrl.confirm(res.data.data);
                 $ctrl.close();
-            }, res => {
-                PageLoadingBarService.setProgress(100);
+            }, (res) => {
                 form.errors = res.data.errors;
                 form.unlock();
-            });
+            }).finally(() => PageLoadingBarService.setProgress(100));
         });
-    };
-
-    $ctrl.closeAnimated = () => {
-        $ctrl.loaded = false;
-        $timeout(() => $ctrl.close(), 250);
     };
 };
 
 module.exports = {
     bindings: {
         close: '=',
-        modal: '='
+        modal: '=',
     },
     controller: [
-        '$timeout',
         'FormBuilderService',
         'PageLoadingBarService',
         'FundRequestValidatorService',
         ModalFundRequestAssignValidatorComponent
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-fund-request-assign-validator.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-fund-request-assign-validator.html',
 };

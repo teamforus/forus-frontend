@@ -36,7 +36,7 @@
                             .form-group
                                 form-label-toggle(label="{{ 'validation_requests.labels.assigned_to' | i18n }}")
                                 select(
-                                    ng-options="employee.id as employee.email for employee in $ctrl.employees" 
+                                    ng-options="employee.id as employee.email for employee in $ctrl.employees.data" 
                                     ng-model="$ctrl.filters.values.employee_id").form-control
                             .form-group
                                 form-label-toggle(label="{{ 'validation_requests.labels.from' | i18n }}")
@@ -124,40 +124,58 @@
                             .tooltip-content(
                                 ng-if="validatorRequest.showCriteria" 
                                 click-outside="$ctrl.hideFundCriteria($event, validatorRequest)"): ul.tooltip-list
-                                li(ng-repeat="critera in validatorRequest.fund.criteria").tooltip-list-item
+                                li(ng-repeat="criterion in validatorRequest.fund.criteria").tooltip-list-item
                                     em.mdi.mdi-check
-                                    | {{ critera.record_type_name }} moet 
-                                    span(ng-if="critera.operator == '>'") meer dan 
-                                    span(ng-if="critera.operator == '='") 
-                                    span(ng-if="critera.operator == '<'") minder dan 
-                                    | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                                    | {{ criterion.record_type_name }} moet 
+                                    span(ng-if="criterion.operator == '>'") meer dan 
+                                    span(ng-if="criterion.operator == '='") 
+                                    span(ng-if="criterion.operator == '<'") minder dan 
+                                    | {{ criterion.record_type_key == 'net_worth' ? '€' : '' }}{{ criterion.value }}.
                 
                 .card-block.card-block-listing(ng-if="validatorRequest.note")
                     .card-block-listing-label Reden van weigeren
                     .card-block-listing-value
                         span(ng-bind="validatorRequest.note")
             
-            .card-header(ng-hide='validatorRequest.collapsed' state="{{ validatorRequest.state }}" assigned="{{ validatorRequest.is_assigned }}")
-                .arrow-box.border.bg-dim: .arrow
-                .card-title: .flex-row
-                    .flex.flex-grow(ng-if="!validatorRequest.is_assigned" translate='validation_requests.labels.records')
-                    .flex.flex-grow(ng-if="validatorRequest.is_assigned")
-                        .button.button-text(ng-if="validatorRequest.record_types.indexOf('partner_bsn') === -1" ng-click="$ctrl.appendRecord(validatorRequest)")
-                            | {{ 'validation_requests.labels.records' | translate }}
-                            em.mdi.mdi-plus-circle.icon-end.text-primary
+            .card-header.card-header-cursor-default(
+                ng-hide='validatorRequest.collapsed' 
+                state="{{ validatorRequest.state }}" 
+                assigned="{{ validatorRequest.is_assigned }}")
 
-                    .flex(ng-show="validatorRequest.state == 'pending' || validatorRequest.state == 'disregarded'")
-                        //- Assign request
-                        button.button.button-primary(
-                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assignable"
-                            ng-click='$ctrl.requestAssign(validatorRequest)')
+                .arrow-box.border.bg-dim: .arrow
+                .card-title.card-title-sm: .flex
+                    .flex.flex-grow
+                        translate(
+                            ng-if="!validatorRequest.isSponsorEmployee || !validatorRequest.is_assigned" 
+                            translate="validation_requests.labels.records")
+
+                        .button.button-text(
+                            ng-if="validatorRequest.isSponsorEmployee && validatorRequest.is_assigned && !validatorRequest.record_types.includes('partner_bsn')" 
+                            ng-click="$ctrl.appendRecord(validatorRequest)")
+                            translate(translate="validation_requests.labels.records")
+                            .mdi.mdi-plus-circle.icon-end.text-primary
+
+                    .flex-row(ng-show="validatorRequest.state == 'pending' || validatorRequest.state == 'disregarded'")
+                        //- Assign myself
+                        button.button(
+                            ng-if="validatorRequest.is_assignable"
+                            ng-click='$ctrl.assignRequest(validatorRequest)'
+                            ng-class="validatorRequest.is_assignable_as_supervisor ? 'button-default' : 'button-primary'")
 
                             em.mdi.mdi-account-plus.icon-start
-                            | {{ $ctrl.can_manage_validators ? 'Toewijzen' : 'Toewijzen aan mij' }}
+                            | Toewijzen aan mij
+
+                        //- Assign someone else
+                        button.button.button-primary(
+                            ng-if="validatorRequest.is_assignable_as_supervisor"
+                            ng-click='$ctrl.assignRequestAsSupervisor(validatorRequest)')
+
+                            em.mdi.mdi-account-details-outline.icon-start
+                            | Toewijzen
 
                         //- Resign request
                         button.button.button-primary-light(
-                            ng-if="validatorRequest.can_resign"
+                            ng-if="validatorRequest.can_resign || validatorRequest.can_resign_as_supervisor"
                             ng-click='$ctrl.requestResign(validatorRequest)')
 
                             em.mdi.mdi-account-minus.icon-start
@@ -165,34 +183,34 @@
 
                         //- Decline
                         button.button.button-default(
-                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.has_assigned_disregarded" 
+                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.can_disregarded_undo" 
                             ng-click='$ctrl.requestDecline(validatorRequest)')
 
-                            em.mdi.mdi-close.icon-start
-                            | {{ "validation_requests.buttons.alldecline" | translate }}
+                            em.mdi.mdi-close-circle.icon-start
+                            translate(translate="validation_requests.buttons.decline_all")
 
                         //- Approve
                         button.button.button-primary(
-                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.has_assigned_disregarded" 
+                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.can_disregarded_undo" 
                             ng-click='$ctrl.requestApprove(validatorRequest)')
 
                             em.mdi.mdi-check-circle.icon-start
-                            | {{ "validation_requests.buttons.allaccept" | translate }}
+                            translate(translate="validation_requests.buttons.accept_all")
 
                         //- Disregard
                         button.button.button-default(
-                            ng-if="validatorRequest.is_sponsor_employee && validatorRequest.has_assigned_pending" 
+                            ng-if="validatorRequest.can_disregarded" 
                             ng-click='$ctrl.requestDisregard(validatorRequest)')
 
                             em.mdi.mdi-timer-sand-empty.icon-start
-                            | {{ "validation_requests.buttons.disregard" | translate }}
+                            translate(translate="validation_requests.buttons.disregard")
                     
                         //- Disregard undo
                         button.button.button-default(
-                            ng-if="validatorRequest.is_sponsor_employee && validatorRequest.has_assigned_disregarded && !validatorRequest.replaced"
+                            ng-if="validatorRequest.can_disregarded_undo" 
                             ng-click='$ctrl.requestDisregardUndo(validatorRequest)')
                             em.mdi.mdi-timer-sand-empty.icon-start
-                            | {{ "validation_requests.buttons.disregard_undo" | translate }}
+                            translate(translate="validation_requests.buttons.disregard_undo")
         
             .card-section(ng-hide='validatorRequest.collapsed'): .card-block.card-block-table: .table-wrapper: table.table
                 thead: tr
@@ -210,7 +228,7 @@
                             ng-class="{'mdi-menu-down': !record.shown, 'mdi-menu-up': record.shown}"
                             ng-click="record.shown = !record.shown")
                         td(ng-bind='record.record_type.name')
-                        td(ng-bind='record.is_visible ? record.value : "Niet beschikbaar"' ng-class="{'text-muted': !record.is_visible}")
+                        td(ng-bind='record.value !== null ? record.value : "Niet beschikbaar"' ng-class="{'text-muted': record.value !== null}")
                         td(ng-bind='record.created_at_locale')
                         td: .tag(
                             ng-class="{pending: 'tag-primary-light', declined: 'tag-danger', approved: 'tag-success', disregarded: 'tag-default'}[record.state]" 
@@ -220,20 +238,30 @@
                             .text-muted(translate='validation_requests.status.{{ record.state }}')
 
                         td.text-right(ng-if="record.state == 'pending' && !record.is_assigned")
-                            .text-muted(ng-if="record.employee_id")
-                                | Toegewezen aan: {{ record.employee.email }}
+                            .td-text-insert.text-muted(ng-if="record.employee_id")
+                                span Toegewezen aan
+                                .text-strong.nowrap(ng-bind="record.employee.email")
+
                             .text-muted(ng-if="!record.employee_id && record.is_assignable")
                                 | Zelf toewijzen
+
                             .text-muted(ng-if="!record.employee_id && !record.is_assignable")
                                 | Niet beschikbaar
 
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
-                                .button.button-primary.button-icon(ng-click='$ctrl.declineRecord(validatorRequest, record)' ng-if='$root.appConfigs.flags.singleRecordValidation')
+                                .button.button-primary.button-icon(
+                                    ng-click='$ctrl.declineRecord(validatorRequest, record)' 
+                                    ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-close
-                                .button.button-primary-light.button-icon(ng-click='$ctrl.clarifyRecord(validatorRequest, record)')
+
+                                .button.button-primary-light.button-icon(
+                                    ng-click='$ctrl.clarifyRecord(validatorRequest, record)')
                                     em.mdi.mdi-message-text
-                                .button.button-default.button-icon(ng-click='$ctrl.approveRecord(validatorRequest, record)' ng-if='$root.appConfigs.flags.singleRecordValidation')
+
+                                .button.button-default.button-icon(
+                                    ng-click='$ctrl.approveRecord(validatorRequest, record)' 
+                                    ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-check
                     
                     tr.dim(ng-if='(record.shown) && ((record.files.length > 0) || (record.clarifications.length > 0))'): td(colspan='6')
@@ -242,6 +270,7 @@
                                 .attachment-icon
                                     .mdi.mdi-file
                                     .attachment-size(ng-bind='file.size')
+
                                 .attachment-name(ng-bind='file.original_name')
                                 .attachment-date(ng-bind='record.created_at_locale')
                                 .attachment-preview( 
@@ -258,11 +287,13 @@
                                     .clarification-item-question
                                         .clarification-item-icon.mdi.mdi-message-text.text-primary
                                         span(ng-bind="clarification.question")
+
                                     .clarification-item-answer
                                         .clarification-item-icon.mdi.mdi-message-text.text-primary-light
                                         span(
                                             ng-class="clarification.answered_at ? '' : 'text-muted'"
                                             ng-bind="clarification.answered_at ? clarification.answer : 'Geen antwoord...'")
+
                                     .clarification-item-attachments(ng-if="clarification.files.length > 0")
                                         .block.block-attachments-list
                                             .block-attachments-inner
