@@ -165,7 +165,8 @@ const SearchResultComponent = function(
 
         $ctrl.filters = {
             ...stateParams,
-            ...{ fund: $ctrl.funds.filter(fund => fund.id === fund_id)[0] || $ctrl.funds[0] }
+            with_external: 1,
+            fund: $ctrl.funds.filter(fund => fund.id === fund_id)[0] || $ctrl.funds[0],
         };
 
         $ctrl.sortBy = $ctrl.sortByOptions.filter((option) => {
