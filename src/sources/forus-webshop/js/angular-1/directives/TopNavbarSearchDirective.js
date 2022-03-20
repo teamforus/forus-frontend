@@ -129,7 +129,7 @@ const TopNavbarSearchDirective = function(
                 return $dir.clearSearch();
             }
 
-            SearchService.search({ q: $dir.query, overview: 1 }).then((res) => {
+            SearchService.search({ q: $dir.query, overview: 1, with_external: 1 }).then((res) => {
                 $dir.setResults(res.data.data);
             });
         }, 500);

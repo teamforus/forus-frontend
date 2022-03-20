@@ -89,9 +89,9 @@ const SearchResultComponent = function(
         return {
             q: values.q,
             order_by: values.order_by,
+            fund_id: values.fund_id,
             order_by_dir: values.order_by_dir,
             organization_id: values.organization_id,
-            fund_id: values.fund ? values.fund.id : null,
             product_category_id: values.product_category_id,
             overview: 0,
             page: values.page,
@@ -165,7 +165,8 @@ const SearchResultComponent = function(
 
         $ctrl.filters = {
             ...stateParams,
-            ...{ fund: $ctrl.funds.filter(fund => fund.id === fund_id)[0] || $ctrl.funds[0] }
+            with_external: 1,
+            fund: $ctrl.funds.filter(fund => fund.id === fund_id)[0] || $ctrl.funds[0],
         };
 
         $ctrl.sortBy = $ctrl.sortByOptions.filter((option) => {

@@ -48,8 +48,8 @@ block content
                                 .data-list-value
                                     .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen aanbieder type' }}
                 
-                .block.block-pane.last-child: .pane-head
-                    h2.flex-grow Vestigingen
+                .block.block-pane.last-child: h2.pane-head
+                    .flex-grow Vestigingen
                     .pane-head-count(ng-bind="$ctrl.provider.offices.length")
                 
                 .block.block-organizations

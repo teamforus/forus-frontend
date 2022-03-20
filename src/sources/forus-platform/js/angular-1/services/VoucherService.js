@@ -34,10 +34,7 @@ const VoucherService = function(ApiRequest) {
         };
 
         this.storeCollection = function(organization_id, fund_id, vouchers) {
-            return ApiRequest.post([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/batch'
-            ].join(''), {
+            return ApiRequest.post(`/platform/organizations/${organization_id}/sponsor/vouchers/batch`, {
                 fund_id: fund_id,
                 vouchers: vouchers
             });

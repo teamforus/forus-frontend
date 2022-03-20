@@ -166,6 +166,9 @@ const FundRequestComponent = function(
                 'birth_date': 'ui_control_date',
                 // stepper
                 'children_nth': 'ui_control_step',
+                'waa_kind_0_tm_4_2021_eligible_nth': 'ui_control_step',
+                'waa_kind_4_tm_18_2021_eligible_nth': 'ui_control_step',
+                'adults_nth': 'ui_control_step',
                 // numbers
                 'tax_id': 'ui_control_number',
                 'bsn': 'ui_control_number',
@@ -296,9 +299,10 @@ const FundRequestComponent = function(
     $ctrl.finish = () => $state.go('funds');
     $ctrl.goToMain = () => $state.go('home');
 
-    $ctrl.goToActivationComponent = () => {
+    $ctrl.goToActivationComponent = (error = 0) => {
         return $state.go('fund-activate', {
-            fund_id: $ctrl.fund.id
+            fund_id: $ctrl.fund.id,
+            backoffice_error: error
         });
     };
 
@@ -337,7 +341,7 @@ const FundRequestComponent = function(
         }
 
         if (!$ctrl.fundRequestAvailable) {
-            return $ctrl.goToActivationComponent();
+            return $ctrl.goToActivationComponent(2);
         }
 
         // The fund is already taken by identity partner

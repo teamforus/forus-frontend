@@ -1360,19 +1360,23 @@ module.exports = {
             parent: "Ouder {{ index }}",
             partner: "Partner",
             child: "Kinderen {{ index }}",
+            disregarded_at: "Buiten behandeling gesteld op",
         },
         status: {
             hold: "Wachten",
             pending: 'Wachtend',
             declined: 'Geweigerd',
-            approved: 'Geaccepteerd'
+            approved: 'Geaccepteerd',
+            disregarded: 'Niet beoordeeld',
         },
         buttons: {
             show: "Bekijk eigenschappen",
-            allaccept: "Accepteren",
-            alldecline: "Weigeren",
+            accept_all: "Accepteren",
+            decline_all: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
+            disregard: "Niet behandelen",
+            disregard_undo: "Opnieuw beoordelen",
             clear_filter: "Wis filter",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
@@ -1477,16 +1481,11 @@ module.exports = {
         }
     },
 
-    //FUND CARD FOR SPONSOR = fund-card-sponsor.pug
+    // FUND INFO SPONSOR = fund-show/implementation-view/organization-funds
     fund_card_sponsor: {
         buttons: {
-            join: "Aanmelden",
             close: "Sluit",
-            restart: "Herstart",
             pause: "Pauze",
-            add: "Budget toevoegen",
-            delete: 'Verwijderen',
-            invite_providers: 'Aanbieders'
         },
         status: {
             active: "Actief",
@@ -1494,25 +1493,10 @@ module.exports = {
             closed: "Gestopt",
         },
         labels: {
-            categories: "Categorieën",
-            nocategories: "Geen Categorieën",
-            setting: "Instellingen",
-            statistics: "Statistieken",
-            price: "BEDRAG",
-            description: "BESCHRIJVING",
-            customer: "KLANT",
-            date: "DATUM",
-            action: "ACTIE",
-            refund: "Terugbetalen",
-            chargeid: "Kopieer het transactienummer",
-            connections: "CONNECTIE",
-            details: "Bekijk transactiedetails",
-            results: "x resultaten",
-            payment: "Betaling -",
-            providers: "Aanbieders",
+            employees: "medewerkers",
             your_employees: "Uw medewerkers",
+            providers: "Aanbieders",
             applicants: "Aanvragers",
-            employees: "medewerkers"
         },
         confirm_delete: {
             title: 'Weet u zeker dat u dit fonds wilt verwijderen?',
@@ -1543,6 +1527,18 @@ module.exports = {
         }
     },
 
+    modal_fund_request_assign: {
+        header: {
+            title: "Toewijzen"
+        },
+        buttons: {
+            close: "Sluiten",
+        },
+        label: {
+            employees: "Kies een medewerker"
+        }
+    },
+
     modal_pdf_preview: {
         header: {
             title: "PDF-voorbeeld"
@@ -1553,11 +1549,6 @@ module.exports = {
         header: {
             title: "Afbeelding-voorbeeld"
         }
-    },
-
-    // SELECT MULTIPLE CATEGORIES = multi-select.pug
-    multi_select: {
-        title: "Categorieën",
     },
 
     // SELECT PHOTO = photo-selector.pug

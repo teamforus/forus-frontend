@@ -46,7 +46,6 @@ const ModalVoucherDeactivationComponent = function(
             });
         }, false);
     };
-    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {

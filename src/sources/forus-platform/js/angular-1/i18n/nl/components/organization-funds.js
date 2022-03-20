@@ -4,6 +4,7 @@ module.exports = {
         buttons: {
             add: 'Fonds toevoegen',
             edit: "Instellingen",
+            view: "Bekijken",
             delete: "Verwijderen",
             top_up: "Budget toevoegen",
             archive: "Archiveren",

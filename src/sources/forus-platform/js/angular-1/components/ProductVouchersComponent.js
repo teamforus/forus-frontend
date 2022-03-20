@@ -96,7 +96,7 @@ let ProductVouchersComponent = function(
             fund: $ctrl.fund,
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange($ctrl.filters.values)
-        }, { max_load_time: 1000 });
+        }, { maxLoadTime: 1000 });
     };
 
     $ctrl.uploadProductVouchersCsv = () => {

@@ -13,9 +13,6 @@ main(id="main-content")
                 translate-default="{{'funds.header.title' | translate }}")
             a.breadcrumb-item.active(ng-bind="$ctrl.fund.name" aria-current="location")
 
-        h1.sr-only Aanvragen
-        h2.sr-only(ng-bind="$ctrl.fund.name")
-
         .block.block-fund
             mixin fund_actions
                 .fund-actions: .button-group
@@ -48,11 +45,11 @@ main(id="main-content")
 
             .fund-content
                 .fund-card: .fund-details
-                    .fund-name(ng-bind="$ctrl.fund.name") 
+                    h1.fund-name(ng-bind="$ctrl.fund.name") 
                     .fund-description(ng-if="$ctrl.fund.description_short" ng-bind="$ctrl.fund.description_short")
                     .fund-details-items                                 
                         .fund-details-item
-                            .fund-details-item-label Uitgifte door
+                            .fund-details-item-label Uitgifte door:
                             .fund-details-item-value(ng-bind="$ctrl.fund.organization.name")
 
                         .fund-details-item(ng-repeat="formula in $ctrl.formulaList.multiply" ng-if="$ctrl.fund.type == 'budget'")
@@ -60,11 +57,11 @@ main(id="main-content")
                             .fund-details-item-value(ng-bind="formula.amount | currency_format")                                 
 
                         .fund-details-item
-                            .fund-details-item-label Startdatum
+                            .fund-details-item-label Startdatum:
                             .fund-details-item-value(ng-bind="$ctrl.fund.start_date_locale")
 
                         .fund-details-item
-                            .fund-details-item-label Einddatum
+                            .fund-details-item-label Einddatum:
                             .fund-details-item-value(ng-bind="$ctrl.fund.end_date_locale")
 
                 +fund_actions
@@ -85,9 +82,9 @@ main(id="main-content")
             ng-if="$ctrl.fund.description_html"
             ng-bind-html="$ctrl.fund.description_html")
 
-        section.section.section-faq(ng-if="$ctrl.fund.faq"): .wrapper
+        section.section.section-faq(ng-if="$ctrl.fund.faq")
             .section-splash
-            .section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
+            h2.section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
 
             .faq.faq-fund
                 .faq-item(collapse ng-repeat="question in $ctrl.fund.faq" class=active ? 'active' : '' collapse-item)

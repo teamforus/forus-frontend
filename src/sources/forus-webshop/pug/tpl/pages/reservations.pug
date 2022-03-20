@@ -10,6 +10,7 @@ section.section.section-profile: .wrapper
 
             .form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
                 .profile-aside-block
+                    //- Search
                     .form-group
                         input.form-control(
                             ng-model="$ctrl.filters.q"
@@ -18,31 +19,40 @@ section.section.section-profile: .wrapper
                             aria-label="search"
                             id="products_search")
 
+                    //- Fund
                     .form-group
                         label.form-label(for="select_fund") Tegoeden
                         select-control(
+                            id="select_fund"
+                            name="fund"
                             autoclear="true"
                             ng-model="$ctrl.filters.fund_id"
                             options="$ctrl.funds"
-                            placeholder="Selecteer tegoed..."
-                            name="fund"
-                            id="select_fund")
+                            placeholder="{{ $ctrl.funds[0].name }}")
 
+                    //- Provider
                     .form-group
                         label.form-label(for="select_provider") Aanbieders
-                        select(
-                            ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
-                            ng-model="$ctrl.filters.organization_id"
+                        select-control(
+                            id="select_provider"
                             name="provider"
-                            id="select_provider").form-control
+                            prop="id"
+                            autoclear="true" 
+                            ng-model="$ctrl.filters.organization_id"
+                            options="$ctrl.organizations"
+                            placeholder="{{ $ctrl.organizations[0].name }}")
 
+                    //- state
                     .form-group
-                        label.form-label(for="select_filters") Status
-                        select(
-                            ng-options="state.value as state.name for state in $ctrl.states" 
+                        label.form-label(for="select_provider") Status
+                        select-control(
+                            id="select_filters"
+                            name="state"
+                            prop="value"
+                            autoclear="true" 
                             ng-model="$ctrl.filters.state"
-                            name="filters"
-                            id="select_filters").form-control
+                            options="$ctrl.states"
+                            placeholder="{{ $ctrl.filters.state[0].name }}")
 
         .profile-content
             .profile-content-header

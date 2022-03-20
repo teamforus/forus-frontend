@@ -38,8 +38,6 @@ const ProductsComponent = function(
         'q', 'product_category_id', 'fund', 'sortBy',
     ];
 
-    $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
-
     $ctrl.toggleOrderDropdown = ($event) => {
         $event ? $event.stopPropagation() : '';
         $ctrl.show_order_dropdown = !$ctrl.show_order_dropdown;
@@ -91,10 +89,10 @@ const ProductsComponent = function(
 
         return {
             q: values.q,
-            organization_id: values.organization_id,
             page: values.page,
+            fund_id: values.fund_id,
+            organization_id: values.organization_id,
             product_category_id: values.product_category_id,
-            fund_id: values.fund ? values.fund.id : null,
             display_type: $ctrl.display_type,
             fund_type: $ctrl.fund_type,
             ...orderByValue
@@ -138,16 +136,12 @@ const ProductsComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.showModalFilters = $stateParams.show_menu;
-        $ctrl.display_type = $stateParams.display_type;
-        $ctrl.fund_type = $stateParams.fund_type;
-        $ctrl.show_order_dropdown = false;
+        $ctrl.appConfigs = appConfigs;
 
-        $scope.appConfigs = appConfigs;
-        $scope.$watch('appConfigs', (_appConfigs) => {
-            if (_appConfigs.features && !_appConfigs.features.products.list) {
-                $state.go('home');
-            }
-        }, true);
+        $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
+        $ctrl.fund_type = $stateParams.fund_type;
+        $ctrl.display_type = $stateParams.display_type;
+        $ctrl.show_order_dropdown = false;
 
         $ctrl.funds.unshift({
             id: null,
@@ -164,18 +158,20 @@ const ProductsComponent = function(
             id: null
         });
 
-        const fund = $ctrl.funds.filter(fund => {
-            return fund.id == $stateParams.fund_id;
-        })[0] || $ctrl.funds[0];
-
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
+            fund_id: $stateParams.fund_id || null,
             organization_id: $stateParams.organization_id || null,
             product_category_id: $stateParams.product_category_id || null,
-            fund: fund,
         });
 
         $ctrl.updateFiltersUsedCount();
+
+        $scope.$watch('$ctrl.appConfigs', (_appConfigs) => {
+            if (_appConfigs.features && !_appConfigs.features.products.list) {
+                $state.go('home');
+            }
+        }, true);
     };
 };
 

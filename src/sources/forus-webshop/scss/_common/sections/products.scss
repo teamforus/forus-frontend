@@ -4,9 +4,9 @@
         margin: 0 0 40px;
 
         .section-title {
-            margin: 0 0 20px;
+            margin: 0px 0 30px;
             display: block;
-            color: $tc;
+            font-family: $hf;
         }
 
         .section-filters {
@@ -21,13 +21,26 @@
         }
     }
 
+    &.section-faq {
+        .section-title {
+            font: 500 2em $bf;
+            text-align: left;
+        }
+    }
+
     @media screen and (max-width: 1700px) {
-        &.section-faq,
+        /*&.section-faq {
+            .section-title {
+                font: 500 2em $bf;
+                text-align: left;
+            }
+        }*/
+
         &.section-products {
             position: relative;
 
             .section-title {
-                font: 700 32px/1.5em $bf;
+                font: 500 2em $bf;
             }
         }
 
@@ -39,12 +52,6 @@
     }
 
     @media screen and (max-width: 1000px) {
-        &.section-products,
-        &.section-faq {
-            .section-title {
-                text-align: center;
-            }
-        }
 
         &.section-products {
             margin: 0 0 30px;

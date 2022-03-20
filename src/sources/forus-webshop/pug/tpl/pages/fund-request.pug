@@ -36,15 +36,15 @@ main(id="main-content")
                         p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
 
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.fund.criteria"
-                            ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
+                            ng-repeat="criteria in $ctrl.fund.criteria"
+                            ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[criteria.request_state]")
                             .item-icon: em.mdi(
-                                ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[critera.request_state]")
-                            span(ng-if="critera.title" ng-bind="critera.title")
+                                ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[criteria.request_state]")
+                            span(ng-if="criteria.title" ng-bind="criteria.title")
                             span(
-                                ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}"
-                                i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
+                                ng-if="!criteria.title"
+                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[criteria.operator]}}"
+                                i18n-vars="{name: criteria.record_type_name, value: ($ctrl.criterionValuePrefix[criteria.record_type_key]) + criteria.value}")
                         span(translate="fund_request.sign_up.pane.fund_already_applied")
 
             //- Welcome screen
@@ -177,13 +177,13 @@ main(id="main-content")
                         p.sign_up-pane-text(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
 
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.fund.criteria")
+                            ng-repeat="criteria in $ctrl.fund.criteria")
                             .item-icon.item-icon-default
-                            span(ng-if="critera.title" ng-bind="critera.title")
+                            span(ng-if="criteria.title" ng-bind="criteria.title")
                             span(
-                                ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}"
-                                i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
+                                ng-if="!criteria.title"
+                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[criteria.operator]}}"
+                                i18n-vars="{name: criteria.record_type_name, value: ($ctrl.criterionValuePrefix[criteria.record_type_key]) + criteria.value}")
 
                     .sign_up-pane-footer: .row
                         .col.col-lg-6.col-xs-6.text-left &nbsp;
@@ -332,11 +332,12 @@ main(id="main-content")
                         p.sign_up-pane-text
                             | #[strong Wat hoort bij het inkomen?]
                             | #[br]
-                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst.
-                            | Wilt u weten op welke heffingskortingen u recht heeft? Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. #[br]
+                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld. #[br]
                             | #[br]
                             | #[strong Wat hoort niet bij het inkomen?] #[br]
-                            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
+                            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen). #[br]
+                            | #[br]
+                            | Wilt u weten op welke toeslagen of heffingskortingen u recht heeft? Kijk dan op de Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. Heeft u hulp hierbij nodig. De #[a(href="https://www.nijmegen.nl/diensten/zorg-hulp-en-advies/sociaal-raadslieden-voor-juridische-hulp/") sociaal raadslieden] van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 14 024. #[br]
 
                         p.sign_up-pane-text
                             | Door te verklaren dat u aan de voorwaarden voldoet,
@@ -359,39 +360,44 @@ main(id="main-content")
                             li U bent 18 jaar of ouder
                             li U bent geen student
                             li U woont in Nijmegen
-                            li U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2021:
+                            li U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2022:
 
                         table.table.collapse-sides
                             tr
                                 th Situatie
                                 th Vanaf 18 jaar tot uw pensioenleeftijd
                                 th Vanaf uw pensioenleeftijd
-                                th Indicatie Zorg met verblijf (vanaf 18 jaar)
+                                th Wonend in zorginstelling (van 18 tot pensioenleeftijd)
+                                th Wonend in zorginstelling  vanaf uw pensioenleeftijd 
                             tr
                                 td Alleenstaand
-                                td € 1.166,-
-                                td € 1.305,-
-                                td € 375,-
+                                td € 1.378,-
+                                td € 1.545,-
+                                td € 445,90
+                                td € 478,-
                             tr
                                 td Alleenstaande ouder
-                                td € 1.496,-
-                                td € 1.584,-
-                                td € 505,-
+                                td € 1.768,-
+                                td € 1.872,-
+                                td € 595,-
+                                td € 690,-
                             tr
                                 td Getrouwd/samenwonend
-                                td € 1.661,-
-                                td € 1.760,-
-                                td € 590,-
+                                td € 1.963,-
+                                td € 2.080,-
+                                td € 700,-
+                                td € 765,-
 
                         p.sign_up-pane-text
                             | #[strong Wat hoort bij het inkomen?]
                             | #[br]
-                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst.
-                            | Wilt u weten op welke heffingskortingen u recht heeft? Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. #[br]
+                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld. #[br]
                             | #[br]
                             | #[strong Wat hoort niet bij het inkomen?] #[br]
-                            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
-
+                            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen). #[br]
+                            | #[br]
+                            | Wilt u weten op welke toeslagen of heffingskortingen u recht heeft? Kijk dan op de Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. Heeft u hulp hierbij nodig. De #[a(href="https://www.nijmegen.nl/diensten/zorg-hulp-en-advies/sociaal-raadslieden-voor-juridische-hulp/") sociaal raadslieden] van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 14 024. #[br]
+                            
                         p.sign_up-pane-text
                             | Door te verklaren dat u aan de voorwaarden voldoet,
                             | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat het bedrag van €150,-
@@ -421,16 +427,16 @@ main(id="main-content")
 
                     .sign_up-pane-body
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.invalidCriteria")
+                            ng-repeat="criteria in $ctrl.invalidCriteria")
                             .item-icon.item-icon-default
 
-                            span {{ critera.title }} #[span(ng-if="critera.operator != '='") is] 
-                            strong(ng-if="critera.operator != '='") {{ critera.input_value }}
+                            span {{ criteria.title || criteria.record_type_name }} #[span(ng-if="criteria.operator != '='") is] 
+                            strong(ng-if="criteria.operator != '='") {{ criteria.input_value }}
 
                             file-uploader(
-                                ng-if="critera.show_attachment"
+                                ng-if="criteria.show_attachment"
                                 type="fund_request_record_proof"
-                                files="critera.files"
+                                files="criteria.files"
                                 read-only="true")
 
                     .sign_up-pane-footer: .row

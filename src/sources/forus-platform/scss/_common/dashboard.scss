@@ -32,6 +32,7 @@ $colorPrimaryLight: $color_primary_light;
 .block {
     @import 'blocks/block-chat';
     @import 'blocks/block-funds';
+    @import 'blocks/block-fund';
     @import 'blocks/block-critera-editor';
     @import 'blocks/block-faq-editor';
     @import 'blocks/block-card-toggleable';
@@ -883,6 +884,10 @@ body {
         em {
             margin-right: 5px;
         }
+
+        &.card-title-sm {
+            font-size: 13px;
+        }
     }
 
     .card-header {
@@ -927,6 +932,10 @@ body {
 
         &.card-header-success {
             background: #f7f9de;
+        }
+
+        &.card-header-cursor-default {
+            cursor: default;
         }
     }
 
@@ -6352,6 +6361,23 @@ body {
                     margin-bottom: 0;
                 }
             }
+
+            .modal-warning {
+                display: flex;
+                justify-content: center;
+                width: fit-content;
+                margin: 0 auto 10px auto;
+                padding: 20px;
+                background-color: #fcfaf6;
+                font: 500 13px/16px $bf;
+                color: #292B39;
+                border: 1px solid $borderColor;
+                border-radius: $borderRadius;
+
+                em {
+                    font-size: 22px;
+                }
+            }
         }
 
         .modal-funds-added {
@@ -6558,12 +6584,6 @@ body {
     &.modal-shops_map {
         .modal-content {
             padding: 0;
-        }
-    }
-    
-    &.modal-employees_edit {
-        .modal-body {
-            overflow: initial;
         }
     }
 

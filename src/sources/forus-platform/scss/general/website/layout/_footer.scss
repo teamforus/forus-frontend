@@ -31,6 +31,10 @@
     }
     .sm {
         li {
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
             cursor: pointer;
             &:hover {
                 color: $forus-pink;

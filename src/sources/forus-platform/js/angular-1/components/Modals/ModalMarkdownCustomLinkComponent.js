@@ -51,8 +51,6 @@ let ModalMarkdownCustomLinkComponent = function(
 
         input.click();
     };
-
-    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {

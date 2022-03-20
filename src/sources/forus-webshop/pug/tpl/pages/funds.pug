@@ -28,15 +28,28 @@ block content
 
                             .form-group
                                 label.form-label(for="select_organization") Organisatie
-                                select(
-                                    ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
+                                select-control(
+                                    id="select_organization"
+                                    prop="id"
+                                    autoclear="true" 
                                     ng-model="$ctrl.form.values.organization_id"
-                                    id="select_organization").form-control
+                                    options="$ctrl.organizations"
+                                    placeholder="{{ $ctrl.organizations[0].name }}")
+
+                            .form-group
+                                label.form-label(for="select_category") Categorie
+                                select-control(
+                                    id="select_category"
+                                    prop="id"
+                                    autoclear="true" 
+                                    ng-model="$ctrl.form.values.tag_id"
+                                    options="$ctrl.tags"
+                                    placeholder="{{ $ctrl.tags[0].name }}")
                         
                     .showcase-content
                         .showcase-content-header
                             h1.showcase-filters-title
-                                translate(
+                                span(
                                     translate="funds.funds.{{ $root.appConfigs.client_key }}.title"
                                     translate-default="{{'funds.header.title' | translate }}")
                                 .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
@@ -45,6 +58,7 @@ block content
                             fund-list-item(
                                 ng-repeat="fund in $ctrl.funds.data" 
                                 vouchers="$ctrl.vouchers" 
+                                funds="$ctrl.funds" 
                                 template="fund-item-list"
                                 ui-sref="fund(fund)"
                                 fund="fund")

@@ -19,7 +19,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, p, b, i, li, td{
-    font-family: $bf;
+    font-family: $hf;
     font-weight: 300;
     color: inherit;
 }
@@ -40,12 +40,12 @@ ul {
     list-style: none;
 
     li {
-        font: 300 16px/28px $bf;
+        font: 400 16/1.5em $bf;
     }
 }
 
 p {
-    font: 300 16px/28px $bf;
+    font: 400 16px/1.5em $bf;
     margin: 0 0 16px;
 
     a {

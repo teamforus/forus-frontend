@@ -7,22 +7,40 @@ module.exports = {
         providers:"Aanbieders",
         explanation:"Uitleg",
         identity:"Profiel",
-        potjeswijzer: {
+        westerkwartier: {
             funds:"Potjes",
         },
         groningen: {
             funds:"Aanvragen",
         },
+        waalwijk: {
+            funds:"Aanvragen",
+        },
+        geertruidenberg: {
+            funds:"Regelingen",
+        },
+        potjeswijzer: {
+            funds:"Potjes",
+        },
         nijmegen: {
             funds:"Aanvragen",
-        }
+        },
     },
     buttons: {
         activate: "Activeren",
-        potjeswijzer: {
+        westerkwartier: {
             activate: "Aanvragen",
         },
         groningen: {
+            activate: "Aanvragen",
+        },
+        waalwijk: {
+            activate: "Aanvragen",
+        },
+        geertruidenberg: {
+            activate: "Aanvragen",
+        },
+        potjeswijzer: {
             activate: "Aanvragen",
         },
         nijmegen: {

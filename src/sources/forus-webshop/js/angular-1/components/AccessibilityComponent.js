@@ -61,9 +61,5 @@ module.exports = {
         'appConfigs',
         AccessibilityComponent
     ],
-    templateUrl: ['appConfigs', (appConfigs) => {
-        return 'assets/tpl/pages/' + (
-            !appConfigs.flags.secondLogo ? 'accessibility.html' : 'accessibility-sdoa.html'
-        );
-    }]
+    templateUrl: 'assets/tpl/pages/accessibility.html'
 };

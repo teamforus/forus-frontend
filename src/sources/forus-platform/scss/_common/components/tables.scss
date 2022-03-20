@@ -1,4 +1,6 @@
 .table-wrapper {
+    @include webkit_scrollbar_gray();
+
     table.table {
         border-collapse: collapse;
         width: 100%;
@@ -125,6 +127,11 @@
                     }
                 }
 
+                .td-text-insert {
+                    line-height: 18px;
+                    margin: -6px 0;
+                }
+
                 .button-group {
                     margin: -2.5px 0;
                 }
@@ -172,6 +179,10 @@
                 }
             }
         }
+    }
+
+    &.table-wrapper-scroll {
+        overflow: auto;
     }
 
     @media screen and (max-width: 1000px) {

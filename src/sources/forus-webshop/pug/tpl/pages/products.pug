@@ -27,29 +27,35 @@ block content
 
                             .form-group
                                 label.form-label(for="select_provider") Aanbieders
-                                select(
-                                    ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
+                                select-control(
+                                    id="select_provider"
+                                    prop="id"
+                                    autoclear="true" 
                                     ng-model="$ctrl.form.values.organization_id"
-                                    name="provider"
-                                    id="select_provider").form-control
+                                    options="$ctrl.organizations"
+                                    placeholder="{{ $ctrl.organizations[0].name }}")
 
                             .form-group
                                 label.form-label(for="select_category") Categorie
-                                select(
-                                    ng-options="category.id as category.name for category in $ctrl.productCategories" 
-                                    ng-model="$ctrl.form.values.product_category_id"
+                                select-control(
+                                    id="select_category"
+                                    prop="id"
                                     name="category"
-                                    id="select_category").form-control
+                                    autoclear="true" 
+                                    ng-model="$ctrl.form.values.product_category_id"
+                                    options="$ctrl.productCategories"
+                                    placeholder="{{ $ctrl.productCategories[0].name }}")
 
                             .form-group
                                 label.form-label(for="select_fund") Tegoeden
                                 select-control(
-                                    autoclear="true"
-                                    ng-model="$ctrl.form.values.fund" 
-                                    options="$ctrl.funds"
-                                    placeholder="Selecteer tegoed..."
+                                    id="select_fund"
+                                    prop="id"
                                     name="fund"
-                                    id="select_fund")
+                                    autoclear="true"
+                                    ng-model="$ctrl.form.values.fund_id" 
+                                    options="$ctrl.funds"
+                                    placeholder="{{ $ctrl.funds[0].name }}")
 
                     .showcase-content
                         .showcase-content-header

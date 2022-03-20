@@ -30,34 +30,33 @@ block content
 
                             .form-group
                                 label.form-label(for="category_id") Categorie
-                                select(
-                                    ng-options="category.id as category.name for category in $ctrl.productCategories"
-                                    ng-model="$ctrl.filters.product_category_id"
-                                    id="category_id").form-control
-
-                            .form-group
-                                label.form-label Tegoeden
                                 select-control(
+                                    id="category_id"
+                                    prop="id"
                                     autoclear="true"
-                                    ng-model="$ctrl.filters.fund"
-                                    options="$ctrl.funds"
-                                    placeholder="Selecteer tegoeden...")
+                                    ng-model="$ctrl.filters.product_category_id"
+                                    options="$ctrl.productCategories"
+                                    placeholder="{{ $ctrl.productCategories[0].name }}")
 
                             .form-group
                                 label.form-label(for="fund_id") Tegoeden
                                 select-control(
+                                    id="fund_id"
+                                    prop="id"
                                     autoclear="true"
-                                    ng-model="$ctrl.filters.fund"
+                                    ng-model="$ctrl.filters.fund_id"
                                     options="$ctrl.funds"
-                                    placeholder="Selecteer tegoeden..."
-                                    id="fund_id")
+                                    placeholder="{{ $ctrl.funds[0].name }}")
 
                             .form-group
                                 label.form-label(for="organizatie_id") Aanbieders
-                                select(
-                                    ng-options="organization.id as organization.name for organization in $ctrl.organizations"
+                                select-control(
+                                    id="organization_id"
+                                    prop="id"
+                                    autoclear="true"
                                     ng-model="$ctrl.filters.organization_id"
-                                    id="organizatie_id").form-control
+                                    options="$ctrl.organizations"
+                                    placeholder="{{ $ctrl.organizations[0].name }}")
 
                     .showcase-content
                         .showcase-content-header

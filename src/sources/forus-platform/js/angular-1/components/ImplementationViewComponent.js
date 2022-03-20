@@ -1,10 +1,11 @@
-let ImplementationViewComponent = function(
+const ImplementationViewComponent = function(
     $q,
     $scope,
     $rootScope,
     FundService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
+
     $ctrl.initialFunds = [];
 
     $ctrl.filters = {
