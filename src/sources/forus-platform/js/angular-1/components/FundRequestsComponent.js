@@ -297,6 +297,7 @@ const FundRequestsComponent = function(
             const { state, records, replaced, allowed_employees } = request;
             const isPending = state == 'pending';
 
+            const recordTypes = records.map((record) => record.record_type_key);
             const pendingRecords = records.filter((record) => record.state == 'pending');
             const assignedRecords = records.filter((record) => record.employee?.identity_address === $ctrl.authUser.address);
             const assignableRecords = pendingRecords.filter((record) => record.is_assignable);
@@ -304,9 +305,13 @@ const FundRequestsComponent = function(
             const assignedPendingRecords = assignedRecords.filter((record) => record.state === 'pending');
             const assignedDisregardedRecords = assignedRecords.filter((record) => record.state === 'disregarded');
 
-            const isSponsorEmployee = $ctrl.organization.id === request.organization_id;
+            const isSponsorEmployee = $ctrl.organization.id === request.fund.organization_id;
             const hasAssignableRecords = assignableRecords.length > 0;
             const hasAssignableEmployees = allowed_employees.filter((employee) => employee.id !== $ctrl.employee?.id).length > 0;
+
+            const isAssigned = assignedPendingRecords.length > 0 || assignedDisregardedRecords.length > 0;
+            const hasPartnerBSN = recordTypes.includes('partner_bsn');
+            const canAddPartnerBsn = isSponsorEmployee && $ctrl.organization.bsn_enabled && request.is_assigned && !hasPartnerBSN;
 
             const hasPendingInternallyAssignedRecords = pendingRecords.filter((record) => {
                 return record.employee?.organization_id === $ctrl.organization.id;
@@ -315,15 +320,16 @@ const FundRequestsComponent = function(
             request.records = request.records.map((record) => ({ ...record, shown: true }));
             request.collapsed = $ctrl.extendedView;
             request.hasContent = records.filter((record) => record.files?.length || record.clarifications?.length).length > 0;
-            request.record_types = records.map((record) => record.record_type_key);
 
             request.can_disregarded = isPending && isSponsorEmployee && assignedPendingRecords.length;
             request.can_disregarded_undo = isPending && isSponsorEmployee && (assignedDisregardedRecords.length > 0) && !replaced;
 
             request.is_assignable = isPending && hasAssignableRecords;
+            request.is_sponsor_employee = isSponsorEmployee;
             request.is_assignable_as_supervisor = isPending && hasAssignableEmployees && $ctrl.isValidatorsSupervisor;
 
-            request.is_assigned = assignedPendingRecords.length > 0 || assignedDisregardedRecords.length > 0;
+            request.is_assigned = isAssigned;
+            request.can_add_partner_bsn = canAddPartnerBsn;
 
             request.can_resign = assignedPendingRecords.length > 0 && assignedDisregardedRecords.length == 0;
             request.can_resign_as_supervisor = isPending && $ctrl.isValidatorsSupervisor && hasPendingInternallyAssignedRecords;

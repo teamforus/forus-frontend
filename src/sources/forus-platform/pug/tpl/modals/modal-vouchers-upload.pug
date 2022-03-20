@@ -46,6 +46,9 @@
 
                         //- Budget voucher errors
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'fund_voucher'")
+                            //- BSN field is present while BSN is not enabled for the organization
+                            .form-error(ng-if="$ctrl.csvParser.errors.csvHasBsnWhileNotAllowed")
+                                | BSN field is present while BSN is not enabled for the organization
                             //- No `amount` fields in the .csv file (required for budget vouchers)
                             .form-error(ng-if="$ctrl.csvParser.errors.csvAmountMissing")
                                 | De kolom 'amount' mist in het bulkbestand.
@@ -64,6 +67,9 @@
                         
                         //- Product voucher errors
                         .text-left(ng-if="!$ctrl.csvParser.isValid && $ctrl.type == 'product_voucher'")
+                            //- BSN field is present while BSN is not enabled for the organization
+                            .form-error(ng-if="$ctrl.csvParser.errors.csvHasBsnWhileNotAllowed")
+                                | BSN field is present while BSN is not enabled for the organization
                             //- No `product_id` fields in the .csv file (required for product_vouchers vouchers)
                             .form-error(ng-if="$ctrl.csvParser.errors.csvHasMissingProductId")
                                 | De kolom `product_id` mist in het bestand.

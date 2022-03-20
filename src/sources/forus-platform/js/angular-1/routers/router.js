@@ -1252,19 +1252,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
-        name: 'validation-request',
-        url: '/validation-request/{id}',
-        component: 'validationRequestComponent',
-        resolve: {
-            validatorRequest: ['$transition$', 'ValidatorRequestService', (
-                $transition$, ValidatorRequestService
-            ) => repackResponse(ValidatorRequestService.read(
-                $transition$.params().id
-            ))]
-        }
-    });
-
-    $stateProvider.state({
         name: 'preferences-notifications',
         url: '/preferences/notifications',
         component: 'emailPreferencesComponent'

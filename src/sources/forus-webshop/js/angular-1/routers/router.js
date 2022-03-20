@@ -449,6 +449,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     ...{
                         q: $transition$.params().q,
                         overview: 0,
+                        with_external: 1,
                         page: $transition$.params().page,
                         order_by: $transition$.params().order_by,
                         order_by_dir: $transition$.params().order_by_dir,
@@ -460,7 +461,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             }],
             funds: ['FundService', (
                 FundService
-            ) => repackResponse(FundService.list())],
+            ) => repackResponse(FundService.list(null, {
+                with_external: 1,
+            }))],
             productCategories: ['ProductCategoryService', (
                 ProductCategoryService
             ) => repackResponse(ProductCategoryService.list({

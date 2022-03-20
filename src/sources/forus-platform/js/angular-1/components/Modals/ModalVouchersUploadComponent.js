@@ -5,7 +5,7 @@ const sortBy = require('lodash/sortBy');
 const uniq = require('lodash/uniq');
 const map = require('lodash/map');
 
-let ModalVouchersUploadComponent = function(
+const ModalVouchersUploadComponent = function(
     $q,
     $rootScope,
     $timeout,
@@ -18,7 +18,7 @@ let ModalVouchersUploadComponent = function(
     ProductService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.progress = 1;
 
@@ -95,6 +95,11 @@ let ModalVouchersUploadComponent = function(
                 this.errors.hasInvalidFundIdsList = uniq(this.errors.hasInvalidFundIds).join(', ');
 
                 if (this.errors.hasInvalidFundIds.length > 0) {
+                    return false;
+                }
+
+                if (!$ctrl.organization.bsn_enabled && data.filter((row) => row.bsn).length > 0) {
+                    this.errors.csvHasBsnWhileNotAllowed = true;
                     return false;
                 }
 
@@ -299,19 +304,19 @@ let ModalVouchersUploadComponent = function(
                         'timer-sand'
                     );
 
-                    let emails = data.map(voucher => voucher.identity_email);
-                    let bsns = [
+                    const emails = data.map(voucher => voucher.identity_email);
+                    const bsnList = [
                         ...data.map(voucher => voucher.relation_bsn),
                         ...data.map(voucher => voucher.identity_bsn)
                     ];
 
-                    let existingEmails = this.data.filter(csvRow => {
+                    const existingEmails = this.data.filter((csvRow) => {
                         return emails.indexOf(csvRow.email) != -1;
-                    }).map(csvRow => csvRow.email);
+                    }).map((csvRow) => csvRow.email);
 
-                    let existingBsn = this.data.filter(csvRow => {
-                        return bsns.indexOf(csvRow.bsn) != -1;
-                    }).map(csvRow => csvRow.bsn);
+                    const existingBsn = this.data.filter((csvRow) => {
+                        return bsnList.indexOf(csvRow.bsn) != -1;
+                    }).map((csvRow) => csvRow.bsn);
 
                     $ctrl.loading = false;
 
@@ -377,7 +382,7 @@ let ModalVouchersUploadComponent = function(
                     var chunksCount = submitData.length;
                     var currentChunkNth = 0;
 
-                    let uploadChunk = (data) => {
+                    const uploadChunk = (data) => {
                         $ctrl.changed = true;
 
                         VoucherService.storeCollection($ctrl.organization.id, fund_id, data).then(() => {

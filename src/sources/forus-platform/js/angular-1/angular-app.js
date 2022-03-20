@@ -36,7 +36,6 @@ app.component('sponsorProviderOrganizationComponent', require('./components/Spon
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
-app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
 app.component('providerSignUpComponent', require('./components/ProviderSignUpComponent'));
 app.component('sponsorSignUpComponent', require('./components/SponsorSignUpComponent'));
 app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
@@ -136,7 +135,6 @@ app.service('ProviderFundService', require('./services/ProviderFundService'));
 app.service('OrganizationEmployeesService', require('./services/OrganizationEmployeesService'));
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
-app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
 app.service('MediaService', require('./services/MediaService'));
 app.service('ProviderIdentityService', require('./services/ProviderIdentityService'));
 app.service('ConfigService', require('./services/ConfigService'));

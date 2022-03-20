@@ -18,7 +18,10 @@ module.exports = {
             button: 'Start aanvraag', 
         },
         westerkwartier: {
-            button: 'Start aanvraag', 
+            button: 'Start',
+            subtitle_av: "Er bestaan veel verschillende potjes binnen het Westerkwartier, vaak meer dan je denkt. Met deze website kan je potjes aanvragen, beheren en uitgeven.",
+            cta_av: "",
+            button_av: 'Start',  
         },
         groningen: {
             button: 'Start aanvraag', 

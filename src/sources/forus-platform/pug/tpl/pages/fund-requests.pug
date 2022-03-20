@@ -146,11 +146,11 @@
                 .card-title.card-title-sm: .flex
                     .flex.flex-grow
                         translate(
-                            ng-if="!validatorRequest.isSponsorEmployee || !validatorRequest.is_assigned" 
+                            ng-if="!validatorRequest.can_add_partner_bsn" 
                             translate="validation_requests.labels.records")
 
                         .button.button-text(
-                            ng-if="validatorRequest.isSponsorEmployee && validatorRequest.is_assigned && !validatorRequest.record_types.includes('partner_bsn')" 
+                            ng-if="validatorRequest.can_add_partner_bsn" 
                             ng-click="$ctrl.appendRecord(validatorRequest)")
                             translate(translate="validation_requests.labels.records")
                             .mdi.mdi-plus-circle.icon-end.text-primary

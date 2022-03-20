@@ -8,7 +8,7 @@ module.exports = {
             subtitle: "Hieronder ziet u een deel van de potjes die u kan aanvragen. Bent u benieuwd welke er nog meer zijn? Neem dan contact op met: xxxx"
         },
         westerkwartier: {
-            title: "Activeren",
+            title: "Potjes",
             subtitle: "Hieronder ziet u de regelingen die u kan activeren."
         },
         berkelland: {
@@ -29,7 +29,7 @@ module.exports = {
             title: "Potjes",
         },
         westerkwartier: {
-            title: "Activeren",
+            title: "Potjes",
         },
         berkelland: {
             title: "Activeren",
@@ -68,6 +68,9 @@ module.exports = {
             start_request: "Aanvragen"
         },
         potjeswijzer: {
+            start_request: "Aanvragen"
+        },
+        westerkwartier: {
             start_request: "Aanvragen"
         },
         more: "Bekijk meer",
