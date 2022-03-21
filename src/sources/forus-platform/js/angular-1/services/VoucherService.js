@@ -67,33 +67,12 @@ const VoucherService = function(ApiRequest) {
             return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/activation-code`, data);
         };
 
-        this.downloadQRCodesXls = function(organization_id, query) {
-            return ApiRequest.get([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/export-xls',
-            ].join(''), query, {}, true, (_cfg) => {
-                _cfg.responseType = 'arraybuffer';
-                _cfg.cache = false;
-
-                return _cfg;
-            });
+        this.export = function(organization_id, filters = {}) {
+            return ApiRequest.get(`/platform/organizations/${organization_id}/sponsor/vouchers/export`, filters);
         };
 
-        this.downloadQRCodes = function(organization_id, query) {
-            return ApiRequest.get([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/export',
-            ].join(''), query, {}, true, (params) => {
-                params.responseType = 'blob';
-                return params;
-            });
-        };
-
-        this.downloadQRCodesData = function(organization_id, query) {
-            return ApiRequest.get([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/export-data',
-            ].join(''), query);
+        this.exportFields = function(organization_id, filters = {}) {
+            return ApiRequest.get(`/platform/organizations/${organization_id}/sponsor/vouchers/export-fields`, filters);
         };
 
         this.sampleCSVBudgetVoucher = (expires_at = "2020-02-20") => {

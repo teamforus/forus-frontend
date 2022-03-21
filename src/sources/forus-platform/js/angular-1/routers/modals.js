@@ -103,12 +103,12 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalCreatePrevalidationComponent'
     });
 
-    ModalRouteProvider.modal('voucherExportType', {
-        component: 'modalVoucherExportTypeComponent'
-    });
-
     ModalRouteProvider.modal('exportType', {
         component: 'modalExportTypeComponent'
+    });
+
+    ModalRouteProvider.modal('exportDataSelect', {
+        component: 'modalExportDataSelectComponent'
     });
 
     ModalRouteProvider.modal('dangerZone', {
