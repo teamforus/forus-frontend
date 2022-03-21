@@ -317,7 +317,8 @@
                     | Persoonlijke gegevens &nbsp;
                     .button.button-default(
                         ng-click="$event.stopPropagation(); $ctrl.getPerson(validatorRequest, validatorRequest.bsn)")
-                        em.mdi.mdi-eye.icon-start
+                        .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.fetchingPerson")
+                        .mdi.mdi-eye.icon-start(ng-if="!$ctrl.fetchingPerson")
                         | Bekijken
 
             .card-section(ng-if="$ctrl.organization.has_person_bsn_api && validatorRequest.person" ng-hide='validatorRequest.bsn_collapsed')

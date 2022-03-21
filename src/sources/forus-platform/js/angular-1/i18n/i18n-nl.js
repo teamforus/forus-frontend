@@ -597,7 +597,6 @@ module.exports = {
             break: "Pauze",
             not_specified: "Niet ingevuld",
             description: "Omschrijving",
-            person_bsn_api_id: "Person BSN API id"
         },
         buttons: {
             cancel: "Annuleren",
