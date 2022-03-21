@@ -54,6 +54,7 @@
                         th.text-right(width="10%" translate="financial_dashboard_overview.labels.total")
                         th.text-right(width="15%" translate="financial_dashboard_overview.labels.active") 
                         th.text-right(width="15%" translate="financial_dashboard_overview.labels.inactive") 
+                        th.text-right(width="15%" translate="financial_dashboard_overview.labels.deactivated")
                         th.text-right(width="15%" translate="financial_dashboard_overview.labels.used") 
                         th.text-right(translate="financial_dashboard_overview.labels.left")
 
@@ -67,6 +68,7 @@
                             td.text-right(ng-bind="fund.budget.vouchers_amount | currency_format")
                             td.text-right(ng-bind="fund.budget.active_vouchers_amount | currency_format")
                             td.text-right(ng-bind="fund.budget.inactive_vouchers_amount | currency_format")
+                            td.text-right(ng-bind="fund.budget.deactivated_vouchers_amount | currency_format")
                             td.text-right(ng-bind="fund.budget.used_active_vouchers | currency_format")
                             td.text-right(ng-bind="(fund.budget.vouchers_amount - fund.budget.used_active_vouchers) | currency_format")
 
@@ -76,6 +78,7 @@
                             td.text-right {{ fund.budget.percentageTotal }} %
                             td.text-right {{ fund.budget.percentageActive }} %
                             td.text-right {{ fund.budget.percentageInactive }} %
+                            td.text-right {{ fund.budget.percentageDeactivated }} %
                             td.text-right {{ fund.budget.percentageUsed }} %
                             td.text-right {{ fund.budget.percentageLeft }} %
 
@@ -85,6 +88,7 @@
                             td.text-right(ng-bind="fund.budget.vouchers_count")
                             td.text-right(ng-bind="fund.budget.active_vouchers_count")
                             td.text-right(ng-bind="fund.budget.inactive_vouchers_count")
+                            td.text-right(ng-bind="fund.budget.deactivated_vouchers_count")
                             td.text-right  -
                             td.text-right  -
 
@@ -111,5 +115,6 @@
                         td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.vouchers_amount | currency_format")
                         td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.active_vouchers_amount | currency_format")
                         td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.inactive_vouchers_amount | currency_format")
+                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.deactivated_vouchers_amount | currency_format")
                         td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.budget_used_active_vouchers | currency_format")
                         td.text-right(ng-bind="($ctrl.fundsFinancialOverview.budget_funds.vouchers_amount - $ctrl.fundsFinancialOverview.budget_funds.budget_used_active_vouchers) | currency_format")
