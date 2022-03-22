@@ -1,5 +1,5 @@
-label(for="{{ name }}" ng-class="{'checkbox-narrow': narrow, 'checkbox-compact': compact, 'checkbox-fill' : fill}").checkbox
-    input(type="checkbox" checked id="{{ name }}" ng-model="ngModel")
+label(for="{{ $dir.name }}" ng-class="{'checkbox-narrow': $dir.narrow, 'checkbox-compact': $dir.compact, 'checkbox-fill' : $dir.fill}").checkbox
+    input(type="checkbox" checked id="{{ $dir.name }}" ng-model="$dir.ngModel" ng-change="$dir.onChange($dir.ngModel)")
     .checkbox-label
         .checkbox-box: .mdi.mdi-check
-        span(ng-bind="label")
+        span(ng-bind="$dir.label")

@@ -15,10 +15,6 @@ const VoucherService = function(ApiRequest) {
             return ApiRequest.get('/platform/provider/vouchers/' + address + '/products', query);
         };
 
-        this.get = function(address) {
-            return ApiRequest.get('/platform/organizations/' + address);
-        };
-
         this.store = (organization_id, data) => {
             return ApiRequest.post([
                 '/platform/organizations/' + organization_id,
@@ -34,10 +30,7 @@ const VoucherService = function(ApiRequest) {
         };
 
         this.storeCollection = function(organization_id, fund_id, vouchers) {
-            return ApiRequest.post([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/batch'
-            ].join(''), {
+            return ApiRequest.post(`/platform/organizations/${organization_id}/sponsor/vouchers/batch`, {
                 fund_id: fund_id,
                 vouchers: vouchers
             });
@@ -50,70 +43,36 @@ const VoucherService = function(ApiRequest) {
             ].join(''));
         };
 
-        this.assign = (organization_id, voucher_id, query) => {
-            return ApiRequest.patch([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/assign',
-            ].join(''), query);
-        };
-
-        this.activate = (organization_id, voucher_id, data) => {
-            return ApiRequest.patch([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/activate',
-            ].join(''), data);
-        };
-
-        this.deactivate = (organization_id, voucher_id, data = {}) => {
-            return ApiRequest.patch([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/deactivate',
-            ].join(''), data);
-        };
-
-        this.makeActivationCode = (organization_id, voucher_id) => {
-            return ApiRequest.patch([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/activation-code',
-            ].join(''));
+        this.update = (organization_id, voucher_id, query) => {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}`, query);
         };
 
         this.sendToEmail = (organization_id, voucher_id, email) => {
-            return ApiRequest.post([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/' + voucher_id + '/send',
-            ].join(''), {
-                email: email
-            });
+            return ApiRequest.post(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/send`, { email });
         };
 
-        this.downloadQRCodesXls = function(organization_id, query) {
-            return ApiRequest.get([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/export-xls',
-            ].join(''), query, {}, true, (_cfg) => {
-                _cfg.responseType = 'arraybuffer';
-                _cfg.cache = false;
-
-                return _cfg;
-            });
+        this.assign = (organization_id, voucher_id, data) => {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/assign`, data);
         };
 
-        this.downloadQRCodes = function(organization_id, query) {
-            return ApiRequest.get([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/export',
-            ].join(''), query, {}, true, (params) => {
-                params.responseType = 'blob';
-                return params;
-            });
+        this.activate = (organization_id, voucher_id, data) => {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/activate`, data);
         };
 
-        this.downloadQRCodesData = function(organization_id, query) {
-            return ApiRequest.get([
-                '/platform/organizations/' + organization_id,
-                '/sponsor/vouchers/export-data',
-            ].join(''), query);
+        this.deactivate = (organization_id, voucher_id, data = {}) => {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/deactivate`, data);
+        };
+
+        this.makeActivationCode = (organization_id, voucher_id, data = {}) => {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/activation-code`, data);
+        };
+
+        this.export = function(organization_id, filters = {}) {
+            return ApiRequest.get(`/platform/organizations/${organization_id}/sponsor/vouchers/export`, filters);
+        };
+
+        this.exportFields = function(organization_id, filters = {}) {
+            return ApiRequest.get(`/platform/organizations/${organization_id}/sponsor/vouchers/export-fields`, filters);
         };
 
         this.sampleCSVBudgetVoucher = (expires_at = "2020-02-20") => {

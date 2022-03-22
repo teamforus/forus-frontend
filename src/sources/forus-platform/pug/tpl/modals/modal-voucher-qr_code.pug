@@ -50,7 +50,7 @@
             .form-group
                 label.form-label(translate="{{ 'modals.modal_voucher_create.labels.assign_by_type' + ($ctrl.voucherActive ? '' : '_or_activate') }}")
                 select(
-                    ng-change="$ctrl.onAsignTypeChange($ctrl.assignType)"
+                    ng-change="$ctrl.onAssignTypeChange($ctrl.assignType)"
                     ng-options="assignType as assignType.label for assignType in $ctrl.assignTypes"
                     ng-model="$ctrl.assignType").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
