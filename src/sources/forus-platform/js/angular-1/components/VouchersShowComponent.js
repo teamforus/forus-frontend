@@ -11,6 +11,10 @@ const VouchersShowComponent = function(
     const $str_limit = $filter('str_limit');
     const $translate = $filter('translate');
 
+    const $translateDangerZone = (key) => $translate(
+        `modals.danger_zone.increase_limit_multiplier.${key}`
+    );
+
     const onStateChanged = function(promise, action = 'deactivation') {
         promise.then((res) => {
             $ctrl.voucher = res.data.data;
@@ -148,6 +152,29 @@ const VouchersShowComponent = function(
             $ctrl.voucher.fund.allow_physical_cards &&
             $ctrl.voucher.fund.type == 'subsidies' &&
             $ctrl.voucher.state !== 'deactivated';
+    }
+
+    $ctrl.incrementLimitMultiplier = () => {
+        ModalService.open("dangerZone", {
+            title: $translateDangerZone('title'),
+            description: $translateDangerZone('description'),
+            cancelButton: $translateDangerZone('buttons.cancel'),
+            confirmButton: $translateDangerZone('buttons.confirm'),
+            onConfirm: () => {
+                VoucherService.update(
+                    $ctrl.organization.id, 
+                    $ctrl.voucher.id, {
+                        limit_multiplier: $ctrl.voucher.limit_multiplier + 1
+                    }
+                ).then(() => {
+                    $ctrl.voucher.limit_multiplier++;
+                    PushNotificationsService.success('Opgeslagen!');
+                }, (err) => {
+                    PushNotificationsService.danger('Error!');
+                    console.error(err);
+                });
+            }
+        });
     }
 
     $ctrl.$onInit = function() {
