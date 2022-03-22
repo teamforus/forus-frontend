@@ -336,41 +336,20 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
 
     $stateProvider.state({
         name: "providers",
-        url: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}",
+        url: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
         component: "providersComponent",
         params: {
-            q: {
-                dynamic: true,
-                value: "",
-                squash: true,
-            },
-            page: {
-                dynamic: true,
-                value: 1,
-                squash: true,
-            },
-            fund_id: {
-                value: null,
-                squash: true
-            },
-            business_type_id: {
-                value: null,
-                squash: true
-            },
-            show_map: {
-                value: false,
-                squash: true
-            },
-            show_menu: {
-                dynamic: true,
-                value: false,
-                squash: true
-            },
+            q: { dynamic: true, value: "", squash: true },
+            page: { dynamic: true, value: 1, squash: true },
+            fund_id: { value: null, squash: true },
+            show_map: { value: false, squash: true },
+            distance: { dynamic: true, value: null, squash: true },
+            postcode: { dynamic: true, value: '', squash: true },
+            show_menu: { dynamic: true, value: false, squash: true },
+            business_type_id: { value: null, squash: true },
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
             businessTypes: ['BusinessTypeService', (
                 BusinessTypeService
             ) => repackResponse(BusinessTypeService.list({
@@ -383,6 +362,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 q: $transition$.params().q,
                 page: $transition$.params().page,
                 fund_id: $transition$.params().fund_id,
+                distance: $transition$.params().distance,
+                postcode: $transition$.params().postcode,
                 business_type_id: $transition$.params().business_type_id,
             }))]
         }

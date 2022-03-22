@@ -106,8 +106,6 @@ const SelectControlDirective = function($scope, $timeout) {
         $dir.optionsPrepared = [];
         $dir.optionsFiltered = [];
 
-        $dir.value = $dir.findValue($dir.ngModel);
-
         $scope.$watch('$dir.options', (options) => {
             if (!Array.isArray(options)) {
                 return;
@@ -118,6 +116,8 @@ const SelectControlDirective = function($scope, $timeout) {
             });
 
             $dir.buildSearchedOptions();
+
+            $dir.value = $dir.findValue($dir.ngModel);
         });
 
         if (typeof $dir.ngChangeQuery == 'function') {

@@ -6,9 +6,20 @@ const ProvidersComponent = function(
 ) {
     const $ctrl = this;
 
-    $ctrl.showmap = false;
+    $ctrl.showMap = false;
     $ctrl.officesShown = [];
     $ctrl.countFiltersApplied = 0;
+
+    $ctrl.distances = [
+        { id: null, name: 'Overal' },
+        { id: 3, name: '< 3 km' },
+        { id: 5, name: '< 5 km' },
+        { id: 10, name: '< 10 km' },
+        { id: 15, name: '< 15 km' },
+        { id: 25, name: '< 25 km' },
+        { id: 50, name: '< 50 km' },
+        { id: 75, name: '< 75 km' }
+    ];
 
     $ctrl.filtersList = [
         'q', 'fund', 'businessType',
@@ -37,8 +48,10 @@ const ProvidersComponent = function(
     $ctrl.buildQuery = (values) => ({
         q: values.q,
         page: values.page,
-        fund_id: values.fund ? values.fund.id : null,
-        business_type_id: values.businessType ? values.businessType.id : null,
+        fund_id: values.fund_id || null,
+        business_type_id: values.business_type_id || null,
+        postcode: values.postcode || '',
+        distance: values.distance || null,
     });
 
     $ctrl.onPageChange = (values) => {
@@ -83,6 +96,8 @@ const ProvidersComponent = function(
             q: query.q || '',
             page: query.page,
             fund_id: query.fund_id,
+            postcode: query.postcode,
+            distance: query.distance,
             business_type_id: query.business_type_id,
             show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
@@ -93,36 +108,31 @@ const ProvidersComponent = function(
         let count = 0;
 
         $ctrl.form.values.q && count++;
-        $ctrl.form.values.fund && $ctrl.form.values.fund.id && count++;
-        $ctrl.form.values.businessType && $ctrl.form.values.businessType.id && count++;
+        $ctrl.form.values.fund_id && count++;
+        $ctrl.form.values.business_type_id && count++;
         $ctrl.countFiltersApplied = count;
     };
 
     $ctrl.$onInit = () => {
         $ctrl.showMap = $stateParams.show_map;
-        $ctrl.businessTypes.unshift({
-            id: null,
-            name: 'Alle typen',
-        });
 
         $ctrl.funds.unshift({
             id: null,
             name: 'Alle tegoeden',
         });
 
-        const fund = $ctrl.funds.filter(fund => {
-            return fund.id == $stateParams.fund_id;
-        })[0] || $ctrl.funds[0];
-
-        const businessType = $ctrl.businessTypes.filter(businessType => {
-            return businessType.id == $stateParams.business_type_id;
-        })[0] || $ctrl.businessTypes[0];
+        $ctrl.businessTypes.unshift({
+            id: null,
+            name: 'Alle typen',
+        });
 
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.form = FormBuilderService.build({
-            q: $stateParams.q || '',
-            fund: fund,
-            businessType: businessType,
+            q: $stateParams.q,
+            fund_id: $stateParams.fund_id || $ctrl.funds[0].id,
+            business_type_id: $stateParams.business_type_id || $ctrl.businessTypes[0].id,
+            postcode: $stateParams.postcode,
+            distance: $stateParams.distance,
         });
 
         if ($ctrl.showMap) {
