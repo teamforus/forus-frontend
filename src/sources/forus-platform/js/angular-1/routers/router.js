@@ -498,7 +498,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     // Organization employees
     $stateProvider.state({
         name: "bank-connections",
-        url: "/organizations/{organization_id}/bank-connections?error&success",
+        url: "/organizations/{organization_id}/bank-connections?{success:bool}&{error:string}",
         component: "organizationBankConnectionsComponent",
         resolve: {
             organization: organziationResolver(),
@@ -1056,7 +1056,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "transaction-bulk",
-        url: "/organizations/{organization_id}/transaction-bulks/{id}",
+        url: "/organizations/{organization_id}/transaction-bulks/{id}?{success:bool}&{error:string}",
         component: "transactionBulkComponent",
         resolve: {
             organization: organziationResolver(),
