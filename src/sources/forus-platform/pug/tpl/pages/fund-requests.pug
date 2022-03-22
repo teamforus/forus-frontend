@@ -4,6 +4,14 @@
         .card-heading: .row
             .col.col-lg-3.col-xs-12 Aanvragen ({{ $ctrl.validatorRequests.meta.total }})
             .block.block-inline-filters.col.col-lg-9.col-xs-12.text-right
+                .button.button-primary(ng-if="!$ctrl.extendedView" ng-click="$ctrl.setExtendedView(true)")
+                    em.mdi.mdi-arrow-expand-vertical.icon-start
+                    | Alles uitklappen
+
+                .button.button-primary(ng-if="$ctrl.extendedView" ng-click="$ctrl.setExtendedView(false)")
+                    em.mdi.mdi-arrow-collapse-vertical.icon-start
+                    | Alles inklappen
+
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                     em.mdi.mdi-close.icon-start 
                     span(i18n="validation_requests.buttons.clear_filter")
@@ -28,7 +36,7 @@
                             .form-group
                                 form-label-toggle(label="{{ 'validation_requests.labels.assigned_to' | i18n }}")
                                 select(
-                                    ng-options="employee.id as employee.email for employee in $ctrl.employees" 
+                                    ng-options="employee.id as employee.email for employee in $ctrl.employees.data" 
                                     ng-model="$ctrl.filters.values.employee_id").form-control
                             .form-group
                                 form-label-toggle(label="{{ 'validation_requests.labels.from' | i18n }}")
@@ -116,42 +124,58 @@
                             .tooltip-content(
                                 ng-if="validatorRequest.showCriteria" 
                                 click-outside="$ctrl.hideFundCriteria($event, validatorRequest)"): ul.tooltip-list
-                                li(ng-repeat="critera in validatorRequest.fund.criteria").tooltip-list-item
+                                li(ng-repeat="criterion in validatorRequest.fund.criteria").tooltip-list-item
                                     em.mdi.mdi-check
-                                    | {{ critera.record_type_name }} moet 
-                                    span(ng-if="critera.operator == '>'") meer dan 
-                                    span(ng-if="critera.operator == '='") 
-                                    span(ng-if="critera.operator == '<'") minder dan 
-                                    | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                                    | {{ criterion.record_type_name }} moet 
+                                    span(ng-if="criterion.operator == '>'") meer dan 
+                                    span(ng-if="criterion.operator == '='") 
+                                    span(ng-if="criterion.operator == '<'") minder dan 
+                                    | {{ criterion.record_type_key == 'net_worth' ? '€' : '' }}{{ criterion.value }}.
                 
                 .card-block.card-block-listing(ng-if="validatorRequest.note")
                     .card-block-listing-label Reden van weigeren
                     .card-block-listing-value
                         span(ng-bind="validatorRequest.note")
             
-            .card-header(ng-hide='validatorRequest.collapsed' state="{{ validatorRequest.state }}" assigned="{{ validatorRequest.is_assigned }}")
-                .arrow-box.border.bg-dim: .arrow
-                .card-title: .flex-row
-                    .flex.flex-grow(ng-if="!validatorRequest.is_assigned" translate='validation_requests.labels.records')
-                    .flex.flex-grow(ng-if="validatorRequest.is_assigned")
-                        .button.button-text(
-                            ng-if="$ctrl.organization.bsn_enabled && (validatorRequest.record_types.indexOf('partner_bsn') === -1)"
-                            ng-click="$ctrl.appendRecord(validatorRequest)")
-                            | {{ 'validation_requests.labels.records' | translate }}
-                            em.mdi.mdi-plus-circle.icon-end.text-primary
+            .card-header.card-header-cursor-default(
+                ng-hide='validatorRequest.collapsed' 
+                state="{{ validatorRequest.state }}" 
+                assigned="{{ validatorRequest.is_assigned }}")
 
-                    .flex(ng-show="validatorRequest.state == 'pending' || validatorRequest.state == 'disregarded'")
-                        //- Assign request
-                        button.button.button-primary(
-                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assignable"
-                            ng-click='$ctrl.requestAssign(validatorRequest)')
+                .arrow-box.border.bg-dim: .arrow
+                .card-title.card-title-sm: .flex
+                    .flex.flex-grow
+                        translate(
+                            ng-if="!validatorRequest.can_add_partner_bsn" 
+                            translate="validation_requests.labels.records")
+
+                        .button.button-text(
+                            ng-if="validatorRequest.can_add_partner_bsn" 
+                            ng-click="$ctrl.appendRecord(validatorRequest)")
+                            translate(translate="validation_requests.labels.records")
+                            .mdi.mdi-plus-circle.icon-end.text-primary
+
+                    .flex-row(ng-show="validatorRequest.state == 'pending' || validatorRequest.state == 'disregarded'")
+                        //- Assign myself
+                        button.button(
+                            ng-if="validatorRequest.is_assignable"
+                            ng-click='$ctrl.assignRequest(validatorRequest)'
+                            ng-class="validatorRequest.is_assignable_as_supervisor ? 'button-default' : 'button-primary'")
 
                             em.mdi.mdi-account-plus.icon-start
                             | Toewijzen aan mij
 
+                        //- Assign someone else
+                        button.button.button-primary(
+                            ng-if="validatorRequest.is_assignable_as_supervisor"
+                            ng-click='$ctrl.assignRequestAsSupervisor(validatorRequest)')
+
+                            em.mdi.mdi-account-details-outline.icon-start
+                            | Toewijzen
+
                         //- Resign request
                         button.button.button-primary-light(
-                            ng-if="validatorRequest.has_assigned_pending && !validatorRequest.has_assigned_disregarded" 
+                            ng-if="validatorRequest.can_resign || validatorRequest.can_resign_as_supervisor"
                             ng-click='$ctrl.requestResign(validatorRequest)')
 
                             em.mdi.mdi-account-minus.icon-start
@@ -159,34 +183,34 @@
 
                         //- Decline
                         button.button.button-default(
-                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.has_assigned_disregarded" 
+                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.can_disregarded_undo" 
                             ng-click='$ctrl.requestDecline(validatorRequest)')
 
-                            em.mdi.mdi-close.icon-start
-                            | {{ "validation_requests.buttons.alldecline" | translate }}
+                            em.mdi.mdi-close-circle.icon-start
+                            translate(translate="validation_requests.buttons.decline_all")
 
                         //- Approve
                         button.button.button-primary(
-                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.has_assigned_disregarded" 
+                            ng-if="validatorRequest.state == 'pending' && validatorRequest.is_assigned && !validatorRequest.can_disregarded_undo" 
                             ng-click='$ctrl.requestApprove(validatorRequest)')
 
                             em.mdi.mdi-check-circle.icon-start
-                            | {{ "validation_requests.buttons.allaccept" | translate }}
+                            translate(translate="validation_requests.buttons.accept_all")
 
                         //- Disregard
                         button.button.button-default(
-                            ng-if="validatorRequest.is_sponsor_employee && validatorRequest.has_assigned_pending" 
+                            ng-if="validatorRequest.can_disregarded" 
                             ng-click='$ctrl.requestDisregard(validatorRequest)')
 
                             em.mdi.mdi-timer-sand-empty.icon-start
-                            | {{ "validation_requests.buttons.disregard" | translate }}
+                            translate(translate="validation_requests.buttons.disregard")
                     
                         //- Disregard undo
                         button.button.button-default(
-                            ng-if="validatorRequest.is_sponsor_employee && validatorRequest.has_assigned_disregarded && !validatorRequest.replaced"
+                            ng-if="validatorRequest.can_disregarded_undo" 
                             ng-click='$ctrl.requestDisregardUndo(validatorRequest)')
                             em.mdi.mdi-timer-sand-empty.icon-start
-                            | {{ "validation_requests.buttons.disregard_undo" | translate }}
+                            translate(translate="validation_requests.buttons.disregard_undo")
         
             .card-section(ng-hide='validatorRequest.collapsed'): .card-block.card-block-table: .table-wrapper: table.table
                 thead: tr
@@ -204,7 +228,7 @@
                             ng-class="{'mdi-menu-down': !record.shown, 'mdi-menu-up': record.shown}"
                             ng-click="record.shown = !record.shown")
                         td(ng-bind='record.record_type.name')
-                        td(ng-bind='record.is_visible ? record.value : "Niet beschikbaar"' ng-class="{'text-muted': !record.is_visible}")
+                        td(ng-bind='record.value !== null ? record.value : "Niet beschikbaar"' ng-class="{'text-muted': record.value !== null}")
                         td(ng-bind='record.created_at_locale')
                         td: .tag(
                             ng-class="{pending: 'tag-primary-light', declined: 'tag-danger', approved: 'tag-success', disregarded: 'tag-default'}[record.state]" 
@@ -214,20 +238,30 @@
                             .text-muted(translate='validation_requests.status.{{ record.state }}')
 
                         td.text-right(ng-if="record.state == 'pending' && !record.is_assigned")
-                            .text-muted(ng-if="validatorRequest.employee_id")
-                                | Toegewezen aan: {{ validatorRequest.employee.email }}
-                            .text-muted(ng-if="!validatorRequest.employee_id && record.is_assignable")
+                            .td-text-insert.text-muted(ng-if="record.employee_id")
+                                span Toegewezen aan
+                                .text-strong.nowrap(ng-bind="record.employee.email")
+
+                            .text-muted(ng-if="!record.employee_id && record.is_assignable")
                                 | Zelf toewijzen
-                            .text-muted(ng-if="!validatorRequest.employee_id && !record.is_assignable")
+
+                            .text-muted(ng-if="!record.employee_id && !record.is_assignable")
                                 | Niet beschikbaar
-                        
+
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
-                                .button.button-primary.button-icon(ng-click='$ctrl.declineRecord(validatorRequest, record)' ng-if='$root.appConfigs.flags.singleRecordValidation')
+                                .button.button-primary.button-icon(
+                                    ng-click='$ctrl.declineRecord(validatorRequest, record)' 
+                                    ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-close
-                                .button.button-primary-light.button-icon(ng-click='$ctrl.clarifyRecord(validatorRequest, record)')
+
+                                .button.button-primary-light.button-icon(
+                                    ng-click='$ctrl.clarifyRecord(validatorRequest, record)')
                                     em.mdi.mdi-message-text
-                                .button.button-default.button-icon(ng-click='$ctrl.approveRecord(validatorRequest, record)' ng-if='$root.appConfigs.flags.singleRecordValidation')
+
+                                .button.button-default.button-icon(
+                                    ng-click='$ctrl.approveRecord(validatorRequest, record)' 
+                                    ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-check
                     
                     tr.dim(ng-if='(record.shown) && ((record.files.length > 0) || (record.clarifications.length > 0))'): td(colspan='6')
@@ -236,6 +270,7 @@
                                 .attachment-icon
                                     .mdi.mdi-file
                                     .attachment-size(ng-bind='file.size')
+
                                 .attachment-name(ng-bind='file.original_name')
                                 .attachment-date(ng-bind='record.created_at_locale')
                                 .attachment-preview( 
@@ -252,11 +287,13 @@
                                     .clarification-item-question
                                         .clarification-item-icon.mdi.mdi-message-text.text-primary
                                         span(ng-bind="clarification.question")
+
                                     .clarification-item-answer
                                         .clarification-item-icon.mdi.mdi-message-text.text-primary-light
                                         span(
                                             ng-class="clarification.answered_at ? '' : 'text-muted'"
                                             ng-bind="clarification.answered_at ? clarification.answer : 'Geen antwoord...'")
+
                                     .clarification-item-attachments(ng-if="clarification.files.length > 0")
                                         .block.block-attachments-list
                                             .block-attachments-inner
@@ -272,7 +309,84 @@
                                                         ng-if="$ctrl.hasFilePreview(file)" 
                                                         ng-click="$ctrl.previewFile($event, file)")
                                                         .mdi.mdi-eye
-    
+
+            .card-header(
+                ng-if="$ctrl.organization.has_person_bsn_api && validatorRequest.bsn"
+                ng-click='validatorRequest.bsn_collapsed = !validatorRequest.bsn_collapsed')
+                .card-title
+                    | Persoonlijke gegevens &nbsp;
+                    .button.button-default(
+                        ng-click="$event.stopPropagation(); $ctrl.getPerson(validatorRequest, validatorRequest.bsn)")
+                        .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.fetchingPerson")
+                        .mdi.mdi-eye.icon-start(ng-if="!$ctrl.fetchingPerson")
+                        | Bekijken
+
+            .card-section(ng-if="$ctrl.organization.has_person_bsn_api && validatorRequest.person" ng-hide='validatorRequest.bsn_collapsed')
+                .arrow-box.border.bg-dim: .arrow
+
+                .block.block-breadcrumbs
+                    .breadcrumb-item(
+                        ng-repeat="breadcrumb in validatorRequest.person_breadcrumbs track by $index"
+                        ng-init="breadcrumbIndex = $index"
+                        ng-bind="breadcrumb.name"
+                        ng-click="$ctrl.getPerson(validatorRequest, breadcrumb.bsn, breadcrumbIndex > 0 ? validatorRequest.person_breadcrumbs[breadcrumbIndex-1].bsn : null)")
+
+                .row
+                    .col.col-lg-6: .flex: .card-block.card-block-keyvalue
+                        .keyvalue-item
+                            .keyvalue-key(translate="validation_requests.labels.bsn")
+                            .keyvalue-value(ng-bind="validatorRequest.person.bsn")
+                        .keyvalue-item
+                            .keyvalue-key(translate="validation_requests.labels.first_name")
+                            .keyvalue-value(ng-bind="validatorRequest.person.first_name")
+                        .keyvalue-item
+                            .keyvalue-key(translate="validation_requests.labels.last_name")
+                            .keyvalue-value(ng-bind="validatorRequest.person.last_name")
+                        .keyvalue-item
+                            .keyvalue-key(translate="validation_requests.labels.gender")
+                            .keyvalue-value(ng-bind="validatorRequest.person.gender")
+                        .keyvalue-item
+                            .keyvalue-key(translate="validation_requests.labels.nationality")
+                            .keyvalue-value(ng-bind="validatorRequest.person.nationality")
+                        .keyvalue-item
+                            .keyvalue-key(translate="validation_requests.labels.age")
+                            .keyvalue-value(ng-bind="validatorRequest.person.age")
+                        .keyvalue-item
+                            .keyvalue-key(translate="validation_requests.labels.birth_date")
+                            .keyvalue-value(ng-bind="validatorRequest.person.birth_date")
+                        .keyvalue-item
+                            .keyvalue-key(translate="validation_requests.labels.birth_place")
+                            .keyvalue-value(ng-bind="validatorRequest.person.birth_place.place + ', ' + validatorRequest.person.birth_place.country")
+                        .keyvalue-item
+                            .keyvalue-key(translate="validation_requests.labels.address")
+                            .keyvalue-value
+                                | {{ validatorRequest.person.residence.street }} {{ validatorRequest.person.residence.house_number }}
+                                br
+                                | {{ validatorRequest.person.residence.postcode }}
+
+                    .col.col-lg-6: .flex: .card-block.card-block-keyvalue
+                        .keyvalue-item(ng-repeat="parent in validatorRequest.person.parents track by $index" ng-init="parentIndex = $index")
+                            .keyvalue-key(translate="validation_requests.labels.parent" translate-values="{ index: parentIndex + 1 }")
+                            .keyvalue-value(
+                                ng-bind="parent.name"
+                                ng-class="parent.bsn ? 'card-text-link' : ''"
+                                ng-click="$ctrl.getPerson(validatorRequest, parent.bsn, validatorRequest.person.bsn)")
+
+                        .keyvalue-item(ng-repeat="partner in validatorRequest.person.partners track by $index" ng-init="partnerIndex = $index")
+                            .keyvalue-key(translate="validation_requests.labels.partner")
+                            .keyvalue-value(
+                                ng-bind="partner.name"
+                                ng-class="partner.bsn ? 'card-text-link' : ''"
+                                ng-click="$ctrl.getPerson(validatorRequest, partner.bsn, validatorRequest.person.bsn)")
+
+                        .keyvalue-item(ng-repeat="child in validatorRequest.person.children track by $index" ng-init="childIndex = $index")
+                            .keyvalue-key(translate="validation_requests.labels.child" translate-values="{ index: childIndex + 1 }")
+                            .keyvalue-value(
+                                ng-bind="child.name"
+                                ng-class="child.bsn ? 'card-text-link' : ''"
+                                ng-click="$ctrl.getPerson(validatorRequest, child.bsn, validatorRequest.person.bsn)")
+
+
         .card-section(ng-show='$ctrl.shownUsers[validatorRequest.bsn] && !validatorRequest.collapsed'): .table-pagination
             .table-pagination-counter(
                 translate='validation_requests.labels.results' 

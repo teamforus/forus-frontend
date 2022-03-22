@@ -1,16 +1,16 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
-let FundRequestValidatorService = function(ApiRequest) {
-    let uriPrefixAll = '/platform/organizations/%s/fund-requests';
+const FundRequestValidatorService = function(ApiRequest) {
+    const uriPrefixAll = '/platform/organizations/%s/fund-requests';
 
-    let FundRequestValidatorService = function() {
-        this.indexAll = function(organziation_id, data = {}) {
-            return ApiRequest.get(sprintf(uriPrefixAll, organziation_id), data);
+    const FundRequestValidatorService = function() {
+        this.indexAll = function(organization_id, data = {}) {
+            return ApiRequest.get(sprintf(uriPrefixAll, organization_id), data);
         };
 
-        this.exportAll = function(organziation_id, filters = {}) {
+        this.exportAll = function(organization_id, filters = {}) {
             return ApiRequest.get(sprintf(
-                uriPrefixAll + '/export', organziation_id
+                uriPrefixAll + '/export', organization_id
             ), filters, {}, true, (_cfg) => {
                 _cfg.responseType = 'arraybuffer';
                 _cfg.cache = false;
@@ -19,43 +19,56 @@ let FundRequestValidatorService = function(ApiRequest) {
             });
         };
 
-        this.index = function(organziation_id, data = {}) {
+        this.index = function(organization_id, data = {}) {
             return ApiRequest.get(
-                sprintf(uriPrefixAll, organziation_id),
+                sprintf(uriPrefixAll, organization_id),
                 data
             );
         };
 
-        this.read = function(organziation_id, request_id) {
+        this.read = function(organization_id, request_id) {
             return ApiRequest.get(
-                sprintf(uriPrefixAll + '/%s', organziation_id, request_id)
+                sprintf(uriPrefixAll + '/%s', organization_id, request_id)
             );
         };
 
-        this.assign = function(organziation_id, request_id) {
+        this.assignBySupervisor = function(organization_id, request_id, values = {}) {
             return ApiRequest.patch(
-                sprintf(uriPrefixAll + '/%s/assign', organziation_id, request_id)
+                sprintf(uriPrefixAll + '/%s/assign-employee', organization_id, request_id),
+                values
             );
         };
 
-        this.resign = function(organziation_id, request_id) {
+        this.requestResignAllEmployeesAsSupervisor = function(organization_id, request_id) {
             return ApiRequest.patch(
-                sprintf(uriPrefixAll + '/%s/resign', organziation_id, request_id)
+                sprintf(uriPrefixAll + '/%s/resign-employee', organization_id, request_id)
             );
         };
 
-        this.approve = function(organziation_id, request_id, values = {}) {
+        this.assign = function(organization_id, request_id) {
+            return ApiRequest.patch(
+                sprintf(uriPrefixAll + '/%s/assign', organization_id, request_id)
+            );
+        };
+
+        this.resign = function(organization_id, request_id) {
+            return ApiRequest.patch(
+                sprintf(uriPrefixAll + '/%s/resign', organization_id, request_id)
+            );
+        };
+
+        this.approve = function(organization_id, request_id, values = {}) {
             return ApiRequest.patch(sprintf(
                 uriPrefixAll + '/%s/approve',
-                organziation_id,
+                organization_id,
                 request_id
             ), values);
         };
 
-        this.decline = function(organziation_id, request_id, note = '') {
+        this.decline = function(organization_id, request_id, note = '') {
             return ApiRequest.patch(sprintf(
                 uriPrefixAll + '/%s/decline',
-                organziation_id,
+                organization_id,
                 request_id
             ), { note });
         };
@@ -76,27 +89,27 @@ let FundRequestValidatorService = function(ApiRequest) {
             ));
         };
 
-        this.appendRecord = function(organziation_id, request_id, values = {}) {
+        this.appendRecord = function(organization_id, request_id, values = {}) {
             return ApiRequest.post(sprintf(
                 uriPrefixAll + '/%s/records',
-                organziation_id,
+                organization_id,
                 request_id
             ), values);
         };
 
-        this.approveRecord = function(organziation_id, request_id, record_id) {
+        this.approveRecord = function(organization_id, request_id, record_id) {
             return ApiRequest.patch(sprintf(
                 uriPrefixAll + '/%s/records/%s/approve',
-                organziation_id,
+                organization_id,
                 request_id,
                 record_id
             ));
         };
 
-        this.declineRecord = function(organziation_id, request_id, record_id, note = '') {
+        this.declineRecord = function(organization_id, request_id, record_id, note = '') {
             return ApiRequest.patch(sprintf(
                 uriPrefixAll + '/%s/records/%s/decline',
-                organziation_id,
+                organization_id,
                 request_id,
                 record_id
             ), {
@@ -104,10 +117,10 @@ let FundRequestValidatorService = function(ApiRequest) {
             });
         };
 
-        this.requestRecordClarification = function(organziation_id, request_id, record_id, question) {
+        this.requestRecordClarification = function(organization_id, request_id, record_id, question) {
             return ApiRequest.post(sprintf(
                 uriPrefixAll + '/%s/clarifications',
-                organziation_id,
+                organization_id,
                 request_id
             ), {
                 fund_request_record_id: record_id,
@@ -115,10 +128,10 @@ let FundRequestValidatorService = function(ApiRequest) {
             });
         };
 
-        this.recordClarifications = function(organziation_id, request_id, record_id) {
+        this.recordClarifications = function(organization_id, request_id, record_id) {
             return ApiRequest.get(sprintf(
                 uriPrefixAll + '/%s/clarifications',
-                organziation_id,
+                organization_id,
                 request_id
             ), {
                 fund_request_record_id: record_id,
