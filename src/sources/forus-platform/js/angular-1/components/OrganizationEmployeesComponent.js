@@ -7,6 +7,11 @@ const OrganizationEmployeesComponent = function (
 ) {
     const $ctrl = this;[];
     const str_limit = $filter('str_limit');
+    const $translate = $filter('translate');
+    
+    const $translateDangerZone = (key) => $translate(
+        'modals.danger_zone.remove_organization_employees.' + key
+    );
 
     $ctrl.filters = {};
     $ctrl.adminEmployees = [];
@@ -55,10 +60,18 @@ const OrganizationEmployeesComponent = function (
     };
 
     $ctrl.deleteEmployee = function (employee) {
-        OrganizationEmployeesService.destroy($ctrl.organization.id, employee.id).then(() => {
-            $scope.onPageChange();
-            PushNotificationsService.success('Gelukt!', 'Medewerker verwijderd.');
-        }, (res) => PushNotificationsService.danger(res.data.message));
+        ModalService.open("dangerZone", {
+            title: $translateDangerZone('title'),
+            description: $translateDangerZone('description'),
+            cancelButton: $translateDangerZone('buttons.cancel'),
+            confirmButton: $translateDangerZone('buttons.confirm'),
+            onConfirm: () => {
+                OrganizationEmployeesService.destroy($ctrl.organization.id, employee.id).then(() => {
+                    $scope.onPageChange();
+                    PushNotificationsService.success('Gelukt!', 'Medewerker verwijderd.');
+                }, (res) => PushNotificationsService.danger(res.data.message));
+            }
+        });
     }
 
     $ctrl.transferOwnership = function (employees) {
