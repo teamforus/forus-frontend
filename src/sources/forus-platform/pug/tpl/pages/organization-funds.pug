@@ -22,7 +22,7 @@
                     ui-sref="organization-funds({funds_type: 'archived'})")
                     | Archief ({{ $ctrl.archivedFunds.length }})
 
-        .block.block-funds(ng-if="$ctrl.shownFundsType == 'active'")
+        .block.block-funds(ng-if="$ctrl.shownFundsType == 'active' && $ctrl.activeFunds.length > 0")
             .fund-item(ng-repeat="fund in $ctrl.activeFunds")
                 .fund-item-section: .flex-col
                     .flex-row
