@@ -1,6 +1,6 @@
 const kebabCase = require("lodash/kebabCase");
 
-const ModalsRootDirective = function ($scope, ModalService, ModalRoute) {
+const ModalsRootDirective = function($scope, ModalService, ModalRoute) {
     const modals = ModalService.getModals();
     const routeModals = ModalRoute.modals();
 
@@ -13,7 +13,7 @@ const ModalsRootDirective = function ($scope, ModalService, ModalRoute) {
             modal.component = routeModals[modal.key].component;
             modal.componentType = kebabCase(routeModals[modal.key].component);
 
-            modal.close = function () {
+            modal.close = function() {
                 if (typeof modal.events.onClose === 'function') {
                     modal.events.onClose(modal);
                 }
@@ -23,24 +23,35 @@ const ModalsRootDirective = function ($scope, ModalService, ModalRoute) {
         });
     };
 
-    const keyDownListner = (e, modal, isLast) => {
+    const keyDownListener = (e, modal, isLast) => {
         if (isLast) {
-            const listners = Array.isArray(modal.onkeyDown) ? modal.onkeyDown : [modal.onkeyDown];
+            const listeners = Array.isArray(modal.onkeyDown) ? modal.onkeyDown : [modal.onkeyDown];
             const code = e.charCode || e.keyCode || 0;
 
             if (modal.closeOnEscape && code == 27) {
                 modal.close();
             }
 
-            listners.forEach((listner) => {
-                if (typeof listner === 'function') {
-                    listner(code, e);
+            listeners.forEach((listener) => {
+                if (typeof listener === 'function') {
+                    listener(code, e);
                 }
             });
         }
     };
 
-    const updateFocus = (modals) => {
+    const updateModalFocus = ()=> {
+        const modal = modals[modals.length - 1];
+        const window = modal.getElement()[0]?.querySelector('.modal');
+        const focusElements = window.querySelectorAll('select, textarea, input, button, .button');
+        const focusedElement = window.querySelector(':focus');
+
+        if (!focusedElement || (focusedElement == focusElements[focusElements.length - 1])) {
+            window.focus();
+        }
+    };
+
+    const updateActiveWindow = (modals) => {
         for (let i = 0; i < modals.length; i++) {
             const modal = modals[i];
             const window = modal.getElement()[0]?.querySelector('.modal');
@@ -53,9 +64,9 @@ const ModalsRootDirective = function ($scope, ModalService, ModalRoute) {
                     continue;
                 }
 
-                window.onkeydown = (e) => keyDownListner(e, modal, isLast);
+                window.onkeydown = (e) => keyDownListener(e, modal, isLast);
                 window.setAttribute('tabindex', -1);
-                window.focus();
+                updateModalFocus();
             }
         }
     };
@@ -67,9 +78,18 @@ const ModalsRootDirective = function ($scope, ModalService, ModalRoute) {
         const modalsFocus = modals.filter((modal) => modal.ready && modal.getElement);
 
         update(modalsNotReady);
-        updateFocus(modalsFocus);
-
+        updateActiveWindow(modalsFocus);
     }, true);
+
+    const onInit = () => {
+        document.addEventListener('keydown', (e) => {
+            if (e.key == 'Tab' && $scope.modals.length > 0) {
+                updateModalFocus();
+            }
+        });
+    };
+
+    onInit();
 };
 
 module.exports = () => {
