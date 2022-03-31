@@ -166,4 +166,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('switchBankConnectionAccount', {
         component: 'modalSwitchBankConnectionAccountComponent'
     });
+
+    ModalRouteProvider.modal('fundRequestAssignValidator', {
+        component: 'modalFundRequestAssignValidatorComponent'
+    });
 }];
