@@ -61,10 +61,10 @@
                             .button.button-default(ng-if="fund.key && fund.is_configured " ng-click="$ctrl.toggleFundStats(fund)")
                                 em.mdi.mdi-poll.icon-start
                                 translate(translate="components.organization_funds.buttons.statistics")
-                        
+
                         .flex-col: .flex-row.flex-end
                             .button.button-default(
-                                ng-if="funds.budget_provider == 'top_ups' && fund.key && fund.state != 'closed'" 
+                                ng-if="fund.balance_provider == 'top_ups' && fund.key && fund.state != 'closed'" 
                                 ng-disabled="!fund.organization.has_bank_connection"
                                 ng-click="$ctrl.topUpModal(fund)")
                                 em.mdi.mdi-plus-circle.icon-start
