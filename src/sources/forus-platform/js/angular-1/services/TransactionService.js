@@ -22,7 +22,15 @@ const TransactionService = function(ApiRequest) {
             return ApiRequest.post(`${path}/${organization_id}/sponsor/transaction-bulks`);
         };
 
+        // Reset bulk state and resend the payments to BUNQ
         this.bulkReset = (organization_id, bulk_id) => {
+            return ApiRequest.patch(`${path}/${organization_id}/sponsor/transaction-bulks/${bulk_id}`, {
+                state: 'pending',
+            });
+        };
+
+        // Submit the payments to BNG
+        this.bulkSubmit = (organization_id, bulk_id) => {
             return ApiRequest.patch(`${path}/${organization_id}/sponsor/transaction-bulks/${bulk_id}`, {
                 state: 'pending',
             });

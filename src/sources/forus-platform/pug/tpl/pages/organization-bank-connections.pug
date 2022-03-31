@@ -1,33 +1,64 @@
 .app.app-container
     menu
     section.app.app-content 
-        .card(ng-if="!$ctrl.bank"): .card-section: .block.block-empty.text-center
+        .card(ng-if="$ctrl.banks.meta.total === 0"): .card-section: .block.block-empty.text-center
             .empty-title Niet beschikbaar
             .empty-details Geen verbindingen met een bank beschikbaar
 
         //- No connections
-        .card(ng-if="$ctrl.bank && !$ctrl.bankConnection"): .card-section: .block.block-empty.text-center
-            .empty-icon: img(src="./assets/img/bunq-logo.jpg").empty-icon-img
-            .empty-title Bank integratie
-            .empty-details: .row: .col-lg-6.col-sm-8.col-offset-sm-2.col-offset-lg-3
-                | Gebruik de koppeling met uw bank om rekeninginformatie uit te lezen en transacties klaar te zetten.
-            .empty-actions: button(ng-click="$ctrl.makeConnection($ctrl.bank.id)").button.button-primary
-                em.mdi.mdi-qrcode-scan.icon-start
-                | Koppelen
+        .row
+            //- Bunq 
+            .col.col-md-6: .card(ng-if="$ctrl.bank === false && !$ctrl.bankConnection"): .card-section: .block.block-empty.text-center
+                .empty-icon: img(src="./assets/img/bunq-logo.jpg").empty-icon-img
+                .empty-title Bunq integratie
+                .empty-actions: button(ng-click="$ctrl.selectBank('bunq')").button.button-primary Selecteer
 
+            //- BNG
+            .col.col-md-6: .card(ng-if="$ctrl.bank === false && !$ctrl.bankConnection"): .card-section: .block.block-empty.text-center
+                .empty-icon: img(src="./assets/img/bng-logo.jpg").empty-icon-img.empty-icon-img-border
+                .empty-title BNG integratie
+                .empty-actions: button(ng-click="$ctrl.selectBank('bng')").button.button-primary Selecteer
+
+        //- Bunq - no active connection
+        .card(ng-if="$ctrl.bank.key === 'bunq' && !$ctrl.bankConnection"): .card-section: .block.block-empty.text-center
+            form(ng-submit="$ctrl.makeBankConnection($ctrl.bank)").form
+                .empty-icon: img(src="./assets/img/bunq-logo.jpg").empty-icon-img
+                .empty-title Bank integratie
+                .empty-details: .row: .col-lg-6.col-sm-8.col-offset-sm-2.col-offset-lg-3
+                    | Gebruik de koppeling met uw bank om rekeninginformatie uit te lezen en transacties klaar te zetten.
+                .empty-actions: button(type="submit").button.button-primary
+                    .mdi.mdi-loading.mdi-spin.icon-start(ng-if="$ctrl.submittingConnection")
+                    .mdi.mdi-qrcode-scan.icon-start(ng-if="!$ctrl.submittingConnection")
+                    | Koppelen
+
+        //- BNG - no active connection
+        .card(ng-if="$ctrl.bank.key === 'bng' && !$ctrl.bankConnection"): .card-section: .block.block-empty.text-center
+            form(ng-submit="$ctrl.makeBankConnection($ctrl.bank)").form
+                .empty-icon: img(src="./assets/img/bng-logo.jpg").empty-icon-img.empty-icon-img-border
+                .empty-title Bank integratie
+                .empty-details: .row: .col-lg-6.col-sm-8.col-offset-sm-2.col-offset-lg-3
+                    | Gebruik de koppeling met uw bank om rekeninginformatie uit te lezen en transacties klaar te zetten.
+                .empty-actions: button(type="submit").button.button-primary
+                    .mdi.mdi-loading.mdi-spin.icon-start(ng-if="$ctrl.submittingConnection")
+                    .mdi.mdi-link-variant.icon-start(ng-if="!$ctrl.submittingConnection")
+                    | Koppelen
+
+        //- Has bank connection
         .card.card-collapsed(ng-if="$ctrl.bank && $ctrl.bankConnection")
             .card-section 
                 .card-section-actions
                     .button-group.flex-end
-                        button(ng-click="$ctrl.makeConnection($ctrl.bank.id)").button.button-default
-                            em.mdi.mdi-qrcode-scan.icon-start
+                        button(ng-click="$ctrl.makeBankConnection($ctrl.bank)").button.button-default
+                            em.mdi.mdi-qrcode-scan.icon-start(ng-if="$ctrl.bank.key === 'bunq'")
+                            em.mdi.mdi-link-variant.icon-start(ng-if="$ctrl.bank.key !== 'bunq'")
                             | Geef opnieuw toestemming
+
                         button(ng-click="$ctrl.disableConnection($ctrl.bankConnection.id)").button.button-primary
                             em.mdi.mdi-trash-can-outline.icon-start
                             | Stopzetten
 
                 .card-block.card-block-bank
-                    .card-block-bank-media: img(src="./assets/img/bunq-logo.jpg")
+                    .card-block-bank-media: img(ng-src="{{ './assets/img/' + $ctrl.bank.key + '-logo.jpg' }}")
                     .card-block-bank-details
                         .card-block-bank-name(ng-bind="$ctrl.bank.name")
                         .card-block-bank-properties
@@ -52,12 +83,14 @@
                         table.table
                             tr
                                 th.th-narrow.nowrap Datum van toestemming
+                                th Bank
                                 th Verloopdatum
                                 th Rekening
                                 th.th-narrow.text-right Status
                             
                             tr(ng-repeat="bankConnection in $ctrl.bankConnections.data")
                                 td(ng-bind="bankConnection.created_at_locale")
+                                td(ng-bind="bankConnection.bank.name")
                                 td Geen verloopdatum
                                 td(ng-bind="bankConnection.iban")
                                 td.text-right: .label(
