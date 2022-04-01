@@ -595,6 +595,7 @@
                         template="provider-signup-fund-card"
                         fund="fund"
                         organization="$ctrl.organization"
+                        on-apply="$ctrl.applyFund()"
                         hide-modal="true")    
 
                     block-empty(
@@ -604,12 +605,21 @@
                     .card-section(ng-if="$ctrl.fundsAvailable.meta" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
                         paginator(meta="$ctrl.fundsAvailable.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onFundsAvailablePageChange(query)")                    
 
+                    br
+                    
+                    ui-control-checkbox(
+                        ng-if="!$ctrl.hasFundApplications"
+                        name="confirm_no_application"
+                        data-id="no_fund_application"
+                        data-label="Ik wil me nu niet aanmelden voor een regeling en doe dit later."
+                        ng-model="$ctrl.skipFundApplications")
+
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left
                         .button.button-text.button-text-padless(ng-click="$ctrl.back()")
                             em.mdi.mdi-chevron-left.icon-lefts
                             | {{ 'sign_up_provider.buttons.back' | translate }}
-                    .col.col-lg-6.text-right
+                    .col.col-lg-6.text-right(ng-if="$ctrl.skipFundApplications || $ctrl.hasFundApplications")
                         .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                             | {{ 'sign_up_provider.buttons.next' | translate }}
                             em.mdi.mdi-chevron-right.icon-right

@@ -16,10 +16,14 @@ let FundCardProviderCanJoinDirective = function(
                     icon: 'fund_applied',
                     closeBtnText: 'modal.buttons.confirm',
                 }, {
-                    onClose: () => $scope.fund.applied = true
+                    onClose: () => {
+                        $scope.fund.applied = true;
+                        $scope.onApply();
+                    }
                 });
             } else {
                 $scope.fund.applied = true;
+                $scope.onApply();
             }
         });
     };
@@ -30,7 +34,8 @@ module.exports = () => {
         scope: {
             organization: '=',
             fund: '=',
-            hideModal: '='
+            hideModal: '=',
+            onApply: '&',
         },
         restrict: "EA",
         replace: true,
