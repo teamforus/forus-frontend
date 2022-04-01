@@ -24,10 +24,11 @@
 
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
-                    select(
-                        ng-options="product.id as product.name for product in $ctrl.products" 
+                    .form-offset: select-control(
+                        prop="id"
                         ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
-                        ng-model="$ctrl.form.values.product_id").form-control
+                        ng-model="$ctrl.form.values.product_id"
+                        options="$ctrl.products").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
                     .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
                 

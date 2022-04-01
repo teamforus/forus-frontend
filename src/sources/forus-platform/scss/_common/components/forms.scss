@@ -183,6 +183,11 @@
             padding-right: 0;
         }
 
+        &.select-control {
+            padding: 0;
+            border: none;
+        }
+
         &:focus {
             outline: none;
             background-color: #fbfbfb;

@@ -24,10 +24,12 @@
                     | Alles inklappen
                 
                 .form(ng-if="!$ctrl.filters.show")
-                    .form-group: select(
-                        id="orderBy"
-                        ng-model="$ctrl.filters.values.order_by" 
-                        ng-options="sortField.value as sortField.name for sortField in $ctrl.orderByOptions").form-control.form-control-text
+                    .form-group
+                        .form-offset: select-control(
+                            id="orderBy"
+                            prop="value"
+                            ng-model="$ctrl.filters.values.order_by" 
+                            options="$ctrl.orderByOptions").form-control.form-control-text
 
                     .form-group.inline-filters-search
                         input(ng-model="$ctrl.filters.values.q" placeholder="{{ 'search' | i18n }}").form-control
@@ -38,9 +40,10 @@
                         .form
                             .form-group
                                 form-label-toggle(label="Fondsen")
-                                select(
-                                    ng-options="fund.id as fund.name for fund in $ctrl.funds" 
-                                    ng-model="$ctrl.filters.values.fund_id").form-control
+                                .form-offset: select-control(
+                                    prop="id"
+                                    ng-model="$ctrl.filters.values.fund_id"
+                                    options="$ctrl.funds").form-control
 
                             .form-group
                                 form-label-toggle(label="Accepteer budget")

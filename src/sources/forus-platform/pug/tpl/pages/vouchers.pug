@@ -44,21 +44,24 @@
 
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.granted' | translate }}")
-                                    select(
-                                        ng-options="state.value as state.name for state in $ctrl.states" 
-                                        ng-model="$ctrl.filters.values.granted").form-control
+                                    .form-offset: select-control(
+                                        prop="value"
+                                        ng-model="$ctrl.filters.values.granted"
+                                        options="$ctrl.states").form-control
 
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.source' | translate }}")
-                                    select(
-                                        ng-options="state.value as state.name for state in $ctrl.sources" 
-                                        ng-model="$ctrl.filters.values.source").form-control
+                                    .form-offset: select-control(
+                                        prop="value"
+                                        ng-model="$ctrl.filters.values.source"
+                                        options="$ctrl.sources").form-control
 
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.state' | translate }}")
-                                    select(
-                                        ng-options="state.value as state.name for state in $ctrl.voucher_states" 
-                                        ng-model="$ctrl.filters.values.state").form-control
+                                    .form-offset: select-control(
+                                        prop="value"
+                                        ng-model="$ctrl.filters.values.state"
+                                        options="$ctrl.voucher_states" ).form-control
 
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.voucher_count_per_identity' | translate }}")
@@ -75,9 +78,10 @@
 
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.used' | translate }}")
-                                    select(
-                                        ng-options="state.value as state.name for state in $ctrl.in_use" 
-                                        ng-model="$ctrl.filters.values.in_use").form-control
+                                    .form-offset: select-control(
+                                        prop="value"
+                                        ng-model="$ctrl.filters.values.in_use"
+                                        options="$ctrl.in_use").form-control
 
                                 //-.form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.fund' | translate }}")

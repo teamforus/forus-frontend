@@ -23,10 +23,6 @@ const OrganizationsEditComponent = function(
             $state.go('organizations');
     };
 
-    $ctrl.chageBusinessType = (value) => {
-        $ctrl.form.values.business_type_id = value.id;
-    };
-
     $ctrl.$onInit = function() {
         let values;
 
@@ -81,10 +77,6 @@ const OrganizationsEditComponent = function(
                 $ctrl.media = res.data.data;
             });
         }
-
-        $ctrl.businessType = $ctrl.businessTypes.filter(
-            option => option.id == $ctrl.form.values.business_type_id
-        )[0] || null;
     };
 };
 

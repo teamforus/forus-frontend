@@ -4565,6 +4565,20 @@ body {
                 margin: 0;
                 padding: 0 10px;
                 line-height: 28px;
+
+                &.select-control {
+                    .select-control-input {
+                        font-size: 12px;
+
+                        .select-control-options {
+                            .select-control-option {
+                                height: 30px;
+                                color: #353535;
+                                font: 500 12px/20px $bf;
+                            }
+                        }
+                    }
+                }
             }
 
             select.form-control {
@@ -4687,6 +4701,22 @@ body {
                             margin: 0 0 10px;
                             height: 30px;
                             font-size: 12px;
+
+                            &.select-control {
+                                .select-control-search {
+                                    margin-bottom: 0;
+                                    border: 1px solid #d4d9dd;
+                                    line-height: 30px;
+                                }
+
+                                .select-control-options {
+                                    .select-control-option {
+                                        height: 30px;
+                                        color: #353535;
+                                        font: 500 12px/20px $bf;
+                                    }
+                                }
+                            }
                         }
 
                         &:first-child {

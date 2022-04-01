@@ -33,10 +33,11 @@
             
             .flex-col.flex-col-2.form-group
                 label.form-label Verhouding
-                select(
+                .form-offset: select-control(
+                    prop="key"
                     ng-disabled="!$dir.isEditable"
                     ng-model="$dir.criterion.operator" 
-                    ng-options="operator.key as operator.name for operator in $dir.operators").form-control
+                    options="$dir.operators").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.operator']" ng-bind="error")
             
             .flex-col.flex-col-2.form-group

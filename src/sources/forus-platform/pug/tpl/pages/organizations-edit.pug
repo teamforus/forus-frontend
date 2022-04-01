@@ -67,8 +67,8 @@
                 .form-group.form-group-inline
                     .form-label(i18n="organization_edit.labels.business_type")
                     .form-offset: select-control(
-                        ng-model="$ctrl.businessType" 
-                        ng-change="$ctrl.chageBusinessType($ctrl.businessType)"
+                        prop="id"
+                        ng-model="$ctrl.form.values.business_type_id"
                         options="$ctrl.businessTypes"
                         placeholder="Selecteer organisatie type...")
             

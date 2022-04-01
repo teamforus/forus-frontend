@@ -26,10 +26,11 @@
         label.form-label(ng-if="index == 0" translate="product_edit.labels.category")
         label.form-label(ng-if="index > 0") &nbsp;
 
-        select(
+        .form-offset: select-control(
             ng-disabled="{{disabled}}"
-            ng-options="productCategory.id as productCategory.name for productCategory in categories" 
+            prop="id"
             ng-model="$ctrl.categoriesValues[index]"
+            options="categories"
             ng-change="$ctrl.changeCategory(index)"
             placeholder="Status").form-control
 
