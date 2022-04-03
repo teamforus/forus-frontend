@@ -1,4 +1,4 @@
-const apiUrl = "https://dev.api.forus.io/api/v1";
+const apiUrl = "http://localhost:8000/api/v1";
 const outputRoot = "../dist";
 const outputRootBackendPublic = outputRoot + '/forus-backend.general';
 

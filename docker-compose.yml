@@ -1,6 +1,37 @@
-version: "2"
+version: "3.7"
 services:
-  web:
-    image: teamforus/forus-frontend
+  app:
+    image: node:14-alpine
+    container_name: forus-frontend-app
+    command: sh -c "npm install gulp-cli -g && tail -f /dev/null"
+    restart: unless-stopped
+    working_dir: /ng-app/
+    volumes:
+      - ./:/ng-app
+    networks:
+      - forus-frontend
+
+  apache2:
+    image: httpd:2.4
+    container_name: forus-frontend-apache2
+    restart: unless-stopped
+    environment:
+      APACHE_DOCUMENT_ROOT: /usr/local/apache2/htdocs
     ports:
-      - "4000:80"
+      - "2000:80"
+      - "3000:3000"
+      - "4000:4000"
+      - "5000:5000"
+    volumes:
+      - ./dist/forus-webshop-general.panel:/usr/local/apache2/htdocs/webshop
+      - ./dist/forus-platform.provider.general:/usr/local/apache2/htdocs/provider
+      - ./dist/forus-platform.validator.general:/usr/local/apache2/htdocs/validator
+      - ./dist/forus-platform.sponsor.general:/usr/local/apache2/htdocs/sponsor
+      - ./docker-compose/apache2/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./docker-compose/apache2/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+    networks:
+      - forus-frontend
+
+networks:
+  forus-frontend:
+    driver: bridge

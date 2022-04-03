@@ -1,12 +1,6 @@
 ### STAGE 1: Build ###    
 # We label our stage as 'builder'
-FROM node:13-alpine as builder
-
-RUN apk update \
-    && apk --no-cache --virtual build-dependencies add \
-    python \
-    make \
-    g++
+FROM node:14-alpine as builder
 
 COPY src/package.json src/package-lock.json ./
 
@@ -19,26 +13,22 @@ RUN npm install gulp-cli -g
 
 WORKDIR /ng-app
 
-COPY . .
+COPY src src
 
 ## Build the angular app in production mode and store the artifacts in dist folder
 RUN cd src && gulp init && gulp compile
 
-### STAGE 2: Setup ###
+### STAGE 2: Setup apache2
+FROM httpd:2.4
 
-FROM nginx:1.21.4-alpine
+ENV APACHE_DOCUMENT_ROOT=/usr/local/apache2/htdocs
+COPY docker-compose/apache2/httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY docker-compose/apache2/httpd-vhosts.conf /usr/local/apache2/conf/extra/httpd-vhosts.conf
 
-## Copy our default nginx config
-COPY nginx/default.conf /etc/nginx/conf.d/
-
-## Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
-
-## From 'builder' stage copy over the artifacts in dist folder 
-## to default nginx public folder
-COPY --from=builder /ng-app/dist/forus-webshop-general.panel /usr/share/nginx/general
-COPY --from=builder /ng-app/dist/forus-platform.provider.general /usr/share/nginx/general/provider
-COPY --from=builder /ng-app/dist/forus-platform.validator.general /usr/share/nginx/general/validator
-COPY --from=builder /ng-app/dist/forus-platform.sponsor.general /usr/share/nginx/general/sponsor
-
-CMD ["nginx", "-g", "daemon off;"]
+RUN rm -rf /usr/local/apache2/htdocs/*
+# From 'builder' stage copy over the artifacts in dist folder
+# to default apache2 public folder
+COPY --from=builder /ng-app/dist/forus-webshop-general.panel /usr/local/apache2/htdocs/webshop
+COPY --from=builder /ng-app/dist/forus-platform.provider.general /usr/local/apache2/htdocs/provider
+COPY --from=builder /ng-app/dist/forus-platform.validator.general /usr/local/apache2/htdocs/validator
+COPY --from=builder /ng-app/dist/forus-platform.sponsor.general /usr/local/apache2/htdocs/sponsor
