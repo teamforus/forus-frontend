@@ -74,7 +74,7 @@ const TransactionBulkComponent = function(
 
             TransactionService.bulkReset($ctrl.organization.id, transactionBulk.id).then((res) => {
                 if (bank.key === 'bunq') {
-                    PushNotificationsService.success(`Succes!`, `Accepteer de transacties in de mobiele app van bunq.`);
+                    PushNotificationsService.success(`Succes!`, `Accepteer de transacties via uw bank.`);
                 }
 
                 if (bank.key === 'bng') {
@@ -152,8 +152,8 @@ const TransactionBulkComponent = function(
 
         if (error) {
             PushNotificationsService.danger('Error!', {
-                canceled: "Canceled.",
-                unknown: "Something went wrong!",
+                canceled: "Geannuleerd.",
+                unknown: "Er is iets misgegaan!",
             }[error] || error);
         }
 
