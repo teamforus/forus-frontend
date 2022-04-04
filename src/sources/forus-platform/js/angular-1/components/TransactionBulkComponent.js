@@ -147,7 +147,7 @@ const TransactionBulkComponent = function(
 
     $ctrl.showStatePush = (success, error) => {
         if (success === true) {
-            PushNotificationsService.success('Succes!', 'De bulk i bevestigd!');
+            PushNotificationsService.success('Succes!', 'De bulk is bevestigd!');
         }
 
         if (error) {
