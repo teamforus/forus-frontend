@@ -146,7 +146,7 @@ const OrganizationBankConnectionsComponent = function(
                     return document.location = auth_url;
                 }
 
-                PushNotificationsService.danger('Error!', 'Something went wrong!');
+                PushNotificationsService.danger('Error!', 'Er is een onbekende fout opgetreden.');
             }, (res) => {
                 $ctrl.submittingConnection = false;
                 $ctrl.onRequestError(res);
