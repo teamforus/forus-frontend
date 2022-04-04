@@ -41,19 +41,19 @@ const TransactionBulkComponent = function(
         if (bank.key === 'bng') {
             // Reset BNG bulk confirmation
             return $ctrl.confirmDangerAction('Reset BNG bulk', [
-                "You are about to reset your bulk.",
-                "Reset bulk only if the existing auth link expired, otherwise please use the existing link.",
-                "You can reset only bulks which are not approved yet.\n\n",
-                'You will get redirected to BNG confirmation page.\n',
-                'Are you sure you want to continue?',
+                "Weet u zeker dat u de bulk opnieuw wilt instellen?",
+                "Stel alleen de bulk opnieuw in als de link om te autoriseren niet meer geldig is.",
+                "Alleen de bulk betalingen die nog niet geautoriseerd zijn kunnen opnieuw worden ingesteld.\n\n",
+                'U wordt doorverwezen naar de betalingsverkeer pagina van de BNG.\n',
+                'Weet u zeker dat u door wil gaan?',
             ].join(" "));
         }
     }
 
     $ctrl.confirmSubmitToBNG = () => {
-        return $ctrl.confirmDangerAction('Submit to BNG', [
-            'You will get redirected to BNG confirmation page.\n',
-            'Are you sure you want to continue?',
+        return $ctrl.confirmDangerAction('Betalingsverkeer via de BNG', [
+            'U wordt doorverwezen naar de betalingsverkeer pagina van de BNG.\n',
+            'Weet u zeker dat u door wil gaan?',
         ].join(" "));
     }
 
@@ -147,7 +147,7 @@ const TransactionBulkComponent = function(
 
     $ctrl.showStatePush = (success, error) => {
         if (success === true) {
-            PushNotificationsService.success('Success!', 'Bulk successfully submitted!');
+            PushNotificationsService.success('Succes!', 'De bulk is bevestigd!');
         }
 
         if (error) {
