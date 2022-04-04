@@ -18,7 +18,7 @@
                         ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-default.button-sm
 
                         .mdi.mdi-link.icon-start
-                        | Authorize
+                        | Autoriseer
 
                     //- BNG: Submit bulk to BNG
                     button(
@@ -63,7 +63,7 @@
                         .keyvalue-value(ng-bind="$ctrl.transactionBulk.created_at_locale")
 
                     .keyvalue-item(ng-if="$ctrl.transactionBulk.execution_date !== null")
-                        .keyvalue-key Execution date
+                        .keyvalue-key Datum van uitbetaling
                         .keyvalue-value(ng-bind="$ctrl.transactionBulk.execution_date_locale")
 
                     .keyvalue-item
