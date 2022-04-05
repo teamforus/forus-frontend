@@ -8,32 +8,10 @@ const OrganizationBankConnectionsComponent = function(
 ) {
     const $ctrl = this;
 
+    $ctrl.submittingConnection = false;
+
     $ctrl.filters = {
         per_page: 20,
-    };
-
-    $ctrl.showErrors = (error) => {
-        return $q((resolve) => {
-            if (error) {
-                PushNotificationsService.danger('Verbinding mislukt', {
-                    invalid_grant: "De autorisatiecode is ongeldig of verlopen.",
-                    access_denied: "Het autorisatieverzoek is geweigerd.",
-                    not_pending: "Verzoek voor verbinding is al behandeld.",
-                }[error] || error);
-            }
-
-            resolve(!!error);
-        });
-    };
-
-    $ctrl.showSuccess = (success) => {
-        return $q((resolve) => {
-            if (success) {
-                PushNotificationsService.success('Succes!', "De verbinding met bunq is tot stand gebracht.");
-            }
-
-            resolve(!!success);
-        });
     };
 
     $ctrl.onRequestError = (res) => {
@@ -52,7 +30,7 @@ const OrganizationBankConnectionsComponent = function(
 
     $ctrl.switchMonetaryAccount = (bankConnection) => {
         const onClose = () => {
-            $ctrl.fetchActiveBankConnection().then((connection) => $ctrl.bankConnection = connection);
+            $ctrl.updateActiveBankConnection();
             $ctrl.onPageChange($ctrl.filters);
         }
 
@@ -75,16 +53,6 @@ const OrganizationBankConnectionsComponent = function(
         ].join("\n"));
     };
 
-    $ctrl.makeConnection = (bank_id) => {
-        $ctrl.confirmNewConnection().then((confirmed) => {
-            if (confirmed) {
-                BankConnectionService.store($ctrl.organization.id, { bank_id }).then((res) => {
-                    document.location = res.data.oauth_url;
-                }, $ctrl.onRequestError);
-            }
-        });
-    };
-
     $ctrl.disableConnection = (connection_id) => {
         $ctrl.confirmConnectionDisabling().then((confirmed) => {
             if (confirmed) {
@@ -104,9 +72,33 @@ const OrganizationBankConnectionsComponent = function(
         }
     };
 
-    $ctrl.clearFlag = (flag) => {
-        $state.go($state.$current.name, { [flag]: null }, { reload: true });
+    $ctrl.clearFlags = (flags) => {
+        const params = flags.reduce((params, flag) => {
+            return { ...params, [flag]: null };
+        }, { ...$stateParams });
+
+        $state.go($state.$current.name, params, { reload: true });
     }
+
+    $ctrl.showStatePush = (success, error) => {
+        if (success === true) {
+            PushNotificationsService.success('Succes!', "De verbinding met bank is tot stand gebracht.");
+        }
+
+        if (error) {
+            if (error) {
+                PushNotificationsService.danger('Verbinding mislukt', {
+                    invalid_grant: "De autorisatiecode is ongeldig of verlopen.",
+                    access_denied: "Het autorisatieverzoek is geweigerd.",
+                    not_pending: "Verzoek voor verbinding is al behandeld.",
+                }[error] || error);
+            }
+        }
+
+        if ((success === true) || error) {
+            $ctrl.clearFlags(['success', 'error']);
+        }
+    };
 
     $ctrl.fetchBankConnections = (query) => {
         return BankConnectionService.list($ctrl.organization.id, query);
@@ -120,12 +112,55 @@ const OrganizationBankConnectionsComponent = function(
         return $ctrl.fetchBankConnections({ state: 'active' }).then((res) => res.data.data[0] || null);
     };
 
-    $ctrl.$onInit = function() {
-        $ctrl.showErrors($stateParams.error).then((reload) => reload && $ctrl.clearFlag('error'));
-        $ctrl.showSuccess($stateParams.success).then((reload) => reload && $ctrl.clearFlag('success'));
+    $ctrl.updateActiveBankConnection = () => {
+        return $q((resolve) => {
+            $ctrl.fetchActiveBankConnection().then((bankConnection) => {
+                $ctrl.bankConnection = bankConnection;
+                resolve(bankConnection);
+            }, () => resolve(false));
+        });
+    };
 
-        $ctrl.bank = $ctrl.banks.data.filter(bank => bank.key == 'bunq')[0] || undefined;
-        $ctrl.fetchActiveBankConnection().then((bankConnection) => $ctrl.bankConnection = bankConnection);
+    $ctrl.selectBank = (bankName) => {
+        $ctrl.bank = $ctrl.banks.data.filter(bank => bank.key == bankName)[0] || undefined;
+    };
+
+    $ctrl.makeBankConnection = (bank) => {
+        if ($ctrl.submittingConnection) {
+            return;
+        }
+
+        $ctrl.submittingConnection = true;
+
+        $ctrl.confirmNewConnection().then((confirmed) => {
+            const values = { bank_id: bank.id };
+
+            if (!confirmed) {
+                return $ctrl.submittingConnection = false;
+            }
+
+            BankConnectionService.store($ctrl.organization.id, values).then((res) => {
+                const { auth_url, state } = res.data.data;
+
+                if (state === 'pending' && auth_url) {
+                    return document.location = auth_url;
+                }
+
+                PushNotificationsService.danger('Error!', 'Er is een onbekende fout opgetreden.');
+            }, (res) => {
+                $ctrl.submittingConnection = false;
+                $ctrl.onRequestError(res);
+            });
+        });
+    }
+
+    $ctrl.$onInit = function() {
+        $ctrl.bank = false;
+
+        $ctrl.showStatePush($stateParams.success, $stateParams.error);
+        $ctrl.updateActiveBankConnection().then((connection) => {
+            $ctrl.bank = connection ? connection.bank : false;
+        });
     };
 };
 
