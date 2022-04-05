@@ -88,6 +88,10 @@
             "title": "Aanvraag is goedgekeurd",
             "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is goedgekeurd door de beoordelaar."
         },
+        "notifications_identities.fund_request_disregarded": {
+            "title": "Aanvraag is niet beoordeeld",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is niet beoordeeld door de beoordelaar."
+        },
         "notifications_identities.fund_request_record_declined": {
             "title": "Een onderdeel van de aanvraag is geweigerd",
             "description": "Aanvragers ontvangen dit bericht wanneer een onderdeel van hun aanvraag voor een fonds is geweigerd door de beoordelaar."

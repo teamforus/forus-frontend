@@ -47,7 +47,7 @@
                 }
 
                 .fund-description {
-                    font: 300 1.25rem $bf;
+                    font: 400 16px/1.5em $bf;
                     color: #5c5c5c;
                     margin: 0 0 25px;
                 }
@@ -112,15 +112,6 @@
                         .fund-details-item {
                             margin: 10px 0px;
                         }
-                    }
-                }
-
-                .fund-description {
-                    padding: 0 0 25px 20px;
-                    border: 0;
-
-                    .fund-description-label {
-                        font: 700 12px $bf;
                     }
                 }
             }

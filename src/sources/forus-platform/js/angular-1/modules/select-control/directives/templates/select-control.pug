@@ -2,19 +2,22 @@
     .select-control-input(click-outside="$dir.onClickOutside()" ng-class="{options : $dir.showOptions}")
         label.select-control-search.form-control(
             for="{{ $dir.controlId }}"
-            ng-show="!$dir.showOptions" 
-            ng-bind="ngModel ? ngModel.name : placeholder"
+            ng-show="$dir.mode == 'strict' && !$dir.showOptions" 
+            ng-bind="$dir.value.name || $dir.placeholder"
             ng-click="$dir.searchOption()")
         
         input(
             id="{{ $dir.controlId }}"
             type="search"
-            ng-show="$dir.showOptions"
+            placeholder="{{ $dir.placeholder }}"
+            ng-click="$dir.onInputClick()"
+            ng-keydown="$dir.searchKeydown($event)"
+            ng-show="$dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions)"
             ng-change="$dir.searchInputChanged()"
             ng-model="$dir.filter.name").select-control-search.form-control
         
         select-control-options(
             ng-if="$dir.showOptions" 
             change="$dir.selectOption(option)" 
-            options="$dir.options"
+            options="$dir.optionsFiltered"
             options-preload-size="{{ optionsPreloadSize }}")

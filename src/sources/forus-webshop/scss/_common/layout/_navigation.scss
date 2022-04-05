@@ -129,6 +129,10 @@
             justify-self: flex-start;
             margin-right: 30px;
 
+            @media screen and (max-width: 1000px) {
+                margin-right: 0;
+            }
+
             .second-logo {
                 margin-right: 10px;
             }

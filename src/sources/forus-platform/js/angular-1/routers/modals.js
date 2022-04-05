@@ -27,10 +27,6 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalAuthComponent'
     });
 
-    ModalRouteProvider.modal('modalAuth2', {
-        component: 'modalAuth2Component'
-    });
-
     ModalRouteProvider.modal('voucherCreate', {
         component: 'modalVoucherCreateComponent'
     });
@@ -67,6 +63,14 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundRequestRecordsDeclineComponent'
     });
 
+    ModalRouteProvider.modal('fundRequestDisregard', {
+        component: 'modalFundRequestDisregardComponent'
+    });
+
+    ModalRouteProvider.modal('fundRequestDisregardUndo', {
+        component: 'modalFundRequestDisregardUndoComponent'
+    });
+
     ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {
         component: 'modalFundCriteriaDescriptionEditComponent'
     });
@@ -99,12 +103,12 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalCreatePrevalidationComponent'
     });
 
-    ModalRouteProvider.modal('voucherExportType', {
-        component: 'modalVoucherExportTypeComponent'
-    });
-
     ModalRouteProvider.modal('exportType', {
         component: 'modalExportTypeComponent'
+    });
+
+    ModalRouteProvider.modal('exportDataSelect', {
+        component: 'modalExportDataSelectComponent'
     });
 
     ModalRouteProvider.modal('dangerZone', {

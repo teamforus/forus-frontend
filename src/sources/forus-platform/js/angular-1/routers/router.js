@@ -498,7 +498,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     // Organization employees
     $stateProvider.state({
         name: "bank-connections",
-        url: "/organizations/{organization_id}/bank-connections?error&success",
+        url: "/organizations/{organization_id}/bank-connections?{success:bool}&{error:string}",
         component: "organizationBankConnectionsComponent",
         resolve: {
             organization: organziationResolver(),
@@ -664,35 +664,31 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('funds-edit', 'manage_funds'),
-            fund: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.read(
-                $transition$.params().organization_id,
-                $transition$.params().id
-            ))],
-            validators: ['permission', '$transition$', 'OrganizationEmployeesService', (
-                permission, $transition$, OrganizationEmployeesService
-            ) => repackResponse(OrganizationEmployeesService.list(
-                $transition$.params().organization_id, {
-                role: 'validation'
-            }
-            ))],
-            productCategories: ['permission', 'ProductCategoryService', (
-                permission, ProductCategoryService
-            ) => repackResponse(ProductCategoryService.listAll())],
-            fundStates: ['permission', 'FundService', (
-                permission, FundService
-            ) => FundService.states()],
-            recordTypes: ['permission', 'RecordTypeService', (
-                permission, RecordTypeService
-            ) => repackResponse(RecordTypeService.list())],
-            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', (
-                permission, $transition$, OrganizationService
-            ) => repackPagination(OrganizationService.readListValidators(
-                $transition$.params().organization_id, {
-                per_page: 100
-            }
-            ))],
+            fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
+            }],
+            tags: ['TagService', 'permission', (TagService) => {
+                return repackResponse(TagService.list({ scope: 'webshop', per_page: 1000 }));
+            }],
+            fundStates: ['FundService', 'permission', (FundService) => {
+                return FundService.states();
+            }],
+            recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
+                return repackResponse(RecordTypeService.list());
+            }],
+            productCategories: ['ProductCategoryService', 'permission', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.listAll());
+            }],
+            validators: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
+                return repackResponse(OrganizationEmployeesService.list(
+                    $transition$.params().organization_id, { role: 'validation' })
+                );
+            }],
+            validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
+                return repackPagination(OrganizationService.readListValidators(
+                    $transition$.params().organization_id, { per_page: 100 })
+                );
+            }],
         }
     });
 
@@ -1060,7 +1056,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "transaction-bulk",
-        url: "/organizations/{organization_id}/transaction-bulks/{id}",
+        url: "/organizations/{organization_id}/transaction-bulks/{id}?{success:bool}&{error:string}",
         component: "transactionBulkComponent",
         resolve: {
             organization: organziationResolver(),
@@ -1234,19 +1230,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         resolve: {
             organization: organziationResolver(),
-        }
-    });
-
-    $stateProvider.state({
-        name: 'validation-request',
-        url: '/validation-request/{id}',
-        component: 'validationRequestComponent',
-        resolve: {
-            validatorRequest: ['$transition$', 'ValidatorRequestService', (
-                $transition$, ValidatorRequestService
-            ) => repackResponse(ValidatorRequestService.read(
-                $transition$.params().id
-            ))]
         }
     });
 

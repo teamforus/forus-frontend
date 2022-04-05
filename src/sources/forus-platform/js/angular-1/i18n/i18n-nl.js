@@ -56,6 +56,7 @@ module.exports = {
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
         modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
+        modal_export_data: require('./nl/modals/modal-export-data-select.pug.i18n'),
         modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
@@ -63,9 +64,10 @@ module.exports = {
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
+            increase_limit_multiplier: require('./nl/modals/danger-zone/increase-limit-multiplier'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
             restore_fund: require('./nl/modals/danger-zone/restore-fund'),
-            remove_faq: require('./nl/modals/danger-zone/remove-faq')
+            remove_faq: require('./nl/modals/danger-zone/remove-faq'),
         },
     },
     // PAGES
@@ -347,6 +349,7 @@ module.exports = {
             details: "Transactie details",
             id: "ID",
             bunq_id: "ID bunq",
+            bng_id: "ID BNG",
             statement: "Naam begunstigde",
             bunq: "Transactiekosten",
             fee: "€ 0.10",
@@ -1346,13 +1349,15 @@ module.exports = {
             pending_since: "In behandeling sinds",
             lead_time: "Doorlooptijd",
             accepted_at: "Geaccepteerd op",
-            declined_at: "Geweigerd op"
+            declined_at: "Geweigerd op",
+            disregarded_at: "Buiten behandeling gesteld op"
         },
         status: {
             hold: "Wachten",
             pending: 'Wachtend',
             declined: 'Geweigerd',
-            approved: 'Geaccepteerd'
+            approved: 'Geaccepteerd',
+            disregarded: 'Niet beoordeeld',
         },
         buttons: {
             show: "Bekijk eigenschappen",
@@ -1360,6 +1365,8 @@ module.exports = {
             alldecline: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
+            disregard: "Niet behandelen",
+            disregard_undo: "Opnieuw beoordelen",
             clear_filter: "Wis filter",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
@@ -1520,11 +1527,6 @@ module.exports = {
         header: {
             title: "Afbeelding-voorbeeld"
         }
-    },
-
-    // SELECT MULTIPLE CATEGORIES = multi-select.pug
-    multi_select: {
-        title: "Categorieën",
     },
 
     // SELECT PHOTO = photo-selector.pug

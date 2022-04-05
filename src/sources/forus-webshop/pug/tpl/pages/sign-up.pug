@@ -51,17 +51,18 @@ main(id="main-content")
                             .row
                                 .form-group.col.col-lg-9
                                     label.form-label(i18n="popup_auth.input.mail" for="email")
-                                    ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email")
+                                    ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email" tabindex="1")
                                     .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
                                 .form-group.col.col-lg-3
                                     .form-label.hide-sm(for="submit") &nbsp;
                                     button(
                                         ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
                                         translate="popup_auth.buttons.submit"
-                                        type="submit").button.button-primary.button-fill
+                                        type="submit"
+                                        tabindex="3").button.button-primary.button-fill
                             .row(ng-if="$root.appConfigs.flags.privacyPage"): .col.col-lg-12
                                 br.hidden-lg
-                                label(for='privacy').sign_up-pane-text
+                                label(for='privacy' tabindex="2").sign_up-pane-text
                                     input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
                                     |  Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
 
@@ -119,7 +120,7 @@ main(id="main-content")
                         .sign_up-email_sent
                             .sign_up-email_sent-icon
                                 img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
-                            h2.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")
+                            h3.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.notifications.link_' + $root.appConfigs.features.communication_type }}" translate-values="{{ $ctrl.authForm.values }}")
 
                             email-provider-link(email="$ctrl.authForm.values.email")

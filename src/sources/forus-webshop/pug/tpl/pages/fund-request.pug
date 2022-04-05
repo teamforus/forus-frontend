@@ -3,21 +3,26 @@
 top-navbar
 
 mixin progress()
-    .sign_up-progress(ng-class="{'sign_up-progress-compact':$ctrl.totalSteps.length >= 5}" role="progressbar" aria-valuenow="{{$ctrl.step - 1}}" aria-valuemax="{{$ctrl.totalSteps.length}}" aria-label="Voortgang" aria-valuetext="Stap {{$ctrl.step - 1}} van {{ $ctrl.totalSteps.length }}")
+    .sign_up-progress(ng-class="{'sign_up-progress-compact':$ctrl.totalSteps.length >= 5}")
         .sign_up-step.sign_up-step-info(
+            aria-hidden="true"
             ng-class="$ctrl.step == 1 ? 'sign_up-step-active' : 'sign_up-step-done'"
             )
             .sign_up-step-border
             .mdi.mdi-information-outline
 
         .sign_up-step(
+            aria-hidden="true"
             ng-repeat="step in $ctrl.totalSteps track by $index"
             ng-class="($ctrl.step - 1) == step ? 'sign_up-step-active' : (($ctrl.step - 1) > step ? 'sign_up-step-done' : '')")
 
             .sign_up-step-border
             .sign-up-step-block Stap {{ ' ' + ($index + 1) }} 
 
-        .sign_up-progress-overview Stap {{ $ctrl.step }} van {{ $ctrl.totalSteps.length }}
+        .sign_up-progress-overview(aria-hidden="true") Stap {{ $ctrl.step }} van {{ $ctrl.totalSteps.length }}
+
+        span.sr-only Stap {{ $ctrl.step }}
+        span.sr-only Stap {{ $ctrl.step }} van {{ $ctrl.totalSteps.length }}
 
 //-top-navbar
 main(id="main-content")
@@ -36,15 +41,15 @@ main(id="main-content")
                         p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
 
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.fund.criteria"
-                            ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
+                            ng-repeat="criteria in $ctrl.fund.criteria"
+                            ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[criteria.request_state]")
                             .item-icon: em.mdi(
-                                ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[critera.request_state]")
-                            span(ng-if="critera.title" ng-bind="critera.title")
+                                ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[criteria.request_state]")
+                            span(ng-if="criteria.title" ng-bind="criteria.title")
                             span(
-                                ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}"
-                                i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
+                                ng-if="!criteria.title"
+                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[criteria.operator]}}"
+                                i18n-vars="{name: criteria.record_type_name, value: ($ctrl.criterionValuePrefix[criteria.record_type_key]) + criteria.value}")
                         span(translate="fund_request.sign_up.pane.fund_already_applied")
 
             //- Welcome screen
@@ -177,13 +182,13 @@ main(id="main-content")
                         p.sign_up-pane-text(i18n="fund_request.sign_up.pane.text" i18n-vars="{fundname: $ctrl.fund.name }")
 
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.fund.criteria")
+                            ng-repeat="criteria in $ctrl.fund.criteria")
                             .item-icon.item-icon-default
-                            span(ng-if="critera.title" ng-bind="critera.title")
+                            span(ng-if="criteria.title" ng-bind="criteria.title")
                             span(
-                                ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}"
-                                i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
+                                ng-if="!criteria.title"
+                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[criteria.operator]}}"
+                                i18n-vars="{name: criteria.record_type_name, value: ($ctrl.criterionValuePrefix[criteria.record_type_key]) + criteria.value}")
 
                     .sign_up-pane-footer: .row
                         .col.col-lg-6.col-xs-6.text-left &nbsp;
@@ -332,11 +337,12 @@ main(id="main-content")
                         p.sign_up-pane-text
                             | #[strong Wat hoort bij het inkomen?]
                             | #[br]
-                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst.
-                            | Wilt u weten op welke heffingskortingen u recht heeft? Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. #[br]
+                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld. #[br]
                             | #[br]
                             | #[strong Wat hoort niet bij het inkomen?] #[br]
-                            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
+                            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen). #[br]
+                            | #[br]
+                            | Wilt u weten op welke toeslagen of heffingskortingen u recht heeft? Kijk dan op de Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. Heeft u hulp hierbij nodig. De #[a(href="https://www.nijmegen.nl/diensten/zorg-hulp-en-advies/sociaal-raadslieden-voor-juridische-hulp/") sociaal raadslieden] van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 14 024. #[br]
 
                         p.sign_up-pane-text
                             | Door te verklaren dat u aan de voorwaarden voldoet,
@@ -390,12 +396,13 @@ main(id="main-content")
                         p.sign_up-pane-text
                             | #[strong Wat hoort bij het inkomen?]
                             | #[br]
-                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld, heffingskorting belastingdienst.
-                            | Wilt u weten op welke heffingskortingen u recht heeft? Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. #[br]
+                            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld. #[br]
                             | #[br]
                             | #[strong Wat hoort niet bij het inkomen?] #[br]
-                            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen).
-
+                            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen). #[br]
+                            | #[br]
+                            | Wilt u weten op welke toeslagen of heffingskortingen u recht heeft? Kijk dan op de Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. Heeft u hulp hierbij nodig. De #[a(href="https://www.nijmegen.nl/diensten/zorg-hulp-en-advies/sociaal-raadslieden-voor-juridische-hulp/") sociaal raadslieden] van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 14 024. #[br]
+                            
                         p.sign_up-pane-text
                             | Door te verklaren dat u aan de voorwaarden voldoet,
                             | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat het bedrag van €150,-
@@ -425,16 +432,16 @@ main(id="main-content")
 
                     .sign_up-pane-body
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.invalidCriteria")
+                            ng-repeat="criteria in $ctrl.invalidCriteria")
                             .item-icon.item-icon-default
 
-                            span {{ critera.title }} #[span(ng-if="critera.operator != '='") is] 
-                            strong(ng-if="critera.operator != '='") {{ critera.input_value }}
+                            span {{ criteria.title || criteria.record_type_name }} #[span(ng-if="criteria.operator != '='") is] 
+                            strong(ng-if="criteria.operator != '='") {{ criteria.input_value }}
 
                             file-uploader(
-                                ng-if="critera.show_attachment"
+                                ng-if="criteria.show_attachment"
                                 type="fund_request_record_proof"
-                                files="critera.files"
+                                files="criteria.files"
                                 read-only="true")
 
                     .sign_up-pane-footer: .row

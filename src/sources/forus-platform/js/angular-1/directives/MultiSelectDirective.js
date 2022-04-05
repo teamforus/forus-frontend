@@ -1,16 +1,21 @@
-let MultiSelectDirective = function($scope) {
+const uniqueId = require('lodash/uniqueId');
 
+const MultiSelectDirective = function($scope) {
     if (!$scope.options) {
         $scope.options = [];
     }
 
-    let buildOptions = function() {
+    if (!$scope.id) {
+        $scope.id = 'multiselect_' + uniqueId();
+    }
+
+    const buildOptions = function() {
         $scope.optionsById = {};
+        $scope.selectedOption = 0;
         $scope.selectorOptions = [{
             id: 0,
-            name: "Selecteer categorie"
+            name: $scope.optionSelectText || 'Selecteer categorie',
         }];
-        $scope.selectedOption = 0;
 
         $scope.options.forEach(element => {
             $scope.optionsById[element.id] = element.name;
@@ -24,7 +29,7 @@ let MultiSelectDirective = function($scope) {
         });
     }
 
-    $scope.$watch('selectedOption', function(current, old, scope) {
+    $scope.$watch('selectedOption', function(current) {
         if (current != 0) {
             $scope.ngModel.push(current);
             $scope.selectedOption = 0;
@@ -43,8 +48,11 @@ let MultiSelectDirective = function($scope) {
 module.exports = () => {
     return {
         scope: {
+            id: '@',
+            label: '@',
             ngModel: '=',
-            options: '='
+            options: '=',
+            optionSelectText: '@',
         },
         restrict: "EA",
         replace: true,

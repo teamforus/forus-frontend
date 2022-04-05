@@ -1,48 +1,31 @@
-let ProductVouchersComponent = function(
-    $q,
+const ProductVouchersComponent = function(
     $state,
     $stateParams,
     $timeout,
     DateService,
-    FileService,
     ModalService,
     VoucherService,
-    PageLoadingBarService
+    VoucherExportService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
-    $ctrl.states = [{
-        value: null,
-        name: 'Selecteer...'
-    }, {
-        value: 1,
-        name: 'Ja'
-    }, {
-        value: 0,
-        name: 'Nee...'
-    }];
+    $ctrl.states = [
+        { value: null, name: 'Selecteer...' },
+        { value: 1, name: 'Ja' },
+        { value: 0, name: 'Nee' },
+    ];
 
-    $ctrl.sources = [{
-        value: 'all',
-        name: 'Alle'
-    }, {
-        value: 'user',
-        name: 'Gebruiker'
-    }, {
-        value: 'employee',
-        name: 'Medewerker'
-    }];
+    $ctrl.sources = [
+        { value: 'all', name: 'Alle' },
+        { value: 'user', name: 'Gebruiker' },
+        { value: 'employee', name: 'Medewerker' },
+    ];
 
-    $ctrl.in_use = [{
-        value: null,
-        name: 'Selecteer...'
-    }, {
-        value: 1,
-        name: 'Ja'
-    }, {
-        value: 0,
-        name: 'Nee'
-    }];
+    $ctrl.in_use = [
+        { value: null, name: 'Selecteer...' },
+        { value: 1, name: 'Ja' },
+        { value: 0, name: 'Nee' },
+    ];
 
     $ctrl.voucher_states = VoucherService.getStates();
 
@@ -96,160 +79,34 @@ let ProductVouchersComponent = function(
             fund: $ctrl.fund,
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange($ctrl.filters.values)
-        }, { max_load_time: 1000 });
+        }, { maxLoadTime: 1000 });
     };
 
     $ctrl.uploadProductVouchersCsv = () => {
         ModalService.open('vouchersUpload', {
             fund: $ctrl.fund,
-            organization: $ctrl.organization,
             type: $ctrl.filters.values.type,
+            organization: $ctrl.organization,
             organizationFunds: $ctrl.funds,
-            done: () => $state.reload()
+            done: () => $state.reload(),
         });
     };
 
-    $ctrl.getQueryParams = (query) => {
-        let _query = JSON.parse(JSON.stringify(query));
+    $ctrl.getQueryParams = (query = {}) => {
+        const data = angular.copy(query);
+        const from = data.from ? DateService._frontToBack(data.from) : null;
+        const to = data.to ? DateService._frontToBack(data.to) : null;
 
-        return {
-            ..._query, ...{
-                from: _query.from ? DateService._frontToBack(_query.from) : null,
-                to: _query.to ? DateService._frontToBack(_query.to) : null,
-                fund_id: $ctrl.fund.id,
-            }
-        };
+        return { ...data, from, to, fund_id: $ctrl.fund.id };
     };
 
-    $ctrl.exportPdf = () => {
-        VoucherService.downloadQRCodes($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values),
-            ...{ export_type: 'pdf' }
-        }).then(res => {
-            FileService.downloadFile(
-                'vouchers_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.zip',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }, res => {
-            res.data.text().then((data) => {
-                data = JSON.parse(data);
+    $ctrl.exportVouchers = () => {
+        $ctrl.filters.show = false;
+        
+        const type = 'product';
+        const filters = $ctrl.getQueryParams($ctrl.filters.values);
 
-                if (data.message) {
-                    PushNotificationsService.danger(data.message);
-                }
-            });
-        });
-    };
-
-    $ctrl.exportQRCodesXls = () => {
-        return $q((resolve, reject) => {
-            VoucherService.downloadQRCodesXls($ctrl.organization.id, {
-                ...$ctrl.getQueryParams($ctrl.filters.values)
-            }).then(res => resolve(
-                $ctrl.xlsData = res.data
-            ), reject);
-        });
-    };
-
-    $ctrl.exportQRCodesData = (type) => {
-        return $q((resolve, reject) => {
-            VoucherService.downloadQRCodesData($ctrl.organization.id, {
-                ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                    export_type: 'png',
-                    export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
-                }
-            }).then(res => resolve(
-                $ctrl.qrCodesData = res.data
-            ), reject);
-        });
-    };
-
-    $ctrl.exportImages = (type) => {
-        const promisses = [];
-
-        if (type == 'xls' || type == 'png') {
-            promisses.push($ctrl.exportQRCodesXls());
-        };
-
-        if (type == 'csv' || type == 'png') {
-            promisses.push($ctrl.exportQRCodesData(type));
-        };
-
-        PageLoadingBarService.setProgress(0);
-
-        $q.all(promisses).then(() => {
-            const zip = new JSZip();
-            const csvName = 'qr_codes.csv';
-
-            const qrCodesData = $ctrl.qrCodesData;
-            const vouchersData = type == 'png' ? qrCodesData.vouchersData : [];
-            const imgDirectory = vouchersData.length > 0 ? zip.folder("images") : null;
-            const promises = [];
-
-            PageLoadingBarService.setProgress(10);
-            console.info('- data loaded from the api.');
-
-            if (type == 'png' || type == 'csv') {
-                zip.file(csvName, qrCodesData.rawCsv);
-            }
-
-            if (type == 'png' || type == 'xls') {
-                zip.file('qr_codes.xls', $ctrl.xlsData);
-            }
-
-            PageLoadingBarService.setProgress(20);
-            vouchersData.forEach((voucherData, index) => {
-                promises.push(new Promise((resolve) => {
-                    console.info('- making qr file ' + (index + 1) + ' from ' + vouchersData.length + '.');
-                    document.imageConverter.makeQrImage(voucherData.value).then((data) => {
-                        resolve({
-                            ...voucherData,
-                            ...{ imageData: data.slice('data:image/png;base64,'.length) }
-                        });
-                    })
-                }));
-            });
-
-            Promise.all(promises).then((data) => {
-                console.info('- inserting images into .zip archive.');
-                data.forEach((imgData) => imgDirectory.file(imgData.name + ".png", imgData.imageData, { base64: true }));
-
-                PageLoadingBarService.setProgress(80);
-
-                console.info('- building .zip file.');
-                zip.generateAsync({ type: "blob" }).then(function(content) {
-                    PageLoadingBarService.setProgress(95);
-                    console.info('- downloading .zip file.');
-                    saveAs(content, 'vouchers_' + moment().format(
-                        'YYYY-MM-DD HH:mm:ss'
-                    ) + '.zip');
-                    PageLoadingBarService.setProgress(100);
-                });
-            }, console.error);
-        }, res => {
-            res.data.text().then((data) => {
-                data = JSON.parse(data);
-
-                if (data.message) {
-                    PushNotificationsService.danger(data.message);
-                }
-            });
-        });
-    };
-
-    $ctrl.exportQRCodes = () => {
-        ModalService.open('voucherExportType', {
-            success: (data) => {
-                if (data.exportType === 'pdf') {
-                    $ctrl.exportPdf();
-                } else {
-                    $ctrl.exportImages(data.exportType);
-                }
-            }
-        });
+        VoucherExportService.exportVouchers($ctrl.organization.id, filters, type);
     };
 
     $ctrl.onPageChange = (query) => {
@@ -310,15 +167,13 @@ module.exports = {
         organization: '<',
     },
     controller: [
-        '$q',
         '$state',
         '$stateParams',
         '$timeout',
         'DateService',
-        'FileService',
         'ModalService',
         'VoucherService',
-        'PageLoadingBarService',
+        'VoucherExportService',
         ProductVouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/product-vouchers.html'

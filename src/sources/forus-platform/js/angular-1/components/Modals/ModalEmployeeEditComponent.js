@@ -1,8 +1,8 @@
-let ModalEmployeeEditComponent = function(
+const ModalEmployeeEditComponent = function (
     FormBuilderService,
     OrganizationEmployeesService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.isChecked = (id) => $ctrl.form.values.roles.indexOf(id) != -1;
     $ctrl.toggleOption = (id) => {
@@ -16,26 +16,17 @@ let ModalEmployeeEditComponent = function(
     };
 
     $ctrl.$onInit = () => {
-        let values = OrganizationEmployeesService.apiResourceToForm(
-            $ctrl.modal.scope.employee
-        );
+        const { employee, organization } = $ctrl.modal.scope;
+        const formValues = OrganizationEmployeesService.apiResourceToForm(employee);
 
-        $ctrl.form = FormBuilderService.build(values, (form) => {
-            form.lock();
-
+        $ctrl.form = FormBuilderService.build(formValues, (form) => {
             let promise;
+            const values = form.values;
 
-            if (!$ctrl.modal.scope.employee) {
-                promise = OrganizationEmployeesService.store(
-                    $ctrl.modal.scope.organization.id,
-                    form.values
-                );
+            if (!employee) {
+                promise = OrganizationEmployeesService.store(organization.id, values);
             } else {
-                promise = OrganizationEmployeesService.update(
-                    $ctrl.modal.scope.organization.id,
-                    $ctrl.modal.scope.employee.id,
-                    form.values
-                );
+                promise = OrganizationEmployeesService.update(organization.id, employee.id, values);
             }
 
             promise.then(() => {
@@ -43,19 +34,13 @@ let ModalEmployeeEditComponent = function(
                 $ctrl.close();
             }, (res) => {
                 if (res.status == '429') {
-                    form.errors = {
-                        email: new Array(res.data.message)
-                    };
+                    form.errors = { email: [res.data.message] };
                 } else {
                     form.errors = res.data.errors;
                 }
-
-                form.unlock();
-            })
-        })
+            }).finally(() => form.unlock());
+        }, true)
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

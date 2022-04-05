@@ -36,7 +36,6 @@ app.component('sponsorProviderOrganizationComponent', require('./components/Spon
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
-app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
 app.component('providerSignUpComponent', require('./components/ProviderSignUpComponent'));
 app.component('sponsorSignUpComponent', require('./components/SponsorSignUpComponent'));
 app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
@@ -85,13 +84,14 @@ app.component('modalImagePreviewComponent', require('./components/Modals/FilePre
 app.component('modalFundRequestRecordClarifyComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordClarifyComponent'));
 app.component('modalFundRequestRecordDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordDeclineComponent'));
 app.component('modalFundRequestRecordsDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordsDeclineComponent'));
+app.component('modalFundRequestDisregardComponent', require('./components/Modals/FundRequests/ModalFundRequestDisregardComponent'));
+app.component('modalFundRequestDisregardUndoComponent', require('./components/Modals/FundRequests/ModalFundRequestDisregardUndoComponent'));
 app.component('modalFundCriteriaDescriptionEditComponent', require('./components/Modals/ModalFundCriteriaDescriptionEditComponent'));
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
 app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
 app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
-app.component('modalVoucherExportTypeComponent', require('./components/Modals/ModalVoucherExportTypeComponent'));
 app.component('modalDangerZoneComponent', require('./components/Modals/ModalDangerZoneComponent'));
 app.component('modalFundProviderChatSponsorComponent', require('./components/Modals/ModalFundProviderChatSponsorComponent'));
 app.component('modalFundProviderChatProviderComponent', require('./components/Modals/ModalFundProviderChatProviderComponent'));
@@ -107,6 +107,7 @@ app.component('modalMailPreviewComponent', require('./components/Modals/ModalMai
 app.component('modalPhysicalCardOrderComponent', require('./components/Modals/ModalPhysicalCardOrderComponent'));
 app.component('modalReservationNotesComponent', require('./components/Modals/ModalReservationNotesComponent'));
 app.component('modalSwitchBankConnectionAccountComponent', require('./components/Modals/ModalSwitchBankConnectionAccountComponent'));
+app.component('modalExportDataSelectComponent', require('./components/Modals/ModalExportDataSelectComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -117,6 +118,7 @@ app.service('DateService', require('./services/DateService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('TransactionService', require('./services/TransactionService'));
 app.service('VoucherService', require('./services/VoucherService'));
+app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
 app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
@@ -133,7 +135,6 @@ app.service('ProviderFundService', require('./services/ProviderFundService'));
 app.service('OrganizationEmployeesService', require('./services/OrganizationEmployeesService'));
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
-app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
 app.service('MediaService', require('./services/MediaService'));
 app.service('ProviderIdentityService', require('./services/ProviderIdentityService'));
 app.service('ConfigService', require('./services/ConfigService'));
@@ -165,6 +166,7 @@ app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequ
 app.service('ProductReservationService', require('./services/ProductReservationService'));
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
+app.service('TagService', require('./services/TagService'));
 
 // Directives
 app.directive('menu', {

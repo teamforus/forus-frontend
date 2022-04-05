@@ -1,54 +1,44 @@
-let SelectControlDirective = function($scope, $timeout) {
-    let $dir = {};
-    let $optionsMap = [];
+const uniqueId = require('lodash/uniqueId');
 
-    $scope.$dir = $dir;
+const SelectControlDirective = function($scope, $timeout) {
+    const $dir = $scope.$dir;
 
     $dir.filter = {
         name: "",
     };
 
-    $dir.mode = $scope.mode || 'strict';
-    $dir.showOptions = false;
-    $dir.options = [];
+    $dir.buildSearchedOptions = () => {
+        const search = $dir.filter.name.toLowerCase();
+        const search_len = search.length;
 
-    $scope.buildSearchedOptions = () => {
-        let search = $dir.filter.name.toLowerCase();
-        let search_len = search.length;
-        let options = $optionsMap.map((option) => {
-            option._index = option._name.indexOf(search);
-            return option;
-        }).filter(option => option._index > -1);
+        const options = $dir.optionsPrepared.map((option) => {
+            return { ...option, _index: option._name.indexOf(search) };
+        }).filter((option) => option._index > -1);
 
-        options.sort((a, b) => a._index - b._index);
+        if (search) {
+            options.sort((a, b) => a._index - b._index);
+        }
 
-        $dir.options = options.map(option => {
-            let end = -(option.name.length - (option._index + search_len));
-            let nameFormat = [
+        $dir.optionsFiltered = options.map(option => {
+            const end = -(option.name.length - (option._index + search_len));
+            const nameFormat = [
                 option.name.slice(0, option._index),
                 option.name.slice(option._index, option._index + search_len),
                 end < 0 ? option.name.slice(end) : "",
             ];
-            option.nameFormat = nameFormat;
-            
-            return option;
+
+            return { ...option, nameFormat };
         });
-    };
-
-    $dir.updateOptions = () => {
-
     };
 
     $dir.searchOption = () => {
         $dir.showOptions = true;
 
-        if ($dir.mode == 'strict') {
-            if ($scope.ngModel && $scope.ngModel.name) {
-                $dir.filter.name = $scope.ngModel.name;
-            }
+        if ($dir.strict && $dir.value && $dir.value.name) {
+            $dir.filter.name = $dir.value.name;
         }
 
-        $scope.buildSearchedOptions();
+        $dir.buildSearchedOptions();
     };
 
     $dir.searchKeydown = (e) => {
@@ -59,15 +49,15 @@ let SelectControlDirective = function($scope, $timeout) {
     };
 
     $dir.searchUpdate = () => {
-        if (typeof $scope.ngChangeSearch == 'function') {
-            $scope.ngChangeSearch({
+        if (typeof $dir.ngChangeSearch == 'function') {
+            $dir.ngChangeSearch({
                 value: $dir.filter.name
             });
         }
     };
 
     $dir.searchInputChanged = () => {
-        $scope.buildSearchedOptions();
+        $dir.buildSearchedOptions();
     };
 
     $dir.selectOption = (option) => {
@@ -82,16 +72,11 @@ let SelectControlDirective = function($scope, $timeout) {
     };
 
     $dir.setModel = (value) => {
-        $scope.ngModel = value;
+        $dir.value = value;
         $dir.filter.name = value.name;
 
+        $dir.ngModelCtrl.$setViewValue($dir.prop ? value[$dir.prop] : value);
         $dir.searchUpdate();
-
-        if (typeof $scope.ngChange == 'function') {
-            $scope.ngChange({
-                value: $scope.ngModel
-            });
-        }
     };
 
     $dir.onInputClick = () => {
@@ -99,37 +84,51 @@ let SelectControlDirective = function($scope, $timeout) {
         $dir.searchInputChanged();
     }
 
-    $scope.$watch('options', (options) => {
-        if (!Array.isArray(options)) {
-            return;
-        }
+    $dir.findValue = (ngModel) => {
+        return $dir.options.filter((option) => {
+            if ($dir.strict) {
+                return $dir.prop ? option[$dir.prop] === ngModel : option === ngModel;
+            }
 
-        $optionsMap = JSON.parse(JSON.stringify($scope.options || []));
-        $optionsMap = $optionsMap.map(option => {
-            option._name = option.name.toLowerCase();
-            return option;
+            return $dir.prop ? option[$dir.prop] == ngModel : option == ngModel;
+        })[0] || null
+    }
+
+    $dir.$onInit = () => {
+        $dir.as = typeof $dir.as === 'undefined' ? 'name' : $dir.as;
+        $dir.prop = typeof $dir.prop === 'undefined' ? null : $dir.prop;
+        $dir.mode = typeof $dir.mode === 'undefined' ? 'strict' : $dir.mode;
+
+        $dir.strict = $dir.mode === 'strict';
+        $dir.controlId = 'select_control_' + uniqueId();
+        $dir.showOptions = false;
+        $dir.optionsPreloadSize = $dir.optionsPreloadSize || 50;
+        $dir.optionsPrepared = [];
+        $dir.optionsFiltered = [];
+
+        $scope.$watch('$dir.options', (options) => {
+            if (!Array.isArray(options)) {
+                return;
+            }
+
+            $dir.optionsPrepared = JSON.parse(JSON.stringify(options)).map((option) => {
+                return { ...option, _name: option[$dir.as].toString().toLowerCase() };
+            });
+
+            $dir.buildSearchedOptions();
+
+            $dir.value = $dir.findValue($dir.ngModel);
         });
 
-        $scope.buildSearchedOptions();
-    });
-
-    $scope.init = () => {
-        $scope.optionsPreloadSize = $scope.optionsPreloadSize || 50;
-
-        $dir.controlId = 'select_control_';
-        $dir.controlId += Date.now() + '_' + Math.random().toString().slice(2);
-
-        if (typeof $scope.ngChangeQuery == 'function') {
-            $scope.$watch('$dir.filter.name', (value, prev) => {
-                $scope.ngChangeQuery({
-                    value: value,
-                    prev: prev
+        if (typeof $dir.ngChangeQuery == 'function') {
+            $scope.$watch('$scope.$dir.filter.name', (value, prev) => {
+                $dir.ngChangeQuery({
+                    value: value && $dir.prop ? value[$dir.prop] || null : value,
+                    prev: prev && $dir.prop ? prev[$dir.prop] || null : prev
                 });
             });
         }
     }
-
-    $scope.init();
 };
 
 module.exports = () => {
@@ -138,6 +137,8 @@ module.exports = () => {
             mode: '@',
             placeholder: "@",
             multiple: "=",
+            prop: "@",
+            as: "@",
             search: "=",
             options: "=",
             autoclear: "=",
@@ -147,6 +148,11 @@ module.exports = () => {
             ngChangeSearch: '&',
             optionsPreloadSize: "@"
         },
+        require: {
+            ngModelCtrl: 'ngModel',
+        },
+        bindToController: true,
+        controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [
@@ -155,6 +161,5 @@ module.exports = () => {
             SelectControlDirective
         ],
         template: require('./templates/select-control.pug'),
-        //templateUrl: 'assets/tpl/modules/select-control/select-control.html'
     };
 };

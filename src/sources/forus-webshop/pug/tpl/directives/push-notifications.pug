@@ -1,4 +1,4 @@
-.block.block-push-notifications: .inner
+.block.block-push-notifications: .inner(role="alert")
     .notification(
         ng-repeat="notification in notifications" 
         ng-class="[notification.shown ? 'shown' : '', 'notification-' + notification.type]"
