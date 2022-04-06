@@ -799,9 +799,9 @@ module.exports = {
             title_step_8: "Meld u aan voor de regelingen",
             subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt zo spoedig mogelijk behandeld. U ontvangt hierover per e-mail een bevestiging.",
 
-            title_step_9: "Aanvraag ontvangen",
-            top_title_step_9: "Uw aanmelding is ontvangen",
-            subtitle_step_9: "Uw aanmelding is in behandeling. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
+            title_step_9: "Organisatie aangemaakt",
+            top_title_step_9: "Uw organisatie is aangemaakt",
+            subtitle_step_9: "Heeft u zich aangemeld voor een fonds? Dan ontvangt u hier een e-mail van zodra uw aanmelding is behandeld. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
 
             title_step_9_mobile: "Aanmelding voltooid",
             top_title_step_9_mobile: "Uw aanmelding is ontvangen",
