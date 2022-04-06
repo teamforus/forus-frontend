@@ -9,17 +9,35 @@
 
         .card
             .card-header: .flex-row
-            
                 .flex.flex-grow: .card-title(translate="financial_dashboard_transaction.labels.details")
-                
-                //- Resend draft payment
-                .flex(ng-if="$ctrl.transactionBulk.state == 'rejected' && ($ctrl.organization | hasPerm:'manage_transaction_bulks')")
-                    button(
-                        ng-click="$ctrl.resetPaymentRequest($ctrl.transactionBulk)" 
-                        ng-disabled="$ctrl.resettingBulk").button.button-danger.button-sm
+                .flex: .button-group
+                    //- BNG: Auth url button
+                    a(
+                        ng-if="$ctrl.showAuthLink"
+                        href="{{ $ctrl.transactionBulk.auth_url }}"
+                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-default.button-sm
 
-                        em.mdi.mdi-reload.icon-start(ng-if="!$ctrl.resettingBulk")
-                        em.mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.resettingBulk")
+                        .mdi.mdi-link.icon-start
+                        | Autoriseer
+
+                    //- BNG: Submit bulk to BNG
+                    button(
+                        ng-if="$ctrl.showSubmitToBNG"
+                        ng-click="$ctrl.submitPaymentRequestToBNG($ctrl.transactionBulk)" 
+                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-primary.button-sm
+
+                        .mdi.mdi-circle-multiple-outline.icon-start(ng-if="!$ctrl.submittingBulk")
+                        .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.submittingBulk")
+                        | Verstuur de bulk naar BNG
+                
+                    //- Resend draft payment
+                    button(
+                        ng-if="$ctrl.showResetBulkButton"
+                        ng-click="$ctrl.resetPaymentRequest($ctrl.transactionBulk)" 
+                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-danger.button-sm
+
+                        .mdi.mdi-reload.icon-start(ng-if="!$ctrl.resettingBulk")
+                        .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.resettingBulk")
                         | Verstuur bulktransactie opnieuw
 
             .card-section: .flex
@@ -31,8 +49,9 @@
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.id")
                         .keyvalue-value(ng-bind="$ctrl.transactionBulk.id")
 
-                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
-                        .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq_id")
+                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor' && $ctrl.transactionBulk.payment_id")
+                        .keyvalue-key(ng-if="$ctrl.transactionBulk.bank.key === 'bunq'" translate="financial_dashboard_transaction.labels.bunq_id")
+                        .keyvalue-key(ng-if="$ctrl.transactionBulk.bank.key === 'bng'" translate="financial_dashboard_transaction.labels.bng_id")
                         .keyvalue-value(ng-bind="$ctrl.transactionBulk.payment_id")
 
                     .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
@@ -42,6 +61,10 @@
                     .keyvalue-item
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.date")
                         .keyvalue-value(ng-bind="$ctrl.transactionBulk.created_at_locale")
+
+                    .keyvalue-item(ng-if="$ctrl.transactionBulk.execution_date !== null")
+                        .keyvalue-key Datum van uitbetaling
+                        .keyvalue-value(ng-bind="$ctrl.transactionBulk.execution_date_locale")
 
                     .keyvalue-item
                         .keyvalue-key Status
