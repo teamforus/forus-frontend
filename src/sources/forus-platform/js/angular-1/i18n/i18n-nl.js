@@ -802,9 +802,9 @@ module.exports = {
             top_title_step_9: "Uw organisatie is aangemaakt",
             subtitle_step_9: "Heeft u zich aangemeld voor een fonds? Dan ontvangt u hier een e-mail van zodra uw aanmelding is behandeld. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
 
-            title_step_9_mobile: "Aanmelding voltooid",
-            top_title_step_9_mobile: "Uw aanmelding is ontvangen",
-            subtitle_step_9_mobile: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw e-mailadres:\n",
+            title_step_9_mobile: "Organisatie aangemaakt",
+            top_title_step_9_mobile: "Uw organisatie is aangemaakt",
+            subtitle_step_9_mobile: "Heeft u zich aangemeld voor een fonds? Dan ontvangt u hier een e-mail van zodra uw aanmelding is behandeld. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw e-mailadres:\n",
             download_step_9_mobile: "Applicatie downloaden",
 
             title_step_10: "Test betaling",
