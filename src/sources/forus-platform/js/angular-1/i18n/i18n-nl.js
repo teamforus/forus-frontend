@@ -375,6 +375,7 @@ module.exports = {
             total: "Totaal",
             active: "Actief",
             inactive: "Inactief",
+            deactivated: "Gedeactiveerd",
             used: "Uitgaven",
             left: "Restant",
             total_percentage: "Totaal percentage",
