@@ -36,10 +36,6 @@ const ModalProductVoucherCreateComponent = function(
         }
     };
 
-    $ctrl.productChanged = (product) => {
-        $ctrl.form.values.product_id = product?.id || null;
-    };
-
     $ctrl.confirmEmailSkip = function(existingEmails, onConfirm = () => { }, onCancel = () => { }) {
         let items = existingEmails.map(email => ({ value: email }));
 
