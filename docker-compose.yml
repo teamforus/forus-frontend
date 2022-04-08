@@ -3,7 +3,7 @@ services:
   app:
     image: node:14-alpine
     container_name: forus-frontend-app
-    command: sh -c "npm install gulp-cli -g && tail -f /dev/null"
+    command: sh -c "tail -f /dev/null"
     restart: unless-stopped
     working_dir: /ng-app/
     volumes:
@@ -27,8 +27,8 @@ services:
       - ./dist/forus-platform.provider.general:/usr/local/apache2/htdocs/provider
       - ./dist/forus-platform.validator.general:/usr/local/apache2/htdocs/validator
       - ./dist/forus-platform.sponsor.general:/usr/local/apache2/htdocs/sponsor
-      - ./docker-compose/apache2/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - ./docker-compose/apache2/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+      - ./docker/docker-compose/apache2/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./docker/docker-compose/apache2/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
     networks:
       - forus-frontend
 

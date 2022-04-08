@@ -22,8 +22,8 @@ RUN cd src && gulp init && gulp compile
 FROM httpd:2.4
 
 ENV APACHE_DOCUMENT_ROOT=/usr/local/apache2/htdocs
-COPY docker-compose/apache2/httpd.conf /usr/local/apache2/conf/httpd.conf
-COPY docker-compose/apache2/httpd-vhosts.conf /usr/local/apache2/conf/extra/httpd-vhosts.conf
+COPY docker/docker-compose/apache2/httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY docker/docker-compose/apache2/httpd-vhosts.conf /usr/local/apache2/conf/extra/httpd-vhosts.conf
 
 RUN rm -rf /usr/local/apache2/htdocs/*
 # From 'builder' stage copy over the artifacts in dist folder

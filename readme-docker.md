@@ -21,7 +21,7 @@ git checkout <BRANCH_NAME>
 Next you can run sh command, that will copy env file (if it's not exists), run docker containers, install node modules, compile assets and connect your folder with project to container (volume).
 
 ``` 
-./docker-cmd/start-docker-compose.sh
+./docker/cmd/start-docker-compose.sh
 ```
 
 If you need to run npm installer (for node modules) and compile front assets (if there are some changes in package.json or in project files), you can use next commands
@@ -68,7 +68,7 @@ docker build -t forus-io/forus-frontend .
 After you can run command to start docker containers (for php, apache2 and mysql)
 
 ``` 
-./docker-cmd/start.sh
+./docker/cmd/start.sh
 ```
 
 If everything done - frontend will be available on next urls:

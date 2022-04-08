@@ -54,10 +54,10 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
-            // html5ModeEnabled: true,
-            // html5Mode: {
-            //    basePath: '/'
-            // }
+            html5ModeEnabled: true,
+            html5Mode: {
+                basePath: '/'
+            },
         });
 
         // Change building path
@@ -84,6 +84,10 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
+            html5ModeEnabled: true,
+            html5Mode: {
+                basePath: '/'
+            },
         });
 
         platform.editTask('js', (task) => ({...task, minify, sourcemap}));
@@ -108,6 +112,10 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
+            html5ModeEnabled: true,
+            html5Mode: {
+                basePath: '/'
+            },
         });
 
         platform.editTask('js', (task) => ({...task, minify, sourcemap}));
@@ -454,6 +462,10 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
+            html5ModeEnabled: true,
+            html5Mode: {
+                basePath: '/'
+            },
         });
 
         platform.editTask('js', (task) => ({...task, minify, sourcemap}));
