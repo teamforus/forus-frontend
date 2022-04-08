@@ -311,7 +311,7 @@
                                                         .mdi.mdi-eye
 
             .card-header(
-                ng-if="$ctrl.organization.has_person_bsn_api && validatorRequest.bsn"
+                ng-if="validatorRequest.fund.has_person_bsn_api && validatorRequest.bsn"
                 ng-click='validatorRequest.bsn_collapsed = !validatorRequest.bsn_collapsed')
                 .card-title
                     | Persoonlijke gegevens &nbsp;
@@ -321,7 +321,7 @@
                         .mdi.mdi-eye.icon-start(ng-if="!$ctrl.fetchingPerson")
                         | Bekijken
 
-            .card-section(ng-if="$ctrl.organization.has_person_bsn_api && validatorRequest.person" ng-hide='validatorRequest.bsn_collapsed')
+            .card-section(ng-if="validatorRequest.fund.has_person_bsn_api && validatorRequest.person" ng-hide='validatorRequest.bsn_collapsed')
                 .arrow-box.border.bg-dim: .arrow
 
                 .block.block-breadcrumbs
