@@ -69,7 +69,7 @@
     "jquery": "^3.6.0",
     "jszip": "^3.7.1",
     "lodash": "^4.17.21",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "nanoscroller": "^0.8.7",
     "node-sass": "^6.0.1",
     "papaparse": "^5.3.1",
