@@ -8,7 +8,7 @@ const app = angular.module('forusApp', [
     'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
-app.constant('appConfigs', env_data);
+app.constant('appConfigs', {...env_data, ...require('./config/configs')});
 
 // Controllers
 app.controller('BaseController', require('./controllers/BaseController'));

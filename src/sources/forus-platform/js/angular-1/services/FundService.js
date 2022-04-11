@@ -17,27 +17,27 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.store = function(organization_id, data) {
-            return ApiRequest.post(uriPrefix + `${organization_id}/funds`, this.apiFormToResource(data));
+            return ApiRequest.post(`${uriPrefix}${organization_id}/funds`, this.apiFormToResource(data));
         };
 
         this.update = function(organization_id, id, data) {
-            return ApiRequest.patch(uriPrefix + `${organization_id}/funds/${id}`, this.apiFormToResource(data));
+            return ApiRequest.patch(`${uriPrefix}${organization_id}/funds/${id}`, this.apiFormToResource(data));
         };
 
         this.updateCriteria = function(organization_id, id, criteria) {
-            return ApiRequest.patch(uriPrefix + `${organization_id}/funds/${id}/criteria`, { criteria });
+            return ApiRequest.patch(`${uriPrefix}${organization_id}/funds/${id}/criteria`, { criteria });
         };
 
         this.backofficeUpdate = function(organization_id, id, data) {
-            return ApiRequest.patch(uriPrefix + `${organization_id}/funds/${id}/backoffice`, data);
+            return ApiRequest.patch(`${uriPrefix}${organization_id}/funds/${id}/backoffice`, data);
         };
 
         this.backofficeTest = function(organization_id, id) {
-            return ApiRequest.post(uriPrefix + `${organization_id}/funds/${id}/backoffice-test`);
+            return ApiRequest.post(`${uriPrefix}${organization_id}/funds/${id}/backoffice-test`);
         };
 
         this.read = function(organization_id, fund_id, query = {}) {
-            return ApiRequest.get(uriPrefix + `${organization_id}/funds/${fund_id}`, query);
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}`, query);
         };
 
         this.readPublic = function(fund_id, query = {}) {
@@ -45,134 +45,23 @@ const FundService = function(ApiRequest, ModalService) {
         };
 
         this.readFinances = function(organization_id, query = {}) {
-            return ApiRequest.get(uriPrefix + `${organization_id}/sponsor/finances`, query);
+            return ApiRequest.get(`${uriPrefix}${organization_id}/sponsor/finances`, query);
         };
 
         this.listProviders = function(organization_id, fund_id, state, query = {}) {
-            query.state = state;
-
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/providers',
-                organization_id,
-                fund_id
-            ), query);
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/providers`, { ...query, state });
         };
 
-        this.readProvider = function(organization_id, fund_id, provider_id, query) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/providers/%s',
-                organization_id,
-                fund_id,
-                provider_id
-            ), query);
+        this.readProvider = function(organization_id, fund_id, provider_id, query = {}) {
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${provider_id}`, query);
         };
 
         this.listProviderProducts = function(organization_id, fund_id, provider_id, query = {}) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/providers/%s/products',
-                organization_id,
-                fund_id,
-                provider_id
-            ), query);
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${provider_id}/products`, query);
         };
 
         this.getProviderProduct = function(organization_id, fund_id, provider_id, product_id, query = {}) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/providers/%s/products/%s',
-                organization_id,
-                fund_id,
-                provider_id,
-                product_id,
-            ), query);
-        };
-
-        this.readProviderChats = function(organization_id, fund_id, provider_id, query = {}) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/providers/%s/products',
-                organization_id,
-                fund_id,
-                provider_id
-            ), query);
-        };
-
-        /**
-         * TODO: check for cleanup
-         * Get provider transactions list
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {object} query 
-         * @returns {Promise}
-         */
-        this.readProvidersTransactions = function(
-            organization_id,
-            fund_id,
-            provider_id,
-            query = {}
-        ) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/providers/%s/transactions',
-                organization_id,
-                fund_id,
-                provider_id
-            ), query);
-        };
-
-        /**
-         * TODO: check for cleanup
-         * Get provider transaction
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {number} transaction_id 
-         * @param {object} query 
-         * @returns {Promise}
-         */
-        this.readProvidersTransaction = function(
-            organization_id,
-            fund_id,
-            provider_id,
-            transaction_id,
-            query = {}
-        ) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/providers/%s/transactions/%s',
-                organization_id,
-                fund_id,
-                provider_id,
-                transaction_id
-            ), query);
-        };
-
-        /**
-         * TODO: check for cleanup
-         * Export provider transactions list
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {object} query 
-         * @returns {Promise}
-         */
-        this.exportProvidersTransactions = function(
-            organization_id,
-            fund_id,
-            provider_id,
-            query = {}
-        ) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/providers/%s/transactions/export',
-                organization_id,
-                fund_id,
-                provider_id
-            ), query, {}, true, (_cfg) => {
-                _cfg.responseType = 'arraybuffer';
-                _cfg.cache = false;
-
-                return _cfg;
-            });
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${provider_id}/products/${product_id}`, query);
         };
 
         /**
@@ -211,39 +100,6 @@ const FundService = function(ApiRequest, ModalService) {
                 return _cfg;
             });
         };
-
-        /**
-         * Get provider finances overview
-         * 
-         * @param {number} organization_id 
-         * @param {number} fund_id 
-         * @param {number} provider_id 
-         * @param {object} query 
-         * @returns {Promise}
-         */
-        this.readProvidersFinances = function(
-            organization_id,
-            fund_id,
-            provider_id,
-            query = {}
-        ) {
-            return ApiRequest.get(sprintf(
-                uriPrefix + '%s/funds/%s/providers/%s/finances',
-                organization_id,
-                fund_id,
-                provider_id
-            ), query);
-        };
-
-        this.dismissProvider = function(organization_id, fund_id, id) {
-            return this.updateProvider(organization_id, fund_id, id, {
-                dismissed: true,
-                allow_budget: false,
-                allow_products: false,
-                allow_some_products: false,
-            });
-        };
-
         this.updateProvider = function(organization_id, fund_id, id, data = {}) {
             return ApiRequest.patch(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${id}`, data);
         };
@@ -286,7 +142,7 @@ const FundService = function(ApiRequest, ModalService) {
             const { request_btn_text, external_link_text, external_link_url, allow_direct_requests } = apiResource;
 
             return {
-            ...{ name, state, type, criteria },
+                ...{ name, state, type, criteria },
                 ...{ faq: faq || [], faq_title: faq_title || '', formula_products: formula_products || [] },
                 ...{ description, description_html, description_short },
                 ...{ notification_amount, default_validator_employee_id, auto_requests_validation },

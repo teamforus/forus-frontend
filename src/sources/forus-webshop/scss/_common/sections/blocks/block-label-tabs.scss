@@ -91,7 +91,7 @@
 
                 &:focus {
                     color: rgb(155, 70, 70);
-                    background-color: 1px solid desaturate($color: darken($color: $color_primary, $amount: 35%), $amount: 75%);;
+                    background-color: 1px solid desaturate($color: darken($color: $color_primary, $amount: 35%), $amount: 75%);
 
                     .mdi {
                         color: rgb(143, 143, 143);

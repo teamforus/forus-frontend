@@ -3,7 +3,7 @@ let ScrollToDirective = function(scope, element, attributes) {
         const target = document.querySelector(attributes.scrollTo);
 
         if (target) {
-            target.scrollIntoView();;
+            target.scrollIntoView();
         }
     });
 };
