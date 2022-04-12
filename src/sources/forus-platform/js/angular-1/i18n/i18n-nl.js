@@ -601,7 +601,7 @@ module.exports = {
             end: "EIND",
             break: "Pauze",
             not_specified: "Niet ingevuld",
-            description: "Omschrijving"
+            description: "Omschrijving",
         },
         buttons: {
             cancel: "Annuleren",
@@ -1352,7 +1352,19 @@ module.exports = {
             lead_time: "Doorlooptijd",
             accepted_at: "Geaccepteerd op",
             declined_at: "Geweigerd op",
-            disregarded_at: "Buiten behandeling gesteld op"
+            api_value: "API Eigenschap",
+            first_name: "Naam",
+            last_name: "Voornamen",
+            gender: "Geslachtsaanduiding",
+            nationality: "Nationaliteit",
+            age: "Leeftijd",
+            birth_date: "Geboortedatum",
+            birth_place: "Geboorteplaats",
+            address: "Verblijfsplaats",
+            parent: "Ouder {{ index }}",
+            partner: "Partner",
+            child: "Kinderen {{ index }}",
+            disregarded_at: "Buiten behandeling gesteld op",
         },
         status: {
             hold: "Wachten",
@@ -1363,8 +1375,8 @@ module.exports = {
         },
         buttons: {
             show: "Bekijk eigenschappen",
-            allaccept: "Accepteren",
-            alldecline: "Weigeren",
+            accept_all: "Accepteren",
+            decline_all: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
             disregard: "Niet behandelen",
@@ -1516,6 +1528,18 @@ module.exports = {
             addcode: "voeg code  ",
             description: "  toe aan de beschrijving",
             copy: "Kopieer naar klembord"
+        }
+    },
+
+    modal_fund_request_assign: {
+        header: {
+            title: "Toewijzen"
+        },
+        buttons: {
+            close: "Sluiten",
+        },
+        label: {
+            employees: "Kies een medewerker"
         }
     },
 

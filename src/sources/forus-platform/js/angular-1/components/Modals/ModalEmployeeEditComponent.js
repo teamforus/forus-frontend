@@ -53,7 +53,5 @@ module.exports = {
         'OrganizationEmployeesService',
         ModalEmployeeEditComponent
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-employee-edit.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-employee-edit.html',
 };

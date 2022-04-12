@@ -81,9 +81,13 @@ const permissionMiddleware = (
 };
 
 const organziationResolver = (uriKey = 'organization_id') => {
-    return ['$transition$', 'OrganizationService', ($transition$, OrganizationService) => repackResponse(
-        OrganizationService.read($transition$.params()[uriKey])
-    )];
+    return ['$transition$', 'OrganizationService', ($transition$, OrganizationService) => {
+        return repackResponse(OrganizationService.read($transition$.params()[uriKey]));
+    }];
+};
+
+const authUserResolver = () => {
+    return ['$rootScope', ($rootScope) => $rootScope.loadAuthUser()];
 };
 
 module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
@@ -1229,7 +1233,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             organization_id: null,
         },
         resolve: {
+            permission: permissionMiddleware('fund-requests', ['validate_records', 'manage_validators'], false),
             organization: organziationResolver(),
+            authUser: authUserResolver(),
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.list($transition$.params().organization_id));
+            }],
+            employee: ['authUser', 'employees', 'permission', (authUser, employees) => {
+                return employees.data.filter((employee) => employee.identity_address == authUser.address)[0] || null;
+            }],
+            employees: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
+                return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id, {
+                    per_page: 100,
+                    permission: 'validate_records'
+                }));
+            }],
         }
     });
 
