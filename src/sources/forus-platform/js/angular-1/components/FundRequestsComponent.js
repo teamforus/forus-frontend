@@ -433,7 +433,7 @@ const FundRequestsComponent = function(
 
         PageLoadingBarService.setProgress(0);
 
-        PersonBSNService.read($ctrl.organization.id, bsn).then((res) => {
+        PersonBSNService.read($ctrl.organization.id, validatorRequest.fund_id, bsn).then((res) => {
             if (!res.data.data) {
                 return PushNotificationsService.danger('Error', 'BSN information not found.')
             }
