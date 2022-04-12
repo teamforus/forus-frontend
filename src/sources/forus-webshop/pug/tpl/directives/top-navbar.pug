@@ -124,7 +124,8 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                             .auth-user-menu.hide-sm.active(
                                 aria-labelledby="user_menu"
                                 ng-class="{active: $ctrl.userMenuOpened}"
-                                ng-show="$ctrl.userMenuOpened")
+                                ng-show="$ctrl.userMenuOpened"
+                                click-outside="$ctrl.hideUserMenu()")
                                 .triangle
                                 .inner(prevent-propagation)
                                     .auth-user-menu-user

@@ -64,6 +64,7 @@ module.exports = {
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
+            remove_organization_employees: require('./nl/modals/danger-zone/remove-organization-employee'),
             increase_limit_multiplier: require('./nl/modals/danger-zone/increase-limit-multiplier'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
             restore_fund: require('./nl/modals/danger-zone/restore-fund'),
@@ -349,6 +350,7 @@ module.exports = {
             details: "Transactie details",
             id: "ID",
             bunq_id: "ID bunq",
+            bng_id: "ID BNG",
             statement: "Naam begunstigde",
             bunq: "Transactiekosten",
             fee: "€ 0.10",
@@ -374,6 +376,7 @@ module.exports = {
             total: "Totaal",
             active: "Actief",
             inactive: "Inactief",
+            deactivated: "Gedeactiveerd",
             used: "Uitgaven",
             left: "Restant",
             total_percentage: "Totaal percentage",
@@ -798,13 +801,13 @@ module.exports = {
             title_step_8: "Meld u aan voor de regelingen",
             subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt zo spoedig mogelijk behandeld. U ontvangt hierover per e-mail een bevestiging.",
 
-            title_step_9: "Aanvraag ontvangen",
-            top_title_step_9: "Uw aanmelding is ontvangen",
-            subtitle_step_9: "Uw aanmelding is in behandeling. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
+            title_step_9: "Organisatie aangemaakt",
+            top_title_step_9: "Uw organisatie is aangemaakt",
+            subtitle_step_9: "Heeft u zich aangemeld voor een fonds? Dan ontvangt u hier een e-mail van zodra uw aanmelding is behandeld. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
 
-            title_step_9_mobile: "Aanmelding voltooid",
-            top_title_step_9_mobile: "Uw aanmelding is ontvangen",
-            subtitle_step_9_mobile: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw e-mailadres:\n",
+            title_step_9_mobile: "Organisatie aangemaakt",
+            top_title_step_9_mobile: "Uw organisatie is aangemaakt",
+            subtitle_step_9_mobile: "Heeft u zich aangemeld voor een fonds? Dan ontvangt u hier een e-mail van zodra uw aanmelding is behandeld. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw e-mailadres:\n",
             download_step_9_mobile: "Applicatie downloaden",
 
             title_step_10: "Test betaling",
