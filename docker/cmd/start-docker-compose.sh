@@ -1,9 +1,12 @@
 #!/bin/bash
 
-# make folders for docker-compose volumes for apache2
-mkdir -p dist/forus-platform.provider.general
-mkdir -p dist/forus-platform.sponsor.general
-mkdir -p dist/forus-platform.validator.general
-mkdir -p dist/forus-webshop-general.panel
+rm -rf src/node_modules
+mkdir -p dist
 
-docker-compose up -d && docker-compose exec app sh -c "npm install gulp-cli -g && cd src && npm i && yes n | gulp init && gulp compile"
+if [ "$1" == "compile" ] || [ "$1" == "c" ] || [ "$1" == "-compile" ] || [ "$1" == "-c" ]
+then
+    docker-compose up -d && docker-compose exec app sh -c "cd src && npm i && yes n | gulp init && gulp compile"
+    exit 1
+fi
+
+docker-compose up -d && docker-compose exec app sh -c "cd src && npm i && yes n | gulp init && gulp"
