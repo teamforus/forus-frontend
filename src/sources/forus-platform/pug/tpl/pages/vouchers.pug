@@ -42,24 +42,27 @@
                                         ng-model="$ctrl.filters.values.q" 
                                         placeholder="{{ 'vouchers.labels.search' | translate }}").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'vouchers.labels.granted' | translate }}")
                                     .form-offset: select-control(
                                         prop="value"
+                                        search="false"
                                         ng-model="$ctrl.filters.values.granted"
                                         options="$ctrl.states").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'vouchers.labels.source' | translate }}")
                                     .form-offset: select-control(
                                         prop="value"
+                                        search="false"
                                         ng-model="$ctrl.filters.values.source"
                                         options="$ctrl.sources").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'vouchers.labels.state' | translate }}")
                                     .form-offset: select-control(
                                         prop="value"
+                                        search="false"
                                         ng-model="$ctrl.filters.values.state"
                                         options="$ctrl.voucher_states" ).form-control
 
@@ -76,10 +79,11 @@
                                             ng-model="$ctrl.filters.values.count_per_identity_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | translate }}").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'vouchers.labels.used' | translate }}")
                                     .form-offset: select-control(
                                         prop="value"
+                                        search="false"
                                         ng-model="$ctrl.filters.values.in_use"
                                         options="$ctrl.in_use").form-control
 

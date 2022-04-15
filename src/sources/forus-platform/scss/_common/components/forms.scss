@@ -439,11 +439,11 @@
 
     .select-control-input {
         $optionHeight: 40px;
-
         position: relative;
 
         .form-control {
             display: block;
+            padding-right: 20px;
         }
 
         label.form-control:not([type='radio']):not([type='checkbox']) {
@@ -452,6 +452,27 @@
 
         .select-control-search {
             cursor: pointer;
+            padding-right: 20px;
+        }
+
+        .select-control-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            line-height: inherit;
+            padding-top: inherit;
+            padding-bottom: inherit;
+            padding-right: 5px;
+            display: flex;
+            flex-direction: column;
+
+            .mdi {
+                display: flex;
+                font-size: 20px;
+                margin-top: 2px;
+                color: #646464;
+            }
         }
 
         .select-control-options {
@@ -501,6 +522,10 @@
                 border-bottom-right-radius: 0;
                 border-bottom-left-radius: 0;
             }
+        }
+
+        &[disabled] {
+            pointer-events: none;
         }
     }
 

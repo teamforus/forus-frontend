@@ -26,7 +26,6 @@ section.section.section-profile: .wrapper
                             id="select_fund"
                             name="fund"
                             prop="id"
-                            autoclear="true"
                             ng-model="$ctrl.filters.fund_id"
                             options="$ctrl.funds"
                             placeholder="{{ $ctrl.funds[0].name }}")
@@ -38,7 +37,6 @@ section.section.section-profile: .wrapper
                             id="select_provider"
                             name="provider"
                             prop="id"
-                            autoclear="true" 
                             ng-model="$ctrl.filters.organization_id"
                             options="$ctrl.organizations"
                             placeholder="{{ $ctrl.organizations[0].name }}")
@@ -50,7 +48,6 @@ section.section.section-profile: .wrapper
                             id="select_filters"
                             name="state"
                             prop="value"
-                            autoclear="true" 
                             ng-model="$ctrl.filters.state"
                             options="$ctrl.states"
                             placeholder="{{ $ctrl.filters.state[0].name }}")

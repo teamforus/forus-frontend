@@ -27,11 +27,11 @@
         label.form-label(ng-if="index > 0") &nbsp;
 
         .form-offset: select-control(
-            ng-disabled="{{disabled}}"
             prop="id"
-            ng-model="$ctrl.categoriesValues[index]"
             options="categories"
+            ng-model="$ctrl.categoriesValues[index]"
             ng-change="$ctrl.changeCategory(index)"
+            ng-disabled="disabled"
             placeholder="Status").form-control
 
         .form-error(

@@ -28,8 +28,9 @@
                         .form-offset: select-control(
                             id="orderBy"
                             prop="value"
+                            search="false"
                             ng-model="$ctrl.filters.values.order_by" 
-                            options="$ctrl.orderByOptions").form-control.form-control-text
+                            options="$ctrl.orderByOptions").form-control.form-control-text.nowrap
 
                     .form-group.inline-filters-search
                         input(ng-model="$ctrl.filters.values.q" placeholder="{{ 'search' | i18n }}").form-control
@@ -38,10 +39,11 @@
                     .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
                         .arrow-box.bg-dim: .arrow
                         .form
-                            .form-group
+                            .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="Fondsen")
                                 .form-offset: select-control(
                                     prop="id"
+                                    search="false"
                                     ng-model="$ctrl.filters.values.fund_id"
                                     options="$ctrl.funds").form-control
 

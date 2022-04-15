@@ -4,7 +4,7 @@
         a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="!$ctrl.verificationRequested") Activatiecode aanmaken
         .modal-header(ng-if="$ctrl.verificationRequested") Gegevens controleren
-        .modal-body
+        .modal-body.modal-body-visible
             .modal-section(ng-if="$ctrl.verificationRequested && !$ctrl.prevalidation")
                 .modal-text.text-center Controleer of u de juiste gegevens hebt ingevuld voordat u deze bevestigd.
                 .row: .col.col-lg-8.col-lg-offset-2

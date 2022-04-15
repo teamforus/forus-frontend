@@ -21,13 +21,13 @@ div
                             .form-group
                                 form-label-toggle(label="{{ 'prevalidated_table.labels.search' | i18n }}" is-active)
                                 input(ng-model="filters.values.q" type="text" placeholder="{{ 'prevalidated_table.labels.search' | i18n }}").form-control
-                            .form-group
+                            .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="{{ 'prevalidated_table.status.active' | i18n }}")
                                 .form-offset: select-control(
                                     prop="key"
                                     ng-model="filters.values.state"
                                     options="states").form-control
-                            .form-group
+                            .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="{{ 'prevalidated_table.labels.exported' | i18n }}")
                                 .form-offset: select-control(
                                     prop="key"

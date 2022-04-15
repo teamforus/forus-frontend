@@ -25,10 +25,16 @@
         .flex-row(ng-if="$dir.criterion.is_editing")
             .flex-col.flex-col-2.form-group
                 label.form-label Eigenschap
-                select(
+                //- select(
                     ng-disabled="!$dir.isEditable"
                     ng-model="$dir.criterion.record_type_key" 
                     ng-options="operator.key as operator.name for operator in $dir.recordTypes").form-control
+
+                .form-offset: select-control(
+                    prop="key"
+                    ng-disabled="!$dir.isEditable"
+                    ng-model="$dir.criterion.record_type_key" 
+                    options="$dir.recordTypes").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.record_type_key']" ng-bind="error")
             
             .flex-col.flex-col-2.form-group

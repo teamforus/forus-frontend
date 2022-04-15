@@ -50,6 +50,7 @@
                     //- Fund type selector
                     .form-offset(ng-if="!$ctrl.fund"): select-control(
                         prop="key"
+                        search="false"
                         ng-model="$ctrl.form.values.type" 
                         options="$ctrl.fundTypes").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
@@ -87,6 +88,7 @@
                     label(translate="funds_edit.labels.application_method").form-label.form-label-required
                     .form-offset: select-control(
                         prop="key"
+                        search="false"
                         ng-disabled="$ctrl.fund && ($ctrl.fund.state != 'waiting')"
                         ng-model="$ctrl.form.values.application_method" 
                         ng-change="$ctrl.onMethodChange($ctrl.form.values.application_method, '{{$ctrl.form.values.application_method}}')"
@@ -181,9 +183,12 @@
             .card-section.card-section-primary: .row
                 .form-group.form-group-inline.col.col-lg-9.col-md-12
                     label.form-label Standaard validator
-                    select(
+                    .form-offset: select-control(
+                        prop="id"
+                        as="email"
+                        search="false"
                         ng-model="$ctrl.form.values.default_validator_employee_id" 
-                        ng-options="validator.id as validator.email for validator in $ctrl.validators").form-control
+                        options="$ctrl.validators").flex-grow
                     
                     .form-error(ng-repeat="error in $ctrl.form.errors.default_validator_employee_id" ng-bind="error")
                 

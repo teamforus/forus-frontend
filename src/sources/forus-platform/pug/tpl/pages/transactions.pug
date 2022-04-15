@@ -45,10 +45,11 @@
                                             ng-model="$ctrl.filters.values.amount_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | i18n }}").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.state' | i18n }}")
                                     .form-offset: select-control(
                                         prop="key"
+                                        search="false"
                                         ng-model="$ctrl.filters.values.state"
                                         options="$ctrl.states").form-control
 
@@ -68,10 +69,11 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.fund_state' | i18n }}")
                                     .form-offset: select-control(
                                         prop="key"
+                                        search="false"
                                         ng-model="$ctrl.filters.values.fund_state"
                                         options="$ctrl.fundStates").form-control
 

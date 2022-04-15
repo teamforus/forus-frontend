@@ -4,13 +4,10 @@ const SelectControlDirective = function($scope, $timeout) {
     const $dir = $scope.$dir;
 
     $dir.filter = {
-        name: "",
+        q: "",
     };
 
-    $dir.buildSearchedOptions = () => {
-        const search = $dir.filter.name.toLowerCase();
-        const search_len = search.length;
-
+    $dir.prepareOptions = (search) => {
         const options = $dir.optionsPrepared.map((option) => {
             return { ...option, _index: option._name.indexOf(search) };
         }).filter((option) => option._index > -1);
@@ -19,23 +16,35 @@ const SelectControlDirective = function($scope, $timeout) {
             options.sort((a, b) => a._index - b._index);
         }
 
-        $dir.optionsFiltered = options.map(option => {
-            const end = -(option.name.length - (option._index + search_len));
-            const nameFormat = [
-                option.name.slice(0, option._index),
-                option.name.slice(option._index, option._index + search_len),
-                end < 0 ? option.name.slice(end) : "",
-            ];
+        return options;
+    };
+
+    $dir.buildSearchedOptions = () => {
+        const search = $dir.filter.q.toLowerCase();
+        const search_len = search.length;
+        const options = $dir.searchEnabled ? $dir.prepareOptions(search) : $dir.optionsPrepared;
+
+        $dir.optionsFiltered = options.map((option) => {
+            const end = -(option[$dir.as].length - (option._index + search_len));
+            const nameFormat = $dir.searchEnabled ? [
+                option[$dir.as].slice(0, option._index),
+                option[$dir.as].slice(option._index, option._index + search_len),
+                end < 0 ? option[$dir.as].slice(end) : "",
+            ] : [option[$dir.as]];
 
             return { ...option, nameFormat };
         });
     };
 
     $dir.searchOption = () => {
+        if ($dir.disabled || $dir.ngDisabled) {
+            return;
+        }
+
         $dir.showOptions = true;
 
-        if ($dir.strict && $dir.value && $dir.value.name) {
-            $dir.filter.name = $dir.value.name;
+        if ($dir.searchEnabled && $dir.strict && $dir.value && $dir.value[$dir.as]) {
+            $dir.filter.q = $dir.value[$dir.as];
         }
 
         $dir.buildSearchedOptions();
@@ -51,7 +60,7 @@ const SelectControlDirective = function($scope, $timeout) {
     $dir.searchUpdate = () => {
         if (typeof $dir.ngChangeSearch == 'function') {
             $dir.ngChangeSearch({
-                value: $dir.filter.name
+                value: $dir.filter.q
             });
         }
     };
@@ -73,14 +82,17 @@ const SelectControlDirective = function($scope, $timeout) {
 
     $dir.setModel = (value) => {
         $dir.value = value;
-        $dir.filter.name = value.name;
+        $dir.filter.q = value[$dir.as];
 
         $dir.ngModelCtrl.$setViewValue($dir.prop ? value[$dir.prop] : value);
         $dir.searchUpdate();
     };
 
     $dir.onInputClick = () => {
-        $dir.filter.name = "";
+        if ($dir.autoClearEnabled) {
+            $dir.filter.q = "";
+        }
+
         $dir.searchInputChanged();
     }
 
@@ -98,6 +110,8 @@ const SelectControlDirective = function($scope, $timeout) {
         $dir.as = typeof $dir.as === 'undefined' ? 'name' : $dir.as;
         $dir.prop = typeof $dir.prop === 'undefined' ? null : $dir.prop;
         $dir.mode = typeof $dir.mode === 'undefined' ? 'strict' : $dir.mode;
+        $dir.searchEnabled = typeof $dir.search === 'undefined' ? true : $dir.search;
+        $dir.autoClearEnabled = typeof $dir.autoClear === 'undefined' ? true : $dir.autoClear;
 
         $dir.strict = $dir.mode === 'strict';
         $dir.controlId = 'select_control_' + uniqueId();
@@ -121,7 +135,7 @@ const SelectControlDirective = function($scope, $timeout) {
         });
 
         if (typeof $dir.ngChangeQuery == 'function') {
-            $scope.$watch('$scope.$dir.filter.name', (value, prev) => {
+            $scope.$watch('$scope.$dir.filter.q', (value, prev) => {
                 $dir.ngChangeQuery({
                     value: value && $dir.prop ? value[$dir.prop] || null : value,
                     prev: prev && $dir.prop ? prev[$dir.prop] || null : prev
@@ -141,8 +155,10 @@ module.exports = () => {
             as: "@",
             search: "=",
             options: "=",
-            autoclear: "=",
+            autoClear: "=",
             ngModel: '=',
+            disabled: '@',
+            ngDisabled: '=',
             ngChange: '&',
             ngChangeQuery: '&',
             ngChangeSearch: '&',
