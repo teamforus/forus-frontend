@@ -137,6 +137,14 @@ const FundRequestValidatorService = function(ApiRequest) {
                 fund_request_record_id: record_id,
             });
         };
+
+        this.getPersonBsn = function(organization_id, request_id, data) {
+            return ApiRequest.post(sprintf(
+                uriPrefixAll + '/%s/person-bsn',
+                organization_id,
+                request_id
+            ), data);
+        };
     };
 
     return new FundRequestValidatorService();

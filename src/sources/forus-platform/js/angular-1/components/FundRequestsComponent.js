@@ -6,7 +6,6 @@ const FundRequestsComponent = function(
     DateService,
     FundRequestValidatorService,
     PushNotificationsService,
-    PersonBSNService,
     PageLoadingBarService,
     appConfigs
 ) {
@@ -32,23 +31,13 @@ const FundRequestsComponent = function(
     };
 
 
-    const setBreadcrumbs = (validatorRequest, parent) => {
-        if (!parent) {
-            return validatorRequest.person_breadcrumbs = [validatorRequest.person];
-        }
+    const setBreadcrumbs = (validatorRequest) => {
+        validatorRequest.person_breadcrumbs = [
+            validatorRequest.person
+        ];
 
-        const bsnList = validatorRequest.person_breadcrumbs.map((item) => (item).bsn);
-        const personIndex = bsnList.indexOf(validatorRequest.person.bsn);
-        const parentIndex = bsnList.indexOf(parent);
-
-        if (parentIndex !== -1) {
-            validatorRequest.person_breadcrumbs.splice(parentIndex + 1);
-        }
-
-        if (personIndex !== -1) {
-            validatorRequest.person_breadcrumbs.splice(personIndex + 1);
-        } else if (parent !== validatorRequest.person.bsn) {
-            validatorRequest.person_breadcrumbs.push(validatorRequest.person);
+        if (validatorRequest.person_relative) {
+            validatorRequest.person_breadcrumbs.push(validatorRequest.person_relative);
         }
     }
 
@@ -57,7 +46,6 @@ const FundRequestsComponent = function(
     $ctrl.validatorRequests = null;
     $ctrl.isValidatorsSupervisor = false;
 
-    $ctrl.persons = {};
     $ctrl.fetchingPerson = false;
 
     $ctrl.shownUsers = {};
@@ -115,6 +103,7 @@ const FundRequestsComponent = function(
             res.data.data.hasContent = request.hasContent;
             res.data.data.collapsed = request.collapsed;
             res.data.data.person = request.person;
+            res.data.data.person_relative = request.person_relative;
             res.data.data.person_breadcrumbs = request.person_breadcrumbs;
 
             request.records.forEach((record) => {
@@ -416,32 +405,44 @@ const FundRequestsComponent = function(
         }
     };
 
-    $ctrl.getPerson = (validatorRequest, bsn, parent = null) => {
-        if (!bsn || $ctrl.fetchingPerson) {
+    $ctrl.getPerson = (validatorRequest, scopeType, scopeId) => {
+        let data = {},
+            fetchingPersonRelative = false;
+
+        if ($ctrl.fetchingPerson) {
             return;
         }
 
         $ctrl.fetchingPerson = true;
 
-        if ($ctrl.persons[bsn]) {
-            validatorRequest.person = $ctrl.persons[bsn];
-            validatorRequest.bsn_collapsed = false;
-            setBreadcrumbs(validatorRequest, parent);
+        if (scopeType && scopeId) {
+            data = {
+                scope: scopeType,
+                scope_id: scopeId
+            };
+            fetchingPersonRelative = true;
+        } else if (validatorRequest.person) {
+            validatorRequest.person_relative = null;
+            setBreadcrumbs(validatorRequest);
             $ctrl.fetchingPerson = false;
             return;
         }
 
         PageLoadingBarService.setProgress(0);
 
-        PersonBSNService.read($ctrl.organization.id, validatorRequest.fund_id, bsn).then((res) => {
+        FundRequestValidatorService.getPersonBsn($ctrl.organization.id, validatorRequest.id, data).then((res) => {
             if (!res.data.data) {
                 return PushNotificationsService.danger('Error', 'BSN information not found.')
             }
 
-            $ctrl.persons[bsn] = res.data.data;
-            validatorRequest.person = $ctrl.persons[bsn];
+            if (fetchingPersonRelative) {
+                validatorRequest.person_relative = res.data.data;
+            } else {
+                validatorRequest.person = res.data.data;
+            }
+
             validatorRequest.bsn_collapsed = false;
-            setBreadcrumbs(validatorRequest, parent);
+            setBreadcrumbs(validatorRequest);
         }, console.error).finally(() => {
             $ctrl.fetchingPerson = false;
             PageLoadingBarService.setProgress(100);
@@ -487,7 +488,6 @@ module.exports = {
         'DateService',
         'FundRequestValidatorService',
         'PushNotificationsService',
-        'PersonBSNService',
         'PageLoadingBarService',
         'appConfigs',
         FundRequestsComponent
