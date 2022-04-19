@@ -60,7 +60,15 @@ module.exports = {
         mobile: {
             voucher: "Tegoeden",
             request: "Aanvragen",
-            profile: "Profiel"
+            profile: "Profiel",
+            more: "Meer",
+            dropdown: {
+                vouchers: "Tegoeden",
+                reservations: "Reserveringen",
+                notifications: "Notificaties",
+                preferences_notifications: "Notificatievoorkeuren",
+                preferences_emails: "E-mailinstellingen",
+            }
         }
     },
 }

@@ -6,8 +6,6 @@ section.section.section-voucher-details: .wrapper
 
     section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
         .block.block-profile
-            .profile-aside: profile-menu
-
             .profile-content
                 .profile-content-header.clearfix
                     .profile-content-title
@@ -22,8 +20,8 @@ section.section.section-voucher-details: .wrapper
                         .block.block-user_emails 
                             .user_email-item
                                 .user_email-icon: em.mdi.mdi-at(ng-class="{'text-primary':email.primary}")
-                                .user_email-details  
-                                    .user_email-address(ng-bind="email.email")
+                                .user_email-details
+                                    .user_email-address(ng-bind="email.email | str_limit:22")
                                     
                                     ul.user_email-options(ng-if="email.primary")
                                         li.user_email-option Ontvangt inlog e-mail
