@@ -109,7 +109,6 @@ app.directive('skipLinks', require('./directives/SkipLinksDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
-app.directive('profileMenu', require('./directives/ProfileMenuDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));

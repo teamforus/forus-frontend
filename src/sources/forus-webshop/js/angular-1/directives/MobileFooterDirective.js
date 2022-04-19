@@ -1,10 +1,11 @@
 let MobileFooterDirective = function(
     $scope,
+    $rootScope,
     $state,
     $translate,
     ModalService,
     FundService,
-    VoucherService
+    VoucherService,
 ) {
     let $ctrl = this;
     let prevOffsetY = window.pageYOffset;
@@ -75,7 +76,15 @@ let MobileFooterDirective = function(
     };
     
     FundService.list().then(res => $ctrl.funds = res.data.data);
-    VoucherService.list().then(res => $scope.$ctrl.vouchers = res.data.data);
+
+    $scope.vouchers = [];
+    $scope.$watch(function() {
+        return $rootScope.auth_user
+    }, function(auth_user) {
+        if (auth_user) {
+            VoucherService.list().then(res => $scope.vouchers = res.data.data);
+        }
+    });
 
     window.addEventListener('scroll', $scope.updateScrolled);
 
@@ -91,6 +100,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$rootScope',
             '$state',
             '$translate',
             'ModalService',

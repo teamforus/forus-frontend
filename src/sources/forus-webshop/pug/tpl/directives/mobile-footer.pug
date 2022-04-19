@@ -15,20 +15,15 @@
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
                 span(translate="topnavbar.buttons.providers")
 
-        li(ng-if="$ctrl.vouchers.length" ng-click="startFundRequest()" ui-sref-active="active")
+        li(ng-if="vouchers.length || !$root.auth_user" ng-click="startFundRequest()" ui-sref-active="active")
             a.sticky-footer-item(ng-click="startFundRequest()" aria-current="{{ isActive('/start') }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
                 span(translate="topnavbar.buttons.{{ $root.client_key }}.activate" translate-default="{{ 'topnavbar.buttons.activate' | translate }}" role="link" tabindex="0") 
 
-        li(ng-if="!$ctrl.vouchers.length" ui-sref="vouchers" ui-sref-active="active")
+        li(ng-if="!vouchers.length && $root.auth_user" ui-sref="vouchers" ui-sref-active="active")
             a.sticky-footer-item-wrapper(ui-sref="vouchers" aria-current="{{ isActive('/vouchers') }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
                 span(translate="topnavbar.buttons.mobile.voucher")
-        
-        li(ng-if="$root.auth_user && $root.appConfigs.features.records.list" ui-sref="records" ui-sref-active="active")
-            a.sticky-footer-item-wrapper(ui-sref="records" aria-current="{{ isActive('/records') }}" role="link" tabindex="0")
-                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
-                span(translate="topnavbar.buttons.mobile.profile")
 
         li(ng-if="$root.auth_user").sticky-footer-dropdown
             a.sticky-footer-item-wrapper(ng-click="$ctrl.openProfileMenu($event)" role="button" tabindex="0")
@@ -40,7 +35,7 @@
                     .sticky-footer-dropwdown-title Meer
 
                 .sticky-footer-dropwdown-subitem(
-                    ng-if="$ctrl.vouchers.length"
+                    ng-if="vouchers.length"
                     ui-sref="vouchers"
                     ng-class="{active: isActive('vouchers')}"
                     aria-current="{{ isActive('vouchers') }}" 
@@ -50,7 +45,7 @@
                     span(translate="topnavbar.buttons.mobile.dropdown.vouchers")
 
                 .sticky-footer-dropwdown-subitem(
-                    ng-if="!$ctrl.vouchers.length"
+                    ng-if="!vouchers.length"
                     ng-click="startFundRequest()"
                     ng-class="{active: isActive('start')}"
                     aria-current="{{ isActive('start') }}" 
@@ -94,3 +89,33 @@
 
                     em.mdi.mdi-email-outline
                     span(translate="topnavbar.buttons.mobile.dropdown.preferences_emails")
+
+                .sticky-footer-dropwdown-subitem(
+                    ng-if="$root.appConfigs.flags.fundsMenu"
+                    ui-sref="funds"
+                    ng-class="{active: isActive('funds')}"
+                    aria-current="{{ isActive('funds') }}" 
+                    role="link" tabindex="0")
+                    
+                    em.mdi.mdi-cash-multiple
+                    span(translate="topnavbar.buttons.mobile.dropdown.funds")
+
+                .sticky-footer-dropwdown-subitem(
+                    ng-if="$root.appConfigs.sessions"
+                    ui-sref="security-sessions"
+                    ng-class="{active: isActive('security-sessions')}"
+                    aria-current="{{ isActive('security-sessions') }}" 
+                    role="link" tabindex="0")
+                    
+                    em.mdi.mdi-shield-account-outline
+                    span(translate="topnavbar.buttons.mobile.dropdown.sessions")
+
+                .sticky-footer-dropwdown-subitem(
+                    ng-if="$root.appConfigs.features.records.list"
+                    ui-sref="records"
+                    ng-class="{active: isActive('records')}"
+                    aria-current="{{ isActive('records') }}" 
+                    role="link" tabindex="0")
+                    
+                    em.mdi.mdi-format-list-bulleted
+                    span(translate="topnavbar.buttons.mobile.dropdown.records")
