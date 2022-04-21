@@ -56,8 +56,7 @@ let PrevalidatedTableDirective = async function(
         } else {
             $scope.filters.values.page = 1;
         }
-
-    })
+    });
 
     $scope.onPageChange = async (query) => {
         PrevalidationService.list(query).then((res => {

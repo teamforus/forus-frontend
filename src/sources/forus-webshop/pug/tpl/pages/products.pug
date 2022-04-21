@@ -30,7 +30,6 @@ block content
                                 select-control(
                                     id="select_provider"
                                     prop="id"
-                                    autoclear="true" 
                                     ng-model="$ctrl.form.values.organization_id"
                                     options="$ctrl.organizations"
                                     placeholder="{{ $ctrl.organizations[0].name }}")
@@ -41,7 +40,6 @@ block content
                                     id="select_category"
                                     prop="id"
                                     name="category"
-                                    autoclear="true" 
                                     ng-model="$ctrl.form.values.product_category_id"
                                     options="$ctrl.productCategories"
                                     placeholder="{{ $ctrl.productCategories[0].name }}")
@@ -52,7 +50,6 @@ block content
                                     id="select_fund"
                                     prop="id"
                                     name="fund"
-                                    autoclear="true"
                                     ng-model="$ctrl.form.values.fund_id" 
                                     options="$ctrl.funds"
                                     placeholder="{{ $ctrl.funds[0].name }}")

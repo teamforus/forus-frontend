@@ -45,11 +45,13 @@
                                             ng-model="$ctrl.filters.values.amount_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | i18n }}").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.state' | i18n }}")
-                                    select(
-                                        ng-options="state.key as state.name for state in $ctrl.states" 
-                                        ng-model="$ctrl.filters.values.state").form-control
+                                    .form-offset: select-control(
+                                        prop="key"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.state"
+                                        options="$ctrl.states").form-control
 
                                 .form-group
                                     form-label-toggle(label="{{ 'transactions.labels.from' | i18n }}")
@@ -67,11 +69,13 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.fund_state' | i18n }}")
-                                    select(
-                                        ng-options="state.key as state.name for state in $ctrl.fundStates" 
-                                        ng-model="$ctrl.filters.values.fund_state").form-control
+                                    .form-offset: select-control(
+                                        prop="key"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.fund_state"
+                                        options="$ctrl.fundStates").form-control
 
                                 .form-actions
                                     button.button.button-primary.button-wide(

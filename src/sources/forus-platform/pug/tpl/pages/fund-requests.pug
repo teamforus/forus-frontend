@@ -20,16 +20,21 @@
                                 input(
                                     ng-model="$ctrl.filters.values.q" 
                                     placeholder="{{ 'validation_requests.labels.search' | i18n }}").form-control
-                            .form-group
+                            .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="{{ 'validation_requests.labels.status' | i18n }}")
-                                select(
-                                    ng-options="state.key as state.name for state in $ctrl.states" 
-                                    ng-model="$ctrl.filters.values.state").form-control
-                            .form-group
+                                .form-offset: select-control(
+                                    prop="key"
+                                    search="false"
+                                    ng-model="$ctrl.filters.values.state"
+                                    options="$ctrl.states").form-control
+                            .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="{{ 'validation_requests.labels.assigned_to' | i18n }}")
-                                select(
-                                    ng-options="employee.id as employee.email for employee in $ctrl.employees" 
-                                    ng-model="$ctrl.filters.values.employee_id").form-control
+                                .form-offset: select-control(
+                                    prop="id"
+                                    as="email"
+                                    search="false"
+                                    ng-model="$ctrl.filters.values.employee_id"
+                                    options="$ctrl.employees").form-control
                             .form-group
                                 form-label-toggle(label="{{ 'validation_requests.labels.from' | i18n }}")
                                 datepicker(

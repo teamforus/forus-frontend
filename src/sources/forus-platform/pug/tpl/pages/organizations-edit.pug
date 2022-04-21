@@ -20,10 +20,16 @@
                         label.form-label(i18n="organization_edit.labels.name")
                         input(ng-model="$ctrl.form.values.name" type="text" placeholder="Bedrijfsnaam").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+
                     .form-group.form-group-inline
                         label.form-label(i18n="organization_edit.labels.bank")
-                        input(ng-model="$ctrl.form.values.iban" type="text" placeholder="IBAN-nummer").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
+                        .form-offset
+                            input(
+                                ng-disabled="$root.auth_user.address != $ctrl.organization.identity_address"
+                                ng-model="$ctrl.form.values.iban" 
+                                placeholder="IBAN-nummer").form-control
+                            .form-hint(ng-if="$root.auth_user.address != $ctrl.organization.identity_address") Alleen de eigenaar kan het rekeningnummer wijzigen.
+                            .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
             
             .card-section.card-section-primary
                 .form-group.form-group-inline
@@ -36,7 +42,7 @@
                         .col.col-lg-4.col-lg-12
                             input-checkbox-control(
                                 name="email_public" 
-                                label="{{ 'Maak publiek' | i18n }}" 
+                                label="Maak publiek" 
                                 ng-model="$ctrl.form.values.email_public")
                 
                 .form-group.form-group-inline
@@ -48,7 +54,7 @@
                         
                         .col.col-lg-4.col-lg-12
                             input-checkbox-control(
-                                name="phone_public" label="{{ 'Maak publiek' | i18n }}" ng-model="$ctrl.form.values.phone_public")
+                                name="phone_public" label="Maak publiek" ng-model="$ctrl.form.values.phone_public")
                 
                 .form-group.form-group-inline
                     label.form-label(i18n="organization_edit.labels.website")
@@ -60,15 +66,15 @@
                         .col.col-lg-4.col-lg-12
                             input-checkbox-control(
                                 name="website_public" 
-                                label="{{ 'Maak publiek' | i18n }}" 
+                                label="Maak publiek" 
                                 ng-model="$ctrl.form.values.website_public")
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     .form-label(i18n="organization_edit.labels.business_type")
                     .form-offset: select-control(
-                        ng-model="$ctrl.businessType" 
-                        ng-change="$ctrl.chageBusinessType($ctrl.businessType)"
+                        prop="id"
+                        ng-model="$ctrl.form.values.business_type_id"
                         options="$ctrl.businessTypes"
                         placeholder="Selecteer organisatie type...")
             
@@ -91,5 +97,18 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.btw" ng-bind="error")
             
             .card-section.card-section-primary: .text-center
-                button(type="button" ng-click="$ctrl.cancel()" i18n="organization_edit.buttons.cancel" id="cancel").button.button-default
-                button(type="submit" i18n="organization_edit.buttons.create").button.button-primary
+                button(
+                    ng-if="$ctrl.organization"
+                    type="button" 
+                    ui-sref="offices({ organization_id: $ctrl.organization.id })" 
+                    i18n="organization_edit.buttons.cancel" id="cancel").button.button-default
+
+                button(
+                    ng-if="!$ctrl.organization" 
+                    type="button" 
+                    ui-sref="organizations" 
+                    i18n="organization_edit.buttons.cancel" id="cancel").button.button-default
+
+                button(
+                    type="submit" 
+                    i18n="organization_edit.buttons.create").button.button-primary
