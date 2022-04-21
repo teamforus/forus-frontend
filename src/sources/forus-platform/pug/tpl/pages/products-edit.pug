@@ -159,7 +159,8 @@
                                     ng-if="!$ctrl.nonExpiring"
                                     date-format="dd-MM-yyyy" 
                                     datepicker-mobile="" 
-                                    date-week-start-day="1").form-control
+                                    date-week-start-day="1"
+                                    input-visible="true").form-control
                                     input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj" ng-disabled="!$ctrl.isEditable").form-control
                                 input(value="{{ 'product_edit.labels.unlimited' | translate }}" disabled ng-if="$ctrl.nonExpiring").form-control
 

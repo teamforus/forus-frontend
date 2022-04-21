@@ -76,6 +76,9 @@ const ProviderSignUpComponent = function(
 
     $ctrl.loggedWithApp = progressStorage.has('logged-with-app');
 
+    $ctrl.skipFundApplications = false;
+    $ctrl.hasFundApplications = false;
+
     $ctrl.calcSteps = () => {
         $ctrl.STEP_INFO_GENERAL = 1;
         $ctrl.STEP_INFO_ME_APP = 2;
@@ -551,6 +554,10 @@ const ProviderSignUpComponent = function(
             progressStorage.clear();
         }
     };
+
+    $ctrl.applyFund = () => {
+        $ctrl.hasFundApplications = true;
+    }
 
     $ctrl.setOrganization = (organization) => {
         $ctrl.organization = organization;

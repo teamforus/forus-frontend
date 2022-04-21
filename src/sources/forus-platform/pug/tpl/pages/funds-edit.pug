@@ -127,21 +127,31 @@
                 //- Fund start date
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.start").form-label.form-label-required
-                    datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control: input(
-                        ng-model="$ctrl.form.values.start_date"
-                        type="text"
-                        placeholder="dd-MM-jjjj"
-                        ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
+                    datepicker(
+                        input-visible="true" 
+                        date-format="dd-MM-yyyy" 
+                        datepicker-mobile="" 
+                        date-week-start-day="1").form-control
+                        input(
+                            ng-model="$ctrl.form.values.start_date"
+                            type="text"
+                            placeholder="dd-MM-jjjj"
+                            ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.start_date" ng-bind="error")
                 
                 //- Fund end date
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.end").form-label.form-label-required
-                    datepicker(date-format="dd-MM-yyyy" datepicker-mobile="" date-week-start-day="1").form-control: input(
-                        ng-model="$ctrl.form.values.end_date"
-                        type="text"
-                        placeholder="dd-MM-jjjj"
-                        ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
+                    datepicker(
+                        input-visible="true"
+                        date-format="dd-MM-yyyy" 
+                        datepicker-mobile="" 
+                        date-week-start-day="1").form-control
+                        input(
+                            ng-model="$ctrl.form.values.end_date"
+                            type="text"
+                            placeholder="dd-MM-jjjj"
+                            ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
 
             //- Formula products
