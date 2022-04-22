@@ -107,9 +107,9 @@
                         .card-section-actions-label(translate="validation_requests.labels.declined_at")
                         .card-section-actions-value(ng-bind="validatorRequest.resolved_at_locale")
                 
-                .card-title(ng-class="{'text-muted':!validatorRequest.bsn}")
-                    | BSN: 
-                    span(ng-bind="validatorRequest.bsn || 'Geen data'")
+                .card-title
+                    span(ng-class="{'text-muted':!validatorRequest.bsn}" ng-bind="'BSN: ' + (validatorRequest.bsn || 'Geen data') + ' '")
+                    span(ng-bind="validatorRequest.email")
                 
                 .card-block.card-block-listing.card-block-listing-inline
                     .card-block-listing-label Fonds
