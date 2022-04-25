@@ -48,10 +48,11 @@
                     label.form-label.form-label-required Soort fonds
 
                     //- Fund type selector
-                    select(
-                        ng-if="!$ctrl.fund"
+                    .form-offset(ng-if="!$ctrl.fund"): select-control(
+                        prop="key"
+                        search="false"
                         ng-model="$ctrl.form.values.type" 
-                        ng-options="fund_type.key as fund_type.name for fund_type in $ctrl.fundTypes").form-control
+                        options="$ctrl.fundTypes").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
 
                     //- Fund type icon for edit
@@ -85,11 +86,13 @@
                 //- Activation method
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.application_method").form-label.form-label-required
-                    select(
+                    .form-offset: select-control(
+                        prop="key"
+                        search="false"
+                        ng-disabled="$ctrl.fund && ($ctrl.fund.state != 'waiting')"
                         ng-model="$ctrl.form.values.application_method" 
                         ng-change="$ctrl.onMethodChange($ctrl.form.values.application_method, '{{$ctrl.form.values.application_method}}')"
-                        ng-options="applicationMethod.key as applicationMethod.name for applicationMethod in $ctrl.applicationMethods"
-                        ng-disabled="$ctrl.fund && ($ctrl.fund.state != 'waiting')").form-control
+                        options="$ctrl.applicationMethods").form-control
 
                 //- Request button text
                 .form-group.form-group-inline(ng-if="$ctrl.form.values.application_method != 'none'")
@@ -180,9 +183,12 @@
             .card-section.card-section-primary: .row
                 .form-group.form-group-inline.col.col-lg-9.col-md-12
                     label.form-label Standaard validator
-                    select(
+                    .form-offset: select-control(
+                        prop="id"
+                        as="email"
+                        search="false"
                         ng-model="$ctrl.form.values.default_validator_employee_id" 
-                        ng-options="validator.id as validator.email for validator in $ctrl.validators").form-control
+                        options="$ctrl.validators").flex-grow
                     
                     .form-error(ng-repeat="error in $ctrl.form.errors.default_validator_employee_id" ng-bind="error")
                 
