@@ -66,6 +66,10 @@
                     color: inherit;
                 }
 
+                .td-title {
+                    font: 700 14px/20px $bf;
+                }
+
                 .button {
                     &.button-icon {
                         padding: 4px 10px;
@@ -95,7 +99,7 @@
 
                 .td-icons {
                     .mdi {
-                        text-align: center;;
+                        text-align: center;
                         color: $color_primary;
                         transition: .4s;
                         font-size: 16px;

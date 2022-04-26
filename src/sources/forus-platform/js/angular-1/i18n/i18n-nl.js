@@ -65,9 +65,11 @@ module.exports = {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
             increase_limit_multiplier: require('./nl/modals/danger-zone/increase-limit-multiplier'),
+            sponsor_provider_organization_state: require('./nl/modals/danger-zone/update-provider-organization-state'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
             restore_fund: require('./nl/modals/danger-zone/restore-fund'),
             remove_faq: require('./nl/modals/danger-zone/remove-faq'),
+            
         },
     },
     // PAGES

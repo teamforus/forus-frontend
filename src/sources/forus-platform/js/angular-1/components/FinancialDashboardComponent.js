@@ -295,7 +295,7 @@ const FinancialDashboardComponent = function(
     $ctrl.getItemOptions = (type) => $ctrl.optionsList[type].filter(item => item.id != null);
 
     $ctrl.resetSelection = (type) => {
-        $ctrl.getSelectAllOption(type).checked = true;;
+        $ctrl.getSelectAllOption(type).checked = true;
         $ctrl.selectOption(type, $ctrl.getSelectAllOption(type));
     }
 

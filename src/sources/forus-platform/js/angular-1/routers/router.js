@@ -699,12 +699,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('funds-edit', 'manage_funds'),
-            fund: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.read(
-                $transition$.params().organization_id,
-                $transition$.params().id
-            ))],
+            fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
+            }],
         }
     });
 

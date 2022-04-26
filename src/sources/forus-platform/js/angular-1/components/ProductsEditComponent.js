@@ -88,7 +88,7 @@ const ProductsEditComponent = function(
                         'DD-MM-YYYY'
                     ).format('YYYY-MM-DD'),
                 }
-            };;
+            };
 
             if (values.price_type !== 'regular') {
                 delete values.price;
