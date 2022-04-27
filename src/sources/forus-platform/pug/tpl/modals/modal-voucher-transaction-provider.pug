@@ -1,0 +1,91 @@
+.modal.modal-md.modal-voucher-transaction-provider
+    .modal-backdrop(ng-click="$ctrl.close()")
+
+    .modal-window(ng-if="!$ctrl.previewForm && !$ctrl.finishForm")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+
+        .modal-header(i18n="modals.modal_voucher_transaction_provider.title")
+        .modal-body.form
+            .modal-section.modal-section-pad
+                .form-group.form-group-inline.form-group-inline-md
+                    label.form-label.form-label-required(i18n="modals.modal_voucher_transaction_provider.labels.provider")
+                    select-control(
+                        prop="id"
+                        ng-model="$ctrl.form.values.provider_id"
+                        options="$ctrl.providerOrganizations").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.provider_id" ng-bind="error")
+
+                .form-group.form-group-inline.form-group-inline-md
+                    label.form-label.form-label-required(i18n="modals.modal_voucher_transaction_provider.labels.amount")
+                    input(  
+                        type="number" 
+                        placeholder="{{ 'modals.modal_voucher_transaction.labels.amount' | i18n }}"
+                        ng-model="$ctrl.form.values.amount" step=".01" min="0.01").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
+
+        .modal-footer.text-center
+            button.button.button-default(
+                type="button"
+                ng-click="$ctrl.close()"
+                i18n="modals.modal_voucher_transaction_provider.buttons.cancel")
+            button.button.button-primary(type="button"
+                ng-click="$ctrl.showPreviewForm()"
+                i18n="modals.modal_voucher_transaction_provider.buttons.submit")
+
+    .modal-window(ng-if="$ctrl.previewForm")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+        .modal-icon.modal-icon-primary: .mdi.mdi-alert-outline
+
+        .modal-body.form
+            .modal-section.modal-section-pad-bottom
+                .modal-heading.text-center(i18n="modals.modal_voucher_transaction_provider.prevalidate.title")
+
+            .modal-divider
+            .modal-section
+                .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
+                    .datalist-row
+                        .datalist-key.text-primary.text-right: strong(i18n="modals.modal_voucher_transaction_provider.labels.provider")
+                        .datalist-value {{ $ctrl.selectedProvider.name }}
+                    .datalist-row
+                        .datalist-key.text-primary.text-right: strong(i18n="modals.modal_voucher_transaction_provider.labels.organization")
+                        .datalist-value {{ $ctrl.modal.scope.organization.name }}
+                    .datalist-row
+                        .datalist-key.text-primary.text-right: strong(i18n="modals.modal_voucher_transaction_provider.labels.amount")
+                        .datalist-value €{{ $ctrl.form.values.amount }}
+
+                .modal-text.text-center.bordered(i18n="modals.modal_voucher_transaction_provider.prevalidate.description")
+
+        .modal-footer.modal-footer-light.text-center
+            button.button.button-default(
+                type="button" ng-click="$ctrl.previewForm = false"
+                i18n="modals.modal_voucher_transaction_provider.buttons.cancel")
+            button.button.button-primary(
+                type="button" ng-click="$ctrl.form.submit()"
+                i18n="modals.modal_voucher_transaction_provider.buttons.submit")
+
+    .modal-window(ng-if="$ctrl.finishForm")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.confirm()" role="button")
+        .modal-icon.modal-icon-primary: .mdi.mdi-check-circle-outline
+
+        .modal-body.form
+            .modal-section.text-center
+                .modal-heading(i18n="modals.modal_voucher_transaction_provider.success.title")
+                .modal-text(i18n="modals.modal_voucher_transaction_provider.success.description")
+
+            .modal-divider
+            .modal-section
+                .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
+                    .datalist-row
+                        .datalist-key.text-primary.text-right: strong(i18n="modals.modal_voucher_transaction_provider.labels.provider")
+                        .datalist-value {{ $ctrl.selectedProvider.name }}
+                    .datalist-row
+                        .datalist-key.text-primary.text-right: strong(i18n="modals.modal_voucher_transaction_provider.labels.organization")
+                        .datalist-value {{ $ctrl.modal.scope.organization.name }}
+                    .datalist-row
+                        .datalist-key.text-primary.text-right: strong(i18n="modals.modal_voucher_transaction_provider.labels.amount")
+                        .datalist-value €{{ $ctrl.form.values.amount }}
+
+        .modal-footer.modal-footer-light.text-center
+            button.button.button-primary(
+                type="button" ng-click="$ctrl.confirm()"
+                i18n="modals.modal_voucher_transaction_provider.buttons.close")

@@ -62,6 +62,12 @@
 
                 //- voucher actions
                 .flex: .flex-row: .button-group
+                    // is granted?
+                    .button.button-primary.button-sm(
+                        ng-if="$ctrl.showTransactionButton"
+                        ng-click="$ctrl.makeTransaction()")
+                        string(translate="vouchers.buttons.make_transaction")
+
                     //- deactivate voucher
                     .button.button-danger.button-sm(
                         ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"

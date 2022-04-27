@@ -150,8 +150,14 @@ const VouchersShowComponent = function(
     $ctrl.updateFlags = () => {
         $ctrl.physicalCardsAvailable =
             $ctrl.voucher.fund.allow_physical_cards &&
-            $ctrl.voucher.fund.type == 'subsidies' &&
+            $ctrl.voucher.fund.type === 'subsidies' &&
             $ctrl.voucher.state !== 'deactivated';
+
+        $ctrl.showTransactionButton = $ctrl.voucher.fund.type === 'budget' &&
+            !$ctrl.voucher.product &&
+            !$ctrl.fundClosed &&
+            !$ctrl.voucher.expired &&
+            $ctrl.voucher.state === 'active';
     }
 
     $ctrl.incrementLimitMultiplier = () => {
@@ -174,6 +180,14 @@ const VouchersShowComponent = function(
                     console.error(err);
                 });
             }
+        });
+    }
+
+    $ctrl.makeTransaction = () => {
+        ModalService.open("voucherTransactionProvider", {
+            organization: $ctrl.organization,
+            voucher: $ctrl.voucher,
+            onConfirm: () => $ctrl.fetchVoucher()
         });
     }
 
