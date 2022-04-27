@@ -6,7 +6,6 @@ const FundRequestsComponent = function(
     DateService,
     FundRequestValidatorService,
     PushNotificationsService,
-    PageLoadingBarService,
     appConfigs
 ) {
     const $ctrl = this;
@@ -30,25 +29,11 @@ const FundRequestsComponent = function(
         }, console.error);
     };
 
-
-    const setBreadcrumbs = (validatorRequest) => {
-        validatorRequest.person_breadcrumbs = [
-            validatorRequest.person
-        ];
-
-        if (validatorRequest.person_relative) {
-            validatorRequest.person_breadcrumbs.push(validatorRequest.person_relative);
-        }
-    }
-
     $ctrl.funds = [];
     $ctrl.employee = false;
     $ctrl.validatorRequests = null;
     $ctrl.isValidatorsSupervisor = false;
 
-    $ctrl.fetchingPerson = false;
-
-    $ctrl.shownUsers = {};
     $ctrl.extendedView = localStorage.getItem('validator_requests.extended_view') === 'true';
 
     $ctrl.states = [{
@@ -405,50 +390,6 @@ const FundRequestsComponent = function(
         }
     };
 
-    $ctrl.getPerson = (validatorRequest, scopeType, scopeId) => {
-        let data = {},
-            fetchingPersonRelative = false;
-
-        if ($ctrl.fetchingPerson) {
-            return;
-        }
-
-        $ctrl.fetchingPerson = true;
-
-        if (scopeType && scopeId) {
-            data = {
-                scope: scopeType,
-                scope_id: scopeId
-            };
-            fetchingPersonRelative = true;
-        } else if (validatorRequest.person) {
-            validatorRequest.person_relative = null;
-            setBreadcrumbs(validatorRequest);
-            $ctrl.fetchingPerson = false;
-            return;
-        }
-
-        PageLoadingBarService.setProgress(0);
-
-        FundRequestValidatorService.getPersonBsn($ctrl.organization.id, validatorRequest.id, data).then((res) => {
-            if (!res.data.data) {
-                return PushNotificationsService.danger('Error', 'BSN information not found.')
-            }
-
-            if (fetchingPersonRelative) {
-                validatorRequest.person_relative = res.data.data;
-            } else {
-                validatorRequest.person = res.data.data;
-            }
-
-            validatorRequest.bsn_collapsed = false;
-            setBreadcrumbs(validatorRequest);
-        }, console.error).finally(() => {
-            $ctrl.fetchingPerson = false;
-            PageLoadingBarService.setProgress(100);
-        });
-    };
-
     $ctrl.onPageChange = (query) => {
         reloadRequests(query);
     };
@@ -488,7 +429,6 @@ module.exports = {
         'DateService',
         'FundRequestValidatorService',
         'PushNotificationsService',
-        'PageLoadingBarService',
         'appConfigs',
         FundRequestsComponent
     ],

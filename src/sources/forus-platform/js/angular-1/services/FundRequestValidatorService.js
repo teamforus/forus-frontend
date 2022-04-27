@@ -139,8 +139,8 @@ const FundRequestValidatorService = function(ApiRequest) {
         };
 
         this.getPersonBsn = function(organization_id, request_id, data) {
-            return ApiRequest.post(sprintf(
-                uriPrefixAll + '/%s/person-bsn',
+            return ApiRequest.get(sprintf(
+                uriPrefixAll + '/%s/person',
                 organization_id,
                 request_id
             ), data);

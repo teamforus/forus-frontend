@@ -223,7 +223,7 @@ app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDi
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
-app.directive('fundRequestValidatorPerson', require('./directives/FundRequestValidatorPersonDirective'));
+app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 

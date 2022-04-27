@@ -61,9 +61,12 @@
 
                     .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
+        //- fund requests
         .card.card-collapsable(
             ng-class="{'card-collapsed' : !validatorRequest.collapsed}"
             ng-repeat='validatorRequest in $ctrl.validatorRequests.data')
+            
+            //- fund request overview
             .card-section(ng-click='validatorRequest.collapsed = !validatorRequest.collapsed')
                 .card-section-actions(ng-show="validatorRequest.state == 'pending'")
                     .flex.flex-end: .tag.tag-primary-light
@@ -137,6 +140,7 @@
                     .card-block-listing-value
                         span(ng-bind="validatorRequest.note")
             
+            //- fund request actions
             .card-header.card-header-cursor-default(
                 ng-hide='validatorRequest.collapsed' 
                 state="{{ validatorRequest.state }}" 
@@ -212,6 +216,7 @@
                             em.mdi.mdi-timer-sand-empty.icon-start
                             translate(translate="validation_requests.buttons.disregard_undo")
         
+            //- fund request records
             .card-section(ng-hide='validatorRequest.collapsed'): .card-block.card-block-table: .table-wrapper: table.table
                 thead: tr
                     th.cell-chevron(ng-if="validatorRequest.hasContent")
@@ -310,57 +315,12 @@
                                                         ng-click="$ctrl.previewFile($event, file)")
                                                         .mdi.mdi-eye
 
-            .card-header(
-                ng-if="validatorRequest.fund.has_person_bsn_api && validatorRequest.bsn"
-                ng-click='validatorRequest.bsn_collapsed = !validatorRequest.bsn_collapsed')
-                .card-title
-                    | Persoonlijke gegevens &nbsp;
-                    .button.button-default(
-                        ng-click="$event.stopPropagation(); $ctrl.getPerson(validatorRequest, validatorRequest.bsn)")
-                        .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.fetchingPerson")
-                        .mdi.mdi-eye.icon-start(ng-if="!$ctrl.fetchingPerson")
-                        | Bekijken
-
-            .card-section(ng-if="validatorRequest.fund.has_person_bsn_api && validatorRequest.person" ng-hide='validatorRequest.bsn_collapsed')
-                .arrow-box.border.bg-dim: .arrow
-
-                .block.block-breadcrumbs
-                    .breadcrumb-item(
-                        ng-repeat="breadcrumb in validatorRequest.person_breadcrumbs track by $index"
-                        ng-init="breadcrumbIndex = $index"
-                        ng-bind="breadcrumb.name"
-                        ng-click="breadcrumbIndex === 0 ? $ctrl.getPerson(validatorRequest) : $event.preventDefault()")
-
-                .row
-                    .col.col-lg-6
-                        fund-request-validator-person(person="validatorRequest.person_relative ? validatorRequest.person_relative : validatorRequest.person")
-                    .col.col-lg-6: .flex: .card-block.card-block-keyvalue(ng-if="!validatorRequest.person_relative")
-                        .keyvalue-item(ng-repeat="parent in validatorRequest.person.parents track by $index" ng-init="parentIndex = $index")
-                            .keyvalue-key(translate="validation_requests.labels.parent" translate-values="{ index: parentIndex + 1 }")
-                            .keyvalue-value(
-                                ng-bind="parent.name"
-                                ng-class="parent.bsn ? 'card-text-link' : ''"
-                                ng-click="$ctrl.getPerson(validatorRequest, 'parent', parent.index)")
-
-                        .keyvalue-item(ng-repeat="partner in validatorRequest.person.partners track by $index" ng-init="partnerIndex = $index")
-                            .keyvalue-key(translate="validation_requests.labels.partner")
-                            .keyvalue-value(
-                                ng-bind="partner.name"
-                                ng-class="partner.bsn ? 'card-text-link' : ''"
-                                ng-click="$ctrl.getPerson(validatorRequest, 'partner', partner.index)")
-
-                        .keyvalue-item(ng-repeat="child in validatorRequest.person.children track by $index" ng-init="childIndex = $index")
-                            .keyvalue-key(translate="validation_requests.labels.child" translate-values="{ index: childIndex + 1 }")
-                            .keyvalue-value(
-                                ng-bind="child.name"
-                                ng-class="child.bsn ? 'card-text-link' : ''"
-                                ng-click="$ctrl.getPerson(validatorRequest, 'child', child.index)")
-
-
-        .card-section(ng-show='$ctrl.shownUsers[validatorRequest.bsn] && !validatorRequest.collapsed'): .table-pagination
-            .table-pagination-counter(
-                translate='validation_requests.labels.results' 
-                translate-values='{count: validatorRequest.requests.length}')
+            //- fund request person
+            fund-request-person(
+                ng-if='validatorRequest.fund.has_person_bsn_api && validatorRequest.bsn && validatorRequest.is_sponsor_employee'
+                ng-show="validatorRequest.is_assigned && !validatorRequest.collapsed"
+                organization="$ctrl.organization"
+                fund-request="validatorRequest")
         
         .card: .card-section(ng-show='$ctrl.validatorRequests.meta.last_page > 1'): paginator(
             meta='$ctrl.validatorRequests.meta' 

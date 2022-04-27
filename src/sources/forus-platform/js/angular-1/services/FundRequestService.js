@@ -1,9 +1,9 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
-let FundRequestService = function(ApiRequest) {
-    let uriPrefix = '/platform/funds/%s/requests';
+const FundRequestService = function(ApiRequest) {
+    const uriPrefix = '/platform/funds/%s/requests';
 
-    let FundRequestService = function() {
+    const FundRequestService = function() {
         this.index = function(fund_id, data = {}) {
             return ApiRequest.get(sprintf(uriPrefix, fund_id), data);
         };
