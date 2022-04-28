@@ -1,6 +1,7 @@
 let FundBackofficeEditComponent = function(
     $q,
     $element,
+    $state,
     FundService,
     FormBuilderService,
     PushNotificationsService
@@ -68,6 +69,7 @@ let FundBackofficeEditComponent = function(
                 backoffice_key: '',
                 backoffice_certificate: '',
                 backoffice_fallback: true,
+                backoffice_not_eligible_redirect_url: '',
             }, ...fund.backoffice
         };
 
@@ -97,6 +99,13 @@ let FundBackofficeEditComponent = function(
 
     $ctrl.onChange = () => {
         $ctrl.isDirty = true;
+    };
+
+    $ctrl.cancel = function() {
+        $state.go('implementation-view', {
+            'organization_id': $ctrl.organization.id,
+            'id': $ctrl.fund.implementation.id
+        });
     };
 
     $ctrl.$onInit = () => {
@@ -133,6 +142,7 @@ module.exports = {
     controller: [
         '$q',
         '$element',
+        '$state',
         'FundService',
         'FormBuilderService',
         'PushNotificationsService',

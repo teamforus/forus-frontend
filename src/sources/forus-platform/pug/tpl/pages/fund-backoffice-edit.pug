@@ -84,6 +84,12 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
                     tooltip(text="'Stel in wat de gebruiker ziet als de externe API downtime heeft.'")
 
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline
+                    label.form-label Not eligible url
+                    input(ng-model="$ctrl.form.values.backoffice_not_eligible_redirect_url" type="text" placeholder="Bijv. https://gemeente+1.nl").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.backoffice_not_eligible_redirect_url" ng-bind="error")
+
             .card-section.card-section-primary: .text-center
                 button(type="button" ng-click="$ctrl.cancel()" translate="funds_edit.buttons.cancel" id="cancel").button.button-default
                 button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
