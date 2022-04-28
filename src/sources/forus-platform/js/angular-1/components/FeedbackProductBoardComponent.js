@@ -28,7 +28,8 @@ const FeedbackProductBoardComponent = function(
 
     const buildFeedbackForm = () => {
         $ctrl.form = FormBuilderService.build({
-            email: $rootScope.auth_user.email,
+            use_customer_email: false,
+            customer_email: $rootScope.auth_user.email,
             tags: $ctrl.tags[0].key
         }, (form) => {
             FeedbackProductBoardService.store({...form.values, ...{
@@ -44,13 +45,13 @@ const FeedbackProductBoardComponent = function(
     $ctrl.previewAddedData = () => {
         FeedbackProductBoardService.validate({...$ctrl.form.values, ...{
             tags: $ctrl.form.values.tags ? [$ctrl.form.values.tags] : [],
-        }}).then(() => {
-            $ctrl.form.errors = {};
+        }}).then((form) => {
+            form.errors = {};
             $ctrl.selectedTag = $ctrl.getSelectedTag();
             $ctrl.state = 'confirm_form_data';
         }, (res) => {
-            $ctrl.form.unlock();
-            $ctrl.form.errors = res.data.errors;
+            form.unlock();
+            form.errors = res.data.errors;
         });
     };
 

@@ -6,6 +6,8 @@ module.exports = {
             title: "Onderwerp",
             content: "Bericht",
             urgency: "Urgentie",
+            contact: "Contact",
+            use_customer_email: "ik wil per e-mail berichten ontvangen over deze feedback"
         },
         buttons: {
             cancel: "Annuleren",
