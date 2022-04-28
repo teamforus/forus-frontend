@@ -62,6 +62,7 @@
             ng-class="{'card-collapsed' : !validatorRequest.collapsed}"
             ng-repeat='validatorRequest in $ctrl.validatorRequests.data')
             .card-section(ng-click='validatorRequest.collapsed = !validatorRequest.collapsed')
+                //- State pending
                 .card-section-actions(ng-show="validatorRequest.state == 'pending'")
                     .flex.flex-end: .tag.tag-primary-light
                         em.mdi.mdi-circle-outline.icon-start
@@ -74,6 +75,7 @@
                             .card-section-actions-label(translate="validation_requests.labels.pending_since")
                             .card-section-actions-value(ng-bind="validatorRequest.created_at_locale")
 
+                //- State disregarded
                 .card-section-actions(ng-show="validatorRequest.state == 'disregarded'")
                     .flex.flex-end: .tag.tag-default
                         em.mdi.mdi-circle-outline.icon-start
@@ -86,6 +88,7 @@
                             .card-section-actions-label(translate="validation_requests.labels.disregarded_at")
                             .card-section-actions-value(ng-bind="validatorRequest.resolved_at_locale")         
                 
+                //- State approved
                 .card-section-actions(ng-show="validatorRequest.state == 'approved'")
                     .flex.flex-end: .tag.tag-success 
                         em.mdi.mdi-circle-slice-8.icon-start
@@ -94,11 +97,13 @@
                         .card-section-actions-label(translate="validation_requests.labels.accepted_at")
                         .card-section-actions-value(ng-bind="validatorRequest.resolved_at_locale")
                 
+                //- State approved partly
                 .card-section-actions(ng-show="validatorRequest.state == 'approved_partly'")
                     .tag.tag-success 
                         em.mdi.mdi-circle-slice-4.icon-start
                         | Aanvulling gevraagd
                 
+                //- State declined
                 .card-section-actions(ng-show="validatorRequest.state == 'declined'")
                     .flex.flex-end: .tag.tag-danger 
                         em.mdi.mdi-circle-off-outline.icon-start
@@ -108,26 +113,36 @@
                         .card-section-actions-value(ng-bind="validatorRequest.resolved_at_locale")
                 
                 .card-title
-                    span(ng-class="{'text-muted':!validatorRequest.bsn}" ng-bind="'BSN: ' + (validatorRequest.bsn || 'Geen data') + ' '")
-                    span(ng-bind="validatorRequest.email")
+                    span.text-muted.text-strong ID: 
+                    span(ng-bind="validatorRequest.id").text-strong
                 
-                .card-block.card-block-listing.card-block-listing-inline
-                    .card-block-listing-label Fonds
-                    .card-block-listing-value
-                        span(ng-bind="validatorRequest.fund.name") 
-                        em.mdi.mdi-information.block.block-tooltip-details(
-                            ng-click="$ctrl.showFundCriteria($event, validatorRequest)"
-                            ng-class="{active: validatorRequest.showCriteria}")
-                            .tooltip-content(
-                                ng-if="validatorRequest.showCriteria" 
-                                click-outside="$ctrl.hideFundCriteria($event, validatorRequest)"): ul.tooltip-list
-                                li(ng-repeat="critera in validatorRequest.fund.criteria").tooltip-list-item
-                                    em.mdi.mdi-check
-                                    | {{ critera.record_type_name }} moet 
-                                    span(ng-if="critera.operator == '>'") meer dan 
-                                    span(ng-if="critera.operator == '='") 
-                                    span(ng-if="critera.operator == '<'") minder dan 
-                                    | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+                .flex: .flex-row
+                    .flex-col: .card-block.card-block-listing
+                        .card-block-listing-label Fonds
+                        .card-block-listing-value.nowrap
+                            span(ng-bind="validatorRequest.fund.name") 
+                            em.mdi.mdi-information.block.block-tooltip-details(
+                                ng-click="$ctrl.showFundCriteria($event, validatorRequest)"
+                                ng-class="{active: validatorRequest.showCriteria}")
+                                .tooltip-content(
+                                    ng-if="validatorRequest.showCriteria" 
+                                    click-outside="$ctrl.hideFundCriteria($event, validatorRequest)"): ul.tooltip-list
+                                    li(ng-repeat="critera in validatorRequest.fund.criteria").tooltip-list-item
+                                        em.mdi.mdi-check
+                                        | {{ critera.record_type_name }} moet 
+                                        span(ng-if="critera.operator == '>'") meer dan 
+                                        span(ng-if="critera.operator == '='") 
+                                        span(ng-if="critera.operator == '<'") minder dan 
+                                        | {{ critera.record_type_key == 'net_worth' ? '€' : '' }}{{ critera.value }}.
+
+                    .flex-col: .card-block.card-block-listing
+                        .card-block-listing-label BSN: 
+                        .card-block-listing-value.nowrap(ng-bind="validatorRequest.bsn || 'Geen data'")
+
+                    .flex-col: .card-block.card-block-listing
+                        .card-block-listing-label E-mail: 
+                        .card-block-listing-value.nowrap(ng-bind="validatorRequest.email")
+                .flex.flex-grow
                 
                 .card-block.card-block-listing(ng-if="validatorRequest.note")
                     .card-block-listing-label Reden van weigeren
