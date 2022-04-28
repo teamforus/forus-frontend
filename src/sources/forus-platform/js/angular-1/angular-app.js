@@ -167,7 +167,6 @@ app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequ
 app.service('ProductReservationService', require('./services/ProductReservationService'));
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
-app.service('PersonBSNService', require('./services/PersonBSNService'));
 app.service('TagService', require('./services/TagService'));
 
 // Directives
@@ -224,6 +223,7 @@ app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDi
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
+app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 

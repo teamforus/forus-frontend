@@ -1361,10 +1361,14 @@ module.exports = {
             birth_date: "Geboortedatum",
             birth_place: "Geboorteplaats",
             address: "Verblijfsplaats",
-            parent: "Ouder {{ index }}",
-            partner: "Partner",
-            child: "Kinderen {{ index }}",
             disregarded_at: "Buiten behandeling gesteld op",
+        },
+        person: {
+            relations: {
+                parents: "Ouder {{ index }}",
+                partners: "Partner",
+                children: "Kinderen {{ index }}",
+            }
         },
         status: {
             hold: "Wachten",

@@ -6,8 +6,6 @@ const FundRequestsComponent = function(
     DateService,
     FundRequestValidatorService,
     PushNotificationsService,
-    PersonBSNService,
-    PageLoadingBarService,
     appConfigs
 ) {
     const $ctrl = this;
@@ -31,36 +29,11 @@ const FundRequestsComponent = function(
         }, console.error);
     };
 
-
-    const setBreadcrumbs = (validatorRequest, parent) => {
-        if (!parent) {
-            return validatorRequest.person_breadcrumbs = [validatorRequest.person];
-        }
-
-        const bsnList = validatorRequest.person_breadcrumbs.map((item) => (item).bsn);
-        const personIndex = bsnList.indexOf(validatorRequest.person.bsn);
-        const parentIndex = bsnList.indexOf(parent);
-
-        if (parentIndex !== -1) {
-            validatorRequest.person_breadcrumbs.splice(parentIndex + 1);
-        }
-
-        if (personIndex !== -1) {
-            validatorRequest.person_breadcrumbs.splice(personIndex + 1);
-        } else if (parent !== validatorRequest.person.bsn) {
-            validatorRequest.person_breadcrumbs.push(validatorRequest.person);
-        }
-    }
-
     $ctrl.funds = [];
     $ctrl.employee = false;
     $ctrl.validatorRequests = null;
     $ctrl.isValidatorsSupervisor = false;
 
-    $ctrl.persons = {};
-    $ctrl.fetchingPerson = false;
-
-    $ctrl.shownUsers = {};
     $ctrl.extendedView = localStorage.getItem('validator_requests.extended_view') === 'true';
 
     $ctrl.states = [{
@@ -115,6 +88,7 @@ const FundRequestsComponent = function(
             res.data.data.hasContent = request.hasContent;
             res.data.data.collapsed = request.collapsed;
             res.data.data.person = request.person;
+            res.data.data.person_relative = request.person_relative;
             res.data.data.person_breadcrumbs = request.person_breadcrumbs;
 
             request.records.forEach((record) => {
@@ -416,38 +390,6 @@ const FundRequestsComponent = function(
         }
     };
 
-    $ctrl.getPerson = (validatorRequest, bsn, parent = null) => {
-        if (!bsn || $ctrl.fetchingPerson) {
-            return;
-        }
-
-        $ctrl.fetchingPerson = true;
-
-        if ($ctrl.persons[bsn]) {
-            validatorRequest.person = $ctrl.persons[bsn];
-            validatorRequest.bsn_collapsed = false;
-            setBreadcrumbs(validatorRequest, parent);
-            $ctrl.fetchingPerson = false;
-            return;
-        }
-
-        PageLoadingBarService.setProgress(0);
-
-        PersonBSNService.read($ctrl.organization.id, bsn).then((res) => {
-            if (!res.data.data) {
-                return PushNotificationsService.danger('Error', 'BSN information not found.')
-            }
-
-            $ctrl.persons[bsn] = res.data.data;
-            validatorRequest.person = $ctrl.persons[bsn];
-            validatorRequest.bsn_collapsed = false;
-            setBreadcrumbs(validatorRequest, parent);
-        }, console.error).finally(() => {
-            $ctrl.fetchingPerson = false;
-            PageLoadingBarService.setProgress(100);
-        });
-    };
-
     $ctrl.onPageChange = (query) => {
         reloadRequests(query);
     };
@@ -487,8 +429,6 @@ module.exports = {
         'DateService',
         'FundRequestValidatorService',
         'PushNotificationsService',
-        'PersonBSNService',
-        'PageLoadingBarService',
         'appConfigs',
         FundRequestsComponent
     ],
