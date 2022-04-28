@@ -23,25 +23,17 @@ const ModalProductVoucherCreateComponent = function(
     $ctrl.dateMinLimit = new Date();
 
     $ctrl.onAssignTypeChange = (assignType) => {
-        if (assignType.key !== 'bsn') {
+        if (assignType !== 'bsn') {
             delete $ctrl.form.values.bsn;
         }
 
-        if (assignType.key !== 'email') {
+        if (assignType !== 'email') {
             delete $ctrl.form.values.email;
         }
 
-        if (assignType.key !== 'activation_code_uid') {
+        if (assignType !== 'activation_code_uid') {
             delete $ctrl.form.values.activation_code_uid;
         }
-    };
-
-    $ctrl.productChanged = (product_id) => {
-        $ctrl.product = $ctrl.products.filter(
-            product => product.id == product_id
-        )[0] || null;
-
-        $ctrl.form.values.product_id = product_id;
     };
 
     $ctrl.confirmEmailSkip = function(existingEmails, onConfirm = () => { }, onCancel = () => { }) {
