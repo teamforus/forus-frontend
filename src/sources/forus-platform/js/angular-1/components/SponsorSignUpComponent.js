@@ -88,10 +88,6 @@ let SponsorSignUpComponent = function(
         progressStorage.set('hasApp', $ctrl.hasApp);
     };
 
-    $ctrl.chageBusinessType = (businessType) => {
-        $ctrl.organizationForm.values.business_type_id = businessType.id;
-    };
-
     $ctrl.makeSignUpForm = () => {
         let authTarget = 'newSignup';
 
@@ -156,10 +152,6 @@ let SponsorSignUpComponent = function(
 
         $ctrl.calcSteps();
         $ctrl.restoreProgress();
-
-        $ctrl.businessType = $ctrl.businessTypes.filter(
-            option => option.id == $ctrl.organizationForm.values.business_type_id
-        )[0] || null;
     };
 
     $ctrl.requestAuthQrToken = () => {

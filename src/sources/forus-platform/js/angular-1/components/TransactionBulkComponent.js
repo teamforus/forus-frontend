@@ -1,6 +1,8 @@
 const TransactionBulkComponent = function(
     $q,
     $state,
+    $stateParams,
+    $filter,
     appConfigs,
     ModalService,
     TransactionService,
@@ -10,50 +12,107 @@ const TransactionBulkComponent = function(
     const $ctrl = this;
 
     $ctrl.resettingBulk = false;
-    $ctrl.approvingBulk = false;
 
     $ctrl.filters = {
-        per_page: 20,
+        values: {
+            per_page: 20,
+            order_by: 'created_at',
+            order_dir: 'desc',
+        },
     };
 
     $ctrl.confirmDangerAction = (title, description, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
         return $q((resolve) => {
-            ModalService.open("dangerZone", {
-                ...{ title, description, cancelButton, confirmButton },
-                onConfirm: () => resolve(true),
-                onCancel: () => resolve(false),
-            });
+            const onConfirm = () => resolve(true);
+            const onCancel = () => resolve(false);
+            const params = { title, description, cancelButton, confirmButton, onConfirm, onCancel };
+
+            ModalService.open("dangerZone", { ...params, text_align: 'center' });
         });
     }
 
-    $ctrl.confirmReset = () => {
-        return $ctrl.confirmDangerAction('Bulktransactie opnieuw versturen', [
-            'U staat op het punt om een bulktransactie opnieuw te versturen. De vorige bulkbetaling was geannuleerd. Het opnieuw versturen stelt de bulktransactie opnieuw in en stuurt de transactie naar uw mobiele app.',
-            'Weet u zeker dat u wilt verdergaan?',            
-        ].join("\n"));
+    $ctrl.confirmReset = (bank) => {
+        if (bank.key === 'bunq') {
+            // Reset Bunq bulk confirmation
+            return $ctrl.confirmDangerAction('Bulktransactie opnieuw versturen', [
+                "U staat op het punt om een bulktransactie opnieuw te versturen.",
+                "De vorige bulkbetaling was geannuleerd.",
+                "Het opnieuw versturen stelt de bulktransactie opnieuw in en stuurt de transactie naar uw mobiele app.\n",
+                "Weet u zeker dat u wilt verdergaan?",
+            ].join(" "));
+        }
+
+        if (bank.key === 'bng') {
+            // Reset BNG bulk confirmation
+            return $ctrl.confirmDangerAction('Reset BNG bulk', [
+                "Weet u zeker dat u de bulk opnieuw wilt instellen?",
+                "Stel alleen de bulk opnieuw in als de link om te autoriseren niet meer geldig is.",
+                "Alleen de bulk betalingen die nog niet geautoriseerd zijn kunnen opnieuw worden ingesteld.\n\n",
+                'U wordt doorverwezen naar de betalingsverkeer pagina van de BNG.\n',
+                'Weet u zeker dat u door wil gaan?',
+            ].join(" "));
+        }
     }
 
-    $ctrl.resetPaymentRequest = (transactionBulk) => {
-        $ctrl.approvingBulk = true;
+    $ctrl.confirmSubmitToBNG = () => {
+        return $ctrl.confirmDangerAction('Betalingsverkeer via de BNG', [
+            'U wordt doorverwezen naar de betalingsverkeer pagina van de BNG.\n',
+            'Weet u zeker dat u door wil gaan?',
+        ].join(" "));
+    }
 
-        $ctrl.confirmReset().then((confirmed) => {
+    $ctrl.onError = (res = null) => {
+        PushNotificationsService.danger('Error!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+    };
+
+    $ctrl.resetPaymentRequest = (transactionBulk) => {
+        const bank = transactionBulk.bank;
+
+        $ctrl.confirmReset(bank).then((confirmed) => {
             if (!confirmed) {
-                return $ctrl.approvingBulk = false;
+                return;
             }
 
             $ctrl.resettingBulk = true;
             PageLoadingBarService.setProgress(0);
 
             TransactionService.bulkReset($ctrl.organization.id, transactionBulk.id).then((res) => {
-                PushNotificationsService.success(
-                    `Succes!`,
-                    `Accepteer de transacties in de mobiele app van bunq.`
-                );
+                if (bank.key === 'bunq') {
+                    PushNotificationsService.success(`Succes!`, `Accepteer de transacties via uw bank.`);
+                }
+
+                if (bank.key === 'bng') {
+                    document.location = res.data.data.auth_url;
+                }
             }, (res) => {
-                PushNotificationsService.danger('Error!', res.data.message || 'Er ging iets mis!');
+                $ctrl.onError(res);
             }).finally(() => {
                 $ctrl.resettingBulk = false;
                 $state.reload();
+                PageLoadingBarService.setProgress(100);
+            });
+        });
+    };
+
+    $ctrl.submitPaymentRequestToBNG = (transactionBulk) => {
+        $ctrl.confirmSubmitToBNG().then((confirmed) => {
+            if (!confirmed) {
+                return;
+            }
+
+            $ctrl.submittingBulk = true;
+            PageLoadingBarService.setProgress(0);
+
+            TransactionService.bulkSubmit($ctrl.organization.id, transactionBulk.id).then((res) => {
+                if (res.data.data.auth_url) {
+                    return document.location = res.data.data.auth_url;
+                }
+
+                $ctrl.onError(res);
+            }, (res) => {
+                $ctrl.onError(res);
+            }).finally(() => {
+                $ctrl.submittingBulk = false;
                 PageLoadingBarService.setProgress(100);
             });
         });
@@ -82,11 +141,64 @@ const TransactionBulkComponent = function(
         }));
     };
 
+    $ctrl.clearFlags = (flags) => {
+        const params = flags.reduce((params, flag) => {
+            return { ...params, [flag]: null };
+        }, { ...$stateParams });
+
+        $state.go($state.$current.name, params, { reload: true });
+    }
+
+    $ctrl.showStatePush = (success, error) => {
+        if (success === true) {
+            PushNotificationsService.success('Succes!', 'De bulk is bevestigd!');
+        }
+
+        if (error) {
+            PushNotificationsService.danger('Error!', {
+                canceled: "Geannuleerd.",
+                unknown: "Er is iets misgegaan!",
+            }[error] || error);
+        }
+
+        if ((success === true) || error) {
+            $ctrl.clearFlags(['success', 'error']);
+        }
+    };
+
+    $ctrl.updateFlags = () => {
+        const bulk = $ctrl.transactionBulk;
+        const hasPermission = $filter('hasPerm')($ctrl.organization, 'manage_transaction_bulks');
+
+        $ctrl.showAuthLink = false;
+        $ctrl.showSubmitToBNG = false;
+        $ctrl.showResetBulkButton = false;
+
+        if (hasPermission && (bulk.state === 'pending') && (bulk.bank.key === 'bng') && bulk.auth_url) {
+            $ctrl.showAuthLink = true;
+        }
+
+        if (hasPermission && bulk.bank.key === 'bng' && bulk.state == 'draft') {
+            $ctrl.showSubmitToBNG = true;
+        }
+
+        if (hasPermission && bulk.bank.key === 'bng' && bulk.state == 'pending') {
+            $ctrl.showResetBulkButton = true;
+        }
+
+        if (hasPermission && bulk.bank.key === 'bunq' && bulk.state == 'rejected') {
+            $ctrl.showResetBulkButton = true;
+        }
+    }
+
     $ctrl.$onInit = () => {
         $ctrl.appConfigs = appConfigs;
-        $ctrl.filters.voucher_transaction_bulk_id = $ctrl.transactionBulk.id;
+        $ctrl.filters.values.voucher_transaction_bulk_id = $ctrl.transactionBulk.id;
 
-        $ctrl.onPageChange($ctrl.filters);
+        $ctrl.onPageChange($ctrl.filters.values);
+        $ctrl.updateFlags();
+
+        $ctrl.showStatePush($stateParams.success, $stateParams.error);
     };
 };
 
@@ -98,6 +210,8 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$stateParams',
+        '$filter',
         'appConfigs',
         'ModalService',
         'TransactionService',

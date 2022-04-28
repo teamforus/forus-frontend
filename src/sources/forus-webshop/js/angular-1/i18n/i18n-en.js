@@ -26,7 +26,7 @@ module.exports = {
         general: 'General',
         zuidhorn: 'Zuidhorn',
         nijmegen: 'Nijmegen',
-        westerkwartier: 'Westerkwartier',
+        westerkwartier: 'Potjeswijzer',
         forus: 'Forus platform & ',
         kerstpakket: 'Kerstpakket',
         berkelland: 'Berkelland',

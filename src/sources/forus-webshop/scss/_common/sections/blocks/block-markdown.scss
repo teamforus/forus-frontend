@@ -1,19 +1,19 @@
 &.block-markdown {
     text-align: justify;
-    font: 400 14px/24px $bf;
+    font: 400 16px/24px $bf;
     margin-bottom: 30px;
 
     h1 {
         font: 500 2.5em $hf;
         color: $htc;
-        margin: 0 0 0.6em;
+        margin: 30px 0 30px 0;
         text-align: left;
     }
 
     h2 {
         font: 500 2em $hf;
         color: $htc;
-        margin: 0 0 0.7em;
+        margin: 30px 0 30px 0;
         text-align: left;
     }
 
@@ -34,7 +34,7 @@
     p {
         margin-bottom: 15px;
         text-align: justify;
-        font: inherit;
+        /*font: inherit*/
     }
 
     ul, ol {
@@ -42,7 +42,7 @@
         padding-left: 18px;
 
         li {
-            font: inherit;
+            /*font: inherit*/
         }
     }
 
@@ -54,7 +54,7 @@
         color: $tc-link;
         font-weight: 500;
         transition: 0.4s;
-        font: inherit;
+        /*font: inherit*/
         text-decoration: underline;
 
         &:hover {
@@ -64,13 +64,13 @@
 
     strong,
     b {
-        font: inherit;
+        /*font: inherit*/
         font-weight: 700;
     }
 
     i,
     em {
-        font: inherit;
+        /*font: inherit*/
         font-style: italic;
     }
 
@@ -83,7 +83,7 @@
         border-collapse: collapse;
         width: 100%;
         margin: 0 0 20px;
-        font: inherit;
+        /*font: inherit*/
 
         thead {
             display: none;
@@ -91,7 +91,7 @@
     
         tr {
             text-align: left;
-            font: inherit;
+            /*font: inherit*/
     
             td,
             th {
@@ -101,13 +101,13 @@
                 transition: 0.3s;
     
                 &>a {
-                    font: inherit;
+                    /*font: inherit*/
                 }
             }
     
             td {
                 color: #444a4f;
-                font: inherit;
+                /*font: inherit*/
     
                 &:first-child {
                     padding-left: 25px;
@@ -127,7 +127,7 @@
 
                     * {
                         color: inherit;
-                        font: inherit;
+                        /*font: inherit*/
                     }
                 }
             }

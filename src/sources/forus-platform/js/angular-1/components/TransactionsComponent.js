@@ -55,21 +55,28 @@ const TransactionsComponent = function(
     $ctrl.filters = {
         show: false,
         values: {},
-        reset: function() {
-            this.values.q = '';
-            this.values.state = $ctrl.states[0].key;
-            this.values.fund_state = $ctrl.fundStates[0].key;
-            this.values.from = null;
-            this.values.to = null;
-            this.values.amount_min = null;
-            this.values.amount_max = null;
-            this.values.per_page = 20;
-        }
+        valuesDefault: {
+            q: '',
+            state: $ctrl.states[0].key,
+            fund_state: $ctrl.fundStates[0].key,
+            from: null,
+            to: null,
+            amount_min: null,
+            amount_max: null,
+            per_page: 20,
+            order_by: 'created_at',
+            order_dir: 'desc',
+        },
+        reset: () => $ctrl.filters.values = { ...$ctrl.filters.valuesDefault }
     };
 
     $ctrl.bulkFilters = {
         values: {},
-        valuesDefault: { per_page: 20 },
+        valuesDefault: {
+            per_page: 20,
+            order_by: 'created_at',
+            order_dir: 'desc',
+        },
         reset: () => $ctrl.bulkFilters.values = { ...$ctrl.bulkFilters.valuesDefault }
     };
 

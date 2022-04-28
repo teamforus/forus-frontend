@@ -11,9 +11,11 @@
             .modal-section 
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label.form-label-required(i18n="modals.modal_voucher_create.labels.assign_by_type")
-                    select(
-                        ng-change="$ctrl.onAsignTypeChange($ctrl.assignType)"
-                        ng-options="assignType as assignType.label for assignType in $ctrl.assignTypes"
+                    .form-offset: select-control(
+                        as="label"
+                        search="false"
+                        options="$ctrl.assignTypes"
+                        ng-change="$ctrl.onAssignTypeChange($ctrl.assignType.key)"
                         ng-model="$ctrl.assignType").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
 
@@ -24,9 +26,9 @@
 
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
-                    select(
-                        ng-options="product.id as product.name for product in $ctrl.products" 
-                        ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
+                    .form-offset: select-control(
+                        prop="id"
+                        options="$ctrl.products"
                         ng-model="$ctrl.form.values.product_id").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
                     .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
@@ -34,6 +36,7 @@
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
                     datepicker(
+                        input-visible="true"
                         date-format="yyyy-MM-dd" 
                         datepicker-mobile="" 
                         date-min-limit="{{ $ctrl.dateMinLimit + '' }}"

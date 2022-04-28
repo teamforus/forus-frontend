@@ -21,6 +21,7 @@ const FinancialDashboardOverviewComponent = function(
             fund.budget.percentageTotal = '100.00';
             fund.budget.percentageActive = $ctrl.getPercentage(fund.budget.active_vouchers_amount, fund.budget.vouchers_amount);
             fund.budget.percentageInactive = $ctrl.getPercentage(fund.budget.inactive_vouchers_amount, fund.budget.vouchers_amount);
+            fund.budget.percentageDeactivated = $ctrl.getPercentage(fund.budget.deactivated_vouchers_amount, fund.budget.vouchers_amount);
             
             fund.budget.percentageUsed = $ctrl.getPercentage(fund.budget.used_active_vouchers, fund.budget.vouchers_amount);
             fund.budget.percentageLeft = $ctrl.getPercentage(fund.budget.vouchers_amount - fund.budget.used_active_vouchers, fund.budget.vouchers_amount);

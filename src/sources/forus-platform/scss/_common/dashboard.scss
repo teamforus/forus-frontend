@@ -60,6 +60,7 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-system-notification-editor.scss';
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
+    @import 'blocks/block-export-options.scss';
     @import 'blocks/block-feedback-result.scss';
 }
 
@@ -71,6 +72,7 @@ $colorPrimaryLight: $color_primary_light;
 }
 
 .modal{
+    @import'modals/modal-photo-upload.scss';
     @import'modals/modal-physical-cards.scss';
 }
 
@@ -1900,12 +1902,13 @@ body {
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
             overflow: hidden;
+            border-right: 1px solid $borderColor;
 
             img {
                 width: 140px;
                 height: 140px;
                 overflow: hidden;
-                background-color: #f1f4f7;
+                background-color: #f9fafa;
             }
         }
 
@@ -3214,17 +3217,23 @@ body {
                 width: 50px;
                 height: 50px;
                 display: flex;
+                border: 1px solid transparent;
                 border-radius: 50px;
+
+                &.empty-icon-img-border {
+                    border-color: lighten($borderColor, 5%);
+                }
             }
         }
 
         .empty-title {
             font: 700 16px/28px $bf;
+            margin: 0px;
         }
 
         .empty-details {
             font: 500 14px/24px $bf;
-            margin: 0 0 20px;
+            margin: 0px;
 
             &:last-child {
                 margin-bottom: 0;
@@ -3234,6 +3243,7 @@ body {
         .empty-actions {
             font: 500 14px $bf;
             display: flex;
+            padding: 15px 0 0;
             justify-content: center;
         }
     }
@@ -4560,11 +4570,24 @@ body {
             }
 
             .form-control {
-                display: inline-block;
                 height: 30px;
                 margin: 0;
                 padding: 0 10px;
                 line-height: 28px;
+
+                &.select-control {
+                    .select-control-input {
+                        font-size: 12px;
+
+                        .select-control-options {
+                            .select-control-option {
+                                height: 30px;
+                                color: #353535;
+                                font: 500 12px/20px $bf;
+                            }
+                        }
+                    }
+                }
             }
 
             select.form-control {
@@ -4687,6 +4710,22 @@ body {
                             margin: 0 0 10px;
                             height: 30px;
                             font-size: 12px;
+
+                            &.select-control {
+                                .select-control-search {
+                                    margin-bottom: 0;
+                                    border: 1px solid #d4d9dd;
+                                    line-height: 30px;
+                                }
+
+                                .select-control-options {
+                                    .select-control-option {
+                                        height: 30px;
+                                        color: #353535;
+                                        font: 500 12px/20px $bf;
+                                    }
+                                }
+                            }
                         }
 
                         &:first-child {
@@ -4748,7 +4787,7 @@ body {
                 font-weight: 500;
             }
         }
-    
+
         &.block-information-danger {
             background: #fcfaf6;
         }
@@ -6906,138 +6945,6 @@ body {
             }
         }
     }
-    
-    &.modal-photo-upload {
-        cursor: default;
-
-        .modal-title {
-            font: 500 21px/29px $bf;
-            text-align: center;
-            color: #191A1C;
-            margin-bottom: 10px;
-        }
-
-        .modal-description {
-            font: 400 15px/22px $bf;
-            text-align: center;
-            color: #454545;
-            margin: 0 0 18px;
-        }
-
-        .modal-window {
-            width: 820px;
-            border-radius: 12px;
-
-            .modal-body {
-                .photo-crop {
-                    display: flex;
-                    flex-direction: column;
-                    margin-bottom: -10px;
-
-                    .photo-crop-image {
-                        width: 650px;
-                        max-width: 100%;
-                        display: flex;
-                        border-radius: inherit;
-                        flex-direction: row;
-                        margin: 0 auto 18px;
-    
-                        .photo-crop-control {
-                            position: relative;
-                            width: 62%;
-                            float: left;
-                            border-radius: 0;
-                            overflow: hidden;
-                            flex-direction: column;
-                            align-self: start;
-    
-                            .crop-control-ratio {
-                                width: 100%;
-                                height: auto;
-                                display: block;
-                                opacity: 0;
-                            }
-    
-                            ui-cropper {
-                                @include fill_parent();
-                            }
-                        }
-    
-                        .photo-crop-preview {
-                            width: 38%;
-                            padding-left: 20px;
-                            display: flex;
-                            flex-direction: column;
-                            float: left;
-    
-                            img {
-                                display: block;
-                                width: 100%;
-                                border-radius: 0;
-                                border: 1px solid #dadada;
-                                box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
-                            }
-    
-                            .crop-control-orignal {
-                                margin-bottom: 20px;
-                                height: 100%;
-                            }
-    
-                            .crop-control-thumbnails {
-                                width: 100%;
-                                height: 100%;
-                                display: flex;
-                            }
-    
-                            .crop-control-thumbnail {
-                                width: 50%;
-    
-                                &:first-child {
-                                    padding-right: 5px;
-                                }
-    
-                                &:last-child {
-                                    padding-left: 5px;
-    
-                                    img {
-                                        border-radius: 1000px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    .photo-crop-info {
-                        text-align: center;
-                        color: #5e636b;
-                        font: 400 13px/20px $bf;
-                        margin: 0 0 5px;
-                    }
-
-                    .form {
-                        .checkbox {
-                            .checkbox-label {
-                                text-align: center;
-                                color: #5e636b;
-                                font: 400 13px/20px $bf;
-
-                                a {
-                                    text-decoration: underline;
-                                    font: inherit;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        .modal-footer {
-            .button {
-                padding: 10px 50px;
-            }
-        }
-    }
 
     &.modal-employee-add {
         .modal-window {
@@ -7063,12 +6970,20 @@ body {
         }
     }
 
+    @media screen and (max-width: 1800px) {
+        .modal-footer {
+            padding: 25px;
+        }
+    }
+
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
         }
 
         .modal-footer {
+            padding: 20px;
+
             .footer-text {
                 font: 500 15px $bf;
                 margin: 0 0 15px;

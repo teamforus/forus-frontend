@@ -1,9 +1,9 @@
-let ModalVoucherCreateComponent = function(
+const ModalVoucherCreateComponent = function(
     FormBuilderService,
     VoucherService,
     ModalService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.lastReplaceConfirmed = null;
     $ctrl.voucherType = 'activation_code_uid';
@@ -16,16 +16,12 @@ let ModalVoucherCreateComponent = function(
         key: 'email',
         label: 'E-mailadres',
         inputLabel: 'E-mailadres',
-    }, {
-        key: 'bsn',
-        label: 'BSN',
-        inputLabel: 'BSN',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
     $ctrl.dateMinLimit = new Date();
 
-    $ctrl.onAsignTypeChange = (assignType) => {
+    $ctrl.onAssignTypeChange = (assignType) => {
         if (assignType.key !== 'bsn') {
             delete $ctrl.form.values.bsn;
         }
@@ -77,6 +73,14 @@ let ModalVoucherCreateComponent = function(
         $ctrl.fund = $ctrl.modal.scope.fund || null;
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onCreated = $ctrl.modal.scope.onCreated;
+
+        if ($ctrl.organization.bsn_enabled) {
+            $ctrl.assignTypes.push({
+                key: 'bsn',
+                label: 'BSN',
+                inputLabel: 'BSN',
+            });
+        }
 
         $ctrl.form = FormBuilderService.build({
             fund_id: $ctrl.fund.id,
