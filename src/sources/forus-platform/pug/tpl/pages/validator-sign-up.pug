@@ -265,8 +265,8 @@
                                 label(translate="organization_edit.labels.business_type").form-label
 
                                 .form-offset: select-control(
-                                    ng-model="$ctrl.businessType"
-                                    ng-change="$ctrl.chageBusinessType($ctrl.businessType)"
+                                    prop="id"
+                                    ng-model="$ctrl.organizationForm.values.business_type_id"
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer organisatie type...")
 

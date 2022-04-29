@@ -76,6 +76,9 @@ const ProviderSignUpComponent = function(
 
     $ctrl.loggedWithApp = progressStorage.has('logged-with-app');
 
+    $ctrl.skipFundApplications = false;
+    $ctrl.hasFundApplications = false;
+
     $ctrl.calcSteps = () => {
         $ctrl.STEP_INFO_GENERAL = 1;
         $ctrl.STEP_INFO_ME_APP = 2;
@@ -157,10 +160,6 @@ const ProviderSignUpComponent = function(
         }
 
         progressStorage.set('hasApp', $ctrl.hasApp);
-    };
-
-    $ctrl.chageBusinessType = (businessType) => {
-        $ctrl.organizationForm.values.business_type_id = businessType.id;
     };
 
     $ctrl.makeSignUpForm = () => {
@@ -301,10 +300,6 @@ const ProviderSignUpComponent = function(
         }, function(form) {
             return ShareService.sendEmail(form.values);
         }, true);
-
-        $ctrl.businessType = $ctrl.businessTypes.filter(
-            option => option.id == $ctrl.organizationForm.values.business_type_id
-        )[0] || null;
     };
 
     $ctrl.deleteOffice = (office) => {
@@ -551,6 +546,10 @@ const ProviderSignUpComponent = function(
             progressStorage.clear();
         }
     };
+
+    $ctrl.applyFund = () => {
+        $ctrl.hasFundApplications = true;
+    }
 
     $ctrl.setOrganization = (organization) => {
         $ctrl.organization = organization;

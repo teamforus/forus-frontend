@@ -41,6 +41,70 @@
                 padding-bottom: 6px;
                 font: 500 12px/18px $bf;
 
+                .th-sort {
+                    display: inline-flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    font: inherit;
+                    cursor: default;
+
+                    .th-sort-label {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        font: inherit;
+                        color: #646f79;
+                        height: 18px;
+                        line-height: 18px;
+                        transition: color .4s;
+                    }
+
+                    .th-sort-icon {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        color: inherit;
+                        height: 18px;
+                        width: 18px;
+                        line-height: 18px;
+                        margin-left: -2.5px;
+
+                        .mdi {
+                            color: inherit;
+                            height: 18px;
+                            width: 18px;
+                            line-height: 18px;
+                            font-size: 20px;
+
+                            &:before {
+                                color: rgba(0, 0, 0, 0.12);
+                                transition: color .4s;
+                            }
+                        }
+                    }
+
+                    &.th-sort-enabled {
+                        cursor: pointer;
+
+                        .th-sort-label {
+                            font-weight: 600;
+                        }
+                    }
+
+                    &.th-sort-active, &.th-sort-enabled:hover {
+                        .th-sort-label {
+                            color: #555;
+                            font-weight: 600;
+                        }
+
+                        .th-sort-icon {
+                            .mdi:before {
+                                color: $color_primary;
+                            }
+                        }
+                    }
+                }
+
                 &.th-narrow {
                     width: 1%;
                 }

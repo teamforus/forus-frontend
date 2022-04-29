@@ -1,36 +1,14 @@
 .col.col-lg-9.col-lg-12
-    .form-group.form-group-inline
-        .form-label Type
-        .form-offset
-            label.radio.radio-inline
-                input(
-                    ng-disabled="{{disabled}}"
-                    type="radio"
-                    ng-click="$ctrl.changeType('product')"
-                    ng-checked="$ctrl.productType == 'product'")
-                .radio-label 
-                    .radio-circle
-                    | Product
-            
-            label.radio.radio-inline
-                input(
-                    ng-disabled="{{disabled}}"
-                    type="radio"
-                    ng-click="$ctrl.changeType('service')"
-                    ng-checked="$ctrl.productType == 'service'")
-                .radio-label 
-                    .radio-circle
-                    | Dienst
-
     .form-group.form-group-inline(ng-repeat="(index, categories) in $ctrl.categoriesHierarchy  track by $index")
         label.form-label(ng-if="index == 0" translate="product_edit.labels.category")
         label.form-label(ng-if="index > 0") &nbsp;
 
-        select(
-            ng-disabled="{{disabled}}"
-            ng-options="productCategory.id as productCategory.name for productCategory in categories" 
+        .form-offset: select-control(
+            prop="id"
+            options="categories"
             ng-model="$ctrl.categoriesValues[index]"
             ng-change="$ctrl.changeCategory(index)"
+            ng-disabled="disabled"
             placeholder="Status").form-control
 
         .form-error(

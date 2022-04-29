@@ -14,7 +14,11 @@ const TransactionBulkComponent = function(
     $ctrl.resettingBulk = false;
 
     $ctrl.filters = {
-        per_page: 20,
+        values: {
+            per_page: 20,
+            order_by: 'created_at',
+            order_dir: 'desc',
+        },
     };
 
     $ctrl.confirmDangerAction = (title, description, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
@@ -189,9 +193,9 @@ const TransactionBulkComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.appConfigs = appConfigs;
-        $ctrl.filters.voucher_transaction_bulk_id = $ctrl.transactionBulk.id;
+        $ctrl.filters.values.voucher_transaction_bulk_id = $ctrl.transactionBulk.id;
 
-        $ctrl.onPageChange($ctrl.filters);
+        $ctrl.onPageChange($ctrl.filters.values);
         $ctrl.updateFlags();
 
         $ctrl.showStatePush($stateParams.success, $stateParams.error);

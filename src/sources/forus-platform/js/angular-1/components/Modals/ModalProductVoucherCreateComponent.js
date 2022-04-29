@@ -23,15 +23,15 @@ const ModalProductVoucherCreateComponent = function(
     $ctrl.dateMinLimit = new Date();
 
     $ctrl.onAssignTypeChange = (assignType) => {
-        if (assignType.key !== 'bsn') {
+        if (assignType !== 'bsn') {
             delete $ctrl.form.values.bsn;
         }
 
-        if (assignType.key !== 'email') {
+        if (assignType !== 'email') {
             delete $ctrl.form.values.email;
         }
 
-        if (assignType.key !== 'activation_code_uid') {
+        if (assignType !== 'activation_code_uid') {
             delete $ctrl.form.values.activation_code_uid;
         }
     };

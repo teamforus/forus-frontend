@@ -159,7 +159,8 @@
                                     ng-if="!$ctrl.nonExpiring"
                                     date-format="dd-MM-yyyy" 
                                     datepicker-mobile="" 
-                                    date-week-start-day="1").form-control
+                                    date-week-start-day="1"
+                                    input-visible="true").form-control
                                     input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj" ng-disabled="!$ctrl.isEditable").form-control
                                 input(value="{{ 'product_edit.labels.unlimited' | translate }}" disabled ng-if="$ctrl.nonExpiring").form-control
 
@@ -207,9 +208,8 @@
             //- Product category
             .card-section.card-section-primary: .row
                 product-categories-control(
-                    disabled="{{!$ctrl.isEditable}}"
+                    disabled="!$ctrl.isEditable"
                     ng-model="$ctrl.form.values.product_category_id"
-                    product-type="($ctrl.product || $ctrl.sourceProduct).product_category.service ? 'service' : 'product'"
                     errors="$ctrl.form.errors.product_category_id")
 
             //- Actions

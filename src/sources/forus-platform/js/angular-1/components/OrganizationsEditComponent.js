@@ -1,90 +1,69 @@
 const OrganizationsEditComponent = function(
+    $q,
     $state,
     $rootScope,
-    $stateParams,
-    OrganizationService,
+    MediaService,
     FormBuilderService,
-    MediaService
+    OrganizationService
 ) {
     const $ctrl = this;
-
-    let mediaFile = false;
+    const { apiResourceToForm } = OrganizationService;
 
     $ctrl.selectPhoto = (file) => {
-        mediaFile = file;
+        $ctrl.mediaFile = file;
     };
 
-    $ctrl.cancel = function() {
-        if ($ctrl.organization)
-            $state.go('offices', {
-                'organization_id': $ctrl.organization.id
-            });
-        else
-            $state.go('organizations');
+    $ctrl.uploadMedia = () => {
+        return $q((resolve, reject) => {
+            if (!$ctrl.mediaFile) {
+                return resolve(null);
+            }
+
+            return MediaService.store('organization_logo', $ctrl.mediaFile, []).then((res) => {
+                $ctrl.media = res.data.data;
+                $ctrl.mediaFile = false;
+                resolve($ctrl.media.uid);
+            }, reject);
+        });
     };
 
-    $ctrl.chageBusinessType = (value) => {
-        $ctrl.form.values.business_type_id = value.id;
+    $ctrl.makeValues = (organization) => {
+        return $ctrl.organization ? apiResourceToForm(organization) : { website: 'https://' };
     };
 
-    $ctrl.$onInit = function() {
-        let values;
-
+    $ctrl.$onInit = () => {
         if (!$ctrl.organization) {
             OrganizationService.clearActive();
-            values = {
-                "website": 'https://',
-            };
-        } else {
-            values = OrganizationService.apiResourceToForm($ctrl.organization)
-        };
+        }
 
-        $ctrl.form = FormBuilderService.build(values, async (form) => {
-            form.lock();
+        $ctrl.form = FormBuilderService.build($ctrl.makeValues($ctrl.organization), (form) => {
+            const values = angular.copy(form.values);
 
-            let promise;
-            let values = JSON.parse(JSON.stringify(form.values));
-
-            if (typeof(values.iban) === 'string') {
+            if (typeof (values.iban) === 'string') {
                 values.iban = values.iban.replace(/\s/g, '');
             }
 
-            if (mediaFile) {
-                let res = await MediaService.store('organization_logo', mediaFile, []);
+            $ctrl.uploadMedia().then((uid) => {
+                values.media_uid = uid;
 
-                $ctrl.media = res.data.data;
-                values.media_uid = $ctrl.media.uid;
+                const promise = $ctrl.organization ? OrganizationService.update(
+                    $ctrl.organization.id, values
+                ) : OrganizationService.store(values);
 
-                mediaFile = false;
-            }
-
-            if ($ctrl.organization) {
-                promise = OrganizationService.update(
-                    $stateParams.id,
-                    values
-                );
-            } else {
-                promise = OrganizationService.store(values);
-            }
-
-            promise.then((res) => {
-                $state.go('organizations');
-                $rootScope.$broadcast('auth:update');
-            }, (res) => {
-                form.errors = res.data.errors;
-                form.unlock();
+                promise.then(() => {
+                    $state.go('organizations');
+                    $rootScope.$broadcast('auth:update');
+                }, (res) => {
+                    form.errors = res.data.errors;
+                }).finally(() => form.unlock());
             });
-        });
+        }, true);
 
         if ($ctrl.organization && $ctrl.organization.logo) {
             MediaService.read($ctrl.organization.logo.uid).then((res) => {
                 $ctrl.media = res.data.data;
             });
         }
-
-        $ctrl.businessType = $ctrl.businessTypes.filter(
-            option => option.id == $ctrl.form.values.business_type_id
-        )[0] || null;
     };
 };
 
@@ -94,12 +73,12 @@ module.exports = {
         businessTypes: '<'
     },
     controller: [
+        '$q',
         '$state',
         '$rootScope',
-        '$stateParams',
-        'OrganizationService',
-        'FormBuilderService',
         'MediaService',
+        'FormBuilderService',
+        'OrganizationService',
         OrganizationsEditComponent
     ],
     templateUrl: 'assets/tpl/pages/organizations-edit.html'

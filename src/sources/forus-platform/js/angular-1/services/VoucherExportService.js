@@ -43,7 +43,11 @@ const VoucherExportService = function(
 
             const onSuccess = (data) => {
                 const { qr_format, data_format, fields } = data;
-                const queryFilters = { ...filters, qr_format, data_format, fields };
+                const queryFilters = {
+                    ...filters,
+                    ...{ data_format, fields },
+                    ...{ qr_format: qr_format == 'png' ? 'data' : qr_format },
+                };
 
                 PageLoadingBarService.setProgress(0);
                 console.info('- data loaded from the api.');
