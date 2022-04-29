@@ -43,7 +43,7 @@
 
                 .form-group.form-group-inline(ng-if="$ctrl.form.values.use_customer_email")
                     label(translate="components.feedback_productboard.labels.email").form-label
-                    input(ng-model="$ctrl.form.values.customer_email" type="text" disabled).form-control
+                    input(ng-model="$ctrl.form.values.customer_email" type="text").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.customer_email" ng-bind="error")
 
             .card-section.card-section-primary: .text-center
