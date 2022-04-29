@@ -1085,7 +1085,7 @@ body {
                     font: 600 11px/18px $bf;
                     text-align: right;
                     color: #134478;
-                    margin: 0 0 5px;
+                    margin: 0 0 2px;
                 }
 
                 .card-section-actions-value {
@@ -1180,7 +1180,7 @@ body {
     }
 
     &.card-block-listing {
-        font: 500 14px/18px $bf;
+        font: 500 13px/20px $bf;
         color: #282b39;
 
         span {
@@ -1189,9 +1189,9 @@ body {
         }
 
         .card-block-listing-label {
-            font: 500 11px/15px $bf;
-            color: #646f79;
-            margin: 0 0 5px;
+            font: 600 11px/18px $bf;
+            color: $colorPrimary;
+            margin: 0 0 2px;
         }
 
         .card-block-listing-value {
