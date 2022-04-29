@@ -1,121 +1,172 @@
-.block.block-sticky-footer.show-sm(ng-class='{ "scrolled" : !visible }' tabindex="0")
+.block.block-sticky-footer.show-sm(ng-class='{ "scrolled" : !$dir.visible }' tabindex="0")
     ul.sticky-footer-list
-        li(ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="products" ui-sref-active="active")
-            a.sticky-footer-item(ui-sref="products" aria-current="{{ isActive('/products') }}" role="link" tabindex="0")
+        //- Products
+        li(
+            ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)"
+            ui-sref="products" ui-sref-active="active")
+            a.sticky-footer-item(ui-sref="products" aria-current="{{ $dir.$state.current.name == 'products' }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
                 span(translate="topnavbar.buttons.products")
 
-        li(ng-if="$root.appConfigs.features.has_subsidy_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="actions" ui-sref-active="active")
-            a.sticky-footer-item(ui-sref="actions" aria-current="{{ isActive('/actions') }}" role="link" tabindex="0")
+        //- Subsidies
+        li(
+            ng-if="$root.appConfigs.features.has_subsidy_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" 
+            ui-sref="actions" 
+            ui-sref-active="active")
+            a.sticky-footer-item(ui-sref="actions" aria-current="{{ $dir.$state.current.name == 'actions' }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
                 span(translate="topnavbar.buttons.subsidies")
 
-        li(ui-sref="providers" ui-sref-active="active")
-            a.sticky-footer-item(ui-sref="providers" aria-current="{{ isActive('/providers') }}" role="link" tabindex="0")
+        //- Providers
+        li(
+            ui-sref="providers"
+            ui-sref-active="active")
+            a.sticky-footer-item(ui-sref="providers" aria-current="{{ $dir.$state.current.name == 'providers' }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
                 span(translate="topnavbar.buttons.providers")
 
-        li(ng-if="vouchers.length || !$root.auth_user" ng-click="startFundRequest()" ui-sref-active="active")
-            a.sticky-footer-item(ng-click="startFundRequest()" aria-current="{{ isActive('/start') }}" role="link" tabindex="0")
+        //- Start fund request
+        li(
+            ng-if="$dir.vouchers.length || !$root.auth_user" 
+            ng-click="$dir.startFundRequest()" 
+            ui-sref-active="active")
+            a.sticky-footer-item(ng-click="$dir.startFundRequest()" aria-current="{{ $dir.$state.current.name == 'start' }}" tabindex="0" role="link")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
-                span(translate="topnavbar.buttons.{{ $root.client_key }}.activate" translate-default="{{ 'topnavbar.buttons.activate' | translate }}" role="link" tabindex="0") 
+                span(
+                    translate="topnavbar.buttons.{{ $root.client_key }}.activate" 
+                    translate-default="{{ 'topnavbar.buttons.activate' | translate }}" 
+                    tabindex="0"
+                    role="link")
 
-        li(ng-if="!vouchers.length && $root.auth_user" ui-sref="vouchers" ui-sref-active="active")
-            a.sticky-footer-item-wrapper(ui-sref="vouchers" aria-current="{{ isActive('/vouchers') }}" role="link" tabindex="0")
+        //- Vouchers
+        li(
+            ng-if="!$dir.vouchers.length && $root.auth_user"
+            ui-sref="vouchers"
+            ui-sref-active="active")
+
+            a.sticky-footer-item-wrapper(ui-sref="vouchers" aria-current="{{ $dir.$state.current.name == 'vouchers' }}" tabindex="0" role="link")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
                 span(translate="topnavbar.buttons.mobile.voucher")
 
+        //- Dropdown menu
         li(ng-if="$root.auth_user").sticky-footer-dropdown
-            a.sticky-footer-item-wrapper(ng-click="$ctrl.openProfileMenu($event)" role="button" tabindex="0")
+            a.sticky-footer-item-wrapper(ng-click="$dir.openProfileMenu($event)" role="button" tabindex="0")
                 em.mdi.mdi-dots-horizontal
                 span(translate="topnavbar.buttons.mobile.more")
 
-            .sticky-footer-dropwdown-subitems(ng-if="$ctrl.profileMenuOpened && visible" click-outside="$ctrl.hideProfileMenu()")
+            .sticky-footer-dropwdown-subitems(ng-if="$dir.profileMenuOpened && $dir.visible" click-outside="$dir.hideProfileMenu()")
+                //- Dropdown title
                 .sticky-footer-dropwdown-info
                     .sticky-footer-dropwdown-title Meer
 
+                //- Vouchers
                 .sticky-footer-dropwdown-subitem(
-                    ng-if="vouchers.length"
+                    ng-if="$dir.vouchers.length"
                     ui-sref="vouchers"
-                    ng-class="{active: isActive('vouchers')}"
-                    aria-current="{{ isActive('vouchers') }}" 
-                    role="link" tabindex="0")
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'vouchers'}"
+                    aria-current="{{ $dir.$state.current.name == 'vouchers' }}" 
+                    tabindex="0"
+                    role="link")
                     
                     em.mdi.mdi-ticket-percent-outline
                     span(translate="topnavbar.buttons.mobile.dropdown.vouchers")
 
+                //- Start fund request
                 .sticky-footer-dropwdown-subitem(
-                    ng-if="!vouchers.length"
-                    ng-click="startFundRequest()"
-                    ng-class="{active: isActive('start')}"
-                    aria-current="{{ isActive('start') }}" 
-                    role="link" tabindex="0")
+                    ng-if="!$dir.vouchers.length"
+                    ng-click="$dir.startFundRequest()"
+                    ng-class="{active: $dir.$state.current.name == 'start'}"
+                    aria-current="{{ $dir.$state.current.name == 'start' }}" 
+                    tabindex="0"
+                    role="link")
                     
                     em.mdi.mdi-alarm-plus
                     span(translate="topnavbar.buttons.{{ $root.client_key }}.activate" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
                 
+                //- Reservations
                 .sticky-footer-dropwdown-subitem(
                     ui-sref="reservations"
-                    ng-class="{active: isActive('reservations')}"
-                    aria-current="{{ isActive('reservations') }}" 
-                    role="link" tabindex="0")
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'reservations'}"
+                    aria-current="{{ $dir.$state.current.name == 'reservations' }}" 
+                    tabindex="0"
+                    role="link")
 
                     em.mdi.mdi-calendar-outline
                     span(translate="topnavbar.buttons.mobile.dropdown.reservations")
                 
+                //- Notifications
                 .sticky-footer-dropwdown-subitem(
                     ui-sref="notifications"
-                    ng-class="{active: isActive('notifications')}"
-                    aria-current="{{ isActive('notifications') }}" 
-                    role="link" tabindex="0") 
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'notifications'}"
+                    aria-current="{{ $dir.$state.current.name == 'notifications' }}" 
+                    tabindex="0"
+                    role="link") 
 
                     em.mdi.mdi-bell-ring-outline
                     span(translate="topnavbar.buttons.mobile.dropdown.notifications")
-                
+
+                //- Notification preferences
                 .sticky-footer-dropwdown-subitem(
                     ui-sref="preferences-notifications"
-                    ng-class="{active: isActive('preferences-notifications')}"
-                    aria-current="{{ isActive('preferences-notifications') }}" 
-                    role="link" tabindex="0")
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'preferences-notifications' }"
+                    aria-current="{{ $dir.$state.current.name == 'preferences-notifications' }}" 
+                    tabindex="0"
+                    role="link")
 
                     em.mdi.mdi-cog-outline
                     span(translate="topnavbar.buttons.mobile.dropdown.preferences_notifications")
                 
+                //- Identity emails
                 .sticky-footer-dropwdown-subitem(
                     ui-sref="identity-emails"
-                    ng-class="{active: isActive('identity-emails')}"
-                    aria-current="{{ isActive('identity-emails') }}" 
-                    role="link" tabindex="0")
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'identity-emails'}"
+                    aria-current="{{ $dir.$state.current.name == 'identity-emails' }}" 
+                    tabindex="0"
+                    role="link")
 
                     em.mdi.mdi-email-outline
                     span(translate="topnavbar.buttons.mobile.dropdown.preferences_emails")
 
+                //- Funds
                 .sticky-footer-dropwdown-subitem(
                     ng-if="$root.appConfigs.flags.fundsMenu"
                     ui-sref="funds"
-                    ng-class="{active: isActive('funds')}"
-                    aria-current="{{ isActive('funds') }}" 
-                    role="link" tabindex="0")
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'funds'}"
+                    aria-current="{{ $dir.$state.current.name == 'funds' }}" 
+                    tabindex="0"
+                    role="link")
                     
                     em.mdi.mdi-cash-multiple
                     span(translate="topnavbar.buttons.mobile.dropdown.funds")
 
+                //- Sessions
                 .sticky-footer-dropwdown-subitem(
                     ng-if="$root.appConfigs.sessions"
                     ui-sref="security-sessions"
-                    ng-class="{active: isActive('security-sessions')}"
-                    aria-current="{{ isActive('security-sessions') }}" 
-                    role="link" tabindex="0")
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'security-sessions'}"
+                    aria-current="{{ $dir.$state.current.name == 'security-sessions' }}" 
+                    tabindex="0"
+                    role="link")
                     
                     em.mdi.mdi-shield-account-outline
                     span(translate="topnavbar.buttons.mobile.dropdown.sessions")
 
+                //- Records
                 .sticky-footer-dropwdown-subitem(
                     ng-if="$root.appConfigs.features.records.list"
                     ui-sref="records"
-                    ng-class="{active: isActive('records')}"
-                    aria-current="{{ isActive('records') }}" 
-                    role="link" tabindex="0")
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'records'}"
+                    aria-current="{{ $dir.$state.current.name == 'records' }}" 
+                    tabindex="0"
+                    role="link")
                     
                     em.mdi.mdi-format-list-bulleted
                     span(translate="topnavbar.buttons.mobile.dropdown.records")

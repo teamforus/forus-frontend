@@ -50,12 +50,13 @@ section.section.section-voucher-details: .wrapper
                                         ng-if="!email.primary && !email.verified")
 
                                     .text-danger(ng-in="email.error" ng-bind="email.error")
+
                                 .user_email-actions: .flex-row
-                                    .flex-col.flex-center.flex
+                                    .flex.flex-col.flex-center.flex
                                         label(ng-if="email.primary").label.label-success Hoofd e-mailadres
                                         label(ng-if="!email.verified && !email.primary").label.label-default Niet bevestigd
 
-                                    .flex-col(ng-if="!email.primary")
+                                    .flex.flex-col(ng-if="!email.primary")
                                         button(
                                             aria-label="verwijder"
                                             ng-disabled="email.disabled" 

@@ -1,7 +1,6 @@
 let HomeComponent = function (
     $state,
     $stateParams,
-    $interval,
     $sce,
     appConfigs,
     ModalService,
@@ -9,7 +8,6 @@ let HomeComponent = function (
     VoucherService
 ) {
     let $ctrl = this;
-    let val = 0;
 
     $ctrl.appConfigs = appConfigs;
     $ctrl.implementation_name = appConfigs.features.implementation_name;
@@ -29,9 +27,6 @@ let HomeComponent = function (
     };
 
     $ctrl.openInMeModal = () => ModalService.open('modalOpenInMe');
-    $ctrl.showPopupOffices = () => ModalService.open('modalOffices');
-    $ctrl.openAuthCodePopup = () => ModalService.open('modalAuthCode');
-    $ctrl.openActivateCodePopup = () => $state.go('start');
 
     if (AuthService.hasCredentials()) {
         VoucherService.list().then(res => $ctrl.vouchers = res.data.data);
@@ -82,7 +77,6 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        '$interval',
         '$sce',
         'appConfigs',
         'ModalService',
