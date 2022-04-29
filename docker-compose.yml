@@ -1,6 +1,36 @@
-version: "2"
+version: "3.7"
 services:
-  web:
-    image: teamforus/forus-frontend
+  app:
+    build:
+      context: ./
+      dockerfile: ./docker/docker-compose/Dockerfile
+    image: forus-frontend
+    container_name: forus-frontend-app
+    restart: unless-stopped
+    working_dir: /ng-app/
+    volumes:
+      - ./:/ng-app
+    networks:
+      - forus-frontend
+
+  apache2:
+    image: httpd:2.4
+    container_name: forus-frontend-apache2
+    restart: unless-stopped
+    environment:
+      APACHE_DOCUMENT_ROOT: /usr/local/apache2/htdocs
     ports:
-      - "4000:80"
+      - "3000:3000"
+      - "3001:3001"
+      - "3002:3002"
+      - "3003:3003"
+    volumes:
+      - ./dist:/usr/local/apache2/htdocs
+      - ./docker/docker-compose/apache2/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./docker/docker-compose/apache2/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+    networks:
+      - forus-frontend
+
+networks:
+  forus-frontend:
+    driver: bridge
