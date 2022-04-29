@@ -374,7 +374,7 @@
             @include cf();
 
             .button {
-                margin: 0px 0px 0px 10px;
+                margin: 0;
                 display: flex;
 
                 &.button-mobile {
