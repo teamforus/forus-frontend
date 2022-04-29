@@ -61,6 +61,7 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
     @import 'blocks/block-export-options.scss';
+    @import 'blocks/block-permissions-list.scss';
 }
 
 
@@ -890,6 +891,10 @@ body {
         em {
             margin-right: 5px;
         }
+
+        &.card-title-sm {
+            font-size: 13px;
+        }
     }
 
     .card-header {
@@ -934,6 +939,10 @@ body {
 
         &.card-header-success {
             background: #f7f9de;
+        }
+
+        &.card-header-cursor-default {
+            cursor: default;
         }
     }
 
@@ -1169,8 +1178,14 @@ body {
     }
 
     &.card-collapsable {
-        cursor: pointer;
         transition: background .4s;
+
+        .card-header,
+        .card-section {
+            &[ng-click] {
+                cursor: pointer;
+            }
+        }
 
         &:not(.card-collapsed):hover {
             background: lighten($color: #f3f4f5, $amount: 2);
@@ -1253,6 +1268,7 @@ body {
 
     &.card-block-keyvalue {
         @include cf();
+        margin-bottom: 10px;;
 
         .keyvalue-item {
             @include cf();
@@ -1367,6 +1383,10 @@ body {
                     }
                 }
             }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 
@@ -6619,12 +6639,6 @@ body {
     &.modal-shops_map {
         .modal-content {
             padding: 0;
-        }
-    }
-    
-    &.modal-employees_edit {
-        .modal-body {
-            overflow: initial;
         }
     }
 

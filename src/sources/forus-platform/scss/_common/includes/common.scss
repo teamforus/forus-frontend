@@ -73,6 +73,14 @@ img {
     text-decoration: line-through;
 }
 
+.text-pre {
+    white-space: pre;
+}
+
+.text-pre-line {
+    white-space: pre-line;
+}
+
 .text-sm,
 .text-small {
     font-size: .8em;
