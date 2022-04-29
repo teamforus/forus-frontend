@@ -1,4 +1,4 @@
-let BaseController = function(
+const BaseController = function(
     $q,
     $rootScope,
     $scope,
@@ -60,6 +60,7 @@ let BaseController = function(
 
     $rootScope.$state = $state;
     $rootScope.appConfigs = appConfigs;
+    $rootScope.placeholders = appConfigs.placeholders;
     $rootScope.activeOrganization = OrganizationService.active();
     $rootScope.showOrganizationsMenu = false;
 

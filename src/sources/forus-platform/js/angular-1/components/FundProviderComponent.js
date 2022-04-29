@@ -1,36 +1,44 @@
-let FundProviderComponent = function(
+const FundProviderComponent = function(
     $q,
-    $state,
-    $timeout,
+    $filter,
     FundService,
     $stateParams,
     ModalService,
     OrganizationService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
+    const $translate = $filter('translate');
 
+    $ctrl.accepted = false;
+    $ctrl.submitting = false;
     $ctrl.dropdownMenuItem = false;
 
-    $ctrl.filters = {
-        values: {
-            q: "",
-            per_page: 15
-        },
-    };
+    $ctrl.filters = { values: { q: "", per_page: 15 } };
+    $ctrl.filtersSponsorProducts = { values: { q: "", per_page: 15 } };
 
-    $ctrl.filtersSponsorProducts = {
-        values: {
-            q: "",
-            per_page: 15
-        },
+    const $translateDangerZone = (key) => $translate(
+        'modals.danger_zone.sponsor_provider_organization_state.' + key
+    );
+
+    const transformProduct = (product) => {
+        const activeDeals = product.deals_history ? product.deals_history.filter((deal) => deal.active) : [];
+
+        product.allowed = $ctrl.fundProvider.products.indexOf(product.id) !== -1;
+        product.active_deal = activeDeals.length > 0 ? activeDeals[0] : null;
+        product.copyParams = { ...$stateParams, ...{ source: product.id } };
+        product.viewParams = { ...$stateParams, ...{ product_id: product.id } };
+        product.editParams = { ...$stateParams, ...{ product_id: product.id } };
+        product.subsidyEditParams = { ...$stateParams, ...{ product_id: product.id } };
+
+        return product;
     };
 
     $ctrl.toggleActions = (e, item) => {
         e.stopPropagation();
         $ctrl.dropdownMenuItem = item;
     };
-    
+
     $ctrl.onClickOutsideMenu = (e) => {
         e.stopPropagation();
         $ctrl.dropdownMenuItem = false;
@@ -44,18 +52,54 @@ let FundProviderComponent = function(
     };
 
     $ctrl.updateAllowBudgetItem = function(fundProvider, product) {
-        FundService.updateProvider(
+        const enable_products = product.allowed ? [{ id: product.id }] : [];
+        const disable_products = !product.allowed ? [product.id] : [];
+
+        product.submitting = true;
+
+        $ctrl.updateProvider(fundProvider, { enable_products, disable_products }).finally(() => {
+            product.submitting = false;
+        });
+    };
+
+    $ctrl.updateFundProviderAllow = (fundProvider, allowType) => {
+        fundProvider.submittingAllow = true;
+
+        $ctrl.updateProvider(fundProvider, { [allowType]: fundProvider[allowType] }).finally(() => {
+            fundProvider.submittingAllow = false;
+        });
+    };
+
+    $ctrl.updateFundProviderState = (fundProvider, accepted) => {
+        const state = accepted ? 'accepted' : 'rejected';
+
+        ModalService.open("dangerZone", {
+            title: $translateDangerZone(state + '.title'),
+            description: $translateDangerZone(state + '.description'),
+            cancelButton: $translateDangerZone(state + '.buttons.cancel'),
+            confirmButton: $translateDangerZone(state + '.buttons.confirm'),
+            text_align: 'center',
+            onConfirm: () => {
+                fundProvider.submittingState = state;
+
+                $ctrl.updateProvider(fundProvider, { state }).finally(() => {
+                    fundProvider.submittingState = false;
+                });
+            }
+        });
+    };
+
+    $ctrl.updateProvider = (fundProvider, query) => {
+        return FundService.updateProvider(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
-            fundProvider.id, {
-            enable_products: product.allowed ? [{
-                id: product.id
-            }] : [],
-            disable_products: !product.allowed ? [product.id] : [],
-        }
+            fundProvider.id,
+            query
         ).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
+
             $ctrl.fundProvider = res.data.data;
+            $ctrl.accepted = $ctrl.fundProvider.state == 'accepted';
         }, console.error);
     };
 
@@ -69,7 +113,7 @@ let FundProviderComponent = function(
             ).then((res) => {
                 resolve($ctrl.products = {
                     meta: res.data.meta,
-                    data: $ctrl.transformProductsList(res.data.data),
+                    data: res.data.data.map((product) => transformProduct(product)),
                 });
             }, reject);
         });
@@ -84,7 +128,7 @@ let FundProviderComponent = function(
             ).then((res) => {
                 resolve($ctrl.sponsorProducts = {
                     meta: res.data.meta,
-                    data: $ctrl.transformProductsList(res.data.data),
+                    data: res.data.data.map((product) => transformProduct(product)),
                 });
             }, reject);
         });
@@ -98,60 +142,6 @@ let FundProviderComponent = function(
         return $ctrl.fetchSponsorProducts($ctrl.fundProvider, query);
     };
 
-    $ctrl.transformProduct = (product) => {
-        let activeDeals = product.deals_history ? product.deals_history.filter(deal => deal.active) : [];
-
-        product.allowed = $ctrl.fundProvider.products.indexOf(product.id) !== -1;
-        product.active_deal = activeDeals.length > 0 ? activeDeals[0] : null;
-        product.copyParams = { ...$stateParams, ...{ source: product.id } };
-        product.viewParams = { ...$stateParams, ...{ product_id: product.id } };
-        product.editParams = { ...$stateParams, ...{ product_id: product.id } };
-        product.subsidyEditParams = { ...$stateParams, ...{ product_id: product.id } };
-
-        return product;
-    };
-
-    $ctrl.transformProductsList = (products) => {
-        return products.map(product => $ctrl.transformProduct(product));
-    };
-
-    $ctrl.openProductDetails = (product) => {
-        $state.go('fund-provider-product', {
-            organization_id: $ctrl.organization.id,
-            fund_provider_id: $ctrl.fundProvider.id,
-            fund_id: $ctrl.fund.id,
-            product_id: product.id,
-        });
-    };
-
-    $ctrl.dismissProvider = function(fundProvider) {
-        FundService.dismissProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id
-        ).then((res) => {
-            PushNotificationsService.success(
-                'Verborgen!',
-                "Pas de filters aan om verborgen aanbieders terug te vinden."
-            );
-
-            $ctrl.fundProvider = res.data.data;
-            $ctrl.transformProductsList($ctrl.products.data);
-        });
-    };
-
-    $ctrl.updateFundProviderAllow = function(fundProvider, allowType) {
-        FundService.updateProvider(
-            fundProvider.fund.organization_id,
-            fundProvider.fund.id,
-            fundProvider.id,
-            { [allowType]: fundProvider[allowType] }
-        ).then((res) => $timeout(() => {
-            PushNotificationsService.success('Opgeslagen!');
-            $ctrl.fundProvider = res.data.data;
-        }, 500), console.error);
-    };
-
     $ctrl.deleteProduct = (product) => {
         ModalService.open('modalNotification', {
             type: 'confirm',
@@ -161,42 +151,15 @@ let FundProviderComponent = function(
                 $ctrl.organization.id,
                 $ctrl.fundProvider.organization_id,
                 product.id
-            ).then(() => {
-                $ctrl.onPageChangeSponsorProducts();
-            }),
+            ).then(() => $ctrl.onPageChangeSponsorProducts()),
         });
     }
 
-    $ctrl.prepareProperties = () => {
-        let organization = $ctrl.fundProvider.organization;
-        let properties = [];
-
-        let makeProp = (label, value, primary = false) => ({
-            label: label,
-            value: value,
-            primary: primary,
-        });
-
-        organization.email && properties.push(makeProp("E-mail", organization.email, true));
-        organization.website && properties.push(makeProp("Website", organization.website, true));
-        organization.phone && properties.push(makeProp("Telefoonnummer", organization.phone, true));
-        organization.kvk && properties.push(makeProp("KVK", organization.kvk));
-        organization.iban && properties.push(makeProp("IBAN", organization.iban))
-        organization.btw && properties.push(makeProp("BTW", organization.btw));
-
-        let count = properties.length;
-
-        $ctrl.properties = [
-            properties.splice(0, count == 4 ? 4 : 3),
-            properties.splice(0, count == 4 ? 4 : 3)
-        ];
-    };
-
     $ctrl.$onInit = function() {
+        $ctrl.accepted = $ctrl.fundProvider.state == 'accepted';
         $ctrl.stateParams = $stateParams;
 
         $ctrl.onPageChange();
-        $ctrl.prepareProperties();
 
         if ($ctrl.organization.manage_provider_products) {
             $ctrl.onPageChangeSponsorProducts();
@@ -206,14 +169,13 @@ let FundProviderComponent = function(
 
 module.exports = {
     bindings: {
+        fund: '<',
         organization: '<',
         fundProvider: '<',
-        fund: '<'
     },
     controller: [
         '$q',
-        '$state',
-        '$timeout',
+        '$filter',
         'FundService',
         '$stateParams',
         'ModalService',

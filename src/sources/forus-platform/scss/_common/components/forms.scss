@@ -120,9 +120,9 @@
             }
         }
 
-        &.form-toggle-active .form-toggle-inner,
-        &.active .form-toggle-inner,
-        &.checked .form-toggle-inner,
+        &.form-toggle-active:not(.form-toggle-off) .form-toggle-inner,
+        &.active:not(.form-toggle-off) .form-toggle-inner,
+        &.checked:not(.form-toggle-off) .form-toggle-inner,
         &:not(.form-toggle-off)>input[type=radio]:checked+.form-toggle-inner,
         &:not(.form-toggle-off)>input[type=checkbox]:checked+.form-toggle-inner {
             .toggle-input {
@@ -137,6 +137,10 @@
                     margin-right: -1px;
                 }
             }
+        }
+
+        &.form-toggle-off {
+            cursor: default !important;
         }
 
         &.form-toggle-disabled, &[disabled] {
