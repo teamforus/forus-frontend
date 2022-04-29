@@ -1,36 +1,121 @@
 .block.block-sticky-footer.show-sm(ng-class='{ "scrolled" : !visible }' tabindex="0")
     ul.sticky-footer-list
-        li(ui-sref="providers" ui-sref-active="active")
-            a.sticky-footer-item(ui-sref="providers" aria-current="{{ isActive('/providers') }}" role="link" tabindex="0")
-                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
-                span(translate="topnavbar.buttons.providers")
+        li(ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="products" ui-sref-active="active")
+            a.sticky-footer-item(ui-sref="products" aria-current="{{ isActive('/products') }}" role="link" tabindex="0")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
+                span(translate="topnavbar.buttons.products")
 
         li(ng-if="$root.appConfigs.features.has_subsidy_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="actions" ui-sref-active="active")
             a.sticky-footer-item(ui-sref="actions" aria-current="{{ isActive('/actions') }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
                 span(translate="topnavbar.buttons.subsidies")
 
-        li(ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" ui-sref="products" ui-sref-active="active")
-            a.sticky-footer-item(ui-sref="products" aria-current="{{ isActive('/products') }}" role="link" tabindex="0")
-                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
-                span(translate="topnavbar.buttons.products")
+        li(ui-sref="providers" ui-sref-active="active")
+            a.sticky-footer-item(ui-sref="providers" aria-current="{{ isActive('/providers') }}" role="link" tabindex="0")
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
+                span(translate="topnavbar.buttons.providers")
 
-        li(ng-if="!$root.auth_user" ng-click="startFundRequest()" ui-sref-active="active")
+        li(ng-if="vouchers.length || !$root.auth_user" ng-click="startFundRequest()" ui-sref-active="active")
             a.sticky-footer-item(ng-click="startFundRequest()" aria-current="{{ isActive('/start') }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
                 span(translate="topnavbar.buttons.{{ $root.client_key }}.activate" translate-default="{{ 'topnavbar.buttons.activate' | translate }}" role="link" tabindex="0") 
 
-        li(ng-if="$root.auth_user" ui-sref="vouchers" ui-sref-active="active")
+        li(ng-if="!vouchers.length && $root.auth_user" ui-sref="vouchers" ui-sref-active="active")
             a.sticky-footer-item-wrapper(ui-sref="vouchers" aria-current="{{ isActive('/vouchers') }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
-                span(translate="topnavbar.buttons.mobile.voucher") 
+                span(translate="topnavbar.buttons.mobile.voucher")
 
-        li(ng-if="$root.auth_user && !$root.appConfigs.features.records.list" ui-sref="preferences-notifications" ui-sref-active="active")
-            a.sticky-footer-item-wrapper(ui-sref="preferences-notifications" aria-current="{{ isActive('/preferences/notifications') }}" role="link" tabindex="0")
-                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
-                span(translate="topnavbar.buttons.mobile.profile")
-        
-        li(ng-if="$root.auth_user && $root.appConfigs.features.records.list" ui-sref="records" ui-sref-active="active")
-            a.sticky-footer-item-wrapper(ui-sref="records" aria-current="{{ isActive('/records') }}" role="link" tabindex="0")
-                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
-                span(translate="topnavbar.buttons.mobile.profile")
+        li(ng-if="$root.auth_user").sticky-footer-dropdown
+            a.sticky-footer-item-wrapper(ng-click="$ctrl.openProfileMenu($event)" role="button" tabindex="0")
+                em.mdi.mdi-dots-horizontal
+                span(translate="topnavbar.buttons.mobile.more")
+
+            .sticky-footer-dropwdown-subitems(ng-if="$ctrl.profileMenuOpened && visible" click-outside="$ctrl.hideProfileMenu()")
+                .sticky-footer-dropwdown-info
+                    .sticky-footer-dropwdown-title Meer
+
+                .sticky-footer-dropwdown-subitem(
+                    ng-if="vouchers.length"
+                    ui-sref="vouchers"
+                    ng-class="{active: isActive('vouchers')}"
+                    aria-current="{{ isActive('vouchers') }}" 
+                    role="link" tabindex="0")
+                    
+                    em.mdi.mdi-ticket-percent-outline
+                    span(translate="topnavbar.buttons.mobile.dropdown.vouchers")
+
+                .sticky-footer-dropwdown-subitem(
+                    ng-if="!vouchers.length"
+                    ng-click="startFundRequest()"
+                    ng-class="{active: isActive('start')}"
+                    aria-current="{{ isActive('start') }}" 
+                    role="link" tabindex="0")
+                    
+                    em.mdi.mdi-alarm-plus
+                    span(translate="topnavbar.buttons.{{ $root.client_key }}.activate" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
+                
+                .sticky-footer-dropwdown-subitem(
+                    ui-sref="reservations"
+                    ng-class="{active: isActive('reservations')}"
+                    aria-current="{{ isActive('reservations') }}" 
+                    role="link" tabindex="0")
+
+                    em.mdi.mdi-calendar-outline
+                    span(translate="topnavbar.buttons.mobile.dropdown.reservations")
+                
+                .sticky-footer-dropwdown-subitem(
+                    ui-sref="notifications"
+                    ng-class="{active: isActive('notifications')}"
+                    aria-current="{{ isActive('notifications') }}" 
+                    role="link" tabindex="0") 
+
+                    em.mdi.mdi-bell-ring-outline
+                    span(translate="topnavbar.buttons.mobile.dropdown.notifications")
+                
+                .sticky-footer-dropwdown-subitem(
+                    ui-sref="preferences-notifications"
+                    ng-class="{active: isActive('preferences-notifications')}"
+                    aria-current="{{ isActive('preferences-notifications') }}" 
+                    role="link" tabindex="0")
+
+                    em.mdi.mdi-cog-outline
+                    span(translate="topnavbar.buttons.mobile.dropdown.preferences_notifications")
+                
+                .sticky-footer-dropwdown-subitem(
+                    ui-sref="identity-emails"
+                    ng-class="{active: isActive('identity-emails')}"
+                    aria-current="{{ isActive('identity-emails') }}" 
+                    role="link" tabindex="0")
+
+                    em.mdi.mdi-email-outline
+                    span(translate="topnavbar.buttons.mobile.dropdown.preferences_emails")
+
+                .sticky-footer-dropwdown-subitem(
+                    ng-if="$root.appConfigs.flags.fundsMenu"
+                    ui-sref="funds"
+                    ng-class="{active: isActive('funds')}"
+                    aria-current="{{ isActive('funds') }}" 
+                    role="link" tabindex="0")
+                    
+                    em.mdi.mdi-cash-multiple
+                    span(translate="topnavbar.buttons.mobile.dropdown.funds")
+
+                .sticky-footer-dropwdown-subitem(
+                    ng-if="$root.appConfigs.sessions"
+                    ui-sref="security-sessions"
+                    ng-class="{active: isActive('security-sessions')}"
+                    aria-current="{{ isActive('security-sessions') }}" 
+                    role="link" tabindex="0")
+                    
+                    em.mdi.mdi-shield-account-outline
+                    span(translate="topnavbar.buttons.mobile.dropdown.sessions")
+
+                .sticky-footer-dropwdown-subitem(
+                    ng-if="$root.appConfigs.features.records.list"
+                    ui-sref="records"
+                    ng-class="{active: isActive('records')}"
+                    aria-current="{{ isActive('records') }}" 
+                    role="link" tabindex="0")
+                    
+                    em.mdi.mdi-format-list-bulleted
+                    span(translate="topnavbar.buttons.mobile.dropdown.records")

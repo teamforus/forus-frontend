@@ -84,4 +84,67 @@
             }
         }
     }
+
+    @media screen and (max-width: 767px) {
+        &.block-user_emails {
+            .user_email-item {
+                .user_email-icon {
+                    padding-left: 10px;
+
+                    .mdi {
+                        font-size: 20px;
+                    }
+                }
+
+                .user_email-details {
+                    padding-right: 0;
+                    width: 100%;
+
+                    .user_email-address {
+                        font: 600 14px/16px $hf;
+                    }
+
+                    .user_email-options {
+                        .user_email-option {
+                            font: 500 11px/13px $hf;
+                        }
+                    }
+
+                    .button {
+                        font-size: 10px;
+                        padding: 0 0 0 20px;
+
+                        .mdi {
+                            margin-right: 5px;
+                            font-size: 12px;
+                            line-height: 13px;
+                        }
+                    }
+                }
+
+                .user_email-actions {
+                    margin-top: -2px;
+                    padding-left: 0;
+                    padding-right: 10px;
+
+                    label {
+                        margin-bottom: 4px;
+                        padding: 0 5px;
+                        font-size: 9px;
+                        white-space: nowrap;
+                    }
+
+                    .button {
+                        float: right;
+                        padding: 3px 8px;
+                        font-size: 5px;
+
+                        .mdi {
+                            font-size: 11px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
