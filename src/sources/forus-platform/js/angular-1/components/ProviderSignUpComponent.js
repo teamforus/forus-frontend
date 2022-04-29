@@ -162,10 +162,6 @@ const ProviderSignUpComponent = function(
         progressStorage.set('hasApp', $ctrl.hasApp);
     };
 
-    $ctrl.chageBusinessType = (businessType) => {
-        $ctrl.organizationForm.values.business_type_id = businessType.id;
-    };
-
     $ctrl.makeSignUpForm = () => {
         let authTarget = [
             'newSignup',
@@ -304,10 +300,6 @@ const ProviderSignUpComponent = function(
         }, function(form) {
             return ShareService.sendEmail(form.values);
         }, true);
-
-        $ctrl.businessType = $ctrl.businessTypes.filter(
-            option => option.id == $ctrl.organizationForm.values.business_type_id
-        )[0] || null;
     };
 
     $ctrl.deleteOffice = (office) => {

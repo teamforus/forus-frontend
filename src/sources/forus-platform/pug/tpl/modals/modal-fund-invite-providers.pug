@@ -8,9 +8,10 @@
         .modal-body.form
             .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .form-group
                 label.form-label Nodig aanbieders uit van:
-                select(
-                    ng-options="fund.id as fund.name for fund in $ctrl.funds" 
-                    ng-model="$ctrl.form.values.fund_id").form-control
+                .form-offset: select-control(
+                    prop="id"
+                    ng-model="$ctrl.form.values.fund_id"
+                    options="$ctrl.funds").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
                 .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
 

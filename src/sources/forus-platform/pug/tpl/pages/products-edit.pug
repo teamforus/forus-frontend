@@ -208,9 +208,8 @@
             //- Product category
             .card-section.card-section-primary: .row
                 product-categories-control(
-                    disabled="{{!$ctrl.isEditable}}"
+                    disabled="!$ctrl.isEditable"
                     ng-model="$ctrl.form.values.product_category_id"
-                    product-type="($ctrl.product || $ctrl.sourceProduct).product_category.service ? 'service' : 'product'"
                     errors="$ctrl.form.errors.product_category_id")
 
             //- Actions

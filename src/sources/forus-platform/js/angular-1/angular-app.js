@@ -248,6 +248,9 @@ app.directive('blockProviderOrganizationOffices', require('./directives/blocks/s
 app.directive('blockProviderOrganizationEmployees', require('./directives/blocks/sponsor/BlockProviderOrganizationEmployeesDirective'));
 app.directive('blockProviderOrganizationOverview', require('./directives/blocks/sponsor/BlockProviderOrganizationOverviewDirective'));
 
+// Table
+app.directive('thSortable', require('./directives/table/ThSortable'));
+
 // System nitification editor 
 app.directive('systemNotificationEditor', require('./directives/elements/SystemNotificationEditorDirective'));
 app.directive('systemNotificationTemplateEditor', require('./directives/elements/SystemNotificationTemplateEditorDirective'));
