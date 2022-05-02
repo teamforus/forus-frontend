@@ -1,23 +1,24 @@
-.modal.modal-employees_edit.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Medewerker aanpassen")
         .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Medewerker toevoegen")
-        .modal-body.form
-            .modal-section: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
+        .modal-body.modal-body-visible.form
+            .modal-section
                 .form-group(ng-if="!$ctrl.modal.scope.employee")
                     label.form-label E-mailadres
-                    input(type="text" ng-model="$ctrl.form.values.email" id="email_value").form-control
+                    input(type="text" ng-model="$ctrl.form.values.email" placeholder="E-mailadres..." id="email_value").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
+
                 .form-group(ng-if="!$ctrl.employee")
                     label.form-label Rollen
-                    .row: .col-lg-4(ng-repeat="role in $ctrl.modal.scope.roles")
-                        label(ng-click="$ctrl.toggleOption(role.id)" for="product_{{ role.id }}").checkbox.checkbox-narrow
+                    .block.block-permissions-list: .permission-item(ng-repeat="role in $ctrl.modal.scope.roles")
+                        label(ng-click="$ctrl.toggleOption(role.id)" for="product_{{ role.id }}" title="{{ role.name }}").checkbox.checkbox-narrow
                             input(type="checkbox" ng-checked="$ctrl.isChecked(role.id)")
                             .checkbox-label
                                 .checkbox-box: .mdi.mdi-check
-                                span(ng-bind="role.name")
+                                .permission-name: .ellipsis(ng-bind="role.name")
                                 tooltip(ng-if="role.description" text="role.description")
 
                     .form-error(ng-repeat="error in $ctrl.form.errors.roles" ng-bind="error")
