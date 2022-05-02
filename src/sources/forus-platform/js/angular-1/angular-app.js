@@ -64,7 +64,7 @@ app.component('implementationNotificationsShowComponent', require('./components/
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
-app.component('productBoardComponent', require('./components/productBoardComponent'));
+app.component('productBoardComponent', require('./components/ProductBoardComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
