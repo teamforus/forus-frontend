@@ -1267,9 +1267,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
-        name: 'feedback-productboard',
-        url: '/feedback-productboard',
-        component: 'feedbackProductBoardComponent'
+        name: 'productboard',
+        url: '/feedback',
+        component: 'productBoardComponent',
     });
 
     $stateProvider.state({

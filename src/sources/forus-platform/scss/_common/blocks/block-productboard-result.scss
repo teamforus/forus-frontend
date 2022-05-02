@@ -1,19 +1,19 @@
-&.block-feedback-result {
+&.block-productboard-result {
     padding-top: 50px;
     padding-bottom: 50px;
 
-    img {
+    .productboard-result-icon {
         height: 72px;
         width: 72px;
         margin-bottom: 15px;
     }
 
-    .feedback-result-title {
+    .productboard-result-title {
         font: 600 18px/27px $bf;
         color: #252325;
     }
 
-    .feedback-result-info {
+    .productboard-result-info {
         font: 500 13px/18px $bf;
         color: #646F79;
     }

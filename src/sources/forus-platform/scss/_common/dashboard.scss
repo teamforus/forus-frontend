@@ -61,7 +61,7 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
     @import 'blocks/block-export-options.scss';
-    @import 'blocks/block-feedback-result.scss';
+    @import 'blocks/block-productboard-result.scss';
     @import 'blocks/block-permissions-list.scss';
 }
 
@@ -4794,11 +4794,12 @@ body {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         font: 400 13px/20px $bf;
         margin-bottom: 15px;
+        display: flex;
 
         .block-information-icon {
-            margin: auto 10px auto 0;
+            margin: 2.5px 10px auto 0;
             color: #009EF4;
-            font-size: 15px;
+            font-size: 16px;
         }
 
         .block-information-info {
