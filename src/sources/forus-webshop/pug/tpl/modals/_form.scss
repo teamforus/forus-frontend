@@ -155,17 +155,33 @@ $formPadding: 14px 15px;
                 box-shadow: 0 3px 5px rgba(#000000, 0.3);
             }
         }
-            
+
         .select-control-search {
             cursor: pointer;
-            background-image: url('../img/select-bg.png');
-            background-position: 99%;
-            background-repeat: no-repeat;
-            background-size: 25px;
 
             &:focus {
                 border: 1px solid black;
                 box-shadow: 0 3px 5px rgba(#000000, 0.3);
+            }
+        }
+
+        .select-control-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            line-height: inherit;
+            padding-top: inherit;
+            padding-bottom: inherit;
+            padding-right: 5px;
+            display: flex;
+            flex-direction: column;
+
+            .mdi {
+                display: flex;
+                font-size: 20px;
+                margin-top: 2px;
+                color: #646464;
             }
         }
         

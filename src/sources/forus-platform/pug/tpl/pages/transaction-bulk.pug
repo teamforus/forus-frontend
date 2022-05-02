@@ -112,13 +112,13 @@
                     .table-wrapper
                         table.table
                             tr
-                                th(i18n="financial_dashboard_transaction.labels.id")
-                                th(i18n="transactions.labels.price")
-                                th(i18n="transactions.labels.date")
-                                th(i18n="transactions.labels.fund")
-                                th(i18n="transactions.labels.provider")
-                                th(i18n="transactions.labels.status")
-                                th
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.id" value="id")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.price" value="amount")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
                             tr(ng-repeat="transaction in $ctrl.transactions.data")
                                 td(ng-bind="transaction.id")
@@ -140,4 +140,4 @@
 
             //- Transactions pagination
             .card-section(ng-if="$ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
-                paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters" on-page-change="$ctrl.onPageChange(query)")
+                paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")

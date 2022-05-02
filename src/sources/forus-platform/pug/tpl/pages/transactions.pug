@@ -45,11 +45,13 @@
                                             ng-model="$ctrl.filters.values.amount_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | i18n }}").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.state' | i18n }}")
-                                    select(
-                                        ng-options="state.key as state.name for state in $ctrl.states" 
-                                        ng-model="$ctrl.filters.values.state").form-control
+                                    .form-offset: select-control(
+                                        prop="key"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.state"
+                                        options="$ctrl.states").form-control
 
                                 .form-group
                                     form-label-toggle(label="{{ 'transactions.labels.from' | i18n }}")
@@ -67,11 +69,13 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.fund_state' | i18n }}")
-                                    select(
-                                        ng-options="state.key as state.name for state in $ctrl.fundStates" 
-                                        ng-model="$ctrl.filters.values.fund_state").form-control
+                                    .form-offset: select-control(
+                                        prop="key"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.fund_state"
+                                        options="$ctrl.fundStates").form-control
 
                                 .form-actions
                                     button.button.button-primary.button-wide(
@@ -95,14 +99,14 @@
                     .table-wrapper
                         table.table
                             tr
-                                th(i18n="financial_dashboard_transaction.labels.id")
-                                th(i18n="transactions.labels.price")
-                                th(i18n="transactions.labels.date")
-                                th(i18n="transactions.labels.fund")
-                                th(i18n="transactions.labels.provider")
-                                th(i18n="transactions.labels.bulk" ng-if="$ctrl.isSponsor")
-                                th(i18n="transactions.labels.status")
-                                th.th-narrow.text-right(i18n="transactions.labels.action")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.id" value="id")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.price" value="amount")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk" value="voucher_transaction_bulk_id" ng-if="$ctrl.isSponsor")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
                             tr(ng-repeat="transaction in $ctrl.transactions.data")
                                 td(ng-bind="transaction.id")
@@ -168,12 +172,12 @@
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total > 0")
                 .card-block.card-block-table: .table-wrapper: table.table
                     tr
-                        th ID
-                        th Bedrag
-                        th Datum
-                        th Aantal
-                        th Status
-                        th.th-narrow.text-right ACTIES
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="ID" value="id")
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="Bedrag" value="amount")
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="Datum" value="created_at")
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="Aantal" value="voucher_transactions_count")
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="Status" value="state")
+                        th(th-sortable label="Acties").th-narrow.text-right
 
                     tr(ng-repeat="transactionBulk in $ctrl.transactionBulks.data")
                         td(ng-bind="transactionBulk.id")
@@ -203,7 +207,7 @@
 
             //- Bulk transactions pagination
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks" ng-show="$ctrl.transactionBulks.meta.last_page > 1")
-                paginator(meta="$ctrl.transactionBulks.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onBulkPageChange(query)")
+                paginator(meta="$ctrl.transactionBulks.meta" filters="$ctrl.bulkFilters.values" on-page-change="$ctrl.onBulkPageChange(query)")
             
             //- Empty bulk transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total == 0"): .block.block-empty.text-center

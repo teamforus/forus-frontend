@@ -34,7 +34,6 @@ block content
                                 label.form-label(for="business_type_id") Type aanbieder
                                 select-control(
                                     prop="id"
-                                    autoclear="true"
                                     ng-model="$ctrl.form.values.business_type_id"
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer type..."
@@ -45,7 +44,6 @@ block content
                                 label.form-label(for="fund_id") Tegoeden
                                 select-control(
                                     prop="id"
-                                    autoclear="true"
                                     ng-model="$ctrl.form.values.fund"
                                     options="$ctrl.funds"
                                     placeholder="Selecteer tegoed..."
@@ -66,7 +64,6 @@ block content
                                     label.form-label(for="distance") Afstand
                                     select-control(
                                         prop="id"
-                                        autoclear="true"
                                         ng-model="$ctrl.form.values.distance"
                                         options="$ctrl.distances"
                                         placeholder="Afstand..."
