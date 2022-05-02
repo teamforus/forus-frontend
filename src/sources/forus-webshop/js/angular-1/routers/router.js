@@ -762,8 +762,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     i18n_state($stateProvider, {
         name: "fund",
         url: {
-            en: "/funds/{id}",
-            nl: "/fondsen/{id}",
+            en: "/funds/{id:int}",
+            nl: "/fondsen/{id:int}",
         },
         component: "fundComponent",
         data: { id: null, searchData: null },

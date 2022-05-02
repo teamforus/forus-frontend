@@ -1,5 +1,4 @@
 const ModalFundInviteProvidersComponent = function(
-    $timeout,
     FundService,
     FormBuilderService,
     PageLoadingBarService,
@@ -15,7 +14,7 @@ const ModalFundInviteProvidersComponent = function(
 
             $ctrl.funds = res.data.data.filter(fund => fund.id != $ctrl.fund.id);
             $ctrl.form = FormBuilderService.build({
-                fund_id: $ctrl.funds[0].id
+                fund_id: $ctrl.funds[0]?.id
             }, (form) => {
                 PageLoadingBarService.setProgress(0);
 
@@ -24,22 +23,14 @@ const ModalFundInviteProvidersComponent = function(
                     $ctrl.fund.id,
                     form.values.fund_id
                 ).then(res => {
-                    PageLoadingBarService.setProgress(100);
                     $ctrl.modal.scope.confirm(res.data.data);
                     $ctrl.close();
                 }, res => {
-                    PageLoadingBarService.setProgress(100);
                     form.errors = res.data.errors;
                     form.unlock();
                 });
-            });
+            }).finally(() => PageLoadingBarService.setProgress(100));
         });
-    };
-
-    $ctrl.closeAnimated = () => {
-        $ctrl.loaded = false;
-        $timeout(() => $ctrl.close(), 250);
-
     };
 };
 
@@ -49,14 +40,11 @@ module.exports = {
         modal: '='
     },
     controller: [
-        '$timeout',
         'FundService',
         'FormBuilderService',
         'PageLoadingBarService',
         'FundProviderInvitationsService',
         ModalFundInviteProvidersComponent
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-fund-invite-providers.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-fund-invite-providers.html',
 };

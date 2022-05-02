@@ -15,7 +15,7 @@ const ImplementationNotificationsComponent = function(
     $filter,
     ImplementationNotificationsService
 ) {
-    const $ctrl = this;;
+    const $ctrl = this;
     const $translate = $filter('translate');
 
     $ctrl.$onInit = () => {

@@ -58,7 +58,7 @@ const NotificationTemplateEditorDirective = function(
             const labelsToVars = ImplementationNotificationsService.labelsToVars;
 
             const newTemplate = { formal, title: labelsToVars(title), content: labelsToVars(content), type: $dir.type };
-            const defaultTemplate = $dir.notification.templates_default.filter(item => item.type == $dir.type)[0] || null;;
+            const defaultTemplate = $dir.notification.templates_default.filter(item => item.type == $dir.type)[0] || null;
 
             const isSameTitle = newTemplate.title === defaultTemplate.title;
             const isSameContent = newTemplate.content === defaultTemplate.content;
