@@ -1,24 +1,24 @@
 module.exports = {
     accepted: {
-        title: "Are you sure you want to accept this provider?",
+        title: "Weet je zeker dat je deze aanbieder wilt accepteren?",
         description: [
-            `Are you sure you want to accept this provider?`,
-            `You can change this later.`,
+            `Weet je zeker dat je deze aanbieder wilt accepteren?`,
+            `Na acceptatie kun je de aanbieder nog weigeren.`,
         ].join("\n"),
         buttons: {
             cancel: 'Annuleren',
-            confirm: 'Toevoegen',
+            confirm: 'Bevestigen',
         },
     },
     rejected: {
-        title: "Are you sure you want to reject this provider?",
+        title: "Weet je zeker dat je deze aanbieder wilt weigeren?",
         description: [
-            `Are you sure you want to reject this provider?`,
-            `You can change this later.`,
+            `Weet je zeker dat je deze aanbieder wilt weigeren?`,
+            `Na weigering kun je de aanbieder nog accepteren.`,
         ].join("\n"),
         buttons: {
             cancel: 'Annuleren',
-            confirm: 'Toevoegen',
+            confirm: 'Bevestigen',
         },
     },
 };
