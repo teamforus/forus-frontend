@@ -2,7 +2,8 @@ const ProductBoardComponent = function(
     $scope,
     appConfigs,
     FormBuilderService,
-    ProductBoardService
+    ProductBoardService,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
 
@@ -41,6 +42,10 @@ const ProductBoardComponent = function(
             }}).then(() => {
                 $ctrl.state = 'success';
             }, (res) => {
+                if (res.status == 429) {
+                    PushNotificationsService.danger(res.data.meta.title, res.data.meta.message);
+                }
+
                 if (res.status != 422) {
                     return $ctrl.state = 'error';
                 }
@@ -74,6 +79,7 @@ module.exports = {
         'appConfigs',
         'FormBuilderService',
         'ProductBoardService',
+        'PushNotificationsService',
         ProductBoardComponent,
     ],
     templateUrl: 'assets/tpl/pages/productboard.html',
