@@ -69,8 +69,16 @@ img {
     text-align: left;
 }
 
-.text-strike {
+.text-line-through {
     text-decoration: line-through;
+}
+
+.text-pre {
+    white-space: pre;
+}
+
+.text-pre-line {
+    white-space: pre-line;
 }
 
 .text-sm,

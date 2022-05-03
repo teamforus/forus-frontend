@@ -1,5 +1,5 @@
-let BlockProviderOrganizationOverviewDirective = function($scope) {
-    const { organization, fundProvider, updateFundProviderAllow } = $scope;
+const BlockProviderOrganizationOverviewDirective = function($scope) {
+    const $dir = $scope.$dir;
 
     const makeProperties = (organization) => {
         const properties = [];
@@ -18,11 +18,8 @@ let BlockProviderOrganizationOverviewDirective = function($scope) {
         ];
     };
 
-    $scope.$dir = {
-        organization: organization,
-        fundProvider: fundProvider,
-        updateFundProviderAllow: updateFundProviderAllow,
-        properties: makeProperties($scope.organization),
+    $dir.$onInit = () => {
+        $dir.properties = makeProperties($dir.organization);
     };
 };
 
@@ -32,7 +29,10 @@ module.exports = () => {
             fundProvider: "=",
             organization: "=",
             updateFundProviderAllow: "=",
+            updateFundProviderState: "=",
         },
+        bindToController: true,
+        controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [
