@@ -197,6 +197,11 @@ img {
     @include cf();
 }
 
+.flex-start {
+    justify-content: flex-start;
+    justify-items: flex-start;
+}
+
 .flex-end {
     justify-content: flex-end;
     justify-items: flex-end;
@@ -205,6 +210,11 @@ img {
 .flex-center {
     justify-content: center;
     justify-items: center;
+}
+
+.flex-self-start {
+    align-self: flex-start;
+    justify-self: flex-start;
 }
 
 .flex-self-end {
