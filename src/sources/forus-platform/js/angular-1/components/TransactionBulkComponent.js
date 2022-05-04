@@ -166,6 +166,12 @@ const TransactionBulkComponent = function(
         }
     };
 
+    $ctrl.exportList = () => {
+        TransactionService.exportBulk(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
+            FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+        }, console.error);
+    };
+
     $ctrl.updateFlags = () => {
         const bulk = $ctrl.transactionBulk;
         const hasPermission = $filter('hasPerm')($ctrl.organization, 'manage_transaction_bulks');

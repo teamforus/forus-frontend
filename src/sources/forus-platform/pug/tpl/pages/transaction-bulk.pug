@@ -11,6 +11,12 @@
             .card-header: .flex-row
                 .flex.flex-grow: .card-title(translate="financial_dashboard_transaction.labels.details")
                 .flex: .button-group
+                    .flex.flex-grow
+                        button.button.button-primary.button-wide(
+                            ng-click="$ctrl.exportList()")
+                            em.mdi.mdi-download.icon-start
+                            span.ng-scope Exporteren
+
                     //- BNG: Auth url button
                     a(
                         ng-if="$ctrl.showAuthLink"

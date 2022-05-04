@@ -37,6 +37,26 @@ const TransactionsComponent = function(
         name: 'Voltooid'
     }];
 
+    $ctrl.bulkStates = [{
+        key: null,
+        name: 'Alle'
+    }, {
+        key: 'draft',
+        name: 'Draft'
+    }, {
+        key: 'error',
+        name: 'Fout'
+    }, {
+        key: 'pending',
+        name: 'In behandeling'
+    }, {
+        key: 'accepted',
+        name: 'Geaccepteerd'
+    }, {
+        key: 'rejected',
+        name: 'Geweigerd'
+    }];
+
     $ctrl.fundStates = [{
         key: null,
         name: 'Alle'
@@ -231,9 +251,39 @@ const TransactionsComponent = function(
                     moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType
                 ].join('_');
 
-                TransactionService.export(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
-                    FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-                }, console.error);
+                if ($ctrl.viewType.key == 'transactions') {
+                    TransactionService.export(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
+                        FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+                    }, console.error);
+                } else {
+                    TransactionService.exportFields(organization_id, { type }).then((res) => {
+                        ModalService.open('exportDataSelect', {
+                            fields: res.data,
+                            success: onSuccess
+                        });
+
+                        const onSuccess = (data) => {
+                            const { qr_format, data_format, fields } = data;
+                            const queryFilters = {
+                                ...filters,
+                                ...{ data_format, fields },
+                            };
+            
+                            PageLoadingBarService.setProgress(0);
+                            console.info('- data loaded from the api.');
+            
+                            VoucherService.export(organization_id, queryFilters).then((res) => {
+                                PushNotificationsService.success('Succes!', 'The downloading should start shortly.');
+
+                                FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+                                PageLoadingBarService.setProgress(100);
+                            }, (res) => {
+                                PushNotificationsService.danger('Error!', res.data.message);
+                                PageLoadingBarService.setProgress(100);
+                            });
+                        }
+                    });
+                }
             }
         });
     };

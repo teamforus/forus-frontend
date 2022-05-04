@@ -46,6 +46,21 @@ const TransactionService = function(ApiRequest) {
 
             return ApiRequest.get(`${path}/${organization_id}/${type}/transactions/export`, filters, {}, true, transform);
         };
+
+        this.exportFields = function(organization_id, filters = {}) {
+            return ApiRequest.get(`${path}/${organization_id}/${type}/transaction-bulks/export-fields`, filters);
+        };
+
+        this.exportBulk = (type, organization_id, filters = {}) => {
+            const transform = (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
+
+                return _cfg;
+            };
+
+            return ApiRequest.get(`${path}/${organization_id}/${type}/transaction-bulks/export`, filters, {}, true, transform);
+        };
     });
 };
 

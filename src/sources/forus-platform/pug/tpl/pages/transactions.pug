@@ -15,19 +15,19 @@
 
                 //- Filters
                 .flex: .block.block-inline-filters
-                    .button.button-text(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.filters.show" ng-click="$ctrl.filters.reset()")
+                    .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start
                         span(i18n="Wis filters")
 
-                    .form(ng-if="$ctrl.viewType.key == 'transactions' && !$ctrl.filters.show"): .form-group: input(
+                    .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q" 
                         placeholder="{{ 'transactions.labels.search' | i18n }}").form-control
 
-                    .form(ng-if="$ctrl.viewType.key == 'transactions'"): .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
+                    .form: .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
                         .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
                             .arrow-box.bg-dim: .arrow
                             .form
-                                .form-group
+                                .form-group(ng-if="$ctrl.viewType.key == 'transactions'")
                                     form-label-toggle(label="{{ 'transactions.labels.search' | i18n }}" is-active)
                                     input(
                                         ng-model="$ctrl.filters.values.q" 
@@ -51,7 +51,7 @@
                                         prop="key"
                                         search="false"
                                         ng-model="$ctrl.filters.values.state"
-                                        options="$ctrl.states").form-control
+                                        options="$ctrl.viewType.key == 'transactions' ? $ctrl.states : $ctrl.bulkStates").form-control
 
                                 .form-group
                                     form-label-toggle(label="{{ 'transactions.labels.from' | i18n }}")
@@ -69,7 +69,7 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
 
-                                .form-group(ng-click="$event.stopPropagation()")
+                                .form-group(ng-if="$ctrl.viewType.key == 'transactions'" ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.fund_state' | i18n }}")
                                     .form-offset: select-control(
                                         prop="key"
@@ -82,7 +82,7 @@
                                         ng-click="$ctrl.exportList()"
                                         ng-disabled="$ctrl.transactions.meta.total == 0")
                                         em.mdi.mdi-download.icon-start  
-                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactions.meta.total }")
+                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: ($ctrl.viewType.key == 'transactions' ? $ctrl.transactions.meta.total : $ctrl.transactionBulks.meta.total) }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
