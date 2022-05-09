@@ -310,7 +310,7 @@ const FundRequestsComponent = function(
 
             const isAssigned = assignedPendingRecords.length > 0 || assignedDisregardedRecords.length > 0;
             const hasPartnerBSN = recordTypes.includes('partner_bsn');
-            const canAddPartnerBsn = isSponsorEmployee && $ctrl.organization.bsn_enabled && request.is_assigned && !hasPartnerBSN;
+            const canAddPartnerBsn = isSponsorEmployee && $ctrl.organization.bsn_enabled && isAssigned && !hasPartnerBSN;
 
             const hasPendingInternallyAssignedRecords = pendingRecords.filter((record) => {
                 return record.employee?.organization_id === $ctrl.organization.id;
