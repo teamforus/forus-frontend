@@ -7,7 +7,7 @@ let PincodeControlDirective = function(
     let blockSize = $scope.blockSize = $scope.blockSize || 6;
     let blockCount = $scope.blockCount = $scope.blockCount || 1;
     let totalSize = blockSize * blockCount;
-    let $input = angular.element($element[0].querySelector('.hidden-input'));;
+    let $input = angular.element($element[0].querySelector('.hidden-input'));
     let len = 0;
     let inputTypes = ['insertText', 'insertCompositionText', 'deleteContentBackward'];
     let eventListener = null;

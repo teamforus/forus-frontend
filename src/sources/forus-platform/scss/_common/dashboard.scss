@@ -61,6 +61,7 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
     @import 'blocks/block-export-options.scss';
+    @import 'blocks/block-permissions-list.scss';
 }
 
 
@@ -656,6 +657,7 @@ body {
                 display: block;
                 font: 500 14px/20px $bf;
                 transition: 0.4s;
+                color: #646F79;
 
                 .sidebar-nav-item-icon {
                     top: 5px;
@@ -698,11 +700,14 @@ body {
                     }
                 }
 
-                &.active,
                 &:focus,
                 &:hover {
-                    color: #d91d46;
+                    color: #009EF4;
                     text-decoration: none;
+                }
+
+                &.active {
+                    color: #004195;
                 }
 
                 &:hover:not(.active) {
@@ -887,6 +892,10 @@ body {
         em {
             margin-right: 5px;
         }
+
+        &.card-title-sm {
+            font-size: 13px;
+        }
     }
 
     .card-header {
@@ -931,6 +940,10 @@ body {
 
         &.card-header-success {
             background: #f7f9de;
+        }
+
+        &.card-header-cursor-default {
+            cursor: default;
         }
     }
 
@@ -1086,7 +1099,7 @@ body {
                     font: 600 11px/18px $bf;
                     text-align: right;
                     color: #134478;
-                    margin: 0 0 5px;
+                    margin: 0 0 2px;
                 }
 
                 .card-section-actions-value {
@@ -1166,8 +1179,14 @@ body {
     }
 
     &.card-collapsable {
-        cursor: pointer;
         transition: background .4s;
+
+        .card-header,
+        .card-section {
+            &[ng-click] {
+                cursor: pointer;
+            }
+        }
 
         &:not(.card-collapsed):hover {
             background: lighten($color: #f3f4f5, $amount: 2);
@@ -1181,7 +1200,7 @@ body {
     }
 
     &.card-block-listing {
-        font: 500 14px/18px $bf;
+        font: 500 13px/20px $bf;
         color: #282b39;
 
         span {
@@ -1190,9 +1209,9 @@ body {
         }
 
         .card-block-listing-label {
-            font: 500 11px/15px $bf;
-            color: #646f79;
-            margin: 0 0 5px;
+            font: 600 11px/18px $bf;
+            color: $colorPrimary;
+            margin: 0 0 2px;
         }
 
         .card-block-listing-value {
@@ -1250,6 +1269,7 @@ body {
 
     &.card-block-keyvalue {
         @include cf();
+        margin-bottom: 10px;;
 
         .keyvalue-item {
             @include cf();
@@ -1364,6 +1384,10 @@ body {
                     }
                 }
             }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 
@@ -3747,7 +3771,7 @@ body {
                 }
 
                 &:not(.pincode-number-block-start) {
-                    border-left: 0;;
+                    border-left: 0;
                 }
 
                 &:last-child {
@@ -6616,12 +6640,6 @@ body {
     &.modal-shops_map {
         .modal-content {
             padding: 0;
-        }
-    }
-    
-    &.modal-employees_edit {
-        .modal-body {
-            overflow: initial;
         }
     }
 

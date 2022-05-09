@@ -12,7 +12,7 @@ const ArrService = function() {
                 chunks.push(data.splice(0, len));
             } while (data.length);
 
-            return chunks;;
+            return chunks;
         }
     });
 };

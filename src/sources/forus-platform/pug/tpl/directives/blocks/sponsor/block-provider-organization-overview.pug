@@ -1,8 +1,26 @@
 .card
     .card-section.card-section-narrow
-        .block.block-entity-overview
-            .entity-photo: img(ng-src="{{ $dir.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}").entity-photo-img
-            .entity-details: .entity-title(ng-bind="$dir.organization.name")
+        .block.block-entity-overview.flex
+            .flex.flex-grow
+                .entity-photo: img(ng-src="{{ $dir.organization.logo.sizes.thumbnail || $root.placeholders.organizationThumbnail }}").entity-photo-img
+                .entity-details: .entity-title(ng-bind="$dir.organization.name")
+
+            .flex.flex-vertical(ng-if="$dir.fundProvider"): .button-group
+                button.button.button-default(
+                    ng-disabled="$dir.fundProvider.submittingState"
+                    ng-if="$dir.fundProvider.state != 'rejected'"
+                    ng-click="$dir.updateFundProviderState($dir.fundProvider, false)")
+                    .mdi.mdi-close.icon-start(ng-if="!$dir.submitting")
+                    .mdi.mdi-loading.mdi-spin.icon-start(ng-if="$dir.submitting")
+                    | Weigeren
+
+                button.button.button-primary(
+                    ng-disabled="$dir.fundProvider.submittingState"
+                    ng-if="$dir.fundProvider.state != 'accepted'"
+                    ng-click="$dir.updateFundProviderState($dir.fundProvider, true)")
+                    .mdi.mdi-check.icon-start(ng-if="!$dir.submitting")
+                    .mdi.mdi-loading.mdi-spin.icon-start(ng-if="$dir.submitting")
+                    | Accepteren
 
     .card-section.card-section-primary.card-section-narrow(ng-repeat="properties in $dir.properties" ng-if="properties.length > 0")
         .flex-row.flex-grow: .flex-col(ng-repeat="property in properties")
@@ -15,7 +33,10 @@
         ng-if="$dir.fundProvider && $dir.fundProvider.fund.type == 'budget'"): .row: .col.col-lg-8: .flex-row
         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
             .card-block-listing-label Accepteer budget
-            .button.button-text.button-narrow: label(for="provider_allow_budget").form-toggle
+            label(
+                ng-disabled="$dir.fundProvider.submittingAllow"
+                ng-class="$dir.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
+                for="provider_allow_budget").form-toggle
                 input(
                     type="checkbox" 
                     id="provider_allow_budget"
@@ -25,10 +46,14 @@
             
         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
             .card-block-listing-label Accepteer aanbiedingen
-            .button.button-text.button-narrow: label(for="provider_allow_products").form-toggle
+            label(
+                ng-disabled="$dir.fundProvider.submittingAllow"
+                ng-class="$dir.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
+                for="provider_allow_products").form-toggle
                 input(
                     type="checkbox" 
                     id="provider_allow_products"
+                    ng-disable="$dir.fundProvider.state != 'accepted'"
                     ng-change="$dir.updateFundProviderAllow($dir.fundProvider, 'allow_products')"
                     ng-model="$dir.fundProvider.allow_products")
                 .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot

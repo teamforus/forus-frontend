@@ -58,7 +58,7 @@ const VoucherExportService = function(
                             return PushNotificationsService.danger('Error!', error);
                         }
 
-                        PushNotificationsService.success('Succes!', 'The downloading should start shortly.');
+                        PushNotificationsService.success('Succes!', 'De download begint over enkele ogenblikken.');
                     }, console.error).finally(() => PageLoadingBarService.setProgress(100));
                 }, (res) => {
                     PushNotificationsService.danger('Error!', res.data.message);

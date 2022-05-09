@@ -28,11 +28,14 @@
                     label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
                     .form-offset: select-control(
                         prop="id"
+                        autoclear="true"
                         options="$ctrl.products"
-                        ng-model="$ctrl.form.values.product_id").form-control
+                        ng-model="$ctrl.form.values.product_id"
+                        placeholder="Selecteer aanbod...").form-control
+
                     .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
                     .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
-                
+
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
                     datepicker(

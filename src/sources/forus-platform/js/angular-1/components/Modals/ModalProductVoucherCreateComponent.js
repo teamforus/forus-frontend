@@ -73,7 +73,7 @@ const ModalProductVoucherCreateComponent = function(
     $ctrl.initForm = () => {
         $ctrl.form = FormBuilderService.build({
             expire_at: $ctrl.fund.end_date,
-            product_id: $ctrl.product.id,
+            product_id: $ctrl.product?.id,
             fund_id: $ctrl.fund.id,
         }, (form) => {
             VoucherService.storeValidate($ctrl.organization.id, {
@@ -178,6 +178,10 @@ const ModalProductVoucherCreateComponent = function(
             fund_id: $ctrl.fund.id,
             price_type: 'regular',
             show_all: 1,
+            simplified: 1,
+            per_page: 1000,
+            order_by: 'name',
+            order_by_dir: 'asc',
         }).then((res) => {
             $ctrl.products = res.data.data.map(product => {
                 return {
@@ -189,12 +193,10 @@ const ModalProductVoucherCreateComponent = function(
 
             $ctrl.modal.setLoaded();
 
-            if ($ctrl.products.length > 0) {
-                $ctrl.product = $ctrl.products[0];
-            } else {
+            if ($ctrl.products.length == 0) {
                 $ctrl.close();
 
-            return ModalService.open('modalNotification', {
+                return ModalService.open('modalNotification', {
                     type: 'info',
                     title: 'modals.modal_product_voucher_create.errors.title.no_products',
                     description: 'modals.modal_product_voucher_create.errors.no_products',
@@ -203,7 +205,6 @@ const ModalProductVoucherCreateComponent = function(
             }
 
             $ctrl.modal.loaded = true;
-
             $ctrl.initForm();
         });
     };

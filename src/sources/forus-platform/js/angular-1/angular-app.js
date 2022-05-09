@@ -8,7 +8,7 @@ const app = angular.module('forusApp', [
     'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
-app.constant('appConfigs', env_data);
+app.constant('appConfigs', {...env_data, ...require('./config/configs')});
 
 // Controllers
 app.controller('BaseController', require('./controllers/BaseController'));
@@ -109,6 +109,7 @@ app.component('modalReservationNotesComponent', require('./components/Modals/Mod
 app.component('modalSwitchBankConnectionAccountComponent', require('./components/Modals/ModalSwitchBankConnectionAccountComponent'));
 app.component('modalExportDataSelectComponent', require('./components/Modals/ModalExportDataSelectComponent'));
 app.component('modalVoucherTransactionProviderComponent', require('./components/Modals/ModalVoucherTransactionProviderComponent'));
+app.component('modalFundRequestAssignValidatorComponent', require('./components/Modals/ModalFundRequestAssignValidatorComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -223,6 +224,7 @@ app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDi
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
+app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 

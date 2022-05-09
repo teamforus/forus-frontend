@@ -170,4 +170,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('voucherTransactionProvider', {
         component: 'modalVoucherTransactionProviderComponent'
     });
+
+    ModalRouteProvider.modal('fundRequestAssignValidator', {
+        component: 'modalFundRequestAssignValidatorComponent'
+    });
 }];
