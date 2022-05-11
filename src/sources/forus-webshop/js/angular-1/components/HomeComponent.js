@@ -29,7 +29,6 @@ let HomeComponent = function (
     };
 
     $ctrl.openInMeModal = () => ModalService.open('modalOpenInMe');
-    $ctrl.showPopupOffices = () => ModalService.open('modalOffices');
     $ctrl.openAuthCodePopup = () => ModalService.open('modalAuthCode');
     $ctrl.openActivateCodePopup = () => $state.go('start');
 

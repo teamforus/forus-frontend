@@ -21,7 +21,6 @@ let TopNavbarDirective = function(
     $scope.startFundRequest = () => $state.go('start');
     $scope.openAuthPopup = () => ModalService.open('modalAuth');
     $scope.openAuthCodePopup = () => ModalService.open('modalAuthCode');
-    $scope.showPopupOffices = () => ModalService.open('modalOffices');
     $scope.openActivateCodePopup = () => $state.go('start');
 
     $scope.openPinCodePopup = () => {
