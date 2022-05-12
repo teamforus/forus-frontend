@@ -9,8 +9,9 @@ module.exports = {
         description: "Thank you, your opinion is very important to us!",
     },
     labels: {
-        provider: 'Aanbieder',
+        note: 'Notitie',
         amount: 'Bedrag',
+        provider: 'Aanbieder',
         organization: 'Betaal vanuit',
     },
     buttons: {

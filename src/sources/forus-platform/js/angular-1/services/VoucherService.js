@@ -75,10 +75,8 @@ const VoucherService = function(ApiRequest) {
             return ApiRequest.get(`/platform/organizations/${organization_id}/sponsor/vouchers/export-fields`, filters);
         };
 
-        this.makeTransaction = (organization_id, voucher_id, data = {}) => {
-            return ApiRequest.post(
-                `/platform/organizations/${organization_id}/sponsor/vouchers/${voucher_id}/transactions`, data
-            );
+        this.makeSponsorTransaction = (organization_id, data = {}) => {
+            return ApiRequest.post(`/platform/organizations/${organization_id}/sponsor/transactions`, data);
         };
 
         this.sampleCSVBudgetVoucher = (expires_at = "2020-02-20") => {

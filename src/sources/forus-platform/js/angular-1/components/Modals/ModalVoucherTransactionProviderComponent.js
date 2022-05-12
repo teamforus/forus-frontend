@@ -1,55 +1,61 @@
 const ModalVoucherTransactionProviderComponent = function(
-    FormBuilderService,
     VoucherService,
-    OrganizationService
+    FormBuilderService,
+    OrganizationService,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
-    $ctrl.previewForm = false;
-    $ctrl.finishForm = false;
+
+    $ctrl.fetchProviders = (voucher, organization) => {
+        return OrganizationService.providerOrganizations(organization.id, {
+            state: 'accepted',
+            fund_id: voucher.fund_id,
+            allow_budget: 1,
+            per_page: 1000,
+        }).then((res) => {
+            return res.data.data.length != 1 ? [{
+                id: null,
+                name: "Selecteer aanbieder",
+            }, ...res.data.data] : res.data.data;
+        });
+    };
 
     $ctrl.$onInit = () => {
-        $ctrl.organization = $ctrl.modal.scope.organization;
-        $ctrl.voucher = $ctrl.modal.scope.voucher;
+        const { voucher, organization, onCreated } = $ctrl.modal.scope;
 
-        OrganizationService.providerOrganizations($ctrl.organization.id, {}).then((res => {
-            $ctrl.providerOrganizations = res.data.data;
+        $ctrl.state = 'form';
+        $ctrl.voucher = voucher;
+        $ctrl.onCreated = onCreated;
+        $ctrl.organization = organization;
 
-            $ctrl.providerOrganizations.unshift({
-                id: null,
-                name: "Selecteer aanbieder"
-            });
-        }));
+        $ctrl.fetchProviders(voucher, organization).then((data) => {
+            $ctrl.providers = data;
+            $ctrl.providersList = data.reduce((list, item) => ({ ...list, [item.id]: item }), {});
 
-        $ctrl.form = FormBuilderService.build({
-            provider_id: null,
-            amount: 0,
-        }, (form) => {
-            VoucherService.makeTransaction($ctrl.organization.id, $ctrl.voucher.id, form.values).then(() => {
-                $ctrl.previewForm = false;
-                $ctrl.finishForm = true;
-            }, res => {
-                $ctrl.previewForm = false;
-                form.errors = res.data.errors;
-                form.unlock();
-            });
-        }, true);
+            $ctrl.form = FormBuilderService.build({
+                note: '',
+                amount: '',
+                voucher_id: voucher.id,
+                provider_id: data[0]?.id,
+            }, (form) => {
+                VoucherService.makeSponsorTransaction(organization.id, form.values).then((res) => {
+                    $ctrl.state = 'finish';
+                    $ctrl.transaction = res.data;
+                }, (res) => {
+                    form.errors = res.data.errors;
+                    $ctrl.state = 'form';
+                    PushNotificationsService.danger('Mislukt!', res.data.message);
+                }).finally(() => form.unlock());
+            }, true);
+        });
     };
 
-    $ctrl.showPreviewForm = () => {
-        $ctrl.selectedProvider = $ctrl.providerOrganizations.filter((provider) => provider.id === $ctrl.form.values.provider_id)[0];
-
-        if (!$ctrl.selectedProvider.id) {
-            $ctrl.form.errors = {provider_id: ['Selecteer aanbieder']};
-            return;
+    $ctrl.onClose = () => {
+        if ($ctrl.transaction && typeof $ctrl.onCreated == 'function') {
+            $ctrl.onCreated();
         }
 
-        $ctrl.form.errors = {};
-        $ctrl.previewForm = true;
-    };
-
-    $ctrl.confirm = () => {
         $ctrl.close();
-        typeof $ctrl.onConfirm === 'function' && $ctrl.onConfirm();
     };
 };
 
@@ -59,12 +65,11 @@ module.exports = {
         modal: '=',
     },
     controller: [
-        'FormBuilderService',
         'VoucherService',
+        'FormBuilderService',
         'OrganizationService',
-        ModalVoucherTransactionProviderComponent
+        'PushNotificationsService',
+        ModalVoucherTransactionProviderComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-voucher-transaction-provider.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-voucher-transaction-provider.html',
 };
