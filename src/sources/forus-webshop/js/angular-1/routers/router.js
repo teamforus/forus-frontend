@@ -808,12 +808,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     i18n_state($stateProvider, {
         name: "fund-activate",
         url: {
-            en: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_voucher",
-            nl: "/fondsen/{fund_id}/activeer?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_voucher",
+            en: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+            nl: "/fondsen/{fund_id}/activeer?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
         },
         component: "fundActivateComponent",
         params: {
             backoffice_error: null,
+            backoffice_error_key: null,
             backoffice_fallback: null,
             backoffice_voucher: null,
         },
