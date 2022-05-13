@@ -25,10 +25,11 @@
                         label.form-label(i18n="organization_edit.labels.bank")
                         .form-offset
                             input(
-                                ng-disabled="$root.auth_user.address != $ctrl.organization.identity_address"
+                                ng-disabled="$ctrl.organization && $root.auth_user.address != $ctrl.organization.identity_address"
                                 ng-model="$ctrl.form.values.iban" 
                                 placeholder="IBAN-nummer").form-control
-                            .form-hint(ng-if="$root.auth_user.address != $ctrl.organization.identity_address") Alleen de eigenaar kan het rekeningnummer wijzigen.
+                            .form-hint(ng-if="$ctrl.organization && $root.auth_user.address != $ctrl.organization.identity_address")
+                                | Alleen de eigenaar kan het rekeningnummer wijzigen.
                             .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
             
             .card-section.card-section-primary
