@@ -6,6 +6,7 @@ const TransactionBulkComponent = function(
     appConfigs,
     ModalService,
     TransactionService,
+    TransactionsExportService,
     PageLoadingBarService,
     PushNotificationsService
 ) {
@@ -167,9 +168,7 @@ const TransactionBulkComponent = function(
     };
 
     $ctrl.exportList = () => {
-        TransactionService.exportBulk(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
-            FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-        }, console.error);
+        TransactionsExportService.exportBulkTransaction($ctrl.organization.id, $ctrl.transactionBulk.id, $ctrl.bulkFilters);
     };
 
     $ctrl.updateFlags = () => {
@@ -221,6 +220,7 @@ module.exports = {
         'appConfigs',
         'ModalService',
         'TransactionService',
+        'TransactionsExportService',
         'PageLoadingBarService',
         'PushNotificationsService',
         TransactionBulkComponent

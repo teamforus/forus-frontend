@@ -8,6 +8,7 @@ const TransactionsComponent = function(
     ModalService,
     $stateParams,
     TransactionService,
+    TransactionsExportService,
     PageLoadingBarService,
     PushNotificationsService,
 ) {
@@ -93,6 +94,11 @@ const TransactionsComponent = function(
     $ctrl.bulkFilters = {
         values: {},
         valuesDefault: {
+            from: null,
+            to: null,
+            quantity_min: null,
+            quantity_max: null,
+            state: $ctrl.bulkStates[0].key,
             per_page: 20,
             order_by: 'created_at',
             order_dir: 'desc',
@@ -106,6 +112,10 @@ const TransactionsComponent = function(
 
     $ctrl.hideFilters = () => {
         $timeout(() => $ctrl.filters.show = false, 0);
+    };
+
+    $ctrl.hideBulkFilters = () => {
+        $timeout(() => $ctrl.bulkFilters.show = false, 0);
     };
 
     $ctrl.fetchBulks = (query) => {
@@ -239,8 +249,7 @@ const TransactionsComponent = function(
         }));
     };
 
-    // Export to XLS file
-    $ctrl.exportList = () => {
+    const exportTransactions = () => {
         ModalService.open('exportType', {
             success: (data) => {
                 const filters = { ...$ctrl.filters.values, ...{ export_format: data.exportType } };
@@ -251,41 +260,24 @@ const TransactionsComponent = function(
                     moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType
                 ].join('_');
 
-                if ($ctrl.viewType.key == 'transactions') {
-                    TransactionService.export(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
-                        FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-                    }, console.error);
-                } else {
-                    TransactionService.exportFields(organization_id, { type }).then((res) => {
-                        ModalService.open('exportDataSelect', {
-                            fields: res.data,
-                            success: onSuccess
-                        });
-
-                        const onSuccess = (data) => {
-                            const { qr_format, data_format, fields } = data;
-                            const queryFilters = {
-                                ...filters,
-                                ...{ data_format, fields },
-                            };
-            
-                            PageLoadingBarService.setProgress(0);
-                            console.info('- data loaded from the api.');
-            
-                            VoucherService.export(organization_id, queryFilters).then((res) => {
-                                PushNotificationsService.success('Succes!', 'The downloading should start shortly.');
-
-                                FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-                                PageLoadingBarService.setProgress(100);
-                            }, (res) => {
-                                PushNotificationsService.danger('Error!', res.data.message);
-                                PageLoadingBarService.setProgress(100);
-                            });
-                        }
-                    });
-                }
+                TransactionService.export(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
+                    FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+                }, console.error);
             }
         });
+    };
+
+    const exportBulkTransactionsList = () => {
+        TransactionsExportService.exportBulkTransactionsList($ctrl.organization.id, $ctrl.bulkFilters);
+    };
+
+    // Export to XLS file
+    $ctrl.exportList = () => {
+        if ($ctrl.viewType.key == 'transactions') {
+            exportTransactions();
+        } else {
+            exportBulkTransactionsList();
+        }
     };
 
     $ctrl.updateHasPendingBulking = () => {
@@ -327,6 +319,7 @@ module.exports = {
         'ModalService',
         '$stateParams',
         'TransactionService',
+        'TransactionsExportService',
         'PageLoadingBarService',
         'PushNotificationsService',
         TransactionsComponent

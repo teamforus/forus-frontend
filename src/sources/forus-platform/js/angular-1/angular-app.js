@@ -168,6 +168,7 @@ app.service('ProductReservationService', require('./services/ProductReservationS
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
 app.service('TagService', require('./services/TagService'));
+app.service('TransactionsExportService', require('./services/TransactionsExportService'));
 
 // Directives
 app.directive('menu', {
