@@ -5,10 +5,6 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalNotificationComponent'
     });
 
-    ModalRouteProvider.modal('modalOffices', {
-        component: 'modalOfficesComponent'
-    });
-
     ModalRouteProvider.modal('modalAuth', {
         component: 'modalAuthComponent'
     });
