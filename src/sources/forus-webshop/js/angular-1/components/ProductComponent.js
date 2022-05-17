@@ -32,10 +32,6 @@ const ProductComponent = function(
         provider.showOffices = !provider.showOffices;
     };
 
-    $scope.openAuthPopup = function() {
-        ModalService.open('modalAuth', {});
-    };
-
     $ctrl.requestFund = (fund) => {
         $ctrl.fetchingFund = true;
 

@@ -77,10 +77,81 @@
                         font-size: 1.7em;
                     }
                 }
+
+                .label {
+                    white-space: nowrap;
+                }
             }
     
             &:last-child {
                 border-bottom: none;  
+            }
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        &.block-user_emails {
+            .user_email-item {
+                .user_email-icon {
+                    padding-left: 10px;
+
+                    .mdi {
+                        font-size: 20px;
+                    }
+                }
+
+                .user_email-details {
+                    padding-right: 0;
+                    width: 100%;
+
+                    .user_email-address {
+                        font: 600 14px/16px $hf;
+                    }
+
+                    .user_email-options {
+                        .user_email-option {
+                            font: 500 11px/13px $hf;
+                        }
+                    }
+
+                    .button {
+                        font-size: 14px;
+                        text-align: left;
+                        padding: 0 0 0 30px;
+
+                        .mdi {
+                            font-size: 16px;
+                            margin-left: -20px;
+                            margin-right: 0;
+                        }
+                    }
+                }
+
+                .user_email-actions {
+                    margin-top: -2px;
+                    padding-left: 0;
+                    padding-right: 10px;
+
+                    .label {
+                        margin: 0 0 10px;
+                    }
+
+                    .flex-row {
+                        flex-direction: column;
+                        
+                        .flex-col {
+                            flex-direction: row;
+                            justify-content: flex-end;
+                        }
+                    }
+
+                    .button {
+                        &.button-icon {
+                            padding: 7.5px 12.5px;
+                            font-size: 14px;
+                        }
+                    }
+                }
             }
         }
     }

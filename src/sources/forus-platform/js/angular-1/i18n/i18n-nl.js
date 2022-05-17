@@ -359,8 +359,8 @@ module.exports = {
             date: "Datum",
         },
         tooltips: {
-            pending_iban_from: "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
-            pending_iban_to: "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
+            pending_iban_from: "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
+            pending_iban_to: "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
         }
     },
 
@@ -1260,7 +1260,7 @@ module.exports = {
             total_amount: "Som van transacties <strong>{{ total_amount }}</strong>",
             bulk_total_amount: [
                 "Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie ter waarde van <strong>{{ total_amount }}</strong>.",
-                "Gebeurt automatisch dagelijks om 09:00."
+                "Gebeurt automatisch dagelijks om 09:00. Tenzij anders is ingesteld of bulks alleen handmatig aangemaakt kunnen worden."
             ].join("</br>"),
         },
         buttons: {
