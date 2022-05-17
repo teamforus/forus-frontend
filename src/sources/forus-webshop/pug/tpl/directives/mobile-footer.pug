@@ -27,7 +27,7 @@
 
         //- Start fund request
         li(
-            ng-if="$dir.vouchers.length || !$root.auth_user" 
+            ng-if="!$dir.vouchers.length || !$root.auth_user" 
             ng-click="$dir.startFundRequest()" 
             ui-sref-active="active")
             a.sticky-footer-item(ng-click="$dir.startFundRequest()" aria-current="{{ $dir.$state.current.name == 'start' }}" tabindex="0" role="link")
@@ -40,7 +40,7 @@
 
         //- Vouchers
         li(
-            ng-if="!$dir.vouchers.length && $root.auth_user"
+            ng-if="$dir.vouchers.length && $root.auth_user"
             ui-sref="vouchers"
             ui-sref-active="active")
 

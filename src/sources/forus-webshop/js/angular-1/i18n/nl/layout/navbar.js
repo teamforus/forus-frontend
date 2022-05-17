@@ -69,7 +69,7 @@ module.exports = {
                 preferences_notifications: "Notificatievoorkeuren",
                 preferences_emails: "E-mailinstellingen",
                 records: "Profiel",
-                funds: "Aanvragen",
+                funds: "Fondsen",
                 sessions: "Sessies"
             }
         }

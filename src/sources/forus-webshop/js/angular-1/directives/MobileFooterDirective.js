@@ -2,11 +2,13 @@ const MobileFooterDirective = function(
     $scope,
     $state,
     VoucherService,
+    FundService,
 ) {
     const { $dir } = $scope;
 
     $dir.visible = true;
     $dir.vouchers = null;
+    $dir.funds = null;
     $dir.prevOffsetY = window.pageYOffset;
     $dir.profileMenuOpened = false;
 
@@ -26,7 +28,7 @@ const MobileFooterDirective = function(
     $dir.startFundRequest = () => {
         $dir.hideProfileMenu();
 
-        if ($ctrl.funds.length > 0) {
+        if ($dir.funds && $dir.funds.length > 0) {
             $state.go('start');
         }
     };
@@ -39,15 +41,21 @@ const MobileFooterDirective = function(
         $dir.profileMenuOpened = false;
     };
 
+    const getFundList = () => {
+        FundService.list(null, {check_criteria: 1}).then((res) => $dir.funds = res.data.data);
+    }
+
     $dir.onAuthUserChange = (auth_user) => {
         if (!auth_user) {
             return $dir.vouchers = null;
         }
 
+        getFundList();
         VoucherService.list().then((res) => $dir.vouchers = res.data.data);
     };
 
     $dir.$onInit = () => {
+        getFundList();
         $dir.$state = $state;
 
         window.addEventListener('scroll', $dir.updateScrolled);
@@ -69,6 +77,7 @@ module.exports = () => {
             '$scope',
             '$state',
             'VoucherService',
+            'FundService',
             MobileFooterDirective
         ],
         templateUrl: 'assets/tpl/directives/mobile-footer.html'
