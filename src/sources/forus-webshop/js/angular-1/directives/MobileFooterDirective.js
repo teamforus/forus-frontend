@@ -43,10 +43,6 @@ let MobileFooterDirective = function(
         ModalService.open('modalAuthCode', {});
     };
 
-    $scope.showPopupOffices = function() {
-        ModalService.open('modalOffices', {});
-    };
-
     $scope.setLang = (lang) => {
         $translate.use(lang);
         $scope.i18nActive = $translate.use();
