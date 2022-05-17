@@ -89,11 +89,6 @@ const ModalAuthComponent = function (
 
     $ctrl.stopQrCodeVerification = () => $timeout.cancel(timeout);
 
-    $ctrl.openAuthCodePopup = function () {
-        $ctrl.close();
-        ModalService.open('modalAuthCode', {});
-    };
-
     $ctrl.buildForm = () => {
         $ctrl.signInEmailForm = FormBuilderService.build({ email: "" }, async (form) => {
             const handleErrors = (res) => {

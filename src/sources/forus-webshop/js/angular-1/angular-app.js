@@ -158,7 +158,6 @@ app.directive('providerListItem', require('./directives/lists/ProviderItemDirect
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
-app.component('modalOfficesComponent', require('./components/Modals/ModalOfficesComponent'));
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent')); // todo: cleanup
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
 app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));

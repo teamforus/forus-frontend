@@ -45,14 +45,13 @@ let AuthDirective = function(
             });
         } else {
             $rootScope.loadAuthUser().then(() => $state.go('organizations'));
-        };
+        }
     }
 
     $scope.checkAccessTokenStatus = (type, access_token) => {
         IdentityService.checkAccessToken(access_token).then((res) => {
             if (res.data.message == 'active') {
                 CredentialsService.set(access_token);
-                $scope.goToDashboard();
             } else if (res.data.message == 'pending') {
                 timeout = $timeout(function() {
                     $scope.checkAccessTokenStatus(type, access_token);
