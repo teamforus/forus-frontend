@@ -56,14 +56,14 @@ module.exports = [() => {
                     name: 'reservations',
                 }],
                 validator: [{
-                    permissions: ['validate_records'],
+                    permissions: ['validate_records', 'manage_validators'],
                     name: 'fund-requests',
                 }]
             }[type];
         };
 
         this.getAvailableRoutes = (type, organization) => {
-            return this.getRoutePermissionsMap(type).filter(permission => {
+            return this.getRoutePermissionsMap(type).filter((permission) => {
                 return this.hasPermission(organization, permission.permissions, false);
             });
         };

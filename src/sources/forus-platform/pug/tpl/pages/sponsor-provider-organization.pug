@@ -16,46 +16,100 @@
                     ng-model="$ctrl.providerFilters.values.q"
                     placeholder="Zoeken").form-control
 
+            //- List provider funds
             .card-section.card-section-padless: .table-wrapper: table.table.form
                 tr
                     th.td-narrow Afbeelding
                     th Fondsnaam
-                    th.td-narrow Accepteer budget
-                    th.td-narrow Alle aanbiedingen
-                    th Opties
+                    th Status
+                    th Budget scannen
+                    th Aanbod scannen
+                    th.text-right Opties
 
                 tr(ng-repeat="fundProvider in $ctrl.fundProviders.data")
                     td.td-narrow: img(ng-src="{{ fundProvider.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").td-media
-                    td(ng-bind="fundProvider.fund.name")
-                    td(ng-if="fundProvider.fund.type === 'budget'"): label(for="option_{{ fundProvider.id }}_allow_budget").form-toggle
-                        input(
-                            type="checkbox" 
-                            id="option_{{ fundProvider.id }}_allow_budget"
-                            ng-checked="fundProvider.allow_budget"
-                            ng-change="$ctrl.updateFundProviderAllow(fundProvider, 'allow_budget')"
-                            ng-model="fundProvider.allow_budget")
-                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-                    td(ng-if="fundProvider.fund.type !== 'budget'"): .text-muted -
-                    td(ng-if="fundProvider.fund.type === 'budget'"): label(for="option_{{ fundProvider.id }}_allow_products").form-toggle
-                        input(
-                            type="checkbox" 
-                            id="option_{{ fundProvider.id }}_allow_products" 
-                            ng-checked="fundProvider.allow_products" 
-                            ng-change="$ctrl.updateFundProviderAllow(fundProvider, 'allow_products')"
-                            ng-model="fundProvider.allow_products")
-                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-                    td(ng-if="fundProvider.fund.type !== 'budget'"): .text-muted -
+                    td
+                        .td-title(ng-bind="fundProvider.fund.name")
+                        div(ng-bind="fundProvider.fund.type_locale")
+
+                    //- Budget status
+                    td
+                        .label.label-success(ng-if="fundProvider.state == 'accepted'" ng-bind="fundProvider.state_locale")
+                        .label.label-default(ng-if="fundProvider.state == 'pending'" ng-bind="fundProvider.state_locale")
+                        .label.label-danger(ng-if="fundProvider.state == 'rejected'" ng-bind="fundProvider.state_locale")
+
+                    //- Budget status
+                    td
+                        //- Pending
+                        .text-muted(ng-if="fundProvider.state == 'pending' || fundProvider.fund.type == 'subsidies'" ng-bind="'-'")
+
+                        //- Not pending
+                        div(ng-if="fundProvider.state != 'pending' && fundProvider.fund.type != 'subsidies'")
+                            //- Rejected
+                            .text-strong(ng-if="fundProvider.state == 'rejected'" ng-bind="'Nee'")
+
+                            div
+                                span(ng-if="fundProvider.state == 'rejected'").mdi.mdi-backup-restore 
+                                span(
+                                    ng-class="fundProvider.state == 'rejected' ? 'text-line-through text-small text-muted' : 'text-strong'"
+                                    ng-bind="fundProvider.allow_budget ? 'Ja' : 'Nee'")
+
+                    //- Products status
+                    td
+                        //- Pending
+                        .text-muted(ng-if="fundProvider.state == 'pending'" ng-bind="'-'")
+
+                        //- Not pending
+                        div(ng-if="fundProvider.state != 'pending'")
+                            //- Rejected
+                            .text-strong(ng-if="fundProvider.state == 'rejected'" ng-bind="'Nee'")
+
+                            div
+                                span(ng-if="fundProvider.state == 'rejected'").mdi.mdi-backup-restore 
+                                span(
+                                    ng-class="fundProvider.state == 'rejected' ? 'text-line-through text-small text-muted' : 'text-strong'"
+                                    ng-if="fundProvider.state != 'pending' && fundProvider.allow_products" 
+                                    ng-bind="'Alle'")
+
+                                span(
+                                    ng-class="fundProvider.state == 'rejected' ? 'text-line-through text-small text-muted' : 'text-strong'"
+                                    ng-if="fundProvider.state != 'pending' && !fundProvider.allow_products" 
+                                    ng-bind="fundProvider.products_count_approved + ' van ' + fundProvider.products_count_available")
+
                     td.text-right
-                        a(ui-sref="fund-provider({organization_id: $ctrl.organization.id, fund_id: fundProvider.fund_id, fund_provider_id: fundProvider.id})").button.button-default 
+                        //- Reject
+                        .button.button-sm.button-danger.button-icon(
+                            ng-click="$ctrl.updateFundProviderState(fundProvider, false)"
+                            ng-disabled="fundProvider.submittingState"
+                            ng-if="(fundProvider.state == 'pending' || fundProvider.state == 'accepted') && fundProvider.submittingState != 'accepted'")
+                            .mdi(ng-class="fundProvider.submittingState ? 'mdi-loading mdi-spin' : 'mdi-close'")
+
+                        //- Accept
+                        .button.button-sm.button-primary.button-icon(
+                            ng-click="$ctrl.updateFundProviderState(fundProvider, true)"
+                            ng-disabled="fundProvider.submittingState"
+                            ng-if="(fundProvider.state == 'pending' || fundProvider.state == 'rejected') && fundProvider.submittingState != 'reject'")
+                            .mdi(ng-class="fundProvider.submittingState ? 'mdi-loading mdi-spin' : 'mdi-check'")
+
+                        //- View
+                        a.button.button-sm.button-default(
+                            ui-sref="fund-provider(fundProvider.srefParams)"
+                            ng-disabled="fundProvider.submittingState")
                             em.mdi.mdi-eye-outline.icon-start
                             | Bekijk aanbod
 
+            //- Empty block
             .card-section.text-center(ng-if="$ctrl.fundProviders.meta.total == 0") Geen aanmeldingen
+
+            //- pagination
             .card-section.card-section-narrow(ng-if="$ctrl.fundProviders.meta" ng-show="$ctrl.fundProviders.meta.last_page > 1")
-                paginator(meta="$ctrl.fundProviders.meta" filters="$ctrl.providerFilters.values" on-page-change="$ctrl.onProviderFundsPageChange(query)")
+                paginator(
+                    meta="$ctrl.fundProviders.meta" 
+                    filters="$ctrl.providerFilters.values" 
+                    on-page-change="$ctrl.onProviderFundsPageChange(query)")
 
         //- Provider offices
         block-provider-organization-offices(offices="$ctrl.providerOrganization.offices")
-        
+
         //- Provider employees
         block-provider-organization-employees(employees="$ctrl.providerOrganization.employees")
