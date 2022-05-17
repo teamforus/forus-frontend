@@ -1,4 +1,4 @@
-let TopNavbarDirective = function(
+const TopNavbarDirective = function(
     $state,
     $scope,
     $translate,
@@ -14,7 +14,7 @@ let TopNavbarDirective = function(
         hideOnScroll: !!$scope.hideOnScroll,
     };
 
-    let $ctrl = this;
+    const $ctrl = this;
     
     FundService.list().then(res => $ctrl.funds = res.data.data);
 

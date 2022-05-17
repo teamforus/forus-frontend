@@ -14,43 +14,40 @@ const BaseController = function(
     appConfigs,
     ModalService
 ) {
-    $rootScope.loadAuthUser = function() {
-        let deferred = $q.defer();
+    const $trans = $filter('translate');
 
-        AuthService.identity().then((res) => {
-            let auth_user = res.data;
-            let timer = (appConfigs.log_out_time || 15) * 60 * 1000;
+    $rootScope.loadAuthUser = () => {
+        return $q((resolve, reject) => {
+            AuthService.identity().then((res) => {
+                const auth_user = res.data;
+                const timer = (appConfigs.log_out_time || 15) * 60 * 1000;
 
-            if (appConfigs.log_out_time !== false) {
-                // sign out after :timer of inactivity (default: 15min)
-                BrowserService.detectInactivity(timer).then(() => {
-                    if (AuthService.hasCredentials()) {
-                        $rootScope.signOut();
+                if (appConfigs.log_out_time !== false) {
+                    // sign out after :timer of inactivity (default: 15min)
+                    BrowserService.detectInactivity(timer).then(() => {
+                        if (AuthService.hasCredentials()) {
+                            $rootScope.signOut();
 
-                        ModalService.open('modalNotification', {
-                            type: 'confirm',
-                            description: 'modal.logout.description',
-                            confirmBtnText: 'Inloggen',
-                            confirm: () => ModalService.open('modalAuth', {}),
-                        });
-                    }
-                }, console.error);
-            }
+                            ModalService.open('modalNotification', {
+                                type: 'confirm',
+                                description: 'modal.logout.description',
+                                confirmBtnText: 'Inloggen',
+                                confirm: () => ModalService.open('modalAuth', {}),
+                            });
+                        }
+                    }, console.error);
+                }
 
-            RecordService.list().then((res) => {
-                auth_user.records = res.data;
-                deferred.resolve();
-            }, deferred.reject);
+                RecordService.list().then((res) => {
+                    auth_user.records = res.data;
+                    resolve();
+                }, reject);
 
-            $rootScope.auth_user = auth_user;
-        }, deferred.reject);
-
-        return deferred.promise;
+                $rootScope.auth_user = auth_user;
+                $rootScope.$broadcast('identity:update', auth_user);
+            }, reject);
+        });
     };
-
-    $rootScope.$on('auth:update', (event) => {
-        $rootScope.loadAuthUser().then(() => $state.reload(), console.error);
-    });
 
     $rootScope.signOut = (
         $event = null,
@@ -66,7 +63,7 @@ const BaseController = function(
         if (needConfirmation) {
             return ModalService.open('modalNotification', {
                 type: "confirm",
-                title: "logout.title_" + $rootScope.appConfigs.features.communication_type,
+                title: "logout.title_" + appConfigs.features.communication_type,
                 confirmBtnText: "buttons.confirm",
                 cancelBtnText: "buttons.cancel",
                 confirm: () => $rootScope.signOut(),
@@ -80,6 +77,7 @@ const BaseController = function(
 
         AuthService.signOut();
         $rootScope.auth_user = false;
+        $rootScope.$broadcast('identity:update', null);
 
         if (redirect && typeof redirect == 'function') {
             redirect();
@@ -90,28 +88,29 @@ const BaseController = function(
         }
     };
 
-    $rootScope.appConfigs = appConfigs;
+    $rootScope.$on('auth:update', () => {
+        $rootScope.loadAuthUser().then(() => $state.reload(), console.error);
+    });
 
     if (AuthService.hasCredentials()) {
         $rootScope.loadAuthUser();
     }
 
     ConfigService.get('webshop').then((res) => {
-        $rootScope.appConfigs.features = res.data;
+        appConfigs.features = res.data;
     });
 
-    $scope.$watch(function() {
-        return $state.$current.name
-    }, function(newVal, oldVal) {
+    $scope.$watch(() => $state.$current.name, () => {
         if ($state.current.name == 'fund-request') {
             $rootScope.viewLayout = 'signup';
         }
     });
 
-    $rootScope.pageTitle = $filter('translate')('page_title');
+    $rootScope.appConfigs = appConfigs;
     $rootScope.client_key = appConfigs.client_key;
+    $rootScope.pageTitle = $trans('page_title');
 
-    $window.onbeforeunload = function(event) {
+    $window.onbeforeunload = function() {
         BrowserService.unsetInactivity();
     };
 
