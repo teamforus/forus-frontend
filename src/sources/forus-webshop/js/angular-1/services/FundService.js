@@ -55,9 +55,7 @@ const FundService = function(
                     if (res.data.data.length < 1) {
                         reject();
                     } else {
-                        this.apply(res.data.data[0].id).then(function(res) {
-                            resolve(res);
-                        }, reject);
+                        this.apply(res.data.data[0].id).then(resolve, reject);
                     }
                 }, reject);
             });
@@ -76,16 +74,14 @@ const FundService = function(
             return ApiRequest.patch(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, {
                 state: 'approved'
-            }
-            );
+            });
         };
 
         this.declineProvider = function(organization_id, fund_id, id) {
             return ApiRequest.patch(
                 uriPrefix + organization_id + '/funds/' + fund_id + '/providers/' + id, {
                 state: 'declined'
-            }
-            );
+            });
         };
 
         this.states = function() {
