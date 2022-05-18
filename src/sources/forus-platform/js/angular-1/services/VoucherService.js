@@ -75,6 +75,10 @@ const VoucherService = function(ApiRequest) {
             return ApiRequest.get(`/platform/organizations/${organization_id}/sponsor/vouchers/export-fields`, filters);
         };
 
+        this.makeSponsorTransaction = (organization_id, data = {}) => {
+            return ApiRequest.post(`/platform/organizations/${organization_id}/sponsor/transactions`, data);
+        };
+
         this.sampleCSVBudgetVoucher = (expires_at = "2020-02-20") => {
             const headers = ['amount', 'expires_at', 'note', 'email', 'activate', 'activation_code'];
             const values = [10, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0];

@@ -108,6 +108,7 @@ app.component('modalPhysicalCardOrderComponent', require('./components/Modals/Mo
 app.component('modalReservationNotesComponent', require('./components/Modals/ModalReservationNotesComponent'));
 app.component('modalSwitchBankConnectionAccountComponent', require('./components/Modals/ModalSwitchBankConnectionAccountComponent'));
 app.component('modalExportDataSelectComponent', require('./components/Modals/ModalExportDataSelectComponent'));
+app.component('modalVoucherTransactionProviderComponent', require('./components/Modals/ModalVoucherTransactionProviderComponent'));
 app.component('modalFundRequestAssignValidatorComponent', require('./components/Modals/ModalFundRequestAssignValidatorComponent'));
 
 // Modal Components

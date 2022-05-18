@@ -74,6 +74,7 @@ $colorPrimaryLight: $color_primary_light;
 .modal{
     @import'modals/modal-photo-upload.scss';
     @import'modals/modal-physical-cards.scss';
+    @import'modals/modal-voucher-transaction-provider.scss';
 }
 
 html, body {
