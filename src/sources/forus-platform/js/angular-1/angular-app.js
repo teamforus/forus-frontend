@@ -64,6 +64,7 @@ app.component('implementationNotificationsShowComponent', require('./components/
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
+app.component('productBoardComponent', require('./components/ProductBoardComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -169,6 +170,7 @@ app.service('ProductReservationService', require('./services/ProductReservationS
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
 app.service('TagService', require('./services/TagService'));
+app.service('ProductBoardService', require('./services/ProductBoardService'));
 
 // Directives
 app.directive('menu', {

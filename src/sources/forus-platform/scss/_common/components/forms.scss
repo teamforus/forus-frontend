@@ -682,4 +682,20 @@
             width: auto;
         }
     }
+
+    .form-data-preview {
+        .form-group {
+            .form-input-data {
+                width: calc(100% - 200px);
+                padding: 10px;
+                float: left;
+                color: #9CA6AF;
+                background: #F6F9FC;
+                border: 1px dashed #D4D9DD;
+                border-radius: 3px;
+                word-wrap: break-word;
+                white-space: pre-wrap;
+            }
+        }
+    }
 }
