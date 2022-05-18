@@ -6,7 +6,6 @@
         .office-pane {
             background: #ffffff;
             box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
-            border-radius: $border_radius;
             display: flex;
             flex-direction: column;
 
@@ -69,6 +68,20 @@
                 &:last-child {
                     border-bottom: none;
                 }
+            }
+        }
+
+        &:first-child {
+            .office-pane {
+                border-top-left-radius: $border_radius;
+                border-top-right-radius: $border_radius;
+            }
+        }
+
+        &:last-child {
+            .office-pane {
+                border-bottom-left-radius: $border_radius;
+                border-bottom-right-radius: $border_radius;
             }
         }
     }

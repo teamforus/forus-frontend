@@ -230,12 +230,16 @@ main(id="main-content")
                 map-options="$ctrl.mapOptions")
             
             //- regular voucher
-            .map_card-footer
-                .map_card-subtitle(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.info")
+            .map_card-footer(ng-if="!$ctrl.voucherCard.product")
+                .map_card-subtitle(translate="voucher.labels.info")
 
-        .block.block-info-card(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCard.product")
-            .block-header 
-                | {{ "voucher.labels.productdetail" | translate }} 
-                | #[a(ui-sref="product($ctrl.voucherCard.product)" ng-if="$ctrl.voucherCard.returnable").card-read_more Bekijk details #[em.mdi.mdi-arrow-right]] 
-            .block-content: .block.block-markdown
+        .block.block-pane(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCard.product")
+            .pane-head 
+                h2.pane-head-title(translate="voucher.labels.productdetail")
+                a(ng-if="$ctrl.voucherCard.returnable" ui-sref="product($ctrl.voucherCard.product)").pane-head-more
+                    | Bekijk details #[em.mdi.mdi-arrow-right] 
+
+            .pane-section: .block.block-markdown
                 div(ng-bind-html="$ctrl.voucherCard.description")
+
+        span
