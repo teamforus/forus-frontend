@@ -2,7 +2,6 @@ const TransactionBulkService = function(ApiRequest) {
     const path = '/platform/organizations';
     
     return new (function() {
-
         this.list = (organization_id, filters = {}) => {
             return ApiRequest.get(`${path}/${organization_id}/sponsor/transaction-bulks`, filters);
         };

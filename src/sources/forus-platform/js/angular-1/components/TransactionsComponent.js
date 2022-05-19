@@ -2,7 +2,6 @@ const TransactionsComponent = function(
     $q,
     $state,
     $filter,
-    $timeout,
     appConfigs,
     ModalService,
     $stateParams,
@@ -114,11 +113,11 @@ const TransactionsComponent = function(
     };
 
     $ctrl.hideFilters = () => {
-        $timeout(() => $ctrl.filters.show = false, 0);
+        $ctrl.filters.show = false;
     };
 
     $ctrl.hideBulkFilters = () => {
-        $timeout(() => $ctrl.bulkFilters.show = false, 0);
+        $ctrl.bulkFilters.show = false;
     };
 
     $ctrl.fetchBulks = (query) => {
@@ -139,9 +138,9 @@ const TransactionsComponent = function(
         $ctrl.viewType = viewType;
 
         if ($ctrl.viewType.key == 'bulks') {
-            $ctrl.bulkFilters.reset();
-        } else {
             $ctrl.filters.reset();
+        } else {
+            $ctrl.bulkFilters.reset();
         }
 
         $state.transitionTo($state.$current.name, {
@@ -253,11 +252,19 @@ const TransactionsComponent = function(
     };
 
     $ctrl.exportTransactions = () => {
-        TransactionsExportService.export($ctrl.organization.id, $ctrl.filters.values);
+        $ctrl.hideFilters()
+
+        TransactionsExportService.export($ctrl.organization.id, {
+            ...$ctrl.filters.values, per_page: undefined,
+        });
     };
 
     $ctrl.exportTransactionBulks = () => {
-        TransactionBulksExportService.export($ctrl.organization.id, $ctrl.bulkFilters.values);
+        $ctrl.hideBulkFilters()
+
+        TransactionBulksExportService.export($ctrl.organization.id, {
+            ...$ctrl.bulkFilters.values, per_page: undefined,
+        });
     };
 
     $ctrl.updateHasPendingBulking = () => {
@@ -293,7 +300,6 @@ module.exports = {
         '$q',
         '$state',
         '$filter',
-        '$timeout',
         'appConfigs',
         'ModalService',
         '$stateParams',

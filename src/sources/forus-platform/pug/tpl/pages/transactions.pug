@@ -76,7 +76,7 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.fund_state' | i18n }}")
                                     .form-offset: select-control(
                                         prop="key"
@@ -235,7 +235,7 @@
                         | Maak nu een bulktransactie
 
             //- Transactions pagination
-            .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
+            .card-section(ng-if="$ctrl.transactions" ng-show="($ctrl.viewType.key == 'transactions') && ($ctrl.transactions.meta.last_page > 1)")
                 paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
 
             //- Empty transactions block
@@ -280,7 +280,7 @@
                             translate(translate="transactions.buttons.view")
 
             //- Bulk transactions pagination
-            .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks" ng-show="$ctrl.transactionBulks.meta.last_page > 1")
+            .card-section(ng-if="$ctrl.transactionBulks" ng-show="($ctrl.viewType.key == 'bulks') && ($ctrl.transactionBulks.meta.last_page > 1)")
                 paginator(meta="$ctrl.transactionBulks.meta" filters="$ctrl.bulkFilters.values" on-page-change="$ctrl.onBulkPageChange(query)")
             
             //- Empty bulk transactions block
