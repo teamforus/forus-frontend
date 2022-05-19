@@ -349,11 +349,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 type: 'regular',
                 state: 'active',
             })) : new Promise(resolve => resolve([]))],
-            product: ['$transition$', 'ProductService', (
-                $transition$, ProductService
-            ) => repackResponse(ProductService.read(
-                $transition$.params().id
-            ))],
+            product: ['$transition$', 'ProductService', ($transition$, ProductService) => {
+                return repackResponse(ProductService.read($transition$.params().id));
+            }],
+            provider: ['product', 'ProvidersService', (product, ProvidersService) => {
+                return repackResponse(ProvidersService.read(product.organization_id));
+            }],
         }
     });
 
