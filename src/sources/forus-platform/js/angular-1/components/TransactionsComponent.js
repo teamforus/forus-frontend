@@ -4,7 +4,6 @@ const TransactionsComponent = function(
     $filter,
     $timeout,
     appConfigs,
-    FileService,
     ModalService,
     $stateParams,
     TransactionService,
@@ -249,35 +248,12 @@ const TransactionsComponent = function(
         }));
     };
 
-    const exportTransactions = () => {
-        ModalService.open('exportType', {
-            success: (data) => {
-                const filters = { ...$ctrl.filters.values, ...{ export_format: data.exportType } };
-
-                const fileName = [
-                    appConfigs.panel_type,
-                    $ctrl.organization.id,
-                    moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType
-                ].join('_');
-
-                TransactionService.export(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
-                    FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-                }, console.error);
-            }
-        });
+    $ctrl.exportTransactions = () => {
+        TransactionsExportService.exportTransactions($ctrl.organization.id, $ctrl.filters);
     };
 
-    const exportBulkTransactionsList = () => {
-        TransactionsExportService.exportBulkTransactionsList($ctrl.organization.id, $ctrl.bulkFilters);
-    };
-
-    // Export to XLS file
-    $ctrl.exportList = () => {
-        if ($ctrl.viewType.key == 'transactions') {
-            exportTransactions();
-        } else {
-            exportBulkTransactionsList();
-        }
+    $ctrl.exportBulkTransactions = () => {
+        TransactionsExportService.exportBulkTransactions($ctrl.organization.id, $ctrl.bulkFilters);
     };
 
     $ctrl.updateHasPendingBulking = () => {
@@ -315,7 +291,6 @@ module.exports = {
         '$filter',
         '$timeout',
         'appConfigs',
-        'FileService',
         'ModalService',
         '$stateParams',
         'TransactionService',

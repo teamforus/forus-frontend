@@ -168,7 +168,7 @@ const TransactionBulkComponent = function(
     };
 
     $ctrl.exportList = () => {
-        TransactionsExportService.exportBulkTransaction($ctrl.organization.id, $ctrl.transactionBulk.id, $ctrl.bulkFilters);
+        TransactionsExportService.exportTransactions($ctrl.organization.id, $ctrl.bulkFilters, $ctrl.transactionBulk.id);
     };
 
     $ctrl.updateFlags = () => {

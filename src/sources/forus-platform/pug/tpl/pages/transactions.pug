@@ -84,7 +84,7 @@
 
                                 .form-actions
                                     button.button.button-primary.button-wide(
-                                        ng-click="$ctrl.exportList()"
+                                        ng-click="$ctrl.exportTransactions()"
                                         ng-disabled="$ctrl.transactions.meta.total == 0")
                                         em.mdi.mdi-download.icon-start  
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactions.meta.total }")
@@ -147,7 +147,7 @@
 
                                 .form-actions
                                     button.button.button-primary.button-wide(
-                                        ng-click="$ctrl.exportList()"
+                                        ng-click="$ctrl.exportBulkTransactions()"
                                         ng-disabled="$ctrl.bulkTransactions.meta.total == 0")
                                         em.mdi.mdi-download.icon-start  
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactionBulks.meta.total }")

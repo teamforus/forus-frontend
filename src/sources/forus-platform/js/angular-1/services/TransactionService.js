@@ -47,8 +47,8 @@ const TransactionService = function(ApiRequest) {
             return ApiRequest.get(`${path}/${organization_id}/${type}/transactions/export`, filters, {}, true, transform);
         };
 
-        this.exportBulkTransactionsFields = function(type, organization_id) {
-            return ApiRequest.get(`${path}/${organization_id}/${type}/transaction-bulks/export-list-fields`);
+        this.exportFields = function(type, organization_id) {
+            return ApiRequest.get(`${path}/${organization_id}/${type}/transactions/export-fields`);
         };
 
         this.exportBulkTransactionFields = function(type, organization_id) {
@@ -64,17 +64,6 @@ const TransactionService = function(ApiRequest) {
             };
 
             return ApiRequest.get(`${path}/${organization_id}/${type}/transaction-bulks/export`, filters, {}, true, transform);
-        };
-
-        this.exportBulkTransaction = (type, organization_id, transactionBulkId, filters = {}) => {
-            const transform = (_cfg) => {
-                _cfg.responseType = 'arraybuffer';
-                _cfg.cache = false;
-
-                return _cfg;
-            };
-
-            return ApiRequest.get(`${path}/${organization_id}/${type}/transaction-bulks/${transactionBulkId}/export`, filters, {}, true, transform);
         };
     });
 };
