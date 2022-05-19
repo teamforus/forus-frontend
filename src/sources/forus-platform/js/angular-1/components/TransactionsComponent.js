@@ -8,6 +8,8 @@ const TransactionsComponent = function(
     $stateParams,
     TransactionService,
     TransactionsExportService,
+    TransactionBulkService,
+    TransactionBulksExportService,
     PageLoadingBarService,
     PushNotificationsService,
 ) {
@@ -95,6 +97,8 @@ const TransactionsComponent = function(
         valuesDefault: {
             from: null,
             to: null,
+            amount_min: null,
+            amount_max: null,
             quantity_min: null,
             quantity_max: null,
             state: $ctrl.bulkStates[0].key,
@@ -120,7 +124,7 @@ const TransactionsComponent = function(
     $ctrl.fetchBulks = (query) => {
         return $q((resolve, reject) => {
             PageLoadingBarService.setProgress(0);
-            TransactionService.listBulks($ctrl.organization.id, query).then(resolve, reject);
+            TransactionBulkService.list($ctrl.organization.id, query).then(resolve, reject);
         }).finally(() => PageLoadingBarService.setProgress(100));
     };
 
@@ -180,7 +184,7 @@ const TransactionsComponent = function(
             $ctrl.buildingBulks = true;
             PageLoadingBarService.setProgress(0);
 
-            TransactionService.bulkNow($ctrl.organization.id).then((res) => {
+            TransactionBulkService.bulkNow($ctrl.organization.id).then((res) => {
                 const bulks = res.data.data;
 
                 if (bulks.length > 1) {
@@ -249,11 +253,11 @@ const TransactionsComponent = function(
     };
 
     $ctrl.exportTransactions = () => {
-        TransactionsExportService.exportTransactions($ctrl.organization.id, $ctrl.filters);
+        TransactionsExportService.export($ctrl.organization.id, $ctrl.filters.values);
     };
 
-    $ctrl.exportBulkTransactions = () => {
-        TransactionsExportService.exportBulkTransactions($ctrl.organization.id, $ctrl.bulkFilters);
+    $ctrl.exportTransactionBulks = () => {
+        TransactionBulksExportService.export($ctrl.organization.id, $ctrl.bulkFilters.values);
     };
 
     $ctrl.updateHasPendingBulking = () => {
@@ -295,6 +299,8 @@ module.exports = {
         '$stateParams',
         'TransactionService',
         'TransactionsExportService',
+        'TransactionBulkService',
+        'TransactionBulksExportService',
         'PageLoadingBarService',
         'PushNotificationsService',
         TransactionsComponent

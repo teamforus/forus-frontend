@@ -1062,8 +1062,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-show', 'view_finances'),
-            transactionBulk: ['$transition$', 'TransactionService', 'permission', ($transition$, TransactionService) => {
-                return repackResponse(TransactionService.showBulk($transition$.params().organization_id, $transition$.params().id));
+            transactionBulk: ['$transition$', 'TransactionBulkService', 'permission', ($transition$, TransactionBulkService) => {
+                return repackResponse(TransactionBulkService.show($transition$.params().organization_id, $transition$.params().id));
             }],
         }
     });

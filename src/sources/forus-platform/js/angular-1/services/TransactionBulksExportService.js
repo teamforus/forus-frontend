@@ -1,8 +1,8 @@
-const TransactionsExportService = function(
+const TransactionBulksExportService = function(
     appConfigs,
     FileService,
     ModalService,
-    TransactionService,
+    TransactionBulkService,
     PageLoadingBarService,
     PushNotificationsService
 ) {
@@ -30,7 +30,7 @@ const TransactionsExportService = function(
             PageLoadingBarService.setProgress(100);
         };
 
-        const exportTransactions = (organization_id, filters = {}) => {
+        const exportTransactionBulks = (organization_id, filters = {}) => {
             const onSuccess = (data) => {
                 const { data_format, fields } = data;
                 const queryFilters = { ...filters, data_format, fields };
@@ -38,7 +38,7 @@ const TransactionsExportService = function(
                 PageLoadingBarService.setProgress(0);
                 console.info('- data loaded from the api.');
 
-                TransactionService.export(appConfigs.panel_type, organization_id, queryFilters).then((res) => {
+                TransactionBulkService.export(appConfigs.panel_type, organization_id, queryFilters).then((res) => {
                     saveExportedTransactions(data, organization_id, res);
                 }, (res) => {
                     PushNotificationsService.danger('Error!', res.data.message);
@@ -46,7 +46,7 @@ const TransactionsExportService = function(
                 });
             }
 
-            TransactionService.exportFields(appConfigs.panel_type, organization_id).then((res) => {
+            TransactionBulkService.exportFields(appConfigs.panel_type, organization_id).then((res) => {
                 ModalService.open('exportDataSelect', {
                     fields: res.data,
                     sections: makeSections(res.data.data),
@@ -55,7 +55,7 @@ const TransactionsExportService = function(
             });
         };
 
-        this.export = exportTransactions;
+        this.export = exportTransactionBulks;
     });
 };
 
@@ -63,8 +63,8 @@ module.exports = [
     'appConfigs',
     'FileService',
     'ModalService',
-    'TransactionService',
+    'TransactionBulkService',
     'PageLoadingBarService',
     'PushNotificationsService',
-    TransactionsExportService
+    TransactionBulksExportService
 ];

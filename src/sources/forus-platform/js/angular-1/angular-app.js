@@ -118,6 +118,9 @@ app.service('AuthService', require('./services/AuthService'));
 app.service('DateService', require('./services/DateService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('TransactionService', require('./services/TransactionService'));
+app.service('TransactionsExportService', require('./services/TransactionsExportService'));
+app.service('TransactionBulkService', require('./services/TransactionBulkService'));
+app.service('TransactionBulksExportService', require('./services/TransactionBulksExportService'));
 app.service('VoucherService', require('./services/VoucherService'));
 app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
@@ -168,7 +171,6 @@ app.service('ProductReservationService', require('./services/ProductReservationS
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
 app.service('TagService', require('./services/TagService'));
-app.service('TransactionsExportService', require('./services/TransactionsExportService'));
 
 // Directives
 app.directive('menu', {

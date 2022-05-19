@@ -6,6 +6,7 @@ const TransactionBulkComponent = function(
     appConfigs,
     ModalService,
     TransactionService,
+    TransactionBulkService,
     TransactionsExportService,
     PageLoadingBarService,
     PushNotificationsService
@@ -77,7 +78,7 @@ const TransactionBulkComponent = function(
             $ctrl.resettingBulk = true;
             PageLoadingBarService.setProgress(0);
 
-            TransactionService.bulkReset($ctrl.organization.id, transactionBulk.id).then((res) => {
+            TransactionBulkService.reset($ctrl.organization.id, transactionBulk.id).then((res) => {
                 if (bank.key === 'bunq') {
                     PushNotificationsService.success(`Succes!`, `Accepteer de transacties via uw bank.`);
                 }
@@ -104,7 +105,7 @@ const TransactionBulkComponent = function(
             $ctrl.submittingBulk = true;
             PageLoadingBarService.setProgress(0);
 
-            TransactionService.bulkSubmit($ctrl.organization.id, transactionBulk.id).then((res) => {
+            TransactionBulkService.submit($ctrl.organization.id, transactionBulk.id).then((res) => {
                 if (res.data.data.auth_url) {
                     return document.location = res.data.data.auth_url;
                 }
@@ -167,8 +168,8 @@ const TransactionBulkComponent = function(
         }
     };
 
-    $ctrl.exportList = () => {
-        TransactionsExportService.exportTransactions($ctrl.organization.id, $ctrl.bulkFilters, $ctrl.transactionBulk.id);
+    $ctrl.exportTransactions = () => {
+        TransactionsExportService.export($ctrl.organization.id, $ctrl.filters.values);
     };
 
     $ctrl.updateFlags = () => {
@@ -220,6 +221,7 @@ module.exports = {
         'appConfigs',
         'ModalService',
         'TransactionService',
+        'TransactionBulkService',
         'TransactionsExportService',
         'PageLoadingBarService',
         'PushNotificationsService',

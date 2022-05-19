@@ -41,11 +41,13 @@
                                     form-label-toggle(label="{{ 'transactions.labels.amount' | i18n }}")
                                     .row
                                         .col.col-lg-6: input(
+                                            min="0"
                                             type="number" 
                                             ng-model="$ctrl.filters.values.amount_min" 
                                             placeholder="{{ 'transactions.labels.amount_min' | i18n }}").form-control
 
                                         .col.col-lg-6: input(
+                                            min="0"
                                             type="number" 
                                             ng-model="$ctrl.filters.values.amount_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | i18n }}").form-control
@@ -99,12 +101,14 @@
                                     form-label-toggle(label="{{ 'transactions.labels.amount' | i18n }}")
                                     .row
                                         .col.col-lg-6: input(
+                                            min="0"
                                             type="number" 
                                             ng-model="$ctrl.bulkFilters.values.amount_min" 
                                             placeholder="{{ 'transactions.labels.amount_min' | i18n }}").form-control
 
                                         .col.col-lg-6: input(
-                                            type="number" 
+                                            min="0"
+                                            type="number"
                                             ng-model="$ctrl.bulkFilters.values.amount_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | i18n }}").form-control
                                 
@@ -112,11 +116,13 @@
                                     form-label-toggle(label="{{ 'transactions.labels.quantity' | i18n }}")
                                     .row
                                         .col.col-lg-6: input(
+                                            min="0"
                                             type="number" 
                                             ng-model="$ctrl.bulkFilters.values.quantity_min" 
                                             placeholder="{{ 'transactions.labels.quantity_min' | i18n }}").form-control
 
                                         .col.col-lg-6: input(
+                                            min="0"
                                             type="number" 
                                             ng-model="$ctrl.bulkFilters.values.quantity_max" 
                                             placeholder="{{ 'transactions.labels.quantity_max' | i18n }}").form-control
@@ -147,7 +153,7 @@
 
                                 .form-actions
                                     button.button.button-primary.button-wide(
-                                        ng-click="$ctrl.exportBulkTransactions()"
+                                        ng-click="$ctrl.exportTransactionBulks()"
                                         ng-disabled="$ctrl.bulkTransactions.meta.total == 0")
                                         em.mdi.mdi-download.icon-start  
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactionBulks.meta.total }")
