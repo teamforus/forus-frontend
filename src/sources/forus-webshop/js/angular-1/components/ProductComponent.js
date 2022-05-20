@@ -78,6 +78,7 @@ module.exports = {
     },
     bindings: {
         product: '<',
+        provider: '<',
         vouchers: '<',
     },
     controller: [

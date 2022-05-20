@@ -176,20 +176,17 @@ const ModalProductVoucherCreateComponent = function(
 
         ProductService.listAll({
             fund_id: $ctrl.fund.id,
-            price_type: 'regular',
             show_all: 1,
             simplified: 1,
             per_page: 1000,
             order_by: 'name',
             order_by_dir: 'asc',
         }).then((res) => {
-            $ctrl.products = res.data.data.map(product => {
-                return {
-                    id: product.id,
-                    price: product.price,
-                    name: product.name + ' ' + product.price_locale + ' (' + product.organization.name + ')',
-                }
-            });
+            $ctrl.products = res.data.data.map((product) => ({
+                id: product.id,
+                price: product.price,
+                name: product.name + ' (' + product.price_locale + ') van (' + product.organization.name + ')',
+            }));
 
             $ctrl.modal.setLoaded();
 

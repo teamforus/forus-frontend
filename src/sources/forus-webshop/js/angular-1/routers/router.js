@@ -349,11 +349,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 type: 'regular',
                 state: 'active',
             })) : new Promise(resolve => resolve([]))],
-            product: ['$transition$', 'ProductService', (
-                $transition$, ProductService
-            ) => repackResponse(ProductService.read(
-                $transition$.params().id
-            ))],
+            product: ['$transition$', 'ProductService', ($transition$, ProductService) => {
+                return repackResponse(ProductService.read($transition$.params().id));
+            }],
+            provider: ['product', 'ProvidersService', (product, ProvidersService) => {
+                return repackResponse(ProvidersService.read(product.organization_id));
+            }],
         }
     });
 
@@ -808,12 +809,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     i18n_state($stateProvider, {
         name: "fund-activate",
         url: {
-            en: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_voucher",
-            nl: "/fondsen/{fund_id}/activeer?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_voucher",
+            en: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+            nl: "/fondsen/{fund_id}/activeer?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
         },
         component: "fundActivateComponent",
         params: {
             backoffice_error: null,
+            backoffice_error_key: null,
             backoffice_fallback: null,
             backoffice_voucher: null,
         },
