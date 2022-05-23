@@ -26,12 +26,11 @@
 
         .fund-details {
             @include ellipsis();
-            padding: 15px;
+            padding: 5px 15px;
             flex-grow: 1;
 
             .fund-title {
-                font: 600 16px/30px $bf;
-                margin: 0 0 15px;
+                font: 600 16px/25px $bf;
 
                 .tag {
                     margin-left: 10px;
@@ -41,6 +40,11 @@
                 &:last-child {
                     margin-bottom: 0;
                 }
+            }
+
+            .fund-subtitle {
+                font: 600 13px/20px $bf;
+                color: #646F79;
             }
         }
 

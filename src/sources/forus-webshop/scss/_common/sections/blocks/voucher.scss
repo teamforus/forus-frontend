@@ -253,31 +253,6 @@
                         font: 700 24px $bf;
                     }
                 }
-
-                .card-read_more {
-                    font: 600 13px/20px $bf;
-                    color: #083f49;
-                    display: inline-block;
-                    cursor: hover;
-                    vertical-align: middle;
-                    margin-bottom: 10px;
-
-                    .mdi {
-                        color: #3396a7;
-                        position: relative;
-                        transform: translate(0, 1.5px);
-                        margin-left: 5px;
-                        display: inline-block;
-                        transition: 0.4s;
-                        font-size: 1.4em;
-                    }
-
-                    &:hover {
-                        .mdi {
-                            transform: translate(5px, 1.5px);
-                        }
-                    }
-                }
             }
 
             .card-footer {

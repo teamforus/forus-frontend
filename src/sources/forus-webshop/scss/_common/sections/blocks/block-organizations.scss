@@ -9,7 +9,7 @@
             border-radius: $border_radius;
             display: flex;
             flex-direction: row;
-            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+            box-shadow: $base_shadow;
             transition: box-shadow .4s;
             border: 1px solid transparent;
 
@@ -124,7 +124,7 @@
             }
 
             &.active {
-                border: 1px solid #B1B1B1;
+                border: 1px solid #b1b1b1;
             }
 
             &:hover {

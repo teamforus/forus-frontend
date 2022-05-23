@@ -295,14 +295,19 @@
     }
 
     .form-hint {
-        color: #222530;
-        font: 500 12px/18px $bf;
+        color: #4b4d54;
+        font: 600 11px/20px $bf;
+        margin-bottom: -5px;
 
         &:before {
             color: #ff2100;
             content: '*';
             margin-right: 2px;
             vertical-align: text-top;
+        }
+
+        &:last-child {
+            margin-bottom: -10px;
         }
     }
 
@@ -675,6 +680,22 @@
         &.radio-inline {
             display: inline-block;
             width: auto;
+        }
+    }
+
+    .form-data-preview {
+        .form-group {
+            .form-input-data {
+                width: calc(100% - 200px);
+                padding: 10px;
+                float: left;
+                color: #9CA6AF;
+                background: #F6F9FC;
+                border: 1px dashed #D4D9DD;
+                border-radius: 3px;
+                word-wrap: break-word;
+                white-space: pre-wrap;
+            }
         }
     }
 }

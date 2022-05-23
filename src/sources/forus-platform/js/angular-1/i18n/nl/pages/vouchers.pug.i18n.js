@@ -24,7 +24,6 @@ module.exports = {
         qr_code: "QR-Code",
         yes: "Ja",
         no: "Nee",
-        yes: "Ja",
         source_employee: "Medewerker",
         source_user: "Gebruiker",
         active: 'Actief',
@@ -50,7 +49,8 @@ module.exports = {
         clear_filter: "Wis filter",
         physical_card_add: "Plastic pas koppelen",
         physical_card_delete: "Pas ontkoppelen",
-        activate: "Activeren"
+        activate: "Activeren",
+        make_transaction: "Nieuwe transactie",
     },
     csv: {
         default_note: "Aangemaakt op {{ upload_date }} door {{ uploader_email }}, toegekend aan {{ target_email }}",

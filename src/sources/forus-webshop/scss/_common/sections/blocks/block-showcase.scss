@@ -28,6 +28,19 @@
         min-height: calc(100vh - 100px);
     }
 
+    .showcase-result {
+        font: 700 16px/24px $bf;
+        color: $tc;
+        padding: 10px 0;
+        margin: 0 0 0;
+
+        .showcase-result-count {
+            font: inherit;
+            display: inline-block;
+            color: $color_primary;
+        }
+    }
+
     .showcase-mobile-filters {
         display: none;
     }

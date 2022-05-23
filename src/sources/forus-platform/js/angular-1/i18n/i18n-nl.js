@@ -61,6 +61,7 @@ module.exports = {
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
         modal_markdown_custom_link: require("./nl/modals/modal-markdown-custom-link.pug.i18n"),
+        modal_voucher_transaction_provider: require('./nl/modals/modal-voucher-transaction-provider.pug.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
@@ -1252,6 +1253,9 @@ module.exports = {
             state: "Status",
             fund_state: "Status fonds",
             amount: "Bedrag",
+            quantity: "Aantal",
+            quantity_min: "0",
+            quantity_max: "Alles",
             amount_min: "0",
             amount_max: "Alles",
             total_amount: "Som van transacties <strong>{{ total_amount }}</strong>",
