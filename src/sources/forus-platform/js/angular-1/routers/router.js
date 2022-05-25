@@ -1337,7 +1337,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         });
                     }
                 });
-            }, () => {
+            }, (res) => {
                 PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
                     timeout: 8000,
                 });
