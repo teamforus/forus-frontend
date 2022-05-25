@@ -1,0 +1,143 @@
+.app.app-container
+    menu
+    //- Not available
+    section.app.app-content(ng-if="$ctrl.appConfigs.features && !$ctrl.appConfigs.features.has_productboard_integration")
+        .card: .card-section: .block.block-empty.text-center
+            .empty-title Not available
+            .empty-details Productboard integration is not configured properly.
+
+    //- Feedback form
+    section.app.app-content(ng-if="$ctrl.appConfigs.features && $ctrl.appConfigs.features.has_productboard_integration")
+        .card(ng-if="$ctrl.state == 'form'"): form(ng-submit="$ctrl.previewAddedData()").form
+            .card-header: .card-title(i18n="components.product_board.title")
+            
+            //- Description
+            .card-section.card-section-primary
+                .block.block-information
+                    em.mdi.mdi-information.block-information-icon
+                    .block-information-info
+                        | Bedankt dat je feedback met de ontwikkelaars wil delen! 
+                        | Jouw feedback beïnvloedt de ontwikkel #[a(href="https://roadmap.forus.io" target="_blank") roadmap] van Forus.
+                        br
+                        | Heb je vragen over het gebruik en wil je graag hulp? Neem dan contact op met onze helpdesk.
+            
+            //- Form
+            .card-section.card-section-primary: .row: .col.col-lg-9
+                //- Title
+                .form-group.form-group-inline
+                    label(translate="components.product_board.labels.title").form-label.form-label-required
+                    input(
+                        type="text"
+                        maxlength="200"
+                        ng-model="$ctrl.form.values.title"
+                        placeholder="{{ 'components.product_board.labels.title' | translate }}").form-control.r-n
+                    .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
+
+                //- Urgency
+                .form-group.form-group-inline
+                    label(translate="components.product_board.labels.urgency").form-label
+                    select-control(
+                        prop="value"
+                        search="false"
+                        ng-model="$ctrl.form.values.urgency" 
+                        options="$ctrl.urgencyOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.urgency" ng-bind="error")
+
+                //- Content
+                .form-group.form-group-inline
+                    label(translate="components.product_board.labels.content").form-label.form-label-required
+                    textarea(
+                        maxlength="4000"
+                        placeholder="{{ 'components.product_board.labels.content' | translate }}"
+                        ng-model="$ctrl.form.values.content").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.content" ng-bind="error")
+
+                //- Contact
+                .form-group.form-group-inline
+                    label.form-label(translate="components.product_board.labels.contact")
+                    label.checkbox
+                        input(type="checkbox" id="use_email" ng-model="$ctrl.form.values.use_customer_email")
+                        label(for="use_email").checkbox-label
+                            .checkbox-box: em.mdi.mdi-check-bold
+                            translate(translate="components.product_board.labels.use_customer_email")
+
+                //- Customer email
+                .form-group.form-group-inline(ng-if="$ctrl.form.values.use_customer_email")
+                    label(translate="components.product_board.labels.email").form-label
+                    input(ng-model="$ctrl.form.values.customer_email" type="text").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.customer_email" ng-bind="error")
+
+            //- Actions
+            .card-section.card-section-primary: .text-center
+                //- Cancel
+                button(
+                    type="button"
+                    translate="components.product_board.buttons.cancel").button.button-default
+
+                //- Submit
+                button(
+                    type="submit"
+                    translate="components.product_board.buttons.confirm"
+                    ng-disabled="!$ctrl.form.values.title || !$ctrl.form.values.content").button.button-primary
+        
+        //- Confirmation
+        .card(ng-if="$ctrl.state == 'confirmation'"): form(ng-submit="$ctrl.form.submit()").form
+            .card-header
+                .card-title(i18n="components.product_board.title")
+            
+            .card-section.card-section-primary: .row: .col.col-lg-9: .form-data-preview
+                .form-group.form-group-inline
+                    label(translate="components.product_board.labels.title").form-label
+                    span(ng-bind="$ctrl.form.values.title").form-input-data
+
+                .form-group.form-group-inline(ng-if="$ctrl.form.values.urgency")
+                    label(translate="components.product_board.labels.urgency").form-label
+                    span(ng-bind="$ctrl.urgencyOptionsByKey[$ctrl.form.values.urgency]").form-input-data
+
+                .form-group.form-group-inline
+                    label(translate="components.product_board.labels.content").form-label
+                    span(ng-bind="$ctrl.form.values.content").form-input-data
+
+                .form-group.form-group-inline(ng-if="$ctrl.form.values.use_customer_email")
+                    label(translate="components.product_board.labels.email").form-label
+                    span(ng-bind="$ctrl.form.values.customer_email").form-input-data
+
+            //- Actions
+            .card-section.card-section-primary: .text-center
+                //- Cancel
+                button(
+                    type="button"
+                    translate="components.product_board.buttons.back"
+                    ng-click="$ctrl.state = 'form'").button.button-default
+
+                //- Submit
+                button(
+                    type="submit"
+                    translate="components.product_board.buttons.send"
+                    ng-click="$ctrl.form.submit()").button.button-primary 
+        
+        //- Success
+        .card(ng-if="$ctrl.state == 'success'"): form(ng-submit="$ctrl.form.submit()").form
+            .card-header: .card-title(i18n="components.product_board.title")
+
+            .card-section.card-section-primary
+                .block.block-productboard-result: .text-center
+                    img(src="./assets/img/productboard-success.svg").productboard-result-icon
+                    .productboard-result-title(translate="components.product_board.submit_success.title")
+                    .productboard-result-info(translate="components.product_board.submit_success.info")
+
+            .card-section.card-section-primary: .text-center
+                button(type="submit" translate="components.product_board.buttons.confirm" ng-click="$ctrl.initForm()").button.button-primary  
+
+        //- Error
+        .card(ng-if="$ctrl.state == 'error'"): form(ng-submit="$ctrl.form.submit()").form
+            .card-header: .card-title(i18n="components.product_board.title")
+            
+            .card-section.card-section-primary
+                .block.block-productboard-result: .text-center
+                    img(src="./assets/img/productboard-failure.svg").productboard-result-icon
+                    .productboard-result-title(translate="components.product_board.submit_failure.title")
+                    .productboard-result-info(translate="components.product_board.submit_failure.info")
+
+            .card-section.card-section-primary: .text-center
+                button(type="submit" translate="components.product_board.buttons.confirm" ng-click="$ctrl.initForm()").button.button-primary        

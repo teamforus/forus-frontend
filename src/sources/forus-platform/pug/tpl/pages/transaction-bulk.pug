@@ -106,6 +106,12 @@
                     span(i18n="transactions.header.title") 
                     span(ng-bind="$ctrl.transactions.meta.total").span-count
 
+                .flex
+                    button(
+                        ng-click="$ctrl.exportTransactions()").button.button-primary.button-sm
+                        em.mdi.mdi-download.icon-start
+                        span.ng-scope Exporteren
+
             //- Transactions
             .card-section
                 .card-block.card-block-table
