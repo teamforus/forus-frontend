@@ -32,6 +32,12 @@ const ProductsComponent = function(
             order_by: 'created_at',
             order_by_dir: 'desc',
         }
+    }, {
+        label: 'Most wanted',
+        value: {
+            order_by: 'most_selling',
+            order_by_dir: 'desc',
+        }
     }];
 
     $ctrl.filtersList = [
@@ -138,7 +144,9 @@ const ProductsComponent = function(
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.appConfigs = appConfigs;
 
-        $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
+        $ctrl.sort_by = $ctrl.sortByOptions.filter((option) => {
+            return option.value.order_by === 'created_at' && option.value.order_by_dir === 'desc';
+        })[0];
         $ctrl.fund_type = $stateParams.fund_type;
         $ctrl.display_type = $stateParams.display_type;
         $ctrl.show_order_dropdown = false;
