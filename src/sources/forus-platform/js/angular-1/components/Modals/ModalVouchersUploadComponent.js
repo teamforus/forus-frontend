@@ -116,19 +116,21 @@ const ModalVouchersUploadComponent = function(
                 const fundBudget = $ctrl.fund.limit_sum_vouchers;
                 const csvTotalAmount = data.reduce((sum, row) => sum + parseFloat(row.amount || 0), 0);
 
-                this.errors.csvAmountMissing = data.filter(row => !row.amount).length > 0;
+                if ($ctrl.fund.type === 'budget') {
+                    this.errors.csvAmountMissing = data.filter(row => !row.amount).length > 0;
 
-                // csv total amount should be withing fund budget
-                this.errors.invalidAmountField = csvTotalAmount > fundBudget;
+                    // csv total amount should be withing fund budget
+                    this.errors.invalidAmountField = csvTotalAmount > fundBudget;
+
+                    // some vouchers exceed the limit per voucher
+                    this.errors.invalidPerVoucherAmount = data.filter(
+                        row => row.amount > $ctrl.fund.limit_per_voucher
+                    ).length > 0;
+                }
 
                 // fund vouchers csv shouldn't have product_id field
                 this.errors.csvProductIdPresent = data.filter(
                     row => row.product_id != undefined
-                ).length > 0;
-
-                // some vouchers exceed the limit per voucher
-                this.errors.invalidPerVoucherAmount = data.filter(
-                    row => row.amount > $ctrl.fund.limit_per_voucher
                 ).length > 0;
 
                 return !this.errors.invalidAmountField &&
@@ -422,7 +424,9 @@ const ModalVouchersUploadComponent = function(
         if ($ctrl.type == 'fund_voucher') {
             FileService.downloadFile(
                 'budget_voucher_upload_sample.csv',
-                VoucherService.sampleCSVBudgetVoucher($ctrl.fund.end_date)
+                $ctrl.fund.type === 'budget'
+                    ? VoucherService.sampleCSVBudgetVoucher($ctrl.fund.end_date)
+                    : VoucherService.sampleCSVSubsidiesVoucher($ctrl.fund.end_date)
             );
         } else {
             FileService.downloadFile(
