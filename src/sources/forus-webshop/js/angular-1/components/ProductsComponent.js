@@ -9,6 +9,18 @@ const ProductsComponent = function(
     const $ctrl = this;
 
     $ctrl.sortByOptions = [{
+        label: 'Nieuwe eerst',
+        value: {
+            order_by: 'created_at',
+            order_by_dir: 'desc',
+        }
+    }, {
+        label: 'Oudste eerst',
+        value: {
+            order_by: 'created_at',
+            order_by_dir: 'asc',
+        }
+    }, {
         label: 'Prijs (oplopend)',
         value: {
             order_by: 'price',
@@ -21,21 +33,9 @@ const ProductsComponent = function(
             order_by_dir: 'desc',
         }
     }, {
-        label: 'Oudste eerst',
+        label: 'Meest gewild',
         value: {
-            order_by: 'created_at',
-            order_by_dir: 'asc',
-        }
-    }, {
-        label: 'Nieuwe eerst',
-        value: {
-            order_by: 'created_at',
-            order_by_dir: 'desc',
-        }
-    }, {
-        label: 'Most wanted',
-        value: {
-            order_by: 'most_selling',
+            order_by: 'most_popular',
             order_by_dir: 'desc',
         }
     }];
@@ -43,16 +43,6 @@ const ProductsComponent = function(
     $ctrl.filtersList = [
         'q', 'product_category_id', 'fund', 'sortBy',
     ];
-
-    $ctrl.toggleOrderDropdown = ($event) => {
-        $event ? $event.stopPropagation() : '';
-        $ctrl.show_order_dropdown = !$ctrl.show_order_dropdown;
-    };
-
-    $ctrl.hideOrderDropdown = ($event) => {
-        $event ? $event.stopPropagation() : '';
-        $ctrl.show_order_dropdown = false;
-    };
 
     $ctrl.toggleMobileMenu = () => {
         $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
@@ -73,13 +63,7 @@ const ProductsComponent = function(
         $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
     };
 
-    $ctrl.sortBy = ($event, sort_by) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $ctrl.sort_by = sort_by;
-        $ctrl.show_order_dropdown = false;
-
+    $ctrl.updateSortBy = () => {
         $ctrl.onPageChange({ ...$ctrl.form.values });
     };
 
@@ -144,12 +128,9 @@ const ProductsComponent = function(
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.appConfigs = appConfigs;
 
-        $ctrl.sort_by = $ctrl.sortByOptions.filter((option) => {
-            return option.value.order_by === 'created_at' && option.value.order_by_dir === 'desc';
-        })[0];
+        $ctrl.sort_by = $ctrl.sortByOptions[0];
         $ctrl.fund_type = $stateParams.fund_type;
         $ctrl.display_type = $stateParams.display_type;
-        $ctrl.show_order_dropdown = false;
 
         $ctrl.funds.unshift({
             id: null,
