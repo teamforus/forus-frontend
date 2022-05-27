@@ -70,7 +70,7 @@ module.exports = {
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
             restore_fund: require('./nl/modals/danger-zone/restore-fund'),
             remove_faq: require('./nl/modals/danger-zone/remove-faq'),
-            
+            remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
         },
     },
     // PAGES
@@ -400,6 +400,7 @@ module.exports = {
             title: "Titel",
             description: "Uitlegpagina content",
             communication: "Aanspreekvorm",
+            fund_blocks: "Fund blocks",
 
             provider: "Aanbiederpagina content",
             privacy: "Privacy content",

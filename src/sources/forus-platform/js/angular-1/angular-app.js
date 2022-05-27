@@ -227,6 +227,8 @@ app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirect
 
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 
+app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
+
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
 

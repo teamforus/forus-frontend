@@ -49,6 +49,21 @@ main(id="main-content")
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" ui-sref="me-app" target="_blank").header-how-it-works
 
     .page.page-home(ng-if="$ctrl.appConfigs.flags.homeProducts")
+        .wrapper(ng-if="$ctrl.fund_blocks.length > 0")
+            .fund-block(ng-repeat="fund_block in $ctrl.fund_blocks")
+                .fund-block-image
+                    img(ng-src="{{ fund_block.media.sizes.small || fund_block.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}")
+                .fund-block-information
+                    .fund-block-label(ng-bind="fund_block.label")
+                    .fund-block-title(ng-bind="fund_block.title")
+                    .fund-block-description(ng-bind="fund_block.description")
+                    button(
+                        ng-if="fund_block.button_enabled"
+                        target="_blank"
+                        type="button"
+                        ng-href="{{ fund_block.button_link }}"
+                        ng-bind="fund_block.button_text").button.button-dark
+
         .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(products="$ctrl.products.data" type="budget" display="grid")
         .wrapper(ng-if="$ctrl.subsidies.data.length > 0"): block-products(products="$ctrl.subsidies.data" type="subsidies" display="grid")
 

@@ -57,6 +57,15 @@
 
                         tooltip(text="'Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten op de website en in de berichten die het systeem verstuurt.'")
 
+            .card-section.card-section-primary
+                .row: .col.col-lg-12
+                    .form-group.form-group-inline.form-group-inline-lg
+                        label(translate="implementation_edit.labels.fund_blocks").form-label
+                        implementation-blocks-editor(
+                            blocks="$ctrl.form.values.pages.home.blocks"
+                            organization="$ctrl.organization" 
+                            register-parent="$ctrl.registerImplementationBlocksEditor(childRef)")                  
+
             .card-section.card-section-primary(ng-repeat="key in $ctrl.implementation.page_types")
                 .row: .col.col-lg-9
                     .form-group.form-group-inline.form-group-inline-lg(ng-if="!$ctrl.page_types_internal.includes(key)")

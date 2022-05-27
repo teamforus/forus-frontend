@@ -65,6 +65,11 @@ let HomeComponent = function (
         }
 
         $ctrl.description_html = $sce.trustAsHtml(appConfigs.features.settings.description_html);
+
+        $ctrl.fund_blocks = appConfigs.features.pages.home.blocks;
+        $ctrl.fund_blocks.forEach(fund_block => {
+            fund_block.description_html = $sce.trustAsHtml(fund_block.description_html);
+        });
     };
 };
 

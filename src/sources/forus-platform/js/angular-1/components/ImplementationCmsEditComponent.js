@@ -41,6 +41,7 @@ const ImplementationCmsEditComponent = function(
     $ctrl.modelPlaceholder = '';
     $ctrl.bannerMedia;
     $ctrl.resetMedia = false;
+    $ctrl.implementationBlocksEditor = null;
 
     $ctrl.bannerMeta = null;
 
@@ -122,6 +123,10 @@ const ImplementationCmsEditComponent = function(
         values[field] = direction;
     };
 
+    $ctrl.registerImplementationBlocksEditor = function(childRef) {
+        $ctrl.implementationBlocksEditor = childRef;
+    };
+
     $ctrl.$onInit = () => {
         const { informal_communication } = $ctrl.implementation;
 
@@ -149,6 +154,7 @@ const ImplementationCmsEditComponent = function(
         $ctrl.form = FormBuilderService.build({
             ...$ctrl.implementation,
             ...{
+                implementation_blocks: [],
                 pages: $ctrl.preparePages($ctrl.implementation),
                 media_uid: [],
             }
