@@ -42,7 +42,7 @@
             .form-group
                 photo-selector(
                     fill-style="false"
-                    type="cms_media"
+                    type="implementation_block_media"
                     thumbnail="block.media.sizes.thumbnail"
                     thumbnail-size="{x: 100, y: 100}"
                     select-photo="$dir.selectBlockImage(file, $index)"
@@ -53,39 +53,40 @@
                 label.form-label Label
                 input(type="text" ng-model="block.label" placeholder="Label...").form-control
                 .form-hint Max. 200 tekens
-                .form-error(ng-repeat="error in $dir.errors['block.' + $parent.$index + '.label']" ng-bind="error")
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.label']" ng-bind="error")
 
             //- Block title
             .form-group
                 label.form-label.form-label-required Title
                 input(type="text" ng-model="block.title" placeholder="Title...").form-control
                 .form-hint Max. 200 tekens
-                .form-error(ng-repeat="error in $dir.errors['block.' + $parent.$index + '.title']" ng-bind="error")
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.title']" ng-bind="error")
             
             //- Block description
             .form-group
                 label.form-label.form-label-required Description
                 markdown(extended-options="true" value="block.description_html" ng-model="block.description" placeholder="Description...")
                 .form-hint Max. 5000 tekens
-                .form-error(ng-repeat="error in $dir.errors['block.' + $parent.$index + '.description']" ng-bind="error")
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.description']" ng-bind="error")
             
             //- Block button enable
             .form-group: .flex
-                label.form-label(for="button_enabled") Button
-                .flex-col: label.form-toggle(for="button_enabled")
-                    input(type="checkbox" id="button_enabled" ng-model="block.button_enabled")
+                label.form-label(for="button_enabled_{{$parent.$index}}") Button
+                .flex-col: label.form-toggle(for="button_enabled_{{$parent.$index}}")
+                    input(type="checkbox" id="button_enabled_{{$parent.$index}}" ng-model="block.button_enabled" ng-checked="block.button_enabled" )
                     .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                    .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_enabled']" ng-bind="error")
             
             //- Block button text
             .form-group(ng-if="block.button_enabled")
                 input(type="text" ng-model="block.button_text").form-control
-                .form-error(ng-repeat="error in $dir.errors['block.' + $parent.$index + '.button_text']" ng-bind="error")
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_text']" ng-bind="error")
 
             //- Block button link
             .form-group(ng-if="block.button_enabled")
-                label.form-label.form-label-required Button Link
+                label.form-label Button Link
                 input(type="text" ng-model="block.button_link").form-control
-                .form-error(ng-repeat="error in $dir.errors['block.' + $parent.$index + '.button_link']" ng-bind="error")
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_link']" ng-bind="error")
 
     //- Actions
     .block-editor-actions

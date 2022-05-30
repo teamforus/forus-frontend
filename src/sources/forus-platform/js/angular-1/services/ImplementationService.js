@@ -25,6 +25,10 @@ const ImplementationService = function(ApiRequest) {
         this.updateEmailBranding = (organization_id, id, data) => {
             return ApiRequest.patch(`${uriPrefix}${organization_id}/implementations/${id}/email-branding`, data);
         };
+
+        this.blocksValidate = (organization_id, data) => {
+            return ApiRequest.post(`${uriPrefix}${organization_id}/implementations/validate-blocks`, data);
+        };
     });
 };
 
