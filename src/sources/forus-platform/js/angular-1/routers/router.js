@@ -950,6 +950,39 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     /**
+     * Implementation edit page(CMS)
+     */
+    $stateProvider.state({
+        name: "implementation-cms-page",
+        url: "/organizations/{organization_id}/implementation/{id}/cms-page/{page_id}",
+        component: "implementationCmsPageEditComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', [
+                'manage_implementation', 'manage_implementation_cms'
+            ], false),
+            implementationPage: ['permission', '$transition$', '$timeout', '$state', 'ImplementationService', (
+                permission, $transition$, $timeout, $state, ImplementationService
+            ) => {
+                return repackResponse(ImplementationService.readPage(
+                    $transition$.params().organization_id,
+                    $transition$.params().id,
+                    $transition$.params().page_id,
+                ), (res) => {
+                    if (res.status === 403) {
+                        $timeout(() => {
+                            $state.go('implementation-cms', {
+                                organization_id: $transition$.params().organization_id,
+                                id: $transition$.params().id,
+                            });
+                        }, 100);
+                    }
+                });
+            }],
+        }
+    });
+
+    /**
      * Implementation edit (email)
      */
     $stateProvider.state({

@@ -56,6 +56,7 @@ app.component('organizationNotificationsComponent', require('./components/Organi
 app.component('implementationsComponent', require('./components/ImplementationsComponent'));
 app.component('implementationViewComponent', require('./components/ImplementationViewComponent'));
 app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
+app.component('implementationCmsPageEditComponent', require('./components/ImplementationCmsPageEditComponent'));
 app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
 app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
 app.component('implementationNotificationsComponent', require('./components/ImplementationNotificationsComponent'));

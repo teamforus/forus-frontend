@@ -402,12 +402,17 @@ module.exports = {
             communication: "Aanspreekvorm",
             fund_blocks: "Fund blocks",
 
+            home: "Startpagina content",
             provider: "Aanbiederpagina content",
             privacy: "Privacy content",
+            products: "Aanbod content",
+            providers: "Aanbieders content",
+            funds: "Fondsen content",
             explanation: "Uitleg pagina content",
             accessibility: "Toegankelijkheidsverklaring",
             terms_and_conditions: "Algemene voorwaarden",
 
+            home_url: "Startpagina content",
             provider_url: "Aanbiederpagina content",
             privacy_url: "Privacy content",
             explanation_url: "Externe uitleg URL",

@@ -41,7 +41,6 @@ const ImplementationCmsEditComponent = function(
     $ctrl.modelPlaceholder = '';
     $ctrl.bannerMedia;
     $ctrl.resetMedia = false;
-    $ctrl.implementationBlocksEditor = null;
 
     $ctrl.bannerMeta = null;
 
@@ -123,10 +122,6 @@ const ImplementationCmsEditComponent = function(
         values[field] = direction;
     };
 
-    $ctrl.registerImplementationBlocksEditor = function(childRef) {
-        $ctrl.implementationBlocksEditor = childRef;
-    };
-
     $ctrl.$onInit = () => {
         const { informal_communication } = $ctrl.implementation;
 
@@ -169,23 +164,36 @@ const ImplementationCmsEditComponent = function(
                     });
                 }
 
-                $ctrl.implementationBlocksEditor.validate().then(res => {
-                    ImplementationService.updateCMS($rootScope.activeOrganization.id, $ctrl.implementation.id, {
-                        ...form.values,
-                        ...{ overlay_enabled, overlay_type, overlay_opacity, header_text_color }
-                    }).then(() => {
-                        delete form.values.banner_media_uid;
-                        Object.keys(form.values.pages).forEach((pageKey) => form.values.pages[pageKey].media_uid = []);
+                ImplementationService.updateCMS($rootScope.activeOrganization.id, $ctrl.implementation.id, {
+                    ...form.values,
+                    ...{ overlay_enabled, overlay_type, overlay_opacity, header_text_color }
+                }).then(() => {
+                    delete form.values.banner_media_uid;
+                    Object.keys(form.values.pages).forEach((pageKey) => form.values.pages[pageKey].media_uid = []);
+
+                    form.errors = [];
+                    form.values.media_uid = [];
+
+                    PushNotificationsService.success('Opgeslagen!');
+                }, (res) => form.errors = res.data.errors).finally(() => form.unlock());
+
+                // $ctrl.implementationBlocksEditor.validate().then(res => {
+                //     ImplementationService.updateCMS($rootScope.activeOrganization.id, $ctrl.implementation.id, {
+                //         ...form.values,
+                //         ...{ overlay_enabled, overlay_type, overlay_opacity, header_text_color }
+                //     }).then(() => {
+                //         delete form.values.banner_media_uid;
+                //         Object.keys(form.values.pages).forEach((pageKey) => form.values.pages[pageKey].media_uid = []);
     
-                        form.errors = [];
-                        form.values.media_uid = [];
+                //         form.errors = [];
+                //         form.values.media_uid = [];
     
-                        PushNotificationsService.success('Opgeslagen!');
-                    }, (res) => form.errors = res.data.errors).finally(() => form.unlock());
-                }, res => {
-                    PushNotificationsService.danger('Error!', typeof res == 'string' ? res : res.message || '');
-                    return form.unlock();
-                });
+                //         PushNotificationsService.success('Opgeslagen!');
+                //     }, (res) => form.errors = res.data.errors).finally(() => form.unlock());
+                // }, res => {
+                //     PushNotificationsService.danger('Error!', typeof res == 'string' ? res : res.message || '');
+                //     return form.unlock();
+                // });
             };
 
             if ($ctrl.initialCommunicationType != form.values.informal_communication) {

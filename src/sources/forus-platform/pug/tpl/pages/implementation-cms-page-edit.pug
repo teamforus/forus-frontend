@@ -1,0 +1,73 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementations({organization_id: $ctrl.organization.id})") Webshops 
+            .breadcrumb-item(ui-sref="implementation-view({organization_id: $ctrl.organization.id, id: $ctrl.implementationPage.implementation.id})" ng-bind="$ctrl.implementationPage.implementation.name")
+            .breadcrumb-item(ui-sref="implementation-cms({organization_id: $ctrl.organization.id, id: $ctrl.implementationPage.implementation.id})") Content Management System
+            .breadcrumb-item.active(translate="implementation_edit.labels.{{ $ctrl.implementationPage.page_type }}")
+
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header.flex-row
+                .card-title(translate="implementation_edit.labels.{{ $ctrl.implementationPage.page_type }}")
+                .flex.flex-grow.flex-end: .flex
+                    a(href="{{ $ctrl.implementationPage.implementation.url_webshop }}" target="_blank").button.button-text.button-sm 
+                        | Open webshop
+                        .mdi.mdi-link-variant.icon-end
+                    button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
+            
+            .card-section.card-section-primary(ng-repeat="overviewBlock in $ctrl.form.values.blocks.overview")
+                .row: .col.col-lg-12
+                    .form-group.form-group-inline.form-group-inline-lg
+                        label(translate="implementation_edit.labels.fund_blocks").form-label
+                        implementation-blocks-editor(
+                            blocks="overviewBlock"
+                            organization="$root.activeOrganization" 
+                            register-parent="$ctrl.registerImplementationBlocksEditor(childRef)")
+            
+            .card-section.card-section-primary(ng-repeat="textBlock in $ctrl.form.values.blocks.text")
+                .row: .col.col-lg-12
+                    .form-group.form-group-inline.form-group-inline-lg
+                        label(translate="implementation_edit.labels.input").form-label
+                        input(type="text")
+
+            .card-section.card-section-primary
+                .row: .col.col-lg-9
+                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.external")
+                        label(for="{{ $ctrl.implementationPage.page_type }}").form-toggle.form-label.flex-end
+                            .form-label(translate="implementation_edit.labels.{{ $ctrl.implementationPage.page_type + '_url' }}")
+                            input(type="checkbox" id="{{ $ctrl.implementationPage.page_type }}" ng-model="$ctrl.form.values.external").form-label
+                            .form-toggle-inner.flex-end(style="padding-left:10px"): .toggle-input: .toggle-input-dot
+
+                        //- disabled field
+                        input.form-control(
+                            disabled
+                            ng-if="!$ctrl.form.values.external"
+                            ng-model="$ctrl.modelPlaceholder" 
+                            placeholder="{{ 'implementation_edit.placeholders.' + $ctrl.implementationPage.page_type | translate }}")
+
+                        //- enabled field
+                        input.form-control(
+                            ng-if="$ctrl.form.values.external"
+                            ng-model="$ctrl.form.values.external_url" 
+                            placeholder="{{ 'implementation_edit.placeholders.' + $ctrl.implementationPage.page_type | translate }}")
+
+                        .form-error(ng-repeat="error in $ctrl.form.errors.external_url" ng-bind="error")
+
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="!$ctrl.form.values.external")
+                        label.form-label(translate="implementation_edit.labels.{{ $ctrl.implementationPage.page_type }}")
+                        .form-offset
+                            markdown(
+                                extended-options="true"
+                                value="$ctrl.form.values.content_html" 
+                                ng-model="$ctrl.form.values.content"
+                                allow-alignment="true"
+                                block-alignment="$ctrl.form.values.content_alignment"
+                                media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
+
+                        tooltip(text="'implementation_edit.tooltips.' + $ctrl.implementationPage.page_type | translate")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.content" ng-bind="error")
+
+            .card-section.card-section-primary: .text-center
+                button(type="button" ui-sref="implementation-cms({organization_id: $ctrl.organization.id, id: $ctrl.implementationPage.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default
+                button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary

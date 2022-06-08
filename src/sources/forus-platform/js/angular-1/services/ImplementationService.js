@@ -10,8 +10,16 @@ const ImplementationService = function(ApiRequest) {
             return ApiRequest.get(`${uriPrefix}${organization_id}/implementations/${id}`);
         };
 
+        this.readPage = (organization_id, id, page_id) => {
+            return ApiRequest.get(`${uriPrefix}${organization_id}/implementations/${id}/implementation-pages/${page_id}`);
+        };
+
         this.updateCMS = (organization_id, id, data) => {
             return ApiRequest.patch(`${uriPrefix}${organization_id}/implementations/${id}/cms`, data);
+        };
+
+        this.updatePage = (organization_id, id, page_id, data) => {
+            return ApiRequest.patch(`${uriPrefix}${organization_id}/implementations/${id}/implementation-pages/${page_id}`, data);
         };
 
         this.updateDigiD = (organization_id, id, data) => {

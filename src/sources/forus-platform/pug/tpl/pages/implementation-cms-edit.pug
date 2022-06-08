@@ -57,52 +57,23 @@
 
                         tooltip(text="'Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten op de website en in de berichten die het systeem verstuurt.'")
 
-            .card-section.card-section-primary
-                .row: .col.col-lg-12
-                    .form-group.form-group-inline.form-group-inline-lg
-                        label(translate="implementation_edit.labels.fund_blocks").form-label
-                        implementation-blocks-editor(
-                            blocks="$ctrl.form.values.pages.home.blocks"
-                            organization="$root.activeOrganization" 
-                            register-parent="$ctrl.registerImplementationBlocksEditor(childRef)")                  
-
-            .card-section.card-section-primary(ng-repeat="key in $ctrl.implementation.page_types")
-                .row: .col.col-lg-9
-                    .form-group.form-group-inline.form-group-inline-lg(ng-if="!$ctrl.page_types_internal.includes(key)")
-                        label(for="{{ key }}").form-toggle.form-label.flex-end
-                            .form-label(translate="implementation_edit.labels.{{ key }}_url")
-                            input(type="checkbox" id="{{ key }}" ng-model="$ctrl.form.values.pages[key].external").form-label
-                            .form-toggle-inner.flex-end(style="padding-left:10px"): .toggle-input: .toggle-input-dot
-
-                        //- disabled field
-                        input.form-control(
-                            disabled
-                            ng-if="!$ctrl.form.values.pages[key].external"
-                            ng-model="$ctrl.modelPlaceholder" 
-                            placeholder="{{ 'implementation_edit.placeholders.' + key | translate }}")
-
-                        //- enabled field
-                        input.form-control(
-                            ng-if="$ctrl.form.values.pages[key].external"
-                            ng-model="$ctrl.form.values.pages[key].external_url" 
-                            placeholder="{{ 'implementation_edit.placeholders.' + key | translate }}")
-
-                        .form-error(ng-repeat="error in $ctrl.form.errors['pages.' + key + '.external_url']" ng-bind="error")
-
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="!$ctrl.form.values.pages[key].external")
-                        label.form-label(translate="implementation_edit.labels.{{ key }}")
-                        .form-offset
-                            markdown(
-                                extended-options="true"
-                                value="$ctrl.form.values.pages[key].content_html" 
-                                ng-model="$ctrl.form.values.pages[key].content"
-                                allow-alignment="true"
-                                block-alignment="$ctrl.form.values.pages[key].content_alignment"
-                                media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values.pages[key])")
-
-                        tooltip(text="'implementation_edit.tooltips.' + key | translate")
-                        .form-error(ng-repeat="error in $ctrl.form.errors['pages.' + key + '.content']" ng-bind="error")
-
             .card-section.card-section-primary: .text-center
                 button(type="button" ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default
                 button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
+
+        .card
+            .card-header: .card-title Implementatie pages
+            .card-section.card-section-padless: .table-wrapper: table.table
+                tr
+                    th Naam
+                    th.text-right Opties
+
+                tr(ng-repeat="key in $ctrl.implementation.page_types")
+                    td(translate="implementation_edit.labels.{{ key }}")
+                    td.text-right
+                        .button.button-default(
+                            ui-sref="implementation-cms-page({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id, page_id: $ctrl.form.values.pages[key].id})")
+                            em.mdi.mdi-pencil.icon-start
+                            | Bewerken
+            
+            .card-section.text-center(ng-if="$ctrl.implementation.page_types.length == 0") Geen implementatie pages            
