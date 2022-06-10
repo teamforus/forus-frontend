@@ -106,6 +106,14 @@
                                             ng-model="$ctrl.filters.values.amount_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | translate }}").form-control
 
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'vouchers.labels.date_type' | translate }}")
+                                    .form-offset: select-control(
+                                        prop="value"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.date_type"
+                                        options="$ctrl.date_types").form-control
+
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.from' | translate }}")
                                     datepicker(
@@ -143,6 +151,7 @@
                                 th(translate="vouchers.labels.created_date").nowrap
                                 th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.expire_date").nowrap
                                 th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.used")
+                                th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.used_date")
                                 th(translate="vouchers.labels.assigned")
                                 th(translate="vouchers.labels.actions").nowrap.text-right
 
@@ -184,6 +193,9 @@
                                 td(ng-if="!$ctrl.fundClosed && !voucher.in_use"): .td-boolean
                                     em.mdi.mdi-close
                                     string(translate="product_vouchers.labels.no").text-md.text-muted-dark
+
+                                td(ng-if="!$ctrl.fundClosed")
+                                    strong(ng-if="voucher.in_use" ng-bind="voucher.in_use_date").text-strong.text-md.text-muted-dark
 
                                 td
                                     .td-boolean(ng-if="voucher.expired")

@@ -27,6 +27,11 @@ const VouchersComponent = function(
         { value: 0, name: 'Nee' },
     ];
 
+    $ctrl.date_types = [
+        { value: 'created_at', name: 'Aanmaakdatum' },
+        { value: 'used_at', name: 'Transactiedatum' },
+    ];
+
     $ctrl.voucher_states = VoucherService.getStates();
 
     $ctrl.filters = {
@@ -36,6 +41,7 @@ const VouchersComponent = function(
             granted: null,
             amount_min: null,
             amount_max: null,
+            date_type: 'created_at',
             from: null,
             to: null,
             state: null,
@@ -96,15 +102,17 @@ const VouchersComponent = function(
         const data = angular.copy(query);
         const from = data.from ? DateService._frontToBack(data.from) : null;
         const to = data.to ? DateService._frontToBack(data.to) : null;
+        const in_use_from = data.in_use_from ? DateService._frontToBack(data.in_use_from) : null;
+        const in_use_to = data.in_use_to ? DateService._frontToBack(data.in_use_to) : null;
 
-        return { ...data, from, to, fund_id: $ctrl.fund.id };
+        return { ...data, from, to, in_use_from, in_use_to, fund_id: $ctrl.fund.id };
     };
 
     $ctrl.exportVouchers = () => {
         $ctrl.filters.show = false;
         
         const type = 'budget';
-        const filters = $ctrl.getQueryParams($ctrl.filters.values);
+        const filters = $ctrl.getQueryParams(normalizeFilterForRequest($ctrl.filters.values));
 
         VoucherExportService.exportVouchers($ctrl.organization.id, filters, type);
     };
@@ -112,7 +120,7 @@ const VouchersComponent = function(
     $ctrl.onPageChange = (query) => {
         VoucherService.index(
             $ctrl.organization.id,
-            $ctrl.getQueryParams(query),
+            $ctrl.getQueryParams(normalizeFilterForRequest(query)),
         ).then((res => $ctrl.vouchers = res.data));
     };
 
@@ -140,6 +148,20 @@ const VouchersComponent = function(
         $ctrl.fund = fund;
         $ctrl.init();
     };
+
+    function normalizeFilterForRequest(filterValues) {
+        let values = angular.copy(filterValues);
+        if (values.date_type === 'used_at') {
+            values.in_use_from = values.from;
+            values.in_use_to = values.to;
+
+            delete values.from;
+            delete values.to;
+        }
+        delete values.date_type;
+
+        return values;
+    }
 
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);

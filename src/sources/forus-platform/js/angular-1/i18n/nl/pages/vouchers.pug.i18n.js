@@ -33,8 +33,10 @@ module.exports = {
         limit_multiplier: 'Aantal personen',
         physical_card: "Pasnummer",
         bsn: "Burgerservicenummer",
-        from: "Aangemaakt vanaf",
-        to: "Aangemaakt tot en met",
+        from: "Vanaf",
+        to: "Tot en met",
+        date_type: 'Pas toe op',
+        used_date: 'Used date',
     },
     events: {
         created_budget: 'Aangemaakt',
