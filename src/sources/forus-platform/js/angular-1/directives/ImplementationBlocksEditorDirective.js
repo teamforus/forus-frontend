@@ -32,6 +32,9 @@ const ImplementationBlocksEditorDirective = function(
 
     $dir.addBlock = () => {
         $dir.blocks.push({
+            id: Date.now() + $dir.blocks.length,
+            key: $dir.key,
+            type: 'overview',
             label: '',
             title: '',
             description: '',
@@ -95,6 +98,7 @@ const ImplementationBlocksEditorDirective = function(
             return {...block, ...{ button_enabled: block.button_enabled ? true : false }};
         });
         $dir.blocks = $scope.blocks || [];
+        $dir.key = $scope.key || '';
         $dir.organization = $scope.organization;
 
         $scope.registerParent({ childRef: $dir });
@@ -107,6 +111,7 @@ module.exports = () => {
     return {
         scope: {
             blocks: '=',
+            key: '=',
             organization: '=',
             registerParent: '&',
         },

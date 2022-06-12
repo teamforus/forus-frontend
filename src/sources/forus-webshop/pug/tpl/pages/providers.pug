@@ -95,6 +95,9 @@ block content
                                         em.mdi.mdi-map-marker-radius.icon-start
                                         | Kaart
 
+                        .wrapper(ng-if="$ctrl.description_above_providers_list")
+                            .block.block-markdown(ng-bind-html="$ctrl.description_above_providers_list")
+
                         .block.block-organizations(ng-if="!$ctrl.showMap" ng-show="$ctrl.providers.data.length > 0" id="providers_list")
                             provider-list-item(
                                 ng-repeat="provider in $ctrl.providers.data"

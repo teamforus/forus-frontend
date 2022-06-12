@@ -400,7 +400,6 @@ module.exports = {
             title: "Titel",
             description: "Uitlegpagina content",
             communication: "Aanspreekvorm",
-            fund_blocks: "Fund blocks",
 
             home: "Startpagina content",
             provider: "Aanbiederpagina content",
@@ -422,6 +421,11 @@ module.exports = {
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
 
+            home_funds_block: "Fund blocks",
+            home_below_header: "Below header text",
+            products_above_product_list: "Above product list text",
+            providers_above_provider_list: "Above provider list text",
+            funds_above_fund_list: "Above fund list text",
         },
         placeholders: {
             provider: "Aanbiederpagina content",

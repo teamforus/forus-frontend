@@ -52,6 +52,9 @@ block content
                                     translate-default="{{'funds.header.title' | translate }}")
                                 .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
 
+                        .wrapper(ng-if="$ctrl.description_above_funds_list")
+                            .block.block-markdown(ng-bind-html="$ctrl.description_above_funds_list")
+
                         .block.block-funds-list(ng-if="$ctrl.funds.data.length > 0" id="funds_list")
                             fund-list-item(
                                 ng-repeat="fund in $ctrl.funds.data" 

@@ -66,10 +66,19 @@ let HomeComponent = function (
 
         $ctrl.description_html = $sce.trustAsHtml(appConfigs.features.settings.description_html);
 
-        $ctrl.fund_blocks = appConfigs.features.pages.home.blocks;
-        $ctrl.fund_blocks.forEach(fund_block => {
-            fund_block.description_html = $sce.trustAsHtml(fund_block.description_html);
+        let blocks = appConfigs.features.pages.home.blocks;
+
+        blocks.forEach(block => {
+            block.description_html = $sce.trustAsHtml(block.description_html);
         });
+
+        $ctrl.fund_blocks = blocks.filter(block => {
+            return block.key == 'funds_block';
+        });
+
+        $ctrl.description_below_header = blocks.find(block => {
+            return block.key == 'below_header';
+        }).description_html;
     };
 };
 

@@ -93,6 +93,9 @@ block content
                                         em.mdi.mdi-view-grid-outline.icon-start
                                         | Foto's
 
+                        .wrapper(ng-if="$ctrl.description_above_product_list")
+                            .block.block-markdown(ng-bind-html="$ctrl.description_above_product_list")
+
                         products-list(display="$ctrl.display_type" type="$ctrl.fund_type" products="$ctrl.products.data")
 
                         empty-block(

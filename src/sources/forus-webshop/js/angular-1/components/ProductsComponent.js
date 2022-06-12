@@ -2,6 +2,7 @@ const ProductsComponent = function(
     $scope,
     $state,
     $stateParams,
+    $sce,
     appConfigs,
     FormBuilderService,
     ProductService
@@ -171,6 +172,16 @@ const ProductsComponent = function(
             if (_appConfigs.features && !_appConfigs.features.products.list) {
                 $state.go('home');
             }
+
+            let blocks = appConfigs.features.pages.products.blocks;
+    
+            blocks.forEach(block => {
+                block.description_html = $sce.trustAsHtml(block.description_html);
+            });
+    
+            $ctrl.description_above_product_list = blocks.find(block => {
+                return block.key == 'above_product_list';
+            }).description_html;
         }, true);
     };
 };
@@ -187,6 +198,7 @@ module.exports = {
         '$scope',
         '$state',
         '$stateParams',
+        '$sce',
         'appConfigs',
         'FormBuilderService',
         'ProductService',

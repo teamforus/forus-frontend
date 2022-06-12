@@ -1,6 +1,8 @@
 const ProvidersComponent = function(
     $state,
     $stateParams,
+    $sce,
+    appConfigs,
     FormBuilderService,
     ProvidersService
 ) {
@@ -140,6 +142,16 @@ const ProvidersComponent = function(
         }
 
         $ctrl.updateFiltersUsedCount();
+
+        let blocks = appConfigs.features.pages.providers.blocks;
+
+        blocks.forEach(block => {
+            block.description_html = $sce.trustAsHtml(block.description_html);
+        });
+
+        $ctrl.description_above_providers_list = blocks.find(block => {
+            return block.key == 'above_provider_list';
+        }).description_html;
     };
 };
 
@@ -152,6 +164,8 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        '$sce',
+        'appConfigs',
         'FormBuilderService',
         'ProvidersService',
         ProvidersComponent

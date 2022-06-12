@@ -15,23 +15,8 @@
                         | Open webshop
                         .mdi.mdi-link-variant.icon-end
                     button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
-            
-            .card-section.card-section-primary(ng-repeat="overviewBlock in $ctrl.form.values.blocks.overview")
-                .row: .col.col-lg-12
-                    .form-group.form-group-inline.form-group-inline-lg
-                        label(translate="implementation_edit.labels.fund_blocks").form-label
-                        implementation-blocks-editor(
-                            blocks="overviewBlock"
-                            organization="$root.activeOrganization" 
-                            register-parent="$ctrl.registerImplementationBlocksEditor(childRef)")
-            
-            .card-section.card-section-primary(ng-repeat="textBlock in $ctrl.form.values.blocks.text")
-                .row: .col.col-lg-12
-                    .form-group.form-group-inline.form-group-inline-lg
-                        label(translate="implementation_edit.labels.input").form-label
-                        input(type="text")
 
-            .card-section.card-section-primary
+            .card-section.card-section-primary(ng-if="!$ctrl.implementationPage.detailed_blocks.length && !$ctrl.implementationPage.text_blocks.length")
                 .row: .col.col-lg-9
                     .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.external")
                         label(for="{{ $ctrl.implementationPage.page_type }}").form-toggle.form-label.flex-end
@@ -67,6 +52,28 @@
 
                         tooltip(text="'implementation_edit.tooltips.' + $ctrl.implementationPage.page_type | translate")
                         .form-error(ng-repeat="error in $ctrl.form.errors.content" ng-bind="error")
+            
+            .card-section.card-section-primary(ng-repeat="detailedBlock in $ctrl.form.values.blocks.detailed")
+                .row: .col.col-lg-12
+                    .form-group.form-group-inline.form-group-inline-lg
+                        label(translate="implementation_edit.labels.{{ $ctrl.implementationPage.page_type + '_' + detailedBlock.key }}").form-label
+                        implementation-blocks-editor(
+                            blocks="detailedBlock.data"
+                            key="detailedBlock.key"
+                            organization="$root.activeOrganization" 
+                            register-parent="$ctrl.registerImplementationBlocksEditor(childRef)")
+            
+            .card-section.card-section-primary(ng-repeat="textBlock in $ctrl.form.values.blocks.text")
+                .row: .col.col-lg-9
+                    .form-group.form-group-inline.form-group-inline-lg
+                        label(translate="implementation_edit.labels.{{ $ctrl.implementationPage.page_type + '_' + textBlock.key }}").form-label
+                        .form-offset
+                            markdown(
+                                extended-options="false"
+                                value="textBlock.data.description_html" 
+                                ng-model="textBlock.data.description")
+
+                        .form-error(ng-repeat="error in $ctrl.form.errors['blocks.' + textBlock.data.id + '.description']" ng-bind="error")
 
             .card-section.card-section-primary: .text-center
                 button(type="button" ui-sref="implementation-cms({organization_id: $ctrl.organization.id, id: $ctrl.implementationPage.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default

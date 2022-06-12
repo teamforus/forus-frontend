@@ -2,6 +2,7 @@ const FundsComponent = function(
     $q,
     $state,
     $stateParams,
+    $sce,
     appConfigs,
     FundService,
     FormBuilderService
@@ -87,6 +88,16 @@ const FundsComponent = function(
         });
 
         $ctrl.updateFiltersUsedCount();
+
+        let blocks = appConfigs.features.pages.funds.blocks;
+
+        blocks.forEach(block => {
+            block.description_html = $sce.trustAsHtml(block.description_html);
+        });
+
+        $ctrl.description_above_funds_list = blocks.find(block => {
+            return block.key == 'above_fund_list';
+        }).description_html;
     };
 };
 
@@ -102,6 +113,7 @@ module.exports = {
         '$q',
         '$state',
         '$stateParams',
+        '$sce',
         'appConfigs',
         'FundService',
         'FormBuilderService',
