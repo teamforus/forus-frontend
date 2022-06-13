@@ -4,7 +4,8 @@
     
     .modal-window: form.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
-        .modal-header(i18n="modals.modal_export_data.title")
+        .modal-header(ng-if="$ctrl.title" ng-bind="$ctrl.title")
+        .modal-header(ng-if="!$ctrl.title" i18n="modals.modal_export_data.title")
 
         .modal-body: .modal-section: .block.block-export-options
             .export-section(ng-repeat="section in $ctrl.sections")

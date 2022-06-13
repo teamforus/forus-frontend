@@ -33,8 +33,8 @@ const SponsorProviderOrganizationComponent = function(
         return { ...fundProvider, srefParams };
     };
 
-    $ctrl.updateFundProviderState = (fundProvider, accepted) => {
-        const state = accepted ? 'accepted' : 'rejected';
+    const rejectFundProvider = (fundProvider) => {
+        const state = 'rejected';
 
         ModalService.open("dangerZone", {
             title: $translateDangerZone(state + '.title'),
@@ -50,6 +50,53 @@ const SponsorProviderOrganizationComponent = function(
                 });
             }
         });
+    };
+
+    const acceptFundProvider = (fundProvider) => {
+        const state = 'accepted';
+        const fields = [{
+            key: 'allow_budget',
+            name: 'Allow budget'
+        }, {
+            key: 'allow_products',
+            name: 'Allow products'
+        }];
+
+        const makeSections = (fields) => ([
+            { type: "checkbox", key: "fields", fields, fieldsPerRow: 2, selectAll: true, title: 'Fields' },
+        ]);
+
+        const onSuccess = (data) => {
+            const { fields } = data;
+            const queryFilters = { 
+                state: state, 
+                allow_budget: fields.indexOf('allow_budget') != -1, 
+                allow_products: fields.indexOf('allow_products') != -1
+            };
+
+            fundProvider.submittingState = state;
+    
+            $ctrl.updateProvider(fundProvider, queryFilters).finally(() => {
+                fundProvider.submittingState = false;
+            });
+        };
+
+        ModalService.open('exportDataSelect', {
+            title: 'Are you sure you want to accept this provider?',
+            fields: fields,
+            sections: makeSections(fields),
+            success: onSuccess
+        });
+    };
+
+    $ctrl.updateFundProviderState = (fundProvider, accepted) => {
+        const state = accepted ? 'accepted' : 'rejected';
+
+        if (state == 'rejected') {
+            rejectFundProvider(fundProvider);
+        } else {
+            acceptFundProvider(fundProvider);
+        }
     };
 
     $ctrl.updateProvider = (fundProvider, query) => {
