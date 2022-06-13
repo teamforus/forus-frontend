@@ -1,6 +1,6 @@
 .col.col-lg-9.col-lg-12
     .form-group.form-group-inline(ng-repeat="(index, categories) in $ctrl.categoriesHierarchy  track by $index")
-        label.form-label(ng-if="index == 0" translate="product_edit.labels.category")
+        label.form-label.form-label-required(ng-if="index == 0" translate="product_edit.labels.category")  // TODO check
         label.form-label(ng-if="index > 0") &nbsp;
 
         .form-offset: select-control(
