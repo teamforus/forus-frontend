@@ -92,12 +92,12 @@ const FundsComponent = function(
         let blocks = appConfigs.features.pages.funds.blocks;
 
         blocks.forEach(block => {
-            block.description_html = $sce.trustAsHtml(block.description_html);
+            block.description_html_trusted = $sce.trustAsHtml(block.description_html || '');
         });
 
         $ctrl.description_above_funds_list = blocks.find(block => {
             return block.key == 'above_fund_list';
-        }).description_html;
+        }).description_html_trusted;
     };
 };
 

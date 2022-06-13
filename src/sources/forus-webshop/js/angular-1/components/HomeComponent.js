@@ -69,7 +69,7 @@ let HomeComponent = function (
         let blocks = appConfigs.features.pages.home.blocks;
 
         blocks.forEach(block => {
-            block.description_html = $sce.trustAsHtml(block.description_html);
+            block.description_html_trusted = $sce.trustAsHtml(block.description_html || '');
         });
 
         $ctrl.fund_blocks = blocks.filter(block => {
@@ -78,7 +78,7 @@ let HomeComponent = function (
 
         $ctrl.description_below_header = blocks.find(block => {
             return block.key == 'below_header';
-        }).description_html;
+        }).description_html_trusted;
     };
 };
 

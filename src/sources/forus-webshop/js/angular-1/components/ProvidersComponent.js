@@ -146,12 +146,12 @@ const ProvidersComponent = function(
         let blocks = appConfigs.features.pages.providers.blocks;
 
         blocks.forEach(block => {
-            block.description_html = $sce.trustAsHtml(block.description_html);
+            block.description_html_trusted = $sce.trustAsHtml(block.description_html || '');
         });
 
         $ctrl.description_above_providers_list = blocks.find(block => {
             return block.key == 'above_provider_list';
-        }).description_html;
+        }).description_html_trusted;
     };
 };
 

@@ -60,7 +60,7 @@ main(id="main-content")
             .fund-block-information
                 span.label.label-success(ng-if="fund_block.label" ng-bind="fund_block.label")
                 .fund-block-title(ng-bind="fund_block.title")
-                .block.block-markdown.fund-block-description(ng-bind-html="fund_block.description_html")
+                .block.block-markdown.fund-block-description(ng-bind-html="fund_block.description_html_trusted")
                 .button.button-primary(
                     ng-if="fund_block.button_enabled"
                     type="button")
