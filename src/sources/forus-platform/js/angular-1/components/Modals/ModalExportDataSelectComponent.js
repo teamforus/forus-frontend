@@ -53,6 +53,7 @@ const ModalExportDataComponent = function() {
         const { sections } = $ctrl.modal.scope;
 
         $ctrl.title = $ctrl.modal.scope.title;
+        $ctrl.description = $ctrl.modal.scope.description;
 
         $ctrl.sections = sections.map((section) => {
             const { type, fields, fieldsPerRow } = section;

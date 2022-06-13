@@ -63,7 +63,7 @@ const SponsorProviderOrganizationComponent = function(
         }];
 
         const makeSections = (fields) => ([
-            { type: "checkbox", key: "fields", fields, fieldsPerRow: 2, selectAll: true, title: 'Fields' },
+            { type: "checkbox", key: "fields", fields, fieldsPerRow: 2, selectAll: true, title: $translateDangerZone(state + '.options') },
         ]);
 
         const onSuccess = (data) => {
@@ -82,7 +82,8 @@ const SponsorProviderOrganizationComponent = function(
         };
 
         ModalService.open('exportDataSelect', {
-            title: 'Are you sure you want to accept this provider?',
+            title: $translateDangerZone(state + '.title'),
+            description: $translateDangerZone(state + '.description'),
             fields: fields,
             sections: makeSections(fields),
             success: onSuccess

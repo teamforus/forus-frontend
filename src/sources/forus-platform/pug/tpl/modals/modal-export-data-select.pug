@@ -8,6 +8,8 @@
         .modal-header(ng-if="!$ctrl.title" i18n="modals.modal_export_data.title")
 
         .modal-body: .modal-section: .block.block-export-options
+            .modal-heading(ng-if="$ctrl.description" ng-bind="$ctrl.description")
+
             .export-section(ng-repeat="section in $ctrl.sections")
                 .export-section-label.flex
                     .flex.flex-grow.flex-vertical.flex-center: .form-label(ng-bind="section.title")
