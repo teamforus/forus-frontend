@@ -13,8 +13,8 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 success: (data) => {
                     const { url, text, uid, alt } = data;
 
-                    if (uid && $scope.mediaUploaded) {
-                        $scope.mediaUploaded({
+                    if (uid && $dir.mediaUploaded) {
+                        $dir.mediaUploaded({
                             media_uid: uid,
                         });
                     }
