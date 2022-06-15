@@ -12,6 +12,10 @@ const ImplementationCmsPageEditComponent = function(
         'text': {},
     };
 
+    $ctrl.registerImplementationBlocksEditor = function(childRef) {
+        $ctrl.implementationBlocksEditor = childRef;
+    };
+
     $ctrl.appendMedia = (media_uid, formValue) => {
         if (!Array.isArray(formValue.media_uid)) {
             formValue.media_uid = [];
@@ -20,11 +24,7 @@ const ImplementationCmsPageEditComponent = function(
         formValue.media_uid.push(media_uid);
     };
 
-    $ctrl.registerImplementationBlocksEditor = function(childRef) {
-        $ctrl.implementationBlocksEditor = childRef;
-    };
-
-    $ctrl.searchBlock = (type, key) => {
+    const searchBlock = (type, key) => {
         let foundBlocks = $ctrl.implementationPage.blocks.filter(block => {
             return block.type == type && block.key == key;
         });
@@ -32,17 +32,17 @@ const ImplementationCmsPageEditComponent = function(
         return (type == 'text' && foundBlocks.length == 1) ? foundBlocks[0] : foundBlocks;
     };
 
-    let getBlockData = (type, block_key, block_index) => {
-        let empty_data = (type == 'detailed') ? [] : {
+    const getBlockData = (type, block_key, block_index) => {
+        let block_data = (type == 'detailed') ? [] : {
             'key'   : block_key,
             'type'  : type,
             'id'    : Date.now() + block_index,
             'description': ''
         };
-        let block_data = empty_data;
+        let found_blocks = searchBlock(type, block_key);
 
-        if (Object.values($ctrl.searchBlock(type, block_key)).length) {
-            block_data = $ctrl.searchBlock(type, block_key);
+        if (Object.values(found_blocks).length) {
+            block_data = found_blocks;
         }
 
         return {
@@ -51,7 +51,7 @@ const ImplementationCmsPageEditComponent = function(
         };
     };
 
-    $ctrl.transformBlocks = () => {
+    const transformBlocks = () => {
         let block_index = 0;
     
         $ctrl.implementationPage.detailed_blocks.forEach(block_key => {
@@ -65,7 +65,7 @@ const ImplementationCmsPageEditComponent = function(
         });
     };
 
-    let blocksToFormData = (blocks, block_type) => {
+    const blocksToFormData = (blocks, block_type) => {
         let res = [];
 
         for (const block_key in blocks[block_type]) {
@@ -83,33 +83,28 @@ const ImplementationCmsPageEditComponent = function(
         return res;
     };
 
-    let buildFormData = (data) => {
+    const buildFormData = (data) => {
         let blocksData = {
             ...blocksToFormData(data.blocks, 'detailed'), 
             ...blocksToFormData(data.blocks, 'text')
         };
 
-        return {
-            ...data, 
-            blocks: blocksData
-        };
+        return { ...data, blocks: blocksData };
     };
 
     $ctrl.$onInit = () => {
-        $ctrl.transformBlocks();
+        transformBlocks();
 
         $ctrl.form = FormBuilderService.build({
             ...$ctrl.implementationPage,
             blocks: $ctrl.blocks
         }, (form) => {
             const submit = () => {
-                let data = buildFormData(form.values);
-                
                 ImplementationService.updatePage(
                     $ctrl.organization.id, 
                     $ctrl.implementationPage.implementation.id, 
                     $ctrl.implementationPage.id,
-                    data
+                    buildFormData(form.values)
                 ).then(res => {
                     PushNotificationsService.success('Opgeslagen!');
                     form.errors = {};

@@ -62,11 +62,11 @@
                 button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
 
         .card
-            .card-header: .card-title Implementatie pages
+            .card-header: .card-title(translate="implementation_edit.implementations_table.title")
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
-                    th Naam
-                    th.text-right Opties
+                    th(translate="implementation_edit.implementations_table.columns.name")
+                    th.text-right(translate="implementation_edit.implementations_table.columns.options")
 
                 tr(ng-repeat="key in $ctrl.implementation.page_types")
                     td(translate="implementation_edit.labels.{{ key }}")
@@ -74,6 +74,6 @@
                         .button.button-default(
                             ui-sref="implementation-cms-page({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id, page_id: $ctrl.form.values.pages[key].id})")
                             em.mdi.mdi-pencil.icon-start
-                            | Bewerken
+                            | {{ 'implementation_edit.implementations_table.labels.edit' | translate }}
             
-            .card-section.text-center(ng-if="$ctrl.implementation.page_types.length == 0") Geen implementatie pages            
+            .card-section.text-center(ng-if="$ctrl.implementation.page_types.length == 0" translate="implementation_edit.implementations_table.labels.no_pages")            

@@ -34,7 +34,7 @@ const ImplementationBlocksEditorDirective = function(
         $dir.blocks.push({
             id: Date.now() + $dir.blocks.length,
             key: $dir.key,
-            type: 'overview',
+            type: 'detailed',
             label: '',
             title: '',
             description: '',

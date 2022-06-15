@@ -427,6 +427,17 @@ module.exports = {
             providers_above_provider_list: "Above provider list text",
             funds_above_fund_list: "Above fund list text",
         },
+        implementations_table: {
+            title: "Implementatie pages",
+            columns: {
+                name: "Naam",
+                options: "Opties"
+            },
+            labels: {
+                edit: "Bewerken",
+                no_pages: "Geen implementatie pages",
+            },
+        },
         placeholders: {
             provider: "Aanbiederpagina content",
             privacy: "bijv. http://uwgemeente.nl/privacyverklaring",
