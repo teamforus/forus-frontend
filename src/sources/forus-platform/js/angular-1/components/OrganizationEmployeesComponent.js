@@ -13,7 +13,12 @@ const OrganizationEmployeesComponent = function (
         'modals.danger_zone.remove_organization_employees.' + key
     );
 
-    $ctrl.filters = {};
+    $ctrl.filters = {
+        values: {
+            q: "",
+            per_page: 15
+        }
+    };
     $ctrl.adminEmployees = [];
 
     $ctrl.transformEmployee = (employee) => {
@@ -32,7 +37,7 @@ const OrganizationEmployeesComponent = function (
     };
 
     $scope.onPageChange = (query) => {
-        const filters = { ...$ctrl.filters, ...query };
+        const filters = { ...$ctrl.filters.values, ...query };
 
         OrganizationEmployeesService.list($ctrl.organization.id, filters).then((res => {
             $ctrl.employees = $ctrl.transformEmployees(res.data);

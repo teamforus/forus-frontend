@@ -491,7 +491,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             organization: organziationResolver(),
             permission: permissionMiddleware('employees-list', 'manage_employees'),
             employees: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
-                return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id));
+                return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id, { per_page: 15 }));
             }],
             roles: ['RoleService', 'permission', (RoleService) => {
                 return repackResponse(RoleService.list());
