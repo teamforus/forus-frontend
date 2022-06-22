@@ -1,5 +1,7 @@
 header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
-    .wrapper.flex-row
+    announcements
+
+    .wrapper.flex-row.relative
         a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
             img(ng-src="./assets/img/logo.svg").header-logo-img
 

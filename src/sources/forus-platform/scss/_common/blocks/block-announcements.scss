@@ -1,0 +1,133 @@
+&.block-announcements {
+    .announcement {
+        background: #ffffff;
+        border: 1px solid #D4D9DD;
+        box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #c1c1c1;
+        border-radius: 3px;
+        padding: 12px 20px;
+        margin-bottom: 20px;
+        position: relative;
+        border-left: 0;
+        opacity: 1;
+        transition: opacity 0.4s;
+
+        &.dismissed {
+            opacity: 0;
+        }
+
+        &.announcement-danger {
+            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #e63f3b;
+        }
+
+        &.announcement-warning {
+            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #fc9c28;
+        }
+
+        &.announcement-success {
+            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #51c778;
+        }
+
+        &.announcement-primary {
+            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #2a87fc;
+        }
+
+        &.announcement-default {
+            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #c1c1c1;
+        }
+
+        .title {
+            font: 600 13px/16px $bf;
+            color: #151B26;
+            margin-bottom: 7px;
+        }
+
+        .description {
+            font: 500 11px/16px $bf;
+            color: #646F79;
+
+            h1 {
+                font: 500 2.5em $bf;
+                margin: 0 0 0.6em;
+                text-align: left;
+            }
+
+            h2 {
+                font: 500 2em $bf;
+                margin: 0 0 0.7em;
+                text-align: left;
+            }
+
+            h3 {
+                font: 500 1.5em $bf;
+                margin: 0 0 0.9em;
+                text-align: left;
+            }
+
+            h4 {
+                font: 500 1.25em $bf;
+                margin: 0 0 0.9em;
+                text-align: left;
+            }
+
+            p {
+                margin-bottom: 15px;
+                text-align: justify;
+                font: inherit;
+            }
+
+            ul,
+            ol {
+                margin: 0 0 15px;
+                padding-left: 18px;
+
+                li {
+                    font: inherit;
+                }
+            }
+
+            ul {
+                list-style: disc;
+            }
+
+            a:not(.button) {
+                color: $bc;
+                font-weight: 500;
+                transition: 0.4s;
+                font: inherit;
+                text-decoration: underline;
+
+                &:hover {
+                    color: $bc;
+                }
+            }
+
+            strong,
+            b {
+                font: inherit;
+                font-weight: 700;
+            }
+
+            i,
+            em {
+                font: inherit;
+                font-style: italic;
+            }
+        }
+
+        .announcement-close {
+            position: absolute;
+            font-size: 16px;
+            right: 12px;
+            top: 12px;
+            display: block;
+            cursor: pointer;
+            color: #757575;
+            transition: color .4s;
+            z-index: 1;
+
+            &:hover {
+                color: #000000;
+            }
+        }
+    }
+}
