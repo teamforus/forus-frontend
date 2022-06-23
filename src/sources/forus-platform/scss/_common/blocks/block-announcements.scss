@@ -12,7 +12,7 @@
             background: #ffffff;
             padding: 15px 20px;
             border-radius: $borderRadius / 2;
-            margin-left: -($borderRadius / 2);
+            margin-left: -3.5px;
         }
 
         .title {
@@ -129,23 +129,23 @@
         }
 
         &.announcement-danger {
-            border-left: 7px solid #e63f3b;
+            border-left: 8px solid #e63f3b;
         }
 
         &.announcement-warning {
-            border-left: 7px solid #fc9c28;
+            border-left: 8px solid #fc9c28;
         }
 
         &.announcement-success {
-            border-left: 7px solid #51c778;
+            border-left: 8px solid #51c778;
         }
 
         &.announcement-primary {
-            border-left: 7px solid #2a87fc;
+            border-left: 8px solid #2a87fc;
         }
 
         &.announcement-default {
-            border-left: 7px solid #c1c1c1;
+            border-left: 8px solid #c1c1c1;
         }
     }
 }
