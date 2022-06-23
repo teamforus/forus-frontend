@@ -1,40 +1,40 @@
-let AnnouncementsDirective = function(
+const AnnouncementsDirective = function (
     $scope,
-    $timeout,
-    appConfigs
+    $timeout
 ) {
-    let $dir = $scope.$dir = {};
-    $dir.dismissed = JSON.parse(localStorage.getItem('dismissed_announcements'));
-    $dir.announcements = filterAnnouncements(appConfigs.features.announcements);
+    const $dir = $scope.$dir;
+    const storageKey = 'dismissed_announcements';
 
-    function filterAnnouncements(announcements) {
-        return announcements.filter((announcement) => !$dir.dismissed.includes(announcement.id));
-    }
-
-    if (!Array.isArray($dir.dismissed)) {
-        $dir.dismissed = [];
-    }
-
-    $dir.dismiss = function(announcement) {
+    $dir.dismiss = (announcement) => {
         announcement.dismissed = true;
 
         $timeout(() => {
-            let index = $dir.announcements.indexOf(announcement);
-            $dir.announcements.splice(index, 1);
+            $dir.announcements.splice($dir.announcements.indexOf(announcement), 1);
             $dir.dismissed.push(announcement.id);
-            localStorage.setItem('dismissed_announcements', JSON.stringify($dir.dismissed));
+
+            localStorage.setItem(storageKey, JSON.stringify($dir.dismissed));
         }, 400);
+    };
+
+    $dir.$onInit = () => {
+        $dir.dismissed = JSON.parse(localStorage.getItem(storageKey));
+        $dir.dismissed = Array.isArray($dir.dismissed) ? $dir.dismissed : [];
+        $dir.announcements = $dir.list.filter((item) => !$dir.dismissed.includes(item.id));
     };
 };
 
 module.exports = () => {
     return {
-        scope: {},
+        scope: {
+            list: "=",
+        },
         replace: true,
+        bindToController: true,
+        controllerAs: '$dir',
+        restrict: "AE",
         controller: [
             '$scope',
             '$timeout',
-            'appConfigs',
             AnnouncementsDirective
         ],
         templateUrl: 'assets/tpl/directives/announcements.html',

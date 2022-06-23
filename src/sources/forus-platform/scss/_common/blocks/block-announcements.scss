@@ -1,49 +1,29 @@
 &.block-announcements {
     .announcement {
-        background: #ffffff;
-        border: 1px solid #D4D9DD;
-        box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #c1c1c1;
-        border-radius: 3px;
-        padding: 12px 20px;
         margin-bottom: 20px;
         position: relative;
-        border-left: 0;
         opacity: 1;
         transition: opacity 0.4s;
+        border-radius: $borderRadius / 2;
+        box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
+        cursor: default;
 
-        &.dismissed {
-            opacity: 0;
-        }
-
-        &.announcement-danger {
-            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #e63f3b;
-        }
-
-        &.announcement-warning {
-            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #fc9c28;
-        }
-
-        &.announcement-success {
-            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #51c778;
-        }
-
-        &.announcement-primary {
-            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #2a87fc;
-        }
-
-        &.announcement-default {
-            box-shadow: 0 0 5px rgba(25, 39, 52, 0.22), inset 5px 0 0 #c1c1c1;
+        .announcement-wrapper {
+            background: #ffffff;
+            padding: 15px 20px;
+            border-radius: $borderRadius / 2;
+            margin-left: -($borderRadius / 2);
         }
 
         .title {
             font: 600 13px/16px $bf;
-            color: #151B26;
+            color: #151b26;
             margin-bottom: 7px;
         }
 
         .description {
             font: 500 11px/16px $bf;
-            color: #646F79;
+            color: #646f79;
 
             h1 {
                 font: 500 2.5em $bf;
@@ -112,6 +92,20 @@
                 font: inherit;
                 font-style: italic;
             }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p,
+            ul,
+            ol {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
         }
 
         .announcement-close {
@@ -122,12 +116,36 @@
             display: block;
             cursor: pointer;
             color: #757575;
-            transition: color .4s;
+            transition: color 0.4s;
             z-index: 1;
 
             &:hover {
                 color: #000000;
             }
+        }
+
+        &.dismissed {
+            opacity: 0;
+        }
+
+        &.announcement-danger {
+            border-left: 7px solid #e63f3b;
+        }
+
+        &.announcement-warning {
+            border-left: 7px solid #fc9c28;
+        }
+
+        &.announcement-success {
+            border-left: 7px solid #51c778;
+        }
+
+        &.announcement-primary {
+            border-left: 7px solid #2a87fc;
+        }
+
+        &.announcement-default {
+            border-left: 7px solid #c1c1c1;
         }
     }
 }

@@ -231,7 +231,6 @@ app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirect
 app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
-
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
