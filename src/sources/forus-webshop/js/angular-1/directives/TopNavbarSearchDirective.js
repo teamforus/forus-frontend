@@ -20,6 +20,11 @@ const TopNavbarSearchDirective = function(
     $dir.query = $state.params.q || '';
     $dir.lastQuery = $state.params.q || '';
     $dir.isSearchResultPage = $state.current.name === 'search-result';
+    $dir.allResultsCount = 0;
+    $dir.searchKey = null;
+    $dir.searchKeyList = [
+        'products', 'funds', 'providers'
+    ];
 
     $dir.clearSearch = () => {
         $dir.query = null;
@@ -91,18 +96,36 @@ const TopNavbarSearchDirective = function(
         ].join("") : name;
     }
 
+    const transformResultByGroup = (result, key) => {
+        let count = 0;
+
+        result[key].items.forEach((item) => {
+            item.name = $sce.trustAsHtml($dir.transformName(item.name, $dir.query));
+            item.navigation_key = ++count;
+            item.uiSref = item.item_type;
+            item.uiSrefParams = { id: item.id };
+
+            $dir.resultsList.push(item);
+        });
+
+        return count;
+    };
+
+    $dir.filterBySearchKey = (searchKey) => {
+        $dir.searchKey = searchKey;
+        $dir.resultsExists = searchKey ? $dir.results[searchKey].count : $dir.allResultsCount;
+    };
+
     $dir.transformSearchResult = (result) => {
         let count = 0;
 
-        for (const key in result) {
-            result[key].items.forEach((item) => {
-                item.name = $sce.trustAsHtml($dir.transformName(item.name, $dir.query));
-                item.navigation_key = ++count;
-                item.uiSref = item.item_type;
-                item.uiSrefParams = { id: item.id };
-
-                $dir.resultsList.push(item);
-            });
+        if (!$dir.searchKey) {
+            for (const key in result) {
+                count += transformResultByGroup(result, key);
+            }
+            $dir.allResultsCount = count;
+        } else {
+            count = transformResultByGroup(result, $dir.searchKey);
         }
 
         $dir.resultsExists = count;

@@ -1,3 +1,5 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
 .block.block-navbar-search(
     ng-class="{'block-navbar-search-results': $dir.dropdown}"
     ng-keydown="$dir.navigateItems($event)")
@@ -16,40 +18,75 @@
             )
 
         .search-result(ng-if="$dir.dropdown")
-            //- Result sections
-            .search-result-section(
-                ng-repeat="(key, values) in $dir.results"
-                ng-if="values.count > 0 && $dir.resultsExists && $dir.results && !$dir.searchResultPage")
+            .search-result-filters-section
+                //- All results
+                .search-result-filter(ng-click="$dir.filterBySearchKey(null)" ng-class="{active: !$dir.searchKey}")
+                    img(src=src_prefix + "./assets/img/icon-search/all-results.svg")
+                    span Alle resultaten
+                    em.mdi.mdi-chevron-right(ng-if="!$dir.searchKey")
 
-                //- Section title
-                .search-result-title
-                    span(translate="top_navbar_search.result.{{ key }}_label")
-                    a.search-result-title-link(
-                        ui-sref="search-result({q: $dir.lastQuery, search_item_types: key})" 
-                        ng-if="values.count > 3")  {{ values.count }} resultaten gevonden...
-                
-                //- Result sections list
-                .search-result-items(ng-if="values")
-                    a.search-result-item(
-                        ng-repeat="value in values.items"
-                        ui-sref="{{value.uiSref}}(value.uiSrefParams)"
-                        ng-class="{ selected: $dir.selectedItem == {{value.navigation_key}} }"
-                        ng-bind-html="value.name")
+                //- Results by key
+                .search-result-filter(
+                    ng-repeat="searchKey in $dir.searchKeyList"
+                    ng-click="$dir.filterBySearchKey(searchKey)" 
+                    ng-class="{active: $dir.searchKey == searchKey}"
+                    )
 
-            //- Actions
-            .search-result-actions(ng-if="$dir.resultsExists && $dir.results && !$dir.searchResultPage")
-                button.button.button-primary(ui-sref="search-result({q: $dir.query})" translate="top_navbar_search.result.btn")
+                    img(ng-src="{{ src_prefix + './assets/img/icon-search/' + searchKey + '.svg' }}")
+                    span(translate="top_navbar_search.result.{{ searchKey }}_label")
+                    em.mdi.mdi-chevron-right(ng-if="$dir.searchKey == searchKey")
 
-            //- No results
-            .search-noresult(ng-if="!$dir.resultsExists && $dir.results && !$dir.searchResultPage")
-                .search-noresult-description(
-                    translate="top_navbar_search.noresult.subtitle" 
-                    translate-values="{ query: $dir.lastQuery }") 
+            .search-result-main-section
+                //- All result sections
+                .search-result-section(
+                    ng-repeat="(key, values) in $dir.results"
+                    ng-if="!$dir.searchKey && values.count > 0 && $dir.resultsExists && $dir.results && !$dir.searchResultPage")
 
-                .search-noresult-items
-                    a(ui-sref="providers" translate="top_navbar_search.noresult.providers_label").search-noresult-item
-                    a(ui-sref="products" translate="top_navbar_search.noresult.products_label").search-noresult-item
-                    a(ui-sref="funds" translate="top_navbar_search.noresult.funds_label").search-noresult-item
+                    //- Section title
+                    .search-result-title
+                        img(ng-src="{{ src_prefix + './assets/img/icon-search/' + key + '.svg' }}")
+                        span(translate="top_navbar_search.result.{{ key }}_label")
+                        a.search-result-title-link(
+                            ui-sref="search-result({q: $dir.lastQuery, search_item_types: key})" 
+                            ng-if="values.count > 3")  {{ values.count }} resultaten gevonden...
+                    
+                    //- Result sections list
+                    .search-result-items(ng-if="values")
+                        a.search-result-item(
+                            ng-repeat="value in values.items"
+                            ui-sref="{{value.uiSref}}(value.uiSrefParams)"
+                            ng-class="{ selected: $dir.selectedItem == {{value.navigation_key}} }"
+                            ng-bind-html="value.name")
+
+                //- Result section filtered
+                .search-result-section(
+                    ng-if="$dir.searchKey && $dir.results[$dir.searchKey].count > 0 && $dir.resultsExists && $dir.results[$dir.searchKey] && !$dir.searchResultPage")
+
+                    //- Section title
+                    .search-result-title
+                        img(ng-src="{{ src_prefix + './assets/img/icon-search/' + $dir.searchKey + '.svg' }}")
+                        span(translate="top_navbar_search.result.{{ $dir.searchKey }}_label")
+                        a.search-result-title-link(
+                            ui-sref="search-result({q: $dir.lastQuery, search_item_types: $dir.searchKey})" 
+                            ng-if="$dir.results[$dir.searchKey].count > 3")  {{ $dir.results[$dir.searchKey].count }} resultaten gevonden...
+                    
+                    //- Result sections list
+                    .search-result-items(ng-if="$dir.results[$dir.searchKey]")
+                        a.search-result-item(
+                            ng-repeat="value in $dir.results[$dir.searchKey].items"
+                            ui-sref="{{value.uiSref}}(value.uiSrefParams)"
+                            ng-class="{ selected: $dir.selectedItem == {{value.navigation_key}} }"
+                            ng-bind-html="value.name")
+
+                //- Actions
+                .search-result-actions(ng-if="$dir.resultsExists && ($dir.searchKey ? $dir.results[$dir.searchKey] : $dir.results) && !$dir.searchResultPage")
+                    button.button.button-primary(ui-sref="search-result({q: $dir.query})" translate="top_navbar_search.result.btn")
+
+                //- No results
+                .search-noresult(ng-if="!$dir.resultsExists && ($dir.searchKey ? $dir.results[$dir.searchKey] : $dir.results) && !$dir.searchResultPage")
+                    .search-noresult-description(
+                        translate="top_navbar_search.noresult.subtitle" 
+                        translate-values="{ query: $dir.lastQuery }")
 
 //- .block.block-navbar-search
     .search-form.form
