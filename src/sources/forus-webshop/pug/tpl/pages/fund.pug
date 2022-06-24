@@ -20,13 +20,15 @@ main(id="main-content")
                         target="_blank"
                         ng-class="$ctrl.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'"
                         ng-if="$ctrl.fund.external_link_text && $ctrl.fund.external_link_url"
-                        ng-href="{{ $ctrl.fund.external_link_url }}"
-                        ng-bind="$ctrl.fund.external_link_text")
+                        ng-href="{{ $ctrl.fund.external_link_url }}")
+                        span(ng-bind="$ctrl.fund.external_link_text")
+                        em.mdi.mdi-arrow-right.icon-right
 
                     a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.showRequestButton"
-                        ui-sref="fund-activate({fund_id: $ctrl.fund.id})"
-                        ng-bind="$ctrl.fund.request_btn_text")
+                        ui-sref="fund-activate({fund_id: $ctrl.fund.id})")
+                        span(ng-bind="$ctrl.fund.request_btn_text")
+                        em.mdi.mdi-arrow-right.icon-right
 
                     a.button.button-primary.button-wide.button-disabled(
                         ng-if="$ctrl.fund.showPendingButton"
@@ -35,13 +37,15 @@ main(id="main-content")
                     a.button.button-primary.button-wide(
                         type="button"
                         ng-if="$ctrl.fund.showActivateButton" 
-                        ng-click="$ctrl.applyFund($event, $ctrl.fund)" 
-                        translate="funds.buttons.is_applicable")
+                        ng-click="$ctrl.applyFund($event, $ctrl.fund)")
+                        translate(translate="funds.buttons.is_applicable")
+                        em.mdi.mdi-arrow-right.icon-right
 
                     a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.alreadyReceived" 
-                        ui-sref="voucher({ address: $ctrl.fund.vouchers[0].address })" 
-                        translate="funds.buttons.already_received")
+                        ui-sref="voucher({ address: $ctrl.fund.vouchers[0].address })")
+                        translate(translate="funds.buttons.already_received")
+                        em.mdi.mdi-arrow-right.icon-right
 
             .fund-content
                 .fund-card: .fund-details
