@@ -135,7 +135,8 @@
                 .card-section: bar-chart(
                     data="$ctrl.chartData.dates" 
                     field="$ctrl.field"
-                    field-format="$ctrl.field === 'amount' ? $ctrl.currencyFormat : null")
+                    field-format="$ctrl.field === 'amount' ? $ctrl.currencyFormat : null"
+                    step-size="$ctrl.field === 'amount' ? null : 1")
 
             //- Statistics columns
             .financial-totals
