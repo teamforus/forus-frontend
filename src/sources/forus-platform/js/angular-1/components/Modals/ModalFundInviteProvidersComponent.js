@@ -28,8 +28,8 @@ const ModalFundInviteProvidersComponent = function(
                 }, res => {
                     form.errors = res.data.errors;
                     form.unlock();
-                });
-            }).finally(() => PageLoadingBarService.setProgress(100));
+                }).finally(() => PageLoadingBarService.setProgress(100));
+            });
         });
     };
 };
