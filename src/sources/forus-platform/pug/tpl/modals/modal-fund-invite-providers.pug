@@ -7,13 +7,12 @@
 
         .modal-body.form
             .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .form-group
-                label.form-label Nodig aanbieders uit van:
+                label.form-label.form-label-required Nodig aanbieders uit van:
                 .form-offset: select-control(
                     prop="id"
                     ng-model="$ctrl.form.values.fund_id"
                     options="$ctrl.funds").form-control
-                .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
-                .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
+                .form-error(ng-repeat="error in $ctrl.form.errors.fund_id" ng-bind="error")
 
             .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .block.block-info
                 em.mdi.mdi-information.block-info-icon
