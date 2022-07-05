@@ -297,12 +297,6 @@
         }
     }
 
-    &.modal-shops_map {
-        .modal-content{
-            padding: 0;
-        }
-    }
-
     &.modal-animated {
         &>.modal-backdrop, &>.modal-window, &>.modal-content {
             opacity: 1;

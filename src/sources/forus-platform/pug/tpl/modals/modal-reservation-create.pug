@@ -30,7 +30,7 @@
         .modal-header Aanbieding selecteren
         .modal-body.modal-body-visible
             //- Products form
-            .modal-section(ng-if="!$ctrl.showOverview")
+            .modal-section(ng-show="!$ctrl.showOverview")
                 .modal-text.text-center 
                     | Kies het aanbod waarvoor u de reservering wilt aanmaken. 
                     br
@@ -39,9 +39,8 @@
                 .row: .col.col-sm-9.col-sm-offset-1.col-sm-12.col-xs-offset-0
                     .form-group.form-group-inline.form-group-inline-md.tooltipped
                         label.form-label Aanbod
-                        select(
-                            ng-options="product as product.name for product in $ctrl.products" 
-                            ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
+                        .form-offset: select-control(
+                            options="$ctrl.products"
                             ng-model="$ctrl.formProducts.product").form-control
                         .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
                         tooltip(text="'reservation_create.tooltips.product' | translate | lines_to_array")
@@ -54,7 +53,7 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
 
             //- Submit overview
-            .modal-section(ng-if="$ctrl.showOverview")
+            .modal-section(ng-show="$ctrl.showOverview")
                 .modal-text.text-center 
                     | Controleer of u de juiste gegevens heeft ingevuld. Na bevestiging wordt de reservering aangemaakt.
 

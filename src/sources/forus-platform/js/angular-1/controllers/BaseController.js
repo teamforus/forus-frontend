@@ -127,10 +127,10 @@ const BaseController = function(
             return;
         }
 
-        let route = PermissionsService.getAvailableRoutes(
+        const route = PermissionsService.getAvailableRoutes(
             appConfigs.panel_type,
             $rootScope.auth_user.organizationsMap[selectedOrganizationId]
-        ).map(route => route.name)[0] || null;
+        ).map((route) => route.name)[0] || null;
 
         if (!route) {
             return $state.go('no-permission');
@@ -154,10 +154,10 @@ const BaseController = function(
     };
 
     $rootScope.loadAuthUser = function() {
-        let deferred = $q.defer();
+        const deferred = $q.defer();
 
         IdentityService.identity().then((res) => {
-            let auth_user = res.data;
+            const auth_user = res.data;
 
             RecordService.list().then((res) => {
                 auth_user.records = res.data;

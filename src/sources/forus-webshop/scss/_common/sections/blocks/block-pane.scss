@@ -42,6 +42,35 @@
             font: 700 16px/30px $bf;
             border-radius: 30px;
         }
+
+        .pane-head-more {
+            font: 600 14px/20px $bf;
+            color: #083f49;
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+            margin-left: 5px;
+            flex-grow: 1;
+            display: flex;
+            padding-top: 7.5px;
+
+            .mdi {
+                position: relative;
+                margin-left: 5px;
+                display: block;
+                transition: 0.4s;
+                font-size: 1.4em;
+                transform: translate(0, 0);
+                line-height: 20px;
+                height: 20px;
+            }
+
+            &:hover {
+                .mdi {
+                    transform: translate(5px, 0);
+                }
+            }
+        }
     }
 
     .pane-section {
@@ -52,6 +81,10 @@
         &.pane-section-compact-vertical {
             padding-top: 10px;
             padding-bottom: 10px;
+        }
+
+        &.pane-section-collapsed {
+            padding: 0;
         }
     }
 

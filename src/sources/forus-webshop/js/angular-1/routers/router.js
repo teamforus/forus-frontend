@@ -22,6 +22,17 @@ const routeParam = (value = null, squash = false, dynamic = false) => {
     return { value, squash, dynamic };
 };
 
+const i18n_state = ($stateProvider, args, defaultLocale = 'nl') => {
+    const url = typeof args.url == 'string' ? { [defaultLocale]: args.url } : args.url;
+    const locales = Object.keys(url).filter((locale) => locale != defaultLocale);
+
+    $stateProvider.state({ ...args, url: url[defaultLocale] });
+
+    locales.forEach((locale) => {
+        $stateProvider.state({ ...args, name: `${args.name}-${locale}`, url: args.url[locale] });
+    });
+};
+
 const handleAuthTarget = ($state, target) => {
     if (target[0] == 'homeStart') {
         return !!$state.go('home', {
@@ -148,9 +159,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: resolveCmsPage('accessibility'),
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "terms_and_conditions",
-        url: "/terms-and-conditions",
+        url: {
+            en: "/terms-and-conditions",
+            nl: "/algemene-voorwaarden",
+        },
         component: "termsAndConditionsComponent",
         resolve: resolveCmsPage('terms_and_conditions'),
     });
@@ -164,9 +178,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "products",
-        url: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
+        url: {
+            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
+            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
+        },
         component: "productsComponent",
         params: {
             q: {
@@ -236,9 +253,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "actions",
-        url: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
+        url: {
+            en: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
+            nl: "/acties?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
+        },
         component: "productsComponent",
         params: {
             q: {
@@ -313,9 +333,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "product",
-        url: "/products/{id}",
+        url: {
+            en: "/products/{id}",
+            nl: "/aanbod/{id}",
+        },
         component: "productComponent",
         params: { searchData: null },
         resolve: {
@@ -326,17 +349,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 type: 'regular',
                 state: 'active',
             })) : new Promise(resolve => resolve([]))],
-            product: ['$transition$', 'ProductService', (
-                $transition$, ProductService
-            ) => repackResponse(ProductService.read(
-                $transition$.params().id
-            ))],
+            product: ['$transition$', 'ProductService', ($transition$, ProductService) => {
+                return repackResponse(ProductService.read($transition$.params().id));
+            }],
+            provider: ['product', 'ProvidersService', (product, ProvidersService) => {
+                return repackResponse(ProvidersService.read(product.organization_id));
+            }],
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "providers",
-        url: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
+        url: {
+            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
+            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
+        },
         component: "providersComponent",
         params: {
             q: { dynamic: true, value: "", squash: true },
@@ -369,9 +396,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "explanation",
-        url: "/explanation",
+        url: {
+            en: "/explanation",
+            nl: "/uitleg",
+        },
         component: "explanationComponent",
         resolve: resolveCmsPage('explanation')
     });
@@ -504,9 +534,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "provider",
-        url: "/providers/{id}",
+        url: {
+            en: "/providers/{id}",
+            nl: "/aanbieders/{id}",
+        },
         component: "providerComponent",
         params: { searchData: null },
         resolve: {
@@ -534,9 +567,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "vouchers",
-        url: "/vouchers",
+        url: {
+            en: "/vouchers",
+            nl: "/tegoeden",
+        },
         component: "vouchersComponent",
         resolve: {
             vouchers: ['VoucherService', (
@@ -545,9 +581,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "reservations",
-        url: "/reservations",
+        url: {
+            en: "/reservations",
+            nl: "/reserveringen",
+        },
         component: "reservationsComponent",
         resolve: {
             funds: ['FundService', (
@@ -570,9 +609,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: 'voucher',
-        url: '/voucher/{address}',
+        url: {
+            en: '/voucher/{address}',
+            nl: '/tegoeden/{address}',
+        },
         component: 'voucherComponent',
         data: { address: null },
         resolve: {
@@ -674,9 +716,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "funds",
-        url: "/funds?{page:int}&{q:string}&{display_type:string}&{organization_id:int}&{tag_id:int}&{show_menu:bool}",
+        url: {
+            en: "/funds?{page:int}&{q:string}&{display_type:string}&{organization_id:int}&{tag_id:int}&{show_menu:bool}",
+            nl: "/fondsen?{page:int}&{q:string}&{display_type:string}&{organization_id:int}&{tag_id:int}&{show_menu:bool}",
+        },
         component: "fundsComponent",
         params: {
             q: routeParam("", true, true),
@@ -715,9 +760,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "fund",
-        url: "/funds/{id}",
+        url: {
+            en: "/funds/{id:int}",
+            nl: "/fondsen/{id:int}",
+        },
         component: "fundComponent",
         data: { id: null, searchData: null },
         params: { searchData: null },
@@ -758,12 +806,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     // Activate fund
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "fund-activate",
-        url: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_voucher",
+        url: {
+            en: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+            nl: "/fondsen/{fund_id}/activeer?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+        },
         component: "fundActivateComponent",
         params: {
             backoffice_error: null,
+            backoffice_error_key: null,
             backoffice_fallback: null,
             backoffice_voucher: null,
         },
@@ -793,9 +845,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     // Apply to fund by submitting fund request
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "fund-request",
-        url: "/fund/{fund_id}/request?digid_success&digid_error",
+        url: {
+            en: "/fund/{fund_id}/request?digid_success&digid_error",
+            nl: "/fondsen/{fund_id}/aanvraag?digid_success&digid_error",
+        },
         component: "fundRequestComponent",
         data: {
             fund_id: null,
@@ -940,9 +995,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: 'identityEmailsComponent'
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: 'security-sessions',
-        url: '/security/sessions',
+        url: {
+            en: '/security/sessions',
+            nl: '/beveiliging/sessies',
+        },
         component: 'securitySessionsComponent'
     });
 

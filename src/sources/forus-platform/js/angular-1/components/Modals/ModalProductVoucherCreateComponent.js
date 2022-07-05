@@ -23,21 +23,17 @@ const ModalProductVoucherCreateComponent = function(
     $ctrl.dateMinLimit = new Date();
 
     $ctrl.onAssignTypeChange = (assignType) => {
-        if (assignType.key !== 'bsn') {
+        if (assignType !== 'bsn') {
             delete $ctrl.form.values.bsn;
         }
 
-        if (assignType.key !== 'email') {
+        if (assignType !== 'email') {
             delete $ctrl.form.values.email;
         }
 
-        if (assignType.key !== 'activation_code_uid') {
+        if (assignType !== 'activation_code_uid') {
             delete $ctrl.form.values.activation_code_uid;
         }
-    };
-
-    $ctrl.productChanged = (product) => {
-        $ctrl.form.values.product_id = product?.id || null;
     };
 
     $ctrl.confirmEmailSkip = function(existingEmails, onConfirm = () => { }, onCancel = () => { }) {
@@ -180,20 +176,17 @@ const ModalProductVoucherCreateComponent = function(
 
         ProductService.listAll({
             fund_id: $ctrl.fund.id,
-            price_type: 'regular',
             show_all: 1,
             simplified: 1,
             per_page: 1000,
             order_by: 'name',
             order_by_dir: 'asc',
         }).then((res) => {
-            $ctrl.products = res.data.data.map(product => {
-                return {
-                    id: product.id,
-                    price: product.price,
-                    name: product.name + ' ' + product.price_locale + ' (' + product.organization.name + ')',
-                }
-            });
+            $ctrl.products = res.data.data.map((product) => ({
+                id: product.id,
+                price: product.price,
+                name: product.name + ' (' + product.price_locale + ') van (' + product.organization.name + ')',
+            }));
 
             $ctrl.modal.setLoaded();
 

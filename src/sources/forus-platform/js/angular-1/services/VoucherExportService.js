@@ -43,7 +43,11 @@ const VoucherExportService = function(
 
             const onSuccess = (data) => {
                 const { qr_format, data_format, fields } = data;
-                const queryFilters = { ...filters, qr_format, data_format, fields };
+                const queryFilters = {
+                    ...filters,
+                    ...{ data_format, fields },
+                    ...{ qr_format: qr_format == 'png' ? 'data' : qr_format },
+                };
 
                 PageLoadingBarService.setProgress(0);
                 console.info('- data loaded from the api.');
@@ -54,7 +58,7 @@ const VoucherExportService = function(
                             return PushNotificationsService.danger('Error!', error);
                         }
 
-                        PushNotificationsService.success('Succes!', 'The downloading should start shortly.');
+                        PushNotificationsService.success('Succes!', 'De download begint over enkele ogenblikken.');
                     }, console.error).finally(() => PageLoadingBarService.setProgress(100));
                 }, (res) => {
                     PushNotificationsService.danger('Error!', res.data.message);

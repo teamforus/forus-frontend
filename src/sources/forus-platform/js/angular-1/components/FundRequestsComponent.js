@@ -1,35 +1,40 @@
-let FundRequestsComponent = function(
-    $q,
-    $scope,
+const FundRequestsComponent = function(
     $state,
     $timeout,
     FileService,
-    FundService,
     ModalService,
     DateService,
-    OrganizationService,
-    OrganizationEmployeesService,
     FundRequestValidatorService,
     PushNotificationsService,
     appConfigs
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
-    let showInfoModal = (title, message) => ModalService.open('modalNotification', {
+    const showInfoModal = (title, message) => ModalService.open('modalNotification', {
         type: 'info',
         title: title,
         description: message,
         modalClass: 'modal-md',
     });
 
-    let org = OrganizationService.active();
+    const reloadRequests = (query) => {
+        FundRequestValidatorService.indexAll($ctrl.organization.id, {
+            ...query,
+            ...{
+                from: query.from ? DateService._frontToBack(query.from) : null,
+                to: query.to ? DateService._frontToBack(query.to) : null,
+            }
+        }).then(function(res) {
+            $ctrl.validatorRequests = $ctrl.updateSelfAssignedFlags(res.data);
+        }, console.error);
+    };
 
     $ctrl.funds = [];
-    $ctrl.fundsById = {};
-    $ctrl.validatorRequests = null;
     $ctrl.employee = false;
+    $ctrl.validatorRequests = null;
+    $ctrl.isValidatorsSupervisor = false;
 
-    $ctrl.shownUsers = {};
+    $ctrl.extendedView = localStorage.getItem('validator_requests.extended_view') === 'true';
 
     $ctrl.states = [{
         key: null,
@@ -71,13 +76,20 @@ let FundRequestsComponent = function(
         $timeout(() => $ctrl.filters.show = false);
     };
 
+    $ctrl.setExtendedView = function(extendedView) {
+        localStorage.setItem('validator_requests.extended_view', extendedView);
+
+        $ctrl.extendedView = extendedView;
+        $ctrl.validatorRequests.data.forEach((request) => request.collapsed = $ctrl.extendedView);
+    };
+
     $ctrl.reloadRequest = (request) => {
-        FundRequestValidatorService.read(
-            $ctrl.organization.id,
-            request.id
-        ).then((res) => {
+        FundRequestValidatorService.read($ctrl.organization.id, request.id).then((res) => {
             res.data.data.hasContent = request.hasContent;
             res.data.data.collapsed = request.collapsed;
+            res.data.data.person = request.person;
+            res.data.data.person_relative = request.person_relative;
+            res.data.data.person_breadcrumbs = request.person_breadcrumbs;
 
             request.records.forEach((record) => {
                 let newRecord = res.data.data.records.filter(_record => _record.id == record.id)[0];
@@ -89,18 +101,6 @@ let FundRequestsComponent = function(
 
             $ctrl.validatorRequests.data[$ctrl.validatorRequests.data.indexOf(request)] = res.data.data;
             $ctrl.validatorRequests = $ctrl.updateSelfAssignedFlags($ctrl.validatorRequests);
-        }, console.error);
-    };
-
-    let reloadRequests = (query) => {
-        FundRequestValidatorService.indexAll($ctrl.organization.id, {
-            ...query,
-            ...{
-                from: query.from ? DateService._frontToBack(query.from) : null,
-                to: query.to ? DateService._frontToBack(query.to) : null,
-            }
-        }).then(function(res) {
-            $ctrl.validatorRequests = $ctrl.updateSelfAssignedFlags(res.data);
         }, console.error);
     };
 
@@ -121,7 +121,7 @@ let FundRequestsComponent = function(
             type: 'confirm',
             title: 'Weet u zeker dat u deze eigenschap wil goedkeuren?',
             description: 'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
-            confirm: (res) => {
+            confirm: () => {
                 FundRequestValidatorService.approveRecord(
                     $ctrl.organization.id,
                     request.id,
@@ -243,11 +243,8 @@ let FundRequestsComponent = function(
         });
     };
 
-    $ctrl.requestAssign = (request) => {
-        FundRequestValidatorService.assign(
-            $ctrl.organization.id,
-            request.id
-        ).then(() => {
+    $ctrl.assignRequest = (request) => {
+        FundRequestValidatorService.assign($ctrl.organization.id, request.id).then(() => {
             PushNotificationsService.success('Gelukt!', 'U bent nu toegewezen aan deze aanvraag.');
             $ctrl.reloadRequest(request);
         }, res => {
@@ -256,11 +253,26 @@ let FundRequestsComponent = function(
         });
     };
 
+    $ctrl.assignRequestAsSupervisor = (fundRequest) => {
+        ModalService.open('fundRequestAssignValidator', {
+            fundRequest: fundRequest,
+            organization: $ctrl.organization,
+            employees: $ctrl.employees.data.filter((employee) => {
+                return employee.id && employee.identity_address != $ctrl.authUser.address;
+            }),
+            confirm: () => {
+                PushNotificationsService.success('Gelukt!', 'Eigenschap toegevoegd.');
+                reloadRequests($ctrl.filters.values);
+            }
+        });
+    };
+
     $ctrl.requestResign = (request) => {
-        FundRequestValidatorService.resign(
-            $ctrl.organization.id,
-            request.id
-        ).then(() => {
+        if (!request.can_resign) {
+            return $ctrl.requestResignAllEmployeesAsSupervisor(request);
+        }
+
+        FundRequestValidatorService.resign($ctrl.organization.id, request.id).then(() => {
             PushNotificationsService.success('Gelukt!', 'U heeft zich afgemeld van deze aanvraag.');
             $ctrl.reloadRequest(request);
         }, res => {
@@ -269,35 +281,57 @@ let FundRequestsComponent = function(
         })
     };
 
+    $ctrl.requestResignAllEmployeesAsSupervisor = (request) => {
+        FundRequestValidatorService.requestResignAllEmployeesAsSupervisor($ctrl.organization.id, request.id).then(() => {
+            PushNotificationsService.success('Gelukt!', 'U heeft zich afgemeld van deze aanvraag.');
+            $ctrl.reloadRequest(request);
+        }, res => {
+            PushNotificationsService.danger('Mislukt!', 'Error');
+            console.error(res);
+        })
+    };
+
     $ctrl.updateSelfAssignedFlags = (validatorRequests) => {
-        if (!$ctrl.employee || !validatorRequests) {
-            return;
-        }
+        validatorRequests.data.forEach((request) => {
+            const { state, records, replaced, allowed_employees } = request;
+            const isPending = state == 'pending';
 
-        validatorRequests.data.forEach(request => {
-            const recordsAssigned = request.records.filter((record) => {
-                return record.employee_id == $ctrl.employee.id;
-            });
+            const recordTypes = records.map((record) => record.record_type_key);
+            const pendingRecords = records.filter((record) => record.state == 'pending');
+            const assignedRecords = records.filter((record) => record.employee?.identity_address === $ctrl.authUser.address);
+            const assignableRecords = pendingRecords.filter((record) => record.is_assignable);
 
-            request.hasContent = request.records.filter(record => {
-                return record.files.length > 0 || record.clarifications.length > 0;
+            const assignedPendingRecords = assignedRecords.filter((record) => record.state === 'pending');
+            const assignedDisregardedRecords = assignedRecords.filter((record) => record.state === 'disregarded');
+
+            const isSponsorEmployee = $ctrl.organization.id === request.fund.organization_id;
+            const hasAssignableRecords = assignableRecords.length > 0;
+            const hasAssignableEmployees = allowed_employees.filter((employee) => employee.id !== $ctrl.employee?.id).length > 0;
+
+            const isAssigned = assignedPendingRecords.length > 0 || assignedDisregardedRecords.length > 0;
+            const hasPartnerBSN = recordTypes.includes('partner_bsn');
+            const canAddPartnerBsn = isSponsorEmployee && $ctrl.organization.bsn_enabled && isAssigned && !hasPartnerBSN;
+
+            const hasPendingInternallyAssignedRecords = pendingRecords.filter((record) => {
+                return record.employee?.organization_id === $ctrl.organization.id;
             }).length > 0;
 
-            request.record_types = request.records.map(record => record.record_type_key);
-            request.records.forEach(record => record.shown = true);
-            request.collapsed = request.state != 'pending' && request.state != 'disregarded';
-            request.is_sponsor_employee = $ctrl.employee.organization_id === request.fund.organization_id;
+            request.records = request.records.map((record) => ({ ...record, shown: true }));
+            request.collapsed = $ctrl.extendedView;
+            request.hasContent = records.filter((record) => record.files?.length || record.clarifications?.length).length > 0;
 
-            request.has_assigned_pending = recordsAssigned.filter((record) => record.state === 'pending').length > 0;
-            request.has_assigned_disregarded = recordsAssigned.filter((record) => record.state === 'disregarded').length > 0;
+            request.can_disregarded = isPending && isSponsorEmployee && assignedPendingRecords.length;
+            request.can_disregarded_undo = isPending && isSponsorEmployee && (assignedDisregardedRecords.length > 0) && !replaced;
 
-            request.is_assignable = request.records.filter((record) => {
-                return record.is_assignable;
-            }).length > 0;
+            request.is_assignable = isPending && hasAssignableRecords;
+            request.is_sponsor_employee = isSponsorEmployee;
+            request.is_assignable_as_supervisor = isPending && hasAssignableEmployees && $ctrl.isValidatorsSupervisor;
 
-            request.is_assigned = request.records.filter((record) => {
-                return record.is_assigned && ['pending', 'disregarded'].includes(record.state);
-            }).length > 0;
+            request.is_assigned = isAssigned;
+            request.can_add_partner_bsn = canAddPartnerBsn;
+
+            request.can_resign = assignedPendingRecords.length > 0 && assignedDisregardedRecords.length == 0;
+            request.can_resign_as_supervisor = isPending && $ctrl.isValidatorsSupervisor && hasPendingInternallyAssignedRecords;
         });
 
         return validatorRequests;
@@ -314,69 +348,6 @@ let FundRequestsComponent = function(
         });
     };
 
-    $ctrl.$onInit = function() {
-        $q((resolve) => {
-            let userReady = false;
-            let fundsReady = false;
-            let configsReady = false;
-
-            let update = () => {
-                if (userReady && fundsReady && configsReady) {
-                    resolve();
-                }
-            };
-
-            FundService.list($ctrl.organization.id, {
-                per_page: 100
-            }).then(res => {
-                $ctrl.funds = res.data.data;
-                $ctrl.funds.forEach(fund => $ctrl.fundsById[fund.id] = fund);
-                fundsReady = true;
-                update();
-            });
-
-            let authUnwatch = $scope.$watch(() => $scope.$root.auth_user, (auth_user) => {
-                if (auth_user) {
-                    userReady = true;
-                    authUnwatch();
-                    update();
-                }
-            });
-
-            let configUnwatch = $scope.$watch(() => appConfigs.features, (features) => {
-                if (features && !features.organizations.funds.fund_requests) {
-                    return $state.go('csv-validation');
-                }
-
-                if (features) {
-                    configsReady = true;
-                    configUnwatch();
-                    update();
-                }
-            });
-        }).then(() => {
-            $ctrl.filters.reset();
-
-            OrganizationEmployeesService.list($ctrl.organization.id, {
-                per_page: 100,
-                role: 'validation',
-            }).then(res => {
-                $ctrl.employees = res.data.data;
-                $ctrl.employee = res.data.data.filter((employee) => {
-                    return employee.identity_address == $scope.$root.auth_user.address;
-                })[0];
-
-                $ctrl.employees.unshift({
-                    id: null,
-                    email: "Selecteer medewerker"
-                });
-
-                $ctrl.filters.values.employee_id = $ctrl.employees[0].id;
-                reloadRequests($ctrl.filters.values);
-            });
-        });
-    };
-
     $ctrl.downloadFile = (file) => {
         FileService.download(file).then(res => {
             FileService.downloadFile(file.original_name, res.data);
@@ -386,19 +357,17 @@ let FundRequestsComponent = function(
     $ctrl.exportRequests = () => {
         ModalService.open('exportType', {
             success: (data) => {
-                FundRequestValidatorService.exportAll(
-                    $ctrl.organization.id,
-                    Object.assign($ctrl.filters.values, {
-                        export_format: data.exportType
-                    })
-                ).then((res => {
-                    FileService.downloadFile(
-                        appConfigs.panel_type + '_' + org + '_' + moment().format(
-                            'YYYY-MM-DD HH:mm:ss'
-                        ) + '.' + data.exportType,
-                        res.data,
-                        res.headers('Content-Type') + ';charset=utf-8;'
-                    );
+                FundRequestValidatorService.exportAll($ctrl.organization.id, {
+                    ...$ctrl.filters.values,
+                    ...{ export_format: data.exportType },
+                }).then((res => {
+                    const fileName = [
+                        appConfigs.panel_type,
+                        $ctrl.organization.id,
+                        moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType,
+                    ].join('_');
+
+                    FileService.downloadFile(fileName, res.data, res.headers('Content-Type'));
                 }), console.error);
             }
         });
@@ -414,38 +383,50 @@ let FundRequestsComponent = function(
 
         if (file.ext == 'pdf') {
             FileService.download(file).then(res => {
-                ModalService.open('pdfPreview', {
-                    rawPdfFile: res.data
-                });
+                ModalService.open('pdfPreview', { rawPdfFile: res.data });
             }, console.error);
         } else if (['png', 'jpeg', 'jpg'].includes(file.ext)) {
-            ModalService.open('imagePreview', {
-                imageSrc: file.url
-            });
+            ModalService.open('imagePreview', { imageSrc: file.url });
         }
     };
 
     $ctrl.onPageChange = (query) => {
         reloadRequests(query);
     };
+
+    $ctrl.$onInit = function() {
+        if (!appConfigs.features.organizations.funds.fund_requests) {
+            return $state.go('csv-validation');
+        }
+
+        $ctrl.isValidatorsSupervisor = $ctrl.organization.permissions.includes('manage_validators');
+
+        $ctrl.employees.data.unshift({
+            id: null,
+            email: "Selecteer medewerker"
+        });
+
+        $ctrl.filters.reset();
+
+        reloadRequests($ctrl.filters.values);
+    };
 };
 
 module.exports = {
     bindings: {
+        funds: '<',
         appConfigs: '<',
+        authUser: '<',
+        employee: '<',
+        employees: '<',
         organization: '<',
     },
     controller: [
-        '$q',
-        '$scope',
         '$state',
         '$timeout',
         'FileService',
-        'FundService',
         'ModalService',
         'DateService',
-        'OrganizationService',
-        'OrganizationEmployeesService',
         'FundRequestValidatorService',
         'PushNotificationsService',
         'appConfigs',

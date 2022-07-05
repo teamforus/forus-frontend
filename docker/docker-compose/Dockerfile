@@ -1,0 +1,14 @@
+FROM node:14-alpine
+
+LABEL maintainer="support@forus.io"
+LABEL description="Forus platform (frontend), used for docker compose"
+
+RUN apk update \
+    && apk --no-cache --virtual build-dependencies add \
+    python3 \
+    make \
+    g++
+
+RUN npm install gulp-cli -g
+
+CMD tail -f /dev/null

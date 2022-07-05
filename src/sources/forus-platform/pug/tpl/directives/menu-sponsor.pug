@@ -19,7 +19,6 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
 
         .sidebar-section-title(translate="menu.organizational")
 
-        //- +nav_item("Fondsen", "clock", 'funds', false)
         +nav_item(
             "Fondsen", "my_funds", 'organization-funds', 
             '{organization_id: $root.activeOrganization.id}', 
@@ -34,7 +33,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
                 'vouchers')
 
             +nav_item(
-                "Aanbiedingsvouchers", "productvoucher", 'product-vouchers', 
+                "Aanbiedingsvouchers", "product_voucher", 'product-vouchers', 
                 '{organization_id: $root.activeOrganization.id}',
                 '$root.activeOrganization | hasPerm:["manage_vouchers"]',
                 'product_vouchers')
@@ -62,7 +61,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             '$root.activeOrganization | hasPerm:["manage_organization"]')
 
         +nav_item(
-            "Bank integraties", "connections", 'bank-connections', 
+            "Bank integraties", "bank-connections", 'bank-connections', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_bank_connections"]')
         
@@ -107,3 +106,4 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
         +nav_item('E-mail instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
         +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
         +nav_item('Notificatievoorkeuren', 'notifications', 'preferences-notifications')
+        +nav_item('Feedback', 'productboard', 'productboard')

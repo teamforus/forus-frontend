@@ -61,6 +61,9 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
     @import 'blocks/block-export-options.scss';
+    @import 'blocks/block-productboard-result.scss';
+    @import 'blocks/block-permissions-list.scss';
+    @import 'blocks/block-announcements.scss';
 }
 
 
@@ -71,7 +74,9 @@ $colorPrimaryLight: $color_primary_light;
 }
 
 .modal{
+    @import'modals/modal-photo-upload.scss';
     @import'modals/modal-physical-cards.scss';
+    @import'modals/modal-voucher-transaction-provider.scss';
 }
 
 html, body {
@@ -163,6 +168,7 @@ body {
         position: relative;
         z-index: 2;
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
 
         .header-logo {
@@ -181,7 +187,6 @@ body {
             box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
             border-radius: $borderRadius / 2;
             position: absolute;
-            top: 30px;
             transition: box-shadow .4s;
             overflow: hidden;
 
@@ -654,6 +659,7 @@ body {
                 display: block;
                 font: 500 14px/20px $bf;
                 transition: 0.4s;
+                color: #646F79;
 
                 .sidebar-nav-item-icon {
                     top: 5px;
@@ -696,11 +702,14 @@ body {
                     }
                 }
 
-                &.active,
                 &:focus,
                 &:hover {
-                    color: #d91d46;
+                    color: #009EF4;
                     text-decoration: none;
+                }
+
+                &.active {
+                    color: #004195;
                 }
 
                 &:hover:not(.active) {
@@ -885,6 +894,10 @@ body {
         em {
             margin-right: 5px;
         }
+
+        &.card-title-sm {
+            font-size: 13px;
+        }
     }
 
     .card-header {
@@ -929,6 +942,10 @@ body {
 
         &.card-header-success {
             background: #f7f9de;
+        }
+
+        &.card-header-cursor-default {
+            cursor: default;
         }
     }
 
@@ -1084,7 +1101,7 @@ body {
                     font: 600 11px/18px $bf;
                     text-align: right;
                     color: #134478;
-                    margin: 0 0 5px;
+                    margin: 0 0 2px;
                 }
 
                 .card-section-actions-value {
@@ -1164,8 +1181,14 @@ body {
     }
 
     &.card-collapsable {
-        cursor: pointer;
         transition: background .4s;
+
+        .card-header,
+        .card-section {
+            &[ng-click] {
+                cursor: pointer;
+            }
+        }
 
         &:not(.card-collapsed):hover {
             background: lighten($color: #f3f4f5, $amount: 2);
@@ -1179,7 +1202,7 @@ body {
     }
 
     &.card-block-listing {
-        font: 500 14px/18px $bf;
+        font: 500 13px/20px $bf;
         color: #282b39;
 
         span {
@@ -1188,9 +1211,9 @@ body {
         }
 
         .card-block-listing-label {
-            font: 500 11px/15px $bf;
-            color: #646f79;
-            margin: 0 0 5px;
+            font: 600 11px/18px $bf;
+            color: $colorPrimary;
+            margin: 0 0 2px;
         }
 
         .card-block-listing-value {
@@ -1248,6 +1271,7 @@ body {
 
     &.card-block-keyvalue {
         @include cf();
+        margin-bottom: 10px;;
 
         .keyvalue-item {
             @include cf();
@@ -1362,6 +1386,10 @@ body {
                     }
                 }
             }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 
@@ -4568,11 +4596,24 @@ body {
             }
 
             .form-control {
-                display: inline-block;
                 height: 30px;
                 margin: 0;
                 padding: 0 10px;
                 line-height: 28px;
+
+                &.select-control {
+                    .select-control-input {
+                        font-size: 12px;
+
+                        .select-control-options {
+                            .select-control-option {
+                                height: 30px;
+                                color: #353535;
+                                font: 500 12px/20px $bf;
+                            }
+                        }
+                    }
+                }
             }
 
             select.form-control {
@@ -4695,6 +4736,22 @@ body {
                             margin: 0 0 10px;
                             height: 30px;
                             font-size: 12px;
+
+                            &.select-control {
+                                .select-control-search {
+                                    margin-bottom: 0;
+                                    border: 1px solid #d4d9dd;
+                                    line-height: 30px;
+                                }
+
+                                .select-control-options {
+                                    .select-control-option {
+                                        height: 30px;
+                                        color: #353535;
+                                        font: 500 12px/20px $bf;
+                                    }
+                                }
+                            }
                         }
 
                         &:first-child {
@@ -4739,7 +4796,25 @@ body {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         font: 400 13px/20px $bf;
         margin-bottom: 15px;
-    
+        display: flex;
+
+        .block-information-icon {
+            margin: 2.5px 10px auto 0;
+            color: #009EF4;
+            font-size: 16px;
+        }
+
+        .block-information-info {
+            font: 500 13px/18px $bf;
+            color: #646F79;
+
+            a {
+                color: #009EF4;
+                font-size: 13px;
+                font-weight: 500;
+            }
+        }
+
         &.block-information-danger {
             background: #fcfaf6;
         }
@@ -6587,12 +6662,6 @@ body {
             padding: 0;
         }
     }
-    
-    &.modal-employees_edit {
-        .modal-body {
-            overflow: initial;
-        }
-    }
 
     &.modal-voucher_qr {
         .modal-window {
@@ -6897,138 +6966,6 @@ body {
             }
         }
     }
-    
-    &.modal-photo-upload {
-        cursor: default;
-
-        .modal-title {
-            font: 500 21px/29px $bf;
-            text-align: center;
-            color: #191A1C;
-            margin-bottom: 10px;
-        }
-
-        .modal-description {
-            font: 400 15px/22px $bf;
-            text-align: center;
-            color: #454545;
-            margin: 0 0 18px;
-        }
-
-        .modal-window {
-            width: 820px;
-            border-radius: 12px;
-
-            .modal-body {
-                .photo-crop {
-                    display: flex;
-                    flex-direction: column;
-                    margin-bottom: -10px;
-
-                    .photo-crop-image {
-                        width: 650px;
-                        max-width: 100%;
-                        display: flex;
-                        border-radius: inherit;
-                        flex-direction: row;
-                        margin: 0 auto 18px;
-    
-                        .photo-crop-control {
-                            position: relative;
-                            width: 62%;
-                            float: left;
-                            border-radius: 0;
-                            overflow: hidden;
-                            flex-direction: column;
-                            align-self: start;
-    
-                            .crop-control-ratio {
-                                width: 100%;
-                                height: auto;
-                                display: block;
-                                opacity: 0;
-                            }
-    
-                            ui-cropper {
-                                @include fill_parent();
-                            }
-                        }
-    
-                        .photo-crop-preview {
-                            width: 38%;
-                            padding-left: 20px;
-                            display: flex;
-                            flex-direction: column;
-                            float: left;
-    
-                            img {
-                                display: block;
-                                width: 100%;
-                                border-radius: 0;
-                                border: 1px solid #dadada;
-                                box-shadow: 2px 5px 20px rgba(0, 0, 0, .075);
-                            }
-    
-                            .crop-control-orignal {
-                                margin-bottom: 20px;
-                                height: 100%;
-                            }
-    
-                            .crop-control-thumbnails {
-                                width: 100%;
-                                height: 100%;
-                                display: flex;
-                            }
-    
-                            .crop-control-thumbnail {
-                                width: 50%;
-    
-                                &:first-child {
-                                    padding-right: 5px;
-                                }
-    
-                                &:last-child {
-                                    padding-left: 5px;
-    
-                                    img {
-                                        border-radius: 1000px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    .photo-crop-info {
-                        text-align: center;
-                        color: #5e636b;
-                        font: 400 13px/20px $bf;
-                        margin: 0 0 5px;
-                    }
-
-                    .form {
-                        .checkbox {
-                            .checkbox-label {
-                                text-align: center;
-                                color: #5e636b;
-                                font: 400 13px/20px $bf;
-
-                                a {
-                                    text-decoration: underline;
-                                    font: inherit;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        .modal-footer {
-            .button {
-                padding: 10px 50px;
-            }
-        }
-    }
 
     &.modal-employee-add {
         .modal-window {
@@ -7054,12 +6991,20 @@ body {
         }
     }
 
+    @media screen and (max-width: 1800px) {
+        .modal-footer {
+            padding: 25px;
+        }
+    }
+
     @media screen and (max-width: 1500px) {
         .modal-content {
             width: 1000px;
         }
 
         .modal-footer {
+            padding: 20px;
+
             .footer-text {
                 font: 500 15px $bf;
                 margin: 0 0 15px;

@@ -4,9 +4,6 @@ let MeComponent = function(
     $stateParams,
     ModalService
 ) {
-    let $ctrl = this;
-
-    $ctrl.showPopupOffices = () => ModalService.open('modalOffices', {});
     $scope.openAuthCodePopup = () => ModalService.open('modalAuthCode', {});
     $scope.openActivateCodePopup = () => $state.go('start');
 

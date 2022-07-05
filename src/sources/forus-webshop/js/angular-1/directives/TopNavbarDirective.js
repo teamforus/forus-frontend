@@ -1,4 +1,4 @@
-let TopNavbarDirective = function(
+const TopNavbarDirective = function(
     $state,
     $scope,
     $translate,
@@ -14,16 +14,19 @@ let TopNavbarDirective = function(
         hideOnScroll: !!$scope.hideOnScroll,
     };
 
-    let $ctrl = this;
+    const $ctrl = this;
     
     FundService.list().then(res => $ctrl.funds = res.data.data);
 
     $scope.startFundRequest = () => $state.go('start');
-    $scope.openAuthPopup = () => ModalService.open('modalAuth', {});
-    $scope.openPinCodePopup = () => ModalService.open('modalPinCode', {});
-    $scope.openAuthCodePopup = () => ModalService.open('modalAuthCode', {});
-    $scope.showPopupOffices = () => ModalService.open('modalOffices', {});
+    $scope.openAuthPopup = () => ModalService.open('modalAuth');
+    $scope.openAuthCodePopup = () => ModalService.open('modalAuthCode');
     $scope.openActivateCodePopup = () => $state.go('start');
+
+    $scope.openPinCodePopup = () => {
+        $scope.$ctrl.userMenuOpened = false;
+        ModalService.open('modalPinCode');
+    };
 
     $scope.cfg = {
         logoExtension: ConfigService.getFlag('logoExtension'),

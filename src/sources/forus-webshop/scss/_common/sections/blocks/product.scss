@@ -97,6 +97,7 @@
     .product-funds-list {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
         cursor: default;
 
         .fund-item {

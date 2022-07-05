@@ -109,7 +109,7 @@
             .card-section.card-section-primary.form: .row: .col.col-lg-8.col-md-12
                 .form-group.form-group-inline.tooltipped
                     tooltip(text="'Totaal aantal aanbiedingen dat vanuit ' + $ctrl.fund.name + ' gebruikt mag worden'")
-                    .form-label Totaal aantal
+                    .form-label.form-label-required Totaal aantal
                     .form-offset: .row
                         .col.col-lg-6.col-xs-12
                             input(
@@ -135,7 +135,7 @@
                                     | Onbeperkt
                 .form-group.form-group-inline.tooltipped
                     tooltip(text="'Hoevaak mag er per inwoner gebruik gemaakt worden van deze aanbieding?'")
-                    .form-label Aantal per aanvrager
+                    .form-label.form-label-required Aantal per aanvrager
                     .form-offset: .row
                         .col.col-lg-6.col-xs-12
                             input(
@@ -151,7 +151,7 @@
 
                 .form-group.form-group-inline.tooltipped
                     tooltip(text="'Volledige bijdrage vanuit de sponsor (voor de inwoner is het gratis)'")
-                    .form-label Bijdrage
+                    .form-label.form-label-required Bijdrage
                     .form-offset: .row
                         .col.col-lg-6.col-xs-12
                             input(
@@ -160,7 +160,7 @@
                                 ng-model="$ctrl.form.values.amount" 
                                 type="number" 
                                 placeholder="Bijdrage" 
-                                step=".1" 
+                                step=".05"
                                 min="0" 
                                 ng-change="$ctrl.amountChange()").form-control
                             input(
@@ -188,6 +188,7 @@
 
                         .col.col-lg-6.col-xs-12(ng-if="!$ctrl.form.values.expires_with_fund")
                             datepicker(
+                                input-visible="true"
                                 date-format="yyyy-MM-dd" 
                                 datepicker-mobile=""
                                 date-week-start-day="1").form-control

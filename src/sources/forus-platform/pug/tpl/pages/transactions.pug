@@ -19,7 +19,11 @@
                         em.mdi.mdi-close.icon-start
                         span(i18n="Wis filters")
 
-                    .form(ng-if="$ctrl.viewType.key == 'transactions' && !$ctrl.filters.show"): .form-group: input(
+                    .button.button-text(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.bulkFilters.show" ng-click="$ctrl.bulkFilters.reset()")
+                        em.mdi.mdi-close.icon-start
+                        span(i18n="Wis filters")
+
+                    .form(ng-if="!$ctrl.filters.show && $ctrl.viewType.key == 'transactions'"): .form-group: input(
                         ng-model="$ctrl.filters.values.q" 
                         placeholder="{{ 'transactions.labels.search' | i18n }}").form-control
 
@@ -32,24 +36,29 @@
                                     input(
                                         ng-model="$ctrl.filters.values.q" 
                                         placeholder="{{ 'transactions.labels.search' | i18n }}").form-control
+                                
                                 .form-group
                                     form-label-toggle(label="{{ 'transactions.labels.amount' | i18n }}")
                                     .row
                                         .col.col-lg-6: input(
+                                            min="0"
                                             type="number" 
                                             ng-model="$ctrl.filters.values.amount_min" 
                                             placeholder="{{ 'transactions.labels.amount_min' | i18n }}").form-control
 
                                         .col.col-lg-6: input(
+                                            min="0"
                                             type="number" 
                                             ng-model="$ctrl.filters.values.amount_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | i18n }}").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.state' | i18n }}")
-                                    select(
-                                        ng-options="state.key as state.name for state in $ctrl.states" 
-                                        ng-model="$ctrl.filters.values.state").form-control
+                                    .form-offset: select-control(
+                                        prop="key"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.state"
+                                        options="$ctrl.states").form-control
 
                                 .form-group
                                     form-label-toggle(label="{{ 'transactions.labels.from' | i18n }}")
@@ -67,20 +76,89 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.fund_state' | i18n }}")
-                                    select(
-                                        ng-options="state.key as state.name for state in $ctrl.fundStates" 
-                                        ng-model="$ctrl.filters.values.fund_state").form-control
+                                    .form-offset: select-control(
+                                        prop="key"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.fund_state"
+                                        options="$ctrl.fundStates").form-control
 
                                 .form-actions
                                     button.button.button-primary.button-wide(
-                                        ng-click="$ctrl.exportList()"
+                                        ng-click="$ctrl.exportTransactions()"
                                         ng-disabled="$ctrl.transactions.meta.total == 0")
                                         em.mdi.mdi-download.icon-start  
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactions.meta.total }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
+
+                    .form(ng-if="$ctrl.viewType.key == 'bulks'"): .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideBulkFilters()")
+                        .inline-filters-dropdown-content(ng-show="$ctrl.bulkFilters.show")
+                            .arrow-box.bg-dim: .arrow
+                            .form
+                                .form-group
+                                    form-label-toggle(label="{{ 'transactions.labels.amount' | i18n }}")
+                                    .row
+                                        .col.col-lg-6: input(
+                                            min="0"
+                                            type="number" 
+                                            ng-model="$ctrl.bulkFilters.values.amount_min" 
+                                            placeholder="{{ 'transactions.labels.amount_min' | i18n }}").form-control
+
+                                        .col.col-lg-6: input(
+                                            min="0"
+                                            type="number"
+                                            ng-model="$ctrl.bulkFilters.values.amount_max" 
+                                            placeholder="{{ 'transactions.labels.amount_max' | i18n }}").form-control
+                                
+                                .form-group
+                                    form-label-toggle(label="{{ 'transactions.labels.quantity' | i18n }}")
+                                    .row
+                                        .col.col-lg-6: input(
+                                            min="0"
+                                            type="number" 
+                                            ng-model="$ctrl.bulkFilters.values.quantity_min" 
+                                            placeholder="{{ 'transactions.labels.quantity_min' | i18n }}").form-control
+
+                                        .col.col-lg-6: input(
+                                            min="0"
+                                            type="number" 
+                                            ng-model="$ctrl.bulkFilters.values.quantity_max" 
+                                            placeholder="{{ 'transactions.labels.quantity_max' | i18n }}").form-control
+
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'transactions.labels.state' | i18n }}")
+                                    .form-offset: select-control(
+                                        prop="key"
+                                        search="false"
+                                        ng-model="$ctrl.bulkFilters.values.state"
+                                        options="$ctrl.bulkStates").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'transactions.labels.from' | i18n }}")
+                                    datepicker(
+                                        date-format="yyyy-MM-dd" 
+                                        datepicker-mobile=""
+                                        date-week-start-day="1").form-control
+                                        input(ng-model="$ctrl.bulkFilters.values.from" type="text" placeholder="jjjj-MM-dd").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'transactions.labels.to' | i18n }}")
+                                    datepicker(
+                                        date-format="yyyy-MM-dd" 
+                                        datepicker-mobile="" 
+                                        date-week-start-day="1").form-control
+                                        input(ng-model="$ctrl.bulkFilters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
+
+                                .form-actions
+                                    button.button.button-primary.button-wide(
+                                        ng-click="$ctrl.exportTransactionBulks()"
+                                        ng-disabled="$ctrl.transactionBulks.meta.total == 0")
+                                        em.mdi.mdi-download.icon-start  
+                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactionBulks.meta.total }")
+
+                        .button.button-default.button-icon(ng-click="$ctrl.bulkFilters.show = !$ctrl.bulkFilters.show"): em.mdi.mdi-filter-outline
 
                     //- View type
                     .flex(ng-if="$ctrl.isSponsor"): div: .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
@@ -95,14 +173,14 @@
                     .table-wrapper
                         table.table
                             tr
-                                th(i18n="financial_dashboard_transaction.labels.id")
-                                th(i18n="transactions.labels.price")
-                                th(i18n="transactions.labels.date")
-                                th(i18n="transactions.labels.fund")
-                                th(i18n="transactions.labels.provider")
-                                th(i18n="transactions.labels.bulk" ng-if="$ctrl.isSponsor")
-                                th(i18n="transactions.labels.status")
-                                th.th-narrow.text-right(i18n="transactions.labels.action")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.id" value="id")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.price" value="amount")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk" value="voucher_transaction_bulk_id" ng-if="$ctrl.isSponsor")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
                             tr(ng-repeat="transaction in $ctrl.transactions.data")
                                 td(ng-bind="transaction.id")
@@ -157,7 +235,7 @@
                         | Maak nu een bulktransactie
 
             //- Transactions pagination
-            .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
+            .card-section(ng-if="$ctrl.transactions" ng-show="($ctrl.viewType.key == 'transactions') && ($ctrl.transactions.meta.last_page > 1)")
                 paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
 
             //- Empty transactions block
@@ -168,12 +246,12 @@
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total > 0")
                 .card-block.card-block-table: .table-wrapper: table.table
                     tr
-                        th ID
-                        th Bedrag
-                        th Datum
-                        th Aantal
-                        th Status
-                        th.th-narrow.text-right ACTIES
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="ID" value="id")
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="Bedrag" value="amount")
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="Datum" value="created_at")
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="Aantal" value="voucher_transactions_count")
+                        th(th-sortable filters="$ctrl.bulkFilters.values" label="Status" value="state")
+                        th(th-sortable label="Acties").th-narrow.text-right
 
                     tr(ng-repeat="transactionBulk in $ctrl.transactionBulks.data")
                         td(ng-bind="transactionBulk.id")
@@ -202,8 +280,8 @@
                             translate(translate="transactions.buttons.view")
 
             //- Bulk transactions pagination
-            .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks" ng-show="$ctrl.transactionBulks.meta.last_page > 1")
-                paginator(meta="$ctrl.transactionBulks.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onBulkPageChange(query)")
+            .card-section(ng-if="$ctrl.transactionBulks" ng-show="($ctrl.viewType.key == 'bulks') && ($ctrl.transactionBulks.meta.last_page > 1)")
+                paginator(meta="$ctrl.transactionBulks.meta" filters="$ctrl.bulkFilters.values" on-page-change="$ctrl.onBulkPageChange(query)")
             
             //- Empty bulk transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total == 0"): .block.block-empty.text-center

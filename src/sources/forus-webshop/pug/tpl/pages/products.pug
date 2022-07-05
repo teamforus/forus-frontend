@@ -30,7 +30,6 @@ block content
                                 select-control(
                                     id="select_provider"
                                     prop="id"
-                                    autoclear="true" 
                                     ng-model="$ctrl.form.values.organization_id"
                                     options="$ctrl.organizations"
                                     placeholder="{{ $ctrl.organizations[0].name }}")
@@ -41,7 +40,6 @@ block content
                                     id="select_category"
                                     prop="id"
                                     name="category"
-                                    autoclear="true" 
                                     ng-model="$ctrl.form.values.product_category_id"
                                     options="$ctrl.productCategories"
                                     placeholder="{{ $ctrl.productCategories[0].name }}")
@@ -52,7 +50,6 @@ block content
                                     id="select_fund"
                                     prop="id"
                                     name="fund"
-                                    autoclear="true"
                                     ng-model="$ctrl.form.values.fund_id" 
                                     options="$ctrl.funds"
                                     placeholder="{{ $ctrl.funds[0].name }}")
@@ -63,24 +60,17 @@ block content
                                 span Aanbod
                                 .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
 
-                            .showcase-filters-block: .block.block-label-tabs
-                                .label-tab-set
-                                    .label-tab.label-tab-sm.label-tab-primary-light(
-                                        ng-class="{active: $ctrl.show_order_dropdown}" 
-                                        ng-click="$ctrl.toggleOrderDropdown($event)"
-                                        role="button")
-                                        em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.show_order_dropdown ? 'up' : 'down')")
-                                        | Sorteer
-                                        .label-tab-menu(ng-show="$ctrl.show_order_dropdown" click-outside="$ctrl.hideOrderDropdown($event)")
-                                            .label-tab-menu-item(
-                                                ng-repeat="sortByOption in $ctrl.sortByOptions track by $index" 
-                                                ng-class="{active: $ctrl.sort_by.label === sortByOption.label}"
-                                                ng-click="$ctrl.sortBy($event, sortByOption)"
-                                                aria-selected="{{ $ctrl.sort_by.label === sortByOption.label }}")
-                                                translate(translate="{{ sortByOption.label }}")
-                                                em.mdi.mdi-check(ng-if="$ctrl.sort_by.label === sortByOption.label")
-
-                                    .label-tab.label-tab-sm.label-tab-disabled(translate="{{ $ctrl.sort_by.label }}")
+                            .showcase-filters-block: .block.block-label-tabs.form
+                                .showcase-filters-item
+                                    label.form-label Sorteer
+                                    select-control(
+                                        id="sort_by"
+                                        as="label"
+                                        search="false"
+                                        ng-model="$ctrl.sort_by"
+                                        ng-change="$ctrl.updateSortBy()"
+                                        options="$ctrl.sortByOptions"
+                                        placeholder="Sorteer")
 
                                 .label-tab-set
                                     .label-tab.label-tab-sm(
@@ -89,6 +79,7 @@ block content
                                         role="button")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
+
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'grid'}"
                                         ng-click="$ctrl.showAs('grid')"

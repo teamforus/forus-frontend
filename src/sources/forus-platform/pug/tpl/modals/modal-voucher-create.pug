@@ -18,7 +18,9 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
 
                 .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.assignType.key")
-                    label.form-label(ng-bind="$ctrl.assignType.inputLabel")
+                    label.form-label(
+                        ng-bind="$ctrl.assignType.inputLabel"
+                        ng-class="['email', 'bsn'].includes($ctrl.assignType.key) ? 'form-label-required' : ''")
                     input(ng-model="$ctrl.form.values[$ctrl.assignType.key]" placeholder="{{ $ctrl.assignType.inputLabel }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
 
@@ -33,6 +35,7 @@
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
                     datepicker(
+                        input-visible="true"
                         date-format="yyyy-MM-dd" 
                         datepicker-mobile="" 
                         date-min-limit="{{ $ctrl.dateMinLimit + '' }}"

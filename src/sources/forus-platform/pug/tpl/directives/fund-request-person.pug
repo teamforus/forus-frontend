@@ -1,0 +1,60 @@
+div
+    //- iConnect show button
+    .card-header
+        .flex-row
+            .flex.flex-vertical.flex-center: .card-heading.text-muted.text-muted-dark Persoonlijke gegevens &nbsp;
+            .flex.flex-col.flex-end
+                //- Fetch
+                button.button.button-primary.button-sm(
+                    ng-if="!$dir.fundRequest.bsn_expanded"
+                    ng-disabled="$dir.fetchingPerson"
+                    ng-click="$dir.fetchPerson($dir.fundRequest)")
+                    .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$dir.fetchingPerson")
+                    .mdi.mdi-eye.icon-start(ng-if="!$dir.fetchingPerson")
+                    | Bekijken
+
+                //- Close
+                button.button.button-default.button-sm(
+                    ng-if="$dir.fundRequest.bsn_expanded"
+                    ng-disabled="$dir.fetchingPerson"
+                    ng-click="$dir.closePerson($dir.fundRequest)")
+                    .mdi.mdi-close.icon-start
+                    | Close
+
+    //- iConnect overview
+    .card-section(ng-if="$dir.fundRequest.person && $dir.fundRequest.bsn_expanded")
+        .arrow-box.border.bg-dim: .arrow
+
+        //- person relations breadcrumbs
+        .block.block-breadcrumbs
+            .breadcrumb-item(
+                ng-repeat="breadcrumb in $dir.fundRequest.person_breadcrumbs track by $index"
+                ng-bind="breadcrumb.name"
+                ng-class="$index == $dir.fundRequest.person_breadcrumbs.length - 1 ? 'active' : ''"
+                ng-click="$index == 0 ? $dir.fetchPerson($dir.fundRequest) : $event.preventDefault()")
+
+        //- details
+        .row
+            //- person fields
+            .col.col-lg-6.col-sm-12: .card-block.card-block-keyvalue
+                .keyvalue-item(ng-repeat="field in ($dir.fundRequest.person_relative ? $dir.fundRequest.person_relative : $dir.fundRequest.person).fields")
+                    .keyvalue-key(ng-bind="field.label")
+                    .keyvalue-value.text-pre-line(
+                        ng-class="field.value == null ? 'text-muted' : ''"
+                        ng-bind="field.value == null ? 'Geen data' : field.value")
+
+            //- person relations
+            .col.col-lg-6.col-sm-12
+                .card-block.card-block-keyvalue(
+                    ng-if="!$dir.fundRequest.person_relative" 
+                    ng-repeat="(relationsListKey, relationsList) in $dir.fundRequest.person.relations")
+                    //- relation
+                    .keyvalue-item(ng-repeat="relation in relationsList track by $index")
+                        //- relation label
+                        .keyvalue-key(
+                            translate="validation_requests.person.relations.{{ relationsListKey }}" 
+                            translate-values="{ index: $index + 1 }")
+                        //- relation value
+                        .keyvalue-value.card-text-link(
+                            ng-bind="relation.name"
+                            ng-click="$dir.fetchPerson($dir.fundRequest, relationsListKey, relation.index)")

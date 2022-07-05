@@ -64,6 +64,7 @@ app.component('implementationNotificationsShowComponent', require('./components/
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
+app.component('productBoardComponent', require('./components/ProductBoardComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -108,6 +109,8 @@ app.component('modalPhysicalCardOrderComponent', require('./components/Modals/Mo
 app.component('modalReservationNotesComponent', require('./components/Modals/ModalReservationNotesComponent'));
 app.component('modalSwitchBankConnectionAccountComponent', require('./components/Modals/ModalSwitchBankConnectionAccountComponent'));
 app.component('modalExportDataSelectComponent', require('./components/Modals/ModalExportDataSelectComponent'));
+app.component('modalVoucherTransactionProviderComponent', require('./components/Modals/ModalVoucherTransactionProviderComponent'));
+app.component('modalFundRequestAssignValidatorComponent', require('./components/Modals/ModalFundRequestAssignValidatorComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -117,6 +120,9 @@ app.service('AuthService', require('./services/AuthService'));
 app.service('DateService', require('./services/DateService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('TransactionService', require('./services/TransactionService'));
+app.service('TransactionsExportService', require('./services/TransactionsExportService'));
+app.service('TransactionBulkService', require('./services/TransactionBulkService'));
+app.service('TransactionBulksExportService', require('./services/TransactionBulksExportService'));
 app.service('VoucherService', require('./services/VoucherService'));
 app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
@@ -167,6 +173,7 @@ app.service('ProductReservationService', require('./services/ProductReservationS
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
 app.service('TagService', require('./services/TagService'));
+app.service('ProductBoardService', require('./services/ProductBoardService'));
 
 // Directives
 app.directive('menu', {
@@ -222,7 +229,8 @@ app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDi
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
-
+app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
+app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
@@ -245,6 +253,9 @@ app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissio
 app.directive('blockProviderOrganizationOffices', require('./directives/blocks/sponsor/BlockProviderOrganizationOfficesDirective'));
 app.directive('blockProviderOrganizationEmployees', require('./directives/blocks/sponsor/BlockProviderOrganizationEmployeesDirective'));
 app.directive('blockProviderOrganizationOverview', require('./directives/blocks/sponsor/BlockProviderOrganizationOverviewDirective'));
+
+// Table
+app.directive('thSortable', require('./directives/table/ThSortable'));
 
 // System nitification editor 
 app.directive('systemNotificationEditor', require('./directives/elements/SystemNotificationEditorDirective'));

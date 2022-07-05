@@ -22,7 +22,7 @@
                     ui-sref="organization-funds({funds_type: 'archived'})")
                     | Archief ({{ $ctrl.archivedFunds.length }})
 
-        .block.block-funds(ng-if="$ctrl.shownFundsType == 'active'")
+        .block.block-funds(ng-if="$ctrl.shownFundsType == 'active' && $ctrl.activeFunds.length > 0")
             .fund-item(ng-repeat="fund in $ctrl.activeFunds")
                 .fund-item-section: .flex-col
                     .flex-row
@@ -42,6 +42,8 @@
                                 .tag.tag-default.tag-sm(
                                     ng-if="fund.state == 'closed'" 
                                     translate="components.organization_funds.states.closed")
+
+                            .fund-subtitle(ng-bind="fund.type_locale")
 
                         .fund-actions
                             a(ui-sref="funds-show(fund)").button.button-primary
@@ -139,8 +141,9 @@
                         .fund-details
                             .fund-title
                                 span(ng-bind="fund.name")
-
                                 .tag.tag-default.tag-sm(translate="components.organization_funds.states.archived")
+
+                            .fund-subtitle(ng-bind="fund.type_locale")
 
                         .fund-actions
                             .button.button-primary(

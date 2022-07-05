@@ -61,7 +61,14 @@
                         ng-bind="$ctrl.voucher.amount | currency_format")
 
                 //- voucher actions
-                .flex: .flex-row: .button-group
+                .flex.flex-self-start: .flex-row: .button-group
+                    //- is granted?
+                    .button.button-primary.button-sm(
+                        ng-if="$ctrl.showMakeTransactionButton"
+                        ng-click="$ctrl.makeTransaction()")
+                        em.mdi.mdi-plus-circle-multiple-outline.icon-start
+                        string(translate="vouchers.buttons.make_transaction")
+
                     //- deactivate voucher
                     .button.button-danger.button-sm(
                         ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'active'"
@@ -177,7 +184,7 @@
                                 td(ng-if="!$ctrl.fundClosed && $ctrl.voucher.in_use")
                                     strong(translate="vouchers.labels.used").text-strong.text-md.text-muted-dark
                                     br
-                                    em.mdi.mdi-close.text-black
+                                    em.mdi.mdi-check.text-black
                                     strong(translate="product_vouchers.labels.yes").text-black
 
         //- Voucher history
@@ -199,7 +206,9 @@
                                 ng-class="{'text-danger-dark' : history.event === 'deactivated'}")
 
                             td
-                                div(ng-if="!history.employee_id && history.event.startsWith('transaction')").text-strong Aanbieder
+                                div(ng-if="!history.employee_id && history.event.startsWith('transaction')").text-strong
+                                    | {{ history.initiator == 'provider' ? 'Aanbieder' : 'Medewerker' }}
+
                                 div(ng-if="!history.employee_id && !history.event.startsWith('transaction')").text-strong Gebruiker
                                 div(ng-if="history.employee_id").text-strong Medewerker
                                 div(ng-if="history.employee_id" ng-bind="history.employee_email").text-muted-dark

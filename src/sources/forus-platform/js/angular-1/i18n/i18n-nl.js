@@ -61,9 +61,11 @@ module.exports = {
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
         modal_markdown_custom_link: require("./nl/modals/modal-markdown-custom-link.pug.i18n"),
+        modal_voucher_transaction_provider: require('./nl/modals/modal-voucher-transaction-provider.pug.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
+            remove_organization_employees: require('./nl/modals/danger-zone/remove-organization-employee'),
             increase_limit_multiplier: require('./nl/modals/danger-zone/increase-limit-multiplier'),
             sponsor_provider_organization_state: require('./nl/modals/danger-zone/update-provider-organization-state'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
@@ -358,8 +360,8 @@ module.exports = {
             date: "Datum",
         },
         tooltips: {
-            pending_iban_from: "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
-            pending_iban_to: "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
+            pending_iban_from: "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
+            pending_iban_to: "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
         }
     },
 
@@ -377,6 +379,7 @@ module.exports = {
             total: "Totaal",
             active: "Actief",
             inactive: "Inactief",
+            deactivated: "Gedeactiveerd",
             used: "Uitgaven",
             left: "Restant",
             total_percentage: "Totaal percentage",
@@ -601,7 +604,7 @@ module.exports = {
             end: "EIND",
             break: "Pauze",
             not_specified: "Niet ingevuld",
-            description: "Omschrijving"
+            description: "Omschrijving",
         },
         buttons: {
             cancel: "Annuleren",
@@ -801,13 +804,13 @@ module.exports = {
             title_step_8: "Meld u aan voor de regelingen",
             subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt zo spoedig mogelijk behandeld. U ontvangt hierover per e-mail een bevestiging.",
 
-            title_step_9: "Aanvraag ontvangen",
-            top_title_step_9: "Uw aanmelding is ontvangen",
-            subtitle_step_9: "Uw aanmelding is in behandeling. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
+            title_step_9: "Organisatie aangemaakt",
+            top_title_step_9: "Uw organisatie is aangemaakt",
+            subtitle_step_9: "Heeft u zich aangemeld voor een fonds? Dan ontvangt u hier een e-mail van zodra uw aanmelding is behandeld. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
 
-            title_step_9_mobile: "Aanmelding voltooid",
-            top_title_step_9_mobile: "Uw aanmelding is ontvangen",
-            subtitle_step_9_mobile: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw e-mailadres:\n",
+            title_step_9_mobile: "Organisatie aangemaakt",
+            top_title_step_9_mobile: "Uw organisatie is aangemaakt",
+            subtitle_step_9_mobile: "Heeft u zich aangemeld voor een fonds? Dan ontvangt u hier een e-mail van zodra uw aanmelding is behandeld. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw e-mailadres:\n",
             download_step_9_mobile: "Applicatie downloaden",
 
             title_step_10: "Test betaling",
@@ -1228,33 +1231,37 @@ module.exports = {
             titleBulks: "Bulktransacties",
         },
         labels: {
-            price: "BEDRAG",
-            description: "BESCHRIJVING",
-            customer: "KLANT",
-            date: "DATUM",
-            action: "ACTIE",
+            id: "ID",
+            price: "Bedrag",
+            description: "Beschrijving",
+            customer: "Klant",
+            date: "Datum",
+            action: "Actie",
             refund: "Terugbetalen",
             chargeid: "Kopieer het transactienummer",
-            connections: "CONNECTIE",
+            connections: "Connectie",
             details: "Bekijk transactiedetails",
             results: "x resultaten",
             payment: "Betaling -",
-            fund: "FONDS",
-            status: "STATUS",
-            provider: "AANBIEDER",
+            fund: "Fonds",
+            status: "Status",
+            provider: "Aanbieder",
             search: "Zoeken",
             from: "Vanaf",
-            bulk: "BULK",
+            bulk: "Bulk",
             to: "Tot en met",
             state: "Status",
             fund_state: "Status fonds",
             amount: "Bedrag",
+            quantity: "Aantal",
+            quantity_min: "0",
+            quantity_max: "Alles",
             amount_min: "0",
             amount_max: "Alles",
             total_amount: "Som van transacties <strong>{{ total_amount }}</strong>",
             bulk_total_amount: [
                 "Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie ter waarde van <strong>{{ total_amount }}</strong>.",
-                "Gebeurt automatisch dagelijks om 09:00."
+                "Gebeurt automatisch dagelijks om 09:00. Tenzij anders is ingesteld of bulks alleen handmatig aangemaakt kunnen worden."
             ].join("</br>"),
         },
         buttons: {
@@ -1352,7 +1359,23 @@ module.exports = {
             lead_time: "Doorlooptijd",
             accepted_at: "Geaccepteerd op",
             declined_at: "Geweigerd op",
-            disregarded_at: "Buiten behandeling gesteld op"
+            api_value: "API Eigenschap",
+            first_name: "Naam",
+            last_name: "Voornamen",
+            gender: "Geslachtsaanduiding",
+            nationality: "Nationaliteit",
+            age: "Leeftijd",
+            birth_date: "Geboortedatum",
+            birth_place: "Geboorteplaats",
+            address: "Verblijfsplaats",
+            disregarded_at: "Buiten behandeling gesteld op",
+        },
+        person: {
+            relations: {
+                parents: "Ouder {{ index }}",
+                partners: "Partner",
+                children: "Kinderen {{ index }}",
+            }
         },
         status: {
             hold: "Wachten",
@@ -1363,8 +1386,8 @@ module.exports = {
         },
         buttons: {
             show: "Bekijk eigenschappen",
-            allaccept: "Accepteren",
-            alldecline: "Weigeren",
+            accept_all: "Accepteren",
+            decline_all: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
             disregard: "Niet behandelen",
@@ -1516,6 +1539,18 @@ module.exports = {
             addcode: "voeg code  ",
             description: "  toe aan de beschrijving",
             copy: "Kopieer naar klembord"
+        }
+    },
+
+    modal_fund_request_assign: {
+        header: {
+            title: "Toewijzen"
+        },
+        buttons: {
+            close: "Sluiten",
+        },
+        label: {
+            employees: "Kies een medewerker"
         }
     },
 

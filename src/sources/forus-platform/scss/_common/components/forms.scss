@@ -187,6 +187,11 @@
             padding-right: 0;
         }
 
+        &.select-control {
+            padding: 0;
+            border: none;
+        }
+
         &:focus {
             outline: none;
             background-color: #fbfbfb;
@@ -290,14 +295,19 @@
     }
 
     .form-hint {
-        color: #222530;
-        font: 500 12px/18px $bf;
+        color: #4b4d54;
+        font: 600 11px/20px $bf;
+        margin-bottom: -5px;
 
         &:before {
             color: #ff2100;
             content: '*';
             margin-right: 2px;
             vertical-align: text-top;
+        }
+
+        &:last-child {
+            margin-bottom: -10px;
         }
     }
 
@@ -438,11 +448,11 @@
 
     .select-control-input {
         $optionHeight: 40px;
-
         position: relative;
 
         .form-control {
             display: block;
+            padding-right: 20px;
         }
 
         label.form-control:not([type='radio']):not([type='checkbox']) {
@@ -451,6 +461,27 @@
 
         .select-control-search {
             cursor: pointer;
+            padding-right: 20px;
+        }
+
+        .select-control-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            line-height: inherit;
+            padding-top: inherit;
+            padding-bottom: inherit;
+            padding-right: 5px;
+            display: flex;
+            flex-direction: column;
+
+            .mdi {
+                display: flex;
+                font-size: 20px;
+                margin-top: 2px;
+                color: #646464;
+            }
         }
 
         .select-control-options {
@@ -500,6 +531,10 @@
                 border-bottom-right-radius: 0;
                 border-bottom-left-radius: 0;
             }
+        }
+
+        &[disabled] {
+            pointer-events: none;
         }
     }
 
@@ -645,6 +680,22 @@
         &.radio-inline {
             display: inline-block;
             width: auto;
+        }
+    }
+
+    .form-data-preview {
+        .form-group {
+            .form-input-data {
+                width: calc(100% - 200px);
+                padding: 10px;
+                float: left;
+                color: #9CA6AF;
+                background: #F6F9FC;
+                border: 1px dashed #D4D9DD;
+                border-radius: 3px;
+                word-wrap: break-word;
+                white-space: pre-wrap;
+            }
         }
     }
 }
