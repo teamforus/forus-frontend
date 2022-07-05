@@ -173,9 +173,9 @@ let FundActivateComponent = function(
                         reload: true
                     });
                 } else {
-                    $state.go('error', { 
+                    $state.go('error', {
                         errorCode: 'digid_' + $stateParams.digid_error,
-                        hideHomeLinkButton: true 
+                        hideHomeLinkButton: true
                     });
                 }
 
@@ -368,6 +368,11 @@ let FundActivateComponent = function(
                 return $state.go('funds');
             }
         });
+
+        $ctrl.showCustomCriteriaOverview =
+            $ctrl.autoValidation &&
+            $ctrl.digidAvailable &&
+            ['bus_2020', 'meedoen_2020'].includes($ctrl.fund.key);
     };
 };
 
