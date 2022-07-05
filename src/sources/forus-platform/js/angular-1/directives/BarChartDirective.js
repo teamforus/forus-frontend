@@ -55,6 +55,7 @@ let BarChartDirective = function($scope, $filter, $element) {
                         ticks: {
                             beginAtZero: true,
                             callback: labelFormatter,
+                            stepSize: $scope.stepSize
                         }
                     }]
                 },
@@ -78,7 +79,8 @@ module.exports = () => {
         scope: {
             data: '=',
             field: '=',
-            fieldFormat: '='
+            fieldFormat: '=',
+            stepSize: '='
         },
         restrict: "EA",
         replace: true,
