@@ -17,7 +17,7 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.digid_app_id" ng-bind="error")
             
                 .form-group.form-group-inline
-                    label(translate="Sleutelcode").form-label
+                    label(translate="Sleutelcode").form-label.form-label-required
                     input(ng-disabled="$ctrl.form.values.digid_enabled" ng-model="$ctrl.form.values.digid_shared_secret" type="password" placeholder="Bijv. 56CC-0EDF-E57C-960D-K524-LWFZ").form-control.r-n
                     .form-error(ng-repeat="error in $ctrl.form.errors.digid_shared_secret" ng-bind="error")
             
