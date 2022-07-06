@@ -17,12 +17,12 @@
             .card-section.card-section-primary
                 .row: .col.col-lg-9.col-lg-12
                     .form-group.form-group-inline
-                        label.form-label(i18n="organization_edit.labels.name")
+                        label.form-label.form-label-required(i18n="organization_edit.labels.name")
                         input(ng-model="$ctrl.form.values.name" type="text" placeholder="Bedrijfsnaam").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
 
                     .form-group.form-group-inline
-                        label.form-label(i18n="organization_edit.labels.bank")
+                        label.form-label.form-label-required(i18n="organization_edit.labels.bank")
                         .form-offset
                             input(
                                 ng-disabled="$ctrl.organization && $root.auth_user.address != $ctrl.organization.identity_address"
@@ -34,7 +34,7 @@
             
             .card-section.card-section-primary
                 .form-group.form-group-inline
-                    label.form-label(i18n="organization_edit.labels.mail")
+                    label.form-label.form-label-required(i18n="organization_edit.labels.mail")
                     .form-offset: .row
                         .col.col-lg-8.col-lg-12
                             input(ng-model="$ctrl.form.values.email" type="text" placeholder="E-mailadres").form-control
@@ -47,7 +47,7 @@
                                 ng-model="$ctrl.form.values.email_public")
                 
                 .form-group.form-group-inline
-                    label.form-label(i18n="organization_edit.labels.phone")
+                    label.form-label.form-label-required(i18n="organization_edit.labels.phone")
                     .form-offset: .row
                         .col.col-lg-8.col-lg-12
                             input(type="text" ng-model="$ctrl.form.values.phone" placeholder="Telefoonnummer").form-control
@@ -88,7 +88,7 @@
 
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
-                    label.form-label(i18n="organization_edit.labels.kvk")
+                    label.form-label.form-label-required(i18n="organization_edit.labels.kvk")
                     input(ng-model="$ctrl.form.values.kvk" type="text" placeholder="KvK-nummer").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.kvk" ng-bind="error")
                 

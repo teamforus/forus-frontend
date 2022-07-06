@@ -45,15 +45,24 @@
                     .col.col-md-6: .card-block-listing-item
                         .card-block-listing-label(translate="fund_card_provider.labels.allow_budget")
                         .tag.tag-sm(
+                            ng-if="providerFund.state == 'accepted'"
                             ng-class="'tag-' + (providerFund.allow_budget ? 'success' : 'warning')" 
                             ng-bind="providerFund.allow_budget ? 'Ja' : 'Nee'")      
+
+                        .tag.tag-warning.tag-sm(ng-if="providerFund.state == 'pending'") Nee
+                        .tag.tag-danger.tag-sm(ng-if="providerFund.state == 'rejected'") Nee
 
                     .col.col-md-6: .card-block-listing-item
                         .card-block-listing-label(
                             translate="fund_card_provider.labels.{{ shownProductType }}")
+
                         .tag.tag-sm(
+                            ng-if="providerFund.state == 'accepted'"
                             ng-class="'tag-' + (providerFund[shownProductType] ? 'success' : 'warning')" 
-                            ng-bind="providerFund[shownProductType] ? 'Ja' : 'Nee'")  
+                            ng-bind="providerFund[shownProductType] ? 'Ja' : 'Nee'")
+
+                        .tag.tag-warning.tag-sm(ng-if="providerFund.state == 'pending'") Nee
+                        .tag.tag-danger.tag-sm(ng-if="providerFund.state == 'rejected'") Nee
 
                 .col.col-md-4: .button-group.flex-end
                     .button.button-default(

@@ -26,7 +26,7 @@ mixin progress()
 
 //-top-navbar
 main(id="main-content")
-    section: .wrapper
+    section: .wrapper(ng-if="!$ctrl.autoSubmit")
         .block.block-sign_up: .block-wrapper
             h1.block-title(ng-if="$ctrl.state" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
 
