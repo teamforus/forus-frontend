@@ -1,7 +1,9 @@
 const OrganizationFundsComponent = function(
+    $q,
     $state,
     $filter,
     $stateParams,
+    $timeout,
     FundService,
     ModalService,
     PushNotificationsService
@@ -11,7 +13,24 @@ const OrganizationFundsComponent = function(
     const $translate = $filter('translate');
     const $translateDangerZone = (type, key) => $translate(`modals.danger_zone.${type}.${key}`);
 
+    $ctrl.topUpTransactionFilters = {
+        show: false,
+        values: {},
+    };
+
     $ctrl.hasManagerPermission = false;
+
+    $ctrl.resetFilters = () => {
+        $ctrl.topUpTransactionFilters.values.q = '';
+        $ctrl.topUpTransactionFilters.values.from = null;
+        $ctrl.topUpTransactionFilters.values.to = null;
+    };
+
+    $ctrl.hideFilters = () => {
+        $timeout(() => {
+            $ctrl.topUpTransactionFilters.show = false;
+        }, 0);
+    };
 
     $ctrl.askConfirmation = (type, onConfirm) => {
         ModalService.open("dangerZone", {
@@ -53,12 +72,32 @@ const OrganizationFundsComponent = function(
 
     $ctrl.toggleFundCriteria = (fund) => {
         fund.show_criteria = !fund.show_criteria;
-        fund.show_stats = false;
+        fund.show_stats = fund.show_top_ups = false;
     };
 
     $ctrl.toggleFundStats = (fund) => {
         fund.show_stats = !fund.show_stats;
-        fund.show_criteria = false;
+        fund.show_criteria = fund.show_top_ups = false;
+    };
+
+    $ctrl.fetchTopUpTransactions = (fund, query) => {
+        return $q((resolve, reject) => {
+            FundService.listTopUpTransactions(
+                fund.organization_id, fund.id, query || {}
+            ).then(res => {
+                fund.top_up_transactions = res.data;
+                resolve(fund.top_up_transactions);
+            }, reject);
+        });
+    };
+
+    $ctrl.toggleFundTopupHistory = (fund) => {
+        fund.show_top_ups = !fund.show_top_ups;
+        fund.show_criteria = fund.show_stats = false;
+
+        if (fund.show_top_ups) {
+            $ctrl.fetchTopUpTransactions(fund);
+        }
     };
 
     $ctrl.onSaveCriteria = (fund) => {
@@ -124,9 +163,11 @@ module.exports = {
         validatorOrganizations: '<',
     },
     controller: [
+        '$q',
         '$state',
         '$filter',
         '$stateParams',
+        '$timeout',
         'FundService',
         'ModalService',
         'PushNotificationsService',

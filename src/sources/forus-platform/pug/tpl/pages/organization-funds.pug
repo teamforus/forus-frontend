@@ -55,7 +55,7 @@
                         .fund-remaining-value(ng-bind="fund.budget.total - fund.budget.used | currency_format")
                     
                     .flex-row(ng-if="!fund.is_external")
-                        .flex-col: .flex-row.flex-start
+                        .flex-col.flex-col-2: .flex-row.flex-start
                             .button.button-default(ng-click="$ctrl.toggleFundCriteria(fund)")
                                 em.mdi.mdi-toggle-switch.icon-start
                                 translate(translate="components.organization_funds.buttons.criteria")
@@ -63,6 +63,10 @@
                             .button.button-default(ng-if="fund.key && fund.is_configured " ng-click="$ctrl.toggleFundStats(fund)")
                                 em.mdi.mdi-poll.icon-start
                                 translate(translate="components.organization_funds.buttons.statistics")
+
+                            .button.button-default(ng-click="$ctrl.toggleFundTopupHistory(fund)")
+                                em.mdi.mdi-cash-multiple.icon-start
+                                translate(translate="components.organization_funds.buttons.top_up_history")
 
                         .flex-col: .flex-row.flex-end
                             .button.button-default(
@@ -130,6 +134,99 @@
                             .keyvalue-key Resterend
                             .keyvalue-value
                                 span(ng-bind="fund.budget.total - fund.budget.used | currency_format")
+
+                .card.card-padded.form(ng-if="fund.show_top_ups")
+                    .card-header.flex-row
+                        .flex.flex-grow: .flex-col.card-title.tooltipped 
+                            | Transacties ({{ fund.top_up_transactions.meta.total }})
+
+                        .block.block-inline-filters.col.col-lg-6.col-xs-12.text-right
+                            .form(ng-if="!$ctrl.topUpTransactionFilters.show")
+                                .form-group.inline-filters-search: input(
+                                    ng-model="$ctrl.topUpTransactionFilters.values.q" 
+                                    type="text" 
+                                    placeholder="Zoeken").form-control
+
+                            .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
+                                .inline-filters-dropdown-content(ng-show="$ctrl.topUpTransactionFilters.show")
+                                    .arrow-box.bg-dim: .arrow
+                                    .form
+                                        .form-group
+                                            form-label-toggle(label="{{ 'components.organization_funds.top_up_table.filters.search' | i18n }}" is-active)
+                                            input(type="text" ng-model="$ctrl.topUpTransactionFilters.values.q" placeholder="{{ 'components.organization_funds.top_up_table.filters.search' | i18n }}").form-control
+                                        
+                                        .form-group
+                                            form-label-toggle(label="{{ 'components.organization_funds.top_up_table.filters.code' | i18n }}" is-active)
+                                            input(type="text" ng-model="$ctrl.topUpTransactionFilters.values.code" placeholder="{{ 'components.organization_funds.top_up_table.filters.code' | i18n }}").form-control
+                                        
+                                        .form-group
+                                            form-label-toggle(label="{{ 'components.organization_funds.top_up_table.filters.iban' | i18n }}" is-active)
+                                            input(
+                                                type="text"
+                                                ng-model="$ctrl.topUpTransactionFilters.values.iban"
+                                                placeholder="{{ 'components.organization_funds.top_up_table.filters.iban' | i18n }}").form-control
+                                        
+                                        .form-group
+                                            form-label-toggle(label="{{ 'components.organization_funds.top_up_table.filters.amount' | translate }}")
+                                            .row
+                                                .col.col-sm-6
+                                                    input(
+                                                        ng-model="$ctrl.topUpTransactionFilters.values.amount_min" 
+                                                        type="number" 
+                                                        placeholder="{{ 'components.organization_funds.top_up_table.filters.amount_min' | translate }}").form-control
+                                                .col.col-sm-6
+                                                    input(
+                                                        ng-model="$ctrl.topUpTransactionFilters.values.amount_max" 
+                                                        type="number" 
+                                                        placeholder="{{ 'components.organization_funds.top_up_table.filters.amount_max' | translate }}").form-control
+
+                                        .form-group
+                                            form-label-toggle(label="{{ 'components.organization_funds.top_up_table.filters.from' | i18n }}")
+                                            datepicker(
+                                                date-format="dd-MM-yyyy" 
+                                                datepicker-mobile="" 
+                                                date-week-start-day="1").form-control
+                                                input(ng-model="$ctrl.topUpTransactionFilters.values.from" type="text" placeholder="dd-MM-jjjj").form-control
+                                        
+                                        .form-group
+                                            form-label-toggle(label="{{ 'components.organization_funds.top_up_table.filters.to' | i18n }}")
+                                            datepicker(
+                                                date-format="dd-MM-yyyy" 
+                                                datepicker-mobile="" 
+                                                date-week-start-day="1").form-control
+                                                input(ng-model="$ctrl.topUpTransactionFilters.values.to" type="text" placeholder="dd-MM-jjjj").form-control
+                            
+                                .button.button-default.button-icon(ng-click="$ctrl.topUpTransactionFilters.show = !$ctrl.topUpTransactionFilters.show"): em.mdi.mdi-filter-outline
+
+                    .card-section
+                        .card-block.card-block-table
+                            .table-wrapper: table.table
+                                thead: tr
+                                    th(translate="components.organization_funds.top_up_table.columns.fund")
+                                    th(translate="components.organization_funds.top_up_table.columns.code")
+                                    th(translate="components.organization_funds.top_up_table.columns.iban")
+                                    th(translate="components.organization_funds.top_up_table.columns.top_up_id")
+                                    th(translate="components.organization_funds.top_up_table.columns.amount")
+                                    th.text-right(translate="components.organization_funds.top_up_table.columns.date")
+
+                                tbody
+                                    tr(ng-repeat="top_up_transaction in fund.top_up_transactions.data")
+                                        td(ng-bind="top_up_transaction.fund_name")
+                                        td(ng-bind="top_up_transaction.code")
+                                        td(ng-bind="top_up_transaction.iban")
+                                        td(ng-bind="top_up_transaction.fund_top_up_id")
+                                        td(ng-bind="top_up_transaction.amount | currency_format")
+                                        td.text-right(ng-bind="top_up_transaction.created_at_locale")
+
+                    .card-section: .table-pagination(ng-show="fund.top_up_transactions.meta.total")
+                        paginator(
+                            ng-if="fund.top_up_transactions.meta"
+                            meta="fund.top_up_transactions.meta"
+                            filters="$ctrl.topUpTransactionFilters.values" 
+                            on-page-change="$ctrl.fetchTopUpTransactions(fund, query)")
+
+                    div(ng-if="fund.top_up_transactions.meta.total == 0")
+                        block-empty(text="Je hebt momenteel geen top up transacties.")
 
         .block.block-funds(ng-if="$ctrl.shownFundsType == 'archived' && $ctrl.archivedFunds.length > 0")
             .fund-item(ng-repeat="fund in $ctrl.archivedFunds")

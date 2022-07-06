@@ -64,6 +64,14 @@ const FundService = function(ApiRequest, ModalService) {
             return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${provider_id}/products/${product_id}`, query);
         };
 
+        this.listTopUpTransactions = function(organization_id, fund_id, query = {}) {
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/top-up-transactions`, query);
+        };
+
+        this.getTopUpTransactions = function(organization_id, fund_id, top_up_transaction_id, query = {}) {
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/top-up-transactions/${top_up_transaction_id}`, query);
+        };
+
         /**
          * Export funds data
          * 
