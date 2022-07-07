@@ -1,5 +1,6 @@
 module.exports = {
     result: {
+        all_label: "All results",
         providers_label: "Providers",
         funds_label: "Funds",
         products_label: "Products",
