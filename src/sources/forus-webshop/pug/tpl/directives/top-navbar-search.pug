@@ -38,7 +38,9 @@
 
             //- Actions
             .search-result-actions(ng-if="$dir.resultsExists && $dir.results && !$dir.searchResultPage")
-                button.button.button-primary(ui-sref="search-result({q: $dir.query})" translate="top_navbar_search.result.btn")
+                button.button.button-primary(ui-sref="search-result({q: $dir.query})")
+                    translate(translate="top_navbar_search.result.btn")
+                    em.mdi.mdi-arrow-right.icon-right
 
             //- No results
             .search-noresult(ng-if="!$dir.resultsExists && $dir.results && !$dir.searchResultPage")
