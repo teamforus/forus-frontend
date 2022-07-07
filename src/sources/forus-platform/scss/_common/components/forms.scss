@@ -457,6 +457,10 @@
 
         label.form-control:not([type='radio']):not([type='checkbox']) {
             line-height: 26px;
+
+            & > span {
+                padding-right: 25px;
+            }
         }
 
         .select-control-search {

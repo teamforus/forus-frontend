@@ -24,7 +24,8 @@
                     | Alles inklappen
                 
                 .form(ng-if="!$ctrl.filters.show")
-                    .form-group
+                    .form-group.form-group-inline
+                        label.form-label Sorteer:
                         .form-offset: select-control(
                             id="orderBy"
                             prop="value"

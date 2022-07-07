@@ -4590,6 +4590,11 @@ body {
                         line-height: 14px;
                         padding-right: 10px;
                         color: $colorPrimary;
+                        width: auto;
+                    }
+
+                    & > .form-offset, & >.form-control {
+                        width: auto;
                     }
                 }
             }
