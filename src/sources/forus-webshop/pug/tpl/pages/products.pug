@@ -54,6 +54,27 @@ block content
                                     options="$ctrl.funds"
                                     placeholder="{{ $ctrl.funds[0].name }}")
 
+                            .row
+                                .col.col-md-6: .form-group
+                                    label.form-label(for="postcode") Postcode
+                                    input.form-control(
+                                        ng-model="$ctrl.form.values.postcode"
+                                        placeholder="Postcode"
+                                        type="text"
+                                        aria-label="Postcode...")
+                                    .form-error(ng-repeat="error in $ctrl.form.errors.postcode" ng-bind="error")
+
+                                .col.col-md-6: .form-group
+                                    label.form-label(for="distance") Afstand
+                                    select-control(
+                                        prop="id"
+                                        ng-model="$ctrl.form.values.distance"
+                                        options="$ctrl.distances"
+                                        placeholder="Afstand..."
+                                        id="distance")
+                                    .form-error(ng-repeat="error in $ctrl.form.errors.distance" ng-bind="error")
+
+
                     .showcase-content
                         .showcase-content-header
                             h1.showcase-filters-title
