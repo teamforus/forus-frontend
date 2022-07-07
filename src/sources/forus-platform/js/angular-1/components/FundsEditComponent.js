@@ -63,7 +63,7 @@ const FundsEditComponent = function(
         name: 'Kortingspas'
     }, {
         key: 'external',
-        name: 'Geen (extern)'
+        name: 'Informatief (met doorlink)'
     }];
 
     $ctrl.findMethod = (key) => {

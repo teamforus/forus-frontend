@@ -5,6 +5,7 @@ module.exports = {
             `Weet je zeker dat je deze aanbieder wilt accepteren?`,
             `Na acceptatie kun je de aanbieder nog weigeren.`,
         ].join("\n"),
+        options: "Selecteer opties",
         buttons: {
             cancel: 'Annuleren',
             confirm: 'Bevestigen',

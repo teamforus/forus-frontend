@@ -57,4 +57,6 @@ main(id="main-content")
                 .block-content
                     h2.block-title(i18n="home.map.title")
                     .block-description(i18n="home.map.subtitle")
-                    button(ui-sref="providers({show_map:true})" i18n="buttons.show_map" id="show_map").button.button-primary.button-wide
+                    button(ui-sref="providers({show_map:true})" id="show_map").button.button-primary.button-wide
+                        translate(translate="buttons.show_map")
+                        em.mdi.mdi-arrow-right.icon-right
