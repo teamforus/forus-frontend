@@ -50,7 +50,9 @@
                     br
                 .auth-subtitle 
                     .button.button-digid &nbsp;
-                    .button.button-primary(ng-click="$ctrl.startDigId()") Login
+                    .button.button-primary(ng-click="$ctrl.startDigId()") 
+                        | Login
+                        em.mdi.mdi-arrow-right.icon-right
 
         .block.block-auth-widget(ng-if="$ctrl.restoreWithDigId && $ctrl.restoreWithDigIdFailed")
             .auth-digid-message

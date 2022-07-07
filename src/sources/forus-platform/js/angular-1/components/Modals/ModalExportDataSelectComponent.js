@@ -1,6 +1,6 @@
 const chunk = require('lodash/chunk');
 
-const ModalExportDataComponent = function() {
+const ModalExportDataComponent = function () {
     const $ctrl = this;
 
     $ctrl.isValid = true;
@@ -27,7 +27,7 @@ const ModalExportDataComponent = function() {
         const checkboxSections = sections.filter((section) => section.type === 'checkbox');
         const checkboxSectionsChecked = checkboxSections.filter((section) => section.selected.length > 0);
 
-        $ctrl.isValid = !checkboxSections.length || checkboxSectionsChecked.length;
+        $ctrl.isValid = !$ctrl.required || (!checkboxSections.length || checkboxSectionsChecked.length);
     };
 
     $ctrl.onSubmit = () => {
@@ -50,7 +50,11 @@ const ModalExportDataComponent = function() {
     }
 
     $ctrl.$onInit = () => {
-        const { sections } = $ctrl.modal.scope;
+        const { title, description, sections, required = true } = $ctrl.modal.scope;
+
+        $ctrl.title = title;
+        $ctrl.required = required;
+        $ctrl.description = description;
 
         $ctrl.sections = sections.map((section) => {
             const { type, fields, fieldsPerRow } = section;
@@ -58,9 +62,9 @@ const ModalExportDataComponent = function() {
             if (type == 'checkbox') {
                 const fieldsList = fields.map((field) => {
                     const value = field.value == null ? 'null' : field.value;
-                    const selectAll = section.selectAll;
+                    const selectAll = !!section.selectAll;
 
-                    return { ...field, ...{ selected: selectAll, value: value } };
+                    return { ...field, ...{ selected: selectAll || field?.selected, value: value } };
                 });
 
                 return { ...section, fieldsView: chunk(fieldsList, fieldsPerRow), fields: fieldsList };

@@ -40,6 +40,17 @@ const ProductsComponent = function(
         }
     }];
 
+    $ctrl.distances = [
+        { id: null, name: 'Overal' },
+        { id: 3, name: '< 3 km' },
+        { id: 5, name: '< 5 km' },
+        { id: 10, name: '< 10 km' },
+        { id: 15, name: '< 15 km' },
+        { id: 25, name: '< 25 km' },
+        { id: 50, name: '< 50 km' },
+        { id: 75, name: '< 75 km' }
+    ];
+
     $ctrl.filtersList = [
         'q', 'product_category_id', 'fund', 'sortBy',
     ];
@@ -85,6 +96,8 @@ const ProductsComponent = function(
             product_category_id: values.product_category_id,
             display_type: $ctrl.display_type,
             fund_type: $ctrl.fund_type,
+            postcode: values.postcode || '',
+            distance: values.distance || null,
             ...orderByValue
         };
     };
@@ -111,6 +124,8 @@ const ProductsComponent = function(
             organization_id: query.organization_id,
             product_category_id: query.product_category_id,
             show_menu: $ctrl.showModalFilters,
+            postcode: query.postcode,
+            distance: query.distance,
         }, { location });
     };
 
@@ -152,6 +167,8 @@ const ProductsComponent = function(
             fund_id: $stateParams.fund_id || null,
             organization_id: $stateParams.organization_id || null,
             product_category_id: $stateParams.product_category_id || null,
+            postcode: $stateParams.postcode,
+            distance: $stateParams.distance,
         });
 
         $ctrl.updateFiltersUsedCount();

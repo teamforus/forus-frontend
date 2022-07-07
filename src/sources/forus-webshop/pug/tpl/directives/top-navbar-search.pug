@@ -20,7 +20,7 @@
                 //- Results by key
                 .search-result-sidebar-item(
                     ng-repeat="groupKey in $dir.groupKeyList"
-                    ng-click="$dir.setGroupKey(groupKey)" 
+                    ng-click="$dir.setGroupKey(groupKey)"
                     ng-class="{active: $dir.groupKey == groupKey}")
 
                     .search-result-sidebar-item-icon(ng-if="groupKey === 'all'")
@@ -60,9 +60,9 @@
 
                         a.search-result-group-link(
                             ng-if="$dir.results[groupKey].count > 3"
-                            ui-sref="search-result({q: $dir.lastQuery, search_item_types: groupKey})" 
+                            ui-sref="search-result({q: $dir.lastQuery, search_item_types: groupKey})"
                             ng-bind="$dir.results[groupKey].count + ' resultaten gevonden...'")
-                    
+
                     //- Result sections list
                     .search-result-items(ng-if="$dir.results[groupKey]")
                         a.search-result-item(
@@ -73,7 +73,7 @@
                 //- Actions
                 .search-result-actions(
                     ng-if="$dir.groupKey == 'all' && $dir.resultsAll.length")
-                    
+
                     button.button.button-primary(ui-sref="search-result({q: $dir.query})")
                         translate(translate="top_navbar_search.result.btn")
                         .mdi.mdi-arrow-right.icon-right
@@ -86,5 +86,5 @@
                         include ../../../resources/_webshop-common/assets/img/icon-search/empty-search.svg
 
                     .search-noresult-description(
-                        translate="top_navbar_search.noresult.subtitle" 
+                        translate="top_navbar_search.noresult.subtitle"
                         translate-values="{ query: $dir.lastQuery }")
