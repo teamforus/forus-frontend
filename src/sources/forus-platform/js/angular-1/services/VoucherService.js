@@ -86,6 +86,13 @@ const VoucherService = function(ApiRequest) {
             return Papa.unparse([headers, values]);
         };
 
+        this.sampleCSVSubsidiesVoucher = (expires_at = "2020-02-20") => {
+            const headers = ['expires_at', 'note', 'email', 'activate', 'activation_code'];
+            const values = [expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0];
+
+            return Papa.unparse([headers, values]);
+        };
+
         this.sampleCSVProductVoucher = (product_id = null, expires_at = "2020-02-20") => {
             const headers = ['product_id', 'expires_at', 'note', 'email', 'activate', 'activation_code'];
             const values = [product_id, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0];

@@ -1,0 +1,9 @@
+.block.block-announcements
+    .announcement(
+        ng-repeat="announcement in $dir.announcements"
+        ng-class="'announcement-' + announcement.type + (announcement.dismissed ? ' dismissed' : '')")
+
+        .announcement-wrapper
+            .title(ng-bind="announcement.title")
+            .description(ng-bind-html="announcement.description_html")
+            .announcement-close.mdi.mdi-close(ng-click="$dir.dismiss(announcement)")

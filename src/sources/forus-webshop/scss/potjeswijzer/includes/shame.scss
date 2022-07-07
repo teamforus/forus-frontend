@@ -141,18 +141,6 @@
 
     .block-label-tabs {
         .label-tab {
-            .label-tab-menu {
-                .label-tab-menu-item {
-                    &:hover {
-                        color: #272525;
-    
-                        .mdi {
-                            color: #272525;
-                        }
-                    }
-                }
-            }
-
             &.active, &:active, &:focus {
                 color: #272525;
     

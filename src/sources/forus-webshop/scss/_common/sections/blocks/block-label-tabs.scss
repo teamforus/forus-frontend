@@ -46,64 +46,6 @@
             margin-left: 4px;
         }
 
-        .label-tab-menu {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid $border_color;
-            border-radius: $border_radius / 2;
-            overflow: hidden;
-            box-shadow: $base_shadow;
-            top: 100%;
-            left: 0;
-            margin-top: 2.5px;
-            padding: 5px 0;
-            background-color: #fff;
-
-            .label-tab-menu-item {
-                padding: 5px 35px 5px 20px;
-                font: 400 13px/20px $bf;
-                color: #1A2A3F;
-                transition: color .4s, background-color .4s;
-                background-color: #fff;
-                white-space: nowrap;
-                display: flex;
-                flex-direction: row;
-                position: relative;
-
-                .mdi {
-                    color: #1A2A3F;
-                    position: absolute;
-                    right: 10px;
-                    top: 50%;
-                    width: 15px;
-                    transform: translate(0, -50%);
-                }
-
-                &:hover {
-                    color: #fff;
-                    background-color: $color_primary;
-
-                    .mdi {
-                        color: #fff;
-                    }
-                }
-
-                &:focus {
-                    color: rgb(155, 70, 70);
-                    background-color: 1px solid desaturate($color: darken($color: $color_primary, $amount: 35%), $amount: 75%);
-
-                    .mdi {
-                        color: rgb(143, 143, 143);
-                    }
-                }
-
-                &.active {
-                    font-weight: bold;
-                }
-            }
-        }
-
         &:first-child {
             border-top-left-radius: $border_radius;
             border-bottom-left-radius: $border_radius;
@@ -171,13 +113,13 @@
                 border-top-right-radius: $border_radius / 2;
                 border-bottom-right-radius: $border_radius / 2;
             }
+
             &:focus {
-                outline: 2px;
                 background-color: $color_primary_light;
                 color: white; 
-                border: 1px solid black;
-                offset: 2px;
+                border-color: black;
                 outline: 5px;
+
                 .mdi {
                     color: white;
                 }  

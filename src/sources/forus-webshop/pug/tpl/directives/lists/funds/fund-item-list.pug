@@ -34,5 +34,6 @@ a.fund-item
     .fund-actions(ng-if="$dir.fund.canActivate")
         button.button.button-primary.button-fill(
             type="button"
-            ng-click="$dir.applyFund($event,$dir.fund)" 
-            translate="funds.buttons.is_applicable")
+            ng-click="$dir.applyFund($event,$dir.fund)")
+            translate(translate="funds.buttons.is_applicable")
+            em.mdi.mdi-arrow-right.icon-right
