@@ -3,9 +3,9 @@ module.exports = {
     labels: {
         fund: 'Fonds',
         amount: 'Bedrag',
-        assign_by_type: 'Methode:',
-        limit_multiplier: 'Aantal personen:',
-        assign_by_type_or_activate: 'Toewijzen of activeren:',
+        assign_by_type: 'Methode',
+        limit_multiplier: 'Aantal personen',
+        assign_by_type_or_activate: 'Toewijzen of activeren',
         note: 'Notitie',
         expire_at: 'Geldig tot en met',
     },

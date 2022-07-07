@@ -63,22 +63,17 @@ block content
                                     div.ellipsis(ng-if="$ctrl.filters.q") Zoekresultaten gevonden voor "{{ $ctrl.filters.q }}"
                                     div.ellipsis(ng-if="!$ctrl.filters.q") Zoekresultaten
 
-                            .showcase-filters-block: .block.block-label-tabs
-                                .label-tab-set
-                                    .label-tab.label-tab-sm.label-tab-primary-light(
-                                        ng-class="{active: $ctrl.showOrderDropdown}"
-                                        ng-click="$ctrl.setOrderDropdown($event, !$ctrl.showOrderDropdown)")
-                                        em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.showOrderDropdown ? 'up' : 'down')")
-                                        | Sorteer
-                                        .label-tab-menu(ng-if="$ctrl.showOrderDropdown" click-outside="$ctrl.setOrderDropdown($event, false)")
-                                            .label-tab-menu-item(
-                                                ng-repeat="sortByOption in $ctrl.sortByOptions track by $index"
-                                                ng-class="{active: $ctrl.sortBy.label === sortByOption.label}"
-                                                ng-click="$ctrl.setSortBy($event, sortByOption)")
-                                                translate(translate="{{ sortByOption.label }}")
-                                                em.mdi.mdi-check(ng-if="$ctrl.sortBy.label === sortByOption.label")
-
-                                    .label-tab.label-tab-sm.label-tab-disabled(ng-bind="$ctrl.sortBy.label")
+                            .showcase-filters-block: .block.block-label-tabs.form
+                                .showcase-filters-item
+                                    label.form-label Sorteer
+                                    select-control(
+                                        id="sort_by"
+                                        as="label"
+                                        search="false"
+                                        ng-model="$ctrl.sortBy"
+                                        ng-change="$ctrl.updateSortBy()"
+                                        options="$ctrl.sortByOptions"
+                                        placeholder="Sorteer")
 
                                 .label-tab-set
                                     .label-tab.label-tab-sm(

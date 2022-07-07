@@ -7,7 +7,7 @@
         .modal-body
             .modal-section(ng-if="!$ctrl.verificationRequested").form: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group
-                    label.form-label Partner
+                    label.form-label.form-label-required Partner
                     input.form-control(type="number" ng-model="$ctrl.form.values.value" placeholder="Partner BSN")
                     .form-error(ng-repeat="error in $ctrl.form.errors.value" ng-bind="error")
             

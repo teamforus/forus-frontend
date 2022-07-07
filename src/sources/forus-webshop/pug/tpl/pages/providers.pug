@@ -41,7 +41,7 @@ block content
                                 label.form-label(for="fund_id") Tegoeden
                                 select-control(
                                     prop="id"
-                                    ng-model="$ctrl.form.values.fund"
+                                    ng-model="$ctrl.form.values.fund_id"
                                     options="$ctrl.funds"
                                     placeholder="Selecteer tegoed..."
                                     id="fund_id")
@@ -73,6 +73,7 @@ block content
                         a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm
                             em.mdi.mdi-store-outline
                             | Aanmelden als aanbieder
+                            em.mdi.mdi-arrow-right.icon-right
 
                     .showcase-content
                         .showcase-content-header.showcase-content-header-compact
