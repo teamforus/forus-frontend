@@ -63,7 +63,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
 
                             dropdownBtnIcon.attr('class', option.find('.mdi').attr('class'));
 
-                            $timeout(() => $scope.blockAlignment = direction, 0);
+                            $timeout(() => $dir.blockAlignment = direction, 0);
                             e.preventDefault();
                         })
                     }

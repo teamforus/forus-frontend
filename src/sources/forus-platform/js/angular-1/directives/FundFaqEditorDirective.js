@@ -56,7 +56,6 @@ const FundFaqEditorDirective = function(
 
     $dir.validate = () => {
         return $q((resolve, reject) => {
-            console.log('$dir.faq: ', $dir.faq);
             FundService.faqValidate($scope.organization.id, $dir.faq).then(
                 (res) => resolve(res.data),
                 (res) => {
