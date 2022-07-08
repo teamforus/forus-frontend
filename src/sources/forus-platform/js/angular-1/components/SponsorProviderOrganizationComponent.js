@@ -1,20 +1,13 @@
-const SponsorProviderOrganizationComponent = function(
+const SponsorProviderOrganizationComponent = function (
     $q,
-    $filter,
     FundService,
-    ModalService,
     OrganizationService,
     PushNotificationsService
 ) {
     const $ctrl = this;
-    const $translate = $filter('translate');
 
     const filters = { values: { q: "", per_page: 2 } };
     const providerFilters = { values: { q: "", per_page: 10 } };
-
-    const $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.sponsor_provider_organization_state.' + key
-    );
 
     const fetchFundProviders = (providerOrganization, query = {}) => {
         return $q((resolve, reject) => OrganizationService.listProviders(
@@ -36,19 +29,12 @@ const SponsorProviderOrganizationComponent = function(
     $ctrl.updateFundProviderState = (fundProvider, accepted) => {
         const state = accepted ? 'accepted' : 'rejected';
 
-        ModalService.open("dangerZone", {
-            title: $translateDangerZone(state + '.title'),
-            description: $translateDangerZone(state + '.description'),
-            cancelButton: $translateDangerZone(state + '.buttons.cancel'),
-            confirmButton: $translateDangerZone(state + '.buttons.confirm'),
-            text_align: 'center',
-            onConfirm: () => {
-                fundProvider.submittingState = state;
-        
-                $ctrl.updateProvider(fundProvider, { state }).finally(() => {
-                    fundProvider.submittingState = false;
-                });
-            }
+        FundService.confirmFundProviderStateUpdate(fundProvider, state).then((data) => {
+            fundProvider.submittingState = state;
+
+            $ctrl.updateProvider(fundProvider, data).finally(() => {
+                fundProvider.submittingState = false;
+            });
         });
     };
 
@@ -86,9 +72,7 @@ module.exports = {
     },
     controller: [
         '$q',
-        '$filter',
         'FundService',
-        'ModalService',
         'OrganizationService',
         'PushNotificationsService',
         SponsorProviderOrganizationComponent

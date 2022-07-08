@@ -173,9 +173,9 @@ let FundActivateComponent = function(
                         reload: true
                     });
                 } else {
-                    $state.go('error', { 
+                    $state.go('error', {
                         errorCode: 'digid_' + $stateParams.digid_error,
-                        hideHomeLinkButton: true 
+                        hideHomeLinkButton: true
                     });
                 }
 
@@ -294,7 +294,7 @@ let FundActivateComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        const { backoffice_error, backoffice_fallback } = $stateParams;
+        const { backoffice_error, backoffice_fallback, backoffice_error_key } = $stateParams;
         const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
         const pendingRequests = $ctrl.fundRequests ? $ctrl.fundRequests.data.filter(request => {
             return request.state === 'pending';
@@ -324,7 +324,7 @@ let FundActivateComponent = function(
 
         // Backoffice not responding and fallback is disabled
         if (backoffice_error == 1 && backoffice_fallback == 0) {
-            return $ctrl.state = 'backoffice_error';
+            return $ctrl.state = 'backoffice_error_' + (backoffice_error_key ? backoffice_error_key : 'not_eligible');
         }
 
         // Fund requesting is not available after successfull signin with DigiD
@@ -368,6 +368,11 @@ let FundActivateComponent = function(
                 return $state.go('funds');
             }
         });
+
+        $ctrl.showCustomCriteriaOverview =
+            $ctrl.autoValidation &&
+            $ctrl.digidAvailable &&
+            ['bus_2020', 'meedoen_2020'].includes($ctrl.fund.key);
     };
 };
 

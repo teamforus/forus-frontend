@@ -1,6 +1,5 @@
-const FundProviderComponent = function(
+const FundProviderComponent = function (
     $q,
-    $filter,
     FundService,
     $stateParams,
     ModalService,
@@ -8,7 +7,6 @@ const FundProviderComponent = function(
     PushNotificationsService
 ) {
     const $ctrl = this;
-    const $translate = $filter('translate');
 
     $ctrl.accepted = false;
     $ctrl.submitting = false;
@@ -16,10 +14,6 @@ const FundProviderComponent = function(
 
     $ctrl.filters = { values: { q: "", per_page: 15 } };
     $ctrl.filtersSponsorProducts = { values: { q: "", per_page: 15 } };
-
-    const $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.sponsor_provider_organization_state.' + key
-    );
 
     const transformProduct = (product) => {
         const activeDeals = product.deals_history ? product.deals_history.filter((deal) => deal.active) : [];
@@ -44,14 +38,14 @@ const FundProviderComponent = function(
         $ctrl.dropdownMenuItem = false;
     };
 
-    $ctrl.disableProductItem = function(fundProvider, product) {
+    $ctrl.disableProductItem = function (fundProvider, product) {
         FundService.stopActionConfirmationModal(() => {
             product.allowed = false;
             $ctrl.updateAllowBudgetItem(fundProvider, product);
         });
     };
 
-    $ctrl.updateAllowBudgetItem = function(fundProvider, product) {
+    $ctrl.updateAllowBudgetItem = function (fundProvider, product) {
         const enable_products = product.allowed ? [{ id: product.id }] : [];
         const disable_products = !product.allowed ? [product.id] : [];
 
@@ -73,19 +67,12 @@ const FundProviderComponent = function(
     $ctrl.updateFundProviderState = (fundProvider, accepted) => {
         const state = accepted ? 'accepted' : 'rejected';
 
-        ModalService.open("dangerZone", {
-            title: $translateDangerZone(state + '.title'),
-            description: $translateDangerZone(state + '.description'),
-            cancelButton: $translateDangerZone(state + '.buttons.cancel'),
-            confirmButton: $translateDangerZone(state + '.buttons.confirm'),
-            text_align: 'center',
-            onConfirm: () => {
-                fundProvider.submittingState = state;
+        FundService.confirmFundProviderStateUpdate(fundProvider, state).then((data) => {
+            fundProvider.submittingState = state;
 
-                $ctrl.updateProvider(fundProvider, { state }).finally(() => {
-                    fundProvider.submittingState = false;
-                });
-            }
+            $ctrl.updateProvider(fundProvider, data).finally(() => {
+                fundProvider.submittingState = false;
+            });
         });
     };
 
@@ -155,7 +142,7 @@ const FundProviderComponent = function(
         });
     }
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.accepted = $ctrl.fundProvider.state == 'accepted';
         $ctrl.stateParams = $stateParams;
 
@@ -175,7 +162,6 @@ module.exports = {
     },
     controller: [
         '$q',
-        '$filter',
         'FundService',
         '$stateParams',
         'ModalService',

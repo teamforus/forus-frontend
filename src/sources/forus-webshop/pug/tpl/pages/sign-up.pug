@@ -37,7 +37,9 @@ main(id="main-content")
                                 br
                                 br
                                 .button.button-digid &nbsp;
-                                .button.button-primary(ng-click="$ctrl.startDigId()" i18n="fund_request.sign_up.digid.button")
+                                .button.button-primary(ng-click="$ctrl.startDigId()")
+                                    translate(translate="fund_request.sign_up.digid.button")
+                                    em.mdi.mdi-arrow-right.icon-right
                         .sign_up-pane-link(ng-click="$ctrl.setStep(1)") < Ga terug 
 
             //- Fund request information

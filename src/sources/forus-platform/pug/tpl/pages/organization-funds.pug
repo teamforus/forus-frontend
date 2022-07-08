@@ -43,6 +43,8 @@
                                     ng-if="fund.state == 'closed'" 
                                     translate="components.organization_funds.states.closed")
 
+                            .fund-subtitle(ng-bind="fund.type_locale")
+
                         .fund-actions
                             a(ui-sref="funds-show(fund)").button.button-primary
                                 em.mdi.mdi-eye-outline.icon-start
@@ -139,8 +141,9 @@
                         .fund-details
                             .fund-title
                                 span(ng-bind="fund.name")
-
                                 .tag.tag-default.tag-sm(translate="components.organization_funds.states.archived")
+
+                            .fund-subtitle(ng-bind="fund.type_locale")
 
                         .fund-actions
                             .button.button-primary(

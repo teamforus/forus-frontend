@@ -4,6 +4,7 @@ const FundRequestComponent = function(
     $q,
     $sce,
     $state,
+    $scope,
     $timeout,
     $filter,
     RecordService,
@@ -374,7 +375,20 @@ const FundRequestComponent = function(
         });
 
         $ctrl.updateState();
+
+        $ctrl.autoSubmit =
+            $ctrl.fund.auto_validation &&
+            $ctrl.digidAvailable &&
+            $ctrl.state == 'confirm_criteria' &&
+            ['bus_2020', 'meedoen_2020'].includes($ctrl.fund.key);
     };
+
+    $scope.$watch('$ctrl.invalidCriteria', (value) => {
+        if (Array.isArray(value) && value.length > 0 && $ctrl.autoSubmit && !$ctrl.autoSubmitted) {
+            $ctrl.submitConfirmCriteria();
+            $ctrl.autoSubmitted = true;
+        }
+    });
 };
 
 module.exports = {
@@ -390,6 +404,7 @@ module.exports = {
         '$q',
         '$sce',
         '$state',
+        '$scope',
         '$timeout',
         '$filter',
         'RecordService',

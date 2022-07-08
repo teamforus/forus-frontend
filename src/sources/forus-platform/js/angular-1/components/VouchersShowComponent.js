@@ -3,6 +3,7 @@ const VouchersShowComponent = function(
     $timeout,
     ModalService,
     VoucherService,
+    PermissionsService,
     PhysicalCardsService,
     PageLoadingBarService,
     PushNotificationsService,
@@ -150,8 +151,16 @@ const VouchersShowComponent = function(
     $ctrl.updateFlags = () => {
         $ctrl.physicalCardsAvailable =
             $ctrl.voucher.fund.allow_physical_cards &&
-            $ctrl.voucher.fund.type == 'subsidies' &&
+            $ctrl.voucher.fund.type === 'subsidies' &&
             $ctrl.voucher.state !== 'deactivated';
+
+        $ctrl.showMakeTransactionButton =
+            PermissionsService.hasPermission($ctrl.organization, 'make_direct_payments') &&
+            $ctrl.voucher.fund.type === 'budget' &&
+            $ctrl.voucher.state === 'active' &&
+            !$ctrl.fundClosed &&
+            !$ctrl.voucher.product &&
+            !$ctrl.voucher.expired;
     }
 
     $ctrl.incrementLimitMultiplier = () => {
@@ -161,12 +170,9 @@ const VouchersShowComponent = function(
             cancelButton: $translateDangerZone('buttons.cancel'),
             confirmButton: $translateDangerZone('buttons.confirm'),
             onConfirm: () => {
-                VoucherService.update(
-                    $ctrl.organization.id, 
-                    $ctrl.voucher.id, {
-                        limit_multiplier: $ctrl.voucher.limit_multiplier + 1
-                    }
-                ).then(() => {
+                VoucherService.update($ctrl.organization.id, $ctrl.voucher.id, {
+                    limit_multiplier: $ctrl.voucher.limit_multiplier + 1
+                }).then(() => {
                     $ctrl.voucher.limit_multiplier++;
                     PushNotificationsService.success('Opgeslagen!');
                 }, (err) => {
@@ -174,6 +180,14 @@ const VouchersShowComponent = function(
                     console.error(err);
                 });
             }
+        });
+    }
+
+    $ctrl.makeTransaction = () => {
+        ModalService.open("voucherTransactionProvider", {
+            voucher: $ctrl.voucher,
+            organization: $ctrl.organization,
+            onCreated: () => $ctrl.fetchVoucher(),
         });
     }
 
@@ -193,6 +207,7 @@ module.exports = {
         '$timeout',
         'ModalService',
         'VoucherService',
+        'PermissionsService',
         'PhysicalCardsService',
         'PageLoadingBarService',
         'PushNotificationsService',

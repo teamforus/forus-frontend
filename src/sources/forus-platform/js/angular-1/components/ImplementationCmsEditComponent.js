@@ -87,6 +87,23 @@ const ImplementationCmsEditComponent = function(
         label: 'U/uw',
     }];
 
+    $ctrl.announcementTypes = [{
+        id: 'warning',
+        label: 'warning',
+    }, {
+        id: 'danger',
+        label: 'danger'
+    }, {
+        id: 'success',
+        label: 'success'
+    }, {
+        id: 'primary',
+        label: 'primary'
+    }, {
+        id: 'default',
+        label: 'default'
+    }];
+
     $ctrl.appendMedia = (media_uid, formValue) => {
         if (!Array.isArray(formValue.media_uid)) {
             formValue.media_uid = [];
@@ -146,17 +163,34 @@ const ImplementationCmsEditComponent = function(
             $ctrl.bannerMeta.header_text_color = $ctrl.implementation.header_text_color;
         }
 
-        $ctrl.form = FormBuilderService.build({
+        const values = {
             ...$ctrl.implementation,
             ...{
+                announcement: $ctrl.implementation.announcement || {
+                    type: $ctrl.announcementTypes[0].id,
+                    expire_at: null,
+                    active: false,
+                },
                 implementation_blocks: [],
                 pages: $ctrl.preparePages($ctrl.implementation),
                 media_uid: [],
             }
-        }, (form) => {
+        };
+
+        if (values.announcement.expire_at) {
+            values.announcement.expire_at = moment(values.announcement.expire_at, 'YYYY-MM-DD').format('DD-MM-YYYY');
+        }
+
+        $ctrl.form = FormBuilderService.build(values, (form) => {
             const submit = () => {
                 const { overlay_enabled, overlay_type, overlay_opacity } = $ctrl.bannerMeta;
                 const header_text_color = $ctrl.bannerMeta.auto_text_color ? 'auto' : $ctrl.bannerMeta.header_text_color;
+
+                if (!$ctrl.has_announcement) {
+                    delete form.values.announcement;
+                } else if (values.announcement.expire_at) {
+                    form.values.announcement.expire_at = moment(form.values.announcement.expire_at, 'DD-MM-YYYY').format('YYYY-MM-DD');
+                }
 
                 if ($ctrl.resetMedia && $ctrl.form.values.banner_media_uid) {
                     MediaService.delete($ctrl.form.values.banner_media_uid).then(() => { }, (res) => {

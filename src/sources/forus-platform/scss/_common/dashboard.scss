@@ -61,7 +61,9 @@ $colorPrimaryLight: $color_primary_light;
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
     @import 'blocks/block-export-options.scss';
+    @import 'blocks/block-productboard-result.scss';
     @import 'blocks/block-permissions-list.scss';
+    @import 'blocks/block-announcements.scss';
     @import 'blocks/block-implementation-block-editor';
 }
 
@@ -75,6 +77,7 @@ $colorPrimaryLight: $color_primary_light;
 .modal{
     @import'modals/modal-photo-upload.scss';
     @import'modals/modal-physical-cards.scss';
+    @import'modals/modal-voucher-transaction-provider.scss';
 }
 
 html, body {
@@ -166,6 +169,7 @@ body {
         position: relative;
         z-index: 2;
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
 
         .header-logo {
@@ -184,7 +188,6 @@ body {
             box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
             border-radius: $borderRadius / 2;
             position: absolute;
-            top: 30px;
             transition: box-shadow .4s;
             overflow: hidden;
 
@@ -4794,7 +4797,25 @@ body {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         font: 400 13px/20px $bf;
         margin-bottom: 15px;
-    
+        display: flex;
+
+        .block-information-icon {
+            margin: 2.5px 10px auto 0;
+            color: #009EF4;
+            font-size: 16px;
+        }
+
+        .block-information-info {
+            font: 500 13px/18px $bf;
+            color: #646F79;
+
+            a {
+                color: #009EF4;
+                font-size: 13px;
+                font-weight: 500;
+            }
+        }
+
         &.block-information-danger {
             background: #fcfaf6;
         }

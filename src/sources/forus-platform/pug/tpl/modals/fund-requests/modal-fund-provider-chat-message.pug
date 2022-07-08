@@ -10,7 +10,7 @@
                     | Is de aanbieding onvolledig of wilt u een aanpassing voorstellen? 
                     | Stuur een aanpassingsverzoek naar de aanbieder.
             form(ng-submit="$ctrl.form.submit()").form: .form-group
-                .form-label Bericht
+                .form-label.form-label-required Bericht
                 textarea(ng-model="$ctrl.form.values.message" placeholder="Bericht aan aanbieder").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.message" ng-bind="error")
         

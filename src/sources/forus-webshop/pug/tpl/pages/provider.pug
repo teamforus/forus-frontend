@@ -22,8 +22,10 @@ block content
 
             .provider-content
                 .block.block-pane
-                    h1.sr-only(ng-bind="$ctrl.provider.name") 
-                    h2.pane-head Aanbieder informatie
+                    .pane-head
+                        h1.sr-only(ng-bind="$ctrl.provider.name") 
+                        h2.pane-head-title Aanbieder informatie
+
                     .pane-section: .provider-details
                         .provider-description
                             img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}" alt="").provider-logo

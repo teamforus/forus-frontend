@@ -2,12 +2,13 @@ const TransactionsComponent = function(
     $q,
     $state,
     $filter,
-    $timeout,
     appConfigs,
-    FileService,
     ModalService,
     $stateParams,
     TransactionService,
+    TransactionsExportService,
+    TransactionBulkService,
+    TransactionBulksExportService,
     PageLoadingBarService,
     PushNotificationsService,
 ) {
@@ -35,6 +36,26 @@ const TransactionsComponent = function(
     }, {
         key: 'success',
         name: 'Voltooid'
+    }];
+
+    $ctrl.bulkStates = [{
+        key: null,
+        name: 'Alle'
+    }, {
+        key: 'draft',
+        name: 'Draft'
+    }, {
+        key: 'error',
+        name: 'Fout'
+    }, {
+        key: 'pending',
+        name: 'In behandeling'
+    }, {
+        key: 'accepted',
+        name: 'Geaccepteerd'
+    }, {
+        key: 'rejected',
+        name: 'Geweigerd'
     }];
 
     $ctrl.fundStates = [{
@@ -73,6 +94,13 @@ const TransactionsComponent = function(
     $ctrl.bulkFilters = {
         values: {},
         valuesDefault: {
+            from: null,
+            to: null,
+            amount_min: null,
+            amount_max: null,
+            quantity_min: null,
+            quantity_max: null,
+            state: $ctrl.bulkStates[0].key,
             per_page: 20,
             order_by: 'created_at',
             order_dir: 'desc',
@@ -85,13 +113,17 @@ const TransactionsComponent = function(
     };
 
     $ctrl.hideFilters = () => {
-        $timeout(() => $ctrl.filters.show = false, 0);
+        $ctrl.filters.show = false;
+    };
+
+    $ctrl.hideBulkFilters = () => {
+        $ctrl.bulkFilters.show = false;
     };
 
     $ctrl.fetchBulks = (query) => {
         return $q((resolve, reject) => {
             PageLoadingBarService.setProgress(0);
-            TransactionService.listBulks($ctrl.organization.id, query).then(resolve, reject);
+            TransactionBulkService.list($ctrl.organization.id, query).then(resolve, reject);
         }).finally(() => PageLoadingBarService.setProgress(100));
     };
 
@@ -106,9 +138,9 @@ const TransactionsComponent = function(
         $ctrl.viewType = viewType;
 
         if ($ctrl.viewType.key == 'bulks') {
-            $ctrl.bulkFilters.reset();
-        } else {
             $ctrl.filters.reset();
+        } else {
+            $ctrl.bulkFilters.reset();
         }
 
         $state.transitionTo($state.$current.name, {
@@ -151,7 +183,7 @@ const TransactionsComponent = function(
             $ctrl.buildingBulks = true;
             PageLoadingBarService.setProgress(0);
 
-            TransactionService.bulkNow($ctrl.organization.id).then((res) => {
+            TransactionBulkService.bulkNow($ctrl.organization.id).then((res) => {
                 const bulks = res.data.data;
 
                 if (bulks.length > 1) {
@@ -219,22 +251,19 @@ const TransactionsComponent = function(
         }));
     };
 
-    // Export to XLS file
-    $ctrl.exportList = () => {
-        ModalService.open('exportType', {
-            success: (data) => {
-                const filters = { ...$ctrl.filters.values, ...{ export_format: data.exportType } };
+    $ctrl.exportTransactions = () => {
+        $ctrl.hideFilters()
 
-                const fileName = [
-                    appConfigs.panel_type,
-                    $ctrl.organization.id,
-                    moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType
-                ].join('_');
+        TransactionsExportService.export($ctrl.organization.id, {
+            ...$ctrl.filters.values, per_page: undefined,
+        });
+    };
 
-                TransactionService.export(appConfigs.panel_type, $ctrl.organization.id, filters).then((res) => {
-                    FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-                }, console.error);
-            }
+    $ctrl.exportTransactionBulks = () => {
+        $ctrl.hideBulkFilters()
+
+        TransactionBulksExportService.export($ctrl.organization.id, {
+            ...$ctrl.bulkFilters.values, per_page: undefined,
         });
     };
 
@@ -271,12 +300,13 @@ module.exports = {
         '$q',
         '$state',
         '$filter',
-        '$timeout',
         'appConfigs',
-        'FileService',
         'ModalService',
         '$stateParams',
         'TransactionService',
+        'TransactionsExportService',
+        'TransactionBulkService',
+        'TransactionBulksExportService',
         'PageLoadingBarService',
         'PushNotificationsService',
         TransactionsComponent

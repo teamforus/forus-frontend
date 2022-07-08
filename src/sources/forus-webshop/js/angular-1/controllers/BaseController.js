@@ -1,10 +1,12 @@
 const BaseController = function(
     $q,
+    $sce,
     $state,
     $rootScope,
     $scope,
     $window,
     $translate,
+    $timeout,
     IdentityService,
     AuthService,
     RecordService,
@@ -110,6 +112,46 @@ const BaseController = function(
     $rootScope.client_key = appConfigs.client_key;
     $rootScope.pageTitle = $trans('page_title');
 
+    const storageKey = 'dismissed_announcements';
+    let announcements = [];
+    let dismissed = [];
+
+    $rootScope.dismissAnnouncement = (announcement) => {
+        announcement.dismissed = true;
+
+        $timeout(() => {
+            announcements.splice(announcements.indexOf(announcement), 1);
+            dismissed.push(announcement.id);
+
+            localStorage.setItem(storageKey, JSON.stringify(dismissed));
+            $rootScope.announcement = null;
+        }, 400);
+    };
+
+    const getAnnouncement = () => {
+        $timeout(() => {
+            if (appConfigs.features) {
+                announcements = appConfigs.features.announcements;
+    
+                dismissed = JSON.parse(localStorage.getItem(storageKey));
+                dismissed = Array.isArray(dismissed) ? dismissed : [];
+                announcements = announcements.filter((item) => !dismissed.includes(item.id));
+    
+                $rootScope.announcement = announcements.find(
+                    announcement => announcement.scope == 'webshop'
+                );
+                
+                if ($rootScope.announcement) {
+                    $rootScope.announcement.description_html_trusted = $sce.trustAsHtml(
+                        $rootScope.announcement.description_html || ''
+                    );
+                }
+            }
+        }, 1000);
+    }
+
+    getAnnouncement();
+
     $window.onbeforeunload = function() {
         BrowserService.unsetInactivity();
     };
@@ -119,11 +161,13 @@ const BaseController = function(
 
 module.exports = [
     '$q',
+    '$sce',
     '$state',
     '$rootScope',
     '$scope',
     '$window',
     '$translate',
+    '$timeout',
     'IdentityService',
     'AuthService',
     'RecordService',

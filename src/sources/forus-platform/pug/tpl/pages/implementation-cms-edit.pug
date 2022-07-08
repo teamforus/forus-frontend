@@ -57,6 +57,62 @@
 
                         tooltip(text="'Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten op de website en in de berichten die het systeem verstuurt.'")
 
+            //- Announcement
+            .card-section.card-section-primary
+                .row: .col.col-lg-9
+                    //- Announcement exists
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                        label(translate="implementation_edit.labels.has_announcement").form-label
+                        label(for="has_announcement").form-toggle.form-label
+                            input(type="checkbox" id="has_announcement" ng-model="$ctrl.has_announcement").form-label
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+
+            .card-section.card-section-primary(ng-if="$ctrl.has_announcement")
+                .card-block: .text-center
+                    .card-title(translate="Announcement")
+
+                br
+                .row: .col.col-lg-9
+                    //- Announcement type
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                        label(for="announcement_type" translate="implementation_edit.labels.announcement_type").form-label
+                        select(
+                            id="announcement_type"
+                            ng-model="$ctrl.form.values.announcement.type" 
+                            ng-options="type.id as type.label for type in $ctrl.announcementTypes").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors['announcement.type']" ng-bind="error")
+
+                    //- Announcement title
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                        label(for="announcement_title" translate="implementation_edit.labels.announcement_title").form-label
+                        input(id="announcement_title" ng-model="$ctrl.form.values.announcement.title" type="text" placeholder="Titel").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors['announcement.title']" ng-bind="error")
+
+                    //- Announcement description
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                        label(for="announcement_description" translate="implementation_edit.labels.announcement_description").form-label
+                        .form-offset
+                            markdown(value="$ctrl.form.values.announcement.description_html" ng-model="$ctrl.form.values.announcement.description" placeholder="Description...")
+                            .form-error(ng-repeat="error in $ctrl.form.errors['announcement.description']" ng-bind="error")
+
+                    //- Announcement expiration date
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                        label(for="announcement_expire_at" translate="implementation_edit.labels.announcement_expire_at").form-label
+                        datepicker(
+                            date-format="dd-MM-yyyy" 
+                            datepicker-mobile="" 
+                            date-week-start-day="1").form-control
+                            input(ng-model="$ctrl.form.values.announcement.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors['announcement.expire_at']" ng-bind="error")
+
+                    //- Announcement enabled
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                        label(translate="implementation_edit.labels.announcement_is_active").form-label
+                        label(for="announcement_is_active").form-toggle.form-label
+                            input(type="checkbox" id="announcement_is_active" ng-model="$ctrl.form.values.announcement.active").form-label
+                            .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
             .card-section.card-section-primary: .text-center
                 button(type="button" ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default
                 button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
