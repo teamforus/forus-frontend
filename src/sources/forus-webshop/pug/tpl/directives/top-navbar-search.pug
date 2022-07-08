@@ -1,6 +1,6 @@
-.block.block-navbar-search(
-    ng-class="{'block-navbar-search-results': $dir.dropdown}"
-    ng-keydown="$dir.navigateItems($event)")
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.block.block-navbar-search(ng-class="{'block-navbar-search-results': $dir.dropdown}")
     form(ng-submit="$dir.doSearch()" click-outside="$dir.hideDropDown()").search-form.form
         //- Search icon
         .navbar-search-icon: .mdi.mdi-magnify
@@ -12,101 +12,79 @@
             ng-model="$dir.query"
             ng-change="$dir.doSearch()"
             ng-keydown="$dir.cancelSearch($event)"
-            aria-label="Zoeken"
-            )
+            aria-label="Zoeken")
 
         .search-result(ng-if="$dir.dropdown")
-            //- Result sections
-            .search-result-section(
-                ng-repeat="(key, values) in $dir.results"
-                ng-if="values.count > 0 && $dir.resultsExists && $dir.results && !$dir.searchResultPage")
+            //- Sidebar
+            .search-result-sidebar.hide-sm
+                //- Results by key
+                .search-result-sidebar-item(
+                    ng-repeat="groupKey in $dir.groupKeyList"
+                    ng-click="$dir.setGroupKey(groupKey)"
+                    ng-class="{active: $dir.groupKey == groupKey}")
 
-                //- Section title
-                .search-result-title
-                    span(translate="top_navbar_search.result.{{ key }}_label")
-                    a.search-result-title-link(
-                        ui-sref="search-result({q: $dir.lastQuery, search_item_types: key})" 
-                        ng-if="values.count > 3")  {{ values.count }} resultaten gevonden...
-                
-                //- Result sections list
-                .search-result-items(ng-if="values")
-                    a.search-result-item(
-                        ng-repeat="value in values.items"
-                        ui-sref="{{value.uiSref}}(value.uiSrefParams)"
-                        ng-class="{ selected: $dir.selectedItem == {{value.navigation_key}} }"
-                        ng-bind-html="value.name")
+                    .search-result-sidebar-item-icon(ng-if="groupKey === 'all'")
+                        include ../../../resources/_webshop-common/assets/img/icon-search/all.svg
 
-            //- Actions
-            .search-result-actions(ng-if="$dir.resultsExists && $dir.results && !$dir.searchResultPage")
-                button.button.button-primary(ui-sref="search-result({q: $dir.query})")
-                    translate(translate="top_navbar_search.result.btn")
-                    em.mdi.mdi-arrow-right.icon-right
+                    .search-result-sidebar-item-icon(ng-if="groupKey === 'funds'")
+                        include ../../../resources/_webshop-common/assets/img/icon-search/funds.svg
 
-            //- No results
-            .search-noresult(ng-if="!$dir.resultsExists && $dir.results && !$dir.searchResultPage")
-                .search-noresult-description(
-                    translate="top_navbar_search.noresult.subtitle" 
-                    translate-values="{ query: $dir.lastQuery }") 
+                    .search-result-sidebar-item-icon(ng-if="groupKey === 'products'")
+                        include ../../../resources/_webshop-common/assets/img/icon-search/products.svg
 
-                .search-noresult-items
-                    a(ui-sref="providers" translate="top_navbar_search.noresult.providers_label").search-noresult-item
-                    a(ui-sref="products" translate="top_navbar_search.noresult.products_label").search-noresult-item
-                    a(ui-sref="funds" translate="top_navbar_search.noresult.funds_label").search-noresult-item
+                    .search-result-sidebar-item-icon(ng-if="groupKey === 'providers'")
+                        include ../../../resources/_webshop-common/assets/img/icon-search/providers.svg
 
-//- .block.block-navbar-search
-    .search-form.form
-        //- Search icon
-        .navbar-search-icon: .mdi.mdi-magnify
+                    .search-result-sidebar-item-name(translate="top_navbar_search.result.{{ groupKey }}_label")
+                    .search-result-sidebar-item-arrow: .mdi.mdi-chevron-right(ng-if="$dir.groupKey == groupKey")
 
-        //- Search input
-        input.form-control(type="text" placeholder="Waar ben je naar op zoek?")
+            //- Content
+            .search-result-content
+                //- Result section filtered
+                .search-result-section(
+                    ng-repeat="groupKey in $dir.groupKeyList"
+                    ng-if="($dir.groupKey == 'all' || $dir.groupKey == groupKey) && (groupKey != 'all') && $dir.results[groupKey].items.length > 0")
 
-    .search-result
-        //- Result sections
-        .search-result-section
-            .search-result-title
-                | Products
-                a(href="#").search-result-title-link Found 420 results...
-            
-            //- Result sections list
-            .search-result-items
-                a(href="#").search-result-item Lorem ipsum #1
-                a(href="#").search-result-item Lorem ipsum #2
-                a(href="#").search-result-item Lorem ipsum #3
-        
-        //- Result sections
-        .search-result-section
-            .search-result-title 
-                | Providers
-                a(href="#").search-result-title-link Found 420 results...
-            
-            //- Result sections list
-            .search-result-items
-                a(href="#").search-result-item Lorem ipsum #1
-                a(href="#").search-result-item Lorem ipsum #2
-                a(href="#").search-result-item Lorem ipsum #3
-        
-        //- Result sections
-        .search-result-section
-            .search-result-title 
-                | Funds
-                a(href="#").search-result-title-link Found 420 results...
-            
-            //- Result sections list
-            .search-result-items
-                a(href="#").search-result-item Lorem ipsum #1
-                a(href="#").search-result-item Lorem ipsum #2
-                a(href="#").search-result-item Lorem ipsum #3
+                    //- Section title
+                    .search-result-group-header
+                        .search-result-group-icon(ng-if="groupKey === 'funds'")
+                            include ../../../resources/_webshop-common/assets/img/icon-search/funds.svg
 
-        //- Actions
-        .search-result-actions
-            button.button.button-primary(ui-sref="search-result({keyword: $dir.query})" translate="top_navbar_search.result.btn")
+                        .search-result-group-icon(ng-if="groupKey === 'products'")
+                            include ../../../resources/_webshop-common/assets/img/icon-search/products.svg
 
-        //- No results
-        //- .search-noresult
-            .search-noresult-description Geen resultaten gevonden voor ”Smiley”. Probeer het nog een keer met andere zoektermen.
+                        .search-result-group-icon(ng-if="groupKey === 'providers'")
+                            include ../../../resources/_webshop-common/assets/img/icon-search/providers.svg
 
-            .search-noresult-items
-                a(href="#").search-noresult-item="Bekijk alle potjes >"
-                a(href="#").search-noresult-item="Bekijk al het aanbod >"
-                a(href="#").search-noresult-item="Bekijk alle aanbieders >"
+                        .search-result-group-title(translate="top_navbar_search.result.{{ groupKey }}_label")
+
+                        a.search-result-group-link(
+                            ng-if="$dir.results[groupKey].count > 3"
+                            ui-sref="search-result({q: $dir.lastQuery, search_item_types: groupKey})"
+                            ng-bind="$dir.results[groupKey].count + ' resultaten gevonden...'")
+
+                    //- Result sections list
+                    .search-result-items(ng-if="$dir.results[groupKey]")
+                        a.search-result-item(
+                            ng-repeat="value in $dir.results[groupKey].items"
+                            ui-sref="{{value.uiSref}}(value.uiSrefParams)"
+                            ng-bind-html="value.name")
+
+                //- Actions
+                .search-result-actions(
+                    ng-if="$dir.groupKey == 'all' && $dir.resultsAll.length")
+
+                    button.button.button-primary(ui-sref="search-result({q: $dir.query})")
+                        translate(translate="top_navbar_search.result.btn")
+                        .mdi.mdi-arrow-right.icon-right
+
+                //- No results
+                .search-noresult(
+                    ng-if="($dir.groupKey == 'all' && !$dir.resultsAll.length) || ($dir.groupKey != 'all' && !$dir.results[$dir.groupKey].items.length)")
+
+                    .search-noresult-icon
+                        include ../../../resources/_webshop-common/assets/img/icon-search/empty-search.svg
+
+                    .search-noresult-description(
+                        translate="top_navbar_search.noresult.subtitle"
+                        translate-values="{ query: $dir.lastQuery }")

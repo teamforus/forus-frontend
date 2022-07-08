@@ -30,7 +30,16 @@ const FundFaqEditorDirective = function(
             title: '',
             description: '',
             collapsed: true,
+            description_media_uid: [],
         });
+    };
+
+    $dir.appendMedia = (media_uid, formValue) => {
+        if (!Array.isArray(formValue.description_media_uid)) {
+            formValue.description_media_uid = [];
+        }
+
+        formValue.description_media_uid.push(media_uid);
     };
 
     $dir.removeQuestion = (questionIndex) => {
