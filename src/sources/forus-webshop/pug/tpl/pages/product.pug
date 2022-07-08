@@ -38,9 +38,9 @@ main(id="main-content")
                             .product-property-label(i18n="product.labels.description")
                             .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
 
-            .block.block-info-card(ng-if="$ctrl.productMeta.funds.length > 0")
-                h2(i18n="product.headers.funds" ui-sref="vouchers").block-header
-                .block-products-content
+            .block.block-pane(ng-if="$ctrl.productMeta.funds.length > 0")
+                .pane-head: h2(i18n="product.headers.funds" ui-sref="vouchers").pane-head-title
+                .pane-section.pane-section-collapsed
                     .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds")
                         .fund-item-section.fund-item-section-details.text-left
                             .fund-item-media: img.fund-item-media-img(
@@ -102,49 +102,16 @@ main(id="main-content")
 
                         //- request fund
                         .fund-item-section(ng-if="!fund.meta.applicableVouchers.length && $ctrl.signedIn && !fund.meta.isReservationAvailable")
-                            .button.button-light.button-flat(
-                                translate="product.buttons.{{ $root.client_key }}.request" 
-                                translate-default="{{ 'product.buttons.request' | translate }}" 
-                                ng-click="$ctrl.requestFund(fund)")
+                            .button.button-light.button-flat(ng-click="$ctrl.requestFund(fund)")
+                                span(translate="product.buttons.{{ $root.client_key }}.request" translate-default="{{ 'product.buttons.request' | translate }}")
+                                em.mdi.mdi-arrow-right.icon-right
 
                         .fund-item-section(ng-if="fund.meta.applicableVouchers.length && !fund.meta.isReservationAvailable")
-                            .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)" i18n="product.buttons.open_voucher")
+                            .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)")
+                                span(i18n="product.buttons.open_voucher")
+                                em.mdi.mdi-arrow-right.icon-right
 
-            .block.block-pane(ng-class="{'last-child': $ctrl.product.organization.showOffices}")
-                h2(ui-sref="provider($ctrl.product.organization)" i18n="product.headers.provider").pane-head
-                .pane-body: .block.block-organizations: .organization-item
-                    a(ui-sref="provider($ctrl.product.organization)" ).organization-pane
-                        .organization-logo
-                            img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png'  }}" alt="").organization-logo-img
-                        .organization-title
-                            .organization-title-value(ng-bind="$ctrl.product.organization.name")
-                            .organization-title-count(ng-bind="$ctrl.product.offices.length")
-                        .organization-chevron(ng-click="$ctrl.toggleOffices($event, $ctrl.product.organization)")
-                            .mdi(ng-class="'mdi-chevron-' + ($ctrl.product.organization.showOffices ? 'up' : 'right')" role = "link" aria-label="Klik voor meer informatie over de aanbieder")           
-        
-            .block.block-organizations(ng-if="$ctrl.product.organization.showOffices"): .organization-item
-                .organization-offices: .block.block-offices
-                    a(ng-repeat="office in $ctrl.product.offices" ui-sref="provider-office(office)" role="heading").office-item
-                        .office-item-map-icon: .mdi.mdi-map-marker
-                        .office-pane
-                            .office-pane-block
-                                .office-logo: img(
-                                    ng-src="{{ office.organization.logo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
-                                    alt="{{ $ctrl.product.organization.name }}"
-                                    ).office-logo-img
-                                .office-details
-                                    .office-title(ng-bind="office.address")
-                                    .office-labels
-                                        .label.label-default(ng-bind="$ctrl.product.organization.business_type.name || 'Geen organisatie type'")
-                                    
-                                    div(ng-if="office.phone || provider.phone || provider.email")
-                                        .office-info.office-info-inline(ng-if="office.phone || provider.phone")
-                                            .mdi.mdi-phone-outline
-                                            | {{ office.phone ? office.phone : provider.phone }}
-                                        
-                                        .office-info.office-info-inline(ng-if="provider.email")
-                                            .mdi.mdi-email-outline
-                                            | {{ provider.email }}
+            .block.block-organizations: provider-list-item(provider="$ctrl.provider")
 
             .block.block-map_card
                 .map_card-header

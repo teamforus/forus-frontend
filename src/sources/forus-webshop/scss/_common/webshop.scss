@@ -57,8 +57,6 @@
 'sections/blocks/empty.scss',
 'sections/blocks/fund_criteria.scss',
 'sections/blocks/funds.scss',
-'sections/blocks/info-card.scss',
-'sections/blocks/map_card.scss',
 'sections/blocks/map.scss',
 'sections/blocks/phone-number.scss',
 'sections/blocks/pincode.scss',
@@ -117,6 +115,7 @@
     @import 'sections/blocks/block-search-results';
 
     @import 'sections/blocks/block-reservations.scss';
+    @import 'sections/blocks/block-map_card.scss';
 }
 
 .modal {

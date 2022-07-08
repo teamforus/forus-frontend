@@ -491,7 +491,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             organization: organziationResolver(),
             permission: permissionMiddleware('employees-list', 'manage_employees'),
             employees: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
-                return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id));
+                return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id, { per_page: 15 }));
             }],
             roles: ['RoleService', 'permission', (RoleService) => {
                 return repackResponse(RoleService.list());
@@ -1095,8 +1095,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-show', 'view_finances'),
-            transactionBulk: ['$transition$', 'TransactionService', 'permission', ($transition$, TransactionService) => {
-                return repackResponse(TransactionService.showBulk($transition$.params().organization_id, $transition$.params().id));
+            transactionBulk: ['$transition$', 'TransactionBulkService', 'permission', ($transition$, TransactionBulkService) => {
+                return repackResponse(TransactionBulkService.show($transition$.params().organization_id, $transition$.params().id));
             }],
         }
     });
@@ -1300,6 +1300,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
+        name: 'productboard',
+        url: '/feedback',
+        component: 'productBoardComponent',
+    });
+
+    $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",
         data: {
@@ -1370,7 +1376,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         });
                     }
                 });
-            }, () => {
+            }, (res) => {
                 PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
                     timeout: 8000,
                 });

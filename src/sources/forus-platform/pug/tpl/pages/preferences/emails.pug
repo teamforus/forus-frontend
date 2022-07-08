@@ -47,7 +47,7 @@
             .card-section.card-section-primary(ng-if="$ctrl.form && !$ctrl.formSuccess")
                 .card-heading Voeg een e-mailadres toe
                 form(ng-submit="$ctrl.form.submit()").form.row: .col.col-lg-6.form-group
-                    .form-label E-mailadres
+                    .form-label.form-label-required E-mailadres
                     .flex-row
                         .flex-col.flex-grow
                             input(

@@ -119,7 +119,8 @@
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
-            .card-section
+            //- Vouchers list
+            .card-section(ng-if="$ctrl.vouchers.data.length > 0")
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
@@ -225,8 +226,13 @@
                                         ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
                                         em.mdi.mdi-eye-outline.icon-start
 
+            //- Vouchers list
             .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+
+            //- Not found
+            .card-section(ng-if="$ctrl.vouchers.meta.total == 0"): .block.block-empty.text-center
+                .empty-title Geen aanbiedingsvouchers gevonden
 
         div(ng-if="$ctrl.funds.length == 0")
             block-empty(
