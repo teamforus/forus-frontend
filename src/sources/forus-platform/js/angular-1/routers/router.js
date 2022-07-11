@@ -1212,7 +1212,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             funds: ['FundService', (
                 FundService
             ) => repackResponse(FundService.list(null, {
-                state: 'active_and_closed'
+                state: 'active_paused_and_closed'
             }))],
             prevalidations: ['$transition$', 'PrevalidationService', function($transition$, PrevalidationService) {
                 return repackPagination(PrevalidationService.list(only($transition$.params(), 'page', 'q')));
