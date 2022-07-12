@@ -224,7 +224,10 @@ const ImplementationCmsEditComponent = function (
                     form.values.announcement.replace = false;
 
                     PushNotificationsService.success('Opgeslagen!');
-                }, (res) => form.errors = res.data.errors).finally(() => form.unlock());
+                }, (res) => {
+                    form.errors = res.data.errors;
+                    PushNotificationsService.danger('Error!', res.data.message);
+                }).finally(() => form.unlock());
             };
 
             if ($ctrl.initialCommunicationType != form.values.informal_communication) {
