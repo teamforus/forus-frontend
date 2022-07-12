@@ -102,17 +102,23 @@ const VouchersComponent = function(
         const data = angular.copy(query);
         const from = data.from ? DateService._frontToBack(data.from) : null;
         const to = data.to ? DateService._frontToBack(data.to) : null;
-        const in_use_from = data.in_use_from ? DateService._frontToBack(data.in_use_from) : null;
-        const in_use_to = data.in_use_to ? DateService._frontToBack(data.in_use_to) : null;
 
-        return { ...data, from, to, in_use_from, in_use_to, fund_id: $ctrl.fund.id };
+        return {
+            ...{ ...data, fund_id: $ctrl.fund.id, date_type: null },
+            ...{
+                from: query.date_type === 'created_at' ? from : null,
+                to: query.date_type === 'created_at' ? to : null,
+                in_use_from: query.date_type === 'used_at' ? from : null,
+                in_use_to: query.date_type === 'used_at' ? to : null,
+            }
+        };
     };
 
     $ctrl.exportVouchers = () => {
         $ctrl.filters.show = false;
-        
+
         const type = 'budget';
-        const filters = $ctrl.getQueryParams(normalizeFilterForRequest($ctrl.filters.values));
+        const filters = $ctrl.getQueryParams($ctrl.filters.values);
 
         VoucherExportService.exportVouchers($ctrl.organization.id, filters, type);
     };
@@ -120,16 +126,13 @@ const VouchersComponent = function(
     $ctrl.onPageChange = (query) => {
         VoucherService.index(
             $ctrl.organization.id,
-            $ctrl.getQueryParams(normalizeFilterForRequest(query)),
+            $ctrl.getQueryParams($ctrl.filters.values),
         ).then((res => $ctrl.vouchers = res.data));
     };
 
     $ctrl.showTooltip = (e, target) => {
         e.originalEvent.stopPropagation();
-        $ctrl.vouchers.data.forEach(voucher => {
-            voucher.showTooltip = false;
-        });
-        target.showTooltip = true;
+        $ctrl.vouchers.data.forEach((voucher) => voucher.showTooltip = voucher == target);
     };
 
     $ctrl.hideTooltip = (e, target) => {
@@ -148,20 +151,6 @@ const VouchersComponent = function(
         $ctrl.fund = fund;
         $ctrl.init();
     };
-
-    function normalizeFilterForRequest(filterValues) {
-        let values = angular.copy(filterValues);
-        if (values.date_type === 'used_at') {
-            values.in_use_from = values.from;
-            values.in_use_to = values.to;
-
-            delete values.from;
-            delete values.to;
-        }
-        delete values.date_type;
-
-        return values;
-    }
 
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);

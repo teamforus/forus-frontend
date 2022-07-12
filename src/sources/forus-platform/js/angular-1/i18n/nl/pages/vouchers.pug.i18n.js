@@ -19,6 +19,7 @@ module.exports = {
         fund: "Fonds",
         granted: "Toegewezen",
         used: "In gebruik",
+        used_date: 'In gebruik date',
         note: "Notitie",
         search: "Zoeken",
         qr_code: "QR-Code",
@@ -36,7 +37,6 @@ module.exports = {
         from: "Vanaf",
         to: "Tot en met",
         date_type: 'Pas toe op',
-        used_date: 'Used date',
     },
     events: {
         created_budget: 'Aangemaakt',
