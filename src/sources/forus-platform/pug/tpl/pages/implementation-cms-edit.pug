@@ -54,9 +54,12 @@
                 .row: .col.col-lg-9
                     .form-group.form-group-inline.form-group-inline-lg.tooltipped
                         label(for="info_url" translate="implementation_edit.labels.communication").form-label
-                        select(
-                            ng-model="$ctrl.form.values.informal_communication" 
-                            ng-options="type.value as type.label for type in $ctrl.communicationTypes").form-control
+                        select-control(
+                            as="label"
+                            prop="value"
+                            search="false"
+                            options="$ctrl.communicationTypes"
+                            ng-model="$ctrl.form.values.informal_communication").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.informal_communication" ng-bind="error")
 
                         tooltip(text="'Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten op de website en in de berichten die het systeem verstuurt.'")
@@ -188,5 +191,5 @@
                                 em.mdi.mdi-pen.icon-start
                                 translate(translate="implementation_edit.implementations_table.labels.edit")
 
-                            button(ng-disabled="!page.id" ng-click="$ctrl.deletePrevalidation(page)").button.button-danger.button-icon
+                            button(ng-disabled="!page.id" ng-click="$ctrl.deletePage(page)").button.button-danger.button-icon
                                 em.icon-start.mdi.mdi-delete

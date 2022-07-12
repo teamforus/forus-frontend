@@ -75,7 +75,7 @@ const ImplementationCmsEditComponent = function (
 
     $ctrl.announcementTypes = announcementTypes;
 
-    $ctrl.deletePrevalidation = (page) => {
+    $ctrl.deletePage = (page) => {
         ModalService.open('modalNotification', {
             modalClass: 'modal-md',
             type: 'confirm',
