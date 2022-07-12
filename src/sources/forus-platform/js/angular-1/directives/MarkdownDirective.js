@@ -171,7 +171,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
         toolbars.push(extendedOptions ? ['table', ['table']] : null);
         toolbars.push(['cms', ['cmsLink', 'unlink', ...(extendedOptions ? ['cmsMedia', 'cmsLinkYoutube'] : [])]]);
         toolbars.push(['view', ['fullscreen', ...(allowPreview ? ['cmsMailView'] : [])]]);
-        toolbars.push(['buttons', buttons.map((button) => button.key)]);
+        buttons.length && toolbars.push(['buttons', buttons.map((button) => button.key)]);
 
         return toolbars.filter((group) => group);
     };

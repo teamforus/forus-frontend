@@ -1,7 +1,6 @@
 let HomeComponent = function (
     $state,
     $stateParams,
-    $interval,
     $sce,
     appConfigs,
     ModalService,
@@ -65,20 +64,6 @@ let HomeComponent = function (
         }
 
         $ctrl.description_html = $sce.trustAsHtml(appConfigs.features.settings.description_html);
-
-        let blocks = appConfigs.features.pages.home.blocks;
-
-        blocks.forEach(block => {
-            block.description_html_trusted = $sce.trustAsHtml(block.description_html || '');
-        });
-
-        $ctrl.fund_blocks = blocks.filter(block => {
-            return block.key == 'funds_block';
-        });
-
-        $ctrl.description_below_header = blocks.find(block => {
-            return block.key == 'below_header';
-        }).description_html_trusted;
     };
 };
 
@@ -95,7 +80,6 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        '$interval',
         '$sce',
         'appConfigs',
         'ModalService',

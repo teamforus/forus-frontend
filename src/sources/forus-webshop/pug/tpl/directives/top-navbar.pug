@@ -1,4 +1,8 @@
 nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visible}')
+    announcements(
+        ng-if="$root.appConfigs.features.announcements" 
+        list="$root.appConfigs.features.announcements")
+
     .navbar-inner.wrapper   
         a.button(
             ui-sref="explanation"

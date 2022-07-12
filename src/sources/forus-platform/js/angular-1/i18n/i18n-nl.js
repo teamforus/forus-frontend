@@ -402,31 +402,33 @@ module.exports = {
             description: "Uitlegpagina content",
             communication: "Aanspreekvorm",
 
+            announcement_show: "Show announcement",
+            announcement_type: "Announcement type",
+            announcement_title: "Announcement title",
+            announcement_description: "Announcement description",
+            announcement_expire: "Auto expiration",
+            announcement_expire_at: "Expiration date",
+            announcement_replace: "Replace",
+
             home: "Startpagina content",
             provider: "Aanbiederpagina content",
             privacy: "Privacy content",
             products: "Aanbod content",
             providers: "Aanbieders content",
             funds: "Fondsen content",
-            explanation: "Uitleg pagina content",
+            explanation: "Uitleg pagina",
             accessibility: "Toegankelijkheidsverklaring",
             terms_and_conditions: "Algemene voorwaarden",
 
             home_url: "Startpagina content",
-            provider_url: "Aanbiederpagina content",
-            privacy_url: "Privacy content",
+            provider_url: "Aanbiederpagina",
+            privacy_url: "Privacy",
             explanation_url: "Externe uitleg URL",
             accessibility_url: "Toegankelijkheidsverklaring",
             terms_and_conditions_url: "Algemene voorwaarden",
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
-
-            home_funds_block: "Fund blocks",
-            home_below_header: "Below header text",
-            products_above_product_list: "Above product list text",
-            providers_above_provider_list: "Above provider list text",
-            funds_above_fund_list: "Above fund list text",
         },
         implementations_table: {
             title: "Implementatie pages",
@@ -435,6 +437,7 @@ module.exports = {
                 options: "Opties"
             },
             labels: {
+                view: "Bekijk",
                 edit: "Bewerken",
                 no_pages: "Geen implementatie pages",
             },

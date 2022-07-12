@@ -1,4 +1,4 @@
-&.block-implementation-block-editor {
+&.block-implementation-blocks-editor {
     display: flex;
     flex-direction: column;
 
@@ -38,7 +38,7 @@
         .block-body {
             display: block;
             padding-right: 90px;
-            padding: 10px 20px 20px 20px;
+            padding: 30px 30px;
         }
 
         &:last-child {

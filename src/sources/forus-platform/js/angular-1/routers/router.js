@@ -920,32 +920,31 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationCmsEditComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('implementation-manage', [
-                'manage_implementation', 'manage_implementation_cms'
-            ], false),
-            implementation: ['permission', '$transition$', '$timeout', '$state', 'ImplementationService', (
-                permission, $transition$, $timeout, $state, ImplementationService
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation', 'manage_implementation_cms'], false),
+            implementation: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
+                $transition$, $timeout, $state, ImplementationService
             ) => {
                 return repackResponse(ImplementationService.read(
                     $transition$.params().organization_id,
                     $transition$.params().id,
                 ), (res) => {
                     if (res.status === 403) {
-                        $timeout(() => {
-                            $state.go('implementations', {
-                                organization_id: $transition$.params().organization_id
-                            });
-                        }, 100);
+                        $timeout(() => $state.go('implementations', { organization_id: $transition$.params().organization_id }), 100);
                     }
                 });
             }],
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.list(
-                $transition$.params().organization_id, {
-                implementation_id: $transition$.params().id
-            }
-            ))]
+            pages: ['$transition$', '$timeout', '$state', 'ImplementationPageService', 'permission', (
+                $transition$, $timeout, $state, ImplementationPageService
+            ) => {
+                return repackResponse(ImplementationPageService.list(
+                    $transition$.params().organization_id,
+                    $transition$.params().id,
+                ), (res) => {
+                    if (res.status === 403) {
+                        $timeout(() => $state.go('implementations', { organization_id: $transition$.params().organization_id }), 100);
+                    }
+                });
+            }],
         }
     });
 
@@ -954,28 +953,66 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
      */
     $stateProvider.state({
         name: "implementation-cms-page",
-        url: "/organizations/{organization_id}/implementation/{id}/cms-page/{page_id}",
+        url: "/organizations/{organization_id}/implementation/{implementation_id}/pages/{id}",
         component: "implementationCmsPageEditComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('implementation-manage', [
-                'manage_implementation', 'manage_implementation_cms'
-            ], false),
-            implementationPage: ['permission', '$transition$', '$timeout', '$state', 'ImplementationService', (
-                permission, $transition$, $timeout, $state, ImplementationService
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation', 'manage_implementation_cms'], false),
+            implementation: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
+                $transition$, $timeout, $state, ImplementationService
             ) => {
-                return repackResponse(ImplementationService.readPage(
+                return repackResponse(ImplementationService.read(
                     $transition$.params().organization_id,
+                    $transition$.params().implementation_id,
+                ), (res) => {
+                    if (res.status === 403) {
+                        $timeout(() => $state.go('implementations', $transition$.params()), 100);
+                    }
+                });
+            }],
+            page: ['$transition$', '$timeout', '$state', 'ImplementationPageService', 'permission', (
+                $transition$, $timeout, $state, ImplementationPageService
+            ) => {
+                return repackResponse(ImplementationPageService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().implementation_id,
                     $transition$.params().id,
-                    $transition$.params().page_id,
                 ), (res) => {
                     if (res.status === 403) {
                         $timeout(() => {
                             $state.go('implementation-cms', {
                                 organization_id: $transition$.params().organization_id,
-                                id: $transition$.params().id,
+                                id: $transition$.params().implementation_id,
                             });
                         }, 100);
+                    }
+                });
+            }],
+        }
+    });
+
+    /**
+     * Implementation create page
+     */
+    $stateProvider.state({
+        name: "implementation-cms-page-create",
+        url: "/organizations/{organization_id}/implementation/{implementation_id}/pages/create?type",
+        component: "implementationCmsPageEditComponent",
+        params: {
+            type: { dynamic: true, value: null },
+        },
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation', 'manage_implementation_cms'], false),
+            implementation: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
+                $transition$, $timeout, $state, ImplementationService
+            ) => {
+                return repackResponse(ImplementationService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().implementation_id,
+                ), (res) => {
+                    if (res.status === 403) {
+                        $timeout(() => $state.go('implementations', $transition$.params()), 100);
                     }
                 });
             }],

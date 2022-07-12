@@ -166,6 +166,7 @@ app.service('ProductChatService', require('./services/ProductChatService'));
 app.service('FundProviderChatService', require('./services/FundProviderChatService'));
 app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('ImplementationService', require('./services/ImplementationService'));
+app.service('ImplementationPageService', require('./services/ImplementationPageService'));
 app.service('ImplementationNotificationsService', require('./services/ImplementationNotificationsService'));
 app.service('HelperService', require('./services/HelperService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));

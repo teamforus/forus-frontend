@@ -1,22 +1,21 @@
 const uniq = require('lodash/uniq');
 
-const ImplementationBlocksEditorDirective = function(
+const ImplementationBlocksEditorDirective = function (
     $q,
     $scope,
     $filter,
     MediaService,
     ModalService,
-    ImplementationService,
-    PushNotificationsService
+    PushNotificationsService,
+    ImplementationPageService,
 ) {
-    const $dir = $scope.$dir = {};
+    const $dir = $scope.$dir;
     const $translate = $filter('translate');
     const $translateDangerZone = (key) => $translate('modals.danger_zone.remove_implementation_block.' + key);
     const $translateImplementationBlockEditor = (key) => $translate('components.implementation_block_editor.' + key);
 
     $dir.blockMedia;
     $dir.resetMedia = false;
-
     $dir.collapsed = false;
 
     $dir.askConfirmation = (onConfirm) => {
@@ -32,15 +31,13 @@ const ImplementationBlocksEditorDirective = function(
 
     $dir.addBlock = () => {
         $dir.blocks.push({
-            id: Date.now() + $dir.blocks.length,
-            key: $dir.key,
-            type: 'detailed',
             label: '',
             title: '',
+            collapsed: true,
             description: '',
             button_text: '',
-            button_link: null,
-            collapsed: true,
+            button_link: '',
+            button_enabled: false,
         });
     };
 
@@ -63,7 +60,7 @@ const ImplementationBlocksEditorDirective = function(
         $dir.blockMedia = null;
     };
 
-    $dir.expendById = (index) => {
+    $dir.expendByIndex = (index) => {
         const list = Array.isArray(index) ? index : [index];
 
         for (let i = 0; i < list.length; i++) {
@@ -72,8 +69,11 @@ const ImplementationBlocksEditorDirective = function(
     };
 
     $dir.validate = () => {
+        const data = { blocks: $dir.blocks };
+        const { id, organization_id } = $dir.implementation;
+
         return $q((resolve, reject) => {
-            ImplementationService.blocksValidate($scope.organization.id, { blocks: $dir.blocks }).then(
+            ImplementationPageService.validateBlocks(organization_id, id, data).then(
                 (res) => resolve(res.data),
                 (res) => {
                     const { data, status } = res;
@@ -82,7 +82,7 @@ const ImplementationBlocksEditorDirective = function(
                     if (errors && typeof errors == 'object') {
                         $dir.errors = errors;
 
-                        $dir.expendById(uniq(Object.keys($dir.errors).map((error) => {
+                        $dir.expendByIndex(uniq(Object.keys($dir.errors).map((error) => {
                             return error.split('.')[1] || null;
                         })).filter((rowIndex) => !isNaN(parseInt(rowIndex))));
                     }
@@ -93,40 +93,32 @@ const ImplementationBlocksEditorDirective = function(
         });
     };
 
-    $dir.init = function() {
-        $scope.blocks = $scope.blocks.map(block => {
-            return {...block, ...{ button_enabled: block.button_enabled ? true : false }};
-        });
-        $dir.blocks = $scope.blocks || [];
-        $dir.key = $scope.key || '';
-        $dir.organization = $scope.organization;
-
-        $scope.registerParent({ childRef: $dir });
+    $dir.$onInit = function () {
+        $dir.registerParent({ childRef: $dir });
     };
-
-    $dir.init();
 };
 
 module.exports = () => {
     return {
         scope: {
             blocks: '=',
-            key: '=',
-            organization: '=',
+            implementation: '=',
             registerParent: '&',
         },
         restrict: "EA",
         replace: true,
+        bindToController: true,
+        controllerAs: '$dir',
         controller: [
             '$q',
             '$scope',
             '$filter',
             'MediaService',
             'ModalService',
-            'ImplementationService',
             'PushNotificationsService',
+            'ImplementationPageService',
             ImplementationBlocksEditorDirective
         ],
-        templateUrl: 'assets/tpl/directives/implementation-block.html'
+        templateUrl: 'assets/tpl/directives/implementation-blocks-editor.html'
     };
 };

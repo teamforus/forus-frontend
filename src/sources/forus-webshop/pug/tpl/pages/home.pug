@@ -48,23 +48,10 @@ main(id="main-content")
                         
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" ui-sref="me-app" target="_blank").header-how-it-works
 
-        .wrapper(ng-if="$ctrl.description_below_header")
-            .block.block-markdown(ng-bind-html="$ctrl.description_below_header")
-
-    .wrapper(ng-if="$ctrl.fund_blocks.length > 0"): .section.section-funds
-        h2.section-title Aanvragen
-
-        .fund-block(ng-repeat="fund_block in $ctrl.fund_blocks")
-            .fund-block-image
-                img(ng-src="{{ fund_block.media.sizes.public || './assets/img/placeholders/product-small.png' }}")
-            .fund-block-information
-                span.label.label-success(ng-if="fund_block.label" ng-bind="fund_block.label")
-                .fund-block-title(ng-bind="fund_block.title")
-                .block.block-markdown.fund-block-description(ng-bind-html="fund_block.description_html_trusted")
-                .button.button-primary(
-                    ng-if="fund_block.button_enabled"
-                    type="button")
-                    a(target="_blank" ng-href="{{ fund_block.button_link }}" ng-bind="fund_block.button_text")
+    //- Home CMS blocks
+    cms-blocks(
+        ng-if="$root.appConfigs.features.pages.home"
+        page="$root.appConfigs.features.pages.home")
 
     .page.page-home(ng-if="$ctrl.appConfigs.flags.homeProducts")
         .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(products="$ctrl.products.data" type="budget" display="grid")

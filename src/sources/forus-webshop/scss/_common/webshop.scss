@@ -49,7 +49,6 @@
 @import 'sections/products.scss';
 @import 'sections/steps.scss';
 @import 'sections/vouchers.scss';
-@import 'sections/funds-cms.scss';
 
 // BLOCKS
 @import 'sections/blocks/block-fund.scss',
@@ -116,6 +115,8 @@
 
     @import 'sections/blocks/block-reservations.scss';
     @import 'sections/blocks/block-map_card.scss';
+    @import 'sections/blocks/block-cms-funds.scss';
+    @import 'sections/blocks/block-announcement.scss';
 }
 
 .modal {

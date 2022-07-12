@@ -1,18 +1,30 @@
-const ImplementationCmsPageEditComponent = function(
+const ImplementationCmsPageEditComponent = function (
+    $state,
     FormBuilderService,
-    ImplementationService,
+    ImplementationPageService,
     PushNotificationsService
 ) {
     const $ctrl = this;
 
-    $ctrl.modelPlaceholder = '';
     $ctrl.implementationBlocksEditor = null;
-    $ctrl.blocks = {
-        'detailed': {},
-        'text': {},
-    };
 
-    $ctrl.registerImplementationBlocksEditor = function(childRef) {
+    $ctrl.types = [{
+        value: false,
+        name: 'Internal page',
+    }, {
+        value: true,
+        name: 'External page',
+    }];
+
+    $ctrl.states = [{
+        value: 'draft',
+        name: 'Draft',
+    }, {
+        value: 'public',
+        name: 'Public',
+    }];
+
+    $ctrl.registerImplementationBlocksEditor = function (childRef) {
         $ctrl.implementationBlocksEditor = childRef;
     };
 
@@ -24,104 +36,70 @@ const ImplementationCmsPageEditComponent = function(
         formValue.media_uid.push(media_uid);
     };
 
-    const searchBlock = (type, key) => {
-        let foundBlocks = $ctrl.implementationPage.blocks.filter(block => {
-            return block.type == type && block.key == key;
-        });
-
-        return (type == 'text' && foundBlocks.length == 1) ? foundBlocks[0] : foundBlocks;
-    };
-
-    const getBlockData = (type, block_key, block_index) => {
-        let block_data = (type == 'detailed') ? [] : {
-            'key'   : block_key,
-            'type'  : type,
-            'id'    : Date.now() + block_index,
-            'description': ''
-        };
-        let found_blocks = searchBlock(type, block_key);
-
-        if (Object.values(found_blocks).length) {
-            block_data = found_blocks;
-        }
-
-        return {
-            'key' : block_key,
-            'data': block_data
-        };
-    };
-
-    const transformBlocks = () => {
-        let block_index = 0;
-    
-        $ctrl.implementationPage.detailed_blocks.forEach(block_key => {
-            $ctrl.blocks.detailed[block_key] = getBlockData('detailed', block_key, block_index);
-            block_index++;
-        });
-
-        $ctrl.implementationPage.text_blocks.forEach(block_key => {
-            $ctrl.blocks.text[block_key] = getBlockData('text', block_key, block_index);
-            block_index++;
-        });
-    };
-
-    const blocksToFormData = (blocks, block_type) => {
-        let res = [];
-
-        for (const block_key in blocks[block_type]) {
-            if (blocks[block_type].hasOwnProperty(block_key)) {
-                let data = blocks[block_type][block_key].data;
-
-                if (Array.isArray(data)) {
-                    data.forEach(block => res[block.id] = block);
-                } else {
-                    res[data.id] = data;
-                }
-            }
-        }
-
-        return res;
-    };
-
-    const buildFormData = (data) => {
-        let blocksData = {
-            ...blocksToFormData(data.blocks, 'detailed'), 
-            ...blocksToFormData(data.blocks, 'text')
-        };
-
-        return { ...data, blocks: blocksData };
-    };
-
     $ctrl.$onInit = () => {
-        transformBlocks();
+        const { type } = $state.params;
+        const { pages, page_types } = $ctrl.implementation;
 
-        $ctrl.form = FormBuilderService.build({
-            ...$ctrl.implementationPage,
-            blocks: $ctrl.blocks
-        }, (form) => {
+        $ctrl.page_type = $ctrl.page?.page_type || type;
+        $ctrl.page_type_config = page_types.find((page_type) => page_type.key === $ctrl.page_type);
+        $ctrl.allow_external = $ctrl.page_type_config.type === 'extra';
+
+        // Target page already exists
+        if (!$ctrl.page && pages.find((page) => page.page_type === $ctrl.page_type)) {
+            return $state.go('implementation-cms', $ctrl.implementation);
+        }
+
+        const data = $ctrl.page ? {
+            ...$ctrl.page,
+        } : {
+            blocks: [],
+            state: $ctrl.states[0].value,
+            external: $ctrl.types[0].value,
+            page_type: $ctrl.page_type,
+        };
+
+        if (!$ctrl.page_type_config.blocks) {
+            delete data.blocks;
+        }
+
+        $ctrl.form = FormBuilderService.build(data, (form) => {
             const submit = () => {
-                ImplementationService.updatePage(
-                    $ctrl.organization.id, 
-                    $ctrl.implementationPage.implementation.id, 
-                    $ctrl.implementationPage.id,
-                    buildFormData(form.values)
-                ).then(res => {
+                const values = { ...form.values };
+
+                const promise = $ctrl.page ? ImplementationPageService.update(
+                    $ctrl.implementation.organization_id,
+                    $ctrl.implementation.id,
+                    $ctrl.page.id,
+                    values
+                ) : ImplementationPageService.store(
+                    $ctrl.implementation.organization_id,
+                    $ctrl.implementation.id,
+                    values
+                );
+
+                promise.then((res) => {
                     PushNotificationsService.success('Opgeslagen!');
+
+                    if (!$ctrl.page) {
+                        return $state.go('implementation-cms-page', {
+                            organization_id: $ctrl.implementation.organization_id,
+                            implementation_id: $ctrl.implementation.id,
+                            id: res.data.data.id,
+                        });
+                    }
+
+                    $ctrl.page = res.data.data;
                     form.errors = {};
-                    form.unlock();
-                }, res => {
+                }, (res) => {
                     form.errors = res.data.errors;
-                    PushNotificationsService.danger('Error!');
-                    form.unlock();
-                });
+                    PushNotificationsService.danger('Error!', res.data.message);
+                }).finally(() => form.unlock());
             };
 
             if (!$ctrl.implementationBlocksEditor) {
                 submit();
             } else {
-                $ctrl.implementationBlocksEditor.validate().then(res => {
-                    submit();
-                }, res => {
+                $ctrl.implementationBlocksEditor.validate().then(() => submit(), (res) => {
                     PushNotificationsService.danger('Error!', typeof res == 'string' ? res : res.message || '');
                     return form.unlock();
                 });
@@ -132,14 +110,16 @@ const ImplementationCmsPageEditComponent = function(
 
 module.exports = {
     bindings: {
-        implementationPage: '<',
+        page: '<',
         organization: '<',
+        implementation: '<',
     },
     controller: [
+        '$state',
         'FormBuilderService',
-        'ImplementationService',
+        'ImplementationPageService',
         'PushNotificationsService',
-        ImplementationCmsPageEditComponent
+        ImplementationCmsPageEditComponent,
     ],
-    templateUrl: 'assets/tpl/pages/implementation-cms-page-edit.html'
+    templateUrl: 'assets/tpl/pages/implementation-cms-page-edit.html',
 };
