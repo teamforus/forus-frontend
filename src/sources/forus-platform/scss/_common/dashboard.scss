@@ -876,7 +876,7 @@ body {
     }
 
     .card-title {
-        font: 500 16px/29px $bf;
+        font: 500 16px/28px $bf;
         color: #282b39;
         cursor: inherit;
 
@@ -4591,6 +4591,11 @@ body {
                         line-height: 14px;
                         padding-right: 10px;
                         color: $colorPrimary;
+                        width: auto;
+                    }
+
+                    & > .form-offset, & >.form-control {
+                        width: auto;
                     }
                 }
             }

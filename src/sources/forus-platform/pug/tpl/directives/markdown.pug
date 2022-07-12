@@ -1,2 +1,2 @@
-.block.block-markdownable(ng-class="(allowAlignment ? 'block-markdownable-' + (blockAlignment || 'left') : '')")
-    textarea.markdown-editor.block.block-markdown(editor name="test" id="{{ editorId }}")
+.block.block-markdownable(ng-class="($dir.allowAlignment ? 'block-markdownable-' + ($dir.blockAlignment || 'left') : '')")
+    textarea.markdown-editor.block.block-markdown(editor name="test" id="{{ $dir.editorId }}")
