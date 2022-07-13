@@ -48,6 +48,11 @@ main(id="main-content")
                         
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" ui-sref="me-app" target="_blank").header-how-it-works
 
+    //- Home CMS blocks
+    cms-blocks(
+        ng-if="$root.appConfigs.features.pages.home"
+        page="$root.appConfigs.features.pages.home")
+
     .page.page-home(ng-if="$ctrl.appConfigs.flags.homeProducts")
         .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(products="$ctrl.products.data" type="budget" display="grid")
         .wrapper(ng-if="$ctrl.subsidies.data.length > 0"): block-products(products="$ctrl.subsidies.data" type="subsidies" display="grid")

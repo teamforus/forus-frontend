@@ -1,7 +1,6 @@
 let HomeComponent = function (
     $state,
     $stateParams,
-    $interval,
     $sce,
     appConfigs,
     ModalService,
@@ -81,7 +80,6 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        '$interval',
         '$sce',
         'appConfigs',
         'ModalService',

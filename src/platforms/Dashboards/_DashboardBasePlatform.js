@@ -56,7 +56,7 @@ platform.addTask('js', {
     dest: "/",
     name: "app.min.js",
     minify: false,
-    sourcemap: true,
+    sourcemap: false,
     browserify: true
 }, 'js');
 

@@ -157,6 +157,9 @@ app.directive('fundListItem', require('./directives/lists/FundItemDirective'));
 app.directive('productListItem', require('./directives/lists/ProductItemDirective'));
 app.directive('providerListItem', require('./directives/lists/ProviderItemDirective'));
 
+app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
+app.directive('announcements', require('./directives/AnnouncementsDirective'));
+
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent')); // todo: cleanup

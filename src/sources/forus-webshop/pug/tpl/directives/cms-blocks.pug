@@ -1,0 +1,24 @@
+.wrapper(ng-if="$dir.content_html || $dir.blocks.length > 0")
+    .block.block-markdown(
+        ng-class="'block-markdown-' + $dir.content_alignment"
+        ng-if="$dir.content_html"
+        ng-bind-html="$dir.content_html")
+
+    .wrapper(ng-if="$dir.blocks.length > 0"): .section
+        h2.section-title Aanvragen
+
+        .block.block-cms-funds(ng-if="$dir.blocks.length")
+            .fund-item(ng-repeat="block in $dir.blocks")
+                .fund-media: img(ng-src="{{ block.media.sizes.public || './assets/img/placeholders/product-small.png' }}")
+
+                .fund-information
+                    .fund-label
+                        .label.label-primary(ng-if="block.label" ng-bind="block.label")
+
+                    h2.fund-title(ng-bind="block.title")
+                    .fund-description: p.block.block-markdown(ng-bind-html="block.description_html")
+
+                    .fund-button(ng-if="block.button_enabled")
+                        a.button.button-primary(target="_blank" ng-href="{{ block.button_link }}")
+                            span(ng-bind="block.button_text")
+                            .mdi.mdi-arrow-right.icon-right

@@ -5,5 +5,5 @@
 
         .announcement-wrapper
             .title(ng-bind="announcement.title")
-            .description(ng-bind-html="announcement.description_html")
+            .description: .block.block-markdown(ng-bind-html="announcement.description_html")
             .announcement-close.mdi.mdi-close(ng-click="$dir.dismiss(announcement)")

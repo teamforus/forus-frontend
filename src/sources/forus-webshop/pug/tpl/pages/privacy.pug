@@ -6,10 +6,9 @@ main(id="main-content")
             a(ui-sref="home").breadcrumb-item Home
             .breadcrumb-item.active(i18n="Privacyverklaring" aria-current="location")
 
-        .block.block-markdown(
-            ng-class="'block-markdown-' + $ctrl.page.content_alignment"
-            ng-if="$ctrl.description_html" 
-            ng-bind-html="$ctrl.description_html")
+        cms-blocks(
+            ng-if="$root.appConfigs.features.pages.privacy"
+            page="$root.appConfigs.features.pages.privacy")
 
         .section-title.text-left(
             ng-if="!$ctrl.description_html" 
