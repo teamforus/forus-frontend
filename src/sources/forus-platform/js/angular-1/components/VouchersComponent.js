@@ -27,6 +27,11 @@ const VouchersComponent = function(
         { value: 0, name: 'Nee' },
     ];
 
+    $ctrl.date_types = [
+        { value: 'created_at', name: 'Aanmaakdatum' },
+        { value: 'used_at', name: 'Transactiedatum' },
+    ];
+
     $ctrl.voucher_states = VoucherService.getStates();
 
     $ctrl.filters = {
@@ -36,6 +41,7 @@ const VouchersComponent = function(
             granted: null,
             amount_min: null,
             amount_max: null,
+            date_type: 'created_at',
             from: null,
             to: null,
             state: null,
@@ -97,12 +103,20 @@ const VouchersComponent = function(
         const from = data.from ? DateService._frontToBack(data.from) : null;
         const to = data.to ? DateService._frontToBack(data.to) : null;
 
-        return { ...data, from, to, fund_id: $ctrl.fund.id };
+        return {
+            ...{ ...data, fund_id: $ctrl.fund.id, date_type: null },
+            ...{
+                from: query.date_type === 'created_at' ? from : null,
+                to: query.date_type === 'created_at' ? to : null,
+                in_use_from: query.date_type === 'used_at' ? from : null,
+                in_use_to: query.date_type === 'used_at' ? to : null,
+            }
+        };
     };
 
     $ctrl.exportVouchers = () => {
         $ctrl.filters.show = false;
-        
+
         const type = 'budget';
         const filters = $ctrl.getQueryParams($ctrl.filters.values);
 
@@ -112,16 +126,13 @@ const VouchersComponent = function(
     $ctrl.onPageChange = (query) => {
         VoucherService.index(
             $ctrl.organization.id,
-            $ctrl.getQueryParams(query),
+            $ctrl.getQueryParams($ctrl.filters.values),
         ).then((res => $ctrl.vouchers = res.data));
     };
 
     $ctrl.showTooltip = (e, target) => {
         e.originalEvent.stopPropagation();
-        $ctrl.vouchers.data.forEach(voucher => {
-            voucher.showTooltip = false;
-        });
-        target.showTooltip = true;
+        $ctrl.vouchers.data.forEach((voucher) => voucher.showTooltip = voucher == target);
     };
 
     $ctrl.hideTooltip = (e, target) => {

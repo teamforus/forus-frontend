@@ -16,6 +16,8 @@ module.exports = {
         pending: 'Pending',
         active: 'Active',
         deactivated: 'Deactivated',
+        date_type: 'Pas toe op',
+        used_date: 'Used date',
     },
     buttons: {
         add_new: "Aanmaken"
