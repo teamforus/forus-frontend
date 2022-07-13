@@ -41,7 +41,6 @@ const OrganizationEmployeesComponent = function (
 
         OrganizationEmployeesService.list($ctrl.organization.id, filters).then((res => {
             $ctrl.employees = $ctrl.transformEmployees(res.data);
-            $ctrl.adminEmployees = $ctrl.filterAdminEmplyees($ctrl.employees.data);
         }));
     };
 
@@ -100,7 +99,12 @@ const OrganizationEmployeesComponent = function (
 
     $ctrl.$onInit = function () {
         $ctrl.employees = $ctrl.transformEmployees($ctrl.employees);
-        $ctrl.adminEmployees = $ctrl.filterAdminEmplyees($ctrl.employees.data);
+
+        OrganizationEmployeesService.list($ctrl.organization.id, {
+            per_page: 9999
+        }).then((res => {
+            $ctrl.adminEmployees = $ctrl.filterAdminEmplyees(res.data.data);
+        }));
     };
 };
 

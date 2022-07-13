@@ -10,15 +10,15 @@ const ModalTransferOrganizationOwnershipComponent = function(
         $ctrl.organization = $ctrl.modal.scope.organization;
 
         $ctrl.form = FormBuilderService.build({
-            employee: $ctrl.modal.scope.employees[0]
-        }, (form) => $ctrl.transferOrganizationOwnership(form.values.employee), true);
+            employee_id: $ctrl.modal.scope.employees[0].id
+        }, (form) => $ctrl.transferOrganizationOwnership(form.values.employee_id), true);
     };
 
-    $ctrl.transferOrganizationOwnership = (employee) => {
+    $ctrl.transferOrganizationOwnership = (employee_id) => {
         OrganizationService.transferOwnership($ctrl.organization.id, {
-            employee_id: employee.id,
+            employee_id: employee_id,
         }).then(() => {
-            $ctrl.modal.scope.submit(employee);
+            $ctrl.modal.scope.submit($ctrl.employees.find(employee => employee.id == employee_id));
             $ctrl.close();
         }, (res) => PushNotificationsService.danger(res.data.message));
     }

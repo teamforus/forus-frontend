@@ -9,9 +9,11 @@
             .modal-section: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group
                     label.form-label.form-label-required(i18n="modals.modal_transfer_organization_ownership.labels.transfer_to")
-                    select(
-                        ng-options="employee as employee.email for employee in $ctrl.employees"
-                        ng-model="$ctrl.form.values.employee").form-control
+                    select-control(
+                        prop="id"
+                        as="email"
+                        ng-model="$ctrl.form.values.employee_id"
+                        options="$ctrl.employees").form-control    
                     .form-error(ng-repeat="error in $ctrl.form.errors.employee" ng-bind="error")
 
             .modal-section: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
