@@ -80,7 +80,7 @@ const ModalVouchersUploadComponent = function(
             this.defaultNote = function(row) {
                 return $translate('vouchers.csv.default_note' + (row.email ? '' : '_no_email'), {
                     upload_date: moment().format('YYYY-MM-DD'),
-                    uploader_email: $rootScope.auth_user.email,
+                    uploader_email: $rootScope.auth_user?.email || $rootScope.auth_user?.address,
                     target_email: row.email || null,
                 });
             }

@@ -15,7 +15,8 @@
                     th(translate="organization_employees.labels.actions").text-right
 
                 tr(ng-repeat="employee in $ctrl.employees.data")
-                    td(ng-bind="employee.email" id="employee_email").text-primary-light
+                    td(ng-if="employee.email" ng-bind="employee.email" id="employee_email").text-primary-light
+                    td(ng-if="!employee.email" ng-bind="employee.identity_address | str_limit:32" id="employee_email").text-primary-light
 
                     //- roles
                     td.nowrap

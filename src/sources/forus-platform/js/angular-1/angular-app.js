@@ -224,6 +224,7 @@ app.directive('fundCardInvitationProvider', require('./directives/FundCardInvita
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('fundCriteriaEditor', require('./directives/FundCriteriaEditorDirective'));
 app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditorItemDirective'));
+app.directive('fundConfigContactInfoEditor', require('./directives/FundConfigContactInfoEditorDirective'));
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));

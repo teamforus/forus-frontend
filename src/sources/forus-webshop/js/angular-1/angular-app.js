@@ -19,7 +19,7 @@ app.controller('BaseController', require('./controllers/BaseController'));
 
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
-app.component('signUpComponent', require('./components/SignUpComponent')); // todo: cleanup
+app.component('signUpComponent', require('./components/SignUpComponent'));
 app.component('signUpProviderComponent', require('./components/SignUpProviderComponent'));
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
@@ -39,7 +39,7 @@ app.component('recordValidateComponent', require('./components/RecordValidateCom
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
 app.component('recordCreateComponent', require('./components/RecordCreateComponent'));
 app.component('meComponent', require('./components/MeComponent'));
-app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
+app.component('notificationPreferencesComponent', require('./components/NotificationPreferencesComponent'));
 app.component('accessibilityComponent', require('./components/AccessibilityComponent'));
 app.component('privacyComponent', require('./components/PrivacyComponent'));
 app.component('termsAndConditionsComponent', require('./components/TermsAndConditionsComponent'));
@@ -81,7 +81,6 @@ app.service('ValidatorService', require('./services/ValidatorService'));
 app.service('GoogleMapService', require('./services/GoogleMapService'));
 app.service('ConfigService', require('./services/ConfigService'));
 app.service('ModalService', require('./services/ModalService'));
-app.service('BrowserService', require('./services/BrowserService'));
 app.service('ShareService', require('./services/ShareService'));
 app.service('PrintableService', require('./services/PrintableService'));
 app.service('BusinessTypeService', require('./services/BusinessTypeService'));
@@ -158,7 +157,6 @@ app.directive('providerListItem', require('./directives/lists/ProviderItemDirect
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
-app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent')); // todo: cleanup
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
 app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));

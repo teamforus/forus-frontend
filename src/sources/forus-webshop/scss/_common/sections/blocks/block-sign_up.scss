@@ -6,7 +6,7 @@
         font: 500 32px/36px $bf;
         text-align: center;
         color: #191a1c;
-        margin: 0 0 35px;
+        margin: 0 0 20px;
     }
 
     .block-icon {
@@ -146,7 +146,7 @@
         background: #ffffff;
         border: 1px solid #ebedf0;
         box-sizing: border-box;
-        border-radius: 5px;
+        border-radius: $border_radius / 2;
 
         .sign_up-pane-header {
             border-bottom: 1px solid #ebedf0;
@@ -154,10 +154,15 @@
             padding: 15px 40px;
             text-align: center;
             margin: 0 0;
+
+            .sign_up-pane-header-title {
+                font: inherit;
+                margin: 0;
+            }
         }
 
         .sign_up-pane-body {
-            padding: 40px 40px;
+            padding: 20px 40px 20px;
             font: 400 16px/26px $bf;
 
             .button {
@@ -587,27 +592,144 @@
         width: 750px;
         max-width: 100%;
         margin: 0 auto 40px;
+
+        &.block-wrapper-lg {
+            width: 1040px;
+        }
+    }
+
+    .sign_up-row {
+        display: flex;
+        flex-direction: row;
+        padding: 20px 0 0;
+
+        .sign_up-col {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #ebedf0;
+            padding: 10px 30px 0;
+            flex-basis: 1;
+            flex-grow: 1;
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                border-right: none;
+                padding-right: 0;
+            }
+        }
+    }
+
+    .sign_up-options {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        .sign_up-option {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid #ebedf0;
+            border-radius: $border_radius / 2;
+            margin-bottom: 10px;
+            padding: 20px;
+            cursor: pointer;
+            background-color: #fff;
+            transition: background-color .4s, border-color .4s;
+            
+            .sign_up-option-media {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-right: 15px;
+
+                .sign_up-option-media-img {
+                    width: 55px;
+                    display: block;
+                }   
+            }
+
+            .sign_up-option-details {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .sign_up-option-title {
+                    display: flex;
+                    flex-direction: row;
+                    font: 700 16px $bf;
+                    flex-wrap: wrap;
+                }
+
+                .sign_up-option-description {
+                    display: flex;
+                    flex-direction: row;
+                    font: 400 13px/20px $bf;
+                    flex-wrap: wrap;
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &:hover {
+                background-color: #f4f5f7;
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.disabled {
+            .sign_up-option {
+                cursor: default;
+                pointer-events: none;
+                filter: saturate(.7);
+            }
+        }
+    }
+
+    .sign_up-info {
+        display: flex;
+        flex-direction: column;
+        background: #f7f7f7;
+        border: 1px solid #f7f7f7;
+        box-sizing: border-box;
+        border-radius: $border_radius / 2;
+        padding: 15px 20px;
+        margin: 0 0 10px;
+
+        .sign_up-info-title {
+            display: flex;
+            flex-direction: row;
+            margin: 0 0 10px;
+            font: 600 16px/24px $bf;
+
+            .sign_up-info-title-icon {
+                height: 24px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-right: 5px;
+            }
+        }
+
+        .sign_up-info-description {
+            display: block;
+            font: 400 14px/20px $bf;
+        }
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
     }
 
     @media (max-width: 1199px) {
         .sign_up-header {
             margin: 0 -90px 25px;
-        }
-    }
-
-    @media (max-width: 400px) {
-        .sign_up-progress {
-            &.sign_up-progress-compact {
-                .sign_up-step {
-                    .sign-up-step-block {
-                        display: none;
-                    }
-                }
-
-                .sign_up-progress-overview {
-                    display: block;
-                }
-            }
         }
     }
 
@@ -768,6 +890,36 @@
                             }
                         }
                     }
+                }
+            }
+        }
+
+        .sign_up-row {
+            flex-direction: column;
+
+            .sign_up-col {
+                padding: 0;
+                margin-bottom: 20px;
+                border: none;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 400px) {
+        .sign_up-progress {
+            &.sign_up-progress-compact {
+                .sign_up-step {
+                    .sign-up-step-block {
+                        display: none;
+                    }
+                }
+
+                .sign_up-progress-overview {
+                    display: block;
                 }
             }
         }

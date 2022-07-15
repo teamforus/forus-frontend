@@ -213,6 +213,12 @@
                         record-types="$ctrl.recordTypes" 
                         validator-organizations="$ctrl.validatorOrganizations.data"
                         register-parent="$ctrl.registerCriteriaEditor(childRef)")
+            
+            //- Contact info details
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline
+                    label.form-label Requirements 
+                    .form-offset: fund-config-contact-info-editor(fund="$ctrl.form.values" inline="false")
 
             //- FAQ
             .card-section.card-section-primary

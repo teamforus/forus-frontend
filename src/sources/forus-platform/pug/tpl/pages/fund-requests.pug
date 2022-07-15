@@ -157,7 +157,7 @@
 
                     .flex-col: .card-block.card-block-listing
                         .card-block-listing-label E-mail: 
-                        .card-block-listing-value.nowrap(ng-bind="validatorRequest.email")
+                        .card-block-listing-value.nowrap(ng-bind="validatorRequest.email || 'Geen email'")
                 .flex.flex-grow
                 
                 .card-block.card-block-listing(ng-if="validatorRequest.note")
@@ -270,7 +270,8 @@
                         td.text-right(ng-if="record.state == 'pending' && !record.is_assigned")
                             .td-text-insert.text-muted(ng-if="record.employee_id")
                                 span Toegewezen aan
-                                .text-strong.nowrap(ng-bind="record.employee.email")
+                                .text-strong.nowrap(ng-if="record.employee.email" ng-bind="record.employee.email")
+                                .text-strong.nowrap(ng-if="!record.employee.email" ng-bind="record.employee.identity_address | str_limit:32")
 
                             .text-muted(ng-if="!record.employee_id && record.is_assignable")
                                 | Zelf toewijzen
@@ -303,9 +304,9 @@
 
                                 .attachment-name(ng-bind='file.original_name')
                                 .attachment-date(ng-bind='record.created_at_locale')
-                                .attachment-preview( 
-                                    ng-if="file.ext == 'pdf'"
+                                .attachment-preview(
                                     title="file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'"
+                                    ng-if="$ctrl.hasFilePreview(file)" 
                                     ng-click="$ctrl.previewFile($event, file)")
                                     .mdi.mdi-eye
                         

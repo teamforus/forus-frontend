@@ -1,16 +1,14 @@
-let SecuritySessionsComponent = function(
+const SecuritySessionsComponent = function (
     $state,
     ModalService,
     SessionService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.loaded = true;
 
     $ctrl.loadSessions = () => {
-        SessionService.list({
-            per_page: 100
-        }).then(res => {
+        SessionService.list({ per_page: 100 }).then(res => {
             $ctrl.sessions = res.data.data.map(session => {
                 let device = session.last_request.device;
 
@@ -23,17 +21,9 @@ let SecuritySessionsComponent = function(
                         session.type_class = 'monitor';
                     }
                 } else if (device && device.device.type == 'mobile') {
-                    if (device.device.manufacturer == 'Apple') {
-                        session.type_class = 'cellphone-iphone';
-                    } else {
-                        session.type_class = 'cellphone-android';
-                    }
+                    session.type_class = 'cellphone';
                 } else if (device && device.device.type == 'tablet') {
-                    if (device.device.manufacturer == 'Apple') {
-                        session.type_class = 'tablet-ipad';
-                    } else {
-                        session.type_class = 'tablet-android';
-                    }
+                    session.type_class = 'tablet';
                 } else {
                     session.type_class = 'help-rhombus';
                 }
