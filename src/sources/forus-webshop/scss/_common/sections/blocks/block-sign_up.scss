@@ -43,7 +43,7 @@
             flex-direction: column;
             justify-content: center;
 
-            .sign_up-header-item-back {
+            .sign_up-header-item-button {
                 color: #9e9e9e;
                 padding: 5px 20px;
                 font: 500 17px/24px $bf;
@@ -53,6 +53,11 @@
                     float: left;
                     line-height: 24px;
                     font-size: 30px;
+
+                    &.icon-end {
+                        float: right;
+                        margin-left: 5px;
+                    }
                 }
 
                 &:hover {

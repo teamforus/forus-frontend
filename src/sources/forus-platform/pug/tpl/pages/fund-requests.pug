@@ -84,10 +84,10 @@
                         em.mdi.mdi-circle-outline.icon-start
                         span(translate='validation_requests.status.hold')
                     .card-section-actions-details: .flex-row.nowrap
-                        .flex-col
+                        .flex-pad
                             .card-section-actions-label(translate="validation_requests.labels.lead_time")
                             .card-section-actions-value(ng-bind="validatorRequest.lead_time_locale")
-                        .flex-col
+                        .flex-pad
                             .card-section-actions-label(translate="validation_requests.labels.pending_since")
                             .card-section-actions-value(ng-bind="validatorRequest.created_at_locale")
 
@@ -97,10 +97,10 @@
                         em.mdi.mdi-circle-outline.icon-start
                         span(translate='validation_requests.status.disregarded')
                     .card-section-actions-details: .flex-row.nowrap
-                        .flex-col
+                        .flex-pad
                             .card-section-actions-label(translate="validation_requests.labels.lead_time")
                             .card-section-actions-value(ng-bind="validatorRequest.lead_time_locale")
-                        .flex-col
+                        .flex-pad
                             .card-section-actions-label(translate="validation_requests.labels.disregarded_at")
                             .card-section-actions-value(ng-bind="validatorRequest.resolved_at_locale")         
                 
@@ -133,7 +133,7 @@
                     span(ng-bind="validatorRequest.id").text-strong
                 
                 .flex: .flex-row
-                    .flex-col: .card-block.card-block-listing
+                    .flex-pad: .card-block.card-block-listing
                         .card-block-listing-label Fonds
                         .card-block-listing-value.nowrap
                             span(ng-bind="validatorRequest.fund.name") 
@@ -151,14 +151,13 @@
                                         span(ng-if="criterion.operator == '<'") minder dan 
                                         | {{ criterion.record_type_key == 'net_worth' ? '€' : '' }}{{ criterion.value }}.
 
-                    .flex-col: .card-block.card-block-listing
+                    .flex-pad: .card-block.card-block-listing
                         .card-block-listing-label BSN: 
                         .card-block-listing-value.nowrap(ng-bind="validatorRequest.bsn || 'Geen data'")
 
-                    .flex-col: .card-block.card-block-listing
+                    .flex-pad: .card-block.card-block-listing
                         .card-block-listing-label E-mail: 
                         .card-block-listing-value.nowrap(ng-bind="validatorRequest.email || 'Geen email'")
-                .flex.flex-grow
                 
                 .card-block.card-block-listing(ng-if="validatorRequest.note")
                     .card-block-listing-label Reden van weigeren

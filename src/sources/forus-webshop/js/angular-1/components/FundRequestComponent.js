@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 const FundRequestComponent = function (
     $sce,
     $state,
+    $scope,
     $filter,
     $timeout,
     appConfigs,
@@ -334,7 +335,20 @@ const FundRequestComponent = function (
 
         $ctrl.buildSteps();
         $ctrl.setStepByName($ctrl.steps[0]);
+
+        $ctrl.autoSubmit =
+            $ctrl.fund.auto_validation &&
+            $ctrl.digidAvailable &&
+            $ctrl.steps[$ctrl.step] == 'confirm_criteria' &&
+            ['bus_2020', 'meedoen_2020'].includes($ctrl.fund.key);
     };
+
+    $scope.$watch('$ctrl.invalidCriteria', (value) => {
+        if (Array.isArray(value) && value.length > 0 && $ctrl.autoSubmit && !$ctrl.autoSubmitted) {
+            $ctrl.submitConfirmCriteria();
+            $ctrl.autoSubmitted = true;
+        }
+    });
 };
 
 export const bindings = {
@@ -349,6 +363,7 @@ export const bindings = {
 export const controller = [
     '$sce',
     '$state',
+    '$scope',
     '$filter',
     '$timeout',
     'appConfigs',
@@ -359,5 +374,4 @@ export const controller = [
     'PushNotificationsService',
     FundRequestComponent,
 ];
-
 export const templateUrl = 'assets/tpl/pages/fund-request.html';

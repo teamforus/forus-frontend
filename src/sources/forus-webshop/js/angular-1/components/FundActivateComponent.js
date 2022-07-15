@@ -359,6 +359,11 @@ const FundActivateComponent = function (
 
             $ctrl.initState();
         });
+
+        $ctrl.showCustomCriteriaOverview =
+            $ctrl.autoValidation &&
+            $ctrl.digidAvailable &&
+            ['bus_2020', 'meedoen_2020'].includes($ctrl.fund.key);
     };
 };
 

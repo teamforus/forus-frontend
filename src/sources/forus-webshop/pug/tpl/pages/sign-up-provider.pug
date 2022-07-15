@@ -8,7 +8,9 @@ main(id="main-content")
                 h1 Aanmelden als aanbieder
                 p Door het online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 15 minuten.
                 p Lees de instructie in elke stap goed door.
-                p: a(href="{{ $ctrl.signUpUrl + 'sign-up' + $ctrl.signUpUrlParams }}" target="_self").button.button-primary-outline Aanmelden
+                p: a(href="{{ $ctrl.signUpUrl + 'sign-up' + $ctrl.signUpUrlParams }}" target="_self").button.button-primary-outline 
+                    | Aanmelden
+                    em.mdi.mdi-arrow-right.icon-right
                 p Heeft u al een account? #[a(href="{{ $ctrl.signUpUrl }}" target="_self") Log dan in]
 
             .sign_up-images: .sign_up-image: img(src="assets/img/provider-sign_up-preview.svg" alt="")

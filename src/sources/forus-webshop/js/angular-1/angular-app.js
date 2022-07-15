@@ -108,6 +108,7 @@ app.directive('skipLinks', require('./directives/SkipLinksDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
 app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
+app.directive('fundCriteriaCustomOverview', require('./directives/FundCriteriaCustomOverviewComponent'));
 app.directive('profileMenu', require('./directives/ProfileMenuDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
@@ -154,6 +155,9 @@ app.directive('mapPointerProvidersOfficeView', require('./directives/map-pointer
 app.directive('fundListItem', require('./directives/lists/FundItemDirective'));
 app.directive('productListItem', require('./directives/lists/ProductItemDirective'));
 app.directive('providerListItem', require('./directives/lists/ProviderItemDirective'));
+
+app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
+app.directive('announcements', require('./directives/AnnouncementsDirective'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));

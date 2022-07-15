@@ -1,0 +1,120 @@
+&.block-cms-funds {
+    width: 100%;
+    padding-top: 10px;
+
+    .fund-item {
+        width: 100%;
+        padding: 0 15px;
+        display: flex;
+        margin: 0 0 60px;
+        padding: 0 0 60px;
+        border-bottom: 1px solid $border_color;
+
+        .fund-media {
+            width: 52%;
+            order: 1;
+    
+            img {
+                width: 100%;
+                display: block;
+            }
+        }
+    
+        .fund-information {
+            width: 50%;
+            padding-left: 100px;
+            text-align: left;
+            order: 2;
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+            cursor: default;
+    
+            .fund-label {
+                margin: 0 0 5px;
+            }
+    
+            .fund-title {
+                font: 400 24px/36px $bf;
+                margin-top: 5px;
+                color: #a80a2d;
+                margin: 0 0 20px;
+            }
+    
+            .fund-description {
+                font: 400 18px/28px $bf;
+                margin: 0 0 20px;
+            }
+    
+            .fund-button {
+                text-align: left;
+            }
+        }
+    
+        &:nth-of-type(2n) {
+            .fund-media {
+                order: 2;
+                padding-right: 0;
+                text-align: right;
+            }
+    
+            .fund-information {
+                order: 1;
+                padding-left: 0;
+                padding-right: 100px;
+            }
+        }
+
+        &:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .fund-item {
+            padding: 0 0 30px;
+            margin: 0 0 30px;
+            flex-direction: column;
+
+            .fund-media {
+                width: 100%;
+                margin: 0 0 20px;
+            }
+
+            .fund-information {
+                width: 100%;
+                padding: 0;
+
+                .fund-title {
+                    font: 400 20px/26px $bf;
+                    margin: 0 0 10px;
+                }
+
+                .fund-description {
+                    margin: 0 0 10px;
+                }
+
+                .fund-button {
+                    width: 100%;
+
+                    .button {
+                        width: 100%;
+                    }
+                }
+            }
+
+            &:nth-of-type(2n) {
+                .fund-media {
+                    order: 1;
+                    margin: 0 0 20px;
+                }
+    
+                .fund-information {
+                    order: 2;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

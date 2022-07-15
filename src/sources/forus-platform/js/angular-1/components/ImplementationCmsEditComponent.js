@@ -1,9 +1,10 @@
-const ImplementationCmsEditComponent = function(
-    $rootScope,
+const ImplementationCmsEditComponent = function (
+    $state,
     MediaService,
     ModalService,
     FormBuilderService,
     ImplementationService,
+    ImplementationPageService,
     PushNotificationsService
 ) {
     const $ctrl = this;
@@ -33,16 +34,68 @@ const ImplementationCmsEditComponent = function(
         label: 'Licht',
     }];
 
-    const bannerOpacityOptions = [1, 2, 3, 4, 5, 6, 7, 9, 10].map((option) => ({
+    const bannerOpacityOptions = [...new Array(10).keys()].map((n) => ++n).map((option) => ({
         value: (option * 10).toString(),
         label: ((10 - option) * 10) + '%',
     }));
 
-    $ctrl.modelPlaceholder = '';
+    const communicationTypes = [{
+        value: '1',
+        label: 'Je/jouw',
+    }, {
+        value: '0',
+        label: 'U/uw',
+    }];
+
+    const announcementState = [
+        { value: false, label: 'Nee' },
+        { value: true, label: 'Ja' },
+    ];
+
+    const announcementTypes = [
+        { value: 'warning', label: 'Warning' },
+        { value: 'success', label: 'Success' },
+        { value: 'primary', label: 'Primary' },
+        { value: 'default', label: 'Default' },
+        { value: 'danger', label: 'Error' },
+    ];
+
+    const announcementExpireOptions = [
+        { value: false, label: 'Nee' },
+        { value: true, label: 'Ja' },
+    ];
+
+    $ctrl.announcementState = announcementState;
+    $ctrl.communicationTypes = communicationTypes;
+    $ctrl.announcementExpireOptions = announcementExpireOptions;
+
     $ctrl.bannerMedia;
     $ctrl.resetMedia = false;
-
     $ctrl.bannerMeta = null;
+
+    $ctrl.announcementTypes = announcementTypes;
+
+    $ctrl.deletePage = (page) => {
+        ModalService.open('modalNotification', {
+            modalClass: 'modal-md',
+            type: 'confirm',
+            title: 'Wilt u dit gegeven verwijderen?',
+            description: [
+                'Weet u zeker dat u dit gegeven wilt verwijderen? Deze actie kunt niet ongedaan maken,',
+                'u kunt echter wel een nieuw gegeven aanmaken.',
+            ].join(" "),
+            confirm: () => {
+                ImplementationPageService.destroy(
+                    page.implementation.organization_id,
+                    page.implementation.id,
+                    page.id,
+                ).then(() => {
+                    $state.reload();
+                    PushNotificationsService.success('Success!', 'Implementation page delete!')
+                }, (res) => PushNotificationsService.danger('Error!', res.data.message));
+            }
+        });
+    };
 
     $ctrl.getBannerMetaDefault = () => {
         return {
@@ -79,14 +132,6 @@ const ImplementationCmsEditComponent = function(
         $ctrl.bannerMeta = $ctrl.getBannerMetaDefault();
     }
 
-    $ctrl.communicationTypes = [{
-        value: '1',
-        label: 'Je/jouw',
-    }, {
-        value: '0',
-        label: 'U/uw',
-    }];
-
     $ctrl.appendMedia = (media_uid, formValue) => {
         if (!Array.isArray(formValue.media_uid)) {
             formValue.media_uid = [];
@@ -95,39 +140,17 @@ const ImplementationCmsEditComponent = function(
         formValue.media_uid.push(media_uid);
     };
 
-    $ctrl.preparePages = (implementation) => {
-        const { pages, page_types, page_types_internal } = implementation;
-
-        return page_types.reduce((pagesValue, page_type) => {
-            pagesValue[page_type] = pages[page_type] ? pages[page_type] : {
-                external: false,
-                external_url: '',
-                content: '',
-                content_html: '',
-            }
-
-            if (page_types_internal.includes(page_type)) {
-                pagesValue[page_type].external = false;
-            }
-
-            if (!Array.isArray(!pagesValue[page_type].media_uid)) {
-                pagesValue[page_type].media_uid = [];
-            }
-
-            return pagesValue;
-        }, {});
-    }
-
-    $ctrl.blockAlignmentOnChange = (direction, values, field) => {
-        values[field] = direction;
+    $ctrl.expireDateChange = (values) => {
+        if (!values.announcement?.expire) {
+            values.announcement.expire_at = null;
+        }
     };
 
     $ctrl.$onInit = () => {
-        const { informal_communication } = $ctrl.implementation;
+        const { pages, implementation } = $ctrl;
+        const { informal_communication, page_types } = implementation;
 
         $ctrl.bannerMeta = $ctrl.getBannerMetaDefault();
-        $ctrl.page_types = $ctrl.implementation.page_types;
-        $ctrl.page_types_internal = $ctrl.implementation.page_types_internal;
         $ctrl.implementation.informal_communication = informal_communication ? '1' : '0';
         $ctrl.initialCommunicationType = informal_communication;
 
@@ -136,6 +159,23 @@ const ImplementationCmsEditComponent = function(
         $ctrl.bannerMeta.overlay_type = $ctrl.implementation.overlay_type;
         $ctrl.bannerMeta.overlay_enabled = $ctrl.implementation.overlay_enabled;
         $ctrl.bannerMeta.overlay_opacity = $ctrl.implementation.overlay_opacity.toString();
+
+        $ctrl.pages = page_types.map((page_type) => {
+            const page = pages.find((page) => page?.page_type == page_type.key) || {};
+            const internal_only = page_type.type == 'static' || page_type.type == 'element';
+            const pageData = { ...page, internal_only, page_type }
+
+            const createPageSref = {
+                organization_id: $ctrl.organization.id,
+                implementation_id: $ctrl.implementation.id,
+            };
+
+            if (page.id) {
+                return { ...pageData, srefProps: { ...createPageSref, id: page.id } };
+            }
+
+            return { ...pageData, srefProps: { ...createPageSref, type: page_type.key } };
+        });
 
         if ($ctrl.implementation.header_text_color == 'auto') {
             $ctrl.bannerMeta.auto_text_color = true;
@@ -146,13 +186,23 @@ const ImplementationCmsEditComponent = function(
             $ctrl.bannerMeta.header_text_color = $ctrl.implementation.header_text_color;
         }
 
-        $ctrl.form = FormBuilderService.build({
+        const values = {
             ...$ctrl.implementation,
-            ...{
-                pages: $ctrl.preparePages($ctrl.implementation),
-                media_uid: [],
-            }
-        }, (form) => {
+            media_uid: [],
+            announcement: {
+                type: $ctrl.announcementTypes[0].value,
+                active: $ctrl.announcementState[0].value,
+                replace: false,
+                title: '',
+                description: '',
+                expire_at: null,
+                ...($ctrl.implementation.announcement || {}),
+            },
+        };
+
+        values.announcement.expire = !!values.announcement.expire_at;
+
+        $ctrl.form = FormBuilderService.build(values, (form) => {
             const submit = () => {
                 const { overlay_enabled, overlay_type, overlay_opacity } = $ctrl.bannerMeta;
                 const header_text_color = $ctrl.bannerMeta.auto_text_color ? 'auto' : $ctrl.bannerMeta.header_text_color;
@@ -163,18 +213,21 @@ const ImplementationCmsEditComponent = function(
                     });
                 }
 
-                ImplementationService.updateCMS($rootScope.activeOrganization.id, $ctrl.implementation.id, {
+                ImplementationService.updateCMS($ctrl.organization.id, $ctrl.implementation.id, {
                     ...form.values,
                     ...{ overlay_enabled, overlay_type, overlay_opacity, header_text_color }
                 }).then(() => {
                     delete form.values.banner_media_uid;
-                    Object.keys(form.values.pages).forEach((pageKey) => form.values.pages[pageKey].media_uid = []);
 
                     form.errors = [];
                     form.values.media_uid = [];
+                    form.values.announcement.replace = false;
 
                     PushNotificationsService.success('Opgeslagen!');
-                }, (res) => form.errors = res.data.errors).finally(() => form.unlock());
+                }, (res) => {
+                    form.errors = res.data.errors;
+                    PushNotificationsService.danger('Error!', res.data.message);
+                }).finally(() => form.unlock());
             };
 
             if ($ctrl.initialCommunicationType != form.values.informal_communication) {
@@ -200,14 +253,17 @@ const ImplementationCmsEditComponent = function(
 
 module.exports = {
     bindings: {
+        organization: '<',
         implementation: '<',
+        pages: '<',
     },
     controller: [
-        '$rootScope',
+        '$state',
         'MediaService',
         'ModalService',
         'FormBuilderService',
         'ImplementationService',
+        'ImplementationPageService',
         'PushNotificationsService',
         ImplementationCmsEditComponent
     ],

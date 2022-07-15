@@ -106,6 +106,14 @@
                                             ng-model="$ctrl.filters.values.amount_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | translate }}").form-control
 
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'vouchers.labels.date_type' | translate }}")
+                                    .form-offset: select-control(
+                                        prop="value"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.date_type"
+                                        options="$ctrl.date_types").form-control
+
                                 .form-group
                                     form-label-toggle(label="{{ 'vouchers.labels.from' | translate }}")
                                     datepicker(
@@ -131,7 +139,8 @@
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
-            .card-section
+            //- Vouchers list
+            .card-section(ng-if="$ctrl.vouchers.data.length > 0")
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
@@ -177,13 +186,12 @@
 
                                 td(ng-if="!$ctrl.fundClosed"): strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
 
-                                td(ng-if="!$ctrl.fundClosed && voucher.in_use"): .td-boolean
-                                    em.mdi.mdi-check-circle
-                                    string(translate="product_vouchers.labels.yes").text-md.text-muted-dark
-
-                                td(ng-if="!$ctrl.fundClosed && !voucher.in_use"): .td-boolean
-                                    em.mdi.mdi-close
-                                    string(translate="product_vouchers.labels.no").text-md.text-muted-dark
+                                td(ng-if="!$ctrl.fundClosed"): .td-boolean.flex-vertical
+                                    .flex.text-primary
+                                        em.mdi.mdi-check-circle(ng-if="voucher.in_use")
+                                        em.mdi.mdi-close(ng-if="!voucher.in_use")
+                                        string(ng-if="!voucher.in_use" translate="product_vouchers.labels.no")
+                                        string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale")
 
                                 td
                                     .td-boolean(ng-if="voucher.expired")
@@ -233,8 +241,13 @@
                                         ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
                                         em.mdi.mdi-eye-outline.icon-start
 
-            .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
+            //- Pagination
+            .card-section(ng-if="$ctrl.vouchers.meta" ng-show="$ctrl.vouchers.meta.last_page > 1")
                 paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
+
+            //- Not found
+            .card-section(ng-if="$ctrl.vouchers.meta.total == 0"): .block.block-empty.text-center
+                .empty-title Geen vouchers gevonden
 
         div(ng-if="$ctrl.funds.length == 0")
             block-empty(

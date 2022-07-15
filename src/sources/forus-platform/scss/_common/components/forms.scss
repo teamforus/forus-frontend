@@ -465,6 +465,7 @@
 
         label.form-control:not([type='radio']):not([type='checkbox']) {
             line-height: 26px;
+            padding-right: 25px;
         }
 
         .select-control-search {
@@ -548,7 +549,7 @@
 
     .checkbox {
         display: inline-block;
-        padding: 10px 0;
+        padding: 8px 0;
         padding-right: 15px;
         padding-left: 25px;
         vertical-align: middle;

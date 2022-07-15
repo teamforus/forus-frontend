@@ -2,11 +2,15 @@
     menu
     section.app.app-content
         .card
-            .card-header: .row
-                .col.col-xs-4: .card-title(ng-bind="'Medewerkers (' + $ctrl.employees.meta.total + ')'")
-                .col.col-xs-8: .pull-right: a(ng-click="$ctrl.createEmployee()" id="add_employee").button.button-primary.button-sm
-                    em.mdi.mdi-plus-circle.icon-start
-                    translate(translate="organization_employees.buttons.add")
+            .card-header: .flex
+                .flex.flex-grow: .card-title(ng-bind="'Medewerkers (' + $ctrl.employees.meta.total + ')'")
+
+                .flex: .block.block-inline-filters
+                    a(ng-click="$ctrl.createEmployee()" id="add_employee").button.button-primary.button-sm
+                        em.mdi.mdi-plus-circle.icon-start
+                        translate(translate="organization_employees.buttons.add")
+
+                    .form: .form-group: input(ng-model="$ctrl.filters.values.q" placeholder="Zoeken").form-control
 
             .card-section(ng-if="$ctrl.employees.data.length > 0"): .card-block.card-block-table: .table-wrapper: table.table
                 tr
@@ -56,5 +60,10 @@
                             ng-if="!($ctrl.adminEmployees.length > 0 && $root.auth_user.address === $ctrl.organization.identity_address)" 
                             translate="organization_employees.labels.owner").text-muted
 
+            //- Pagination
             .card-section(ng-if="$ctrl.employees.meta" ng-show="$ctrl.employees.meta.last_page > 1")
-                paginator(meta="$ctrl.employees.meta" filters="$ctrl.filters" count-buttons="5" on-page-change="onPageChange(query)")
+                paginator(meta="$ctrl.employees.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
+
+            //- Not found
+            .card-section(ng-if="$ctrl.employees.meta.total == 0"): .block.block-empty.text-center
+                .empty-title Geen medewerkers gevonden

@@ -13,8 +13,8 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 success: (data) => {
                     const { url, text, uid, alt } = data;
 
-                    if (uid && $scope.mediaUploaded) {
-                        $scope.mediaUploaded({
+                    if (uid && $dir.mediaUploaded) {
+                        $dir.mediaUploaded({
                             media_uid: uid,
                         });
                     }
@@ -63,7 +63,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
 
                             dropdownBtnIcon.attr('class', option.find('.mdi').attr('class'));
 
-                            $timeout(() => $scope.blockAlignment = direction, 0);
+                            $timeout(() => $dir.blockAlignment = direction, 0);
                             e.preventDefault();
                         })
                     }
@@ -171,7 +171,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
         toolbars.push(extendedOptions ? ['table', ['table']] : null);
         toolbars.push(['cms', ['cmsLink', 'unlink', ...(extendedOptions ? ['cmsMedia', 'cmsLinkYoutube'] : [])]]);
         toolbars.push(['view', ['fullscreen', ...(allowPreview ? ['cmsMailView'] : [])]]);
-        toolbars.push(['buttons', buttons.map((button) => button.key)]);
+        buttons.length && toolbars.push(['buttons', buttons.map((button) => button.key)]);
 
         return toolbars.filter((group) => group);
     };

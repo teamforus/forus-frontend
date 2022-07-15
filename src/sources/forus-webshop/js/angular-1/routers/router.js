@@ -146,8 +146,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "products",
         url: {
-            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
-            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
+            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
+            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
         },
         component: "productsComponent",
         params: {
@@ -186,6 +186,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             show_menu: {
                 dynamic: true,
                 value: false,
+                squash: true
+            },
+            distance: {
+                dynamic: true,
+                value: null,
+                squash: true
+            },
+            postcode: {
+                dynamic: true,
+                value: '',
                 squash: true
             },
         },

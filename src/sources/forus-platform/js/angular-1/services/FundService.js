@@ -1,6 +1,6 @@
 const sprintf = require('sprintf-js').sprintf;
 
-const FundService = function (ApiRequest, ModalService) {
+const FundService = function ($q, $filter, ApiRequest, ModalService) {
     const uriPrefix = '/platform/organizations/';
 
     return new (function () {
@@ -228,10 +228,73 @@ const FundService = function (ApiRequest, ModalService) {
                 onConfirm,
             })
         };
+
+        const configFundProviderUpdate = (state, $translate) => {
+            return $q((resolve) => {
+                ModalService.open("dangerZone", {
+                    title: $translate(state + '.title'),
+                    description: $translate(state + '.description'),
+                    cancelButton: $translate(state + '.buttons.cancel'),
+                    confirmButton: $translate(state + '.buttons.confirm'),
+                    text_align: 'center',
+                    onConfirm: () => resolve({ state }),
+                });
+            });
+        };
+
+        const confirmAcceptBudgetFundProvider = (fundProvider, $translate) => {
+            const state = 'accepted';
+
+            const fields = [{
+                key: 'allow_budget',
+                name: 'Allow budget',
+                selected: fundProvider.state === 'pending' || fundProvider.allow_budget,
+            }, {
+                key: 'allow_products',
+                name: 'Allow products',
+                selected: fundProvider.state === 'pending' || fundProvider.allow_products,
+            }];
+
+            return $q((resolve) => {
+                ModalService.open('exportDataSelect', {
+                    title: $translate(state + '.title'),
+                    description: $translate(state + '.description'),
+                    fields: fields,
+                    required: false,
+                    sections: [{
+                        type: "checkbox",
+                        key: "fields",
+                        fields,
+                        fieldsPerRow: 2,
+                        selectAll: false,
+                        title: $translate(state + '.options')
+                    }],
+                    success: (data) => resolve({
+                        state,
+                        allow_budget: data.fields.includes('allow_budget'),
+                        allow_products: data.fields.includes('allow_products'),
+                    }),
+                });
+            });
+        };
+
+        this.confirmFundProviderStateUpdate = (fundProvider, state) => {
+            const $translate = (key) => {
+                return $filter('translate')(`modals.danger_zone.sponsor_provider_organization_state.${key}`);
+            };
+
+            if (state === 'rejected' || fundProvider.fund.type === "subsidies") {
+                return configFundProviderUpdate(state, $translate);
+            }
+
+            return confirmAcceptBudgetFundProvider(fundProvider, $translate);
+        };
     });
 };
 
 module.exports = [
+    '$q',
+    '$filter',
     'ApiRequest',
     'ModalService',
     FundService

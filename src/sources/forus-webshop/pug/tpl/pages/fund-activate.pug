@@ -86,7 +86,7 @@ main(id="main-content")
                     | Terug
 
         //- DigiD confirmation
-        .sign_up-pane(ng-if="$ctrl.state == 'digid'")
+        .sign_up-pane(ng-if="$ctrl.state == 'digid' && !$ctrl.showCustomCriteriaOverview")
             .sign_up-pane-header
                 h2.sign_up-pane-header-title(i18n="fund_request.sign_up.header.title_log_digid")
 
@@ -101,18 +101,59 @@ main(id="main-content")
                     ng-click="$ctrl.setState('code')") Ik heb een activatiecode
 
             .sign_up-pane-footer: .row
-                .col.col-lg-6.col-xs-6.text-left
+                .col.col-lg-6.text-left
                     .button.button-text.button-text-padless(
-                        ng-if="$ctrl.options.length > 1" 
+                        ng-if="$ctrl.options.length > 1"
                         ng-click="$ctrl.setState('select')")
-
                         em.mdi.mdi-chevron-left.icon-lefts
                         | Terug
 
-                .col.col-lg-6.col-xs-6.text-right(ng-if="$ctrl.fundRequestAvailable && !$ctrl.appConfigs.fund_request_allways_bsn_confirmation")
+                .col.col-lg-6.text-right(ng-if="$ctrl.fundRequestAvailable && !$ctrl.appConfigs.fund_request_allways_bsn_confirmation")
                     .button.button-text.button-text-padless(ui-sref="fund-request($ctrl.fund)")
                         em.mdi.mdi-chevron-right.icon-right
                         | Overslaan
+
+        //- DigiD confirmation (custom criteria)
+        .sign_up-pane(ng-if="$ctrl.state == 'digid' && $ctrl.showCustomCriteriaOverview")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title Bevestig uw inkomen
+
+            .sign_up-pane-body: .form
+                fund-criteria-custom-overview(key="$ctrl.fund.key")
+
+                p.sign_up-pane-text: ui-control-checkbox(
+                    ng-model="$ctrl.confirm_criteria"
+                    data-id="confirm_criteria"
+                    data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
+            
+            .sign_up-pane-footer: .row
+                .col.col-lg-6.text-left &nbsp;
+                .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                    ng-if="$ctrl.confirm_criteria"
+                    ng-click="$ctrl.startDigId()"
+                    role="button")
+                    span(i18n="fund_request.sign_up.pane.footer.next")
+                    em.mdi.mdi-chevron-right.icon-right
+
+            //- Prevalidation pincode
+            div(ng-if="$ctrl.state == 'pincode_activate'")
+                .sign_up-pane
+                    h2.sign_up-pane-header Vul uw activatiecode in
+                    .sign_up-pane-body(ng-class="{'sign_up-pane-body-padless-bottom': $ctrl.fundRequestAvailable}")
+                        form.form(ng-submit="$ctrl.activateCodeForm.submit()")
+                            .form-group.text-center
+                                .form-label(i18n="popup_auth.input.code")
+                                pincode-control(
+                                    ng-model="$ctrl.activateCodeForm.values.code" 
+                                    block-size="4" 
+                                    block-count="2" 
+                                    block-input-type="alphanum").block-pincode-compact
+                                .form-error(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
+                            .form-group
+                            .form-group.text-center: button(
+                                type="submit" 
+                                i18n="popup_auth.buttons.submit" 
+                                ng-class="($ctrl.activateCodeForm.values.code.length != 8 || !$ctrl.activateCodeForm.enabled) ? 'button-disabled' : ''").button.button-primary
 
         //- Error: No funds received after signing-up through DigiD, fund requests are disabled
         .sign_up-pane(ng-if="$ctrl.state == 'error_digid_no_funds'")
