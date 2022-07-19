@@ -363,7 +363,7 @@ const FundActivateComponent = function (
         $ctrl.showCustomCriteriaOverview =
             $ctrl.autoValidation &&
             $ctrl.digidAvailable &&
-            ['bus_2020', 'meedoen_2020'].includes($ctrl.fund.key);
+            ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
     };
 };
 

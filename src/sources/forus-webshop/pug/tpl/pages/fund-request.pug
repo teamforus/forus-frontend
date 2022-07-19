@@ -275,12 +275,12 @@ main(id="main-content")
                     .sign_up-pane-header Bevestig uw inkomen
                     .sign_up-pane-body
                         fund-criteria-custom-overview(
-                            ng-if="['bus_2020', 'meedoen_2020'].includes($ctrl.fund.key)"
+                            ng-if="['bus_2020', 'meedoen'].includes($ctrl.fund.key)"
                             key="$ctrl.fund.key")
 
                         //- Fallback
                         p.sign_up-pane-text(
-                            ng-if="!['bus_2020', 'meedoen_2020'].includes($ctrl.fund.key)")
+                            ng-if="!['bus_2020', 'meedoen'].includes($ctrl.fund.key)")
                             | U staat op het punt om een meedoenregeling aan te vragen. 
                             | U dient te verklaren dat u aan de voorwaarden voldoet.
 

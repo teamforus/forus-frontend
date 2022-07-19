@@ -340,7 +340,7 @@ const FundRequestComponent = function (
             $ctrl.fund.auto_validation &&
             $ctrl.digidAvailable &&
             $ctrl.steps[$ctrl.step] == 'confirm_criteria' &&
-            ['bus_2020', 'meedoen_2020'].includes($ctrl.fund.key);
+            ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
     };
 
     $scope.$watch('$ctrl.invalidCriteria', (value) => {
