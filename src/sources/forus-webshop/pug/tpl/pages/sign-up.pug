@@ -20,14 +20,14 @@ main(id="main-content")
                                 ng-if="$ctrl.appConfigs.features.digid && $ctrl.appConfigs.features.digid_sign_up_allowed"
                                 ng-click="$ctrl.startDigId()")
 
-                                .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
+                                .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met DigiD
                                     .sign_up-option-description U wordt doorverwezen naar Diaid om aan te melden
 
                             //- Sign up by Email
                             .sign_up-option(ng-click="$ctrl.setState('email')")
-                                .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
+                                .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met uw e-mailadres
                                     .sign_up-option-description Ontvana een link om mee an te melden
@@ -41,21 +41,21 @@ main(id="main-content")
                                 ng-if="$ctrl.appConfigs.features.digid"
                                 ng-click="$ctrl.startDigId()")
 
-                                .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
+                                .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met DigiD
                                     .sign_up-option-description EU wordt doorverwezen naar Diaid om aan te melden
 
                             //- Sign in by Email
                             .sign_up-option(ng-click="$ctrl.setState('email')")
-                                .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
+                                .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met uw e-mailadres
                                     .sign_up-option-description Ontvana een link om mee aan te melden
 
                             //- Sign in by Me App
                             .sign_up-option(ng-click="$ctrl.setState('qr')")
-                                .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
+                                .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met de Me app
                                     .sign_up-option-description
