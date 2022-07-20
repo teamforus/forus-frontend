@@ -302,7 +302,6 @@ const FundActivateComponent = function (
     $ctrl.$onInit = function () {
         const { backoffice_error, backoffice_fallback, backoffice_error_key } = $stateParams;
         const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
-        const pendingRequest = $ctrl.fundRequests.data.find((request) => request.state === 'pending');
 
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
         $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
@@ -335,7 +334,9 @@ const FundActivateComponent = function (
             return $ctrl.setState('error_digid_no_funds');
         }
 
-        $ctrl.getFunds().then(funds => {
+        $ctrl.getFunds().then((funds) => {
+            const pendingRequest = $ctrl.fundRequests.data.find((request) => request.state === 'pending');
+
             // The request has digid auth success or error meta
             if ($ctrl.hasDigiDResponse($stateParams) && $ctrl.handleDigiDResponse($stateParams, funds)) {
                 return;
