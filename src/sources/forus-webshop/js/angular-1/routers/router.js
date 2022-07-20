@@ -587,7 +587,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: {
             vouchers: ['VoucherService', (
                 VoucherService
-            ) => repackResponse(VoucherService.list())],
+            ) => repackResponse(VoucherService.list({
+                can_be_used: 1
+            }))],
         }
     });
 
