@@ -95,7 +95,7 @@ main(id="main-content")
 
                         .flex-col.text-right: .button.button-text.button-text-padless(
                             ng-if="!$ctrl.emailSetupRequired"
-                            ng-disabled="!$ctrl.emailForm.values.privacy"
+                            ng-disabled="$ctrl.appConfigs.flags.privacyPage && !$ctrl.emailForm.values.privacy"
                             ng-click="$ctrl.nextStep()"
                             role="button")
                             | Overslaan
