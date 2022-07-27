@@ -1,7 +1,7 @@
-const ImplementationNotificationsService = function($sce, ApiRequest) {
+const ImplementationNotificationsService = function ($sce, ApiRequest) {
     const uriPrefix = '/platform/organizations/';
 
-    return new (function() {
+    return new (function () {
         this.list = (organization_id, implementation_id, query = {}) => {
             return ApiRequest.get(`${uriPrefix}${organization_id}/implementations/${implementation_id}/system-notifications`, query);
         };
@@ -26,29 +26,41 @@ const ImplementationNotificationsService = function($sce, ApiRequest) {
         this.variablesMapLabels = () => require('../constants/notification_templates/variables_labels.json');
 
         this.isMailOnlyVariable = (variable) => {
-            const mailOnlyVars = ['qr_token', 'email_logo', 'email_signature'];
-            const mailOnlyVarEndings = ['_link', '_link_clarification', '_button'];
+            const mailOnlyVars = [':qr_token', ':email_logo', ':email_signature'];
+            const mailOnlyVarEndings = [':_link', ':_link_clarification', ':_button'];
 
             return mailOnlyVars.includes(variable) ||
                 mailOnlyVarEndings.filter((ending) => variable.endsWith(ending)).length > 0;
         };
 
-        this.varsToLabels = (template) => {
-            const vars = this.variablesMap();
-            const varsKeys = Object.keys(vars).sort((a, b) => b.length - a.length);
+        this.varsToLabels = (template, varsMap = null) => {
+            const vars = varsMap ? varsMap : this.variablesMap();
 
-            return varsKeys.reduce((template, key) => {
-                return template.replaceAll(":" + key, "[" + vars[key] + "]");
-            }, template);
+            return this.replaceTemplateValues(template, vars, true);
         };
 
-        this.labelsToVars = (template) => {
-            const vars = this.variablesMap();
+        this.labelsToVars = (template, varsMap = null) => {
+            const vars = varsMap ? varsMap : this.variablesMap();
+
+            return this.replaceTemplateValues(template.replace(/\\/g, ''), vars, false);
+        };
+
+        this.contentToPreview = (content, variableValues = {}) => {
+            const variablesMap = this.variablesMap();
+
+            return this.replaceTemplateValues(content, Object.keys(variableValues).reduce((vars, key) => {
+                return { ...vars, [variablesMap[`:${key}`]]: variableValues[key] };
+            }, {}));
+        };
+
+        this.replaceTemplateValues = (template, vars, byKey = true) => {
             const varsKeys = Object.keys(vars).sort((a, b) => b.length - a.length);
 
-            return varsKeys.reduce((template, key) => {
-                return template.replaceAll("[" + vars[key] + "]", ":" + key);
-            }, template.replace(/\\/g, ''));
+            const data = varsKeys.reduce((value, key) => {
+                return [...value, byKey ? { from: key, to: [vars[key]] } : { from: [vars[key]], to: key }];
+            }, []);
+
+            return data.reduce((template, value) => template.replaceAll(value.from, value.to), template);
         };
 
         this.labelsToBlocks = (template, implementation = null) => {

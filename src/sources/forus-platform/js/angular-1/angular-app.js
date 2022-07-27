@@ -62,6 +62,7 @@ app.component('implementationDigidEditComponent', require('./components/Implemen
 app.component('implementationNotificationsComponent', require('./components/ImplementationNotificationsComponent'));
 app.component('implementationNotificationsBrandingComponent', require('./components/ImplementationNotificationsBrandingComponent'));
 app.component('implementationNotificationsShowComponent', require('./components/ImplementationNotificationsShowComponent'));
+app.component('implementationNotificationsSendComponent', require('./components/ImplementationNotificationsSendComponent'));
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
@@ -127,6 +128,7 @@ app.service('TransactionBulksExportService', require('./services/TransactionBulk
 app.service('VoucherService', require('./services/VoucherService'));
 app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
+app.service('FundIdentitiesExportService', require('./services/FundIdentitiesExportService'));
 app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
 app.service('IdentityService', require('./services/IdentityService'));

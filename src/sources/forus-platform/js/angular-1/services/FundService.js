@@ -64,6 +64,22 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
             return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/providers/${provider_id}/products/${product_id}`, query);
         };
 
+        this.listIdentities = (organization_id, fund_id, data = {}) => {
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/identities`, data);
+        };
+
+        this.exportIdentities = (organization_id, fund_id, data = {}) => {
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/identities/export`, data);
+        };
+
+        this.exportIdentityFields = (organization_id, fund_id, data = {}) => {
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/identities/export-fields`, data);
+        };
+
+        this.sendNotification = (organization_id, fund_id, data = {}) => {
+            return ApiRequest.post(`${uriPrefix}${organization_id}/funds/${fund_id}/identities/notification`, data);
+        };
+
         /**
          * Export funds data
          * 

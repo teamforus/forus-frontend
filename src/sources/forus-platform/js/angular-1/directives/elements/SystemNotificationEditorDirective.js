@@ -75,9 +75,6 @@ const NotificationEditor = function(
         notification.description = description;
 
         $dir.templates = templates;
-        $dir.templatesLocal = templatesLocal;
-        $dir.templatesDefault = templatesDefault;
-        $dir.notificationStateLabel = notificationStateLabel;
         $dir.notificationToggleLabel = notificationToggleLabel;
 
         $dir.updateStateLabel();

@@ -1,4 +1,6 @@
-.modal.modal-employee-add.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-employee-add.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-window.modal-notification(ng-class="$ctrl.class")
         .modal-close(ng-click="$ctrl.cancel()" role="button")
