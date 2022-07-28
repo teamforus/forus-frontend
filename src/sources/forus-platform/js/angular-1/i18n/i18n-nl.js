@@ -72,6 +72,7 @@ module.exports = {
             restore_fund: require('./nl/modals/danger-zone/restore-fund'),
             remove_faq: require('./nl/modals/danger-zone/remove-faq'),
             remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
+            confirm_custom_sponsor_email_notification: require('./nl/modals/danger-zone/confirm-custom-sponsor-email-notification'),
         },
     },
     // PAGES

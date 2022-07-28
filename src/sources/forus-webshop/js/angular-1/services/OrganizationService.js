@@ -40,17 +40,6 @@ let OrganizationService = function(
         this.active = function() {
             return localStorage.getItem('active_organization') || null;
         }
-
-        this.apiResourceToForm = function(apiResource) {
-            return {
-                name: apiResource.name,
-                iban: apiResource.iban,
-                email: apiResource.email,
-                phone: apiResource.phone,
-                kvk: apiResource.kvk,
-                btw: apiResource.btw,
-            };
-        };
     });
 };
 

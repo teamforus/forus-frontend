@@ -1,4 +1,5 @@
 .modal.modal-physical-card-order.modal-animated(
+    ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.state == 'form' ? 'modal-sm' : 'modal-md', $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
     
