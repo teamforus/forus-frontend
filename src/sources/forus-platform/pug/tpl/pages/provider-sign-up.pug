@@ -18,13 +18,16 @@
 
     .block.block-sign_up: .block-wrapper        
         .sign_up-header
-            .sign_up-header-item.flex-grow: a(ui-sref="home").sign_up-header-item-back
+            .sign_up-header-item.flex-grow: a(ui-sref="home").sign_up-header-item-button
                 em.mdi.mdi-chevron-left
                 | Verlaat het formulier
 
             .sign_up-header-item
-                a.button.button-light(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthPopup()") Inloggen
-                a.button.button-light(ng-if="$root.auth_user" href="{{ $root.appConfigs.features.fronts.url_provider }}") Open beheeromgeving
+                a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthPopup()").sign_up-header-item-button
+                    | Inloggen
+                    em.mdi.mdi-login.icon-end
+
+                a(ng-if="$root.auth_user" href="{{ $root.appConfigs.features.fronts.url_provider }}").sign_up-header-item-button Open beheeromgeving
 
         h2.block-title(translate="sign_up_provider.header.main_header")
 
@@ -541,7 +544,9 @@
                 .sign_up-pane-body: .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_7")
                 .sign_up-pane-body
                     .sign_up-employees: .sign_up-employee(ng-repeat="employee in $ctrl.employees")
-                        span(ng-bind="employee.email")
+                        span(ng-if="employee.email" ng-bind="employee.email")
+                        span(ng-if="!employee.email" ng-bind="employee.identity_address | str_limit:32")
+
                         .sign_up-employee-actions
                             a(ng-click="$ctrl.deleteEmployee(employee)").mdi.mdi-trash-can-outline
 

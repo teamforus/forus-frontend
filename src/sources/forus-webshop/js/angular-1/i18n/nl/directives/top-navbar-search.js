@@ -4,6 +4,7 @@ module.exports = {
         search_formal: 'Waar bent u naar op zoek?',
     },
     result: {
+        all_label: "Alle resultaten",
         providers_label: "Aanbieders",
         funds_label: "Tegoeden",
         products_label: "Aanbod",

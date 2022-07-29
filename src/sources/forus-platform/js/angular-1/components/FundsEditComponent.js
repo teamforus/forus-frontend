@@ -63,7 +63,7 @@ const FundsEditComponent = function(
         name: 'Kortingspas'
     }, {
         key: 'external',
-        name: 'Geen (extern)'
+        name: 'Informatief (met doorlink)'
     }];
 
     $ctrl.findMethod = (key) => {
@@ -144,7 +144,7 @@ const FundsEditComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        let values = $ctrl.fund ? FundService.apiResourceToForm($ctrl.fund) : {
+        const values = $ctrl.fund ? FundService.apiResourceToForm($ctrl.fund) : {
             default_validator_employee_id: null,
             auto_requests_validation: false,
             formula_products: [],
@@ -157,6 +157,13 @@ const FundsEditComponent = function(
             allow_direct_requests: true,
             start_date: moment().add(6, 'days').format('DD-MM-YYYY'),
             end_date: moment().add(1, 'years').format('DD-MM-YYYY'),
+
+            // contact information
+            email_required: true,
+            contact_info_enabled: true,
+            contact_info_required: true,
+            contact_info_message_custom: false,
+            contact_info_message_text: '',
         };
 
         $ctrl.validators.unshift({

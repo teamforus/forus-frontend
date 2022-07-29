@@ -10,11 +10,13 @@ module.exports = {
         fund: "Fonds",
         granted: "Toegekend",
         used: "In gebruik",
+        used_date: 'In gebruik date',
         note: "Notitie",
         search: "Zoeken",
         qr_code: "QR-Code",
         yes: "Ja",
         no: "Nee",
+        date_type: 'Pas toe op',
     },
     buttons: {
         add_new: "Aanmaken",

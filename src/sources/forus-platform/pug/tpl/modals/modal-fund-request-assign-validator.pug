@@ -6,9 +6,9 @@
         .modal-header(translate="modal_fund_request_assign.header.title")
         .modal-body.form
             .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .form-group
-                label.form-label(translate="modal_fund_request_assign.label.employees")
+                label.form-label.form-label-required(translate="modal_fund_request_assign.label.employees")
                 select(
-                    ng-options="employee.id as employee.email for employee in $ctrl.employees"
+                    ng-options="employee.id as (employee.email || (employee.identity_address | str_limit:32)) for employee in $ctrl.employees"
                     ng-model="$ctrl.form.values.employee_id").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.employee_id" ng-bind="error")
 

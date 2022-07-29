@@ -7,7 +7,7 @@
         .modal-body.modal-body-visible.form
             .modal-section
                 .form-group(ng-if="!$ctrl.modal.scope.employee")
-                    label.form-label E-mailadres
+                    label.form-label.form-label-required E-mailadres
                     input(type="text" ng-model="$ctrl.form.values.email" placeholder="E-mailadres..." id="email_value").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
 

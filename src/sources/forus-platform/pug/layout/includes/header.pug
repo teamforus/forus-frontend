@@ -1,5 +1,7 @@
 header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
-    .wrapper.flex-row
+    .wrapper: announcements(ng-if="$root.appConfigs.features.announcements" list="$root.appConfigs.features.announcements")
+
+    .wrapper.flex-row.relative
         a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
             img(ng-src="./assets/img/logo.svg").header-logo-img
 
@@ -44,7 +46,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$root.openUserMenu($event)")
                 .auth-user-details
-                    .auth-user-name {{ $root.auth_user.email }}
+                    .auth-user-name {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
                     .auth-user-role
                         //- span(ng-bind="$root.activeOrganization.name")
                         //- span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •

@@ -1,6 +1,8 @@
 .modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-window
+
+    //- User has email
+    .modal-window(ng-if="$ctrl.fundRequest.email")
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-icon: .mdi.mdi-message-text-outline
         .modal-body.form: .modal-section.modal-section-pad
@@ -10,10 +12,32 @@
                     | Vraag de aanvrager om extra informatie als de aanvraag incompleet of onduidelijk is. 
                     | Voeg een bericht toe aan dit verzoek.
             form(ng-submit="$ctrl.form.submit()").form: .form-group
-                .form-label Bericht
+                .form-label.form-label-required Bericht
                 textarea(ng-model="$ctrl.form.values.question" placeholder="Bericht aan aanvrager").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.question" ng-bind="error")
         
         .modal-footer.text-center
             button.button.button-default(ng-click="$ctrl.close()") Annuleer
             button.button.button-primary(ng-click="$ctrl.form.submit()") Bevestig
+
+    //- User has no email
+    .modal-window(ng-if="!$ctrl.fundRequest.email")
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        .modal-icon: .mdi.mdi-message-text-outline
+        .modal-body.form: .modal-section.modal-section-pad
+            .text-center(ng-if="$ctrl.fundRequest.contact_information")
+                .modal-heading The user has no email but provided contact information
+                .modal-text
+                    strong Contact information provided by requester: 
+                    br
+                    span(ng-bind="$ctrl.fundRequest.contact_information")
+
+            .text-center(ng-if="!$ctrl.fundRequest.contact_information")
+                .modal-heading No contact information.
+                .modal-text 
+                    | Unfortunately the user did not provide any contact information, 
+                    | to clarify any details you will have to find the requester and 
+                    | clarify the details outside the platform.
+        
+        .modal-footer.text-center
+            button.button.button-default(ng-click="$ctrl.close()") Annuleer

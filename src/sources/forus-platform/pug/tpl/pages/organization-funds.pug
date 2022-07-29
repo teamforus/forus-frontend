@@ -1,7 +1,9 @@
 .app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.funds")
     menu
     section.app.app-content
+        //- Header
         .card-heading.flex-row
+            //- Title
             .flex-col
                 translate(translate="components.organization_funds.title")
                 a(
@@ -11,55 +13,61 @@
                     em.mdi.mdi-plus-circle
                     translate(translate="components.organization_funds.buttons.add")
                     span(ng-bind="' (' + $ctrl.funds.length + ')'")    
-            
+
+            //- Filters active/archived
             .flex-col: .block.block-label-tabs.nowrap.pull-right: .label-tab-set
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'active'}"
                     ui-sref="organization-funds({funds_type: 'active'})")
                     | Lopend ({{ $ctrl.activeFunds.length }})
+
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'archived'}"
                     ui-sref="organization-funds({funds_type: 'archived'})")
                     | Archief ({{ $ctrl.archivedFunds.length }})
 
+        //- Funds list
         .block.block-funds(ng-if="$ctrl.shownFundsType == 'active' && $ctrl.activeFunds.length > 0")
+            //- Fund item
             .fund-item(ng-repeat="fund in $ctrl.activeFunds")
                 .fund-item-section: .flex-col
+                    //- Logo, name and actions
                     .flex-row
                         .fund-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").fund-logo-img
+
                         .fund-details
                             .fund-title
                                 span(ng-bind="fund.name")
-                                
-                                .tag.tag-success.tag-sm(
-                                    ng-if="fund.state == 'active'" 
-                                    translate="components.organization_funds.states.active")
-                                
-                                .tag.tag-warning.tag-sm(
-                                    ng-if="fund.state == 'paused'" 
-                                    translate="components.organization_funds.states.paused")
 
-                                .tag.tag-default.tag-sm(
-                                    ng-if="fund.state == 'closed'" 
-                                    translate="components.organization_funds.states.closed")
+                                .tag.tag-success.tag-sm(ng-if="fund.state == 'active'" translate="components.organization_funds.states.active")
+                                .tag.tag-warning.tag-sm(ng-if="fund.state == 'paused'" translate="components.organization_funds.states.paused")
+                                .tag.tag-default.tag-sm(ng-if="fund.state == 'closed'" translate="components.organization_funds.states.closed")
 
                             .fund-subtitle(ng-bind="fund.type_locale")
 
                         .fund-actions
+                            a(ui-sref="funds-edit(fund)").button.button-default
+                                em.mdi.mdi-pencil.icon-start
+                                translate(translate="product_card.buttons.edit")
+
                             a(ui-sref="funds-show(fund)").button.button-primary
                                 em.mdi.mdi-eye-outline.icon-start
                                 translate(translate="product_card.buttons.view")
 
+                    //- Fund remaining amount (internal funds only)
                     .flex-row.flex-end(ng-if="!fund.is_external"): .fund-remaining
                         .fund-remaining-label(translate="components.organization_funds.labels.remaining") 
                         .fund-remaining-value(ng-bind="fund.budget.total - fund.budget.used | currency_format")
                     
+                    //- Fund actions (internal funds only)
                     .flex-row(ng-if="!fund.is_external")
-                        .flex-col.flex-col-2: .flex-row.flex-start
+                        .flex-col: .flex-row.flex-start
+                            //- Criteria toggle
                             .button.button-default(ng-click="$ctrl.toggleFundCriteria(fund)")
                                 em.mdi.mdi-toggle-switch.icon-start
                                 translate(translate="components.organization_funds.buttons.criteria")
                             
+                            //- Stats toggle
                             .button.button-default(ng-if="fund.key && fund.is_configured " ng-click="$ctrl.toggleFundStats(fund)")
                                 em.mdi.mdi-poll.icon-start
                                 translate(translate="components.organization_funds.buttons.statistics")
@@ -69,6 +77,7 @@
                                 translate(translate="components.organization_funds.buttons.top_up_history")
 
                         .flex-col: .flex-row.flex-end
+                            //- Top up
                             .button.button-default(
                                 ng-if="fund.balance_provider == 'top_ups' && fund.key && fund.state != 'closed'" 
                                 ng-disabled="!fund.organization.has_bank_connection"
@@ -76,12 +85,14 @@
                                 em.mdi.mdi-plus-circle.icon-start
                                 translate(translate="components.organization_funds.buttons.top_up")
 
+                            //- Archive
                             .button.button-default(
                                 ng-if="fund.key && fund.state == 'closed'" 
                                 ng-click="$ctrl.archiveFund(fund)")
                                 em.mdi.mdi-download-box-outline.icon-start
                                 translate(translate="components.organization_funds.buttons.archive")
-                
+
+                //- Fund criteria editor
                 .fund-item-section.fund-item-section-primary.fund-item-section-with-arrow.form(ng-if="fund.show_criteria")
                     fund-criteria-editor(
                         fund="fund" 
@@ -92,7 +103,12 @@
                         save-button='true'
                         on-save-criteria='$ctrl.onSaveCriteria(fund)'
                         validator-organizations="$ctrl.validatorOrganizations.data")
+
+                //- Email requirement and contact information
+                .fund-item-section.fund-item-section-primary.fund-item-section-with-arrow.form(ng-if="fund.show_criteria")
+                    .row: .col.col-lg-8.col-md-12: fund-config-contact-info-editor(fund="fund" inline="true")
                 
+                //- Fund stats
                 .fund-item-section.fund-item-section-warning.fund-item-section-with-arrow(ng-if="fund.is_configured && fund.show_stats")
                     .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
                         a.keyvalue-item.col.col-lg-3(
@@ -117,7 +133,8 @@
                             .keyvalue-value
                                 span(ng-bind="fund.requester_count")
                                 span.icon.mdi.mdi-account-multiple-plus(ng-if="fund.canAccessFund") 
-            
+
+                //- Fund stats
                 .fund-item-section.fund-item-section-primary(ng-if="fund.show_stats")
                     .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
                         .keyvalue-item.col.col-lg-3
@@ -135,6 +152,8 @@
                             .keyvalue-value
                                 span(ng-bind="fund.budget.total - fund.budget.used | currency_format")
 
+
+                //- Fund top-ups
                 .card.card-padded.form(ng-if="fund.show_top_ups")
                     .card-header.flex-row
                         .flex.flex-grow: .flex-col.card-title.tooltipped 
@@ -228,13 +247,15 @@
                     div(ng-if="fund.top_up_transactions.meta.total == 0")
                         block-empty(text="Je hebt momenteel geen top up transacties.")
 
+        //- Archived funds
         .block.block-funds(ng-if="$ctrl.shownFundsType == 'archived' && $ctrl.archivedFunds.length > 0")
+            //- Fund item
             .fund-item(ng-repeat="fund in $ctrl.archivedFunds")
                 .fund-item-section: .flex-col
                     .flex-row
-                        .fund-logo: img(
-                            ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}"
-                            ).fund-logo-img
+                        .fund-logo
+                            img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").fund-logo-img
+
                         .fund-details
                             .fund-title
                                 span(ng-bind="fund.name")
@@ -249,15 +270,18 @@
                                 em.mdi.mdi-lock-reset.icon-start
                                 translate(translate="components.organization_funds.buttons.restore")
 
+        //- No active funds (with add new fund button)
         block-empty(
             ng-if="$ctrl.activeFunds.length == 0 && $ctrl.shownFundsType == 'active' && $ctrl.hasManagerPermission"
             text="Je hebt momenteel geen lopende fondsen." 
             button="{text: 'Fonds toevoegen', href: $ctrl.emptyBlockLink}")
 
+        //- No active funds
         block-empty(
             ng-if="$ctrl.activeFunds.length == 0 && $ctrl.shownFundsType == 'active' && !$ctrl.hasManagerPermission"
             text="Je hebt momenteel geen lopende fondsen.")
 
+        //- No archived funds
         block-empty(
             ng-if="$ctrl.archivedFunds.length == 0 && $ctrl.shownFundsType == 'archived'"
             text="Je hebt momenteel geen gearchiveerde fondsen.")

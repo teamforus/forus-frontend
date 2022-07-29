@@ -5,10 +5,6 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalNotificationComponent'
     });
 
-    ModalRouteProvider.modal('modalAuth', {
-        component: 'modalAuthComponent'
-    });
-
     ModalRouteProvider.modal('modalPinCode', {
         component: 'modalPinCodeComponent'
     });

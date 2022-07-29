@@ -52,7 +52,12 @@
             //- Answer
             .form-group
                 label.form-label.form-label-required Antwoord
-                markdown(extended-options="true" value="question.description_html" ng-model="question.description" placeholder="Antwoord...")
+                markdown(
+                    extended-options="true"
+                    value="question.description_html"
+                    ng-model="question.description"
+                    placeholder="Antwoord..."
+                    media-uploaded="$dir.appendMedia(media_uid, question)")
                 .form-hint Max. 5000 tekens
                 .form-error(ng-repeat="error in $dir.errors['faq.' + $parent.$index + '.description']" ng-bind="error")
 

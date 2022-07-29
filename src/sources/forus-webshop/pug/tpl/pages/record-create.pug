@@ -22,8 +22,9 @@ main(id="main-content")
                                 .record_type-radio: em.mdi.mdi-check
 
                         .text-left
-                            button(
-                                ui-sref="records").button.button-dark {{ "records.header.buttons.cancel" | translate }}
+                            button(ui-sref="records").button.button-dark 
+                                translate(translate="records.header.buttons.cancel")
+                                em.mdi.mdi-arrow-right.icon-right
                             button(
                                 ng-if="$ctrl.form.values.type"
                                 ng-click="$ctrl.gotToStep(2)"

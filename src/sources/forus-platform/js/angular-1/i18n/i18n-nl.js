@@ -71,7 +71,7 @@ module.exports = {
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
             restore_fund: require('./nl/modals/danger-zone/restore-fund'),
             remove_faq: require('./nl/modals/danger-zone/remove-faq'),
-            
+            remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
         },
     },
     // PAGES
@@ -402,21 +402,45 @@ module.exports = {
             description: "Uitlegpagina content",
             communication: "Aanspreekvorm",
 
+            announcement_show: "Show announcement",
+            announcement_type: "Announcement type",
+            announcement_title: "Announcement title",
+            announcement_description: "Announcement description",
+            announcement_expire: "Auto expiration",
+            announcement_expire_at: "Expiration date",
+            announcement_replace: "Replace",
+
+            home: "Startpagina content",
             provider: "Aanbiederpagina content",
             privacy: "Privacy content",
-            explanation: "Uitleg pagina content",
+            products: "Aanbod content",
+            providers: "Aanbieders content",
+            funds: "Fondsen content",
+            explanation: "Uitleg pagina",
             accessibility: "Toegankelijkheidsverklaring",
             terms_and_conditions: "Algemene voorwaarden",
 
-            provider_url: "Aanbiederpagina content",
-            privacy_url: "Privacy content",
+            home_url: "Startpagina content",
+            provider_url: "Aanbiederpagina",
+            privacy_url: "Privacy",
             explanation_url: "Externe uitleg URL",
             accessibility_url: "Toegankelijkheidsverklaring",
             terms_and_conditions_url: "Algemene voorwaarden",
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
-
+        },
+        implementations_table: {
+            title: "Implementatie pages",
+            columns: {
+                name: "Naam",
+                options: "Opties"
+            },
+            labels: {
+                view: "Bekijk",
+                edit: "Bewerken",
+                no_pages: "Geen implementatie pages",
+            },
         },
         placeholders: {
             provider: "Aanbiederpagina content",

@@ -1,4 +1,8 @@
-nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScroll && !$ctrl.visible}')
+nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll && !$dir.visible}')
+    announcements(
+        ng-if="$root.appConfigs.features.announcements" 
+        list="$root.appConfigs.features.announcements")
+
     .navbar-inner.wrapper   
         a.button(
             ui-sref="explanation"
@@ -8,8 +12,8 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                 div(translate="topnavbar.items.explanation")
 
         a(ui-sref="home").navbar-logo.show-sm
-            img(ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" alt="Terug naar hoofdpagina")
-            img(ng-src="{{ './assets/img/logo-hover' + cfg.logoExtension }}" alt="Terug naar hoofdpagina").hover
+            img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="Terug naar hoofdpagina")
+            img(ng-src="{{ './assets/img/logo-hover' + $dir.logoExtension }}" alt="Terug naar hoofdpagina").hover
 
         .block.block-auth.show-sm
             .auth-in(ng-if="$root.auth_user").show-sm
@@ -18,11 +22,11 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     div(translate="topnavbar.buttons.logout")
 
             .auth-out(ng-if="!$root.auth_user" id="login_mobile")                
-                button.button.button-mobile(ng-click="openAuthPopup()" role="button" aria-label="login").show-sm
+                button.button.button-mobile(ng-click="$dir.startFundRequest()" role="button" aria-label="login").show-sm
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
                     div(translate="topnavbar.buttons.login")
         
-        ul.navbar-list#primary-menu(ng-class="mobileMenu?'navbar-list-show':''").hide-sm
+        ul.navbar-list#primary-menu.hide-sm
             li.navbar-item-wrapper
                 a.navbar-item(
                     ui-sref="home"
@@ -68,7 +72,10 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
                     ng-bind="'topnavbar.items.explanation' | translate")
 
             li.navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user")
-                span.navbar-user(ng-bind="$root.auth_user.email | str_limit:27")
+                span.navbar-user(
+                    ng-if="$root.auth_user.email"
+                    ng-bind="$root.auth_user.email | str_limit:27")
+
                 a(role="button" tabindex="0" href="" ng-click="$root.signOut($event, true)")
                     span.navbar-item(translate="topnavbar.buttons.logout")
                     em.mdi.mdi-logout
@@ -77,25 +84,16 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
         .subnav-inner.wrapper   
             a(ui-sref="home").navbar-logo.hide-sm
                 img(
-                    ng-src="{{ './assets/img/logo-normal' + cfg.logoExtension }}" 
+                    ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" 
                     alt="{{$root.appConfigs.features.implementation_name}}")
 
             top-navbar-search(ng-if="$root.appConfigs.flags.genericSearch")
 
             .block.flex.hide-sm
                 .block.block-auth
-                    button.button.button-default(
-                        ng-if="!$root.auth_user" 
-                        ng-click="openAuthPopup()" 
-                        role="button" 
-                        aria-label="Inloggen").hide-sm
-
-                        include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-profile.svg
-                        span(translate="topnavbar.buttons.login")
-                        
                     button.button.button-primary(
                         ng-if="!$root.auth_user"
-                        ng-click="startFundRequest()"
+                        ng-click="$dir.startFundRequest()"
                         role="button"
                         aria-label="{{ 'home.header.' + $root.client_key + '.button' | translate }}")
 
@@ -107,42 +105,43 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $ctrl.hideOnScrol
 
                     a(ng-if="$root.auth_user" ui-sref="vouchers" id="vouchers").button.button-primary
                         em.mdi.mdi-ticket-confirmation
-                        span(translate="topnavbar.buttons.voucher") 
+                        span(translate="topnavbar.buttons.voucher")
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
                         .auth-user(
-                            ng-click="$ctrl.openUserMenu($event)" 
+                            ng-click="$dir.openUserMenu($event)" 
                             aria-haspopup="true" 
                             id="user_menu" 
-                            aria-expanded="{{$ctrl.userMenuOpened}}" 
+                            aria-expanded="{{$dir.userMenuOpened}}" 
                             role="link" 
                             aria-label="Gebruikersmenu")
 
                             .auth-user-avatar
-                            .auth-user-caret: em(ng-class="$ctrl.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
+                            .auth-user-caret: em(ng-class="$dir.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
 
                             .auth-user-menu.hide-sm.active(
                                 aria-labelledby="user_menu"
-                                ng-class="{active: $ctrl.userMenuOpened}"
-                                ng-show="$ctrl.userMenuOpened"
-                                click-outside="$ctrl.hideUserMenu()")
+                                ng-class="{active: $dir.userMenuOpened}"
+                                ng-if="$dir.userMenuOpened"
+                                click-outside="$dir.hideUserMenu()")
+
                                 .triangle
                                 .inner(prevent-propagation)
-                                    .auth-user-menu-user
+                                    .auth-user-menu-user(ng-if="$root.auth_user.email")
                                         span.text-strong-half Ingelogd als: #[br]
                                         span(ng-bind="$root.auth_user.email | str_limit:27")
 
-                                    .auth-user-menu-separator
+                                    .auth-user-menu-separator(ng-if="$root.auth_user.email")
 
                                     .auth-user-menu-item(
-                                        ng-click="startFundRequest()" 
+                                        ng-click="$dir.startFundRequest()" 
                                         id="open_activation_code_popup"
                                         role="link")
                                         img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg" alt="")
                                         span(translate="topnavbar.buttons.activate_{{ $root.client_key }}" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
 
                                     .auth-user-menu-item(
-                                        ng-click="openPinCodePopup()" 
+                                        ng-click="$dir.openPinCodePopup()" 
                                         id="open_pincode_popup"
                                         role="link")
                                         em.mdi.mdi-cellphone

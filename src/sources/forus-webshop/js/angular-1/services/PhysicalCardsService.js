@@ -1,26 +1,13 @@
-let sprintf = require('sprintf-js').sprintf;
-
-let PhysicalCardService = function(
-    ApiRequest
-) {
-    let apiPrefix = '/platform/vouchers';
+const PhysicalCardService = function(ApiRequest) {
+    const apiPrefix = '/platform/vouchers';
 
     return new(function() {
         this.store = function(voucherAddress, data) {
-            return ApiRequest.post(sprintf(
-                '%s/%s/physical-cards',
-                apiPrefix,
-                voucherAddress
-            ), data);
+            return ApiRequest.post(`${apiPrefix}/${voucherAddress}/physical-cards`, data);
         };
 
         this.destroy = function(voucherAddress, physical_card) {
-            return ApiRequest.delete(sprintf(
-                '%s/%s/physical-cards/%s',
-                apiPrefix,
-                voucherAddress,
-                physical_card
-            ));
+            return ApiRequest.delete(`${apiPrefix}/${voucherAddress}/physical-cards/${physical_card}`);
         };
     });
 };

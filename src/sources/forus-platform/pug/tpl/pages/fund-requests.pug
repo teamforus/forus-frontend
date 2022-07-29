@@ -84,10 +84,10 @@
                         em.mdi.mdi-circle-outline.icon-start
                         span(translate='validation_requests.status.hold')
                     .card-section-actions-details: .flex-row.nowrap
-                        .flex-col
+                        .flex-pad
                             .card-section-actions-label(translate="validation_requests.labels.lead_time")
                             .card-section-actions-value(ng-bind="validatorRequest.lead_time_locale")
-                        .flex-col
+                        .flex-pad
                             .card-section-actions-label(translate="validation_requests.labels.pending_since")
                             .card-section-actions-value(ng-bind="validatorRequest.created_at_locale")
 
@@ -97,10 +97,10 @@
                         em.mdi.mdi-circle-outline.icon-start
                         span(translate='validation_requests.status.disregarded')
                     .card-section-actions-details: .flex-row.nowrap
-                        .flex-col
+                        .flex-pad
                             .card-section-actions-label(translate="validation_requests.labels.lead_time")
                             .card-section-actions-value(ng-bind="validatorRequest.lead_time_locale")
-                        .flex-col
+                        .flex-pad
                             .card-section-actions-label(translate="validation_requests.labels.disregarded_at")
                             .card-section-actions-value(ng-bind="validatorRequest.resolved_at_locale")         
                 
@@ -133,7 +133,7 @@
                     span(ng-bind="validatorRequest.id").text-strong
                 
                 .flex: .flex-row
-                    .flex-col: .card-block.card-block-listing
+                    .flex-pad: .card-block.card-block-listing
                         .card-block-listing-label Fonds
                         .card-block-listing-value.nowrap
                             span(ng-bind="validatorRequest.fund.name") 
@@ -151,14 +151,13 @@
                                         span(ng-if="criterion.operator == '<'") minder dan 
                                         | {{ criterion.record_type_key == 'net_worth' ? '€' : '' }}{{ criterion.value }}.
 
-                    .flex-col: .card-block.card-block-listing
+                    .flex-pad: .card-block.card-block-listing
                         .card-block-listing-label BSN: 
                         .card-block-listing-value.nowrap(ng-bind="validatorRequest.bsn || 'Geen data'")
 
-                    .flex-col: .card-block.card-block-listing
+                    .flex-pad: .card-block.card-block-listing
                         .card-block-listing-label E-mail: 
-                        .card-block-listing-value.nowrap(ng-bind="validatorRequest.email")
-                .flex.flex-grow
+                        .card-block-listing-value.nowrap(ng-bind="validatorRequest.email || 'Geen email'")
                 
                 .card-block.card-block-listing(ng-if="validatorRequest.note")
                     .card-block-listing-label Reden van weigeren
@@ -270,7 +269,8 @@
                         td.text-right(ng-if="record.state == 'pending' && !record.is_assigned")
                             .td-text-insert.text-muted(ng-if="record.employee_id")
                                 span Toegewezen aan
-                                .text-strong.nowrap(ng-bind="record.employee.email")
+                                .text-strong.nowrap(ng-if="record.employee.email" ng-bind="record.employee.email")
+                                .text-strong.nowrap(ng-if="!record.employee.email" ng-bind="record.employee.identity_address | str_limit:32")
 
                             .text-muted(ng-if="!record.employee_id && record.is_assignable")
                                 | Zelf toewijzen
@@ -303,9 +303,9 @@
 
                                 .attachment-name(ng-bind='file.original_name')
                                 .attachment-date(ng-bind='record.created_at_locale')
-                                .attachment-preview( 
-                                    ng-if="file.ext == 'pdf'"
+                                .attachment-preview(
                                     title="file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'"
+                                    ng-if="$ctrl.hasFilePreview(file)" 
                                     ng-click="$ctrl.previewFile($event, file)")
                                     .mdi.mdi-eye
                         

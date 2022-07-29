@@ -1,0 +1,13 @@
+.block.block-announcement(
+    ng-repeat="announcement in $dir.announcements" 
+    ng-class="'announcement-' + announcement.type + (announcement.dismissed ? ' dismissed' : '')")
+
+    .announcement-title(ng-if="announcement.title")
+        em.mdi.mdi-information(ng-if="announcement.type == 'default' || announcement.type == 'primary'")
+        em.mdi.mdi-check-circle(ng-if="announcement.type == 'success'")
+        em.mdi.mdi-close-circle(ng-if="announcement.type == 'danger'")
+        em.mdi.mdi-alert(ng-if="announcement.type == 'warning'")
+        span(ng-bind="announcement.title")
+
+    .announcement-description: .block.block-markdown(ng-bind-html="announcement.description_html")
+    .announcement-close.mdi.mdi-close(ng-click="$dir.dismiss(announcement)")
