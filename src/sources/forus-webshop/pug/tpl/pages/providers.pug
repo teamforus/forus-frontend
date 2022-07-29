@@ -94,6 +94,11 @@ block content
                                         em.mdi.mdi-map-marker-radius.icon-start
                                         | Kaart
 
+                        //- Funds CMS blocks
+                        cms-blocks(
+                            ng-if="$root.appConfigs.features.pages.providers"
+                            page="$root.appConfigs.features.pages.providers")
+
                         .block.block-organizations(ng-if="!$ctrl.showMap" ng-show="$ctrl.providers.data.length > 0" id="providers_list")
                             provider-list-item(
                                 ng-repeat="provider in $ctrl.providers.data"

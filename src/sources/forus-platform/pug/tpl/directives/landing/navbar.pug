@@ -23,7 +23,7 @@
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
             .auth-user
-                .auth-user-email(ng-bind="$root.auth_user.email")
+                .auth-user-email(ng-bind="$root.auth_user.email || ($root.auth_user.address | str_limit:32)")
                 .auth-user-type(translate="topnavbar.items.identity")
                 .auth-user-avatar
                     img(src="./assets/img/landing/identity-avatar.svg")

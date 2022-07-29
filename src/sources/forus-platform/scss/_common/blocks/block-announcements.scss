@@ -17,93 +17,22 @@
 
         .title {
             font: 600 13px/16px $bf;
-            color: #151b26;
+            color: #151B26;
             margin-bottom: 7px;
         }
 
         .description {
             font: 500 11px/16px $bf;
-            color: #646f79;
-
-            h1 {
-                font: 500 2.5em $bf;
-                margin: 0 0 0.6em;
-                text-align: left;
-            }
-
-            h2 {
-                font: 500 2em $bf;
-                margin: 0 0 0.7em;
-                text-align: left;
-            }
-
-            h3 {
-                font: 500 1.5em $bf;
-                margin: 0 0 0.9em;
-                text-align: left;
-            }
-
-            h4 {
-                font: 500 1.25em $bf;
-                margin: 0 0 0.9em;
-                text-align: left;
-            }
-
-            p {
-                margin-bottom: 15px;
-                text-align: justify;
-                font: inherit;
-            }
-
-            ul,
-            ol {
-                margin: 0 0 15px;
-                padding-left: 18px;
-
-                li {
-                    font: inherit;
-                }
-            }
-
-            ul {
-                list-style: disc;
-            }
-
-            a:not(.button) {
-                color: $bc;
-                font-weight: 500;
-                transition: 0.4s;
-                font: inherit;
-                text-decoration: underline;
-
-                &:hover {
-                    color: $bc;
-                }
-            }
-
-            strong,
-            b {
-                font: inherit;
-                font-weight: 700;
-            }
-
-            i,
-            em {
-                font: inherit;
-                font-style: italic;
-            }
-
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6,
-            p,
-            ul,
-            ol {
-                &:last-child {
-                    margin-bottom: 0;
+            color: #646F79;
+    
+            .block.block-markdown {
+                font: inherit !important;
+                color: inherit;
+    
+                p {
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
                 }
             }
         }

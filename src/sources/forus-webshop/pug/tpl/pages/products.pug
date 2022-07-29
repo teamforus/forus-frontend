@@ -108,6 +108,11 @@ block content
                                         em.mdi.mdi-view-grid-outline.icon-start
                                         | Foto's
 
+                        //- Funds CMS blocks
+                        cms-blocks(
+                            ng-if="$root.appConfigs.features.pages.products"
+                            page="$root.appConfigs.features.pages.products")
+
                         products-list(display="$ctrl.display_type" type="$ctrl.fund_type" products="$ctrl.products.data")
 
                         empty-block(

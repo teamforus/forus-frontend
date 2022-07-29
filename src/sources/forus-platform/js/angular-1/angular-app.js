@@ -56,6 +56,7 @@ app.component('organizationNotificationsComponent', require('./components/Organi
 app.component('implementationsComponent', require('./components/ImplementationsComponent'));
 app.component('implementationViewComponent', require('./components/ImplementationViewComponent'));
 app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
+app.component('implementationCmsPageEditComponent', require('./components/ImplementationCmsPageEditComponent'));
 app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
 app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
 app.component('implementationNotificationsComponent', require('./components/ImplementationNotificationsComponent'));
@@ -165,6 +166,7 @@ app.service('ProductChatService', require('./services/ProductChatService'));
 app.service('FundProviderChatService', require('./services/FundProviderChatService'));
 app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('ImplementationService', require('./services/ImplementationService'));
+app.service('ImplementationPageService', require('./services/ImplementationPageService'));
 app.service('ImplementationNotificationsService', require('./services/ImplementationNotificationsService'));
 app.service('HelperService', require('./services/HelperService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
@@ -224,6 +226,7 @@ app.directive('fundCardInvitationProvider', require('./directives/FundCardInvita
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('fundCriteriaEditor', require('./directives/FundCriteriaEditorDirective'));
 app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditorItemDirective'));
+app.directive('fundConfigContactInfoEditor', require('./directives/FundConfigContactInfoEditorDirective'));
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
@@ -232,6 +235,8 @@ app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
+
+app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

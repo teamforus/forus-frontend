@@ -126,11 +126,12 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
 
         this.apiFormToResource = function (formData) {
             const values = JSON.parse(JSON.stringify(formData));
+            const { start_date, end_date } = values;
 
             return {
                 ...values,
-                start_date: moment(values.start_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
-                end_date: moment(values.end_date, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+                ...(start_date ? { start_date: moment(start_date, 'DD-MM-YYYY').format('YYYY-MM-DD') } : {}),
+                ...(end_date ? { end_date: moment(end_date, 'DD-MM-YYYY').format('YYYY-MM-DD') } : {}),
             };
         };
 
@@ -141,12 +142,18 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
             const { notification_amount, default_validator_employee_id, auto_requests_validation } = apiResource;
             const { request_btn_text, external_link_text, external_link_url, allow_direct_requests } = apiResource;
 
+            const { email_required, contact_info_enabled } = apiResource;
+            const { contact_info_required, contact_info_message_custom, contact_info_message_text } = apiResource;
+
             return {
                 ...{ name, state, type, criteria },
                 ...{ faq: faq || [], faq_title: faq_title || '', formula_products: formula_products || [] },
                 ...{ description, description_html, description_short },
                 ...{ notification_amount, default_validator_employee_id, auto_requests_validation },
                 ...{ request_btn_text, external_link_text, external_link_url, allow_direct_requests },
+
+                ...{ email_required, contact_info_enabled },
+                ...{ contact_info_required, contact_info_message_custom, contact_info_message_text },
 
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),

@@ -320,6 +320,18 @@
         margin-bottom: 10px;
         @include cf();
 
+        &.tooltipped {
+            position: relative;
+
+            .block-form_tooltip {
+                position: absolute;
+                top: 20px;
+                right: -45px;
+                transform: translate(0, -50%);
+                z-index: 5;
+            }
+        }
+
         &.form-group-inline {
             margin-bottom: 10px;
             flex-wrap: wrap;
@@ -327,15 +339,13 @@
 
             .block-form_tooltip {
                 position: absolute;
-                top: 18px;
+                top: 20px;
                 right: -45px;
                 transform: translate(0, -50%);
                 z-index: 5;
             }
 
             &>.form-label {
-                // flex: 0 0 28%;
-                // max-width: 28%;
                 width: 200px;
                 padding-top: 8px;
                 padding-bottom: 8px;
@@ -359,11 +369,8 @@
 
             &>.form-offset,
             &>.form-control {
-                // flex: 0 0 72%;
-                // max-width: 72%;
                 width: calc(100% - 200px);
                 float: left;
-
 
                 .form-toggle {
                     padding: 8px 0;
@@ -426,7 +433,8 @@
         }
 
         &:last-child,
-        &:last-of-type {
+        &:last-of-type,
+        &.form-group-last {
             margin-bottom: 0 !important;
         }
     }
@@ -541,7 +549,7 @@
 
     .checkbox {
         display: inline-block;
-        padding: 10px 0;
+        padding: 8px 0;
         padding-right: 15px;
         padding-left: 25px;
         vertical-align: middle;

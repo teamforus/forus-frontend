@@ -1,8 +1,8 @@
-module.exports = function() {
-    return new (function() {
+module.exports = function () {
+    return new (function () {
         var host = false;
 
-        this.setHost = function(_host) {
+        this.setHost = function (_host) {
             while (_host[_host.length - 1] == '/')
                 _host = _host.slice(0, _host.length - 1);
 
@@ -15,14 +15,14 @@ module.exports = function() {
             '$rootScope',
             'appConfigs',
             'CredentialsService',
-            function(
+            function (
                 $q,
                 $http,
                 $rootScope,
                 appConfigs,
                 CredentialsService
             ) {
-                const resolveUrl = function(input) {
+                const resolveUrl = function (input) {
                     const parser = document.createElement('a');
 
                     parser.href = input;
@@ -35,7 +35,7 @@ module.exports = function() {
                     return parser.protocol + '//' + parser.host + pathname.join('/');
                 }
 
-                const makeHeaders = function() {
+                const makeHeaders = function () {
                     let headers = {
                         'Accept': 'application/json',
                         'Accept-Language': localStorage.getItem('lang') || 'nl',
@@ -51,27 +51,27 @@ module.exports = function() {
                     return headers;
                 };
 
-                const get = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                const get = function (endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
                     return ajax('GET', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                const post = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                const post = function (endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
                     return ajax('POST', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                const patch = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                const patch = function (endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
                     return ajax('PATCH', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                const put = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                const put = function (endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
                     return ajax('PUT', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                const _delete = function(endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                const _delete = function (endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
                     return ajax('DELETE', endpoint, data, headers, auth_redirect, cfg);
                 };
 
-                const ajax = function(method, endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
+                const ajax = function (method, endpoint, data, headers, auth_redirect = true, cfg = _cfg => _cfg) {
                     const params = {};
 
                     if (typeof data == 'object' && !(data instanceof FormData)) {
@@ -100,9 +100,11 @@ module.exports = function() {
                     params.method = method;
 
                     return $q((done, reject) => {
-                        $http(cfg(params)).then((res) => done(res), function(response) {
+                        $http(cfg(params)).then((res) => done(res), function (response) {
                             if (response.status == 401) {
-                                $rootScope.signOut(false, false, false);
+                                $rootScope.signOut(false, false, false, ($state) => $state.go('home', {
+                                    session_expired: response.data.message == 'session_expired',
+                                }));
                             }
 
                             reject(response);
@@ -110,7 +112,7 @@ module.exports = function() {
                     });
                 };
 
-                const endpointToUrl = function(endpoint) {
+                const endpointToUrl = function (endpoint) {
                     return resolveUrl(host + (endpoint || ''));
                 };
 
