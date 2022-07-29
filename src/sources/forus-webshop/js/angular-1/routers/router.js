@@ -585,11 +585,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         },
         component: "vouchersComponent",
         resolve: {
-            vouchers: ['VoucherService', (
-                VoucherService
-            ) => repackResponse(VoucherService.list({
-                can_be_used: 1
-            }))],
+            vouchers: ['VoucherService', (VoucherService) => {
+                return repackResponse(VoucherService.list({ archived: 0 }));
+            }],
         }
     });
 

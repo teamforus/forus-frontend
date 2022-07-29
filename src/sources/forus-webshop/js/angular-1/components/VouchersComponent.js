@@ -1,33 +1,26 @@
-const VouchersComponent = function(
+const VouchersComponent = function (
     VoucherService
 ) {
     const $ctrl = this;
 
-    $ctrl.availability_type = 'active';
+    $ctrl.archived = false;
 
-    const filterByType = () => {
-        $ctrl.regularVouchers = $ctrl.vouchers.filter(function(voucher) {
-            return voucher.type == 'regular';
-        });
-
-        $ctrl.productVouchers = $ctrl.vouchers.filter(function(voucher) {
-            return voucher.type == 'product';
-        });
+    const groupByType = (vouchers) => {
+        $ctrl.regularVouchers = vouchers.filter((voucher) => voucher.type == 'regular');
+        $ctrl.productVouchers = vouchers.filter((voucher) => voucher.type == 'product');
     };
 
-    $ctrl.filterByAvailability = (type) => {
-        $ctrl.availability_type = type;
+    $ctrl.setArchived = (archived) => {
+        $ctrl.archived = archived;
 
-        VoucherService.list({
-            can_be_used: type == 'active' ? 1 : 0
-        }).then(res => {
+        VoucherService.list({ archived: $ctrl.archived ? 1 : 0 }).then((res) => {
             $ctrl.vouchers = res.data.data;
-            filterByType();
+            groupByType(res.data.data);
         });
     };
 
-    $ctrl.$onInit = function() {
-        filterByType();
+    $ctrl.$onInit = function () {
+        groupByType($ctrl.vouchers);
     };
 };
 
