@@ -5,7 +5,7 @@ const OrganizationEmployeesComponent = function (
     PushNotificationsService,
     OrganizationEmployeesService
 ) {
-    const $ctrl = this;[];
+    const $ctrl = this;
     const str_limit = $filter('str_limit');
     const $translate = $filter('translate');
     

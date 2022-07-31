@@ -66,6 +66,7 @@ app.component('providerOverviewComponent', require('./components/ProviderOvervie
 app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
 app.component('productBoardComponent', require('./components/ProductBoardComponent'));
+app.component('eventLogsComponent', require('./components/EventLogsComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -176,6 +177,7 @@ app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
 app.service('TagService', require('./services/TagService'));
 app.service('ProductBoardService', require('./services/ProductBoardService'));
+app.service('EventLogService', require('./services/EventLogService'));
 
 // Directives
 app.directive('menu', {
@@ -235,6 +237,7 @@ app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
+app.directive('eventLogs', require('./directives/EventLogsDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 
