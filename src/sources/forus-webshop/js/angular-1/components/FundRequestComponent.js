@@ -337,9 +337,8 @@ const FundRequestComponent = function (
         $ctrl.setStepByName($ctrl.steps[0]);
 
         $ctrl.autoSubmit =
-            $ctrl.fund.auto_validation &&
             $ctrl.digidAvailable &&
-            $ctrl.steps[$ctrl.step] == 'confirm_criteria' &&
+            $ctrl.fund.auto_validation &&
             ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
     };
 
