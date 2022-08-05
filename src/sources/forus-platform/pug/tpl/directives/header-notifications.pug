@@ -1,8 +1,19 @@
 //- .active.update
-.notifications(ng-class="{active: $dir.shown, update: $dir.notifications.meta.total_unseen > 0}")
+.notifications(ng-class="{active: $dir.shown}")
     div(click-outside="$dir.onClickOutside()")
-        .notifications-icon(ng-click="$dir.toggle()"): .mdi.mdi-bell-outline
-        .notifications-icon.notifications-icon-updates(ng-click="$dir.toggle()"): .mdi.mdi-bell
+        .flex.notifications-icons
+            a.notifications-icon.notifications-icon-help(
+                ng-if="$dir.helpLink"
+                href="{{ $dir.helpLink }}"
+                target="_blank"): .mdi.mdi-help
+
+            .notifications-icon(
+                ng-if="$dir.notifications.meta.total_unseen == 0"
+                ng-click="$dir.toggle()"): .mdi.mdi-bell-outline
+
+            .notifications-icon.notifications-icon-updates(
+                ng-if="$dir.notifications.meta.total_unseen > 0"
+                ng-click="$dir.toggle()"): .mdi.mdi-bell
         
         .notifications-menu(ng-if="$dir.shown"): .notifications-menu-inner
             .arrow-box: .arrow
