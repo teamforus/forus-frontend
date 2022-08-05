@@ -1102,6 +1102,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         component: "transactionsComponent",
         resolve: {
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.list($transition$.params().organization_id))
+            }],
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')
         }
