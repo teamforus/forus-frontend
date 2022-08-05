@@ -183,7 +183,7 @@ const TransactionsComponent = function(
             $ctrl.buildingBulks = true;
             PageLoadingBarService.setProgress(0);
 
-            TransactionBulkService.bulkNow($ctrl.organization.id).then((res) => {
+            TransactionBulkService.bulkNow($ctrl.organization.id, $ctrl.filters.values).then((res) => {
                 const bulks = res.data.data;
 
                 if (bulks.length > 1) {
@@ -248,6 +248,10 @@ const TransactionsComponent = function(
 
             $ctrl.transactions = { ...res.data, data };
             $ctrl.transactionsTotal = res.data.meta.total_amount;
+
+            if ($ctrl.isSponsor && $ctrl.organization.has_bank_connection) {
+                $ctrl.updateHasPendingBulking();
+            }
         }));
     };
 
@@ -269,6 +273,7 @@ const TransactionsComponent = function(
 
     $ctrl.updateHasPendingBulking = () => {
         $ctrl.fetchTransactions({
+            ...$ctrl.filters.values,
             pending_bulking: 1,
             per_page: 1,
         }).then((res) => $ctrl.pendingBulkingMeta = res.data.meta);
