@@ -1,6 +1,5 @@
-//- .active.update
 .notifications(ng-class="{active: $dir.shown}")
-    div(click-outside="$dir.onClickOutside()")
+    div(click-outside="$dir.onClickOutside()" ng-if="$dir.notifications.meta")
         .flex.notifications-icons
             a.notifications-icon.notifications-icon-help(
                 ng-if="$dir.helpLink"

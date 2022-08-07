@@ -48,7 +48,6 @@ $colorPrimaryLight: $color_primary_light;
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
     @import 'blocks/block-fund_types';
     @import 'blocks/block-subsidy-product-overview';
-    @import 'blocks/block-dashboard-switcher';
     @import 'blocks/block-app_download.scss';
     @import 'blocks/block-app_links.scss';
     @import 'blocks/block-label-tabs.scss';
@@ -344,7 +343,7 @@ body {
                     line-height: 36px;
                     font-size: 18px;
                     cursor: pointer;
-                    transition: .4s;
+                    transition: background .4s, color .4s;
                     margin-right: 20px;
 
                     .mdi {
@@ -592,21 +591,70 @@ body {
                     box-shadow: 0 5px 30px rgba(#000, 0.1);
                     min-width: 220px;
                     max-width: 80%;
-                    padding: 11px 10px;
+                    padding: 10px 10px;
+                    cursor: default;
+
+                    .auth-user-menu-title {
+                        text-transform: uppercase;
+                        color: #646F79;
+                        font: 600 11px/13px $bf;
+                        padding: 10px 0 10px 2px;
+                    }
+
+                    .auth-user-menu-sep {
+                        display: block;
+                        border-top: 1px solid #f3f4f5;
+                        margin: 10px -10px 10px;
+                    }
 
                     .auth-user-menu-item {
                         display: flex;
                         justify-content: flex-start;
                         cursor: pointer;
-                        padding: 2px 7px 2px 0;
-                        font: 500 13px/32px $bf;
+                        padding: 0px;
+                        font: 500 13px/36px $bf;
                         letter-spacing: -0.312px;
                         color: #151B26;
                         transition: 0.4s;
+
+                        .auth-user-menu-item-icon {
+                            display: flex;
+                            flex: 0 0 32px;
+                            width: 32px;
+                            height: 36px;
+                            margin-right: 4px;
+
+                            svg,
+                            img {
+                                max-width: 100%;
+                                max-height: 100%;
+                                object-fit: contain;
+                                object-position: center;
+                                transition: 0.4s;
+
+                                path {
+                                    transition: 0.4s;
+                                }
+                            }
+
+                            svg {
+                                height: 36px;
+                            }
+                        }
+
                         &.active {
                             padding-right: 30px;
                             position: relative;
                             color: #004195;
+
+                            .auth-user-menu-item-icon {
+                                svg {
+                                    path {
+                                        fill: #134478;
+                                    }
+                                }
+                            }
+
                             &:after{
                                 content: '';
                                 background-image: url('../img/icon-check.svg');
@@ -620,33 +668,6 @@ body {
                                 top: 50%;
                                 transform: translate(0, -50%);
                             }
-
-                            .auth-user-menu-item-icon {
-
-                                svg {
-
-                                    path {
-                                        fill: #134478;
-                                    }
-                                }
-                            }
-                        }
-
-                        .auth-user-menu-item-icon {
-                            display: flex;
-                            flex: 0 0 32px;
-                            width: 32px;
-                            height: 32px;
-                            margin-right: 4px;
-
-                            svg,
-                            img {
-                                max-width: 100%;
-                                max-height: 100%;
-                                object-fit: contain;
-                                object-position: center;
-                                transition: 0.4s;
-                            }
                         }
 
                         &:hover {
@@ -655,28 +676,17 @@ body {
                             color: #004195;
 
                             .auth-user-menu-item-icon {
-
                                 svg {
-
                                     path {
                                         fill: #134478;
                                     }
                                 }
                             }
                         }
-                    }
 
-                    .auth-user-menu-title {
-                        text-transform: uppercase;
-                        color: #646F79;
-                        font: 600 11px/13px $bf;
-                        padding: 10px 0;
-                    }
-
-                    .auth-user-menu-sep {
-                        display: block;
-                        border-top: 1px solid #f3f4f5;
-                        margin: 10px -10px;
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
                     }
                 }
             }
