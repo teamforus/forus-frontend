@@ -6,7 +6,7 @@ module.exports = {
     invalid_endpoint: "Geen toegang tot deze aanvraag",
     not_requester: "U bent niet de eigenaar van deze aanvraag.",
     sign_up: {
-        block_title: "{{ fundname }} aanvragen",
+        block_title: "{{ fund_name }} aanvragen",
         pane: {
             header_title: "Overzicht",
             text: "We hebben nog wat gegevens nodig. Doorloop de volgende stappen:",
@@ -20,7 +20,7 @@ module.exports = {
             }
         },
         header: {
-            main: "{{ fundname }} aanvraag",
+            main: "{{ fund_name }} aanvraag",
             title: "Aanmelden",
             title_log_digid: "Eenmalig inloggen met DigiD",
             title_fund_already_applied: "Aanvraag in behandeling"

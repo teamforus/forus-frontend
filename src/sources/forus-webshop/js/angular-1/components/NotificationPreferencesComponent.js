@@ -1,4 +1,4 @@
-const EmailPreferencesComponent = function(
+const NotificationPreferencesComponent = function(
     $state,
     AuthService,
     ModalService,
@@ -83,7 +83,7 @@ module.exports = {
         'ModalService',
         'EmailPreferencesService',
         'PushNotificationsService',
-        EmailPreferencesComponent
+        NotificationPreferencesComponent
     ],
     templateUrl: 'assets/tpl/pages/preferences/notification-preferences.html'
 };

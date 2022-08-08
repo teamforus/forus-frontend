@@ -12,18 +12,8 @@ const DigIdService = function(ApiRequest, appConfigs) {
             });
         };
 
-        self.startFundRequst = (fund_id) => {
-            return self.start({
-                fund_id: fund_id,
-                request: 'fund_request'
-            });
-        };
-
-        self.startAuthRestore = () => {
-            return self.start({
-                request: 'auth'
-            });
-        };
+        self.startFundRequest = (fund_id) => self.start({ fund_id, request: 'fund_request' });
+        self.startAuthRestore = () => self.start({ request: 'auth' });
     });
 };
 

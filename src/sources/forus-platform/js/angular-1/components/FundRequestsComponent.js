@@ -134,9 +134,10 @@ const FundRequestsComponent = function(
         });
     };
 
-    $ctrl.declineRecord = (request, requestRecord) => {
+    $ctrl.declineRecord = (fundRequest, requestRecord) => {
         ModalService.open('fundRequestRecordDecline', {
             organization: $ctrl.organization,
+            fundRequest: fundRequest,
             requestRecord: requestRecord,
             submit: (err) => {
                 if (err) {
@@ -146,39 +147,37 @@ const FundRequestsComponent = function(
                     );
                 }
 
-                $ctrl.reloadRequest(request);
+                $ctrl.reloadRequest(fundRequest);
                 PushNotificationsService.success('Gelukt!', 'Eigenschap geweigerd.');
             }
         });
     };
 
-    $ctrl.clarifyRecord = (request, requestRecord) => {
+    $ctrl.clarifyRecord = (fundRequest, requestRecord) => {
         ModalService.open('fundRequestRecordClarify', {
+            fundRequest: fundRequest,
             organization: $ctrl.organization,
             requestRecord: requestRecord,
-            submit: (err) => {
-                if (err) {
-                    return showInfoModal(
-                        "U kunt op dit moment geen aanvullingsverzoek doen.",
-                        'Reason: ' + res.data.message
-                    );
+            submit: (res) => {
+                if (res) {
+                    return showInfoModal("Error", 'Reason: ' + res.data.message);
                 }
 
-                $ctrl.reloadRequest(request);
+                $ctrl.reloadRequest(fundRequest);
                 PushNotificationsService.success('Gelukt!', 'Aanvullingsverzoek op aanvraag verstuurd.');
             }
         });
     };
 
-    $ctrl.requestApprove = (request) => {
+    $ctrl.requestApprove = (fundRequest) => {
         ModalService.open('modalNotification', {
             modalClass: 'modal-md',
             type: 'confirm',
             title: 'Weet u zeker dat u deze eigenschap wil goedkeuren?',
             description: 'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.',
             confirm: () => {
-                FundRequestValidatorService.approve($ctrl.organization.id, request.id).then(() => {
-                    $ctrl.reloadRequest(request);
+                FundRequestValidatorService.approve($ctrl.organization.id, fundRequest.id).then(() => {
+                    $ctrl.reloadRequest(fundRequest);
                 }, (res) => {
                     showInfoModal(
                         'Validatie van eigenschap mislukt.',
@@ -189,10 +188,10 @@ const FundRequestsComponent = function(
         });
     };
 
-    $ctrl.requestDecline = (request) => {
+    $ctrl.requestDecline = (fundRequest) => {
         ModalService.open('fundRequestRecordsDecline', {
             organization: $ctrl.organization,
-            request: request,
+            fundRequest: fundRequest,
             submit: (err) => {
                 if (err) {
                     return showInfoModal(
@@ -201,7 +200,7 @@ const FundRequestsComponent = function(
                     );
                 }
 
-                $ctrl.reloadRequest(request);
+                $ctrl.reloadRequest(fundRequest);
                 PushNotificationsService.success('Gelukt!', 'Aanvraag is geweigerd.');
             }
         });

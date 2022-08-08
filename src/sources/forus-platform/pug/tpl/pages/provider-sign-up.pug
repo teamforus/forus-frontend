@@ -544,7 +544,9 @@
                 .sign_up-pane-body: .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_7")
                 .sign_up-pane-body
                     .sign_up-employees: .sign_up-employee(ng-repeat="employee in $ctrl.employees")
-                        span(ng-bind="employee.email")
+                        span(ng-if="employee.email" ng-bind="employee.email")
+                        span(ng-if="!employee.email" ng-bind="employee.identity_address | str_limit:32")
+
                         .sign_up-employee-actions
                             a(ng-click="$ctrl.deleteEmployee(employee)").mdi.mdi-trash-can-outline
 

@@ -11,12 +11,9 @@
                     .modal-heading Weiger aanvraag
                     .modal-text
                         | U staat op het punt om een aanvraag te weigeren. 
-                        | Weet u zeker dat u deze aanvraag wilt weigeren? The user will receive an email notification.
-                        br
-                        br
-                        | Optioneel kunt u een bericht sturen naar de aanvrager.
-                        br
-                        | &nbsp;
+                        | Weet u zeker dat u deze aanvraag wilt weigeren? 
+                        br 
+                        | Optioneel kunt u een bericht sturen naar de aanvrager. 
 
                 form(ng-submit="$ctrl.form.submit()").form: .form-group
                     .form-label Bericht (optioneel)
@@ -49,7 +46,7 @@
                         br
                         | Also no contact information was provided. 
                         | If you have to contact them, you will have to find them outside of the platform.
-    
+        
         .modal-footer.text-center
             button.button.button-default(ng-click="$ctrl.close()") Annuleer
             button.button.button-primary(ng-click="$ctrl.form.submit()") Bevestig
