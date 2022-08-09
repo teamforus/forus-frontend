@@ -40,7 +40,7 @@ mixin go_back()
 
 //-top-navbar
 main(id="main-content")
-    section: .wrapper(ng-if="!$ctrl.autoSubmit")
+    section: .wrapper
         .block.block-sign_up: .block-wrapper.form
             //- Sign up title
             h1.block-title(ng-if="$ctrl.state" i18n="fund_request.sign_up.header.main" i18n-vars="{fund_name: ($ctrl.fund.name | capitalize)}")
@@ -253,7 +253,7 @@ main(id="main-content")
                                 | Verzenden
 
             //- Confirm criteria
-            div(ng-if="$ctrl.steps[$ctrl.step] == 'confirm_criteria'")
+            div(ng-if="$ctrl.steps[$ctrl.step] == 'confirm_criteria' && !$ctrl.autoSubmit")
                 +progress()
 
                 mixin confirm_criteria_footer()

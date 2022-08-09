@@ -823,14 +823,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "fund-request",
         url: {
-            en: "/funds/{id}/request?email_confirmed",
-            en_fallback: "/fund/{id}/request?email_confirmed",
-            nl: "/fondsen/{id}/aanvraag?email_confirmed",
+            en: "/funds/{id}/request?from",
+            en_fallback: "/fund/{id}/request?from",
+            nl: "/fondsen/{id}/aanvraag?from",
         },
         component: "fundRequestComponent",
-        data: {
+        params: {
             id: null,
-            email_confirmed: false,
+            from: null,
         },
         resolve: {
             identity: ['AuthService', (
