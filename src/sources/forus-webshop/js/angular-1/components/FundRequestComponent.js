@@ -290,6 +290,7 @@ const FundRequestComponent = function (
             return $state.go('start');
         }
 
+        const from = $state.params?.from;
         const voucher = $ctrl.getFirstActiveFundVoucher($ctrl.fund, $ctrl.vouchers);
         const pendingRequests = $ctrl.fundRequests.data.filter((request) => request.state === 'pending');
         const invalidCriteria = $ctrl.fund.criteria.filter((criterion) => !criterion.is_valid);
@@ -300,6 +301,7 @@ const FundRequestComponent = function (
             return $state.go('voucher', voucher);
         }
 
+        $ctrl.fromDigiD = from === 'digid';
         $ctrl.appConfigs = appConfigs;
         $ctrl.bsnIsKnown = $ctrl.identity.bsn;
         $ctrl.digidAvailable = appConfigs.features.digid;
@@ -337,14 +339,15 @@ const FundRequestComponent = function (
         $ctrl.setStepByName($ctrl.steps[0]);
 
         $ctrl.autoSubmit =
-            $ctrl.fund.auto_validation &&
+            $ctrl.fromDigiD &&
             $ctrl.digidAvailable &&
-            $ctrl.steps[$ctrl.step] == 'confirm_criteria' &&
+            $ctrl.fund.auto_validation &&
+            $ctrl.invalidCriteria?.length > 0 &&
             ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
     };
 
-    $scope.$watch('$ctrl.invalidCriteria', (value) => {
-        if (Array.isArray(value) && value.length > 0 && $ctrl.autoSubmit && !$ctrl.autoSubmitted) {
+    $scope.$watch('$ctrl.step', (step) => {
+        if ($ctrl.autoSubmit && $ctrl.steps[step] == 'confirm_criteria' && !$ctrl.autoSubmitted) {
             $ctrl.submitConfirmCriteria();
             $ctrl.autoSubmitted = true;
         }

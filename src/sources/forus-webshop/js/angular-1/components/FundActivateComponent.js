@@ -221,7 +221,7 @@ const FundActivateComponent = function (
                     });
                 } else if (!fundsValidCriteria.map(fund => fund.id).includes($ctrl.fund.id)) {
                     // The current fund is now available for request (possible because bsn is now available)
-                    $state.go('fund-request', $ctrl.fund);
+                    $state.go('fund-request', { ...$ctrl.fund, from: 'digid' });
                 } else if (fundsWithVouchers.length > 1) {
                     // Identity has no valid funds, but has multiple vouchers (possible received during digid sign-up)
                     $state.go('vouchers');

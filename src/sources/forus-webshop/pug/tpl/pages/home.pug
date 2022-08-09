@@ -15,10 +15,17 @@ main(id="main-content")
             translate-default="{{'home.header.header_note' | translate }}")
         
         .wrapper
-            .header-content
+            .header-content(dusk="header")
+                h1.header-title(
+                    dusk="headerTitle"
+                    ng-if="$ctrl.appConfigs.features.settings.title"
+                    ng-bind="$ctrl.appConfigs.features.settings.title")
 
-                h1.header-title(ng-if="$ctrl.appConfigs.features.settings.title" ng-bind="$ctrl.appConfigs.features.settings.title")
-                h1.header-title(ng-if="!$ctrl.appConfigs.features.settings.title" translate="home.header.{{ $root.client_key }}.title" translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")
+                h1.header-title(
+                    dusk="headerTitle"
+                    ng-if="!$ctrl.appConfigs.features.settings.title"
+                    translate="home.header.{{ $root.client_key }}.title"
+                    translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")
 
                 .header-description#desc(ng-if="$ctrl.appConfigs.features.settings.description")
                     .block.block-markdown(
