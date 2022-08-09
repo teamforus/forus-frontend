@@ -37,7 +37,7 @@
                         .form-group
                             form-label-toggle(label="{{ 'event_logs.labels.entities' | translate }}")
 
-                            .form-offset: div(ng-repeat="loggable in $dir.loggables")
+                            .form-offset: div(ng-repeat="loggable in $dir.loggables" ng-if="$dir.organization | hasPerm:$dir.permissionsMap[loggable.key] ")
                                 label(for="checkbox_{{ loggable.key }}").checkbox.checkbox-narrow
                                     input(
                                         ng-click="$dir.selectLoggable(loggable.key)"

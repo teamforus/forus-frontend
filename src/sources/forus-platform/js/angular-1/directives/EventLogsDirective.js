@@ -1,18 +1,26 @@
 const EventLogsDirective = function (
     $scope,
     $filter,
+    appConfigs,
     EventLogService,
+    PermissionsService,
     PushNotificationsService
 ) {
     const $dir = $scope.$dir;
-    const $str_limit = $filter('str_limit');
+    const $strLimit = $filter('str_limit');
 
-    $dir.loggables = [
+    const loggables = [
         { key: 'fund', title: 'Fund' },
         { key: 'employee', title: 'Employee' },
         { key: 'bank_connection', title: 'Bank connection' },
         { key: 'voucher', title: 'Voucher' },
     ];
+
+    const filterPermissions = (loggable) => {
+        return loggable.filter((item) => {
+            return PermissionsService.hasPermission($dir.organization, $dir.permissionsMap[item]);
+        })
+    };
 
     $dir.filters = {
         values: {},
@@ -51,11 +59,13 @@ const EventLogsDirective = function (
     $dir.onPageChange = (query = {}) => {
         const filters = { ...$dir.filters.values, ...query };
 
+        filters.loggable = filterPermissions(filters.loggable);
+
         EventLogService.list($dir.organization.id, filters).then((res) => {
             $dir.logs = {
                 meta: res.data.meta,
                 data: res.data.data.map((item) => ({
-                    ...item, note_substr: item.note ? $str_limit(item.note, 40) : null,
+                    ...item, note_substr: item.note ? $strLimit(item.note, 40) : null,
                 })),
             };
         }, (res) => PushNotificationsService.danger('Error!', res.data.message));
@@ -82,12 +92,20 @@ const EventLogsDirective = function (
         $dir.onPageChange($dir.filters.values);
     };
 
+    $dir.onAuthUserUpdated = (authUser) => {
+        $dir.authUser = authUser;
+    };
+
     $dir.$onInit = () => {
         if ($dir.register) {
             $dir.register({ directive: $dir });
         }
 
+        $dir.loggables = loggables;
+        $dir.permissionsMap = appConfigs.features.event_permissions;
+
         $scope.$watch('$dir.filterValues', $dir.onExternalFilterUpdated, true);
+        $scope.$watch('$root.auth_user', $dir.onAuthUserUpdated, true);
     };
 };
 
@@ -109,7 +127,9 @@ module.exports = () => {
         controller: [
             '$scope',
             '$filter',
+            'appConfigs',
             'EventLogService',
+            'PermissionsService',
             'PushNotificationsService',
             EventLogsDirective
         ],
