@@ -286,40 +286,31 @@
         }
     }
 
-    &.modal-auth2 {
-        .modal-window {
-            width: 650px;
-            max-width: 100%;
-
-            .modal-content {
-                padding: 20px;
-            }
-        }
-    }
-
     &.modal-animated {
         &>.modal-backdrop, &>.modal-window, &>.modal-content {
-            opacity: 1;
-            transition: .25s ease-in;
+            opacity: 0;
+            transition: .3s ease-out;
         }
 
         &>.modal-window, &>.modal-content {
-            opacity: 1;
-            transform: scale(1, 1);
+            transform: scale(1.5, 1.5);
         }
 
-        &.modal-loading {
-            &>.modal-backdrop, &>.modal-window, &>.modal-content {
-                opacity: 0;
-                transition: .25s ease-out;
-            }
+        &>.modal-backdrop {
+            pointer-events: none;
+        }
 
-            &>.modal-backdrop {
-                pointer-events: none;
+        &.modal-loaded {
+            &>.modal-backdrop, &>.modal-window, &>.modal-content {
+                opacity: 1;
             }
     
             &>.modal-window, &>.modal-content {
-                transform: scale(1.5, 1.5);
+                transform: scale(1, 1);
+            }
+
+            &>.modal-backdrop {
+                pointer-events: all;
             }
         }
     }

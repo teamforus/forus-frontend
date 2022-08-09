@@ -13,31 +13,43 @@
                     ng-click="$ctrl.enableSubscription()" 
                     i18n="notification_preferences.subscribe").button.button-primary
 
-        .card(ng-if="!$ctrl.email_unsubscribed")
-            .card-header: .card-title(translate="notification_preferences.title_preferences")
-            .card-section
-                .card-heading(i18n="notification_preferences.unsubscribe_desc")
-                div: button(
-                    type="button" 
-                    ng-click="$ctrl.disableSubscription()" 
-                    i18n="notification_preferences.unsubscribe").button.button-primary
+        div(ng-if="!$ctrl.email")
+            .card(ng-if="!$ctrl.email_unsubscribed")
+                .card-header: .card-title(translate="notification_preferences.title_preferences")
+                .card-section
+                    .card-heading
+                        | You currently have no email associated with your account
+                        br
+                        | Please add en email address to receive email notifications.
 
-        .card(ng-if="!$ctrl.email_unsubscribed")
-            .card-header: .card-title(translate="notification_preferences.title_email_preferences")
-            .form.block.block-preferences(ng-if="!$ctrl.email_unsubscribed"): label(
-                ng-repeat="type in $ctrl.emailPreferences" 
-                for="option_{{ type.key }}").preference-option
-                .preference-option-details
-                    .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
-                    .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
-                .preference-option-input: .form-toggle
-                    input(
-                        type="checkbox" 
-                        id="option_{{ type.key }}" 
-                        ng-change="$ctrl.togglePreferenceOption()" 
-                        ng-checked="type.subscribed" 
-                        ng-model="type.subscribed")
-                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                    a(ui-sref="identity-emails").button.button-primary Add email
+
+        div(ng-if="$ctrl.email")
+            .card(ng-if="!$ctrl.email_unsubscribed")
+                .card-header: .card-title(translate="notification_preferences.title_preferences")
+                .card-section
+                    .card-heading(i18n="notification_preferences.unsubscribe_desc")
+                    div: button(
+                        type="button" 
+                        ng-click="$ctrl.disableSubscription()" 
+                        i18n="notification_preferences.unsubscribe").button.button-primary
+
+            .card(ng-if="!$ctrl.email_unsubscribed")
+                .card-header: .card-title(translate="notification_preferences.title_email_preferences")
+                .form.block.block-preferences(ng-if="!$ctrl.email_unsubscribed"): label(
+                    ng-repeat="type in $ctrl.emailPreferences" 
+                    for="option_{{ type.key }}").preference-option
+                    .preference-option-details
+                        .card-heading.card-heading-padless(translate="{{ 'notification_preferences.types.' + type.key + '.title' }}")
+                        .card-text(translate="{{ 'notification_preferences.types.' + type.key + '.description' }}")
+                    .preference-option-input: .form-toggle
+                        input(
+                            type="checkbox" 
+                            id="option_{{ type.key }}" 
+                            ng-change="$ctrl.togglePreferenceOption()" 
+                            ng-checked="type.subscribed" 
+                            ng-model="type.subscribed")
+                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
         .card
             .card-header: .card-title(translate="notification_preferences.title_push_preferences")
             .form.block.block-preferences: label(

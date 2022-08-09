@@ -1,14 +1,14 @@
-let ModalIdentityProxyExpiredComponent = function(
-    ModalService
-) {
-    let $ctrl = this;
+const ModalIdentityProxyExpiredComponent = function($state) {
+    const $ctrl = this;
 
-    $ctrl.$onInit = () => {};
+    $ctrl.cancel = () => {
+        $ctrl.close();
+        $state.go('home');
+    }
 
     $ctrl.openLoginModal = () => {
         $ctrl.close();
-        
-        ModalService.open('modalAuth', $ctrl.modal.scope);
+        $state.go('start', { redirect_scope: $ctrl.modal.scope });
     };
 };
 
@@ -18,10 +18,8 @@ module.exports = {
         modal: '=',
     },
     controller: [
-        'ModalService',
+        '$state',
         ModalIdentityProxyExpiredComponent
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-identity-proxy-expired.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-identity-proxy-expired.html',
 };

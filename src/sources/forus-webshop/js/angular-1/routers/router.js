@@ -33,36 +33,6 @@ const i18n_state = ($stateProvider, args, defaultLocale = 'nl') => {
     });
 };
 
-const handleAuthTarget = ($state, target) => {
-    if (target[0] == 'homeStart') {
-        return !!$state.go('home', {
-            confirmed: true
-        });
-    }
-
-    if (target[0] == 'fundRequest') {
-        return target[1] ? !!$state.go('fund-request', {
-            fund_id: target[1]
-        }) : !!$state.go('start', {});
-    }
-
-    if (target[0] == 'voucher') {
-        return !!$state.go('voucher', {
-            address: target[1]
-        });
-    }
-
-    if (target[0] == 'requestClarification') {
-        return target[1] ? !!$state.go('fund-request-clarification', {
-            fund_id: target[1],
-            request_id: target[2],
-            clarification_id: target[3]
-        }) : !!$state.go('start', {});
-    }
-
-    return false;
-};
-
 const resolveCmsPage = (pageSlug) => {
     return {
         configs: resolveConfigs(),
@@ -84,16 +54,17 @@ const resolveCmsPage = (pageSlug) => {
     };
 }
 
-module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
+module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function (
     $stateProvider, $locationProvider, appConfigs
 ) {
     $stateProvider.state({
         name: "home",
-        url: "/?digid_error",
+        url: "/?digid_error&target",
         component: "homeComponent",
         params: {
-            confirmed: null,
-            digid_error: null
+            target: null,
+            digid_error: null,
+            session_expired: null,
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
@@ -136,13 +107,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         params: {
             logout: null,
             restore_with_digid: null,
-            confirmed: null,
             digid_error: null,
             email_address: null,
+            redirect_scope: false,
         },
-        resolve: {
-            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
-        }
     });
 
     $stateProvider.state({
@@ -173,9 +141,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "me-app",
         url: "/me",
         component: "meComponent",
-        params: {
-            confirmed: null
-        }
     });
 
     i18n_state($stateProvider, {
@@ -858,14 +823,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     i18n_state($stateProvider, {
         name: "fund-request",
         url: {
-            en: "/fund/{fund_id}/request?digid_success&digid_error",
-            nl: "/fondsen/{fund_id}/aanvraag?digid_success&digid_error",
+            en: "/funds/{id}/request?from",
+            en_fallback: "/fund/{id}/request?from",
+            nl: "/fondsen/{id}/aanvraag?from",
         },
         component: "fundRequestComponent",
-        data: {
-            fund_id: null,
-            digid_success: false,
-            digid_error: false,
+        params: {
+            id: null,
+            from: null,
         },
         resolve: {
             identity: ['AuthService', (
@@ -874,12 +839,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             fund: ['$transition$', 'FundService', (
                 $transition$, FundService
             ) => repackResponse(FundService.readById(
-                $transition$.params().fund_id
+                $transition$.params().id
             ))],
             fundRequests: ['$transition$', 'FundRequestService', 'AuthService', (
                 $transition$, FundRequestService, AuthService
             ) => AuthService.hasCredentials() ? repackPagination(
-                FundRequestService.index($transition$.params().fund_id)
+                FundRequestService.index($transition$.params().id)
             ) : new Promise((resolve) => resolve(null))],
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
@@ -926,22 +891,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', 'appConfigs', (
-            $rootScope, $state, IdentityService, CredentialsService, ModalService, AuthService, appConfigs
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', (
+            $rootScope, $state, IdentityService, CredentialsService, ModalService, AuthService
         ) => {
-            let target = $state.params.target || '';
+            const { token, target } = $state.params;
+            const { handleAuthTarget, onAuthRedirect } = AuthService;
 
-            IdentityService.authorizeAuthEmailToken(
-                $state.params.token
-            ).then(function(res) {
+            IdentityService.authorizeAuthEmailToken(token).then((res) => {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-
-                if (typeof target == 'string') {
-                    if (!handleAuthTarget($state, target.split('-'))) {
-                        $state.go('vouchers');
-                    }
-                }
+                $rootScope.loadAuthUser().then(() => !handleAuthTarget(target) && onAuthRedirect());
             }, () => {
                 $state.go('home');
 
@@ -961,22 +919,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
-            $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', 'AuthService', (
+            $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService, AuthService
         ) => {
-            const target = $state.params.target || '';
+            const { token, target } = $state.params;
+            const { handleAuthTarget, onAuthRedirect } = AuthService;
 
-            IdentityService.exchangeConfirmationToken($state.params.token).then(function(res) {
+            IdentityService.exchangeConfirmationToken(token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-
-                if (typeof target == 'string') {
-                    if (!handleAuthTarget($state, target.split('-'))) {
-                        $state.go('home', {
-                            confirmed: 1
-                        });
-                    }
-                }
+                $rootScope.loadAuthUser().then(() => !handleAuthTarget(target) && onAuthRedirect());
             }, (res) => {
                 PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
                     timeout: 8000,
@@ -996,13 +947,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: 'preferences-notifications',
         url: '/preferences/notifications',
-        component: 'emailPreferencesComponent'
+        component: 'notificationPreferencesComponent',
     });
 
     $stateProvider.state({
         name: 'identity-emails',
         url: '/preferences/emails',
-        component: 'identityEmailsComponent'
+        component: 'identityEmailsComponent',
     });
 
     i18n_state($stateProvider, {
@@ -1011,7 +962,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             en: '/security/sessions',
             nl: '/beveiliging/sessies',
         },
-        component: 'securitySessionsComponent'
+        component: 'securitySessionsComponent',
     });
 
     $stateProvider.state({
@@ -1028,21 +979,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         data: {
             token: null
         },
-        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
-            $state, $rootScope, IdentityService, CredentialsService, PushNotificationsService
+        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'AuthService', 'PushNotificationsService', (
+            $state, $rootScope, IdentityService, CredentialsService, AuthService, PushNotificationsService
         ) => {
-            let target = $state.params.target || '';
+            const { token, target } = $state.params;
+            const { handleAuthTarget, onAuthRedirect } = AuthService;
 
-            IdentityService.exchangeShortToken($state.params.token).then(res => {
+            IdentityService.exchangeShortToken(token).then((res) => {
                 CredentialsService.set(res.data.access_token);
-
-                $rootScope.loadAuthUser().then(() => {
-                    if (typeof target == 'string') {
-                        if (!handleAuthTarget($state, target.split('-'))) {
-                            $state.go('home');
-                        }
-                    }
-                });
+                $rootScope.loadAuthUser().then(() => !handleAuthTarget(target) && onAuthRedirect());
             }, () => {
                 PushNotificationsService.danger("Deze link is reeds gebruikt of ongeldig.");
                 $state.go('home');
@@ -1063,6 +1008,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: {
             error: () => 404,
         }
+    });
+
+    $stateProvider.state({
+        name: "redirect",
+        url: "/redirect?target",
+        controller: ['$state', 'AuthService', ($state, AuthService) => {
+            if (!$state.params.target || !AuthService.handleAuthTarget($state.params.target)) {
+                $state.go('home');
+            }
+        }]
     });
 
     if (appConfigs.html5ModeEnabled) {

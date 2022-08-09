@@ -10,7 +10,7 @@
                 .form-group
                     label.form-label.form-label-required(i18n="modals.modal_transfer_organization_ownership.labels.transfer_to")
                     select(
-                        ng-options="employee as employee.email for employee in $ctrl.employees"
+                        ng-options="employee as (employee.email || (employee.identity_address | str_limit:32)) for employee in $ctrl.employees"
                         ng-model="$ctrl.form.values.employee").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.employee" ng-bind="error")
 

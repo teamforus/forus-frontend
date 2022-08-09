@@ -13,11 +13,6 @@ let ModalAuthComponent = function(
 ) {
     let $ctrl = this;
     let timeout;
-    let $redirectAuthorizedState = null;
-
-    if (appConfigs.panel_type == 'validator') {
-        $redirectAuthorizedState = 'csv-validation';
-    }
 
     $ctrl.qrValue = null;
     $ctrl.showChoose = true;

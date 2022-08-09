@@ -1,6 +1,6 @@
 module.exports = {
     // FUND REQUEST VALIDATION CLARIFICATION = fund-request-clarification.pug
-    block_title: "{{ fundname }} aanvulverzoek",
+    block_title: "{{ fund_name }} aanvulverzoek",
     labels: {
         question: "Vraag",
         message: "Bericht",

@@ -9,7 +9,6 @@ const outputRootBackendPublic = outputRoot + '/forus-backend.general';
 const minify = true;
 const sourcemap = true;
 const baseImplementationKey = 'general';
-const autoLogOutTime = 15;
 const chatId = false;
 const supportSupportId = false;
 const sessions = false;
@@ -440,7 +439,6 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             client_type: 'webshop',
             support_id: supportSupportId,
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             provider_sign_up_filters: {},
             /* aws_rum: {
@@ -478,7 +476,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'potjeswijzer',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 logoExtension: '.png',
@@ -505,7 +502,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_type: 'webshop',
             client_key: 'nijmegen',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 showAccountSidebar: false,
@@ -535,7 +531,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'kerstpakket',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
@@ -580,7 +575,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'berkelland',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 accessibilityPage: true,
@@ -599,7 +593,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'oostgelre',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 accessibilityPage: true,
@@ -625,7 +618,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'winterswijk',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 accessibilityPage: true,
@@ -651,7 +643,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'noordoostpolder',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 accessibilityPage: false,
             },
@@ -669,7 +660,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'groningen',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 fundsMenu: true,
                 accessibilityPage: false,
@@ -687,7 +677,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'geertruidenberg',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 accessibilityPage: false,
             },
@@ -704,7 +693,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'waalwijk',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 logoExtension: '.png',
                 accessibilityPage: false,
@@ -722,7 +710,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'heumen',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 logoExtension: '.png',
                 accessibilityPage: false,

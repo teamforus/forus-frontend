@@ -15,8 +15,16 @@ section.section.section-voucher-details: .wrapper
                             h1.profile-content-header Notificatievoorkeuren
 
                 p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
+
+                //- User has no email, suggest adding one
+                .card(ng-if="!$ctrl.email")
+                    .card-header: h2.card-title(translate="notification_preferences.no_email_title")
+                    .card-section
+                        .card-heading(translate="{{ 'notification_preferences.no_email_description' }}")
+                        a(ui-sref="identity-emails" i18n="notification_preferences.no_email_button").button.button-primary
                 
-                .card(ng-if="$ctrl.email_unsubscribed")       
+                //- Unsubscribe from all email notifications (subscribe back)
+                .card(ng-if="$ctrl.email && $ctrl.email_unsubscribed")       
                     .card-header: h2.card-title(translate="notification_preferences.title_emails_turned_on")
                     .card-section
                         .card-heading(translate="{{ 'notification_preferences.subscribe_desc_' + $root.appConfigs.features.communication_type }}" translate-values="{ email: $ctrl.email }")
@@ -26,7 +34,8 @@ section.section.section-voucher-details: .wrapper
                             i18n="notification_preferences.subscribe"
                             id="enable_subscription").button.button-primary
 
-                .card(ng-if="!$ctrl.email_unsubscribed")
+                //- Unsubscribe from all email notifications (unsubscribe)
+                .card(ng-if="$ctrl.email && !$ctrl.email_unsubscribed")
                     .card-header: h2.card-title(translate="notification_preferences.title_emails_turned_of")
                     .card-section
                         .card-heading(translate="{{ 'notification_preferences.unsubscribe_desc' }}")
@@ -36,7 +45,8 @@ section.section.section-voucher-details: .wrapper
                             i18n="notification_preferences.unsubscribe"
                             id="disable_subscription").button.button-primary 
                 
-                .card(ng-if="!$ctrl.email_unsubscribed")
+                //- Unsubscribe from individual email notifications
+                .card(ng-if="$ctrl.email && !$ctrl.email_unsubscribed")
                     .card-header: h2.card-title(translate="notification_preferences.title_email_preferences")
                     .form.block.block-preferences(ng-if="!$ctrl.email_unsubscribed")
                         label(
@@ -59,6 +69,7 @@ section.section.section-voucher-details: .wrapper
                                     em.mdi.mdi-check-bold(ng-if="type.subscribed")
                                     .icon-disabled(ng-if="!type.subscribed")
                 
+                //- Unsubscribe from individual push notifications
                 .card
                     .card-header: h2.card-title(translate="notification_preferences.title_push_preferences")
                     .form.block.block-preferences: label(

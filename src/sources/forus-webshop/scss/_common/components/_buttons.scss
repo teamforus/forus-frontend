@@ -1,9 +1,9 @@
 .button {
     font: 700 16px/1.5em $bf;
+    padding: 12px 25px;
     color: #646f79;
     cursor: pointer;
     border: 1px solid transparent;
-    padding: 12px 25px;
     transition: color 0.4s, background 0.4s, box-shadow 0.4s, border 0.4s;
     border-radius: $border_radius;
     display: inline-block;
@@ -185,6 +185,15 @@
         }
     }
 
+    &.button-sm {
+        font: 700 14px/20px $bf;
+        padding: 10px 15px;
+
+        .mdi {
+            margin-right: 4px;
+        }
+    }
+
     &.button-text {
         background: none;
         border: none;
@@ -236,7 +245,7 @@
     &[disabled],
     &.disabled,
     &.button-disabled {
-        background: #eff2f4 !important;
+        background: #eff2f4;
         border-color: #eff2f4;
         color: #3B3B3B;
         box-shadow: none;
@@ -248,7 +257,7 @@
         }
 
         &:focus {
-            color: #3B3B3B !important;
+            color: #3B3B3B;
         }
     }
 
