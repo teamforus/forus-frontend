@@ -221,7 +221,7 @@ const FundActivateComponent = function (
                     });
                 } else if (!fundsValidCriteria.map(fund => fund.id).includes($ctrl.fund.id)) {
                     // The current fund is now available for request (possible because bsn is now available)
-                    $state.go('fund-request', $ctrl.fund);
+                    $state.go('fund-request', { ...$ctrl.fund, from: 'digid' });
                 } else if (fundsWithVouchers.length > 1) {
                     // Identity has no valid funds, but has multiple vouchers (possible received during digid sign-up)
                     $state.go('vouchers');
@@ -302,7 +302,6 @@ const FundActivateComponent = function (
     $ctrl.$onInit = function () {
         const { backoffice_error, backoffice_fallback, backoffice_error_key } = $stateParams;
         const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
-        const pendingRequest = $ctrl.fundRequests.data.find((request) => request.state === 'pending');
 
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
         $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
@@ -335,7 +334,9 @@ const FundActivateComponent = function (
             return $ctrl.setState('error_digid_no_funds');
         }
 
-        $ctrl.getFunds().then(funds => {
+        $ctrl.getFunds().then((funds) => {
+            const pendingRequest = $ctrl.fundRequests.data.find((request) => request.state === 'pending');
+
             // The request has digid auth success or error meta
             if ($ctrl.hasDigiDResponse($stateParams) && $ctrl.handleDigiDResponse($stateParams, funds)) {
                 return;

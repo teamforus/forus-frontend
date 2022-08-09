@@ -18,7 +18,8 @@ main(id="main-content")
                             //- Sign up by DigiD
                             .sign_up-option(
                                 ng-if="$ctrl.appConfigs.features.digid && $ctrl.appConfigs.features.digid_sign_up_allowed"
-                                ng-click="$ctrl.startDigId()")
+                                ng-click="$ctrl.startDigId()"
+                                dusk="authOptionDigiD")
 
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                                 .sign_up-option-details
@@ -26,7 +27,10 @@ main(id="main-content")
                                     .sign_up-option-description U wordt doorverwezen naar Diaid om aan te melden
 
                             //- Sign up by Email
-                            .sign_up-option(ng-click="$ctrl.setState('email')")
+                            .sign_up-option(
+                                ng-click="$ctrl.setState('email')" 
+                                dusk="authOptionEmailRegister")
+
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met uw e-mailadres
@@ -47,7 +51,10 @@ main(id="main-content")
                                     .sign_up-option-description EU wordt doorverwezen naar Diaid om aan te melden
 
                             //- Sign in by Email
-                            .sign_up-option(ng-click="$ctrl.setState('email')")
+                            .sign_up-option(
+                                ng-click="$ctrl.setState('email')"
+                                dusk="authOptionEmailRestore")
+
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met uw e-mailadres
@@ -71,11 +78,21 @@ main(id="main-content")
             .sign_up-pane(ng-if="!$ctrl.authEmailRestoreSent && !$ctrl.authEmailConfirmationSent")
                 .sign_up-pane-header: h2.sign_up-pane-header-title Aanmelden met e-mailadres
 
-                .sign_up-pane-body.sign_up-pane-body-padless-bottom.form: form(ng-submit="$ctrl.authForm.submit()").form
+                .sign_up-pane-body.sign_up-pane-body-padless-bottom.form: form(
+                    ng-submit="$ctrl.authForm.submit()"
+                    dusk="authEmailForm"): .form
+
                     .row
                         .form-group.col.col-lg-9
                             label.form-label(i18n="popup_auth.input.mail" for="email")
-                            ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email" tabindex="1")
+                            ui-control-email(
+                                ng-model="$ctrl.authForm.values.email"
+                                ng-change="$ctrl.onChange()"
+                                data-placeholder="bijv. info@info.nl" 
+                                data-id="email" 
+                                tabindex="1" 
+                                input-dusk="authEmailFormEmail"
+                                name="email")
                             .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
 
                         .form-group.col.col-lg-3
@@ -84,6 +101,7 @@ main(id="main-content")
                                 ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
                                 translate="popup_auth.buttons.submit"
                                 type="submit"
+                                dusk="authEmailFormSubmit"
                                 tabindex="3").button.button-primary.button-fill
 
                     .row(ng-if="$root.appConfigs.flags.privacyPage"): .col.col-lg-12
@@ -102,7 +120,7 @@ main(id="main-content")
                 h1.sr-only Start aanmelden
                 h2.sign_up-pane-header(i18n="popup_auth.header.title") 
 
-                .sign_up-pane-body
+                .sign_up-pane-body(dusk="authEmailSentConfirmation")
                     .sign_up-email_sent
                         .sign_up-email_sent-icon: img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_succes_' + $root.appConfigs.features.communication_type }}")
@@ -115,7 +133,7 @@ main(id="main-content")
                 h1.sr-only(role="heading") Start aanmelden
                 h2.sign_up-pane-header(role="heading") Aanmelding bevestigen
 
-                .sign_up-pane-body 
+                .sign_up-pane-body(dusk="authEmailSentConfirmation")
                     .sign_up-email_sent
                         .sign_up-email_sent-icon: img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
                         h3.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")

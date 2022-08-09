@@ -1,9 +1,8 @@
-let UIControlEmailDirective = function(
-    $scope
-) {
-    let $dir = {
+const UIControlEmailDirective = function($scope) {
+    const $dir = {
         id: $scope.id || '',
         name: $scope.name || '',
+        inputDusk: $scope.inputDusk || '',
         placeholder: $scope.placeholder || '',
         onChange: () => $scope.ngChange(),
     };
@@ -26,6 +25,7 @@ module.exports = () => {
         scope: {
             id: "@",
             name: "@",
+            inputDusk: "@",
             placeholder: "@",
             ngModel: '=',
             controlStyle: '@',

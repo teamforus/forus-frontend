@@ -73,6 +73,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
             li.navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user")
                 span.navbar-user(
+                    dusk="identityEmail"
                     ng-if="$root.auth_user.email"
                     ng-bind="$root.auth_user.email | str_limit:27")
 
@@ -95,9 +96,11 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                         ng-if="!$root.auth_user"
                         ng-click="$dir.startFundRequest()"
                         role="button"
+                        dusk="btnStart"
                         aria-label="{{ 'home.header.' + $root.client_key + '.button' | translate }}")
 
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
+
                         span(
                             translate="home.header.{{ $root.client_key }}.button" 
                             translate-default="{{ 'home.header.button' | translate }}" 
@@ -106,10 +109,10 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     a(ng-if="$root.auth_user" ui-sref="vouchers" id="vouchers").button.button-primary
                         em.mdi.mdi-ticket-confirmation
                         span(translate="topnavbar.buttons.voucher")
-                        em.mdi.mdi-arrow-right.icon-right
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
                         .auth-user(
+                            dusk="userProfile"
                             ng-click="$dir.openUserMenu($event)" 
                             aria-haspopup="true" 
                             id="user_menu" 
@@ -215,6 +218,9 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
                                     .auth-user-menu-separator
 
-                                    button.auth-user-menu-item(ng-click="$root.signOut()" id="sign_out")
+                                    button.auth-user-menu-item(
+                                        id="sign_out"
+                                        ng-click="$root.signOut()" 
+                                        dusk="btnUserLogout")
                                         img(src="./assets/img/icon-menu/icon-menu-sign-out.svg" alt="")
                                         span(translate="topnavbar.buttons.logout")
