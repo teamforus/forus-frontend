@@ -1,6 +1,5 @@
-const VouchersShowComponent = function(
+const VouchersShowComponent = function (
     $filter,
-    $timeout,
     ModalService,
     VoucherService,
     PermissionsService,
@@ -15,9 +14,10 @@ const VouchersShowComponent = function(
         `modals.danger_zone.increase_limit_multiplier.${key}`
     );
 
-    const onStateChanged = function(promise, action = 'deactivation') {
+    const onStateChanged = function (promise, action = 'deactivation') {
         promise.then((res) => {
             $ctrl.voucher = res.data.data;
+            $ctrl.logsDirective?.onPageChange();
             $ctrl.updateFlags();
 
             switch (action) {
@@ -102,6 +102,7 @@ const VouchersShowComponent = function(
     $ctrl.fetchVoucher = () => {
         VoucherService.show($ctrl.organization.id, $ctrl.voucher.id).then(((res) => {
             $ctrl.voucher = res.data.data;
+            $ctrl.logsDirective?.onPageChange();
             $ctrl.updateFlags();
         }));
     };
@@ -149,7 +150,11 @@ const VouchersShowComponent = function(
         });
     }
 
-    $ctrl.$onInit = function() {
+    $ctrl.registerLogsDirective = (directive) => {
+        $ctrl.logsDirective = directive;
+    };
+
+    $ctrl.$onInit = function () {
         $ctrl.updateFlags();
 
         $ctrl.eventFilters = {
@@ -168,7 +173,6 @@ module.exports = {
     },
     controller: [
         '$filter',
-        '$timeout',
         'ModalService',
         'VoucherService',
         'PermissionsService',

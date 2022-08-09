@@ -1264,8 +1264,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     // Event logs
     $stateProvider.state({
-        name: "event-logs",
-        url: "/organizations/{organization_id}/event-logs",
+        name: "organization-logs",
+        url: "/organizations/{organization_id}/logs",
         component: "eventLogsComponent",
         resolve: {
             organization: organziationResolver(),

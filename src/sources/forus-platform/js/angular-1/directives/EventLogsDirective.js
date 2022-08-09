@@ -1,6 +1,5 @@
-const EventLogsDirective = function(
+const EventLogsDirective = function (
     $scope,
-    $timeout,
     $filter,
     EventLogService,
     PushNotificationsService
@@ -9,22 +8,38 @@ const EventLogsDirective = function(
     const $str_limit = $filter('str_limit');
 
     $dir.loggables = [
-        {key: 'fund', title: 'Fund'},
-        {key: 'employee', title: 'Employee'},
-        {key: 'bank_connection', title: 'Bank connection'},
-        {key: 'voucher', title: 'Voucher'},
+        { key: 'fund', title: 'Fund' },
+        { key: 'employee', title: 'Employee' },
+        { key: 'bank_connection', title: 'Bank connection' },
+        { key: 'voucher', title: 'Voucher' },
     ];
 
-    $dir.resetFilters = () => {
-        $dir.filters.values = angular.copy($dir.initialFilterValues);
-    };
+    $dir.filters = {
+        values: {},
+        visible: false,
+        initialValues: {},
+        hide: (e) => {
+            e?.preventDefault();
+            e?.stopPropagation();
 
-    $dir.hideFilters = () => {
-        $timeout(() => $dir.filters.show = false, 0);
+            $dir.filters.visible = false;
+        },
+        show: (e) => {
+            e?.preventDefault();
+            e?.stopPropagation();
+
+            $dir.filters.visible = true;
+        },
+        reset: (e) => {
+            e?.preventDefault();
+            e?.stopPropagation();
+
+            $dir.filters.values = angular.copy($dir.filters.initialValues);
+        },
     };
 
     $dir.selectLoggable = (key) => {
-        let index = $dir.filters.values.loggable.indexOf(key);
+        const index = $dir.filters.values.loggable.indexOf(key);
 
         if (index !== -1) {
             $dir.filters.values.loggable.splice(index, 1);
@@ -33,52 +48,46 @@ const EventLogsDirective = function(
         }
     };
 
-    $dir.onPageChange = (query) => {
+    $dir.onPageChange = (query = {}) => {
         const filters = { ...$dir.filters.values, ...query };
 
-        EventLogService.list($dir.organization.id, filters).then((res => {
-            $dir.parseHistory(res.data);
-        }), (res) => {
-            PushNotificationsService.danger('Error!', res.data.message);
-        });
-    };
-
-    $dir.parseHistory = (logs) => {
-        $dir.logs = logs;
-        $dir.logs.data = $dir.logs.data.map((item) => {
-            const note_substr = item.note ? $str_limit(item.note, 40) : null;
-
-            return { ...item, note_substr };
-        });
+        EventLogService.list($dir.organization.id, filters).then((res) => {
+            $dir.logs = {
+                meta: res.data.meta,
+                data: res.data.data.map((item) => ({
+                    ...item, note_substr: item.note ? $str_limit(item.note, 40) : null,
+                })),
+            };
+        }, (res) => PushNotificationsService.danger('Error!', res.data.message));
     };
 
     $dir.showTooltip = (e, target) => {
-        e.stopPropagation();
-        e.preventDefault();
+        e?.stopPropagation();
+        e?.preventDefault();
 
-        $dir.logs.data.forEach((history) => {
-            history.showTooltip = history === target;
-        });
+        $dir.logs.data.forEach((history) => history.showTooltip = history === target);
     };
 
-    $dir.hideTooltip = (e, target) => {
-        e.stopPropagation();
-        e.preventDefault();
+    $dir.hideTooltip = (e, log) => {
+        e?.stopPropagation();
+        e?.preventDefault();
 
-        $timeout(() => target.showTooltip = false, 0);
+        log.showTooltip = false;
     };
 
-    $scope.$watch('$dir.filterValues', $dir.$onInit);
+    $dir.onExternalFilterUpdated = () => {
+        $dir.filters.initialValues = angular.copy($dir.filterValues);
+        $dir.filters.reset();
+
+        $dir.onPageChange($dir.filters.values);
+    };
 
     $dir.$onInit = () => {
-        $dir.initialFilterValues = angular.copy($dir.filterValues);
+        if ($dir.register) {
+            $dir.register({ directive: $dir });
+        }
 
-        $dir.filters = {
-            show: false,
-            values: $dir.filterValues
-        };
-
-        $dir.onPageChange({});
+        $scope.$watch('$dir.filterValues', $dir.onExternalFilterUpdated, true);
     };
 };
 
@@ -86,10 +95,12 @@ module.exports = () => {
     return {
         scope: {},
         bindToController: {
+            watch: '<',
             organization: '=',
-            filterValues: '<',
+            filterValues: '=',
             hideFilterForm: '<',
             hideEntity: '<',
+            register: '&',
             blockTitle: '@',
         },
         controllerAs: '$dir',
@@ -97,7 +108,6 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
-            '$timeout',
             '$filter',
             'EventLogService',
             'PushNotificationsService',

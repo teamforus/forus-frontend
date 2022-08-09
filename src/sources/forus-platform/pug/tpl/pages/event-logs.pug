@@ -1,4 +1,8 @@
 .app.app-container
     menu
     section.app.app-content
-        event-logs(organization="$ctrl.organization" filter-values="$ctrl.filters" hide-filter-form="false")
+        event-logs(
+            ng-if="$ctrl.filters"
+            organization="$ctrl.organization" 
+            filter-values="$ctrl.filters" 
+            hide-filter-form="false")

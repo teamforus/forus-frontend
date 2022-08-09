@@ -1,13 +1,13 @@
 const EventLogsComponent = function () {
     const $ctrl = this;
 
-    $ctrl.filters = {
-        q: "",
-        per_page: 15,
-        loggable: ['fund', 'bank_connection', 'employee']
+    $ctrl.$onInit = function () {
+        $ctrl.filters = {
+            q: "",
+            per_page: 15,
+            loggable: ['fund', 'bank_connection', 'employee'],
+        };
     };
-
-    $ctrl.$onInit = function () {};
 };
 
 module.exports = {
@@ -17,5 +17,5 @@ module.exports = {
     controller: [
         EventLogsComponent
     ],
-    templateUrl: 'assets/tpl/pages/event-logs.html'
+    templateUrl: 'assets/tpl/pages/event-logs.html',
 };
