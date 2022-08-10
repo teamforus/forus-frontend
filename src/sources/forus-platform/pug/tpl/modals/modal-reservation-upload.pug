@@ -1,4 +1,5 @@
 .modal.modal-animated.modal-loading(
+    ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, ($ctrl.modal.loaded && !$ctrl.hideModel) ? '' : 'modal-loading']")
 
     .modal-backdrop(ng-click="$ctrl.closeModal()")

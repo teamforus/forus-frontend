@@ -1,4 +1,4 @@
-const ImplementationNotificationsShowComponent = function(ImplementationNotificationsService) {
+const ImplementationNotificationsShowComponent = function() {
     const $ctrl = this;
 
     $ctrl.$onInit = () => {};
@@ -11,7 +11,6 @@ module.exports = {
         implementation: '<',
     },
     controller: [
-        'ImplementationNotificationsService',
         ImplementationNotificationsShowComponent
     ],
     templateUrl: 'assets/tpl/pages/implementation-notifications-show.html'
