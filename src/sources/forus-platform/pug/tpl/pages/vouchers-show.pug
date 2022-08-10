@@ -188,42 +188,14 @@
                                     strong(translate="product_vouchers.labels.yes").text-black
 
         //- Voucher history
-        .card(ng-if="$ctrl.voucher")
-            .card-header: .card-title Geschiedenis
-            .card-section: .card-block.card-block-table
-                .table-wrapper
-                    table.table
-                        tr
-                            th Datum
-                            th Actie
-                            th Door
-                            th Notitie
-
-                        tr(ng-repeat="history in $ctrl.history")
-                            td: .text-strong(ng-bind="history.date")
-                            td: .flex.text-strong(
-                                ng-bind="history.event_locale"
-                                ng-class="{'text-danger-dark' : history.event === 'deactivated'}")
-
-                            td
-                                div(ng-if="!history.employee_id && history.event.startsWith('transaction')").text-strong
-                                    | {{ history.initiator == 'provider' ? 'Aanbieder' : 'Medewerker' }}
-
-                                div(ng-if="!history.employee_id && !history.event.startsWith('transaction')").text-strong Gebruiker
-                                div(ng-if="history.employee_id").text-strong Medewerker
-                                div(ng-if="history.employee_id" ng-bind="history.employee_email").text-muted-dark
-
-                            td
-                                em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
-                                    ng-if="history.note && (history.note != history.note_substr)"
-                                    ng-click="$ctrl.showTooltip($event, history)"
-                                    ng-class="history.showTooltip ? 'active' : ''")
-                                    .tooltip-content(ng-if="history.showTooltip" click-outside="$ctrl.hideTooltip($event, history)")
-                                        .tooltip-text(ng-bind="history.note" title="{{ history.note }}")
-                                    | &nbsp;
-
-                                div(ng-if="!history.note").text-muted Geen notitie
-                                div(ng-if="history.note" ng-bind="history.note_substr").text-dim.text-strong-half
+        event-logs(
+            ng-if="$ctrl.voucher"
+            organization="$ctrl.organization"
+            filter-values="$ctrl.eventFilters"
+            hide-filter-form="true"
+            hide-entity="true"
+            register="$ctrl.registerLogsDirective(directive)"
+            block-title="Geschiedenis")
 
         //- Voucher sponsor note set upon creation
         .card(ng-if="$ctrl.voucher.note")

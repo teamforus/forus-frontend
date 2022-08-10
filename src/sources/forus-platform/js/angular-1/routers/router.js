@@ -1290,6 +1290,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Event logs
+    $stateProvider.state({
+        name: "organization-logs",
+        url: "/organizations/{organization_id}/logs",
+        component: "eventLogsComponent",
+        resolve: {
+            organization: organziationResolver(),
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',

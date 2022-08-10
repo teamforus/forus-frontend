@@ -80,6 +80,7 @@ module.exports = {
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
     voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
     system_notifications: require('./nl/pages/system-notifications.pug.i18n'),
+    event_logs: require('./nl/pages/event-logs.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 

@@ -1,6 +1,5 @@
-const VouchersShowComponent = function(
+const VouchersShowComponent = function (
     $filter,
-    $timeout,
     ModalService,
     VoucherService,
     PermissionsService,
@@ -9,17 +8,16 @@ const VouchersShowComponent = function(
     PushNotificationsService,
 ) {
     const $ctrl = this;
-    const $str_limit = $filter('str_limit');
     const $translate = $filter('translate');
 
     const $translateDangerZone = (key) => $translate(
         `modals.danger_zone.increase_limit_multiplier.${key}`
     );
 
-    const onStateChanged = function(promise, action = 'deactivation') {
+    const onStateChanged = function (promise, action = 'deactivation') {
         promise.then((res) => {
             $ctrl.voucher = res.data.data;
-            $ctrl.parseHistory($ctrl.voucher.history);
+            $ctrl.logsDirective?.onPageChange();
             $ctrl.updateFlags();
 
             switch (action) {
@@ -76,22 +74,6 @@ const VouchersShowComponent = function(
         });
     };
 
-    $ctrl.showTooltip = (e, target) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        $ctrl.history.forEach((history) => {
-            history.showTooltip = history === target;
-        });
-    };
-
-    $ctrl.hideTooltip = (e, target) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        $timeout(() => target.showTooltip = false, 0);
-    };
-
     $ctrl.orderPhysicalCard = () => {
         ModalService.open('physicalCardOrder', {
             voucher: $ctrl.voucher,
@@ -117,33 +99,10 @@ const VouchersShowComponent = function(
         });
     };
 
-    $ctrl.dateLocaleFormat = (dateLocale) => {
-        return dateLocale ? dateLocale.split('-')[1] || dateLocale : dateLocale;
-    }
-
-    $ctrl.parseHistoryNote = (item) => {
-        return item.employee_id ? item.note : {
-            other: 'Anders',
-            moved: 'Verhuizing',
-            income_change: 'Verandering in inkomen',
-            not_interested: 'Aanbod is niet aantrekkelijk',
-        }[item.note || ''] || item.note;
-    };
-
-    $ctrl.parseHistory = (history) => {
-        $ctrl.history = history.map((item) => {
-            const date = $ctrl.dateLocaleFormat(item.created_at_locale);
-            const note = $ctrl.parseHistoryNote(item);
-            const note_substr = note ? $str_limit(note, 40) : null;
-
-            return { ...item, date, note, note_substr };
-        });
-    };
-
     $ctrl.fetchVoucher = () => {
         VoucherService.show($ctrl.organization.id, $ctrl.voucher.id).then(((res) => {
             $ctrl.voucher = res.data.data;
-            $ctrl.parseHistory($ctrl.voucher.history);
+            $ctrl.logsDirective?.onPageChange();
             $ctrl.updateFlags();
         }));
     };
@@ -191,9 +150,19 @@ const VouchersShowComponent = function(
         });
     }
 
-    $ctrl.$onInit = function() {
-        $ctrl.parseHistory($ctrl.voucher.history);
+    $ctrl.registerLogsDirective = (directive) => {
+        $ctrl.logsDirective = directive;
+    };
+
+    $ctrl.$onInit = function () {
         $ctrl.updateFlags();
+
+        $ctrl.eventFilters = {
+            q: "",
+            per_page: 15,
+            loggable: ['voucher'],
+            loggable_id: $ctrl.voucher.id
+        };
     }
 };
 
@@ -204,7 +173,6 @@ module.exports = {
     },
     controller: [
         '$filter',
-        '$timeout',
         'ModalService',
         'VoucherService',
         'PermissionsService',
