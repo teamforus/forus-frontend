@@ -79,6 +79,7 @@ const TransactionsComponent = function(
         valuesDefault: {
             q: '',
             state: $ctrl.states[0].key,
+            fund_id: null,
             fund_state: $ctrl.fundStates[0].key,
             from: null,
             to: null,
@@ -278,6 +279,11 @@ const TransactionsComponent = function(
         $ctrl.isSponsor = appConfigs.panel_type == 'sponsor';
         $ctrl.viewType = $ctrl.viewTypes.filter(type => type.key == $stateParams.type)[0] || $ctrl.viewTypes[0];
 
+        $ctrl.funds.unshift({
+            id: null,
+            name: 'Selecteer fond'
+        });
+
         $ctrl.filters.reset();
         $ctrl.onPageChange($ctrl.filters.values);
 
@@ -295,6 +301,7 @@ const TransactionsComponent = function(
 module.exports = {
     bindings: {
         organization: '<',
+        funds: '<',
     },
     controller: [
         '$q',
