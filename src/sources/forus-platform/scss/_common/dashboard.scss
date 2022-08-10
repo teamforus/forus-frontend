@@ -880,6 +880,7 @@ body {
         font: 500 16px/28px $bf;
         color: #282b39;
         cursor: inherit;
+        display: flex;
 
         .card-collapse {
             float: right;
@@ -892,8 +893,10 @@ body {
             margin-left: 10px;
         }
 
-        em {
+        .mdi {
             margin-right: 5px;
+            font-size: 20px;
+            line-height: inherit;
         }
 
         &.card-title-sm {

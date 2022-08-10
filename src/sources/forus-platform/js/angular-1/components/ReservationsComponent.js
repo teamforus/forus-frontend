@@ -10,7 +10,7 @@ const ReservationsComponent = function(
     const $currencyFormat = $filter('currency_format');
 
     $ctrl.empty = null;
-    $ctrl.acceptedBydefault = false;
+    $ctrl.acceptedByDefault = false;
 
     $ctrl.states = [{
         key: null,
@@ -90,7 +90,7 @@ const ReservationsComponent = function(
 
     $ctrl.setOrganization = (organization) => {
         $ctrl.organization = organization;
-        $ctrl.acceptedBydefault = $ctrl.organization.reservations_auto_accept;
+        $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
     }
 
     $ctrl.toggleAcceptByDefault = (value) => {
@@ -158,7 +158,7 @@ const ReservationsComponent = function(
         $ctrl.filters.reset();
         $ctrl.onPageChange($ctrl.filters.values);
 
-        $ctrl.acceptedBydefault = $ctrl.organization.reservations_auto_accept;
+        $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
         $ctrl.reservationEnabled = reservations_budget_enabled || reservations_subsidy_enabled;
 
         $ctrl.funds.unshift({
