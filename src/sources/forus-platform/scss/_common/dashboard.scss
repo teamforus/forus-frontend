@@ -1198,6 +1198,10 @@ body {
             background: lighten($color: #f3f4f5, $amount: 2);
         }
     }
+
+    &.card-padded {
+        margin-bottom: 0px;
+    }
 }
 
 .card-block {
