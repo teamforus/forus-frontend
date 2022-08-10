@@ -48,7 +48,6 @@ $colorPrimaryLight: $color_primary_light;
     @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
     @import 'blocks/block-fund_types';
     @import 'blocks/block-subsidy-product-overview';
-    @import 'blocks/block-dashboard-switcher';
     @import 'blocks/block-app_download.scss';
     @import 'blocks/block-app_links.scss';
     @import 'blocks/block-label-tabs.scss';
@@ -331,33 +330,49 @@ body {
             flex-direction: column;
             justify-content: center;
 
-            .notifications-icon {
-                color: $tc;
-                background-color: #fff;
-                box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.1);
-                border-radius: 50px;
-                width: 36px;
-                height: 36px;
-                text-align: center;
-                line-height: 36px;
-                font-size: 18px;
-                cursor: pointer;
-                transition: .4s;
+            .notifications-icons {
 
-                .mdi {
-                    transition: transform .4s;
-                }
-
-                &:hover {
-                    background-color: #fafafa;
-                }
-
-                &.notifications-icon-updates {
-                    display: none;
-                    color: #d91d46;
+                .notifications-icon {
+                    color: $tc;
+                    background-color: #fff;
+                    box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.1);
+                    border-radius: 50px;
+                    width: 36px;
+                    height: 36px;
+                    text-align: center;
+                    line-height: 36px;
+                    font-size: 18px;
+                    cursor: pointer;
+                    transition: background .4s, color .4s;
+                    margin-right: 20px;
 
                     .mdi {
-                        transform: rotate(30deg);
+                        transition: transform .4s;
+                    }
+
+                    &:hover {
+                        background-color: #fafafa;
+
+                        &.notifications-icon-updates {
+                            color: #fafafa;
+                            background-color: #d91d46;
+
+                            .mdi {
+                                transform: rotate(50deg);
+                            }
+                        }
+                    }
+
+                    &.notifications-icon-updates {
+                        color: #d91d46;
+
+                        .mdi {
+                            transform: rotate(30deg);
+                        }
+                    }
+
+                    &:last-child {
+                        margin-right: 0;
                     }
                 }
             }
@@ -491,29 +506,6 @@ body {
                 }
             }
 
-            &.update {
-                .notifications-icon {
-                    display: none;
-
-                    &.notifications-icon-updates {
-                        display: block;
-                    }
-                }
-            }
-
-            &:hover:not(.active) {
-                .notifications-icon {
-                    &.notifications-icon-updates {
-                        color: #fafafa;
-                        background-color: #d91d46;
-    
-                        .mdi {
-                            transform: rotate(50deg);
-                        }
-                    }
-                }
-            }
-
             &.active {
                 .notifications-menu {
                     display: block;
@@ -599,38 +591,102 @@ body {
                     box-shadow: 0 5px 30px rgba(#000, 0.1);
                     min-width: 220px;
                     max-width: 80%;
-                    padding: 10px 0;
+                    padding: 10px 10px;
+                    cursor: default;
 
-                    .auth-user-menu-item {
-                        display: block;
-                        cursor: pointer;
-                        padding: 5px 15px;
-                        font: 500 13px/30px $bf;
-                        color: #282b39;
-                        transition: 0.4s;
-
-                        .mdi {
-                            float: left;
-                            line-height: 30px;
-                            font-size: 1.5em;
-                            margin-right: 5px;
-                            transition: 0.4s;
-                        }
-
-                        &:hover {
-                            text-decoration: none;
-                            background: #f6f8f9;
-                            color: #d91d46;
-
-                            .mdi {
-                                color: $color_primary;
-                            }
-                        }
+                    .auth-user-menu-title {
+                        text-transform: uppercase;
+                        color: #646F79;
+                        font: 600 11px/13px $bf;
+                        padding: 10px 0 10px 2px;
                     }
 
                     .auth-user-menu-sep {
                         display: block;
                         border-top: 1px solid #f3f4f5;
+                        margin: 10px -10px 10px;
+                    }
+
+                    .auth-user-menu-item {
+                        display: flex;
+                        justify-content: flex-start;
+                        cursor: pointer;
+                        padding: 0px;
+                        font: 500 13px/36px $bf;
+                        letter-spacing: -0.312px;
+                        color: #151B26;
+                        transition: 0.4s;
+
+                        .auth-user-menu-item-icon {
+                            display: flex;
+                            flex: 0 0 32px;
+                            width: 32px;
+                            height: 36px;
+                            margin-right: 4px;
+
+                            svg,
+                            img {
+                                max-width: 100%;
+                                max-height: 100%;
+                                object-fit: contain;
+                                object-position: center;
+                                transition: 0.4s;
+
+                                path {
+                                    transition: 0.4s;
+                                }
+                            }
+
+                            svg {
+                                height: 36px;
+                            }
+                        }
+
+                        &.active {
+                            padding-right: 30px;
+                            position: relative;
+                            color: #004195;
+
+                            .auth-user-menu-item-icon {
+                                svg {
+                                    path {
+                                        fill: #134478;
+                                    }
+                                }
+                            }
+
+                            &:after{
+                                content: '';
+                                background-image: url('../img/icon-check.svg');
+                                background-position: center;
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                                width: 20px;
+                                height: 20px;
+                                position: absolute;
+                                right: 0;
+                                top: 50%;
+                                transform: translate(0, -50%);
+                            }
+                        }
+
+                        &:hover {
+                            text-decoration: none;
+                            background: #F6F8F9;
+                            color: #004195;
+
+                            .auth-user-menu-item-icon {
+                                svg {
+                                    path {
+                                        fill: #134478;
+                                    }
+                                }
+                            }
+                        }
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
                     }
                 }
             }

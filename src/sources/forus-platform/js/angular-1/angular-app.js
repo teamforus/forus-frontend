@@ -187,8 +187,6 @@ app.directive('menu', {
     validator: require('./directives/MenuValidatorDirective'),
 } [env_data.panel_type]);
 
-app.directive('appFooter', require('./directives/AppFooterDirective'));
-app.directive('dashboardSwitcher', require('./directives/DashboardSwitcherDirective'));
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
 app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
