@@ -1,6 +1,8 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
     .modal-window
         .modal-header(ng-if="$ctrl.header")

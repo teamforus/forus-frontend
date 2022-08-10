@@ -33,13 +33,6 @@ let OrganizationValidatorService = function(
                 uriPrefix + organization_id + '/validators/' + id
             );
         }
-
-        this.apiResourceToForm = function(apiResource) {
-            return {
-                'identity_address': apiResource.identity_address,
-                'email': apiResource.email,
-            };
-        };
     });
 };
 

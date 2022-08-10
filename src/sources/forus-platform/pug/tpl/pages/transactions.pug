@@ -60,6 +60,14 @@
                                         ng-model="$ctrl.filters.values.state"
                                         options="$ctrl.states").form-control
 
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'transactions.labels.fund' | i18n }}")
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.fund_id"
+                                        options="$ctrl.funds").form-control
+
                                 .form-group
                                     form-label-toggle(label="{{ 'transactions.labels.from' | i18n }}")
                                     datepicker(
@@ -220,19 +228,18 @@
             //- Transactions, next bulk totals
             .card-section(
                 ng-if="$ctrl.isSponsor && $ctrl.pendingBulkingMeta.total && ($ctrl.organization | hasPerm:'manage_transaction_bulks')"
-                ng-show="$ctrl.viewType.key == 'transactions'"): .flex.flex-horizontal
+                ng-show="$ctrl.viewType.key == 'transactions'"): .flex.flex-vertical
 
                 //- Totals and pending bulk transactions
-                .flex.flex-grow: .flex.flex-vertical.flex-center: .card-text(
+                .card-text(
                     translate="transactions.labels.bulk_total_amount"
                     translate-values="{total: $ctrl.pendingBulkingMeta.total, total_amount: ($ctrl.pendingBulkingMeta.total_amount | currency_format)}")
 
                 //- Build the bulk now
-                .flex: .flex.flex-vertical.flex-center
-                    button(ng-click="$ctrl.bulkPendingNow()" ng-disabled="$ctrl.buildingBulks").button.button-primary.button-sm
-                        em(ng-if="!$ctrl.buildingBulks").mdi.mdi-cube-send.icon-start
-                        em(ng-if="$ctrl.buildingBulks").mdi.mdi-spin.mdi-loading.icon-start
-                        | Maak nu een bulktransactie
+                button(ng-click="$ctrl.bulkPendingNow()" ng-disabled="$ctrl.buildingBulks").button.button-primary
+                    em(ng-if="!$ctrl.buildingBulks").mdi.mdi-cube-send.icon-start
+                    em(ng-if="$ctrl.buildingBulks").mdi.mdi-spin.mdi-loading.icon-start
+                    | Maak nu een bulktransactie
 
             //- Transactions pagination
             .card-section(ng-if="$ctrl.transactions" ng-show="($ctrl.viewType.key == 'transactions') && ($ctrl.transactions.meta.last_page > 1)")

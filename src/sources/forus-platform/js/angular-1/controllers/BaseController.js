@@ -173,6 +173,12 @@ const BaseController = function(
                         return organization.id;
                     });
 
+                    auth_user.dashboards = auth_user.organizations.reduce((arr, item) => [...arr, ...[
+                        item.is_sponsor ? 'sponsor' : null,
+                        item.is_provider ? 'provider' : null,
+                        item.is_validator ? 'validator' : null,
+                    ]], []).filter((dashboard) => dashboard).filter((v, i, a) => a.indexOf(v) === i);
+
                     deferred.resolve($rootScope.auth_user = auth_user);
                 });
             });

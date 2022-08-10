@@ -18,6 +18,7 @@ const me_app_link = 'https://forus.io/DL';
 const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const ios_iphone_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const android_link = 'https://media.forus.io/static/me-0.0.5-staging-7-release.apk';
+const help_link = 'https://forus.io';
 
 module.exports = (core) => {
     // Config markups
@@ -53,6 +54,7 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
+            help_link: help_link,
             html5ModeEnabled: true,
             html5Mode: {
                 basePath: '/'
@@ -83,6 +85,7 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
+            help_link: help_link,
             html5ModeEnabled: true,
             html5Mode: {
                 basePath: '/'
@@ -111,6 +114,7 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
+            help_link: help_link,
             html5ModeEnabled: true,
             html5Mode: {
                 basePath: '/'

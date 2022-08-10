@@ -90,29 +90,6 @@ const FundService = function (
             }];
         }
 
-        this.apiResourceToForm = function (apiResource) {
-            return {
-                name: apiResource.name,
-                description: apiResource.description,
-                state: apiResource.state,
-                start_date: apiResource.start_date,
-                end_date: apiResource.end_date,
-                manage_provider_products: apiResource.manage_provider_products,
-            };
-        };
-
-        this.changeState = function (apiResource, state) {
-            let formValues = this.apiResourceToForm(apiResource);
-
-            formValues.state = state;
-
-            return this.update(
-                apiResource.organization_id,
-                apiResource.id,
-                formValues
-            );
-        };
-
         let newest = (arr, prop) => {
             let _newest = null;
             let _newsetTime = 0;

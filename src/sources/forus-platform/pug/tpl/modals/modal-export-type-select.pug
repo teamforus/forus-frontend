@@ -1,4 +1,6 @@
-.modal.modal-voucher-export-type.modal-voucher-export-narrow.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-voucher-export-type.modal-voucher-export-narrow.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Select type
     .modal-window: form.form
