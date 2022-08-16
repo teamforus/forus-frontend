@@ -3,7 +3,8 @@ require('./modules/ui-controls/UIControlsModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
 
 const appConfigs = {
-    ...{ fund_request_allways_bsn_confirmation: true },
+    bsn_confirmation_offset: 300,
+    fund_request_allways_bsn_confirmation: true,
     ...env_data
 };
 

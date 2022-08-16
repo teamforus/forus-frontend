@@ -62,10 +62,7 @@ const doNotify = function(title, message) {
     plugins.notify({
         message: message,
         title: title,
-        templateOptions: {
-            date: new Date()
-        },
-        emitError: true
+        emitError: true,
     }).write('');
 };
 
