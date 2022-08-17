@@ -550,9 +550,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
         component: "vouchersComponent",
         resolve: {
-            vouchers: ['VoucherService', (
-                VoucherService
-            ) => repackResponse(VoucherService.list())],
+            vouchers: ['VoucherService', (VoucherService) => {
+                return repackResponse(VoucherService.list({ archived: 0 }));
+            }],
         }
     });
 
