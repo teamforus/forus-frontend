@@ -2,11 +2,7 @@ require('./modules/select-control/SelectControlModule');
 require('./modules/ui-controls/UIControlsModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
 
-const appConfigs = {
-    bsn_confirmation_offset: 300,
-    fund_request_allways_bsn_confirmation: true,
-    ...env_data
-};
+const appConfigs = { bsn_confirmation_offset: 300, ...env_data };
 
 const app = angular.module('forusApp', [
     'pascalprecht.translate', 'ui.router', 'ngCookies', 'ngAria',

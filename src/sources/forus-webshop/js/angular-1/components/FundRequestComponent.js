@@ -1,4 +1,4 @@
-import { addSeconds, format, subMinutes, subSeconds } from 'date-fns';
+import { addSeconds, format } from 'date-fns';
 
 const FundRequestComponent = function (
     $sce,
@@ -293,12 +293,6 @@ const FundRequestComponent = function (
         return fund.allow_fund_requests && (!$ctrl.digidMandatory || ($ctrl.digidMandatory && $ctrl.bsnIsKnown));
     };
 
-    $ctrl.shouldUpdateBsnSignUp = () => {
-        return appConfigs.fund_request_allways_bsn_confirmation ? (
-            ((new Date().getTime() - sessionStorage.getItem('__last_timestamp')) / 1000) > 120
-        ) : false;
-    };
-
     $ctrl.initBsnWarning = () => {
         const timeOffset = appConfigs.bsn_confirmation_offset || 300;
         const timeBeforeReConfirmation = Math.max(($ctrl.fund.bsn_confirmation_time || 0) - $ctrl.identity.bsn_time, 0);
@@ -354,7 +348,7 @@ const FundRequestComponent = function (
         $ctrl.emailForm = makeEmailForm();
 
         // The user is not authenticated and have to go back to sign-up page
-        if (($ctrl.fund.auto_validation && !$ctrl.bsnIsKnown) || $ctrl.shouldUpdateBsnSignUp()) {
+        if ($ctrl.fund.auto_validation && !$ctrl.bsnIsKnown) {
             return $state.go('start');
         }
 
