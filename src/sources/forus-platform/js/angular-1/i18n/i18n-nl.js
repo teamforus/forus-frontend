@@ -72,6 +72,7 @@ module.exports = {
             restore_fund: require('./nl/modals/danger-zone/restore-fund'),
             remove_faq: require('./nl/modals/danger-zone/remove-faq'),
             remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
+            confirm_custom_sponsor_email_notification: require('./nl/modals/danger-zone/confirm-custom-sponsor-email-notification'),
         },
     },
     // PAGES
@@ -79,6 +80,7 @@ module.exports = {
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
     voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
     system_notifications: require('./nl/pages/system-notifications.pug.i18n'),
+    event_logs: require('./nl/pages/event-logs.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 

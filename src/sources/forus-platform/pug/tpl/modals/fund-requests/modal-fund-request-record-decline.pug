@@ -1,0 +1,52 @@
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        .modal-icon.modal-icon-primary: .mdi.mdi-message-text-outline
+
+        //- Requester identity has email
+        .modal-body(ng-if="$ctrl.fundRequest.email")
+            .modal-section.modal-section-pad
+                .text-center
+                    .modal-heading Weiger aanvraag
+                    .modal-text
+                        | U staat op het punt om een aanvraag te weigeren. 
+                        | Weet u zeker dat u deze aanvraag wilt weigeren? 
+                        br 
+                        | Optioneel kunt u een bericht sturen naar de aanvrager. 
+
+                form(ng-submit="$ctrl.form.submit()").form: .form-group
+                    .form-label Bericht (optioneel)
+                    textarea(ng-model="$ctrl.form.values.note" placeholder="Bericht naar aanvrager").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
+
+        //- Requester identity has no email
+        .modal-body(ng-if="!$ctrl.fundRequest.email")
+            .modal-section.modal-section-pad
+                .modal-heading.text-center Weiger aanvraag
+                .modal-text.text-center
+                    | U staat op het punt om een aanvraag te weigeren. 
+                    | Weet u zeker dat u deze aanvraag wilt weigeren?
+                    br
+                    br
+
+                    //- Has contact information
+                    span(ng-if="$ctrl.fundRequest.contact_information")
+                        .text-strong The requester has no email in their account
+                        | If you need to contact them, please use the contact information requester provided.
+                        br
+                        br
+                        
+                        .text-strong Contact information:
+                        strong(ng-bind="$ctrl.fundRequest.contact_information")
+
+                    //- No contact information provided
+                    span(ng-if="!$ctrl.fundRequest.contact_information")
+                        .text-strong The requester has no email in their account
+                        br
+                        | Also no contact information was provided. 
+                        | If you have to contact them, you will have to find them outside of the platform.
+        
+        .modal-footer.text-center
+            button.button.button-default(ng-click="$ctrl.close()") Annuleer
+            button.button.button-primary(ng-click="$ctrl.form.submit()") Bevestig

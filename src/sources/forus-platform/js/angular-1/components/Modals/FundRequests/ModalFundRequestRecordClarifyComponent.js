@@ -1,17 +1,14 @@
-let ModalFundRequestRecordClarifyComponent = function(
+const ModalFundRequestRecordClarifyComponent = function (
     FormBuilderService,
     FundRequestValidatorService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        let submit = $ctrl.modal.scope.submit;
-        let organization = $ctrl.modal.scope.organization;
-        let requestRecord = $ctrl.modal.scope.requestRecord;
+        const { submit, organization, requestRecord, fundRequest } = $ctrl.modal.scope;
+        $ctrl.fundRequest = fundRequest;
 
-        $ctrl.form = FormBuilderService.build({
-            question: ''
-        }, (form) => {
+        $ctrl.form = FormBuilderService.build({ question: '' }, (form) => {
             FundRequestValidatorService.requestRecordClarification(
                 organization.id,
                 requestRecord.fund_request_id,
@@ -20,7 +17,7 @@ let ModalFundRequestRecordClarifyComponent = function(
             ).then(() => {
                 form.unlock();
                 $ctrl.close();
-                submit(null);
+                submit();
             }, (res) => {
                 form.unlock();
                 if (res.status === 422) {
@@ -44,7 +41,5 @@ module.exports = {
         'FundRequestValidatorService',
         ModalFundRequestRecordClarifyComponent
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/fund-requests/modal-fund-request-clarify.html';
-    }
+    templateUrl: 'assets/tpl/modals/fund-requests/modal-fund-request-clarify.html',
 };

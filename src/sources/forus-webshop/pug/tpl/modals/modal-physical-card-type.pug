@@ -1,7 +1,8 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 .modal.modal-physical-cards.modal-animated(
-    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
     role="dialog")
     
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
@@ -215,4 +216,4 @@
                     br 
                     br 
 
-                email-provider-link(email="$root.auth_user.email")
+                email-provider-link(ng-if="$root.auth_user.email" email="$root.auth_user.email")

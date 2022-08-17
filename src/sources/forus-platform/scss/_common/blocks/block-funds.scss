@@ -11,8 +11,12 @@
         font: 400 14px/24px $bf;
         display: flex;
         flex-direction: column;
-        overflow: hidden;
         cursor: default;
+
+        .card {
+            box-shadow: none;
+            margin-bottom: 0;
+        }
 
         .fund-logo {
             .fund-logo-img {

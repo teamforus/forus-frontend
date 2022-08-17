@@ -46,7 +46,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$root.openUserMenu($event)")
                 .auth-user-details
-                    .auth-user-name {{ $root.auth_user.email }}
+                    .auth-user-name {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
                     .auth-user-role
                         //- span(ng-bind="$root.activeOrganization.name")
                         //- span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •
@@ -57,25 +57,57 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                 .auth-user-caret: em(ng-class="$root.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
                 
                 .auth-user-menu(ng-if="$root.userMenuOpened" click-outside="$root.hideUserMenu()")
-                    a(ui-sref="identity-emails" ng-if="$root.appConfigs.sessions && !$root.activeOrganization").auth-user-menu-item
-                        em.mdi.mdi-at
+
+                    a(ui-sref="identity-emails").auth-user-menu-item
+                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-email.svg
                         | E-mail instellingen
-                    
-                    a(ui-sref="security-sessions" ng-if="$root.appConfigs.sessions && !$root.activeOrganization" ).auth-user-menu-item
-                        em.mdi.mdi-shield-account
+
+                    a(ui-sref="preferences-notifications").auth-user-menu-item
+                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-notifications.svg
+                        | Notificatievoorkeuren
+
+                    a(ui-sref="security-sessions" ng-if="$root.appConfigs.sessions" ).auth-user-menu-item
+                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-sessions.svg
                         | Sessies
 
-                    a(ui-sref="preferences-notifications" ng-if="!$root.activeOrganization").auth-user-menu-item
-                        em.mdi.mdi-cog-outline
-                        | Notificaties
+                    .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
 
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
-                        em.mdi.mdi-cellphone
+                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-authorize-device.svg
                         span(translate="topnavbar.buttons.authorize")
                     
                     .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
-                    
+
+                    div(ng-if="$root.auth_user.dashboards.length > 2 || ($root.auth_user.dashboards.length === 1 && $root.auth_user.dashboards[0] !== $root.appConfigs.panel_type)")
+                        .auth-user-menu-title Pick your role
+
+                        a(
+                            ng-click="$event.stopPropagation()"
+                            href="{{ $root.appConfigs.frontends.url_validator }}"
+                            ng-if="$root.auth_user.dashboards.includes('validator')"
+                            ng-class="{active: $root.appConfigs.panel_type == 'validator'}").auth-user-menu-item
+                            .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-validator.svg
+                            | Validator
+
+                        a(
+                            ng-click="$event.stopPropagation()"
+                            href="{{ $root.appConfigs.frontends.url_sponsor }}"
+                            ng-if="$root.auth_user.dashboards.includes('sponsor')"
+                            ng-class="{active: $root.appConfigs.panel_type == 'sponsor'}").auth-user-menu-item
+                            .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-sponsor.svg
+                            | Sponsor
+
+                        a(
+                            ng-click="$event.stopPropagation()"
+                            href="{{ $root.appConfigs.frontends.url_provider }}"
+                            ng-if="$root.auth_user.dashboards.includes('provider')"
+                            ng-class="{active: $root.appConfigs.panel_type == 'provider'}").auth-user-menu-item
+                            .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-provider.svg
+                            | Provider
+
+                        .auth-user-menu-sep
+
                     a(ng-click="$root.signOut()").auth-user-menu-item
-                        em.mdi.mdi-logout
+                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-sign-out.svg
                         //- translate(translate="topnavbar.buttons.logour")
                         | Uitloggen

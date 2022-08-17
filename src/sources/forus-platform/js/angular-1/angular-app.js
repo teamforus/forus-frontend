@@ -62,10 +62,12 @@ app.component('implementationDigidEditComponent', require('./components/Implemen
 app.component('implementationNotificationsComponent', require('./components/ImplementationNotificationsComponent'));
 app.component('implementationNotificationsBrandingComponent', require('./components/ImplementationNotificationsBrandingComponent'));
 app.component('implementationNotificationsShowComponent', require('./components/ImplementationNotificationsShowComponent'));
+app.component('implementationNotificationsSendComponent', require('./components/ImplementationNotificationsSendComponent'));
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
 app.component('productBoardComponent', require('./components/ProductBoardComponent'));
+app.component('eventLogsComponent', require('./components/EventLogsComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -127,6 +129,7 @@ app.service('TransactionBulksExportService', require('./services/TransactionBulk
 app.service('VoucherService', require('./services/VoucherService'));
 app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
+app.service('FundIdentitiesExportService', require('./services/FundIdentitiesExportService'));
 app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
 app.service('IdentityService', require('./services/IdentityService'));
@@ -176,6 +179,8 @@ app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
 app.service('TagService', require('./services/TagService'));
 app.service('ProductBoardService', require('./services/ProductBoardService'));
+app.service('EventLogService', require('./services/EventLogService'));
+app.service('MarkdownService', require('./services/MarkdownService'));
 
 // Directives
 app.directive('menu', {
@@ -184,8 +189,6 @@ app.directive('menu', {
     validator: require('./directives/MenuValidatorDirective'),
 } [env_data.panel_type]);
 
-app.directive('appFooter', require('./directives/AppFooterDirective'));
-app.directive('dashboardSwitcher', require('./directives/DashboardSwitcherDirective'));
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
 app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
 app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
@@ -226,6 +229,7 @@ app.directive('fundCardInvitationProvider', require('./directives/FundCardInvita
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('fundCriteriaEditor', require('./directives/FundCriteriaEditorDirective'));
 app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditorItemDirective'));
+app.directive('fundConfigContactInfoEditor', require('./directives/FundConfigContactInfoEditorDirective'));
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
@@ -234,6 +238,7 @@ app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
+app.directive('eventLogs', require('./directives/EventLogsDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 

@@ -86,7 +86,6 @@ let ValidatorsShortlistComponent = function(
             fund.criteria.forEach(criterion => criterion.accepted = false);
             $ctrl.updateFundAcceptance(fund);
         });
-
     };
 
     $ctrl.$onInit = function() {

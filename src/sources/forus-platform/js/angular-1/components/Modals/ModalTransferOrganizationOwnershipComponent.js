@@ -1,27 +1,32 @@
-const ModalTransferOrganizationOwnershipComponent = function(
+const ModalTransferOrganizationOwnershipComponent = function (
     FormBuilderService,
     OrganizationService,
-    PushNotificationsService
+    PushNotificationsService,
 ) {
     const $ctrl = this;
 
-    $ctrl.$onInit = () => {
-        $ctrl.employees = $ctrl.modal.scope.employees;
-        $ctrl.organization = $ctrl.modal.scope.organization;
+    $ctrl.buildForm = (organization, adminEmployees) => {
+        return FormBuilderService.build({
+            employee_id: adminEmployees[0]?.id,
+        }, (form) => {
+            const { employee_id } = form.values;
 
-        $ctrl.form = FormBuilderService.build({
-            employee: $ctrl.modal.scope.employees[0]
-        }, (form) => $ctrl.transferOrganizationOwnership(form.values.employee), true);
-    };
-
-    $ctrl.transferOrganizationOwnership = (employee) => {
-        OrganizationService.transferOwnership($ctrl.organization.id, {
-            employee_id: employee.id,
-        }).then(() => {
-            $ctrl.modal.scope.submit(employee);
-            $ctrl.close();
-        }, (res) => PushNotificationsService.danger(res.data.message));
+            OrganizationService.transferOwnership(organization.id, { employee_id }).then(() => {
+                $ctrl.modal.scope.submit(adminEmployees.find((employee) => employee.id == employee_id));
+                $ctrl.close();
+            }, (res) => {
+                form.errors = res.data?.errors;
+                PushNotificationsService.danger('Error!', res.data.message);
+            });
+        }, true);
     }
+
+    $ctrl.$onInit = () => {
+        const { organization, adminEmployees } = $ctrl.modal.scope;
+
+        $ctrl.adminEmployees = adminEmployees;
+        $ctrl.form = $ctrl.buildForm(organization, adminEmployees);
+    };
 };
 
 module.exports = {

@@ -1,4 +1,6 @@
-.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
@@ -8,7 +10,7 @@
             .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .form-group
                 label.form-label.form-label-required(translate="modal_fund_request_assign.label.employees")
                 select(
-                    ng-options="employee.id as employee.email for employee in $ctrl.employees"
+                    ng-options="employee.id as (employee.email || (employee.identity_address | str_limit:32)) for employee in $ctrl.employees"
                     ng-model="$ctrl.form.values.employee_id").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.employee_id" ng-bind="error")
 

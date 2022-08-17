@@ -1,6 +1,4 @@
-const turndownPluginGfm = require('../libs/turndown-plugin-gfm.cjs')
-
-const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
+const MarkdownDirective = function ($scope, $element, $timeout, ModalService, MarkdownService) {
     const $dir = $scope.$dir;
     const $theEditor = $($element.find('[editor]')[0]);
 
@@ -26,7 +24,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
     }
 
     const AlignButton = (icon = "left") => {
-        return function() {
+        return function () {
             const ui = $.summernote.ui;
             const btnIcon = `mdi mdi-align-horizontal-${icon}`;
 
@@ -52,9 +50,9 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                         makeLabelItem('Tekst in het midden uitlijnen', 'center', 'align-horizontal-center'),
                         makeLabelItem('Tekst rechts uitlijnen', 'right', 'align-horizontal-right'),
                     ],
-                    callback: function(items) {
+                    callback: function (items) {
 
-                        $(items).find('.note-dropdown-item [data-action]').on('click', function(e) {
+                        $(items).find('.note-dropdown-item [data-action]').on('click', function (e) {
                             const option = $(this);
                             const parent = $(items[0]).parent();
                             const dropdownBtn = parent.find('.note-btn');
@@ -70,16 +68,17 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 })
             ]);
 
-            return event.render();   // return button as jquery object
+            // return button as jquery object
+            return event.render();
         }
     }
 
     const CmsButton = (type = 'customLink', icon = "link") => {
-        return function(context) {
+        return function (context) {
             const ui = $.summernote.ui;
             const btnIcon = context.options.icons[icon];
 
-            const showLinkDialog = function(linkInfo) {
+            const showLinkDialog = function (linkInfo) {
                 return new Promise((resolve) => {
                     const { text, url } = linkInfo;
 
@@ -93,7 +92,7 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
             const button = ui.button({
                 contents: `<em class="${btnIcon}"/></em>`,
                 // tooltip: 'hello',
-                click: function() {
+                click: function () {
                     const buttons = $dir.buttons || [];
 
                     context.invoke('editor.saveRange');
@@ -231,31 +230,13 @@ const MarkdownDirective = function($scope, $element, $timeout, ModalService) {
                 cmsBlockAlign: AlignButton(),
             },
             callbacks: {
-                onChange: function(contents, $editable) {
-                    const turndownService = (new TurndownService({ headingStyle: "atx" }));
+                onChange: function (content_html) {
+                    const content = MarkdownService.toMarkdown(content_html);
 
-                    turndownService.addRule('strikethrough', {
-                        filter: (node) => {
-                            return node.className === 'youtube-root' && node.children.length > 0 &&
-                                node.children[0].tagName.toLowerCase() === 'iframe';
-                        },
-                        replacement: function() {
-                            return `[](${arguments[1].children[0].src.replace(
-                                'https://www.youtube.com/embed/',
-                                'https://www.youtube.com/watch?v='
-                            )})`;
-                        }
-                    });
-
-                    turndownService.use(turndownPluginGfm.gfm);
-
-                    const markdown = turndownService.turndown(contents).split("\n");
-
-                    $dir.ngModelCtrl.$setViewValue(markdown.map((line, index) => {
-                        return ((index != 0) && (markdown[index - 1] === '') && (line.trim() === '')) ? "&nbsp;  " : line;
-                    }).join("\n"));
+                    $dir.ngModelCtrl.$setViewValue(content);
+                    $dir.onUpdatedRaw && $dir.onUpdatedRaw({ data: { content, content_html } });
                 },
-                onPaste: function(e) {
+                onPaste: function (e) {
                     var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
                     e.preventDefault();
                     document.execCommand('insertText', false, bufferText);
@@ -295,6 +276,7 @@ module.exports = () => {
             buttons: '=',
             blockAlignment: '=',
             mediaUploaded: '&',
+            onUpdatedRaw: '&',
             disabled: '@',
             placeholder: '@',
             extendedOptions: '=',
@@ -315,6 +297,7 @@ module.exports = () => {
             '$element',
             '$timeout',
             'ModalService',
+            'MarkdownService',
             MarkdownDirective
         ],
         templateUrl: 'assets/tpl/directives/markdown.html'

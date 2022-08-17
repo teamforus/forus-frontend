@@ -1,9 +1,10 @@
-const OrganizationFundsComponent = function(
+const OrganizationFundsComponent = function (
     $state,
     $filter,
     $stateParams,
     FundService,
     ModalService,
+    PageLoadingBarService,
     PushNotificationsService
 ) {
     const $ctrl = this;
@@ -12,6 +13,11 @@ const OrganizationFundsComponent = function(
     const $translateDangerZone = (type, key) => $translate(`modals.danger_zone.${type}.${key}`);
 
     $ctrl.hasManagerPermission = false;
+    $ctrl.shownFundsType = $stateParams.funds_type || 'active';
+
+    $ctrl.hideFilters = (fund) => {
+        fund.topUpTransactionFilters.show = false;
+    };
 
     $ctrl.askConfirmation = (type, onConfirm) => {
         ModalService.open("dangerZone", {
@@ -19,11 +25,9 @@ const OrganizationFundsComponent = function(
             description: $translateDangerZone(type, 'description'),
             cancelButton: $translateDangerZone(type, 'buttons.cancel'),
             confirmButton: $translateDangerZone(type, 'buttons.confirm'),
-            onConfirm: onConfirm
+            onConfirm: onConfirm,
         });
     };
-
-    $ctrl.shownFundsType = $stateParams.funds_type || 'active';
 
     $ctrl.topUpModal = (fund) => {
         if (!fund.topUpInProgress) {
@@ -53,12 +57,30 @@ const OrganizationFundsComponent = function(
 
     $ctrl.toggleFundCriteria = (fund) => {
         fund.show_criteria = !fund.show_criteria;
-        fund.show_stats = false;
+        fund.show_stats = fund.show_top_ups = false;
     };
 
     $ctrl.toggleFundStats = (fund) => {
         fund.show_stats = !fund.show_stats;
-        fund.show_criteria = false;
+        fund.show_criteria = fund.show_top_ups = false;
+    };
+
+    $ctrl.fetchTopUpTransactions = (fund, query = {}) => {
+        PageLoadingBarService.setProgress(0);
+
+        FundService.listTopUpTransactions(fund.organization_id, fund.id, query).then(
+            (res) => fund.top_up_transactions = res.data,
+            (res) => PushNotificationsService.danger('Error!', res.data.message)
+        ).finally(() => PageLoadingBarService.setProgress(100));
+    };
+
+    $ctrl.toggleFundTopUpHistory = (fund) => {
+        fund.show_top_ups = !fund.show_top_ups;
+        fund.show_criteria = fund.show_stats = false;
+
+        if (fund.show_top_ups) {
+            $ctrl.fetchTopUpTransactions(fund);
+        }
     };
 
     $ctrl.onSaveCriteria = (fund) => {
@@ -93,7 +115,7 @@ const OrganizationFundsComponent = function(
         archived: $ctrl.archivedFunds.length,
     }[type]);
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
         $ctrl.hasManagerPermission = $hasPerm($ctrl.organization, 'manage_funds');
         $ctrl.canInviteProviders = $ctrl.hasManagerPermission && $ctrl.funds.length > 1;
@@ -101,6 +123,7 @@ const OrganizationFundsComponent = function(
         $ctrl.funds.forEach((fund) => {
             fund.canAccessFund = fund.state != 'closed';
             fund.canInviteProviders = $ctrl.hasManagerPermission && fund.state != 'closed';
+            fund.topUpTransactionFilters = { show: false, values: {} };
 
             fund.form = { criteria: fund.criteria };
             fund.providersDescription = [
@@ -129,6 +152,7 @@ module.exports = {
         '$stateParams',
         'FundService',
         'ModalService',
+        'PageLoadingBarService',
         'PushNotificationsService',
         OrganizationFundsComponent
     ],

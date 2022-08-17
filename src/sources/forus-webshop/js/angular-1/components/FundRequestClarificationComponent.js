@@ -9,10 +9,8 @@ let FundRequestClarificationComponent = function(
     let $ctrl = this;
 
     $ctrl.state = 'clarification_form';
-    $ctrl.totalSteps = 1;
     $ctrl.invalidCriteria = [];
     $ctrl.authToken = false;
-    $ctrl.signedIn = false;
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
     $ctrl.recordsSubmitting = false;

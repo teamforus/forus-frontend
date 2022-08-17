@@ -859,6 +859,31 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     /**
+     * Implementations
+     */
+    $stateProvider.state({
+        name: "implementation-notifications-send",
+        url: "/organizations/{organization_id}/implementations/{implementation_id}/implementation-notifications/send",
+        component: "implementationNotificationsSendComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
+            implementation: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id
+            ))],
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.list($transition$.params().organization_id, {
+                    implementation_id: $transition$.params().id,
+                    state: 'active',
+                }))
+            }],
+        }
+    });
+
+    /**
      * Notifications branding
      */
     $stateProvider.state({
@@ -1102,6 +1127,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         component: "transactionsComponent",
         resolve: {
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.list($transition$.params().organization_id))
+            }],
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')
         }
@@ -1259,6 +1287,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$.params().organization_id
             ))],
             fundLevel: () => 'fundsAvailable'
+        }
+    });
+
+    // Event logs
+    $stateProvider.state({
+        name: "organization-logs",
+        url: "/organizations/{organization_id}/logs",
+        component: "eventLogsComponent",
+        resolve: {
+            organization: organziationResolver(),
         }
     });
 

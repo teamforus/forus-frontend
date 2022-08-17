@@ -1,7 +1,7 @@
 module.exports = {
     // VALIDATION REQUEST FOR FUNDS = fund_request.pug
     sign_up: {
-        block_title: "{{ fundname }} aanvragen",
+        block_title: "{{ fund_name }} aanvragen",
         pane: {
             header_title: "Overzicht",
             text: "We hebben nog wat gegevens nodig. Doorloop de volgende stappen:",

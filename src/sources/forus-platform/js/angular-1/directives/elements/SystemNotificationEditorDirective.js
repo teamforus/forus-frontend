@@ -17,8 +17,6 @@ const NotificationEditor = function(
         enabled_partial: 'Aangezet, sommige kanalen staan afzonderlijk uit.',
     };
 
-    const notificationStateLabel = ImplementationNotificationsService.notificationStateLabel();
-
     $dir.resetTemplate = (type) => {
         $dir.notification.templates = $dir.notification.templates.filter((item) => item.type != type);
         $dir.notification.templates_default = $dir.notification.templates_default.map((item) => ({ ...item }))
@@ -75,9 +73,6 @@ const NotificationEditor = function(
         notification.description = description;
 
         $dir.templates = templates;
-        $dir.templatesLocal = templatesLocal;
-        $dir.templatesDefault = templatesDefault;
-        $dir.notificationStateLabel = notificationStateLabel;
         $dir.notificationToggleLabel = notificationToggleLabel;
 
         $dir.updateStateLabel();

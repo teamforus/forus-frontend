@@ -1,16 +1,4 @@
-let MeComponent = function(
-    $state,
-    $scope,
-    $stateParams,
-    ModalService
-) {
-    $scope.openAuthCodePopup = () => ModalService.open('modalAuthCode', {});
-    $scope.openActivateCodePopup = () => $state.go('start');
-
-    if ($stateParams.confirmed) {
-        $state.go('start');
-    }
-};
+const MeComponent = function () { };
 
 module.exports = {
     bindings: {},
@@ -18,12 +6,6 @@ module.exports = {
         text: '=',
         button: '=',
     },
-    controller: [
-        '$state',
-        '$scope',
-        '$stateParams',
-        'ModalService',
-        MeComponent
-    ],
+    controller: MeComponent,
     templateUrl: 'assets/tpl/pages/me.html'
 };
