@@ -6,6 +6,7 @@ const FundActivateComponent = function (
     FundService,
     PushNotificationsService,
     FormBuilderService,
+    IdentityService,
     DigIdService,
     ModalService,
     appConfigs
@@ -16,20 +17,21 @@ const FundActivateComponent = function (
     $ctrl.bsnIsKnown = false;
     $ctrl.appConfigs = appConfigs;
 
+    // Start digid sign-in
     $ctrl.startDigId = () => {
-        DigIdService.startFundRequest($ctrl.fund.id).then(res => {
-            document.location = res.data.redirect_url;
-        }, (res) => {
-            if (res.status === 403 && res.data.message) {
-                return PushNotificationsService.danger(res.data.message);
-            }
+        DigIdService.startFundRequest($ctrl.fund.id).then(
+            (res) => document.location = res.data.redirect_url,
+            (res) => {
+                if (res.status === 403 && res.data.message) {
+                    return PushNotificationsService.danger(res.data.message);
+                }
 
-            $state.go('error', {
-                errorCode: res.headers('Error-Code')
-            })
-        });
+                $state.go('error', { errorCode: res.headers('Error-Code') });
+            }
+        );
     };
 
+    // Apply for the fund
     $ctrl.applyFund = function (fund) {
         return $q((resolve, reject) => {
             FundService.apply(fund.id).then((res) => {
@@ -140,108 +142,89 @@ const FundActivateComponent = function (
         $ctrl.activateCodeForm.enabled = true;
     }
 
+    $ctrl.confirmCriteria = () => {
+        $ctrl.checkFund();
+    };
+
+    $ctrl.selectDigiDOption = () => {
+        const hasCustomCriteria = ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
+        const autoValidation = $ctrl.fund.auto_validation;
+
+        //- Show custom criteria screen
+        if (autoValidation && $ctrl.digidAvailable && hasCustomCriteria) {
+            return $ctrl.setState('digid');
+        }
+
+        $ctrl.checkFund();
+    };
+
+    $ctrl.checkFund = (fromDigid = false) => {
+        IdentityService.identity().then((res) => {
+            const identity = res.data;
+            const timeToSkipBsn = $ctrl.getTimeToSkipDigid(identity);
+
+            if (!fromDigid && (timeToSkipBsn === null || timeToSkipBsn <= 0)) {
+                return $ctrl.startDigId();
+            }
+
+            FundService.check($ctrl.fund.id).then((res) => {
+                const { backoffice } = res.data;
+                const { backoffice_error, backoffice_fallback, backoffice_error_key } = backoffice || {};
+
+                // Backoffice not responding and fallback is disabled
+                if (backoffice && backoffice_error == 1 && backoffice_fallback == 0) {
+                    return $ctrl.setState('backoffice_error_' + (backoffice_error_key ? backoffice_error_key : 'not_eligible'));
+                }
+
+                // Fund requesting is not available after successful signing with DigiD
+                if (backoffice && backoffice_error == 2) {
+                    return $ctrl.setState('error_digid_no_funds');
+                }
+
+                $state.go('fund-request', { id: $ctrl.fund.id, from: 'fund-activate' });
+            }, (res) => {
+                if (res.status === 403 && res.data.message) {
+                    PushNotificationsService.danger(res.data.message);
+                }
+
+                if (res.data.meta || res.status == 429) {
+                    ModalService.open('modalNotification', {
+                        type: 'info',
+                        title: res.data.meta.title,
+                        description: res.data.meta.message.split("\n"),
+                    });
+                }
+
+                $state.go('fund-activate', { ...$stateParams, digid_error: undefined, digid_success: undefined }, { reload: true });
+            });
+        });
+    }
+
     $ctrl.hasDigiDResponse = ($stateParams) => {
         return $stateParams.digid_error || $stateParams.digid_success;
     };
 
-    $ctrl.handleDigiDResponse = ($stateParams, funds) => {
-        if ($ctrl.hasDigiDResponse($stateParams)) {
-            // got digid error, abort
-            if ($stateParams.digid_error) {
-                if ($stateParams.digid_error === 'error_0040') {
-                    PushNotificationsService.info(
-                        'DigiD - Inlogpoging geannuleerd.',
-                        'U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan.'
-                    );
+    $ctrl.handleDigiDResponse = ($stateParams) => {
+        // got digid error, abort
+        if ($stateParams.digid_error) {
+            if ($stateParams.digid_error === 'error_0040') {
+                PushNotificationsService.info(
+                    'DigiD - Inlogpoging geannuleerd.',
+                    'U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan.'
+                );
 
-                    $state.go('fund-activate', { ...$stateParams, ...{ digid_error: undefined } }, {
-                        reload: true
-                    });
-                } else {
-                    $state.go('error', {
-                        errorCode: 'digid_' + $stateParams.digid_error,
-                        hideHomeLinkButton: true
-                    });
-                }
-
-                return true;
-            }
-
-            // digid sign-in flow
-            if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
-                PushNotificationsService.success('Succes! Ingelogd met DigiD.');
-                sessionStorage.setItem('__last_timestamp', new Date().getTime());
-
-                // user vouchers
-                let vouchers = $ctrl.vouchers;
-
-                // funds with valid criteria 
-                let availableFund = funds.filter(fund => ((fund.criteria.filter(
-                    criterion => !criterion.is_valid
-                ).length == 0)));
-
-                // list ids of funds with valid criteria 
-                let availableFundIds = availableFund.map(fund => fund.id);
-
-                // list ids of funds where user has vouchers
-                let takenFundIds = vouchers.map(voucher => voucher.fund_id);
-
-                // valid funds without vouchers
-                let fundsNoVouchers = availableFund.filter(fund => takenFundIds.indexOf(fund.id) === -1);
-
-                // list funds where user has vouchers (regardless of valid or invalid criteria)
-                let fundsWithVouchers = funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
-
-                // list funds where user doesn't have vouchers, 
-                // not all criteria are valid and fund request is enabled/available
-                let fundsValidCriteria = funds.filter((fund) => {
-                    return $ctrl.fundRequestIsAvailable(funds) &&
-                        takenFundIds.indexOf(fund.id) === -1 &&
-                        availableFundIds.indexOf(fund.id) === -1;
-                });
-
-                // Requesting fund is disabled/not available, 
-                // Implementation doesn't have funds where identity has vouchers (didn't received one during sign-up)
-                if (!$ctrl.fundRequestIsAvailable($ctrl.fund) && fundsWithVouchers.length == 0 && fundsNoVouchers.length == 0) {
-                    $ctrl.setState('error_digid_no_funds');
-                    return true;
-                }
-
-                if (fundsNoVouchers.length > 1 || (
-                    (fundsNoVouchers.length === 1) && fundsNoVouchers[0].id != $ctrl.fund.id)) {
-                    // Multiple funds are valid and ready to request or only one, but not the current target
-                    $state.go('funds');
-                } else if (fundsNoVouchers.length === 1) {
-                    // Only one fund is valid and it's the target fund, reload state to get redirected to fund request
-                    $state.go('fund-activate', {
-                        fund_id: fundsNoVouchers[0].id,
-                        digid_success: undefined,
-                    }, {
-                        reload: true
-                    });
-                } else if (!fundsValidCriteria.map(fund => fund.id).includes($ctrl.fund.id)) {
-                    // The current fund is now available for request (possible because bsn is now available)
-                    $state.go('fund-request', { ...$ctrl.fund, from: 'digid' });
-                } else if (fundsWithVouchers.length > 1) {
-                    // Identity has no valid funds, but has multiple vouchers (possible received during digid sign-up)
-                    $state.go('vouchers');
-                } else if (fundsWithVouchers.length === 1) {
-                    // Identity has no valid funds, but has one voucher (possible received during digid sign-up)
-                    $state.go('voucher', {
-                        address: vouchers.filter(
-                            voucher => voucher.fund_id === fundsWithVouchers[0].id
-                        )[0].address,
-                    });
-                } else {
-                    // None of above
-                    $state.go('funds');
-                }
-
-                return true;
+                $state.go('fund-activate', { ...$stateParams, digid_error: undefined }, { reload: true });
+            } else {
+                $state.go('error', { errorCode: `digid_${$stateParams.digid_error}`, hideHomeLinkButton: true });
             }
         }
 
-        return false;
+        // digid sign-in flow
+        if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
+            PushNotificationsService.success('Succes! Ingelogd met DigiD.');
+
+            $ctrl.checkFund(true);
+        }
     };
 
     $ctrl.getFirstFundVoucher = (fund, vouchers) => {
@@ -299,14 +282,35 @@ const FundActivateComponent = function (
         $ctrl.setState('select');
     };
 
+    $ctrl.getTimeToSkipDigid = (identity) => {
+        const timeOffset = appConfigs.bsn_confirmation_offset || 300;
+
+        if ($ctrl.fund.bsn_confirmation_time === null) {
+            return null;
+        }
+
+        return Math.max($ctrl.fund.bsn_confirmation_time - (identity.bsn_time + timeOffset), 0);
+    }
+
+    $ctrl.initBsnSkip = () => {
+        const timeToSkipBsn = $ctrl.getTimeToSkipDigid($ctrl.identity);
+        const canSkipDigid = timeToSkipBsn && timeToSkipBsn > 0;
+
+        $ctrl.canSkipDigid = canSkipDigid;
+
+        if ($ctrl.canSkipDigid && $ctrl.identity.bsn_time) {
+            $timeout(() => $ctrl.canSkipDigid = false, timeToSkipBsn * 1000);
+        }
+    };
+
     $ctrl.$onInit = function () {
-        const { backoffice_error, backoffice_fallback, backoffice_error_key } = $stateParams;
         const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
+        const pendingRequest = $ctrl.fundRequests?.data.find((request) => request.state === 'pending');
+        const hasDigiDResponse = $ctrl.hasDigiDResponse($stateParams);
 
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
         $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
         $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
-        $ctrl.autoValidation = $ctrl.fund.auto_validation;
         $ctrl.fundRequestAvailable = $ctrl.fundRequestIsAvailable($ctrl.fund);
 
         // The user is not authenticated and have to go back to sign-up page
@@ -314,8 +318,13 @@ const FundActivateComponent = function (
             return $state.go('start');
         }
 
+        // The request has digid auth success or error meta
+        if (hasDigiDResponse) {
+            return $ctrl.handleDigiDResponse($stateParams);
+        }
+
         // Voucher already received, go to the voucher
-        if (voucher && !$ctrl.hasDigiDResponse($stateParams)) {
+        if (voucher) {
             return $state.go('voucher', voucher);
         }
 
@@ -324,47 +333,24 @@ const FundActivateComponent = function (
             return $ctrl.setState('taken_by_partner');
         }
 
-        // Backoffice not responding and fallback is disabled
-        if (backoffice_error == 1 && backoffice_fallback == 0) {
-            return $ctrl.setState('backoffice_error_' + (backoffice_error_key ? backoffice_error_key : 'not_eligible'));
+        // Initialize pre-validations pin-code form control
+        if ($ctrl.fund.allow_prevalidations) {
+            $ctrl.initPrevalidationsForm();
         }
 
-        // Fund requesting is not available after successful signing with DigiD
-        if (backoffice_error == 2) {
-            return $ctrl.setState('error_digid_no_funds');
+        // Fund request already in progress
+        if (pendingRequest) {
+            $ctrl.fund.criteria = $ctrl.prepareCriterionMeta(pendingRequest, $ctrl.fund.criteria);
+            return $ctrl.setState('fund_already_applied');
         }
 
-        $ctrl.getFunds().then((funds) => {
-            const pendingRequest = $ctrl.fundRequests.data.find((request) => request.state === 'pending');
+        // All the criteria are meet, request the voucher
+        if ($ctrl.fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
+            return $ctrl.applyFund($ctrl.fund).then((voucher) => $state.go('voucher', voucher));
+        }
 
-            // The request has digid auth success or error meta
-            if ($ctrl.hasDigiDResponse($stateParams) && $ctrl.handleDigiDResponse($stateParams, funds)) {
-                return;
-            }
-
-            // Initialize pre-validations pin-code form control
-            if ($ctrl.fund.allow_prevalidations) {
-                $ctrl.initPrevalidationsForm();
-            }
-
-            // Fund request already in progress
-            if (pendingRequest || false) {
-                $ctrl.fund.criteria = $ctrl.prepareCriterionMeta(pendingRequest, $ctrl.fund.criteria);
-                return $ctrl.setState('fund_already_applied');
-            }
-
-            // All the criteria are meet, request the voucher
-            if ($ctrl.fund.criteria.filter(criterion => !criterion.is_valid).length == 0) {
-                return $ctrl.applyFund($ctrl.fund).then((voucher) => $state.go('voucher', voucher));
-            }
-
-            $ctrl.initState();
-        });
-
-        $ctrl.showCustomCriteriaOverview =
-            $ctrl.autoValidation &&
-            $ctrl.digidAvailable &&
-            ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
+        $ctrl.initState();
+        $ctrl.initBsnSkip();
     };
 };
 
@@ -383,6 +369,7 @@ module.exports = {
         'FundService',
         'PushNotificationsService',
         'FormBuilderService',
+        'IdentityService',
         'DigIdService',
         'ModalService',
         'appConfigs',

@@ -38,10 +38,18 @@ mixin go_back()
             .mdi.mdi-chevron-left.icon-lefts
             | Terug
 
+mixin time_limit_warning()
+    .sign_up-pane-warning(ng-if="$ctrl.bsnWarningShow")
+        .warning-icon: .mdi.mdi-alert-box-outline
+        .warning-details
+            | Please not that you have to finish the application before 
+            strong {{ $ctrl.bsnWarningValue }}
+            | , otherwise you will have to sign-in by DigiD again and start the application form allover.
+
 //-top-navbar
 main(id="main-content")
     section: .wrapper
-        .block.block-sign_up: .block-wrapper.form
+        .block.block-sign_up(ng-if="!$ctrl.digiExpired"): .block-wrapper.form
             //- Sign up title
             h1.block-title(ng-if="$ctrl.state" i18n="fund_request.sign_up.header.main" i18n-vars="{fund_name: ($ctrl.fund.name | capitalize)}")
 
@@ -100,6 +108,8 @@ main(id="main-content")
                             role="button")
                             | Overslaan
                             .mdi.mdi-chevron-right.icon-right
+                    
+                    +time_limit_warning()
 
                 .sign_up-pane(ng-if="$ctrl.emailSubmitted")
                     h1.sr-only Confirmation email sent
@@ -112,6 +122,8 @@ main(id="main-content")
                             .sign_up-email_sent-text(translate="{{ 'popup_auth.header.subtitle_we_succes_' + $root.appConfigs.features.communication_type }}" translate-values="{email: $ctrl.authForm.values.email}")
 
                             email-provider-link(email="$ctrl.authForm.values.email")
+
+                    +time_limit_warning()
 
             //- List the criteria
             div(ng-if="$ctrl.steps[$ctrl.step] == 'criteria'")
@@ -145,9 +157,10 @@ main(id="main-content")
                                 translate(translate='fund_request.sign_up.pane.footer.next')
                                 .mdi.mdi-chevron-right.icon-right
 
-            div(
-                ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index"
-                ng-if="$ctrl.steps[$ctrl.step] == 'criteria_' + $index")
+                    +time_limit_warning()
+
+            //- Criteria form steps
+            div(ng-if="$ctrl.steps[$ctrl.step] == 'criteria_' + $index" ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index")
                 +progress()
 
                 .sign_up-pane
@@ -252,6 +265,8 @@ main(id="main-content")
                                 role="button")
                                 | Verzenden
 
+                    +time_limit_warning()
+
             //- Confirm criteria
             div(ng-if="$ctrl.steps[$ctrl.step] == 'confirm_criteria' && !$ctrl.autoSubmit")
                 +progress()
@@ -290,6 +305,8 @@ main(id="main-content")
                             data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
 
                     +confirm_criteria_footer()
+
+                    +time_limit_warning()
 
             //- Provide contact information
             div(ng-if="$ctrl.steps[$ctrl.step] == 'contact_information'")
@@ -333,6 +350,8 @@ main(id="main-content")
                                 | Vraag aan
                                 .mdi.mdi-chevron-right.icon-right
 
+                    +time_limit_warning()
+
             //- Fund request overview
             div(ng-if="$ctrl.steps[$ctrl.step] == 'application_overview'")
                 +progress()
@@ -374,6 +393,8 @@ main(id="main-content")
                         .col.col-lg-6.col-xs-6.text-right: button.button.button-primary(ng-click="$ctrl.submitApplicationOverview()" role="button")
                             | Vraag aan
 
+                    +time_limit_warning()
+
             //- Done
             div(ng-if="$ctrl.steps[$ctrl.step] == 'done'")
                 //- Success
@@ -406,3 +427,29 @@ main(id="main-content")
 
                                 .text-center: .button.button-default(ng-click="$ctrl.finish()" role="button") Verlaat formulier
                             .form-group.col.col-lg-12: br
+
+        .block.block-sign_up(ng-if="$ctrl.digiExpired"): .block-wrapper.form
+            +progress()
+
+            .sign_up-pane
+                h1.sr-only Digid session expired
+                h2.sign_up-pane-header Digid session expired
+                .sign_up-pane-body: .row
+                    .form-group.col.col-lg-12
+                        .block-icon: .mdi.mdi-clock-alert-outline
+                        br
+
+                        .text-center
+                            h2.sign_up-pane-heading: strong Digid session expired
+                            p.sign_up-pane-text Please confirm your digid authorization and start again.
+
+                        br
+                        br
+
+                        .row: .col.col-xs-8.col-xs-offset-2: .sign_up-options: .sign_up-option(ng-click="$ctrl.startDigId()")
+                            .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
+                            .sign_up-option-details
+                                .sign_up-option-title DigiD
+                                .sign_up-option-description Start a new DigiD session to try again
+
+                    .form-group.col.col-lg-12: br
