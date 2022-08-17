@@ -558,6 +558,28 @@
             }
         }
 
+        .sign_up-pane-warning {
+            background: #fcfaf6;
+            border-top: 1px solid #ebedf0;
+            padding: 20px 40px 20px;
+            flex-direction: row;
+            display: flex;
+
+            .warning-icon {
+                width: 30px;
+                min-width: 30px;
+                display: flex;
+                font-size: 24px;
+                color: #6c6c6c;
+            }
+
+            .warning-details {
+                display: block;
+                font: 500 14px/24px $bf;
+                color: #6c6c6c;
+            }
+        }
+
         .form {
             .form-control:not([type="radio"]):not([type="checkbox"]) {
                 height: auto;

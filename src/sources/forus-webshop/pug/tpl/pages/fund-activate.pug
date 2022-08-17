@@ -33,7 +33,7 @@ main(id="main-content")
                     //- Use digid
                     .sign_up-option(
                         ng-if="$ctrl.options.includes('digid')"
-                        ng-click="$ctrl.setState('digid')")
+                        ng-click="$ctrl.selectDigiDOption('digid')")
 
                         .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                         .sign_up-option-details
@@ -85,36 +85,8 @@ main(id="main-content")
                     em.mdi.mdi-chevron-left.icon-lefts
                     | Terug
 
-        //- DigiD confirmation
-        .sign_up-pane(ng-if="$ctrl.state == 'digid' && !$ctrl.showCustomCriteriaOverview")
-            .sign_up-pane-header
-                h2.sign_up-pane-header-title(i18n="fund_request.sign_up.header.title_log_digid")
-
-            .sign_up-pane-body.sign_up-pane-body-padless-bottom
-                .sign_up-pane-digid: .flex.flex-vertical
-                    .flex.flex-horizontal
-                        button.digid-button(type="button" ng-click="$ctrl.startDigId()") Log in met DigiD
-                        img.digid-image(src=src_prefix + "./assets/img/icon-digid.svg" alt="DigiD")
-
-                .sign_up-pane-link(
-                    ng-if="$ctrl.showActivationCodeOption"
-                    ng-click="$ctrl.setState('code')") Ik heb een activatiecode
-
-            .sign_up-pane-footer: .row
-                .col.col-lg-6.text-left
-                    .button.button-text.button-text-padless(
-                        ng-if="$ctrl.options.length > 1"
-                        ng-click="$ctrl.setState('select')")
-                        em.mdi.mdi-chevron-left.icon-lefts
-                        | Terug
-
-                .col.col-lg-6.text-right(ng-if="$ctrl.fundRequestAvailable && !$ctrl.appConfigs.fund_request_allways_bsn_confirmation")
-                    .button.button-text.button-text-padless(ui-sref="fund-request($ctrl.fund)")
-                        em.mdi.mdi-chevron-right.icon-right
-                        | Overslaan
-
         //- DigiD confirmation (custom criteria)
-        .sign_up-pane(ng-if="$ctrl.state == 'digid' && $ctrl.showCustomCriteriaOverview")
+        .sign_up-pane(ng-if="$ctrl.state == 'digid'")
             .sign_up-pane-header
                 h2.sign_up-pane-header-title Bevestig uw inkomen
 
@@ -130,12 +102,12 @@ main(id="main-content")
                 .col.col-lg-6.text-left &nbsp;
                 .col.col-lg-6.text-right: .button.button-text.button-text-padless(
                     ng-if="$ctrl.confirm_criteria"
-                    ng-click="$ctrl.startDigId()"
+                    ng-click="$ctrl.confirmCriteria()"
                     role="button")
                     span(i18n="fund_request.sign_up.pane.footer.next")
                     em.mdi.mdi-chevron-right.icon-right
 
-            //- Prevalidation pincode
+            //- Prevalidation pin code
             div(ng-if="$ctrl.state == 'pincode_activate'")
                 .sign_up-pane
                     h2.sign_up-pane-header Vul uw activatiecode in
