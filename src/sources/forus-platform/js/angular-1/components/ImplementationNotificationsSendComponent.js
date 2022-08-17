@@ -130,8 +130,8 @@ const ImplementationNotificationsSendComponent = function (
 
             FundService.sendNotification($ctrl.organization.id, $ctrl.fund.id, {
                 ...$ctrl.identitiesFilters,
-                subject: $ctrl.template.title,
-                content: $ctrl.template.content,
+                subject: labelsToVars($ctrl.template.title),
+                content: labelsToVars($ctrl.template.content),
             }).then(() => {
                 $state.go('implementation-notifications', $ctrl.implementation);
 
