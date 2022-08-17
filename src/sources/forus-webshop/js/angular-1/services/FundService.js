@@ -14,32 +14,16 @@ const FundService = function (
             return ApiRequest.get('/platform/funds', { check_criteria: 1, ...values });
         };
 
-        this.store = function (organization_id, values) {
-            return ApiRequest.post(
-                uriPrefix + organization_id + '/funds', values
-            );
-        };
-
-        this.update = function (organization_id, id, values) {
-            return ApiRequest.patch(
-                uriPrefix + organization_id + '/funds/' + id, values
-            );
-        };
-
-        this.read = function (organization_id, id) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/funds/' + id
-            );
-        }
-
         this.apply = function (id) {
-            return ApiRequest.post(
-                '/platform/funds/' + id + '/apply'
-            );
+            return ApiRequest.post(`/platform/funds/${id}/apply`);
+        };
+
+        this.check = function (id) {
+            return ApiRequest.post(`/platform/funds/${id}/check`);
         };
 
         this.request = (id, data) => {
-            return ApiRequest.post('/platform/funds/' + id + '/request', data);
+            return ApiRequest.post(`/platform/funds/${id}/request`, data);
         };
 
         this.applyToFirstAvailable = () => {
@@ -55,12 +39,7 @@ const FundService = function (
         };
 
         this.readById = function (id, values = {}) {
-            return ApiRequest.get('/platform/funds/' + id, {
-                ...{
-                    check_criteria: 1
-                },
-                ...values
-            });
+            return ApiRequest.get(`/platform/funds/${id}`, { check_criteria: 1, ...values });
         };
 
         this.approveProvider = function (organization_id, fund_id, id) {

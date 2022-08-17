@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { addSeconds, format } from 'date-fns';
 
 const FundRequestComponent = function (
     $sce,
@@ -8,6 +8,7 @@ const FundRequestComponent = function (
     $timeout,
     appConfigs,
     FundService,
+    DigIdService,
     FormBuilderService,
     FundRequestService,
     IdentityEmailsService,
@@ -125,6 +126,20 @@ const FundRequestComponent = function (
                 } : res.data.errors;
             }).finally(() => form.unlock());
         }, true);
+    };
+
+    // Start digid sign-in
+    $ctrl.startDigId = () => {
+        DigIdService.startFundRequest($ctrl.fund.id).then(
+            (res) => document.location = res.data.redirect_url,
+            (res) => {
+                if (res.status === 403 && res.data.message) {
+                    return PushNotificationsService.danger(res.data.message);
+                }
+
+                $state.go('error', { errorCode: res.headers('Error-Code') });
+            }
+        );
     };
 
     // Submit criteria record
@@ -278,10 +293,23 @@ const FundRequestComponent = function (
         return fund.allow_fund_requests && (!$ctrl.digidMandatory || ($ctrl.digidMandatory && $ctrl.bsnIsKnown));
     };
 
-    $ctrl.shouldUpdateBsnSignUp = () => {
-        return appConfigs.fund_request_allways_bsn_confirmation ? (
-            ((new Date().getTime() - sessionStorage.getItem('__last_timestamp')) / 1000) > 120
-        ) : false;
+    $ctrl.initBsnWarning = () => {
+        const timeOffset = appConfigs.bsn_confirmation_offset || 300;
+        const timeBeforeReConfirmation = Math.max(($ctrl.fund.bsn_confirmation_time || 0) - $ctrl.identity.bsn_time, 0);
+        const timeBeforeWarning = Math.max((timeBeforeReConfirmation - timeOffset), 0);
+
+        if ($ctrl.fund.bsn_confirmation_time === null) {
+            return;
+        }
+
+        $timeout(() => {
+            $ctrl.bsnWarningShow = true;
+            $ctrl.bsnWarningValue = format(addSeconds(new Date(), timeOffset), 'HH:mm');
+        }, timeBeforeWarning * 1000);
+
+        $timeout(() => {
+            $ctrl.digiExpired = true;
+        }, timeBeforeReConfirmation * 1000);
     };
 
     $ctrl.$onInit = function () {
@@ -294,14 +322,18 @@ const FundRequestComponent = function (
         const voucher = $ctrl.getFirstActiveFundVoucher($ctrl.fund, $ctrl.vouchers);
         const pendingRequests = $ctrl.fundRequests.data.filter((request) => request.state === 'pending');
         const invalidCriteria = $ctrl.fund.criteria.filter((criterion) => !criterion.is_valid);
-        const {email_required, contact_info_enabled, contact_info_required} = $ctrl.fund;
+        const { email_required, contact_info_enabled, contact_info_required } = $ctrl.fund;
 
         // Voucher already received, go to the voucher
         if (voucher) {
             return $state.go('voucher', voucher);
         }
 
-        $ctrl.fromDigiD = from === 'digid';
+        // Hot linking is not allowed
+        if (from !== 'fund-activate') {
+            return $state.go('fund-activate', { fund_id: $ctrl.fund.id });
+        }
+
         $ctrl.appConfigs = appConfigs;
         $ctrl.bsnIsKnown = $ctrl.identity.bsn;
         $ctrl.digidAvailable = appConfigs.features.digid;
@@ -316,7 +348,7 @@ const FundRequestComponent = function (
         $ctrl.emailForm = makeEmailForm();
 
         // The user is not authenticated and have to go back to sign-up page
-        if (($ctrl.fund.auto_validation && !$ctrl.bsnIsKnown) || $ctrl.shouldUpdateBsnSignUp()) {
+        if ($ctrl.fund.auto_validation && !$ctrl.bsnIsKnown) {
             return $state.go('start');
         }
 
@@ -336,10 +368,10 @@ const FundRequestComponent = function (
         }
 
         $ctrl.buildSteps();
+        $ctrl.initBsnWarning();
         $ctrl.setStepByName($ctrl.steps[0]);
 
         $ctrl.autoSubmit =
-            $ctrl.fromDigiD &&
             $ctrl.digidAvailable &&
             $ctrl.fund.auto_validation &&
             $ctrl.invalidCriteria?.length > 0 &&
@@ -371,10 +403,12 @@ export const controller = [
     '$timeout',
     'appConfigs',
     'FundService',
+    'DigIdService',
     'FormBuilderService',
     'FundRequestService',
     'IdentityEmailsService',
     'PushNotificationsService',
     FundRequestComponent,
 ];
+
 export const templateUrl = 'assets/tpl/pages/fund-request.html';
