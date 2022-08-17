@@ -433,7 +433,7 @@ module.exports = {
             footer_opening_times: "Footer openingstijden content",
         },
         implementations_table: {
-            title: "Implementatie pages",
+            title: "Webshop pagina's",
             columns: {
                 name: "Naam",
                 options: "Opties"
@@ -441,7 +441,7 @@ module.exports = {
             labels: {
                 view: "Bekijk",
                 edit: "Bewerken",
-                no_pages: "Geen implementatie pages",
+                no_pages: "Geen webshop pagina's",
             },
         },
         placeholders: {
