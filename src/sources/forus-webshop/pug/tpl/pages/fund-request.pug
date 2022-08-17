@@ -55,7 +55,7 @@ main(id="main-content")
                     .sign_up-pane-body.sign_up-pane-body-padless-bottom: form(ng-submit="$ctrl.emailForm.submit()")
                         //- When email setup is required
                         p.sign_up-pane-text(ng-if="$ctrl.emailSetupRequired") 
-                            | In order to make a fund application, you need to set and confirm an email address. 
+                            | Om verder te gaan met de aanvraag dient u uw e-mailadres op te geven
 
                         .form-group: .row
                             .col.col-lg-9
@@ -102,7 +102,7 @@ main(id="main-content")
                             .mdi.mdi-chevron-right.icon-right
 
                 .sign_up-pane(ng-if="$ctrl.emailSubmitted")
-                    h1.sr-only Confirmation email sent
+                    h1.sr-only Er is een e-mail te bevestiging verstuurd
                     h2.sign_up-pane-header(i18n="Confirmation email sent") 
 
                     .sign_up-pane-body
@@ -310,7 +310,7 @@ main(id="main-content")
 
                         //- Contact information form
                         .form-group
-                            .form-label Contact information
+                            .form-label Contactgegevens
                             textarea(
                                 rows="5" 
                                 placeholder="Contact information..."
