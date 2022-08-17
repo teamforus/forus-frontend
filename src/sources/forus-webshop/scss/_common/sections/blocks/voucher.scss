@@ -656,6 +656,25 @@
                     }
                 }
             }
+
+            &.block-voucher-combined {
+                .base-card {
+                    &.base-card-voucher {
+                        .card-footer {
+                            .card-section {
+                                .card-title {
+                                    margin: 0 0 5px;
+                                    font: 600 12px/18px $bf;
+                                }
+    
+                                .card-description {
+                                    font: 400 12px/16px $bf;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
