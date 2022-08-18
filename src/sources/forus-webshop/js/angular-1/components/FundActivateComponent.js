@@ -309,8 +309,8 @@ const FundActivateComponent = function (
         const hasDigiDResponse = $ctrl.hasDigiDResponse($stateParams);
 
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
-        $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
-        $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
+        $ctrl.digidAvailable = $ctrl.configs.digid;
+        $ctrl.digidMandatory = $ctrl.configs.digid_mandatory;
         $ctrl.fundRequestAvailable = $ctrl.fundRequestIsAvailable($ctrl.fund);
 
         // The user is not authenticated and have to go back to sign-up page
@@ -356,9 +356,10 @@ const FundActivateComponent = function (
 
 module.exports = {
     bindings: {
+        fund: '<',
+        configs: '<',
         vouchers: '<',
         identity: '<',
-        fund: '<',
         fundRequests: '<',
     },
     controller: [
