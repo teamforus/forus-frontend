@@ -336,8 +336,8 @@ const FundRequestComponent = function (
 
         $ctrl.appConfigs = appConfigs;
         $ctrl.bsnIsKnown = $ctrl.identity.bsn;
-        $ctrl.digidAvailable = appConfigs.features.digid;
-        $ctrl.digidMandatory = appConfigs.features.digid_mandatory;
+        $ctrl.digidAvailable = $ctrl.configs.digid;
+        $ctrl.digidMandatory = $ctrl.configs.digid_mandatory;
 
         $ctrl.emailSetupShow = !$ctrl.identity.email;
         $ctrl.emailSetupRequired = email_required;
@@ -388,6 +388,7 @@ const FundRequestComponent = function (
 
 export const bindings = {
     fund: '<',
+    configs: '<',
     records: '<',
     identity: '<',
     vouchers: '<',

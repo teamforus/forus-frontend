@@ -800,6 +800,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             digid_error: false,
         },
         resolve: {
+            configs: resolveConfigs(),
             identity: ['AuthService', (
                 AuthService
             ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
@@ -831,6 +832,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         params: { from: null },
         data: { id: null },
         resolve: {
+            configs: resolveConfigs(),
             identity: ['AuthService', (
                 AuthService
             ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
