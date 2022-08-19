@@ -56,6 +56,12 @@ const ModalVoucherTransactionProviderComponent = function(
                 provider_id: data[0]?.id,
                 target: 'provider'
             }, (form) => {
+                if (form.values.target === 'provider') {
+                    delete form.values.target_iban;
+                } else if (form.values.target === 'identity') {
+                    delete form.values.provider_id;
+                }
+
                 VoucherService.makeSponsorTransaction(organization.id, form.values).then((res) => {
                     $ctrl.state = 'finish';
                     $ctrl.transaction = res.data;
