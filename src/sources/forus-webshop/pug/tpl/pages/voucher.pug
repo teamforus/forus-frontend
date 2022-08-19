@@ -22,7 +22,7 @@ main(id="main-content")
                             .card-subtitle(ng-if="!$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.fund.organization.name")
                             .card-subtitle(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.product.organization.name")
                             div(ng-if="$ctrl.voucherCard.fund.show_voucher_amount && $ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product")
-                                .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)")
+                                .card-value.euro(ng-bind="$ctrl.voucherCard.amount | currency_format")
 
                         .card-qr_code.show-sm(ng-if="$ctrl.voucherCard.fund.show_voucher_qr")
                             qr-code(ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue" qr-alt="Voucher").card-qr_code-element
