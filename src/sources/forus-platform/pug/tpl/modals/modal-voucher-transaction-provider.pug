@@ -10,14 +10,34 @@
 
         .modal-body.modal-body-visible.form
             .modal-section.modal-section-pad
+                //- Target type
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.fund.allow_direct_payments")
+                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction_provider.labels.target")
+                    select-control(
+                        ng-if="$ctrl.form.values.target"
+                        prop="key"
+                        search="false"
+                        ng-model="$ctrl.form.values.target"
+                        options="$ctrl.targets").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.target" ng-bind="error")
+
                 //- Provider
-                .form-group.form-group-inline.form-group-inline-md
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'provider'")
                     label.form-label.form-label-required(translate="modals.modal_voucher_transaction_provider.labels.provider")
                     select-control(
                         prop="id"
                         ng-model="$ctrl.form.values.provider_id"
                         options="$ctrl.providers").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.provider_id" ng-bind="error")
+
+                //- Target IBAN
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'identity'")
+                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction_provider.labels.identity")
+                    .form-offset
+                        input(
+                            ng-model="$ctrl.form.values.target_iban"
+                            placeholder="IBAN-nummer").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.target_iban" ng-bind="error")
 
                 //- Amount
                 .form-group.form-group-inline.form-group-inline-md
@@ -69,9 +89,14 @@
             .modal-section
                 .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
                     //- Provider
-                    .datalist-row
+                    .datalist-row(ng-if="$ctrl.form.values.target === 'provider'")
                         .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.provider")
                         .datalist-value(ng-bind="$ctrl.providersList[$ctrl.form.values.provider_id].name")
+
+                    //- Identity
+                    .datalist-row(ng-if="$ctrl.form.values.target === 'identity'")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.identity")
+                        .datalist-value(ng-bind="$ctrl.form.values.target_iban")
 
                     //- Sponsor name
                     .datalist-row
@@ -112,9 +137,14 @@
             .modal-section
                 .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
                     //- Provider name
-                    .datalist-row
+                    .datalist-row(ng-if="$ctrl.form.values.target === 'provider'")
                         .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.provider")
                         .datalist-value(ng-bind="$ctrl.providersList[$ctrl.form.values.provider_id].name")
+
+                    //- Identity
+                    .datalist-row(ng-if="$ctrl.form.values.target === 'identity'")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.identity")
+                        .datalist-value(ng-bind="$ctrl.form.values.target_iban")
 
                     //- Sponsor name
                     .datalist-row

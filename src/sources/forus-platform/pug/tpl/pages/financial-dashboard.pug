@@ -154,7 +154,12 @@
                         .financial-totals-label.financial-totals-label-sm Bij aanbieder
                     .financial-totals-content(ng-if="$ctrl.chartData.highest_transaction")
                         .financial-totals-value(ng-bind="$ctrl.chartData.highest_transaction.amount | currency_format")
-                        .financial-totals-value.financial-totals-value-sm(ng-bind="$ctrl.chartData.highest_transaction.provider")
+                        .financial-totals-value.financial-totals-value-sm(
+                            ng-if="$ctrl.chartData.highest_transaction.provider"
+                            ng-bind="$ctrl.chartData.highest_transaction.provider")
+                        .financial-totals-value.financial-totals-value-sm.text-muted(ng-if="!$ctrl.chartData.highest_transaction.provider")
+                            | Geen provider
+
                     .financial-totals-content(ng-if="!$ctrl.chartData.highest_transaction")
                         .financial-totals-value: small.text-strong.text-muted Geen transactie
                         .financial-totals-value &nbsp;

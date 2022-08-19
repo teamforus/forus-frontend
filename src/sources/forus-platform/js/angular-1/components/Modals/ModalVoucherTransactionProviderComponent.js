@@ -6,6 +6,11 @@ const ModalVoucherTransactionProviderComponent = function(
 ) {
     const $ctrl = this;
 
+    $ctrl.targets = [
+        {key: 'provider', name: 'Provider'},
+        {key: 'identity', name: 'Identity'},
+    ];
+
     $ctrl.fetchProviders = (voucher, organization) => {
         return OrganizationService.providerOrganizations(organization.id, {
             state: 'accepted',
@@ -21,12 +26,13 @@ const ModalVoucherTransactionProviderComponent = function(
     };
 
     $ctrl.$onInit = () => {
-        const { voucher, organization, onCreated } = $ctrl.modal.scope;
+        const { voucher, organization, fund, onCreated } = $ctrl.modal.scope;
 
         $ctrl.state = 'form';
         $ctrl.voucher = voucher;
         $ctrl.onCreated = onCreated;
         $ctrl.organization = organization;
+        $ctrl.fund = fund;
 
         $ctrl.fetchProviders(voucher, organization).then((data) => {
             $ctrl.providers = data;
@@ -37,6 +43,7 @@ const ModalVoucherTransactionProviderComponent = function(
                 amount: '',
                 voucher_id: voucher.id,
                 provider_id: data[0]?.id,
+                target: 'provider'
             }, (form) => {
                 VoucherService.makeSponsorTransaction(organization.id, form.values).then((res) => {
                     $ctrl.state = 'finish';

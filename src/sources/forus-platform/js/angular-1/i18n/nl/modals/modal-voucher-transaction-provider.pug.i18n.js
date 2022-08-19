@@ -13,6 +13,8 @@ module.exports = {
         amount: 'Bedrag',
         provider: 'Aanbieder',
         organization: 'Betaal vanuit',
+        target: 'Pay to',
+        identity: 'IBAN',
     },
     buttons: {
         cancel: "Annuleren",

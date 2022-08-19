@@ -1,0 +1,25 @@
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user")
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs
+            a.breadcrumb-item(
+                ui-sref="funds-show({organization_id: $ctrl.fund.organization_id, id: $ctrl.fund.id})"
+                ng-bind="$ctrl.fund.name")
+            .breadcrumb-item.active(ng-bind="$ctrl.identity.email")
+
+        .card: .card-header: .flex
+            .flex.flex-grow: .card-title
+                span(ng-bind="$ctrl.identity.email")
+
+            .flex.flex-self-start(ng-if="$ctrl.identity.bsn"): .card-title
+                span.text-strong.text-md.text-primary BSN:
+                span.text-strong.text-md.text-muted-dark(ng-bind="$ctrl.identity.bsn")
+
+        //- Vouchers list
+        vouchers(
+            ng-if="$ctrl.identity"
+            organization="$ctrl.organization"
+            fund="$ctrl.fund"
+            filter-values="$ctrl.vouchersFilters"
+            register="$ctrl.registerVouchersDirective(directive)"
+            block-title="Vouchers")

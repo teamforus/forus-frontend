@@ -1,5 +1,18 @@
-const FundsShowComponent = function($state, ModalService, FundService) {
+const FundsShowComponent = function(
+    $state,
+    ModalService,
+    FundService,
+    FundIdentitiesExportService,
+    PageLoadingBarService,
+    PushNotificationsService
+) {
     const $ctrl = this;
+
+    $ctrl.identitiesFilters = {
+        order_by: 'id',
+        order_dir: 'asc',
+        per_page: 10,
+    };
 
     $ctrl.toggleActions = (e, implementation) => {
         $ctrl.onClickOutsideMenu(e);
@@ -27,19 +40,41 @@ const FundsShowComponent = function($state, ModalService, FundService) {
         });
     };
 
+    $ctrl.exportIdentities = () => {
+        FundIdentitiesExportService.export($ctrl.organization.id, $ctrl.fund.id, $ctrl.identitiesFilters);
+    };
+
+    $ctrl.identitiesOnPageChange = (query = {}) => {
+        PageLoadingBarService.setProgress(0);
+
+        FundService.listIdentities($ctrl.organization.id, $ctrl.fund.id, query).then((res) => {
+            $ctrl.identities = res.data;
+        }, (res) => {
+            PushNotificationsService.danger('Error!', res.data.message);
+        }).finally(() => {
+            $ctrl.lastQuery = query.q;
+            PageLoadingBarService.setProgress(100);
+        });
+    };
+
     $ctrl.$onInit = () => {
         $ctrl.implementations = [$ctrl.fund.implementation];
+        $ctrl.identitiesOnPageChange($ctrl.identitiesFilters);
     }
 };
 
 module.exports = {
     bindings: {
+        organization: '<',
         fund: '<',
     },
     controller: [
         '$state',
         'ModalService',
         'FundService',
+        'FundIdentitiesExportService',
+        'PageLoadingBarService',
+        'PushNotificationsService',
         FundsShowComponent
     ],
     templateUrl: 'assets/tpl/pages/funds-show.html'

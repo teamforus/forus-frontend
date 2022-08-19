@@ -6,6 +6,7 @@ const VouchersShowComponent = function (
     PhysicalCardsService,
     PageLoadingBarService,
     PushNotificationsService,
+    FundService
 ) {
     const $ctrl = this;
     const $translate = $filter('translate');
@@ -146,6 +147,7 @@ const VouchersShowComponent = function (
         ModalService.open("voucherTransactionProvider", {
             voucher: $ctrl.voucher,
             organization: $ctrl.organization,
+            fund: $ctrl.fund,
             onCreated: () => $ctrl.fetchVoucher(),
         });
     }
@@ -156,6 +158,11 @@ const VouchersShowComponent = function (
 
     $ctrl.$onInit = function () {
         $ctrl.updateFlags();
+
+        if ($ctrl.showMakeTransactionButton) {
+            FundService.read($ctrl.organization.id, $ctrl.voucher.fund_id)
+                .then((res) => $ctrl.fund = res.data.data);
+        }
 
         $ctrl.eventFilters = {
             q: "",
@@ -179,6 +186,7 @@ module.exports = {
         'PhysicalCardsService',
         'PageLoadingBarService',
         'PushNotificationsService',
+        'FundService',
         VouchersShowComponent
     ],
     templateUrl: 'assets/tpl/pages/vouchers-show.html'

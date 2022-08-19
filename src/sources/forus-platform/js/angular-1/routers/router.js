@@ -697,6 +697,24 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
+        name: "identities-show",
+        url: "/organizations/{organization_id}/funds/{fund_id}/identities/{id}",
+        component: "identitiesShowComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('funds-show', ['manage_funds', 'view_finances'], false),
+            fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().fund_id));
+            }],
+            identity: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.readIdentity(
+                    $transition$.params().organization_id, $transition$.params().fund_id, $transition$.params().id
+                ));
+            }],
+        }
+    });
+
+    $stateProvider.state({
         name: "fund-backoffice-edit",
         url: "/organizations/{organization_id}/funds/{id}/backoffice",
         component: "fundBackofficeEdit",

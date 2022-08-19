@@ -68,6 +68,7 @@ app.component('organizationBankConnectionsComponent', require('./components/Orga
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
 app.component('productBoardComponent', require('./components/ProductBoardComponent'));
 app.component('eventLogsComponent', require('./components/EventLogsComponent'));
+app.component('identitiesShowComponent', require('./components/IdentitiesShowComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -239,6 +240,7 @@ app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirect
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 app.directive('eventLogs', require('./directives/EventLogsDirective'));
+app.directive('vouchers', require('./directives/VouchersDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 
