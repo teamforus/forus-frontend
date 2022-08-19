@@ -74,7 +74,7 @@
             //- Submit
             button.button.button-primary(
                 type="button"
-                ng-disabled="!$ctrl.form.values.provider_id || !$ctrl.form.values.amount"
+                ng-disabled="$ctrl.submitButtonDisabled"
                 ng-click="$ctrl.state = 'preview'"
                 translate="modals.modal_voucher_transaction_provider.buttons.submit")
 

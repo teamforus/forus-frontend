@@ -1,4 +1,5 @@
 const ModalVoucherTransactionProviderComponent = function(
+    $scope,
     VoucherService,
     FormBuilderService,
     OrganizationService,
@@ -6,6 +7,7 @@ const ModalVoucherTransactionProviderComponent = function(
 ) {
     const $ctrl = this;
 
+    $ctrl.submitButtonDisabled = true;
     $ctrl.targets = [
         {key: 'provider', name: 'Provider'},
         {key: 'identity', name: 'Identity'},
@@ -24,6 +26,15 @@ const ModalVoucherTransactionProviderComponent = function(
             }, ...res.data.data] : res.data.data;
         });
     };
+
+    function watchValues() {
+        $scope.$watch('$ctrl.form.values', function (newVal) {
+            $ctrl.submitButtonDisabled = ($ctrl.form.values.target === 'provider' && !$ctrl.form.values.provider_id) ||
+                ($ctrl.form.values.target === 'identity' && (
+                        !$ctrl.form.values.target_iban || $ctrl.form.values.target_iban === '')
+                ) || !$ctrl.form.values.amount;
+        }, true);
+    }
 
     $ctrl.$onInit = () => {
         const { voucher, organization, fund, onCreated } = $ctrl.modal.scope;
@@ -54,6 +65,8 @@ const ModalVoucherTransactionProviderComponent = function(
                     PushNotificationsService.danger('Mislukt!', res.data.message);
                 }).finally(() => form.unlock());
             }, true);
+
+            watchValues();
         });
     };
 
@@ -72,6 +85,7 @@ module.exports = {
         modal: '=',
     },
     controller: [
+        '$scope',
         'VoucherService',
         'FormBuilderService',
         'OrganizationService',
