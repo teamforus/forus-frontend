@@ -375,7 +375,7 @@ const FundRequestComponent = function (
             $ctrl.digidAvailable &&
             $ctrl.fund.auto_validation &&
             $ctrl.invalidCriteria?.length > 0 &&
-            ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
+            ['IIT', 'bus_2020', 'meedoen'].includes($ctrl.fund.key);
     };
 
     $scope.$watch('$ctrl.step', (step) => {
