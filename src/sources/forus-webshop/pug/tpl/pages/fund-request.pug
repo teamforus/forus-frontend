@@ -29,18 +29,18 @@ mixin go_back()
     //- Back to fund-activate page
     .flex-col.text-left(ng-if="$ctrl.step == 0")
         .button.button-text.button-text-padless(ui-sref="fund-activate({fund_id: $ctrl.fund.id})" role="button")
-            .mdi.mdi-chevron-left.icon-lefts
+            .mdi.mdi-chevron-left.icon-left
             | Terug
 
     //- Back to prev step
     .flex-col.text-left(ng-if="$ctrl.step > 0")
         .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
-            .mdi.mdi-chevron-left.icon-lefts
+            .mdi.mdi-chevron-left.icon-left
             | Terug
 
 mixin time_limit_warning()
     .sign_up-pane-warning(ng-if="$ctrl.bsnWarningShow")
-        .warning-icon: .mdi.mdi-alert-box-outline
+        .warning-icon: .mdi.mdi-alert-circle-outline
         .warning-details
             | Please not that you have to finish the application before 
             strong {{ $ctrl.bsnWarningValue }}
@@ -435,18 +435,16 @@ main(id="main-content")
                 h1.sr-only Digid session expired
                 h2.sign_up-pane-header Digid session expired
                 .sign_up-pane-body: .row
-                    .form-group.col.col-lg-12
-                        .block-icon: .mdi.mdi-clock-alert-outline
-                        br
+                    .form-group.col.col-xs-8.col-xs-offset-2
+                        .block-icon: include ../../../resources/_webshop-common/assets/img/icon-timeout.svg
 
                         .text-center
                             h2.sign_up-pane-heading: strong Digid session expired
                             p.sign_up-pane-text Please confirm your digid authorization and start again.
+                            
+                            .sign_up-pane-separator
 
-                        br
-                        br
-
-                        .row: .col.col-xs-8.col-xs-offset-2: .sign_up-options: .sign_up-option(ng-click="$ctrl.startDigId()")
+                        .sign_up-options: .sign_up-option(ng-click="$ctrl.startDigId()")
                             .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                             .sign_up-option-details
                                 .sign_up-option-title DigiD
