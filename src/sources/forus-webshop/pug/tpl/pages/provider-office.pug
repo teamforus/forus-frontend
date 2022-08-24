@@ -39,11 +39,6 @@ block content
                                 .data-list-key Type aanbieder:
                                 .data-list-value
                                     .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen type geselecteerd' }}
-
-                .block.block-pane(ng-if="$ctrl.provider.description_html")
-                    .pane-head: h2.pane-head-title Omschrijving
-                    .pane-section: .block.block-markdown
-                        div(ng-bind-html="$ctrl.provider.description_html")
                         
                 .block.block-pane
                     .pane-head: h2.pane-head-title Openingstijden

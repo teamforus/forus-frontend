@@ -1,4 +1,4 @@
-const ProviderComponent = function($state, $stateParams) {
+const ProviderComponent = function($state, $sce, $stateParams) {
     const $ctrl = this;
 
     $ctrl.mapOptions = {
@@ -8,6 +8,8 @@ const ProviderComponent = function($state, $stateParams) {
 
     $ctrl.$onInit = () => {
         $ctrl.searchData = $stateParams.searchData || null;
+
+        $ctrl.provider.description_html = $sce.trustAsHtml($ctrl.provider.description_html);
     };
 };
 
@@ -19,6 +21,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$sce',
         '$stateParams',
         ProviderComponent
     ],
