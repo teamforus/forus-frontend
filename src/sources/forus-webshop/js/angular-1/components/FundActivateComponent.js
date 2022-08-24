@@ -147,7 +147,7 @@ const FundActivateComponent = function (
     };
 
     $ctrl.selectDigiDOption = () => {
-        const hasCustomCriteria = ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
+        const hasCustomCriteria = ['IIT', 'bus_2020', 'meedoen'].includes($ctrl.fund.key);
         const autoValidation = $ctrl.fund.auto_validation;
 
         //- Show custom criteria screen
