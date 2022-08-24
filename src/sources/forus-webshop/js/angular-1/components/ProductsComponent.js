@@ -8,37 +8,7 @@ const ProductsComponent = function(
 ) {
     const $ctrl = this;
 
-    $ctrl.sortByOptions = [{
-        label: 'Nieuwe eerst',
-        value: {
-            order_by: 'created_at',
-            order_by_dir: 'desc',
-        }
-    }, {
-        label: 'Oudste eerst',
-        value: {
-            order_by: 'created_at',
-            order_by_dir: 'asc',
-        }
-    }, {
-        label: 'Prijs (oplopend)',
-        value: {
-            order_by: 'price',
-            order_by_dir: 'asc',
-        }
-    }, {
-        label: 'Prijs (aflopend)',
-        value: {
-            order_by: 'price',
-            order_by_dir: 'desc',
-        }
-    }, {
-        label: 'Meest gewild',
-        value: {
-            order_by: 'most_popular',
-            order_by_dir: 'desc',
-        }
-    }];
+    $ctrl.sortByOptions = ProductService.getSortOptions();
 
     $ctrl.distances = [
         { id: null, name: 'Overal' },
@@ -54,6 +24,28 @@ const ProductsComponent = function(
     $ctrl.filtersList = [
         'q', 'product_category_id', 'fund', 'sortBy',
     ];
+
+    $ctrl.showFavourites = $stateParams.favourites_only || 0;
+
+    $ctrl.getAll = () => {
+        $ctrl.showFavourites = 0;
+
+        $ctrl.loadProducts($ctrl.buildQuery());
+    };
+
+    $ctrl.getFavourites = () => {
+        $ctrl.showFavourites = 1;
+
+        $ctrl.loadProducts($ctrl.buildQuery());
+    };
+
+    $ctrl.getFavouriteProductsCount = () => {
+        return $ctrl.products.data.filter(product => product.is_favourite).length;
+    };
+
+    $ctrl.toggleFavourite = () => {
+        $ctrl.productsCount = $ctrl.showFavourites ? $ctrl.getFavouriteProductsCount() : $ctrl.products.meta.total;
+    };
 
     $ctrl.toggleMobileMenu = () => {
         $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
@@ -78,7 +70,7 @@ const ProductsComponent = function(
         $ctrl.onPageChange({ ...$ctrl.form.values });
     };
 
-    $ctrl.buildQuery = (values) => {
+    $ctrl.buildQuery = (values = {}) => {
         const orderByValue = {
             ...$ctrl.sort_by.value,
             ...{
@@ -98,6 +90,7 @@ const ProductsComponent = function(
             fund_type: $ctrl.fund_type,
             postcode: values.postcode || '',
             distance: values.distance || null,
+            favourites_only: values.showFavourites || $ctrl.showFavourites,
             ...orderByValue
         };
     };
@@ -108,6 +101,7 @@ const ProductsComponent = function(
 
     $ctrl.loadProducts = (query, location = 'replace') => {
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
+            $ctrl.productsCount = res.data.meta.total;
             return $ctrl.products = res.data;
         });
 
@@ -126,6 +120,7 @@ const ProductsComponent = function(
             show_menu: $ctrl.showModalFilters,
             postcode: query.postcode,
             distance: query.distance,
+            favourites_only: query.show_favourites || $ctrl.showFavourites
         }, { location });
     };
 
@@ -140,6 +135,7 @@ const ProductsComponent = function(
     };
 
     $ctrl.$onInit = () => {
+        $ctrl.productsCount = $ctrl.products.meta.total;
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.appConfigs = appConfigs;
 

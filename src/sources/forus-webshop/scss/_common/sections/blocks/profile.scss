@@ -211,6 +211,15 @@
                 padding-left: 0;
             }
         }
+
+        .favourite-products {
+            .profile-content {
+                .showcase-content {
+                    padding-left: 0px;
+                    max-width: 100%;
+                }
+            }
+        }
     }
 
     @media screen and (max-width: 1000px) {

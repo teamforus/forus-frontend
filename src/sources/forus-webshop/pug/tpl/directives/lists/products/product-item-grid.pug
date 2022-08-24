@@ -1,6 +1,12 @@
-.product-item
+.product-item(ng-show="!$dir.favouritesOnly || ($dir.favouritesOnly && product.is_favourite)")
     //- Products
     a(ui-sref="product(product)" ng-if="$dir.productType == 'budget'").product-item-inner
+        .product-to-fav(
+            ng-click="$dir.toggleFavourite($event, $dir.product)" 
+            ng-class="$dir.product.is_favourite ? 'active' : ''")
+            .mdi.mdi-cards-heart-outline(ng-if="!$dir.product.is_favourite")
+            .mdi.mdi-cards-heart(ng-if="$dir.product.is_favourite")
+        
         .product-image: img(
             ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
             alt="")
@@ -12,6 +18,12 @@
 
     //- Subsidies
     a(ui-sref="product(product)" ng-if="$dir.productType == 'subsidies'").product-item-inner
+        .product-to-fav(
+            ng-click="$dir.toggleFavourite($event, $dir.product)" 
+            ng-class="$dir.product.is_favourite ? 'active' : ''")
+            .mdi.mdi-cards-heart-outline(ng-if="!$dir.product.is_favourite")
+            .mdi.mdi-cards-heart(ng-if="$dir.product.is_favourite")
+        
         .product-image
             img(
                 ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 

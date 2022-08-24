@@ -4,7 +4,9 @@
         ng-repeat="product in $dir.products" 
         product="product"
         product-type="$dir.type"
-        ui-sref="product(product)")
+        ui-sref="product(product)"
+        favourites-only="$dir.favouritesOnly"
+        on-toggle-favourite="$dir.onToggleFavourite()")
 
     product-list-item(
         ng-if="$dir.display == 'grid'"
@@ -12,4 +14,6 @@
         product="product"
         product-type="$dir.type"
         ui-sref="product(product)"
-        template="product-item-grid")
+        template="product-item-grid"
+        favourites-only="$dir.favouritesOnly"
+        on-toggle-favourite="$dir.onToggleFavourite()")

@@ -1,0 +1,57 @@
+top-navbar
+
+main(id="main-content")
+    section.section.section-profile: .wrapper
+        .block.block-breadcrumbs
+            a(ui-sref="home").breadcrumb-item Home
+            .breadcrumb-item.active Favoriete producten
+
+        .block.block-profile.block-showcase: .showcase-layout
+            .favourite-products
+                .profile-aside.hide-sm: profile-menu
+
+                .profile-content
+                    .showcase-content
+                        .showcase-content-header
+                            h1.showcase-filters-title
+                                span Aanbod
+                                .showcase-filters-title-count(ng-bind="$ctrl.productsCount")
+
+                            .showcase-filters-block: .block.block-label-tabs.form
+                                .showcase-filters-item
+                                    label.form-label Sorteer
+                                    select-control(
+                                        id="sort_by"
+                                        as="label"
+                                        search="false"
+                                        ng-model="$ctrl.sort_by"
+                                        ng-change="$ctrl.updateSortBy()"
+                                        options="$ctrl.sortByOptions"
+                                        placeholder="Sorteer")
+
+                                .label-tab-set
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: $ctrl.display_type == 'list'}"
+                                        ng-click="$ctrl.showAs('list')"
+                                        role="button")
+                                        em.mdi.mdi-format-list-text.icon-start
+                                        | Lijst
+
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: $ctrl.display_type == 'grid'}"
+                                        ng-click="$ctrl.showAs('grid')"
+                                        role="button")
+                                        em.mdi.mdi-view-grid-outline.icon-start
+                                        | Foto's            
+                    
+                    products-list(
+                        display="$ctrl.display_type"
+                        products="$ctrl.products" 
+                        favourites-only="true"
+                        on-toggle-favourite="$ctrl.toggleFavourite()")
+
+                    empty-block(
+                        title= "{{ 'block_products.labels.title' | translate }}"
+                        description="{{ 'block_products.labels.subtitle' | translate }}"
+                        hide-link="true" 
+                        ng-if="$ctrl.products.length == 0")

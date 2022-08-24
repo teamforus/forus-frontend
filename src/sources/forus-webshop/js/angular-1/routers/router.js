@@ -146,7 +146,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "products",
         url: {
-            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
+            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{favourites_only:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
             nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
         },
         component: "productsComponent",
@@ -176,6 +176,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             display_type: {
                 dynamic: true,
                 value: 'list',
+                squash: true
+            },
+            favourites_only: {
+                dynamic: true,
+                value: 0,
                 squash: true
             },
             fund_type: {
@@ -209,7 +214,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 fund_id: $transition$.params().fund_id,
                 fund_type: $transition$.params().fund_type,
                 organization_id: $transition$.params().organization_id,
-                product_category_id: $transition$.params().product_category_id
+                product_category_id: $transition$.params().product_category_id,
+                favourites_only: $transition$.params().favourites_only
             }))],
             productCategories: ['ProductCategoryService', (ProductCategoryService) => {
                 return repackResponse(ProductCategoryService.list({ parent_id: 'null', used: 1 }))
@@ -553,6 +559,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             vouchers: ['VoucherService', (
                 VoucherService
             ) => repackResponse(VoucherService.list())],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "favourite-products",
+        url: {
+            en: "/favourite-products",
+            nl: "/favourite-products",
+        },
+        component: "favouriteProductsComponent",
+        resolve: {
+            products: ['ProductService', (
+                ProductService
+            ) => repackResponse(ProductService.list({
+                favourites_only: 1
+            }))],
         }
     });
 

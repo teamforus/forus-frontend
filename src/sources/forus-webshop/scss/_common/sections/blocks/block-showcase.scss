@@ -64,6 +64,32 @@
                 box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
                 margin-bottom: 30px;
 
+                .showcase-aside-tabs {
+                    display: flex;
+                    flex-wrap: wrap;
+                    height: 60px;
+                    border-color: $color_primary;
+                    font: 400 13px/40px $bf;
+                    margin-bottom: 15px;
+
+                    .showcase-aside-tabs-description {
+                        width: 100%;
+                        font: 700 11px/20px $bf;
+                    }
+
+                    .showcase-aside-tab {
+                        width: 50%;
+                        text-align: center;
+                        background: #f6f6f6;
+                        color: #000;
+
+                        &.active {
+                            background: $color_primary;
+                            color: #fff;
+                        }
+                    }
+                }
+
                 .showcase-aside-block-info {
                     font: 500 12px $bf;
                     color: #646f79;
