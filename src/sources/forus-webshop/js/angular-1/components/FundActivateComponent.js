@@ -272,6 +272,10 @@ const FundActivateComponent = function (
         }
 
         if ($ctrl.options.length === 1) {
+            if ($ctrl.options[0] === 'digid') {
+                return $ctrl.selectDigiDOption();
+            }
+
             return $ctrl.setState($ctrl.options[0]);
         }
 
@@ -285,7 +289,7 @@ const FundActivateComponent = function (
     $ctrl.getTimeToSkipDigid = (identity) => {
         const timeOffset = appConfigs.bsn_confirmation_offset || 300;
 
-        if ($ctrl.fund.bsn_confirmation_time === null) {
+        if ($ctrl.fund.bsn_confirmation_time === null || !identity.bsn) {
             return null;
         }
 
@@ -346,7 +350,10 @@ const FundActivateComponent = function (
 
         // All the criteria are meet, request the voucher
         if ($ctrl.fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
-            return $ctrl.applyFund($ctrl.fund).then((voucher) => $state.go('voucher', voucher));
+            return $ctrl.applyFund($ctrl.fund).then(
+                (voucher) => $state.go('voucher', voucher),
+                () => $state.go('fund', $ctrl.fund)
+            );
         }
 
         $ctrl.initState();
