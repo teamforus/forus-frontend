@@ -1127,8 +1127,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         component: "transactionsComponent",
         resolve: {
-            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
-                return repackResponse(FundService.list($transition$.params().organization_id))
+            funds: ['$transition$', 'FundService', 'ProviderFundService', 'appConfigs', 'permission', (
+                $transition$, FundService, ProviderFundService, appConfigs
+            ) => {
+                if (appConfigs.panel_type === 'provider') {
+                    return repackResponse(ProviderFundService.listFunds($transition$.params().organization_id)).then((data) => {
+                        return data.map((item) => item.fund);
+                    });
+                }
+
+                return repackResponse(FundService.list($transition$.params().organization_id));
             }],
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')
