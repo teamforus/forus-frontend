@@ -147,7 +147,7 @@ const FundActivateComponent = function (
     };
 
     $ctrl.selectDigiDOption = () => {
-        const hasCustomCriteria = ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
+        const hasCustomCriteria = ['IIT', 'bus_2020', 'meedoen'].includes($ctrl.fund.key);
         const autoValidation = $ctrl.fund.auto_validation;
 
         //- Show custom criteria screen
@@ -272,6 +272,10 @@ const FundActivateComponent = function (
         }
 
         if ($ctrl.options.length === 1) {
+            if ($ctrl.options[0] === 'digid') {
+                return $ctrl.selectDigiDOption();
+            }
+
             return $ctrl.setState($ctrl.options[0]);
         }
 
@@ -285,7 +289,7 @@ const FundActivateComponent = function (
     $ctrl.getTimeToSkipDigid = (identity) => {
         const timeOffset = appConfigs.bsn_confirmation_offset || 300;
 
-        if ($ctrl.fund.bsn_confirmation_time === null) {
+        if ($ctrl.fund.bsn_confirmation_time === null || !identity.bsn) {
             return null;
         }
 
@@ -309,8 +313,8 @@ const FundActivateComponent = function (
         const hasDigiDResponse = $ctrl.hasDigiDResponse($stateParams);
 
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
-        $ctrl.digidAvailable = $ctrl.appConfigs.features.digid;
-        $ctrl.digidMandatory = $ctrl.appConfigs.features.digid_mandatory;
+        $ctrl.digidAvailable = $ctrl.configs.digid;
+        $ctrl.digidMandatory = $ctrl.configs.digid_mandatory;
         $ctrl.fundRequestAvailable = $ctrl.fundRequestIsAvailable($ctrl.fund);
 
         // The user is not authenticated and have to go back to sign-up page
@@ -346,7 +350,10 @@ const FundActivateComponent = function (
 
         // All the criteria are meet, request the voucher
         if ($ctrl.fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
-            return $ctrl.applyFund($ctrl.fund).then((voucher) => $state.go('voucher', voucher));
+            return $ctrl.applyFund($ctrl.fund).then(
+                (voucher) => $state.go('voucher', voucher),
+                () => $state.go('fund', $ctrl.fund)
+            );
         }
 
         $ctrl.initState();
@@ -356,9 +363,10 @@ const FundActivateComponent = function (
 
 module.exports = {
     bindings: {
+        fund: '<',
+        configs: '<',
         vouchers: '<',
         identity: '<',
-        fund: '<',
         fundRequests: '<',
     },
     controller: [

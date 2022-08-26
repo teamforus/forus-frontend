@@ -53,6 +53,16 @@ module.exports = {
             delete: "Annuleer reservering",
             expired: "Verlopen"
         },
+        voucher_card_combined: {
+            header: {
+                title: "Hoe werkt het?",
+            },
+            labels: {
+                how_it_works: "Het bedrag voor deze regeling ontvangt u op uw persoonlijke bankrekening.",  
+                contact_sponsor: "Vragen?",
+                contact_sponsor_details: "Nem contact met ons op.",
+            },
+        },
         physical_card: {
             title: 'Activeer mijn pas',
             buttons: {

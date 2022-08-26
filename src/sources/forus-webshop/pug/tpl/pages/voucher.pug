@@ -8,7 +8,7 @@ main(id="main-content")
             .breadcrumb-item.active(ng-if="!$ctrl.voucher.physical_card" aria-current="location") {{ $ctrl.voucherCard.title }}
             .breadcrumb-item.active(ng-if="$ctrl.voucher.physical_card" aria-current="location") Uw {{ $ctrl.voucherCard.title }} \#{{ $ctrl.voucher.physical_card.code }}
 
-        .block.block-voucher(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse")
+        .block.block-voucher(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && $ctrl.voucherCard.fund.show_voucher_qr")
             h1.sr-only Jouw tegoed
             //- voucher details
             .base-card.base-card-voucher
@@ -21,14 +21,14 @@ main(id="main-content")
                             h2(ng-bind="$ctrl.voucherCard.title | str_limit:40").card-title
                             .card-subtitle(ng-if="!$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.fund.organization.name")
                             .card-subtitle(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.product.organization.name")
-                            div(ng-if="$ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product")
-                                .card-value.euro(ng-bind="'€ ' + ($ctrl.voucherCard.amount)")
+                            div(ng-if="$ctrl.voucherCard.fund.show_voucher_amount && $ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product")
+                                .card-value.euro(ng-bind="$ctrl.voucherCard.amount | currency_format")
 
-                        .card-qr_code.show-sm
+                        .card-qr_code.show-sm(ng-if="$ctrl.voucherCard.fund.show_voucher_qr")
                             qr-code(ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue" qr-alt="Voucher").card-qr_code-element
                             .card-qr_code-desc Geldig t/m {{ $ctrl.voucherCard.last_active_day_locale }} 
 
-                        .card-qr_code.hide-sm
+                        .card-qr_code.hide-sm(ng-if="$ctrl.voucherCard.fund.show_voucher_qr")
                             qr-code(ng-if="$ctrl.qrValue" qr-value="$ctrl.qrValue" qr-type="voucher" qr-alt="Voucher")
                             .card-qr_code-desc(ng-if="!$ctrl.voucherCard.used") Geldig t/m {{ $ctrl.voucherCard.last_active_day_locale }} 
                             .card-qr_code-desc(ng-if="$ctrl.voucherCard.product && $ctrl.voucherCard.used") Gebruikt
@@ -133,6 +133,36 @@ main(id="main-content")
                         br
                         | Telefoonnummer: 
                         strong(ng-bind="$ctrl.voucherCard.product.organization.phone")
+
+        .block.block-voucher.block-voucher-combined(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && !$ctrl.voucherCard.fund.show_voucher_qr")
+            h1.sr-only Jouw tegoed
+            //- voucher details
+            .base-card.base-card-voucher
+                .card-inner
+                    .card-body
+                        //- product voucher
+                        .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}" alt="{{$ctrl.voucherCard.title}}").voucher-img
+
+                        .card-section
+                            h2(ng-bind="$ctrl.voucherCard.title | str_limit:40").card-title
+                            .card-subtitle(ng-if="!$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.fund.organization.name")
+                            .card-subtitle(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.product.organization.name")
+
+                    .card-footer
+                        .card-section
+                            h2.card-title(translate="voucher.voucher_card_combined.header.title")
+                            .card-description(translate="voucher.voucher_card_combined.labels.how_it_works")
+                        
+                        .card-section
+                            .card-title(translate="voucher.voucher_card_combined.labels.contact_sponsor")
+                            .card-description
+                                span(translate="voucher.voucher_card_combined.labels.contact_sponsor_details")
+                                br
+                                | E-mailadres: 
+                                span(ng-bind="$ctrl.voucherCard.fund.organization.email")
+                                br
+                                | Telefoonnummer: 
+                                span(ng-bind="$ctrl.voucherCard.fund.organization.phone")
 
         //- Voucher physical card (activation)
         .block.block-physical-cards(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.showPhysicalCardsOption")

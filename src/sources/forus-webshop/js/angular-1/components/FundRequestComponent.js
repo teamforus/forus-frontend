@@ -336,8 +336,8 @@ const FundRequestComponent = function (
 
         $ctrl.appConfigs = appConfigs;
         $ctrl.bsnIsKnown = $ctrl.identity.bsn;
-        $ctrl.digidAvailable = appConfigs.features.digid;
-        $ctrl.digidMandatory = appConfigs.features.digid_mandatory;
+        $ctrl.digidAvailable = $ctrl.configs.digid;
+        $ctrl.digidMandatory = $ctrl.configs.digid_mandatory;
 
         $ctrl.emailSetupShow = !$ctrl.identity.email;
         $ctrl.emailSetupRequired = email_required;
@@ -375,7 +375,7 @@ const FundRequestComponent = function (
             $ctrl.digidAvailable &&
             $ctrl.fund.auto_validation &&
             $ctrl.invalidCriteria?.length > 0 &&
-            ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
+            ['IIT', 'bus_2020', 'meedoen'].includes($ctrl.fund.key);
     };
 
     $scope.$watch('$ctrl.step', (step) => {
@@ -388,6 +388,7 @@ const FundRequestComponent = function (
 
 export const bindings = {
     fund: '<',
+    configs: '<',
     records: '<',
     identity: '<',
     vouchers: '<',
