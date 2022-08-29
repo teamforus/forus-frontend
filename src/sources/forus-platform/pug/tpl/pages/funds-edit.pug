@@ -121,8 +121,7 @@
                     .form-offset: markdown(
                         extended-options="true"
                         value="$ctrl.form.values.description_html"
-                        ng-model="$ctrl.form.values.description"
-                        media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
+                        ng-model="$ctrl.form.values.description")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
             
             //- Fund start date and end date
