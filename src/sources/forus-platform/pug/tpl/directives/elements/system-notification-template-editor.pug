@@ -38,11 +38,11 @@
         .flex.flex-pad.flex-end
             button(ng-if="$dir.editForm" type="button" ng-click="$dir.cancelTemplateEdit()").button.button-default.button-sm.button-flat
                 em.mdi.mdi-close.icon-start
-                | Cancel
+                | Annuleren
 
             button(ng-if="!$dir.editForm" type="button" ng-click="$dir.editTemplate()").button.button-primary.button-sm.button-flat
                 em.mdi.mdi-pencil.icon-start
-                | Edit text
+                | Wijzig de inhoud van de e-mail
 
     //- The details
     .card-section(ng-class="($dir.enable && $dir.enable_all) || $dir.compose ? '' : 'card-section-danger'"): form(ng-submit="$dir.editForm.submit()")

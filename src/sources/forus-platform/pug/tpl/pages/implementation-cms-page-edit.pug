@@ -39,7 +39,7 @@
 
                     //- Select type (internal or external)
                     .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.allow_external").tooltipped
-                        label.form-label Page type
+                        label.form-label Pagina type
                         .form-offset
                             select-control(
                                 prop="value"
@@ -52,7 +52,7 @@
 
                     //- External page url
                     .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.external")
-                        label.form-label External url
+                        label.form-label Externe url
                         //- enabled field
                         input.form-control(
                             ng-model="$ctrl.form.values.external_url" 
@@ -77,7 +77,7 @@
             //- Blocks
             .card-section.card-section-primary(ng-if="$ctrl.page_type_config.blocks")
                 .form-group.form-group-inline.form-group-inline-lg
-                    label.form-label Fund blocks
+                    label.form-label Blokken
 
                     implementation-blocks-editor(
                         ng-if="$ctrl.implementation"

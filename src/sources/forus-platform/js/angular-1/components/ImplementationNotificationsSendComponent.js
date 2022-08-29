@@ -21,10 +21,10 @@ const ImplementationNotificationsSendComponent = function (
 
     const targets = [{
         value: "all",
-        name: 'All people with active vouchers',
+        name: 'Alle gebruikers met een actieve voucher',
     }, {
         value: "has_balance",
-        name: 'People with balance more than 0 or unused product vouchers.',
+        name: 'Alle gebruikers die nog budget beschikbaar hebben of een ongebruike reservering en/of aanbiedings voucher',
     }];
 
     $ctrl.targets = targets;
@@ -136,8 +136,8 @@ const ImplementationNotificationsSendComponent = function (
                 $state.go('implementation-notifications', $ctrl.implementation);
 
                 PushNotificationsService.success(
-                    'Success!',
-                    'Notifications will soon be delivered to the users.',
+                    'Gelukt!',
+                    'De e-mail zal zo spoedig mogelijk verstuurd worden naar alle gebruikers.',
                     'check',
                     { timeout: 8000 }
                 );
@@ -163,7 +163,7 @@ const ImplementationNotificationsSendComponent = function (
                 content: labelsToVars($ctrl.template.content),
             }).then(() => {
                 $ctrl.previewSent = true;
-                PushNotificationsService.success('Success!', 'Please check your email inbox.');
+                PushNotificationsService.success('Gelukt!', 'Bekijk de e-mail in je postvak');
             }, (res) => {
                 $ctrl.onError(res);
             }).finally(() => {
@@ -182,9 +182,9 @@ const ImplementationNotificationsSendComponent = function (
             "<h1>:fund_name</h1>",
             "[email_logo]",
             "<br>",
-            "E-mail content",
+            "Inhoud van de e-mail",
             "<br>",
-            "Please adjust the email content",
+            "Verander de inhoud van de e-mail",
             "<br>",
             "<br>",
             ":webshop_button",
