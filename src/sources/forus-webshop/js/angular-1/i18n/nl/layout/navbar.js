@@ -25,6 +25,9 @@ module.exports = {
         nijmegen: {
             funds:"Aanvragen",
         },
+        vergoedingen: {
+            funds: "Vergoedingen",
+        }
     },
     buttons: {
         activate: "Activeren",
