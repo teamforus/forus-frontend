@@ -173,7 +173,9 @@ main(id="main-content")
             .sign_up-pane-body.text-center
                 p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
                 p.sign_up-pane-text 
-                    | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
+                    | Volgens onze gegevens bent u geen inwoner van de gemeente Nijmegen. De { $ctrl.fund.name }} geldt alleen voor inwoners van de gemeente Nijmegen. Mogelijk heeft uw eigen gemeente wel regelingen waarvoor u in aanmerking komt. Neem hiervoor contact op met de gemeente waar u woonachtig bent. 
+                    | Heeft u hier een vraag over of wilt u een bezwaar indienen, neem dan contact op met 024-329 8065.
+                    
                 .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
                 p.sign_up-pane-text.text-center 
                     | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
