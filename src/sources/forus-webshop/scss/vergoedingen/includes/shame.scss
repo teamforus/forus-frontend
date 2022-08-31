@@ -18,6 +18,10 @@
             }
         }
 
+        .block-subnav {
+            background-color: #01689B;
+        }
+
         .navbar-list {
             .navbar-item-wrapper {
                 .navbar-item {
@@ -50,31 +54,66 @@
                 }
             }
         }
+    }
 
-        .navbar-inner {
-            order: 2;
+    @media screen and (min-width: 1000px) { 
+        &.block-navbar {
+            .navbar-inner {
+                order: 2;
+            }
+    
+            .block-navbar-search {
+                max-width: 760px;
+    
+                .search-form.form {
+                    .form-control {
+                        border-radius: 10px;
+                    }
+                }
+            }
         }
 
-        .block-subnav {
-            background-color: $tc-auth-menu;
+        &.block-products {
+            display: flex;
+            justify-content: center;
         }
+    }
 
-        .block-navbar-search {
-            max-width: 760px;
+    .block-subnav {
+        background-color: #01689B;
+    }
 
-            .search-form.form {
-                .form-control {
-                    border-radius: 10px;
+    @media screen and (max-width: 1000px) {
+        &.block-navbar {
+            position: sticky;
+            background-color: #01689B;
+
+            .navbar-logo {
+                img {
+                    display: none;
+
+                    &.hover {
+                        display: block;
+                    }
+                }
+            }
+
+            .button {
+                color:#ffffff;
+
+                svg {
+                    path {
+                        fill: #fff;
+                    }
                 }
             }
         }
     }
 
     &.block-products {
-        display: flex;
-        justify-content: center;
-
         .product-item {
+            width: 100%;
+
             .product-item-inner {
                 box-shadow: none;
                 border: solid 1px #e4e4e4;
@@ -112,7 +151,7 @@
     }
 
     &.block-cms-funds {
-        margin-top: 100px;
+        margin-top: 50px;
     }
 
     &.block-organizations {
@@ -206,13 +245,13 @@
     }
 
     &.block-organization-info {
-        display: flex;
+        display: block;
         width: 100%;
         padding: 20px 0 20px 0;
-        margin: 50px 0 50px 0;
 
         .info-block-panel {
-            width: 50%;
+            width: 100%;
+            margin: 0px 0 60px 0;
 
             .block-title {
                 font: 700 22px/35px $bf;
@@ -249,6 +288,22 @@
             }
         }
     }
+
+    @media screen and (min-width: 1000px) {
+        &.block-products {
+            max-width: 1280px;
+            margin: 0 auto;
+            }
+
+        &.block-organization-info { 
+            display: flex;
+            margin: 50px 0 50px 0;
+
+            .info-block-panel {
+                width: 50%;
+            }
+        }
+    }
 }
 
 .form {
@@ -261,15 +316,17 @@
 .section {
     &.section-header {
         width: 1280px;
-        height: 500px;
         background-position: top center;
-        padding: 75px 0;
+        padding: 50px 0;
         margin: 0 auto;
-        
+        max-width: 100%;
+
         .header-content {
-            padding: 50px 50px;
-            margin-left: 50px;
-            background-color: #ffffff;
+            text-align: center;
+
+            .header-description p {
+                text-align: center !important;
+            }
         }
     }
 
@@ -280,32 +337,50 @@
         }
     }
 
-    &.section-products {
-        width: 100vw;
-        background: #F4F5F7;
-        left: calc(-50vw + 50%);
-        padding: 30px 0 30px 0;
-
-        .section-title {
-            margin-top: 0;
-        }
-    }
-
     &.section-faq {
         .faq {
             width: auto;
             margin: 0;
         }
     }
-}
 
-.section {
     &.section-footer {
         margin-top: 0;
         padding-top: 30px;
         color: #fff;
     }
+
+    @media screen and (min-width: 1000px) { 
+        &.section-header { 
+            height: 500px;
+            padding: 75px 0;
+        
+            .header-content {
+                text-align: left;
+                padding: 50px 50px;
+                margin-left: 50px;
+                background-color: #ffffff;
+                text-align: left;
+        
+                .header-description p {
+                    text-align: left !important;
+                }
+            }
+        }
+
+        &.section-products {
+            width: 100vw;
+            background: #F4F5F7;
+            left: calc(-50vw + 50%);
+            padding: 30px 0 30px 0;
+    
+            .section-title {
+                margin-top: 0;
+            }
+        }    
+    }
 }
+
 .block {
     &.block-footer {
         .footer-label {
@@ -342,6 +417,7 @@
             }
         }
     }
+
     &.block-copyrights {
         border: none;
         background-color: #212121;
