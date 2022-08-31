@@ -49,6 +49,9 @@ module.exports = {
         nijmegen: {
             activate: "Aanvragen",
         },
+        vergoedingen: {
+            activate: "Vergoedingen"
+        },
         login:"Inloggen",
         voucher:"Mijn tegoeden",
         profile:"Profiel >",
