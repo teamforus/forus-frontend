@@ -25,6 +25,9 @@ module.exports = {
         nijmegen: {
             funds:"Aanvragen",
         },
+        vergoedingen: {
+            funds: "Vergoedingen",
+        }
     },
     buttons: {
         activate: "Activeren",
@@ -45,6 +48,9 @@ module.exports = {
         },
         nijmegen: {
             activate: "Aanvragen",
+        },
+        vergoedingen: {
+            activate: "Vergoedingen"
         },
         login:"Inloggen",
         voucher:"Mijn tegoeden",

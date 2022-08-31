@@ -57,7 +57,8 @@ module.exports = {
         groningen: 'Stadjerspas',
         geertruidenberg: 'Geertruidenberg',
         waalwijk: 'Paswijzer',
-        heumen: 'Heumen'
+        heumen: 'Heumen',
+        vergoedingen: "Vergoedingen",
     },
     languages: {
         en: 'English',
