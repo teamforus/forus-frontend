@@ -24,6 +24,14 @@ img {
     flex-grow: 100 !important;
 }
 
+.flex-vertical {
+    flex-direction: column !important;
+}
+
+.flex-horizontal {
+    flex-direction: row !important;
+}
+
 .pull-right {
     float: right !important;
 }

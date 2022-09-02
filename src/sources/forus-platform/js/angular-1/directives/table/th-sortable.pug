@@ -2,7 +2,7 @@
     ng-class="{'th-sort-enabled': $dir.value, 'th-sort-active': $dir.value && ($dir.value == $dir.filters.order_by)}"
     ng-click="$dir.onClick()")
 
-    .th-sort-label(ng-bind="$dir.label | i18n")
+    .th-sort-label(translate="{{ $dir.label }}")
     .th-sort-icon(ng-if="$dir.value")
         .mdi(
             ng-if="$dir.value == $dir.filters.order_by"

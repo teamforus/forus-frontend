@@ -34,7 +34,7 @@ const ProductBoardComponent = function(
 
         $ctrl.form = FormBuilderService.build({
             use_customer_email: false,
-            customer_email: $ctrl.auth_user.email,
+            customer_email: $ctrl.auth_user?.email || '',
             urgency: null,
         }, (form) => {
             ProductBoardService.store({...form.values, ...{

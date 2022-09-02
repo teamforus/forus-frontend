@@ -1,20 +1,18 @@
-let NotificationsComponent = function(
+const NotificationsComponent = function (
     $q,
     $timeout,
     NotificationsService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
     let timeout, timeoutThreshold = 2500;
 
     $ctrl.loaded = false;
     $ctrl.filters = {
-        values: {
-            per_page: 10
-        },
+        values: { per_page: 10 },
         lastFilters: {}
     };
 
-    $ctrl.readList = function(query = {}) {
+    $ctrl.readList = function (query = {}) {
         return $q(resolve => {
             NotificationsService.list(Object.assign(
                 $ctrl.filters.lastFilters, query
@@ -24,7 +22,7 @@ let NotificationsComponent = function(
         });
     };
 
-    $ctrl.onPageChange = function(query) {
+    $ctrl.onPageChange = function (query) {
         $timeout.cancel(timeout);
 
         return $q((resolve, reject) => {
@@ -48,7 +46,7 @@ let NotificationsComponent = function(
         });
     };
 
-    $ctrl.setNotifications = function(notifications, seenNotifications = []) {
+    $ctrl.setNotifications = function (notifications, seenNotifications = []) {
         let seenKeys = seenNotifications.map(notification => notification.id);
 
         notifications.data.forEach(notification => {
@@ -58,7 +56,7 @@ let NotificationsComponent = function(
         return $ctrl.notifications = notifications
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.onPageChange().then(() => {
             $timeout(() => {
                 $ctrl.loaded = true;
@@ -66,7 +64,7 @@ let NotificationsComponent = function(
         });
     };
 
-    $ctrl.onDestroy = function() {
+    $ctrl.onDestroy = function () {
         $timeout.cancel(timeout);
     };
 }

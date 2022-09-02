@@ -15,9 +15,16 @@
                 | Systeemberichten 
                 tooltip(text="'system_notifications.header.tooltip' | translate")
 
-            .flex: .button-group: a(ui-sref="implementation-notifications-branding($ctrl.brandingParams)").button.button-primary
-                em.mdi.mdi-pencil.icon-start
-                | Handtekening en huisstijl
+            .flex: .button-group
+                a.button.button-default(
+                    ng-if="$ctrl.organization.allow_custom_fund_notifications"
+                    ui-sref="implementation-notifications-send($ctrl.brandingParams)")
+                    em.mdi.mdi-email-outline.icon-start
+                    | Verstuur een aangepast bericht
+
+                a(ui-sref="implementation-notifications-branding($ctrl.brandingParams)").button.button-primary
+                    em.mdi.mdi-cog-outline.icon-start
+                    | Handtekening en huisstijl
 
         //- Motifications list
         .card.card-collapsed(ng-repeat="notificationGroup in $ctrl.notificationGroups")

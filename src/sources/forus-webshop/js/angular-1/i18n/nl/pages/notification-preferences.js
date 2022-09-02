@@ -7,6 +7,10 @@ module.exports = {
     subscribe_desc_formal: 'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
     subscribe_desc_informal: 'Met dit e-mailadres "{{email}}" ben je momenteel voor alle notificaties uitgeschreven. Wanneer je notificaties wilt ontvangen, kun je dit hieronder per notificatie instellen.',
 
+    no_email_title: "You currently have no email associated with your account",
+    no_email_description: "Please add en email address to receive email notifications.",
+    no_email_button: 'Add email',
+
     unsubscribe: 'Uitschrijven voor alle e-mail notificaties',
     unsubscribe_desc:  'Ik wil me uitschrijven van alle e-mail notificaties.',
     unsubscribe_button: 'Uitschrijven',

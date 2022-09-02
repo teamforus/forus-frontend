@@ -5,7 +5,7 @@ const OrganizationEmployeesComponent = function (
     PushNotificationsService,
     OrganizationEmployeesService
 ) {
-    const $ctrl = this;[];
+    const $ctrl = this;
     const str_limit = $filter('str_limit');
     const $translate = $filter('translate');
     
@@ -13,8 +13,12 @@ const OrganizationEmployeesComponent = function (
         'modals.danger_zone.remove_organization_employees.' + key
     );
 
-    $ctrl.filters = {};
-    $ctrl.adminEmployees = [];
+    $ctrl.filters = {
+        values: {
+            q: "",
+            per_page: 15
+        }
+    };
 
     $ctrl.transformEmployee = (employee) => {
         const rolesList = str_limit(employee.roles.map(role => role.name).sort((a, b) => {
@@ -32,11 +36,10 @@ const OrganizationEmployeesComponent = function (
     };
 
     $scope.onPageChange = (query) => {
-        const filters = { ...$ctrl.filters, ...query };
+        const filters = { ...$ctrl.filters.values, ...query };
 
         OrganizationEmployeesService.list($ctrl.organization.id, filters).then((res => {
             $ctrl.employees = $ctrl.transformEmployees(res.data);
-            $ctrl.adminEmployees = $ctrl.filterAdminEmplyees($ctrl.employees.data);
         }));
     };
 
@@ -77,7 +80,7 @@ const OrganizationEmployeesComponent = function (
     $ctrl.transferOwnership = function (employees) {
         ModalService.open('transferOrganizationOwnership', {
             organization: $ctrl.organization,
-            employees: employees,
+            adminEmployees: $ctrl.adminEmployees,
             submit: (employee) => {
                 $ctrl.organization.identity_address = employee.identity_address;
                 $scope.onPageChange();
@@ -85,17 +88,18 @@ const OrganizationEmployeesComponent = function (
         });
     }
 
-    $ctrl.filterAdminEmplyees = function (employees) {
-        return employees.filter(employee => {
-            return employee.roles.filter(role => role.key === 'admin').length > 0;
-        }).filter(employee => {
+    $ctrl.fetchAdminEmployees = () => {
+        return OrganizationEmployeesService.list($ctrl.organization.id, {
+            role: 'admin',
+            per_page: 1000,
+        }).then((res) => res.data.data.filter((employee) => {
             return employee.identity_address !== $ctrl.organization.identity_address;
-        });
+        }));
     };
 
     $ctrl.$onInit = function () {
         $ctrl.employees = $ctrl.transformEmployees($ctrl.employees);
-        $ctrl.adminEmployees = $ctrl.filterAdminEmplyees($ctrl.employees.data);
+        $ctrl.fetchAdminEmployees().then((adminEmployees) => $ctrl.adminEmployees = adminEmployees)
     };
 };
 

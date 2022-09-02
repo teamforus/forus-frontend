@@ -491,7 +491,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             organization: organziationResolver(),
             permission: permissionMiddleware('employees-list', 'manage_employees'),
             employees: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
-                return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id));
+                return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id, { per_page: 15 }));
             }],
             roles: ['RoleService', 'permission', (RoleService) => {
                 return repackResponse(RoleService.list());
@@ -859,6 +859,31 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     /**
+     * Implementations
+     */
+    $stateProvider.state({
+        name: "implementation-notifications-send",
+        url: "/organizations/{organization_id}/implementations/{implementation_id}/implementation-notifications/send",
+        component: "implementationNotificationsSendComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
+            implementation: ['permission', '$transition$', 'ImplementationService', (
+                permission, $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().implementation_id
+            ))],
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.list($transition$.params().organization_id, {
+                    implementation_id: $transition$.params().id,
+                    state: 'active',
+                }))
+            }],
+        }
+    });
+
+    /**
      * Notifications branding
      */
     $stateProvider.state({
@@ -920,32 +945,102 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "implementationCmsEditComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('implementation-manage', [
-                'manage_implementation', 'manage_implementation_cms'
-            ], false),
-            implementation: ['permission', '$transition$', '$timeout', '$state', 'ImplementationService', (
-                permission, $transition$, $timeout, $state, ImplementationService
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation', 'manage_implementation_cms'], false),
+            implementation: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
+                $transition$, $timeout, $state, ImplementationService
             ) => {
                 return repackResponse(ImplementationService.read(
                     $transition$.params().organization_id,
                     $transition$.params().id,
                 ), (res) => {
                     if (res.status === 403) {
+                        $timeout(() => $state.go('implementations', { organization_id: $transition$.params().organization_id }), 100);
+                    }
+                });
+            }],
+            pages: ['$transition$', '$timeout', '$state', 'ImplementationPageService', 'permission', (
+                $transition$, $timeout, $state, ImplementationPageService
+            ) => {
+                return repackResponse(ImplementationPageService.list(
+                    $transition$.params().organization_id,
+                    $transition$.params().id,
+                ), (res) => {
+                    if (res.status === 403) {
+                        $timeout(() => $state.go('implementations', { organization_id: $transition$.params().organization_id }), 100);
+                    }
+                });
+            }],
+        }
+    });
+
+    /**
+     * Implementation edit page(CMS)
+     */
+    $stateProvider.state({
+        name: "implementation-cms-page",
+        url: "/organizations/{organization_id}/implementation/{implementation_id}/pages/{id}",
+        component: "implementationCmsPageEditComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation', 'manage_implementation_cms'], false),
+            implementation: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
+                $transition$, $timeout, $state, ImplementationService
+            ) => {
+                return repackResponse(ImplementationService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().implementation_id,
+                ), (res) => {
+                    if (res.status === 403) {
+                        $timeout(() => $state.go('implementations', $transition$.params()), 100);
+                    }
+                });
+            }],
+            page: ['$transition$', '$timeout', '$state', 'ImplementationPageService', 'permission', (
+                $transition$, $timeout, $state, ImplementationPageService
+            ) => {
+                return repackResponse(ImplementationPageService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().implementation_id,
+                    $transition$.params().id,
+                ), (res) => {
+                    if (res.status === 403) {
                         $timeout(() => {
-                            $state.go('implementations', {
-                                organization_id: $transition$.params().organization_id
+                            $state.go('implementation-cms', {
+                                organization_id: $transition$.params().organization_id,
+                                id: $transition$.params().implementation_id,
                             });
                         }, 100);
                     }
                 });
             }],
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.list(
-                $transition$.params().organization_id, {
-                implementation_id: $transition$.params().id
-            }
-            ))]
+        }
+    });
+
+    /**
+     * Implementation create page
+     */
+    $stateProvider.state({
+        name: "implementation-cms-page-create",
+        url: "/organizations/{organization_id}/implementation/{implementation_id}/pages/create?type",
+        component: "implementationCmsPageEditComponent",
+        params: {
+            type: { dynamic: true, value: null },
+        },
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation', 'manage_implementation_cms'], false),
+            implementation: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
+                $transition$, $timeout, $state, ImplementationService
+            ) => {
+                return repackResponse(ImplementationService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().implementation_id,
+                ), (res) => {
+                    if (res.status === 403) {
+                        $timeout(() => $state.go('implementations', $transition$.params()), 100);
+                    }
+                });
+            }],
         }
     });
 
@@ -1032,6 +1127,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         component: "transactionsComponent",
         resolve: {
+            funds: ['$transition$', 'FundService', 'ProviderFundService', 'appConfigs', 'permission', (
+                $transition$, FundService, ProviderFundService, appConfigs
+            ) => {
+                if (appConfigs.panel_type === 'provider') {
+                    return repackResponse(ProviderFundService.listFunds($transition$.params().organization_id)).then((data) => {
+                        return data.map((item) => item.fund);
+                    });
+                }
+
+                return repackResponse(FundService.list($transition$.params().organization_id));
+            }],
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')
         }
@@ -1192,6 +1298,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Event logs
+    $stateProvider.state({
+        name: "organization-logs",
+        url: "/organizations/{organization_id}/logs",
+        component: "eventLogsComponent",
+        resolve: {
+            organization: organziationResolver(),
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',
@@ -1212,7 +1328,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             funds: ['FundService', (
                 FundService
             ) => repackResponse(FundService.list(null, {
-                state: 'active_and_closed'
+                state: 'active_paused_and_closed'
             }))],
             prevalidations: ['$transition$', 'PrevalidationService', function($transition$, PrevalidationService) {
                 return repackPagination(PrevalidationService.list(only($transition$.params(), 'page', 'q')));
@@ -1343,7 +1459,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         });
                     }
                 });
-            }, () => {
+            }, (res) => {
                 PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
                     timeout: 8000,
                 });

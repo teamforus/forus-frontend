@@ -1,16 +1,18 @@
 .card.card-collapsed
-    //- The header
-    .card-header(ng-class="($dir.enable && $dir.enable_all) ? '' : 'card-header-danger'"): .flex.flex-row
+    //- The header for template editor
+    .card-header(
+        ng-if="!$dir.compose"
+        ng-class="($dir.enable && $dir.enable_all) ? '' : 'card-header-danger'"): .flex.flex-row
         //- Title
         .flex.flex-pad.flex-grow: .card-title
             em.mdi(ng-class="'mdi-' + $dir.header.icon")
-            | {{ $dir.header.title }}
+            span(ng-bind="$dir.header.title")
 
         //- Enable/Disable toggle
         .flex.flex-pad.flex-vertical.flex-center(ng-show="$dir.notification.editable && !$dir.editForm")
             control-toggle.form-toggle-danger(
                 off="!$dir.enable_all"
-                disabled="!$dir.enable_all"
+                ng-disabled="!$dir.enable_all"
                 label="{{ !$dir.enable_all || !$dir.enable ? $dir.disabledNotes.disabled : '' }}"  
                 ng-change="$dir.toggleSwitched()"
                 ng-model="$dir.enable" form-id="{{ 'enable_' + $dir.type }}")
@@ -20,14 +22,35 @@
             button(ng-click="$dir.resetToDefault()").button.button-danger.button-sm.button-flat
                 em.mdi.mdi-refresh.icon-start
                 | Opnieuw instellen
+
             button(type="button" ng-click="$dir.cancelTemplateEdit()").button.button-default.button-sm.button-flat
                 em.mdi.mdi-close.icon-start
                 | Annuleren
 
+    //- The header for composer
+    .card-header(ng-if="$dir.compose"): .flex.flex-row
+        //- Title
+        .flex.flex-pad.flex-grow: .card-title
+            em.mdi(ng-class="'mdi-' + $dir.header.icon")
+            span(ng-bind="$dir.header.title")
+
+        //- Reset the template
+        .flex.flex-pad.flex-end
+            button(ng-if="$dir.editForm" type="button" ng-click="$dir.cancelTemplateEdit()").button.button-default.button-sm.button-flat
+                em.mdi.mdi-close.icon-start
+                | Annuleren
+
+            button(ng-if="!$dir.editForm" type="button" ng-click="$dir.editTemplate()").button.button-primary.button-sm.button-flat
+                em.mdi.mdi-pencil.icon-start
+                | Wijzig de inhoud van de e-mail
+
     //- The details
-    .card-section(ng-class="($dir.enable && $dir.enable_all) ? '' : 'card-section-danger'"): form(ng-submit="$dir.editForm.submit()")
+    .card-section(ng-class="($dir.enable && $dir.enable_all) || $dir.compose ? '' : 'card-section-danger'"): form(ng-submit="$dir.editForm.submit()")
         //- Card actions
-        .card-section-actions(ng-if="$dir.notification.editable && !$dir.editForm")
+        .card-section-actions(
+            ng-if="!$dir.compose"
+            ng-show="$dir.notification.editable && !$dir.editForm")
+
             //- Edit template
             button(type="button" ng-if="!$dir.editForm" ng-click="$dir.editTemplate()").button.button-primary.button-sm.button-flat
                 em.mdi.mdi-pencil-outline.icon-start
@@ -35,12 +58,12 @@
 
         //- Template title
         .form-group
-            label(for="{{ $dir.titleId }}").form-label Onderwerp
+            label(for="{{ $dir.titleId }}").form-label.form-label-required Onderwerp
 
             //- Title preview
-            .card-title(
-                ng-if="!$dir.editForm"
-                ng-bind="$dir.template.title || 'Geen onderwerp'")
+            .card-title(ng-if="!$dir.editForm"): .flex-vertical
+                span(ng-bind="$dir.title_preview || 'Geen onderwerp'")
+                .form-error(ng-repeat="error in $dir.errors.subject" ng-bind="error")
 
             //- Title edit
             div(ng-if="$dir.editForm")
@@ -53,12 +76,14 @@
                         ng-bind="variable.label"
                         ng-click="$dir.addVariable('title', variable)").button.button-primary.button-flat.button-xs
 
-                    //-.variables-hint Selecteer positie in de tekst en klik op de knoppen om de variabele toe te voegen.
-
                     input(
                         id="{{ $dir.titleId }}" 
                         ng-model="$dir.editForm.values.title"
                         maxlength="{{ $dir.type == 'push' ? 40 : 160 }}").form-control
+
+                    .form-error(
+                        ng-repeat="error in $dir.errors.subject" 
+                        ng-bind="error")
 
                     .form-hint(
                         ng-if="$dir.editForm" 
@@ -67,20 +92,28 @@
 
         //- Template content
         .form-group
-            label(for="{{ $dir.descriptionId }}" ng-if="!$dir.editForm").form-label Voorbeeld
-            label(for="{{ $dir.descriptionId }}" ng-if="$dir.editForm").form-label Bericht
+            label(for="{{ $dir.descriptionId }}" ng-if="!$dir.editForm").form-label.form-label.form-label-required Voorbeeld
+            label(for="{{ $dir.descriptionId }}" ng-if="$dir.editForm").form-label.form-label.form-label-required Bericht
 
             //- Text content preview
-            div(ng-if="$dir.type != 'mail'")
+            div(ng-if="$dir.type != 'mail'"): div(ng-class="{'editor-variables' : $dir.editForm}")
                 //- Preview
                 .card-text(
                     ng-if="!$dir.editForm && $dir.type === 'push'"
                     ng-bind="$dir.template.content || 'Geen bericht'")
 
-                .card-text: div(
+                .card-text(
                     ng-if="!$dir.editForm && $dir.type === 'database'"
                     ng-repeat="description in (($dir.template.content || 'Geen bericht') | lines_to_array)"
                     ng-bind="description")
+
+                .variables-list(ng-if="$dir.editForm")
+                    button.button.button-primary.button-flat.button-xs(
+                        type="button"
+                        ng-repeat="variable in $dir.variables"
+                        ng-if="variable.types.includes($dir.type)"
+                        ng-bind="variable.label"
+                        ng-click="$dir.addVariable('content', variable)")
 
                 //- Edit
                 textarea(
@@ -89,6 +122,10 @@
                     maxlength="{{ $dir.type == 'push' ? 170 : 400 }}"
                     rows="{{ $dir.type == 'push' ? 2 : 4 }}"
                     ng-model="$dir.editForm.values.content").form-control
+
+                .form-error(
+                    ng-repeat="error in $dir.errors.content" 
+                    ng-bind="error")
                 
                 .form-hint(
                     ng-if="$dir.editForm" 
@@ -99,7 +136,7 @@
             div(ng-if="$dir.type == 'mail'")
                 //- Preview
                 .block.block-mail_preview(ng-if="!$dir.editForm"): .mail_preview-wrapper: .mail_preview-inner: .mail_preview-body
-                    .block.block-markdown.block-markdown-center(ng-bind-html="$dir.template.content_html_sce")
+                    .block.block-markdown.block-markdown-center(ng-bind-html="$dir.content_preview_sce")
                     .mail_preview-footer
 
                 //- Content variables
@@ -109,25 +146,33 @@
                         ng-repeat="variable in $dir.variables"
                         ng-if="variable.types.includes($dir.type)"
                         ng-bind="variable.label"
-                        ng-click="$dir.addVariable('description', variable)")
-
-                    //-.variables-hint Selecteer positie in de tekst en klik op de knoppen om de variabele toe te voegen.
+                        ng-click="$dir.addVariable('content', variable)")
 
                     //- Edit
                     markdown(
-                        ng-if="$dir.editForm &&  $dir.template"
+                        ng-show="$dir.editForm && $dir.template"
                         editor-id="{{ $dir.descriptionId }}"
                         value="$dir.editForm.values.content_html" 
                         ng-model="$dir.editForm.values.content"
+                        on-updated-raw="$dir.updatedRaw(data)"
                         bind-editor="$dir.bindEditor(editor)"
                         allow-lists="false"
-                        allow-preview="true"
+                        allow-preview="!$dir.compose"
                         buttons="$dir.editorButtons")
+
+                    .form-error(
+                        ng-repeat="error in $dir.errors.content" 
+                        ng-bind="error")
 
                     .form-hint(
                         ng-if="$dir.editForm" 
                         translate="system_notifications.hints.maxlen" 
                         translate-values="{attribute: 'bericht', size: 16384}")
+
+                .form-error(
+                    ng-if="!$dir.editForm"
+                    ng-repeat="error in $dir.errors.content" 
+                    ng-bind="error")
 
         .form-group(ng-if="$dir.editForm")
             .button-group.flex-center

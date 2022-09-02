@@ -1,0 +1,61 @@
+mixin form_values()
+    //- Make confirmed email required
+    .form-group.form-group-last.tooltipped
+        input-checkbox-control(
+            name="email_required_{{ $dir.fund.id }}" 
+            ng-model="$dir.form.values.email_required" 
+            label="Alleen aanvragers die een e-mailadres opgeven mogen het aanvraagformulier doorlopen.")
+        .form-error(ng-repeat="error in $dir.form.errors.email_required" ng-bind="error")
+
+        tooltip(
+            text="'Het uizetten van deze optie zorgt ervoor dat aanvragers met alleen DigiD een account kunnen aanmaken zonder gebruik te maken van een e-mailadres. Aanvragers kunnen dan geen notificaties ontvangen en er kunnen ook geen aanvulverzoekingen verstuurd worden.'")
+
+    //- Ask for contact information 
+    .form-group.form-group-last(ng-if="!$dir.form.values.email_required").tooltipped
+        input-checkbox-control(
+            name="contact_info_enabled_{{ $dir.fund.id }}" 
+            ng-model="$dir.form.values.contact_info_enabled" 
+            label="Vraag aanvragers om contactgegevens")
+        .form-error(ng-repeat="error in $dir.form.errors.contact_info_enabled" ng-bind="error")
+        tooltip(text="'Het aanzetten van deze optie zorgt ervoor dat er contactgegevens opgevraagd kunnen worden voor aanvragers zonder e-mailadres.'")
+
+    //- Make contact information required
+    .form-group.form-group-last(ng-if="!$dir.form.values.email_required && $dir.form.values.contact_info_enabled").tooltipped
+        input-checkbox-control(
+            name="contact_info_required_{{ $dir.fund.id }}" 
+            ng-model="$dir.form.values.contact_info_required" 
+            label="Maak het opgeven van contactgegevens verplicht")
+        .form-error(ng-repeat="error in $dir.form.errors.contact_info_required" ng-bind="error")
+        tooltip(text="'Het aanzetten van deze optie zal het opgeven van contactgegevens verplicht maken.'")
+
+    //- Use custom contact information message
+    .form-group.form-group-last(ng-if="!$dir.form.values.email_required && $dir.form.values.contact_info_enabled").tooltipped
+        input-checkbox-control(
+            name="contact_info_message_custom_{{ $dir.fund.id }}" 
+            ng-model="$dir.form.values.contact_info_message_custom" 
+            label="Stel een bericht in voor het opvragen van contactgegevens")
+        .form-error(ng-repeat="error in $dir.form.errors.contact_info_message_custom" ng-bind="error")
+
+    //- Custom contact info control
+    .form-group.form-group-last(ng-if="!$dir.form.values.email_required && $dir.form.values.contact_info_enabled").tooltipped
+        textarea.form-control.r-n(
+            ng-disabled="true"
+            ng-if="!$dir.form.values.contact_info_message_custom"
+            ng-bind="$dir.form.values.contact_info_message_default")
+
+        textarea.form-control.r-n(
+            ng-if="$dir.form.values.contact_info_message_custom"
+            placeholder="Geef het bericht op dat je wilt instellen..."
+            ng-model="$dir.form.values.contact_info_message_text")
+        .form-error(ng-repeat="error in $dir.form.errors.contact_info_message_text" ng-bind="error")
+
+.form
+    form(ng-if="$dir.inline" ng-submit="$dir.form.submit()").form
+        +form_values()
+
+        .row: .form-actions.col.col-lg-8.col-md-12 
+            button(type="submit").button.button-primary
+                .mdi.mdi-content-save-outline.icon-start
+                | Opslaan
+
+    .form(ng-if="!$dir.inline"): +form_values()

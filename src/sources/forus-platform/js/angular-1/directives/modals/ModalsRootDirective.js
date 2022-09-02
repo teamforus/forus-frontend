@@ -42,6 +42,11 @@ const ModalsRootDirective = function($scope, ModalService, ModalRoute) {
 
     const updateModalFocus = ()=> {
         const modal = modals[modals.length - 1];
+
+        if (typeof modal.getElement !== 'function') {
+            return;
+        }
+
         const window = modal.getElement()[0]?.querySelector('.modal');
         const focusElements = window.querySelectorAll('select, textarea, input, button, .button');
         const focusedElement = window.querySelector(':focus');

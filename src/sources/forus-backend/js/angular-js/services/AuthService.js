@@ -33,16 +33,6 @@ module.exports = [
                     done();
                 })
             };
-
-            /* this.identity = function(credentails) {
-                if (CredentialsService.get()) {
-                    return IdentityService.identity();
-                }
-                
-                return new Promise(function(resolve, reject) {
-                    resolve(null);
-                });
-            }; */
         });
     }
 ];

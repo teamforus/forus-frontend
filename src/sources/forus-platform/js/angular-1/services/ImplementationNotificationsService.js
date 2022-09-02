@@ -1,7 +1,7 @@
-const ImplementationNotificationsService = function($sce, ApiRequest) {
+const ImplementationNotificationsService = function ($sce, ApiRequest, MarkdownService) {
     const uriPrefix = '/platform/organizations/';
 
-    return new (function() {
+    return new (function () {
         this.list = (organization_id, implementation_id, query = {}) => {
             return ApiRequest.get(`${uriPrefix}${organization_id}/implementations/${implementation_id}/system-notifications`, query);
         };
@@ -22,33 +22,73 @@ const ImplementationNotificationsService = function($sce, ApiRequest) {
             ].filter(item => !item).length > 0;
         };
 
-        this.variablesMap = () => require('../constants/notification_templates/variables.json');
-        this.variablesMapLabels = () => require('../constants/notification_templates/variables_labels.json');
+        this.makeCustomNotification = (title, template_html) => {
+            template_html = this.varsToLabels(template_html);
+
+            return {
+                title: title,
+                editable: true,
+                variables: [
+                    "fund_name",
+                    "sponsor_name",
+                    "webshop_button",
+                    "email_logo",
+                    "email_signature"
+                ],
+                templates_default: [{
+                    "type": "mail",
+                    "formal": 0,
+                    "title": "[fonds_naam] - Onderwerp",
+                    "content": MarkdownService.toMarkdown(template_html),
+                    "content_html": template_html,
+                }],
+            }
+        };
+
+        this.variablesMap = () => {
+            return require('../constants/notification_templates/variables.json');
+        };
+
+        this.variablesMapLabels = () => {
+            return require('../constants/notification_templates/variables_labels.json');
+        };
 
         this.isMailOnlyVariable = (variable) => {
-            const mailOnlyVars = ['qr_token', 'email_logo', 'email_signature'];
+            const mailOnlyVars = [':qr_token', ':email_logo', ':email_signature'];
             const mailOnlyVarEndings = ['_link', '_link_clarification', '_button'];
 
             return mailOnlyVars.includes(variable) ||
                 mailOnlyVarEndings.filter((ending) => variable.endsWith(ending)).length > 0;
         };
 
-        this.varsToLabels = (template) => {
-            const vars = this.variablesMap();
-            const varsKeys = Object.keys(vars).sort((a, b) => b.length - a.length);
+        this.varsToLabels = (template, varsMap = null) => {
+            const vars = varsMap ? varsMap : this.variablesMap();
 
-            return varsKeys.reduce((template, key) => {
-                return template.replaceAll(":" + key, "[" + vars[key] + "]");
-            }, template);
+            return this.replaceTemplateValues(template, vars, true);
         };
 
-        this.labelsToVars = (template) => {
-            const vars = this.variablesMap();
+        this.labelsToVars = (template, varsMap = null) => {
+            const vars = varsMap ? varsMap : this.variablesMap();
+
+            return this.replaceTemplateValues(template.replace(/\\/g, ''), vars, false);
+        };
+
+        this.contentToPreview = (content, variableValues = {}) => {
+            const variablesMap = this.variablesMap();
+
+            return this.replaceTemplateValues(content, Object.keys(variableValues).reduce((vars, key) => {
+                return { ...vars, [variablesMap[`:${key}`]]: variableValues[key] };
+            }, {}));
+        };
+
+        this.replaceTemplateValues = (template, vars, byKey = true) => {
             const varsKeys = Object.keys(vars).sort((a, b) => b.length - a.length);
 
-            return varsKeys.reduce((template, key) => {
-                return template.replaceAll("[" + vars[key] + "]", ":" + key);
-            }, template.replace(/\\/g, ''));
+            const data = varsKeys.reduce((value, key) => {
+                return [...value, byKey ? { from: key, to: [vars[key]] } : { from: [vars[key]], to: key }];
+            }, []);
+
+            return data.reduce((template, value) => template.replaceAll(value.from, value.to), template);
         };
 
         this.labelsToBlocks = (template, implementation = null) => {
@@ -123,5 +163,6 @@ const ImplementationNotificationsService = function($sce, ApiRequest) {
 module.exports = [
     '$sce',
     'ApiRequest',
+    'MarkdownService',
     ImplementationNotificationsService
 ];

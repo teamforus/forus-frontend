@@ -15,10 +15,17 @@ main(id="main-content")
             translate-default="{{'home.header.header_note' | translate }}")
         
         .wrapper
-            .header-content
+            .header-content(dusk="header")
+                h1.header-title(
+                    dusk="headerTitle"
+                    ng-if="$ctrl.appConfigs.features.settings.title"
+                    ng-bind="$ctrl.appConfigs.features.settings.title")
 
-                h1.header-title(ng-if="$ctrl.appConfigs.features.settings.title" ng-bind="$ctrl.appConfigs.features.settings.title")
-                h1.header-title(ng-if="!$ctrl.appConfigs.features.settings.title" translate="home.header.{{ $root.client_key }}.title" translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")
+                h1.header-title(
+                    dusk="headerTitle"
+                    ng-if="!$ctrl.appConfigs.features.settings.title"
+                    translate="home.header.{{ $root.client_key }}.title"
+                    translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")
 
                 .header-description#desc(ng-if="$ctrl.appConfigs.features.settings.description")
                     .block.block-markdown(
@@ -47,6 +54,28 @@ main(id="main-content")
                     p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
                         
                 a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" ui-sref="me-app" target="_blank").header-how-it-works
+    
+    .wrapper(ng-if="$root.client_key == 'vergoedingen'")
+        .block.block-organization-info
+            .info-block-panel
+                h2.block-title Gemeente Nijmegen
+                p.block-description De gemeente geeft inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Dit heet de Meedoenregeling. Als uw organisatie een passend aanbod heeft, kunt u zich opgeven
+                ul.block-list
+                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/26") Meedoenregeling
+                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/37") Busvoordeelabonnement
+                a(href="https://inkomensondersteuning.nijmegen.nl/fondsen") Meer vergoedingen  van gemeente Nijmegen
+            
+            .info-block-panel
+                h2.block-title Stichting Leergeld Nijmegen
+                p.block-description Leergeld Nijmegen heeft als doel alle Nijmeegse kinderen mee te laten doen. Voor kinderen uit gezinnen met een laag inkomen kan dit een probleem zijn. Leergeld Nijmegen biedt de mogelijkheid aan deze kinderen in de leeftijd van 4 tot en met 17 jaar om te kunnen deelnemen aan allerlei activiteiten.
+                ul.block-list
+                    li: a(href="https://www.leergeldnijmegen.nl/hulp-voor-uw-kind") Hulp voor uw kind
+                a(href="https://www.leergeldnijmegen.nl/homepagina") Meer informatie over Stiching Leergeld Nijmegen
+
+    //- Home CMS blocks
+    cms-blocks(
+        ng-if="$root.appConfigs.features.pages.home"
+        page="$root.appConfigs.features.pages.home")
 
     .page.page-home(ng-if="$ctrl.appConfigs.flags.homeProducts")
         .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(products="$ctrl.products.data" type="budget" display="grid")
@@ -57,4 +86,6 @@ main(id="main-content")
                 .block-content
                     h2.block-title(i18n="home.map.title")
                     .block-description(i18n="home.map.subtitle")
-                    button(ui-sref="providers({show_map:true})" i18n="buttons.show_map" id="show_map").button.button-primary.button-wide
+                    button(ui-sref="providers({show_map:true})" id="show_map").button.button-primary.button-wide
+                        translate(translate="buttons.show_map")
+                        em.mdi.mdi-arrow-right.icon-right

@@ -2,19 +2,20 @@
     menu
     section.app.app-content
         .block.block-breadcrumbs
-            .breadcrumb-item(ui-sref="implementations({organization_id: $root.activeOrganization.id})") Webshops 
-            .breadcrumb-item(ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" ng-bind="$ctrl.implementation.name")
+            .breadcrumb-item(ui-sref="implementations({organization_id: $ctrl.organization.id})") Webshops 
+            .breadcrumb-item(ui-sref="implementation-view({organization_id: $ctrl.organization.id, id: $ctrl.implementation.id})" ng-bind="$ctrl.implementation.name")
             .breadcrumb-item.active Content Management System
 
         .card: form(ng-submit="$ctrl.form.submit()").form
             .card-header.flex-row
-                .card-title(i18n="implementation_edit.header.title")
-                .flex.flex-grow.flex-end: .flex
+                .flex.flex-grow: .card-title(i18n="implementation_edit.header.title")
+                .flex
                     a(href="{{ $ctrl.implementation.url_webshop }}" target="_blank").button.button-text.button-sm 
                         | Open webshop
-                        .mdi.mdi-link-variant.icon-end
+                        .mdi.mdi-open-in-new.icon-end
                     button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
 
+            //- Webshop banner
             .card-section.card-section-padless
                 photo-selector(
                     fill-style="false"
@@ -26,12 +27,15 @@
                     select-photo="$ctrl.selectBanner(file)"
                     reset-photo="$ctrl.resetBanner()")
 
+            //- Webshop header title and description
             .card-section.card-section-primary: .row: .col.col-lg-9
+                //- Title
                 .form-group.form-group-inline.form-group-inline-lg
                     label(translate="implementation_edit.labels.header_title").form-label
                     input(ng-model="$ctrl.form.values.title" type="text" placeholder="Titel").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
 
+                //- Description
                 .form-group.form-group-inline.form-group-inline-lg
                     label(translate="implementation_edit.labels.header_description").form-label
                     text-angular(ng-model="$ctrl.form.values.description_html")
@@ -45,55 +49,145 @@
                         media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
+            //- Formal/Informal communication
             .card-section.card-section-primary
                 .row: .col.col-lg-9
-                    //- Formal/Informal communication
                     .form-group.form-group-inline.form-group-inline-lg.tooltipped
                         label(for="info_url" translate="implementation_edit.labels.communication").form-label
-                        select(
-                            ng-model="$ctrl.form.values.informal_communication" 
-                            ng-options="type.value as type.label for type in $ctrl.communicationTypes").form-control
+                        select-control(
+                            as="label"
+                            prop="value"
+                            search="false"
+                            options="$ctrl.communicationTypes"
+                            ng-model="$ctrl.form.values.informal_communication").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.informal_communication" ng-bind="error")
 
                         tooltip(text="'Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten op de website en in de berichten die het systeem verstuurt.'")
 
-            .card-section.card-section-primary(ng-repeat="key in $ctrl.implementation.page_types")
+            //- Announcement
+            .card-section.card-section-primary
                 .row: .col.col-lg-9
-                    .form-group.form-group-inline.form-group-inline-lg(ng-if="!$ctrl.page_types_internal.includes(key)")
-                        label(for="{{ key }}").form-toggle.form-label.flex-end
-                            .form-label(translate="implementation_edit.labels.{{ key }}_url")
-                            input(type="checkbox" id="{{ key }}" ng-model="$ctrl.form.values.pages[key].external").form-label
-                            .form-toggle-inner.flex-end(style="padding-left:10px"): .toggle-input: .toggle-input-dot
-
-                        //- disabled field
-                        input.form-control(
-                            disabled
-                            ng-if="!$ctrl.form.values.pages[key].external"
-                            ng-model="$ctrl.modelPlaceholder" 
-                            placeholder="{{ 'implementation_edit.placeholders.' + key | translate }}")
-
-                        //- enabled field
-                        input.form-control(
-                            ng-if="$ctrl.form.values.pages[key].external"
-                            ng-model="$ctrl.form.values.pages[key].external_url" 
-                            placeholder="{{ 'implementation_edit.placeholders.' + key | translate }}")
-
-                        .form-error(ng-repeat="error in $ctrl.form.errors['pages.' + key + '.external_url']" ng-bind="error")
-
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="!$ctrl.form.values.pages[key].external")
-                        label.form-label(translate="implementation_edit.labels.{{ key }}")
+                    //- Show/Hide announcement
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                        label(translate="implementation_edit.labels.announcement_show").form-label
                         .form-offset
-                            markdown(
-                                extended-options="true"
-                                value="$ctrl.form.values.pages[key].content_html" 
-                                ng-model="$ctrl.form.values.pages[key].content"
-                                allow-alignment="true"
-                                block-alignment="$ctrl.form.values.pages[key].content_alignment"
-                                media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values.pages[key])")
+                            select-control(
+                                as="label"
+                                prop="value"
+                                search="false"
+                                options="$ctrl.announcementState"
+                                ng-model="$ctrl.form.values.announcement.active").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors['announcement.active']" ng-bind="error")
 
-                        tooltip(text="'implementation_edit.tooltips.' + key | translate")
-                        .form-error(ng-repeat="error in $ctrl.form.errors['pages.' + key + '.content']" ng-bind="error")
+                    //- Announcement type
+                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.announcement.active")
+                        label(for="announcement_type" translate="implementation_edit.labels.announcement_type").form-label
+                        select-control(
+                            as="label"
+                            prop="value"
+                            search="false"
+                            options="$ctrl.announcementTypes"
+                            ng-model="$ctrl.form.values.announcement.type").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors['announcement.type']" ng-bind="error")
 
+                    //- Announcement title
+                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.announcement.active")
+                        label(for="announcement_title" translate="implementation_edit.labels.announcement_title").form-label
+                        input(id="announcement_title" ng-model="$ctrl.form.values.announcement.title" type="text" placeholder="Titel").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors['announcement.title']" ng-bind="error")
+
+                    //- Announcement description
+                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.announcement.active")
+                        label(for="announcement_description" translate="implementation_edit.labels.announcement_description").form-label
+                        .form-offset
+                            markdown(value="$ctrl.form.values.announcement.description_html" ng-model="$ctrl.form.values.announcement.description" placeholder="Description...")
+                            .form-error(ng-repeat="error in $ctrl.form.errors['announcement.description']" ng-bind="error")
+
+                    //- Show/Hide announcement
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="$ctrl.form.values.announcement.active")
+                        label(translate="implementation_edit.labels.announcement_expire").form-label
+                        .form-offset
+                            select-control(
+                                as="label"
+                                prop="value"
+                                search="false"
+                                options="$ctrl.announcementExpireOptions"
+                                ng-change="$ctrl.expireDateChange($ctrl.form.values)"
+                                ng-model="$ctrl.form.values.announcement.expire").form-control
+
+                    //- Announcement expiration date
+                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.announcement.active && $ctrl.form.values.announcement.expire")
+                        label(for="announcement_expire_at" translate="implementation_edit.labels.announcement_expire_at").form-label
+                        datepicker(
+                            date-format="yyyy-MM-dd" 
+                            datepicker-mobile="" 
+                            date-week-start-day="1").form-control
+                            input(ng-model="$ctrl.form.values.announcement.expire_at" type="search" placeholder="dd-MM-jjjj").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors['announcement.expire_at']" ng-bind="error")
+
+                    //- Reset announcement
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="$ctrl.form.values.announcement.active")
+                        label(translate="implementation_edit.labels.announcement_replace").form-label
+                        .form-offset
+                            input-checkbox-control(
+                                name="show_attachment_{{ $index }}" 
+                                ng-model="$ctrl.form.values.announcement.replace" 
+                                label="Herstel aankondiging indien aanvrager opnieuw inlogt.")
+
+            //- Cancel or Submit
             .card-section.card-section-primary: .text-center
-                button(type="button" ui-sref="implementation-view({organization_id: $root.activeOrganization.id, id: $ctrl.implementation.id})" translate="funds_edit.buttons.cancel").button.button-default
-                button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
+                button(
+                    type="button" 
+                    ui-sref="implementation-view({organization_id: $ctrl.organization.id, id: $ctrl.implementation.id})"
+                    translate="funds_edit.buttons.cancel").button.button-default
+
+                button(
+                    type="submit" 
+                    translate="funds_edit.buttons.confirm").button.button-primary
+
+        //- Implementation pages
+        .card
+            .card-header: .card-title(translate="implementation_edit.implementations_table.title")
+            .card-section
+                .card-block.card-block-table: .table-wrapper: table.table
+                    tr
+                        th Naam
+                        th Type
+                        th Blokken
+                        th Gepubliceerd
+                        th.th-narrow.nowrap Webshop URL
+                        th.th-narrow.text-right Opties
+
+                    tr(ng-repeat="page in $ctrl.pages")
+                        td(translate="implementation_edit.labels.{{ page.page_type.key }}")
+
+                        td(ng-if="page.page_type.type === 'static'").text-muted Standaard pagina
+                        td(ng-if="page.page_type.type === 'extra'").text-muted Optionele pagina
+                        td(ng-if="page.page_type.type === 'element'").text-muted Pagina element
+
+                        td(ng-if="page.page_type.blocks" ng-bind="page.blocks.length || 'None'")
+                        td(ng-if="!page.page_type.blocks").text-muted Niet beschikbaar
+
+                        td(ng-bind="page.state == 'public' ? 'Ja' : 'Nee'")
+                        td
+                            a.button.button-sm.button-text(
+                                ng-if="(page.id && page.state === 'public') || page.page_type.type == 'static'" 
+                                href="{{ page.page_type.webshop_url }}"
+                                target="_blank")
+                                | Bekijk
+                                em.mdi.mdi-open-in-new.icon-end
+
+                            .text-muted(
+                                ng-if="!((page.id && page.state === 'public') || page.page_type.type == 'static')") - 
+
+                        td.td-narrow.text-right: .flex
+                            a(ng-if="!page.id" ui-sref="implementation-cms-page-create(page.srefProps)").button.button-sm.button-primary
+                                em.mdi.mdi-plus.icon-start
+                                translate(translate="implementation_edit.implementations_table.labels.edit")
+
+                            a(ng-if="page.id" ui-sref="implementation-cms-page(page.srefProps)").button.button-sm.button-default
+                                em.mdi.mdi-pen.icon-start
+                                translate(translate="implementation_edit.implementations_table.labels.edit")
+
+                            button(ng-disabled="!page.id" ng-click="$ctrl.deletePage(page)").button.button-danger.button-icon
+                                em.icon-start.mdi.mdi-delete

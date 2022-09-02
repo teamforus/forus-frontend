@@ -1,6 +1,7 @@
 .modal.modal-product-reserve.modal-animated(
-    role="dialog" 
-    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
+    role="dialog")
 
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window: .modal-content

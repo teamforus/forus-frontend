@@ -10,8 +10,8 @@ const TransactionBulkService = function(ApiRequest) {
             return ApiRequest.get(`${path}/${organization_id}/sponsor/transaction-bulks/${bulk_id}`, filters);
         };
 
-        this.bulkNow = (organization_id) => {
-            return ApiRequest.post(`${path}/${organization_id}/sponsor/transaction-bulks`);
+        this.bulkNow = (organization_id, filters = {}) => {
+            return ApiRequest.post(`${path}/${organization_id}/sponsor/transaction-bulks`, filters);
         };
 
         // Reset bulk state and resend the payments to BUNQ

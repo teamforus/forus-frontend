@@ -9,7 +9,6 @@ const outputRootBackendPublic = outputRoot + '/forus-backend.general';
 const minify = true;
 const sourcemap = true;
 const baseImplementationKey = 'general';
-const autoLogOutTime = 15;
 const chatId = false;
 const supportSupportId = false;
 const sessions = false;
@@ -19,6 +18,7 @@ const me_app_link = 'https://forus.io/DL';
 const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const ios_iphone_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const android_link = 'https://media.forus.io/static/me-0.0.5-staging-7-release.apk';
+const help_link = 'https://helpcentrum.forus.io';
 
 module.exports = (core) => {
     // Config markups
@@ -54,6 +54,7 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
+            help_link: help_link,
             html5ModeEnabled: true,
             html5Mode: {
                 basePath: '/'
@@ -84,6 +85,7 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
+            help_link: help_link,
             html5ModeEnabled: true,
             html5Mode: {
                 basePath: '/'
@@ -112,6 +114,7 @@ module.exports = (core) => {
             me_app_link: me_app_link,
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
+            help_link: help_link,
             html5ModeEnabled: true,
             html5Mode: {
                 basePath: '/'
@@ -440,7 +443,6 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             client_type: 'webshop',
             support_id: supportSupportId,
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             provider_sign_up_filters: {},
             /* aws_rum: {
@@ -478,7 +480,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'potjeswijzer',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 logoExtension: '.png',
@@ -505,7 +506,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_type: 'webshop',
             client_key: 'nijmegen',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 showAccountSidebar: false,
@@ -535,7 +535,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'kerstpakket',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {},
             sessions: sessions,
@@ -580,7 +579,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'berkelland',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 accessibilityPage: true,
@@ -599,7 +597,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'oostgelre',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 accessibilityPage: true,
@@ -625,7 +622,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'winterswijk',
             client_type: 'webshop',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 accessibilityPage: true,
@@ -651,7 +647,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'noordoostpolder',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 accessibilityPage: false,
             },
@@ -669,7 +664,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'groningen',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 fundsMenu: true,
                 accessibilityPage: false,
@@ -687,7 +681,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'geertruidenberg',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 accessibilityPage: false,
             },
@@ -704,7 +697,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'waalwijk',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 logoExtension: '.png',
                 accessibilityPage: false,
@@ -722,12 +714,131 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_key: 'heumen',
             client_type: 'webshop',
-            log_out_time: false,
             flags: {
                 logoExtension: '.png',
                 accessibilityPage: false,
             },
             sessions: sessions,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_ede', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'ede',
+            matomo_site_id: false,
+            flags: {
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_hartvanwestbrabant', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'hartvanwestbrabant',
+            matomo_site_id: false,
+            flags: {
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_participatiemunt', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'participatiemunt',
+            matomo_site_id: false,
+            flags: {
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_vergoedingen', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'vergoedingen',
+            log_out_time: autoLogOutTime,
+            matomo_site_id: false,
+            flags: {
+                logoExtension: '.svg',
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+                fundsMenu: true,
+                fundsMenuIfLoggedOut: true,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => ({...task, minify, sourcemap}));

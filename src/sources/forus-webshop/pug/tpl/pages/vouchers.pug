@@ -17,6 +17,20 @@ main(id="main-content")
                                 .profile-content-title-count(ng-bind="$ctrl.vouchers.length")
                                 h1.profile-content-header(translate="vouchers.header.regular.title")
 
+                        .block.block-label-tabs.form.pull-right
+                            .label-tab-set
+                                .label-tab.label-tab-sm(
+                                    ng-class="{active: !$ctrl.archived}"
+                                    ng-click="$ctrl.setArchived(false)"
+                                    role="button")
+                                    | Actief
+
+                                .label-tab.label-tab-sm(
+                                    ng-class="{active: $ctrl.archived}"
+                                    ng-click="$ctrl.setArchived(true)"
+                                    role="button")
+                                    | Archief
+
                     .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
                         voucher-card(ng-repeat="voucher in $ctrl.regularVouchers" voucher="voucher")
                         voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")

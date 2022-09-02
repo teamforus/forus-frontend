@@ -1,4 +1,5 @@
 .modal.modal-physical-card-order.modal-animated(
+    ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.state == 'form' ? 'modal-sm' : 'modal-md', $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
     
@@ -17,7 +18,7 @@
         
             //- Address
             .form-group
-                label.form-label(
+                label.form-label.form-label-required(
                     translate="modals.modal_physical_card_order.modal_section.request_new_card.address" 
                     for="modals.modal_physical_card_order.modal_section.request_new_card.address")
 
@@ -30,7 +31,7 @@
 
             //- House
             .form-group
-                label.form-label(
+                label.form-label.form-label-required(
                     translate="modals.modal_physical_card_order.modal_section.request_new_card.house" 
                     for="modals.modal_physical_card_order.modal_section.request_new_card.house")
 
@@ -56,7 +57,7 @@
 
             //- Postcode
             .form-group
-                label.form-label(
+                label.form-label.form-label-required(
                     translate="modals.modal_physical_card_order.modal_section.request_new_card.postcode" 
                     for="modals.modal_physical_card_order.modal_section.request_new_card.postcode")
 
@@ -69,7 +70,7 @@
 
             //- City
             .form-group
-                label.form-label(
+                label.form-label.form-label-required(
                     translate="modals.modal_physical_card_order.modal_section.request_new_card.city"
                     for="modals.modal_physical_card_order.modal_section.request_new_card.city")
 

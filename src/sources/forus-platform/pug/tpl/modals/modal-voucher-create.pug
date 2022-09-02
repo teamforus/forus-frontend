@@ -1,6 +1,8 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-md.modal-animated.modal-loading(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated.modal-loading(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
 
     //- Voucher form
@@ -18,7 +20,9 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
 
                 .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.assignType.key")
-                    label.form-label(ng-bind="$ctrl.assignType.inputLabel")
+                    label.form-label(
+                        ng-bind="$ctrl.assignType.inputLabel"
+                        ng-class="['email', 'bsn'].includes($ctrl.assignType.key) ? 'form-label-required' : ''")
                     input(ng-model="$ctrl.form.values[$ctrl.assignType.key]" placeholder="{{ $ctrl.assignType.inputLabel }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
 

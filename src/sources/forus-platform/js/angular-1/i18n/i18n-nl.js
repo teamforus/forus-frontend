@@ -71,7 +71,8 @@ module.exports = {
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
             restore_fund: require('./nl/modals/danger-zone/restore-fund'),
             remove_faq: require('./nl/modals/danger-zone/remove-faq'),
-            
+            remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
+            confirm_custom_sponsor_email_notification: require('./nl/modals/danger-zone/confirm-custom-sponsor-email-notification'),
         },
     },
     // PAGES
@@ -79,6 +80,7 @@ module.exports = {
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
     voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
     system_notifications: require('./nl/pages/system-notifications.pug.i18n'),
+    event_logs: require('./nl/pages/event-logs.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -402,21 +404,45 @@ module.exports = {
             description: "Uitlegpagina content",
             communication: "Aanspreekvorm",
 
+            announcement_show: "Aankondiging aanzetten",
+            announcement_type: "Aankondiging type",
+            announcement_title: "Aankondiging titel",
+            announcement_description: "Aankondiging beschrijving",
+            announcement_expire: "Vervaldatum instellen",
+            announcement_expire_at: "Vervaldatum",
+            announcement_replace: "Vervang",
+
+            home: "Startpagina content",
             provider: "Aanbiederpagina content",
             privacy: "Privacy content",
-            explanation: "Uitleg pagina content",
+            products: "Aanbod content",
+            providers: "Aanbieders content",
+            funds: "Fondsen content",
+            explanation: "Uitleg pagina",
             accessibility: "Toegankelijkheidsverklaring",
             terms_and_conditions: "Algemene voorwaarden",
 
-            provider_url: "Aanbiederpagina content",
-            privacy_url: "Privacy content",
+            home_url: "Startpagina content",
+            provider_url: "Aanbiederpagina",
+            privacy_url: "Privacy",
             explanation_url: "Externe uitleg URL",
             accessibility_url: "Toegankelijkheidsverklaring",
             terms_and_conditions_url: "Algemene voorwaarden",
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
-
+        },
+        implementations_table: {
+            title: "Webshop pagina's",
+            columns: {
+                name: "Naam",
+                options: "Opties"
+            },
+            labels: {
+                view: "Bekijk",
+                edit: "Bewerken",
+                no_pages: "Geen webshop pagina's",
+            },
         },
         placeholders: {
             provider: "Aanbiederpagina content",

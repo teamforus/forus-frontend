@@ -1,4 +1,5 @@
 .modal.modal-voucher_qr.modal-animated(
+    ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.success ? 'modal-sm' : '', $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     
@@ -23,7 +24,7 @@
 
         .modal-body: .modal-section: .form
             .form-group
-                .row: .col.col-lg-12: label.form-label(translate="modals.modal_voucher_qr_code.labels.sent_to_email")
+                .row: .col.col-lg-12: label.form-label.form-label-required(translate="modals.modal_voucher_qr_code.labels.sent_to_email")
                 .row
                     .col.col-lg-9
                         input(
@@ -57,7 +58,7 @@
             
             .form-group(ng-if="$ctrl.assignType.key === 'email' || $ctrl.assignType.key === 'bsn'")
                 //- Verstuur naar e-mail adres:
-                label.form-label(translate="modals.modal_voucher_qr_code.labels.assign_to_identity")
+                label.form-label.form-label-required(translate="modals.modal_voucher_qr_code.labels.assign_to_identity")
                 input(
                     placeholder="{{ ('modals.modal_voucher_qr_code.placeholders.' + $ctrl.assignType.key) | translate }}"
                     ng-model="$ctrl.form.values[$ctrl.assignType.key]" ).form-control

@@ -1,28 +1,38 @@
-let SignUpComponent = function(
+const SignUpStartComponent = function (
     $state,
+    $timeout,
     $rootScope,
-    VoucherService,
+    appConfigs,
     AuthService,
+    DigIdService,
     IdentityService,
     FormBuilderService,
-    DigIdService,
-    appConfigs
+    PageLoadingBarService,
 ) {
-    let $ctrl = this;
-    let authTokenSubscriber = AuthService.accessTokenSubscriber();
+    const $ctrl = this;
+    const authTokenSubscriber = AuthService.accessTokenSubscriber();
 
-    $ctrl.step = 0;
-    $ctrl.state = '';
-    $ctrl.authToken = false;
-    $ctrl.signedIn = false;
-    $ctrl.authEmailSent = false;
+    $ctrl.state = null;
+    $ctrl.authToken = null;
+
     $ctrl.authEmailRestoreSent = false;
-    $ctrl.hasApp = false;
-    $ctrl.digidAvailable = appConfigs.features.digid;
+    $ctrl.authEmailConfirmationSent = false;
+
+    $ctrl.onSignedIn = () => {
+        const { redirect_scope } = $state.params;
+
+        // Redirect user to fund request clarification
+        if (redirect_scope?.target_name == 'requestClarification') {
+            return $state.go('fund-request-clarification', redirect_scope?.target_params);
+        }
+
+        // Load vouchers list to decide where to redirect the user
+        AuthService.onAuthRedirect();
+    };
 
     // Initialize authorization form
-    $ctrl.initAuthForm = () => {
-        let target = 'fundRequest';
+    $ctrl.initAuthForm = (redirect_scope = null) => {
+        const target = redirect_scope ? redirect_scope : 'fundRequest';
 
         $ctrl.authForm = FormBuilderService.build({
             email: '',
@@ -32,7 +42,7 @@ let SignUpComponent = function(
                 return form.unlock();
             }
 
-            let handleErrors = (res) => {
+            const handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
                 $ctrl.authForm.autofill = false;
@@ -44,145 +54,88 @@ let SignUpComponent = function(
                 }, handleErrors);
             });
 
+            PageLoadingBarService.setProgress(0);
+
             if (used) {
-                IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
-                    $ctrl.authEmailRestoreSent = true;
-                    $ctrl.nextStep();
-                }, handleErrors);
-            } else {
-                IdentityService.make(form.values).then(() => {
-                    $ctrl.authEmailSent = true;
-                    $ctrl.nextStep();
-                }, handleErrors);
+                return IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
+                    $ctrl.authEmailConfirmationSent = true;
+                }, handleErrors).finally(() => PageLoadingBarService.setProgress(100));
             }
+
+            IdentityService.make(form.values).then(() => {
+                $ctrl.authEmailRestoreSent = true;
+            }, handleErrors).finally(() => PageLoadingBarService.setProgress(100));
         }, true);
 
         $ctrl.authForm.autofill = false;
     };
 
-    // Show qr code or email input
-    $ctrl.setHasAppProp = (hasApp) => {
-        $ctrl.hasApp = hasApp;
+    $ctrl.startDigId = () => {
+        $ctrl.loading = true;
+        PageLoadingBarService.setProgress(0);
 
-        if ($ctrl.hasApp) {
+        DigIdService.startAuthRestore().then(
+            (res) => document.location = res.data.redirect_url,
+            (res) => $state.go('error', { errorCode: res.headers('Error-Code') }),
+        ).finally(() => $timeout(() => {
+            $ctrl.loading = false;
+            PageLoadingBarService.setProgress(100);
+        }, 500));
+    }
+
+    // Show qr code or email input
+    $ctrl.setState = (state) => {
+        $ctrl.state = state;
+
+        if ($ctrl.state == 'qr') {
             $ctrl.requestAuthQrToken();
         } else {
             authTokenSubscriber.stopCheckAccessTokenStatus();
         }
     };
 
-    $ctrl.startDigId = () => {
-        DigIdService.startAuthRestore().then(
-            (res) => document.location = res.data.redirect_url,
-            (res) => $state.go('error', {
-                errorCode: res.headers('Error-Code')
-            }),
-        );
-    }
-
     // Request auth token for the qr-code
     $ctrl.requestAuthQrToken = () => {
         IdentityService.makeAuthToken().then((res) => {
             $ctrl.authToken = res.data.auth_token;
-            authTokenSubscriber.checkAccessTokenStatus(res.data.access_token, () => $ctrl.onSignedIn());
+            authTokenSubscriber.checkAccessTokenStatus(res.data.access_token, $ctrl.onSignedIn);
         }, console.error);
     };
 
-    // Transform step number to human readable state
-    $ctrl.step2state = (step) => {
-        if (step == 0) {
-            return 'loading';
-        }
+    $ctrl.$onInit = () => {
+        const { logout, restore_with_digid, email_address, redirect_scope } = $state.params;
+        const signedIn = AuthService.hasCredentials();
 
-        if (step == 1) {
-            return 'auth';
-        }
+        const target = redirect_scope?.target_name == 'requestClarification' ? [
+            redirect_scope?.target_name,
+            redirect_scope?.target_params.fund_id,
+            redirect_scope?.target_params.request_id,
+            redirect_scope?.target_params.clarification_id
+        ].join('-') : null
 
-        if (step == 2 && ($ctrl.authEmailSent || $ctrl.authEmailRestoreSent)) {
-            return 'auth_email_sent';
-        }
-
-        if (step == 3) {
-            return 'digid';
-        }
-
-        return 'done';
-    };
-
-    $ctrl.setStep = (step) => {
-        $ctrl.step = step;
-        $ctrl.updateState();
-    };
-
-    $ctrl.nextStep = () => $ctrl.setStep($ctrl.step + 1);
-    $ctrl.prevStep = () => $ctrl.setStep($ctrl.step - 1);
-
-    $ctrl.setRestoreWithDigiD = () => $ctrl.setStep(3);
-    $ctrl.updateState = () => $ctrl.state = $ctrl.step2state($ctrl.step);
-
-    $ctrl.onSignedIn = () => {
-        VoucherService.list({
-            per_page: 100,
-        }).then((res) => {
-            const vouchers = res.data.data;
-            const takenFundIds = vouchers.map(voucher => voucher.fund_id && !voucher.expired);
-
-            const funds = $ctrl.funds.filter(fund => fund.allow_direct_requests);
-            const fundsNoVouchers = funds.filter(fund => takenFundIds.indexOf(fund.id) === -1);
-            const fundsWithVouchers = funds.filter(fund => takenFundIds.indexOf(fund.id) !== -1);
-
-            if (appConfigs.flags.activateFirstFund && fundsNoVouchers.length > 1) {
-                $state.go('fund-activate', {
-                    fund_id: fundsNoVouchers[0].id
-                });
-            } else if (fundsNoVouchers.length > 1) {
-                $state.go('funds');
-            } else if (fundsNoVouchers.length === 1) {
-                $state.go('fund-activate', {
-                    fund_id: fundsNoVouchers[0].id
-                });
-            } else if (fundsWithVouchers.length > 1) {
-                $state.go('vouchers');
-            } else if (fundsWithVouchers.length === 1) {
-                $state.go('voucher', {
-                    address: vouchers.filter(
-                        voucher => voucher.fund_id === fundsWithVouchers[0].id
-                    )[0].address,
-                });
-            } else {
-                $state.go('funds');
-            }
-        });
-    };
-
-    $ctrl.$onInit = function() {
-        const { logout, restore_with_digid, email_address } = $ctrl.$transition$.params();
-
-        $ctrl.signedIn = AuthService.hasCredentials();
+        $ctrl.appConfigs = appConfigs;
 
         if (logout) {
-            if ($ctrl.signedIn) {
-                $rootScope.signOut(null, false, true, false);
-            }
-
-            return $state.go('start', { restore_with_digid, email_address }, { inherit: false, location: 'replace' });
+            $rootScope.signOut(null, false, true, false);
+            $state.go('start', { restore_with_digid, email_address }, { inherit: false, location: 'replace' });
+            return;
         }
 
-        if ($ctrl.signedIn) {
-            $ctrl.onSignedIn();
-        } else {
-            $ctrl.initAuthForm();
-            $ctrl.setStep(1);
+        if (signedIn) {
+            return $ctrl.onSignedIn();
+        }
 
-            if (restore_with_digid) {
-                $ctrl.setRestoreWithDigiD();
-            }
+        if (restore_with_digid) {
+            return $ctrl.startDigId();
+        }
 
-            if (email_address) {
-                $ctrl.authForm.values.email = email_address;
-                $ctrl.authForm.autofill = true;
-                $ctrl.authForm.submit();
-            }
+        $ctrl.initAuthForm(target);
+        $ctrl.setState('start');
+
+        if (email_address) {
+            $ctrl.authForm.values.email = email_address;
+            $ctrl.authForm.autofill = true;
+            $ctrl.authForm.submit();
         }
     };
 
@@ -190,21 +143,17 @@ let SignUpComponent = function(
 };
 
 module.exports = {
-    bindings: {
-        funds: '<',
-        recordTypes: '<',
-        $transition$: '<',
-    },
     controller: [
         '$state',
+        '$timeout',
         '$rootScope',
-        'VoucherService',
+        'appConfigs',
         'AuthService',
+        'DigIdService',
         'IdentityService',
         'FormBuilderService',
-        'DigIdService',
-        'appConfigs',
-        SignUpComponent
+        'PageLoadingBarService',
+        SignUpStartComponent
     ],
     templateUrl: 'assets/tpl/pages/sign-up.html'
 };

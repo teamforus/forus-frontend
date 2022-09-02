@@ -102,13 +102,14 @@ main(id="main-content")
 
                         //- request fund
                         .fund-item-section(ng-if="!fund.meta.applicableVouchers.length && $ctrl.signedIn && !fund.meta.isReservationAvailable")
-                            .button.button-light.button-flat(
-                                translate="product.buttons.{{ $root.client_key }}.request" 
-                                translate-default="{{ 'product.buttons.request' | translate }}" 
-                                ng-click="$ctrl.requestFund(fund)")
+                            .button.button-light.button-flat(ng-click="$ctrl.requestFund(fund)")
+                                span(translate="product.buttons.{{ $root.client_key }}.request" translate-default="{{ 'product.buttons.request' | translate }}")
+                                em.mdi.mdi-arrow-right.icon-right
 
                         .fund-item-section(ng-if="fund.meta.applicableVouchers.length && !fund.meta.isReservationAvailable")
-                            .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)" i18n="product.buttons.open_voucher")
+                            .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)")
+                                span(i18n="product.buttons.open_voucher")
+                                em.mdi.mdi-arrow-right.icon-right
 
             .block.block-organizations: provider-list-item(provider="$ctrl.provider")
 

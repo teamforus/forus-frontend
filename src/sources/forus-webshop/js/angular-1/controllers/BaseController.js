@@ -1,4 +1,4 @@
-const BaseController = function(
+const BaseController = function (
     $q,
     $state,
     $rootScope,
@@ -9,7 +9,6 @@ const BaseController = function(
     AuthService,
     RecordService,
     ConfigService,
-    BrowserService,
     $filter,
     appConfigs,
     ModalService
@@ -20,23 +19,6 @@ const BaseController = function(
         return $q((resolve, reject) => {
             AuthService.identity().then((res) => {
                 const auth_user = res.data;
-                const timer = (appConfigs.log_out_time || 15) * 60 * 1000;
-
-                if (appConfigs.log_out_time !== false) {
-                    // sign out after :timer of inactivity (default: 15min)
-                    BrowserService.detectInactivity(timer).then(() => {
-                        if (AuthService.hasCredentials()) {
-                            $rootScope.signOut();
-
-                            ModalService.open('modalNotification', {
-                                type: 'confirm',
-                                description: 'modal.logout.description',
-                                confirmBtnText: 'Inloggen',
-                                confirm: () => ModalService.open('modalAuth', {}),
-                            });
-                        }
-                    }, console.error);
-                }
 
                 RecordService.list().then((res) => {
                     auth_user.records = res.data;
@@ -80,7 +62,7 @@ const BaseController = function(
         $rootScope.$broadcast('identity:update', null);
 
         if (redirect && typeof redirect == 'function') {
-            redirect();
+            redirect($state);
         }
 
         if (redirect && typeof redirect == 'string') {
@@ -89,7 +71,7 @@ const BaseController = function(
     };
 
     $rootScope.$on('auth:update', () => {
-        $rootScope.loadAuthUser().then(() => $state.reload(), console.error);
+        $rootScope.loadAuthUser();
     });
 
     if (AuthService.hasCredentials()) {
@@ -110,10 +92,6 @@ const BaseController = function(
     $rootScope.client_key = appConfigs.client_key;
     $rootScope.pageTitle = $trans('page_title');
 
-    $window.onbeforeunload = function() {
-        BrowserService.unsetInactivity();
-    };
-
     $translate.use(localStorage.getItem('lang') || 'nl');
 };
 
@@ -128,7 +106,6 @@ module.exports = [
     'AuthService',
     'RecordService',
     'ConfigService',
-    'BrowserService',
     '$filter',
     'appConfigs',
     'ModalService',
