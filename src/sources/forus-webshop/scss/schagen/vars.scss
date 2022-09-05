@@ -5,7 +5,7 @@
 // navbar
 $bg-nav:            #0072B8;
 $tc-nav:            #FFFFFF;
-$tc-nav-hov:        FFFFFF;
+$tc-nav-hov:        #FFFFFF;
 $logo-padding:      20px 0px;
 $logo-height:       75px;
 
@@ -17,7 +17,7 @@ $btn-auth-border:   #0000;
 
 // navbar (start modal primary)
 $tc-start-btn:       #fff; 
-$btn-start-bg:       #0072B8; 
+$btn-start-bg:       #77b431; 
 $btn-start-btn:      transparent;
 $btn-start-border:   transparent;
 
@@ -60,14 +60,14 @@ $ptc:               #515152;
 
 $border_color:      #d2e6ff;
 
-$border_radius:     0px;
+$border_radius:     5px;
 $base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 
-$color_primary:         #77b431;
-$color_primary_light:   #77b431;
+$color_primary:         #0072B8;
+$color_primary_light:   #1c8fd7;
 
-$color_default:         #b4de84;
-$color_default_light:   #77b431;
+$color_default:         #0072B8;
+$color_default_light:   #1c8fd7;
     
 // Login button
 $lb:  #fff;

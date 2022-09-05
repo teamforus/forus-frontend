@@ -77,6 +77,8 @@
         background-color: #77b431;
     }
 
+    
+
     @media screen and (max-width: 1000px) {
         &.block-navbar {
             position: sticky;
@@ -145,7 +147,31 @@
     }
 
     &.block-cms-funds {
-        margin-top: 50px;
+        display: auto;
+
+        .fund-item {
+            display: inline-block;
+            width: 50%;
+            border: none;
+
+            .fund-media {
+                img {
+                    width: auto;
+                    display: block;
+                }
+            }
+
+            .fund-information {
+                width: auto;
+                padding-left: 0;
+                text-align: left;
+                display: block;
+
+                .fund-title {
+                    color: $tc;
+                }
+            }
+        }
     }
 
     &.block-organizations {
@@ -428,5 +454,33 @@
                 color: #fff;
             }
         }
+    }
+}
+
+
+// MOVE TO LAYOUT FOOTER FILE
+.block.block-footer .footer-nav .footer-nav-item a {
+    font: 400 14px/24px $bf;
+    color: #ffffff;
+}
+
+@media screen and (max-width: 1000px) {
+    .block.block-footer .footer-nav .footer-nav-item a {
+        color: #ffffff;
+    }
+}
+
+@media screen and (max-width: 1700px) {
+    .block.block-footer .footer-nav .footer-nav-item a {
+        color: #ffffff;
+    }
+}
+.block {
+    &.block-copyrights{
+        .links{
+            a {
+                color: #ffffff;
+            }
+        } 
     }
 }
