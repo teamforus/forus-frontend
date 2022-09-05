@@ -185,7 +185,7 @@ const FundsEditComponent = function(
                 form.unlock();
             };
 
-            $ctrl.criteriaEditor.saveCriteria().then(async (success) => {
+            const onCriteriaSaved = async (success) => {
                 if (!success) {
                     return form.unlock();
                 }
@@ -222,7 +222,13 @@ const FundsEditComponent = function(
                     $state.go('organization-funds', { organization_id: $stateParams.organization_id });
                     PushNotificationsService.success('Gelukt!', 'Een fonds is aangemaakt!');
                 }, onError);
-            });
+            }
+
+            if ($rootScope.appConfigs.features.organizations.funds.criteria) {
+                return $ctrl.criteriaEditor.saveCriteria().then(onCriteriaSaved);
+            }
+
+            onCriteriaSaved(true);
         }, true);
 
         if ($ctrl.fund && $ctrl.fund.logo) {
