@@ -7,7 +7,11 @@ RUN apk update \
     && apk --no-cache --virtual build-dependencies add \
     python3 \
     make \
-    g++
+    g++ \
+    iputils \
+    net-tools \
+    mc \
+    wget
 
 RUN npm install gulp-cli -g
 
