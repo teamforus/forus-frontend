@@ -21,7 +21,7 @@ module.exports = {
         top_up_table: {
             filters: {
                 search: "Search",
-                code: "Code used",
+                code: "Used code",
                 iban: "IBAN",
                 amount: "Amount",
                 amount_min: "0",
@@ -31,9 +31,9 @@ module.exports = {
             },
             columns: {
                 fund: "Fund",
-                code: "Code used",
+                code: "Used code",
                 iban: "IBAN",
-                top_up_id: "Fund top up id",
+                top_up_id: "Fund top-up ID",
                 amount: "Amount",
                 date: "Date",
             }

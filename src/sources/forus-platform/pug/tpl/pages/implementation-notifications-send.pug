@@ -3,32 +3,32 @@
     section.app.app-content: .form
         .block.block-breadcrumbs
             a.breadcrumb-item(ui-sref="implementation-notifications($ctrl.implementation)") Systeemberichten
-            .breadcrumb-item.active Send notification
+            .breadcrumb-item.active Verstuur een aangepast bericht
 
         //- Target audience
         .card
             .card-header: .flex
                 .flex.flex-grow: .card-title
                     em.mdi.mdi-account-multiple-outline
-                    | Set target audience
+                    | Kies een doelgroep
 
                 .flex(ng-if="$ctrl.organization | hasPerm:['manage_vouchers']")
                     .button.button-primary.button-sm(
                         ng-if="!$ctrl.showIdentities"
                         ng-click="$ctrl.showIdentities = true")
                         em.mdi.mdi-view-list.icon-start
-                        | Show list
+                        | Bekijk de lijst met geadresseerden
 
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.showIdentities"
                         ng-click="$ctrl.showIdentities = false")
                         em.mdi.mdi-view-list.icon-start
-                        | Hide list
+                        | Verberg de lijst met geadresseerden
 
             //- Audience select
             .card-section
                 .form-group
-                    label.form-label Select target funds
+                    label.form-label Kies een fonds
                     .form-offset: select-control(
                         search="false"
                         ng-model="$ctrl.fund"
@@ -36,7 +36,7 @@
                         options="$ctrl.funds").form-control
 
                 .form-group
-                    label.form-label Send to
+                    label.form-label Verstuur naar
                     .form-offset: select-control(
                         prop="value"
                         search="false"
@@ -47,7 +47,7 @@
             .card-header(ng-if="$ctrl.showIdentities"): .flex
                 .flex.flex-grow: .card-title
                     em.mdi.mdi-view-list
-                    | Target fund users
+                    | Lijst met geadresseerden
 
                 //- Filters
                 .flex
@@ -60,7 +60,7 @@
                         .button.button-primary.button-sm(
                             ng-click="$ctrl.exportIdentities()")
                             em.mdi.mdi-download.icon-start
-                            | Export
+                            | Exporteren
 
             //- Audience list
             .card-section(ng-if="$ctrl.showIdentities && $ctrl.identities.meta.total > 0")
@@ -70,9 +70,9 @@
                             tr
                                 th(th-sortable filters="$ctrl.identitiesFilters" label="ID" value="id")
                                 th(th-sortable filters="$ctrl.identitiesFilters" label="E-mail" value="email")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="Voucher total" value="count_vouchers")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="Active vouchers" value="count_vouchers_active")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="Active vouchers with balance" value="count_vouchers_active_with_balance")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="Aantal tegoeden" value="count_vouchers")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="Actieve tegoeden" value="count_vouchers_active")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="Actieve tegoeden met een restant budget" value="count_vouchers_active_with_balance")
                                 //- th(th-sortable filters="$ctrl.identitiesFilters" label="Action").th-narrow.text-right
 
                             tr(ng-repeat="identity in $ctrl.identities.data")
@@ -100,25 +100,25 @@
             .card-section.card-section-primary
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
                     .keyvalue-item.col.col-lg-3
-                        .keyvalue-key People with vouchers
+                        .keyvalue-key Met vouchers
                         .keyvalue-value
                             span(ng-bind="$ctrl.identities.meta.counts.active")
                             span.icon.mdi.mdi-account-multiple-outline
 
                     .keyvalue-item.col.col-lg-3
-                        .keyvalue-key Target people
+                        .keyvalue-key Binnen de doelgroep
                         .keyvalue-value
                             span(ng-bind="$ctrl.identities.meta.counts.selected")
                             span.icon.mdi.mdi-account-multiple-check-outline
 
                     .keyvalue-item.col.col-lg-3
-                        .keyvalue-key Excluded people
+                        .keyvalue-key Uitgesloten gebruikers
                         .keyvalue-value
                             span(ng-bind="$ctrl.identities.meta.counts.active - $ctrl.identities.meta.counts.selected - $ctrl.identities.meta.counts.without_email")
                             span.icon.mdi.mdi-account-multiple-remove-outline
 
                     .keyvalue-item.col.col-lg-3
-                        .keyvalue-key People without e-mail
+                        .keyvalue-key Zonder e-mailadres
                         .keyvalue-value
                             span(ng-bind="$ctrl.identities.meta.counts.without_email")
                             span.icon.mdi.mdi-email-off-outline
@@ -152,7 +152,7 @@
                     ng-disabled="$ctrl.submittingToSelf || $ctrl.submitting")
                     .mdi.mdi-account-arrow-right-outline.icon-start(ng-if="!$ctrl.submittingToSelf")
                     .mdi.mdi-loading.mdi-spin.icon-start(ng-if="$ctrl.submittingToSelf")
-                    | Send to myself
+                    | Verstuur een test e-mail naar jezelf
 
                 button.button.button-primary(
                     button="button" 
@@ -160,7 +160,7 @@
                     ng-disabled="!$ctrl.previewSent || $ctrl.submittingToSelf || $ctrl.submitting")
                     .mdi.mdi-send-outline.icon-start(ng-if="!$ctrl.submitting")
                     .mdi.mdi-loading.mdi-spin.icon-start(ng-if="$ctrl.submitting")
-                    | Send now
+                    | Versturen
 
             .card-section.card-section-narrow.card-section.card-section-warning.text-center(ng-if="!$ctrl.previewSent")
-                | To unlock the "Send now" button, please send the notification to your self first to make sure everything is fine.
+                | Voordat je de e-mail naar de doelgroep kan versturen dien je eerst e-mail als test naar jezelf te sturen.

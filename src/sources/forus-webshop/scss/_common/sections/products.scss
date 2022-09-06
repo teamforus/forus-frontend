@@ -4,7 +4,7 @@
         margin: 0 0 40px;
 
         .section-title {
-            margin: 0px 0 30px;
+            margin: 30px 0 30px;
             display: block;
             font-family: $hf;
         }
@@ -36,13 +36,13 @@
             }
         }*/
 
-        &.section-products {
+       /*  &.section-products {
             position: relative;
 
             .section-title {
                 font: 500 2em $bf;
             }
-        }
+        } */
 
         &.section-products {
             .section-filters {

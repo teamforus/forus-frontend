@@ -132,9 +132,7 @@
                             input-checkbox-control(
                                 name="show_attachment_{{ $index }}" 
                                 ng-model="$ctrl.form.values.announcement.replace" 
-                                label="Reset dismiss status for the users.")
-
-                        tooltip(text="'Webshop users have the option to dismiss the announcements. If the user dismissed the announcement, the user will not see the update. To reset the dismiss status select this checkbox and the old announcement will be removed and replaced by a new one.'")
+                                label="Herstel aankondiging indien aanvrager opnieuw inlogt.")
 
             //- Cancel or Submit
             .card-section.card-section-primary: .text-center
@@ -153,22 +151,22 @@
             .card-section
                 .card-block.card-block-table: .table-wrapper: table.table
                     tr
-                        th Name
+                        th Naam
                         th Type
-                        th Blocks
-                        th Published
-                        th.th-narrow.nowrap Webshop url
-                        th.th-narrow.text-right Actions
+                        th Blokken
+                        th Gepubliceerd
+                        th.th-narrow.nowrap Webshop URL
+                        th.th-narrow.text-right Opties
 
                     tr(ng-repeat="page in $ctrl.pages")
                         td(translate="implementation_edit.labels.{{ page.page_type.key }}")
 
-                        td(ng-if="page.page_type.type === 'static'").text-muted Static page
-                        td(ng-if="page.page_type.type === 'extra'").text-muted Optional page
-                        td(ng-if="page.page_type.type === 'element'").text-muted Page element
+                        td(ng-if="page.page_type.type === 'static'").text-muted Standaard pagina
+                        td(ng-if="page.page_type.type === 'extra'").text-muted Optionele pagina
+                        td(ng-if="page.page_type.type === 'element'").text-muted Pagina element
 
                         td(ng-if="page.page_type.blocks" ng-bind="page.blocks.length || 'None'")
-                        td(ng-if="!page.page_type.blocks").text-muted Not available
+                        td(ng-if="!page.page_type.blocks").text-muted Niet beschikbaar
 
                         td(ng-bind="page.state == 'public' ? 'Ja' : 'Nee'")
                         td
