@@ -11,7 +11,7 @@ module.exports = {
             restore: "Herstellen",
             criteria: "Voorwaarden",
             statistics: "Statistieken",
-            top_up_history: "Bekijk transacties"
+            top_up_history: "Bekijk aanvullingen"
         },
         states: {
             active: "Actief",
@@ -25,7 +25,7 @@ module.exports = {
         top_up_table: {
             filters: {
                 search: "Zoeken",
-                code: "Code used",
+                code: "Gebruikte code",
                 iban: "IBAN",
                 amount: "Bedrag",
                 amount_min: "0",
@@ -34,12 +34,12 @@ module.exports = {
                 to: "Aangemaakt tot en met"
             },
             columns: {
-                fund: "Fond",
-                code: "Code used",
+                fund: "Fonds",
+                code: "Gebruikte code",
                 iban: "IBAN",
-                top_up_id: "Fund top up id",
+                top_up_id: "Aanvulling ID",
                 amount: "Bedrag",
-                date: "Datum",
+                date: "Tijd & Datum",
             }
         }
     }

@@ -4,36 +4,36 @@ mixin form_values()
         input-checkbox-control(
             name="email_required_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.email_required" 
-            label="Only people with confirmed email can make fund requests")
+            label="Alleen aanvragers die een e-mailadres opgeven mogen het aanvraagformulier doorlopen.")
         .form-error(ng-repeat="error in $dir.form.errors.email_required" ng-bind="error")
 
         tooltip(
-            text="'By disabling this option, you will allow users without email to make fund requests which are validated through validator dashboard. You will not be able to send questions to the user through the dashboard email notifications functionality. Also the users without email will not receive any notifications related to fund-request status update by email.'")
+            text="'Het uizetten van deze optie zorgt ervoor dat aanvragers met alleen DigiD een account kunnen aanmaken zonder gebruik te maken van een e-mailadres. Aanvragers kunnen dan geen notificaties ontvangen en er kunnen ook geen aanvulverzoekingen verstuurd worden.'")
 
     //- Ask for contact information 
     .form-group.form-group-last(ng-if="!$dir.form.values.email_required").tooltipped
         input-checkbox-control(
             name="contact_info_enabled_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.contact_info_enabled" 
-            label="Ask people for contact information")
+            label="Vraag aanvragers om contactgegevens")
         .form-error(ng-repeat="error in $dir.form.errors.contact_info_enabled" ng-bind="error")
-        tooltip(text="'By enabling this option, the users without email, will be asked for contact information at the last step of fund request form.'")
+        tooltip(text="'Het aanzetten van deze optie zorgt ervoor dat er contactgegevens opgevraagd kunnen worden voor aanvragers zonder e-mailadres.'")
 
     //- Make contact information required
     .form-group.form-group-last(ng-if="!$dir.form.values.email_required && $dir.form.values.contact_info_enabled").tooltipped
         input-checkbox-control(
             name="contact_info_required_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.contact_info_required" 
-            label="Make contact information field a required")
+            label="Maak het opgeven van contactgegevens verplicht")
         .form-error(ng-repeat="error in $dir.form.errors.contact_info_required" ng-bind="error")
-        tooltip(text="'By enabling this option, the contact form at the last step will become mandatory to fill.'")
+        tooltip(text="'Het aanzetten van deze optie zal het opgeven van contactgegevens verplicht maken.'")
 
     //- Use custom contact information message
     .form-group.form-group-last(ng-if="!$dir.form.values.email_required && $dir.form.values.contact_info_enabled").tooltipped
         input-checkbox-control(
             name="contact_info_message_custom_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.contact_info_message_custom" 
-            label="Use custom contact information request message")
+            label="Stel een bericht in voor het opvragen van contactgegevens")
         .form-error(ng-repeat="error in $dir.form.errors.contact_info_message_custom" ng-bind="error")
 
     //- Custom contact info control
@@ -45,7 +45,7 @@ mixin form_values()
 
         textarea.form-control.r-n(
             ng-if="$dir.form.values.contact_info_message_custom"
-            placeholder="Please provide your contact info request message..."
+            placeholder="Geef het bericht op dat je wilt instellen..."
             ng-model="$dir.form.values.contact_info_message_text")
         .form-error(ng-repeat="error in $dir.form.errors.contact_info_message_text" ng-bind="error")
 
@@ -56,6 +56,6 @@ mixin form_values()
         .row: .form-actions.col.col-lg-8.col-md-12 
             button(type="submit").button.button-primary
                 .mdi.mdi-content-save-outline.icon-start
-                | Save
+                | Opslaan
 
     .form(ng-if="!$dir.inline"): +form_values()

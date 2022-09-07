@@ -147,7 +147,7 @@ const FundActivateComponent = function (
     };
 
     $ctrl.selectDigiDOption = () => {
-        const hasCustomCriteria = ['bus_2020', 'meedoen'].includes($ctrl.fund.key);
+        const hasCustomCriteria = ['IIT', 'bus_2020', 'meedoen'].includes($ctrl.fund.key);
         const autoValidation = $ctrl.fund.auto_validation;
 
         //- Show custom criteria screen
@@ -169,7 +169,7 @@ const FundActivateComponent = function (
 
             FundService.check($ctrl.fund.id).then((res) => {
                 const { backoffice } = res.data;
-                const { backoffice_error, backoffice_fallback, backoffice_error_key } = backoffice || {};
+                const { backoffice_error, backoffice_fallback, backoffice_error_key, backoffice_redirect } = backoffice || {};
 
                 // Backoffice not responding and fallback is disabled
                 if (backoffice && backoffice_error == 1 && backoffice_fallback == 0) {
@@ -179,6 +179,11 @@ const FundActivateComponent = function (
                 // Fund requesting is not available after successful signing with DigiD
                 if (backoffice && backoffice_error == 2) {
                     return $ctrl.setState('error_digid_no_funds');
+                }
+
+                // User is not eligible and has to be redirected
+                if (backoffice_redirect) {
+                    return document.location = backoffice_redirect;
                 }
 
                 $state.go('fund-request', { id: $ctrl.fund.id, from: 'fund-activate' });
@@ -272,6 +277,10 @@ const FundActivateComponent = function (
         }
 
         if ($ctrl.options.length === 1) {
+            if ($ctrl.options[0] === 'digid') {
+                return $ctrl.selectDigiDOption();
+            }
+
             return $ctrl.setState($ctrl.options[0]);
         }
 
@@ -285,7 +294,7 @@ const FundActivateComponent = function (
     $ctrl.getTimeToSkipDigid = (identity) => {
         const timeOffset = appConfigs.bsn_confirmation_offset || 300;
 
-        if ($ctrl.fund.bsn_confirmation_time === null) {
+        if ($ctrl.fund.bsn_confirmation_time === null || !identity.bsn) {
             return null;
         }
 
@@ -346,7 +355,10 @@ const FundActivateComponent = function (
 
         // All the criteria are meet, request the voucher
         if ($ctrl.fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
-            return $ctrl.applyFund($ctrl.fund).then((voucher) => $state.go('voucher', voucher));
+            return $ctrl.applyFund($ctrl.fund).then(
+                (voucher) => $state.go('voucher', voucher),
+                () => $state.go('fund', $ctrl.fund)
+            );
         }
 
         $ctrl.initState();

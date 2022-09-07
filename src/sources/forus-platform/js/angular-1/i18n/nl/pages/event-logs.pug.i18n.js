@@ -1,12 +1,12 @@
 module.exports = {
     labels: {
-        date: "Date",
-        entity: "Entity",
-        action: "Action",
-        author: 'By (author of action)',
-        note: "Note",
-        search: "Zoeken",
-        entities: "Entities",
+        date: "Tijd & Datum",
+        entity: "Onderwerp",
+        action: "Activiteit",
+        author: 'Door (Medewerker)',
+        note: "Notitie",
+        search: "Zoek medewerker",
+        entities: "Onderwerpen",
     },
     buttons: {
         clear_filter: "Wis filter"

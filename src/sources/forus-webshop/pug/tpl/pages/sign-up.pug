@@ -13,7 +13,7 @@ main(id="main-content")
                 .sign_up-pane-body: .sign_up-row
                     .sign_up-col
                         //- Registration
-                        h3.sign_up-pane-text: .sign_up-pane-heading Account aanmaken of inloggen
+                        h3.sign_up-pane-text: .sign_up-pane-heading Inloggen op een bestaand account of een aanvraag starten?
                         .sign_up-options(ng-class="{disabled: $ctrl.loading}")
                             //- Sign up by DigiD
                             .sign_up-option(
@@ -24,7 +24,7 @@ main(id="main-content")
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met DigiD
-                                    .sign_up-option-description U wordt doorverwezen naar Diaid om aan te melden
+                                    .sign_up-option-description U wordt doorverwezen naar DigiD om aan te melden
 
                             //- Sign up by Email
                             .sign_up-option(
@@ -34,11 +34,11 @@ main(id="main-content")
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met uw e-mailadres
-                                    .sign_up-option-description Ontvana een link om mee an te melden
+                                    .sign_up-option-description Ontvang een link per mail om mee aan te melden
 
                     .sign_up-col
                         //- Sign In
-                        h3.sign_up-pane-text: .sign_up-pane-heading E-mailadres vergeten? Of inloggen op bestaand account
+                        h3.sign_up-pane-text: .sign_up-pane-heading Account herstellen of met een andere optie inloggen?
                         .sign_up-options(ng-class="{disabled: $ctrl.loading}")
                             //- Sign in by DigiD
                             .sign_up-option(
@@ -48,7 +48,7 @@ main(id="main-content")
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met DigiD
-                                    .sign_up-option-description EU wordt doorverwezen naar Diaid om aan te melden
+                                    .sign_up-option-description U wordt doorverwezen naar DigiD om aan te melden
 
                             //- Sign in by Email
                             .sign_up-option(
@@ -58,7 +58,7 @@ main(id="main-content")
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met uw e-mailadres
-                                    .sign_up-option-description Ontvana een link om mee aan te melden
+                                    .sign_up-option-description Ontvang een link om mee aan te melden
 
                             //- Sign in by Me App
                             .sign_up-option(ng-click="$ctrl.setState('qr')")

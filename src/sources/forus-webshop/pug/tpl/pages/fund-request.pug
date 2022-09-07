@@ -29,22 +29,22 @@ mixin go_back()
     //- Back to fund-activate page
     .flex-col.text-left(ng-if="$ctrl.step == 0")
         .button.button-text.button-text-padless(ui-sref="fund-activate({fund_id: $ctrl.fund.id})" role="button")
-            .mdi.mdi-chevron-left.icon-lefts
+            .mdi.mdi-chevron-left.icon-left
             | Terug
 
     //- Back to prev step
     .flex-col.text-left(ng-if="$ctrl.step > 0")
         .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
-            .mdi.mdi-chevron-left.icon-lefts
+            .mdi.mdi-chevron-left.icon-left
             | Terug
 
 mixin time_limit_warning()
     .sign_up-pane-warning(ng-if="$ctrl.bsnWarningShow")
-        .warning-icon: .mdi.mdi-alert-box-outline
+        .warning-icon: .mdi.mdi-alert-circle-outline
         .warning-details
-            | Please not that you have to finish the application before 
+            | Let op! U dient het aanvraagformulier afgerond te hebben voor
             strong {{ $ctrl.bsnWarningValue }}
-            | , otherwise you will have to sign-in by DigiD again and start the application form allover.
+            | , anders dient opnieuw in te loggen met DigiD en opnieuw te beginnen met de aanvraag.
 
 //-top-navbar
 main(id="main-content")
@@ -63,7 +63,7 @@ main(id="main-content")
                     .sign_up-pane-body.sign_up-pane-body-padless-bottom: form(ng-submit="$ctrl.emailForm.submit()")
                         //- When email setup is required
                         p.sign_up-pane-text(ng-if="$ctrl.emailSetupRequired") 
-                            | In order to make a fund application, you need to set and confirm an email address. 
+                            | Om verder te gaan met de aanvraag dient u uw e-mailadres op te geven
 
                         .form-group: .row
                             .col.col-lg-9
@@ -112,7 +112,7 @@ main(id="main-content")
                     +time_limit_warning()
 
                 .sign_up-pane(ng-if="$ctrl.emailSubmitted")
-                    h1.sr-only Confirmation email sent
+                    h1.sr-only Er is een e-mail te bevestiging verstuurd
                     h2.sign_up-pane-header(i18n="Confirmation email sent") 
 
                     .sign_up-pane-body
@@ -290,12 +290,12 @@ main(id="main-content")
                     .sign_up-pane-header Bevestig uw inkomen
                     .sign_up-pane-body
                         fund-criteria-custom-overview(
-                            ng-if="['bus_2020', 'meedoen'].includes($ctrl.fund.key)"
+                            ng-if="['IIT','bus_2020', 'meedoen'].includes($ctrl.fund.key)"
                             key="$ctrl.fund.key")
 
                         //- Fallback
                         p.sign_up-pane-text(
-                            ng-if="!['bus_2020', 'meedoen'].includes($ctrl.fund.key)")
+                            ng-if="!['IIT','bus_2020', 'meedoen'].includes($ctrl.fund.key)")
                             | U staat op het punt om een meedoenregeling aan te vragen. 
                             | U dient te verklaren dat u aan de voorwaarden voldoet.
 
@@ -313,7 +313,7 @@ main(id="main-content")
                 +progress()
 
                 .sign_up-pane: form(ng-submit="$ctrl.submitContactInformation($event)")
-                    h2.sign_up-pane-header Contact information
+                    h2.sign_up-pane-header Contactgegevens
                     .sign_up-pane-body.sign_up-pane-body-padless-bottom
                         //- Contact information request message (default)
                         p.sign_up-pane-text.text-center(
@@ -327,10 +327,10 @@ main(id="main-content")
 
                         //- Contact information form
                         .form-group
-                            .form-label Contact information
+                            .form-label Contactgegevens
                             textarea(
                                 rows="5" 
-                                placeholder="Contact information..."
+                                placeholder="Contactgegevens invullen..."
                                 ng-model="$ctrl.contactInformation"
                                 ng-required="$ctrl.shouldAddContactInfoRequired").form-control.r-n
                             .form-error(ng-repeat="error in $ctrl.contactInformationError" ng-bind="error")
@@ -382,7 +382,7 @@ main(id="main-content")
 
                     .sign_up-pane-body.sign_up-pane-body-padless-bottom(ng-if="$ctrl.contactInformation || $ctrl.emailSetupShow")
                         p.sign_up-pane-text
-                            .text-strong Provided contact information:
+                            .text-strong Opgegeven contactgegevens:
                             span(ng-bind="$ctrl.contactInformation ? $ctrl.contactInformation : 'Geen'")
 
                     .sign_up-pane-footer: .row
@@ -432,24 +432,22 @@ main(id="main-content")
             +progress()
 
             .sign_up-pane
-                h1.sr-only Digid session expired
-                h2.sign_up-pane-header Digid session expired
+                h1.sr-only DigiD sessie verlopen
+                h2.sign_up-pane-header DigiD sessie verlopen
                 .sign_up-pane-body: .row
-                    .form-group.col.col-lg-12
-                        .block-icon: .mdi.mdi-clock-alert-outline
-                        br
+                    .form-group.col.col-xs-8.col-xs-offset-2
+                        .block-icon: include ../../../resources/_webshop-common/assets/img/icon-timeout.svg
 
                         .text-center
-                            h2.sign_up-pane-heading: strong Digid session expired
-                            p.sign_up-pane-text Please confirm your digid authorization and start again.
+                            h2.sign_up-pane-heading: strong DigiD sessie verlopen
+                            p.sign_up-pane-text Log opnieuw in met DigiD en begin opnieuw met de aanvraag.
+                            
+                            .sign_up-pane-separator
 
-                        br
-                        br
-
-                        .row: .col.col-xs-8.col-xs-offset-2: .sign_up-options: .sign_up-option(ng-click="$ctrl.startDigId()")
+                        .sign_up-options: .sign_up-option(ng-click="$ctrl.startDigId()")
                             .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                             .sign_up-option-details
                                 .sign_up-option-title DigiD
-                                .sign_up-option-description Start a new DigiD session to try again
+                                .sign_up-option-description Log opnieuw in met DigiD om opnieuw te beginnen.
 
                     .form-group.col.col-lg-12: br

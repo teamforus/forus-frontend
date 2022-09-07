@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf src/node_modules
+rm -rf ./src/node_modules
 mkdir -p dist
 
 if [ "$1" == "compile" ] || [ "$1" == "c" ] || [ "$1" == "-compile" ] || [ "$1" == "-c" ]

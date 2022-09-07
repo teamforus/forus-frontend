@@ -18,7 +18,7 @@ const me_app_link = 'https://forus.io/DL';
 const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const ios_iphone_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const android_link = 'https://media.forus.io/static/me-0.0.5-staging-7-release.apk';
-const help_link = 'https://forus.io';
+const help_link = 'https://helpcentrum.forus.io';
 
 module.exports = (core) => {
     // Config markups
@@ -719,6 +719,125 @@ module.exports = (core) => {
                 accessibilityPage: false,
             },
             sessions: sessions,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_ede', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'ede',
+            matomo_site_id: false,
+            flags: {
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_hartvanwestbrabant', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'hartvanwestbrabant',
+            matomo_site_id: false,
+            flags: {
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_participatiemunt', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'participatiemunt',
+            matomo_site_id: false,
+            flags: {
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_vergoedingen', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'vergoedingen',
+            matomo_site_id: false,
+            flags: {
+                logoExtension: '.svg',
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+                fundsMenu: true,
+                fundsMenuIfLoggedOut: true,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
         });
 
         platform.editTask('js', (task) => ({...task, minify, sourcemap}));

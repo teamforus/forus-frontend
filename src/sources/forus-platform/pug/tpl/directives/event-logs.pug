@@ -1,7 +1,7 @@
 .card
     .card-header: .flex
         //- Title
-        .flex.flex-grow: .card-title(ng-bind="($dir.blockTitle || 'History of log') + ' (' + $dir.logs.meta.total + ')'")
+        .flex.flex-grow: .card-title(ng-bind="($dir.blockTitle || 'Activiteitenlogboek') + ' (' + $dir.logs.meta.total + ')'")
 
         //- Search box
         .flex(ng-if="$dir.hideFilterForm"): .block.block-inline-filters
@@ -64,7 +64,7 @@
             td(ng-if="!$dir.hideEntity" ng-bind-html="log.loggable_locale").nowrap
             td(ng-bind-html="log.event_locale")
             td(ng-if="log.identity_email" ng-bind="log.identity_email")
-            td(ng-if="!log.identity_email").text-muted No identity
+            td(ng-if="!log.identity_email").text-muted Geen e-mailadres bekend
             td
                 em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
                     ng-if="log.note && (log.note != log.note_substr)"
