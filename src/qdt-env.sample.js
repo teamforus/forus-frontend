@@ -818,7 +818,6 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_type: 'webshop',
             client_key: 'vergoedingen',
-            log_out_time: autoLogOutTime,
             matomo_site_id: false,
             flags: {
                 logoExtension: '.svg',
