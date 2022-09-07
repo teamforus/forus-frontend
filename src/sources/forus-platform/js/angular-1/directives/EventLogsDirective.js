@@ -10,10 +10,10 @@ const EventLogsDirective = function (
     const $strLimit = $filter('str_limit');
 
     const loggables = [
-        { key: 'fund', title: 'Fund' },
-        { key: 'employee', title: 'Employee' },
-        { key: 'bank_connection', title: 'Bank connection' },
-        { key: 'voucher', title: 'Voucher' },
+        { key: 'fund', title: 'Fonds' },
+        { key: 'employee', title: 'Medewerker' },
+        { key: 'bank_connection', title: 'Bank integratie' },
+        { key: 'voucher', title: 'Vouchers' },
     ];
 
     const filterPermissions = (loggable) => {

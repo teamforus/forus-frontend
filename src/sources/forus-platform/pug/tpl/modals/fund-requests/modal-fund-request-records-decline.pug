@@ -35,20 +35,20 @@
 
                     //- Has contact information
                     span(ng-if="$ctrl.fundRequest.contact_information")
-                        .text-strong The requester has no email in their account
-                        | If you need to contact them, please use the contact information requester provided.
+                        .text-strong De aanvrager heeft geen e-mailadres opgegeven
+                        | Is er contact met de aanvrager nodig? Gebruik dan onderstaande contactgegevens.
                         br
                         br
                         
-                        .text-strong Contact information:
+                        .text-strong Contactgegevens:
                         strong(ng-bind="$ctrl.fundRequest.contact_information")
 
                     //- No contact information provided
                     span(ng-if="!$ctrl.fundRequest.contact_information")
-                        .text-strong The requester has no email in their account
+                        .text-strong De aanvrager heeft geen e-mailadres opgegeven
                         br
-                        | Also no contact information was provided. 
-                        | If you have to contact them, you will have to find them outside of the platform.
+                        | Helaas heeft de aanvrager geen contactgegevens opgegeven, 
+                        | indien er contact moment nodig is dient dit buiten het platform te gebeuren.
     
         .modal-footer.text-center
             button.button.button-default(ng-click="$ctrl.close()") Annuleer

@@ -53,11 +53,11 @@ const ImplementationCmsEditComponent = function (
     ];
 
     const announcementTypes = [
-        { value: 'warning', label: 'Warning' },
-        { value: 'success', label: 'Success' },
-        { value: 'primary', label: 'Primary' },
-        { value: 'default', label: 'Default' },
-        { value: 'danger', label: 'Error' },
+        { value: 'warning', label: 'Waarschuwing' },
+        { value: 'success', label: 'Succes' },
+        { value: 'primary', label: 'Primair' },
+        { value: 'default', label: 'Standaard' },
+        { value: 'danger', label: 'Foutmedling' },
     ];
 
     const announcementExpireOptions = [

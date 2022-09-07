@@ -38,7 +38,7 @@ const ImplementationNotificationsService = function ($sce, ApiRequest, MarkdownS
                 templates_default: [{
                     "type": "mail",
                     "formal": 0,
-                    "title": "[fonds_naam] - Subject",
+                    "title": "[fonds_naam] - Onderwerp",
                     "content": MarkdownService.toMarkdown(template_html),
                     "content_html": template_html,
                 }],

@@ -201,7 +201,7 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.auto_requests_validation" ng-bind="error")
 
             //- Fund criteria editor
-            .card-section.card-section-primary
+            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
                 .form-group.form-group-inline
                     label.form-label Criteria
                     .form-offset: fund-criteria-editor(

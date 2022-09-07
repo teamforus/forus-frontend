@@ -12,20 +12,20 @@
                     ng-if="block.collapsed" 
                     ng-click="block.collapsed = false")
                     em.mdi.mdi-arrow-collapse-vertical.icon-start
-                    translate(translate="Collapse")
+                    translate(translate="Inklappen")
 
                 //- Collapse 
                 .button.button-primary.button-sm(
                     ng-if="!block.collapsed" 
                     ng-click="block.collapsed = true")
                     em.mdi.mdi-arrow-expand-vertical.icon-start
-                    translate(translate="Expand")
+                    translate(translate="Uitklappen")
 
                 //- Remove
                 .button.button-danger.button-sm(
                     ng-click="$dir.removeBlock($index)")
                     em.mdi.mdi-trash-can-outline.icon-start
-                    translate(translate="Remove block")
+                    translate(translate="Blok verwijderen")
 
         //- Block form
         .block-body(ng-if="block.collapsed"): .form
@@ -55,8 +55,8 @@
 
             //- Block description
             .form-group
-                label.form-label.form-label-required Description
-                markdown(value="block.description_html" ng-model="block.description" placeholder="Description...")
+                label.form-label.form-label-required Omschrijving
+                markdown(value="block.description_html" ng-model="block.description" placeholder="Omschrijving...")
                 .form-hint Max. 5000 tekens
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.description']" ng-bind="error")
 
@@ -90,4 +90,4 @@
     .block-editor-actions
         .button.button-primary(ng-click="$dir.addBlock()")
             em.mdi.mdi-plus-circle.icon-start
-            translate(translate="Add block")
+            translate(translate="Blok toevoegen")

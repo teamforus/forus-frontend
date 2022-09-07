@@ -169,7 +169,7 @@ const FundActivateComponent = function (
 
             FundService.check($ctrl.fund.id).then((res) => {
                 const { backoffice } = res.data;
-                const { backoffice_error, backoffice_fallback, backoffice_error_key } = backoffice || {};
+                const { backoffice_error, backoffice_fallback, backoffice_error_key, backoffice_redirect } = backoffice || {};
 
                 // Backoffice not responding and fallback is disabled
                 if (backoffice && backoffice_error == 1 && backoffice_fallback == 0) {
@@ -179,6 +179,11 @@ const FundActivateComponent = function (
                 // Fund requesting is not available after successful signing with DigiD
                 if (backoffice && backoffice_error == 2) {
                     return $ctrl.setState('error_digid_no_funds');
+                }
+
+                // User is not eligible and has to be redirected
+                if (backoffice_redirect) {
+                    return document.location = backoffice_redirect;
                 }
 
                 $state.go('fund-request', { id: $ctrl.fund.id, from: 'fund-activate' });
