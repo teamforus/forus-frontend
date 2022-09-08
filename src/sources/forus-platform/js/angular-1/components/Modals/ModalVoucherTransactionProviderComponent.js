@@ -1,5 +1,5 @@
-const ModalVoucherTransactionProviderComponent = function(
-    $scope,
+const ModalVoucherTransactionProviderComponent = function (
+    FundService,
     VoucherService,
     FormBuilderService,
     OrganizationService,
@@ -8,10 +8,14 @@ const ModalVoucherTransactionProviderComponent = function(
     const $ctrl = this;
 
     $ctrl.submitButtonDisabled = true;
+
     $ctrl.targets = [
-        {key: 'provider', name: 'Provider'},
-        {key: 'identity', name: 'Identity'},
+        { key: 'provider', name: 'Provider' },
     ];
+
+    $ctrl.fetchVoucherFund = (voucher) => {
+        return FundService.read(voucher.fund.organization_id, voucher.fund_id).then((res) => res.data.data);
+    };
 
     $ctrl.fetchProviders = (voucher, organization) => {
         return OrganizationService.providerOrganizations(organization.id, {
@@ -27,61 +31,76 @@ const ModalVoucherTransactionProviderComponent = function(
         });
     };
 
-    function watchValues() {
-        $scope.$watch('$ctrl.form.values', function (newVal) {
-            $ctrl.submitButtonDisabled = ($ctrl.form.values.target === 'provider' && !$ctrl.form.values.provider_id) ||
-                ($ctrl.form.values.target === 'identity' && (
-                        !$ctrl.form.values.target_iban || $ctrl.form.values.target_iban === '')
-                ) || !$ctrl.form.values.amount;
-        }, true);
-    }
+    $ctrl.onFormChange = () => {
+        const { target, provider_id, target_iban, amount } = $ctrl.form.values;
 
-    $ctrl.$onInit = () => {
-        const { voucher, organization, fund, onCreated } = $ctrl.modal.scope;
+        if (target === 'provider') {
+            return $ctrl.submitButtonDisabled = !provider_id || !amount;
+        }
 
-        $ctrl.state = 'form';
-        $ctrl.voucher = voucher;
-        $ctrl.onCreated = onCreated;
-        $ctrl.organization = organization;
-        $ctrl.fund = fund;
+        if (target === 'identity') {
+            return $ctrl.submitButtonDisabled = !target_iban || !amount;
+        }
 
-        $ctrl.fetchProviders(voucher, organization).then((data) => {
-            $ctrl.providers = data;
-            $ctrl.providersList = data.reduce((list, item) => ({ ...list, [item.id]: item }), {});
-
-            $ctrl.form = FormBuilderService.build({
-                note: '',
-                amount: '',
-                voucher_id: voucher.id,
-                provider_id: data[0]?.id,
-                target: 'provider'
-            }, (form) => {
-                if (form.values.target === 'provider') {
-                    delete form.values.target_iban;
-                } else if (form.values.target === 'identity') {
-                    delete form.values.provider_id;
-                }
-
-                VoucherService.makeSponsorTransaction(organization.id, form.values).then((res) => {
-                    $ctrl.state = 'finish';
-                    $ctrl.transaction = res.data;
-                }, (res) => {
-                    form.errors = res.data.errors;
-                    $ctrl.state = 'form';
-                    PushNotificationsService.danger('Mislukt!', res.data.message);
-                }).finally(() => form.unlock());
-            }, true);
-
-            watchValues();
-        });
+        return $ctrl.submitButtonDisabled = true;
     };
 
-    $ctrl.onClose = () => {
+    $ctrl.buildForm = () => {
+        return FormBuilderService.build({
+            note: '',
+            amount: '',
+            target: $ctrl.targets[0]?.key,
+            voucher_id: $ctrl.voucher.id,
+            provider_id: $ctrl.providers[0]?.id,
+        }, (form) => {
+            if (form.values.target === 'provider') {
+                delete form.values.target_iban;
+            } else if (form.values.target === 'identity') {
+                delete form.values.provider_id;
+            }
+
+            VoucherService.makeSponsorTransaction($ctrl.organization.id, form.values).then((res) => {
+                $ctrl.state = 'finish';
+                $ctrl.transaction = res.data;
+            }, (res) => {
+                form.errors = res.data.errors;
+                $ctrl.state = 'form';
+                PushNotificationsService.danger('Mislukt!', res.data.message);
+            }).finally(() => form.unlock());
+        }, true)
+    }
+
+    $ctrl.closeModal = () => {
         if ($ctrl.transaction && typeof $ctrl.onCreated == 'function') {
             $ctrl.onCreated();
         }
 
         $ctrl.close();
+    };
+
+    $ctrl.$onInit = () => {
+        const { voucher, organization, onCreated } = $ctrl.modal.scope;
+
+        $ctrl.state = 'form';
+        $ctrl.voucher = voucher;
+        $ctrl.onCreated = onCreated;
+        $ctrl.organization = organization;
+
+        $ctrl.fetchVoucherFund(voucher).then((fund) => {
+            $ctrl.fund = fund;
+
+            if ($ctrl.fund.allow_direct_payments) {
+                $ctrl.targets.push({ key: 'identity', name: 'Identity' },);
+            }
+
+            $ctrl.fetchProviders(voucher, organization).then((data) => {
+                $ctrl.providers = data;
+                $ctrl.providersList = data.reduce((list, item) => ({ ...list, [item.id]: item }), {});
+                $ctrl.form = $ctrl.buildForm();
+
+                $ctrl.onFormChange();
+            });
+        });
     };
 };
 
@@ -91,7 +110,7 @@ module.exports = {
         modal: '=',
     },
     controller: [
-        '$scope',
+        'FundService',
         'VoucherService',
         'FormBuilderService',
         'OrganizationService',

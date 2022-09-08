@@ -1,10 +1,6 @@
 const IdentitiesShowComponent = function() {
     const $ctrl = this;
 
-    $ctrl.registerVouchersDirective = (directive) => {
-        $ctrl.vouchersDirective = directive;
-    };
-
     $ctrl.$onInit = () => {
         $ctrl.vouchersFilters = {
             order_by: 'id',
@@ -25,7 +21,7 @@ module.exports = {
         identity: '<',
     },
     controller: [
-        IdentitiesShowComponent
+        IdentitiesShowComponent,
     ],
-    templateUrl: 'assets/tpl/pages/identities-show.html'
+    templateUrl: 'assets/tpl/pages/identities-show.html',
 };
