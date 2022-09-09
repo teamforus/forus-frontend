@@ -32,14 +32,14 @@ const ModalVoucherTransactionProviderComponent = function (
     };
 
     $ctrl.onFormChange = () => {
-        const { target, provider_id, target_iban, amount } = $ctrl.form.values;
+        const { target, provider_id, target_iban, target_name, amount } = $ctrl.form.values;
 
         if (target === 'provider') {
             return $ctrl.submitButtonDisabled = !provider_id || !amount;
         }
 
         if (target === 'identity') {
-            return $ctrl.submitButtonDisabled = !target_iban || !amount;
+            return $ctrl.submitButtonDisabled = !target_iban || !target_name || !amount;
         }
 
         return $ctrl.submitButtonDisabled = true;

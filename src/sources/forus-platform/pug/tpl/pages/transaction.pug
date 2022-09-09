@@ -14,6 +14,7 @@
         .card
             .card-section: .card-title
                 strong(ng-bind="$ctrl.transaction.amount | currency_format")
+                | &nbsp;&nbsp;
                 strong.text-primary.pull-right(translate="financial_dashboard_transaction.labels.payment")
 
                 //- button.button.button-primary
@@ -94,18 +95,30 @@
                                 text="'financial_dashboard_transaction.tooltips.pending_iban_from' | translate" 
                                 ng-if="!$ctrl.transaction.iban_final")
 
-                    //- Provider iban
+                    //- Target iban
                     .keyvalue-item(ng-if="$ctrl.transaction.iban_to")
                         .keyvalue-key IBAN (naar)
                         .keyvalue-value
                             span(
                                 ng-bind="$ctrl.transaction.iban_to" 
-                                ng-class="{'text-muted-dark' : !$ctrl.transaction.iban_final}")
+                                ng-class="{'text-muted-dark' : !$ctrl.transaction.iban_final && $ctrl.transaction.target != 'identity'}")
 
                             tooltip(
                                 text="'financial_dashboard_transaction.tooltips.pending_iban_to' | translate" 
-                                ng-if="!$ctrl.transaction.iban_final")
-                
+                                ng-if="!$ctrl.transaction.iban_final && $ctrl.transaction.target != 'identity'")
+
+                    //- Target iban name
+                    .keyvalue-item(ng-if="$ctrl.transaction.iban_to_name")
+                        .keyvalue-key IBAN naam (naar)
+                        .keyvalue-value
+                            span(
+                                ng-bind="$ctrl.transaction.iban_to_name" 
+                                ng-class="{'text-muted-dark' : !$ctrl.transaction.iban_final && $ctrl.transaction.target != 'identity'}")
+
+                            tooltip(
+                                text="'financial_dashboard_transaction.tooltips.pending_iban_to' | translate" 
+                                ng-if="!$ctrl.transaction.iban_final && $ctrl.transaction.target != 'identity'")
+
                 .flex.flex-column.flex-end(ng-if="$ctrl.transaction.cancelable && $ctrl.transaction.reservation")
                     button(ng-click="$ctrl.cancelTransaction($ctrl.transaction.reservation)").button.button-default.button-sm
                         strong.nowrap Betaling annuleren

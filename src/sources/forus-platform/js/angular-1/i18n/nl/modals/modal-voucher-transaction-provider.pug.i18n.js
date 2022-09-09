@@ -14,7 +14,8 @@ module.exports = {
         provider: 'Aanbieder',
         organization: 'Betaal vanuit',
         target: 'Pay to',
-        identity: 'IBAN',
+        target_iban: 'IBAN-nummer',
+        target_name: 'IBAN-naam',
     },
     buttons: {
         cancel: "Annuleren",
