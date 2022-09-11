@@ -1,8 +1,8 @@
-.wrapper(ng-if="$dir.content_html || $dir.blocks.length > 0")
+.wrapper(ng-if="$dir.description_html || $dir.blocks.length > 0")
     .block.block-markdown(
-        ng-class="'block-markdown-' + $dir.content_alignment"
-        ng-if="$dir.content_html"
-        ng-bind-html="$dir.content_html")
+        ng-class="'block-markdown-' + $dir.description_alignment"
+        ng-if="$dir.description_html"
+        ng-bind-html="$dir.description_html")
 
     .wrapper(ng-if="$dir.blocks.length > 0"): .section
         .block.block-cms-funds(ng-if="$dir.blocks.length")

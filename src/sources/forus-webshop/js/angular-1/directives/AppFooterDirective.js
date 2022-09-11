@@ -18,12 +18,12 @@ let AppFooterDirective = function(
         const { pages } = configs.features;
         const { footer_opening_times, footer_contact_details } = pages;
 
-        if (footer_opening_times && footer_opening_times.content_html) {
-            $scope.description_opening_times_html = $sce.trustAsHtml(footer_opening_times.content_html);
+        if (footer_opening_times && footer_opening_times.description_html) {
+            $scope.description_opening_times_html = $sce.trustAsHtml(footer_opening_times.description_html);
         }
 
-        if (footer_contact_details && footer_contact_details.content_html) {
-            $scope.description_contact_details_html = $sce.trustAsHtml(footer_contact_details.content_html);
+        if (footer_contact_details && footer_contact_details.description_html) {
+            $scope.description_contact_details_html = $sce.trustAsHtml(footer_contact_details.description_html);
         }
 
         $dir.pageLinks = Object.values(pages).filter((page) => {

@@ -65,11 +65,10 @@
                         .form-offset
                             markdown(
                                 extended-options="true"
-                                value="$ctrl.form.values.content_html" 
-                                ng-model="$ctrl.form.values.content"
+                                value="$ctrl.form.values.description_html" 
+                                ng-model="$ctrl.form.values.description"
                                 allow-alignment="true"
-                                block-alignment="$ctrl.form.values.content_alignment"
-                                media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
+                                block-alignment="$ctrl.form.values.description_alignment")
 
                         tooltip(text="'implementation_edit.tooltips.' + $ctrl.page_type | translate")
                         .form-error(ng-repeat="error in $ctrl.form.errors.content" ng-bind="error")
