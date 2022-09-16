@@ -11,7 +11,7 @@
         .modal-body.modal-body-visible
             .modal-section.modal-section-pad
                 //- Target type
-                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.targets.length > 1")
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.targets.length > 1 && $ctrl.form.values.target !== 'self'")
                     label.form-label.form-label-required(translate="modals.modal_voucher_transaction_provider.labels.target")
                     select-control(
                         ng-if="$ctrl.form.values.target"
@@ -63,8 +63,9 @@
                             ng-change="$ctrl.onFormChange()"
                             step=".01"
                             min=".02"
-                            max="{{ $ctrl.voucher.amount_available }}").form-control
-                        .form-hint(ng-if="!$ctrl.form.errors.amount") Limiet {{ $ctrl.voucher.amount_available | currency_format }}
+                            max="{{ $ctrl.amount_limit }}").form-control
+                        .form-hint(ng-if="!$ctrl.form.errors.amount")
+                            | Limiet {{ $ctrl.amount_limit | currency_format }}
                         .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
 
                 //- Note
@@ -148,9 +149,13 @@
         .modal-icon.modal-icon-primary: .mdi.mdi-check-circle-outline
 
         .modal-body.form
-            .modal-section.text-center
+            .modal-section.text-center(ng-if="$ctrl.form.values.target !== 'self'")
                 .modal-heading(translate="modals.modal_voucher_transaction_provider.success.title")
                 .modal-text(translate="modals.modal_voucher_transaction_provider.success.description")
+
+            .modal-section.text-center(ng-if="$ctrl.form.values.target === 'self'")
+                .modal-heading(translate="modals.modal_voucher_transaction_provider.success.top_up_title")
+                .modal-text(translate="modals.modal_voucher_transaction_provider.success.top_up_description")
 
             .modal-section
                 .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist

@@ -62,6 +62,12 @@
 
                 //- voucher actions
                 .flex.flex-self-start: .flex-row: .button-group
+                    .button.button-default.button-sm(
+                        ng-if="$ctrl.showMakeTransactionButton && $ctrl.fund.limit_voucher_top_up_amount"
+                        ng-click="$ctrl.makeTopUpTransaction()")
+                        em.mdi.mdi-plus.icon-start
+                        string(translate="vouchers.buttons.make_top_up_transaction")
+
                     //- is granted?
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.showMakeTransactionButton"
@@ -201,3 +207,11 @@
         .card(ng-if="$ctrl.voucher.note")
             .card-header: .card-title(translate="vouchers.labels.note")
             .card-section: .card-text(ng-bind="$ctrl.voucher.note")
+
+        //- Voucher transactions
+        voucher-transactions(
+            ng-if="$ctrl.voucher"
+            organization="$ctrl.organization"
+            filter-values="$ctrl.transactionsFilters"
+            register="$ctrl.registerTransactionsDirective(directive)"
+            block-title="Transactions")

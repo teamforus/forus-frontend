@@ -1,0 +1,45 @@
+.card
+    .card-header: .flex
+        .flex.flex-grow: .card-title(ng-bind="($dir.blockTitle || 'Transactions') + ' (' + $dir.transactions.meta.total + ')'")
+
+    .card-section(ng-if="$dir.transactions.data.length > 0")
+        .card-block.card-block-table
+            .table-wrapper
+                table.table
+                    tr
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.id" value="id")
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.price" value="amount")
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.date" value="created_at")
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.fund" value="fund_name")
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.target" value="target")
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.provider" value="provider_name")
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.status" value="state")
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.action").th-narrow.text-right
+
+                    tr(ng-repeat="transaction in $dir.transactions.data")
+                        td(ng-bind="transaction.id")
+                        td: a.text-primary-light(
+                            ng-bind="transaction.amount | currency_format"
+                            ui-sref="transaction(transaction.ui_sref)")
+
+                        td(ng-bind="transaction.created_at_locale")
+                        td(ng-bind="transaction.fund.name")
+                        td(ng-bind="transaction.target_locale")
+                        td(ng-bind="transaction.organization.name")
+
+                        td
+                            .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
+                            .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
+
+                        td.td-narrow.text-right
+                            a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.pull-right
+                                em.mdi.mdi-eye-outline.icon-start
+                                translate(translate="transactions.buttons.view")
+
+    //- Pagination
+    .card-section(ng-if="$dir.transactions.meta" ng-show="$dir.transactions.meta.last_page > 1")
+        paginator(meta="$dir.transactions.meta" filters="$dir.filters.values" on-page-change="$dir.onPageChange(query)")
+
+    //- Not found
+    .card-section(ng-if="$dir.transactions.meta.total == 0"): .block.block-empty.text-center
+        .empty-title Geen transactions gevonden

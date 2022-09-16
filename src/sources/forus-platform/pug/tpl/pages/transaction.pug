@@ -65,7 +65,10 @@
 
                     .keyvalue-item
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.statement")
-                        .keyvalue-value(ng-bind="$ctrl.transaction.organization.name || 'Fund user'")
+                        .keyvalue-value(
+                            ng-if="['provider', 'identity'].includes($ctrl.transaction.target)"
+                            ng-bind="$ctrl.transaction.organization.name || 'Fund user'")
+                        .keyvalue-value(ng-if="$ctrl.transaction.target === 'self'") Top up
 
                     .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq")

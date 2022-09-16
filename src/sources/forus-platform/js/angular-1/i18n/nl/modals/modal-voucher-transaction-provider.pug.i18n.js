@@ -7,6 +7,8 @@ module.exports = {
     success: {
         title: "Transactie is verzonden",
         description: "De transactie is klaargezet en wordt binnen 3 werkdagen uitbetaald!",
+        top_up_title: "Transactie is verzonden",
+        top_up_description: "De transactie is klaargezet en wordt binnen 3 werkdagen uitbetaald!",
     },
     labels: {
         note: 'Notitie',

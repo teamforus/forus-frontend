@@ -42,6 +42,10 @@ const ModalVoucherTransactionProviderComponent = function (
             return $ctrl.submitButtonDisabled = !target_iban || !target_name || !amount;
         }
 
+        if (target === 'self') {
+            return $ctrl.submitButtonDisabled = !amount;
+        }
+
         return $ctrl.submitButtonDisabled = true;
     };
 
@@ -49,13 +53,15 @@ const ModalVoucherTransactionProviderComponent = function (
         return FormBuilderService.build({
             note: '',
             amount: '',
-            target: $ctrl.targets[0]?.key,
+            target: $ctrl.target,
             voucher_id: $ctrl.voucher.id,
             provider_id: $ctrl.providers[0]?.id,
         }, (form) => {
-            if (form.values.target === 'provider') {
+            if (['provider', 'self'].includes(form.values.target)) {
                 delete form.values.target_iban;
-            } else if (form.values.target === 'identity') {
+            }
+
+            if (['identity', 'self'].includes(form.values.target)) {
                 delete form.values.provider_id;
             }
 
@@ -79,15 +85,19 @@ const ModalVoucherTransactionProviderComponent = function (
     };
 
     $ctrl.$onInit = () => {
-        const { voucher, organization, onCreated } = $ctrl.modal.scope;
+        const { voucher, organization, onCreated, target } = $ctrl.modal.scope;
 
         $ctrl.state = 'form';
         $ctrl.voucher = voucher;
         $ctrl.onCreated = onCreated;
         $ctrl.organization = organization;
+        $ctrl.target = target || $ctrl.targets[0]?.key;
 
         $ctrl.fetchVoucherFund(voucher).then((fund) => {
             $ctrl.fund = fund;
+            $ctrl.amount_limit = $ctrl.target === 'self'
+                ? $ctrl.fund.limit_voucher_top_up_amount
+                : $ctrl.voucher.amount_available;
 
             if ($ctrl.fund.allow_direct_payments) {
                 $ctrl.targets.push({ key: 'identity', name: 'Identity' },);
@@ -117,5 +127,5 @@ module.exports = {
         'PushNotificationsService',
         ModalVoucherTransactionProviderComponent,
     ],
-    templateUrl: 'assets/tpl/modals/modal-voucher-transaction-provider.html',
+    templateUrl: 'assets/tpl/modals/modal-voucher-transaction.html',
 };
