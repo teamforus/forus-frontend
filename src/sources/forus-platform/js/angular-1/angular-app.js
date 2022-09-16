@@ -68,6 +68,7 @@ app.component('organizationBankConnectionsComponent', require('./components/Orga
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
 app.component('productBoardComponent', require('./components/ProductBoardComponent'));
 app.component('eventLogsComponent', require('./components/EventLogsComponent'));
+app.component('implementationCmsConfigEditComponent', require('./components/ImplementationCmsConfigEditComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
