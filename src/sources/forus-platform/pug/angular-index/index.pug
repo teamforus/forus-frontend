@@ -8,7 +8,7 @@ html(lang="nl" ng-controller="BaseController" ng-cloak)
         
         page-loading-bar
         
-        div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''").ie-hide
+        div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''")
             include ../layout/includes/header
 
             ui-view
@@ -24,7 +24,7 @@ html(lang="nl" ng-controller="BaseController" ng-cloak)
         printables-root
         push-notifications
         
-        include ../layout/includes/oldIe
+        //include ../layout/includes/oldIe
         include ../layout/includes/scripts
 
 if (qdt_c.git_log_header) 

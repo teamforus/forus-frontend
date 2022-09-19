@@ -46,7 +46,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$root.openUserMenu($event)")
                 .auth-user-details
-                    .auth-user-name {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
+                    .auth-user-name(ng-bind="$root.auth_user.email || ($root.auth_user.address | str_limit:32)" dusk="identityEmail")
                     .auth-user-role
                         //- span(ng-bind="$root.activeOrganization.name")
                         //- span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •

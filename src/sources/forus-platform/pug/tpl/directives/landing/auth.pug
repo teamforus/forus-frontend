@@ -7,13 +7,13 @@
         .block-login-description Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen
         
         .block-login-form
-            form(ng-submit="form.submit()").form
+            form(ng-submit="form.submit()" dusk="authEmailForm").form
                 .form-label E-mailadres
                 .block-login-control
                     .flex.form-group
-                        input(type="email" placeholder="bijv. info@info.nl" ng-model="form.values.email" autofocus).form-control
+                        input(type="email" placeholder="bijv. info@info.nl" ng-model="form.values.email" dusk="authEmailFormEmail" autofocus).form-control
                         .form-error(ng-repeat="error in form.errors.email" ng-bind="error")
-                    .flex: button.button.button-primary(type="submit") Login
+                    .flex: button.button.button-primary(type="submit" dusk="authEmailFormSubmit") Login
 
         .block-login-me_app
             .qr_code-container
@@ -42,7 +42,7 @@
         a(ui-sref="sign-up").block-login-footer-button Inschrijven
     
     //- Email sent message
-    .block-login-content(ng-if="emailSent")
+    .block-login-content(ng-if="emailSent" dusk="authEmailSentConfirmation")
         .block-login-email_sent
             .block-login-email_sent-icon: img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
             .block-login-email_sent-title(translate="popup_auth.labels.join")
