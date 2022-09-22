@@ -1,6 +1,7 @@
 module.exports = {
     title: "Nieuwe transactie",
-    prevalidate: {
+    top_up_title: "Nieuwe top up",
+    preview: {
         title: "Bevestig de transactie",
         description: "Deze transactie wordt gecontroleerd en in het volgende betaalbestand meegenomen. De transactie kan daarna niet meer ongedaan gemaakt worden.",
     },

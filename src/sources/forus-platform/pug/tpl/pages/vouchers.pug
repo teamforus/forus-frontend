@@ -170,7 +170,7 @@
 
                                 td(
                                     ng-if="$ctrl.fund.type == 'budget'" 
-                                    ng-bind="voucher.amount | currency_format").nowrap
+                                    ng-bind="voucher.amount_total | currency_format").nowrap
 
                                 td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
                                     ng-if="voucher.note"

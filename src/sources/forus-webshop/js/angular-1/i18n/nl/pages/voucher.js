@@ -10,6 +10,7 @@ module.exports = {
         labels: {
             transactions: "Uitgaven",
             subtract: "Af",
+            add: "Bij",
             fund: "Fonds",
             expire: "Geldig tot en met:",
             requirements: "Voor voorwaarden van dit aanbod neem contact op met de aanbieder.",

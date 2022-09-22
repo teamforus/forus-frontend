@@ -149,7 +149,7 @@ const VouchersShowComponent = function (
         ModalService.open("voucherTransaction", {
             voucher: $ctrl.voucher,
             organization: $ctrl.organization,
-            target: 'self',
+            target: 'top_up',
             onCreated: () => $ctrl.fetchVoucher(),
         });
     }
@@ -173,9 +173,6 @@ const VouchersShowComponent = function (
     $ctrl.$onInit = function () {
         $ctrl.updateFlags();
 
-        FundService.read($ctrl.organization.id, $ctrl.voucher.fund_id)
-            .then((res) => $ctrl.fund = res.data.data);
-
         $ctrl.eventFilters = {
             q: "",
             per_page: 15,
@@ -187,7 +184,7 @@ const VouchersShowComponent = function (
             per_page: 20,
             order_by: 'created_at',
             order_dir: 'desc',
-            show_all: 1,
+            targets: ['top_up', 'iban'],
             voucher_id: $ctrl.voucher.id,
         };
     }
@@ -195,6 +192,7 @@ const VouchersShowComponent = function (
 
 module.exports = {
     bindings: {
+        fund: '<',
         voucher: '<',
         organization: '<',
     },

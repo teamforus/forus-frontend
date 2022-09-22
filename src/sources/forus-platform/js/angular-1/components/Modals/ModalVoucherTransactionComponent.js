@@ -32,18 +32,18 @@ const ModalVoucherTransactionProviderComponent = function (
     };
 
     $ctrl.onFormChange = () => {
-        const { target, provider_id, target_iban, target_name, amount } = $ctrl.form.values;
+        const { target, organization_id, target_iban, target_name, amount } = $ctrl.form.values;
 
         if (target === 'provider') {
-            return $ctrl.submitButtonDisabled = !provider_id || !amount;
+            return $ctrl.submitButtonDisabled = !organization_id || !amount;
         }
 
-        if (target === 'identity') {
-            return $ctrl.submitButtonDisabled = !target_iban || !target_name || !amount;
-        }
-
-        if (target === 'self') {
+        if (target === 'top_up') {
             return $ctrl.submitButtonDisabled = !amount;
+        }
+
+        if (target === 'iban') {
+            return $ctrl.submitButtonDisabled = !target_iban || !target_name || !amount;
         }
 
         return $ctrl.submitButtonDisabled = true;
@@ -55,14 +55,14 @@ const ModalVoucherTransactionProviderComponent = function (
             amount: '',
             target: $ctrl.target,
             voucher_id: $ctrl.voucher.id,
-            provider_id: $ctrl.providers[0]?.id,
+            organization_id: $ctrl.providers[0]?.id,
         }, (form) => {
-            if (['provider', 'self'].includes(form.values.target)) {
+            if (['top_up', 'provider'].includes(form.values.target)) {
                 delete form.values.target_iban;
             }
 
-            if (['identity', 'self'].includes(form.values.target)) {
-                delete form.values.provider_id;
+            if (['top_up', 'iban'].includes(form.values.target)) {
+                delete form.values.organization_id;
             }
 
             VoucherService.makeSponsorTransaction($ctrl.organization.id, form.values).then((res) => {
@@ -84,6 +84,17 @@ const ModalVoucherTransactionProviderComponent = function (
         $ctrl.close();
     };
 
+    $ctrl.calcTopUpLimit = (target, fund, voucher) => {
+        if (target === 'top_up') {
+            return Math.min(
+                fund.limit_voucher_top_up_amount,
+                fund.limit_voucher_total_amount - voucher.amount_total,
+            );
+        }
+
+        return $ctrl.voucher.amount_available;
+    };
+
     $ctrl.$onInit = () => {
         const { voucher, organization, onCreated, target } = $ctrl.modal.scope;
 
@@ -95,12 +106,10 @@ const ModalVoucherTransactionProviderComponent = function (
 
         $ctrl.fetchVoucherFund(voucher).then((fund) => {
             $ctrl.fund = fund;
-            $ctrl.amount_limit = $ctrl.target === 'self'
-                ? $ctrl.fund.limit_voucher_top_up_amount
-                : $ctrl.voucher.amount_available;
+            $ctrl.amount_limit = $ctrl.calcTopUpLimit($ctrl.target, $ctrl.fund, voucher);
 
             if ($ctrl.fund.allow_direct_payments) {
-                $ctrl.targets.push({ key: 'identity', name: 'Identity' },);
+                $ctrl.targets.push({ key: 'iban', name: 'Identity' },);
             }
 
             $ctrl.fetchProviders(voucher, organization).then((data) => {
