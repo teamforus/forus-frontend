@@ -1,4 +1,4 @@
-const NoBookmarksDirective = function($scope) {};
+const NoBookmarksBlockDirective = function($scope) {};
 
 module.exports = () => {
     return {
@@ -13,8 +13,8 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
-            NoBookmarksDirective
+            NoBookmarksBlockDirective
         ],
-        templateUrl: 'assets/tpl/directives/no-bookmarks.html'
+        templateUrl: 'assets/tpl/directives/no-bookmarks-block.html'
     };
 };

@@ -2,7 +2,7 @@ const { productsMenu } = require("../../config/flags");
 
 const ProductItemDirective = function(
     $scope,
-    ProductService,
+    BookmarkService,
     PushNotificationsService,
 ) {
     const $dir = $scope.$dir = {};
@@ -30,7 +30,10 @@ const ProductItemDirective = function(
         $dir.product.is_favourite = !$dir.product.is_favourite;
 
         if ($dir.product.is_favourite) {
-            ProductService.setAsFavourite($dir.product.id).then(() => {
+            BookmarkService.setBookmark({
+                bookmarkable_id: $dir.product.id,
+                bookmarkable_type: 'product'
+            }).then(() => {
                 let favourites_count = $scope.products.filter(product => product.is_favourite == true).length;
                 let description = 'Nu heb je ' + favourites_count + ' producten in je favorieten';
 
@@ -43,8 +46,12 @@ const ProductItemDirective = function(
                 });
             });
         } else {
-            ProductService.removeFavourite($dir.product.id);
-            PushNotificationsService.success(`${$dir.product.name} was removed from favourites!`);
+            BookmarkService.removeBookmark({
+                bookmarkable_id: $dir.product.id,
+                bookmarkable_type: 'product'
+            }).then(() => {
+                PushNotificationsService.success(`${$dir.product.name} was removed from favourites!`);
+            });
         }
         
         $scope.onToggleFavourite();
@@ -65,7 +72,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
-            'ProductService',
+            'BookmarkService',
             'PushNotificationsService',
             ProductItemDirective
         ],

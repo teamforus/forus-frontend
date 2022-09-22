@@ -14,14 +14,6 @@ const ProductService = function(ApiRequest, ArrService) {
             return ApiRequest.get(`${uriPrefix}/${id}`);
         }
 
-        this.setAsFavourite = function(id, data = {}) {
-            return ApiRequest.post(`${uriPrefix}/set-favourite/${id}`, data);
-        }
-
-        this.removeFavourite = function(id, data = {}) {
-            return ApiRequest.post(`${uriPrefix}/remove-favourite/${id}`, data);
-        }
-
         this.calcExpireDate = function(dates) {
             const dateParse = (date, date_locale) => {
                 return date ? {

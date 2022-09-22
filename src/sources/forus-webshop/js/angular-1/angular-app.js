@@ -99,6 +99,7 @@ app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequ
 app.service('HelperService', require('./services/HelperService'));
 app.service('SearchService', require('./services/SearchService'));
 app.service('TagService', require('./services/TagService'));
+app.service('BookmarkService', require('./services/BookmarkService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -159,7 +160,7 @@ app.directive('providerListItem', require('./directives/lists/ProviderItemDirect
 
 app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
-app.directive('noBookmarks', require('./directives/NoBookmarksDirective'));
+app.directive('noBookmarksBlock', require('./directives/NoBookmarksBlockDirective'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
