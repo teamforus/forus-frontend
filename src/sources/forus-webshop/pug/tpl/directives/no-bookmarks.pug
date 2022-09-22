@@ -1,0 +1,6 @@
+.block.block-no-bookmarks
+    include ../../../resources/_webshop-common/assets/img/no-bookmarks.svg
+    .block-title(ng-bind="title")
+    .block-description(ng-bind="description")
+    .button.button-primary(ui-sref="{{ buttonSref }}" ui-sref-opts="{reload: true}")
+        span(ng-bind="buttonText")

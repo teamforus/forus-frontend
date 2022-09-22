@@ -74,6 +74,7 @@
 
                     .showcase-aside-tabs-description {
                         width: 100%;
+                        margin-bottom: 4px;
                         font: 700 11px/20px $bf;
                     }
 
@@ -82,6 +83,10 @@
                         text-align: center;
                         background: #f6f6f6;
                         color: #000;
+
+                        .mdi {
+                            padding-right: 5px;
+                        }
 
                         &.active {
                             background: $color_primary;

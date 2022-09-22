@@ -8,6 +8,7 @@ let PushNotificationsService = function() {
             title: '',
             message: '',
             icon: 'check',
+            isBookmark: false,
             timeout: 4000,
         }, notification);
 
@@ -44,6 +45,17 @@ let PushNotificationsService = function() {
                 title: title,
                 message: message,
                 type: 'danger',
+            }));
+        };
+        
+        this.bookmark = (title, message, imageSrc, other = {}) => {
+            this.push(Object.assign(other, {
+                isBookmark: true,
+                icon: null,
+                title: title,
+                imageSrc: imageSrc,
+                message: message,
+                type: 'bookmark-added',
             }));
         };
 

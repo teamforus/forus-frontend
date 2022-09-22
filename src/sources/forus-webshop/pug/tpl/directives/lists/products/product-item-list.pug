@@ -1,6 +1,6 @@
 a.product-item(ng-show="!$dir.favouritesOnly || ($dir.favouritesOnly && product.is_favourite)")
     .product-photo: img(
-        ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
+        ng-src="{{ $dir.productImgSrc }}" 
         alt="")
 
     //- Products
@@ -11,7 +11,8 @@ a.product-item(ng-show="!$dir.favouritesOnly || ($dir.favouritesOnly && product.
 
         .product-actions
             .product-to-fav(
-                ng-click="$dir.toggleFavourite($event, $dir.product)" 
+                ng-if="$root.auth_user && $dir.enableFavourites"
+                ng-click="$dir.toggleFavourite($event)"
                 ng-class="$dir.product.is_favourite ? 'active' : ''"): .mdi.mdi-cards-heart
             .product-price(ng-bind="$dir.product.price_locale")
 
@@ -23,7 +24,8 @@ a.product-item(ng-show="!$dir.favouritesOnly || ($dir.favouritesOnly && product.
 
         .product-actions
             .product-to-fav(
-                ng-click="$dir.toggleFavourite($event, $dir.product)" 
+                ng-if="$root.auth_user && $dir.enableFavourites"
+                ng-click="$dir.toggleFavourite($event)"
                 ng-class="$dir.product.is_favourite ? 'active' : ''"): .mdi.mdi-cards-heart
             .product-price(ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min == 0") Gratis
 

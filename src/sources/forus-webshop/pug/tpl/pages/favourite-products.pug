@@ -7,10 +7,10 @@ main(id="main-content")
             .breadcrumb-item.active Favoriete producten
 
         .block.block-profile.block-showcase: .showcase-layout
-            .favourite-products
+            .favourite-products.f-w
                 .profile-aside.hide-sm: profile-menu
 
-                .profile-content
+                .profile-content(ng-if="$ctrl.productsCount")
                     .showcase-content
                         .showcase-content-header
                             h1.showcase-filters-title
@@ -46,12 +46,15 @@ main(id="main-content")
                     
                     products-list(
                         display="$ctrl.display_type"
-                        products="$ctrl.products" 
+                        products="$ctrl.products"
+                        enable-favourites="true"
                         favourites-only="true"
                         on-toggle-favourite="$ctrl.toggleFavourite()")
 
-                    empty-block(
-                        title= "{{ 'block_products.labels.title' | translate }}"
-                        description="{{ 'block_products.labels.subtitle' | translate }}"
-                        hide-link="true" 
-                        ng-if="$ctrl.products.length == 0")
+                .profile-content(ng-if="!$ctrl.productsCount")
+                    no-bookmarks(
+                        type="products"
+                        title="Je hebt nog geen producten in je favorieten."
+                        description="Lorem ipsum dolor sit amet, consectetur adipiscing"
+                        button-text="Gaan winkelen"
+                        button-sref="products") 

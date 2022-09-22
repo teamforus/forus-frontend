@@ -17,19 +17,21 @@ block content
                 .showcase-layout
                     .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
                         .showcase-aside-block
-                            .showcase-aside-tabs
+                            .showcase-aside-tabs(ng-if="$root.auth_user")
                                 .showcase-aside-tabs-description View mode
 
                                 .showcase-aside-tab(
                                     ng-class="{active: !$ctrl.showFavourites}"
                                     ng-click="$ctrl.getAll()"
                                     role="button")
+                                    em.mdi.mdi-tag-multiple
                                     | Alle producten
 
                                 .showcase-aside-tab(
                                     ng-class="{active: $ctrl.showFavourites}"
                                     ng-click="$ctrl.getFavourites()"
                                     role="button")
+                                    em.mdi.mdi-cards-heart-outline
                                     | Mijn favorieten
 
                             .form-group
@@ -90,7 +92,7 @@ block content
                                     .form-error(ng-repeat="error in $ctrl.form.errors.distance" ng-bind="error")
 
 
-                    .showcase-content
+                    .showcase-content(ng-if="!$ctrl.showFavourites || $ctrl.productsCount")
                         .showcase-content-header
                             h1.showcase-filters-title
                                 span Aanbod
@@ -131,7 +133,8 @@ block content
                         products-list(
                             display="$ctrl.display_type" 
                             type="$ctrl.fund_type" 
-                            products="$ctrl.products.data" 
+                            products="$ctrl.products.data"
+                            enable-favourites="true"
                             favourites-only="$ctrl.showFavourites"
                             on-toggle-favourite="$ctrl.toggleFavourite()")
 
@@ -146,3 +149,12 @@ block content
                             filters="$ctrl.form.values" 
                             count-buttons="5" 
                             on-page-change="$ctrl.onPageChange(query)")
+
+                    
+                    .showcase-content(ng-if="$ctrl.showFavourites && !$ctrl.productsCount")
+                        no-bookmarks(
+                            type="products"
+                            title="Je hebt nog geen producten in je favorieten."
+                            description="Lorem ipsum dolor sit amet, consectetur adipiscing"
+                            button-text="Gaan winkelen"
+                            button-sref="products({favourites_only: 0})") 

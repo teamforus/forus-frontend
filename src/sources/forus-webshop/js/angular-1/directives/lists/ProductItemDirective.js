@@ -1,3 +1,5 @@
+const { productsMenu } = require("../../config/flags");
+
 const ProductItemDirective = function(
     $scope,
     ProductService,
@@ -12,6 +14,8 @@ const ProductItemDirective = function(
     $dir.media = $scope.product.photo || $scope.product.logo || null;
     $dir.product = $scope.product;
     $dir.productType = $scope.productType;
+    $dir.enableFavourites = $scope.enableFavourites;
+    $dir.productImgSrc = $dir.media ? ($dir.media.sizes.small || $dir.media.sizes.thumbnail) : './assets/img/placeholders/product-small.png';
 
     $dir.lowestPrice = $scope.product.price_type === 'regular' ? Math.min(
         parseFloat($scope.product.price), parseFloat($scope.product.price_min)
@@ -19,17 +23,28 @@ const ProductItemDirective = function(
 
     $dir.favouritesOnly = $scope.favouritesOnly;
 
-    $dir.toggleFavourite = ($event, product) => {
+    $dir.toggleFavourite = ($event) => {
         $event.preventDefault();
         $event.stopPropagation();
 
-        product.is_favourite = !product.is_favourite;
-        if (product.is_favourite) {
-            ProductService.setAsFavourite(product.id);
-            PushNotificationsService.success(`Succes! ${product.name} added to favourites!`);
+        $dir.product.is_favourite = !$dir.product.is_favourite;
+
+        if ($dir.product.is_favourite) {
+            ProductService.setAsFavourite($dir.product.id).then(() => {
+                let favourites_count = $scope.products.filter(product => product.is_favourite == true).length;
+                let description = 'Nu heb je ' + favourites_count + ' producten in je favorieten';
+
+                PushNotificationsService.bookmark($dir.product.name, description, $dir.productImgSrc, {
+                    timeout: 8000,
+                    btnText: 'Ga naar favorieten',
+                    btnSref: 'favourite-products',
+                    btnIcon: 'cards-heart-outline',
+                    bookmarkId: $dir.product.id
+                });
+            });
         } else {
-            ProductService.removeFavourite(product.id);
-            PushNotificationsService.success(`${product.name} was removed from favourites!`);
+            ProductService.removeFavourite($dir.product.id);
+            PushNotificationsService.success(`${$dir.product.name} was removed from favourites!`);
         }
         
         $scope.onToggleFavourite();
@@ -39,9 +54,11 @@ const ProductItemDirective = function(
 module.exports = () => {
     return {
         scope: {
+            enableFavourites: '=',
             favouritesOnly: '=',
             onToggleFavourite: '&',
             product: '=',
+            products: '=',
             productType: '=',
         },
         restrict: "EA",

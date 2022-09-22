@@ -9,6 +9,7 @@ const ProductsListDirective = function($scope) {
     };
 
     const init = () => {
+        $dir.enableFavourites = $scope.enableFavourites;
         $dir.favouritesOnly = $scope.favouritesOnly || false;
         $dir.onToggleFavourite = $scope.onToggleFavourite;
         $dir.type = $scope.type || 'budget';
@@ -27,6 +28,7 @@ const ProductsListDirective = function($scope) {
 module.exports = () => {
     return {
         scope: {
+            enableFavourites: '=',
             favouritesOnly: '=',
             onToggleFavourite: '&',
             type: '=',

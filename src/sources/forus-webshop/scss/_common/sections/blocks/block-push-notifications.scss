@@ -88,5 +88,43 @@
             filter: blur(0px);
             margin: 0 0 20px;
         }
+
+        &.notification-bookmark-added {
+            position: fixed;
+            top: 20px;
+            right: 0;
+            left: 0;
+            width: 1280px;
+            margin: 0 auto;
+            background: #fff;
+
+            .notification-image {
+                img {
+                    font-size: 24px;
+                    float: left;
+                    margin-left: -25px;
+                    margin-top: 0px;
+                    margin-right: 5px;
+                    color: #33475b;
+                    height: 50px;
+                    padding-right: 10px;
+                }
+            }
+
+            .notification-title {
+                font: 700 18px/21px $bf;
+                color: #191A1C;
+                margin-bottom: 7px;
+            }
+
+            .notification-description {
+                font: 400 15px/22px $bf;
+                color: #4F4F4F;
+            }
+
+            .notification-button {
+                margin-right: 15px;
+            }
+        }
     }
 }

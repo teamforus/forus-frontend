@@ -159,6 +159,7 @@ app.directive('providerListItem', require('./directives/lists/ProviderItemDirect
 
 app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
+app.directive('noBookmarks', require('./directives/NoBookmarksDirective'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
