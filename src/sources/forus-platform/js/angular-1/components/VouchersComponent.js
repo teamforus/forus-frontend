@@ -126,7 +126,7 @@ const VouchersComponent = function(
     $ctrl.onPageChange = (query) => {
         VoucherService.index(
             $ctrl.organization.id,
-            $ctrl.getQueryParams($ctrl.filters.values),
+            $ctrl.getQueryParams(query),
         ).then((res => $ctrl.vouchers = res.data));
     };
 
