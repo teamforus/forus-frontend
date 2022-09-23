@@ -1,4 +1,4 @@
-.modal.modal-md.modal-voucher-transaction-provider.modal-animated(
+.modal.modal-md.modal-voucher-transaction.modal-animated(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.closeModal()")
@@ -6,13 +6,22 @@
     //- Form
     .modal-window(ng-if="$ctrl.state == 'form'"): form(ng-submit="$ctrl.state = 'preview'").form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" role="button")
-        .modal-header(translate="modals.modal_voucher_transaction_provider.title")
+        
+        //- Transaction title
+        .modal-header(
+            ng-if="$ctrl.form.values.target !== 'top_up'" 
+            translate="modals.modal_voucher_transaction.title")
+
+        //- Top Up title
+        .modal-header(
+            ng-if="$ctrl.form.values.target === 'top_up'" 
+            translate="modals.modal_voucher_transaction.top_up_title")
 
         .modal-body.modal-body-visible
             .modal-section.modal-section-pad
                 //- Target type
-                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.targets.length > 1")
-                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction_provider.labels.target")
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.targets.length > 1 && $ctrl.form.values.target !== 'top_up'")
+                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.target")
                     select-control(
                         ng-if="$ctrl.form.values.target"
                         prop="key"
@@ -24,17 +33,17 @@
 
                 //- Provider
                 .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'provider'")
-                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction_provider.labels.provider")
+                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.provider")
                     select-control(
                         prop="id"
-                        ng-model="$ctrl.form.values.provider_id"
+                        ng-model="$ctrl.form.values.organization_id"
                         ng-change="$ctrl.onFormChange()"
                         options="$ctrl.providers").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.provider_id" ng-bind="error")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.organization_id" ng-bind="error")
 
                 //- Target IBAN
-                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'identity'")
-                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction_provider.labels.target_iban")
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'iban'")
+                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.target_iban")
                     .form-offset
                         input(
                             ng-model="$ctrl.form.values.target_iban"
@@ -43,8 +52,8 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.target_iban" ng-bind="error")
 
                 //- Target Name
-                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'identity'")
-                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction_provider.labels.target_name")
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'iban'")
+                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.target_name")
                     .form-offset
                         input(
                             ng-model="$ctrl.form.values.target_name"
@@ -54,25 +63,26 @@
 
                 //- Amount
                 .form-group.form-group-inline.form-group-inline-md
-                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction_provider.labels.amount")
+                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.amount")
                     .form-offset
                         input(  
                             type="number" 
-                            placeholder="{{ 'modals.modal_voucher_transaction_provider.labels.amount' | translate }}"
+                            placeholder="{{ 'modals.modal_voucher_transaction.labels.amount' | translate }}"
                             ng-model="$ctrl.form.values.amount"
                             ng-change="$ctrl.onFormChange()"
                             step=".01"
                             min=".02"
-                            max="{{ $ctrl.voucher.amount_available }}").form-control
-                        .form-hint(ng-if="!$ctrl.form.errors.amount") Limiet {{ $ctrl.voucher.amount_available | currency_format }}
+                            max="{{ $ctrl.amount_limit }}").form-control
+
+                        .form-hint(ng-if="!$ctrl.form.errors.amount") Limiet {{ $ctrl.amount_limit | currency_format }}
                         .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
 
                 //- Note
                 .form-group.form-group-inline.form-group-inline-md
-                    label.form-label(translate="modals.modal_voucher_transaction_provider.labels.note")
+                    label.form-label(translate="modals.modal_voucher_transaction.labels.note")
                     .form-offset
                         textarea(
-                            placeholder="{{ 'modals.modal_voucher_transaction_provider.labels.note' | translate }}"
+                            placeholder="{{ 'modals.modal_voucher_transaction.labels.note' | translate }}"
                             ng-model="$ctrl.form.values.note").form-control.r-n
                         .form-hint(ng-if="!$ctrl.form.errors.note") Max. 255 tekens
                         .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
@@ -83,13 +93,13 @@
             button.button.button-default(
                 type="button"
                 ng-click="$ctrl.closeModal()"
-                translate="modals.modal_voucher_transaction_provider.buttons.cancel")
+                translate="modals.modal_voucher_transaction.buttons.cancel")
 
             //- Submit
             button.button.button-primary(
                 type="submit"
                 ng-disabled="$ctrl.submitButtonDisabled"
-                translate="modals.modal_voucher_transaction_provider.buttons.submit")
+                translate="modals.modal_voucher_transaction.buttons.submit")
 
     //- Preview
     .modal-window(ng-if="$ctrl.state == 'preview'")
@@ -97,36 +107,36 @@
         .modal-icon.modal-icon-primary: .mdi.mdi-alert-outline
 
         .modal-body.form
-            .modal-section: .modal-heading.text-center(translate="modals.modal_voucher_transaction_provider.prevalidate.title")
+            .modal-section: .modal-heading.text-center(translate="modals.modal_voucher_transaction.preview.title")
 
             .modal-section
                 .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
                     //- Provider
                     .datalist-row(ng-if="$ctrl.form.values.target === 'provider'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.provider")
-                        .datalist-value(ng-bind="$ctrl.providersList[$ctrl.form.values.provider_id].name")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.provider")
+                        .datalist-value(ng-bind="$ctrl.providersList[$ctrl.form.values.organization_id].name")
 
                     //- IBAN
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'identity'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.target_iban")
+                    .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_iban")
                         .datalist-value(ng-bind="$ctrl.form.values.target_iban")
 
                     //- IBAN Name
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'identity'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.target_name")
+                    .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_name")
                         .datalist-value(ng-bind="$ctrl.form.values.target_name")
 
                     //- Sponsor name
                     .datalist-row
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.organization")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.organization")
                         .datalist-value(ng-bind="$ctrl.organization.name")
 
                     //- Transaction amount
                     .datalist-row
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.amount")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.amount")
                         .datalist-value(ng-bind="$ctrl.form.values.amount | currency_format")
 
-                .modal-text.text-center.bordered(translate="modals.modal_voucher_transaction_provider.prevalidate.description")
+                .modal-text.text-center.bordered(translate="modals.modal_voucher_transaction.preview.description")
 
         //- Submit
         .modal-footer.modal-footer-light.text-center
@@ -134,13 +144,13 @@
             button.button.button-default(
                 type="button"
                 ng-click="$ctrl.state = 'form'"
-                translate="modals.modal_voucher_transaction_provider.buttons.cancel")
+                translate="modals.modal_voucher_transaction.buttons.cancel")
 
             //- Submit
             button.button.button-primary(
                 type="button"
                 ng-click="$ctrl.form.submit()"
-                translate="modals.modal_voucher_transaction_provider.buttons.submit")
+                translate="modals.modal_voucher_transaction.buttons.submit")
 
     //- Finish
     .modal-window(ng-if="$ctrl.state == 'finish'")
@@ -148,35 +158,41 @@
         .modal-icon.modal-icon-primary: .mdi.mdi-check-circle-outline
 
         .modal-body.form
-            .modal-section.text-center
-                .modal-heading(translate="modals.modal_voucher_transaction_provider.success.title")
-                .modal-text(translate="modals.modal_voucher_transaction_provider.success.description")
+            //- Transaction description
+            .modal-section.text-center(ng-if="$ctrl.form.values.target !== 'top_up'")
+                .modal-heading(translate="modals.modal_voucher_transaction.success.title")
+                .modal-text(translate="modals.modal_voucher_transaction.success.description")
+
+            //- Top Up description
+            .modal-section.text-center(ng-if="$ctrl.form.values.target === 'top_up'")
+                .modal-heading(translate="modals.modal_voucher_transaction.success.top_up_title")
+                .modal-text(translate="modals.modal_voucher_transaction.success.top_up_description")
 
             .modal-section
                 .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
                     //- Provider name
                     .datalist-row(ng-if="$ctrl.form.values.target === 'provider'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.provider")
-                        .datalist-value(ng-bind="$ctrl.providersList[$ctrl.form.values.provider_id].name")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.provider")
+                        .datalist-value(ng-bind="$ctrl.providersList[$ctrl.form.values.organization_id].name")
 
                     //- Identity
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'identity'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.target_iban")
+                    .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_iban")
                         .datalist-value(ng-bind="$ctrl.form.values.target_iban")
 
                     //- Identity
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'identity'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.target_name")
+                    .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_name")
                         .datalist-value(ng-bind="$ctrl.form.values.target_name")
 
                     //- Sponsor name
                     .datalist-row
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.organization")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.organization")
                         .datalist-value(ng-bind="$ctrl.modal.scope.organization.name")
 
                     //- Transaction amount
                     .datalist-row
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction_provider.labels.amount")
+                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.amount")
                         .datalist-value(ng-bind="$ctrl.form.values.amount | currency_format")
 
         //- Actions
@@ -184,4 +200,4 @@
             button.button.button-primary(
                 type="button"
                 ng-click="$ctrl.closeModal()"
-                translate="modals.modal_voucher_transaction_provider.buttons.close")
+                translate="modals.modal_voucher_transaction.buttons.close")

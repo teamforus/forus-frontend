@@ -65,9 +65,12 @@
 
                     .keyvalue-item
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.statement")
-                        .keyvalue-value(ng-bind="$ctrl.transaction.organization.name || 'Fund user'")
+                        .keyvalue-value(
+                            ng-if="['provider', 'iban'].includes($ctrl.transaction.target)"
+                            ng-bind="$ctrl.transaction.organization.name || 'Fund user'")
+                        .keyvalue-value(ng-if="$ctrl.transaction.target === 'top_up'") Top up
 
-                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
+                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor' && $ctrl.transaction.target !== 'top_up'")
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq")
                         .keyvalue-value(ng-bind="$ctrl.transaction.transaction_cost | currency_format")
 
@@ -101,11 +104,11 @@
                         .keyvalue-value
                             span(
                                 ng-bind="$ctrl.transaction.iban_to" 
-                                ng-class="{'text-muted-dark' : !$ctrl.transaction.iban_final && $ctrl.transaction.target != 'identity'}")
+                                ng-class="{'text-muted-dark' : !$ctrl.transaction.iban_final && $ctrl.transaction.target != 'iban'}")
 
                             tooltip(
                                 text="'financial_dashboard_transaction.tooltips.pending_iban_to' | translate" 
-                                ng-if="!$ctrl.transaction.iban_final && $ctrl.transaction.target != 'identity'")
+                                ng-if="!$ctrl.transaction.iban_final && $ctrl.transaction.target != 'iban'")
 
                     //- Target iban name
                     .keyvalue-item(ng-if="$ctrl.transaction.iban_to_name")
@@ -113,11 +116,11 @@
                         .keyvalue-value
                             span(
                                 ng-bind="$ctrl.transaction.iban_to_name" 
-                                ng-class="{'text-muted-dark' : !$ctrl.transaction.iban_final && $ctrl.transaction.target != 'identity'}")
+                                ng-class="{'text-muted-dark' : !$ctrl.transaction.iban_final && $ctrl.transaction.target != 'iban'}")
 
                             tooltip(
                                 text="'financial_dashboard_transaction.tooltips.pending_iban_to' | translate" 
-                                ng-if="!$ctrl.transaction.iban_final && $ctrl.transaction.target != 'identity'")
+                                ng-if="!$ctrl.transaction.iban_final && $ctrl.transaction.target != 'iban'")
 
                 .flex.flex-column.flex-end(ng-if="$ctrl.transaction.cancelable && $ctrl.transaction.reservation")
                     button(ng-click="$ctrl.cancelTransaction($ctrl.transaction.reservation)").button.button-default.button-sm

@@ -6,6 +6,7 @@ const VouchersShowComponent = function (
     PhysicalCardsService,
     PageLoadingBarService,
     PushNotificationsService,
+    FundService
 ) {
     const $ctrl = this;
     const $translate = $filter('translate');
@@ -18,6 +19,7 @@ const VouchersShowComponent = function (
         promise.then((res) => {
             $ctrl.voucher = res.data.data;
             $ctrl.logsDirective?.onPageChange();
+            $ctrl.transactionsDirective?.onPageChange();
             $ctrl.updateFlags();
 
             switch (action) {
@@ -103,6 +105,7 @@ const VouchersShowComponent = function (
         VoucherService.show($ctrl.organization.id, $ctrl.voucher.id).then(((res) => {
             $ctrl.voucher = res.data.data;
             $ctrl.logsDirective?.onPageChange();
+            $ctrl.transactionsDirective?.onPageChange();
             $ctrl.updateFlags();
         }));
     };
@@ -142,8 +145,17 @@ const VouchersShowComponent = function (
         });
     }
 
+    $ctrl.makeTopUpTransaction = () => {
+        ModalService.open("voucherTransaction", {
+            voucher: $ctrl.voucher,
+            organization: $ctrl.organization,
+            target: 'top_up',
+            onCreated: () => $ctrl.fetchVoucher(),
+        });
+    }
+
     $ctrl.makeTransaction = () => {
-        ModalService.open("voucherTransactionProvider", {
+        ModalService.open("voucherTransaction", {
             voucher: $ctrl.voucher,
             organization: $ctrl.organization,
             onCreated: () => $ctrl.fetchVoucher(),
@@ -152,6 +164,10 @@ const VouchersShowComponent = function (
 
     $ctrl.registerLogsDirective = (directive) => {
         $ctrl.logsDirective = directive;
+    };
+
+    $ctrl.registerTransactionsDirective = (directive) => {
+        $ctrl.transactionsDirective = directive;
     };
 
     $ctrl.$onInit = function () {
@@ -163,11 +179,20 @@ const VouchersShowComponent = function (
             loggable: ['voucher'],
             loggable_id: $ctrl.voucher.id
         };
+
+        $ctrl.transactionsFilters = {
+            per_page: 20,
+            order_by: 'created_at',
+            order_dir: 'desc',
+            targets: ['top_up', 'iban'],
+            voucher_id: $ctrl.voucher.id,
+        };
     }
 };
 
 module.exports = {
     bindings: {
+        fund: '<',
         voucher: '<',
         organization: '<',
     },
@@ -179,6 +204,7 @@ module.exports = {
         'PhysicalCardsService',
         'PageLoadingBarService',
         'PushNotificationsService',
+        'FundService',
         VouchersShowComponent
     ],
     templateUrl: 'assets/tpl/pages/vouchers-show.html'

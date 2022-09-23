@@ -167,8 +167,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalSwitchBankConnectionAccountComponent'
     });
 
-    ModalRouteProvider.modal('voucherTransactionProvider', {
-        component: 'modalVoucherTransactionProviderComponent'
+    ModalRouteProvider.modal('voucherTransaction', {
+        component: 'modalVoucherTransactionComponent'
     });
 
     ModalRouteProvider.modal('fundRequestAssignValidator', {
