@@ -93,3 +93,78 @@
                                         ng-if="$root.activeOrganization | hasPerm:['manage_implementation_cms']:false"
                                         ui-sref="implementation-view({organization_id: $ctrl.fund.organization_id, id: implementation.id})").dropdown-item
                                         | #[em.mdi.mdi-store-outline.icon-start] Ga naar CMS
+
+
+        //- Fund users
+        .card.card-collapsed
+            //- Fund users header
+            .card-header: .flex
+                //- Title
+                .flex.flex-grow: .card-title Fund users
+
+                //- Filters 
+                .flex: .block.block-inline-filters
+                    .form: .form-group: input(
+                        ng-model="$ctrl.identitiesFilters.q"
+                        placeholder="Zoeken").form-control
+
+                    .button.button-primary.button-sm(
+                        ng-click="$ctrl.exportIdentities()")
+                        em.mdi.mdi-download.icon-start
+                        | Exporteren
+
+            //- Fund users list
+            .card-section(ng-if="$ctrl.identities.meta.total > 0")
+                .card-block.card-block-table
+                    .table-wrapper
+                        table.table
+                            tr
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="ID" value="id")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="E-mail" value="email")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="Voucher total" value="count_vouchers")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="Active vouchers" value="count_vouchers_active")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="Active vouchers with balance" value="count_vouchers_active_with_balance")
+                                th(translate="identities.labels.actions").nowrap.text-right
+
+                            tr(
+                                ng-repeat="identity in $ctrl.identities.data"
+                                ui-sref="identities-show({organization_id: $ctrl.fund.organization_id, id: identity.id, fund_id: $ctrl.fund.id})")
+
+                                td(ng-bind="identity.id")
+                                td(ng-bind="identity.email")
+                                td(ng-bind="identity.count_vouchers")
+                                td(ng-bind="identity.count_vouchers_active")
+                                td(ng-bind="identity.count_vouchers_active_with_balance")
+                                td: a.button.button-primary.button-sm.pull-right(
+                                    ui-sref="identities-show({organization_id: $ctrl.fund.organization_id, id: identity.id, fund_id: $ctrl.fund.id})")
+                                    em.mdi.mdi-eye-outline.icon-start
+                                    | Bekijken
+
+            //- Fund users pagination
+            .card-section.card-section-narrow(
+                ng-if="$ctrl.identities"
+                ng-show="$ctrl.identities.meta.last_page > 1")
+                paginator(meta="$ctrl.identities.meta" filters="$ctrl.identitiesFilters" on-page-change="$ctrl.identitiesOnPageChange(query)")
+
+            //- Fund users empty
+            .card-section(ng-if="$ctrl.identities.meta.total == 0"): .block.block-empty.text-center
+                .empty-title(ng-if="!$ctrl.lastQuery")
+                    | Geen gebruikers gevonden
+
+                .empty-title(ng-if="$ctrl.lastQuery")
+                    | Geen gebruikers gevonden voor "{{ $ctrl.lastQuery }}"
+
+            //- Identities stats
+            .card-section.card-section-primary
+                .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
+                    .keyvalue-item.col.col-lg-3
+                        .keyvalue-key People with vouchers
+                        .keyvalue-value
+                            span(ng-bind="$ctrl.identities.meta.counts.active")
+                            span.icon.mdi.mdi-account-multiple-outline
+
+                    .keyvalue-item.col.col-lg-3
+                        .keyvalue-key People without e-mail
+                        .keyvalue-value
+                            span(ng-bind="$ctrl.identities.meta.counts.without_email")
+                            span.icon.mdi.mdi-email-off-outline

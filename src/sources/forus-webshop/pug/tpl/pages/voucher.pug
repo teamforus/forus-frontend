@@ -219,18 +219,32 @@ main(id="main-content")
                 .transactions-item 
                     .transactions-item-details 
                         .transactions-item-empty Geen uitgaven
+
             .transactions-body: .transactions-list
-                .transactions-item(ng-repeat="transaction in $ctrl.voucherCard.transactions" class="transactions-item-out")
-                    .transactions-item-icon: em.mdi.mdi-arrow-up
+                .transactions-item(
+                    ng-repeat="transaction in $ctrl.voucherCard.transactions" 
+                    ng-class="transaction.incoming ? '' : 'transactions-item-out'")
+
+                    .transactions-item-icon: em.mdi(ng-class="transaction.incoming ? 'mdi-arrow-down' : 'mdi-arrow-up'")
+
                     .transactions-item-details
                         .transactions-item-counterpart(ng-if="transaction.type == 'product_voucher' || $ctrl.voucherCard.fund.type != 'budget'") 
-                            |  {{ transaction.product.name }}
-                        .transactions-item-counterpart(ng-if="transaction.type == 'transaction'") 
+                            | {{ transaction.product.name }}
+
+                        .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'provider'") 
                             | {{ transaction.organization.name }}
+
+                        .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'iban'") 
+                            | Withdraw to bank account
+
+                        .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'top_up'") 
+                            | Voucher up-up
+
                         .transactions-item-date {{ transaction.created_at_locale }}
+
                     .transactions-item-amount(ng-if="$ctrl.voucherCard.fund.type == 'budget'")
-                        .transactions-item-value - {{ transaction.amount | currency_format }}
-                        .transactions-item-type {{ "voucher.labels.subtract" | translate }}
+                        .transactions-item-value {{ (transaction.incoming ? '' : '-') + ' ' + (transaction.amount | currency_format) }}
+                        .transactions-item-type {{ transaction.incoming ? "voucher.labels.add" : "voucher.labels.subtract" | translate }}
 
         block-products(
             ng-if="!$ctrl.voucherCard.deactivated && $root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'budget'"

@@ -61,7 +61,7 @@ module.exports = {
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
         modal_markdown_custom_link: require("./nl/modals/modal-markdown-custom-link.pug.i18n"),
-        modal_voucher_transaction_provider: require('./nl/modals/modal-voucher-transaction-provider.pug.i18n'),
+        modal_voucher_transaction: require('./nl/modals/modal-voucher-transaction.pug.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
@@ -81,6 +81,9 @@ module.exports = {
     voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
     system_notifications: require('./nl/pages/system-notifications.pug.i18n'),
     event_logs: require('./nl/pages/event-logs.pug.i18n'),
+    identities: require('./nl/pages/identities.pug.i18n'),
+    transactions: require('./nl/pages/transactions.pug.i18n'),
+    financial_dashboard_transaction: require('./nl/pages/transaction.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -346,24 +349,6 @@ module.exports = {
             choose: "Kies een andere regeling",
             previous: "Vorige",
             next: "Volgende",
-        }
-    },
-    // FINANCIAL DASHBOARDS TRANSACTIONS = financial-dashboard-transactions.pug
-    financial_dashboard_transaction: {
-        labels: {
-            payment: "Transactie",
-            details: "Transactie details",
-            id: "ID",
-            bunq_id: "ID bunq",
-            bng_id: "ID BNG",
-            statement: "Naam begunstigde",
-            bunq: "Transactiekosten",
-            fee: "€ 0.10",
-            date: "Datum",
-        },
-        tooltips: {
-            pending_iban_from: "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
-            pending_iban_to: "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
         }
     },
 
@@ -1250,69 +1235,6 @@ module.exports = {
         }
     },
 
-    // TRANSACTIONS = transaction.pug
-    transactions: {
-        header: {
-            title: "Individuele transacties",
-            titleBulks: "Bulktransacties",
-        },
-        labels: {
-            id: "ID",
-            price: "Bedrag",
-            description: "Beschrijving",
-            customer: "Klant",
-            date: "Datum",
-            action: "Actie",
-            refund: "Terugbetalen",
-            chargeid: "Kopieer het transactienummer",
-            connections: "Connectie",
-            details: "Bekijk transactiedetails",
-            results: "x resultaten",
-            payment: "Betaling -",
-            fund: "Fonds",
-            status: "Status",
-            provider: "Aanbieder",
-            search: "Zoeken",
-            from: "Vanaf",
-            bulk: "Bulk",
-            to: "Tot en met",
-            state: "Status",
-            fund_state: "Status fonds",
-            amount: "Bedrag",
-            quantity: "Aantal",
-            quantity_min: "0",
-            quantity_max: "Alles",
-            amount_min: "0",
-            amount_max: "Alles",
-            total_amount: "Som van transacties <strong>{{ total_amount }}</strong>",
-            bulk_total_amount: [
-                "Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie ter waarde van <strong>{{ total_amount }}</strong>.",
-                "Gebeurt automatisch dagelijks om 09:00. Tenzij anders is ingesteld of bulks alleen handmatig aangemaakt kunnen worden."
-            ].join("</br>"),
-        },
-        buttons: {
-            previous: "Vorige",
-            next: "Volgende",
-            view: "Bekijk",
-            export_csv: "Exporteer als .CSV",
-            export_xls: "Exporteer als .XLS",
-        },
-        paginator: {
-            one: "1",
-            two: "2",
-            three: "3",
-        },
-        export: {
-            labels: {
-                date: 'Datum',
-                amount: 'Bedrag',
-                fund: 'Fonds',
-                provider: 'Aanbieder',
-                payment_id: 'Betalingskenmerk',
-                state: 'Status'
-            }
-        }
-    },
     // RESERVATION = modals/modal-reservation-create.pug
     reservation_create: {
         tooltips: {

@@ -697,6 +697,24 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
+        name: "identities-show",
+        url: "/organizations/{organization_id}/funds/{fund_id}/identities/{id}",
+        component: "identitiesShowComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('funds-show', ['manage_funds', 'view_finances'], false),
+            fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().fund_id));
+            }],
+            identity: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.readIdentity(
+                    $transition$.params().organization_id, $transition$.params().fund_id, $transition$.params().id
+                ));
+            }],
+        }
+    });
+
+    $stateProvider.state({
         name: "fund-backoffice-edit",
         url: "/organizations/{organization_id}/funds/{id}/backoffice",
         component: "fundBackofficeEdit",
@@ -742,17 +760,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             resolve: {
                 organization: organziationResolver(),
                 permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
-                voucher: [
-                    'permission', '$transition$', 'VoucherService',
-                    function(permission, $transition$, VoucherService) {
-                        return repackResponse(
-                            VoucherService.show(
-                                $transition$.params().organization_id,
-                                $transition$.params().voucher_id,
-                            )
-                        );
-                    }
-                ],
+                voucher: ['$transition$', 'VoucherService', 'permission', ($transition$, VoucherService) => repackResponse(VoucherService.show(
+                    $transition$.params().organization_id, 
+                    $transition$.params().voucher_id,
+                ))],
+                fund: ['FundService', 'voucher', (FundService, voucher) => repackResponse(FundService.read(
+                    voucher.fund.organization_id, 
+                    voucher.fund.id,
+                ))],
             }
         });
 
@@ -774,7 +789,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 }],
                 fund: [
                     'funds', '$transition$',
-                    function(funds, $transition$) {
+                    function (funds, $transition$) {
                         // $state.params.token
                         let fund_id = $transition$.params().fund_id;
 
@@ -1330,7 +1345,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundService.list(null, {
                 state: 'active_paused_and_closed'
             }))],
-            prevalidations: ['$transition$', 'PrevalidationService', function($transition$, PrevalidationService) {
+            prevalidations: ['$transition$', 'PrevalidationService', function ($transition$, PrevalidationService) {
                 return repackPagination(PrevalidationService.list(only($transition$.params(), 'page', 'q')));
             }],
             recordTypes: ['RecordTypeService', (RecordTypeService) => repackResponse(RecordTypeService.list())]
@@ -1399,7 +1414,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         ) => {
             IdentityService.authorizeAuthEmailToken(
                 $state.params.token
-            ).then(function(res) {
+            ).then(function (res) {
                 let target = $state.params.target || '';
 
                 CredentialsService.set(res.data.access_token);
@@ -1450,7 +1465,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
             IdentityService.exchangeConfirmationToken(
                 $state.params.token
-            ).then(function(res) {
+            ).then(function (res) {
                 CredentialsService.set(res.data.access_token);
                 $rootScope.loadAuthUser().then(() => {
                     if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {

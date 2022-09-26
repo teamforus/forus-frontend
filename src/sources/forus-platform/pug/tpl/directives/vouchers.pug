@@ -1,0 +1,69 @@
+.card
+    .card-header: .flex
+        .flex.flex-grow: .card-title(ng-bind="($dir.blockTitle || 'Vouchers') + ' (' + $dir.vouchers.meta.total + ')'")
+
+    .card-section(ng-if="$dir.vouchers.data.length > 0")
+        .card-block.card-block-table
+            .table-wrapper
+                table.table
+                    tr
+                        th(ng-if="$dir.fund.type == 'budget'" translate="vouchers.labels.amount")
+                        th(translate="vouchers.labels.note")
+                        th(translate="vouchers.labels.created_date").nowrap
+                        th(ng-if="!$dir.fundClosed" translate="vouchers.labels.expire_date").nowrap
+                        th(ng-if="!$dir.fundClosed" translate="vouchers.labels.used")
+                        th(translate="vouchers.labels.assigned")
+                        th(translate="vouchers.labels.actions").nowrap.text-right
+
+                    tr(
+                        ng-repeat="voucher in $dir.vouchers.data"
+                        ui-sref="vouchers-show({organization_id: $dir.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
+
+                        td(
+                            ng-if="$dir.fund.type == 'budget'"
+                            ng-bind="voucher.amount | currency_format").nowrap
+
+                        td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
+                            ng-if="voucher.note"
+                            ng-click="$dir.showTooltip($event, voucher)"
+                            ng-class="{active: voucher.showTooltip}")
+                            .tooltip-content(ng-if="voucher.showTooltip" click-outside="$dir.hideTooltip($event, voucher)")
+                                .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
+
+                        td
+                            strong(ng-bind="voucher.created_at_locale.split(' - ')[0]").text-primary
+                            br
+                            strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+
+                        td(ng-if="!$dir.fundClosed"): strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
+
+                        td(ng-if="!$dir.fundClosed"): .td-boolean.flex-vertical
+                            .flex.text-primary
+                                em.mdi.mdi-check-circle(ng-if="voucher.in_use")
+                                em.mdi.mdi-close(ng-if="!voucher.in_use")
+                                string(ng-if="!voucher.in_use" translate="product_vouchers.labels.no")
+                                string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale")
+
+                        td
+                            .td-boolean(ng-if="voucher.expired")
+                                em.mdi.mdi-close
+                                span.text-md.text-muted-dark Verlopen
+
+                            .td-boolean(ng-if="!voucher.expired")
+                                em(ng-if="voucher.state === 'active'").mdi.mdi-check-circle
+                                em(ng-if="voucher.state === 'pending' || voucher.state === 'deactivated'").mdi.mdi-close
+                                span.block.text-md.text-muted-dark
+                                    | {{ voucher.state_locale }}
+
+                        td: .button-group.flex-end
+                            a.button.button-primary.button-icon.pull-right(
+                                ui-sref="vouchers-show({organization_id: $dir.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
+                                em.mdi.mdi-eye-outline.icon-start
+
+    //- Pagination
+    .card-section(ng-if="$dir.vouchers.meta" ng-show="$dir.vouchers.meta.last_page > 1")
+        paginator(meta="$dir.vouchers.meta" filters="$dir.filters.values" on-page-change="$dir.onPageChange(query)")
+
+    //- Not found
+    .card-section(ng-if="$dir.vouchers.meta.total == 0"): .block.block-empty.text-center
+        .empty-title Geen vouchers gevonden

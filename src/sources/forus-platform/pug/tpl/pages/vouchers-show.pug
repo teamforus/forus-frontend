@@ -25,30 +25,30 @@
             .card-header: .flex
                 .flex.flex-grow: .card-title
                     //- voucher fund or product name
-                    span(ng-bind="$ctrl.voucher.fund.name" ng-if="!$ctrl.voucher.product") 
-                    span(ng-bind="$ctrl.voucher.product.name" ng-if="$ctrl.voucher.product")
+                    .flex.flex-vertical.flex-center(ng-bind="$ctrl.voucher.fund.name" ng-if="!$ctrl.voucher.product") 
+                    .flex.flex-vertical.flex-center(ng-bind="$ctrl.voucher.product.name" ng-if="$ctrl.voucher.product")
 
                     //- is active
-                    span: .tag.tag-success.tag-sm(
+                    .flex.flex-vertical.flex-center: .tag.tag-success.tag-sm(
                         ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'active'" 
                         ng-bind="$ctrl.voucher.state_locale")
 
                     //- is pending
-                    span: .tag.tag-default.tag-sm(
+                    .flex.flex-vertical.flex-center: .tag.tag-default.tag-sm(
                         ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'pending'"
                         ng-bind="$ctrl.voucher.state_locale")
 
                     //- is deactivated
-                    span: .tag.tag-danger.tag-sm(
+                    .flex.flex-vertical.flex-center: .tag.tag-danger.tag-sm(
                         ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state == 'deactivated'" 
                         ng-bind="$ctrl.voucher.state_locale")
 
                     //- is expired
-                    span: .tag.tag-warning.tag-sm(
+                    .flex.flex-vertical.flex-center: .tag.tag-warning.tag-sm(
                         ng-if="$ctrl.voucher.expired" 
                         translate="vouchers.labels.expired")
 
-                    br
+                    | &nbsp;&nbsp;
 
                     //- voucher product (product vouchers only)
                     span.text-primary(
@@ -58,15 +58,21 @@
                     //- voucher amount (budget funds only)
                     span.text-primary(
                         ng-if="$ctrl.voucher.fund.type == 'budget' && !$ctrl.voucher.product" 
-                        ng-bind="$ctrl.voucher.amount | currency_format")
+                        ng-bind="$ctrl.voucher.amount_total | currency_format")
 
                 //- voucher actions
                 .flex.flex-self-start: .flex-row: .button-group
+                    .button.button-default.button-sm(
+                        ng-if="$ctrl.showMakeTransactionButton && $ctrl.fund.allow_voucher_top_ups"
+                        ng-click="$ctrl.makeTopUpTransaction()")
+                        em.mdi.mdi-cash-plus.icon-start
+                        string(translate="vouchers.buttons.make_top_up_transaction")
+
                     //- is granted?
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.showMakeTransactionButton"
                         ng-click="$ctrl.makeTransaction()")
-                        em.mdi.mdi-plus-circle-multiple-outline.icon-start
+                        em.mdi.mdi-cash-fast.icon-start
                         string(translate="vouchers.buttons.make_transaction")
 
                     //- deactivate voucher
@@ -187,6 +193,27 @@
                                     em.mdi.mdi-check.text-black
                                     strong(translate="product_vouchers.labels.yes").text-black
 
+                            tr(ng-if="!$ctrl.voucher.product")
+                                td
+                                    strong.text-strong.text-md.text-muted-dark Totaal toegekend
+                                    br
+                                    strong(ng-bind="$ctrl.voucher.amount_total | currency_format").text-black
+
+                                td
+                                    strong.text-strong.text-md.text-muted-dark Initieel toegekend
+                                    br
+                                    strong(ng-bind="$ctrl.voucher.amount | currency_format").text-black
+
+                                td
+                                    strong.text-strong.text-md.text-muted-dark Totaal opgewaardeerd
+                                    br
+                                    strong(ng-bind="$ctrl.voucher.amount_top_up | currency_format").text-black
+
+                                td
+                                    strong.text-strong.text-md.text-muted-dark Huidig bedrag
+                                    br
+                                    strong(ng-bind="$ctrl.voucher.amount_available | currency_format").text-black
+
         //- Voucher history
         event-logs(
             ng-if="$ctrl.voucher"
@@ -201,3 +228,11 @@
         .card(ng-if="$ctrl.voucher.note")
             .card-header: .card-title(translate="vouchers.labels.note")
             .card-section: .card-text(ng-bind="$ctrl.voucher.note")
+
+        //- Voucher transactions
+        voucher-transactions(
+            ng-if="$ctrl.voucher"
+            organization="$ctrl.organization"
+            filter-values="$ctrl.transactionsFilters"
+            register="$ctrl.registerTransactionsDirective(directive)"
+            block-title="Transacties")
