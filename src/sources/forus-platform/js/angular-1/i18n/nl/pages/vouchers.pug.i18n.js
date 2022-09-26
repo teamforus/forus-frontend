@@ -53,7 +53,7 @@ module.exports = {
         physical_card_delete: "Pas ontkoppelen",
         activate: "Activeren",
         make_transaction: "Nieuwe transactie",
-        make_top_up_transaction: "Top up",
+        make_top_up_transaction: "Opwaarderen",
     },
     csv: {
         default_note: "Aangemaakt op {{ upload_date }} door {{ uploader_email }}, toegekend aan {{ target_email }}",
