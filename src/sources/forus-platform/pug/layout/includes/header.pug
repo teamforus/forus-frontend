@@ -79,7 +79,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                     .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
 
                     div(ng-if="$root.auth_user.dashboards.length > 2 || ($root.auth_user.dashboards.length === 1 && $root.auth_user.dashboards[0] !== $root.appConfigs.panel_type)")
-                        .auth-user-menu-title Pick your role
+                        .auth-user-menu-title Kies je rol
 
                         a(
                             ng-click="$event.stopPropagation()"
@@ -87,7 +87,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                             ng-if="$root.auth_user.dashboards.includes('validator')"
                             ng-class="{active: $root.appConfigs.panel_type == 'validator'}").auth-user-menu-item
                             .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-validator.svg
-                            | Validator
+                            | Beoordelaar
 
                         a(
                             ng-click="$event.stopPropagation()"
@@ -103,7 +103,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                             ng-if="$root.auth_user.dashboards.includes('provider')"
                             ng-class="{active: $root.appConfigs.panel_type == 'provider'}").auth-user-menu-item
                             .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-provider.svg
-                            | Provider
+                            | Aanbieder
 
                         .auth-user-menu-sep
 
