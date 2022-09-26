@@ -10,7 +10,7 @@ const ModalVoucherTransactionProviderComponent = function (
     $ctrl.submitButtonDisabled = true;
 
     $ctrl.targets = [
-        { key: 'provider', name: 'Provider' },
+        { key: 'provider', name: 'Aanbieder' },
     ];
 
     $ctrl.fetchVoucherFund = (voucher) => {
@@ -109,7 +109,7 @@ const ModalVoucherTransactionProviderComponent = function (
             $ctrl.amount_limit = $ctrl.calcTopUpLimit($ctrl.target, $ctrl.fund, voucher);
 
             if ($ctrl.fund.allow_direct_payments) {
-                $ctrl.targets.push({ key: 'iban', name: 'Bank account' },);
+                $ctrl.targets.push({ key: 'iban', name: 'Bankrekening' },);
             }
 
             $ctrl.fetchProviders(voucher, organization).then((data) => {
