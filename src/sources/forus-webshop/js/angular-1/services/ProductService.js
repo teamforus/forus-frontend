@@ -31,7 +31,7 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                 });
             } else {
                 this.removeBookmark(product.id).then(() => {
-                    PushNotificationsService.success(`${product.name} was removed from bookmarks!`);
+                    PushNotificationsService.success(`${product.name} is verwijderd uit van het verlanglijstje!`);
                 });
             }
 
@@ -48,10 +48,10 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                     icon: null,
                     title: product.name,
                     imageSrc: productImgSrc,
-                    message: `Nu heb je ${res.data.meta.total} producten in je favorieten`,
+                    message: `Er staan ${res.data.meta.total} in het verlanglijstje`,
                     group: 'bookmarks',
                     timeout: 4000,
-                    btnText: 'Ga naar favorieten',
+                    btnText: 'Ga naar mijn verlanglijstje',
                     btnSref: 'bookmarked-products',
                     btnIcon: 'cards-heart-outline',
                 });
