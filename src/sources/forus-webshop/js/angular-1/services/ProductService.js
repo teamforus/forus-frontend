@@ -31,7 +31,7 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                 });
             } else {
                 this.removeBookmark(product.id).then(() => {
-                    PushNotificationsService.success(`${product.name} is verwijderd uit van het verlanglijstje!`);
+                    PushNotificationsService.success(`${product.name} is verwijderd uit het verlanglijstje!`);
                 });
             }
 
@@ -48,7 +48,7 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                     icon: null,
                     title: product.name,
                     imageSrc: productImgSrc,
-                    message: `Er staan ${res.data.meta.total} in het verlanglijstje`,
+                    message: `Er staan ${res.data.meta.total} aanbiedingen in het verlanglijstje`,
                     group: 'bookmarks',
                     timeout: 4000,
                     btnText: 'Ga naar mijn verlanglijstje',
