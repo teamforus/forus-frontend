@@ -186,6 +186,7 @@ const VouchersShowComponent = function (
             order_dir: 'desc',
             targets: ['top_up', 'iban'],
             voucher_id: $ctrl.voucher.id,
+            initiator: 'sponsor',
         };
     }
 };
