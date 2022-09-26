@@ -16,7 +16,7 @@ module.exports = {
         amount: 'Bedrag',
         provider: 'Aanbieder',
         organization: 'Betaal vanuit',
-        target: 'Pay to',
+        target: 'Overboeken naar',
         target_iban: 'IBAN-nummer',
         target_name: 'IBAN-naam',
     },
