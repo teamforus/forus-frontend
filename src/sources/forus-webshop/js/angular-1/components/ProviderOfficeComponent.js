@@ -1,4 +1,4 @@
-const ProviderOfficeComponent = function($sce, OfficeService) {
+const ProviderOfficeComponent = function(OfficeService) {
     const $ctrl = this;
 
     $ctrl.toggleOffices = ($event, provider) => {
@@ -22,8 +22,6 @@ const ProviderOfficeComponent = function($sce, OfficeService) {
         } else {
             $ctrl.imageUrl = 'assets/img/placeholders/office-thumbnail.png';
         }
-
-        $ctrl.provider.description_html = $sce.trustAsHtml($ctrl.provider.description_html);
     };
 
     $ctrl.$onDestroy = () => { };
@@ -37,7 +35,6 @@ module.exports = {
         subsidies: '<',
     },
     controller: [
-        '$sce',
         'OfficeService',
         ProviderOfficeComponent
     ],

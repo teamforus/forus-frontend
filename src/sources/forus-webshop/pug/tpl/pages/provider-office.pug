@@ -39,11 +39,6 @@ block content
                                 .data-list-key Type aanbieder:
                                 .data-list-value
                                     .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen type geselecteerd' }}
-
-                .block.block-pane(ng-if="$ctrl.provider.description_html")
-                    .pane-head: h2.pane-head-title Omschrijving
-                    .pane-section: .block.block-markdown
-                        div(ng-bind-html="$ctrl.provider.description_html")
                         
                 .block.block-pane
                     .pane-head: h2.pane-head-title Openingstijden
@@ -71,7 +66,7 @@ block content
                 .block.block-organizations
                     .organization-item
                         .organization-offices(ng-if="$ctrl.provider.showOffices"): .block.block-offices
-                            a(ng-repeat="office in $ctrl.provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
+                            a(ng-repeat="office in $ctrl.provider.offices" ui-sref="provider-office(office)" ui-sref-opts="{reload: true, notify: true}").office-item
                                 .office-item-map-icon: .mdi.mdi-map-marker
                                 .office-pane
                                     .office-pane-block
