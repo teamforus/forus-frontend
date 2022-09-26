@@ -48,7 +48,7 @@ let AccessibilityComponent = function(
             }                   
         }[appConfigs.client_key];
 
-        $ctrl.description_html = $sce.trustAsHtml($ctrl.page.content_html);
+        $ctrl.description_html = $sce.trustAsHtml($ctrl.page.description_html);
     };
 }
 

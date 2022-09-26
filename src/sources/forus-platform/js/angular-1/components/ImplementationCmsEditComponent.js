@@ -132,14 +132,6 @@ const ImplementationCmsEditComponent = function (
         $ctrl.bannerMeta = $ctrl.getBannerMetaDefault();
     }
 
-    $ctrl.appendMedia = (media_uid, formValue) => {
-        if (!Array.isArray(formValue.media_uid)) {
-            formValue.media_uid = [];
-        }
-
-        formValue.media_uid.push(media_uid);
-    };
-
     $ctrl.expireDateChange = (values) => {
         if (!values.announcement?.expire) {
             values.announcement.expire_at = null;

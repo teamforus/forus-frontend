@@ -45,8 +45,7 @@
                         value="$ctrl.form.values.description_html" 
                         ng-model="$ctrl.form.values.description"
                         allow-alignment="true"
-                        block-alignment="$ctrl.form.values.description_alignment"
-                        media-uploaded="$ctrl.appendMedia(media_uid, $ctrl.form.values)")
+                        block-alignment="$ctrl.form.values.description_alignment")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
             //- Formal/Informal communication

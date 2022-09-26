@@ -2,7 +2,7 @@ const SignUpProviderComponent = function($sce, appConfigs) {
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        const { content_html } = $ctrl.page;
+        const { description_html } = $ctrl.page;
         const { fronts } = $ctrl.configs;
         const { provider_sign_up_filters } = appConfigs;
 
@@ -14,7 +14,7 @@ const SignUpProviderComponent = function($sce, appConfigs) {
             return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&');
 
-        $ctrl.description_html = $sce.trustAsHtml(content_html);
+        $ctrl.description_html = $sce.trustAsHtml(description_html);
     };
 };
 

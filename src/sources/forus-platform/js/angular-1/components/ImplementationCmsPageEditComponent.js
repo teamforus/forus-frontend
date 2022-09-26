@@ -28,14 +28,6 @@ const ImplementationCmsPageEditComponent = function (
         $ctrl.implementationBlocksEditor = childRef;
     };
 
-    $ctrl.appendMedia = (media_uid, formValue) => {
-        if (!Array.isArray(formValue.media_uid)) {
-            formValue.media_uid = [];
-        }
-
-        formValue.media_uid.push(media_uid);
-    };
-
     $ctrl.$onInit = () => {
         const { type } = $state.params;
         const { pages, page_types } = $ctrl.implementation;
