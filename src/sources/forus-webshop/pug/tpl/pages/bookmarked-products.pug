@@ -50,8 +50,8 @@ main(id="main-content")
 
                         empty-block(
                             ng-if="$ctrl.products.meta.total == 0"
-                            title="Je hebt nog geen producten in je favorieten."
-                            description="Je hebt nog geen producten in je favorieten."
+                            title="Er staat nog niks in het verlanglijstje."
+                            description="Er staat nog niks in het verlanglijstje."
                             hide-link='true')
 
                         .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(
