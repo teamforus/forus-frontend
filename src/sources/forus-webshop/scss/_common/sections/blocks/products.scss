@@ -39,25 +39,6 @@
                 }
             }
 
-            .product-to-fav {
-                position: absolute;
-                top: 10px;
-                right: 25px;
-                z-index: 2;
-                width: 40px;
-                height: 40px;
-                border-radius: 80px;
-                background: #FFF;
-                font: 500 22px/42px arial;
-                text-align: center;
-                color: #B7BFC6;
-                margin-bottom: 10px;
-
-                &.active {
-                    color: #DF0C2D;
-                }
-            }
-
             .product-details {
                 padding: 20px;
                 background: #ffffff;
@@ -101,12 +82,19 @@
                 }
             }
 
+            .block-bookmark-toggle {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+            }
+
             .product-item-inner {
                 box-shadow: $base_shadow;
                 border-radius: $border_radius;
                 background-color: rgba(255, 255, 255, .9);
                 display: block;
                 flex: 1;
+                position: relative;
                 @include cf();
 
                 &:hover {

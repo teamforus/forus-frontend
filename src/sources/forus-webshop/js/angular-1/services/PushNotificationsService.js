@@ -1,4 +1,4 @@
-let PushNotificationsService = function() {
+let PushNotificationsService = function () {
     let notifications = [];
     let listeners = [];
 
@@ -16,17 +16,18 @@ let PushNotificationsService = function() {
         listeners.forEach(listener => listener(note));
     };
 
-    return new (function() {
+    return new (function () {
         this.push = (note) => {
             pushNotifications(note);
         }
-        
+
         this.success = (title, message, icon = 'check', other = {}) => {
             this.push(Object.assign(other, {
                 icon: icon,
                 title: title,
                 message: message,
                 type: 'success',
+                group: 'default',
             }));
         };
 
@@ -36,6 +37,7 @@ let PushNotificationsService = function() {
                 title: title,
                 message: message,
                 type: 'info',
+                group: 'default',
             }));
         };
 
@@ -45,21 +47,15 @@ let PushNotificationsService = function() {
                 title: title,
                 message: message,
                 type: 'danger',
-            }));
-        };
-        
-        this.bookmark = (title, message, imageSrc, other = {}) => {
-            this.push(Object.assign(other, {
-                isBookmark: true,
-                icon: null,
-                title: title,
-                imageSrc: imageSrc,
-                message: message,
-                type: 'bookmark-added',
+                group: 'default',
             }));
         };
 
-        this.onNotification = function(listener) {
+        this.raw = (options = {}) => {
+            this.push({ group: 'default', ...options });
+        };
+
+        this.onNotification = function (listener) {
             listeners.push(listener);
         };
     });

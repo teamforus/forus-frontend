@@ -88,18 +88,30 @@
             filter: blur(0px);
             margin: 0 0 20px;
         }
+    }
 
-        &.notification-bookmark-added {
-            position: fixed;
-            top: 20px;
-            right: 0;
-            left: 0;
+    &.block-push-notifications-bookmarks {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        top: auto;
+        padding: 20px;
+        width: 100%;
+        pointer-events: none;
+
+        .notification {
             width: 1280px;
             margin: 0 auto;
             background: #fff;
+            border-radius: $border_radius;
+            max-width: 100%;
+            transform: translate(0, 120%);
+            pointer-events: all;
 
             .notification-image {
                 img {
+                    display: block;
                     font-size: 24px;
                     float: left;
                     margin-left: -25px;
@@ -124,6 +136,58 @@
 
             .notification-button {
                 margin-right: 15px;
+            }
+
+            &.shown {
+                transform: translate(0, 0);
+                opacity: 1;
+                filter: blur(0px);
+                margin: 0 auto 20px;
+
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .notification {
+                flex-direction: column;
+                position: relative;
+                padding-left: 120px;
+
+                .notification-image {
+                    position: absolute;
+                    left: 20px;
+                    top: 20px;
+                    width: 80px;
+                    margin: 0;
+                    padding: 0;
+
+                    img {
+                        padding: 0 !important;
+                        margin: 0 !important;
+                        height: auto;
+                        width: 100%;
+                    }
+                }
+
+                .notification-details {
+                    margin: 0 0 15px;
+
+                    .notification-title {
+                        margin-bottom: 5px;
+                    }
+                }
+
+                .notification-button {
+                    .button {
+                        padding: 12px 15px;
+                        padding-left: 22px;
+                        font-size: 15px;
+                    }
+                }
             }
         }
     }

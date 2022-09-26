@@ -1,9 +1,6 @@
-const { productsMenu } = require("../../config/flags");
-
-const ProductItemDirective = function(
+const ProductItemDirective = function (
     $scope,
-    BookmarkService,
-    PushNotificationsService,
+    ProductService,
 ) {
     const $dir = $scope.$dir = {};
 
@@ -14,67 +11,37 @@ const ProductItemDirective = function(
     $dir.media = $scope.product.photo || $scope.product.logo || null;
     $dir.product = $scope.product;
     $dir.productType = $scope.productType;
-    $dir.enableFavourites = $scope.enableFavourites;
-    $dir.productImgSrc = $dir.media ? ($dir.media.sizes.small || $dir.media.sizes.thumbnail) : './assets/img/placeholders/product-small.png';
+    $dir.productImgSrc = $dir.media?.sizes?.small || $dir.media?.sizes?.thumbnail || './assets/img/placeholders/product-small.png';
 
     $dir.lowestPrice = $scope.product.price_type === 'regular' ? Math.min(
         parseFloat($scope.product.price), parseFloat($scope.product.price_min)
     ) : null;
 
-    $dir.favouritesOnly = $scope.favouritesOnly;
-
-    $dir.toggleFavourite = ($event) => {
+    $dir.toggleBookmark = ($event) => {
         $event.preventDefault();
         $event.stopPropagation();
 
-        $dir.product.is_favourite = !$dir.product.is_favourite;
+        ProductService.toggleBookmark($dir.product);
 
-        if ($dir.product.is_favourite) {
-            BookmarkService.setBookmark({
-                bookmarkable_id: $dir.product.id,
-                bookmarkable_type: 'product'
-            }).then(() => {
-                let favourites_count = $scope.products.filter(product => product.is_favourite == true).length;
-                let description = 'Nu heb je ' + favourites_count + ' producten in je favorieten';
-
-                PushNotificationsService.bookmark($dir.product.name, description, $dir.productImgSrc, {
-                    timeout: 8000,
-                    btnText: 'Ga naar favorieten',
-                    btnSref: 'favourite-products',
-                    btnIcon: 'cards-heart-outline',
-                    bookmarkId: $dir.product.id
-                });
-            });
-        } else {
-            BookmarkService.removeBookmark({
-                bookmarkable_id: $dir.product.id,
-                bookmarkable_type: 'product'
-            }).then(() => {
-                PushNotificationsService.success(`${$dir.product.name} was removed from favourites!`);
-            });
+        if (typeof $scope.onToggleBookmark == 'function') {
+            $scope.onToggleBookmark({ product: $dir.product });
         }
-        
-        $scope.onToggleFavourite();
     };
 };
 
 module.exports = () => {
     return {
         scope: {
-            enableFavourites: '=',
-            favouritesOnly: '=',
-            onToggleFavourite: '&',
+            onToggleBookmark: '&',
             product: '=',
-            products: '=',
             productType: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
-            'BookmarkService',
-            'PushNotificationsService',
-            ProductItemDirective
+            'ProductService',
+            ProductItemDirective,
         ],
         templateUrl: ($el, $attr) => {
             return 'assets/tpl/directives/lists/products/' + ($attr.template || 'product-item-list') + '.html'

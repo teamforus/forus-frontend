@@ -1,17 +1,22 @@
-let PushNotificationsDirective = function(
+const PushNotificationsDirective = function(
     $scope,
     $timeout,
     PushNotificationsService
 ) {
-    $scope.maxCount = 4;
+    $scope.maxCount = $scope.maxCount || 4;
+
     $scope.notifications = [];
 
     PushNotificationsService.onNotification((notification) => {
-        while ($scope.notifications.length > $scope.maxCount) {
-            $scope.notifications.pop();
+        if ($scope.group != notification.group) {
+            return null;
         }
 
-        let note = $scope.pushNotification(notification);
+        while ($scope.notifications.filter((item) => item.shown).length >= $scope.maxCount) {
+            $scope.deleteNotification($scope.notifications[$scope.notifications.length - 1]);
+        }
+
+        const note = $scope.pushNotification(notification);
 
         $scope.notifications.unshift(note);
 
@@ -46,7 +51,9 @@ let PushNotificationsDirective = function(
 module.exports = () => {
     return {
         scope: {
-            rawPdfFile: '=',
+            maxCount: '@',
+            group: '@',
+            type: '@',
         },
         restrict: "EA",
         replace: true,
@@ -56,6 +63,6 @@ module.exports = () => {
             'PushNotificationsService',
             PushNotificationsDirective
         ],
-        templateUrl: 'assets/tpl/directives/push-notifications.html'
+        templateUrl: 'assets/tpl/directives/push-notifications.html',
     };
 };

@@ -8,6 +8,7 @@
         flex-direction: row;
         min-height: 100px;
         transition: box-shadow .4s;
+        position: relative;
 
         .product-photo {
             width: 150px;
@@ -62,9 +63,9 @@
             width: 270px;
             border-left: 1px solid $border_color;
             display: flex;
-            align-items: flex-start;
+            justify-content: flex-end;
             flex-wrap: wrap;
-            flex-direction: row-reverse;
+            flex-direction: column;
 
             &.with-button {
                 align-items: center;
@@ -83,21 +84,12 @@
                 position: relative;
                 width: 85px;
             }
+        }
 
-            .product-to-fav {
-                width: 40px;
-                height: 40px;
-                border-radius: 80px;
-                background: #F7F9FC;
-                font: 500 22px/42px arial;
-                text-align: center;
-                color: #B7BFC6;
-                margin-bottom: 10px;
-
-                &.active {
-                    color: #DF0C2D;
-                }
-            }
+        .block-bookmark-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
         }
 
         &:hover {
@@ -138,6 +130,7 @@
                 border: none;
                 padding: 0 0 10px;
                 flex-grow: 0;
+                padding-right: 40px;
 
                 .product-name {
                     font: 700 13px/18px $bf;
@@ -156,7 +149,7 @@
                 width: 100%;
                 border: none;
                 padding: 0;
-                flex-direction: row;
+                flex-grow: 1;
 
                 .label {
                     line-height: 18px;

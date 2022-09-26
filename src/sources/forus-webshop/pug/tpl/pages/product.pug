@@ -2,6 +2,12 @@ top-navbar
 
 main(id="main-content")
     section.section.section-product: .wrapper
+        mixin bookmark_toggle()
+            .block.block-bookmark-toggle(
+                ng-if="$root.auth_user"
+                ng-click="$ctrl.toggleBookmark($event, $ctrl.product)"
+                ng-class="$ctrl.product.bookmarked ? 'active' : ''")
+                    .mdi.mdi-cards-heart
 
         .block.block-breadcrumbs
             a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
@@ -37,6 +43,8 @@ main(id="main-content")
                         .product-property.product-property-full
                             .product-property-label(i18n="product.labels.description")
                             .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
+                
+                +bookmark_toggle()
 
             .block.block-pane(ng-if="$ctrl.productMeta.funds.length > 0")
                 .pane-head: h2(i18n="product.headers.funds" ui-sref="vouchers").pane-head-title

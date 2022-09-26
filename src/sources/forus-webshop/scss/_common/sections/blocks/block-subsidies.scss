@@ -22,25 +22,13 @@
             border-radius: $border_radius;
             overflow: hidden;
             transition: box-shadow 0.3s ease-in;
+            position: relative;
             @include cf();
 
-            .product-to-fav {
+            .block-bookmark-toggle {
                 position: absolute;
-                top: 10px;
-                right: 25px;
-                z-index: 2;
-                width: 40px;
-                height: 40px;
-                border-radius: 80px;
-                background: #FFF;
-                font: 500 22px/42px arial;
-                text-align: center;
-                color: #B7BFC6;
-                margin-bottom: 10px;
-
-                &.active {
-                    color: #DF0C2D;
-                }
+                top: 15px;
+                right: 15px;
             }
 
             .product-image {

@@ -3,8 +3,9 @@ const ProductsComponent = function(
     $state,
     $stateParams,
     appConfigs,
+    ProductService,
     FormBuilderService,
-    ProductService
+    PageLoadingBarService,
 ) {
     const $ctrl = this;
 
@@ -25,26 +26,10 @@ const ProductsComponent = function(
         'q', 'product_category_id', 'fund', 'sortBy',
     ];
 
-    $ctrl.showFavourites = $stateParams.favourites_only || 0;
-
-    $ctrl.getAll = () => {
-        $ctrl.showFavourites = 0;
-
-        $ctrl.loadProducts($ctrl.buildQuery());
-    };
-
-    $ctrl.getFavourites = () => {
-        $ctrl.showFavourites = 1;
-
-        $ctrl.loadProducts($ctrl.buildQuery());
-    };
-
-    $ctrl.getFavouriteProductsCount = () => {
-        return $ctrl.products.data.filter(product => product.is_favourite).length;
-    };
-
-    $ctrl.toggleFavourite = () => {
-        $ctrl.productsCount = $ctrl.showFavourites ? $ctrl.getFavouriteProductsCount() : $ctrl.products.meta.total;
+    $ctrl.onToggleBookmark = () => {
+        if ($ctrl.form.values.bookmarked) {
+            $ctrl.onPageChange($ctrl.form.values);
+        }
     };
 
     $ctrl.toggleMobileMenu = () => {
@@ -90,7 +75,7 @@ const ProductsComponent = function(
             fund_type: $ctrl.fund_type,
             postcode: values.postcode || '',
             distance: values.distance || null,
-            favourites_only: values.showFavourites || $ctrl.showFavourites,
+            bookmarked: values.bookmarked ? 1 : 0,
             ...orderByValue
         };
     };
@@ -100,13 +85,14 @@ const ProductsComponent = function(
     };
 
     $ctrl.loadProducts = (query, location = 'replace') => {
-        ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
-            $ctrl.productsCount = res.data.meta.total;
-            return $ctrl.products = res.data;
-        });
+        PageLoadingBarService.setProgress(0);
 
-        $ctrl.updateState(query, location);
-        $ctrl.updateFiltersUsedCount();
+        ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
+            return $ctrl.products = res.data;
+        }).finally(() => {
+            $ctrl.updateState(query, location);
+            $ctrl.updateFiltersUsedCount();
+        });
     };
 
     $ctrl.updateState = (query, location = 'replace') => {
@@ -120,7 +106,7 @@ const ProductsComponent = function(
             show_menu: $ctrl.showModalFilters,
             postcode: query.postcode,
             distance: query.distance,
-            favourites_only: query.show_favourites || $ctrl.showFavourites
+            bookmarked: query.bookmarked,
         }, { location });
     };
 
@@ -135,7 +121,6 @@ const ProductsComponent = function(
     };
 
     $ctrl.$onInit = () => {
-        $ctrl.productsCount = $ctrl.products.meta.total;
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.appConfigs = appConfigs;
 
@@ -165,6 +150,7 @@ const ProductsComponent = function(
             product_category_id: $stateParams.product_category_id || null,
             postcode: $stateParams.postcode,
             distance: $stateParams.distance,
+            bookmarked: $stateParams.bookmarked,
         });
 
         $ctrl.updateFiltersUsedCount();
@@ -190,8 +176,9 @@ module.exports = {
         '$state',
         '$stateParams',
         'appConfigs',
-        'FormBuilderService',
         'ProductService',
+        'FormBuilderService',
+        'PageLoadingBarService',
         ProductsComponent
     ],
     templateUrl: 'assets/tpl/pages/products.html'

@@ -51,7 +51,7 @@ app.component('explanationComponent', require('./components/ExplanationComponent
 app.component('errorPageComponent', require('./components/ErrorPageComponent'));
 app.component('searchResultComponent', require('./components/SearchResultComponent'));
 app.component('sitemapComponent', require('./components/SitemapComponent'));
-app.component('favouriteProductsComponent', require('./components/FavouriteProductsComponent'));
+app.component('bookmarkedProductsComponent', require('./components/BookmarkedProductsComponent'));
 
 // Services
 app.service('ArrService', require('./services/ArrService'));
@@ -99,7 +99,6 @@ app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequ
 app.service('HelperService', require('./services/HelperService'));
 app.service('SearchService', require('./services/SearchService'));
 app.service('TagService', require('./services/TagService'));
-app.service('BookmarkService', require('./services/BookmarkService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
@@ -160,7 +159,6 @@ app.directive('providerListItem', require('./directives/lists/ProviderItemDirect
 
 app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
-app.directive('noBookmarksBlock', require('./directives/NoBookmarksBlockDirective'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));

@@ -1,14 +1,15 @@
-let FavouriteProductsComponent = function(
+const BookmarkedProductsComponent = function(
+    $state,
     ProductService,
 ) {
     const $ctrl = this;
 
     $ctrl.display_type = 'list';
-
     $ctrl.sortByOptions = ProductService.getSortOptions();
 
     $ctrl.showAs = (display_type) => {
         $ctrl.display_type = display_type;
+        $ctrl.updateState();
     };
 
     $ctrl.updateSortBy = () => {
@@ -26,8 +27,9 @@ let FavouriteProductsComponent = function(
         };
 
         return {
+            page: values.page,
             display_type: $ctrl.display_type,
-            favourites_only: 1,
+            bookmarked: 1,
             ...orderByValue
         };
     };
@@ -38,17 +40,21 @@ let FavouriteProductsComponent = function(
 
     $ctrl.loadProducts = (query) => {
         ProductService.list(query).then((res) => {
-            return $ctrl.products = res.data.data;
+            return $ctrl.products = res.data;
+        }).finally(() => {
+            $ctrl.updateState(query);
         });
     };
 
-    $ctrl.toggleFavourite = () => {
-        $ctrl.productsCount = $ctrl.products.filter(product => product.is_favourite).length;
+    $ctrl.updateState = (query = {}, location = 'replace') => {
+        $state.go('bookmarked-products', {
+            display_type: $ctrl.display_type,
+        }, { location });
     };
 
     $ctrl.$onInit = () => {
-        $ctrl.productsCount = $ctrl.products.length;
         $ctrl.sort_by = $ctrl.sortByOptions[0];
+        $ctrl.display_type = $state.params.display_type;
     };
 }
 
@@ -57,8 +63,9 @@ module.exports = {
         products: '<',
     },
     controller: [
+        '$state',
         'ProductService',
-        FavouriteProductsComponent
+        BookmarkedProductsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/favourite-products.html'
+    templateUrl: 'assets/tpl/pages/bookmarked-products.html',
 };
