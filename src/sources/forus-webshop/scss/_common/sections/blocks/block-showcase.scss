@@ -64,6 +64,53 @@
                 box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
                 margin-bottom: 30px;
 
+                .showcase-aside-tabs {
+                    display: flex;
+                    flex-wrap: wrap;
+                    border-color: $color_primary;
+                    margin-bottom: 15px;
+                    flex-wrap: nowrap;
+
+                    .showcase-aside-tab {
+                        display: flex;
+                        flex-basis: 1;
+                        flex-grow: 1;
+                        text-align: center;
+                        background: #f6f6f6;
+                        color: #000;
+                        border: 1px solid $border_color;
+                        border-right: none;
+                        border-radius: min($border_radius, 6px);
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                        transition: color .4s, background-color .4s;
+                        font: 400 13px/18px $bf;
+                        padding: 10px;
+                        padding-right: 5px;
+
+                        .mdi {
+                            padding-right: 5px;
+                            font-size: 16px;
+                            margin-right: 2px;
+                        }
+
+                        &:last-child {
+                            border-right: 1px solid $border_color;
+                            border-left: 0px;
+                            border-top-left-radius: 0;
+                            border-bottom-left-radius: 0;
+                            border-top-right-radius: min($border_radius, 6px);
+                            border-bottom-right-radius: min($border_radius, 6px);
+                        }
+
+                        &.active {
+                            background: $color_primary;
+                            border-color: $color_primary;
+                            color: #fff;
+                        }
+                    }
+                }
+
                 .showcase-aside-block-info {
                     font: 500 12px $bf;
                     color: #646f79;
@@ -357,6 +404,18 @@
                 width: 280px;
                 min-width: 280px;
                 max-width: 280px;
+
+                .showcase-aside-block {
+                    .showcase-aside-tabs {
+                        .showcase-aside-tab {
+                            font-size: 12px;
+
+                            .mdi {
+                                margin-right: 2px;
+                            }
+                        }
+                    }
+                }
             }
 
             .showcase-content {

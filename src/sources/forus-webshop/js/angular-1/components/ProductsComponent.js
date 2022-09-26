@@ -3,42 +3,13 @@ const ProductsComponent = function(
     $state,
     $stateParams,
     appConfigs,
+    ProductService,
     FormBuilderService,
-    ProductService
+    PageLoadingBarService,
 ) {
     const $ctrl = this;
 
-    $ctrl.sortByOptions = [{
-        label: 'Nieuwe eerst',
-        value: {
-            order_by: 'created_at',
-            order_by_dir: 'desc',
-        }
-    }, {
-        label: 'Oudste eerst',
-        value: {
-            order_by: 'created_at',
-            order_by_dir: 'asc',
-        }
-    }, {
-        label: 'Prijs (oplopend)',
-        value: {
-            order_by: 'price',
-            order_by_dir: 'asc',
-        }
-    }, {
-        label: 'Prijs (aflopend)',
-        value: {
-            order_by: 'price',
-            order_by_dir: 'desc',
-        }
-    }, {
-        label: 'Meest gewild',
-        value: {
-            order_by: 'most_popular',
-            order_by_dir: 'desc',
-        }
-    }];
+    $ctrl.sortByOptions = ProductService.getSortOptions();
 
     $ctrl.distances = [
         { id: null, name: 'Overal' },
@@ -54,6 +25,12 @@ const ProductsComponent = function(
     $ctrl.filtersList = [
         'q', 'product_category_id', 'fund', 'sortBy',
     ];
+
+    $ctrl.onToggleBookmark = () => {
+        if ($ctrl.form.values.bookmarked) {
+            $ctrl.onPageChange($ctrl.form.values);
+        }
+    };
 
     $ctrl.toggleMobileMenu = () => {
         $ctrl.showModalFilters ? $ctrl.hideMobileMenu() : $ctrl.showMobileMenu()
@@ -78,7 +55,7 @@ const ProductsComponent = function(
         $ctrl.onPageChange({ ...$ctrl.form.values });
     };
 
-    $ctrl.buildQuery = (values) => {
+    $ctrl.buildQuery = (values = {}) => {
         const orderByValue = {
             ...$ctrl.sort_by.value,
             ...{
@@ -98,6 +75,7 @@ const ProductsComponent = function(
             fund_type: $ctrl.fund_type,
             postcode: values.postcode || '',
             distance: values.distance || null,
+            bookmarked: values.bookmarked ? 1 : 0,
             ...orderByValue
         };
     };
@@ -107,12 +85,14 @@ const ProductsComponent = function(
     };
 
     $ctrl.loadProducts = (query, location = 'replace') => {
+        PageLoadingBarService.setProgress(0);
+
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
             return $ctrl.products = res.data;
+        }).finally(() => {
+            $ctrl.updateState(query, location);
+            $ctrl.updateFiltersUsedCount();
         });
-
-        $ctrl.updateState(query, location);
-        $ctrl.updateFiltersUsedCount();
     };
 
     $ctrl.updateState = (query, location = 'replace') => {
@@ -126,6 +106,7 @@ const ProductsComponent = function(
             show_menu: $ctrl.showModalFilters,
             postcode: query.postcode,
             distance: query.distance,
+            bookmarked: query.bookmarked,
         }, { location });
     };
 
@@ -169,6 +150,7 @@ const ProductsComponent = function(
             product_category_id: $stateParams.product_category_id || null,
             postcode: $stateParams.postcode,
             distance: $stateParams.distance,
+            bookmarked: $stateParams.bookmarked,
         });
 
         $ctrl.updateFiltersUsedCount();
@@ -194,8 +176,9 @@ module.exports = {
         '$state',
         '$stateParams',
         'appConfigs',
-        'FormBuilderService',
         'ProductService',
+        'FormBuilderService',
+        'PageLoadingBarService',
         ProductsComponent
     ],
     templateUrl: 'assets/tpl/pages/products.html'

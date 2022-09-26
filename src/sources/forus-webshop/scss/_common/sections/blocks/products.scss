@@ -11,6 +11,7 @@
             display: inline-block;
             max-width: 33.333%; 
             font-size: initial;
+            position: relative;
 
             .product-image {
                 width: 100%;
@@ -81,12 +82,19 @@
                 }
             }
 
+            .block-bookmark-toggle {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+            }
+
             .product-item-inner {
                 box-shadow: $base_shadow;
                 border-radius: $border_radius;
                 background-color: rgba(255, 255, 255, .9);
                 display: block;
                 flex: 1;
+                position: relative;
                 @include cf();
 
                 &:hover {

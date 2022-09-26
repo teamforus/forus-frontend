@@ -55,6 +55,13 @@ const ProductComponent = function(
         });
     };
 
+    $ctrl.toggleBookmark = ($event, product) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        ProductService.toggleBookmark(product);
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.signedIn = AuthService.hasCredentials();

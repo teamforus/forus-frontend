@@ -17,7 +17,23 @@ block content
                 .showcase-layout
                     .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
                         .showcase-aside-block
+                            .showcase-aside-tabs(ng-if="$root.auth_user")
+                                .showcase-aside-tab(
+                                    ng-class="{active: $ctrl.form.values && !$ctrl.form.values.bookmarked}"
+                                    ng-click="$ctrl.form.values.bookmarked = false"
+                                    role="button")
+                                    em.mdi.mdi-tag-multiple-outline
+                                    | Volledig aanbod
+
+                                .showcase-aside-tab(
+                                    ng-class="{active: $ctrl.form.values && $ctrl.form.values.bookmarked}"
+                                    ng-click="$ctrl.form.values.bookmarked = true"
+                                    role="button")
+                                    em.mdi.mdi-cards-heart-outline
+                                    | Mijn verlanglijstje
+
                             .form-group
+                                label.form-label(for="select_provider") Zoek aanbod
                                 input.form-control(
                                     ng-model="$ctrl.form.values.q"
                                     placeholder="Zoek aanbod" 
@@ -74,11 +90,11 @@ block content
                                         id="distance")
                                     .form-error(ng-repeat="error in $ctrl.form.errors.distance" ng-bind="error")
 
-
                     .showcase-content
                         .showcase-content-header
                             h1.showcase-filters-title
-                                span Aanbod
+                                span(ng-if="!$ctrl.form.values.bookmarked") Aanbod
+                                span(ng-if="$ctrl.form.values.bookmarked") Mijn verlanglijstje
                                 .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
 
                             .showcase-filters-block: .block.block-label-tabs.form
@@ -113,16 +129,21 @@ block content
                             ng-if="$root.appConfigs.features.pages.products"
                             page="$root.appConfigs.features.pages.products")
 
-                        products-list(display="$ctrl.display_type" type="$ctrl.fund_type" products="$ctrl.products.data")
+                        products-list(
+                            ng-if="$ctrl.products.meta.total > 0"
+                            display="$ctrl.display_type" 
+                            type="$ctrl.fund_type" 
+                            products="$ctrl.products.data"
+                            on-toggle-bookmark="$ctrl.onToggleBookmark()")
 
                         empty-block(
                             title= "{{ 'block_products.labels.title' | translate }}"
                             description="{{ 'block_products.labels.subtitle' | translate }}"
                             hide-link="true" 
-                            ng-if="$ctrl.products.data.length == 0")
+                            ng-if="$ctrl.products.meta.total == 0")
 
                         .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(
                             meta="$ctrl.products.meta" 
-                            filters="$ctrl.form.values" 
+                            filters="$ctrl.form.values"
                             count-buttons="5" 
                             on-page-change="$ctrl.onPageChange(query)")

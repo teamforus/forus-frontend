@@ -13,6 +13,7 @@
         padding: 0 15px;
         width: 33.333%;
         max-width: 33.333%;
+        position: relative;
 
         .product-item-inner {
             display: block;
@@ -21,7 +22,14 @@
             border-radius: $border_radius;
             overflow: hidden;
             transition: box-shadow 0.3s ease-in;
+            position: relative;
             @include cf();
+
+            .block-bookmark-toggle {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+            }
 
             .product-image {
                 width: 100%;

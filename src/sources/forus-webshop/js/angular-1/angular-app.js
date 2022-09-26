@@ -48,6 +48,7 @@ app.component('explanationComponent', require('./components/ExplanationComponent
 app.component('errorPageComponent', require('./components/ErrorPageComponent'));
 app.component('searchResultComponent', require('./components/SearchResultComponent'));
 app.component('sitemapComponent', require('./components/SitemapComponent'));
+app.component('bookmarkedProductsComponent', require('./components/BookmarkedProductsComponent'));
 
 // Services
 app.service('ArrService', require('./services/ArrService'));
