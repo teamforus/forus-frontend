@@ -114,7 +114,8 @@ const VouchersShowComponent = function (
         $ctrl.physicalCardsAvailable =
             $ctrl.voucher.fund.allow_physical_cards &&
             $ctrl.voucher.fund.type === 'subsidies' &&
-            $ctrl.voucher.state !== 'deactivated';
+            $ctrl.voucher.state !== 'deactivated' &&
+            $ctrl.voucher.is_internal;
 
         $ctrl.showMakeTransactionButton =
             PermissionsService.hasPermission($ctrl.organization, 'make_direct_payments') &&
@@ -122,7 +123,8 @@ const VouchersShowComponent = function (
             $ctrl.voucher.state === 'active' &&
             !$ctrl.fundClosed &&
             !$ctrl.voucher.product &&
-            !$ctrl.voucher.expired;
+            !$ctrl.voucher.expired &&
+            $ctrl.voucher.is_internal;
     }
 
     $ctrl.incrementLimitMultiplier = () => {
