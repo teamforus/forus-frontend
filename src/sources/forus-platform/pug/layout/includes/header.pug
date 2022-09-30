@@ -44,9 +44,9 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
         header-notifications(ng-if="$root.activeOrganization.id" organization-id="{{$root.activeOrganization.id}}")
 
         .header-auth(ng-if="$root.auth_user")
-            .auth-user(ng-click="$root.openUserMenu($event)")
+            .auth-user(ng-click="$root.openUserMenu($event)" dusk="userProfile")
                 .auth-user-details
-                    .auth-user-name {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
+                    .auth-user-name(dusk="identityEmail") {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
                     .auth-user-role
                         //- span(ng-bind="$root.activeOrganization.name")
                         //- span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •
@@ -58,7 +58,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                 
                 .auth-user-menu(ng-if="$root.userMenuOpened" click-outside="$root.hideUserMenu()")
 
-                    a(ui-sref="identity-emails").auth-user-menu-item
+                    a(ui-sref="identity-emails" dusk="btnUserEmails").auth-user-menu-item
                         .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-email.svg
                         | E-mail instellingen
 
@@ -107,7 +107,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
 
                         .auth-user-menu-sep
 
-                    a(ng-click="$root.signOut()").auth-user-menu-item
+                    a(ng-click="$root.signOut()" dusk="btnUserLogout").auth-user-menu-item
                         .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-sign-out.svg
                         //- translate(translate="topnavbar.buttons.logour")
                         | Uitloggen
