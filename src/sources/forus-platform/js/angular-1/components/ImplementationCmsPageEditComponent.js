@@ -7,6 +7,7 @@ const ImplementationCmsPageEditComponent = function (
     const $ctrl = this;
 
     $ctrl.implementationBlocksEditor = null;
+    $ctrl.faqEditor = null;
 
     $ctrl.types = [{
         value: false,
@@ -28,6 +29,10 @@ const ImplementationCmsPageEditComponent = function (
         $ctrl.implementationBlocksEditor = childRef;
     };
 
+    $ctrl.registerFaqEditor = function(childRef) {
+        $ctrl.faqEditor = childRef;
+    }
+
     $ctrl.$onInit = () => {
         const { type } = $state.params;
         const { pages, page_types } = $ctrl.implementation;
@@ -45,6 +50,7 @@ const ImplementationCmsPageEditComponent = function (
             ...$ctrl.page,
         } : {
             blocks: [],
+            faq: [],
             state: $ctrl.states[0].value,
             external: $ctrl.types[0].value,
             page_type: $ctrl.page_type,
@@ -89,9 +95,17 @@ const ImplementationCmsPageEditComponent = function (
             };
 
             if (!$ctrl.implementationBlocksEditor) {
-                submit();
+                $ctrl.faqEditor ? $ctrl.faqEditor.validate().then(() => submit(), (e) => {
+                    PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
+                    return form.unlock();
+                }) : submit();
             } else {
-                $ctrl.implementationBlocksEditor.validate().then(() => submit(), (res) => {
+                $ctrl.implementationBlocksEditor.validate().then(() => {
+                    $ctrl.faqEditor ? $ctrl.faqEditor.validate().then(() => submit(), (e) => {
+                        PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
+                        return form.unlock();
+                    }) : submit();
+                }, (res) => {
                     PushNotificationsService.danger('Error!', typeof res == 'string' ? res : res.message || '');
                     return form.unlock();
                 });

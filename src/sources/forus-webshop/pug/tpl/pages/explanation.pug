@@ -47,7 +47,23 @@ main(id="main-content")
                             .faq-item-chevron-down.mdi.mdi-chevron-down
                             .faq-item-chevron-up.mdi.mdi-chevron-up
                         .faq-item-content(translate=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }" translate-default=content_default)
+            
+            //- CMS FAQ
+            .faq(collapse ng-if="$ctrl.faq.length")
+                .faq-item(
+                    ng-repeat="faq in $ctrl.faq" 
+                    ng-class="{active: faq.isActive}" 
+                    ng-click="faq.isActive = !faq.isActive" 
+                    collapse-item)
 
+                    .faq-item-header(collapse-header)
+                        span(ng-bind="faq.title")
+                        .faq-item-chevron-down.mdi.mdi-chevron-down
+                        .faq-item-chevron-up.mdi.mdi-chevron-up
+                    .faq-item-content(ng-bind-html="faq.description_html")
+
+            //- Default FAQ
+            .faq(collapse ng-if="!$ctrl.faq.length")
                 +faq_item(
                     'home.faq.{{ $root.client_key }}.faq_one',
                     'home.faq.{{ $root.client_key }}.one',
