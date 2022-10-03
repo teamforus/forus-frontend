@@ -59,6 +59,10 @@ module.exports = {
         waalwijk: 'Paswijzer',
         heumen: 'Heumen',
         vergoedingen: "Vergoedingen",
+        ede: "Ede",
+        schagen: "Schagen",
+        hartvanwestbrabant: "HvWB",
+        participatiemunt: "Participatiemunt",
     },
     languages: {
         en: 'English',
