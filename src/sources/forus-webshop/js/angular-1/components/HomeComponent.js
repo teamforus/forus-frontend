@@ -41,6 +41,14 @@ const HomeComponent = function (
 
         $ctrl.description_html = $sce.trustAsHtml(appConfigs.features.settings.description_html);
 
+        $ctrl.show_products = appConfigs.features.implementation_configs.find(config => {
+            return config.page_key == 'homepage' && config.page_config_key == "show_products"
+        }).is_active;
+
+        $ctrl.show_map = appConfigs.features.implementation_configs.find(config => {
+            return config.page_key == 'homepage' && config.page_config_key == "show_map"
+        }).is_active;
+
         if (session_expired) {
             ModalService.open('modalNotification', {
                 type: 'confirm',

@@ -1,6 +1,7 @@
 const ProvidersComponent = function(
     $state,
     $stateParams,
+    appConfigs,
     FormBuilderService,
     ProvidersService
 ) {
@@ -140,6 +141,10 @@ const ProvidersComponent = function(
         }
 
         $ctrl.updateFiltersUsedCount();
+
+        $ctrl.show_map = appConfigs.features.implementation_configs.find(config => {
+            return config.page_key == 'providers' && config.page_config_key == "show_map"
+        }).is_active;
     };
 };
 
@@ -152,6 +157,7 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
+        'appConfigs',
         'FormBuilderService',
         'ProvidersService',
         ProvidersComponent

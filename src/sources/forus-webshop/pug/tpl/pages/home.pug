@@ -78,10 +78,11 @@ main(id="main-content")
         page="$root.appConfigs.features.pages.home")
 
     .page.page-home(ng-if="$ctrl.appConfigs.flags.homeProducts")
-        .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(products="$ctrl.products.data" type="budget" display="grid")
-        .wrapper(ng-if="$ctrl.subsidies.data.length > 0"): block-products(products="$ctrl.subsidies.data" type="subsidies" display="grid")
+        div(ng-if="$ctrl.show_products")
+            .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(products="$ctrl.products.data" type="budget" display="grid")
+            .wrapper(ng-if="$ctrl.subsidies.data.length > 0"): block-products(products="$ctrl.subsidies.data" type="subsidies" display="grid")
 
-        section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap" id="map_block"): .wrapper
+        section.section.section-map(ng-if="$ctrl.appConfigs.flags.homeMap && $ctrl.show_map" id="map_block"): .wrapper
             .block.block-map
                 .block-content
                     h2.block-title(i18n="home.map.title")

@@ -13,6 +13,13 @@
                     a(href="{{ $ctrl.implementation.url_webshop }}" target="_blank").button.button-text.button-sm 
                         | Open webshop
                         .mdi.mdi-open-in-new.icon-end
+
+                    button.button.button-primary.button-sm(
+                        type="button" 
+                        ui-sref="implementation-config({organization_id: $ctrl.organization.id, implementation_id: $ctrl.implementation.id})")
+                        em.mdi.mdi-cog.icon-start
+                        | Configs
+                    
                     button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
 
             //- Webshop banner
