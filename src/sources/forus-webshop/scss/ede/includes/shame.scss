@@ -1,3 +1,91 @@
+.block {
+    @media screen and (min-width: 1000px) { 
+        &.block-cms-funds {
+            display: auto;
+
+            .fund-item {
+                display: inline-block;
+                width: 50%;
+                border: none;
+                margin: 0 auto;
+                padding: 20px;
+
+                .fund-media {
+                    width: 100%;
+                }
+
+                .fund-information {
+                    width: auto;
+                    padding-left: 0;
+                    text-align: left;
+                    display: block;
+
+                    .fund-title {
+                        color: $tc;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.section {
+    &.section-header {
+        width: 1280px;
+        background-position: top center;
+        padding: 50px 0;
+        margin: 0 auto;
+        max-width: 100%;
+
+        .header-content {
+            text-align: center;
+
+            .header-description p {
+                text-align: center !important;
+            }
+        }
+    }
+
+    &.section-fund {
+        .wrapper {
+            padding-top: 20px;
+            width: 1000px;
+        }
+    }
+
+    &.section-faq {
+        .faq {
+            width: auto;
+            margin: 0;
+        }
+    }
+
+    &.section-footer {
+        margin-top: 0;
+        padding-top: 30px;
+        color: #fff;
+    }
+
+    @media screen and (min-width: 1000px) { 
+        &.section-header { 
+            height: 500px;
+            padding: 75px 0;
+        
+            .header-content {
+                text-align: left;
+                padding: 50px 50px;
+                margin-left: 50px;
+                background-color: #ffffff;
+                text-align: left;
+        
+                .header-description p {
+                    text-align: left !important;
+                }
+            }
+        }   
+    }
+}
+
 .block.block-footer .footer-nav .footer-nav-item a {
     font: 400 14px/24px $bf;
     color: #ffffff;
