@@ -63,6 +63,7 @@ module.exports = {
         schagen: "Schagen",
         hartvanwestbrabant: "HvWB",
         participatiemunt: "Participatiemunt",
+        eemsdelta: "Eemsdelta",
     },
     languages: {
         en: 'English',
