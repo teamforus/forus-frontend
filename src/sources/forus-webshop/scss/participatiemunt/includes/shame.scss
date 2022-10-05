@@ -1,3 +1,21 @@
+cms-blocks {
+    .block {
+        &.block-markdown {
+            padding-left: 80px;
+            border: solid 1px orange;
+            border-radius: 10px;
+            padding: 30px 50px 20px 50px;
+            margin-bottom: 50px !important;
+        }
+
+        @media screen and (min-width: 1000px) { 
+            &.block-markdown {
+                margin-top: 50px;
+            }
+        }
+    }
+}
+
 .button {
     border-radius: 30px;
 }
@@ -34,17 +52,23 @@
         .navbar-list {
             .navbar-item-wrapper {
                 .navbar-item {
+                    color: #0D2864;
+                    font-weight: 700;
+
                     &:hover {
                         &:before {
                             top: auto;
-                            bottom: 0;
+                            bottom: 11px;
                         }
                     }
 
                     &.active {
+                        color: #0D2864;
+
                         &:before {
                             top: auto;
-                            bottom: 0;
+                            bottom: 11px;
+                            background: #F98653;
                         }
                     }
                 }
@@ -56,14 +80,25 @@
         &.block-navbar {
             .block-navbar-search {
                 max-width: 760px;
-                color: white;
     
                 .search-form.form {
                     .form-control {
                         border-radius: 20px;
                         background: #0D2864;
                         color: #ffffff;
+
+                        &::placeholder {
+                            color: #ffffff;
+                        }
                     }
+
+                    .form-control:not([type="radio"]):not([type="checkbox"]) { 
+                        border: 1px solid #ffffff;
+                    }
+                }
+
+                .navbar-search-icon {
+                    color:#ffffff;
                 }
             }
         }
@@ -78,6 +113,7 @@
     @media screen and (max-width: 1000px) {
         &.block-navbar {
             position: sticky;
+            background: #0D2864;
 
             .navbar-logo {
                 img {
@@ -156,7 +192,6 @@
         }
 
         &.section-products {
-    
             .section-title {
                 margin-top: 0;
             }
