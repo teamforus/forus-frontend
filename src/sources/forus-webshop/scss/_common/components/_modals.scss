@@ -82,6 +82,13 @@
             margin: 0 0 0;
             color: #646F79;
         }
+
+        .modal-close {
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            line-height: 24px;
+        }
     }
 
     .modal-content {
@@ -286,6 +293,26 @@
         }
     }
 
+    &.modal-reimbursement-confirm {
+        .modal-content {
+            width: 820px;
+
+            .modal-warning {
+                padding: 10px 20px;
+                font: 400 15px/24px $bf;
+                border: 1px solid #ff9b00;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .modal-header {
+                padding: 0 0 15px;
+                background: none;
+            }
+        }
+    }
+
     &.modal-animated {
         &>.modal-backdrop, &>.modal-window, &>.modal-content {
             opacity: 0;
@@ -311,46 +338,6 @@
 
             &>.modal-backdrop {
                 pointer-events: all;
-            }
-        }
-    }
-
-    &.modal-file-preview {
-        .modal-window {
-            display: flex;
-            flex-direction: column;
-            max-height: 80vh;
-        }
-
-        .modal-content {
-            display: flex;
-        }
-
-        .file-image {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            background-color: #000;
-
-            img {
-                height: 100%;
-                display: block;
-            }
-        }
-
-        .file-pdf {
-            display: flex;
-            flex-direction: column;
-            overflow: auto;
-            height: initial;
-            width: 100%;
-            background-color: black;
-
-            canvas {
-                display: block;
-                width: 70%;
-                height: auto;
-                margin: 0 auto;
             }
         }
     }

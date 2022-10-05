@@ -1,0 +1,48 @@
+.block.block-reimbursement
+    .reimbursement-section
+        .reimbursement-media
+            .media-preview: img(
+                ng-src="{{ $dir.reimbursement.files[$dir.previewIndex].preview.sizes.thumbnail }}")
+
+            .media-pagination(ng-if="$dir.reimbursement.files.length > 1")
+                .media-pagination-prev(ng-click="$dir.prevPreviewMedia()"): .mdi.mdi-chevron-left
+                .media-pagination-nav
+                    .media-pagination-counter {{ $dir.previewIndex + 1 }} / {{ $dir.reimbursement.files.length }}
+                    .media-pagination-list
+                        .media-pagination-item(
+                            ng-repeat="(index, file) in $dir.reimbursement.files"
+                            ng-click="$dir.previewIndex = index"
+                            ng-class="index === $dir.previewIndex ? 'active' : ''")
+
+                .media-pagination-next(ng-click="$dir.nextPreviewMedia()"): .mdi.mdi-chevron-right
+
+        .reimbursement-props
+            .reimbursement-title(ng-if="!$dir.compact") Request details
+            .reimbursement-prop
+                .reimbursement-prop-label Titel
+                .reimbursement-prop-value(ng-bind="$dir.reimbursement.title")
+            .reimbursement-prop
+                .reimbursement-prop-label Bedrag
+                .reimbursement-prop-value(ng-bind="$dir.reimbursement.amount | currency_format")
+            .reimbursement-prop
+                .reimbursement-prop-label Declareren bij
+                .reimbursement-prop-value(ng-bind="$dir.reimbursement.fund.organization.name")
+            .reimbursement-prop
+                .reimbursement-prop-label Regeling
+                .reimbursement-prop-value(ng-bind="$dir.reimbursement.fund.name")
+            .reimbursement-prop
+                .reimbursement-prop-label IBAN
+                .reimbursement-prop-value(ng-bind="$dir.reimbursement.iban")
+            .reimbursement-prop
+                .reimbursement-prop-label Te naam stelling van
+                .reimbursement-prop-value(ng-bind="$dir.reimbursement.iban_name")
+
+    .reimbursement-section(ng-if="!$dir.compact")
+        .reimbursement-description
+            .reimbursement-heading Opmerking
+            .reimbursement-text(ng-bind="$dir.reimbursement.description")
+    
+    .reimbursement-section.flex-center(ng-if="$dir.reimbursement.state === 'draft'")
+        a(ui-sref="reimbursements-edit($dir.reimbursement)").button.button-primary-outline.button-sm
+            .mdi.mdi-pencil.icon-start
+            | Wijzigen

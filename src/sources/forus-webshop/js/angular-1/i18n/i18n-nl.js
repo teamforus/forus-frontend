@@ -90,6 +90,7 @@ module.exports = {
     voucher: require("./nl/pages/voucher"),
     vouchers: require("./nl/pages/vouchers"),
     reservations: require("./nl/pages/reservations"),
+    reimbursements: require("./nl/pages/reimbursements"),
     notification_preferences: require("./nl/pages/notification-preferences"),
     email_preferences: require("./nl/pages/email-preferences"),
     voucher_printable: require('./nl/pages/voucher-printable'),

@@ -8,6 +8,7 @@ const VouchersComponent = function (
     const groupByType = (vouchers) => {
         $ctrl.regularVouchers = vouchers.filter((voucher) => voucher.type == 'regular');
         $ctrl.productVouchers = vouchers.filter((voucher) => voucher.type == 'product');
+        $ctrl.reimbursementVouchers = $ctrl.regularVouchers.filter((voucher) => voucher.fund.allow_reimbursements);
     };
 
     $ctrl.setArchived = (archived) => {

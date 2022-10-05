@@ -803,6 +803,48 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     }
 
     /**
+     * Reimbursements
+     */
+    $stateProvider.state({
+        name: "reimbursements",
+        url: "/organizations/{organization_id}/reimbursements?fund_id",
+        component: "reimbursementsComponent",
+        params: {
+            fund_id: null,
+        },
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.list($transition$.params().organization_id, { per_page: 100, configured: 1 }));
+            }],
+            fund: ['funds', '$transition$', 'FundService', (funds, $transition$, FundService) => {
+                if ($transition$.params().fund_id) {
+                    return funds.find((fund) => fund.id == $transition$.params().fund_id) || funds[0] || null;
+                }
+
+                return FundService.getLastSelectedFund(funds) || funds[0];
+            }],
+        }
+    });
+
+    /**
+     * Voucher details
+     */
+    $stateProvider.state({
+        name: "reimbursements-show",
+        url: "/organizations/{organization_id}/reimbursements/{id}",
+        component: "reimbursementsShowComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('reimbursements-list', 'manage_reimbursements'),
+            reimbursement: ['$transition$', 'ReimbursementService', 'permission', ($transition$, ReimbursementService) => {
+                return repackResponse(ReimbursementService.show($transition$.params().organization_id, $transition$.params().id));
+            }],
+        }
+    });
+
+    /**
      * Implementations
      */
     $stateProvider.state({

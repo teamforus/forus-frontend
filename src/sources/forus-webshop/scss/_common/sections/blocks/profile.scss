@@ -155,7 +155,7 @@
             z-index: 0;
             width: 75%;
             padding-left: 30px;
-
+            
             .profile-content-header {
                 position: relative;
                 z-index: 1;
@@ -279,9 +279,33 @@
 
             .profile-content {
                 .profile-content-header {
+                    display: flex;
+                    flex-direction: column;
+
                     .profile-content-subtitle {
                         font: 400 14px/22px $bf;
                         padding: 10px 0;
+                    }
+
+                    .block-label-tabs {
+                        display: flex;
+                        flex-direction: column;
+                        padding: 10px 0 0;
+
+                        .label-tab-set {
+                            margin: 0 0 10px;
+                            display: flex;
+                            flex-wrap: wrap;
+
+                            .label-tab {
+                                flex-basis: 33.33%;
+                                flex-grow: 1;
+                            }
+
+                            &:last-child {
+                                margin: 0 0 0;
+                            }
+                        }
                     }
                 }
             }

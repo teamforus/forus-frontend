@@ -174,4 +174,12 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('fundRequestAssignValidator', {
         component: 'modalFundRequestAssignValidatorComponent'
     });
+
+    ModalRouteProvider.modal('addNoteComponent', {
+        component: 'modalAddNoteComponent'
+    });
+
+    ModalRouteProvider.modal('reimbursementResolveComponent', {
+        component: 'modalReimbursementResolveComponent'
+    });
 }];
