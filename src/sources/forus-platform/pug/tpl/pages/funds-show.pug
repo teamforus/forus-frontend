@@ -100,7 +100,7 @@
             //- Fund users header
             .card-header: .flex
                 //- Title
-                .flex.flex-grow: .card-title Fund users
+                .flex.flex-grow: .card-title Aanvragers
 
                 //- Filters 
                 .flex: .block.block-inline-filters
@@ -121,9 +121,9 @@
                             tr
                                 th(th-sortable filters="$ctrl.identitiesFilters" label="ID" value="id")
                                 th(th-sortable filters="$ctrl.identitiesFilters" label="E-mail" value="email")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="Voucher total" value="count_vouchers")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="Active vouchers" value="count_vouchers_active")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="Active vouchers with balance" value="count_vouchers_active_with_balance")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="Totaal aantal vouchers" value="count_vouchers")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="Actieve vouchers" value="count_vouchers_active")
+                                th(th-sortable filters="$ctrl.identitiesFilters" label="Actieve vouchers met saldo" value="count_vouchers_active_with_balance")
                                 th(translate="identities.labels.actions").nowrap.text-right
 
                             tr(
@@ -158,13 +158,13 @@
             .card-section.card-section-primary
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
                     .keyvalue-item.col.col-lg-3
-                        .keyvalue-key People with vouchers
+                        .keyvalue-key Aanvragers met vouchers
                         .keyvalue-value
                             span(ng-bind="$ctrl.identities.meta.counts.active")
                             span.icon.mdi.mdi-account-multiple-outline
 
                     .keyvalue-item.col.col-lg-3
-                        .keyvalue-key People without e-mail
+                        .keyvalue-key Aanvragers zonder e-mailadres
                         .keyvalue-value
                             span(ng-bind="$ctrl.identities.meta.counts.without_email")
                             span.icon.mdi.mdi-email-off-outline
