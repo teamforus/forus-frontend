@@ -5895,6 +5895,67 @@ body {
             }
         }
     }
+    
+    &.block-email-confirmed {
+        flex-direction: column;
+        justify-content: center;
+        display: flex;
+        @include fill_parent();
+        background: #fff;
+        cursor: default;
+        
+        .block-email-confirmed-content {
+            text-align: center;
+
+            .block-email-confirmed-icon {
+                margin: 0 auto 10px;
+
+                img {
+                    display: block;
+                    width: 300px;
+                    max-width: 100%;
+                    margin: auto;
+                }
+            }
+
+            .block-email-confirmed-title {
+                font: 500 28px/38px $bf;
+                color: $color_primary;
+                margin: 0 0 20px;
+            }
+
+            .block-email-confirmed-subtitle {
+                font: 500 18px/27px $bf;
+                color: #454545;
+                margin: 0 0 20px;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            position: initial;
+
+            .block-email-confirmed-content {
+                padding: 25px;
+
+                .block-email-confirmed-title {
+                    font: 500 17px/30px $bf;
+                }
+    
+                .block-email-confirmed-subtitle {
+                    font: 400 13px/20px $bf;
+                }
+            }
+        }
+        
+        .block-email-confirmed-footer {
+            text-align: center;
+            
+            .button {
+                padding: 15px 45px;
+                width: auto;
+            }
+        }
+    }
 
     &.block-charts {
         .chart-row {
