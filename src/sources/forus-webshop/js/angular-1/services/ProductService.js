@@ -1,4 +1,4 @@
-const ProductService = function(ApiRequest, ArrService) {
+const ProductService = function(ApiRequest, PushNotificationsService) {
     const uriPrefix = '/platform/products';
 
     return new (function() {
@@ -12,6 +12,50 @@ const ProductService = function(ApiRequest, ArrService) {
 
         this.read = function(id) {
             return ApiRequest.get(`${uriPrefix}/${id}`);
+        }
+
+        this.bookmark = function(id) {
+            return ApiRequest.post(`${uriPrefix}/${id}/bookmark`);
+        }
+
+        this.removeBookmark = function(id) {
+            return ApiRequest.post(`${uriPrefix}/${id}/remove-bookmark`);
+        }
+
+        this.toggleBookmark = function(product) {
+            product.bookmarked = !product.bookmarked;
+
+            if (product.bookmarked) {
+                this.bookmark(product.id).then(() => {
+                    this.showBookmarkPush(product);
+                });
+            } else {
+                this.removeBookmark(product.id).then(() => {
+                    PushNotificationsService.success(`${product.name} is verwijderd uit het verlanglijstje!`);
+                });
+            }
+
+            return product;
+        }
+
+        this.showBookmarkPush = function(product) {
+            const media = product.photo || product.logo || null;
+            const productImgSrc = media?.sizes?.small || media?.sizes?.thumbnail || './assets/img/placeholders/product-small.png';
+
+            this.list({ bookmarked: 1, per_page: 1 }).then((res) => {
+                PushNotificationsService.raw({
+                    isBookmark: true,
+                    icon: null,
+                    title: product.name,
+                    imageSrc: productImgSrc,
+                    message: `Er staan ${res.data.meta.total} aanbiedingen in het verlanglijstje`,
+                    group: 'bookmarks',
+                    timeout: 4000,
+                    btnText: 'Ga naar mijn verlanglijstje',
+                    btnSref: 'bookmarked-products',
+                    btnIcon: 'cards-heart-outline',
+                });
+            });
         }
 
         this.calcExpireDate = function(dates) {
@@ -73,11 +117,45 @@ const ProductService = function(ApiRequest, ArrService) {
 
             return { regularActiveVouchers, funds };
         }
+
+        this.getSortOptions = () => {
+            return [{
+                label: 'Nieuwe eerst',
+                value: {
+                    order_by: 'created_at',
+                    order_by_dir: 'desc',
+                }
+            }, {
+                label: 'Oudste eerst',
+                value: {
+                    order_by: 'created_at',
+                    order_by_dir: 'asc',
+                }
+            }, {
+                label: 'Prijs (oplopend)',
+                value: {
+                    order_by: 'price',
+                    order_by_dir: 'asc',
+                }
+            }, {
+                label: 'Prijs (aflopend)',
+                value: {
+                    order_by: 'price',
+                    order_by_dir: 'desc',
+                }
+            }, {
+                label: 'Meest gewild',
+                value: {
+                    order_by: 'most_popular',
+                    order_by_dir: 'desc',
+                }
+            }];
+        }
     });
 };
 
 module.exports = [
     'ApiRequest',
-    'ArrService',
+    'PushNotificationsService',
     ProductService
 ];

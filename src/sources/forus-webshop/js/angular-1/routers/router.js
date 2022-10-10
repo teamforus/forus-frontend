@@ -146,8 +146,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "products",
         url: {
-            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
-            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
+            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
+            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
         },
         component: "productsComponent",
         params: {
@@ -176,6 +176,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             display_type: {
                 dynamic: true,
                 value: 'list',
+                squash: true
+            },
+            bookmarked: {
+                dynamic: true,
+                value: false,
                 squash: true
             },
             fund_type: {
@@ -209,7 +214,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 fund_id: $transition$.params().fund_id,
                 fund_type: $transition$.params().fund_type,
                 organization_id: $transition$.params().organization_id,
-                product_category_id: $transition$.params().product_category_id
+                product_category_id: $transition$.params().product_category_id,
+                bookmarked: $transition$.params().bookmarked ? 1 : 0,
             }))],
             productCategories: ['ProductCategoryService', (ProductCategoryService) => {
                 return repackResponse(ProductCategoryService.list({ parent_id: 'null', used: 1 }))
@@ -553,6 +559,27 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             vouchers: ['VoucherService', (VoucherService) => {
                 return repackResponse(VoucherService.list({ archived: 0 }));
             }],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "bookmarked-products",
+        url: {
+            en: "/bookmarks?{page:int}&{display_type:string}",
+            nl: "/bladwijzers?{page:int}&{display_type:string}",
+        },
+        params: {
+            display_type: {
+                dynamic: true,
+                value: 'list',
+                squash: true
+            },
+        },
+        component: "bookmarkedProductsComponent",
+        resolve: {
+            products: ['ProductService', (ProductService) => repackPagination(ProductService.list({
+                bookmarked: 1
+            }))],
         }
     });
 

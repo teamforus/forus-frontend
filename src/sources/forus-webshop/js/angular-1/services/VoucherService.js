@@ -66,14 +66,14 @@ const VoucherService = function(ApiRequest) {
             return ApiRequest.post(`${apiPrefix}/${address}/deactivate`, data);
         }
 
-        this.composeTransactions = function(voucher) {
-            const transactions = voucher.transactions.slice().map(
-                transaction => ({ ...transaction, ...{ type: 'transaction' } })
-            );
+        this.composeTransactions = function (voucher) {
+            const transactions = voucher.transactions.slice().map((transaction) => ({
+                ...transaction, type: 'transaction', incoming: transaction.target === 'top_up',
+            }));
 
-            const productVouchers = (voucher.product_vouchers || []).map(
-                product_voucher => ({ ...product_voucher, ...{ type: 'product_voucher' } })
-            );
+            const productVouchers = (voucher.product_vouchers || []).map((product_voucher) => ({
+                ...product_voucher, type: 'product_voucher', incoming: false,
+            }));
 
             return [...transactions, ...productVouchers].sort((a, b) => b.timestamp - a.timestamp);
         };

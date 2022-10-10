@@ -8,6 +8,7 @@
         flex-direction: row;
         min-height: 100px;
         transition: box-shadow .4s;
+        position: relative;
 
         .product-photo {
             width: 150px;
@@ -68,6 +69,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            flex-wrap: wrap;
 
             .product-price {
                 font: 700 17px/30px $bf;
@@ -76,6 +78,12 @@
                 text-align: right;
                 width: 100%;
             }
+        }
+
+        .block-bookmark-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
         }
 
         &:hover {
@@ -116,6 +124,7 @@
                 border: none;
                 padding: 0 0 10px;
                 flex-grow: 0;
+                padding-right: 40px;
 
                 .product-name {
                     font: 700 13px/18px $bf;
@@ -134,7 +143,7 @@
                 width: 100%;
                 border: none;
                 padding: 0;
-                flex-direction: row;
+                flex-grow: 1;
 
                 .label {
                     line-height: 18px;

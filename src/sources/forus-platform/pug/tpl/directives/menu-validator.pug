@@ -42,9 +42,3 @@ aside.app.app-sidebar
             '{organization_id: $root.activeOrganization.id}',
             'true',
             'requesters')
-
-        .sidebar-section-title(ng-if="$root.activeOrganization" translate="menu.personal")
-
-        +nav_item('E-mail instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
-        +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
-        +nav_item('Notificatievoorkeuren', 'notifications', 'preferences-notifications')

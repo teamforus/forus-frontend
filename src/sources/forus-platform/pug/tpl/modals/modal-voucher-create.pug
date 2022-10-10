@@ -28,11 +28,18 @@
 
                 .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.fund.type === 'budget'")
                     label.form-label.form-label-required(i18n="modals.modal_voucher_create.labels.amount")
-                    input(  
-                        type="number" 
-                        placeholder="{{ 'modals.modal_voucher_create.labels.amount' | i18n }}"
-                        ng-model="$ctrl.form.values.amount" step=".01" min="0.01").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
+
+                    .form-offset
+                        input(  
+                            type="number" 
+                            placeholder="{{ 'modals.modal_voucher_create.labels.amount' | i18n }}"
+                            ng-model="$ctrl.form.values.amount" 
+                            step=".01" 
+                            min="0.01" 
+                            max="$ctrl.fund.limit_per_voucher").form-control
+
+                        .form-hint(ng-if="!$ctrl.form.errors.amount") Limiet {{ $ctrl.fund.limit_per_voucher | currency_format }}
+                        .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
                 
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")

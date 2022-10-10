@@ -49,22 +49,29 @@ block content
                                 .data-list-key Type aanbieder:
                                 .data-list-value
                                     .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen aanbieder type' }}
-                
+
+                //- Provider description
+                .block.block-pane(ng-if="$ctrl.provider.description_html")
+                    .pane-head: h2.pane-head-title Omschrijving
+                    .pane-section: .block.block-markdown: .markdown-wrapper(ng-bind-html="$ctrl.provider.description_html")
+
+                //- Provider offices header
                 .block.block-pane.last-child: h2.pane-head
                     .flex-grow Vestigingen
                     .pane-head-count(ng-bind="$ctrl.provider.offices.length")
                 
+                //- Provider offices list
                 .block.block-organizations
                     .organization-item
                         .organization-offices: .block.block-offices
-                            a(ng-repeat="office in $ctrl.provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
+                            a(ng-repeat="office in $ctrl.provider.offices" ui-sref="provider-office(office)").office-item
                                 .office-item-map-icon: .mdi.mdi-map-marker
                                 .office-pane
                                     .office-pane-block
                                         .office-logo: img(
                                             ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
-                                            alt="Vestiging {{ office.organization.name }}"
-                                            ).office-logo-img
+                                            alt="Vestiging {{ office.organization.name }}").office-logo-img
+
                                         .office-details
                                             .office-title(ng-bind="office.address")
                                             .office-labels

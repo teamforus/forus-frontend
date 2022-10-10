@@ -7,7 +7,7 @@ let ExplanationComponent = function(
     $ctrl.$onInit = () => {
         FundService.list().then(res => $ctrl.funds = res.data.data);
         
-        $ctrl.description_html = $sce.trustAsHtml($ctrl.page.content_html);
+        $ctrl.description_html = $sce.trustAsHtml($ctrl.page.description_html);
     };
 };
 

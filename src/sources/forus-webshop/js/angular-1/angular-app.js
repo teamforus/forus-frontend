@@ -48,12 +48,12 @@ app.component('explanationComponent', require('./components/ExplanationComponent
 app.component('errorPageComponent', require('./components/ErrorPageComponent'));
 app.component('searchResultComponent', require('./components/SearchResultComponent'));
 app.component('sitemapComponent', require('./components/SitemapComponent'));
+app.component('bookmarkedProductsComponent', require('./components/BookmarkedProductsComponent'));
 
 // Services
 app.service('ArrService', require('./services/ArrService'));
 app.service('AuthService', require('./services/AuthService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
-app.service('TransactionService', require('./services/TransactionService'));
 app.service('FundService', require('./services/FundService'));
 app.service('FundRequestService', require('./services/FundRequestService'));
 app.service('FundRequestClarificationService', require('./services/FundRequestClarificationService'));

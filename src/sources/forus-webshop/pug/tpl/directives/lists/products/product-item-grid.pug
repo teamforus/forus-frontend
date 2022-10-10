@@ -1,8 +1,18 @@
 .product-item
+    mixin bookmark_toggle()
+        .block.block-bookmark-toggle(
+            ng-if="$root.auth_user"
+            ng-click="$dir.toggleBookmark($event)"
+            ng-class="$dir.product.bookmarked ? 'active' : ''")
+                .mdi.mdi-cards-heart(ng-if="$dir.product.bookmarked")
+                .mdi.mdi-cards-heart-outline(ng-if="!$dir.product.bookmarked")
+
     //- Products
     a(ui-sref="product(product)" ng-if="$dir.productType == 'budget'").product-item-inner
+        +bookmark_toggle()
+        
         .product-image: img(
-            ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
+            ng-src="{{ $dir.productImgSrc }}" 
             alt="")
 
         .product-details
@@ -12,9 +22,11 @@
 
     //- Subsidies
     a(ui-sref="product(product)" ng-if="$dir.productType == 'subsidies'").product-item-inner
+        +bookmark_toggle()
+        
         .product-image
             img(
-                ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
+                ng-src="{{ $dir.productImgSrc }}" 
                 alt="")
 
             .product-price(ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min == 0") Gratis

@@ -17,5 +17,5 @@ main(id="main-content")
 
         .block.block-steps(ng-if="$ctrl.description_html"): .wrapper
             .block-steps-description: .block.block-markdown(
-                ng-class="'block-markdown-' + $ctrl.page.content_alignment"
+                ng-class="'block-markdown-' + $ctrl.page.description_alignment"
                 ng-bind-html="$ctrl.description_html")    
