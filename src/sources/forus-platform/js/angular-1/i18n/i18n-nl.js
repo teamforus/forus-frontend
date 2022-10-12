@@ -453,8 +453,8 @@ module.exports = {
     },
 
     implementation_config: {
-        show_products_homepage: "Show products section (homepage)",
-        show_map_homepage: "Show map section (homepage)",
+        show_products_home: "Show products section (homepage)",
+        show_map_home: "Show map section (homepage)",
         show_map_providers: "Show map (providers page)",
         show_map_provider: "Show map (provider page)",
     },

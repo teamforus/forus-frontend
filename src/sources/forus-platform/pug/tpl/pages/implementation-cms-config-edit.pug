@@ -17,10 +17,10 @@
                     button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
 
             //- Webshop configuration fields
-            .card-section.card-section-primary.card-section.settings-block(ng-repeat="page in $ctrl.pages"): .row
-                .card-title.card-title-var2 {{ page }} settings
+            .card-section.card-section-primary.card-section-settings(ng-repeat="page in $ctrl.pages"): .row
+                .card-title {{ page }} settings
 
-                .flex-row: .card-block.card-block-listing.card-block-listing-var2(
+                .flex-row: .card-block.card-block-listing(
                     ng-if="config.page_key == page" 
                     ng-repeat="config in $ctrl.form.values.config"
                     ng-class="{'active': config.is_active}")

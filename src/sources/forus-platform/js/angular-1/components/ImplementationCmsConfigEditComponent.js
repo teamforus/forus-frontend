@@ -1,17 +1,20 @@
 const ImplementationCmsConfigEditComponent = function (
-    $scope,
     FormBuilderService,
     ImplementationService,
     PushNotificationsService
 ) {
     const $ctrl = this;
-    $ctrl.pages = ['homepage', 'provider', 'providers'];
+    $ctrl.pages = [];
 
     $ctrl.$onInit = function() {
         $ctrl.implementationConfig = $ctrl.implementationConfig.map(config => {
             config.is_active = config.is_active ? true : false;
             return config;
         });
+
+        $ctrl.pages = $ctrl.implementationConfig.map(config => config.page_key).filter(
+            (value, index, self) => self.indexOf(value) === index
+        );
 
         $ctrl.form = FormBuilderService.build({
             config: $ctrl.implementationConfig,
@@ -34,7 +37,6 @@ module.exports = {
         implementationConfig: '<',
     },
     controller: [
-        '$scope',
         'FormBuilderService',
         'ImplementationService',
         'PushNotificationsService',
