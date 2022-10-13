@@ -1,5 +1,21 @@
 .block {
-    @media screen and (min-width: 1000px) { 
+    @media screen and (min-width: 1000px) {
+        &.block-navbar {
+            border-bottom: 0;
+
+            .navbar-inner {
+                order: 2;
+            }
+
+            .navbar-list {
+                .navbar-item-wrapper {
+                    .navbar-item {
+                        font: 400 22px/26px $bf;
+                    }
+                }
+            }
+        }
+
         &.block-cms-funds {
             display: auto;
 
@@ -23,7 +39,33 @@
                     .fund-title {
                         color: $tc;
                     }
+
+                    .fund-description {
+                        min-height: 100px;
+                    }
                 }
+            }
+            
+            .fund-item:nth-of-type(2n) { 
+                .fund-information {
+                    padding-right: 0;
+                }    
+            }
+
+            .fund-item:nth-of-type(1) {
+                .fund-information {
+                    .fund-description {
+                        min-height: 60px;
+                    }
+                }   
+            }
+
+            .fund-item:nth-of-type(2) {
+                .fund-information {
+                    .fund-description {
+                        min-height: 60px;
+                    }
+                }   
             }
         }
     }
