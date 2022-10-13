@@ -20,7 +20,7 @@ block content
                 map-gesture-handling="'none'"
                 open-first-pointer="true")
 
-            .provider-content
+            .provider-content(ng-class="{'provider-content-top': !$ctrl.show_map}")
                 .block.block-pane
                     .pane-head
                         h1.sr-only(ng-bind="$ctrl.provider.name") 

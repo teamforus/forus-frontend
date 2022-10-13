@@ -67,7 +67,7 @@ block content
                                         id="distance")
                                     .form-error(ng-repeat="error in $ctrl.form.errors.distance" ng-bind="error")
 
-                            .showcase-result(ng-if="$ctrl.showMap && $ctrl.show_map")
+                            .showcase-result(ng-if="$ctrl.showMap")
                                 | Er zijn #[.showcase-result-count(ng-bind="$ctrl.providers.meta.total")] aanbieders gevonden
 
                         a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm
@@ -82,7 +82,7 @@ block content
                                 .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
 
                             .showcase-filters-block
-                                .block.block-label-tabs.pull-right(ng-if="$ctrl.show_map")
+                                .block.block-label-tabs.pull-right(ng-if="$ctrl.showCMSMap")
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: !$ctrl.showMap}"
                                         ng-click="$ctrl.showAsList()")

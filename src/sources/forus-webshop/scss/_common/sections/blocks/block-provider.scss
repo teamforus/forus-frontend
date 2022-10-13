@@ -57,7 +57,6 @@
         margin: 0 auto;
         position: relative;
         z-index: 1;
-        margin-top: 95px;
 
         .provider-details {
             display: flex;
@@ -95,6 +94,10 @@
 
         .block-pane:first-child {
             margin-top: -70px;
+        }
+
+        &.provider-content-top {
+            margin-top: 95px;
         }
     }
 

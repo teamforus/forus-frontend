@@ -115,7 +115,11 @@ const ProvidersComponent = function(
     };
 
     $ctrl.$onInit = () => {
-        $ctrl.showMap = $stateParams.show_map;
+        $ctrl.showCMSMap = appConfigs.features.implementation_configs.find(config => {
+            return config.page_key == 'providers' && config.page_config_key == "show_map"
+        }).is_active;
+
+        $ctrl.showMap = $stateParams.show_map && $ctrl.showCMSMap;
 
         $ctrl.funds.unshift({
             id: null,
@@ -141,10 +145,6 @@ const ProvidersComponent = function(
         }
 
         $ctrl.updateFiltersUsedCount();
-
-        $ctrl.show_map = appConfigs.features.implementation_configs.find(config => {
-            return config.page_key == 'providers' && config.page_config_key == "show_map"
-        }).is_active;
     };
 };
 
