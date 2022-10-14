@@ -5,7 +5,7 @@ a(ui-sref="voucher(voucher)").voucher-item
         .voucher-name(ng-bind="voucherCard.title")
         .voucher-organization(ng-bind="voucherCard.subtitle")
         .voucher-value(
-            ng-if="voucherCard.is_internal && (voucherCard.fund.type == 'budget') && (voucherCard.type == 'regular')" 
+            ng-if="!voucherCard.is_external && (voucherCard.fund.type == 'budget') && (voucherCard.type == 'regular')" 
             ng-bind="voucherCard.amount | currency_format")
 
         .voucher-status-label(ng-if="!voucher.deactivated")

@@ -84,7 +84,7 @@
 
                     //- reactivate voucher
                     .button.button-danger.button-sm(
-                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'deactivated' && $ctrl.voucher.is_internal"
+                        ng-if="!$ctrl.voucher.expired && $ctrl.voucher.state === 'deactivated' && !$ctrl.voucher.is_external"
                         ng-click="$ctrl.activateVoucher()")
                         em.mdi.mdi-alert-outline.icon-start
                         | Activeren
@@ -111,13 +111,13 @@
                         span(translate="vouchers.buttons.physical_card_delete")
 
                     .button.button-primary.button-sm(
-                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.expired && !$ctrl.voucher.is_granted  && $ctrl.voucher.state === 'pending' && $ctrl.voucher.is_internal"
+                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.expired && !$ctrl.voucher.is_granted  && $ctrl.voucher.state === 'pending' && !$ctrl.voucher.is_external"
                         ng-click="$ctrl.showQrCode()")
                         em.mdi.mdi-clipboard-account.icon-start 
                         span(translate="vouchers.buttons.activate")
 
                     .button.button-primary.button-sm(
-                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.is_granted && !$ctrl.voucher.expired && $ctrl.voucher.state === 'active' && $ctrl.voucher.is_internal"
+                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.is_granted && !$ctrl.voucher.expired && $ctrl.voucher.state === 'active' && !$ctrl.voucher.is_external"
                         ng-click="$ctrl.showQrCode()")
                         em.mdi.mdi-qrcode.icon-start 
                         string(translate="vouchers.labels.qr_code")
