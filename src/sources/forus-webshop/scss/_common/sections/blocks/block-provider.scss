@@ -106,6 +106,10 @@
             .block-pane:first-child {
                 margin-top: -15px;
             }
+
+            &.provider-content-top {
+                margin-top: 35px;
+            }
         }
     }
 }

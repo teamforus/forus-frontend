@@ -1058,23 +1058,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                     }
                 });
             }],
-            implementationConfig: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
-                $transition$, $timeout, $state, ImplementationService
-            ) => {
-                return repackResponse(ImplementationService.readConfig(
-                    $transition$.params().organization_id,
-                    $transition$.params().implementation_id,
-                ), (res) => {
-                    if (res.status === 403) {
-                        $timeout(() => {
-                            $state.go('implementation-cms', {
-                                organization_id: $transition$.params().organization_id,
-                                id: $transition$.params().implementation_id,
-                            });
-                        }, 100);
-                    }
-                });
-            }],
         }
     });
 

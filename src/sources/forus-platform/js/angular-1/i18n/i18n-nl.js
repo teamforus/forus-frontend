@@ -453,10 +453,17 @@ module.exports = {
     },
 
     implementation_config: {
-        show_products_home: "Show products section (homepage)",
-        show_map_home: "Show map section (homepage)",
-        show_map_providers: "Show map (providers page)",
-        show_map_provider: "Show map (provider page)",
+        pages: {
+            home: "Home Settings",
+            providers: "Providers Settings",
+            provider: "Provider Settings",
+        },
+        blocks: {
+            show_home_map: "Show map section (homepage)",
+            show_home_products: "Show products section (homepage)",
+            show_providers_map: "Show map (providers page)",
+            show_provider_map: "Show map (provider page)",
+        },
     },
 
     // EDIT FUNDS = funds-edit.pug

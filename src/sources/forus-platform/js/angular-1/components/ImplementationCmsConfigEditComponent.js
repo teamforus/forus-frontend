@@ -4,28 +4,38 @@ const ImplementationCmsConfigEditComponent = function (
     PushNotificationsService
 ) {
     const $ctrl = this;
-    $ctrl.pages = [];
+
+    $ctrl.configs = [{
+        page: 'home',
+        blocks: [
+            'show_home_map',
+            'show_home_products',
+        ],
+    }, {
+        page: 'providers',
+        blocks: [
+            'show_providers_map',
+        ],
+    }, {
+        page: 'provider',
+        blocks: [
+            'show_provider_map',
+        ],
+    }];
 
     $ctrl.$onInit = function() {
-        $ctrl.implementationConfig = $ctrl.implementationConfig.map(config => {
-            config.is_active = config.is_active ? true : false;
-            return config;
-        });
-
-        $ctrl.pages = $ctrl.implementationConfig.map(config => config.page_key).filter(
-            (value, index, self) => self.indexOf(value) === index
-        );
-
         $ctrl.form = FormBuilderService.build({
-            config: $ctrl.implementationConfig,
+            show_home_map: $ctrl.implementation.show_home_map,
+            show_home_products: $ctrl.implementation.show_home_products,
+            show_provider_map: $ctrl.implementation.show_provider_map,
+            show_providers_map: $ctrl.implementation.show_providers_map,
         }, function(form) {
-            ImplementationService.updateConfig($ctrl.organization.id, $ctrl.implementation.id, form.values).then(() => {
+            ImplementationService.updateCMS($ctrl.organization.id, $ctrl.implementation.id, form.values).then(() => {
                 PushNotificationsService.success('Opgeslagen!');
-                form.unlock();
-            }, () => {
-                PushNotificationsService.danger('Error!');
-                form.unlock();
-            });
+            }, (res) => {
+                PushNotificationsService.danger('Error!', res.data.message);
+                form.errors = res.data.errors;
+            }).finally(() => form.unlock());
         }, true);
     };
 };
@@ -34,7 +44,6 @@ module.exports = {
     bindings: {
         organization: '<',
         implementation: '<',
-        implementationConfig: '<',
     },
     controller: [
         'FormBuilderService',

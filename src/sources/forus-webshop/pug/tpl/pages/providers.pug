@@ -82,7 +82,7 @@ block content
                                 .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
 
                             .showcase-filters-block
-                                .block.block-label-tabs.pull-right(ng-if="$ctrl.showCMSMap")
+                                .block.block-label-tabs.pull-right(ng-if="$root.appConfigs.features.show_providers_map")
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: !$ctrl.showMap}"
                                         ng-click="$ctrl.showAsList()")
