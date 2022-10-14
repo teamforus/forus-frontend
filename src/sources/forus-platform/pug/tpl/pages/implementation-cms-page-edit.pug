@@ -89,9 +89,8 @@
                 //- FAQ Editor
                 .form-group.form-group-inline.form-group-inline-lg
                     label.form-label Veel gestelde vragen
-                    .form-offset: implementation-page-faq-editor(
+                    .form-offset: faq-editor(
                         faq="$ctrl.form.values.faq"
-                        implementation="$ctrl.implementation"
                         organization="$ctrl.organization" 
                         register-parent="$ctrl.registerFaqEditor(childRef)")
 
