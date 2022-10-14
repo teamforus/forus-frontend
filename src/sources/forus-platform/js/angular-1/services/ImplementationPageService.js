@@ -25,10 +25,6 @@ const ImplementationPageService = function (ApiRequest) {
         this.validateBlocks = (organization_id, id, data = {}) => {
             return ApiRequest.post(`${uriPrefix}${organization_id}/implementations/${id}/pages/validate-blocks`, data);
         };
-        
-        this.validateFaq = (organization_id, id, faq = {}) => {
-            return ApiRequest.post(`${uriPrefix}${organization_id}/implementations/${id}/pages/validate-faq`, { faq });
-        };
     });
 };
 

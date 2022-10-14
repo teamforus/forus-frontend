@@ -2,10 +2,10 @@ const uniq = require('lodash/uniq');
 
 const FaqEditorDirective = function(
     $q,
-    $filter,
     $scope,
+    $filter,
+    FaqService,
     ModalService,
-    FaqService
 ) {
     const $dir = $scope.$dir = {};
     const $translate = $filter('translate');
@@ -89,12 +89,12 @@ module.exports = () => {
         replace: true,
         controller: [
             '$q',
-            '$filter',
             '$scope',
-            'ModalService',
+            '$filter',
             'FaqService',
+            'ModalService',
             FaqEditorDirective
         ],
-        templateUrl: 'assets/tpl/directives/faq-editor.html'
+        templateUrl: 'assets/tpl/directives/faq-editor.html',
     };
 };
