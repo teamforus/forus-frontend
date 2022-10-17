@@ -49,14 +49,14 @@ main(id="main-content")
             .block.block-pane(ng-if="$ctrl.productMeta.funds.length > 0")
                 .pane-head: h2(i18n="product.headers.funds" ui-sref="vouchers").pane-head-title
                 .pane-section.pane-section-collapsed
-                    .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds")
+                    .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds" dusk="fundItem")
                         .fund-item-section.fund-item-section-details.text-left
                             .fund-item-media: img.fund-item-media-img(
                                 ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
 
                             .fund-item-content
                                 .fund-item-section-label.flex-start Tegoed:
-                                .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name")
+                                .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name" dusk="fundName")
                         
                         .fund-item-section
                             .fund-item-section-label(i18n="product.labels.expire")
@@ -106,7 +106,8 @@ main(id="main-content")
                         .fund-item-section(ng-if="fund.meta.isReservationAvailable")
                             .button.button-dark.button-flat(
                                 i18n="product.buttons.buy" 
-                                ng-click="$ctrl.reserveProduct(fund)")
+                                ng-click="$ctrl.reserveProduct(fund)"
+                                dusk="reserveProduct")
 
                         //- request fund
                         .fund-item-section(ng-if="!fund.meta.applicableVouchers.length && $ctrl.signedIn && !fund.meta.isReservationAvailable")

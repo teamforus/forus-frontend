@@ -8,7 +8,7 @@
                 .mdi.mdi-cards-heart-outline(ng-if="!$dir.product.bookmarked")
 
     //- Products
-    a(ui-sref="product(product)" ng-if="$dir.productType == 'budget'").product-item-inner
+    a(ui-sref="product(product)" ng-if="$dir.productType == 'budget'" dusk="productItem").product-item-inner
         +bookmark_toggle()
         
         .product-image: img(
@@ -16,12 +16,12 @@
             alt="")
 
         .product-details
-            .product-name.product-name-ellipsis(ng-bind="$dir.product.name")
+            .product-name.product-name-ellipsis(ng-bind="$dir.product.name" dusk="productName")
             .product-organization(ng-bind="$dir.product.organization.name")
             .product-price.text-right(ng-bind="$dir.product.price_locale")
 
     //- Subsidies
-    a(ui-sref="product(product)" ng-if="$dir.productType == 'subsidies'").product-item-inner
+    a(ui-sref="product(product)" ng-if="$dir.productType == 'subsidies'" dusk="productItem").product-item-inner
         +bookmark_toggle()
         
         .product-image
@@ -39,5 +39,5 @@
                 ng-bind="$dir.product.price_locale")
 
         .product-details
-            .product-name(ng-bind="$dir.product.name")
+            .product-name(ng-bind="$dir.product.name" dusk="productName")
             .product-provider(ng-bind="$dir.product.organization.name")
