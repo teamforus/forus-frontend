@@ -457,12 +457,14 @@ module.exports = {
             home: "Home Settings",
             providers: "Providers Settings",
             provider: "Provider Settings",
+            office: "Office Settings",
         },
         blocks: {
             show_home_map: "Show map section (homepage)",
             show_home_products: "Show products section (homepage)",
             show_providers_map: "Show map (providers page)",
             show_provider_map: "Show map (provider page)",
+            show_office_map: "Show map (office page)",
         },
     },
 

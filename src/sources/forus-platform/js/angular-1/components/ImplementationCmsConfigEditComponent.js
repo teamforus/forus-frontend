@@ -21,6 +21,11 @@ const ImplementationCmsConfigEditComponent = function (
         blocks: [
             'show_provider_map',
         ],
+    }, {
+        page: 'office',
+        blocks: [
+            'show_office_map',
+        ],
     }];
 
     $ctrl.$onInit = function() {
@@ -29,6 +34,7 @@ const ImplementationCmsConfigEditComponent = function (
             show_home_products: $ctrl.implementation.show_home_products,
             show_provider_map: $ctrl.implementation.show_provider_map,
             show_providers_map: $ctrl.implementation.show_providers_map,
+            show_office_map: $ctrl.implementation.show_office_map,
         }, function(form) {
             ImplementationService.updateCMS($ctrl.organization.id, $ctrl.implementation.id, form.values).then(() => {
                 PushNotificationsService.success('Opgeslagen!');
