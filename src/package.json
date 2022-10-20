@@ -14,9 +14,9 @@
   "author": "HardCoderNET",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.16.0",
+    "@babel/core": "7.19.6",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-env": "7.19.4",
     "babelify": "^10.0.0",
     "browser-sync": "^2.27.7",
     "browserify": "^17.0.0",
