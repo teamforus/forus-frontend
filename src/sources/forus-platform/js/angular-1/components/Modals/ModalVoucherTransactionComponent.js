@@ -103,6 +103,7 @@ const ModalVoucherTransactionProviderComponent = function (
         $ctrl.onCreated = onCreated;
         $ctrl.organization = organization;
         $ctrl.target = target || $ctrl.targets[0]?.key;
+        $ctrl.providers = [];
 
         $ctrl.fetchVoucherFund(voucher).then((fund) => {
             $ctrl.fund = fund;
@@ -112,13 +113,18 @@ const ModalVoucherTransactionProviderComponent = function (
                 $ctrl.targets.push({ key: 'iban', name: 'Bankrekening' },);
             }
 
-            $ctrl.fetchProviders(voucher, organization).then((data) => {
-                $ctrl.providers = data;
-                $ctrl.providersList = data.reduce((list, item) => ({ ...list, [item.id]: item }), {});
+            if (target === 'top_up') {
                 $ctrl.form = $ctrl.buildForm();
-
                 $ctrl.onFormChange();
-            });
+            } else {
+                $ctrl.fetchProviders(voucher, organization).then((data) => {
+                    $ctrl.providers = data;
+                    $ctrl.providersList = data.reduce((list, item) => ({ ...list, [item.id]: item }), {});
+                    $ctrl.form = $ctrl.buildForm();
+
+                    $ctrl.onFormChange();
+                });
+            }
         });
     };
 };
