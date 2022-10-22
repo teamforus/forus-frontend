@@ -20,6 +20,7 @@ const ModalVoucherTransactionProviderComponent = function (
     $ctrl.fetchProviders = (voucher, organization) => {
         return OrganizationService.providerOrganizations(organization.id, {
             state: 'accepted',
+            resource_type: 'select',
             fund_id: voucher.fund_id,
             allow_budget: 1,
             per_page: 1000,
