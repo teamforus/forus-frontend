@@ -28,6 +28,13 @@
 
                 .fund-media {
                     width: 100%;
+
+                    img {
+                        width: 100%;
+                        display: block;
+                        max-height: 250px;
+                        object-fit: cover;                        
+                    }
                 }
 
                 .fund-information {
@@ -55,7 +62,7 @@
             .fund-item:nth-of-type(1) {
                 .fund-information {
                     .fund-description {
-                        min-height: 60px;
+                        min-height: 75px;
                     }
                 }   
             }
@@ -63,7 +70,7 @@
             .fund-item:nth-of-type(2) {
                 .fund-information {
                     .fund-description {
-                        min-height: 60px;
+                        min-height: 75px;
                     }
                 }   
             }
@@ -111,12 +118,12 @@
 
     @media screen and (min-width: 1000px) { 
         &.section-header { 
-            height: 500px;
-            padding: 75px 0;
+            height: auto;
+            padding: 50px 0;
         
             .header-content {
                 text-align: left;
-                padding: 50px 50px;
+                padding: 30px 50px;
                 background-color: #3558A2;
         
                 .header-description p {
