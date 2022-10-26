@@ -13,7 +13,7 @@
                     .flex.form-group
                         input(type="email" placeholder="bijv. info@info.nl" ng-model="form.values.email" autofocus).form-control
                         .form-error(ng-repeat="error in form.errors.email" ng-bind="error")
-                    .flex: button.button.button-primary(type="submit" dusk="authEmailFormSubmit") Login
+                    .flex: button.button.button-primary(type="submit") Login
 
         .block-login-me_app
             .qr_code-container
@@ -42,7 +42,7 @@
         a(ui-sref="sign-up").block-login-footer-button Inschrijven
     
     //- Email sent message
-    .block-login-content(ng-if="emailSent" dusk="authEmailSentConfirmation")
+    .block-login-content(ng-if="emailSent")
         .block-login-email_sent
             .block-login-email_sent-icon: img(src=src_prefix + "./assets/img/sign_up-email.svg").sign_up-email_sent-icon-img
             .block-login-email_sent-title(translate="popup_auth.labels.join")
