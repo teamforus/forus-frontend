@@ -22,7 +22,7 @@
         nav.navbar-item-wrapper: a(href="{{ $root.appConfigs.frontends.url_webshop }}").navbar-item WEBSHOP
     .block.block-auth
         .auth-in(ng-if="$root.auth_user")
-            .auth-user
+            .auth-user(dusk="userProfile")
                 .auth-user-email(ng-bind="$root.auth_user.email || ($root.auth_user.address | str_limit:32)")
                 .auth-user-type(translate="topnavbar.items.identity")
                 .auth-user-avatar
@@ -38,7 +38,7 @@
                                 span(translate="topnavbar.buttons.authorize")
 
                             .auth-user-menu-separator.visible-sm.visible-xs
-                            div(ng-click="$root.signOut()").auth-user-menu-item
+                            div(ng-click="$root.signOut()" dusk="btnUserLogout").auth-user-menu-item
                                 img(src="./assets/img/landing/icon-menu/icon-menu-sign-out.svg")
                                 span(translate="topnavbar.buttons.logout")
         

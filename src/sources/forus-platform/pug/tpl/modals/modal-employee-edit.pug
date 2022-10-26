@@ -10,13 +10,13 @@
             .modal-section
                 .form-group(ng-if="!$ctrl.modal.scope.employee")
                     label.form-label.form-label-required E-mailadres
-                    input(type="text" ng-model="$ctrl.form.values.email" placeholder="E-mailadres..." id="email_value").form-control
+                    input(type="text" ng-model="$ctrl.form.values.email" placeholder="E-mailadres..." id="email_value" dusk="formEmployeeEmail").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
 
                 .form-group(ng-if="!$ctrl.employee")
                     label.form-label Rollen
                     .block.block-permissions-list: .permission-item(ng-repeat="role in $ctrl.modal.scope.roles")
-                        label(ng-click="$ctrl.toggleOption(role.id)" for="product_{{ role.id }}" title="{{ role.name }}").checkbox.checkbox-narrow
+                        label(ng-click="$ctrl.toggleOption(role.id)" for="role_{{ role.id }}" title="{{ role.name }}" dusk="formEmployeeRole").checkbox.checkbox-narrow
                             input(type="checkbox" ng-checked="$ctrl.isChecked(role.id)")
                             .checkbox-label
                                 .checkbox-box: .mdi.mdi-check
