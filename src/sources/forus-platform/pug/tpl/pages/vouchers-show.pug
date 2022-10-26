@@ -215,7 +215,7 @@
                                     strong(ng-bind="$ctrl.voucher.amount_available | currency_format").text-black
 
         //- Voucher history
-        //-event-logs(
+        event-logs(
             ng-if="$ctrl.voucher"
             organization="$ctrl.organization"
             filter-values="$ctrl.eventFilters"
