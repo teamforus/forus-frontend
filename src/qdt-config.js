@@ -53,6 +53,8 @@ core.addPlatform(require('./platforms/Webshops/WebshopVergoedingenPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopEdePlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopHartvanWestBrabantPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopParticipatiemuntPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopSchagenPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopEemsdeltaPlatform'));
 
 // Register meapp landings
 core.addPlatform(require('./platforms/Website/Website'));
