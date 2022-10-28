@@ -36,7 +36,7 @@ main(id="main-content")
                     h4(i18n="home.guide.stepfive")
                     p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
 
-        section.section.section-faq(ng-if="!$ctrl.description_html"): .wrapper
+        section.section.section-faq(ng-if="!$ctrl.description_html || $ctrl.faq.length"): .wrapper
             .section-splash
             h1.section-title(i18n="home.faq.title")
             .faq(collapse)
