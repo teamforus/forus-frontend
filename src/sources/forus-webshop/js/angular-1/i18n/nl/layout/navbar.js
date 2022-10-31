@@ -27,6 +27,10 @@ module.exports = {
         },
         vergoedingen: {
             funds: "Vergoedingen",
+        },
+        ede: {
+            funds: "Regelingen",
+            explanation:"Uitleg voor inwoners",
         }
     },
     buttons: {
@@ -51,6 +55,9 @@ module.exports = {
         },
         vergoedingen: {
             activate: "Vergoedingen"
+        },
+        ede: {
+            activate: "Regelingen",
         },
         login:"Inloggen",
         voucher:"Mijn tegoeden",

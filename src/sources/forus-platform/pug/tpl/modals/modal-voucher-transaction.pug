@@ -1,6 +1,7 @@
 .modal.modal-md.modal-voucher-transaction.modal-animated(
     ng-if="$ctrl.modal.ready"
-    ng-class="[$ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded && $ctrl.form ? '' : 'modal-loading']")
+    
     .modal-backdrop(ng-click="$ctrl.closeModal()")
 
     //- Form
