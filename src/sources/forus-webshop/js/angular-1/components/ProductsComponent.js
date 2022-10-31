@@ -4,6 +4,7 @@ const ProductsComponent = function(
     $stateParams,
     appConfigs,
     ProductService,
+    ProductCategoryService,
     FormBuilderService,
     PageLoadingBarService,
 ) {
@@ -55,6 +56,25 @@ const ProductsComponent = function(
         $ctrl.onPageChange({ ...$ctrl.form.values });
     };
 
+    $ctrl.changeCategory = () => {
+        if (!$ctrl.form.values.product_parent_category_id) {
+            $ctrl.form.values.product_category_id = null;
+            return;
+        }
+
+        ProductCategoryService.list({ 
+            parent_id: $ctrl.form.values.product_parent_category_id, 
+            used: 1 
+        }).then(res => {
+            $ctrl.productSubCategories = res.data.data;
+
+            $ctrl.productSubCategories.unshift({
+                id: "null",
+                name: "Selecteer categorie..."
+            });
+        });
+    };
+
     $ctrl.buildQuery = (values = {}) => {
         const orderByValue = {
             ...$ctrl.sort_by.value,
@@ -70,6 +90,7 @@ const ProductsComponent = function(
             page: values.page,
             fund_id: values.fund_id,
             organization_id: values.organization_id,
+            product_parent_category_id: values.product_parent_category_id,
             product_category_id: values.product_category_id,
             display_type: $ctrl.display_type,
             fund_type: $ctrl.fund_type,
@@ -102,7 +123,8 @@ const ProductsComponent = function(
             display_type: query.display_type,
             fund_id: query.fund_id,
             organization_id: query.organization_id,
-            product_category_id: query.product_category_id,
+            product_parent_category_id: query.product_parent_category_id,
+            product_category_id: query.product_category_id || 'null',
             show_menu: $ctrl.showModalFilters,
             postcode: query.postcode,
             distance: query.distance,
@@ -127,6 +149,8 @@ const ProductsComponent = function(
         $ctrl.sort_by = $ctrl.sortByOptions[0];
         $ctrl.fund_type = $stateParams.fund_type;
         $ctrl.display_type = $stateParams.display_type;
+        $ctrl.product_parent_category_id = $stateParams.product_parent_category_id;
+        $ctrl.product_category_id = $stateParams.product_category_id;
 
         $ctrl.funds.unshift({
             id: null,
@@ -135,6 +159,11 @@ const ProductsComponent = function(
 
         $ctrl.productCategories.unshift({
             name: 'Selecteer categorie...',
+            id: null
+        });
+
+        $ctrl.productSubCategories.unshift({
+            name: 'Selecteer subcategorie...',
             id: null
         });
 
@@ -147,6 +176,7 @@ const ProductsComponent = function(
             q: $stateParams.q || '',
             fund_id: $stateParams.fund_id || null,
             organization_id: $stateParams.organization_id || null,
+            product_parent_category_id: $stateParams.product_parent_category_id || null,
             product_category_id: $stateParams.product_category_id || null,
             postcode: $stateParams.postcode,
             distance: $stateParams.distance,
@@ -169,6 +199,7 @@ module.exports = {
         funds: '<',
         products: '<',
         productCategories: '<',
+        productSubCategories: '<',
         organizations: '<',
     },
     controller: [
@@ -177,6 +208,7 @@ module.exports = {
         '$stateParams',
         'appConfigs',
         'ProductService',
+        'ProductCategoryService',
         'FormBuilderService',
         'PageLoadingBarService',
         ProductsComponent

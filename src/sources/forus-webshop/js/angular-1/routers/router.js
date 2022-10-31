@@ -146,8 +146,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "products",
         url: {
-            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
-            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
+            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_parent_category_id:int}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
+            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_parent_category_id:int}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}",
         },
         component: "productsComponent",
         params: {
@@ -166,6 +166,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 squash: true
             },
             organization_id: {
+                value: null,
+                squash: true
+            },
+            product_parent_category_id: {
                 value: null,
                 squash: true
             },
@@ -214,11 +218,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 fund_id: $transition$.params().fund_id,
                 fund_type: $transition$.params().fund_type,
                 organization_id: $transition$.params().organization_id,
-                product_category_id: $transition$.params().product_category_id,
+                product_category_id: $transition$.params().product_category_id || $transition$.params().product_parent_category_id,
                 bookmarked: $transition$.params().bookmarked ? 1 : 0,
             }))],
             productCategories: ['ProductCategoryService', (ProductCategoryService) => {
                 return repackResponse(ProductCategoryService.list({ parent_id: 'null', used: 1 }))
+            }],
+            productSubCategories: ['$transition$', 'ProductCategoryService', ($transition$, ProductCategoryService) => {
+                if (!$transition$.params().product_parent_category_id) {
+                    return [];
+                }
+
+                return repackResponse(ProductCategoryService.list({ parent_id: $transition$.params().product_parent_category_id, used: 1 }))
             }],
             organizations: ['OrganizationService', 'HelperService', (
                 OrganizationService, HelperService
