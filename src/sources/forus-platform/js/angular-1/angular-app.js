@@ -183,6 +183,7 @@ app.service('TagService', require('./services/TagService'));
 app.service('ProductBoardService', require('./services/ProductBoardService'));
 app.service('EventLogService', require('./services/EventLogService'));
 app.service('MarkdownService', require('./services/MarkdownService'));
+app.service('FaqService', require('./services/FaqService'));
 
 // Directives
 app.directive('menu', {
@@ -236,7 +237,7 @@ app.directive('headerNotifications', require('./directives/HeaderNotificationsDi
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
-app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
+app.directive('faqEditor', require('./directives/FaqEditorDirective'));
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));

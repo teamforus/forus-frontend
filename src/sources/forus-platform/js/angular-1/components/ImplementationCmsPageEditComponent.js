@@ -1,4 +1,5 @@
 const ImplementationCmsPageEditComponent = function (
+    $q,
     $state,
     FormBuilderService,
     ImplementationPageService,
@@ -7,6 +8,7 @@ const ImplementationCmsPageEditComponent = function (
     const $ctrl = this;
 
     $ctrl.implementationBlocksEditor = null;
+    $ctrl.faqEditor = null;
 
     $ctrl.types = [{
         value: false,
@@ -28,6 +30,17 @@ const ImplementationCmsPageEditComponent = function (
         $ctrl.implementationBlocksEditor = childRef;
     };
 
+    $ctrl.registerFaqEditor = function(childRef) {
+        $ctrl.faqEditor = childRef;
+    }
+
+    $ctrl.validatePromise = (promise) => {
+        return $q((resolve) => promise ? promise.then(() => resolve(true), (e) => {
+            PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
+            resolve(false);
+        }) : resolve(true));
+    };
+
     $ctrl.$onInit = () => {
         const { type } = $state.params;
         const { pages, page_types } = $ctrl.implementation;
@@ -45,6 +58,7 @@ const ImplementationCmsPageEditComponent = function (
             ...$ctrl.page,
         } : {
             blocks: [],
+            faq: [],
             state: $ctrl.states[0].value,
             external: $ctrl.types[0].value,
             page_type: $ctrl.page_type,
@@ -88,14 +102,16 @@ const ImplementationCmsPageEditComponent = function (
                 }).finally(() => form.unlock());
             };
 
-            if (!$ctrl.implementationBlocksEditor) {
-                submit();
-            } else {
-                $ctrl.implementationBlocksEditor.validate().then(() => submit(), (res) => {
-                    PushNotificationsService.danger('Error!', typeof res == 'string' ? res : res.message || '');
-                    return form.unlock();
-                });
-            }
+            $q.all([
+                $ctrl.validatePromise($ctrl.faqEditor.validate()),
+                $ctrl.validatePromise($ctrl.implementationBlocksEditor.validate()),
+            ]).then((res) => {
+                if (res.filter((success) => !success).length === 0) {
+                    return submit();
+                }
+
+                form.unlock();
+            }, () => {});
         }, true);
     };
 };
@@ -107,6 +123,7 @@ module.exports = {
         implementation: '<',
     },
     controller: [
+        '$q',
         '$state',
         'FormBuilderService',
         'ImplementationPageService',

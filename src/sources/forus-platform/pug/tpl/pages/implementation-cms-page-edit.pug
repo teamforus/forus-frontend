@@ -84,6 +84,16 @@
                         implementation="$ctrl.implementation"
                         register-parent="$ctrl.registerImplementationBlocksEditor(childRef)")
 
+            //- FAQ
+            .card-section.card-section-primary(ng-if="$ctrl.page_type_config.faq")    
+                //- FAQ Editor
+                .form-group.form-group-inline.form-group-inline-lg
+                    label.form-label Veel gestelde vragen
+                    .form-offset: faq-editor(
+                        faq="$ctrl.form.values.faq"
+                        organization="$ctrl.organization" 
+                        register-parent="$ctrl.registerFaqEditor(childRef)")
+
             //- Submit or Cancel
             .card-section.card-section-primary: .text-center
                 button(
