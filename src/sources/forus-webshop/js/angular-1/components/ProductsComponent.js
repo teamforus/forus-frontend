@@ -56,25 +56,6 @@ const ProductsComponent = function(
         $ctrl.onPageChange({ ...$ctrl.form.values });
     };
 
-    $ctrl.changeCategory = () => {
-        if (!$ctrl.form.values.product_parent_category_id) {
-            $ctrl.form.values.product_category_id = null;
-            return;
-        }
-
-        ProductCategoryService.list({ 
-            parent_id: $ctrl.form.values.product_parent_category_id, 
-            used: 1 
-        }).then(res => {
-            $ctrl.productSubCategories = res.data.data;
-
-            $ctrl.productSubCategories.unshift({
-                id: "null",
-                name: "Selecteer categorie..."
-            });
-        });
-    };
-
     $ctrl.buildQuery = (values = {}) => {
         const orderByValue = {
             ...$ctrl.sort_by.value,
@@ -90,7 +71,6 @@ const ProductsComponent = function(
             page: values.page,
             fund_id: values.fund_id,
             organization_id: values.organization_id,
-            product_parent_category_id: values.product_parent_category_id,
             product_category_id: values.product_category_id,
             display_type: $ctrl.display_type,
             fund_type: $ctrl.fund_type,
@@ -111,7 +91,7 @@ const ProductsComponent = function(
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
             return $ctrl.products = res.data;
         }).finally(() => {
-            $ctrl.updateState(query, location);
+            $ctrl.updateState(query, true);
             $ctrl.updateFiltersUsedCount();
         });
     };
@@ -123,13 +103,22 @@ const ProductsComponent = function(
             display_type: query.display_type,
             fund_id: query.fund_id,
             organization_id: query.organization_id,
-            product_parent_category_id: query.product_parent_category_id,
-            product_category_id: query.product_category_id || 'null',
+            product_category_id: query.product_category_id,
             show_menu: $ctrl.showModalFilters,
             postcode: query.postcode,
             distance: query.distance,
             bookmarked: query.bookmarked,
         }, { location });
+    };
+
+    $ctrl.changeCategory = (type) => {
+        if (type == 'category' || (type == 'subcategory' && !$ctrl.product_sub_category_id)) {
+            return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
+        }
+
+        if (type == 'subcategory') {
+            $ctrl.form.values.product_category_id = $ctrl.product_sub_category_id;
+        }
     };
 
     $ctrl.updateFiltersUsedCount = () => {
@@ -149,7 +138,6 @@ const ProductsComponent = function(
         $ctrl.sort_by = $ctrl.sortByOptions[0];
         $ctrl.fund_type = $stateParams.fund_type;
         $ctrl.display_type = $stateParams.display_type;
-        $ctrl.product_parent_category_id = $stateParams.product_parent_category_id;
         $ctrl.product_category_id = $stateParams.product_category_id;
 
         $ctrl.funds.unshift({
@@ -162,7 +150,7 @@ const ProductsComponent = function(
             id: null
         });
 
-        $ctrl.productSubCategories.unshift({
+        $ctrl.productSubCategories?.unshift({
             name: 'Selecteer subcategorie...',
             id: null
         });
@@ -176,7 +164,6 @@ const ProductsComponent = function(
             q: $stateParams.q || '',
             fund_id: $stateParams.fund_id || null,
             organization_id: $stateParams.organization_id || null,
-            product_parent_category_id: $stateParams.product_parent_category_id || null,
             product_category_id: $stateParams.product_category_id || null,
             postcode: $stateParams.postcode,
             distance: $stateParams.distance,
@@ -184,6 +171,11 @@ const ProductsComponent = function(
         });
 
         $ctrl.updateFiltersUsedCount();
+
+        if ($ctrl.productCategory) {
+            $ctrl.product_category_id = $ctrl.productCategory.parent_id || $ctrl.productCategory.id;
+            $ctrl.product_sub_category_id = $ctrl.productCategory.parent_id ? $ctrl.productCategory.id : null;
+        }
 
         $scope.$watch('$ctrl.appConfigs', (_appConfigs) => {
             if (_appConfigs.features && !_appConfigs.features.products.list) {
@@ -198,6 +190,7 @@ module.exports = {
         fund_type: '<',
         funds: '<',
         products: '<',
+        productCategory: '<',
         productCategories: '<',
         productSubCategories: '<',
         organizations: '<',
