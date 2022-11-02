@@ -123,8 +123,7 @@ const VouchersShowComponent = function (
             $ctrl.voucher.state === 'active' &&
             !$ctrl.fundClosed &&
             !$ctrl.voucher.product &&
-            !$ctrl.voucher.expired &&
-            !$ctrl.voucher.is_external;
+            !$ctrl.voucher.expired;
     }
 
     $ctrl.incrementLimitMultiplier = () => {
