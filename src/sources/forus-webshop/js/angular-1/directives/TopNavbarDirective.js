@@ -11,7 +11,7 @@ const TopNavbarDirective = function (
     $dir.userMenuOpened = false;
 
     $dir.startFundRequest = (data = {}) => {
-        $state.go('start', data, { reload: true });
+        $state.go('start', data, { reload: true, inherit: false });
     };
 
     $dir.openPinCodePopup = () => {

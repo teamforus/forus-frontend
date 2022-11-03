@@ -117,7 +117,7 @@ const SignUpStartComponent = function (
 
         if (logout) {
             $rootScope.signOut(null, false, true, false);
-            $state.go('start', { restore_with_digid, email_address, restore_with_email }, { inherit: false, location: 'replace' });
+            $state.go('start', { restore_with_digid, email_address }, { inherit: false, location: 'replace' });
             return;
         }
 
