@@ -129,10 +129,6 @@ const SignUpStartComponent = function (
             return $ctrl.startDigId();
         }
 
-        if (restore_with_email) {
-            return $ctrl.setState('email');
-        }
-
         $ctrl.initAuthForm(target);
         $ctrl.setState('start');
 
@@ -140,6 +136,10 @@ const SignUpStartComponent = function (
             $ctrl.authForm.values.email = email_address;
             $ctrl.authForm.autofill = true;
             $ctrl.authForm.submit();
+        }
+
+        if (restore_with_email) {
+            $ctrl.setState('email');
         }
     };
 

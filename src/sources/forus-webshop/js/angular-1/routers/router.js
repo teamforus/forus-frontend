@@ -102,7 +102,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
 
     $stateProvider.state({
         name: "start",
-        url: "/start?logout&restore_with_digid&restore_with_email",
+        url: "/start?logout&restore_with_digid",
         component: "signUpComponent",
         params: {
             logout: null,
