@@ -3,28 +3,28 @@
 /*==========  Style Sheet - Vars  ==========*/
 
 // navbar
-$bg-nav:            #3558A2;
-$tc-nav-hov:        #cdcdcd;
-$tc-nav:            #FFFFFF;
-$logo-padding:      30px 0px;
-$logo-height:       75px;
+$bg-nav:            #F5F5F5;
+$tc-nav-hov:        #4a60b3;
+$tc-nav:            #6B6B80;
+$logo-padding:      20px 0px;
+$logo-height:       90px;
 
 // navbar (auth)
-$tc-auth-menu:      #3558A2; 
-$tc-auth-btn:       #fff; 
-$btn-auth-bg:       #3558A2; 
+$tc-auth-menu:      #ffffff; 
+$tc-auth-btn:       #ffffff; 
+$btn-auth-bg:       #0D4379; 
 $btn-auth-border:   transparent;
 
 // navbar (start modal primary)
-$tc-start-btn:       #fff; 
-$btn-start-bg:       #3D559C; 
-$btn-start-btn:      #3D559C;
+$tc-start-btn:       #ffffff; 
+$btn-start-bg:       #609609; 
+$btn-start-btn:      #609609;
 $btn-start-border:   transparent;
 
 $bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
 
 // base font
-$bf:                Open Sans, Verdana;
+$bf:                Arial, Verdana;
 
 // text color
 $tc:                #1a1919;
@@ -32,10 +32,10 @@ $tc-var:            #fff;
 $tc-link:           inherit;
 
 // base color
-$bc:                #3558A2;
+$bc:                #22398E;
 
 // background color
-$bg:                #fff;
+$bg:                #F5F5F5;
 
 $bg_2:              none;
 
@@ -43,8 +43,8 @@ $bg_2:              none;
 $tf:                inherit;
 
 // footer color
-$fbc:                #404040;
-$fc:                #ffffff;
+$fbc:                #0D4379;
+$fc:                 #ffffff;
 $fc-link:            #ffffff;
 
 // displayed or not
@@ -58,14 +58,14 @@ $ptc:               #515152;
 
 $border_color:      #dce0e0;
 
-$border_radius:     0px;
+$border_radius:     4px;
 $base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 
-$color_primary:         #3558A2;
-$color_primary_light:   #3558A2;
+$color_primary:         #0D4379;
+$color_primary_light:   #0D4379;
 
-$color_default:         #3558A2;
-$color_default_light:   #3558A2;
+$color_default:         #0D4379;
+$color_default_light:   #0D4379;
 
 // Login button
 

@@ -103,7 +103,7 @@ const SignUpStartComponent = function (
     };
 
     $ctrl.$onInit = () => {
-        const { logout, restore_with_digid, email_address, redirect_scope } = $state.params;
+        const { logout, restore_with_digid, restore_with_email, email_address, redirect_scope } = $state.params;
         const signedIn = AuthService.hasCredentials();
 
         const target = redirect_scope?.target_name == 'requestClarification' ? [
@@ -117,7 +117,7 @@ const SignUpStartComponent = function (
 
         if (logout) {
             $rootScope.signOut(null, false, true, false);
-            $state.go('start', { restore_with_digid, email_address }, { inherit: false, location: 'replace' });
+            $state.go('start', { restore_with_digid, email_address, restore_with_email }, { inherit: false, location: 'replace' });
             return;
         }
 
@@ -127,6 +127,10 @@ const SignUpStartComponent = function (
 
         if (restore_with_digid) {
             return $ctrl.startDigId();
+        }
+
+        if (restore_with_email) {
+            return $ctrl.setState('email');
         }
 
         $ctrl.initAuthForm(target);
