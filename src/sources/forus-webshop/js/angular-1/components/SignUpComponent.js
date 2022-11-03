@@ -117,7 +117,7 @@ const SignUpStartComponent = function (
 
         if (logout) {
             $rootScope.signOut(null, false, true, false);
-            $state.go('start', { restore_with_digid, email_address, restore_with_email }, { inherit: false, location: 'replace' });
+            $state.go('start', { restore_with_digid, email_address }, { inherit: false, location: 'replace' });
             return;
         }
 
@@ -129,10 +129,6 @@ const SignUpStartComponent = function (
             return $ctrl.startDigId();
         }
 
-        if (restore_with_email) {
-            return $ctrl.setState('email');
-        }
-
         $ctrl.initAuthForm(target);
         $ctrl.setState('start');
 
@@ -140,6 +136,10 @@ const SignUpStartComponent = function (
             $ctrl.authForm.values.email = email_address;
             $ctrl.authForm.autofill = true;
             $ctrl.authForm.submit();
+        }
+
+        if (restore_with_email) {
+            $ctrl.setState('email');
         }
     };
 

@@ -95,9 +95,9 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
             .block.flex.hide-sm
                 .block.block-auth
-                    a.button.button-default(
+                    button.button.button-default(
                         ng-if="!$root.auth_user && $root.appConfigs.flags.showStartButton"
-                        ui-sref="start({restore_with_email: true})"
+                        ng-click="$dir.startFundRequest({ restore_with_email: true })"
                         role="button") Start aanvraag
 
                     button.button.button-primary(
