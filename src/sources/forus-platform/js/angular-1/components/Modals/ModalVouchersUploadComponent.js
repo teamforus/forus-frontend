@@ -367,12 +367,12 @@ const ModalVouchersUploadComponent = function(
                                 uploadedRows += chunkData.length;
                                 setProgress((uploadedRows / totalRows) * 100);
                             }).then(() => {
-                                    $timeout(() => setProgress(100));
-                                    resolve();
-                                }, (errors) => {
-                                    this.progress = 1;
-                                    this.showInvalidRows(errors, dataGrouped[fund_id]);
-                                });
+                                $timeout(() => setProgress(100));
+                                resolve();
+                            }, (errors) => {
+                                this.progress = 1;
+                                this.showInvalidRows(errors, dataGrouped[fund_id]);
+                            });
                         } else {
                             await this.startUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
                                 uploadedRows += chunkData.length;
@@ -396,8 +396,9 @@ const ModalVouchersUploadComponent = function(
                 return new Promise((resolve, reject) => {
                     const submitData = chunk(groupData, dataChunkSize);
                     const chunksCount = submitData.length;
-                    let currentChunkNth = 0,
-                        errors = {};
+
+                    let errors = {};
+                    let currentChunkNth = 0;
 
                     const uploadChunk = (data) => {
                         VoucherService.storeCollectionValidate($ctrl.organization.id, fund_id, data).then(() => {
@@ -445,23 +446,27 @@ const ModalVouchersUploadComponent = function(
                     const index = parseInt(keyDataId, 10) + 1;
 
                     return [index, errors[key], vouchers[keyDataId]];
-                });
+                }).sort((a, b) => a[0] - b[0]);
 
-                PushNotificationsService.danger('Waarschuwing', [
-                    `${items.length} van ${vouchers.length}`,
+                const uniqueRows = items.reduce((arr, item) => {
+                    return arr.includes(item[0]) ? arr : [...arr, item[0]];
+                }, []);
+
+                const message = [
+                    `${uniqueRows.length} van ${vouchers.length}`,
                     `rij(en) uit het bulkbestand zijn niet geimporteerd,`,
                     `bekijk het bestand bij welke rij(en) het mis gaat.`,
-                ].join(" "));
+                ].join(" ");
+
+                PushNotificationsService.danger('Waarschuwing', message);
 
                 $ctrl.hideModal = true;
 
                 ModalService.open('duplicatesPicker', {
                     hero_title: "Voucher import has errors",
-                    hero_subtitle: [
-                        "Errors description"
-                    ],
+                    hero_subtitle: message,
                     enableToggles: false,
-                    items: items.map((item) => ({ value: (item[2]['email'] || item[2]['bsn']) + ' Rij: ' + item[0] + ': ' + ' - ' + item[1] })),
+                    items: items.map((item) => ({ value: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}` })),
                     onConfirm: () => $timeout(() => $ctrl.hideModal = false, 300),
                     onCancel: () => $timeout(() => $ctrl.hideModal = false, 300),
                 }, {
@@ -592,7 +597,7 @@ const ModalVouchersUploadComponent = function(
 module.exports = {
     bindings: {
         close: '=',
-        modal: '='
+        modal: '=',
     },
     controller: [
         '$q',
@@ -606,9 +611,7 @@ module.exports = {
         'VoucherService',
         'ProductService',
         'PushNotificationsService',
-        ModalVouchersUploadComponent
+        ModalVouchersUploadComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-vouchers-upload.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-vouchers-upload.html',
 };

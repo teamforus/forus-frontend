@@ -74,7 +74,8 @@ const ModalDuplicatesPickerComponent = function($timeout) {
 
         $ctrl.hero_icon = $ctrl.modal.scope.hero_icon || 'alert-outline';
         $ctrl.hero_title = $ctrl.modal.scope.hero_title || '';
-        $ctrl.hero_subtitle = $ctrl.modal.scope.hero_subtitle || '';
+        $ctrl.hero_subtitle = $ctrl.modal.scope.hero_subtitle || [];
+        $ctrl.hero_subtitle = typeof $ctrl.hero_subtitle == 'string' ? [$ctrl.hero_subtitle] : $ctrl.hero_subtitle;
 
         $ctrl.loadMore();
     };
