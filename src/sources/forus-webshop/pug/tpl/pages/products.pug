@@ -56,9 +56,21 @@ block content
                                     id="select_category"
                                     prop="id"
                                     name="category"
-                                    ng-model="$ctrl.form.values.product_category_id"
+                                    ng-model="$ctrl.product_category_id"
+                                    ng-change="$ctrl.changeCategory('category')"
                                     options="$ctrl.productCategories"
                                     placeholder="{{ $ctrl.productCategories[0].name }}")
+
+                            .form-group(ng-if="$ctrl.productSubCategories.length > 2")
+                                label.form-label(for="select_sub_category") Subcategorie
+                                select-control(
+                                    id="select_sub_category"
+                                    prop="id"
+                                    name="sub_category"
+                                    ng-model="$ctrl.product_sub_category_id"
+                                    ng-change="$ctrl.changeCategory('subcategory')"
+                                    options="$ctrl.productSubCategories"
+                                    placeholder="{{ $ctrl.productSubCategories[0].name }}")
 
                             .form-group
                                 label.form-label(for="select_fund") Tegoeden
