@@ -107,6 +107,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         params: {
             logout: null,
             restore_with_digid: null,
+            restore_with_email: null,
             digid_error: null,
             email_address: null,
             redirect_scope: false,

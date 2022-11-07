@@ -103,7 +103,7 @@ const SignUpStartComponent = function (
     };
 
     $ctrl.$onInit = () => {
-        const { logout, restore_with_digid, email_address, redirect_scope } = $state.params;
+        const { logout, restore_with_digid, restore_with_email, email_address, redirect_scope } = $state.params;
         const signedIn = AuthService.hasCredentials();
 
         const target = redirect_scope?.target_name == 'requestClarification' ? [
@@ -136,6 +136,10 @@ const SignUpStartComponent = function (
             $ctrl.authForm.values.email = email_address;
             $ctrl.authForm.autofill = true;
             $ctrl.authForm.submit();
+        }
+
+        if (restore_with_email) {
+            $ctrl.setState('email');
         }
     };
 

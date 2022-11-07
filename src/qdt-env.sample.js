@@ -666,6 +666,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             flags: {
                 fundsMenu: true,
+                showStartButton: true,
                 accessibilityPage: false,
             },
             sessions: sessions,
