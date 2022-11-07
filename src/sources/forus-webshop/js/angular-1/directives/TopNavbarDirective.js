@@ -10,8 +10,8 @@ const TopNavbarDirective = function (
     $dir.prevOffsetY = false;
     $dir.userMenuOpened = false;
 
-    $dir.startFundRequest = () => {
-        $state.go('start', {}, {reload:true});
+    $dir.startFundRequest = (data = {}) => {
+        $state.go('start', data, { reload: true, inherit: false });
     };
 
     $dir.openPinCodePopup = () => {
