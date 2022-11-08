@@ -37,6 +37,7 @@ const ImplementationNotificationsSendComponent = function (
         order_dir: 'asc',
         target: targets[0].value,
         per_page: 10,
+        with_reservations: 1,
     };
 
     $ctrl.setEditing = (editing) => {
