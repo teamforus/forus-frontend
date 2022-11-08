@@ -1216,6 +1216,14 @@ body {
         &:last-child {
             border-bottom: 0;
         }
+
+        &.card-section-settings {
+            .card-title {
+                font: 600 14px/20px $bf;
+                margin: 0 0 15px;
+                color: #282B39;
+            }
+        }
     }
 
     .card-footer {
@@ -6317,6 +6325,58 @@ body {
 
             &:last-child {
                 border-bottom: none;  
+            }
+        }
+    }
+
+    &.block-toggles {
+        display: block;
+        @include cf();
+        
+        .toggle-row {
+            display: block;
+            float: left;
+            width: 100%;
+            margin-bottom: -20px;
+
+            .toggle-item {
+                border: 1px dashed #bfbfbf;
+                border-radius: $border_radius / 2;
+                align-items: center;
+                background: #f6f9fc;
+                padding: 20px;
+                color: #646F79;
+                margin: 0 0 20px;
+                width: 100%;
+                display: flex;
+                flex-grow: 1;
+
+                .toggle-label {
+                    font: 600 13px/13px $bf;
+                    color: #646F79;
+                    display: flex;
+                    flex-grow: 1;
+        
+                    &:hover {
+                        color: #426993;
+                        transition: all .4s;
+                    }
+                }
+
+                .form-toggle {
+                    width: auto;
+                }
+
+                &.active {
+                    background: #fff;
+                    color: #134478;
+                    border-color: transparent;
+                    box-shadow: 0px 0px 10px rgba(25, 39, 52, 0.22);
+        
+                    .toggle-label {
+                        color: #134478;
+                    }
+                }
             }
         }
     }

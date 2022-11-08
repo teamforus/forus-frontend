@@ -1038,6 +1038,36 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     /**
+     * Implementation edit (CMS)
+     */
+     $stateProvider.state({
+        name: "implementation-config",
+        url: "/organizations/{organization_id}/implementation/{implementation_id}/config",
+        component: "implementationCmsConfigEditComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation', 'manage_implementation_cms'], false),
+            implementation: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
+                $transition$, $timeout, $state, ImplementationService
+            ) => {
+                return repackResponse(ImplementationService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().implementation_id,
+                ), (res) => {
+                    if (res.status === 403) {
+                        $timeout(() => {
+                            $state.go('implementation-cms', {
+                                organization_id: $transition$.params().organization_id,
+                                id: $transition$.params().implementation_id,
+                            });
+                        }, 100);
+                    }
+                });
+            }],
+        }
+    });
+
+    /**
      * Implementation create page
      */
     $stateProvider.state({

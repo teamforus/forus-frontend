@@ -23,5 +23,5 @@ module.exports = {
         '$stateParams',
         ProviderComponent
     ],
-    templateUrl: 'assets/tpl/pages/provider.html'
+    templateUrl: 'assets/tpl/pages/provider.html',
 };

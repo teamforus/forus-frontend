@@ -115,6 +115,10 @@
                 }
             }
         }
+
+        &.office-content-top {
+            margin-top: 95px;
+        }
     }
 
     @media screen and (max-width: 1000px){
@@ -133,6 +137,10 @@
                 .organization-title {
                     font-size: 13px;
                 }
+            }
+
+            &.office-content-top {
+                margin-top: 35px;
             }
         }
     }

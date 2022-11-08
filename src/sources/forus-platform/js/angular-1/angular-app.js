@@ -69,6 +69,7 @@ app.component('transactionBulkComponent', require('./components/TransactionBulkC
 app.component('productBoardComponent', require('./components/ProductBoardComponent'));
 app.component('eventLogsComponent', require('./components/EventLogsComponent'));
 app.component('identitiesShowComponent', require('./components/IdentitiesShowComponent'));
+app.component('implementationCmsConfigEditComponent', require('./components/ImplementationCmsConfigEditComponent'));
 app.component('emailConfirmedComponent', require('./components/EmailConfirmedComponent'));
 
 // Modal Components
