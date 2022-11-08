@@ -21,7 +21,8 @@
                 .card-title(translate="implementation_config.pages.{{ config.page }}")
 
                 .block.block-toggles
-                    .toggle-row: .row: .col.col-xs-12.col-lg-6(ng-repeat="block in config.blocks")
+                    .toggle-row: .row: .col.col-xs-12(
+                        ng-repeat="block in config.blocks" ng-class="{'col-lg-6' : (config.blocks.length % 2 == 0 || !$last), 'col-lg-12' : (config.blocks.length % 2 && $last)}")
                         .toggle-item(ng-class="{'active': $ctrl.form.values[block]}")
                             .toggle-label: .flex.flex-vertical
                                 div(translate="implementation_config.blocks.{{ block }}")
