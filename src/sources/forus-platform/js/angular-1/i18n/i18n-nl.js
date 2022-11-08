@@ -454,17 +454,17 @@ module.exports = {
 
     implementation_config: {
         pages: {
-            home: "Home Settings",
-            providers: "Providers Settings",
-            provider: "Provider Settings",
-            office: "Office Settings",
+            home: "Homepagina instellingen",
+            providers: "Aanbieders instellingen",
+            provider: "Aanbieder instellingen",
+            office: "Vestiging instellingen",
         },
         blocks: {
-            show_home_map: "Show map section (homepage)",
-            show_home_products: "Show products section (homepage)",
-            show_providers_map: "Show map (providers page)",
-            show_provider_map: "Show map (provider page)",
-            show_office_map: "Show map (office page)",
+            show_home_map: "Tonen van de map (Homepagina)",
+            show_home_products: "Tonen van het aanbod (Homepagina)",
+            show_providers_map: "Tonen van de map (Aanbieders pagina)",
+            show_provider_map: "Tonen van de map (Aanbieder pagina)",
+            show_office_map: "Tonen van de map (Aanbieder vestiging pagina)",
         },
     },
 
