@@ -23,7 +23,7 @@ let ProductCategoriesControlDirective = function(
 
             return ProductCategoryService.list({
                 parent_id: parent_id,
-                per_page: 500,
+                per_page: 1000,
             }).then(res => {
                 let categories = res.data.data;
 

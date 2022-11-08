@@ -1,5 +1,5 @@
 module.exports = {
-    fund_faq_editor: {
+    faq_editor: {
         fix_validation_errors: "Mislukt! Er gaat iets mis.. U heeft een foutmelding op een invoerveld.",
         buttons: {
             save: "Bevestigen",

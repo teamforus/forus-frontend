@@ -1,0 +1,10 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.block.block-email-confirmed
+    .block-email-confirmed-content
+        .block-email-confirmed-icon: img(src=src_prefix + "./assets/img/confirm-success.svg")
+        .block-email-confirmed-title Gelukt!
+        .block-email-confirmed-subtitle Uw e-mailadres is bevestigd
+
+    .block-email-confirmed-footer(ng-if="$root.auth_user")
+        a(ui-sref="organizations").button.button-primary.button-lg Bekijken

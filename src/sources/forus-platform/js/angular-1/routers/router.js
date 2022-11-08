@@ -115,6 +115,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    $stateProvider.state({
+        name: "email-confirmed",
+        url: "/redirect?email_confirmed",
+        component: "emailConfirmedComponent",
+    });
+
     /**
      * Organizations
      */
