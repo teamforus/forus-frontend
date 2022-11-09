@@ -171,7 +171,7 @@
                 assigned="{{ validatorRequest.is_assigned }}")
 
                 .arrow-box.border.bg-dim: .arrow
-                .card-title.card-title-sm: .flex
+                .card-title.card-title-sm: .flex.flex-grow
                     .flex.flex-grow
                         translate(
                             ng-if="!validatorRequest.can_add_partner_bsn" 
@@ -237,8 +237,15 @@
                         button.button.button-default(
                             ng-if="validatorRequest.can_disregarded_undo" 
                             ng-click='$ctrl.requestDisregardUndo(validatorRequest)')
-                            em.mdi.mdi-timer-sand-empty.icon-start
+                            em.mdi.mdi-refresh.icon-start
                             translate(translate="validation_requests.buttons.disregard_undo")
+
+                        button.button.button-default(
+                            type="button"
+                            disabled="disabled"
+                            ng-if="validatorRequest.state == 'disregarded' && !validatorRequest.can_disregarded_undo && validatorRequest.replaced")
+                            em.mdi.mdi-refresh.icon-start
+                            translate(translate="validation_requests.buttons.disregard_undo_disabled_replaced")
         
             //- fund request records
             .card-section(ng-hide='validatorRequest.collapsed'): .card-block.card-block-table: .table-wrapper: table.table
