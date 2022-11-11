@@ -196,11 +196,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "organizations-edit",
-        url: "/organizations/{id}/edit",
+        url: "/organizations/{organization_id}/edit",
         component: "organizationsEditComponent",
         resolve: {
             permission: permissionMiddleware('organization-edit', 'manage_organization'),
-            organization: organziationResolver('id'),
+            organization: organziationResolver(),
             businessTypes: ['BusinessTypeService', (BusinessTypeService) => {
                 return repackResponse(BusinessTypeService.list({ per_page: 9999 }));
             }]
