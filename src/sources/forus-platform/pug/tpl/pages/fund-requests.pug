@@ -237,14 +237,14 @@
                         button.button.button-default(
                             ng-if="validatorRequest.can_disregarded_undo" 
                             ng-click='$ctrl.requestDisregardUndo(validatorRequest)')
-                            em.mdi.mdi-refresh.icon-start
+                            em.mdi.mdi-backup-restore.icon-start
                             translate(translate="validation_requests.buttons.disregard_undo")
 
                         button.button.button-default(
                             type="button"
                             disabled="disabled"
                             ng-if="validatorRequest.state == 'disregarded' && !validatorRequest.can_disregarded_undo && validatorRequest.replaced")
-                            em.mdi.mdi-refresh.icon-start
+                            em.mdi.mdi-backup-restore.icon-start
                             translate(translate="validation_requests.buttons.disregard_undo_disabled_replaced")
         
             //- fund request records
