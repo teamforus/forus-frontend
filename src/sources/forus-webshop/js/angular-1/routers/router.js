@@ -324,6 +324,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 distance: $transition$.params().distance,
                 postcode: $transition$.params().postcode,
                 business_type_id: $transition$.params().business_type_id,
+                order_by: 'name',
+                order_by_dir: 'asc'
             }))]
         }
     });
