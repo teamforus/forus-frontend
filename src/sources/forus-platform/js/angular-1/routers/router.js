@@ -1403,6 +1403,30 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.list($transition$.params().organization_id));
             }],
+            employees: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
+                return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id, {
+                    per_page: 100,
+                    permission: 'validate_records'
+                }));
+            }],
+        }
+    });
+
+    $stateProvider.state({
+        name: 'fund-requests-show',
+        url: '/organizations/{organization_id}/requests/{id}',
+        component: 'fundRequestsShowComponent',
+        params: {
+            organization_id: null,
+            id: null,
+        },
+        resolve: {
+            permission: permissionMiddleware('fund-requests', ['validate_records', 'manage_validators'], false),
+            organization: organziationResolver(),
+            authUser: authUserResolver(),
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.list($transition$.params().organization_id));
+            }],
             employee: ['authUser', 'employees', 'permission', (authUser, employees) => {
                 return employees.data.filter((employee) => employee.identity_address == authUser.address)[0] || null;
             }],
@@ -1412,6 +1436,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                     permission: 'validate_records'
                 }));
             }],
+            validatorRequest: ['$transition$', 'FundRequestValidatorService', (
+                $transition$, FundRequestValidatorService
+            ) => repackResponse(FundRequestValidatorService.read(
+                $transition$.params().organization_id,
+                $transition$.params().id
+            ))],
         }
     });
 

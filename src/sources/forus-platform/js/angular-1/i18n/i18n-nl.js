@@ -1333,6 +1333,11 @@ module.exports = {
             birth_place: "Geboorteplaats",
             address: "Verblijfsplaats",
             disregarded_at: "Buiten behandeling gesteld op",
+            created_date: "Aangemaakt op",
+            fund: "Fonds",
+            email: "E-mailadres",
+            empty_table: "Geen transacties gevonden",
+            note_title: "Reden van weigeren",
         },
         person: {
             relations: {
@@ -1356,9 +1361,18 @@ module.exports = {
             decline: "Weigeren",
             disregard: "Niet behandelen",
             disregard_undo: "Opnieuw beoordelen",
+            disregard_undo_disabled_replaced: "Request already replaced",
             clear_filter: "Wis filter",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
+            view: "Bekijk",
+            add_partner_bsn: "Add partner bsn",
+            assign_to_me: "Toewijzen aan mij",
+            assign: "Toewijzen",
+            resign: "Meld af",
+        },
+        header: {
+            title: "Aanvragen",
         },
     },
 

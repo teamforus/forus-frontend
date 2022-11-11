@@ -960,6 +960,17 @@ body {
         }
     }
 
+    .card-subtitle {
+        font: 500 13px/20px $bf;
+        color: #404040;
+
+        .mdi {
+            font-size: 16px;
+            margin-right: 2px;
+            color: #404040;
+        }
+    }
+
     .card-header {
         padding: 15px 25px;
         position: relative;
