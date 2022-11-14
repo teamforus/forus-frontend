@@ -2651,6 +2651,8 @@ body {
                             }
 
                             .fund-details {
+                                max-width: 420px;
+
                                 .fund-title {
                                     display: block;
                                     font: 500 18px/28px $bf;
@@ -2676,8 +2678,9 @@ body {
                             top: 16px;
 
                             .button {
-                                width: 200px;
                                 white-space: nowrap;
+                                font: 700 12px/12px $bf;
+                                padding: 12px;
 
                                 &:focus {
                                     outline: none;
@@ -6453,7 +6456,7 @@ body {
 
         .modal-body {
             min-height: 20px;
-            max-height: calc(100vh - 60px);
+            max-height: calc(80vh - 80px);
             overflow: auto;
             @include webkit_scrollbar();
 
