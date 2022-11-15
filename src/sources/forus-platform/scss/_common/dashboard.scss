@@ -2644,18 +2644,20 @@ body {
                             display: flex;
 
                             .fund-img {
-                                margin: auto 10px auto 0;
+                                margin: 0 10px auto 0;
                                 padding: 0px;
                                 width: 50px;
                                 height: 50px;
+                                min-width: 50px;
                             }
 
                             .fund-details {
-                                max-width: 420px;
+                                padding-right: 140px;
 
                                 .fund-title {
                                     display: block;
-                                    font: 500 18px/28px $bf;
+                                    font: 500 18px/24px $bf;
+                                    margin: 0 0 5px;
                                     color: #191A1C;
                                 }
 
@@ -2938,6 +2940,26 @@ body {
                     width: 38px !important;
                     margin-right: 3px !important;
                     font: 400 22px/31px $bf !important;
+                }
+            }
+             
+            .fund-apply {
+                .card {
+                    .card-section.card-section-fund {
+                        .card-block.card-block-fund {
+                            .fund-details {
+                                padding-right: 0;
+
+                                .fund-title {
+                                    font: 500 15px/24px $bf;
+                                }
+                            }
+                        }
+
+                        .card-section-actions {
+                            padding-top: 15px;
+                        }
+                    }
                 }
             }
 
