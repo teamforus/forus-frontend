@@ -6424,10 +6424,11 @@ body {
         width: 1200px;
         max-width: 100%;
         border-radius: 6px;
-        display: inline-block;
         min-height: 100px;
         margin: 0 auto;
         max-height: 90vh;
+        display: flex;
+        flex-direction: column;
 
         .modal-section {
             padding: 30px;
@@ -6456,7 +6457,6 @@ body {
 
         .modal-body {
             min-height: 20px;
-            max-height: calc(80vh - 80px);
             overflow: auto;
             @include webkit_scrollbar();
 
