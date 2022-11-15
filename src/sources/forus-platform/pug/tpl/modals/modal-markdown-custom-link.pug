@@ -2,7 +2,7 @@
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+    form(ng-submit="$ctrl.form.submit()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header(ng-if="$ctrl.linkType == 'imageLink'" translate="modals.modal_markdown_custom_link.header.image")
         .modal-header(ng-if="$ctrl.linkType == 'customLink'" translate="modals.modal_markdown_custom_link.header.link")
