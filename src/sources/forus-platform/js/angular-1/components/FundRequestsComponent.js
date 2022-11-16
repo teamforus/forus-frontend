@@ -1,35 +1,12 @@
-const FundRequestsComponent = function(
+const FundRequestsComponent = function (
     $state,
     $timeout,
     FileService,
     ModalService,
-    DateService,
     FundRequestValidatorService,
     appConfigs
 ) {
     const $ctrl = this;
-
-    const reloadRequests = (query) => {
-        FundRequestValidatorService.indexAll($ctrl.organization.id, {
-            ...query,
-            ...{
-                from: query.from ? DateService._frontToBack(query.from) : null,
-                to: query.to ? DateService._frontToBack(query.to) : null,
-            }
-        }).then(function(res) {
-            const data = res.data.data.map((validatorRequest) => {
-                const ui_sref = ({
-                    id: validatorRequest.id,
-                    organization_id: $ctrl.organization.id,
-                });
-
-                return { ...validatorRequest, ui_sref };
-            });
-
-            $ctrl.validatorRequests = { ...res.data, data };
-
-        }, console.error);
-    };
 
     $ctrl.funds = [];
     $ctrl.validatorRequests = null;
@@ -51,12 +28,20 @@ const FundRequestsComponent = function(
         name: 'Wachtend'
     }];
 
-    $ctrl.stateClasses = {
-        pending: 'label-primary-light',
+    $ctrl.stateLabels = {
+        pending: 'label-primary-variant',
         declined: 'label-danger',
         approved: 'label-success',
         approved_partly: 'label-success',
         disregarded: 'label-default'
+    };
+
+    $ctrl.stateLabelIcons = {
+        pending: 'circle-outline',
+        declined: 'circle-off-outline',
+        approved: 'circle-slice-8',
+        approved_partly: 'circle-slice-4',
+        disregarded: 'circle-outline'
     };
 
     $ctrl.filters = {
@@ -73,9 +58,29 @@ const FundRequestsComponent = function(
             sort_by: 'state',
             sort_order: 'asc'
         },
-        reset: function() {
+        reset: function () {
             this.values = { ...this.values, ...this.defaultValues };
         }
+    };
+
+    $ctrl.fetchRequests = (query) => {
+        FundRequestValidatorService.indexAll($ctrl.organization.id, query).then(function (res) {
+            const data = res.data.data.map((request) => {
+                const ui_sref = { id: request.id, organization_id: $ctrl.organization.id };
+                const assigned_employees = request.records
+                    .filter((record) => record.employee?.organization_id == $ctrl.organization.id)
+                    .map((record) => record.employee?.email)
+                    .reduce((list, email) => list.includes(email) ? list : [...list, email], []);
+
+                return {
+                    ...request,
+                    ui_sref: ui_sref,
+                    assigned_employees: assigned_employees,
+                }
+            });
+
+            $ctrl.validatorRequests = { ...res.data, data };
+        }, console.error);
     };
 
     $ctrl.hideFilters = () => {
@@ -102,10 +107,10 @@ const FundRequestsComponent = function(
     };
 
     $ctrl.onPageChange = (query) => {
-        reloadRequests(query);
+        $ctrl.fetchRequests(query);
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         if (!appConfigs.features.organizations.funds.fund_requests) {
             return $state.go('csv-validation');
         }
@@ -116,8 +121,7 @@ const FundRequestsComponent = function(
         });
 
         $ctrl.filters.reset();
-
-        reloadRequests($ctrl.filters.values);
+        $ctrl.fetchRequests($ctrl.filters.values);
     };
 };
 
@@ -134,10 +138,9 @@ module.exports = {
         '$timeout',
         'FileService',
         'ModalService',
-        'DateService',
         'FundRequestValidatorService',
         'appConfigs',
-        FundRequestsComponent
+        FundRequestsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/fund-requests.html'
+    templateUrl: 'assets/tpl/pages/fund-requests.html',
 };

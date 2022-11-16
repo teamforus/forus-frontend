@@ -15,16 +15,19 @@
                     ng-model="$ctrl.filters.values.q"
                     placeholder="{{ 'validation_requests.labels.search' | i18n }}").form-control
 
+                //- Filter
                 .form: .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
                     .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
                         .arrow-box.bg-dim: .arrow
                         .form
+                            //- Search
                             .form-group
                                 form-label-toggle(label="{{ 'validation_requests.labels.search' | i18n }}" is-active)
                                 input(
                                     ng-model="$ctrl.filters.values.q"
                                     placeholder="{{ 'validation_requests.labels.search' | i18n }}").form-control
 
+                            //- Status
                             .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="{{ 'validation_requests.labels.status' | i18n }}")
                                 .form-offset: select-control(
@@ -33,6 +36,7 @@
                                     ng-model="$ctrl.filters.values.state"
                                     options="$ctrl.states").form-control
 
+                            //- Assigned employee
                             .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="{{ 'validation_requests.labels.assigned_to' | i18n }}")
                                 .form-offset: select-control(
@@ -42,22 +46,25 @@
                                     ng-model="$ctrl.filters.values.employee_id"
                                     options="$ctrl.employees.data").form-control
 
+                            //- Creation date from
                             .form-group
                                 form-label-toggle(label="{{ 'validation_requests.labels.from' | i18n }}")
                                 datepicker(
-                                    date-format="dd-MM-yyyy"
+                                    date-format="yyyy-MM-dd"
                                     datepicker-mobile=""
                                     date-week-start-day="1").form-control
-                                    input(ng-model="$ctrl.filters.values.from" type="text" placeholder="dd-MM-yyyy").form-control
+                                    input(ng-model="$ctrl.filters.values.from" type="text" placeholder="yyyy-MM-dd").form-control
 
+                            //- Creation date to
                             .form-group
                                 form-label-toggle(label="{{ 'validation_requests.labels.to' | i18n }}")
                                 datepicker(
-                                    date-format="dd-MM-yyyy"
+                                    date-format="yyyy-MM-dd"
                                     datepicker-mobile=""
                                     date-week-start-day="1").form-control
-                                    input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
+                                    input(ng-model="$ctrl.filters.values.to" type="text" placeholder="yyyy-MM-dd").form-control
 
+                            //- Export requests
                             .form-actions
                                 button.button.button-primary.button-wide(
                                     ng-click="$ctrl.exportRequests()"
@@ -73,24 +80,65 @@
                 .table-wrapper
                     table.table
                         tr
-                            th(translate="validation_requests.labels.assigned_to")
-                            th(translate="validation_requests.labels.created_date").nowrap
+                            //- ID
+                            th(translate="validation_requests.labels.id").th-narrow
+
+                            //- Identity
+                            th(translate="validation_requests.labels.requester")
+
+                            //- Fund
                             th(translate="validation_requests.labels.fund")
-                            th(translate="validation_requests.labels.bsn")
-                            th(translate="validation_requests.labels.email")
+
+                            //- Creation date
+                            th(translate="validation_requests.labels.created_date").nowrap
+
+                            //- Assigned employee(s)
+                            th(translate="validation_requests.labels.assignee")
+
+                            //- Status label
                             th(translate="validation_requests.labels.status")
+
+                            //- Actions
                             th(translate="validation_requests.labels.actions").nowrap.text-right
 
                         tr(ng-repeat="validatorRequest in $ctrl.validatorRequests.data"
                             ui-sref="fund-requests-show(validatorRequest.ui_sref)")
-                            td(ng-bind="validatorRequest.id")
-                            td(ng-bind="validatorRequest.created_at_locale")
+
+                            //- ID
+                            td.text-strong
+                                span.text-muted-dark #
+                                span(ng-bind="validatorRequest.id")
+
+                            //- Identity
+                            td
+                                //- Email
+                                strong(ng-bind="(validatorRequest.email | str_limit:64) || 'Geen E-mail'").text-primary
+
+                                //- BSN
+                                div(ng-bind="validatorRequest.bsn ? ('BSN: ' + validatorRequest.bsn) : 'Geen BSN'").text-strong.text-md.text-muted-dark
+
+                            //- Fund
                             td(ng-bind="validatorRequest.fund.name")
-                            td(ng-bind="validatorRequest.bsn || 'Geen'" ng-class="validatorRequest.bsn ? '' : 'text-muted'")
-                            td(ng-bind="validatorRequest.email || 'Geen'" ng-class="validatorRequest.email ? '' : 'text-muted'")
 
-                            td: .label(ng-class="$ctrl.stateClasses[validatorRequest.state]" ng-bind="validatorRequest.state_locale")
+                            //- Creation date
+                            td
+                                strong(ng-bind="validatorRequest.created_at_locale.split(' - ')[0]").text-primary
+                                br
+                                strong(ng-bind="validatorRequest.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
 
+                            //- Assigned employee(s)
+                            td
+                                span(ng-if="!validatorRequest.assigned_employees.length").text-muted Not assigned
+                                div(ng-repeat="email in validatorRequest.assigned_employees track by $index")
+                                    strong(ng-bind="email" ng-if="validatorRequest.assigned_employees.length").text-primary
+
+                            //- Status label
+                            td: .label.label-tag.label-round(
+                                ng-class="$ctrl.stateLabels[validatorRequest.state]")
+                                span(ng-class="'mdi mdi-' + $ctrl.stateLabelIcons[validatorRequest.state] + ' icon-start'")
+                                span(ng-bind="validatorRequest.state_locale")
+
+                            //- Actions
                             td.td-narrow.text-right: a(ui-sref="fund-requests-show(validatorRequest.ui_sref)").button.button-sm.button-primary.pull-right
                                 em.mdi.mdi-eye-outline.icon-start
                                 translate(translate="validation_requests.buttons.view")

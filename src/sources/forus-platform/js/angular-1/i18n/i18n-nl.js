@@ -1306,9 +1306,11 @@ module.exports = {
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
     validation_requests: {
         labels: {
+            id: "ID",
             requests: "Openstaande aanvragen ({{ count }})",
             bsn: "BSN: ",
             type: "Type",
+            requester: "Requester",
             value: "Eigenschap",
             date: "Datum, tijd",
             results: "{{ count }} resultaten",
@@ -1336,8 +1338,9 @@ module.exports = {
             created_date: "Aangemaakt op",
             fund: "Fonds",
             email: "E-mailadres",
-            empty_table: "Geen transacties gevonden",
+            empty_table: "Geen aanvragen",
             note_title: "Reden van weigeren",
+            assignee: "Assignee",
         },
         person: {
             relations: {

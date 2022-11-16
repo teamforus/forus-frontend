@@ -3,8 +3,8 @@ const FundRequestsShowComponent = function(
     $timeout,
     FileService,
     ModalService,
-    FundRequestValidatorService,
     PushNotificationsService,
+    FundRequestValidatorService,
     appConfigs
 ) {
     const $ctrl = this;
@@ -64,12 +64,20 @@ const FundRequestsShowComponent = function(
     $ctrl.isValidatorsSupervisor = false;
     $ctrl.showCriteria = false;
 
-    $ctrl.stateClasses = {
-        pending: 'label-primary-light',
+    $ctrl.stateLabels = {
+        pending: 'label-primary-variant',
         declined: 'label-danger',
         approved: 'label-success',
         approved_partly: 'label-success',
         disregarded: 'label-default'
+    };
+
+    $ctrl.stateLabelIcons = {
+        pending: 'circle-outline',
+        declined: 'circle-off-outline',
+        approved: 'circle-slice-8',
+        approved_partly: 'circle-slice-4',
+        disregarded: 'circle-outline'
     };
 
     $ctrl.reloadRequest = () => {
@@ -343,10 +351,10 @@ module.exports = {
         '$timeout',
         'FileService',
         'ModalService',
-        'FundRequestValidatorService',
         'PushNotificationsService',
+        'FundRequestValidatorService',
         'appConfigs',
-        FundRequestsShowComponent
+        FundRequestsShowComponent,
     ],
-    templateUrl: 'assets/tpl/pages/fund-requests-show.html'
+    templateUrl: 'assets/tpl/pages/fund-requests-show.html',
 };

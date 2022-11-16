@@ -18,20 +18,21 @@
                     //- Title
                     .card-title: .flex
                         //- Code
-                        .flex.flex-vertical: .flex
+                        .flex.flex-vertical: .flex.text-strong
                             span.text-muted ID:&nbsp;
                             | {{ $ctrl.validatorRequest.id }} &nbsp;
 
                         //- Label
                         .flex.flex-vertical.flex-center: .flex.flex-horizontal
                             //- State label
-                            label.label(
-                                ng-class="$ctrl.stateClasses[$ctrl.validatorRequest.state]"
-                                ng-bind="$ctrl.validatorRequest.state_locale")
+                            .label.label-tag.label-round(
+                                ng-class="$ctrl.stateLabels[$ctrl.validatorRequest.state]")
+                                span(ng-class="'mdi mdi-' + $ctrl.stateLabelIcons[$ctrl.validatorRequest.state] + ' icon-start'")
+                                span(ng-bind="$ctrl.validatorRequest.state_locale")
 
                     //- Subtitle
-                    .card-subtitle: .flex
-                        .mdi.mdi-clock-outline
+                    .card-subtitle: .flex.text-muted-dark
+                        .mdi.mdi-clock-outline.text-muted-dark
                         | {{ $ctrl.validatorRequest.created_at_locale }}
 
                 //- Buttons
@@ -53,29 +54,21 @@
                             em.mdi.mdi-account-details-outline.icon-start
                             translate(translate="validation_requests.buttons.assign")
 
-                        //- Resign request
-                        button.button.button-primary-light(
-                            ng-if="$ctrl.validatorRequest.can_resign || $ctrl.validatorRequest.can_resign_as_supervisor"
-                            ng-click='$ctrl.requestResign()')
-
-                            em.mdi.mdi-account-minus.icon-start
-                            translate(translate="validation_requests.buttons.resign")
-
-                        //- Decline
-                        button.button.button-default(
-                            ng-if="$ctrl.validatorRequest.state == 'pending' && $ctrl.validatorRequest.is_assigned && !$ctrl.validatorRequest.can_disregarded_undo"
-                            ng-click='$ctrl.requestDecline()')
-
-                            em.mdi.mdi-close-circle.icon-start
-                            translate(translate="validation_requests.buttons.decline_all")
-
                         //- Approve
                         button.button.button-primary(
                             ng-if="$ctrl.validatorRequest.state == 'pending' && $ctrl.validatorRequest.is_assigned && !$ctrl.validatorRequest.can_disregarded_undo"
                             ng-click='$ctrl.requestApprove()')
 
-                            em.mdi.mdi-check-circle.icon-start
+                            em.mdi.mdi-check.icon-start
                             translate(translate="validation_requests.buttons.accept_all")
+
+                        //- Decline
+                        button.button.button-danger(
+                            ng-if="$ctrl.validatorRequest.state == 'pending' && $ctrl.validatorRequest.is_assigned && !$ctrl.validatorRequest.can_disregarded_undo"
+                            ng-click='$ctrl.requestDecline()')
+
+                            em.mdi.mdi-close.icon-start
+                            translate(translate="validation_requests.buttons.decline_all")
 
                         //- Disregard
                         button.button.button-default(
@@ -92,6 +85,14 @@
                             em.mdi.mdi-backup-restore.icon-start
                             translate(translate="validation_requests.buttons.disregard_undo")
 
+                        //- Resign request
+                        button.button.button-primary-light(
+                            ng-if="$ctrl.validatorRequest.can_resign || $ctrl.validatorRequest.can_resign_as_supervisor"
+                            ng-click='$ctrl.requestResign()')
+
+                            em.mdi.mdi-account-minus.icon-start
+                            translate(translate="validation_requests.buttons.resign")
+
                         button.button.button-default(
                             type="button"
                             disabled="disabled"
@@ -107,27 +108,31 @@
                         td
                             strong(translate="validation_requests.labels.fund").text-strong.text-md.text-primary
                             br
-                            strong.text-black(ng-bind="$ctrl.validatorRequest.fund.name")
-                            em.mdi.mdi-information.block.block-tooltip-details(
-                                ng-click="$ctrl.showFundCriteria($event)"
-                                ng-class="{active: $ctrl.showCriteria}")
-                                .tooltip-content(
-                                    ng-if="$ctrl.showCriteria"
-                                    click-outside="$ctrl.hideFundCriteria($event)"): ul.tooltip-list
-                                    li(ng-repeat="criterion in $ctrl.validatorRequest.fund.criteria").tooltip-list-item
-                                        em.mdi.mdi-check
-                                        | {{ criterion.record_type_name }} moet
-                                        span(ng-if="criterion.operator == '>'") meer dan
-                                        span(ng-if="criterion.operator == '='")
-                                        span(ng-if="criterion.operator == '<'") minder dan
-                                        | {{ criterion.record_type_key == 'net_worth' ? '€' : '' }}{{ criterion.value }}.
+                            .flex.flex-horizontal
+                                .flex: strong.text-black(ng-bind="$ctrl.validatorRequest.fund.name")
+                                .flex.flex-vertical: em.mdi.mdi-information.block.block-tooltip-details.block-tooltip-details-inline(
+                                    ng-click="$ctrl.showFundCriteria($event)"
+                                    ng-class="{active: $ctrl.showCriteria}")
+                                    .tooltip-content(
+                                        ng-if="$ctrl.showCriteria"
+                                        click-outside="$ctrl.hideFundCriteria($event)"): ul.tooltip-list
+                                        li(ng-repeat="criterion in $ctrl.validatorRequest.fund.criteria").tooltip-list-item
+                                            em.mdi.mdi-check
+                                            | {{ criterion.record_type_name }} moet
+                                            span(ng-if="criterion.operator == '>'") meer dan
+                                            span(ng-if="criterion.operator == '='")
+                                            span(ng-if="criterion.operator == '<'") minder dan
+                                            | {{ criterion.record_type_key == 'net_worth' ? '€' : '' }}{{ criterion.value }}.
                         //- Email
-                        td
+                        td: .block.block-tooltip-details.block-tooltip-hover.flex-inline.flex-vertical
                             strong(translate="validation_requests.labels.email").text-strong.text-md.text-primary
-                            br
                             strong(
                                 ng-class="$ctrl.validatorRequest.email ? 'text-black' : 'text-muted'"
-                                ng-bind="$ctrl.validatorRequest.email || 'Geen E-mail'")
+                                ng-bind="($ctrl.validatorRequest.email || 'Geen E-mail') | str_limit:40")
+
+                            .tooltip-content.tooltip-content-fit.tooltip-content-bottom(ng-if="$ctrl.validatorRequest.email.length > 40")
+                                .triangle
+                                .nowrap(ng-bind="$ctrl.validatorRequest.email || 'Geen E-mail'")
 
                         //- BSN
                         td
@@ -172,7 +177,7 @@
                     .card-title(translate="validation_requests.labels.records")
 
                 .flex.flex-self-start(ng-if="$ctrl.validatorRequest.can_add_partner_bsn"): .flex-row
-                    button.button.button-primary-light(ng-click="$ctrl.appendRecord()")
+                    button.button.button-primary.button-sm(ng-click="$ctrl.appendRecord()")
                         em.mdi.mdi-plus.icon-start
                         span(translate="validation_requests.buttons.add_partner_bsn")
 
@@ -183,7 +188,7 @@
                     th(translate='validation_requests.labels.value' width="20%")
                     th(translate='validation_requests.labels.date' width="20%")
                     th(translate='validation_requests.labels.status' width="20%")
-                    th.text-right(translate='validation_requests.labels.actions' width="20%")
+                    th.text-right(translate='validation_requests.labels.actions' width="20%").
                 
                 tbody(ng-repeat='record in $ctrl.validatorRequest.records')
                     tr
@@ -194,8 +199,8 @@
                         td(ng-bind='record.record_type.name')
                         td(ng-bind='record.value !== null ? record.value : "Niet beschikbaar"' ng-class="{'text-muted': record.value !== null}")
                         td(ng-bind='record.created_at_locale')
-                        td: .tag(
-                            ng-class="$ctrl.stateClasses[record.state]"
+                        td: .label.label-tag.label-round(
+                            ng-class="$ctrl.stateLabels[record.state]"
                             translate='validation_requests.status.{{ record.state }}')
                         
                         td.text-right(ng-if="record.state != 'pending'")
