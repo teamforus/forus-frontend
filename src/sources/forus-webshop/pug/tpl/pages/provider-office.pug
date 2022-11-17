@@ -10,12 +10,12 @@ block content
                     a(ui-sref="provider($ctrl.provider)" ng-bind="$ctrl.provider.name").breadcrumb-item
                     .breadcrumb-item.active(ng-bind="$ctrl.office.address" aria-current="location")
 
-            .office-map: .block.block-google-map: google-map(
+            .office-map(ng-if="$root.appConfigs.features.show_office_map"): .block.block-google-map: google-map(
                 map-pointers="[$ctrl.office]" 
                 map-pointer-template="providers-office-view" 
                 map-gesture-handling="'none'")
 
-            .office-content
+            .office-content(ng-class="{'office-content-top': !$root.appConfigs.features.show_office_map}")
                 .block.block-pane
                     .pane-head
                         h1.sr-only(ng-bind="$ctrl.office.address")

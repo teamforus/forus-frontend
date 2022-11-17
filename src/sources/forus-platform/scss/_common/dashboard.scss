@@ -1216,6 +1216,14 @@ body {
         &:last-child {
             border-bottom: 0;
         }
+
+        &.card-section-settings {
+            .card-title {
+                font: 600 14px/20px $bf;
+                margin: 0 0 15px;
+                color: #282B39;
+            }
+        }
     }
 
     .card-footer {
@@ -2636,16 +2644,20 @@ body {
                             display: flex;
 
                             .fund-img {
-                                margin: auto 10px auto 0;
+                                margin: 0 10px auto 0;
                                 padding: 0px;
                                 width: 50px;
                                 height: 50px;
+                                min-width: 50px;
                             }
 
                             .fund-details {
+                                padding-right: 140px;
+
                                 .fund-title {
                                     display: block;
-                                    font: 500 18px/28px $bf;
+                                    font: 500 18px/24px $bf;
+                                    margin: 0 0 5px;
                                     color: #191A1C;
                                 }
 
@@ -2668,8 +2680,9 @@ body {
                             top: 16px;
 
                             .button {
-                                width: 200px;
                                 white-space: nowrap;
+                                font: 700 12px/12px $bf;
+                                padding: 12px;
 
                                 &:focus {
                                     outline: none;
@@ -2927,6 +2940,26 @@ body {
                     width: 38px !important;
                     margin-right: 3px !important;
                     font: 400 22px/31px $bf !important;
+                }
+            }
+             
+            .fund-apply {
+                .card {
+                    .card-section.card-section-fund {
+                        .card-block.card-block-fund {
+                            .fund-details {
+                                padding-right: 0;
+
+                                .fund-title {
+                                    font: 500 15px/24px $bf;
+                                }
+                            }
+                        }
+
+                        .card-section-actions {
+                            padding-top: 15px;
+                        }
+                    }
                 }
             }
 
@@ -6320,6 +6353,58 @@ body {
             }
         }
     }
+
+    &.block-toggles {
+        display: block;
+        @include cf();
+        
+        .toggle-row {
+            display: block;
+            float: left;
+            width: 100%;
+            margin-bottom: -20px;
+
+            .toggle-item {
+                border: 1px dashed #bfbfbf;
+                border-radius: $border_radius / 2;
+                align-items: center;
+                background: #f6f9fc;
+                padding: 20px;
+                color: #646F79;
+                margin: 0 0 20px;
+                width: 100%;
+                display: flex;
+                flex-grow: 1;
+
+                .toggle-label {
+                    font: 600 13px/13px $bf;
+                    color: #646F79;
+                    display: flex;
+                    flex-grow: 1;
+        
+                    &:hover {
+                        color: #426993;
+                        transition: all .4s;
+                    }
+                }
+
+                .form-toggle {
+                    width: auto;
+                }
+
+                &.active {
+                    background: #fff;
+                    color: #134478;
+                    border-color: transparent;
+                    box-shadow: 0px 0px 10px rgba(25, 39, 52, 0.22);
+        
+                    .toggle-label {
+                        color: #134478;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .modal {
@@ -6361,10 +6446,11 @@ body {
         width: 1200px;
         max-width: 100%;
         border-radius: 6px;
-        display: inline-block;
         min-height: 100px;
         margin: 0 auto;
         max-height: 90vh;
+        display: flex;
+        flex-direction: column;
 
         .modal-section {
             padding: 30px;
@@ -6393,7 +6479,6 @@ body {
 
         .modal-body {
             min-height: 20px;
-            max-height: calc(100vh - 60px);
             overflow: auto;
             @include webkit_scrollbar();
 

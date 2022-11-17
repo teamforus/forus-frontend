@@ -6,6 +6,20 @@ const ProvidersComponent = function(
 ) {
     const $ctrl = this;
 
+    $ctrl.sortByOptions = [{
+        label: 'Naam (oplopend)',
+        value: {
+            order_by: 'name',
+            order_by_dir: 'asc',
+        }
+    }, {
+        label: 'Naam (aflopend)',
+        value: {
+            order_by: 'name',
+            order_by_dir: 'desc',
+        }
+    }];
+
     $ctrl.showMap = false;
     $ctrl.officesShown = [];
     $ctrl.countFiltersApplied = 0;
@@ -52,12 +66,17 @@ const ProvidersComponent = function(
         business_type_id: values.business_type_id || null,
         postcode: values.postcode || '',
         distance: values.distance || null,
+        ...$ctrl.sortBy.value
     });
 
     $ctrl.onPageChange = (values) => {
         const query = $ctrl.buildQuery(values);
 
         $ctrl.showMap ? $ctrl.loadProvidersMap(query) : $ctrl.loadProviders(query);
+    };
+
+    $ctrl.updateSortBy = () => {
+        $ctrl.onPageChange({ ...$ctrl.form.values });
     };
 
     $ctrl.showAsMap = () => {
@@ -127,6 +146,7 @@ const ProvidersComponent = function(
         });
 
         $ctrl.showModalFilters = $stateParams.show_menu;
+        $ctrl.sortBy = $ctrl.sortByOptions[0];
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q,
             fund_id: $stateParams.fund_id || $ctrl.funds[0].id,

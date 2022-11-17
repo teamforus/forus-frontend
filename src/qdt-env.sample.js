@@ -667,6 +667,7 @@ module.exports = (core) => {
             flags: {
                 fundsMenu: true,
                 showStartButton: true,
+                showStartButtonText: 'Start aanvraag',
                 accessibilityPage: false,
             },
             sessions: sessions,

@@ -1,0 +1,47 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementations({organization_id: $ctrl.organization.id})") Webshops 
+            .breadcrumb-item(ui-sref="implementation-view({organization_id: $ctrl.organization.id, id: $ctrl.implementation.id})" ng-bind="$ctrl.implementation.name")
+            .breadcrumb-item(ui-sref="implementation-cms({organization_id: $ctrl.organization.id, id: $ctrl.implementation.id})") Content Management System
+            .breadcrumb-item.active Implementation page configs
+
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header.flex.flex-horizontal
+                .flex.flex-grow: .card-title(i18n="implementation_edit.header.title")
+                .flex
+                    a(href="{{ $ctrl.implementation.url_webshop }}" target="_blank").button.button-text.button-sm 
+                        | Open webshop
+                        .mdi.mdi-open-in-new.icon-end
+                    button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
+
+            //- Home page
+            .card-section.card-section-primary.card-section-settings(ng-repeat="config in $ctrl.configs")
+                .card-title(translate="implementation_config.pages.{{ config.page }}")
+
+                .block.block-toggles
+                    .toggle-row: .row: .col.col-xs-12(
+                        ng-repeat="block in config.blocks" ng-class="{'col-lg-6' : (config.blocks.length % 2 == 0 || !$last), 'col-lg-12' : (config.blocks.length % 2 && $last)}")
+                        .toggle-item(ng-class="{'active': $ctrl.form.values[block]}")
+                            .toggle-label: .flex.flex-vertical
+                                div(translate="implementation_config.blocks.{{ block }}")
+                                .form-error(ng-repeat="error in $ctrl.form.errors[block]" ng-bind="error")
+                            label(for="{{ block }}").form-toggle
+                                input(
+                                    type="checkbox" 
+                                    id="{{ block }}" 
+                                    ng-model="$ctrl.form.values[block]" 
+                                    ng-checked="$ctrl.form.values[block]")
+                                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+            //- Cancel or Submit
+            .card-section.card-section-primary: .text-center
+                button(
+                    type="button" 
+                    ui-sref="implementation-cms({organization_id: $ctrl.organization.id, id: $ctrl.implementation.id})"
+                    translate="funds_edit.buttons.cancel").button.button-default
+
+                button(
+                    type="submit" 
+                    translate="funds_edit.buttons.confirm").button.button-primary
