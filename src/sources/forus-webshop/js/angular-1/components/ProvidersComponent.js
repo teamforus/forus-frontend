@@ -7,13 +7,13 @@ const ProvidersComponent = function(
     const $ctrl = this;
 
     $ctrl.sortByOptions = [{
-        label: 'Naam aflopend (oplopend)',
+        label: 'Naam (oplopend)',
         value: {
             order_by: 'name',
             order_by_dir: 'asc',
         }
     }, {
-        label: 'Naam aflopend (aflopend)',
+        label: 'Naam (aflopend)',
         value: {
             order_by: 'name',
             order_by_dir: 'desc',
