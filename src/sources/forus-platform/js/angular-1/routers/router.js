@@ -1337,9 +1337,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             }))],
             funds: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
-            ) => repackResponse(ProviderFundService.listFunds(
-                $transition$.params().organization_id
-            ))],
+            ) => repackResponse(ProviderFundService.listFunds($transition$.params().organization_id, {
+                per_page: 1000,
+            }))],
             fundInvitations: ['$transition$', 'FundProviderInvitationsService', (
                 $transition$, FundProviderInvitationsService
             ) => repackResponse(FundProviderInvitationsService.listInvitations(
