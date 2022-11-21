@@ -4,6 +4,7 @@ const ProductsComponent = function(
     $stateParams,
     appConfigs,
     ProductService,
+    ProductCategoryService,
     FormBuilderService,
     PageLoadingBarService,
 ) {
@@ -90,7 +91,7 @@ const ProductsComponent = function(
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
             return $ctrl.products = res.data;
         }).finally(() => {
-            $ctrl.updateState(query, location);
+            $ctrl.updateState(query, true);
             $ctrl.updateFiltersUsedCount();
         });
     };
@@ -110,6 +111,16 @@ const ProductsComponent = function(
         }, { location });
     };
 
+    $ctrl.changeCategory = (type) => {
+        if (type == 'category' || (type == 'subcategory' && !$ctrl.product_sub_category_id)) {
+            return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
+        }
+
+        if (type == 'subcategory') {
+            $ctrl.form.values.product_category_id = $ctrl.product_sub_category_id;
+        }
+    };
+
     $ctrl.updateFiltersUsedCount = () => {
         let count = 0;
 
@@ -127,6 +138,7 @@ const ProductsComponent = function(
         $ctrl.sort_by = $ctrl.sortByOptions[0];
         $ctrl.fund_type = $stateParams.fund_type;
         $ctrl.display_type = $stateParams.display_type;
+        $ctrl.product_category_id = $stateParams.product_category_id;
 
         $ctrl.funds.unshift({
             id: null,
@@ -135,6 +147,11 @@ const ProductsComponent = function(
 
         $ctrl.productCategories.unshift({
             name: 'Selecteer categorie...',
+            id: null
+        });
+
+        $ctrl.productSubCategories?.unshift({
+            name: 'Selecteer subcategorie...',
             id: null
         });
 
@@ -155,6 +172,11 @@ const ProductsComponent = function(
 
         $ctrl.updateFiltersUsedCount();
 
+        if ($ctrl.productCategory) {
+            $ctrl.product_category_id = $ctrl.productCategory.parent_id || $ctrl.productCategory.id;
+            $ctrl.product_sub_category_id = $ctrl.productCategory.parent_id ? $ctrl.productCategory.id : null;
+        }
+
         $scope.$watch('$ctrl.appConfigs', (_appConfigs) => {
             if (_appConfigs.features && !_appConfigs.features.products.list) {
                 $state.go('home');
@@ -168,7 +190,9 @@ module.exports = {
         fund_type: '<',
         funds: '<',
         products: '<',
+        productCategory: '<',
         productCategories: '<',
+        productSubCategories: '<',
         organizations: '<',
     },
     controller: [
@@ -177,6 +201,7 @@ module.exports = {
         '$stateParams',
         'appConfigs',
         'ProductService',
+        'ProductCategoryService',
         'FormBuilderService',
         'PageLoadingBarService',
         ProductsComponent

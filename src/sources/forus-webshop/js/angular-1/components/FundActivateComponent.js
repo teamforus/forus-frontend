@@ -168,17 +168,17 @@ const FundActivateComponent = function (
             }
 
             FundService.check($ctrl.fund.id).then((res) => {
-                const { backoffice } = res.data;
+                const { backoffice, prevalidations, vouchers } = res.data;
                 const { backoffice_error, backoffice_fallback, backoffice_error_key, backoffice_redirect } = backoffice || {};
 
                 // Backoffice not responding and fallback is disabled
-                if (backoffice && backoffice_error == 1 && backoffice_fallback == 0) {
+                if (backoffice && backoffice_error && !backoffice_fallback) {
                     return $ctrl.setState('backoffice_error_' + (backoffice_error_key ? backoffice_error_key : 'not_eligible'));
                 }
 
                 // Fund requesting is not available after successful signing with DigiD
-                if (backoffice && backoffice_error == 2) {
-                    return $ctrl.setState('error_digid_no_funds');
+                if (!prevalidations && !vouchers && !this.fundRequestIsAvailable($ctrl.fund)) {
+                    return $ctrl.setState('error_not_available');
                 }
 
                 // User is not eligible and has to be redirected
@@ -313,6 +313,7 @@ const FundActivateComponent = function (
     };
 
     $ctrl.$onInit = function () {
+        console.log('FundActivateComponent');
         const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
         const pendingRequest = $ctrl.fundRequests?.data.find((request) => request.state === 'pending');
         const hasDigiDResponse = $ctrl.hasDigiDResponse($stateParams);

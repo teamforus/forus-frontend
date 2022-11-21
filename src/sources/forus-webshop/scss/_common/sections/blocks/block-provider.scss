@@ -95,12 +95,20 @@
         .block-pane:first-child {
             margin-top: -70px;
         }
+
+        &.provider-content-top {
+            margin-top: 95px;
+        }
     }
 
     @media screen and (max-width: 1000px) {
         .provider-content {
             .block-pane:first-child {
                 margin-top: -15px;
+            }
+
+            &.provider-content-top {
+                margin-top: 35px;
             }
         }
     }

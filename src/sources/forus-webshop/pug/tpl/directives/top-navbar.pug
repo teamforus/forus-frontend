@@ -9,7 +9,9 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
             ui-sref-active="active").show-sm
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-info.svg
-                div(translate="topnavbar.items.explanation")
+                div(
+                    translate="topnavbar.items.{{ $root.appConfigs.client_key }}.explanation"
+                    translate-default="{{ 'topnavbar.items.explanation' | translate }}")
 
         a(ui-sref="home").navbar-logo.show-sm
             img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="Terug naar hoofdpagina")
@@ -69,7 +71,8 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     ui-sref="explanation"
                     ui-sref-active="active"
                     target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
-                    ng-bind="'topnavbar.items.explanation' | translate")
+                    translate="topnavbar.items.{{ $root.appConfigs.client_key }}.explanation"
+                    translate-default="{{ 'topnavbar.items.explanation' | translate }}")
 
             li.navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user")
                 span.navbar-user(
@@ -92,6 +95,11 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
             .block.flex.hide-sm
                 .block.block-auth
+                    button.button.button-default(
+                        ng-if="!$root.auth_user && $root.appConfigs.flags.showStartButton"
+                        ng-click="$dir.startFundRequest({ restore_with_email: true })"
+                        role="button") Start aanvraag
+
                     button.button.button-primary(
                         ng-if="!$root.auth_user"
                         ng-click="$dir.startFundRequest()"
@@ -177,6 +185,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                                         ui-sref="identity-emails"
                                         ui-sref-active="active"
                                         id="identity_emails"
+                                        dusk="btnUserEmails"
                                         role="link")
                                         em.mdi.mdi-at 
                                         translate(translate="email_preferences.title_preferences")
