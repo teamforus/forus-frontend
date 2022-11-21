@@ -36,6 +36,13 @@ const VoucherService = function(ApiRequest) {
             });
         };
 
+        this.storeCollectionValidate = function(organization_id, fund_id, vouchers) {
+            return ApiRequest.post(`/platform/organizations/${organization_id}/sponsor/vouchers/batch/validate`, {
+                fund_id: fund_id,
+                vouchers: vouchers
+            });
+        };
+
         this.show = (organization_id, voucher_id) => {
             return ApiRequest.get([
                 '/platform/organizations/' + organization_id,

@@ -4,7 +4,7 @@
     .modal-backdrop(ng-click="$ctrl.close()")
 
     //- Voucher form
-    .modal-window(ng-if="!$ctrl.formProducts && !$ctrl.reservation"): form.form(ng-submit="$ctrl.form.submit()")
+    form(ng-if="!$ctrl.formProducts && !$ctrl.reservation" ng-submit="$ctrl.form.submit()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header Reservering aanmaken
         .modal-body.modal-body-visible: .modal-section
@@ -27,7 +27,7 @@
             button.button.button-primary(type="submit" i18n="modals.modal_voucher_create.buttons.submit")
 
     //- Voucher form
-    .modal-window(ng-if="$ctrl.formProducts && !$ctrl.reservation"): form.form(ng-submit="$ctrl.formProducts.submit()")
+    form(ng-if="$ctrl.formProducts && !$ctrl.reservation" ng-submit="$ctrl.formProducts.submit()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header Aanbieding selecteren
         .modal-body.modal-body-visible

@@ -81,8 +81,19 @@ block content
                                 span Aanbieders
                                 .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
 
-                            .showcase-filters-block
-                                .block.block-label-tabs.pull-right
+                            .showcase-filters-block: .block.block-label-tabs.form
+                                .showcase-filters-item
+                                    label.form-label Sorteer
+                                    select-control(
+                                        id="sort_by"
+                                        as="label"
+                                        search="false"
+                                        ng-model="$ctrl.sortBy"
+                                        ng-change="$ctrl.updateSortBy()"
+                                        options="$ctrl.sortByOptions"
+                                        placeholder="Sorteer")
+
+                                .block.block-label-tabs.pull-right(ng-if="$root.appConfigs.features.show_providers_map")
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: !$ctrl.showMap}"
                                         ng-click="$ctrl.showAsList()")

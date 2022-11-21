@@ -8,7 +8,6 @@ const VouchersComponent = function (
     const groupByType = (vouchers) => {
         $ctrl.regularVouchers = vouchers.filter((voucher) => voucher.type == 'regular');
         $ctrl.productVouchers = vouchers.filter((voucher) => voucher.type == 'product');
-        $ctrl.reimbursementVouchers = $ctrl.regularVouchers.filter((voucher) => voucher.fund.allow_reimbursements);
     };
 
     $ctrl.setArchived = (archived) => {
@@ -27,11 +26,12 @@ const VouchersComponent = function (
 
 module.exports = {
     bindings: {
-        vouchers: '<'
+        vouchers: '<',
+        reimbursementVouchers: '<',
     },
     controller: [
         'VoucherService',
-        VouchersComponent
+        VouchersComponent,
     ],
-    templateUrl: 'assets/tpl/pages/vouchers.html'
+    templateUrl: 'assets/tpl/pages/vouchers.html',
 };

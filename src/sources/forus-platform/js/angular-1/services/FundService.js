@@ -231,10 +231,6 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
             return fund_id ? ApiRequest.patch(path, { criteria }) : ApiRequest.post(path, { criteria });
         };
 
-        this.faqValidate = (organization_id, faq) => {
-            return ApiRequest.post(`${uriPrefix}${organization_id}/funds/faq/validate`, { faq });
-        };
-
         this.getApplicationMethodKey = (fund) => {
             if (fund.allow_fund_requests) {
                 return fund.allow_prevalidations ? 'all' : 'application_form';

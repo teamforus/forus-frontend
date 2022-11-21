@@ -26,6 +26,7 @@ const ModalVouchersUploadComponent = function(
     $ctrl.progressBar = 0;
     $ctrl.progressStatus = "";
     $ctrl.productsIds = [];
+    $ctrl.hideModal = false;
 
     let $translate = $filter('translate')
     let input;
@@ -323,13 +324,13 @@ const ModalVouchersUploadComponent = function(
                     $ctrl.loading = false;
 
                     if (existingEmails.length === 0 && existingBsn.length === 0) {
-                        return this.startUploading();
+                        return this.startUploading(true).then(() => this.startUploading());
                     }
 
                     this.confirmEmailSkip(existingEmails, () => {
                         this.confirmBsnSkip(existingBsn, () => {
                             if (this.data.length > 0) {
-                                return this.startUploading();
+                                return this.startUploading(true).then(() => this.startUploading());
                             }
 
                             $ctrl.close();
@@ -338,8 +339,8 @@ const ModalVouchersUploadComponent = function(
                 }, () => $ctrl.loading = false);
             }
 
-            this.startUploading = function() {
-                $q(async (resolve) => {
+            this.startUploading = function(validation = false) {
+                return $q(async (resolve) => {
                     let totalRows = this.data.length;
                     let uploadedRows = 0;
                     let data = JSON.parse(JSON.stringify(this.data)).map(row => {
@@ -361,20 +362,115 @@ const ModalVouchersUploadComponent = function(
                             return row;
                         });
 
-                        await this.startUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
-                            uploadedRows += chunkData.length;
-                            setProgress((uploadedRows / totalRows) * 100);
-
-                            if (uploadedRows === totalRows) {
-                                $timeout(() => {
-                                    setProgress(100);
-                                    this.progress = 3;
-                                    $rootScope.$broadcast('vouchers_csv:uploaded', true);
-                                }, 0);
+                        if (validation) {
+                            await this.startValidationUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
+                                uploadedRows += chunkData.length;
+                                setProgress((uploadedRows / totalRows) * 100);
+                            }).then(() => {
+                                $timeout(() => setProgress(100));
                                 resolve();
-                            }
-                        });
+                            }, (errors) => {
+                                this.progress = 1;
+                                this.showInvalidRows(errors, dataGrouped[fund_id]);
+                            });
+                        } else {
+                            await this.startUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
+                                uploadedRows += chunkData.length;
+                                setProgress((uploadedRows / totalRows) * 100);
+
+                                if (uploadedRows === totalRows) {
+                                    $timeout(() => {
+                                        setProgress(100);
+                                        this.progress = 3;
+                                        $rootScope.$broadcast('vouchers_csv:uploaded', true);
+                                    }, 0);
+                                    resolve();
+                                }
+                            });
+                        }
                     }
+                });
+            };
+
+            this.startValidationUploadingData = function(fund_id, groupData, onChunk = () => { }) {
+                return new Promise((resolve, reject) => {
+                    const submitData = chunk(groupData, dataChunkSize);
+                    const chunksCount = submitData.length;
+
+                    let errors = {};
+                    let currentChunkNth = 0;
+
+                    const uploadChunk = (data) => {
+                        VoucherService.storeCollectionValidate($ctrl.organization.id, fund_id, data).then(() => {
+                            currentChunkNth++;
+                            onChunk(data);
+                            resolveIfFinished();
+                        }, (res) => {
+                            if (res.status == 422 && res.data.errors) {
+                                Object.keys(res.data.errors).forEach(function(key) {
+                                    const keyData = key.split('.');
+                                    keyData[1] = parseInt(keyData[1], 10) + currentChunkNth * dataChunkSize;
+                                    errors[keyData.join('.')] = res.data.errors[key];
+                                });
+                            } else {
+                                alert('Onbekende error.');
+                            }
+
+                            currentChunkNth++;
+                            onChunk(data);
+
+                            resolveIfFinished();
+                        });
+                    };
+
+                    const resolveIfFinished = () => {
+                        if (currentChunkNth == chunksCount) {
+                            if (Object.keys(errors).length) {
+                                return reject(errors);
+                            }
+
+                            resolve(true);
+                        } else if (currentChunkNth < chunksCount) {
+                            uploadChunk(submitData[currentChunkNth]);
+                        }
+                    }
+
+                    uploadChunk(submitData[currentChunkNth]);
+                });
+            };
+
+            this.showInvalidRows = function(errors = {}, vouchers = []) {
+                const items = Object.keys(errors).map(function(key) {
+                    const keyData = key.split('.');
+                    const keyDataId = keyData[1];
+                    const index = parseInt(keyDataId, 10) + 1;
+
+                    return [index, errors[key], vouchers[keyDataId]];
+                }).sort((a, b) => a[0] - b[0]);
+
+                const uniqueRows = items.reduce((arr, item) => {
+                    return arr.includes(item[0]) ? arr : [...arr, item[0]];
+                }, []);
+
+                const message = [
+                    `${uniqueRows.length} van ${vouchers.length}`,
+                    `rij(en) uit het bulkbestand zijn niet geimporteerd,`,
+                    `bekijk het bestand bij welke rij(en) het mis gaat.`,
+                ].join(" ");
+
+                PushNotificationsService.danger('Waarschuwing', message);
+
+                $ctrl.hideModal = true;
+
+                ModalService.open('duplicatesPicker', {
+                    hero_title: "Voucher import has errors",
+                    hero_subtitle: message,
+                    enableToggles: false,
+                    items: items.map((item) => ({ value: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}` })),
+                    onConfirm: () => $timeout(() => $ctrl.hideModal = false, 300),
+                    onCancel: () => $timeout(() => $ctrl.hideModal = false, 300),
+                }, {
+                    onClose: () => $timeout(() => $ctrl.hideModal = false, 300),
                 });
             };
 
@@ -501,7 +597,7 @@ const ModalVouchersUploadComponent = function(
 module.exports = {
     bindings: {
         close: '=',
-        modal: '='
+        modal: '=',
     },
     controller: [
         '$q',
@@ -515,9 +611,7 @@ module.exports = {
         'VoucherService',
         'ProductService',
         'PushNotificationsService',
-        ModalVouchersUploadComponent
+        ModalVouchersUploadComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-vouchers-upload.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-vouchers-upload.html',
 };

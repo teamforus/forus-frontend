@@ -4,7 +4,7 @@
         .card
             .card-section
                 .card-section-actions
-                    a(ng-if="$ctrl.organization | hasPerm:'manage_organization'" ui-sref="organizations-edit($ctrl.organization)" id="edit_office").button.button-default
+                    a(ng-if="$ctrl.organization | hasPerm:'manage_organization'" ui-sref="organizations-edit({organization_id: $ctrl.organization.id})" id="edit_office").button.button-default
                         em.mdi.mdi-pen.icon-start
                         span(translate="offices.buttons.adjust")
 
@@ -13,7 +13,7 @@
                         ng-src="{{ $ctrl.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                     .provider-details
                         a(
-                            ui-sref="organizations-edit($ctrl.organization)" 
+                            ui-sref="organizations-edit({organization_id: $ctrl.organization.id})" 
                             ng-bind="$ctrl.organization.name").provider-title
                         .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
                             .card-block-listing-label(translate="offices.labels.mail")
