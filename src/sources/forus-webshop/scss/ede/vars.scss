@@ -3,9 +3,9 @@
 /*==========  Style Sheet - Vars  ==========*/
 
 // navbar
-$bg-nav:            #ECECEC;
-$tc-nav-hov:        #4a60b3;
-$tc-nav:            #3558A2;
+$bg-nav:            #3558A2;
+$tc-nav-hov:        #cdcdcd;
+$tc-nav:            #FFFFFF;
 $logo-padding:      30px 0px;
 $logo-height:       75px;
 
@@ -17,14 +17,14 @@ $btn-auth-border:   transparent;
 
 // navbar (start modal primary)
 $tc-start-btn:       #fff; 
-$btn-start-bg:       #08193e; 
-$btn-start-btn:      #08193e;
+$btn-start-bg:       #3D559C; 
+$btn-start-btn:      #3D559C;
 $btn-start-border:   transparent;
 
 $bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
 
 // base font
-$bf:                Arial, Verdana;
+$bf:                Open Sans, Verdana;
 
 // text color
 $tc:                #1a1919;
@@ -43,7 +43,7 @@ $bg_2:              none;
 $tf:                inherit;
 
 // footer color
-$fbc:                #3558A2;
+$fbc:                #404040;
 $fc:                #ffffff;
 $fc-link:            #ffffff;
 

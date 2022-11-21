@@ -3,7 +3,7 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     
-    .modal-window: form.form
+    form.modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
         .modal-header(ng-if="$ctrl.title" ng-bind="$ctrl.title")
         .modal-header(ng-if="!$ctrl.title" i18n="modals.modal_export_data.title")

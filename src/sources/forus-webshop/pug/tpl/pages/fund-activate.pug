@@ -128,7 +128,7 @@ main(id="main-content")
                                 ng-class="($ctrl.activateCodeForm.values.code.length != 8 || !$ctrl.activateCodeForm.enabled) ? 'button-disabled' : ''").button.button-primary
 
         //- Error: No funds received after signing-up through DigiD, fund requests are disabled
-        .sign_up-pane(ng-if="$ctrl.state == 'error_digid_no_funds'")
+        .sign_up-pane(ng-if="$ctrl.state == 'error_not_available'")
             .sign_up-pane-header
                 h2.sign_up-pane-header-title Aanvraag mislukt
 

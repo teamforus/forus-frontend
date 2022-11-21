@@ -79,7 +79,7 @@ const BaseController = function(
         $rootScope.showOrganizationsMenu = false;
 
         $state.go('organizations-edit', {
-            id: organization.id
+            organization_id: organization.id
         });
     };
 

@@ -12,7 +12,7 @@ block content
                     a(ui-sref="providers").breadcrumb-item Aanbieders
                     .breadcrumb-item.active(ng-bind="$ctrl.provider.name" aria-current="location")
             
-            .provider-map: .block.block-google-map: google-map(
+            .provider-map(ng-if="$root.appConfigs.features.show_provider_map"): .block.block-google-map: google-map(
                 ng-if="$ctrl.mapOptions"
                 map-pointers="$ctrl.provider.offices" 
                 map-pointer-template="providers-office-view"
@@ -20,7 +20,7 @@ block content
                 map-gesture-handling="'none'"
                 open-first-pointer="true")
 
-            .provider-content
+            .provider-content(ng-class="{'provider-content-top': !$root.appConfigs.features.show_provider_map}")
                 .block.block-pane
                     .pane-head
                         h1.sr-only(ng-bind="$ctrl.provider.name") 

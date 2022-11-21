@@ -1,3 +1,139 @@
+.block {
+    @media screen and (min-width: 1000px) {
+        &.block-navbar {
+            border-bottom: 0;
+
+            .navbar-inner {
+                order: 2;
+            }
+
+            .navbar-list {
+                .navbar-item-wrapper {
+                    .navbar-item {
+                        font: 400 22px/26px $bf;
+                    }
+                }
+            }
+        }
+
+        &.block-cms-funds {
+            display: auto;
+
+            .fund-item {
+                display: inline-block;
+                width: 50%;
+                border: none;
+                margin: 0 auto;
+                padding: 20px;
+
+                .fund-media {
+                    width: 100%;
+
+                    img {
+                        width: 100%;
+                        display: block;
+                        max-height: 250px;
+                        object-fit: cover;                        
+                    }
+                }
+
+                .fund-information {
+                    width: auto;
+                    padding-left: 0;
+                    text-align: left;
+                    display: block;
+
+                    .fund-title {
+                        color: $tc;
+                    }
+
+                    .fund-description {
+                        min-height: 100px;
+                    }
+                }
+            }
+            
+            .fund-item:nth-of-type(2n) { 
+                .fund-information {
+                    padding-right: 0;
+                }    
+            }
+
+            .fund-item:nth-of-type(1) {
+                .fund-information {
+                    .fund-description {
+                        min-height: 75px;
+                    }
+                }   
+            }
+
+            .fund-item:nth-of-type(2) {
+                .fund-information {
+                    .fund-description {
+                        min-height: 75px;
+                    }
+                }   
+            }
+        }
+    }
+}
+
+.section {
+    &.section-header {
+        background-position: top center;
+        padding: 50px 0;
+        margin: 0 auto;
+        max-width: 100%;
+
+        .header-content {
+            text-align: center;
+            padding: 50px 50px;
+            background-color: #ffffff;
+
+            .header-description p {
+                text-align: center !important;
+            }
+        }
+    }
+
+    &.section-fund {
+        .wrapper {
+            padding-top: 20px;
+            width: 1000px;
+        }
+    }
+
+    &.section-faq {
+        .faq {
+            width: auto;
+            margin: 0;
+        }
+    }
+
+    &.section-footer {
+        margin-top: 0;
+        padding-top: 30px;
+        color: #fff;
+    }
+
+    @media screen and (min-width: 1000px) { 
+        &.section-header { 
+            height: auto;
+            padding: 50px 0;
+        
+            .header-content {
+                text-align: left;
+                padding: 30px 50px;
+                background-color: #3558A2;
+        
+                .header-description p {
+                    text-align: left !important;
+                }
+            }
+        }   
+    }
+}
+
 .block.block-footer .footer-nav .footer-nav-item a {
     font: 400 14px/24px $bf;
     color: #ffffff;

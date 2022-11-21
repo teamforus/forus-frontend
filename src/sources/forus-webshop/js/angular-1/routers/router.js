@@ -18,7 +18,7 @@ const promiseResolve = (res) => {
     return new Promise(resolve => resolve(res));
 };
 
-const routeParam = (value = null, squash = false, dynamic = false) => {
+const routeParam = (value = null, squash = true, dynamic = false) => {
     return { value, squash, dynamic };
 };
 
@@ -107,6 +107,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         params: {
             logout: null,
             restore_with_digid: null,
+            restore_with_email: null,
             digid_error: null,
             email_address: null,
             redirect_scope: false,
@@ -151,58 +152,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
         component: "productsComponent",
         params: {
-            q: {
-                dynamic: true,
-                value: "",
-                squash: true,
-            },
-            page: {
-                dynamic: true,
-                value: 1,
-                squash: true,
-            },
-            fund_id: {
-                value: null,
-                squash: true
-            },
-            organization_id: {
-                value: null,
-                squash: true
-            },
-            product_category_id: {
-                value: null,
-                squash: true
-            },
-            display_type: {
-                dynamic: true,
-                value: 'list',
-                squash: true
-            },
-            bookmarked: {
-                dynamic: true,
-                value: false,
-                squash: true
-            },
-            fund_type: {
-                dynamic: true,
-                value: 'budget',
-                squash: true
-            },
-            show_menu: {
-                dynamic: true,
-                value: false,
-                squash: true
-            },
-            distance: {
-                dynamic: true,
-                value: null,
-                squash: true
-            },
-            postcode: {
-                dynamic: true,
-                value: '',
-                squash: true
-            },
+            q: routeParam(""),
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            organization_id: routeParam(null),
+            product_category_id: routeParam(null),
+            display_type: routeParam('list'),
+            bookmarked: routeParam(false),
+            fund_type: routeParam('budget'),
+            show_menu: routeParam(false),
+            distance: routeParam(null),
+            postcode: routeParam(''),
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
@@ -217,8 +177,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 product_category_id: $transition$.params().product_category_id,
                 bookmarked: $transition$.params().bookmarked ? 1 : 0,
             }))],
+            productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
+                return $transition$.params().product_category_id ?
+                    repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
+            }],
             productCategories: ['ProductCategoryService', (ProductCategoryService) => {
-                return repackResponse(ProductCategoryService.list({ parent_id: 'null', used: 1 }))
+                return repackResponse(ProductCategoryService.list({ parent_id: 'null', per_page: 1000, used: 1, used_type: 'budget' }))
+            }],
+            productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
+                return productCategory ? repackResponse(ProductCategoryService.list({
+                    parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
+                    ...{ per_page: 1000, used: 1, used_type: 'budget' },
+                })) : null;
             }],
             organizations: ['OrganizationService', 'HelperService', (
                 OrganizationService, HelperService
@@ -242,43 +212,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
         component: "productsComponent",
         params: {
-            q: {
-                dynamic: true,
-                value: "",
-                squash: true,
-            },
-            page: {
-                dynamic: true,
-                value: 1,
-                squash: true,
-            },
-            fund_id: {
-                value: null,
-                squash: true
-            },
-            organization_id: {
-                value: null,
-                squash: true
-            },
-            product_category_id: {
-                value: null,
-                squash: true
-            },
-            display_type: {
-                dynamic: true,
-                value: 'list',
-                squash: true
-            },
-            fund_type: {
-                dynamic: true,
-                value: 'subsidies',
-                squash: true
-            },
-            show_menu: {
-                dynamic: true,
-                value: false,
-                squash: true
-            },
+            q: routeParam(""),
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            organization_id: routeParam(null),
+            product_category_id: routeParam(null),
+            display_type: routeParam('list'),
+            bookmarked: routeParam(false),
+            fund_type: routeParam('subsidies'),
+            show_menu: routeParam(false),
+            distance: routeParam(null),
+            postcode: routeParam(''),
         },
         resolve: {
             funds: ['FundService', (
@@ -294,12 +238,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 organization_id: $transition$.params().organization_id,
                 product_category_id: $transition$.params().product_category_id
             }))],
-            productCategories: ['ProductCategoryService', (
-                ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({
-                parent_id: 'null',
-                used: 1,
-            }))],
+            productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
+                return $transition$.params().product_category_id ?
+                    repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
+            }],
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({ parent_id: 'null', per_page: 1000, used: 1, used_type: 'subsidies' }))
+            }],
+            productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
+                return productCategory ? repackResponse(ProductCategoryService.list({
+                    parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
+                    ...{ per_page: 1000, used: 1, used_type: 'subsidies' },
+                })) : null;
+            }],
             organizations: ['OrganizationService', 'HelperService', (
                 OrganizationService, HelperService
             ) => HelperService.recursiveLeacher((page) => {
@@ -373,6 +324,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 distance: $transition$.params().distance,
                 postcode: $transition$.params().postcode,
                 business_type_id: $transition$.params().business_type_id,
+                order_by: 'name',
+                order_by_dir: 'asc'
             }))]
         }
     });
@@ -458,10 +411,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             }))],
             productCategories: ['ProductCategoryService', (
                 ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({
-                parent_id: 'null',
-                used: 1,
-            }))],
+            ) => repackResponse(ProductCategoryService.list({ parent_id: 'null', used: 1, per_page: 1000 }))],
             vouchers: ['AuthService', 'VoucherService', (
                 AuthService, VoucherService
             ) => AuthService.hasCredentials() ? repackResponse(
@@ -726,12 +676,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
         component: "fundsComponent",
         params: {
-            q: routeParam("", true, true),
-            page: routeParam(1, true, true),
-            tag_id: routeParam(null, true, true),
-            show_menu: routeParam(false, true, true),
-            display_type: routeParam('list', true, true),
-            organization_id: routeParam(null, true, true),
+            q: routeParam(""),
+            page: routeParam(1),
+            tag_id: routeParam(null),
+            show_menu: routeParam(false),
+            display_type: routeParam('list'),
+            organization_id: routeParam(null),
         },
         resolve: {
             credentials: ['AuthService', (AuthService) => {

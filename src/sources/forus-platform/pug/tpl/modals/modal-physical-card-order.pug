@@ -4,7 +4,7 @@
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="close" role="button")
     
     //- Fill order card details
-    .modal-window(ng-if="$ctrl.state == 'form'"): form(ng-submit="$ctrl.requestCard()" ).form
+    form(ng-if="$ctrl.state == 'form'" ng-submit="$ctrl.requestCard()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="close" role="button")
 
         .modal-header(

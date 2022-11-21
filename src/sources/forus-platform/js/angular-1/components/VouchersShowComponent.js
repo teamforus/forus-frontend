@@ -114,7 +114,8 @@ const VouchersShowComponent = function (
         $ctrl.physicalCardsAvailable =
             $ctrl.voucher.fund.allow_physical_cards &&
             $ctrl.voucher.fund.type === 'subsidies' &&
-            $ctrl.voucher.state !== 'deactivated';
+            $ctrl.voucher.state !== 'deactivated' &&
+            !$ctrl.voucher.is_external;
 
         $ctrl.showMakeTransactionButton =
             PermissionsService.hasPermission($ctrl.organization, 'make_direct_payments') &&

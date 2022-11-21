@@ -72,7 +72,7 @@
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
-                    .form-label(i18n="organization_edit.labels.business_type")
+                    .form-label.form-label-required(i18n="organization_edit.labels.business_type")
                     .form-offset: select-control(
                         prop="id"
                         ng-model="$ctrl.form.values.business_type_id"

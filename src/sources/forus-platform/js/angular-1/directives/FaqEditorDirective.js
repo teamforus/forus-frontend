@@ -1,15 +1,15 @@
 const uniq = require('lodash/uniq');
 
-const FundFaqEditorDirective = function(
+const FaqEditorDirective = function(
     $q,
-    $filter,
     $scope,
+    $filter,
+    FaqService,
     ModalService,
-    FundService
 ) {
     const $dir = $scope.$dir = {};
     const $translate = $filter('translate');
-    const $translateFaqEditor = (key) => $translate('components.fund_faq_editor.' + key);
+    const $translateFaqEditor = (key) => $translate('components.faq_editor.' + key);
     const $translateDangerZone = (key) => $translate('modals.danger_zone.remove_faq.' + key);
 
     $dir.collapsed = false;
@@ -48,7 +48,7 @@ const FundFaqEditorDirective = function(
 
     $dir.validate = () => {
         return $q((resolve, reject) => {
-            FundService.faqValidate($scope.organization.id, $dir.faq).then(
+            FaqService.faqValidate($scope.organization.id, $dir.faq).then(
                 (res) => resolve(res.data),
                 (res) => {
                     const { data, status } = res;
@@ -70,7 +70,6 @@ const FundFaqEditorDirective = function(
 
     $dir.init = function() {
         $dir.faq = $scope.faq;
-        $dir.fund = $scope.fund;
         $dir.organization = $scope.organization;
 
         $scope.registerParent({ childRef: $dir });
@@ -83,7 +82,6 @@ module.exports = () => {
     return {
         scope: {
             faq: '=',
-            fund: '=',
             organization: '=',
             registerParent: '&',
         },
@@ -91,12 +89,12 @@ module.exports = () => {
         replace: true,
         controller: [
             '$q',
-            '$filter',
             '$scope',
+            '$filter',
+            'FaqService',
             'ModalService',
-            'FundService',
-            FundFaqEditorDirective
+            FaqEditorDirective
         ],
-        templateUrl: 'assets/tpl/directives/fund-faq-editor.html'
+        templateUrl: 'assets/tpl/directives/faq-editor.html',
     };
 };
