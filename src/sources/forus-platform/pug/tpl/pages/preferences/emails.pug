@@ -46,7 +46,7 @@
                                 ng-click="$ctrl.deleteEmail(email)"
                                 dusk="btnDeleteIdentityEmail").button.button-default.button-icon: em.mdi.mdi-trash-can-outline
             
-            .card-section.card-section-primary(ng-if="!$ctrl.form")
+            .card-section.card-section-primary(ng-if="!$ctrl.form && !$ctrl.formSuccess")
                 .button.button-primary(ng-click="$ctrl.createNewEmailForm()" dusk="btnIdentityNewEmail")
                     em.mdi.mdi-plus-circle.icon-start
                     | E-mail toevoegen
