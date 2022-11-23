@@ -27,7 +27,7 @@ main(id="main-content")
                 
                 .product-details
                     .product-name
-                        span(ng-bind="$ctrl.product.name")
+                        span(ng-bind="$ctrl.product.name" dusk="productName")
                         span.label.label-danger(
                             ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" 
                             i18n="product.status.out_of_stock")

@@ -2,7 +2,7 @@
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
-    form(ng-submit="$ctrl.form.submit()").modal-window.form
+    form(ng-submit="$ctrl.form.submit()" dusk="formEmployeeEdit").modal-window.form
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Medewerker aanpassen")
         .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Medewerker toevoegen")
@@ -28,4 +28,4 @@
 
         .modal-footer.text-center
             button.button.button-default(type="button" translate="modal_funds_add.buttons.close" ng-click="$ctrl.close()" id="close")
-            button.button.button-primary(type="submit" translate="Bevestig" id="confirm")
+            button.button.button-primary(type="submit" translate="Bevestig" id="confirm" dusk="formEmployeeSubmit")

@@ -5,7 +5,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
         a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
             img(ng-src="./assets/img/logo.svg").header-logo-img
 
-        .header-organization-switcher(ng-if="$root.activeOrganization" ng-class="{active:$root.showOrganizationsMenu}")
+        .header-organization-switcher(ng-if="$root.activeOrganization" ng-class="{active:$root.showOrganizationsMenu}" dusk="headerOrganizationSwitcher")
             .organization-preview(ng-click="$root.openOrganizationsMenu($event)")
 
                 img.organization-logo(
@@ -46,7 +46,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
         .header-auth(ng-if="$root.auth_user")
             .auth-user(ng-click="$root.openUserMenu($event)" dusk="userProfile")
                 .auth-user-details
-                    .auth-user-name(dusk="identityEmail") {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
+                    .auth-user-name(ng-bind="$root.auth_user.email || ($root.auth_user.address | str_limit:32)" dusk="identityEmail")
                     .auth-user-role
                         //- span(ng-bind="$root.activeOrganization.name")
                         //- span.auth-user-role-separator(ng-if="$root.activeOrganization.name") •
