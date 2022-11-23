@@ -309,12 +309,23 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            businessType: ['BusinessTypeService', '$transition$', (BusinessTypeService, $transition$) => {
+                return $transition$.params().business_type_id ?
+                    repackResponse(BusinessTypeService.show($transition$.params().business_type_id)) : null;
+            }],
             businessTypes: ['BusinessTypeService', (
                 BusinessTypeService
             ) => repackResponse(BusinessTypeService.list({
+                parent_id: 'null',
                 per_page: 9999,
                 used: 1,
             }))],
+            businessSubTypes: ['businessType', 'BusinessTypeService', (businessType, BusinessTypeService) => {
+                return businessType ? repackResponse(BusinessTypeService.list({
+                    parent_id: businessType.parent_id ? businessType.parent_id : businessType.id,
+                    ...{ per_page: 1000, used: 1 },
+                })) : null;
+            }],
             providers: ['$transition$', 'ProvidersService', (
                 $transition$, ProvidersService
             ) => repackPagination(ProvidersService.search({

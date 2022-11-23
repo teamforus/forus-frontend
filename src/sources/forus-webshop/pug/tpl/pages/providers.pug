@@ -31,11 +31,23 @@ block content
                                 label.form-label(for="business_type_id") Type aanbieder
                                 select-control(
                                     prop="id"
-                                    ng-model="$ctrl.form.values.business_type_id"
+                                    ng-model="$ctrl.business_type_id"
+                                    ng-change="$ctrl.changeBusinessType('category')"
                                     options="$ctrl.businessTypes"
-                                    placeholder="Selecteer type..."
+                                    placeholder="{{ $ctrl.businessTypes[0].name }}"
                                     id="business_type_id")
                                 .form-error(ng-repeat="error in $ctrl.form.errors.business_type_id" ng-bind="error")
+
+                            .form-group(ng-if="$ctrl.businessSubTypes.length > 1")
+                                label.form-label(for="select_sub_type") Subcategorie
+                                select-control(
+                                    id="select_sub_type"
+                                    prop="id"
+                                    name="sub_type"
+                                    ng-model="$ctrl.business_sub_type_id"
+                                    ng-change="$ctrl.changeBusinessType('subcategory')"
+                                    options="$ctrl.businessSubTypes"
+                                    placeholder="{{ $ctrl.businessSubTypes[0].name }}")
 
                             .form-group
                                 label.form-label(for="fund_id") Tegoeden

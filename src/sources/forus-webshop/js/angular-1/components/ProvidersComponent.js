@@ -123,6 +123,16 @@ const ProvidersComponent = function(
         }, { location });
     };
 
+    $ctrl.changeBusinessType = (type) => {
+        if (type == 'category' || (type == 'subcategory' && !$ctrl.business_sub_type_id)) {
+            return $ctrl.form.values.business_type_id = $ctrl.business_type_id;
+        }
+
+        if (type == 'subcategory') {
+            $ctrl.form.values.business_type_id = $ctrl.business_sub_type_id;
+        }
+    };
+
     $ctrl.updateFiltersUsedCount = () => {
         let count = 0;
 
@@ -134,6 +144,7 @@ const ProvidersComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.showMap = $stateParams.show_map;
+        $ctrl.business_type_id = $stateParams.business_type_id;
 
         $ctrl.funds.unshift({
             id: null,
@@ -141,8 +152,13 @@ const ProvidersComponent = function(
         });
 
         $ctrl.businessTypes.unshift({
+            name: 'Selecteer categorie...',
             id: null,
-            name: 'Alle typen',
+        });
+
+        $ctrl.businessSubTypes?.unshift({
+            name: 'Selecteer subcategorie...',
+            id: null
         });
 
         $ctrl.showModalFilters = $stateParams.show_menu;
@@ -160,6 +176,11 @@ const ProvidersComponent = function(
         }
 
         $ctrl.updateFiltersUsedCount();
+
+        if ($ctrl.businessType) {
+            $ctrl.business_type_id = $ctrl.businessType.parent_id || $ctrl.businessType.id;
+            $ctrl.business_sub_type_id = $ctrl.businessType.parent_id ? $ctrl.businessType.id : null;
+        }
     };
 };
 
@@ -167,7 +188,9 @@ module.exports = {
     bindings: {
         funds: '<',
         providers: '<',
+        businessType: '<',
         businessTypes: '<',
+        businessSubTypes: '<',
     },
     controller: [
         '$state',
