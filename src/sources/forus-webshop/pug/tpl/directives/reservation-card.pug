@@ -1,10 +1,10 @@
-.reservation-item(dusk="reservationItem")
+.reservation-item(dusk="reservationItem{{ $dir.reservation.id }}")
     .reservation-image: img(
         ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
         alt="")
 
     .reservation-details
-        .reservation-name(ui-sref="product($dir.product)" ng-bind="$dir.product.name" dusk="productName")
+        .reservation-name(ui-sref="product($dir.product)" ng-bind="$dir.product.name" dusk="reservationProduct")
         .reservation-organization(ui-sref="provider($dir.product.organization)" ng-bind="$dir.product.organization.name")
         .reservation-value(ng-bind="$dir.reservation.price_locale")
 

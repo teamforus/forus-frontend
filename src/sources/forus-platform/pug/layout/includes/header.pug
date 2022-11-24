@@ -21,7 +21,8 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                     .organization-switcher-menu-organization(
                         ng-repeat="organization in organizations"
                         ng-click="$root.chooseOrganization(organization)"
-                        ng-class="{'active' : organization.id == $root.activeOrganization.id}")
+                        ng-class="{'active' : organization.id == $root.activeOrganization.id}"
+                        dusk="{{ 'headerOrganizationItem' + organization.id }}")
                         img.organization-logo(
                             ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                         .organization-name(ng-bind="organization.name")
