@@ -1,7 +1,8 @@
 .modal.modal-product-reserve.modal-animated.modal-sm(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
-    role="dialog")
+    role="dialog"
+    dusk="modalProductReserveForm")
 
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
@@ -21,7 +22,8 @@
                         input(
                             type="text"
                             ng-model="$ctrl.form.values.first_name"
-                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.first_name' | translate }}").form-control.form-control
+                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.first_name' | translate }}"
+                            dusk="productReserveFormFirstName").form-control.form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.first_name" ng-bind="error")
 
                     .col.col-lg-6.form-group
@@ -29,25 +31,27 @@
                         input(
                             type="text"
                             ng-model="$ctrl.form.values.last_name"
-                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.last_name' | translate }}").form-control.form-control
+                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.last_name' | translate }}"
+                            dusk="productReserveFormLastName").form-control.form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.last_name" ng-bind="error")
 
                 .form-group
                     .form-label(translate="modal_product_reserve_notes.fill_notes.labels.notes")
                     textarea.form-control(
                         ng-model="$ctrl.form.values.user_note" 
-                        placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.notes' | i18n }}")
+                        placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.notes' | i18n }}"
+                        dusk="productReserveFormNote")
                     .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
 
                 .form-group.text-center
-                    button(type="submit" translate="popup_auth.buttons.submit").button.button-dark.button-wide
+                    button(type="submit" translate="popup_auth.buttons.submit" dusk="btnSubmit").button.button-dark.button-wide
 
     .modal-window(ng-if="$ctrl.state == 'confirm_notes'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-content: .modal-section
             .title(translate="modal_product_reserve_notes.confirm_notes.header.title")
-            .description.text-center 
+            .description.text-center(dusk="productReserveConfirmDetails")
                 br
                 strong(translate="modal_product_reserve_notes.confirm_notes.modal_section.title")
                 br
@@ -80,4 +84,5 @@
                 button.button.button-dark(
                     type="button" 
                     translate="modal_product_reserve_notes.confirm_notes.buttons.submit" 
-                    ng-click="$ctrl.confirmSubmit()")
+                    ng-click="$ctrl.confirmSubmit()"
+                    dusk="btnConfirmSubmit")

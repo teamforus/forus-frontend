@@ -1,8 +1,8 @@
-a(ui-sref="voucher(voucher)").voucher-item
+a(ui-sref="voucher(voucher)" dusk="voucherItem").voucher-item
     .voucher-image: img(ng-src='{{ voucherCard.thumbnail }}' alt="{{ voucherCard.title }}")
 
     .voucher-details
-        .voucher-name(ng-bind="voucherCard.title")
+        .voucher-name(ng-bind="voucherCard.title" dusk="voucherName")
         .voucher-organization(ng-bind="voucherCard.subtitle")
         .voucher-value(
             ng-if="!voucherCard.is_external && (voucherCard.fund.type == 'budget') && (voucherCard.type == 'regular')" 
