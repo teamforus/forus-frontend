@@ -41,6 +41,13 @@ const ImplementationCmsPageEditComponent = function (
         }) : resolve(true));
     };
 
+    $ctrl.validateEditors = () => {
+        return $q.all([
+            $ctrl.page_type_config.faq ? $ctrl.validatePromise($ctrl.faqEditor.validate()) : true,
+            $ctrl.page_type_config.blocks ? $ctrl.validatePromise($ctrl.implementationBlocksEditor.validate()) : true,
+        ]);
+    };
+
     $ctrl.$onInit = () => {
         const { type } = $state.params;
         const { pages, page_types } = $ctrl.implementation;
@@ -102,10 +109,7 @@ const ImplementationCmsPageEditComponent = function (
                 }).finally(() => form.unlock());
             };
 
-            $q.all([
-                $ctrl.validatePromise($ctrl.faqEditor.validate()),
-                $ctrl.validatePromise($ctrl.implementationBlocksEditor.validate()),
-            ]).then((res) => {
+            $ctrl.validateEditors().then((res) => {
                 if (res.filter((success) => !success).length === 0) {
                     return submit();
                 }
