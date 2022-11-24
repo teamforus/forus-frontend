@@ -11,6 +11,7 @@ const ProductsEditComponent = function(
 ) {
     const $ctrl = this;
 
+    let cloneMediaUid = null;
     let mediaFile = false;
     let alreadyConfirmed = false;
 
@@ -42,8 +43,13 @@ const ProductsEditComponent = function(
 
     $ctrl.uploadMediaFile = async () => {
         try {
-            $ctrl.media = (await MediaService.store('product_photo', mediaFile)).data.data;
-            mediaFile = false;
+            if (cloneMediaUid) {
+                $ctrl.media = (await MediaService.clone(cloneMediaUid, 'product_photo')).data.data;
+                cloneMediaUid = null;
+            } else if (mediaFile) {
+                $ctrl.media = (await MediaService.store('product_photo', mediaFile)).data.data;
+                mediaFile = false;
+            }
 
             return $ctrl.media.uid;
         } catch (err) {
@@ -77,7 +83,7 @@ const ProductsEditComponent = function(
 
             let promise;
 
-            if (mediaFile && !($ctrl.form.values.media_uid = await $ctrl.uploadMediaFile())) {
+            if ((mediaFile || cloneMediaUid) && !($ctrl.form.values.media_uid = await $ctrl.uploadMediaFile())) {
                 return form.unlock();
             }
 
@@ -247,8 +253,19 @@ const ProductsEditComponent = function(
             });
         }
 
+        let mediaUid = null;
+
         if ($ctrl.product && $ctrl.product.photo) {
-            MediaService.read($ctrl.product.photo.uid).then((res) => $ctrl.media = res.data.data);
+            mediaUid = $ctrl.product.photo.uid;
+        }
+
+        if ($ctrl.sourceProduct && $ctrl.sourceProduct.photo) {
+            mediaUid = $ctrl.sourceProduct.photo.uid;
+            cloneMediaUid = mediaUid;
+        }
+
+        if (mediaUid) {
+            MediaService.read(mediaUid).then((res) => $ctrl.media = res.data.data);
         }
     };
 };

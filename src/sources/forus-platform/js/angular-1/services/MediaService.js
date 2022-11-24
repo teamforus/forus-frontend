@@ -36,6 +36,13 @@ let MediaService = function(
             );
         };
 
+        this.clone = function(uid, type) {
+            return ApiRequest.post(
+                uriPrefix + '/' + uid + '/clone',
+                {type: type}
+            );
+        };
+
         this.delete = function(id) {
             return ApiRequest.delete(
                 uriPrefix + '/' + id
