@@ -64,6 +64,7 @@ const ProvidersComponent = function(
         page: values.page,
         fund_id: values.fund_id || null,
         business_type_id: values.business_type_id || null,
+        product_category_id: values.product_category_id || null,
         postcode: values.postcode || '',
         distance: values.distance || null,
         ...$ctrl.sortBy.value
@@ -118,18 +119,19 @@ const ProvidersComponent = function(
             postcode: query.postcode,
             distance: query.distance,
             business_type_id: query.business_type_id,
+            product_category_id: query.product_category_id,
             show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
         }, { location });
     };
 
-    $ctrl.changeBusinessType = (type) => {
-        if (type == 'category' || (type == 'subcategory' && !$ctrl.business_sub_type_id)) {
-            return $ctrl.form.values.business_type_id = $ctrl.business_type_id;
+    $ctrl.changeProductCategory = (type) => {
+        if (type == 'category' || (type == 'subcategory' && !$ctrl.product_sub_category_id)) {
+            return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
         }
 
         if (type == 'subcategory') {
-            $ctrl.form.values.business_type_id = $ctrl.business_sub_type_id;
+            $ctrl.form.values.product_category_id = $ctrl.product_sub_category_id;
         }
     };
 
@@ -152,11 +154,16 @@ const ProvidersComponent = function(
         });
 
         $ctrl.businessTypes.unshift({
+            id: null,
+            name: 'Alle typen',
+        });
+
+        $ctrl.productCategories.unshift({
             name: 'Selecteer categorie...',
             id: null,
         });
 
-        $ctrl.businessSubTypes?.unshift({
+        $ctrl.productSubCategories?.unshift({
             name: 'Selecteer subcategorie...',
             id: null
         });
@@ -177,9 +184,9 @@ const ProvidersComponent = function(
 
         $ctrl.updateFiltersUsedCount();
 
-        if ($ctrl.businessType) {
-            $ctrl.business_type_id = $ctrl.businessType.parent_id || $ctrl.businessType.id;
-            $ctrl.business_sub_type_id = $ctrl.businessType.parent_id ? $ctrl.businessType.id : null;
+        if ($ctrl.productCategory) {
+            $ctrl.product_category_id = $ctrl.productCategory.parent_id || $ctrl.productCategory.id;
+            $ctrl.product_sub_category_id = $ctrl.productCategory.parent_id ? $ctrl.productCategory.id : null;
         }
     };
 };
@@ -188,9 +195,10 @@ module.exports = {
     bindings: {
         funds: '<',
         providers: '<',
-        businessType: '<',
+        productCategory: '<',
+        productCategories: '<',
+        productSubCategories: '<',
         businessTypes: '<',
-        businessSubTypes: '<',
     },
     controller: [
         '$state',

@@ -293,8 +293,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "providers",
         url: {
-            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
-            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
+            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
+            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
         },
         component: "providersComponent",
         params: {
@@ -306,12 +306,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             postcode: { dynamic: true, value: '', squash: true },
             show_menu: { dynamic: true, value: false, squash: true },
             business_type_id: { value: null, squash: true },
+            product_category_id: { value: null, squash: true },
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
-            businessType: ['BusinessTypeService', '$transition$', (BusinessTypeService, $transition$) => {
-                return $transition$.params().business_type_id ?
-                    repackResponse(BusinessTypeService.show($transition$.params().business_type_id)) : null;
+            productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
+                return $transition$.params().product_category_id ?
+                    repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
+            }],
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({ parent_id: 'null', per_page: 1000, used: 1 }))
+            }],
+            productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
+                return productCategory ? repackResponse(ProductCategoryService.list({
+                    parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
+                    ...{ per_page: 1000, used: 1 },
+                })) : null;
             }],
             businessTypes: ['BusinessTypeService', (
                 BusinessTypeService
@@ -320,12 +330,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 per_page: 9999,
                 used: 1,
             }))],
-            businessSubTypes: ['businessType', 'BusinessTypeService', (businessType, BusinessTypeService) => {
-                return businessType ? repackResponse(BusinessTypeService.list({
-                    parent_id: businessType.parent_id ? businessType.parent_id : businessType.id,
-                    ...{ per_page: 1000, used: 1 },
-                })) : null;
-            }],
             providers: ['$transition$', 'ProvidersService', (
                 $transition$, ProvidersService
             ) => repackPagination(ProvidersService.search({
@@ -335,6 +339,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 distance: $transition$.params().distance,
                 postcode: $transition$.params().postcode,
                 business_type_id: $transition$.params().business_type_id,
+                product_category_id: $transition$.params().product_category_id,
                 order_by: 'name',
                 order_by_dir: 'asc'
             }))]
