@@ -1,4 +1,4 @@
-const ProductsEditComponent = function(
+const ProductsEditComponent = function (
     $q,
     $state,
     $stateParams,
@@ -11,7 +11,6 @@ const ProductsEditComponent = function(
 ) {
     const $ctrl = this;
 
-    let cloneMediaUid = null;
     let mediaFile = false;
     let alreadyConfirmed = false;
 
@@ -41,22 +40,26 @@ const ProductsEditComponent = function(
         });
     };
 
-    $ctrl.uploadMediaFile = async () => {
-        try {
-            if (cloneMediaUid) {
-                $ctrl.media = (await MediaService.clone(cloneMediaUid, 'product_photo')).data.data;
-                cloneMediaUid = null;
-            } else if (mediaFile) {
-                $ctrl.media = (await MediaService.store('product_photo', mediaFile)).data.data;
-                mediaFile = false;
+    $ctrl.uploadMediaFile = () => {
+        const syncPresets = ['thumbnail', 'small'];
+
+        return $q((resolve, reject) => {
+            if (mediaFile) {
+                return MediaService.store('product_photo', mediaFile, syncPresets).then(
+                    (res) => resolve($ctrl.media = res.data.data),
+                    (err) => reject(err.data.errors.file),
+                );
             }
 
-            return $ctrl.media.uid;
-        } catch (err) {
-            $ctrl.mediaErrors = err.data.errors.file;
-        }
+            if (!$ctrl.product && $ctrl.sourceProduct?.photo?.uid) {
+                return MediaService.clone($ctrl.sourceProduct.photo?.uid, syncPresets).then(
+                    (res) => resolve($ctrl.media = res.data.data),
+                    (err) => reject(err.data.errors.file),
+                );
+            }
 
-        return null;
+            return resolve(null);
+        });
     }
 
     $ctrl.buildForm = () => {
@@ -72,7 +75,7 @@ const ProductsEditComponent = function(
         values.expire_at = $ctrl.nonExpiring ? moment().add(1, 'day') : moment(values.expire_at, 'YYYY-MM-DD');
         values.expire_at = values.expire_at.format('DD-MM-YYYY');
 
-        $ctrl.form = FormBuilderService.build(values, async (form) => {
+        $ctrl.form = FormBuilderService.build(values, (form) => {
             if ($ctrl.product && !$ctrl.product.unlimited_stock && form.values.stock_amount < 0) {
                 form.unlock();
 
@@ -81,80 +84,78 @@ const ProductsEditComponent = function(
                 ];
             }
 
-            let promise;
+            const onMediaPrepared = (media_uid) => {
+                let promise;
+                const expire_at = $ctrl.nonExpiring ? null : moment(form.values.expire_at, 'DD-MM-YYYY').format('YYYY-MM-DD');
+                const values = { ...form.values, expire_at, media_uid };
 
-            if ((mediaFile || cloneMediaUid) && !($ctrl.form.values.media_uid = await $ctrl.uploadMediaFile())) {
-                return form.unlock();
-            }
-
-            const values = {
-                ...form.values, ...{
-                    expire_at: $ctrl.nonExpiring ? null : moment(
-                        form.values.expire_at,
-                        'DD-MM-YYYY'
-                    ).format('YYYY-MM-DD'),
+                if (values.price_type !== 'regular') {
+                    delete values.price;
+                } else if (values.price_type !== 'regular' && values.price_type !== 'free') {
+                    delete values.price_discount;
                 }
-            };
 
-            if (values.price_type !== 'regular') {
-                delete values.price;
-            } else if (values.price_type !== 'regular' && values.price_type !== 'free') {
-                delete values.price_discount;
-            }
-
-            if (values.unlimited_stock) {
-                delete values.total_amount;
-            }
-
-            if ($ctrl.product) {
-                const updateValues = {
-                    ...values,
-                    ...{ total_amount: values.sold_amount + values.stock_amount }
-                };
-
-                if (!$ctrl.fundProvider) {
-                    promise = ProductService.update(
-                        $ctrl.organization.id,
-                        $ctrl.product.id,
-                        updateValues
-                    );
-                } else {
-                    promise = OrganizationService.sponsorProductUpdate(
-                        $ctrl.organization.id,
-                        $ctrl.fundProvider.organization_id,
-                        $ctrl.product.id,
-                        updateValues
-                    );
+                if (values.unlimited_stock) {
+                    delete values.total_amount;
                 }
-            } else {
-                if (!$ctrl.fundProvider) {
-                    promise = ProductService.store($ctrl.organization.id, values);
-                } else {
-                    promise = OrganizationService.sponsorStoreProduct(
-                        $ctrl.organization.id,
-                        $ctrl.providerOrganization.id,
-                        values
-                    );
-                }
-            }
 
-            promise.then((res) => {
-                if (!$ctrl.fundProvider) {
-                    $state.go('products', { organization_id: $ctrl.organization.id });
-                } else {
-                    if ($ctrl.fundProvider.fund.type === 'subsidies') {
-                        $state.go($ctrl.product ? 'fund-provider-product' : 'fund-provider-product-subsidy-edit', {
-                            organization_id: $ctrl.fundProvider.fund.organization_id,
-                            fund_id: $ctrl.fundProvider.fund_id,
-                            fund_provider_id: $ctrl.fundProvider.id,
-                            product_id: res.data.data.id
-                        });
+                if ($ctrl.product) {
+                    const updateValues = {
+                        ...values,
+                        ...{ total_amount: values.sold_amount + values.stock_amount }
+                    };
+
+                    if (!$ctrl.fundProvider) {
+                        promise = ProductService.update(
+                            $ctrl.organization.id,
+                            $ctrl.product.id,
+                            updateValues
+                        );
                     } else {
-                        $ctrl.goToFundProvider($ctrl.fundProvider);
+                        promise = OrganizationService.sponsorProductUpdate(
+                            $ctrl.organization.id,
+                            $ctrl.fundProvider.organization_id,
+                            $ctrl.product.id,
+                            updateValues
+                        );
+                    }
+                } else {
+                    if (!$ctrl.fundProvider) {
+                        promise = ProductService.store($ctrl.organization.id, values);
+                    } else {
+                        promise = OrganizationService.sponsorStoreProduct(
+                            $ctrl.organization.id,
+                            $ctrl.providerOrganization.id,
+                            values
+                        );
                     }
                 }
-            }, (res) => {
-                form.errors = res.data.errors;
+
+                promise.then((res) => {
+                    if (!$ctrl.fundProvider) {
+                        $state.go('products', { organization_id: $ctrl.organization.id });
+                    } else {
+                        if ($ctrl.fundProvider.fund.type === 'subsidies') {
+                            $state.go($ctrl.product ? 'fund-provider-product' : 'fund-provider-product-subsidy-edit', {
+                                organization_id: $ctrl.fundProvider.fund.organization_id,
+                                fund_id: $ctrl.fundProvider.fund_id,
+                                fund_provider_id: $ctrl.fundProvider.id,
+                                product_id: res.data.data.id
+                            });
+                        } else {
+                            $ctrl.goToFundProvider($ctrl.fundProvider);
+                        }
+                    }
+                }, (res) => {
+                    form.errors = res.data.errors;
+                    form.unlock();
+                });
+            };
+
+            return $ctrl.uploadMediaFile().then((media) => {
+                onMediaPrepared(media ? media.uid : $ctrl.form.values.media_uid);
+            }, (errors) => {
+                $ctrl.mediaErrors = errors;
                 form.unlock();
             });
         }, true);
@@ -222,7 +223,9 @@ const ProductsEditComponent = function(
         $ctrl.form.submit();
     };
 
-    $ctrl.selectPhoto = (file) => mediaFile = file;
+    $ctrl.selectPhoto = (file) => {
+        mediaFile = file;
+    };
 
     $ctrl.cancel = () => {
         if ($ctrl.fundProvider) {
@@ -232,7 +235,15 @@ const ProductsEditComponent = function(
         }
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.loadProductPhoto = () => {
+        const productPhoto = ($ctrl.sourceProduct || $ctrl.product)?.photo || null;
+
+        if (productPhoto) {
+            MediaService.read(productPhoto.uid).then((res) => $ctrl.media = res.data.data);
+        }
+    }
+
+    $ctrl.$onInit = function () {
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
         $ctrl.nonExpiring = !$ctrl.product || ($ctrl.product && !$ctrl.product.expire_at);
@@ -253,20 +264,7 @@ const ProductsEditComponent = function(
             });
         }
 
-        let mediaUid = null;
-
-        if ($ctrl.product && $ctrl.product.photo) {
-            mediaUid = $ctrl.product.photo.uid;
-        }
-
-        if ($ctrl.sourceProduct && $ctrl.sourceProduct.photo) {
-            mediaUid = $ctrl.sourceProduct.photo.uid;
-            cloneMediaUid = mediaUid;
-        }
-
-        if (mediaUid) {
-            MediaService.read(mediaUid).then((res) => $ctrl.media = res.data.data);
-        }
+        $ctrl.loadProductPhoto();
     };
 };
 
@@ -289,7 +287,7 @@ module.exports = {
         'FormBuilderService',
         'MediaService',
         'ModalService',
-        ProductsEditComponent
+        ProductsEditComponent,
     ],
-    templateUrl: 'assets/tpl/pages/products-edit.html'
+    templateUrl: 'assets/tpl/pages/products-edit.html',
 };
