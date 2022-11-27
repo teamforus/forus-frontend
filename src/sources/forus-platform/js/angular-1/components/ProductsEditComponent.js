@@ -235,14 +235,6 @@ const ProductsEditComponent = function (
         }
     };
 
-    $ctrl.loadProductPhoto = () => {
-        const productPhoto = ($ctrl.sourceProduct || $ctrl.product)?.photo || null;
-
-        if (productPhoto) {
-            MediaService.read(productPhoto.uid).then((res) => $ctrl.media = res.data.data);
-        }
-    }
-
     $ctrl.$onInit = function () {
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
@@ -264,7 +256,7 @@ const ProductsEditComponent = function (
             });
         }
 
-        $ctrl.loadProductPhoto();
+        $ctrl.media = ($ctrl.sourceProduct || $ctrl.product)?.photo || null;
     };
 };
 
