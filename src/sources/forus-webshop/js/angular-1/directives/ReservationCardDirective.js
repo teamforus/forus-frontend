@@ -15,7 +15,7 @@ const ReservationCardDirective = function (
                 reservation: reservation,
                 onConfirm: () => {
                     ProductReservationService.destroy(reservation.id).finally(() => {
-                        $scope.onDelete({ reservation })
+                        $dir.onDelete({ reservation })
                         PushNotificationsService.success('Reservering geannuleerd.');
                     }, (res) => PushNotificationsService.danger('Error.', res.data.message));
                 },
@@ -41,6 +41,6 @@ module.exports = () => {
             'ProductReservationService',
             ReservationCardDirective,
         ],
-        templateUrl: 'assets/tpl/directives/reservation-card.html'
+        templateUrl: 'assets/tpl/directives/reservation-card.html',
     };
 };
