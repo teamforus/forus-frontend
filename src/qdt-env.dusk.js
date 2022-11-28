@@ -72,7 +72,7 @@ module.exports = (core) => {
 
         platform.setDestRootPath(outputRoot + '/forus-platform.sponsor.general');
         platform.editTask('js', (task) => ({ ...task, minify, sourcemap }));
-        platform.serve(3002, '/');
+        platform.serve(4000, '/');
 
         return platform;
     });
@@ -101,7 +101,7 @@ module.exports = (core) => {
         });
 
         platform.editTask('js', (task) => ({ ...task, minify, sourcemap }));
-        platform.serve(3001, '/');
+        platform.serve(5000, '/');
 
         return platform;
     });
@@ -131,7 +131,7 @@ module.exports = (core) => {
         });
 
         platform.editTask('js', (task) => ({ ...task, minify, sourcemap }));
-        platform.serve(3003, '/');
+        platform.serve(6000, '/');
 
         return platform;
     });
