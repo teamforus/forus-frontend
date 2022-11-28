@@ -6,11 +6,11 @@
                 .flex.flex-grow: .card-title(ng-bind="'Medewerkers (' + $ctrl.employees.meta.total + ')'")
 
                 .flex: .block.block-inline-filters
-                    a(ng-click="$ctrl.createEmployee()" id="add_employee").button.button-primary.button-sm
+                    a(ng-click="$ctrl.createEmployee()" id="add_employee" dusk="addEmployee").button.button-primary.button-sm
                         em.mdi.mdi-plus-circle.icon-start
                         translate(translate="organization_employees.buttons.add")
 
-                    .form: .form-group: input(ng-model="$ctrl.filters.values.q" placeholder="Zoeken").form-control
+                    .form: .form-group: input(ng-model="$ctrl.filters.values.q" placeholder="Zoeken" dusk="searchEmployee").form-control
 
             .card-section(ng-if="$ctrl.employees.data.length > 0"): .card-block.card-block-table: .table-wrapper: table.table
                 tr
@@ -18,9 +18,9 @@
                     th(translate="organization_employees.labels.roles")
                     th(translate="organization_employees.labels.actions").text-right
 
-                tr(ng-repeat="employee in $ctrl.employees.data")
-                    td(ng-if="employee.email" ng-bind="employee.email" id="employee_email").text-primary-light
-                    td(ng-if="!employee.email" ng-bind="employee.identity_address | str_limit:32" id="employee_email").text-primary-light
+                tr(ng-repeat="employee in $ctrl.employees.data" dusk="{{ 'employeeRow' + employee.id }}")
+                    td(ng-if="employee.email" ng-bind="employee.email" id="employee_email" dusk="employeeEmail").text-primary-light
+                    td(ng-if="!employee.email" ng-bind="employee.identity_address | str_limit:32" id="employee_email" dusk="employeeEmail").text-primary-light
 
                     //- roles
                     td.nowrap
@@ -37,6 +37,7 @@
                     td.text-right(ng-if="$ctrl.organization.identity_address != employee.identity_address")
                         //- edit
                         a.text-primary-light(
+                            dusk="btnEmployeeEdit"
                             ng-click="$ctrl.editEmployee(employee)"
                             translate="organization_employees.buttons.adjust")
 
@@ -44,6 +45,7 @@
                         
                         //- delete
                         a.text-danger(
+                            dusk="btnEmployeeDelete"
                             ng-click="$ctrl.deleteEmployee(employee)" 
                             ng-if="$root.auth_user && (employee.identity_address != $root.auth_user.address)"
                             translate="organization_employees.buttons.delete")

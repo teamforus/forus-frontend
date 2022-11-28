@@ -1,7 +1,8 @@
 .block.block-push-notifications: .inner
     .notification(
         ng-repeat="notification in notifications" 
-        ng-class="[notification.shown ? 'shown' : '', 'notification-' + notification.type]")
+        ng-class="[notification.shown ? 'shown' : '', 'notification-' + notification.type]"
+        dusk="{{ notification.type }}Notification")
         .notification-close.mdi.mdi-close(ng-click="deleteNotification(notification)")
         .notification-icon(ng-class="'mdi mdi-' + notification.icon")
         .notification-details

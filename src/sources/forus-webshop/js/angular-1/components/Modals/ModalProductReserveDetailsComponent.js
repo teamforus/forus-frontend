@@ -11,7 +11,7 @@ const ModalProductReserveDetailsComponent = function(
 
         $ctrl.product = $ctrl.modal.scope.product;
         $ctrl.voucher = $ctrl.modal.scope.voucher;
-        $ctrl.provider = $ctrl.voucher.fund.organization;
+        $ctrl.provider = $ctrl.product.organization;
 
         $ctrl.form = FormBuilderService.build({}, (form) => {
             ProductReservationService.reserve({

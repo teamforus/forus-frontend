@@ -98,7 +98,8 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     button.button.button-default(
                         ng-if="!$root.auth_user && $root.appConfigs.flags.showStartButton"
                         ng-click="$dir.startFundRequest({ restore_with_email: true })"
-                        role="button") Start aanvraag
+                        ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'"
+                        role="button")
 
                     button.button.button-primary(
                         ng-if="!$root.auth_user"
@@ -114,7 +115,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             translate-default="{{ 'home.header.button' | translate }}" 
                             id="start_modal")
 
-                    a(ng-if="$root.auth_user" ui-sref="vouchers" id="vouchers").button.button-primary
+                    a(ng-if="$root.auth_user" ui-sref="vouchers" id="vouchers" dusk="userVouchers").button.button-primary
                         em.mdi.mdi-ticket-confirmation
                         span(translate="topnavbar.buttons.voucher")
 
@@ -185,6 +186,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                                         ui-sref="identity-emails"
                                         ui-sref-active="active"
                                         id="identity_emails"
+                                        dusk="btnUserEmails"
                                         role="link")
                                         em.mdi.mdi-at 
                                         translate(translate="email_preferences.title_preferences")

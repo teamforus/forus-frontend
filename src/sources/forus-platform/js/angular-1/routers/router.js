@@ -1626,6 +1626,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         });
     }
 
+    $stateProvider.state({
+        name: "redirect",
+        url: "/redirect?target",
+        controller: ['$state', 'AuthService', ($state, AuthService) => {
+            if (!$state.params.target || !AuthService.handleAuthTarget($state.params.target)) {
+                $state.go('organizations');
+            }
+        }]
+    });
+
     if (appConfigs.html5ModeEnabled) {
         $locationProvider.html5Mode({
             enabled: true,
