@@ -320,7 +320,7 @@ const FundRequestsComponent = function(
             request.hasContent = records.filter((record) => record.files?.length || record.clarifications?.length).length > 0;
 
             request.can_disregarded = isPending && isSponsorEmployee && assignedPendingRecords.length;
-            request.can_disregarded_undo = isPending && isSponsorEmployee && (assignedDisregardedRecords.length > 0) && !replaced;
+            request.can_disregarded_undo = isSponsorEmployee && (assignedDisregardedRecords.length > 0) && !replaced;
 
             request.is_assignable = isPending && hasAssignableRecords;
             request.is_sponsor_employee = isSponsorEmployee;
