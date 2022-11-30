@@ -947,7 +947,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         url: '/error/{errorCode}',
         component: 'errorComponent',
         data: { errorCode: 'unknown_error' },
-        params: { hideHomeLinkButton: false },
+        params: { hideHomeLinkButton: false, customLink: null },
     });
 
     $stateProvider.state({

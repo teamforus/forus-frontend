@@ -212,16 +212,17 @@ const FundActivateComponent = function (
     $ctrl.handleDigiDResponse = ($stateParams) => {
         // got digid error, abort
         if ($stateParams.digid_error) {
-            if ($stateParams.digid_error === 'error_0040') {
-                PushNotificationsService.info(
-                    'DigiD - Inlogpoging geannuleerd.',
-                    'U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan.'
-                );
-
-                $state.go('fund-activate', { ...$stateParams, digid_error: undefined }, { reload: true });
-            } else {
-                $state.go('error', { errorCode: `digid_${$stateParams.digid_error}`, hideHomeLinkButton: true });
-            }
+            $state.go('error', {
+                errorCode: `digid_${$stateParams.digid_error}`,
+                hideHomeLinkButton: true,
+                customLink: $stateParams.digid_error === 'error_0040' ? {
+                    sref: 'fund-activate',
+                    srefParams: { fund_id: $stateParams.fund_id },
+                    srefIcon: 'mdi-arrow-left',
+                    text: "Back to options",
+                    srefButton: false,
+                } : null,
+            });
         }
 
         // digid sign-in flow
@@ -276,11 +277,7 @@ const FundActivateComponent = function (
             return $state.go('fund-request', $ctrl.fund);
         }
 
-        if ($ctrl.options.length === 1) {
-            if ($ctrl.options[0] === 'digid') {
-                return $ctrl.selectDigiDOption();
-            }
-
+        if ($ctrl.options.length === 1 && $ctrl.options[0] !== 'digid') {
             return $ctrl.setState($ctrl.options[0]);
         }
 
@@ -313,7 +310,6 @@ const FundActivateComponent = function (
     };
 
     $ctrl.$onInit = function () {
-        console.log('FundActivateComponent');
         const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
         const pendingRequest = $ctrl.fundRequests?.data.find((request) => request.state === 'pending');
         const hasDigiDResponse = $ctrl.hasDigiDResponse($stateParams);
