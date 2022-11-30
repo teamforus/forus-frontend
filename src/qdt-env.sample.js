@@ -457,7 +457,21 @@ module.exports = (core) => {
                     enableXRay: false
                 },
             }, */
-            flags: {},
+            flags: {
+                startPage: {
+                    ...{
+                        // hideSignUpColumn: true,
+                        // hideSignUpDigidOption: true,
+                        // hideSignUpEmailOption: true,
+                    }, 
+                    ...{
+                        // hideSignInColumn: true,
+                        // hideSignInDigidOption: true,
+                        // hideSignInEmailOption: true,
+                        // hideSignInQrCodeOption: true,
+                    }
+                },
+            },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
             android_link: android_link,
