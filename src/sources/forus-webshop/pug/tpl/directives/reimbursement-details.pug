@@ -17,7 +17,7 @@
                 .media-pagination-next(ng-click="$dir.nextPreviewMedia()"): .mdi.mdi-chevron-right
 
         .reimbursement-props
-            .reimbursement-title(ng-if="!$dir.compact") Request details
+            .reimbursement-title(ng-if="!$dir.compact") Declaratie gegevens
             .reimbursement-prop
                 .reimbursement-prop-label Titel
                 .reimbursement-prop-value(
@@ -49,7 +49,7 @@
                     ng-bind="$dir.reimbursement.iban")
 
             .reimbursement-prop
-                .reimbursement-prop-label Te naam stelling van
+                .reimbursement-prop-label Tenaamstelling van
                 .reimbursement-prop-value(
                     dusk="reimbursementOverviewIbanName"
                     ng-bind="$dir.reimbursement.iban_name")

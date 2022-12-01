@@ -30,21 +30,21 @@ const ReimbursementsShowComponent = function (
             $ctrl.updateReimbursement(res);
             PushNotificationsService.success('Success!', successMessage);
         }, (res) => {
-            PushNotificationsService.danger(res.data.title || 'Error!', res.data.message || 'Unknown error!');
+            PushNotificationsService.danger(res.data.title || 'Foutmelding!', res.data.message || 'Onbekende foutmelding!');
         }).finally(() => PageLoadingBarService.setProgress(100));
     };
 
     $ctrl.assign = () => {
         $ctrl.handleOnReimbursementUpdated(
             ReimbursementService.assign($ctrl.organization.id, $ctrl.reimbursement.id),
-            'Reimbursement request assigned.',
+            'Declaratie verzoek toegewezen.',
         );
     };
 
     $ctrl.resign = () => {
         $ctrl.handleOnReimbursementUpdated(
             ReimbursementService.resign($ctrl.organization.id, $ctrl.reimbursement.id),
-            'Reimbursement request resigned.',
+            'Declaratie verzoek niet meer toegewezen.',
         );
     };
 
@@ -98,9 +98,9 @@ const ReimbursementsShowComponent = function (
             onConfirm: () => {
                 ReimbursementService.noteDestroy($ctrl.organization.id, $ctrl.reimbursement.id, note.id).then(() => {
                     $ctrl.onNotePageChange($ctrl.notesFilters);
-                    PushNotificationsService.success('Success!', 'Note removed.');
+                    PushNotificationsService.success('Gelukt!', 'Notitie verwijderd.');
                 }, (res) => {
-                    PushNotificationsService.danger('Error!', res.data.message);
+                    PushNotificationsService.danger('Foutmelding!', res.data.message);
                 });
             }
         });
@@ -109,7 +109,7 @@ const ReimbursementsShowComponent = function (
     $ctrl.addNote = () => {
         ModalService.open('addNoteComponent', {
             title: null,
-            description: 'This note will be visible only to you and other people with the same role as yours from your organization.',
+            description: 'De notitie is alleen zichtbaar voor medewerkers met dezelfde rechten.',
             onSubmit: (form, modal) => {
                 modal.submitting = true;
                 PageLoadingBarService.setProgress(0);

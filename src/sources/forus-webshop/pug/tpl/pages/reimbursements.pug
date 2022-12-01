@@ -35,7 +35,7 @@ section.section.section-profile: .wrapper
                             role="button" 
                             ng-click="$ctrl.filters.state = null" 
                             ng-class="$ctrl.filters.state == null ? 'active' : ''")
-                            | All
+                            | Alle
 
                         .label-tab.label-tab-sm(
                             role="button" 
@@ -67,14 +67,14 @@ section.section.section-profile: .wrapper
                             dusk="reimbursementsFilterActive"
                             ng-click="$ctrl.filters.expired = 0" 
                             ng-class="!$ctrl.filters.expired ? 'active' : ''")
-                            | Active
+                            | Actief
 
                         .label-tab.label-tab-sm(
                             role="button" 
                             dusk="reimbursementsFilterExpired"
                             ng-click="$ctrl.filters.expired = 1" 
                             ng-class="$ctrl.filters.expired ? 'active' : ''")
-                            | Expired
+                            | Archief
 
             //- At least on reimbursement request
             .block.block-reimbursements(ng-if="$ctrl.reimbursements.data.length > 0" dusk="reimbursementsList")

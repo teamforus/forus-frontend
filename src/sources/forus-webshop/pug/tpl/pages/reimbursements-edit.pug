@@ -21,16 +21,16 @@ section.section.section-profile: .wrapper
             //- No email warning
             .card(ng-if="!$ctrl.reimbursement && !$ctrl.identity.email && !$ctrl.identity.skipEmail" dusk="reimbursementNoEmail")
                 .card-section
-                    .card-title: strong You currently have no email address
+                    .card-title: strong Er is geen e-mailadres bekend.
                     .card-text 
-                        | If the sponsor has questions, they cannot contact you.
+                        | Indien er vragen zijn over de declaratie, kan er geen contact worden opgenomen.
                         br
-                        | Or, if for some reason you can't add an email address, consider adding contact information in the description field.
+                        | Is er geen mogelijkheid om een e-mailadres op te geven? Geef dan andere contactgegevens op.
                         br
                         br
                     .card-text
-                        .button.button-primary.button-sm(ui-sref="identity-emails") Add email
-                        .button.button-text.button-sm(ng-click="$ctrl.identity.skipEmail = true") Continue without email
+                        .button.button-primary.button-sm(ui-sref="identity-emails") E-mailadres toevoegen
+                        .button.button-text.button-sm(ng-click="$ctrl.identity.skipEmail = true") Doorgaan zonder e-mailadres
 
             //- Form
             .card(ng-if="$ctrl.reimbursement || $ctrl.identity.email || $ctrl.identity.skipEmail" dusk="reimbursementForm"): form(
@@ -101,8 +101,8 @@ section.section.section-profile: .wrapper
 
                     //- IBAN Name
                     .form-group.form-group-inline
-                        label(for="iban_name").form-label TE NAAM STELLING VAN
-                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="TE NAAM STELLING VAN").form-control
+                        label(for="iban_name").form-label TENAAMSTELLING VAN
+                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="TENAAMSTELLING VAN").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban_name" ng-bind="error")
 
                 .card-section: .flex.flex-horizontal

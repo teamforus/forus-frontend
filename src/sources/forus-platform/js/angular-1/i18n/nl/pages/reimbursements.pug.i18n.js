@@ -4,21 +4,21 @@ module.exports = {
     },
 
     labels: {
-        identity: "Identity",
+        identity: "Gebruiker",
         iban: "IBAN",
-        iban_name: "Te naam stelling van",
+        iban_name: "Tenaamstelling van",
         bsn: "BSN",
         email: "E-mail",
         amount: "Bedrag",
         description: "Toelichting",
-        fund: "Fund",
+        fund: "Fonds",
         state: "Status",
-        lead_time: "Processing",
+        lead_time: "Afhandeltijd",
         created_at: "Aangemaakt op",
-        resolved_at: "Resolved at",
-        expire_at: "Expire date",
-        expird_at: "Expire at",
-        expired: "Expired",
+        resolved_at: "Afgehandeld op",
+        expire_at: "Verloopdatum",
+        expird_at: "Verlopen op",
+        expired: "Verlopen",
         actions: "Acties",
         search: "Zoeken",
         from: "Vanaf",
@@ -38,14 +38,14 @@ module.exports = {
 
         labels: {
             id: "ID",
-            created_at: "Added on",
-            created_by: "Added by",
+            created_at: "Aangemaakt op",
+            created_by: "Aangemaakt door",
             note: "Notite",
             actions: "Acties",
         },
     
         buttons: {
-            add_new: 'Add new',
+            add_new: 'Nieuwe aanmaken',
         },
     }
 };
