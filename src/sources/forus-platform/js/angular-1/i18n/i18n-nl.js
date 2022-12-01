@@ -1358,6 +1358,7 @@ module.exports = {
             decline: "Weigeren",
             disregard: "Niet behandelen",
             disregard_undo: "Opnieuw beoordelen",
+            disregard_undo_disabled_replaced: "Aanvraag reeds vervangen",
             clear_filter: "Wis filter",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",

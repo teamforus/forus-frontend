@@ -70,7 +70,7 @@
                             ng-bind="$ctrl.transaction.organization.name || 'Fund user'")
                         .keyvalue-value(ng-if="$ctrl.transaction.target === 'top_up'") Top up
 
-                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor' && $ctrl.transaction.target !== 'top_up'")
+                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor' && $ctrl.transaction.target !== 'top_up' && $ctrl.transaction.state == 'success'")
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq")
                         .keyvalue-value(ng-bind="$ctrl.transaction.transaction_cost | currency_format")
 
