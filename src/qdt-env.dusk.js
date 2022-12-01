@@ -131,7 +131,7 @@ module.exports = (core) => {
         });
 
         platform.editTask('js', (task) => ({ ...task, minify, sourcemap }));
-        platform.serve(6000, '/');
+        platform.serve(5500, '/');
 
         return platform;
     });
