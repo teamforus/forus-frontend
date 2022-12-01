@@ -28,9 +28,19 @@ section.section.section-profile: .wrapper
                         | Is er geen mogelijkheid om een e-mailadres op te geven? Geef dan andere contactgegevens op.
                         br
                         br
+
                     .card-text
-                        .button.button-primary.button-sm(ui-sref="identity-emails") E-mailadres toevoegen
-                        .button.button-text.button-sm(ng-click="$ctrl.identity.skipEmail = true") Doorgaan zonder e-mailadres
+                        //- Add identity email
+                        .button.button-primary.button-sm(
+                            dusk="reimbursementNoEmailAddBtn"
+                            ui-sref="identity-emails") 
+                            | E-mailadres toevoegen
+
+                        //- Skip adding email
+                        .button.button-text.button-sm(
+                            dusk="reimbursementNoEmailSkipBtn"
+                            ng-click="$ctrl.identity.skipEmail = true") 
+                            | Doorgaan zonder e-mailadres
 
             //- Form
             .card(ng-if="$ctrl.reimbursement || $ctrl.identity.email || $ctrl.identity.skipEmail" dusk="reimbursementForm"): form(
