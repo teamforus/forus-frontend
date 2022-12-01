@@ -49,10 +49,10 @@ const ReimbursementEditComponent = function (
 
                 if (res.data.data.state === 'pending') {
                     // Submitted for review
-                    PushNotificationsService.success('Success!', 'Your reimbursement request was submitted for review!');
+                    PushNotificationsService.success('Gelukt!', 'Declaratie verzoek is ingediend voor beoordeling.');
                 } else {
                     // Saved as draft
-                    PushNotificationsService.success('Success!', 'Your reimbursement request was saved for later');
+                    PushNotificationsService.success('Gelukt!', 'Declaratie verzoek is opgeslagen.');
                 }
 
                 $state.go('reimbursements');

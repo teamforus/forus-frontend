@@ -1,4 +1,4 @@
-.block.block-reimbursement
+.block.block-reimbursement(dusk="reimbursementOverview")
     .reimbursement-section
         .reimbursement-media
             .media-preview: img(
@@ -17,32 +17,53 @@
                 .media-pagination-next(ng-click="$dir.nextPreviewMedia()"): .mdi.mdi-chevron-right
 
         .reimbursement-props
-            .reimbursement-title(ng-if="!$dir.compact") Request details
+            .reimbursement-title(ng-if="!$dir.compact") Declaratie gegevens
             .reimbursement-prop
                 .reimbursement-prop-label Titel
-                .reimbursement-prop-value(ng-bind="$dir.reimbursement.title")
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewTitle"
+                    ng-bind="$dir.reimbursement.title")
+
             .reimbursement-prop
                 .reimbursement-prop-label Bedrag
-                .reimbursement-prop-value(ng-bind="$dir.reimbursement.amount | currency_format")
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewAmount"
+                    ng-bind="$dir.reimbursement.amount | currency_format")
+
             .reimbursement-prop
                 .reimbursement-prop-label Declareren bij
-                .reimbursement-prop-value(ng-bind="$dir.reimbursement.fund.organization.name")
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewSponsorName"
+                    ng-bind="$dir.reimbursement.fund.organization.name")
+
             .reimbursement-prop
                 .reimbursement-prop-label Regeling
-                .reimbursement-prop-value(ng-bind="$dir.reimbursement.fund.name")
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewFundName"
+                    ng-bind="$dir.reimbursement.fund.name")
+
             .reimbursement-prop
                 .reimbursement-prop-label IBAN
-                .reimbursement-prop-value(ng-bind="$dir.reimbursement.iban")
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewIban"
+                    ng-bind="$dir.reimbursement.iban")
+
             .reimbursement-prop
-                .reimbursement-prop-label Te naam stelling van
-                .reimbursement-prop-value(ng-bind="$dir.reimbursement.iban_name")
+                .reimbursement-prop-label Tenaamstelling van
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewIbanName"
+                    ng-bind="$dir.reimbursement.iban_name")
 
     .reimbursement-section(ng-if="!$dir.compact")
         .reimbursement-description
             .reimbursement-heading Opmerking
-            .reimbursement-text(ng-bind="$dir.reimbursement.description")
+            .reimbursement-text(
+                dusk="reimbursementOverviewDescription"
+                ng-bind="$dir.reimbursement.description")
     
     .reimbursement-section.flex-center(ng-if="$dir.reimbursement.state === 'draft'")
-        a(ui-sref="reimbursements-edit($dir.reimbursement)").button.button-primary-outline.button-sm
+        a(
+            dusk="reimbursementOverviewEditButton"
+            ui-sref="reimbursements-edit($dir.reimbursement)").button.button-primary-outline.button-sm
             .mdi.mdi-pencil.icon-start
             | Wijzigen

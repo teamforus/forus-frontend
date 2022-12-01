@@ -13,13 +13,14 @@ section.section.section-profile: .wrapper
 
         mixin delete_button()
             .button.button-text.button-sm.pull-right(
+                dusk="reimbursementDetailsPageDeleteBtn"
                 ng-if="$ctrl.reimbursement.state === 'draft'"
                 ng-click="$ctrl.cancelReimbursement($event)")
                 em.mdi.mdi-trash-can-outline.icon-start
-                | Reservering annuleren
+                | Declaratie annuleren
 
         //- Page content
-        .profile-content
+        .profile-content(dusk="reimbursementDetailsPage")
             //- Header
             .profile-content-header
                 .flex

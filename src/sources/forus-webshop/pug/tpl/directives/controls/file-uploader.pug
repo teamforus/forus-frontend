@@ -1,7 +1,7 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 //- File uploader
-.block.block-file-uploader
+.block.block-file-uploader(dusk="fileUploader")
     //- Drop zone
     .uploader-droparea(ng-if="!$dir.readOnly")
         //- Drop zone icon
@@ -15,6 +15,7 @@
 
         //- Select file button
         .droparea-button: button.button.button-primary(
+            dusk="fileUploaderBtn"
             type="button"
             role="button"
             ng-disabled="$dir.multipleSize && $dir.multipleSize <= $dir.files.length"
@@ -24,6 +25,16 @@
 
         //- File requirements
         .droparea-size max. grootte 8Mb
+
+        //- Input for dusk auto tests
+        input(
+            multiple 
+            type="file"
+            ng-model="$dir.tmpFile" 
+            class="droparea-hidden-input"
+            name="file_uploader_input_hidden"
+            tab-index="1000"
+            onchange="angular.element(this).scope().$dir.addFilesHidden(this)")
     
     //- Files list
     .uploader-files(ng-if="$dir.files.length > 0")

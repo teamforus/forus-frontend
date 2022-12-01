@@ -31,9 +31,9 @@ const ReimbursementService = function (
             return $q((resolve) => {
                 return ModalService.open('modalNotification', {
                     type: 'confirm',
-                    title: 'Are you sure?',
-                    description: 'You are about to remove you reimbursement request, are you sure?',
-                    confirmBtnText: 'Sluiten',
+                    title: 'Declaratie annuleren?',
+                    description: 'Weet je zeker dat je het declaratie verzoek wilt annuleren?',
+                    confirmBtnText: 'Bevestigen',
                     confirm: () => {
                         this.destroy(reimbursement.id).then(() => {
                             PushNotificationsService.success('Declaratie geannuleerd.');

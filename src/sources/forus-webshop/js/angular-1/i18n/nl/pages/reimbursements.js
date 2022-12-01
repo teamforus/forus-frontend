@@ -2,7 +2,7 @@ module.exports = {
     // reimbursements = reimbursements.pug
     header: {
         title: "Declaraties",
-        subtitle: "You need to have an active voucher make reimbursement requests.",
+        subtitle: "Een actief tegoed is nodig om een declaratie in te dienen.",
     },
     empty_block: {
         title: "Geen declaraties",

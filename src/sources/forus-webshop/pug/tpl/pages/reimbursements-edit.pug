@@ -12,28 +12,38 @@ section.section.section-profile: .wrapper
         .profile-aside: profile-menu.hide-sm
 
         //- Page content
-        .profile-content
+        .profile-content(dusk="reimbursementEditContent")
             //- Header
             .profile-content-header
                 .profile-content-title(ng-if="!$ctrl.reimbursement") Nieuwe declaratie
                 .profile-content-title(ng-if="$ctrl.reimbursement") Declaratienummer: {{ '#' + $ctrl.reimbursement.code  }}
             
             //- No email warning
-            .card(ng-if="!$ctrl.reimbursement && !$ctrl.identity.email && !$ctrl.identity.skipEmail")
+            .card(ng-if="!$ctrl.reimbursement && !$ctrl.identity.email && !$ctrl.identity.skipEmail" dusk="reimbursementNoEmail")
                 .card-section
-                    .card-title: strong You currently have no email address
+                    .card-title: strong Er is geen e-mailadres bekend.
                     .card-text 
-                        | If the sponsor has questions, they cannot contact you.
+                        | Indien er vragen zijn over de declaratie, kan er geen contact worden opgenomen.
                         br
-                        | Or, if for some reason you can't add an email address, consider adding contact information in the description field.
+                        | Is er geen mogelijkheid om een e-mailadres op te geven? Geef dan andere contactgegevens op.
                         br
                         br
+
                     .card-text
-                        .button.button-primary.button-sm(ui-sref="identity-emails") Add email
-                        .button.button-text.button-sm(ng-click="$ctrl.identity.skipEmail = true") Continue without email
+                        //- Add identity email
+                        .button.button-primary.button-sm(
+                            dusk="reimbursementNoEmailAddBtn"
+                            ui-sref="identity-emails") 
+                            | E-mailadres toevoegen
+
+                        //- Skip adding email
+                        .button.button-text.button-sm(
+                            dusk="reimbursementNoEmailSkipBtn"
+                            ng-click="$ctrl.identity.skipEmail = true") 
+                            | Doorgaan zonder e-mailadres
 
             //- Form
-            .card(ng-if="$ctrl.reimbursement || $ctrl.identity.email || $ctrl.identity.skipEmail"): form(
+            .card(ng-if="$ctrl.reimbursement || $ctrl.identity.email || $ctrl.identity.skipEmail" dusk="reimbursementForm"): form(
                     ng-submit="$ctrl.submit()").form.form-compact.form-compact-flat
 
                 .card-section
@@ -66,6 +76,7 @@ section.section.section-profile: .wrapper
                                 as="address"
                                 prop="id"
                                 search="false"
+                                dusk="voucherSelector"
                                 ng-model="$ctrl.form.values.voucher_id"
                                 ng-change="$ctrl.updateSortBy()"
                                 options="$ctrl.vouchers"
@@ -83,25 +94,25 @@ section.section.section-profile: .wrapper
                     //- Amount
                     .form-group.form-group-inline 
                         label(for="amount").form-label BEDRAG €
-                        input(type="number" step=".01" min="0.01" ng-model="$ctrl.form.values.amount" placeholder="BEDRAG €").form-control
+                        input(type="number" name="amount" step=".01" min="0.01" ng-model="$ctrl.form.values.amount" placeholder="BEDRAG €").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
                     
                     //- Description
                     .form-group.form-group-inline
                         label(for="description").form-label OPMERKING
-                        textarea(ng-model="$ctrl.form.values.description" placeholder="OPMERKING" resize="vertical").form-control
+                        textarea(ng-model="$ctrl.form.values.description" name="description" placeholder="OPMERKING" resize="vertical").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
                     
                     //- IBAN
                     .form-group.form-group-inline
                         label(for="iban").form-label IBAN NUMMER
-                        input(type="text" ng-model="$ctrl.form.values.iban" placeholder="IBAN NUMMER").form-control
+                        input(type="text" name="iban" ng-model="$ctrl.form.values.iban" placeholder="IBAN NUMMER").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
 
                     //- IBAN Name
                     .form-group.form-group-inline
-                        label(for="iban").form-label TE NAAM STELLING VAN
-                        input(type="text" ng-model="$ctrl.form.values.iban_name" placeholder="TE NAAM STELLING VAN").form-control
+                        label(for="iban_name").form-label TENAAMSTELLING VAN
+                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="TENAAMSTELLING VAN").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban_name" ng-bind="error")
 
                 .card-section: .flex.flex-horizontal
@@ -109,6 +120,7 @@ section.section.section-profile: .wrapper
                     .flex.hide-sm
                         button(
                             type="button" 
+                            dusk="reimbursementFormCancel"
                             ng-disabled="$ctrl.form.locked" 
                             ui-sref="reimbursements").button.button-dim.button-sm Annuleren
 
@@ -117,11 +129,13 @@ section.section.section-profile: .wrapper
                         //- Save for later
                         button(
                             type="submit" 
+                            dusk="reimbursementFormSave"
                             ng-disabled="$ctrl.form.locked").button.button-primary-outline.button-sm Opslaan voor later
 
                         //- Submit now
                         button(
                             type="button" 
                             ng-click="$ctrl.submit(true)"
+                            dusk="reimbursementFormSubmit"
                             ng-disabled="$ctrl.submitAvailable($ctrl.form.values, $ctrl.files)"
                             ).button.button-primary.button-sm Indienen

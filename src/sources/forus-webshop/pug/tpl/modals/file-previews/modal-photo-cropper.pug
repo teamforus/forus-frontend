@@ -1,4 +1,5 @@
 .modal.modal-photo-cropper.modal-animated(
+    dusk="modalPhotoCropper"
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']")
 
@@ -62,10 +63,13 @@
             //- Actions
             .button-group
                 //- Cancel
-                button(ng-click="$ctrl.close()").button.button-muted.button-sm Cancel
+                button(
+                    dusk="modalPhotoCropperCancel"
+                    ng-click="$ctrl.close()").button.button-muted.button-sm Cancel
 
                 //- Submit
                 button(
+                    dusk="modalPhotoCropperSubmit"
                     ng-click="$ctrl.submit()" 
                     ng-disabled="!$ctrl.loaded").button.button-primary.button-sm 
 

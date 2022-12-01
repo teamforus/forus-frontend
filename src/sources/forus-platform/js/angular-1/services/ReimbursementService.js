@@ -39,29 +39,29 @@ const ReimbursementService = function(ApiRequest) {
         this.getStates = () => {
             return [{
                 value: null,
-                name: 'Alle'
+                name: 'Alle',
             }, {
                 value: 'pending',
-                name: 'Pending'
+                name: 'In afwachting',
             }, {
                 value: 'accepted',
-                name: 'Accepted'
+                name: 'Geaccepteerd',
             }, {
                 value: 'rejected',
-                name: 'Rejected'
+                name: 'Geweigerd',
             }];
         };
 
         this.getExpiredOptions = () => {
             return [{
                 value: null,
-                name: 'Alle'
+                name: 'Alle',
             }, {
                 value: 1,
-                name: 'Expired'
+                name: 'Verlopen',
             }, {
                 value: 0,
-                name: 'Non expired'
+                name: 'Niet verlopen',
             }];
         };
     });

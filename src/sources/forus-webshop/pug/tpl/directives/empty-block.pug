@@ -11,7 +11,8 @@
 
     .block-actions(ng-if="$dir.buttonText && ($dir.buttonSref || $dir.buttonCallback)"): button.button(
         ng-click="$dir.buttonHandler($event)"
-        ng-class="'button-' + $dir.buttonType")
+        ng-class="'button-' + $dir.buttonType"
+        dusk="btnEmptyBlock")
         em.mdi(ng-if="$dir.buttonIcon && !$dir.buttonIconEnd" ng-class="'mdi-' + $dir.buttonIcon")
         ng-bind(ng-bind="$dir.buttonText")
         em.mdi(ng-if="$dir.buttonIcon && $dir.buttonIconEnd" ng-class="'mdi-' + $dir.buttonIcon").icon-right
