@@ -151,6 +151,10 @@ const FileUploaderDirective = function (
         });
     };
 
+    $dir.addFilesHidden = (e) => {
+        $dir.addFiles(e.files);
+    };
+
     $dir.addFiles = (files) => {
         if ($dir.multipleSize) {
             const allowedSize = $dir.multipleSize - $dir.files.length;

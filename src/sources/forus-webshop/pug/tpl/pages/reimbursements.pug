@@ -64,18 +64,20 @@ section.section.section-profile: .wrapper
                     .label-tab-set
                         .label-tab.label-tab-sm(
                             role="button" 
+                            dusk="reimbursementsFilterActive"
                             ng-click="$ctrl.filters.expired = 0" 
                             ng-class="!$ctrl.filters.expired ? 'active' : ''")
                             | Active
 
                         .label-tab.label-tab-sm(
                             role="button" 
+                            dusk="reimbursementsFilterExpired"
                             ng-click="$ctrl.filters.expired = 1" 
                             ng-class="$ctrl.filters.expired ? 'active' : ''")
                             | Expired
 
             //- At least on reimbursement request
-            .block.block-reimbursements(ng-if="$ctrl.reimbursements.data.length > 0")
+            .block.block-reimbursements(ng-if="$ctrl.reimbursements.data.length > 0" dusk="reimbursementsList")
                 reimbursement-card(
                     ng-repeat="reimbursement in $ctrl.reimbursements.data"
                     on-delete="$ctrl.onDelete()"
@@ -89,6 +91,7 @@ section.section.section-profile: .wrapper
 
             //- No reimbursement requests 
             empty-block(
+                dusk="reimbursementsEmptyBlock"
                 ng-if="$ctrl.reimbursements.data.length == 0"
                 title="Op deze pagina kunt u een declaratie verzoek indienen."
                 svg-icon="reimbursements"

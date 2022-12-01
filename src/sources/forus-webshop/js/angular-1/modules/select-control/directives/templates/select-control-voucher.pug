@@ -4,15 +4,6 @@
         ng-disabled="$dir.disabled || $dir.ngDisabled"
         click-outside="$dir.onClickOutside()")
 
-        //-
-            label.select-control-search.form-control(
-                for="{{ $dir.controlId }}"
-                ng-show="($dir.mode == 'strict' && !$dir.showOptions) || !$dir.searchEnabled" 
-                ng-click="$dir.searchOption()"
-                ng-disabled="$dir.disabled || $dir.ngDisabled")
-                span(ng-bind="$dir.value[$dir.as] || $dir.placeholder")
-                .select-control-icon: .mdi(ng-class="$dir.showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down'")
-
         .block.block-vouchers.block-vouchers-select(
             ng-click="$dir.searchOption()"
             ng-disabled="$dir.disabled || $dir.ngDisabled"
@@ -41,23 +32,9 @@
             ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
             ng-change="$dir.searchInputChanged()"
             ng-model="$dir.filter.q").select-control-search.form-control
-        
-        //- 
-            .block.block-vouchers.block-vouchers-padding.block-vouchers-compact
-            .voucher-item.voucher-item-compact.voucher-item-static(ng-repeat="voucher in $ctrl.vouchers")
-                .voucher-image
-                    img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
-                .voucher-details
-                    .voucher-name(ng-bind="voucher.fund.name")
-                    .voucher-organization(ng-bind="voucher.fund.organization.name")
-                    .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount | currency_format")
-
-                .voucher-overview(ng-if="$ctrl.vouchers.length > 1")
-                    button.button.button-primary(ng-click="$ctrl.reserveProduct($ctrl.product, voucher)") Kies
-
-            .block.block-vouchers.block-vouchers-padding.block-vouchers-compact
         select-control-options(
+            dusk="voucherSelectorOptions"
             ng-if="$dir.showOptions" 
             change="$dir.selectOption(option)" 
             options="$dir.optionsFiltered"
