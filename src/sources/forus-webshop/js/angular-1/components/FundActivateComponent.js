@@ -226,7 +226,7 @@ const FundActivateComponent = function (
                     srefParams: { fund_id: $stateParams.fund_id },
                     srefIcon: 'mdi-arrow-left',
                     text: "Back to options",
-                    srefButton: false,
+                    srefButton: true,
                 } : null,
             });
         }
@@ -339,6 +339,11 @@ const FundActivateComponent = function (
         const pendingRequest = $ctrl.fundRequests?.data.find((request) => request.state === 'pending');
         const hasDigiDResponse = $ctrl.hasDigiDResponse($stateParams);
 
+        // The user is not authenticated and have to go back to sign-up page
+        if (!$ctrl.identity) {
+            return $state.go('start');
+        }
+
         $ctrl.skipBsnLimit = Date.now() + ($ctrl.getTimeToSkipDigid($ctrl.identity, false) * 1000);
         $ctrl.skipBsnLimitSoft = Date.now() + ($ctrl.getTimeToSkipDigid($ctrl.identity, true) * 1000);
 
@@ -346,11 +351,6 @@ const FundActivateComponent = function (
         $ctrl.digidAvailable = $ctrl.configs.digid;
         $ctrl.digidMandatory = $ctrl.configs.digid_mandatory;
         $ctrl.fundRequestAvailable = $ctrl.fundRequestIsAvailable($ctrl.fund);
-
-        // The user is not authenticated and have to go back to sign-up page
-        if (!$ctrl.identity) {
-            return $state.go('start');
-        }
 
         // initialize timeToSkipBsn and timeToSkipBsnSoft flags timeout and 
         // set initial state
