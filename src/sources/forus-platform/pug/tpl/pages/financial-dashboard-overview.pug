@@ -107,7 +107,16 @@
                                 div Gem. per tegoed
                                 div {{ fund.budget.averagePerVoucher | currency_format }}
                             td
-                            td
+                            td(colspan="2")
+
+                        tr.table-highlight-grey(ng-if="fund.collapsedData")
+                            td.text-center: a.mdi.mdi-circle-small
+                            td.text-left: strong(translate="financial_dashboard_overview.labels.product_vouchers")    
+                            td.text-right(ng-bind="fund.product_vouchers.vouchers_amount | currency_format")
+                            td.text-right(ng-bind="fund.product_vouchers.active_vouchers_amount | currency_format")
+                            td.text-right(ng-bind="fund.product_vouchers.inactive_vouchers_amount | currency_format")
+                            td.text-right(ng-bind="fund.product_vouchers.deactivated_vouchers_amount | currency_format")
+                            td(colspan="2")
 
                     tr.table-totals
                         td
