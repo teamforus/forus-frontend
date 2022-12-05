@@ -18,7 +18,7 @@ main(id="main-content")
                         .card-photo: img(ng-src="{{ $ctrl.voucherCard.thumbnail }}" alt="{{$ctrl.voucherCard.title}}").voucher-img
 
                         .card-section
-                            h2(ng-bind="$ctrl.voucherCard.title | str_limit:40").card-title
+                            h2(ng-bind="$ctrl.voucherCard.title | str_limit:40" dusk="voucherTitle").card-title
                             .card-subtitle(ng-if="!$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.fund.organization.name")
                             .card-subtitle(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.product.organization.name")
                             div(ng-if="!$ctrl.voucherCard.is_external && $ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product")

@@ -85,7 +85,7 @@ const ProductsComponent = function(
         $ctrl.loadProducts($ctrl.buildQuery(values));
     };
 
-    $ctrl.loadProducts = (query, location = 'replace') => {
+    $ctrl.loadProducts = (query) => {
         PageLoadingBarService.setProgress(0);
 
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {

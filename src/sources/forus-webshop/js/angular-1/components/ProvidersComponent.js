@@ -1,4 +1,4 @@
-const ProvidersComponent = function(
+const ProvidersComponent = function (
     $state,
     $stateParams,
     FormBuilderService,
@@ -64,6 +64,7 @@ const ProvidersComponent = function(
         page: values.page,
         fund_id: values.fund_id || null,
         business_type_id: values.business_type_id || null,
+        product_category_id: values.product_category_id || null,
         postcode: values.postcode || '',
         distance: values.distance || null,
         ...$ctrl.sortBy.value
@@ -81,15 +82,15 @@ const ProvidersComponent = function(
 
     $ctrl.showAsMap = () => {
         $ctrl.showMap = true;
-        $ctrl.loadProvidersMap({ ...$ctrl.buildQuery($ctrl.form.values), ...{ page: 1 } }, true);
+        $ctrl.loadProvidersMap({ ...$ctrl.buildQuery($ctrl.form.values), ...{ page: 1 } });
     }
 
     $ctrl.showAsList = () => {
         $ctrl.showMap = false;
-        $ctrl.loadProviders({ ...$ctrl.buildQuery($ctrl.form.values), ...{ page: 1 } }, true);
+        $ctrl.loadProviders({ ...$ctrl.buildQuery($ctrl.form.values), ...{ page: 1 } });
     }
 
-    $ctrl.loadProviders = (query, location = 'replace') => {
+    $ctrl.loadProviders = (query) => {
         ProvidersService.search(Object.assign({}, query)).then(res => {
             $ctrl.providers = res.data;
         });
@@ -98,7 +99,7 @@ const ProvidersComponent = function(
         $ctrl.updateFiltersUsedCount();
     };
 
-    $ctrl.loadProvidersMap = (query, location = 'replace') => {
+    $ctrl.loadProvidersMap = (query) => {
         ProvidersService.search({ ...{ per_page: 1000 }, ...query }).then(res => {
             $ctrl.providersAll = res.data;
             $ctrl.offices = $ctrl.providersAll.data.reduce((arr, provider) => {
@@ -118,9 +119,20 @@ const ProvidersComponent = function(
             postcode: query.postcode,
             distance: query.distance,
             business_type_id: query.business_type_id,
+            product_category_id: query.product_category_id,
             show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
         }, { location });
+    };
+
+    $ctrl.changeProductCategory = (type) => {
+        if (type == 'category' || (type == 'subcategory' && !$ctrl.product_sub_category_id)) {
+            return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
+        }
+
+        if (type == 'subcategory') {
+            $ctrl.form.values.product_category_id = $ctrl.product_sub_category_id;
+        }
     };
 
     $ctrl.updateFiltersUsedCount = () => {
@@ -134,6 +146,7 @@ const ProvidersComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.showMap = $stateParams.show_map;
+        $ctrl.business_type_id = $stateParams.business_type_id;
 
         $ctrl.funds.unshift({
             id: null,
@@ -145,18 +158,34 @@ const ProvidersComponent = function(
             name: 'Alle typen',
         });
 
+        $ctrl.productCategories.unshift({
+            name: 'Selecteer categorie...',
+            id: null,
+        });
+
+        $ctrl.productSubCategories?.unshift({
+            name: 'Selecteer subcategorie...',
+            id: null
+        });
+
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.sortBy = $ctrl.sortByOptions[0];
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q,
             fund_id: $stateParams.fund_id || $ctrl.funds[0].id,
             business_type_id: $stateParams.business_type_id || $ctrl.businessTypes[0].id,
+            product_category_id: $stateParams.product_category_id || $ctrl.productCategories[0].id,
             postcode: $stateParams.postcode,
             distance: $stateParams.distance,
         });
 
         if ($ctrl.showMap) {
             $ctrl.loadProvidersMap($ctrl.buildQuery($ctrl.form.values));
+        }
+
+        if ($ctrl.productCategory) {
+            $ctrl.product_category_id = $ctrl.productCategory.parent_id || $ctrl.productCategory.id;
+            $ctrl.product_sub_category_id = $ctrl.productCategory.parent_id ? $ctrl.productCategory.id : null;
         }
 
         $ctrl.updateFiltersUsedCount();
@@ -167,6 +196,9 @@ module.exports = {
     bindings: {
         funds: '<',
         providers: '<',
+        productCategory: '<',
+        productCategories: '<',
+        productSubCategories: '<',
         businessTypes: '<',
     },
     controller: [

@@ -1,17 +1,15 @@
-let MediaService = function(
+const MediaService = function (
     ApiRequest,
     appConfigs
 ) {
-    let uriPrefix = '/medias';
+    const uriPrefix = '/medias';
 
-    return new(function() {
-        this.list = function() {
-            return ApiRequest.get(
-                uriPrefix
-            );
+    return new (function () {
+        this.list = function () {
+            return ApiRequest.get(uriPrefix);
         };
 
-        this.store = function(type, file, sync_presets = null) {
+        this.store = function (type, file, sync_presets = null) {
             let formData = new FormData();
 
             formData.append('file', file, file['name']);
@@ -30,16 +28,18 @@ let MediaService = function(
             });
         };
 
-        this.read = function(id) {
-            return ApiRequest.get(
-                uriPrefix + '/' + id
-            );
+        this.read = function (id) {
+            return ApiRequest.get(`${uriPrefix}/${id}`);
         };
 
-        this.delete = function(id) {
-            return ApiRequest.delete(
-                uriPrefix + '/' + id
-            );
+        this.clone = function (uid, sync_presets = null) {
+            return ApiRequest.post(`${uriPrefix}/${uid}/clone`, {
+                sync_presets: !sync_presets || Array.isArray(sync_presets) ? sync_presets : [sync_presets],
+            });
+        };
+
+        this.delete = function (id) {
+            return ApiRequest.delete(`${uriPrefix}/${id}`);
         };
 
         this.configByType = (type) => {
@@ -51,5 +51,5 @@ let MediaService = function(
 module.exports = [
     'ApiRequest',
     'appConfigs',
-    MediaService
+    MediaService,
 ];

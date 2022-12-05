@@ -38,6 +38,28 @@ block content
                                 .form-error(ng-repeat="error in $ctrl.form.errors.business_type_id" ng-bind="error")
 
                             .form-group
+                                label.form-label(for="product_category_id") Aanbod categorie
+                                select-control(
+                                    prop="id"
+                                    ng-model="$ctrl.product_category_id"
+                                    ng-change="$ctrl.changeProductCategory('category')"
+                                    options="$ctrl.productCategories"
+                                    placeholder="{{ $ctrl.productCategories[0].name }}"
+                                    id="product_category_id")
+                                .form-error(ng-repeat="error in $ctrl.form.errors.product_category_id" ng-bind="error")
+
+                            .form-group(ng-if="$ctrl.productSubCategories.length > 1")
+                                label.form-label(for="select_sub_type") Aanbod subcategorie
+                                select-control(
+                                    id="select_sub_type"
+                                    prop="id"
+                                    name="sub_type"
+                                    ng-model="$ctrl.product_sub_category_id"
+                                    ng-change="$ctrl.changeProductCategory('subcategory')"
+                                    options="$ctrl.productSubCategories"
+                                    placeholder="{{ $ctrl.productSubCategories[0].name }}")
+
+                            .form-group
                                 label.form-label(for="fund_id") Tegoeden
                                 select-control(
                                     prop="id"
