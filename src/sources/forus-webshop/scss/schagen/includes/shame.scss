@@ -1,3 +1,7 @@
+.section-title, .block-title {
+    color: #004680;
+}
+
 .block {
     &.block-navbar {
         .block-auth {
@@ -7,6 +11,20 @@
                 .auth-user {
                     .auth-user-caret {
                         color: #ffffff;
+                    }
+                }
+
+                .button {
+                    &.button-primary {
+                        &:hover {
+                            background-color: $btn-start-hov;
+                        }
+                    }
+    
+                    &.button-default {
+                        &:hover {
+                            background-color: #074E7D;
+                        }
                     }
                 }
             }

@@ -92,7 +92,7 @@ block content
                             .showcase-result(ng-if="$ctrl.showMap")
                                 | Er zijn #[.showcase-result-count(ng-bind="$ctrl.providers.meta.total")] aanbieders gevonden
 
-                        a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm
+                        a(key="{{$root.client_key}}" ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-fill.button-flat.hide-sm(ng-class="$root.client_key != 'schagen' ? 'button-primary-outline' : 'button-primary'")
                             em.mdi.mdi-store-outline
                             | Aanmelden als aanbieder
                             em.mdi.mdi-arrow-right.icon-right

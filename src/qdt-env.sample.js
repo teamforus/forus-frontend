@@ -847,6 +847,38 @@ module.exports = (core) => {
         return platform;
     });
 
+    core.editPlatform('webshop_schagen', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'schagen',
+            matomo_site_id: false,
+            flags: {
+                logoExtension: '.svg',
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+                fundsMenu: true,
+                fundsMenuIfLoggedOut: true,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
     // Config meapp landings
     core.editPlatform('website', (platform) => {
         platform.setEnvData({
