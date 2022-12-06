@@ -37,13 +37,8 @@ main(id="main-content")
 
                         .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                         .sign_up-option-details
-                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption") I want to use DigiD
-                            .sign_up-option-description(ng-if="$ctrl.showFundRequestOption")
-                                | Use DigiD to check for available funds or submit an application form.
-
-                            .sign_up-option-title(ng-if="!$ctrl.showFundRequestOption") I want to use DigiD
-                            .sign_up-option-description(ng-if="!$ctrl.showFundRequestOption")
-                                | Use DigiD to check if there are any available funds.
+                            .sign_up-option-title I want to use DigiD
+                            .sign_up-option-description Use DigiD to check for available funds or submit an application form.
 
                     //- Make fund request
                     .sign_up-option(

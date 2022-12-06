@@ -3,6 +3,7 @@ const FundActivateComponent = function (
     $state,
     $stateParams,
     $timeout,
+    $interval,
     FundService,
     PushNotificationsService,
     FormBuilderService,
@@ -16,6 +17,7 @@ const FundActivateComponent = function (
     $ctrl.state = '';
     $ctrl.bsnIsKnown = false;
     $ctrl.appConfigs = appConfigs;
+    $ctrl.bsnFlagsInterval = null;
 
     // Start digid sign-in
     $ctrl.startDigId = () => {
@@ -152,7 +154,11 @@ const FundActivateComponent = function (
 
         //- Show custom criteria screen
         if (autoValidation && $ctrl.digidAvailable && hasCustomCriteria) {
-            return $ctrl.setState('digid');
+            if ($ctrl.timeToSkipBsnSoft > 0) {
+                return $ctrl.setState('digid');
+            }
+
+            return $ctrl.startDigId();
         }
 
         $ctrl.checkFund();
@@ -200,7 +206,7 @@ const FundActivateComponent = function (
                     });
                 }
 
-                $state.go('fund-activate', { ...$stateParams, digid_error: undefined, digid_success: undefined }, { reload: true });
+                $state.go('fund-activate', { ...$stateParams, digid_error: null, digid_success: null }, { reload: 'replace' });
             });
         });
     }
@@ -220,7 +226,7 @@ const FundActivateComponent = function (
                     srefParams: { fund_id: $stateParams.fund_id },
                     srefIcon: 'mdi-arrow-left',
                     text: "Back to options",
-                    srefButton: false,
+                    srefButton: true,
                 } : null,
             });
         }
@@ -229,7 +235,8 @@ const FundActivateComponent = function (
         if ($stateParams.digid_success == 'signed_up' || $stateParams.digid_success == 'signed_in') {
             PushNotificationsService.success('Succes! Ingelogd met DigiD.');
 
-            $ctrl.checkFund(true);
+            $state.go('fund-activate', { ...$stateParams, digid_success: null }, { location: 'replace' });
+            $ctrl.selectDigiDOption();
         }
     };
 
@@ -288,8 +295,8 @@ const FundActivateComponent = function (
         $ctrl.setState('select');
     };
 
-    $ctrl.getTimeToSkipDigid = (identity) => {
-        const timeOffset = appConfigs.bsn_confirmation_offset || 300;
+    $ctrl.getTimeToSkipDigid = (identity, witOffset = true) => {
+        const timeOffset = witOffset ? (appConfigs.bsn_confirmation_offset || 300) : 0;
 
         if ($ctrl.fund.bsn_confirmation_time === null || !identity.bsn) {
             return null;
@@ -298,31 +305,57 @@ const FundActivateComponent = function (
         return Math.max($ctrl.fund.bsn_confirmation_time - (identity.bsn_time + timeOffset), 0);
     }
 
-    $ctrl.initBsnSkip = () => {
-        const timeToSkipBsn = $ctrl.getTimeToSkipDigid($ctrl.identity);
-        const canSkipDigid = timeToSkipBsn && timeToSkipBsn > 0;
+    $ctrl.updateBsnSkipFlagsInterval = () => {
+        const timeToSkipBsn = Math.max(($ctrl.skipBsnLimit - Date.now()) / 1000, 0);
+        const timeToSkipBsnSoft = Math.max(($ctrl.skipBsnLimitSoft - Date.now()) / 1000, 0);
 
-        $ctrl.canSkipDigid = canSkipDigid;
+        $ctrl.timeToSkipBsn = timeToSkipBsn;
+        $ctrl.timeToSkipBsnSoft = timeToSkipBsnSoft;
 
-        if ($ctrl.canSkipDigid && $ctrl.identity.bsn_time) {
-            $timeout(() => $ctrl.canSkipDigid = false, timeToSkipBsn * 1000);
+        if (!$ctrl.timeToSkipBsn || ($ctrl.timeToSkipBsn <= 0)) {
+            if ($ctrl.state === 'digid') {
+                $ctrl.setState('select');
+
+                PushNotificationsService.info(
+                    'DigiD session expired.',
+                    'You need to confirm your Identity by DigiD again.',
+                );
+            }
         }
-    };
+    }
+
+    $ctrl.initBsnSkipFlagsInterval = () => {
+        $ctrl.updateBsnSkipFlagsInterval();
+
+        $interval.cancel($ctrl.bsnFlagsInterval);
+
+        $ctrl.bsnFlagsInterval = $interval(() => {
+            $ctrl.updateBsnSkipFlagsInterval();
+        }, 1000)
+    }
 
     $ctrl.$onInit = function () {
         const voucher = $ctrl.getFirstFundVoucher($ctrl.fund, $ctrl.vouchers);
         const pendingRequest = $ctrl.fundRequests?.data.find((request) => request.state === 'pending');
         const hasDigiDResponse = $ctrl.hasDigiDResponse($stateParams);
 
+        // The user is not authenticated and have to go back to sign-up page
+        if (!$ctrl.identity) {
+            return $state.go('start');
+        }
+
+        $ctrl.skipBsnLimit = Date.now() + ($ctrl.getTimeToSkipDigid($ctrl.identity, false) * 1000);
+        $ctrl.skipBsnLimitSoft = Date.now() + ($ctrl.getTimeToSkipDigid($ctrl.identity, true) * 1000);
+
         $ctrl.bsnIsKnown = $ctrl.identity && $ctrl.identity.bsn;
         $ctrl.digidAvailable = $ctrl.configs.digid;
         $ctrl.digidMandatory = $ctrl.configs.digid_mandatory;
         $ctrl.fundRequestAvailable = $ctrl.fundRequestIsAvailable($ctrl.fund);
 
-        // The user is not authenticated and have to go back to sign-up page
-        if (!$ctrl.identity) {
-            return $state.go('start');
-        }
+        // initialize timeToSkipBsn and timeToSkipBsnSoft flags timeout and 
+        // set initial state
+        $ctrl.initBsnSkipFlagsInterval();
+        $ctrl.initState();
 
         // The request has digid auth success or error meta
         if (hasDigiDResponse) {
@@ -357,9 +390,10 @@ const FundActivateComponent = function (
                 () => $state.go('fund', $ctrl.fund)
             );
         }
+    };
 
-        $ctrl.initState();
-        $ctrl.initBsnSkip();
+    $ctrl.$onDestroy = () => {
+        $interval.cancel($ctrl.bsnFlagsInterval);
     };
 };
 
@@ -376,6 +410,7 @@ module.exports = {
         '$state',
         '$stateParams',
         '$timeout',
+        '$interval',
         'FundService',
         'PushNotificationsService',
         'FormBuilderService',

@@ -18,8 +18,12 @@ const promiseResolve = (res) => {
     return new Promise(resolve => resolve(res));
 };
 
-const routeParam = (value = null, squash = true, dynamic = false) => {
-    return { value, squash, dynamic };
+const routeParam = (value = null, dynamic = null, squash = true) => {
+    return {
+        ...{ value },
+        ...(squash !== null ? { squash } : {}),
+        ...(dynamic !== null ? { dynamic } : {}),
+    };
 };
 
 const i18n_state = ($stateProvider, args, defaultLocale = 'nl') => {
@@ -761,20 +765,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "fund-activate",
         url: {
-            en: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
-            nl: "/fondsen/{fund_id}/activeer?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+            en: "/funds/{fund_id}/activate?{digid_success:string}&{digid_error:string}&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+            nl: "/fondsen/{fund_id}/activeer?{digid_success:string}&{digid_error:string}&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
         },
         component: "fundActivateComponent",
         params: {
+            fund_id: null,
             backoffice_error: null,
             backoffice_error_key: null,
             backoffice_fallback: null,
             backoffice_voucher: null,
-        },
-        data: {
-            fund_id: null,
-            digid_success: false,
-            digid_error: false,
+            digid_success: routeParam(null, true),
+            digid_error: routeParam(null, true),
         },
         resolve: {
             configs: resolveConfigs(),
