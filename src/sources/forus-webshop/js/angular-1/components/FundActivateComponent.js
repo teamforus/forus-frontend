@@ -225,7 +225,7 @@ const FundActivateComponent = function (
                     sref: 'fund-activate',
                     srefParams: { fund_id: $stateParams.fund_id },
                     srefIcon: 'mdi-arrow-left',
-                    text: "Back to options",
+                    text: "Ga terug naar de startpagina",
                     srefButton: true,
                 } : null,
             });
