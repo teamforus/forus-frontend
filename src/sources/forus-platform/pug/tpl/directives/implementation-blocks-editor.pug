@@ -86,6 +86,20 @@
                 input(type="text" ng-model="block.button_link" placeholder="Button Link").form-control
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_link']" ng-bind="error")
 
+            //- Block button link target
+            .form-group(ng-if="block.button_enabled"): .flex
+                label.form-label(for="button_link_target_{{$parent.$index}}") Button link open in another tab
+
+                .flex-col: label.form-toggle(for="button_link_target_{{$parent.$index}}")
+                    input(
+                        type="checkbox" 
+                        id="button_link_target_{{$parent.$index}}" 
+                        ng-model="block.button_link_target_is_blank" 
+                        ng-checked="block.button_link_target_is_blank" )
+
+                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                    .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_link_target_blank']" ng-bind="error")
+
     //- Actions
     .block-editor-actions
         .button.button-primary(ng-click="$dir.addBlock()")

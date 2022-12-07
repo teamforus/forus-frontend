@@ -38,6 +38,7 @@ const ImplementationBlocksEditorDirective = function (
             button_text: '',
             button_link: '',
             button_enabled: false,
+            button_link_target_is_blank: false,
         });
     };
 
