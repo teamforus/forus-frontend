@@ -81,22 +81,22 @@
                     table.table
                         tr
                             //- ID
-                            th(translate="validation_requests.labels.id").th-narrow
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.id" value="id")
 
                             //- Identity
                             th(translate="validation_requests.labels.requester")
 
                             //- Fund
-                            th(translate="validation_requests.labels.fund")
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.fund" value="fund_name")
 
                             //- Creation date
-                            th(translate="validation_requests.labels.created_date").nowrap
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.created_date" value="created_at")
 
                             //- Assigned employee(s)
                             th(translate="validation_requests.labels.assignee")
 
                             //- Status label
-                            th(translate="validation_requests.labels.status")
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.status" value="state")
 
                             //- Actions
                             th(translate="validation_requests.labels.actions").nowrap.text-right
