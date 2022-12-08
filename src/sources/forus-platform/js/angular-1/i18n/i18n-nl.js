@@ -372,7 +372,8 @@ module.exports = {
             used: "Uitgaven",
             left: "Restant",
             total_percentage: "Totaal percentage",
-            total_count: "Totaalaantal"
+            total_count: "Totaalaantal",
+            product_vouchers: "Aanbiedingsvouchers"
         },
         buttons: {
             export: "Exporteren"
