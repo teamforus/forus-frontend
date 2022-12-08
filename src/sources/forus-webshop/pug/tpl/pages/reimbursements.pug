@@ -76,18 +76,18 @@ section.section.section-profile: .wrapper
                             ng-class="$ctrl.filters.expired ? 'active' : ''")
                             | Archief
 
+            //- Add reimbursement request card
+            .block.block-action-card.block-action-card-compact(ng-if="$ctrl.reimbursements.data.length > 0 && $ctrl.vouchers.length > 0")
+                a(ui-sref="reimbursements-create").button.button-primary-outline.button-fill.button-sm.flex.flex-center 
+                    .mdi.mdi-plus.flex-start
+                    | Nieuwe declaratie
+
             //- At least on reimbursement request
             .block.block-reimbursements(ng-if="$ctrl.reimbursements.data.length > 0" dusk="reimbursementsList")
                 reimbursement-card(
                     ng-repeat="reimbursement in $ctrl.reimbursements.data"
                     on-delete="$ctrl.onDelete()"
                     reimbursement="reimbursement")
-
-            //- Add reimbursement request card
-            .block.block-action-card.block-action-card-compact(ng-if="$ctrl.reimbursements.data.length > 0 && $ctrl.vouchers.length > 0")
-                .block-card-logo: include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
-                .block-card-details: h3.block-card-title Op deze pagina kunt u een declaratie verzoek indienen.
-                .block-card-actions: a(ui-sref="reimbursements-create"): .button.button-primary-outline Nieuwe declaratie
 
             //- No reimbursement requests 
             empty-block(

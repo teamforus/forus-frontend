@@ -3,7 +3,7 @@ img {
 }
 
 .flex {
-    display: flex;
+    display: flex !important;
 }
 
 .flex-grow {
@@ -16,8 +16,8 @@ img {
 }
 
 .flex-center {
-    justify-content: center;
-    justify-items: center;
+    justify-content: center !important;
+    justify-items: center !important;
 }
 
 .flex-grow {

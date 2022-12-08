@@ -53,17 +53,16 @@
                 .reimbursement-prop-value(
                     dusk="reimbursementOverviewIbanName"
                     ng-bind="$dir.reimbursement.iban_name")
-
-    .reimbursement-section(ng-if="!$dir.compact")
-        .reimbursement-description
-            .reimbursement-heading Opmerking
+            
+            .reimbursement-title(ng-if="!$dir.compact") Opmerking
             .reimbursement-text(
+                ng-if="!$dir.compact"
                 dusk="reimbursementOverviewDescription"
                 ng-bind="$dir.reimbursement.description")
-    
-    .reimbursement-section.flex-center(ng-if="$dir.reimbursement.state === 'draft'")
-        a(
-            dusk="reimbursementOverviewEditButton"
-            ui-sref="reimbursements-edit($dir.reimbursement)").button.button-primary-outline.button-sm
-            .mdi.mdi-pencil.icon-start
-            | Wijzigen
+
+            a.button.button-primary-outline.button-sm.flex.flex-center(
+                dusk="reimbursementOverviewEditButton"
+                ng-if="$dir.reimbursement.state === 'draft'"
+                ui-sref="reimbursements-edit($dir.reimbursement)")
+                .mdi.mdi-pencil.icon-start
+                | Wijzigen
