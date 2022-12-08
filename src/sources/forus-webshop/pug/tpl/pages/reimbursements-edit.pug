@@ -88,7 +88,7 @@ section.section.section-profile: .wrapper
                     //- Title
                     .form-group.form-group-inline
                         label(for="title").form-label TITEL VAN DECLARATIE
-                        input(name="title" type="text" ng-model="$ctrl.form.values.title" placeholder="TITEL VAN DECLARATIE").form-control
+                        input(name="title" type="text" ng-model="$ctrl.form.values.title" placeholder="TITEL VAN DECLARATIE" maxlength="200").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
                     
                     //- Amount
@@ -100,19 +100,19 @@ section.section.section-profile: .wrapper
                     //- Description
                     .form-group.form-group-inline
                         label(for="description").form-label OPMERKING
-                        textarea(ng-model="$ctrl.form.values.description" name="description" placeholder="OPMERKING" resize="vertical").form-control
+                        textarea(ng-model="$ctrl.form.values.description" name="description" placeholder="OPMERKING" resize="vertical" max="2000").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
                     
                     //- IBAN
                     .form-group.form-group-inline
                         label(for="iban").form-label IBAN NUMMER
-                        input(type="text" name="iban" ng-model="$ctrl.form.values.iban" placeholder="IBAN NUMMER").form-control
+                        input(type="text" name="iban" ng-model="$ctrl.form.values.iban" placeholder="IBAN NUMMER" maxlength="200").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
 
                     //- IBAN Name
                     .form-group.form-group-inline
                         label(for="iban_name").form-label TENAAMSTELLING VAN
-                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="TENAAMSTELLING VAN").form-control
+                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="TENAAMSTELLING VAN" maxlength="100").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban_name" ng-bind="error")
 
                 .card-section: .flex.flex-horizontal

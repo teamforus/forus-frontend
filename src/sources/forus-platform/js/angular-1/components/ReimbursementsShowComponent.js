@@ -92,6 +92,7 @@ const ReimbursementsShowComponent = function (
     $ctrl.deleteNote = (note) => {
         ModalService.open("dangerZone", {
             title: $translateDangerZone('title'),
+            text_align: 'center',
             description: $translateDangerZone('description'),
             cancelButton: $translateDangerZone('buttons.cancel'),
             confirmButton: $translateDangerZone('buttons.confirm'),

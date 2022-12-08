@@ -11,6 +11,11 @@
         max-width: 100%;
         max-height: 80vh;
 
+        .modal-section {
+            overflow: auto;
+            @include webkit_scrollbar();
+        }
+
         .cropper-title {
             font: 700 20px/30px $bf;
             margin: 0 0 10px;
@@ -71,6 +76,8 @@
                         right: 0px;
                         bottom: 0px;
                         left: 0px;
+                        border-top: 5px solid black;
+                        border-bottom: 5px solid black;
 
                         .loading {
                             display: none;

@@ -17,6 +17,12 @@
                     strong Waarschuwing!&nbsp;
                     | Het fonds of tegoed van deze declaratie is verlopen of het saldo is niet meer toereikend. De decalartie kan niet meer worden behandeld.
 
+            //- Voucher deactivated
+            .card-header.card-header-warning.card-header-sm(ng-if="$ctrl.reimbursement.voucher_deactivated")
+                .card-title: .text-small 
+                    strong Waarschuwing!&nbsp;
+                    | The voucher was deactivated, to resolve the request you have to reactivate the voucher first.
+
             //- Title and actions
             .card-header: .flex
                 //- Title and subtitle
@@ -48,7 +54,7 @@
 
                 .flex.flex-self-start(ng-if="$ctrl.reimbursement.state === 'pending'"): .flex-row
                     //- not assigned actions
-                    .button-group(ng-if="!$ctrl.reimbursement.employee && !$ctrl.reimbursement.expired")
+                    .button-group(ng-if="!$ctrl.reimbursement.employee && !$ctrl.reimbursement.expired && !$ctrl.reimbursement.voucher_deactivated")
                         //- Self assign
                         .button.button-primary.button-sm(ng-click="$ctrl.assign()")
                             em.mdi.mdi-account-plus-outline.icon-start 
@@ -58,14 +64,14 @@
                     .button-group(ng-if="$ctrl.reimbursement.employee && $ctrl.reimbursement.employee.identity_address == $root.auth_user.address")
                         //- Approve
                         .button.button-primary.button-sm(
-                            ng-if="!$ctrl.reimbursement.expired"
+                            ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.voucher_deactivated"
                             ng-click="$ctrl.approve()")
                             em.mdi.mdi-check-circle.icon-start
                             | Accepteren
 
                         //- Decline
                         .button.button-default.button-sm(
-                            ng-if="!$ctrl.reimbursement.expired"
+                            ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.voucher_deactivated"
                             ng-click="$ctrl.decline()")
                             em.mdi.mdi-close-circle.icon-start
                             | Weigeren
@@ -93,13 +99,18 @@
                                 ng-bind="$ctrl.reimbursement.identity_email || 'Geen E-mail'")
 
                         //- BSN
-                        td(ng-if="$ctrl.organization.bsn_enabled")
+                        td
                             strong(translate="reimbursements.labels.bsn").text-strong.text-md.text-primary
                             br
 
                             strong(
+                                ng-if="$ctrl.organization.bsn_enabled"
                                 ng-class="$ctrl.reimbursement.identity_bsn ? 'text-black' : 'text-muted'"
                                 ng-bind="$ctrl.reimbursement.identity_bsn || 'Geen BSN'")
+
+                            strong(
+                                ng-if="!$ctrl.organization.bsn_enabled"
+                                ng-bind="'Not available'").text-muted                                
 
                         //- Fund
                         td

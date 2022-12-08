@@ -107,11 +107,13 @@ function ImageConvertor(file) {
     converter.getImage = () => imageObj;
     converter.getBlob = () => imageObj;
 
-    return new Promise(done => {
+    return new Promise((done, error) => {
         imageObj.onload = () => {
             converter.isReady = true;
             setTimeout(() => done(converter), 100);
         };
+
+        imageObj.onerror = (e) => error(e);
 
         imageObj.src = converter.createObjectURL(file);
     });
@@ -122,6 +124,6 @@ module.exports = ['$q', function ($q) {
         this.cover = cover;
         this.dataURItoBlob = dataURItoBlob;
         this.createObjectURL = createObjectURL;
-        this.instance = (image) => $q(done => ImageConvertor(image).then(done));
+        this.instance = (image) => $q((done, error) => ImageConvertor(image).then(done, error));
     });
 }];

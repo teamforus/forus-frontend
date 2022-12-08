@@ -102,9 +102,6 @@
                                 //- Amount
                                 th(translate="reimbursements.labels.amount")
 
-                                //- Fund name
-                                th(translate="reimbursements.labels.fund")
-
                                 //- Creation date
                                 th(translate="reimbursements.labels.created_at")
 
@@ -142,9 +139,6 @@
                                 //- Amount
                                 td(ng-bind="reimbursement.amount | currency_format").nowrap
 
-                                //- Fund name
-                                td(ng-bind="reimbursement.fund.name").nowrap
-
                                 //- Creation date
                                 td
                                     strong(ng-bind="reimbursement.created_at_locale.split(' - ')[0]").text-primary
@@ -157,7 +151,7 @@
                                 //- Employee
                                 td(
                                     ng-class="reimbursement.employee ? 'text-primary' : 'text-muted-dark'"
-                                    ng-bind="reimbursement.employee.email || 'Not assigned'")
+                                    ng-bind="(reimbursement.employee.email || 'Not assigned') | str_limit:25")
 
                                 //- Expired
                                 td(

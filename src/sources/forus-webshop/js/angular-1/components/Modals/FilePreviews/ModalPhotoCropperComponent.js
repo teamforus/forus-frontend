@@ -1,7 +1,8 @@
 const ModalPhotoCropperComponent = function (
     $q,
     $element,
-    ImageConvertorService
+    ImageConvertorService,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
 
@@ -26,7 +27,7 @@ const ModalPhotoCropperComponent = function (
             return $q((resolve) => resolve({ file, is_image: false, is_pdf: fileIsPdf(file) }));
         }
 
-        return $q((resolve) => ImageConvertorService.instance(file).then((convertor) => resolve({
+        return $q((resolve, reject) => ImageConvertorService.instance(file).then((convertor) => resolve({
             file,
             size: {
                 w: Math.min(convertor.getImage().width, 2000),
@@ -36,7 +37,7 @@ const ModalPhotoCropperComponent = function (
             originalPhoto: convertor.getImage().src,
             is_image: true,
             is_pdf: fileIsPdf(file),
-        })));
+        }), reject));
     };
 
     $ctrl.onImageLoadDone = (file) => {
@@ -180,7 +181,10 @@ const ModalPhotoCropperComponent = function (
         $ctrl.input.setAttribute("accept", $ctrl.accept.join(','));
         $ctrl.input.setAttribute('hidden', '');
         $ctrl.input.addEventListener('change', (e) => {
-            $ctrl.prepareFile(e.target.files[0]).then((file) => $ctrl.files[index] = file);
+            $ctrl.prepareFile(e.target.files[0]).then((file) => $ctrl.files[index] = file).then(
+                () => {},
+                () => PushNotificationsService.danger('Error!', 'Selected file is not a valid image.'),
+            );
         });
 
         appendFirst($element[0], $ctrl.input);
@@ -196,9 +200,25 @@ const ModalPhotoCropperComponent = function (
         $ctrl.onSubmit = onSubmit;
         $ctrl.makePreview = makePreview;
 
-        $q.all(getFiles().map($ctrl.prepareFile)).then((files) => {
-            $ctrl.files = files;
+        const promises = getFiles().map((file) => $q((resolve) => {
+            $ctrl.prepareFile(file).then(resolve, () => resolve(false));
+        }));
+
+        $q.all(promises).then((files) => {
+            const validFiles = files.filter((file) => file !== false);
+            const invalidFiles = files.filter((file) => file == false);
+
+            $ctrl.files = validFiles;
             $ctrl.updateImageLoad();
+
+            if (invalidFiles.length && validFiles.length) {
+                return PushNotificationsService.danger('Error! Some of the selected files are not valid images and are skipped.');
+            }
+
+            if (invalidFiles.length && !validFiles.length) {
+                PushNotificationsService.danger('Error! Uploaded file is not a valid image, please try another file.');
+                $ctrl.close();
+            }
         });
     };
 };
@@ -206,13 +226,14 @@ const ModalPhotoCropperComponent = function (
 module.exports = {
     bindings: {
         close: '=',
-        modal: '='
+        modal: '=',
     },
     controller: [
         '$q',
         '$element',
         'ImageConvertorService',
-        ModalPhotoCropperComponent
+        'PushNotificationsService',
+        ModalPhotoCropperComponent,
     ],
     templateUrl: 'assets/tpl/modals/file-previews/modal-photo-cropper.html',
 };
