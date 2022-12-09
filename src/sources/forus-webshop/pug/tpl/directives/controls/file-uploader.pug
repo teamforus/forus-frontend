@@ -35,15 +35,14 @@
             name="file_uploader_input_hidden"
             tab-index="1000"
             onchange="angular.element(this).scope().$dir.addFilesHidden(this)")
-    
+
     //- Files list
     .uploader-files(ng-if="$dir.files.length > 0")
-
         //- File item
         .file-item(
             ng-repeat="fileItem in $dir.files" 
             ng-class="{'file-item-uploading': fileItem.uploading}")
-            
+
             //- File item container
             .file-item-container(ng-class="$dir.fileListCompact != 'false' ? 'file-item-container-compact' : ''")
                 //- File name
@@ -56,18 +55,33 @@
 
                 //- Progress bar
                 .file-item-progress: .file-item-progress-container: progress(max="100" value="{{ fileItem.progress }}")
-                
+
                 //- Preview
                 .file-item-action(ng-if="fileItem.has_preview")
-                    button(ng-click="$dir.previewFile($event, fileItem)" title="Bestand bekijken" role="button" tabindex="0").mdi.mdi-eye-outline
+                    button(
+                        ng-click="$dir.previewFile($event, fileItem)"
+                        title="Bestand bekijken"
+                        role="button"
+                        tabindex="0"
+                        type="button").mdi.mdi-eye-outline
 
                 //- Download
                 .file-item-action(ng-if="!fileItem.uploading")
-                    button(ng-click="$dir.downloadFile($event, fileItem)" title="Bestand downloaden" role="button" tabindex="0").mdi.mdi-tray-arrow-down
+                    button(
+                        ng-click="$dir.downloadFile($event, fileItem)"
+                        title="Bestand downloaden"
+                        role="button"
+                        tabindex="0"
+                        type="button").mdi.mdi-tray-arrow-down
 
                 //- Delete
                 .file-item-action(ng-if="!$dir.readOnly")
-                    button(ng-click="$dir.removeFile(fileItem)" title="Bestand verwijderen" role="button" tabindex="0").mdi.mdi-close
+                    button(
+                        ng-click="$dir.removeFile(fileItem)"
+                        title="Bestand verwijderen"
+                        role="button"
+                        tabindex="0"
+                        type="button").mdi.mdi-close
 
             //- Validation errors
             .file-item-error: .text-danger(ng-repeat="error in fileItem.error" ng-bind="error")

@@ -44,7 +44,7 @@ section.section.section-profile: .wrapper
 
             //- Form
             .card(ng-if="$ctrl.reimbursement || $ctrl.identity.email || $ctrl.identity.skipEmail" dusk="reimbursementForm"): form(
-                    ng-submit="$ctrl.submit()").form.form-compact.form-compact-flat
+                ng-submit="$ctrl.submit()").form.form-compact.form-compact-flat
 
                 .card-section
                     //- Invoices uploader
@@ -106,7 +106,7 @@ section.section.section-profile: .wrapper
                     //- IBAN
                     .form-group.form-group-inline
                         label(for="iban").form-label IBAN NUMMER
-                        input(type="text" name="iban" ng-model="$ctrl.form.values.iban" placeholder="IBAN NUMMER" maxlength="200").form-control
+                        input(type="text" name="iban" ng-model="$ctrl.form.values.iban" placeholder="IBAN NUMMER" maxlength="34").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
 
                     //- IBAN Name
