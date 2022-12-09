@@ -112,7 +112,7 @@ section.section.section-profile: .wrapper
                     //- IBAN Name
                     .form-group.form-group-inline
                         label(for="iban_name").form-label TENAAMSTELLING VAN
-                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="TENAAMSTELLING VAN" maxlength="100").form-control
+                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="TENAAMSTELLING VAN" maxlength="45").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban_name" ng-bind="error")
 
                 .card-section: .flex.flex-horizontal
