@@ -15,7 +15,32 @@
                 i18n="modal_product_reserve_notes.fill_notes.header.subtitle" 
                 i18n-vars="{ provider_name: $ctrl.provider.name }")
 
-            .row: .col.col-xs-12.col-md-8.col-md-offset-2: form(ng-submit="$ctrl.productReserve()").form
+            .row: .col.col-xs-12.col-md-12(ng-if="$ctrl.emailSetupShow")
+                .block.block-email-setup
+                    .block-email-setup-main-section(ng-if="!$ctrl.emailShowForm")
+                        img(src="./assets/img/modal/product-reservation-info.svg")
+                        span Momenteel heeft u geen e-mailadres gekoppeld aan uw account.
+
+                        button.button.button-sm.button-primary(ng-click="$ctrl.addEmail()") E-mail toevoegen
+
+                    .block-email-setup-main-section(ng-if="$ctrl.emailShowForm && !$ctrl.emailSubmitted") 
+                        img(src="./assets/img/modal/product-reservation-info.svg")
+
+                        form.form.flex-grow
+                            .form-group.form-group-inline
+                                ui-control-email(ng-model="$ctrl.emailForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email" tabindex="1")
+                                .form-error(ng-repeat="error in $ctrl.emailForm.errors.email" ng-bind="error")
+                        
+                        button.button.button-sm.button-primary(type="submit" ng-click="$ctrl.emailForm.submit()") E-mail submit
+
+                    .block-email-setup-main-section(ng-if="$ctrl.emailSubmitted") 
+                        img(src="./assets/img/modal/product-reservation-info.svg")
+                        span An email was sent to the indicated address, please confirm it
+                    
+                    .block-email-setup-description
+                        span Dat betekent dat de aanbieder geen informatie heeft om contact met je op te nemen en je te informeren over de reservering. Voeg een e-mailadres toe aan uw account of gebruik het aanvullende notitietekstveld om contactinformatie op te geven voordat u de reservering maakt.
+
+            .row: .col.col-xs-12.col-md-12: form(ng-submit="$ctrl.productReserve()").form
                 .row
                     .col.col-lg-6.form-group
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.first_name")
@@ -44,7 +69,7 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
 
                 .form-group.text-center
-                    button(type="submit" translate="popup_auth.buttons.submit" dusk="btnSubmit").button.button-dark.button-wide
+                    button(ng-disabled="$ctrl.emailSetupShow" type="submit" translate="popup_auth.buttons.submit" dusk="btnSubmit").button.button-dark.button-wide
 
     .modal-window(ng-if="$ctrl.state == 'confirm_notes'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")

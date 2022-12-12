@@ -2,12 +2,35 @@ const ModalProductReserveDetailsComponent = function(
     $state,
     ProductReservationService,
     PushNotificationsService,
-    FormBuilderService
+    FormBuilderService,
+    IdentityEmailsService,
+    AuthService
 ) {
     const $ctrl = this;
 
+    // Initialize authorization form
+    const makeEmailForm = () => {
+        return FormBuilderService.build({
+            email: ``,
+        }, (form) => {
+            IdentityEmailsService.store(form.values.email, {
+                target: `productReservation-${$ctrl.product.id}`,
+            }).then(() => {
+                $ctrl.emailSubmitted = true;
+                PushNotificationsService.success('Success!', 'An email was sent!.');
+            }, (res) => {
+                form.errors = res.status === 429 ? {
+                    email: [res.data.message],
+                } : res.data.errors;
+            }).finally(() => form.unlock());
+        }, true);
+    };
+
     $ctrl.$onInit = () => {
         $ctrl.state = 'fill_notes';
+        $ctrl.emailSetupShow = false;
+        $ctrl.emailSubmitted = false;
+        $ctrl.emailShowForm = false;
 
         $ctrl.product = $ctrl.modal.scope.product;
         $ctrl.voucher = $ctrl.modal.scope.voucher;
@@ -20,6 +43,16 @@ const ModalProductReserveDetailsComponent = function(
                 product_id: $ctrl.product.id
             }).then($ctrl.onReserved, $ctrl.onError);
         });
+
+        AuthService.identity().then(res => {
+            let identity = res.data;
+            $ctrl.emailSetupShow = !identity.email;
+            $ctrl.emailForm = makeEmailForm();
+        });
+    };
+
+    $ctrl.addEmail = () => {
+        $ctrl.emailShowForm = true;
     };
 
     $ctrl.onReserved = () => {
@@ -67,6 +100,8 @@ module.exports = {
         'ProductReservationService',
         'PushNotificationsService',
         'FormBuilderService',
+        'IdentityEmailsService',
+        'AuthService',
         ModalProductReserveDetailsComponent
     ],
     templateUrl: () => {

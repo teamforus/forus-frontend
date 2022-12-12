@@ -172,6 +172,12 @@ const AuthService = function (
                 }) : !!$state.go('start', {});
             }
 
+            if (target && target[0] == 'productReservation') {
+                return target[1] ? !!$state.go('product', {
+                    id: target[1],
+                }) : !!$state.go('start', {});
+            }
+
             return false;
         };
     });
