@@ -1,4 +1,4 @@
-const ImplementationNotificationsSendComponent = function (
+const ImplementationNotificationsSendComponent = function(
     $sce,
     $state,
     $filter,
@@ -20,6 +20,15 @@ const ImplementationNotificationsSendComponent = function (
     const makeCustomNotification = ImplementationNotificationsService.makeCustomNotification;
 
     const targets = [{
+        value: "confirmed-providers",
+        name: 'lleen active aanbieders',
+    }, {
+        value: "declined-providers",
+        name: 'Alle aanbieders',
+    }, {
+        value: "all-providers",
+        name: 'Alleen geweigerd aanbieders',
+    }, {
         value: "all",
         name: 'Alle gebruikers met een actieve voucher',
     }, {
@@ -37,7 +46,6 @@ const ImplementationNotificationsSendComponent = function (
         order_dir: 'asc',
         target: targets[0].value,
         per_page: 10,
-        with_reservations: 1,
     };
 
     $ctrl.setEditing = (editing) => {
@@ -46,8 +54,8 @@ const ImplementationNotificationsSendComponent = function (
 
     $ctrl.updateVariableValues = () => {
         $ctrl.variableValues = {
-            fund_name: $ctrl.fund?.name,
-            sponsor_name: $ctrl.fund?.organization.name,
+            fund_name: $ctrl.fund ? .name,
+            sponsor_name: $ctrl.fund ? .organization.name,
         };
     };
 
@@ -79,10 +87,10 @@ const ImplementationNotificationsSendComponent = function (
     };
 
     $ctrl.onTemplateUpdated = (notification) => {
-        const templates = notification?.templates || $ctrl.notification?.templates_default;
+        const templates = notification ? .templates || $ctrl.notification ? .templates_default;
         const template = templates.find((item) => item.type === 'mail');
 
-        $ctrl.template = { ...$ctrl.template, ...template }
+        $ctrl.template = {...$ctrl.template, ...template }
 
         $ctrl.template.content_html_sce = $sce.trustAsHtml(contentToPreview(
             $ctrl.template.content_html,
@@ -128,7 +136,6 @@ const ImplementationNotificationsSendComponent = function (
         $ctrl.askConfirmation(() => {
             $ctrl.submitting = true;
             PageLoadingBarService.setProgress(0);
-
             FundService.sendNotification($ctrl.organization.id, $ctrl.fund.id, {
                 ...$ctrl.identitiesFilters,
                 subject: labelsToVars($ctrl.template.title),
@@ -139,8 +146,7 @@ const ImplementationNotificationsSendComponent = function (
                 PushNotificationsService.success(
                     'Gelukt!',
                     'De e-mail zal zo spoedig mogelijk verstuurd worden naar alle gebruikers.',
-                    'check',
-                    { timeout: 8000 }
+                    'check', { timeout: 8000 }
                 );
             }, (res) => {
                 $ctrl.submitting = false;
