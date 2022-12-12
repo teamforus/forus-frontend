@@ -7,14 +7,6 @@
     &.block-navbar {
         .block-auth {
             .auth-in {
-                margin-left: 0;
-
-                .auth-user {
-                    .auth-user-caret {
-                        color: #ffffff;
-                    }
-                }
-
                 .button {
                     &.button-primary {
                         &:hover {
@@ -99,7 +91,7 @@
     @media screen and (max-width: 1000px) {
         &.block-navbar {
             position: sticky;
-            background-color: #77b431;
+            background-color: #0071B8;
 
             .navbar-logo {
                 img {
