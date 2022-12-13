@@ -31,6 +31,12 @@ module.exports = {
         ede: {
             funds: "Regelingen",
             explanation:"Uitleg voor inwoners",
+        },
+        hartvanwestbrabant: {
+            funds: "Regelingen"
+        },
+        schagen: {
+            funds: "Regelingen",
         }
     },
     buttons: {
