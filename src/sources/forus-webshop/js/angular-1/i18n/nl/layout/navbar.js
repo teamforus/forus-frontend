@@ -7,6 +7,7 @@ module.exports = {
         providers:"Aanbieders",
         explanation:"Uitleg",
         identity:"Profiel",
+        signup:"Uitleg aanbieders",
         westerkwartier: {
             funds:"Potjes",
         },
@@ -29,8 +30,8 @@ module.exports = {
             funds: "Vergoedingen",
         },
         ede: {
-            funds: "Regelingen",
-            explanation:"Uitleg voor inwoners",
+            funds: "Uitleg inwoners",
+            explanation:"Veelgestelde vragen",
         },
         hartvanwestbrabant: {
             funds: "Regelingen"
