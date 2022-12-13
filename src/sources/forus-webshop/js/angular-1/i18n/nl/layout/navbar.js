@@ -32,9 +32,15 @@ module.exports = {
             funds: "Regelingen",
             explanation:"Uitleg voor inwoners",
         },
-        eemsdelta: {
+        hartvanwestbrabant: {
             funds: "Regelingen"
         },
+        schagen: {
+            funds: "Regelingen",
+        },
+        eemsdelta: {
+            funds: "Regelingen"
+        }
     },
     buttons: {
         activate: "Activeren",
