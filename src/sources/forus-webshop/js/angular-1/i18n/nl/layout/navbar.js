@@ -31,7 +31,10 @@ module.exports = {
         ede: {
             funds: "Regelingen",
             explanation:"Uitleg voor inwoners",
-        }
+        },
+        eemsdelta: {
+            funds: "Regelingen"
+        },
     },
     buttons: {
         activate: "Activeren",
