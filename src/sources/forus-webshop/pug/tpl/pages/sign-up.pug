@@ -4,20 +4,23 @@ top-navbar
 
 main(id="main-content")
     header.section.section-sign-up-choose: .wrapper
-        .block.block-sign_up(ng-if="$ctrl.state == 'start'"): .block-wrapper.block-wrapper-lg
+        .block.block-sign_up(ng-if="$ctrl.state == 'start'"): .block-wrapper(
+            ng-class="!$ctrl.appConfigs.flags.startPage.hideSignUpColumn && !$ctrl.appConfigs.flags.startPage.hideSignInColumn ? 'block-wrapper-lg' : ''")
+
             h1.block-title Aanmelden
 
             .sign_up-pane
                 h2.sign_up-pane-header Hoe wilt u aanmelden?
 
                 .sign_up-pane-body: .sign_up-row
-                    .sign_up-col
+                    .sign_up-col(ng-if="!$ctrl.appConfigs.flags.startPage.hideSignUpColumn")
                         //- Registration
                         h3.sign_up-pane-text: .sign_up-pane-heading Inloggen op een bestaand account of een aanvraag starten?
                         .sign_up-options(ng-class="{disabled: $ctrl.loading}")
                             //- Sign up by DigiD
                             .sign_up-option(
                                 ng-if="$ctrl.appConfigs.features.digid && $ctrl.appConfigs.features.digid_sign_up_allowed"
+                                ng-show="!$ctrl.appConfigs.flags.startPage.hideSignUpDigidOption"
                                 ng-click="$ctrl.startDigId()"
                                 dusk="authOptionDigiD")
 
@@ -29,6 +32,7 @@ main(id="main-content")
                             //- Sign up by Email
                             .sign_up-option(
                                 ng-click="$ctrl.setState('email')" 
+                                ng-show="!$ctrl.appConfigs.flags.startPage.hideSignUpEmailOption"
                                 dusk="authOptionEmailRegister")
 
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
@@ -36,13 +40,14 @@ main(id="main-content")
                                     .sign_up-option-title Met uw e-mailadres
                                     .sign_up-option-description Ontvang een link per mail om mee aan te melden
 
-                    .sign_up-col
+                    .sign_up-col(ng-if="!$ctrl.appConfigs.flags.startPage.hideSignInColumn")
                         //- Sign In
                         h3.sign_up-pane-text: .sign_up-pane-heading Account herstellen of met een andere optie inloggen?
                         .sign_up-options(ng-class="{disabled: $ctrl.loading}")
                             //- Sign in by DigiD
                             .sign_up-option(
                                 ng-if="$ctrl.appConfigs.features.digid"
+                                ng-show="!$ctrl.appConfigs.flags.startPage.hideSignInDigidOption"
                                 ng-click="$ctrl.startDigId()")
 
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
@@ -53,6 +58,7 @@ main(id="main-content")
                             //- Sign in by Email
                             .sign_up-option(
                                 ng-click="$ctrl.setState('email')"
+                                ng-show="!$ctrl.appConfigs.flags.startPage.hideSignInEmailOption"
                                 dusk="authOptionEmailRestore")
 
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
@@ -61,7 +67,9 @@ main(id="main-content")
                                     .sign_up-option-description Ontvang een link om mee aan te melden
 
                             //- Sign in by Me App
-                            .sign_up-option(ng-click="$ctrl.setState('qr')")
+                            .sign_up-option(
+                                ng-click="$ctrl.setState('qr')"
+                                ng-show="!$ctrl.appConfigs.flags.startPage.hideSignInQrCodeOption")
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
                                 .sign_up-option-details
                                     .sign_up-option-title Met de Me app
