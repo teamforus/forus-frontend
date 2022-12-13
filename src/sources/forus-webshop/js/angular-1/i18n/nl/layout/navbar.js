@@ -38,7 +38,10 @@ module.exports = {
         },
         schagen: {
             funds: "Regelingen",
-        }
+        },
+        eemsdelta: {
+            funds: "Regelingen",
+        },
     },
     buttons: {
         activate: "Activeren",
