@@ -1,10 +1,13 @@
 const ReimbursementsComponent = function (
     ReimbursementService,
+    PageLoadingBarService,
 ) {
     const $ctrl = this;
 
-    $ctrl.reimbursement_states = ReimbursementService.getStates();
+    $ctrl.states_options = ReimbursementService.getStateOptions();
     $ctrl.expired_options = ReimbursementService.getExpiredOptions();
+    $ctrl.archived_options = ReimbursementService.getArchivedOptions();
+    $ctrl.deactivated_options = ReimbursementService.getDeactivatedOptions();
 
     $ctrl.filters = {
         show: false,
@@ -14,6 +17,8 @@ const ReimbursementsComponent = function (
             amount_min: null,
             amount_max: null,
             expired: null,
+            archived: 0,
+            deactivated: null,
             from: null,
             to: null,
             page: 1,
@@ -46,11 +51,18 @@ const ReimbursementsComponent = function (
         return { ...angular.copy(query), fund_id: $ctrl.fund.id };
     };
 
+    $ctrl.setArchivedOption = (archived) => {
+        $ctrl.filters.values.expired = null;
+        $ctrl.filters.values.archived = archived;
+        $ctrl.filters.values.deactivated = null;
+    };
+
     $ctrl.onPageChange = (query) => {
-        ReimbursementService.index(
-            $ctrl.organization.id,
-            $ctrl.getQueryParams(query),
-        ).then((res => $ctrl.reimbursements = res.data));
+        PageLoadingBarService.setProgress(0);
+
+        ReimbursementService.index($ctrl.organization.id, $ctrl.getQueryParams(query))
+            .then((res) => $ctrl.reimbursements = res.data)
+            .finally(() => PageLoadingBarService.setProgress(100));
     };
 
     $ctrl.$onInit = () => {
@@ -66,6 +78,7 @@ module.exports = {
     },
     controller: [
         'ReimbursementService',
+        'PageLoadingBarService',
         ReimbursementsComponent,
     ],
     templateUrl: 'assets/tpl/pages/reimbursements.html',

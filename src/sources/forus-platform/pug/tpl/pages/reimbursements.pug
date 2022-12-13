@@ -9,7 +9,7 @@
 
         //- Reimbursements list
         .card(ng-if="$ctrl.reimbursements")
-            .card-header: .flex
+            .card-header: .flex-row
                 .flex.flex-grow: .card-title
                     span(translate="reimbursements.header.title") 
                     span(ng-bind="$ctrl.reimbursements.meta.total").span-count
@@ -25,7 +25,7 @@
                         .form-group: input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'reimbursements.labels.search' | translate }}").form-control
 
                     //- Filters dropdown
-                    .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
+                    .form: .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
                         .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
                             .arrow-box.bg-dim: .arrow
                             .form
@@ -43,16 +43,25 @@
                                         prop="value"
                                         search="false"
                                         ng-model="$ctrl.filters.values.state"
-                                        options="$ctrl.reimbursement_states" ).form-control
+                                        options="$ctrl.states_options" ).form-control
 
                                 //- Expired filter
-                                .form-group(ng-click="$event.stopPropagation()")
+                                .form-group(ng-if="$ctrl.filters.values.archived" ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reimbursements.labels.expired' | translate }}")
                                     .form-offset: select-control(
                                         prop="value"
                                         search="false"
                                         ng-model="$ctrl.filters.values.expired"
                                         options="$ctrl.expired_options").form-control
+
+                                //- Voucher blocked filter
+                                .form-group(ng-if="$ctrl.filters.values.archived" ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'reimbursements.labels.deactivated' | translate }}")
+                                    .form-offset: select-control(
+                                        prop="value"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.deactivated"
+                                        options="$ctrl.deactivated_options").form-control
 
                                 //- Amount filter
                                 .form-group
@@ -89,6 +98,13 @@
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
+
+                    //- View type
+                    .flex: div: .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
+                        ng-repeat="viewType in $ctrl.archived_options" 
+                        ng-class="{active: $ctrl.filters.values.archived == viewType.value}"
+                        ng-click="$ctrl.setArchivedOption(viewType.value)"
+                        ng-bind="viewType.name")
 
             //- Vouchers list
             .card-section(ng-if="$ctrl.reimbursements.data.length > 0")

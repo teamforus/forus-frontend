@@ -571,7 +571,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
             reimbursements: ['ReimbursementService', (ReimbursementService) => repackPagination(ReimbursementService.list({
-                expired: 0,
+                archived: 0,
             }))],
             vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({
                 allow_reimbursements: 1,

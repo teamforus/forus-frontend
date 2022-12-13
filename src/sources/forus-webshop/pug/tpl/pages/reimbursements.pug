@@ -30,7 +30,7 @@ section.section.section-profile: .wrapper
                         h1.profile-content-header(translate="reimbursements.header.title")
 
                 .block.block-label-tabs.form.pull-right
-                    .label-tab-set(ng-if="!$ctrl.filters.expired")
+                    .label-tab-set(ng-if="!$ctrl.filters.archived")
                         .label-tab.label-tab-sm(
                             role="button" 
                             ng-click="$ctrl.filters.state = null" 
@@ -65,15 +65,15 @@ section.section.section-profile: .wrapper
                         .label-tab.label-tab-sm(
                             role="button" 
                             dusk="reimbursementsFilterActive"
-                            ng-click="$ctrl.filters.expired = 0" 
-                            ng-class="!$ctrl.filters.expired ? 'active' : ''")
+                            ng-click="$ctrl.filters.archived = 0" 
+                            ng-class="!$ctrl.filters.archived ? 'active' : ''")
                             | Actief
 
                         .label-tab.label-tab-sm(
                             role="button" 
-                            dusk="reimbursementsFilterExpired"
-                            ng-click="$ctrl.filters.expired = 1" 
-                            ng-class="$ctrl.filters.expired ? 'active' : ''")
+                            dusk="reimbursementsFilterArchived"
+                            ng-click="$ctrl.filters.archived = 1" 
+                            ng-class="$ctrl.filters.archived ? 'active' : ''")
                             | Archief
 
             //- Add reimbursement request card

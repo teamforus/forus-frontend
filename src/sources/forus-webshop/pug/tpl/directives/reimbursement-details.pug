@@ -60,6 +60,13 @@
                 dusk="reimbursementOverviewDescription"
                 ng-bind="$dir.reimbursement.description")
 
+            .reimbursement-title(
+                ng-if="!$dir.compact && $dir.reimbursement.state == 'declined' && $dir.reimbursement.reason") Decline reason
+
+            .reimbursement-text(
+                ng-if="!$dir.compact && $dir.reimbursement.state == 'declined' && $dir.reimbursement.reason"
+                ng-bind="$dir.reimbursement.reason")
+
             a.button.button-primary-outline.button-sm.flex.flex-center(
                 dusk="reimbursementOverviewEditButton"
                 ng-if="$dir.reimbursement.state === 'draft'"

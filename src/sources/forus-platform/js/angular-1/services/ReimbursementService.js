@@ -1,5 +1,5 @@
-const ReimbursementService = function(ApiRequest) {
-    return new (function() {
+const ReimbursementService = function (ApiRequest) {
+    return new (function () {
         this.index = (organization_id, query) => {
             return ApiRequest.get(`/platform/organizations/${organization_id}/reimbursements`, query);
         };
@@ -36,7 +36,7 @@ const ReimbursementService = function(ApiRequest) {
             return ApiRequest.post(`/platform/organizations/${organization_id}/reimbursements/${id}/notes`, data);
         };
 
-        this.getStates = () => {
+        this.getStateOptions = () => {
             return [{
                 value: null,
                 name: 'Alle',
@@ -44,10 +44,10 @@ const ReimbursementService = function(ApiRequest) {
                 value: 'pending',
                 name: 'In afwachting',
             }, {
-                value: 'accepted',
+                value: 'approved',
                 name: 'Geaccepteerd',
             }, {
-                value: 'rejected',
+                value: 'declined',
                 name: 'Geweigerd',
             }];
         };
@@ -62,6 +62,29 @@ const ReimbursementService = function(ApiRequest) {
             }, {
                 value: 0,
                 name: 'Niet verlopen',
+            }];
+        };
+
+        this.getDeactivatedOptions = () => {
+            return [{
+                value: null,
+                name: 'Alle',
+            }, {
+                value: 1,
+                name: 'Voucher deactivated',
+            }, {
+                value: 0,
+                name: 'Voucher not deactivated',
+            }];
+        };
+
+        this.getArchivedOptions = () => {
+            return [{
+                value: 0,
+                name: 'Actief',
+            }, {
+                value: 1,
+                name: 'Archief',
             }];
         };
     });

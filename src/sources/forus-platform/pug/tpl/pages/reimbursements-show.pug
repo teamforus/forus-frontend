@@ -18,7 +18,7 @@
                     | Het fonds of tegoed van deze declaratie is verlopen of het saldo is niet meer toereikend. De decalartie kan niet meer worden behandeld.
 
             //- Voucher deactivated
-            .card-header.card-header-warning.card-header-sm(ng-if="$ctrl.reimbursement.voucher_deactivated")
+            .card-header.card-header-warning.card-header-sm(ng-if="$ctrl.reimbursement.deactivated")
                 .card-title: .text-small 
                     strong Waarschuwing!&nbsp;
                     | The voucher was deactivated, to resolve the request you have to reactivate the voucher first.
@@ -54,7 +54,7 @@
 
                 .flex.flex-self-start(ng-if="$ctrl.reimbursement.state === 'pending'"): .flex-row
                     //- not assigned actions
-                    .button-group(ng-if="!$ctrl.reimbursement.employee && !$ctrl.reimbursement.expired && !$ctrl.reimbursement.voucher_deactivated")
+                    .button-group(ng-if="!$ctrl.reimbursement.employee && !$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated")
                         //- Self assign
                         .button.button-primary.button-sm(ng-click="$ctrl.assign()")
                             em.mdi.mdi-account-plus-outline.icon-start 
@@ -64,14 +64,14 @@
                     .button-group(ng-if="$ctrl.reimbursement.employee && $ctrl.reimbursement.employee.identity_address == $root.auth_user.address")
                         //- Approve
                         .button.button-primary.button-sm(
-                            ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.voucher_deactivated"
+                            ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated"
                             ng-click="$ctrl.approve()")
                             em.mdi.mdi-check-circle.icon-start
                             | Accepteren
 
                         //- Decline
                         .button.button-default.button-sm(
-                            ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.voucher_deactivated"
+                            ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated"
                             ng-click="$ctrl.decline()")
                             em.mdi.mdi-close-circle.icon-start
                             | Weigeren
@@ -180,6 +180,11 @@
                         .keyvalue-value: .label(
                             ng-class="{pending: 'label-default', approved: 'label-success', declined: 'label-danger'}[$ctrl.reimbursement.state]"
                             ng-bind="$ctrl.reimbursement.state_locale")
+
+                    //- Title
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.title")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.title")
 
                     //- Description
                     .keyvalue-item

@@ -1,12 +1,15 @@
-const ReimbursementsComponent = function(ReimbursementService) {
+const ReimbursementsComponent = function (
+    ReimbursementService,
+    PageLoadingBarService,
+) {
     const $ctrl = this;
 
     $ctrl.filters = {
         page: 1,
-        per_page: 15,
+        archived: 0,
         state: null,
+        per_page: 15,
         fund_id: null,
-        active: 1,
     };
 
     $ctrl.states = [{
@@ -30,15 +33,17 @@ const ReimbursementsComponent = function(ReimbursementService) {
     $ctrl.onPageChange = (query = {}) => {
         $ctrl.filters = { ...$ctrl.filters, ...query };
 
-        ReimbursementService.list({
-            ...$ctrl.filters,
-            ...{ fund_id: query?.fund_id }
-        }).then((res) => {
-            $ctrl.reimbursements = res.data;
-        });
+        const { state, archived, fund_id } = query;
+        const data = { ...$ctrl.filters, fund_id, state: archived ? null : state };
+
+        PageLoadingBarService.setProgress(0);
+
+        ReimbursementService.list(data)
+            .then((res) => $ctrl.reimbursements = res.data)
+            .finally(() => PageLoadingBarService.setProgress(100));
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.states.unshift({
             name: 'Selecteer status...',
             value: null,
@@ -65,6 +70,7 @@ module.exports = {
     },
     controller: [
         'ReimbursementService',
+        'PageLoadingBarService',
         ReimbursementsComponent,
     ],
     templateUrl: 'assets/tpl/pages/reimbursements.html',
