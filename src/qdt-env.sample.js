@@ -764,6 +764,7 @@ module.exports = (core) => {
             client_key: 'hartvanwestbrabant',
             matomo_site_id: false,
             flags: {
+                logoExtension: '.svg',
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
