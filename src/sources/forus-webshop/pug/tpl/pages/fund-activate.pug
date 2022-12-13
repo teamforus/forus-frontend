@@ -18,42 +18,42 @@ main(id="main-content")
                     i18n-vars="{fund_name: ($ctrl.fund.name | capitalize)}")
 
             .sign_up-pane-body
-                h3.sign_up-pane-text: .sign_up-pane-heading  Please select activation method
+                h3.sign_up-pane-text: .sign_up-pane-heading  Maak een keuze om verder te gaan
                 .sign_up-options
                     //- Use activation code
                     .sign_up-option(
                         ng-if="$ctrl.options.includes('code')"
                         ng-click="$ctrl.setState('code')")
 
-                        .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
                         .sign_up-option-details
-                            .sign_up-option-title I have an activation code
-                            .sign_up-option-description Proceed to fund activation by activation code
+                            .sign_up-option-title Ik heb een activatiecode
+                            .sign_up-option-description Ga verder met het activeren van je tegoed door gebruik te maken van een activatiecode
 
                     //- Use digid
                     .sign_up-option(
                         ng-if="$ctrl.options.includes('digid')"
                         ng-click="$ctrl.selectDigiDOption('digid')")
 
-                        .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                         .sign_up-option-details
-                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption") I want to use DigiD
+                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption") Log in met DigiD
                             .sign_up-option-description(ng-if="$ctrl.showFundRequestOption")
-                                | Use DigiD to check for available funds or submit an application form.
+                                | Gebruik DigiD om een tegoed te activeren of een aanvraagformulier te doorlopen.
 
-                            .sign_up-option-title(ng-if="!$ctrl.showFundRequestOption") I want to use DigiD
+                            .sign_up-option-title(ng-if="!$ctrl.showFundRequestOption") Log in met DigiD
                             .sign_up-option-description(ng-if="!$ctrl.showFundRequestOption")
-                                | Use DigiD to check if there are any available funds.
+                                | Gebruik DigiD om beschikbare tegoeden in te zien
 
                     //- Make fund request
                     .sign_up-option(
                         ng-if="$ctrl.options.includes('request')"
                         ui-sref="fund-request($ctrl.fund)")
 
-                        .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
                         .sign_up-option-details
-                            .sign_up-option-title I want to make a fund request
-                            .sign_up-option-description You will have to go through the application form
+                            .sign_up-option-title Ik wil een tegoed aanvragen
+                            .sign_up-option-description Doorloop het aanvraagformulier om een tegoed aan te vragen
 
         //- Activation code
         .sign_up-pane(ng-if="$ctrl.state == 'code'")

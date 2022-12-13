@@ -19,3 +19,18 @@ main(id="main-content")
                     a(ng-if="$ctrl.errorCode == 'digid_uid_used'" ui-sref="start({ logout: 1, restore_with_digid: 1 })").button.button-primary
                         span(translate="error.start_button")
                         em.mdi.mdi-arrow-right.icon-right
+
+                p.sign_up-pane-text(ng-if="$ctrl.customLink")
+                    a(
+                        ui-sref="{{ $ctrl.customLink.sref }}({{ $ctrl.customLink.srefParams }})" 
+                        ng-class="$ctrl.customLink.srefButton ? 'button button-primary' : 'sign_up-pane-link'")
+
+                        em.mdi.icon-left(
+                            ng-class="$ctrl.customLink.srefIcon" 
+                            ng-if="$ctrl.customLink.srefButton && $ctrl.customLink.srefIcon && !$ctrl.customLink.srefIconRight")
+
+                        span(ng-bind="$ctrl.customLink.text")
+
+                        em.mdi.icon-right(
+                            ng-class="$ctrl.customLink.srefIcon" 
+                            ng-if="$ctrl.customLink.srefButton && $ctrl.customLink.srefIcon && $ctrl.customLink.srefIconRight")
