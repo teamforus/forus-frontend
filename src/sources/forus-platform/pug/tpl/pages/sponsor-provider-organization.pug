@@ -108,6 +108,10 @@
                     filters="$ctrl.providerFilters.values" 
                     on-page-change="$ctrl.onProviderFundsPageChange(query)")
 
+        .card
+            .card-header: .card-title Provider description
+            .card-section: .card-text(ng-bind-html="$ctrl.providerOrganization.description_html")
+
         //- Provider offices
         block-provider-organization-offices(offices="$ctrl.providerOrganization.offices")
 
