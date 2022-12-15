@@ -110,7 +110,7 @@
 
         //- Provider description
         .card
-            .card-header: .card-title Provider description
+            .card-header: .card-title Omschrijving van aanbieder
             .card-section: .block.block-markdown
                 //- Provider has description
                 .markdown-wrapper(
@@ -119,7 +119,7 @@
 
                 //- Provider has no description
                 .markdown-wrapper(ng-if="!$ctrl.providerOrganization.description_html")
-                    p.text-muted-dark Description not provided by provider.
+                    p.text-muted-dark Er is geen omschrijving opgegeven door de aanbieder.
 
         //- Provider offices
         block-provider-organization-offices(offices="$ctrl.providerOrganization.offices")
