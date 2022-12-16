@@ -59,7 +59,8 @@ module.exports = {
     records: require("./en/pages/records"),
     voucher: require("./en/pages/voucher"),
     vouchers: require("./en/pages/vouchers"),
-    reservations: require("./nl/pages/reservations"),
+    reservations: require("./en/pages/reservations"),
+    reimbursements: require("./en/pages/reimbursements"),
     notification_preferences: require("./en/pages/notification-preferences"),
     error_page: require("./en/pages/error-page"),
 

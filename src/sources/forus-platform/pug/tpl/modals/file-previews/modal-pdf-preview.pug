@@ -3,4 +3,5 @@
     .modal-window
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header(translate="modal_pdf_preview.header.title")
-        .modal-body: pdf-preview(raw-pdf-file="$ctrl.rawPdfFile")
+        .modal-body
+            .modal-section: pdf-preview(raw-pdf-file="$ctrl.rawPdfFile")

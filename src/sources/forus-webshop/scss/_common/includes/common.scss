@@ -3,7 +3,7 @@ img {
 }
 
 .flex {
-    display: flex;
+    display: flex !important;
 }
 
 .flex-grow {
@@ -16,8 +16,8 @@ img {
 }
 
 .flex-center {
-    justify-content: center;
-    justify-items: center;
+    justify-content: center !important;
+    justify-items: center !important;
 }
 
 .flex-grow {
@@ -74,6 +74,10 @@ img {
 
 .text-success {
     color: darken($color: #2cc6ab, $amount: 2.5) !important;
+}
+
+.text-normal {
+    font-weight: 400;
 }
 
 .text-strong {

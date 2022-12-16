@@ -155,8 +155,8 @@ const FundRequestComponent = function (
 
     $ctrl.onFileInfo = (invalidCriteria) => {
         invalidCriteria.files_uid = invalidCriteria.files.filter(
-            (item) => item.uploaded && item.file_uid
-        ).map(file => file.file_uid);
+            (item) => item.uploaded && item.file_data?.uid,
+        ).map(file => file.file_data?.uid);
 
         invalidCriteria.isUploadingFiles = invalidCriteria.files.filter(
             (item) => item.uploading

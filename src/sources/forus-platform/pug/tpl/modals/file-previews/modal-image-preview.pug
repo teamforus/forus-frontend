@@ -3,5 +3,4 @@
     .modal-window
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header(translate="modal_image_preview.header.title")
-        .modal-body
-            .img-block: img(ng-src="{{ $ctrl.imageSrc }}")
+        .modal-body: .modal-section: .img-block: img(ng-src="{{ $ctrl.imageSrc }}")

@@ -1,6 +1,18 @@
 .block.block-empty
-    h2.block-title(ng-bind="title")
-    .block-description(ng-bind="description")
-    a(ng-click="openActivateCodePopup()" ng-if="!hideLink").block-link
-        ng-bind(ng-bind="text")
+    .block-icon(ng-if="$dir.svgIcon === 'reimbursements'")
+        include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
+
+    h2.block-title(ng-if="$dir.title" ng-bind="$dir.title")
+    p.block-description(ng-if="$dir.description" ng-bind="$dir.description")
+
+    a(ui-sref="start" ng-if="!$dir.hideLink").block-link
+        ng-bind(ng-bind="$dir.text")
         em.mdi.mdi-arrow-right
+
+    .block-actions(ng-if="$dir.buttonText && ($dir.buttonSref || $dir.buttonCallback)"): button.button(
+        ng-click="$dir.buttonHandler($event)"
+        ng-class="'button-' + $dir.buttonType"
+        dusk="btnEmptyBlock")
+        em.mdi(ng-if="$dir.buttonIcon && !$dir.buttonIconEnd" ng-class="'mdi-' + $dir.buttonIcon")
+        ng-bind(ng-bind="$dir.buttonText")
+        em.mdi(ng-if="$dir.buttonIcon && $dir.buttonIconEnd" ng-class="'mdi-' + $dir.buttonIcon").icon-right

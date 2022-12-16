@@ -235,6 +235,7 @@ main(id="main-content")
                                 ng-if="invalidCriteria.show_attachment"
                                 type="fund_request_record_proof"
                                 files="invalidCriteria.files"
+                                crop-media="false"
                                 on-file-removed="$ctrl.onFileInfo(invalidCriteria, files)"
                                 on-file-resolved="$ctrl.onFileInfo(invalidCriteria, files)"
                                 on-file-batch-queued="$ctrl.onFileInfo(invalidCriteria, files)")
