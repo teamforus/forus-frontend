@@ -18,6 +18,14 @@ const ImplementationBlocksEditorDirective = function (
     $dir.resetMedia = false;
     $dir.collapsed = false;
 
+    $dir.buttonTargets = [{
+        value: false,
+        name: 'Hetzelfde tabblad',
+    }, {
+        value: true,
+        name: 'Nieuw tabblad',
+    }];
+
     $dir.askConfirmation = (onConfirm) => {
         ModalService.open("dangerZone", {
             title: $translateDangerZone('title'),
@@ -38,6 +46,7 @@ const ImplementationBlocksEditorDirective = function (
             button_text: '',
             button_link: '',
             button_enabled: false,
+            button_target_blank: true,
         });
     };
 
@@ -117,8 +126,8 @@ module.exports = () => {
             'ModalService',
             'PushNotificationsService',
             'ImplementationPageService',
-            ImplementationBlocksEditorDirective
+            ImplementationBlocksEditorDirective,
         ],
-        templateUrl: 'assets/tpl/directives/implementation-blocks-editor.html'
+        templateUrl: 'assets/tpl/directives/implementation-blocks-editor.html',
     };
 };
