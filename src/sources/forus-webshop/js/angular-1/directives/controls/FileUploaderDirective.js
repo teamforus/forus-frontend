@@ -232,6 +232,7 @@ module.exports = () => {
         scope: {
             type: '@',
             files: '=',
+            title: '@',
             accept: '=',
             multiple: '@',
             multipleSize: '@',

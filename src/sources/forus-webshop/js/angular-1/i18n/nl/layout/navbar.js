@@ -61,7 +61,7 @@ module.exports = {
         },
         login:"Inloggen",
         voucher:"Mijn tegoeden",
-        reimbursements:"Declaraties",
+        reimbursements:"Kosten terugvragen",
         profile:"Profiel >",
         records: "Mijn eigenschappen",
         authorize:"Log in op de app",
@@ -79,7 +79,7 @@ module.exports = {
             dropdown: {
                 vouchers: "Tegoeden",
                 reservations: "Reserveringen",
-                reimbursements:"Declaraties",
+                reimbursements:"Kosten terugvragen",
                 notifications: "Notificaties",
                 preferences_notifications: "Notificatievoorkeuren",
                 preferences_emails: "E-mailinstellingen",

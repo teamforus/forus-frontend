@@ -80,7 +80,7 @@ section.section.section-profile: .wrapper
             .block.block-action-card.block-action-card-compact(ng-if="$ctrl.reimbursements.data.length > 0 && $ctrl.vouchers.length > 0")
                 a(ui-sref="reimbursements-create").button.button-primary-outline.button-fill.button-sm.flex.flex-center 
                     .mdi.mdi-plus.flex-start
-                    | Nieuwe declaratie
+                    | Bon insturen
 
             //- At least on reimbursement request
             .block.block-reimbursements(ng-if="$ctrl.reimbursements.data.length > 0" dusk="reimbursementsList")
@@ -93,11 +93,11 @@ section.section.section-profile: .wrapper
             empty-block(
                 dusk="reimbursementsEmptyBlock"
                 ng-if="$ctrl.reimbursements.data.length == 0"
-                title="Op deze pagina kunt u een declaratie verzoek indienen."
+                title="{{ 'reimbursements.empty_block.title' | translate }}"
+                description="{{ 'reimbursements.empty_block.subtitle' | translate }}"
                 svg-icon="reimbursements"
-                description="Op deze pagina kunt u een declaratie verzoek indienen. "
                 button-sref="reimbursements-create"
-                button-text="{{ $ctrl.vouchers.length > 0 ? 'Nieuwe declaratie' : '' }}"
+                button-text="{{ $ctrl.vouchers.length > 0 ? 'Bon insturen' : '' }}"
                 button-type="primary"
                 button-icon="plus"
                 hide-link="true")

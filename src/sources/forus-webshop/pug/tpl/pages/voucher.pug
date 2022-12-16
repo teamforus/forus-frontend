@@ -186,12 +186,12 @@ main(id="main-content")
                 include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
             
             .block-card-details 
-                h3.block-card-title Op deze pagina kunt u een declaratie verzoek indienen.
-                .block-card-description Op deze pagina kunt u een declaratie verzoek indienen.
+                h3.block-card-title Kosten terugvragen
+                .block-card-description Vraag uw gemaakte kosten terug door de gegevens van uw aankoop en de rekening of kassabon in te sturen.
             
             .block-card-actions: a(ui-sref="reimbursements-create({voucher_address:$ctrl.voucher.address})").button.button-primary 
                 .mdi.mdi-plus.icon-start
-                | Nieuwe declaratie
+                | Bon insturen
 
         //- Voucher physical card (deactivation)
         .block.block-action-card(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucher.physical_card")

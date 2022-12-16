@@ -37,15 +37,15 @@ const ModalReimbursementResolveComponent = function (
             PageLoadingBarService.setProgress(0);
 
             promise().then((res) => {
-                PushNotificationsService.success('Success!', {
-                    declined: 'Declaration declined!',
-                    approved: 'Declaration accepted!',
+                PushNotificationsService.success('Gelukt!', {
+                    declined: 'Declaratie afgewezen!',
+                    approved: 'Declaratie goedgekeurd!',
                 }[state] || null);
 
                 $ctrl.onSubmitted(res);
                 $ctrl.close();
             }, (res) => {
-                PushNotificationsService.danger('Error!', res.data.message);
+                PushNotificationsService.danger('Mislukt!', res.data.message);
                 $ctrl.form.errors = res.data.errors;
                 form.unlock();
             }).finally(() => PageLoadingBarService.setProgress(100));

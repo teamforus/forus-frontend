@@ -4,7 +4,7 @@ section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         a(translate="reimbursements.header.title" ui-sref="reimbursements").breadcrumb-item
-        .breadcrumb-item.active(aria-current="location") Nieuwe declaratie
+        .breadcrumb-item.active(aria-current="location") Bon insturen
 
     //- Page
     .block.block-profile
@@ -17,7 +17,7 @@ section.section.section-profile: .wrapper
                 ng-if="$ctrl.reimbursement.state === 'draft'"
                 ng-click="$ctrl.cancelReimbursement($event)")
                 em.mdi.mdi-trash-can-outline.icon-start
-                | Declaratie annuleren
+                | Annuleren
 
         //- Page content
         .profile-content(dusk="reimbursementDetailsPage")
@@ -25,7 +25,7 @@ section.section.section-profile: .wrapper
             .profile-content-header
                 .flex
                     .flex.flex-grow.flex-center: .profile-content-title.flex.flex-center.flex-vertical
-                        | Declaratienummer: {{ '#' + $ctrl.reimbursement.code }}
+                        | Nummer: {{ '#' + $ctrl.reimbursement.code }}
                     
                     .flex.flex-center.hide-sm
                         +delete_button()

@@ -18,7 +18,7 @@ module.exports = {
         created_at: "Aangemaakt op",
         resolved_at: "Afgehandeld op",
         expire_at: "Verloopdatum",
-        expird_at: "Verlopen op",
+        expired_at: "Verlopen op",
         expired: "Verlopen",
         deactivated: "Voucher deactivated",
         actions: "Acties",

@@ -12,7 +12,7 @@ module.exports = {
         vouchers: "Tegoeden",
         bookmarks: "Mijn verlanglijstje",
         reservations: "Reserveringen",
-        reimbursements: "Declaraties",
+        reimbursements: "Kosten terugvragen",
         records: "Eigenschappen",
         funds: "Aanvragen",
         notifications: "Notificaties",

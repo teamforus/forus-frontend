@@ -1,7 +1,7 @@
 module.exports = {
     // reimbursements = reimbursements.pug
     header: {
-        title: "Declaraties",
+        title: "Kosten terugvragen",
         subtitle: "Een actief tegoed is nodig om een declaratie in te dienen.",
     },
     empty_block: {
