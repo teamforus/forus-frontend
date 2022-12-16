@@ -30,6 +30,7 @@ let AppFooterDirective = function(
             return footerPageKeys.includes(page.page_type);
         });
 
+        $dir.showCMSSignupPage = Object.values(pages).filter(page => page.page_type == 'provider').length;
     }, true);
 };
 
