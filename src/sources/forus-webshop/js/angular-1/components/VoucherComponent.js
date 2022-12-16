@@ -5,7 +5,8 @@ const VoucherComponent = function(
     VoucherService,
     PrintableService,
     ModalService,
-    HelperService
+    HelperService,
+    appConfigs,
 ) {
     const $ctrl = this;
 
@@ -125,6 +126,7 @@ const VoucherComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.qrValue = $ctrl.voucher.address;
+        $ctrl.appConfigs = appConfigs;
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
         $ctrl.voucherCard.description = $sce.trustAsHtml($ctrl.voucherCard.description);
         $ctrl.qrCodeValue = $ctrl.voucher.address;
@@ -157,6 +159,7 @@ module.exports = {
         'PrintableService',
         'ModalService',
         'HelperService',
+        'appConfigs',
         VoucherComponent
     ],
     templateUrl: 'assets/tpl/pages/voucher.html'

@@ -49,6 +49,14 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalImagePreviewComponent'
     });
 
+    ModalRouteProvider.modal('photoCropper', {
+        component: 'modalPhotoCropperComponent'
+    });
+
+    ModalRouteProvider.modal('modalReimbursementConfirm', {
+        component: 'modalReimbursementConfirmComponent'
+    });
+
     ModalRouteProvider.modal('deactivateVoucher', {
         component: 'modalDeactivateVoucherComponent'
     });

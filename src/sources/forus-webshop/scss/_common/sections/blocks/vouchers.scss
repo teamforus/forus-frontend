@@ -15,7 +15,7 @@
             margin-bottom: 15px;
             box-shadow: $base_shadow;
             position: relative;
-            transition: 0.4s;
+            transition: background-color 0.4s, border 0.4s;
             min-height: 120px;
             overflow: hidden;
             cursor: default;
@@ -151,7 +151,7 @@
                 background: transparent;
             }
 
-            &:not(.voucher-item-static) {
+            &:not(.voucher-item-static):not(.voucher-item-select) {
                 cursor: pointer;
 
                 &:hover {
@@ -223,6 +223,95 @@
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+            }
+            
+            &.voucher-item-select {
+                min-height: 60px;
+                margin-bottom: 0;
+                border-radius: 0;
+                border-bottom: 1px solid $border_color;
+                position: relative;
+                padding-right: 10px;
+                box-shadow: none;
+                cursor: pointer;
+
+                .voucher-image {
+                    flex-basis: 60px;
+                    padding: 7.5px;
+                }
+
+                .voucher-details {
+                    padding: 9px;
+
+                    .voucher-name,
+                    .voucher-value {
+                        font: 700 14px/22px $hf;
+                        margin: 0 0 0;
+                    }
+
+                    .voucher-date,
+                    .voucher-organization {
+                        font: 400 11px/18px $bf;
+                        margin: 0 0 0;
+                    }
+                }
+
+                .voucher-overview {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    &>.button {
+                        position: relative;
+                        top: auto;
+                        left: auto;
+                        transform: none;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                    border-bottom: none;
+                    border-bottom-left-radius: $border_radius / 2;
+                    border-bottom-right-radius: $border_radius / 2;
+                }
+
+                &:after {
+                    content: '';
+                    pointer-events: none;
+                    @include fill_parent();
+                    background-color: #000;
+                    opacity: 0;
+                    transition: opacity .3s;
+                }
+
+                &:hover {
+                    &:after {
+                        opacity: .035;
+                    }
+                }
+
+                &.voucher-item-select-placeholder {
+                    border: 1px solid $border_color;
+                    border-radius: $border_radius / 2;
+                    padding-right: 25px;
+                    background-image: url('../img/select-bg.png');
+                    background-position: calc(100% - 4px);
+                    background-repeat: no-repeat;
+                }
+            }
+        }
+
+        &.block-vouchers-select {
+            margin-bottom: 0;
+
+            &.block-vouchers-select-open {
+                .voucher-item-select {
+                    &.voucher-item-select-placeholder {
+                        border-bottom-left-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
                 }
             }
         }

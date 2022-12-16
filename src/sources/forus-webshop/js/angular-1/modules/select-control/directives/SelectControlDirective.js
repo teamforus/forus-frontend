@@ -176,6 +176,13 @@ module.exports = () => {
             '$timeout',
             SelectControlDirective
         ],
-        template: require('./templates/select-control.pug'),
+        template: ($el, $attr) => {
+            const templateName = $attr.template || 'select-control';
+
+            return $el ? {
+                'select-control': require('./templates/select-control.pug')(),
+                'select-control-voucher': require('./templates/select-control-voucher.pug')(),
+            }[templateName] || `<div>Template: ${templateName} not found</div>` : '<div></div>';
+        }
     };
 };
