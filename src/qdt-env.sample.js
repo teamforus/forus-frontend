@@ -459,13 +459,15 @@ module.exports = (core) => {
             }, */
             flags: {
                 startPage: {
+                    combineColumns: false,
+                    // left column and combined column options
                     ...{
-                        // hideSignUpColumn: true,
                         // hideSignUpDigidOption: true,
                         // hideSignUpEmailOption: true,
+                        // hideSignUpQrCodeOption true,
                     }, 
+                    // right column options, right column is not visible when combineColumns is true
                     ...{
-                        // hideSignInColumn: true,
                         // hideSignInDigidOption: true,
                         // hideSignInEmailOption: true,
                         // hideSignInQrCodeOption: true,
