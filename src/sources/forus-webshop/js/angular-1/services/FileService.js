@@ -1,10 +1,10 @@
-let FileService = function(
+let FileService = function (
     $q,
     ApiRequest,
 ) {
     let uriPrefix = '/files';
 
-    return new (function() {
+    return new (function () {
         this.downloadFile = (
             file_name,
             file_data,
@@ -17,25 +17,29 @@ let FileService = function(
             window.saveAs(blob, file_name);
         };
 
-        this.download = function(file) {
+        this.download = function (file) {
             return ApiRequest.get(uriPrefix + '/' + file.uid + '/download', {}, {}, true, (params) => {
                 params.responseType = 'blob';
                 return params;
             });
         };
 
-        this.downloadUrl = function(file) {
+        this.downloadUrl = function (file) {
             return ApiRequest.endpointToUrl(uriPrefix + '/' + file.uid + '/download');
         };
 
-        this.store = function(file, type, onProgress, subscriber = {}) {
-            let formData = new FormData();
-            let canceller = $q.defer();
+        this.store = function (file, type, onProgress, subscriber = {}) {
+            const append = [['file', file], ['type', type]];
+
+            return this.storeData(append, onProgress, subscriber);
+        };
+
+        this.storeData = function (append = [], onProgress, subscriber = {}) {
+            const formData = new FormData();
+            const canceller = $q.defer();
 
             subscriber.cancel = canceller.resolve;
-
-            formData.append('file', file);
-            formData.append('type', type);
+            append.forEach((item) => formData.append(item[0], item[1]));
 
             return ApiRequest.post(uriPrefix, formData, {}, true, (cfg) => ({
                 ...cfg,
@@ -52,7 +56,7 @@ let FileService = function(
             }));
         };
 
-        this.storeAll = function(files, type) {
+        this.storeAll = function (files, type) {
             return $q.all(files.map(file => this.store(file, type)));
         };
     });

@@ -1,36 +1,42 @@
-let FundSelectorDirective = function (
-    $scope
+const FundSelectorDirective = function (
+    $scope,
+    FundService,
 ) {
-    let storageKey = 'selected_fund_id';
-    let fundId = localStorage.getItem(storageKey);
+    const $dir = $scope.$dir;
 
-    $scope.getLastActiveFund = () => {
-        $scope.selectFund($scope.funds.filter(
-            fund => fund.id == fundId
-        )[0] || $scope.funds[0] || null);
-    };
-
-    $scope.selectFund = fund => {
-        localStorage.setItem(storageKey, fund ? fund.id : null);
-        $scope.activeFund = fund;
+    $dir.selectFund = (fund) => {
+        FundService.setLastSelectedFund(fund)
+        $dir.activeFund = fund;
 
         if (fund) {
-            $scope.onFundSelect(fund);
+            $dir.onFundSelect(fund);
         }
     };
 
-    $scope.getLastActiveFund();
+    $dir.$onInit = () => {
+        const fund = FundService.getLastSelectedFund($dir.funds);
+
+        if ($dir.fund?.id !== fund?.id) {
+            return $dir.selectFund(fund);
+        }
+
+        $dir.activeFund = fund;
+    };
 };
 
 module.exports = () => {
     return {
         scope: {
+            'fund': '=',
             'funds': '=',
             'onFundSelect': '<',
         },
+        bindToController: true,
+        controllerAs: '$dir',
         restrict: "E",
         controller: [
             '$scope',
+            'FundService',
             FundSelectorDirective
         ],
         templateUrl: 'assets/tpl/directives/fund-selector.html'

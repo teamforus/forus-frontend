@@ -1,50 +1,21 @@
-let OrganizationService = function(
-    ApiRequest,
-    $rootScope
-) {
-    return new(function() {
-        this.list = function(query = {}) {
+const OrganizationService = function (ApiRequest, HelperService) {
+    return new (function () {
+        this.list = function (query = {}) {
             return ApiRequest.get('/platform/organizations', query);
         };
 
-        this.listProviders = function(
-            organization_id
-        ) {
-            return ApiRequest.get(
-                '/platform/organizations/' + organization_id + '/providers'
-            );
+        this.listRecursive = function (query = {}) {
+            return HelperService.recursiveLeacher((page) => this.list({ ...query, page: page }), 4);
         };
 
-        this.store = function(values) {
-            return ApiRequest.post('/platform/organizations', values);
-        };
-
-        this.update = function(id, values) {
-            return ApiRequest.patch('/platform/organizations/' + id, values);
-        };
-        
-        this.read = function(id) {
-            return ApiRequest.get('/platform/organizations/' + id);
-        }
-
-        this.use = function(id) {
-            localStorage.setItem('active_organization', id);
-            $rootScope.$broadcast('organization-changed', id);
-        }
-
-        this.clearActive = function() {
-            localStorage.removeItem('active_organization');
-            $rootScope.$broadcast('organization-changed', null);
-        }
-
-        this.active = function() {
-            return localStorage.getItem('active_organization') || null;
+        this.read = function (id) {
+            return ApiRequest.get(`/platform/organizations/${id}`);
         }
     });
 };
 
 module.exports = [
     'ApiRequest',
-    '$rootScope',
+    'HelperService',
     OrganizationService
 ];

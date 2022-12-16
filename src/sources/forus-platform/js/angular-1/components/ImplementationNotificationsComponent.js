@@ -5,6 +5,7 @@ const groupLabels = {
     requester_vouchers: "Deelnemers tegoeden",
     requester_transactions: "Deelnemers reserveringen en transacties",
     provider_fund_requests: "Aanbieder aanvraag en beoordeling",
+    requester_reimbursements: "Declaraties",
     provider_voucher_and_transactions: "Aanbieder reserveringen en transacties",
     sponsor: "Sponsor",
     other: "Overig"

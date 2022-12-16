@@ -26,11 +26,12 @@ const VouchersComponent = function (
 
 module.exports = {
     bindings: {
-        vouchers: '<'
+        vouchers: '<',
+        reimbursementVouchers: '<',
     },
     controller: [
         'VoucherService',
-        VouchersComponent
+        VouchersComponent,
     ],
-    templateUrl: 'assets/tpl/pages/vouchers.html'
+    templateUrl: 'assets/tpl/pages/vouchers.html',
 };

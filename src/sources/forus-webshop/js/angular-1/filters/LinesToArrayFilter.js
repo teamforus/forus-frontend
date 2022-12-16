@@ -1,4 +1,4 @@
-let LinesToArrayFilter = function() {
+const LinesToArrayFilter = function() {
     return (str, char="\n", filter = true) => {
         let arr = str.split(char);
 

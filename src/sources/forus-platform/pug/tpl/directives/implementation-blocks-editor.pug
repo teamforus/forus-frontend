@@ -86,6 +86,15 @@
                 input(type="text" ng-model="block.button_link" placeholder="Button Link").form-control
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_link']" ng-bind="error")
 
+            //- Block button target
+            .form-group(ng-if="block.button_enabled")
+                label.form-label.form-label-required Open knop koppeling in
+                .form-offset: select-control(
+                    prop="value"
+                    search="false"
+                    ng-model="block.button_target_blank"
+                    options="$dir.buttonTargets").form-control
+
     //- Actions
     .block-editor-actions
         .button.button-primary(ng-click="$dir.addBlock()")

@@ -1,9 +1,8 @@
 .block.block-choose-organization
     div(
-        ng-repeat="fund in funds"
-        ng-click="selectFund(fund)").organization-item  
-        .organization-item-inner(ng-class="{ 'active' : activeFund.id == fund.id }")
-            .organization-logo
-                img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+        ng-repeat="fund in $dir.funds"
+        ng-click="$dir.selectFund(fund)").organization-item  
+        .organization-item-inner(ng-class="{ 'active' : $dir.activeFund.id == fund.id }")
+            .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
             .organization-name(ng-bind="fund.name")
     br

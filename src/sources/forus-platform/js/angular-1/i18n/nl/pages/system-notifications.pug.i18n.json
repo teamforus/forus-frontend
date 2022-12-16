@@ -100,9 +100,21 @@
             "title": "Aanvulverzoek op aanvraag",
             "description": "Aanvragers ontvangen dit bericht wanneer een aanvulling op de aanvraag voor een fonds is verzocht door de beoordelaar."
         },
+        "notifications_identities.reimbursement_submitted": {
+            "title": "Declaratie verstuurd",
+            "description": "Declaratie verstuurd door deelnemer."
+        },
+        "notifications_identities.reimbursement_approved": {
+            "title": "Declaratie goedgekeurd",
+            "description": "Declaratie goedgekeurd door de sponsor."
+        },
+        "notifications_identities.reimbursement_declined": {
+            "title": "Declaratie afgekeurd",
+            "description": "Declaratie afgekeurd door de sponsor."
+        },
         "notifications_funds.created": {
-            "title": "Fonds is aangemaakt",
-            "description": "Sponsors ontvangen dit bericht wanneer ze een fonds aanmaken."
+            "title": "Declaratie afgekeurd",
+            "description": "Declaratie afgekeurd door de sponsor."
         },
         "notifications_funds.started": {
             "title": "Fonds is gestart",

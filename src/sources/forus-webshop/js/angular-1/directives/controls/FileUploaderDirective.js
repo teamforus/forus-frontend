@@ -1,33 +1,20 @@
-const FileUploaderDirective = function(
+const FileUploaderDirective = function (
+    $q,
     $scope,
-    $timeout,
     $element,
     FileService,
-    ModalService
+    ModalService,
+    PushNotificationsService,
 ) {
-    const $dir = $scope.$dir = {};
-    let input = false;
-
-    const $dropArea = $element.find('.uploader-droparea');
-    const multiple = $scope.multiple ? $scope.multiple : true;
-    const onFileError = $scope.onFileError || (() => { });
-    const onFileQueued = $scope.onFileQueued || (() => { });
-    const onFileRemoved = $scope.onFileRemoved || (() => { });
-    const onFileUploaded = $scope.onFileUploaded || (() => { });
-    const onFileResolved = $scope.onFileResolved || (() => { });
-    const onFileBatchQueued = $scope.onFileBatchQueued || (() => { });
+    const $dir = $scope.$dir;
 
     const eventInfo = (file = null) => {
-        return { file, ...{ files: $scope.files } };
+        return { file, ...{ files: $dir.files } };
     };
-
-    const accept = $scope.accept || [
-        '.xlsx', '.xls', '.docx', '.doc', '.pdf', '.png', '.jpg', '.jpeg'
-    ];
 
     const filterValidFiles = (files) => {
         return files.filter(file => {
-            return accept.indexOf('.' + file.name.split('.')[file.name.split('.').length - 1]) != -1;
+            return $dir.acceptedFiles().indexOf('.' + file.name.split('.')[file.name.split('.').length - 1]) != -1;
         });
     };
 
@@ -42,13 +29,20 @@ const FileUploaderDirective = function(
     const uploadFile = (item) => {
         item.uploading = true;
 
-        FileService.store(item.file, $scope.type, (e) => item.progress = e.progress, item).then(
+        const data = [
+            ['type', $dir.type],
+            ['file', item.file],
+        ].concat(item.file_preview ? [['file_preview', item.file_preview]] : []);
+
+        FileService.storeData(data, (e) => item.progress = e.progress, item).then(
             (res) => {
                 item.uploaded = true;
                 item.file_data = res.data.data;
-                item.file_uid = res.data.data.uid;
                 item.has_preview = ['pdf', 'png', 'jpeg', 'jpg'].includes(item.file_data.ext);
-                onFileUploaded(eventInfo(item));
+
+                if (typeof $dir.onFileUploaded === 'function') {
+                    $dir.onFileUploaded(eventInfo(item));
+                }
             },
             (res) => {
                 if (res.data && res.data.errors) {
@@ -56,15 +50,23 @@ const FileUploaderDirective = function(
                 } else {
                     item.error = res.data ? [res.data.message] : [];
                 }
-                onFileError(eventInfo(item));
+
+                if (typeof $dir.onFileError === 'function') {
+                    $dir.onFileError(eventInfo(item));
+                }
             },
         ).finally(() => {
             item.cancel = null;
             item.uploading = false;
-            onFileResolved(eventInfo(item));
+
+            if (typeof $dir.onFileResolved === 'function') {
+                $dir.onFileResolved(eventInfo(item));
+            }
         });
 
-        onFileQueued(eventInfo(item));
+        if ($dir.onFileQueued) {
+            $dir.onFileQueued(eventInfo(item));
+        }
 
         return item;
     }
@@ -72,24 +74,23 @@ const FileUploaderDirective = function(
     $dir.selectFile = (e) => {
         e && e.preventDefault() && e.stopPropagation();
 
-
-        if (input && input.remove) {
-            input.remove();
+        if ($dir.input && $dir.input.remove) {
+            $dir.input.remove();
         }
 
-        input = document.createElement('input');
-        input.setAttribute("type", "file");
-        input.setAttribute("accept", accept.join(','));
-        input.setAttribute('hidden', '');
-        input.addEventListener('change', (e) => $scope.addFiles(e.target.files));
+        $dir.input = document.createElement('input');
+        $dir.input.setAttribute("type", "file");
+        $dir.input.setAttribute("accept", $dir.acceptedFiles().join(','));
+        $dir.input.setAttribute('hidden', '');
+        $dir.input.addEventListener('change', (e) => $dir.addFiles(e.target.files));
 
-        if (multiple) {
-            input.setAttribute('multiple', '');
+        if ($dir.multiple) {
+            $dir.input.setAttribute('multiple', '');
         }
 
-        appendFirst($element[0], input);
+        appendFirst($element[0], $dir.input);
 
-        input.click();
+        $dir.input.click();
     };
 
     $dir.removeFile = (file) => {
@@ -97,13 +98,15 @@ const FileUploaderDirective = function(
             file.cancel();
         }
 
-        let index = $scope.files.indexOf(file);
+        let index = $dir.files.indexOf(file);
 
         if (index != -1) {
-            $scope.files.splice(index, 1);
+            $dir.files.splice(index, 1);
         }
 
-        onFileRemoved(eventInfo());
+        if (typeof $dir.onFileRemoved === 'function') {
+            $dir.onFileRemoved(eventInfo());
+        }
     };
 
     $dir.previewFile = ($event, file) => {
@@ -129,33 +132,99 @@ const FileUploaderDirective = function(
         }, console.error);
     };
 
-    $scope.addFiles = (files) => {
-        $timeout(() => $scope.files = [
-            ...$scope.files,
-            ...filterValidFiles([...files]).map((file) => uploadFile({
-                file: file,
-                uploaded: false,
-                progress: 0,
-            }))
-        ], 0);
+    $dir.prepareFilesForUpload = (files = []) => {
+        return $q((resolve) => {
+            if (!$dir.shouldCropMedia()) {
+                return resolve(files.map((file) => uploadFile({ file: file, uploaded: false, progress: 0 })));
+            }
 
-        onFileBatchQueued(eventInfo());
+            ModalService.open('photoCropper', {
+                accept: $dir.acceptedFiles(),
+                makePreview: $dir.makePreviews,
+                getFiles: () => files,
+                onSubmit: (files) => resolve(files.map((item) => uploadFile({
+                    file: item.file,
+                    file_preview: item.file_preview || null,
+                    ...{ uploaded: false, progress: 0 },
+                }))),
+            });
+        });
     };
 
-    const onInit = () => {
-        $dir.readOnly = $scope.readOnly || false;
+    $dir.addFilesHidden = (e) => {
+        $dir.addFiles(e.files);
+    };
 
-        $dropArea.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+    $dir.addFiles = (files) => {
+        if ($dir.multipleSize) {
+            const allowedSize = $dir.multipleSize - $dir.files.length;
+            const submittedSize = files.length;
+
+            if (allowedSize < submittedSize) {
+                files = [...files].slice(0, allowedSize);
+
+                PushNotificationsService.info(
+                    'To many files selected',
+                    `Files count limit exceeded, only first ${allowedSize} files added.`,
+                );
+            }
+        }
+
+        $dir.prepareFilesForUpload(filterValidFiles([...files])).then((files) => {
+            $dir.files = [...$dir.files, ...files]
+
+            if ($dir.onFileBatchQueued) {
+                $dir.onFileBatchQueued(eventInfo(files));
+            }
+        });
+    };
+
+    $dir.restoreFiles = (files) => {
+        return files.map((file) => {
+            if (file.file) {
+                return file;
+            }
+
+            return {
+                file: { name: file.original_name },
+                file_data: file,
+                has_preview: ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext),
+                uploaded: true,
+            }
+        });
+    };
+
+    $dir.acceptedFiles = () => {
+        if (typeof $dir.accept === 'undefined') {
+            return ['.xlsx', '.xls', '.docx', '.doc', '.pdf', '.png', '.jpg', '.jpeg']
+        }
+
+        return $dir.accept;
+    }
+
+    $dir.shouldCropMedia = () => {
+        return typeof $dir.cropMedia === 'undefined' ? true : $dir.cropMedia;
+    }
+
+    $dir.$onInit = () => {
+        const $dropArea = $element.find('.uploader-droparea');
+
+        $dir.input = false;
+        $dir.multiple = $dir.multiple || true;
+        $dir.multipleSize = $dir.multipleSize || false;
+
+        $dir.fileListCompact = $dir.fileListCompact != 'false';
+        $dir.files = $dir.restoreFiles($dir.files || []);
+
+        $dropArea.on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
             e.preventDefault();
             e.stopPropagation();
         });
 
         $dropArea.on('dragover dragenter', (e) => $dropArea.addClass('is-dragover'))
         $dropArea.on('dragleave dragend drop', () => $dropArea.removeClass('is-dragover'));
-        $dropArea.on('drop', (e) => $scope.addFiles(e.originalEvent.dataTransfer.files));
+        $dropArea.on('drop', (e) => $dir.addFiles(e.originalEvent.dataTransfer.files));
     };
-
-    onInit();
 };
 
 module.exports = () => {
@@ -163,9 +232,14 @@ module.exports = () => {
         scope: {
             type: '@',
             files: '=',
+            title: '@',
             accept: '=',
             multiple: '@',
+            multipleSize: '@',
+            makePreviews: '@',
             readOnly: '=',
+            cropMedia: '=',
+            fileListCompact: '@',
             onFileError: '&',
             onFileQueued: '&',
             onFileRemoved: '&',
@@ -173,16 +247,19 @@ module.exports = () => {
             onFileResolved: '&',
             onFileBatchQueued: '&',
         },
+        bindToController: true,
+        controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [
+            '$q',
             '$scope',
-            '$timeout',
             '$element',
             'FileService',
             'ModalService',
-            FileUploaderDirective
+            'PushNotificationsService',
+            FileUploaderDirective,
         ],
-        templateUrl: 'assets/tpl/directives/controls/file-uploader.html'
+        templateUrl: 'assets/tpl/directives/controls/file-uploader.html',
     };
 };

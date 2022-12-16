@@ -313,6 +313,20 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
 
             return confirmAcceptBudgetFundProvider(fundProvider, $translate);
         };
+
+        this.getLastSelectedFundId = () => {
+            return localStorage.getItem('selected_fund_id');
+        };
+
+        this.getLastSelectedFund = (funds) => {
+            const lastSelectedId = this.getLastSelectedFundId();
+
+            return funds.find((fund) => fund.id == lastSelectedId) || funds[0] || null;
+        };
+
+        this.setLastSelectedFund = (fund) => {
+            return localStorage.setItem('selected_fund_id', fund?.id);
+        };
     });
 };
 

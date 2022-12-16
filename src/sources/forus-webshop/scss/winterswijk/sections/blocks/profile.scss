@@ -6,6 +6,7 @@
         }
     }
 }
+
 .block {
     &.block-profile {
         .profile-aside {
@@ -33,20 +34,26 @@
 
             .profile-menu {
                 .profile-menu-item {
-                    border-radius: 0;
                     box-shadow: none;
                     color: $tc-var;
                     background: $color-default;
                     text-shadow: none;
                     border: 1px solid transparent;
-                    .mdi {color: $tc-var;}
+
+                    .mdi {
+                        color: $tc-var;
+                    }
+
                     &:hover {
                         color: $color-default;
                         text-decoration: underline;
                         background-color: #fff;
                         box-shadow: none;
                         border: 1px solid $color-default;
-                        .mdi {color: $color-default;}
+
+                        .mdi {
+                            color: $color-default;
+                        }
                     }
 
                     &.active {
@@ -54,6 +61,7 @@
                         color: $color-default;
                         box-shadow: none;
                         border: 1px solid $color-default;
+
                         .mdi {
                             color: $color-default;
                         }
