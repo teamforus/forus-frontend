@@ -20,10 +20,10 @@ const ImplementationBlocksEditorDirective = function (
 
     $dir.buttonTargets = [{
         value: false,
-        name: 'Same tab',
+        name: 'Hetzelfde tabblad',
     }, {
         value: true,
-        name: 'New tab',
+        name: 'Nieuw tabblad',
     }];
 
     $dir.askConfirmation = (onConfirm) => {
