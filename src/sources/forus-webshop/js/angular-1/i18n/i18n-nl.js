@@ -86,6 +86,7 @@ module.exports = {
     fund_request_clarification: require("./nl/pages/fund-request-clarification"),
     funds: require("./nl/pages/funds"),
     home: require("./nl/pages/home"),
+    signup: require("./nl/pages/signup"),
     meapp_index: require("./nl/pages/me-index"),
     product: require("./nl/pages/product"),
     records_validations: require("./nl/pages/record-validations"),

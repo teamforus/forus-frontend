@@ -1,3 +1,10 @@
+/*@media screen and (min-width: 1140px) {
+    body {
+        transform-origin: top center;
+        transform: scale(0.8);
+    }
+}*/
+
 .block {
     @media screen and (min-width: 1000px) {
         &.block-navbar {
@@ -176,8 +183,21 @@
     }
 }
 
-
 .block {
+    &.block-sign_up {
+        .sign_up-row {
+            padding-top: 0px;
+        }
+
+        .sign_up-pane {
+            .sign_up-pane-body {
+                .sign_up-pane-text {
+                    display: none;
+                }
+            }
+        }
+    }
+
     &.block-footer {
         padding: 20px 0;
 
