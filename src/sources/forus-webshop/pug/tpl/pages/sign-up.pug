@@ -7,14 +7,10 @@ main(id="main-content")
         .block.block-sign_up(ng-if="$ctrl.state == 'start'"): .block-wrapper(
             ng-class="!$ctrl.appConfigs.flags.startPage.hideSignUpColumn && !$ctrl.appConfigs.flags.startPage.hideSignInColumn ? 'block-wrapper-lg' : ''")
 
-            h1.block-title(
-                translate="signup.items.{{ $root.client_key }}.title"
-                translate-default="{{ 'signup.items.title' | translate }}")
+            h1.block-title Aanmelden
 
             .sign_up-pane
-                h2.sign_up-pane-header(
-                    translate="signup.items.{{ $root.client_key }}.header"
-                    translate-default="{{ 'signup.items.header' | translate }}")
+                h2.sign_up-pane-header Hoe wilt u aanmelden?
 
                 .sign_up-pane-body: .sign_up-row
                     .sign_up-col(ng-if="!$ctrl.appConfigs.flags.startPage.hideSignUpColumn")
@@ -30,10 +26,8 @@ main(id="main-content")
 
                                 .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                                 .sign_up-option-details
-                                    .sign_up-option-title DigiD
-                                    .sign_up-option-description(
-                                        translate="signup.items.{{ $root.client_key }}.digid"
-                                        translate-default="{{ 'signup.items.digid' | translate }}")
+                                    .sign_up-option-title Met DigiD
+                                    .sign_up-option-description U wordt doorverwezen naar DigiD om aan te melden
 
                             //- Sign up by Email
                             .sign_up-option(
@@ -48,9 +42,7 @@ main(id="main-content")
 
                     .sign_up-col(ng-if="!$ctrl.appConfigs.flags.startPage.hideSignInColumn")
                         //- Sign In
-                        h3.sign_up-pane-text: .sign_up-pane-heading(
-                            translate="signup.items.{{ $root.client_key }}.pane_text"
-                            translate-default="{{ 'signup.items.pane_text' | translate }}")
+                        h3.sign_up-pane-text: .sign_up-pane-heading Account herstellen of met een andere optie inloggen?
 
                         .sign_up-options(ng-class="{disabled: $ctrl.loading}")
                             //- Sign in by DigiD
