@@ -59,11 +59,13 @@ const SignUpStartComponent = function (
             if (used) {
                 return IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
                     $ctrl.authEmailConfirmationSent = true;
+                    $ctrl.setState('email');
                 }, handleErrors).finally(() => PageLoadingBarService.setProgress(100));
             }
 
             IdentityService.make(form.values).then(() => {
                 $ctrl.authEmailRestoreSent = true;
+                $ctrl.setState('email');
             }, handleErrors).finally(() => PageLoadingBarService.setProgress(100));
         }, true);
 
