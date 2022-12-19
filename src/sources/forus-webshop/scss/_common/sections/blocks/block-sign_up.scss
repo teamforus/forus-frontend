@@ -269,7 +269,7 @@
             }
 
             .form {
-                margin-bottom: 15px;
+                margin-bottom: 10px;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -655,7 +655,7 @@
     .sign_up-row {
         display: flex;
         flex-direction: row;
-        padding: 20px 0 0;
+        padding: 10px 0 0;
 
         .sign_up-col {
             display: flex;
@@ -746,6 +746,38 @@
         }
     }
 
+    .sign_up-restore {
+        display: flex;
+        border: 1px solid #ebedf0;
+        border-radius: $border_radius / 2;
+        margin-bottom: 10px;
+        padding: 25px 20px;
+        background-color: #fff;
+        font: 400 16px/20px $bf;
+        flex-wrap: wrap;
+
+        .sign_up-restore-label {
+            display: inline-flex;
+            flex-wrap: wrap;
+            color: #222;
+            font: inherit;
+            margin-right: 5px;
+        }
+
+        .sign_up-restore-link {
+            display: inline-flex;
+            display: block;
+            font: inherit;
+            font-weight: 600;
+            color: $color_primary;
+        }
+
+        .sign_up-restore-chevron {
+            color: #dbdcdb;
+            font-size: 24px;
+        }
+    }
+
     .sign_up-info {
         display: flex;
         flex-direction: column;
@@ -802,6 +834,10 @@
 
         .sign_up-progress {
             margin: 0 0 20px;
+        }
+
+        .sign_up-restore {
+            font: 400 14px/20px $bf;
         }
 
         .sign_up-pane {
