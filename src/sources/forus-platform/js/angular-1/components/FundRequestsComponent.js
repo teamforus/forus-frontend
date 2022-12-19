@@ -55,8 +55,8 @@ const FundRequestsComponent = function (
             employee_id: null,
             from: '',
             to: null,
-            sort_by: 'state',
-            sort_order: 'asc'
+            order_by: 'state',
+            order_dir: 'asc'
         },
         reset: function () {
             this.values = { ...this.values, ...this.defaultValues };

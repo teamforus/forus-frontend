@@ -81,25 +81,25 @@
                     table.table
                         tr
                             //- ID
-                            th(translate="validation_requests.labels.id").th-narrow
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.id" value="id").th-narrow
 
                             //- Identity
-                            th(translate="validation_requests.labels.requester")
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.requester" value="requester_email")
 
                             //- Fund
-                            th(translate="validation_requests.labels.fund")
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.fund" value="fund_name")
 
                             //- Creation date
-                            th(translate="validation_requests.labels.created_date").nowrap
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.created_date" value="created_at")
 
                             //- Assigned employee(s)
-                            th(translate="validation_requests.labels.assignee")
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.assignee" value="assignee_email")
 
                             //- Status label
-                            th(translate="validation_requests.labels.status")
+                            th(th-sortable filters="$ctrl.filters.values" label="validation_requests.labels.status" value="state")
 
                             //- Actions
-                            th(translate="validation_requests.labels.actions").nowrap.text-right
+                            th(translate="validation_requests.labels.actions").nowrap.text-right.th-narrow
 
                         tr(ng-repeat="validatorRequest in $ctrl.validatorRequests.data"
                             ui-sref="fund-requests-show(validatorRequest.ui_sref)")
