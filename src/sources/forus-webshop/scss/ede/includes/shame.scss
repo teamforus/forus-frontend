@@ -8,7 +8,7 @@ ui-view {
 }
 
 @media screen and (min-width: 1000px) {
-    .bodyScaled {
+    body {
         transform-origin: top center;
         transform: scale(0.8);
         background-color: #f3f3f3;
@@ -34,6 +34,10 @@ ui-view {
 
                     &::after {
                         right: 20px;
+                    }
+
+                    &.navbar-item-wrapper_sign-out {
+                        padding-right: 0;
                     }
                 }
             }
