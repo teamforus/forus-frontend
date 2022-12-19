@@ -70,10 +70,14 @@ main(id="main-content")
         .block.block-sign_up(ng-if="$ctrl.state == 'start'"): .block-wrapper(
             ng-class="!$ctrl.appConfigs.flags.startPage.combineColumns ? 'block-wrapper-lg' : ''")
 
-            h1.block-title Aanmelden
+            h1.block-title(
+                translate="signup.items.{{ $root.client_key }}.title"
+                translate-default="{{ 'signup.items.title' | translate }}")
 
             .sign_up-pane
-                h2.sign_up-pane-header Hoe wilt u aanmelden?
+                h2.sign_up-pane-header(
+                    translate="signup.items.{{ $root.client_key }}.header"
+                    translate-default="{{ 'signup.items.header' | translate }}")
 
                 .sign_up-pane-body
                     //- Combined columns
@@ -110,22 +114,22 @@ main(id="main-content")
                                 //- Sign up by DigiD
                                 +digid_option(
                                     "$ctrl.appConfigs.features.digid && !$ctrl.appConfigs.flags.startPage.hideSignUpDigidOption",
-                                    "Met DigiD",
-                                    "U wordt doorverwezen naar DigiD om aan te melden")
+                                    "DigiD",
+                                    "Open het DigiD inlogscherm")
                                 
                         //- Authorization - hidden when columns are combined
                         .sign_up-col
                             //- Sign In title
-                            h3.sign_up-pane-text: .sign_up-pane-heading 
-                                | Account herstellen of met een andere optie inloggen?
-                            
+                            h3.sign_up-pane-text: .sign_up-pane-heading(
+                                translate="signup.items.{{ $root.client_key }}.pane_text"
+                                translate-default="{{ 'signup.items.pane_text' | translate }}")
                             //- Sign In options
                             .sign_up-options(ng-class="{disabled: $ctrl.loading}")
                                 //- Sign in by DigiD
                                 +digid_option(
                                     "$ctrl.appConfigs.features.digid && $ctrl.appConfigs.flags.startPage.hideSignInDigidOption",
-                                    "Met DigiD",
-                                    "U wordt doorverwezen naar DigiD om aan te melden")
+                                    "DigiD",
+                                    "Open het DigiD inlogscherm")
 
                                 //- Sign in by Email
                                 +email_option(
@@ -142,19 +146,19 @@ main(id="main-content")
 
         //- Sign In/Sign Up by E-mail
         .block.block-sign_up(ng-if="$ctrl.state == 'restore'"): .block-wrapper
-            h1.block-title Aanmelden
+            h1.block-title Account herstellen
 
             //- Email form
             .sign_up-pane(ng-if="!$ctrl.authEmailRestoreSent && !$ctrl.authEmailConfirmationSent")
-                .sign_up-pane-header: h2.sign_up-pane-header-title Aanmelden met e-mailadres
+                .sign_up-pane-header: h2.sign_up-pane-header-title Log in DigiD
 
                 .sign_up-pane-body.sign_up-pane-body-padless-bottom
                     .sign_up-options
                         //- Sign in by DigiD
                         +digid_option(
                             "$ctrl.appConfigs.features.digid", 
-                            "Met DigiD",
-                            "U wordt doorverwezen naar DigiD om aan te melden")
+                            "DigiD",
+                            "Open het DigiD inlogscherm")
 
                 .sign_up-pane-footer
                     .button.button-text.button-text-padless(ng-click="$ctrl.setState('start')")

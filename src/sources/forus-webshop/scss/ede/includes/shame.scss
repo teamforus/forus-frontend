@@ -1,9 +1,19 @@
-/*@media screen and (min-width: 1140px) {
-    body {
+
+html {
+    height: 100vh;
+}
+
+ui-view {
+    background-color: #ffffff;
+}
+
+@media screen and (min-width: 1000px) {
+    .bodyScaled {
         transform-origin: top center;
         transform: scale(0.8);
+        background-color: #f3f3f3;
     }
-}*/
+}
 
 .block {
     @media screen and (min-width: 1000px) {
@@ -62,7 +72,6 @@
                     width: auto;
                     padding-left: 0;
                     text-align: left;
-                    display: block;
 
                     .fund-title {
                         color: $tc;
@@ -70,7 +79,6 @@
                     }
 
                     .fund-description {
-                        //-min-height: 100px;
                         margin: 0 0 0px;
                     }
                 }
@@ -81,31 +89,15 @@
                     padding-right: 0;
                 }    
             }
-
-            /*.fund-item:nth-of-type(1) {
-                .fund-information {
-                    .fund-description {
-                        //-min-height: 75px;
-                    }
-                }   
-            }
-
-            .fund-item:nth-of-type(2) {
-                .fund-information {
-                    .fund-description {
-                        //-min-height: 75px;
-                    }
-                }   
-            }*/
         }
     }
 }
 
 .section {
     &.section-header {
-        background-position: top center;
         padding: 50px 0;
         margin: 0 auto;
+        width: 1280px;
         max-width: 100%;
 
         .header-content {
@@ -113,8 +105,13 @@
             padding: 50px 50px;
             background-color: #ffffff;
 
+            .header-title {
+                font: 700 32px/1.3em $bf;
+            }
+
             .header-description p {
                 text-align: center !important;
+                font: 400 16px/1.5em $bf !important;
             }
         }
     }
@@ -142,11 +139,12 @@
     @media screen and (min-width: 1000px) { 
         &.section-header { 
             height: auto;
-            padding: 50px 0;
+            padding: 30px 0;
         
             .header-content {
                 text-align: left;
                 padding: 30px 50px;
+                margin-left: 50px;
                 background-color: #3558A2;
         
                 .header-description p {
@@ -198,8 +196,11 @@
         }
     }
 
-    &.block-footer {
+    &.block-copyrights {
         padding: 20px 0;
+    }
+
+    &.block-footer {
 
         p {
             text-align: left;
