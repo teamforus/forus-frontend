@@ -185,10 +185,14 @@ const VouchersShowComponent = function (
             per_page: 20,
             order_by: 'created_at',
             order_dir: 'desc',
-            targets: ['top_up', 'iban'],
+            targets: ['top_up', 'iban'].concat(
+                $ctrl.organization.show_transactions_to_providers ? ['provider'] : []
+            ),
             voucher_id: $ctrl.voucher.id,
             initiator: 'sponsor',
         };
+
+        console.log('transactionFilters: ', $ctrl.transactionsFilters);
     }
 };
 
