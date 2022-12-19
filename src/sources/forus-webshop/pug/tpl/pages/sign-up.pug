@@ -6,11 +6,11 @@ mixin qr_option(ngIf)
     .sign_up-option(ng-click="$ctrl.setState('qr')" ng-if=ngIf)
         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
         .sign_up-option-details
-            .sign_up-option-title Met de Me app
+            .sign_up-option-title Me app
             .sign_up-option-description
                 | Scan een QR-code met de&nbsp;
                 u Me app
-                | &nbsp;om aan te melden
+                | &nbsp;
 
 mixin email_option(ngIf, dusk, title, description)
     .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf dusk=dusk)
@@ -26,7 +26,7 @@ mixin digid_option(ngIf, title, description)
             .sign_up-option-title=title
             .sign_up-option-description=description
 
-mixin restore_link(ngIf, label="E-mailadres vergeten?", link="Klik hier om het account te herstellen")
+mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Klik hier om het account te herstellen")
     .sign_up-restore(ng-if=ngIf)
         .sign_up-restore-label=label
         a.sign_up-restore-link(
@@ -104,14 +104,14 @@ main(id="main-content")
                                 +email_option(
                                     "!$ctrl.appConfigs.flags.startPage.hideSignUpEmailOption",
                                     "authOptionEmailRegister",
-                                    "Met uw e-mailadres",
-                                    "Ontvang een link per mail om mee aan te melden")
+                                    "E-mailadres",
+                                    "Ontvang een inloglink per e-mail")
 
                                 //- Sign up by DigiD
                                 +digid_option(
                                     "$ctrl.appConfigs.features.digid && !$ctrl.appConfigs.flags.startPage.hideSignUpDigidOption",
-                                    "Met DigiD",
-                                    "U wordt doorverwezen naar DigiD om aan te melden")
+                                    "DigiD",
+                                    "Open DigiD inlogscherm")
                                 
                         //- Authorization - hidden when columns are combined
                         .sign_up-col
@@ -124,15 +124,15 @@ main(id="main-content")
                                 //- Sign in by DigiD
                                 +digid_option(
                                     "$ctrl.appConfigs.features.digid && $ctrl.appConfigs.flags.startPage.hideSignInDigidOption",
-                                    "Met DigiD",
-                                    "U wordt doorverwezen naar DigiD om aan te melden")
+                                    "DigiD",
+                                    "Open DigiD inlogscherm")
 
                                 //- Sign in by Email
                                 +email_option(
                                     "!$ctrl.appConfigs.flags.startPage.hideSignInEmailOption", 
                                     "authOptionEmailRestore",
-                                    "Met uw e-mailadres",
-                                    "Ontvang een link om mee aan te melden",)
+                                    "E-mailadres",
+                                    "Ontvang een inloglink per e-mail",)
 
                                 //- Sign in by Me App
                                 +qr_option("!$ctrl.appConfigs.flags.startPage.hideSignInQrCodeOption")
@@ -153,8 +153,8 @@ main(id="main-content")
                         //- Sign in by DigiD
                         +digid_option(
                             "$ctrl.appConfigs.features.digid", 
-                            "Met DigiD",
-                            "U wordt doorverwezen naar DigiD om aan te melden")
+                            "DigiD",
+                            "Open DigiD inlogscherm")
 
                 .sign_up-pane-footer
                     .button.button-text.button-text-padless(ng-click="$ctrl.setState('start')")
