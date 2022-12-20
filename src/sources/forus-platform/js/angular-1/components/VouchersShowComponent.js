@@ -185,9 +185,7 @@ const VouchersShowComponent = function (
             per_page: 20,
             order_by: 'created_at',
             order_dir: 'desc',
-            targets: ['top_up', 'iban'],
             voucher_id: $ctrl.voucher.id,
-            initiator: 'sponsor',
         };
     }
 };
