@@ -70,7 +70,9 @@ main(id="main-content")
         .block.block-sign_up(ng-if="$ctrl.state == 'start'"): .block-wrapper(
             ng-class="!$ctrl.appConfigs.flags.startPage.combineColumns ? 'block-wrapper-lg' : ''")
 
-            h1.block-title Inloggen
+            h1.block-title(
+                translate="signup.items.{{ $root.client_key }}.title"
+                translate-default="{{ 'signup.items.title' | translate }}")
 
             .sign_up-pane
                 .sign_up-pane-body
@@ -114,8 +116,9 @@ main(id="main-content")
                         //- Authorization - hidden when columns are combined
                         .sign_up-col
                             //- Sign In title
-                            h3.sign_up-pane-text: .sign_up-pane-heading 
-                                | Account herstel opties
+                            h3.sign_up-pane-text: .sign_up-pane-heading(
+                                translate="signup.items.{{ $root.client_key }}.pane_text"
+                                translate-default="{{ 'signup.items.pane_text' | translate }}")
                             
                             //- Sign In options
                             .sign_up-options(ng-class="{disabled: $ctrl.loading}")

@@ -37,13 +37,13 @@ main(id="main-content")
 
                         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                         .sign_up-option-details
-                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption") Log in met DigiD
+                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption") DigiD
                             .sign_up-option-description(ng-if="$ctrl.showFundRequestOption")
-                                | Gebruik DigiD om een tegoed te activeren of een aanvraagformulier te doorlopen.
+                                | Open het DigiD inlogscherm
 
-                            .sign_up-option-title(ng-if="!$ctrl.showFundRequestOption") Log in met DigiD
+                            .sign_up-option-title(ng-if="!$ctrl.showFundRequestOption") DigiD
                             .sign_up-option-description(ng-if="!$ctrl.showFundRequestOption")
-                                | Gebruik DigiD om beschikbare tegoeden in te zien
+                                | Open het DigiD inlogscherm
 
                     //- Make fund request
                     .sign_up-option(
