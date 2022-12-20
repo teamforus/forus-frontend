@@ -662,8 +662,7 @@
             flex-direction: column;
             border-right: 1px solid #ebedf0;
             padding: 10px 30px 0;
-            flex-basis: 1;
-            flex-grow: 1;
+            flex: 1;
 
             &:first-child {
                 padding-left: 0;
