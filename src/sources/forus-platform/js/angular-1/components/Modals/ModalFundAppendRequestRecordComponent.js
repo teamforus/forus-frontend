@@ -31,6 +31,10 @@ let ModalFundAppendRequestRecordComponent = function(
         });
     };
 
+    $ctrl.backToForm = () => {
+        $ctrl.verificationRequested = false;
+    };
+
     $ctrl.closeModal = () => {
         if ($ctrl.prevalidation) {
             $ctrl.modal.scope.onPrevalidationCreated($ctrl.prevalidation)

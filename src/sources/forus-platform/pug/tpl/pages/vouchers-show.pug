@@ -164,6 +164,7 @@
                                 td(ng-if="$ctrl.voucher.fund.type != 'subsidies'")
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
                                 td(ng-if="!$ctrl.voucher.physical_card")
+                                td
 
                             tr
                                 td(ng-if="!$ctrl.fundClosed")
@@ -193,6 +194,15 @@
                                     em.mdi.mdi-check.text-black
                                     strong(translate="product_vouchers.labels.yes").text-black
 
+                                td
+                                    strong(translate="vouchers.labels.used_date").text-strong.text-md.text-muted-dark
+                                    br
+                                    div(ng-if="$ctrl.voucher.first_use_date_locale")
+                                        strong(ng-bind="$ctrl.voucher.first_use_date_locale").text-black
+                                    div(ng-if="!$ctrl.voucher.first_use_date_locale")
+                                        em.mdi.mdi-close.text-black
+                                        strong(translate="product_vouchers.labels.no").text-black
+
                             tr(ng-if="!$ctrl.voucher.product")
                                 td
                                     strong.text-strong.text-md.text-muted-dark Totaal toegekend
@@ -213,6 +223,11 @@
                                     strong.text-strong.text-md.text-muted-dark Huidig bedrag
                                     br
                                     strong(ng-bind="$ctrl.voucher.amount_available | currency_format").text-black
+
+                                td
+                                    strong.text-strong.text-md.text-muted-dark Uitgegeven bedrag
+                                    br
+                                    strong(ng-bind="($ctrl.voucher.amount - $ctrl.voucher.amount_available) | currency_format").text-black
 
         //- Voucher history
         event-logs(
