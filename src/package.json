@@ -47,7 +47,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "@mdi/font": "^6.5.95",
+    "@mdi/font": "^6.9.96",
     "@uirouter/angularjs": "^1.0.29",
     "angular": "^1.8.2",
     "angular-aria": "^1.8.2",
@@ -71,7 +71,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.2",
     "nanoscroller": "^0.8.7",
-    "node-sass": "^7.0.0",
+    "node-sass": "^8.0.0",
     "papaparse": "^5.3.1",
     "pdfjs-dist": "^2.2.228",
     "progressbar.js": "^1.1.0",

@@ -3,6 +3,7 @@ const MobileFooterDirective = function(
     $state,
     VoucherService,
     FundService,
+    appConfigs
 ) {
     const { $dir } = $scope;
 
@@ -11,6 +12,7 @@ const MobileFooterDirective = function(
     $dir.funds = null;
     $dir.prevOffsetY = window.pageYOffset;
     $dir.profileMenuOpened = false;
+    $dir.appConfigs = appConfigs;
 
     $dir.hideProfileMenu = () => {
         $dir.profileMenuOpened = false;
@@ -78,6 +80,7 @@ module.exports = () => {
             '$state',
             'VoucherService',
             'FundService',
+            'appConfigs',
             MobileFooterDirective
         ],
         templateUrl: 'assets/tpl/directives/mobile-footer.html'

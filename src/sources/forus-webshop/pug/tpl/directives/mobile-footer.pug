@@ -2,7 +2,7 @@
     ul.sticky-footer-list
         //- Products
         li(
-            ng-if="$root.appConfigs.features.has_budget_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)"
+            ng-if="$dir.appConfigs.features.has_budget_funds && ($dir.appConfigs.flags.productsMenu || $root.auth_user)"
             ui-sref="products" ui-sref-active="active")
             a.sticky-footer-item(ui-sref="products" aria-current="{{ $dir.$state.current.name == 'products' }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
@@ -10,7 +10,7 @@
 
         //- Subsidies
         li(
-            ng-if="$root.appConfigs.features.has_subsidy_funds && ($root.appConfigs.flags.productsMenu || $root.auth_user)" 
+            ng-if="$dir.appConfigs.features.has_subsidy_funds && ($dir.appConfigs.flags.productsMenu || $root.auth_user)" 
             ui-sref="actions" 
             ui-sref-active="active")
             a.sticky-footer-item(ui-sref="actions" aria-current="{{ $dir.$state.current.name == 'actions' }}" role="link" tabindex="0")
@@ -71,6 +71,19 @@
                     
                     em.mdi.mdi-ticket-percent-outline
                     span(translate="topnavbar.buttons.mobile.dropdown.vouchers")
+
+                //- Reimbursements
+                .sticky-footer-dropwdown-subitem(
+                    ng-if="$dir.appConfigs.features.has_reimbursements"
+                    ui-sref="reimbursements"
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'reimbursements'}"
+                    aria-current="{{ $dir.$state.current.name == 'reimbursements' }}" 
+                    tabindex="0"
+                    role="link")
+                    
+                    em.mdi.mdi-receipt-outline
+                    span(translate="topnavbar.buttons.mobile.dropdown.reimbursements")
 
                 //- Start fund request
                 .sticky-footer-dropwdown-subitem(
@@ -134,7 +147,7 @@
 
                 //- Funds
                 .sticky-footer-dropwdown-subitem(
-                    ng-if="$root.appConfigs.flags.fundsMenu"
+                    ng-if="$dir.appConfigs.flags.fundsMenu"
                     ui-sref="funds"
                     ng-click="$dir.hideProfileMenu()"
                     ng-class="{active: $dir.$state.current.name == 'funds'}"
@@ -147,7 +160,7 @@
 
                 //- Sessions
                 .sticky-footer-dropwdown-subitem(
-                    ng-if="$root.appConfigs.sessions"
+                    ng-if="$dir.appConfigs.sessions"
                     ui-sref="security-sessions"
                     ng-click="$dir.hideProfileMenu()"
                     ng-class="{active: $dir.$state.current.name == 'security-sessions'}"
@@ -160,7 +173,7 @@
 
                 //- Records
                 .sticky-footer-dropwdown-subitem(
-                    ng-if="$root.appConfigs.features.records.list"
+                    ng-if="$dir.appConfigs.features.records.list"
                     ui-sref="records"
                     ng-click="$dir.hideProfileMenu()"
                     ng-class="{active: $dir.$state.current.name == 'records'}"

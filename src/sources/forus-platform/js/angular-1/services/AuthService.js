@@ -79,7 +79,16 @@ module.exports = [
 
             this.accessTokenSubscriber = () => {
                 return new AccessTokenSubscriber();
-            }
+            };
+
+            /**
+             * Redirect to state by given target
+             * @param {string|null} rawTarget
+             * @returns
+             */
+            this.handleAuthTarget = (rawTarget) => {
+                return false;
+            };
         });
     }
 ];

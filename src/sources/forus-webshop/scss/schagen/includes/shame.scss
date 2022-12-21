@@ -1,12 +1,23 @@
+.section-title,
+.block-title {
+    color: #004680;
+}
+
 .block {
     &.block-navbar {
         .block-auth {
             .auth-in {
-                margin-left: 0;
+                .button {
+                    &.button-primary {
+                        &:hover {
+                            background-color: $btn-start-hov;
+                        }
+                    }
 
-                .auth-user {
-                    .auth-user-caret {
-                        color: #ffffff;
+                    &.button-default {
+                        &:hover {
+                            background-color: #074e7d;
+                        }
                     }
                 }
             }
@@ -50,15 +61,15 @@
         }
     }
 
-    @media screen and (min-width: 1000px) { 
+    @media screen and (min-width: 1000px) {
         &.block-navbar {
             .navbar-inner {
                 order: 2;
             }
-    
+
             .block-navbar-search {
                 max-width: 760px;
-    
+
                 .search-form.form {
                     .form-control {
                         border-radius: 10px;
@@ -77,12 +88,10 @@
         background-color: #77b431;
     }
 
-    
-
     @media screen and (max-width: 1000px) {
         &.block-navbar {
             position: sticky;
-            background-color: #77b431;
+            background-color: #0071B8;
 
             .navbar-logo {
                 img {
@@ -95,7 +104,7 @@
             }
 
             .button {
-                color:#ffffff;
+                color: #ffffff;
 
                 svg {
                     path {
@@ -130,6 +139,15 @@
                 .showcase-aside-block {
                     box-shadow: none;
                     padding-left: 0;
+                }
+
+                .button.button-primary-outline {
+                    background-color: $color_primary;
+                    color: #fff;
+
+                    &:hover {
+                        background: $color_primary_light;
+                    }
                 }
             }
         }
@@ -200,7 +218,7 @@
             border: 1px solid #e4e4e4;
         }
     }
-    
+
     &.block-fund {
         .fund-content {
             padding-bottom: 30px;
@@ -219,7 +237,7 @@
 
     &.block-pane {
         box-shadow: none;
-        border: 1px solid #e4e4e4;;
+        border: 1px solid #e4e4e4;
     }
 
     &.block-markdown {
@@ -238,7 +256,7 @@
             box-shadow: none;
             border: 1px solid #e4e4e4;
 
-            &.base-card-voucher{
+            &.base-card-voucher {
                 box-shadow: none;
                 border: 1px solid #e4e4e4;
             }
@@ -313,9 +331,9 @@
         &.block-products {
             max-width: 1280px;
             margin: 0 auto;
-            }
+        }
 
-        &.block-organization-info { 
+        &.block-organization-info {
             display: flex;
             margin: 50px 0 50px 0;
 
@@ -327,7 +345,7 @@
 }
 
 .form {
-    .form-control:not([type="radio"]):not([type="checkbox"]) { 
+    .form-control:not([type="radio"]):not([type="checkbox"]) {
         background-color: #ffffff;
         border: 1px solid #e4e4e4;
     }
@@ -370,18 +388,18 @@
         color: #fff;
     }
 
-    @media screen and (min-width: 1000px) { 
-        &.section-header { 
+    @media screen and (min-width: 1000px) {
+        &.section-header {
             height: 500px;
             padding: 75px 0;
-        
+
             .header-content {
                 text-align: left;
                 padding: 50px 50px;
                 margin-left: 50px;
                 background-color: #ffffff;
                 text-align: left;
-        
+
                 .header-description p {
                     text-align: left !important;
                 }
@@ -390,14 +408,14 @@
 
         &.section-products {
             width: 100vw;
-            background: #F4F5F7;
+            background: #f4f5f7;
             left: calc(-50vw + 50%);
             padding: 30px 0 30px 0;
-    
+
             .section-title {
                 margin-top: 0;
             }
-        }    
+        }
     }
 }
 
@@ -457,7 +475,6 @@
     }
 }
 
-
 // MOVE TO LAYOUT FOOTER FILE
 .block.block-footer .footer-nav .footer-nav-item a {
     font: 400 14px/24px $bf;
@@ -475,12 +492,13 @@
         color: #ffffff;
     }
 }
+
 .block {
-    &.block-copyrights{
-        .links{
+    &.block-copyrights {
+        .links {
             a {
                 color: #ffffff;
             }
-        } 
+        }
     }
 }

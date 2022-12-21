@@ -2,22 +2,23 @@
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+    form(ng-submit="$ctrl.form.submit()" dusk="formEmployeeEdit").modal-window.form
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Medewerker aanpassen")
         .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Medewerker toevoegen")
+
         .modal-body.modal-body-visible.form
             .modal-section
                 .form-group(ng-if="!$ctrl.modal.scope.employee")
                     label.form-label.form-label-required E-mailadres
-                    input(type="text" ng-model="$ctrl.form.values.email" placeholder="E-mailadres..." id="email_value").form-control
+                    input(type="text" ng-model="$ctrl.form.values.email" placeholder="E-mailadres..." id="email_value" dusk="formEmployeeEmail").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
 
                 .form-group(ng-if="!$ctrl.employee")
                     label.form-label Rollen
                     .block.block-permissions-list: .permission-item(ng-repeat="role in $ctrl.modal.scope.roles")
-                        label(ng-click="$ctrl.toggleOption(role.id)" for="product_{{ role.id }}" title="{{ role.name }}").checkbox.checkbox-narrow
-                            input(type="checkbox" ng-checked="$ctrl.isChecked(role.id)")
+                        label(for="role_{{ role.id }}" title="{{ role.name }}").checkbox.checkbox-narrow
+                            input(type="checkbox" id="role_{{ role.id }}" name="role_{{ role.id }}" ng-model="$ctrl.roles[role.id]")
                             .checkbox-label
                                 .checkbox-box: .mdi.mdi-check
                                 .permission-name: .ellipsis(ng-bind="role.name")
@@ -27,4 +28,4 @@
 
         .modal-footer.text-center
             button.button.button-default(type="button" translate="modal_funds_add.buttons.close" ng-click="$ctrl.close()" id="close")
-            button.button.button-primary(type="submit" translate="Bevestig" id="confirm")
+            button.button.button-primary(type="submit" translate="Bevestig" id="confirm" dusk="formEmployeeSubmit")

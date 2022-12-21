@@ -25,6 +25,8 @@ app.component('transactionsComponent', require('./components/TransactionsCompone
 app.component('reservationsComponent', require('./components/ReservationsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('vouchersShowComponent', require('./components/VouchersShowComponent'));
+app.component('reimbursementsComponent', require('./components/ReimbursementsComponent'));
+app.component('reimbursementsShowComponent', require('./components/ReimbursementsShowComponent'));
 app.component('productVouchersComponent', require('./components/ProductVouchersComponent'));
 app.component('officesComponent', require('./components/OfficesComponent'));
 app.component('officesEditComponent', require('./components/OfficesEditComponent'));
@@ -118,6 +120,8 @@ app.component('modalSwitchBankConnectionAccountComponent', require('./components
 app.component('modalExportDataSelectComponent', require('./components/Modals/ModalExportDataSelectComponent'));
 app.component('modalVoucherTransactionComponent', require('./components/Modals/ModalVoucherTransactionComponent'));
 app.component('modalFundRequestAssignValidatorComponent', require('./components/Modals/ModalFundRequestAssignValidatorComponent'));
+app.component('modalAddNoteComponent', require('./components/Modals/ModalAddNoteComponent'));
+app.component('modalReimbursementResolveComponent', require('./components/Modals/Reimbursements/ModalReimbursementResolveComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -131,6 +135,7 @@ app.service('TransactionsExportService', require('./services/TransactionsExportS
 app.service('TransactionBulkService', require('./services/TransactionBulkService'));
 app.service('TransactionBulksExportService', require('./services/TransactionBulksExportService'));
 app.service('VoucherService', require('./services/VoucherService'));
+app.service('ReimbursementService', require('./services/ReimbursementService'));
 app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
 app.service('FundIdentitiesExportService', require('./services/FundIdentitiesExportService'));

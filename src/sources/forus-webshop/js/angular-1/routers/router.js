@@ -1,7 +1,5 @@
 const repackResponse = (promise) => new Promise((resolve, reject) => {
-    promise.then((res) => resolve(
-        res.data.data ? res.data.data : res.data
-    ), reject);
+    promise.then((res) => resolve(res.data.data ? res.data.data : res.data), reject);
 });
 
 const resolveConfigs = () => {
@@ -18,8 +16,12 @@ const promiseResolve = (res) => {
     return new Promise(resolve => resolve(res));
 };
 
-const routeParam = (value = null, squash = true, dynamic = false) => {
-    return { value, squash, dynamic };
+const routeParam = (value = null, dynamic = null, squash = true) => {
+    return {
+        ...{ value },
+        ...(squash !== null ? { squash } : {}),
+        ...(dynamic !== null ? { dynamic } : {}),
+    };
 };
 
 const i18n_state = ($stateProvider, args, defaultLocale = 'nl') => {
@@ -190,17 +192,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                     ...{ per_page: 1000, used: 1, used_type: 'budget' },
                 })) : null;
             }],
-            organizations: ['OrganizationService', 'HelperService', (
-                OrganizationService, HelperService
-            ) => HelperService.recursiveLeacher((page) => {
-                return OrganizationService.list({
-                    is_employee: 0,
-                    has_products: 1,
-                    per_page: 100,
-                    page: page,
-                    fund_type: 'budget'
-                });
-            }, 4)],
+            organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
+                is_employee: 0,
+                has_products: 1,
+                per_page: 100,
+                fund_type: 'budget'
+            })],
         }
     });
 
@@ -225,12 +222,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             postcode: routeParam(''),
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
-            products: ['$transition$', 'ProductService', (
-                $transition$, ProductService
-            ) => repackPagination(ProductService.list({
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            products: ['$transition$', 'ProductService', ($transition$, ProductService) => repackPagination(ProductService.list({
                 q: $transition$.params().q,
                 page: $transition$.params().page,
                 fund_id: $transition$.params().fund_id,
@@ -293,8 +286,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "providers",
         url: {
-            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
-            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
+            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
+            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}",
         },
         component: "providersComponent",
         params: {
@@ -306,12 +299,27 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             postcode: { dynamic: true, value: '', squash: true },
             show_menu: { dynamic: true, value: false, squash: true },
             business_type_id: { value: null, squash: true },
+            product_category_id: { value: null, squash: true },
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
+                return $transition$.params().product_category_id ?
+                    repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
+            }],
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({ parent_id: 'null', per_page: 1000, used: 1 }))
+            }],
+            productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
+                return productCategory ? repackResponse(ProductCategoryService.list({
+                    parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
+                    ...{ per_page: 1000, used: 1 },
+                })) : null;
+            }],
             businessTypes: ['BusinessTypeService', (
                 BusinessTypeService
             ) => repackResponse(BusinessTypeService.list({
+                parent_id: 'null',
                 per_page: 9999,
                 used: 1,
             }))],
@@ -324,6 +332,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 distance: $transition$.params().distance,
                 postcode: $transition$.params().postcode,
                 business_type_id: $transition$.params().business_type_id,
+                product_category_id: $transition$.params().product_category_id,
                 order_by: 'name',
                 order_by_dir: 'asc'
             }))]
@@ -506,9 +515,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
         component: "vouchersComponent",
         resolve: {
-            vouchers: ['VoucherService', (VoucherService) => {
-                return repackResponse(VoucherService.list({ archived: 0 }));
-            }],
+            vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({ archived: 0 }))],
+            reimbursementVouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({ 
+                archived: 0,
+                per_page: 1,
+                implementation_key: appConfigs.client_key,
+                allow_reimbursements: 1,
+            }))],
         }
     });
 
@@ -541,23 +554,99 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
         component: "reservationsComponent",
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
-            reservations: ['ProductReservationService', (
-                ProductReservationService
-            ) => repackPagination(ProductReservationService.list({ per_page: 15 }))],
-            organizations: ['OrganizationService', 'HelperService', (
-                OrganizationService, HelperService
-            ) => HelperService.recursiveLeacher((page) => {
-                return OrganizationService.list({
-                    is_employee: 0,
-                    has_reservations: 1,
-                    per_page: 100,
-                    page: page,
-                    fund_type: 'budget'
-                });
-            }, 4)],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            reservations: ['ProductReservationService', (ProductReservationService) => repackPagination(ProductReservationService.list())],
+            organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
+                is_employee: 0,
+                has_reservations: 1,
+                per_page: 100,
+                fund_type: 'budget'
+            })],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "reimbursements",
+        url: {
+            en: "/reimbursements",
+            nl: "/declaraties",
+        },
+        component: "reimbursementsComponent",
+        resolve: {
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            reimbursements: ['ReimbursementService', (ReimbursementService) => repackPagination(ReimbursementService.list({
+                archived: 0,
+            }))],
+            vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({
+                allow_reimbursements: 1,
+                implementation_key: appConfigs.client_key,
+                per_page: 100,
+            }))],
+            organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
+                is_employee: 0,
+                has_reimbursements: 1,
+                per_page: 100,
+                fund_type: 'budget'
+            })],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "reimbursements-create",
+        url: {
+            en: "/reimbursements/create?voucher_address=null",
+            nl: "/declaraties/maken?voucher_address=null",
+        },
+        params: { voucher_address: null },
+        component: "reimbursementsEditComponent",
+        resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({
+                allow_reimbursements: 1,
+                implementation_key: appConfigs.client_key,
+                per_page: 100,
+            }))],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "reimbursements-edit",
+        url: {
+            en: "/reimbursements/{id}/edit",
+            nl: "/declaraties/{id}/bewerk",
+        },
+        component: "reimbursementsEditComponent",
+        resolve: {
+            vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({
+                allow_reimbursements: 1,
+                implementation_key: appConfigs.client_key,
+                per_page: 100,
+            }))],
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            voucher: ['VoucherService', '$transition$', (VoucherService, $transition$) => {
+                return $transition$.params().voucher_address ? repackResponse(VoucherService.get($transition$.params().voucher_address)) : null;
+            }],
+            reimbursement: ['ReimbursementService', '$transition$', (ReimbursementService, $transition$) => {
+                return repackResponse(ReimbursementService.read($transition$.params().id));
+            }],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "reimbursement",
+        url: {
+            en: "/reimbursements/{id}",
+            nl: "/declaraties/{id}",
+        },
+    component: "reimbursementComponent",
+        resolve: {
+            reimbursement: ['ReimbursementService', '$transition$', (ReimbursementService, $transition$) => {
+                return repackResponse(ReimbursementService.read($transition$.params().id));
+            }],
         }
     });
 
@@ -761,20 +850,18 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "fund-activate",
         url: {
-            en: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
-            nl: "/fondsen/{fund_id}/activeer?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+            en: "/funds/{fund_id}/activate?{digid_success:string}&{digid_error:string}&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+            nl: "/fondsen/{fund_id}/activeer?{digid_success:string}&{digid_error:string}&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
         },
         component: "fundActivateComponent",
         params: {
+            fund_id: null,
             backoffice_error: null,
             backoffice_error_key: null,
             backoffice_fallback: null,
             backoffice_voucher: null,
-        },
-        data: {
-            fund_id: null,
-            digid_success: false,
-            digid_error: false,
+            digid_success: routeParam(null, true),
+            digid_error: routeParam(null, true),
         },
         resolve: {
             configs: resolveConfigs(),
@@ -947,7 +1034,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         url: '/error/{errorCode}',
         component: 'errorComponent',
         data: { errorCode: 'unknown_error' },
-        params: { hideHomeLinkButton: false },
+        params: { hideHomeLinkButton: false, customLink: null },
     });
 
     $stateProvider.state({

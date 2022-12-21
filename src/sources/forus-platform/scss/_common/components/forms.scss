@@ -326,9 +326,16 @@
             .block-form_tooltip {
                 position: absolute;
                 top: 20px;
-                right: -45px;
+                right: -25px;
                 transform: translate(0, -50%);
                 z-index: 5;
+                padding: 0;
+            }
+
+            &.tooltipped-inner {
+                .block-form_tooltip {
+                    right: 0;
+                }
             }
         }
 
