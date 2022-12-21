@@ -163,7 +163,9 @@ main(id="main-content")
 
         //- Sign In/Sign Up by E-mail
         .block.block-sign_up(ng-if="$ctrl.state == 'email'"): .block-wrapper
-            h1.block-title Aanmelden
+            h1.block-title(
+                translate="signup.items.{{ $root.client_key }}.start_email"
+                translate-default="{{ 'signup.items.start_email' | translate }}")
 
             //- Email form
             .sign_up-pane(ng-if="!$ctrl.authEmailRestoreSent && !$ctrl.authEmailConfirmationSent")
