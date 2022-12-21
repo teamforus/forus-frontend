@@ -3,7 +3,7 @@ module.exports = {
     items: {
         title: "Inloggen",
         header: "Hier logt u in",
-        pane_text: "Account herstellen of met een andere optie inloggen?",
+        pane_text: "Inloggen op een bestaand account",
         digid: "Open het DigiD inlogscherm",
         restore_title: "Account herstellen",
         restore_header: "",
