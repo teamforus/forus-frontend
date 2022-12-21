@@ -123,6 +123,7 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.product_name" value="product_name")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
@@ -133,8 +134,9 @@
                                     ui-sref="transaction(transaction.ui_sref)")
 
                                 td(ng-bind="transaction.created_at_locale")
-                                td(ng-bind="transaction.fund.name")
-                                td(ng-bind="transaction.organization.name || 'Geen'" ng-class="transaction.organization ? '' : 'text-muted'")
+                                td(ng-bind="transaction.fund.name | str_limit:25")
+                                td(ng-bind="(transaction.organization.name | str_limit:25) || 'Geen'" ng-class="transaction.organization ? '' : 'text-muted'")
+                                td(ng-bind="transaction.product_name | str_limit:25")
 
                                 td
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
