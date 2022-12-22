@@ -12,13 +12,6 @@ mixin qr_option(ngIf)
                 u Me app
                 | &nbsp;
 
-mixin email_option(ngIf, dusk, title, description)
-    .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf dusk=dusk)
-        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
-        .sign_up-option-details
-            .sign_up-option-title=title
-            .sign_up-option-description=description
-
 mixin digid_option(ngIf, title, description)
     .sign_up-option(ng-if=ngIf ng-click="$ctrl.startDigId()")
         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
@@ -26,7 +19,14 @@ mixin digid_option(ngIf, title, description)
             .sign_up-option-title=title
             .sign_up-option-description=description
 
-mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Klik hier om het account te herstellen")
+mixin email_option(ngIf, dusk, title, description)
+    .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf dusk=dusk)
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
+        .sign_up-option-details
+            .sign_up-option-title=title
+            .sign_up-option-description=description
+
+mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Account herstellen met DigiD")
     .sign_up-restore(ng-if=ngIf)
         .sign_up-restore-label=label
         a.sign_up-restore-link(
@@ -34,7 +34,7 @@ mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Klik hier om 
             ng-show=ngShow dusk=dusk)=link
         .sign_up-restore-chevron: .mdi.mdi-chevron-right
 
-mixin inline_email_form()
+mixin inline_email_form(showPolicy=true)
     form(ng-submit="$ctrl.authForm.submit()" dusk="authEmailForm").form
         .row
             .form-group.col.col-lg-9
@@ -53,24 +53,26 @@ mixin inline_email_form()
             .form-group.col.col-lg-3
                 .form-label.hide-sm(for="submit") &nbsp;
                 button(
-                    ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
+                    ng-class=(showPolicy ? "{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}" : "")
                     translate="popup_auth.buttons.submit"
                     type="submit"
                     dusk="authEmailFormSubmit"
                     tabindex="3").button.button-primary.button-fill
-
-        .row(ng-if="$root.appConfigs.flags.privacyPage"): .col.col-lg-12
-            br.hidden-lg
-            label(for='privacy' tabindex="2").sign_up-pane-text
-                input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
-                | Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
+        if (showPolicy)
+            .row(ng-if="$root.appConfigs.flags.privacyPage"): .col.col-lg-12
+                br.hidden-lg
+                label(for='privacy' tabindex="2").sign_up-pane-text
+                    input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
+                    | Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
 
 main(id="main-content")
     header.section.section-sign-up-choose: .wrapper
         .block.block-sign_up(ng-if="$ctrl.state == 'start'"): .block-wrapper(
             ng-class="!$ctrl.appConfigs.flags.startPage.combineColumns ? 'block-wrapper-lg' : ''")
 
-            h1.block-title Inloggen
+            h1.block-title(
+                translate="signup.items.{{ $root.client_key }}.title"
+                translate-default="{{ 'signup.items.title' | translate }}")
 
             .sign_up-pane
                 .sign_up-pane-body
@@ -80,7 +82,7 @@ main(id="main-content")
                         .sign_up-col
                             .sign_up-options(ng-class="{disabled: $ctrl.loading}")
                                 //- Email inline form
-                                +inline_email_form()
+                                +inline_email_form(false)
 
                                 //- Sign in by Me App
                                 +qr_option("!$ctrl.appConfigs.flags.startPage.hideSignUpQrCodeOption")
@@ -94,28 +96,29 @@ main(id="main-content")
                         .sign_up-col
                             //- Sign Up title
                             h3.sign_up-pane-text: .sign_up-pane-heading 
-                                | Inloggen op een bestaand account of een aanvraag starten?
+                                | Account aanmaken en een aanvraag starten?
                             
                             //- Sign Up options
                             .sign_up-options(ng-class="{disabled: $ctrl.loading}")
+                                //- Sign up by DigiD
+                                +digid_option(
+                                    "$ctrl.appConfigs.features.digid && !$ctrl.appConfigs.flags.startPage.hideSignUpDigidOption",
+                                    "DigiD",
+                                    "Open DigiD inlogscherm")
+                            
                                 //- Sign up by Email
                                 +email_option(
                                     "!$ctrl.appConfigs.flags.startPage.hideSignUpEmailOption",
                                     "authOptionEmailRegister",
                                     "E-mailadres",
                                     "Ontvang een inloglink per e-mail")
-
-                                //- Sign up by DigiD
-                                +digid_option(
-                                    "$ctrl.appConfigs.features.digid && !$ctrl.appConfigs.flags.startPage.hideSignUpDigidOption",
-                                    "DigiD",
-                                    "Open DigiD inlogscherm")
                                 
                         //- Authorization - hidden when columns are combined
                         .sign_up-col
                             //- Sign In title
-                            h3.sign_up-pane-text: .sign_up-pane-heading 
-                                | Account herstel opties
+                            h3.sign_up-pane-text: .sign_up-pane-heading(
+                                translate="signup.items.{{ $root.client_key }}.pane_text"
+                                translate-default="{{ 'signup.items.pane_text' | translate }}")
                             
                             //- Sign In options
                             .sign_up-options(ng-class="{disabled: $ctrl.loading}")
@@ -160,7 +163,9 @@ main(id="main-content")
 
         //- Sign In/Sign Up by E-mail
         .block.block-sign_up(ng-if="$ctrl.state == 'email'"): .block-wrapper
-            h1.block-title Aanmelden
+            h1.block-title(
+                translate="signup.items.{{ $root.client_key }}.start_email"
+                translate-default="{{ 'signup.items.start_email' | translate }}")
 
             //- Email form
             .sign_up-pane(ng-if="!$ctrl.authEmailRestoreSent && !$ctrl.authEmailConfirmationSent")

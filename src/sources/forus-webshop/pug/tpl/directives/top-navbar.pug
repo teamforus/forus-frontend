@@ -98,8 +98,11 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     button.button.button-default(
                         ng-if="!$root.auth_user && $root.appConfigs.flags.showStartButton"
                         ng-click="$dir.startFundRequest({ restore_with_email: true })"
-                        ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'"
                         role="button")
+
+                        include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start.svg
+
+                        span(ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'")
 
                     button.button.button-primary(
                         ng-if="!$root.auth_user"
