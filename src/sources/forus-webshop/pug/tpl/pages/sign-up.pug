@@ -12,16 +12,16 @@ mixin qr_option(ngIf)
                 u Me app
                 | &nbsp;
 
-mixin email_option(ngIf, dusk, title, description)
-    .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf dusk=dusk)
-        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
+mixin digid_option(ngIf, title, description)
+    .sign_up-option(ng-if=ngIf ng-click="$ctrl.startDigId()")
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title=title
             .sign_up-option-description=description
 
-mixin digid_option(ngIf, title, description)
-    .sign_up-option(ng-if=ngIf ng-click="$ctrl.startDigId()")
-        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
+mixin email_option(ngIf, dusk, title, description)
+    .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf dusk=dusk)
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title=title
             .sign_up-option-description=description
@@ -100,18 +100,18 @@ main(id="main-content")
                             
                             //- Sign Up options
                             .sign_up-options(ng-class="{disabled: $ctrl.loading}")
+                                //- Sign up by DigiD
+                                +digid_option(
+                                    "$ctrl.appConfigs.features.digid && !$ctrl.appConfigs.flags.startPage.hideSignUpDigidOption",
+                                    "DigiD",
+                                    "Open DigiD inlogscherm")
+                            
                                 //- Sign up by Email
                                 +email_option(
                                     "!$ctrl.appConfigs.flags.startPage.hideSignUpEmailOption",
                                     "authOptionEmailRegister",
                                     "E-mailadres",
                                     "Ontvang een inloglink per e-mail")
-
-                                //- Sign up by DigiD
-                                +digid_option(
-                                    "$ctrl.appConfigs.features.digid && !$ctrl.appConfigs.flags.startPage.hideSignUpDigidOption",
-                                    "DigiD",
-                                    "Open DigiD inlogscherm")
                                 
                         //- Authorization - hidden when columns are combined
                         .sign_up-col

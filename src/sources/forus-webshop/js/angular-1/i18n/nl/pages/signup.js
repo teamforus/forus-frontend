@@ -8,6 +8,7 @@ module.exports = {
         restore_title: "Account herstellen",
         restore_header: "",
         start_email: "Start aanvraag",
+        signup_option: "Maak een keuze om verder te gaan",
         ede: {
             title: "Inloggen",
             header: "Hier logt u in",
@@ -20,6 +21,19 @@ module.exports = {
         vergoedingen: {
             title: "Inloggen",
             restore_title: "Account herstellen",
+            signup_option: "Log in met DigiD om verder te gaan",
+        },
+        groningen: {
+            signup_option: "Log in met DigiD om verder te gaan",
+        },
+        potjeswijzer: {
+            signup_option: "Log in met DigiD om verder te gaan",
+        },
+        waalwijk: {
+            signup_option: "Log in met DigiD om verder te gaan",
+        },
+        geertruidenberg: {
+            signup_option: "Log in met DigiD om verder te gaan",
         },
         oostgelre: {
             start_email: "Start activatie",

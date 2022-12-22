@@ -18,7 +18,9 @@ main(id="main-content")
                     i18n-vars="{fund_name: ($ctrl.fund.name | capitalize)}")
 
             .sign_up-pane-body
-                h3.sign_up-pane-text: .sign_up-pane-heading  Maak een keuze om verder te gaan
+                h3.sign_up-pane-text: .sign_up-pane-heading(
+                    translate="signup.items.{{ $root.client_key }}.signup_option"
+                    translate-default="{{ 'signup.items.signup_option' | translate }}")
                 .sign_up-options
                     //- Use activation code
                     .sign_up-option(
