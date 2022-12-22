@@ -249,10 +249,10 @@ main(id="main-content")
                             | {{ transaction.organization.name }}
 
                         .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'iban'") 
-                            | Withdraw to bank account
+                            | Bankoverschrijving
 
                         .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'top_up'") 
-                            | Voucher up-up
+                            | Opgewaardeerd
 
                         .transactions-item-date {{ transaction.created_at_locale }}
 
