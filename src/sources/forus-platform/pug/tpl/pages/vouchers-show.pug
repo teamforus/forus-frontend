@@ -227,7 +227,7 @@
                                 td
                                     strong.text-strong.text-md.text-muted-dark Uitgegeven bedrag
                                     br
-                                    strong(ng-bind="($ctrl.voucher.amount - $ctrl.voucher.amount_available) | currency_format").text-black
+                                    strong(ng-bind="($ctrl.voucher.amount_total - $ctrl.voucher.amount_available) | currency_format").text-black
 
         //- Voucher history
         event-logs(
