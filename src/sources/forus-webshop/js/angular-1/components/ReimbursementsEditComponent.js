@@ -72,7 +72,7 @@ const ReimbursementEditComponent = function (
             !$ctrl.form?.values?.title,
             !$ctrl.form?.values?.iban,
             !$ctrl.form?.values?.iban_name,
-            !$ctrl.files?.length,
+            !$ctrl.files.filter((file) => file?.file_data?.uid)?.length,
         ].filter((invalid) => invalid).length > 0
     }
 
