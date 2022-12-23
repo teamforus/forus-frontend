@@ -127,16 +127,19 @@
                     .table-wrapper
                         table.table.table-fixed
                             tr
+                                //- always
                                 td
                                     strong(translate="vouchers.labels.email").text-strong.text-md.text-muted-dark
                                     br
                                     strong.text-black(ng-bind="$ctrl.voucher.identity_email || 'Niet toegewezen'")
 
+                                //- optional
                                 td(ng-if="$ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn")
                                     strong(translate="vouchers.labels.bsn").text-strong.text-md.text-muted-dark
                                     br
                                     strong(ng-bind="($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)").text-black
 
+                                //- optional
                                 td(ng-if="$ctrl.voucher.physical_card")
                                     strong(translate="vouchers.labels.physical_card").text-strong.text-md.text-muted-dark
                                     br
@@ -161,10 +164,10 @@
                                         em.mdi.mdi-plus-circle.icon-start
                                         | Nieuwe toevoegen
 
-                                td(ng-if="$ctrl.voucher.fund.type != 'subsidies'")
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
-                                td(ng-if="!$ctrl.voucher.physical_card")
-                                td
+                                td(ng-if="!$ctrl.voucher.activation_code")
+                                td(ng-if="!$ctrl.voucher.activation_code_uid")
+                                td(ng-if="!$ctrl.voucher.physical_card || ($ctrl.voucher.fund.type != 'subsidies')")
 
                             tr
                                 td(ng-if="!$ctrl.fundClosed")
@@ -227,7 +230,7 @@
                                 td
                                     strong.text-strong.text-md.text-muted-dark Uitgegeven bedrag
                                     br
-                                    strong(ng-bind="($ctrl.voucher.amount - $ctrl.voucher.amount_available) | currency_format").text-black
+                                    strong(ng-bind="($ctrl.voucher.amount_total - $ctrl.voucher.amount_available) | currency_format").text-black
 
         //- Voucher history
         event-logs(
