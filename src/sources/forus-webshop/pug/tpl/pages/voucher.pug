@@ -181,7 +181,7 @@ main(id="main-content")
 
 
         //- Voucher make reimbursement request
-        .block.block-action-card(ng-if="$ctrl.voucher.fund.allow_reimbursements")
+        .block.block-action-card(ng-if="$ctrl.voucher.fund.allow_reimbursements && !$ctrl.voucher.expired && !$ctrl.voucher.deactivated")
             .block-card-logo.block-card-logo-background
                 include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
             
