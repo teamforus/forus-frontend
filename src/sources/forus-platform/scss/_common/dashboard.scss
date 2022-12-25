@@ -170,6 +170,7 @@ body {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        @extend .wrapper;
 
         .header-logo {
             float: left;
