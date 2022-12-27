@@ -66,13 +66,20 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     ui-sref-active="active"
                     ng-bind="'topnavbar.items.providers' | translate")
 
-            li.navbar-item-wrapper.navbar-item-wrapper_first-to-last
+            li.navbar-item-wrapper
                 a.navbar-item(
                     ui-sref="explanation"
                     ui-sref-active="active"
                     target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
                     translate="topnavbar.items.{{ $root.appConfigs.client_key }}.explanation"
                     translate-default="{{ 'topnavbar.items.explanation' | translate }}")
+
+            li.navbar-item-wrapper.navbar-item-wrapper_first-to-last(ng-if="$root.client_key == 'ede'")
+                a.navbar-item(
+                    id="providers_page"
+                    ui-sref="sign-up"
+                    ui-sref-active="active"
+                    ng-bind="'topnavbar.items.signup' | translate")
 
             li.navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user")
                 span.navbar-user(
