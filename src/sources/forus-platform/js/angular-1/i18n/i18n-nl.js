@@ -461,6 +461,8 @@ module.exports = {
             providers: "Aanbieders instellingen",
             provider: "Aanbieder instellingen",
             office: "Vestiging instellingen",
+            voucher: "Tegoeden instellingen",
+            product: "Aanbod instellingen",
         },
         blocks: {
             show_home_map: "Tonen van de map (Homepagina)",
@@ -468,6 +470,8 @@ module.exports = {
             show_providers_map: "Tonen van de map (Aanbieders pagina)",
             show_provider_map: "Tonen van de map (Aanbieder pagina)",
             show_office_map: "Tonen van de map (Aanbieder vestiging pagina)",
+            show_voucher_map: "Tonen van de map (Tegoeden pagina)",
+            show_product_map: "Tonen van de map (Aanbod pagina)",
         },
     },
 
