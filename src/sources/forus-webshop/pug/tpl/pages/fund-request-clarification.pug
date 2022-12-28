@@ -27,6 +27,7 @@ main(id="main-content")
                             file-uploader(
                                 type="fund_request_clarification_proof"
                                 files="$ctrl.files"
+                                crop-media="false"
                                 on-file-removed="$ctrl.onFileInfo(files)"
                                 on-file-resolved="$ctrl.onFileInfo(files)"
                                 on-file-batch-queued="$ctrl.onFileInfo(files)")

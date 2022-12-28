@@ -1,0 +1,122 @@
+a(
+    dusk="reimbursementsItem{{ $dir.reimbursement.id }}"
+    ui-sref="reimbursement($dir.reimbursement)").reimbursement-item
+    .reimbursement-image(
+        ng-if="!$dir.reimbursement.files[0].preview"
+        ng-class="'reimbursement-image-' + $dir.reimbursement.state")
+        include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
+
+    .reimbursement-image(
+        ng-if="$dir.reimbursement.files[0].preview"
+        ng-class="'reimbursement-image-' + $dir.reimbursement.state")
+        img(ng-src="{{ $dir.reimbursement.files[0].preview.sizes.thumbnail }}")
+    
+    .reimbursement-container
+        .reimbursement-section
+            .reimbursement-details
+                .reimbursement-name(
+                    dusk="reimbursementsItemTitle"
+                    ui-sref="reimbursement($dir.reimbursement)" ng-bind="$dir.reimbursement.title") 
+
+                .reimbursement-organization(
+                    dusk="reimbursementsItemFundName"
+                    ui-sref="reimbursement($dir.reimbursement)" ng-bind="$dir.reimbursement.fund.name")
+
+                .reimbursement-value(
+                    dusk="reimbursementsItemAmount"
+                    ng-bind="$dir.reimbursement.amount_locale")
+
+            //- reimbursement draft
+            .reimbursement-overview(
+                dusk="reimbursementsItemLabelDraft"
+                ng-if="!$dir.reimbursement.expired && $dir.reimbursement.state === 'draft'")
+                .reimbursement-overview-status: .label.label-default.label-round(ng-bind="$dir.reimbursement.state_locale")
+
+                .reimbursement-overview-item
+                    .reimbursement-overview-label Declaratienummer:
+                    .reimbursement-overview-value(
+                        dusk="reimbursementsItemCode"
+                        ng-bind="'#' + $dir.reimbursement.code")
+
+            //- reimbursement pending
+            .reimbursement-overview(
+                dusk="reimbursementsItemLabelPending"
+                ng-if="!$dir.reimbursement.expired && $dir.reimbursement.state === 'pending'")
+                .reimbursement-overview-status: .label.label-warning.label-round In afwachting
+
+                .reimbursement-overview-item
+                    .reimbursement-overview-label Declaratienummer:
+                    .reimbursement-overview-value(
+                        dusk="reimbursementsItemCode"
+                        ng-bind="'#' + $dir.reimbursement.code")
+
+            //- reimbursement approved
+            .reimbursement-overview(
+                dusk="reimbursementsItemLabelApproved"
+                ng-if="!$dir.reimbursement.expired && $dir.reimbursement.state === 'approved'")
+                .reimbursement-overview-status: .label.label-success.label-round Geaccepteerd
+
+                .reimbursement-overview-item
+                    .reimbursement-overview-label Declaratienummer:
+                    .reimbursement-overview-value(
+                        dusk="reimbursementsItemCode"
+                        ng-bind="'#' + $dir.reimbursement.code")
+
+            //- reimbursement declined
+            .reimbursement-overview(
+                dusk="reimbursementsItemLabelDeclined"
+                ng-if="!$dir.reimbursement.expired && $dir.reimbursement.state === 'declined'")
+                .reimbursement-overview-status: .label.label-default.label-round Geweigerd
+
+                .reimbursement-overview-item
+                    .reimbursement-overview-label Declaratienummer:
+                    .reimbursement-overview-value(
+                        dusk="reimbursementsItemCode"
+                        ng-bind="'#' + $dir.reimbursement.code")
+
+                .reimbursement-overview-item
+                    .reimbursement-overview-label Geweigerd op:
+                    .reimbursement-overview-value(ng-bind="$dir.reimbursement.rejected_at_locale")
+
+            //- reimbursement expired
+            .reimbursement-overview(
+                dusk="reimbursementsItemLabelExpired"
+                ng-if="$dir.reimbursement.expired")
+                .reimbursement-overview-status: .label.label-danger.label-round Verlopen
+
+                .reimbursement-overview-item
+                    .reimbursement-overview-label Declaratienummer:
+                    .reimbursement-overview-value(
+                        dusk="reimbursementsItemCode"
+                        ng-bind="'#' + $dir.reimbursement.code")
+
+                .reimbursement-overview-item
+                    .reimbursement-overview-label Verlopen op:
+                    .reimbursement-overview-value(
+                        dusk="reimbursementsItemDateExpired"
+                        ng-bind="$dir.reimbursement.expire_at_locale")
+        
+        //- reimbursement dates and actions
+        .reimbursement-values
+            .reimbursement-value(ng-if="$dir.reimbursement.submitted_at")
+                | Ingediend op:     
+                strong(
+                    dusk="reimbursementsItemDateSubmitted"
+                    ng-bind="$dir.reimbursement.submitted_at_locale")
+
+            .reimbursement-value(
+                dusk="reimbursementsItemDateResolved"
+                ng-if="$dir.reimbursement.state === 'approved' && $dir.reimbursement.resolved_at")
+                | Uitbetaald op: 
+                strong(ng-bind="$dir.reimbursement.resolved_at_locale")
+
+            .reimbursement-value(
+                dusk="reimbursementsItemDateDeclined"
+                ng-if="$dir.reimbursement.state === 'declined' && $dir.reimbursement.resolved_at")
+                | Afgewezen op:
+                strong(ng-bind="$dir.reimbursement.resolved_at_locale")
+
+            .reimbursement-value(ng-if="!$dir.reimbursement.expired && $dir.reimbursement.state === 'draft'")
+                .reimbursement-value-link(
+                    dusk="reimbursementsItemBtnCancel"
+                    ng-click="$dir.cancelReimbursement($event, $dir.reimbursement)") Annuleren

@@ -13,7 +13,7 @@ main(id="main-content")
                 .profile-content
                     .showcase-content
                         .showcase-content-header
-                            h1.showcase-filters-title
+                            h1.showcase-filters-title.showcase-filters-title-lg
                                 | Mijn verlanglijstje
                                 .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
 
@@ -52,6 +52,7 @@ main(id="main-content")
                             ng-if="$ctrl.products.meta.total == 0"
                             title="Er staat nog niks in het verlanglijstje."
                             description="Er staat nog niks in het verlanglijstje."
+                            svg-icon="reimbursements"
                             hide-link='true')
 
                         .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(

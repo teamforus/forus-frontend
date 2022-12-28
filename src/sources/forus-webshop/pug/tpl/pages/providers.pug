@@ -38,7 +38,7 @@ block content
                                 .form-error(ng-repeat="error in $ctrl.form.errors.business_type_id" ng-bind="error")
 
                             .form-group
-                                label.form-label(for="product_category_id") Aanbod categorie
+                                label.form-label(for="product_category_id") Categorie
                                 select-control(
                                     prop="id"
                                     ng-model="$ctrl.product_category_id"
@@ -49,7 +49,7 @@ block content
                                 .form-error(ng-repeat="error in $ctrl.form.errors.product_category_id" ng-bind="error")
 
                             .form-group(ng-if="$ctrl.productSubCategories.length > 1")
-                                label.form-label(for="select_sub_type") Aanbod subcategorie
+                                label.form-label(for="select_sub_type") Subcategorie
                                 select-control(
                                     id="select_sub_type"
                                     prop="id"
@@ -145,6 +145,7 @@ block content
 
                         empty-block(
                             title= "{{ 'block_providers.empty.title' | translate }}"
+                            svg-icon="reimbursements"
                             description="{{ 'block_providers.empty.subtitle' | translate }}"
                             hide-link="true"
                             ng-if="$ctrl.providers.data.length == 0")

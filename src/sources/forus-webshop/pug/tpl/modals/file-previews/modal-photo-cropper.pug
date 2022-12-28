@@ -1,0 +1,79 @@
+.modal.modal-photo-cropper.modal-animated(
+    dusk="modalPhotoCropper"
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']")
+
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-content
+        .modal-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button"): .mdi.mdi-close
+        .modal-section
+            .cropper-title Verplaats en wijzig grootte
+            .cropper-description 
+                | Links ziet u de originele afbeelding en rechts de voorbeelden. 
+                | Gebruik het vakje in de linker afbeelding om de foto te positioneren.
+
+            .cropper-media
+                .cropper-preview: .cropper-preview-container(
+                    ng-show="index === $ctrl.fileIndex"
+                    ng-repeat="(index, file) in $ctrl.files")
+
+                    ui-cropper(
+                        ng-if="file.is_image && file.originalPhoto"
+                        cropject="$ctrl.cropjectObj" 
+                        image="file.originalPhoto" 
+                        result-image="file.cropped_photo"
+                        area-type="rectangle"
+                        init-max-area="true"
+                        result-image-size="file.size"
+                        result-image-format="{{ file.file.type }}"
+                        on-load-done="$ctrl.onImageLoadDone(file)"
+                        on-load-begin="$ctrl.onImageLoadBegin(file)")
+                    
+                    pdf-preview(
+                        ng-if="file.is_pdf && file.file"
+                        raw-pdf-file="file.file")
+
+                    .cropper-preview-placeholder(ng-if="!file.is_image && !file.is_pdf")
+                        .cropper-preview-placeholder-media: .mdi.mdi-file-outline
+
+                .cropper-pagination
+                    .cropper-pagination-btn(ng-click="$ctrl.prevMedia()"): .mdi.mdi-chevron-left
+                    .cropper-pagination-nav: .cropper-pagination-item(
+                        ng-repeat="(index, file) in $ctrl.files"
+                        ng-class="index === $ctrl.fileIndex ? 'active' : ''"
+                        ng-click="$ctrl.fileIndex = index")
+                    .cropper-pagination-btn(ng-click="$ctrl.nextMedia()"): .mdi.mdi-chevron-right
+                
+                .cropper-actions
+                    .cropper-rotate
+                        .cropper-rotate-btn(
+                            ng-if="$ctrl.files[$ctrl.fileIndex].is_image"
+                            ng-click="$ctrl.rotate($ctrl.fileIndex, -90)"): .mdi.mdi-file-rotate-left-outline
+
+                        .cropper-rotate-btn(
+                            ng-if="$ctrl.files[$ctrl.fileIndex].is_image"
+                            ng-click="$ctrl.rotate($ctrl.fileIndex, 90)"): .mdi.mdi-file-rotate-right-outline
+
+                    .cropper-action-change(ng-click="$ctrl.replaceFileAtIndex($ctrl.fileIndex)")
+                        .mdi.mdi-pencil
+                        | Kies andere afbeelding
+
+        //- Footer
+        .modal-footer
+            //- Actions
+            .button-group
+                //- Cancel
+                button(
+                    dusk="modalPhotoCropperCancel"
+                    ng-click="$ctrl.close()").button.button-muted.button-wide.button-sm Annuleren
+
+                //- Submit
+                button(
+                    dusk="modalPhotoCropperSubmit"
+                    ng-click="$ctrl.submit()" 
+                    ng-disabled="!$ctrl.loaded").button.button-primary.button-wide.button-sm 
+
+                    //- Loading icon
+                    .mdi.mdi-loading.mdi-spin.icon-start(ng-if="!$ctrl.loaded")
+                    span(ng-if="!$ctrl.loaded") Loading
+                    span(ng-if="$ctrl.loaded") Indienen

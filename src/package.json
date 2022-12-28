@@ -47,7 +47,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "@mdi/font": "^6.5.95",
+    "@mdi/font": "^6.9.96",
     "@uirouter/angularjs": "^1.0.29",
     "angular": "^1.8.2",
     "angular-aria": "^1.8.2",
