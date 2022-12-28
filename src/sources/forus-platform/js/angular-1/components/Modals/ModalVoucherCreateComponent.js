@@ -6,16 +6,18 @@ const ModalVoucherCreateComponent = function(
     const $ctrl = this;
 
     $ctrl.lastReplaceConfirmed = null;
-    $ctrl.voucherType = 'activation_code_uid';
+    $ctrl.voucherType = 'activation_code';
     $ctrl.activationCodeSubmitted = false;
     $ctrl.assignTypes = [{
-        key: 'activation_code_uid',
+        key: 'activation_code',
         label: 'Activatiecode',
         inputLabel: 'Uniek nummer',
+        hasInput: false,
     }, {
         key: 'email',
         label: 'E-mailadres',
         inputLabel: 'E-mailadres',
+        hasInput: true,
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
@@ -28,10 +30,6 @@ const ModalVoucherCreateComponent = function(
 
         if (assignType.key !== 'email') {
             delete $ctrl.form.values.email;
-        }
-
-        if (assignType.key !== 'activation_code_uid') {
-            delete $ctrl.form.values.activation_code_uid;
         }
     };
 
@@ -79,6 +77,7 @@ const ModalVoucherCreateComponent = function(
                 key: 'bsn',
                 label: 'BSN',
                 inputLabel: 'BSN',
+                hasInput: true,
             });
         }
 
@@ -93,7 +92,7 @@ const ModalVoucherCreateComponent = function(
                 ...({
                     email: { activate: 1, activation_code: 0 },
                     bsn: { activate: 1, activation_code: 0 },
-                    activation_code_uid: { activate: 0, activation_code: 1 },
+                    activation_code: { activate: 0, activation_code: 1 },
                 }[$ctrl.assignType.key])
             }).then(() => {
                 if ($ctrl.assignType.key === 'email' && (form.values.email !== $ctrl.lastReplaceConfirmed)) {
@@ -157,7 +156,7 @@ const ModalVoucherCreateComponent = function(
             ...({
                 email: { activate: 1, activation_code: 0 },
                 bsn: { activate: 1, activation_code: 0 },
-                activation_code_uid: { activate: 0, activation_code: 1 },
+                activation_code: { activate: 0, activation_code: 1 },
             }[$ctrl.assignType.key])
         }).then(() => {
             $ctrl.onCreated();

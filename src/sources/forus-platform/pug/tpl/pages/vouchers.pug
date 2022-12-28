@@ -163,9 +163,9 @@
                                     span(ng-if="voucher.identity_bsn || voucher.relation_bsn").text-strong.text-md.text-muted-dark
                                         br
                                         | {{ 'BSN: ' + (voucher.identity_bsn || voucher.relation_bsn) }}
-                                    span(ng-if="(!voucher.identity_email && voucher.activation_code) || ((!voucher.identity_bsn && !voucher.relation_bsn) && voucher.physical_card.code)").text-strong.text-md.text-muted-dark
+                                    span(ng-if="voucher.client_uid || (!voucher.identity_email && voucher.activation_code) || ((!voucher.identity_bsn && !voucher.relation_bsn) && voucher.physical_card.code)").text-strong.text-md.text-muted-dark
                                         br
-                                        | {{ 'NR: ' + (voucher.activation_code_uid || voucher.physical_card.code || 'Nee') }}
+                                        | {{ 'NR: ' + (voucher.client_uid || voucher.physical_card.code || 'Nee') }}
                                 td: strong(ng-bind="'vouchers.labels.source_' + voucher.source | translate").text-md.text-muted-dark
 
                                 td(
@@ -219,11 +219,11 @@
                                                         span.text-primary.text-sm.text-strong CODE:
                                                         br
                                                         span(ng-bind="voucher.activation_code").text-strong
-                                                    span(ng-if="voucher.activation_code")
+                                                    span(ng-if="voucher.client_uid || voucher.activation_code")
                                                         br
                                                         span.text-primary.text-sm.text-strong UNIEK NUMMER:
                                                         br
-                                                        span(ng-bind="voucher.activation_code_uid || 'Nee'").text-strong
+                                                        span(ng-bind="voucher.client_uid || 'Nee'").text-strong
                                                     span(ng-if="voucher.physical_card.code")
                                                         br
                                                         span.text-primary.text-sm.text-strong PASNUMMER:
