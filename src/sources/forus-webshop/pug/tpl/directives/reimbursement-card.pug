@@ -30,7 +30,7 @@ a(
             .reimbursement-overview(
                 dusk="reimbursementsItemLabelDraft"
                 ng-if="!$dir.reimbursement.expired && $dir.reimbursement.state === 'draft'")
-                .reimbursement-overview-status: .label.label-default(ng-bind="$dir.reimbursement.state_locale")
+                .reimbursement-overview-status: .label.label-default.label-round(ng-bind="$dir.reimbursement.state_locale")
 
                 .reimbursement-overview-item
                     .reimbursement-overview-label Declaratienummer:
