@@ -18,7 +18,9 @@ main(id="main-content")
                     i18n-vars="{fund_name: ($ctrl.fund.name | capitalize)}")
 
             .sign_up-pane-body
-                h3.sign_up-pane-text: .sign_up-pane-heading  Maak een keuze om verder te gaan
+                h3.sign_up-pane-text: .sign_up-pane-heading(
+                    translate="signup.items.{{ $root.client_key }}.signup_option"
+                    translate-default="{{ 'signup.items.signup_option' | translate }}")
                 .sign_up-options
                     //- Use activation code
                     .sign_up-option(
@@ -37,13 +39,13 @@ main(id="main-content")
 
                         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                         .sign_up-option-details
-                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption") Log in met DigiD
+                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption") DigiD
                             .sign_up-option-description(ng-if="$ctrl.showFundRequestOption")
-                                | Gebruik DigiD om een tegoed te activeren of een aanvraagformulier te doorlopen.
+                                | Open het DigiD inlogscherm
 
-                            .sign_up-option-title(ng-if="!$ctrl.showFundRequestOption") Log in met DigiD
+                            .sign_up-option-title(ng-if="!$ctrl.showFundRequestOption") DigiD
                             .sign_up-option-description(ng-if="!$ctrl.showFundRequestOption")
-                                | Gebruik DigiD om beschikbare tegoeden in te zien
+                                | Open het DigiD inlogscherm
 
                     //- Make fund request
                     .sign_up-option(

@@ -38,10 +38,6 @@ const SignUpStartComponent = function (
             email: '',
             target: target,
         }, async (form) => {
-            if (!$ctrl.authForm.autofill && appConfigs.flags.privacyPage && !form.values.privacy) {
-                return form.unlock();
-            }
-
             const handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
