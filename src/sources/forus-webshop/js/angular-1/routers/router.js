@@ -16,7 +16,7 @@ const promiseResolve = (res) => {
     return new Promise(resolve => resolve(res));
 };
 
-const routeParam = (value = null, dynamic = null, squash = true) => {
+const routeParam = (value = null, dynamic = true, squash = true) => {
     return {
         ...{ value },
         ...(squash !== null ? { squash } : {}),
@@ -165,6 +165,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             show_menu: routeParam(false),
             distance: routeParam(null),
             postcode: routeParam(''),
+            order_by: routeParam('created_at'),
+            order_by_dir: routeParam('desc'),
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
@@ -295,17 +297,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
         component: "providersComponent",
         params: {
-            q: { dynamic: true, value: "", squash: true },
-            page: { dynamic: true, value: 1, squash: true },
-            fund_id: { value: null, squash: true },
-            show_map: { value: false, squash: true },
-            distance: { dynamic: true, value: null, squash: true },
-            postcode: { dynamic: true, value: '', squash: true },
-            show_menu: { dynamic: true, value: false, squash: true },
-            business_type_id: { value: null, squash: true },
-            product_category_id: { value: null, squash: true },
-            order_by: { dynamic: true, value: 'name', squash: true },
-            order_by_dir: { dynamic: true, value: 'asc', squash: true },
+            q: routeParam(''),
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            show_map: routeParam(false),
+            distance: routeParam(null),
+            postcode: routeParam(''),
+            show_menu: routeParam(false),
+            business_type_id: routeParam(null),
+            product_category_id: routeParam(null),
+            order_by: routeParam('name'),
+            order_by_dir: routeParam('asc'),
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
@@ -359,48 +361,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         name: "search-result",
         url: "/search?{q:string}&{page:int}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&search_item_types&order_by&order_by_dir",
         params: {
-            q: {
-                dynamic: true,
-                value: "",
-                squash: true,
-            },
-            page: {
-                dynamic: true,
-                value: 1,
-                squash: true,
-            },
-            fund_id: {
-                dynamic: true,
-                value: null,
-                squash: true
-            },
-            organization_id: {
-                dynamic: true,
-                value: null,
-                squash: true
-            },
-            product_category_id: {
-                dynamic: true,
-                value: null,
-                squash: true
-            },
-            display_type: {
-                dynamic: true,
-                value: 'list',
-                squash: true
-            },
-            search_item_types: {
-                dynamic: true,
-                value: 'funds,providers,products',
-                squash: true
-            },
-            fund_type: {
-                dynamic: true,
-                value: 'budget',
-                squash: true
-            },
-            order_by: { dynamic: true, value: 'created_at' },
-            order_by_dir: { dynamic: true, value: 'desc' },
+            q: routeParam(""),
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            organization_id: routeParam(null),
+            product_category_id: routeParam(null),
+            display_type: routeParam('list'),
+            search_item_types: routeParam('funds,providers,products'),
+            fund_type: routeParam('budget'),
+            order_by: routeParam('created_at'),
+            order_by_dir: routeParam('desc'),
         },
         component: "searchResultComponent",
         resolve: {
@@ -434,15 +404,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             ) : promiseResolve([])],
             organizations: ['OrganizationService', 'HelperService', (
                 OrganizationService, HelperService
-            ) => HelperService.recursiveLeacher((page) => {
-                return OrganizationService.list({
-                    is_employee: 0,
-                    has_products: 1,
-                    per_page: 100,
-                    page: page,
-                    fund_type: 'budget'
-                });
-            }, 4)],
+            ) => HelperService.recursiveLeacher((page) => OrganizationService.list({
+                is_employee: 0,
+                has_products: 1,
+                per_page: 100,
+                page: page,
+                fund_type: 'budget'
+            }), 4)],
         }
     });
 

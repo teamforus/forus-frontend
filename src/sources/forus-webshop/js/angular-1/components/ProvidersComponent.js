@@ -95,7 +95,7 @@ const ProvidersComponent = function (
             $ctrl.providers = res.data;
         });
 
-        $ctrl.updateState(query, location);
+        $ctrl.updateState(query);
         $ctrl.updateFiltersUsedCount();
     };
 
@@ -107,7 +107,7 @@ const ProvidersComponent = function (
             }, []);
         });
 
-        $ctrl.updateState(query, location);
+        $ctrl.updateState(query);
         $ctrl.updateFiltersUsedCount();
     };
 
