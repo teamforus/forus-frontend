@@ -32,6 +32,16 @@ let OrganizationEmployeesService = function(ApiRequest) {
             );
         }
 
+        this.export = function (organization_id, query = {}) {
+            return ApiRequest.get(
+                uriPrefix + organization_id + '/employees/export', query, {}, true, (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
+
+                return _cfg;
+            });
+        };
+
         this.apiResourceToForm = function(apiResource) {
             return {
                 'roles': Array.isArray(apiResource.roles) ? apiResource.roles.map(role => role.id) : []

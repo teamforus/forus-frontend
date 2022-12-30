@@ -3,7 +3,9 @@ const OrganizationEmployeesComponent = function (
     $filter,
     ModalService,
     PushNotificationsService,
-    OrganizationEmployeesService
+    OrganizationEmployeesService,
+    FileService,
+    appConfigs
 ) {
     const $ctrl = this;
     const str_limit = $filter('str_limit');
@@ -97,6 +99,30 @@ const OrganizationEmployeesComponent = function (
         }));
     };
 
+    $ctrl.export = () => {
+        ModalService.open('exportType', {
+            success: (data) => {
+                OrganizationEmployeesService.export($ctrl.organization.id, {
+                    ...$ctrl.filters.values,
+                    export_type: data.exportType,
+                }).then((res => {
+                    const dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+                    const fileData = res.data;
+                    const fileType = res.headers('Content-Type') + ';charset=utf-8;';
+                    const fileName = [
+                        appConfigs.panel_type,
+                        $ctrl.organization.name,
+                        'employees',
+                        dateTime + '.' + data.exportType
+                    ].join('_');
+
+                    FileService.downloadFile(fileName, fileData, fileType);
+                }), console.error);
+            }
+        });
+    };
+
     $ctrl.$onInit = function () {
         $ctrl.employees = $ctrl.transformEmployees($ctrl.employees);
         $ctrl.fetchAdminEmployees().then((adminEmployees) => $ctrl.adminEmployees = adminEmployees)
@@ -115,6 +141,8 @@ module.exports = {
         'ModalService',
         'PushNotificationsService',
         'OrganizationEmployeesService',
+        'FileService',
+        'appConfigs',
         OrganizationEmployeesComponent
     ],
     templateUrl: 'assets/tpl/pages/organization-employees.html'
