@@ -66,13 +66,23 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     ui-sref-active="active"
                     ng-bind="'topnavbar.items.providers' | translate")
 
-            li.navbar-item-wrapper.navbar-item-wrapper_first-to-last
+            li.navbar-item-wrapper(
+                ng-class="{'navbar-item-wrapper_first-to-last' : !$root.appConfigs.flags.providersSignUpMenu}")
                 a.navbar-item(
                     ui-sref="explanation"
                     ui-sref-active="active"
                     target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
                     translate="topnavbar.items.{{ $root.appConfigs.client_key }}.explanation"
                     translate-default="{{ 'topnavbar.items.explanation' | translate }}")
+
+            li.navbar-item-wrapper(
+                ng-class="{'navbar-item-wrapper_first-to-last' : $root.appConfigs.flags.providersSignUpMenu}"
+                ng-if="$root.appConfigs.flags.providersSignUpMenu")
+                a.navbar-item(
+                    id="providers_page"
+                    ui-sref="sign-up"
+                    ui-sref-active="active"
+                    ng-bind="'topnavbar.items.signup' | translate")
 
             li.navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user")
                 span.navbar-user(
@@ -89,7 +99,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             a(ui-sref="home").navbar-logo.hide-sm
                 img(
                     ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" 
-                    alt="{{$root.appConfigs.features.implementation_name}}")
+                    alt="{{$root.appConfigs.features.implementation_name}} home")
 
             top-navbar-search(ng-if="$root.appConfigs.flags.genericSearch")
 
@@ -98,8 +108,11 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     button.button.button-default(
                         ng-if="!$root.auth_user && $root.appConfigs.flags.showStartButton"
                         ng-click="$dir.startFundRequest({ restore_with_email: true })"
-                        ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'"
                         role="button")
+
+                        include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start.svg
+
+                        span(ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'")
 
                     button.button.button-primary(
                         ng-if="!$root.auth_user"
