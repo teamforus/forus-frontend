@@ -126,7 +126,13 @@ const VouchersShowComponent = function (
             !$ctrl.voucher.expired;
     }
 
-    $ctrl.incrementLimitMultiplier = () => {
+    $ctrl.updateLimitMultiplier = (new_limit_multiplier) => {
+        if (new_limit_multiplier >= 1) {
+            $ctrl.voucher.limit_multiplier = new_limit_multiplier;
+        }
+    }
+
+    $ctrl.submitLimitMultiplier = () => {
         ModalService.open("dangerZone", {
             title: $translateDangerZone('title'),
             description: $translateDangerZone('description'),
@@ -134,9 +140,8 @@ const VouchersShowComponent = function (
             confirmButton: $translateDangerZone('buttons.confirm'),
             onConfirm: () => {
                 VoucherService.update($ctrl.organization.id, $ctrl.voucher.id, {
-                    limit_multiplier: $ctrl.voucher.limit_multiplier + 1
+                    limit_multiplier: $ctrl.voucher.limit_multiplier
                 }).then(() => {
-                    $ctrl.voucher.limit_multiplier++;
                     PushNotificationsService.success('Opgeslagen!');
                 }, (err) => {
                     PushNotificationsService.danger('Error!');
