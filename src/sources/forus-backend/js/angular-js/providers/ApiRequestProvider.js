@@ -96,17 +96,20 @@ module.exports = function() {
                     }
 
                     params.headers = Object.assign(makeHeaders(), headers);
-                    params.url = resolveUrl(host + endpoint);
                     params.method = method;
+                    params.url = resolveUrl(host + endpoint);
 
                     return $q((done, reject) => {
-                        $http(cfg(params)).then((res) => done(res), function(response) {
-                            if (response.status == 401) {
-                                $rootScope.signOut(false);
-                            }
+                        $http(typeof cfg === 'function' ? cfg(params) : { ...params, ...cfg }).then(
+                            (res) => done(res),
+                            (res) => {
+                                if (res.status == 401) {
+                                    $rootScope.signOut(false);
+                                }
 
-                            reject(response);
-                        });
+                                reject(res);
+                            }
+                        );
                     });
                 };
 
