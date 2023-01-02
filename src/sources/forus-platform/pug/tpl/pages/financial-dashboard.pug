@@ -225,9 +225,9 @@
                                         th(i18n="fund_card_provider_finances.labels.status").text-right
 
                                     tr(ng-repeat="transaction in provider.transactions.data" ng-click="$ctrl.showTransaction(transaction)")
-                                        td(ng-bind="transaction.organization.name")
+                                        td(ng-bind="transaction.organization.name | str_limit:50" title="{{ transaction.organization.name }}")
                                         td: a(ng-bind="transaction.amount | currency_format").text-primary-light
-                                        td(ng-bind="transaction.product_name")
+                                        td(ng-bind="(transaction.product.name || '-') | str_limit:50" title="{{ transaction.product.name }}")
                                         td(ng-bind="transaction.created_at_locale")
                                         td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]").text-right
                                     

@@ -185,7 +185,7 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.price" value="amount")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
-                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name" ng-if="$ctrl.isSponsor")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.product_name" value="product_name")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk" value="voucher_transaction_bulk_id" ng-if="$ctrl.isSponsor")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
@@ -198,9 +198,20 @@
                                     ui-sref="transaction(transaction.ui_sref)")
 
                                 td(ng-bind="transaction.created_at_locale")
-                                td(ng-bind="transaction.fund.name | str_limit:25")
-                                td(ng-bind="(transaction.organization.name | str_limit:25) || 'Geen'" ng-class="transaction.organization ? '' : 'text-muted'")
-                                td(ng-bind="transaction.product_name | str_limit:25")
+
+                                td(
+                                    ng-bind="transaction.fund.name | str_limit:25"
+                                    title="{{ transaction.fund.name || '' }}")
+
+                                td(
+                                    ng-bind="(transaction.organization.name || 'Geen')| str_limit:25"
+                                    ng-class="transaction.organization ? '' : 'text-muted'"
+                                    title="{{ transaction.organization.name || '' }}"
+                                    ng-if="$ctrl.isSponsor")
+
+                                td(
+                                    ng-bind="(transaction.product.name || '-') | str_limit:25" 
+                                    title="{{ transaction.product.name || '' }}")
 
                                 td(ng-if="$ctrl.isSponsor && transaction.voucher_transaction_bulk_id"): a(
                                     ui-sref="transaction-bulk(transaction.ui_sref_bulk)" 

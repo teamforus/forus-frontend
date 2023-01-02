@@ -136,7 +136,7 @@
                                 td(ng-bind="transaction.created_at_locale")
                                 td(ng-bind="transaction.fund.name | str_limit:25")
                                 td(ng-bind="(transaction.organization.name | str_limit:25) || 'Geen'" ng-class="transaction.organization ? '' : 'text-muted'")
-                                td(ng-bind="transaction.product_name | str_limit:25")
+                                td(ng-bind="(transaction.product.name || '-') | str_limit:25")
 
                                 td
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
