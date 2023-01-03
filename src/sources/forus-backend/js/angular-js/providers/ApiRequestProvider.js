@@ -82,7 +82,7 @@ module.exports = function() {
                         auth_redirect = true;
                     }
 
-                    if (method == 'GET') {
+                    if (method.toLowerCase() === 'get') {
                         params.params = data || {};
 
                         for (var prop in params.params) {

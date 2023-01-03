@@ -82,7 +82,7 @@ module.exports = function () {
                         auth_redirect = true;
                     }
 
-                    if (method == 'GET') {
+                    if (method.toLowerCase() === 'get') {
                         params.params = data || {};
 
                         for (var prop in params.params) {
@@ -104,7 +104,9 @@ module.exports = function () {
                             (res) => done(res),
                             (res) => {
                                 if (res.status == 401) {
-                                    $rootScope.signOut(false);
+                                    $rootScope.signOut(false, false, false, ($state) => $state.go('home', {
+                                        session_expired: response.data.message == 'session_expired',
+                                    }));
                                 }
 
                                 reject(res);

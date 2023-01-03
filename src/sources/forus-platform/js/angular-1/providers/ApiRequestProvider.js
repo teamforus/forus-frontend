@@ -85,7 +85,7 @@ module.exports = function() {
                     if (method.toLowerCase() === 'get') {
                         params.params = data || {};
 
-                        for (const prop in params.params) {
+                        for (var prop in params.params) {
                             if (Array.isArray(params.params[prop])) {
                                 params.params[prop + '[]'] = params.params[prop];
                                 delete params.params[prop];
