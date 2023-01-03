@@ -582,12 +582,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 implementation_key: appConfigs.client_key,
                 per_page: 100,
             }))],
-            organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
-                is_employee: 0,
-                has_reimbursements: 1,
-                per_page: 100,
-                fund_type: 'budget'
-            })],
         }
     });
 

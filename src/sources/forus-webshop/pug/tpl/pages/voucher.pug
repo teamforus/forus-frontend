@@ -181,7 +181,7 @@ main(id="main-content")
 
 
         //- Voucher make reimbursement request
-        .block.block-action-card(ng-if="$ctrl.voucher.fund.allow_reimbursements")
+        .block.block-action-card(ng-if="$ctrl.voucher.fund.allow_reimbursements && !$ctrl.voucher.expired && !$ctrl.voucher.deactivated")
             .block-card-logo.block-card-logo-background
                 include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
             
@@ -249,10 +249,10 @@ main(id="main-content")
                             | {{ transaction.organization.name }}
 
                         .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'iban'") 
-                            | Withdraw to bank account
+                            | Bankoverschrijving
 
                         .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'top_up'") 
-                            | Voucher up-up
+                            | Opgewaardeerd
 
                         .transactions-item-date {{ transaction.created_at_locale }}
 
