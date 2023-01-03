@@ -12,20 +12,6 @@ const ReimbursementsComponent = function (
         fund_id: null,
     };
 
-    $ctrl.states = [{
-        name: 'In afwachting',
-        value: 'pending',
-    }, {
-        name: 'Geaccepteerd',
-        value: 'accepted',
-    }, {
-        name: 'Geweigerd',
-        value: 'rejected',
-    }, {
-        name: 'Geannuleerd',
-        value: 'canceled',
-    }];
-
     $ctrl.onDelete = () => {
         $ctrl.onPageChange();
     };
@@ -44,18 +30,8 @@ const ReimbursementsComponent = function (
     };
 
     $ctrl.$onInit = function () {
-        $ctrl.states.unshift({
-            name: 'Selecteer status...',
-            value: null,
-        });
-
         $ctrl.funds.unshift({
             name: 'Alle tegoeden',
-            id: null,
-        });
-
-        $ctrl.organizations.unshift({
-            name: 'Selecteer aanbieder...',
             id: null,
         });
     };
@@ -65,7 +41,6 @@ module.exports = {
     bindings: {
         funds: '<',
         vouchers: '<',
-        organizations: '<',
         reimbursements: '<',
     },
     controller: [
