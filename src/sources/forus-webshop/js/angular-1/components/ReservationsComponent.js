@@ -9,6 +9,8 @@ const ReservationsComponent = function(ProductReservationService) {
         organization_id: null,
     };
 
+    $ctrl.archived = false;
+
     $ctrl.states = [{
         name: 'In afwachting',
         value: 'pending',
@@ -25,6 +27,14 @@ const ReservationsComponent = function(ProductReservationService) {
 
     $ctrl.onDelete = () => {
         $ctrl.onPageChange();
+    };
+
+    $ctrl.setArchived = (archived) => {
+        $ctrl.archived = archived;
+
+        ProductReservationService.list({ archived: $ctrl.archived ? 1 : 0 }).then((res) => {
+            $ctrl.reservations = res.data;
+        });
     };
 
     $ctrl.onPageChange = (query = {}) => {

@@ -53,11 +53,27 @@ section.section.section-profile: .wrapper
                             placeholder="{{ $ctrl.filters.state[0].name }}")
 
         .profile-content
-            .profile-content-header
-                .profile-content-title.flex.flex-start
-                    h1.profile-content-header(translate="reservations.header.title" dusk="reservationsTitle")
-                    .profile-content-title-count(ng-bind="$ctrl.reservations.meta.total")
-                .profile-content-subtitle(translate="reservations.header.subtitle")
+            .profile-content-header.clearfix
+                .profile-content-title
+                    .pull-left
+                        .profile-content-title-count(ng-bind="$ctrl.reservations.meta.total")
+                        h1.profile-content-header(translate="reservations.header.title" dusk="reservationsTitle")
+
+                .block.block-label-tabs.form.pull-right
+                    .label-tab-set
+                        .label-tab.label-tab-sm(
+                            ng-class="{active: !$ctrl.archived}"
+                            ng-click="$ctrl.setArchived(false)"
+                            role="button")
+                            | Actief
+
+                        .label-tab.label-tab-sm(
+                            ng-class="{active: $ctrl.archived}"
+                            ng-click="$ctrl.setArchived(true)"
+                            role="button")
+                            | Archief
+
+            .profile-content-header: .profile-content-subtitle(translate="reservations.header.subtitle")
 
             .block.block-reservations(ng-if="$ctrl.reservations.data.length > 0")
                 reservation-card(
