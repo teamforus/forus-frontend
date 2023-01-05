@@ -557,9 +557,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             organization: organziationResolver(),
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
-            ) => permission ? repackPagination(FundService.list(
-                $transition$.params().organization_id
-            )) : null],
+            ) => permission ? repackPagination(FundService.list($transition$.params().organization_id, {
+                stats: 'all',
+            })) : null],
             fundsFinancialOverview: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => permission ? repackPagination(FundService.financialOverview(
