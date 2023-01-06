@@ -242,6 +242,7 @@ app.directive('fundConfigContactInfoEditor', require('./directives/FundConfigCon
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
+app.directive('controlNumeric', require('./directives/controls/ControlNumericDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('faqEditor', require('./directives/FaqEditorDirective'));
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));

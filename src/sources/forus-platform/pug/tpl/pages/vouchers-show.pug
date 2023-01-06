@@ -125,7 +125,7 @@
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
-                        table.table.table-fixed
+                        table.table.table-fixed.table-align-top
                             tr
                                 //- always
                                 td
@@ -159,16 +159,13 @@
                                     strong(translate="vouchers.labels.limit_multiplier").text-strong.text-md.text-muted-dark
                                     br
 
-                                    .button-group
-                                        .button.button-default.button-sm
-                                            em.mdi.mdi-minus-circle.icon-start(
-                                                ng-if="$ctrl.voucher.limit_multiplier > 1" 
-                                                ng-click="$ctrl.updateLimitMultiplier($ctrl.voucher.limit_multiplier - 1)")
-                                            strong(ng-bind="$ctrl.voucher.limit_multiplier").text-black
-                                            em.mdi.mdi-plus-circle.icon-end(ng-click="$ctrl.updateLimitMultiplier($ctrl.voucher.limit_multiplier + 1)")
-
-                                        .button.button-default.button-sm(ng-click="$ctrl.submitLimitMultiplier()")
-                                            | Voorleggen
+                                    .form: control-numeric(
+                                        min-value="1"
+                                        max-value="1000"
+                                        ng-model="$ctrl.voucher.limit_multiplier" 
+                                        ng-change="$ctrl.submitLimitMultiplier($ctrl.voucher.limit_multiplier, {{ $ctrl.voucher.limit_multiplier }})"
+                                        apply="true" 
+                                        apply-text="Voorleggen")
 
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
                                 td(ng-if="!$ctrl.voucher.activation_code")
