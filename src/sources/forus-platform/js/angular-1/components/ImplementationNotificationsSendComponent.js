@@ -20,6 +20,15 @@ const ImplementationNotificationsSendComponent = function (
     const makeCustomNotification = ImplementationNotificationsService.makeCustomNotification;
 
     const targets = [{
+        value: "providers_approved",
+        name: 'Alleen active aanbieders',
+    }, {
+        value: "providers_rejected",
+        name: 'Alleen geweigerd aanbieders',
+    }, {
+        value: "providers_all",
+        name: 'Alle aanbieders',
+    }, {
         value: "all",
         name: 'Alle gebruikers met een actieve voucher',
     }, {
