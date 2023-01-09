@@ -118,11 +118,7 @@
                                         click-outside="$ctrl.hideFundCriteria($event)"): ul.tooltip-list
                                         li(ng-repeat="criterion in $ctrl.validatorRequest.fund.criteria").tooltip-list-item
                                             em.mdi.mdi-check
-                                            | {{ criterion.record_type_name }} moet
-                                            span(ng-if="criterion.operator == '>'") meer dan
-                                            span(ng-if="criterion.operator == '='")
-                                            span(ng-if="criterion.operator == '<'") minder dan
-                                            | {{ criterion.record_type_key == 'net_worth' ? '€' : '' }}{{ criterion.value }}.
+                                            span(ng-bind="criterion.description")
                         //- Email
                         td: .block.block-tooltip-details.block-tooltip-hover.flex-inline.flex-vertical
                             strong(translate="validation_requests.labels.email").text-strong.text-md.text-primary
@@ -274,6 +270,7 @@
                                                         .mdi.mdi-file
                                                         .attachment-size(ng-bind='file.size')
                                                     .attachment-name(ng-bind='file.original_name')
+                                                    .attachment-date(ng-bind='clarification.answered_at_locale')
                                                     .attachment-preview(
                                                         title="Bekijk file"
                                                         ng-if="$ctrl.hasFilePreview(file)" 

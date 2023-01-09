@@ -56,6 +56,13 @@ const FundRequestsShowComponent = function(
 
         $ctrl.validatorRequest.can_resign = assignedPendingRecords.length > 0 && assignedDisregardedRecords.length == 0;
         $ctrl.validatorRequest.can_resign_as_supervisor = isPending && $ctrl.isValidatorsSupervisor && hasPendingInternallyAssignedRecords;
+
+        $ctrl.validatorRequest.fund.criteria = $ctrl.validatorRequest.fund.criteria.map((criterion) => {
+            const operator = { '>': 'moet meer dan', '<': 'moet minder dan' }[criterion.operator] || 'moet';
+            const value = `${criterion.record_type_key === 'net_worth' ? '€' : ''}${criterion.value}`;
+
+            return { ...criterion, description: `${criterion.record_type_name} ${operator} ${value}.` };
+        });
     };
 
     $ctrl.funds = [];
