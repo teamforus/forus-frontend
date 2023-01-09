@@ -15,10 +15,16 @@
         unregister-editor="$dir.unregisterItem(childRef)")
 
     .criteria-editor-actions
-        .button.button-primary(ng-if="$dir.isEditable" ng-click="$dir.addCriteria()")
+        .button.button-primary(
+            ng-if="$dir.isEditable" 
+            ng-click="$dir.addCriteria()")
+
             em.mdi.mdi-plus-circle.icon-start
             translate(translate="components.fund_criteria_editor.buttons.add_criteria")
         
-        .button.button-primary.pull-right( ng-if="$dir.saveButton && ($dir.is_editing || $dir.deletedItemsCount > 0)" ng-click="$dir.saveCriteria()")
+        .button.button-primary.pull-right(
+            ng-if="$dir.saveButton && ($dir.is_editing || $dir.deletedItemsCount > 0)" 
+            ng-click="$dir.saveCriteria()")
+
             em.mdi.mdi-content-save.icon-start
             translate(translate="components.fund_criteria_editor.buttons.save")

@@ -660,7 +660,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "fundsShowComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-show', ['manage_funds', 'view_finances'], false),
+            permission: permissionMiddleware('funds-show', ['view_funds', 'manage_funds', 'view_finances'], false),
             fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
             }],

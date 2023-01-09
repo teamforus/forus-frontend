@@ -119,8 +119,8 @@ module.exports = () => {
             '$scope',
             '$timeout',
             '$element',
-            FundCriteriaEditorDirective
+            FundCriteriaEditorDirective,
         ],
-        templateUrl: 'assets/tpl/directives/fund-criteria-editor.html'
+        templateUrl: 'assets/tpl/directives/fund-criteria-editor.html',
     };
 };
