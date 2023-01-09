@@ -118,7 +118,7 @@
                                         click-outside="$ctrl.hideFundCriteria($event)"): ul.tooltip-list
                                         li(ng-repeat="criterion in $ctrl.validatorRequest.fund.criteria").tooltip-list-item
                                             em.mdi.mdi-check
-                                            span(ng-bind="criterion.name")
+                                            span(ng-bind="criterion.description")
                         //- Email
                         td: .block.block-tooltip-details.block-tooltip-hover.flex-inline.flex-vertical
                             strong(translate="validation_requests.labels.email").text-strong.text-md.text-primary
