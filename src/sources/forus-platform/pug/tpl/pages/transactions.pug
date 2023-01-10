@@ -201,7 +201,7 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name")
-                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk" value="voucher_transaction_in" ng-if="$ctrl.isSponsor")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk" value="transaction_in" ng-if="$ctrl.isSponsor")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
@@ -218,19 +218,9 @@
                                 td(ng-if="$ctrl.isSponsor && transaction.voucher_transaction_bulk_id"): a(
                                     ui-sref="transaction-bulk(transaction.ui_sref_bulk)" 
                                     ng-bind="'#' + transaction.voucher_transaction_bulk_id").text-primary-light
-
+                                
                                 td(ng-if="$ctrl.isSponsor && !transaction.voucher_transaction_bulk_id")
-                                    .text-muted(
-                                        ng-if="(transaction.state == 'pending' && transaction.attempts <= 3) && transaction.transaction_in")
-                                        | In de wachtrij (binnen een {{ transaction.transaction_in }} dagen)
-
-                                    .text-muted(
-                                        ng-if="(transaction.state == 'pending' && transaction.attempts <= 3) && !transaction.transaction_in")
-                                        | In de wachtrij (binnen een dag)
-
-                                    .text-muted(
-                                        ng-if="transaction.state != 'pending' || transaction.attempts > 3")
-                                        | -
+                                    .text-muted(ng-bind="transaction.bulk_status_locale")
 
                                 td
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
