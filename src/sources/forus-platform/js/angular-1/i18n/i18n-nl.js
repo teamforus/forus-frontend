@@ -1431,6 +1431,7 @@ module.exports = {
         },
         labels: {
             price: "Bedrag",
+            product_name: "Aanbod naam",
             date: "Datum",
             status: "Status",
         },

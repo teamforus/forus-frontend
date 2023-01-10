@@ -185,7 +185,8 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.price" value="amount")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
-                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name" ng-if="$ctrl.isSponsor")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.product_name" value="product_name")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk" value="voucher_transaction_bulk_id" ng-if="$ctrl.isSponsor")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
@@ -196,9 +197,24 @@
                                     ng-bind="transaction.amount | currency_format" 
                                     ui-sref="transaction(transaction.ui_sref)")
 
-                                td(ng-bind="transaction.created_at_locale")
-                                td(ng-bind="transaction.fund.name")
-                                td(ng-bind="transaction.organization.name || 'Geen'" ng-class="transaction.organization ? '' : 'text-muted'")
+                                td
+                                    strong(ng-bind="transaction.created_at_locale.split(' - ')[0]").text-primary
+                                    br
+                                    strong(ng-bind="transaction.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+
+                                td(
+                                    ng-bind="transaction.fund.name | str_limit:25"
+                                    title="{{ transaction.fund.name || '' }}")
+
+                                td(
+                                    ng-bind="(transaction.organization.name || 'Geen')| str_limit:25"
+                                    ng-class="transaction.organization ? '' : 'text-muted'"
+                                    title="{{ transaction.organization.name || '' }}"
+                                    ng-if="$ctrl.isSponsor")
+
+                                td(
+                                    ng-bind="(transaction.product.name || '-') | str_limit:25" 
+                                    title="{{ transaction.product.name || '' }}")
 
                                 td(ng-if="$ctrl.isSponsor && transaction.voucher_transaction_bulk_id"): a(
                                     ui-sref="transaction-bulk(transaction.ui_sref_bulk)" 
@@ -211,9 +227,8 @@
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
                                     .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
 
-                                td.td-narrow.text-right: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.pull-right
+                                td.td-narrow.text-right: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.button-icon.pull-right
                                     em.mdi.mdi-eye-outline.icon-start
-                                    translate(translate="transactions.buttons.view")
 
             //- Transaction totals
             .card-section(
@@ -263,7 +278,10 @@
                     tr(ng-repeat="transactionBulk in $ctrl.transactionBulks.data")
                         td(ng-bind="transactionBulk.id")
                         td.text-primary-light(ng-bind="transactionBulk.voucher_transactions_amount | currency_format")
-                        td(ng-bind="transactionBulk.created_at_locale")
+                        td
+                            strong(ng-bind="transactionBulk.created_at_locale.split(' - ')[0]").text-primary
+                            br
+                            strong(ng-bind="transactionBulk.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
                         td(ng-bind="transactionBulk.voucher_transactions_count")
 
                         td
@@ -282,9 +300,8 @@
                             //- Pending
                             .label.label-default(ng-if="transactionBulk.state == 'pending'" ng-bind="transactionBulk.state_locale")
 
-                        td.td-narrow.text-right: a(ui-sref="transaction-bulk(transactionBulk.ui_sref)").button.button-sm.button-primary.pull-right
+                        td.td-narrow.text-right: a(ui-sref="transaction-bulk(transactionBulk.ui_sref)").button.button-sm.button-primary.button-icon.pull-right
                             em.mdi.mdi-eye-outline.icon-start
-                            translate(translate="transactions.buttons.view")
 
             //- Bulk transactions pagination
             .card-section(ng-if="$ctrl.transactionBulks" ng-show="($ctrl.viewType.key == 'bulks') && ($ctrl.transactionBulks.meta.last_page > 1)")

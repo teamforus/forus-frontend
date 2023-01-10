@@ -19,6 +19,8 @@ module.exports = {
         fund: "Fonds",
         status: "Status",
         provider: "Aanbieder",
+        product_id: "Aanbod ID",
+        product_name: "Aanbod naam",
         search: "Zoeken",
         from: "Vanaf",
         bulk: "Bulk",
