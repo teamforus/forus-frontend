@@ -12,7 +12,7 @@
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.date" value="created_at")
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.fund" value="fund_name")
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.target" value="target")
-                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.provider" value="provider_name")
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.provider" value="provider_name" ng-if="$dir.isSponsor")
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.product_name" value="product_name")
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.status" value="state")
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.action").th-narrow.text-right
@@ -23,7 +23,10 @@
                             ng-bind="transaction.amount | currency_format"
                             ui-sref="transaction(transaction.ui_sref)")
 
-                        td(ng-bind="transaction.created_at_locale")
+                        td
+                            strong(ng-bind="transaction.created_at_locale.split(' - ')[0]").text-primary
+                            br
+                            strong(ng-bind="transaction.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
 
                         td(
                             ng-bind="transaction.fund.name | str_limit:25"
@@ -35,7 +38,7 @@
                             ng-bind="(transaction.organization.name || 'Geen')| str_limit:25"
                             ng-class="transaction.organization ? '' : 'text-muted'"
                             title="{{ transaction.organization.name || '' }}"
-                            ng-if="$ctrl.isSponsor")
+                            ng-if="$dir.isSponsor")
 
                         td(
                             ng-bind="(transaction.product.name || '-') | str_limit:25" 
