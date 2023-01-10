@@ -49,9 +49,8 @@
                             .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
 
                         td.td-narrow.text-right
-                            a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.pull-right
+                            a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.button-icon.pull-right
                                 em.mdi.mdi-eye-outline.icon-start
-                                translate(translate="transactions.buttons.view")
 
     //- Pagination
     .card-section(ng-if="$dir.transactions.meta" ng-show="$dir.transactions.meta.last_page > 1")

@@ -228,7 +228,10 @@
                                         td(ng-bind="transaction.organization.name | str_limit:50" title="{{ transaction.organization.name }}")
                                         td: a(ng-bind="transaction.amount | currency_format").text-primary-light
                                         td(ng-bind="(transaction.product.name || '-') | str_limit:50" title="{{ transaction.product.name }}")
-                                        td(ng-bind="transaction.created_at_locale")
+                                        td
+                                            strong(ng-bind="transaction.created_at_locale.split(' - ')[0]").text-primary
+                                            br
+                                            strong(ng-bind="transaction.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
                                         td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]").text-right
                                     
                                     tr: td(colspan="4")
