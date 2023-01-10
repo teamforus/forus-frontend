@@ -11,6 +11,7 @@ module.exports = {
         copy: "Copy",
         vouchers: "VOUCHERS",
         reservations: "RESERVATIONS",
+        reimbursements: "REIMBURSEMENTS",
         records: "RECORDS",
         funds: "FUNDS",
         notifications: "NOTIFICATIONS",

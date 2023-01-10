@@ -39,6 +39,14 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
                 'product_vouchers')
 
         +nav_item(
+            "Declaraties", "reimbursements", 'reimbursements', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_employees"]',
+            'reimbursements')
+        
+        //- '$root.activeOrganization | hasPerm:["manage_reimbursements"]',
+
+        +nav_item(
             "Medewerkers", "list", 'employees', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_employees"]',

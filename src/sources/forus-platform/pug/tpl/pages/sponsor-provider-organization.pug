@@ -108,6 +108,19 @@
                     filters="$ctrl.providerFilters.values" 
                     on-page-change="$ctrl.onProviderFundsPageChange(query)")
 
+        //- Provider description
+        .card
+            .card-header: .card-title Omschrijving van aanbieder
+            .card-section: .block.block-markdown
+                //- Provider has description
+                .markdown-wrapper(
+                    ng-if="$ctrl.providerOrganization.description_html"
+                    ng-bind-html="$ctrl.providerOrganization.description_html")
+
+                //- Provider has no description
+                .markdown-wrapper(ng-if="!$ctrl.providerOrganization.description_html")
+                    p.text-muted-dark Er is geen omschrijving opgegeven door de aanbieder.
+
         //- Provider offices
         block-provider-organization-offices(offices="$ctrl.providerOrganization.offices")
 

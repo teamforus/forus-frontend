@@ -5,7 +5,7 @@ require('./modules/page-loading-bar/PageLoadingBarModule');
 const appConfigs = { bsn_confirmation_offset: 300, showStartButton: false, ...env_data };
 
 const app = angular.module('forusApp', [
-    'pascalprecht.translate', 'ui.router', 'ngCookies', 'ngAria',
+    'pascalprecht.translate', 'ui.router', 'ngCookies', 'ngAria', 'uiCropper', 
     'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 
@@ -21,6 +21,9 @@ app.component('signUpProviderComponent', require('./components/SignUpProviderCom
 app.component('fundsComponent', require('./components/FundsComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('reservationsComponent', require('./components/ReservationsComponent'));
+app.component('reimbursementComponent', require('./components/ReimbursementComponent'));
+app.component('reimbursementsComponent', require('./components/ReimbursementsComponent'));
+app.component('reimbursementsEditComponent', require('./components/ReimbursementsEditComponent'));
 app.component('recordsComponent', require('./components/RecordsComponent'));
 app.component('productsComponent', require('./components/ProductsComponent'));
 app.component('productComponent', require('./components/ProductComponent'));
@@ -68,10 +71,12 @@ app.service('ProductCategoryService', require('./services/ProductCategoryService
 app.service('OfficeService', require('./services/OfficeService'));
 app.service('ProductService', require('./services/ProductService'));
 app.service('ProductReservationService', require('./services/ProductReservationService'));
+app.service('ReimbursementService', require('./services/ReimbursementService'));
 app.service('OrganizationValidatorService', require('./services/OrganizationValidatorService'));
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
 app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
+app.service('ImageConvertorService', require('./services/ImageConvertorService'));
 app.service('MediaService', require('./services/MediaService'));
 app.service('VoucherService', require('./services/VoucherService'));
 app.service('ValidatorService', require('./services/ValidatorService'));
@@ -115,6 +120,8 @@ app.directive('scrollTo', require('./directives/ScrollToDirective'));
 app.directive('collapse', require('./directives/CollapseDirective'));
 app.directive('voucherCard', require('./directives/VoucherCardDirective'));
 app.directive('reservationCard', require('./directives/ReservationCardDirective'));
+app.directive('reimbursementCard', require('./directives/ReimbursementCardDirective'));
+app.directive('reimbursementDetails', require('./directives/ReimbursementDetailsDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
@@ -170,6 +177,8 @@ app.component('modalPhysicalCardTypeComponent', require('./components/Modals/Mod
 app.component('modalPhysicalCardUnlinkComponent', require('./components/Modals/ModalPhysicalCardUnlinkComponent'));
 app.component('modalPdfPreviewComponent', require('./components/Modals/FilePreviews/ModalPdfPreviewComponent'));
 app.component('modalImagePreviewComponent', require('./components/Modals/FilePreviews/ModalImagePreviewComponent'));
+app.component('modalPhotoCropperComponent', require('./components/Modals/FilePreviews/ModalPhotoCropperComponent'));
+app.component('modalReimbursementConfirmComponent', require('./components/Modals/ModalReimbursementConfirmComponent'));
 app.component('modalDeactivateVoucherComponent', require('./components/Modals/ModalDeactivateVoucherComponent'));
 
 // Printable Components

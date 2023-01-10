@@ -100,7 +100,7 @@
         .block-markdown {
             a:not(.button) {
                 text-decoration: underline;
-                color: #305dfb;
+                color: $color_primary;
 
                 &:hover {
                     text-decoration: none;

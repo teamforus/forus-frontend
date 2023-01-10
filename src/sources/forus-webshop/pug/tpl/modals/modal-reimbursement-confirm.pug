@@ -1,0 +1,20 @@
+.modal.modal-reimbursement-confirm.modal-animated(
+    dusk="modalReimbursementConfirmation"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
+    aria-describedby="pinCodeDialogSubtitle"
+    aria-labelledby="pinCodeDialogTitle" 
+    role="dialog")
+
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten")
+    .modal-content
+        .modal-header
+            .modal-close(ng-click="$ctrl.close()").mdi.mdi-close
+            .modal-title Declaratie indienen
+
+        .modal-section
+            .modal-warning Controleer de gegevens voordat u de declaratie verstuurd.
+            reimbursement-details(reimbursement="$ctrl.reimbursement" edit="false" compact="true")
+
+        .modal-footer: .button-group
+            .button.button-primary-outline.button-sm(ng-click="$ctrl.close()" dusk="modalReimbursementConfirmationCancel") Cancel
+            .button.button-primary.button-sm(ng-click="$ctrl.confirm()" dusk="modalReimbursementConfirmationSubmit") Bevestigen

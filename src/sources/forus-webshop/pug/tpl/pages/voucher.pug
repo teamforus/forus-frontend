@@ -61,7 +61,7 @@ main(id="main-content")
                                 .action-item-name(translate="physical_card.modal_section.request_new_card.open_in_app")
                             
                             //- Print the qr-code
-                            .action-col(ng-if="!$root.appConfigs.flags.noPrintOption"): .action-item(
+                            .action-col(ng-if="!$ctrl.appConfigs.flags.noPrintOption"): .action-item(
                                 ng-click="$ctrl.printQrCode()")
                                 .action-item-icon: em.mdi.mdi-printer
                                 .action-item-name(translate="physical_card.modal_section.request_new_card.print_pass")
@@ -85,7 +85,7 @@ main(id="main-content")
                                 .action-item-name Ik ben mijn pas kwijt                      
 
                             //- Share voucher to provider by email
-                            .action-col(ng-if="$ctrl.voucherCard.product && $root.appConfigs.flags.shareProducts"): .action-item(
+                            .action-col(ng-if="$ctrl.voucherCard.product && $ctrl.appConfigs.flags.shareProducts"): .action-item(
                                 ng-click="$ctrl.shareVoucher($ctrl.voucher)")
                                 .action-item-icon: em.mdi.mdi-share-variant
                                 .action-item-name Delen
@@ -165,7 +165,7 @@ main(id="main-content")
                                 span(ng-bind="$ctrl.voucherCard.fund.organization.phone")
 
         //- Voucher physical card (activation)
-        .block.block-physical-cards(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.showPhysicalCardsOption")
+        .block.block-action-card(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.showPhysicalCardsOption")
             .block-card-logo: img(
                 src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" 
                 alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
@@ -179,8 +179,22 @@ main(id="main-content")
                 ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
             //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
 
+
+        //- Voucher make reimbursement request
+        .block.block-action-card(ng-if="$ctrl.voucher.fund.allow_reimbursements && !$ctrl.voucher.expired && !$ctrl.voucher.deactivated")
+            .block-card-logo.block-card-logo-background
+                include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
+            
+            .block-card-details 
+                h3.block-card-title Kosten terugvragen
+                .block-card-description Vraag uw gemaakte kosten terug door de gegevens van uw aankoop en de rekening of kassabon in te sturen.
+            
+            .block-card-actions: a(ui-sref="reimbursements-create({voucher_address:$ctrl.voucher.address})").button.button-primary 
+                .mdi.mdi-plus.icon-start
+                | Bon insturen
+
         //- Voucher physical card (deactivation)
-        .block.block-physical-cards(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucher.physical_card")
+        .block.block-action-card(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucher.physical_card")
             .block-card-logo: img(
                 src="./assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png" 
                 alt="Fysieke pas: '{{$ctrl.voucherCard.title}}'")
@@ -235,10 +249,10 @@ main(id="main-content")
                             | {{ transaction.organization.name }}
 
                         .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'iban'") 
-                            | Withdraw to bank account
+                            | Bankoverschrijving
 
                         .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'top_up'") 
-                            | Voucher up-up
+                            | Opgewaardeerd
 
                         .transactions-item-date {{ transaction.created_at_locale }}
 
@@ -247,19 +261,19 @@ main(id="main-content")
                         .transactions-item-type {{ transaction.incoming ? "voucher.labels.add" : "voucher.labels.subtract" | translate }}
 
         block-products(
-            ng-if="!$ctrl.voucherCard.deactivated && $root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'budget'"
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'budget'"
             type="budget"
             products="$ctrl.products.data"
             filters="{fund_id: $ctrl.voucher.fund_id}")
         
         block-products(
-            ng-if="!$ctrl.voucherCard.deactivated && $root.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'subsidies'"
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'subsidies'"
             type="subsidies"
             products="$ctrl.subsidies.data"
             filters="{fund_id: $ctrl.voucher.fund_id}")
             
         .block.block-map_card(
-            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && $root.appConfigs.features.show_voucher_map && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
             .map_card-header
                 //- regular voucher
                 h2.map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")

@@ -1,0 +1,75 @@
+.block.block-reimbursement(dusk="reimbursementOverview")
+    .reimbursement-section
+        .reimbursement-media
+            .media-preview: img(
+                ng-src="{{ $dir.reimbursement.files[$dir.previewIndex].preview.sizes.thumbnail }}")
+
+            .media-pagination(ng-if="$dir.reimbursement.files.length > 1")
+                .media-pagination-prev(ng-click="$dir.prevPreviewMedia()"): .mdi.mdi-chevron-left
+                .media-pagination-nav
+                    .media-pagination-counter {{ $dir.previewIndex + 1 }} / {{ $dir.reimbursement.files.length }}
+                    .media-pagination-list
+                        .media-pagination-item(
+                            ng-repeat="(index, file) in $dir.reimbursement.files"
+                            ng-click="$dir.previewIndex = index"
+                            ng-class="index === $dir.previewIndex ? 'active' : ''")
+
+                .media-pagination-next(ng-click="$dir.nextPreviewMedia()"): .mdi.mdi-chevron-right
+
+        .reimbursement-props
+            .reimbursement-title(ng-if="!$dir.compact") Declaratie gegevens
+            .reimbursement-prop
+                .reimbursement-prop-label Titel
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewTitle"
+                    ng-bind="$dir.reimbursement.title")
+
+            .reimbursement-prop
+                .reimbursement-prop-label Bedrag
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewAmount"
+                    ng-bind="$dir.reimbursement.amount | currency_format")
+
+            .reimbursement-prop
+                .reimbursement-prop-label Declareren bij
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewSponsorName"
+                    ng-bind="$dir.reimbursement.fund.organization.name")
+
+            .reimbursement-prop
+                .reimbursement-prop-label Regeling
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewFundName"
+                    ng-bind="$dir.reimbursement.fund.name")
+
+            .reimbursement-prop
+                .reimbursement-prop-label IBAN
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewIban"
+                    ng-bind="$dir.reimbursement.iban")
+
+            .reimbursement-prop
+                .reimbursement-prop-label Tenaamstelling van
+                .reimbursement-prop-value(
+                    dusk="reimbursementOverviewIbanName"
+                    ng-bind="$dir.reimbursement.iban_name")
+            
+            .reimbursement-title(ng-if="!$dir.compact") Opmerking
+            .reimbursement-text(
+                ng-if="!$dir.compact"
+                dusk="reimbursementOverviewDescription"
+                ng-bind="$dir.reimbursement.description")
+
+            .reimbursement-title(
+                ng-if="!$dir.compact && $dir.reimbursement.state == 'declined' && $dir.reimbursement.reason") Decline reason
+
+            .reimbursement-text(
+                ng-if="!$dir.compact && $dir.reimbursement.state == 'declined' && $dir.reimbursement.reason"
+                ng-bind="$dir.reimbursement.reason")
+
+            a.button.button-primary-outline.button-sm.flex.flex-center(
+                dusk="reimbursementOverviewEditButton"
+                ng-if="$dir.reimbursement.state === 'draft'"
+                ui-sref="reimbursements-edit($dir.reimbursement)")
+                .mdi.mdi-pencil.icon-start
+                | Wijzigen

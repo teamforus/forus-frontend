@@ -235,6 +235,7 @@ main(id="main-content")
                                 ng-if="invalidCriteria.show_attachment"
                                 type="fund_request_record_proof"
                                 files="invalidCriteria.files"
+                                crop-media="false"
                                 on-file-removed="$ctrl.onFileInfo(invalidCriteria, files)"
                                 on-file-resolved="$ctrl.onFileInfo(invalidCriteria, files)"
                                 on-file-batch-queued="$ctrl.onFileInfo(invalidCriteria, files)")
@@ -445,7 +446,7 @@ main(id="main-content")
                             .sign_up-pane-separator
 
                         .sign_up-options: .sign_up-option(ng-click="$ctrl.startDigId()")
-                            .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
+                            .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                             .sign_up-option-details
                                 .sign_up-option-title DigiD
                                 .sign_up-option-description Log opnieuw in met DigiD om opnieuw te beginnen.

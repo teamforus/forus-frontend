@@ -108,6 +108,8 @@ const ProductsComponent = function(
             postcode: query.postcode,
             distance: query.distance,
             bookmarked: query.bookmarked,
+            order_by: query.order_by,
+            order_by_dir: query.order_by_dir,
         }, { location });
     };
 
@@ -135,7 +137,15 @@ const ProductsComponent = function(
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.appConfigs = appConfigs;
 
-        $ctrl.sort_by = $ctrl.sortByOptions[0];
+        if ($stateParams.order_by && $stateParams.order_by_dir) {
+            $ctrl.sort_by = $ctrl.sortByOptions.find(sortOption => 
+                sortOption.value.order_by == $stateParams.order_by && 
+                sortOption.value.order_by_dir == $stateParams.order_by_dir
+            );
+        } else {
+            $ctrl.sort_by = $ctrl.sortByOptions[0];
+        }
+
         $ctrl.fund_type = $stateParams.fund_type;
         $ctrl.display_type = $stateParams.display_type;
         $ctrl.product_category_id = $stateParams.product_category_id;

@@ -11,6 +11,16 @@
         translate(translate="profile_menu.buttons.reservations")
         em.mdi.mdi-arrow-right
 
+    a(
+        ui-sref="reimbursements" 
+        ui-sref-active="active" 
+        role="button" 
+        ng-if="$dir.appConfigs.features.has_reimbursements" 
+        dusk="menuBtnReimbursements").profile-menu-item
+
+        translate(translate="profile_menu.buttons.reimbursements")
+        em.mdi.mdi-arrow-right
+
     a(ui-sref="funds" ui-sref-active="active" ng-if="$dir.appConfigs.flags.fundsMenu" role="button").profile-menu-item.show-sm
         translate(
             translate="funds.buttons.{{ $dir.appConfigs.client_key }}.start_request" 

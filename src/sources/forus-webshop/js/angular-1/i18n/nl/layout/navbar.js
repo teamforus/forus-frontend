@@ -7,6 +7,7 @@ module.exports = {
         providers:"Aanbieders",
         explanation:"Uitleg",
         identity:"Profiel",
+        signup:"Uitleg aanbieders",
         westerkwartier: {
             funds:"Potjes",
         },
@@ -29,12 +30,21 @@ module.exports = {
             funds: "Vergoedingen",
         },
         ede: {
+            funds: "Uitleg inwoners",
+            explanation:"Veelgestelde vragen",
+        },
+        hartvanwestbrabant: {
+            funds: "Regelingen"
+        },
+        schagen: {
             funds: "Regelingen",
-            explanation:"Uitleg voor inwoners",
+        },
+        eemsdelta: {
+            funds: "Regelingen"
         }
     },
     buttons: {
-        activate: "Activeren",
+        activate: "Regelingen",
         westerkwartier: {
             activate: "Aanvragen",
         },
@@ -61,6 +71,7 @@ module.exports = {
         },
         login:"Inloggen",
         voucher:"Mijn tegoeden",
+        reimbursements:"Kosten terugvragen",
         profile:"Profiel >",
         records: "Mijn eigenschappen",
         authorize:"Log in op de app",
@@ -78,6 +89,7 @@ module.exports = {
             dropdown: {
                 vouchers: "Tegoeden",
                 reservations: "Reserveringen",
+                reimbursements:"Kosten terugvragen",
                 notifications: "Notificaties",
                 preferences_notifications: "Notificatievoorkeuren",
                 preferences_emails: "E-mailinstellingen",

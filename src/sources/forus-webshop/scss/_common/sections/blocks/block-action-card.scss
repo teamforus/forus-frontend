@@ -1,7 +1,7 @@
-&.block-physical-cards {
+&.block-action-card {
     display: flex;
-    background: #F8F8F8;
-    padding: 32px;
+    background: #ffffff;
+    padding: 25px;
     margin-bottom: 30px;
     position: relative;
     border-radius: $border_radius;
@@ -9,13 +9,30 @@
     cursor: default;
 
     .block-card-logo {
-        margin: 0 10px 0 0;
+        margin: 0 25px 0 0;
         
         img {
             display: block;
             max-width: 230px;
             margin-left: -20px;
             margin-bottom: -10px;
+        }
+
+        svg {
+            .fill-color-primary {
+                fill: $color_primary;
+            }
+        }
+
+        &.block-card-logo-background {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            background-color: rgba($color: $color_primary, $alpha: .075);
+
+            svg {
+                margin: auto;
+            }
         }
     }
 
@@ -26,15 +43,15 @@
         justify-content: center;
 
         .block-card-title {
-            font: 600 22px/25px $bf;
+            font: 700 22px/25px $bf;
             color: $tc;
             margin: 0 0;
         }
 
         .block-card-description {
-            font: 600 14px/25px $bf;
-            color: $tc;
-            margin: 0 0 10px;
+            font: 700 14px/25px $bf;
+            color: rgba($color: $tc, $alpha: .8);
+            margin: 0 0;
         }
 
         .block-card-code {
@@ -59,13 +76,28 @@
         font-size: 20px;
     }
 
+    &.block-action-card-compact {
+        padding: 20px;
+        margin-bottom: 15px;
+
+        .block-card-logo {
+            margin: 0 20px 0 0;
+        }
+
+        .block-card-details {
+            .block-card-title {
+                font-size: 18px;
+            }
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         display: flex;
         flex-direction: column;
         text-align: center;
         
         .block-card-logo {
-            margin: 0 0 0;
+            margin: 0 0 10px;
             
             img {
                 max-width: 200px;
@@ -76,7 +108,6 @@
         }
 
         .block-card-details {
-
             .block-card-title {
                 font: 600 14px/20px $bf;
                 margin: 0 0 15px;
@@ -96,10 +127,17 @@
         .block-card-actions {
             display: flex;
             justify-content: center;
+        }
 
-            .button {
-                padding: 8px 14px;
-                font-size: 12px;
+        &.block-action-card-compact {
+            .block-card-logo {
+                margin: 0 0 10px;
+            }
+
+            .block-card-details {
+                .block-card-title {
+                    font-size: 14px;
+                }
             }
         }
     }

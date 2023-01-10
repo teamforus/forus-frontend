@@ -149,6 +149,18 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                     order_by: 'most_popular',
                     order_by_dir: 'desc',
                 }
+            }, {
+                label: 'Naam (oplopend)',
+                value: {
+                    order_by: 'name',
+                    order_by_dir: 'asc',
+                }
+            }, {
+                label: 'Naam (aflopend)',
+                value: {
+                    order_by: 'name',
+                    order_by_dir: 'desc',
+                }
             }];
         }
     });

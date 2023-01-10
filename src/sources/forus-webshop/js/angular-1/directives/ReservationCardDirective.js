@@ -1,26 +1,27 @@
-const ReservationCardDirective = function(
+const ReservationCardDirective = function (
     $scope,
     ModalService,
     PushNotificationsService,
-    ProductReservationService
+    ProductReservationService,
 ) {
-    const reservation = $scope.reservation;
-    const product = reservation.product;
-    const media = product.photo || product.logo || null;
+    const { $dir } = $scope;
 
-    const cancelReservation = (reservation) => {
-        ModalService.open('modalProductReserveCancel', {
-            reservation: reservation,
-            onConfirm: () => {
-                ProductReservationService.destroy(reservation.id).finally(() => {
-                    $scope.onDelete({ reservation })
-                    PushNotificationsService.success('Reservering geannuleerd.');
-                }, (res) => PushNotificationsService.danger('Error.', res.data.message));
-            },
-        });
-    }
+    $dir.$onInit = () => {
+        $dir.product = $dir.reservation.product;
+        $dir.media =  $dir.product.photo ||  $dir.product.logo || null;
 
-    $scope.$dir = { reservation, product, media, cancelReservation };
+        $dir.cancelReservation = (reservation) => {
+            ModalService.open('modalProductReserveCancel', {
+                reservation: reservation,
+                onConfirm: () => {
+                    ProductReservationService.destroy(reservation.id).finally(() => {
+                        $dir.onDelete({ reservation })
+                        PushNotificationsService.success('Reservering geannuleerd.');
+                    }, (res) => PushNotificationsService.danger('Error.', res.data.message));
+                },
+            });
+        };
+    };
 };
 
 module.exports = () => {
@@ -29,6 +30,8 @@ module.exports = () => {
             reservation: '=',
             onDelete: '&',
         },
+        bindToController: true,
+        controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [
@@ -36,8 +39,8 @@ module.exports = () => {
             'ModalService',
             'PushNotificationsService',
             'ProductReservationService',
-            ReservationCardDirective
+            ReservationCardDirective,
         ],
-        templateUrl: 'assets/tpl/directives/reservation-card.html'
+        templateUrl: 'assets/tpl/directives/reservation-card.html',
     };
 };

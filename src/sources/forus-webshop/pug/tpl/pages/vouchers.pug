@@ -35,9 +35,19 @@ main(id="main-content")
                         voucher-card(ng-repeat="voucher in $ctrl.regularVouchers" voucher="voucher")
                         voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
 
+                        .block.block-action-card.block-action-card-compact(ng-if="$ctrl.reimbursementVouchers.length > 0")
+                            .block-card-logo: include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
+                            .block-card-details: h3.block-card-title Kosten terugvragen
+                            .block-card-actions: a(ui-sref="reimbursements-create"): .button.button-primary-outline Bon insturen
+
                     empty-block(
                         ng-if="$ctrl.vouchers.length == 0"
+                        svg-icon="reimbursements"
                         title="{{ 'vouchers.empty_block.title' | translate }}"
                         description="{{ 'vouchers.empty_block.subtitle' | translate }}"
-                        text="{{ 'vouchers.empty_block.cta' | translate }}"
-                        hide-link="false")
+                        button-text="{{ 'vouchers.empty_block.cta' | translate }}"
+                        button-icon="arrow-right"
+                        button-type="primary"
+                        button-icon-end="false"
+                        button-sref="start"
+                        hide-link="true")
