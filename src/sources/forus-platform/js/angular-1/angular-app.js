@@ -38,6 +38,7 @@ app.component('sponsorProviderOrganizationComponent', require('./components/Spon
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
+app.component('fundRequestsShowComponent', require('./components/FundRequestsShowComponent'));
 app.component('providerSignUpComponent', require('./components/ProviderSignUpComponent'));
 app.component('sponsorSignUpComponent', require('./components/SponsorSignUpComponent'));
 app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
