@@ -592,7 +592,8 @@
                     provider-fund-filters(
                         ng-if="$ctrl.showFilters"
                         funds-available="$ctrl.fundsAvailable" 
-                        organization="$ctrl.organization")
+                        organization="$ctrl.organization"
+                        filters="$ctrl.filters.values")
 
                     fund-card-provider-can-join(
                         ng-if="$ctrl.fundsAvailable.meta.total > 0"

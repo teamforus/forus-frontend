@@ -420,7 +420,9 @@ const ProviderSignUpComponent = function(
     $ctrl.filters = {
         values: {
             q: "",
-            per_page: 10
+            per_page: 10,
+            tag: null,
+            organization_id: null,
         },
     };
 

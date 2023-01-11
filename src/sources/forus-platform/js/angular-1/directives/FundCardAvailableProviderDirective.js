@@ -1,6 +1,5 @@
 let FundCardAvailableProviderDirective = function(
     $scope,
-    $state,
     $filter,
     ProviderFundService,
     ModalService,
@@ -22,13 +21,8 @@ let FundCardAvailableProviderDirective = function(
                         icon: 'fund_applied',
                         closeBtnText: 'modal.buttons.confirm',
                     }, {
-                        onClose: () => $state.go($state.current, {
-                            fundsType: 'available'
-                        }, {
-                            reload: true
-                        })
+                        onClose: () => $scope.onApply()
                     });
-
                 });
             } else {
                 ModalService.open('modalNotification', {
@@ -39,7 +33,6 @@ let FundCardAvailableProviderDirective = function(
                     })
                 });
             }
-
         });
     };
 };
@@ -48,13 +41,13 @@ module.exports = () => {
     return {
         scope: {
             organization: '=',
-            fund: '='
+            fund: '=',
+            onApply: '&',
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
-            '$state',
             '$filter',
             'ProviderFundService',
             'ModalService',

@@ -1,6 +1,5 @@
 let FundCardInvitationProviderDirective = function(
     $scope,
-    $state,
     FundProviderInvitationsService,
     FormBuilderService,
     PushNotificationsService
@@ -14,9 +13,9 @@ let FundCardInvitationProviderDirective = function(
         ).then(() => {
             PushNotificationsService.success('Uitnodiging succesvol geaccepteerd!');
 
-            $state.go($state.current, {
-                fundsType: 'invitations'
-            }, {reload: true});
+            if (typeof $scope.onAccept === 'function') {
+                $scope.onAccept();
+            }
         }, console.error);
     }, true);
     
@@ -30,13 +29,13 @@ module.exports = () => {
         scope: {
             organization: '=',
             providerInvitation: '=',
-            type: '@'
+            type: '@',
+            onAccept: '&'
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
-            '$state',
             'FundProviderInvitationsService',
             'FormBuilderService',
             'PushNotificationsService',
