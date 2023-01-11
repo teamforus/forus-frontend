@@ -39,6 +39,9 @@ module.exports = {
             "Gebeurt automatisch dagelijks om 09:00. Tenzij anders is ingesteld of bulks alleen handmatig aangemaakt kunnen worden."
         ].join("</br>"),
         target: "Target",
+        transfer_in: 'Transactie in (dagen)',
+        transfer_in_min: '0',
+        transfer_in_max: '14',
     },
     buttons: {
         previous: "Vorige",
