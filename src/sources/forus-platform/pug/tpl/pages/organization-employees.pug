@@ -6,6 +6,10 @@
                 .flex.flex-grow: .card-title(ng-bind="'Medewerkers (' + $ctrl.employees.meta.total + ')'")
 
                 .flex: .block.block-inline-filters
+                    button.button.button-primary.button-sm(ng-click="$ctrl.export()")
+                        .mdi.mdi-download.icon-start
+                        translate(translate="organization_employees.buttons.export")
+
                     a(ng-click="$ctrl.createEmployee()" id="add_employee" dusk="addEmployee").button.button-primary.button-sm
                         em.mdi.mdi-plus-circle.icon-start
                         translate(translate="organization_employees.buttons.add")

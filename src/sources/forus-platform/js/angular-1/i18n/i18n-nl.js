@@ -1255,6 +1255,7 @@ module.exports = {
             delete: "Verwijderen",
             add: "Toevoegen",
             transfer_ownership: "Overdragen",
+            export: "Exporteren",
         }
     },
 
