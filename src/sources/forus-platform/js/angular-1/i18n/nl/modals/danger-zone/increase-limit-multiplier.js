@@ -1,8 +1,8 @@
 module.exports = {
-    title: "Let op: Deze actie kan niet ongedaan gemaakt worden",
+    title: "Let op: controleer de wijzigingen voordat je bevestigt",
     description: [
-        `Je staat op het punt 1 persoon toe te voegen. Hierdoor gaat het toegoed, of de tegoeden omhoog.`,
-        `Het is niet mogelijk om tegoeden te verlagen, daarom kan deze actie niet ongedaan gemaakt worden. Controleer goed of deze actie juist is.`,
+        `Je staat op het punt om het aantal personen op het tegoed aan te passen.`,
+        `Controleer of het aantal klopt voordat je je keuze bevestigd.`,
     ].join(" "),
     buttons: {
         cancel: 'Annuleren',
