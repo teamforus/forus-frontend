@@ -92,7 +92,7 @@
                             | {{ {pending: 'In afwachting', success: 'Succes', canceled: 'Geannuleerd'}[$ctrl.transaction.state] }}
                             div(ng-if="$ctrl.transaction.transaction_in > 0 && $ctrl.transaction.state == 'pending'").text-sm.text-muted-dark
                                 em.mdi.mdi-clock-outline 
-                                | {{ $ctrl.transaction.transaction_in }} dagen
+                                | {{ $ctrl.transaction.transaction_in }} dagen resterend
 
                     //- Sponsor IBAN
                     .keyvalue-item(ng-if="$ctrl.transaction.iban_from")
