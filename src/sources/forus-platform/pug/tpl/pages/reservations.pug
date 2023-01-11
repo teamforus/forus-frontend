@@ -89,14 +89,22 @@
 
                     tr(ng-repeat="reservation in $ctrl.reservations.data")
                         td: .text-strong(ng-bind="'#' + reservation.code")
-                        td: a(ui-sref="products-show(reservation.product)") 
-                            .text-strong.text-primary(
-                                title="{{ reservation.product.name }}"
-                                ng-bind="reservation.product.name | str_limit:45" 
-                                ng-class="{'text-strike' : reservation.product.deleted}")
+                        td
+                            mixin product_info(type)
+                                .text-strong(
+                                    class=type
+                                    title="{{ reservation.product.name }}"
+                                    ng-bind="reservation.product.name | str_limit:45" 
+                                    ng-class="{'text-strike' : reservation.product.deleted}")
 
-                            .text-strong.text-small.text-muted-dark(
-                                ng-bind="reservation.price_locale")
+                                .text-strong.text-small.text-muted-dark(
+                                    ng-bind="reservation.price_locale")
+
+                            a(ng-if="$ctrl.organization | hasPerm:['manage_products']" ui-sref="products-show(reservation.product)") 
+                                +product_info('text-primary')
+
+                            div(ng-if="!($ctrl.organization | hasPerm:['manage_products'])") 
+                                +product_info()
 
                         td.text-strong(ng-bind="reservation.amount | currency_format")
 
