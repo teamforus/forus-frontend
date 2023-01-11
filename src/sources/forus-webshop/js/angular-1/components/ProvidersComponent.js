@@ -1,5 +1,4 @@
 const ProvidersComponent = function (
-    $rootScope,
     $state,
     $stateParams,
     FormBuilderService,
@@ -190,14 +189,6 @@ const ProvidersComponent = function (
         }
 
         $ctrl.updateFiltersUsedCount();
-
-        $rootScope.$watch('appConfigs', (configs) => {
-            if (!configs || !configs.features || (typeof configs.features.pages !== 'object')) {
-                return;
-            }
-
-            $ctrl.showCMSSignupPage = Object.values(configs.features.pages).filter(page => page.page_type == 'provider').length;
-        }, true);
     };
 };
 
@@ -211,12 +202,11 @@ module.exports = {
         businessTypes: '<',
     },
     controller: [
-        '$rootScope',
         '$state',
         '$stateParams',
         'FormBuilderService',
         'ProvidersService',
-        ProvidersComponent
+        ProvidersComponent,
     ],
-    templateUrl: 'assets/tpl/pages/providers.html'
+    templateUrl: 'assets/tpl/pages/providers.html',
 };
