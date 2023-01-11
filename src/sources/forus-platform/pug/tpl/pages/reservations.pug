@@ -88,11 +88,17 @@
                         th.text-right(translate='reservations.labels.actions')
 
                     tr(ng-repeat="reservation in $ctrl.reservations.data")
-                        td: .text-strong.text-primary(ng-bind="'#' + reservation.code")
-                        td
-                            .text-strong(ng-bind="reservation.product.name" ng-class="{'text-strike' : reservation.product.deleted}")
-                            .text-strong.text-small.text-muted-dark(ng-bind="reservation.price_locale")
-                        td.text-primary: .text-strong(ng-bind="reservation.amount | currency_format")
+                        td: .text-strong(ng-bind="'#' + reservation.code")
+                        td: a(ui-sref="products-show(reservation.product)") 
+                            .text-strong.text-primary(
+                                title="{{ reservation.product.name }}"
+                                ng-bind="reservation.product.name | str_limit:40" 
+                                ng-class="{'text-strike' : reservation.product.deleted}")
+
+                            .text-strong.text-small.text-muted-dark(
+                                ng-bind="reservation.price_locale")
+
+                        td.text-strong(ng-bind="reservation.amount | currency_format")
 
                         td
                             strong(
@@ -105,7 +111,10 @@
                             div(ng-if="!reservation.identity_physical_card")
                                 .text-strong.text-primary(ng-bind="reservation.identity_email")
 
-                        td: strong(ng-bind="reservation.created_at_locale").text-primary
+                        td
+                            strong(ng-bind="reservation.created_at_locale.split(' - ')[0]").text-primary
+                            br
+                            strong(ng-bind="reservation.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
 
                         td: strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
                         td: .flex-group.flex.flex-end
