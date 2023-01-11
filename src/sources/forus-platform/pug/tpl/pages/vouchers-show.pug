@@ -125,7 +125,7 @@
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
-                        table.table.table-fixed
+                        table.table.table-fixed.table-align-top
                             tr
                                 //- always
                                 td
@@ -158,11 +158,14 @@
                                 td(ng-if="$ctrl.voucher.fund.type == 'subsidies'")
                                     strong(translate="vouchers.labels.limit_multiplier").text-strong.text-md.text-muted-dark
                                     br
-                                    strong(ng-bind="$ctrl.voucher.limit_multiplier").text-black
-                                    | &nbsp;&nbsp;
-                                    .button.button-default.button-sm(ng-click="$ctrl.incrementLimitMultiplier()")
-                                        em.mdi.mdi-plus-circle.icon-start
-                                        | Nieuwe toevoegen
+
+                                    .form: control-numeric(
+                                        min-value="1"
+                                        max-value="1000"
+                                        ng-model="$ctrl.voucher.limit_multiplier" 
+                                        ng-change="$ctrl.submitLimitMultiplier($ctrl.voucher.limit_multiplier, {{ $ctrl.voucher.limit_multiplier }})"
+                                        apply="true" 
+                                        apply-text="Voorleggen")
 
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
                                 td(ng-if="!$ctrl.voucher.activation_code")
