@@ -2,7 +2,7 @@ const ProvidersComponent = function (
     $state,
     $stateParams,
     FormBuilderService,
-    ProvidersService
+    ProvidersService,
 ) {
     const $ctrl = this;
 
@@ -217,7 +217,7 @@ module.exports = {
         '$stateParams',
         'FormBuilderService',
         'ProvidersService',
-        ProvidersComponent
+        ProvidersComponent,
     ],
-    templateUrl: 'assets/tpl/pages/providers.html'
+    templateUrl: 'assets/tpl/pages/providers.html',
 };
