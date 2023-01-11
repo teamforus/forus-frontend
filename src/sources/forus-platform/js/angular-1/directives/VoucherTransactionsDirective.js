@@ -55,6 +55,7 @@ const VoucherTransactionsDirective = function (
     };
 
     $dir.$onInit = () => {
+        $dir.isSponsor = appConfigs.panel_type == 'sponsor';
         if ($dir.register) {
             $dir.register({ directive: $dir });
         }

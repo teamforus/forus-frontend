@@ -461,6 +461,8 @@ module.exports = {
             providers: "Aanbieders instellingen",
             provider: "Aanbieder instellingen",
             office: "Vestiging instellingen",
+            voucher: "Tegoeden instellingen",
+            product: "Aanbod instellingen",
         },
         blocks: {
             show_home_map: "Tonen van de map (Homepagina)",
@@ -468,6 +470,8 @@ module.exports = {
             show_providers_map: "Tonen van de map (Aanbieders pagina)",
             show_provider_map: "Tonen van de map (Aanbieder pagina)",
             show_office_map: "Tonen van de map (Aanbieder vestiging pagina)",
+            show_voucher_map: "Tonen van de map (Tegoeden pagina)",
+            show_product_map: "Tonen van de map (Aanbod pagina)",
         },
     },
 
@@ -1309,9 +1313,11 @@ module.exports = {
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
     validation_requests: {
         labels: {
+            id: "ID",
             requests: "Openstaande aanvragen ({{ count }})",
             bsn: "BSN: ",
             type: "Type",
+            requester: "Requester",
             value: "Eigenschap",
             date: "Datum, tijd",
             results: "{{ count }} resultaten",
@@ -1336,6 +1342,12 @@ module.exports = {
             birth_place: "Geboorteplaats",
             address: "Verblijfsplaats",
             disregarded_at: "Buiten behandeling gesteld op",
+            created_date: "Aangemaakt op",
+            fund: "Fonds",
+            email: "E-mailadres",
+            empty_table: "Geen aanvragen",
+            note_title: "Reden van weigeren",
+            assignee: "Assignee",
         },
         person: {
             relations: {
@@ -1359,10 +1371,18 @@ module.exports = {
             decline: "Weigeren",
             disregard: "Niet behandelen",
             disregard_undo: "Opnieuw beoordelen",
-            disregard_undo_disabled_replaced: "Aanvraag reeds vervangen",
+            disregard_undo_disabled_replaced: "Request already replaced",
             clear_filter: "Wis filter",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
+            view: "Bekijk",
+            add_partner_bsn: "Add partner bsn",
+            assign_to_me: "Toewijzen aan mij",
+            assign: "Toewijzen",
+            resign: "Meld af",
+        },
+        header: {
+            title: "Aanvragen",
         },
     },
 
@@ -1411,6 +1431,7 @@ module.exports = {
         },
         labels: {
             price: "Bedrag",
+            product_name: "Aanbod naam",
             date: "Datum",
             status: "Status",
         },

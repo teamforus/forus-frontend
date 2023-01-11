@@ -92,7 +92,7 @@
                         td: a(ui-sref="products-show(reservation.product)") 
                             .text-strong.text-primary(
                                 title="{{ reservation.product.name }}"
-                                ng-bind="reservation.product.name | str_limit:40" 
+                                ng-bind="reservation.product.name | str_limit:45" 
                                 ng-class="{'text-strike' : reservation.product.deleted}")
 
                             .text-strong.text-small.text-muted-dark(
