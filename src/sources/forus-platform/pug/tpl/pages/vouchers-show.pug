@@ -150,10 +150,10 @@
                                     br
                                     strong(ng-bind="$ctrl.voucher.activation_code").text-black
 
-                                td(ng-if="$ctrl.voucher.activation_code_uid")
+                                td(ng-if="$ctrl.voucher.client_uid")
                                     strong(translate="vouchers.labels.uid").text-strong.text-md.text-muted-dark
                                     br
-                                    strong(ng-bind="$ctrl.voucher.activation_code_uid").text-black
+                                    strong(ng-bind="$ctrl.voucher.client_uid").text-black
 
                                 td(ng-if="$ctrl.voucher.fund.type == 'subsidies'")
                                     strong(translate="vouchers.labels.limit_multiplier").text-strong.text-md.text-muted-dark
@@ -166,7 +166,7 @@
 
                                 td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
                                 td(ng-if="!$ctrl.voucher.activation_code")
-                                td(ng-if="!$ctrl.voucher.activation_code_uid")
+                                td(ng-if="!$ctrl.voucher.client_uid")
                                 td(ng-if="!$ctrl.voucher.physical_card || ($ctrl.voucher.fund.type != 'subsidies')")
 
                             tr
