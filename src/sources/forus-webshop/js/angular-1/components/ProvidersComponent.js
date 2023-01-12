@@ -2,7 +2,7 @@ const ProvidersComponent = function (
     $state,
     $stateParams,
     FormBuilderService,
-    ProvidersService
+    ProvidersService,
 ) {
     const $ctrl = this;
 
@@ -95,7 +95,7 @@ const ProvidersComponent = function (
             $ctrl.providers = res.data;
         });
 
-        $ctrl.updateState(query, location);
+        $ctrl.updateState(query);
         $ctrl.updateFiltersUsedCount();
     };
 
@@ -107,7 +107,7 @@ const ProvidersComponent = function (
             }, []);
         });
 
-        $ctrl.updateState(query, location);
+        $ctrl.updateState(query);
         $ctrl.updateFiltersUsedCount();
     };
 
@@ -122,6 +122,8 @@ const ProvidersComponent = function (
             product_category_id: query.product_category_id,
             show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
+            order_by: query.order_by,
+            order_by_dir: query.order_by_dir,
         }, { location });
     };
 
@@ -169,7 +171,16 @@ const ProvidersComponent = function (
         });
 
         $ctrl.showModalFilters = $stateParams.show_menu;
-        $ctrl.sortBy = $ctrl.sortByOptions[0];
+
+        if ($stateParams.order_by && $stateParams.order_by_dir) {
+            $ctrl.sortBy = $ctrl.sortByOptions.find(sortOption => 
+                sortOption.value.order_by == $stateParams.order_by && 
+                sortOption.value.order_by_dir == $stateParams.order_by_dir
+            );
+        } else {
+            $ctrl.sortBy = $ctrl.sortByOptions[0];
+        }
+        
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q,
             fund_id: $stateParams.fund_id || $ctrl.funds[0].id,
@@ -206,7 +217,7 @@ module.exports = {
         '$stateParams',
         'FormBuilderService',
         'ProvidersService',
-        ProvidersComponent
+        ProvidersComponent,
     ],
-    templateUrl: 'assets/tpl/pages/providers.html'
+    templateUrl: 'assets/tpl/pages/providers.html',
 };

@@ -26,6 +26,16 @@ const ImplementationCmsConfigEditComponent = function (
         blocks: [
             'show_office_map',
         ],
+    }, {
+        page: 'voucher',
+        blocks: [
+            'show_voucher_map',
+        ],
+    }, {
+        page: 'product',
+        blocks: [
+            'show_product_map',
+        ],
     }];
 
     $ctrl.$onInit = function() {
@@ -35,6 +45,8 @@ const ImplementationCmsConfigEditComponent = function (
             show_provider_map: $ctrl.implementation.show_provider_map,
             show_providers_map: $ctrl.implementation.show_providers_map,
             show_office_map: $ctrl.implementation.show_office_map,
+            show_voucher_map: $ctrl.implementation.show_voucher_map,
+            show_product_map: $ctrl.implementation.show_product_map,
         }, function(form) {
             ImplementationService.updateCMS($ctrl.organization.id, $ctrl.implementation.id, form.values).then(() => {
                 PushNotificationsService.success('Opgeslagen!');

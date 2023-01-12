@@ -273,7 +273,7 @@ main(id="main-content")
             filters="{fund_id: $ctrl.voucher.fund_id}")
             
         .block.block-map_card(
-            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && $root.appConfigs.features.show_voucher_map && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
             .map_card-header
                 //- regular voucher
                 h2.map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")

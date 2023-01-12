@@ -129,6 +129,16 @@
     }
 
     &.block-showcase {
+        &.block-showcase-fullscreen {
+            .showcase-layout {
+                .showcase-aside {
+                    .showcase-aside-block {
+                        padding-left: 20px;
+                    }
+                }
+            }
+        }
+
         .showcase-layout {
             .showcase-aside {
                 .showcase-aside-block {
@@ -373,6 +383,7 @@
             background: #F4F5F7;
             left: calc(-50vw + 50%);
             padding: 30px 0 30px 0;
+            margin: 0;
     
             .section-title {
                 margin-top: 0;

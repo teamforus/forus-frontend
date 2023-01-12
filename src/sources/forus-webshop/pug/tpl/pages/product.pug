@@ -122,7 +122,7 @@ main(id="main-content")
 
             .block.block-organizations: provider-list-item(provider="$ctrl.provider")
 
-            .block.block-map_card
+            .block.block-map_card(ng-if="$root.appConfigs.features.show_product_map")
                 .map_card-header
                     h2.map_card-title(i18n="product.headers.map")
 

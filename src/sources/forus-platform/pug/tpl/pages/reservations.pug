@@ -89,8 +89,8 @@
 
                     tr(ng-repeat="reservation in $ctrl.reservations.data")
                         td: .text-strong.text-primary(ng-bind="'#' + reservation.code")
-                        td
-                            .text-strong(ng-bind="reservation.product.name" ng-class="{'text-strike' : reservation.product.deleted}")
+                        td(title="{{ reservation.product.name }}")
+                            .text-strong(ng-bind="reservation.product.name | str_limit:45" ng-class="{'text-strike' : reservation.product.deleted}")
                             .text-strong.text-small.text-muted-dark(ng-bind="reservation.price_locale")
                         td.text-primary: .text-strong(ng-bind="reservation.amount | currency_format")
 
