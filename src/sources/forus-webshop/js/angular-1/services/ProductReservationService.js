@@ -18,8 +18,8 @@ const ProductReservationService = function(ApiRequest) {
             return ApiRequest.post(uriPrefix, data);
         }
 
-        this.destroy = function(id = {}) {
-            return ApiRequest.delete(`${uriPrefix}/${id}`);
+        this.update = function(id, values) {
+            return ApiRequest.patch(`${uriPrefix}/${id}`, values);
         }
     });
 };

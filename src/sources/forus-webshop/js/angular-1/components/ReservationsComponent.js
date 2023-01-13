@@ -42,7 +42,10 @@ const ReservationsComponent = function(ProductReservationService) {
 
         ProductReservationService.list({
             ...$ctrl.filters,
-            ...{ fund_id: $ctrl.filters.fund_id ? $ctrl.filters.fund_id.id : null }
+            ...{ 
+                fund_id: $ctrl.filters.fund_id ? $ctrl.filters.fund_id.id : null,
+                archived: $ctrl.archived ? 1 : 0,
+            }
         }).then((res) => {
             $ctrl.reservations = res.data;
         });

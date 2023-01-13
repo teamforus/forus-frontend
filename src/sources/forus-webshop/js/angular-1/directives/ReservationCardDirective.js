@@ -14,7 +14,9 @@ const ReservationCardDirective = function (
             ModalService.open('modalProductReserveCancel', {
                 reservation: reservation,
                 onConfirm: () => {
-                    ProductReservationService.destroy(reservation.id).finally(() => {
+                    ProductReservationService.update(reservation.id, {
+                        state: 'canceled_by_client'
+                    }).finally(() => {
                         $dir.onDelete({ reservation })
                         PushNotificationsService.success('Reservering geannuleerd.');
                     }, (res) => PushNotificationsService.danger('Error.', res.data.message));
