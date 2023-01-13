@@ -19,6 +19,12 @@ module.exports = {
         target: 'Overboeken naar',
         target_iban: 'IBAN-nummer',
         target_name: 'IBAN-naam',
+        target_provider_option: 'Aanbieder',
+        target_iban_option: 'Bankrekening',
+        iban_source: 'Source',
+        reimbursement: 'Declaration',
+        reimbursement_source: 'Declaration',
+        manual_source: 'Manual',
     },
     buttons: {
         cancel: "Annuleren",

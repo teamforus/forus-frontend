@@ -42,6 +42,28 @@
                         options="$ctrl.providers").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.organization_id" ng-bind="error")
 
+                //- IBAN sources
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.canUseReimbursements && $ctrl.form.values.target === 'iban'")
+                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.iban_source")
+                    select-control(
+                        prop="key"
+                        search="false"
+                        ng-model="$ctrl.form.values.iban_source"
+                        ng-change="$ctrl.onIbanSourceChange()"
+                        options="$ctrl.ibanSources").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.iban_source" ng-bind="error")
+
+                //- Reimbursement
+                .form-group.form-group-inline.form-group-inline-md(
+                    ng-if="$ctrl.canUseReimbursements && $ctrl.form.values.target === 'iban' && $ctrl.form.values.iban_source === 'reimbursement'")
+                    label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.reimbursement")
+                    select-control(
+                        prop="id"
+                        ng-model="$ctrl.form.values.reimbursement_id"
+                        ng-change="$ctrl.onReimbursementSelectChange()"
+                        options="$ctrl.reimbursements").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.reimbursement_id" ng-bind="error")
+
                 //- Target IBAN
                 .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'iban'")
                     label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.target_iban")
@@ -49,6 +71,7 @@
                         input(
                             ng-model="$ctrl.form.values.target_iban"
                             ng-change="$ctrl.onFormChange()"
+                            ng-disabled="$ctrl.form.values.iban_source === 'reimbursement'"
                             placeholder="IBAN-nummer").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.target_iban" ng-bind="error")
 
@@ -59,6 +82,7 @@
                         input(
                             ng-model="$ctrl.form.values.target_name"
                             ng-change="$ctrl.onFormChange()"
+                            ng-disabled="$ctrl.form.values.iban_source === 'reimbursement'"
                             placeholder="IBAN-naam").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.target_name" ng-bind="error")
 
