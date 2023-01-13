@@ -763,6 +763,9 @@ module.exports = (core) => {
 
                 // voucher settings
                 shareProducts: false,
+
+                // products
+                productsBlockAlignmentDir: 'left'
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,

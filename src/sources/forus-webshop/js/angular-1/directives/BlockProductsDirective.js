@@ -5,6 +5,7 @@ let BlockProductsDirective = function($scope) {
         filters: $scope.filters || 'budget',
         products: $scope.products || [],
         showLoadMore: $scope.showLoadMore || true,
+        alignDir: $scope.alignDir || 'center',
     };
 };
 
@@ -16,6 +17,7 @@ module.exports = () => {
             type: '@',
             products: '=?',
             showLoadMore: '=?',
+            alignDir: '@',
         },
         restrict: "EA",
         replace: true,

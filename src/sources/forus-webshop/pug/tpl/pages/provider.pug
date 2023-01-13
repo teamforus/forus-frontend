@@ -91,11 +91,13 @@ block content
                     display="grid" 
                     type="budget" 
                     products="$ctrl.products.data" 
-                    filters="{organization_id: $ctrl.provider.id}")
+                    filters="{organization_id: $ctrl.provider.id}"
+                    align-dir="{{ $root.appConfigs.flags.productsBlockAlignmentDir || 'center' }}")
 
                 block-products(
                     ng-if="$ctrl.subsidies && $ctrl.subsidies.data.length > 0" 
                     display="grid" 
                     type="subsidies" 
                     products="$ctrl.subsidies.data" 
-                    filters="{organization_id: $ctrl.provider.id}")
+                    filters="{organization_id: $ctrl.provider.id}"
+                    align-dir="{{ $root.appConfigs.flags.productsBlockAlignmentDir || 'center' }}")
