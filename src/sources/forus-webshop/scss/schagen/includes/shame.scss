@@ -1,23 +1,16 @@
-.section-title,
-.block-title {
-    color: #004680;
-}
-
 .block {
     &.block-navbar {
         .block-auth {
-            .auth-in {
-                .button {
-                    &.button-primary {
-                        &:hover {
-                            background-color: $btn-start-hov;
-                        }
+            .button {
+                &.button-primary {
+                    &:hover {
+                        background-color: $btn-start-hov;
                     }
+                }
 
-                    &.button-default {
-                        &:hover {
-                            background-color: #074e7d;
-                        }
+                &.button-default {
+                    &:hover {
+                        background-color: #074e7d;
                     }
                 }
             }
@@ -386,6 +379,10 @@
     }
 
     &.section-faq {
+        .section-title {
+            font-family: 'Montserrat';
+        }
+
         .faq {
             width: auto;
             margin: 0;
@@ -432,17 +429,25 @@
 
 .block {
     &.block-footer {
-        .footer-label {
-            color: #fff;
-        }
+        .block {
+            &.block-markdown {
+                h1, h2, h3, h4, h5, h6 {
+                    font-family: 'Montserrat';
+                } 
+            }
 
-        .footer-nav {
-            .footer-nav-item {
-                a {
-                    color: #efefef;
-                    font: 500 14px/24px $bf;
+            .footer-nav {
+                .footer-nav-item {
+                    a {
+                        color: #efefef;
+                        font: 500 16px/24px $bf;
+                    }
                 }
             }
+        }
+
+        .footer-label {
+            color: #fff;
         }
 
         .footer-schedule {
@@ -469,7 +474,7 @@
 
     &.block-copyrights {
         border: none;
-        background-color: #212121;
+        background-color: $fbc;
         color: #fff;
         font-size: 1rem;
         padding: 25px 0;

@@ -3,11 +3,11 @@
     src: url('../fonts/Century Gothic.ttf');
 }
 
-// LAYOUTS
-@import 'layout/_header.scss';
-
 @import './vars';
-@import '../_common/webshop'; 
+@import '../_common/webshop';
 
 // INCLUDES
 @import 'includes/shame.scss';
+
+// COMPONENTS
+@import 'components/_breadcrumbs.scss';
