@@ -39,51 +39,76 @@
                         prop="id"
                         ng-model="$ctrl.form.values.organization_id"
                         ng-change="$ctrl.onFormChange()"
-                        options="$ctrl.providers").form-control
+                        options="$ctrl.providers"
+                        placeholder="Selecteer aanbieder").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.organization_id" ng-bind="error")
 
                 //- IBAN sources
-                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.canUseReimbursements && $ctrl.form.values.target === 'iban'")
+                .form-group.form-group-inline.form-group-inline-md(
+                    ng-if="$ctrl.ibanSources && $ctrl.canUseReimbursements && $ctrl.form.values.target === 'iban'")
                     label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.iban_source")
                     select-control(
                         prop="key"
                         search="false"
                         ng-model="$ctrl.form.values.iban_source"
-                        ng-change="$ctrl.onIbanSourceChange()"
+                        ng-change="$ctrl.onFormChange()"
                         options="$ctrl.ibanSources").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.iban_source" ng-bind="error")
 
                 //- Reimbursement
                 .form-group.form-group-inline.form-group-inline-md(
-                    ng-if="$ctrl.canUseReimbursements && $ctrl.form.values.target === 'iban' && $ctrl.form.values.iban_source === 'reimbursement'")
+                    ng-if="$ctrl.canUseReimbursements && $ctrl.form.values.target === 'iban'"
+                    ng-show="$ctrl.form.values.iban_source === 'reimbursement'")
                     label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.reimbursement")
                     select-control(
-                        prop="id"
-                        ng-model="$ctrl.form.values.reimbursement_id"
-                        ng-change="$ctrl.onReimbursementSelectChange()"
-                        options="$ctrl.reimbursements").form-control
+                        ng-model="$ctrl.form.reimbursement"
+                        ng-change="$ctrl.onFormChange()"
+                        options="$ctrl.reimbursements"
+                        placeholder="Select reimbursement").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.reimbursement_id" ng-bind="error")
 
                 //- Target IBAN
-                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'iban'")
+                .form-group.form-group-inline.form-group-inline-md(
+                    ng-if="$ctrl.form.values.target === 'iban'"
+                    ng-show="$ctrl.form.values.iban_source === 'manual' || $ctrl.form.reimbursement")
+
                     label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.target_iban")
                     .form-offset
+                        //- Manual 
                         input(
+                            ng-if="$ctrl.form.values.iban_source === 'manual'"
                             ng-model="$ctrl.form.values.target_iban"
                             ng-change="$ctrl.onFormChange()"
-                            ng-disabled="$ctrl.form.values.iban_source === 'reimbursement'"
                             placeholder="IBAN-nummer").form-control
+
+                        //- Reimbursement 
+                        input(
+                            ng-if="$ctrl.form.values.iban_source === 'reimbursement'"
+                            ng-model="$ctrl.form.reimbursement.iban"
+                            ng-disabled="true").form-control
+
                         .form-error(ng-repeat="error in $ctrl.form.errors.target_iban" ng-bind="error")
 
                 //- Target Name
-                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.form.values.target === 'iban'")
+                .form-group.form-group-inline.form-group-inline-md(
+                    ng-if="$ctrl.form.values.target === 'iban'"
+                    ng-show="$ctrl.form.values.iban_source === 'manual' || $ctrl.form.reimbursement")
+
                     label.form-label.form-label-required(translate="modals.modal_voucher_transaction.labels.target_name")
                     .form-offset
+                        //- Manual 
                         input(
+                            ng-if="$ctrl.form.values.iban_source === 'manual'"
                             ng-model="$ctrl.form.values.target_name"
                             ng-change="$ctrl.onFormChange()"
-                            ng-disabled="$ctrl.form.values.iban_source === 'reimbursement'"
                             placeholder="IBAN-naam").form-control
+
+                        //- Reimbursement 
+                        input(
+                            ng-if="$ctrl.form.values.iban_source === 'reimbursement'"
+                            ng-model="$ctrl.form.reimbursement.iban_name"
+                            ng-disabled="true").form-control
+
                         .form-error(ng-repeat="error in $ctrl.form.errors.target_name" ng-bind="error")
 
                 //- Amount
@@ -125,6 +150,36 @@
                 type="submit"
                 ng-disabled="$ctrl.submitButtonDisabled"
                 translate="modals.modal_voucher_transaction.buttons.submit")
+    
+    mixin modal_transaction_preview_section()
+        .modal-section
+            .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
+                //- Provider
+                .datalist-row(ng-if="$ctrl.form.values.target === 'provider'")
+                    .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.provider")
+                    .datalist-value(ng-bind="$ctrl.providersList[$ctrl.form.values.organization_id].name")
+
+                //- IBAN
+                .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
+                    .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_iban")
+                    .datalist-value(ng-if="$ctrl.form.values.iban_source === 'reimbursement'" ng-bind="$ctrl.form.reimbursement.iban")
+                    .datalist-value(ng-if="$ctrl.form.values.iban_source === 'manual'" ng-bind="$ctrl.form.values.target_iban")
+
+                //- IBAN Name
+                .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
+                    .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_name")
+                    .datalist-value(ng-if="$ctrl.form.values.iban_source === 'reimbursement'" ng-bind="$ctrl.form.reimbursement.iban_name")
+                    .datalist-value(ng-if="$ctrl.form.values.iban_source === 'manual'" ng-bind="$ctrl.form.values.target_name")
+
+                //- Sponsor name
+                .datalist-row
+                    .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.organization")
+                    .datalist-value(ng-bind="$ctrl.organization.name")
+
+                //- Transaction amount
+                .datalist-row
+                    .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.amount")
+                    .datalist-value(ng-bind="$ctrl.form.values.amount | currency_format")
 
     //- Preview
     .modal-window(ng-if="$ctrl.state == 'preview'")
@@ -133,35 +188,8 @@
 
         .modal-body.form
             .modal-section: .modal-heading.text-center(translate="modals.modal_voucher_transaction.preview.title")
-
-            .modal-section
-                .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
-                    //- Provider
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'provider'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.provider")
-                        .datalist-value(ng-bind="$ctrl.providersList[$ctrl.form.values.organization_id].name")
-
-                    //- IBAN
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_iban")
-                        .datalist-value(ng-bind="$ctrl.form.values.target_iban")
-
-                    //- IBAN Name
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_name")
-                        .datalist-value(ng-bind="$ctrl.form.values.target_name")
-
-                    //- Sponsor name
-                    .datalist-row
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.organization")
-                        .datalist-value(ng-bind="$ctrl.organization.name")
-
-                    //- Transaction amount
-                    .datalist-row
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.amount")
-                        .datalist-value(ng-bind="$ctrl.form.values.amount | currency_format")
-
-                .modal-text.text-center.bordered(translate="modals.modal_voucher_transaction.preview.description")
+            +modal_transaction_preview_section()
+            .modal-section: .modal-text.text-center(translate="modals.modal_voucher_transaction.preview.description")
 
         //- Submit
         .modal-footer.modal-footer-light.text-center
@@ -193,32 +221,7 @@
                 .modal-heading(translate="modals.modal_voucher_transaction.success.top_up_title")
                 .modal-text(translate="modals.modal_voucher_transaction.success.top_up_description")
 
-            .modal-section
-                .row: .col.col-lg-8.col-lg-offset-2: .block.block-compact-datalist
-                    //- Provider name
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'provider'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.provider")
-                        .datalist-value(ng-bind="$ctrl.providersList[$ctrl.form.values.organization_id].name")
-
-                    //- Identity
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_iban")
-                        .datalist-value(ng-bind="$ctrl.form.values.target_iban")
-
-                    //- Identity
-                    .datalist-row(ng-if="$ctrl.form.values.target === 'iban'")
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.target_name")
-                        .datalist-value(ng-bind="$ctrl.form.values.target_name")
-
-                    //- Sponsor name
-                    .datalist-row
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.organization")
-                        .datalist-value(ng-bind="$ctrl.modal.scope.organization.name")
-
-                    //- Transaction amount
-                    .datalist-row
-                        .datalist-key.text-primary.text-right: strong(translate="modals.modal_voucher_transaction.labels.amount")
-                        .datalist-value(ng-bind="$ctrl.form.values.amount | currency_format")
+            +modal_transaction_preview_section()
 
         //- Actions
         .modal-footer.modal-footer-light.text-centers

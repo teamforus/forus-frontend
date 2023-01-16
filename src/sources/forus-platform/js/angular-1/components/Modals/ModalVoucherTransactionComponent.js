@@ -1,12 +1,13 @@
-const ModalVoucherTransactionProviderComponent = function (
+const ModalVoucherTransactionComponent = function (
+    $q,
+    $filter,
     FundService,
     VoucherService,
+    PermissionsService,
     FormBuilderService,
     OrganizationService,
-    PushNotificationsService,
     ReimbursementService,
-    PermissionsService,
-    $filter,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
     const $translate = $filter('translate');
@@ -15,9 +16,10 @@ const ModalVoucherTransactionProviderComponent = function (
     $ctrl.submitButtonDisabled = true;
     $ctrl.canUseReimbursements = false;
 
-    $ctrl.targets = [
-        { key: 'provider', name: $translate(`${transLabelPrefix}.target_provider_option`) },
-    ];
+    $ctrl.targets = [{
+        key: 'provider',
+        name: $translate(`${transLabelPrefix}.target_provider_option`),
+    }];
 
     $ctrl.fetchVoucherFund = (voucher) => {
         return FundService.read(voucher.fund.organization_id, voucher.fund_id).then((res) => res.data.data);
@@ -39,9 +41,9 @@ const ModalVoucherTransactionProviderComponent = function (
     };
 
     $ctrl.onFormChange = () => {
-        const {
-            target, organization_id, target_iban, target_name, amount, iban_source, reimbursement_id,
-        } = $ctrl.form.values;
+        const { target, organization_id, target_iban, target_name } = $ctrl.form.values;
+        const { amount, iban_source } = $ctrl.form.values;
+        const { reimbursement } = $ctrl.form;
 
         if (target === 'provider') {
             return $ctrl.submitButtonDisabled = !organization_id || !amount;
@@ -52,9 +54,9 @@ const ModalVoucherTransactionProviderComponent = function (
         }
 
         if (target === 'iban') {
-            return iban_source === 'manual'
-                ? $ctrl.submitButtonDisabled = !target_iban || !target_name || !amount
-                : $ctrl.submitButtonDisabled = !reimbursement_id || !amount;
+            return $ctrl.submitButtonDisabled = iban_source === 'manual' ?
+                (!target_iban || !target_name || !amount) :
+                (!reimbursement?.id || !amount);
         }
 
         return $ctrl.submitButtonDisabled = true;
@@ -70,22 +72,23 @@ const ModalVoucherTransactionProviderComponent = function (
             iban_source: 'manual',
             reimbursement_id: null,
         }, (form) => {
-            let values = (
+            const values = (
                 ({ note, amount, target, voucher_id }) => ({ note, amount, target, voucher_id })
             )(form.values);
 
             if (form.values.target === 'provider') {
                 values.organization_id = form.values.organization_id;
             } else if (form.values.target === 'iban') {
-                values = {
-                    ...values,
-                    target_iban: form.values.target_iban,
-                    target_name: form.values.target_name,
-                    iban_source: form.values.iban_source,
+                const { iban_source, target_iban, target_name } = form.values;
+                const target_reimbursement_id = form.reimbursement?.id || null;
+
+                if (iban_source == 'manual') {
+                    values.target_iban = target_iban;
+                    values.target_name = target_name;
                 }
 
-                if (form.values.iban_source === 'reimbursement') {
-                    values.reimbursement_id = form.values.reimbursement_id;
+                if (iban_source == 'reimbursement') {
+                    values.target_reimbursement_id = target_reimbursement_id;
                 }
             }
 
@@ -120,41 +123,14 @@ const ModalVoucherTransactionProviderComponent = function (
     };
 
     $ctrl.getReimbursements = () => {
-        $ctrl.ibanSources = [
-            { key: 'manual', name: $translate(`${transLabelPrefix}.manual_source`) },
-            { key: 'reimbursement', name: $translate(`${transLabelPrefix}.reimbursement_source`) },
-        ];
-
         return ReimbursementService.index($ctrl.organization.id, {
+            fund_id: $ctrl.voucher.fund_id,
             identity_address: $ctrl.voucher.identity_address,
             state: 'approved',
             per_page: 100,
         }).then((res) => {
-            $ctrl.reimbursements = res.data.data.map((reimbursement) => {
-                return { ...reimbursement, name: `NR: ${reimbursement.code} IBAN: ${reimbursement.iban}`};
-            });
+            return res.data.data.map((item) => ({ ...item, name: `NR: ${item.code} IBAN: ${item.iban}` }));
         });
-    };
-
-    $ctrl.onIbanSourceChange = () => {
-        if ($ctrl.form.values.iban_source === 'reimbursement') {
-            $ctrl.form.values.reimbursement_id = $ctrl.reimbursements[0]?.id;
-            $ctrl.onReimbursementSelectChange();
-        } else {
-            $ctrl.form.values.target_iban = '';
-            $ctrl.form.values.target_name = '';
-        }
-
-        $ctrl.onFormChange();
-    };
-
-    $ctrl.onReimbursementSelectChange = () => {
-        const reimbursement = $ctrl.reimbursements.filter((item) => item.id === $ctrl.form.values.reimbursement_id)[0];
-
-        $ctrl.form.values.target_iban = reimbursement?.iban;
-        $ctrl.form.values.target_name = reimbursement?.iban_name;
-
-        $ctrl.onFormChange();
     };
 
     $ctrl.$onInit = () => {
@@ -170,8 +146,11 @@ const ModalVoucherTransactionProviderComponent = function (
         $ctrl.fetchVoucherFund(voucher).then((fund) => {
             $ctrl.fund = fund;
             $ctrl.amount_limit = $ctrl.calcTopUpLimit($ctrl.target, $ctrl.fund, voucher);
-            $ctrl.canUseReimbursements = PermissionsService.hasPermission($ctrl.organization, 'manage_reimbursements') &&
-                $ctrl.fund.allow_reimbursements;
+
+            $ctrl.canUseReimbursements =
+                $ctrl.fund.allow_reimbursements &&
+                $ctrl.fund.allow_direct_payments &&
+                PermissionsService.hasPermission($ctrl.organization, 'manage_reimbursements');
 
             if ($ctrl.fund.allow_direct_payments) {
                 $ctrl.targets.push({ key: 'iban', name: $translate(`${transLabelPrefix}.target_iban_option`) },);
@@ -181,19 +160,26 @@ const ModalVoucherTransactionProviderComponent = function (
                 $ctrl.form = $ctrl.buildForm();
                 $ctrl.onFormChange();
             } else {
-                $ctrl.fetchProviders(voucher, organization).then((data) => {
+                const promises = [];
+
+                promises.push($ctrl.fetchProviders(voucher, organization).then((data) => {
                     $ctrl.providers = data;
                     $ctrl.providersList = data.reduce((list, item) => ({ ...list, [item.id]: item }), {});
+                }));
 
-                    if ($ctrl.fund.allow_direct_payments && $ctrl.canUseReimbursements) {
-                        $ctrl.getReimbursements().then(() => {
-                            $ctrl.form = $ctrl.buildForm();
-                            $ctrl.onFormChange();
-                        });
-                    } else {
-                        $ctrl.form = $ctrl.buildForm();
-                        $ctrl.onFormChange();
+                promises.push($ctrl.canUseReimbursements ? $ctrl.getReimbursements().then((data) => {
+                    $ctrl.reimbursements = data;
+                }) : null);
+
+                $q.all(promises).then(() => {
+                    $ctrl.ibanSources = [{ key: 'manual', name: $translate(`${transLabelPrefix}.manual_source`) }];
+
+                    if ($ctrl.reimbursements?.length > 0) {
+                        $ctrl.ibanSources.push({ key: 'reimbursement', name: $translate(`${transLabelPrefix}.reimbursement_source`) });
                     }
+
+                    $ctrl.form = $ctrl.buildForm();
+                    $ctrl.onFormChange();;
                 });
             }
         });
@@ -206,15 +192,16 @@ module.exports = {
         modal: '=',
     },
     controller: [
+        '$q',
+        '$filter',
         'FundService',
         'VoucherService',
+        'PermissionsService',
         'FormBuilderService',
         'OrganizationService',
-        'PushNotificationsService',
         'ReimbursementService',
-        'PermissionsService',
-        '$filter',
-        ModalVoucherTransactionProviderComponent,
+        'PushNotificationsService',
+        ModalVoucherTransactionComponent,
     ],
     templateUrl: 'assets/tpl/modals/modal-voucher-transaction.html',
 };
