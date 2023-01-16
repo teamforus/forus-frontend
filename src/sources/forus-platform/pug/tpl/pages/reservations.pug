@@ -119,12 +119,9 @@
                             div(ng-if="!reservation.identity_physical_card")
                                 .text-strong.text-primary(ng-bind="reservation.identity_email")
 
-                        td
-                            strong(ng-bind="reservation.created_at_locale.split(' - ')[0]").text-primary
-                            br
-                            strong(ng-bind="reservation.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
-
+                        td: strong(ng-bind="reservation.created_at_locale").text-primary
                         td: strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
+
                         td: .flex-group.flex.flex-end
                             button.button.button-sm.button-primary-light.button-icon(
                                 ng-if="reservation.state === 'pending' && !reservation.expired && !reservation.product.deleted" 
