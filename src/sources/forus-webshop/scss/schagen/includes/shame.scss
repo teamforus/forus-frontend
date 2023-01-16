@@ -356,7 +356,6 @@
 
 .section {
     &.section-header {
-        width: 1280px;
         background-position: top center;
         padding: 50px 0;
         margin: 0 auto;
@@ -380,7 +379,7 @@
 
     &.section-faq {
         .section-title {
-            font-family: 'Montserrat', Verdana, sans-serif;
+            font-family: $bf;
         }
 
         .faq {
@@ -432,7 +431,7 @@
         .block {
             &.block-markdown {
                 h1, h2, h3, h4, h5, h6 {
-                    font-family: 'Montserrat', Verdana, sans-serif;
+                    font-family: $bf;
                 } 
             }
 
