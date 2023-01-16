@@ -15,7 +15,7 @@ const ReservationCardDirective = function (
                 reservation: reservation,
                 onConfirm: () => {
                     ProductReservationService.update(reservation.id, {
-                        state: 'canceled_by_client'
+                        state: 'canceled_by_client',
                     }).finally(() => {
                         $dir.onDelete({ reservation })
                         PushNotificationsService.success('Reservering geannuleerd.');

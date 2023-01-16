@@ -62,14 +62,14 @@ section.section.section-profile: .wrapper
                 .block.block-label-tabs.form.pull-right
                     .label-tab-set
                         .label-tab.label-tab-sm(
-                            ng-class="{active: !$ctrl.archived}"
-                            ng-click="$ctrl.setArchived(false)"
+                            ng-class="{active: !$ctrl.filters.archived}"
+                            ng-click="$ctrl.filters.archived = 0"
                             role="button")
                             | Actief
 
                         .label-tab.label-tab-sm(
-                            ng-class="{active: $ctrl.archived}"
-                            ng-click="$ctrl.setArchived(true)"
+                            ng-class="{active: $ctrl.filters.archived}"
+                            ng-click="$ctrl.filters.archived = 1"
                             role="button")
                             | Archief
 
@@ -78,7 +78,7 @@ section.section.section-profile: .wrapper
             .block.block-reservations(ng-if="$ctrl.reservations.data.length > 0")
                 reservation-card(
                     ng-repeat="reservation in $ctrl.reservations.data"
-                    on-delete="$ctrl.onDelete()"
+                    on-delete="$ctrl.onPageChange()"
                     reservation="reservation")
 
             empty-block(
