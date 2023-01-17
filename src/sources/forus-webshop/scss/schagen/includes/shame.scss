@@ -378,10 +378,6 @@
     }
 
     &.section-faq {
-        .section-title {
-            font-family: $bf;
-        }
-
         .faq {
             width: auto;
             margin: 0;
@@ -429,11 +425,6 @@
 .block {
     &.block-footer {
         .block {
-            &.block-markdown {
-                h1, h2, h3, h4, h5, h6 {
-                    font-family: $bf;
-                } 
-            }
 
             .footer-nav {
                 .footer-nav-item {
