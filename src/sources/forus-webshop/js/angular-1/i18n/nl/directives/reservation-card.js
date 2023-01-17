@@ -3,7 +3,7 @@ module.exports = {
         code: "Reserveringsnummer:",
         cancel: "Reservering annuleren",
         status: {
-            canceled: "Geannuleerd",
+            canceled: "Geannuleerd door aanbieder",
             canceled_by_client: "Geannuleerd door aanvrager",
             accepted: "Geaccepteerd",
             pending: "In afwachting",
