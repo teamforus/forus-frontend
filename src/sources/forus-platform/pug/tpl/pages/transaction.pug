@@ -70,6 +70,14 @@
                             ng-bind="$ctrl.transaction.organization.name || 'Fund user'")
                         .keyvalue-value(ng-if="$ctrl.transaction.target === 'top_up'") Top up
 
+                    .keyvalue-item(ng-if="$ctrl.transaction.product")
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.product_id")
+                        .keyvalue-value(ng-bind="$ctrl.transaction.product.id")
+
+                    .keyvalue-item(ng-if="$ctrl.transaction.product")
+                        .keyvalue-key(translate="financial_dashboard_transaction.labels.product_name")
+                        .keyvalue-value(ng-bind="$ctrl.transaction.product.name")    
+
                     .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor' && $ctrl.transaction.target !== 'top_up' && $ctrl.transaction.state == 'success'")
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq")
                         .keyvalue-value(ng-bind="$ctrl.transaction.transaction_cost | currency_format")
@@ -84,7 +92,7 @@
                             | {{ {pending: 'In afwachting', success: 'Succes', canceled: 'Geannuleerd'}[$ctrl.transaction.state] }}
                             div(ng-if="$ctrl.transaction.transaction_in > 0 && $ctrl.transaction.state == 'pending'").text-sm.text-muted-dark
                                 em.mdi.mdi-clock-outline 
-                                | {{ $ctrl.transaction.transaction_in }} dagen
+                                | {{ $ctrl.transaction.transaction_in }} dagen resterend
 
                     //- Sponsor IBAN
                     .keyvalue-item(ng-if="$ctrl.transaction.iban_from")

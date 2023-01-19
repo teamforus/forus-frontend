@@ -6,6 +6,7 @@ module.exports = {
         amount: 'Bedrag',
         note: 'Notitie',
         expire_at: 'Geldig tot en met',
+        client_uid: 'Uniek nummer',
     },
     info: "Een QR-code eenmaal aangemaakt kan niet verwijderd worden.",
     buttons: {

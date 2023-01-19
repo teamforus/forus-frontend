@@ -6,6 +6,8 @@ module.exports = {
         bunq_id: "ID bunq",
         bng_id: "ID BNG",
         statement: "Naam begunstigde",
+        product_id: "Aanbod ID",
+        product_name: "Aanbod naam",
         bunq: "Transactiekosten",
         fee: "€ 0.10",
         date: "Datum",

@@ -2,39 +2,14 @@ top-navbar
 
 main(id="main-content")
     .page.page-home
-        .block.block-steps(ng-if="$ctrl.description_html"): .wrapper
+        .block.block-steps: .wrapper
             .block.block-breadcrumbs
                 a(ui-sref="home").breadcrumb-item Home
                 .breadcrumb-item.active(aria-current="location") Uitleg
 
-            .block-steps-description: cms-blocks(
+            .block-steps-description(ng-if="$ctrl.description_html"): cms-blocks(
                 ng-if="$root.appConfigs.features.pages.explanation"
                 page="$root.appConfigs.features.pages.explanation")
-
-        section.section.section-steps#steps(ng-if="!$ctrl.description_html"): .wrapper
-            .block.block-breadcrumbs
-                a(ui-sref="home").breadcrumb-item Home
-                .breadcrumb-item.active Uitleg
-            
-            .section-splash
-            .section-sprite
-            h1.section-title(i18n="home.guide.title")
-            .steps
-                .step-item: .step-item-content
-                    h4(translate="home.guide.stepone")
-                    p(translate="home.guide.{{ $root.client_key }}.one" translate-default="{{'home.guide.one' | translate }}")
-                .step-item: .step-item-content
-                    h4(translate="home.guide.steptwo")
-                    p(translate="home.guide.{{ $root.client_key }}.two" translate-default="{{'home.guide.two' | translate }}" scroll-to="#desc")
-                .step-item: .step-item-content
-                    h4(translate="home.guide.stepthree")
-                    p(translate="home.guide.{{ $root.client_key }}.three" translate-default="{{'home.guide.three' | translate }}")
-                .step-item: .step-item-content
-                    h4(translate="home.guide.stepfour")
-                    p(translate="home.guide.{{ $root.client_key }}.four" translate-default="{{'home.guide.four' | translate }}")
-                .step-item: .step-item-content
-                    h4(i18n="home.guide.stepfive")
-                    p(translate="home.guide.{{ $root.client_key }}.five" translate-default="{{'home.guide.five' | translate }}")
 
         section.section.section-faq(ng-if="!$ctrl.description_html || $ctrl.faq.length"): .wrapper
             .section-splash
