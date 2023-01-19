@@ -108,7 +108,7 @@ main(id="main-content")
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="{{ $ctrl.voucherCard.fund.organization.name }}")
                     .card-section
                         h2.card-title {{ "voucher.voucher_card.header.title" | translate }}
-                        .card-description(i18n="voucher.voucher_card.labels.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
+                        .card-description(translate="voucher.voucher_card.labels.description" translate-values="{fund_name: $ctrl.voucherCard.title}")
                 .card-footer
                     .card-label(i18n="voucher.voucher_card.labels.contact_sponsor" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
                     .card-value.card-value-sm
