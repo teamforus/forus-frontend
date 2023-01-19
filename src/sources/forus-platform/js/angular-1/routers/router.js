@@ -222,7 +222,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             permission: permissionMiddleware('organization-funds', ['manage_funds', 'view_finances', 'view_funds'], false),
             fundLevel: [('permission'), () => "organizationFunds"],
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
-                return repackResponse(FundService.list($transition$.params().organization_id, { with_archived: 1, with_external: 1 }))
+                return repackResponse(FundService.list($transition$.params().organization_id, { with_archived: 1, with_external: 1, stats: 'min' }))
             }],
             recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
                 return repackResponse(RecordTypeService.list());
@@ -557,9 +557,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             organization: organziationResolver(),
             funds: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
-            ) => permission ? repackPagination(FundService.list(
-                $transition$.params().organization_id
-            )) : null],
+            ) => permission ? repackPagination(FundService.list($transition$.params().organization_id, {
+                stats: 'all',
+            })) : null],
             fundsFinancialOverview: ['permission', '$transition$', 'FundService', (
                 permission, $transition$, FundService
             ) => permission ? repackPagination(FundService.financialOverview(
