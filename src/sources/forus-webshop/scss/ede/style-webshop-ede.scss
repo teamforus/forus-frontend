@@ -5,3 +5,7 @@
 
 // SHAME
 @import 'includes/shame';
+
+.block {
+    @import 'sections/blocks/block-provider.scss';
+}
