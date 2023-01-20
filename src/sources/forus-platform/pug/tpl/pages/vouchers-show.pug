@@ -161,6 +161,10 @@
                             apply-text="Voorleggen")
 
         .card(ng-if="$ctrl.voucher")
+            .card-header: .flex
+                .flex.flex-grow: .card-title
+                    .flex.flex-vertical.flex-center Voucher details
+                    
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
