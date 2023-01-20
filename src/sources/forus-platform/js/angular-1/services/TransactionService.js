@@ -10,6 +10,17 @@ const TransactionService = function(ApiRequest) {
             return ApiRequest.get(`${path}/${organization_id}/${type}/transactions/${address}`);
         };
 
+        this.storeBatch = function(organization_id, data = {}) {
+            return ApiRequest.post(`${path}/${organization_id}/sponsor/transactions/batch`,{ ...data });
+        };
+
+        this.sampleCsvTransactions = () => {
+            const headers = ['voucher_id', 'amount', 'direct_payment_iban', 'direct_payment_name', 'uid', 'note'];
+            const values = [1, 10, 'NL1111111111111111', 'name', '111', ''];
+
+            return Papa.unparse([headers, values]);
+        };
+
         this.export = (type, organization_id, filters = {}) => {
             const callback = (_cfg) => {
                 _cfg.responseType = 'arraybuffer';

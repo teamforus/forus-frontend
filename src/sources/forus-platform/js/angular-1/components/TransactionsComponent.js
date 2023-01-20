@@ -280,6 +280,13 @@ const TransactionsComponent = function(
         }).then((res) => $ctrl.pendingBulkingMeta = res.data.meta);
     };
 
+    $ctrl.uploadTransactions = () => {
+        ModalService.open('voucherTransactionsUpload', {
+            organization: $ctrl.organization,
+            onCreated: () => $ctrl.onPageChange(),
+        });
+    };
+
     $ctrl.$onInit = () => {
         $ctrl.isSponsor = appConfigs.panel_type == 'sponsor';
         $ctrl.viewType = $ctrl.viewTypes.filter(type => type.key == $stateParams.type)[0] || $ctrl.viewTypes[0];
