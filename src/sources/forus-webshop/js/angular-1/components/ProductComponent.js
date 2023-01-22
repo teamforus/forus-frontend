@@ -71,8 +71,8 @@ const ProductComponent = function(
         $ctrl.productMeta = ProductService.checkEligibility($ctrl.product, $ctrl.vouchers);
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
 
-        $ctrl.useSubsidies = $ctrl.product.funds.filter(fund => fund.type === 'subsidies').length > 0;
-        $ctrl.useBudget = $ctrl.product.funds.filter(fund => fund.type === 'budget').length > 0;
+        $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
+        $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
 
         const implementation = $i18n('implementation_name.' + appConfigs.client_key);
         $rootScope.pageTitle = $i18n('page_state_titles.product', { implementation, product_name: $ctrl.product.name, organization_name: $ctrl.product.organization.name,});
