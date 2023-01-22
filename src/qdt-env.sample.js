@@ -763,6 +763,7 @@ module.exports = (core) => {
 
                 // voucher settings
                 shareProducts: false,
+                product_details_only_available_funds: true
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
