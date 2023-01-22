@@ -6,9 +6,9 @@ a.fund-item
     .fund-content: .fund-details
         .fund-name(ng-bind="$dir.fund.name")
 
-        .fund-description(
-            ng-if="$dir.fund.description_short" 
-            ng-bind="$dir.fund.description_short")
+        .fund-description.tooltip-block(ng-if="$dir.fund.description_short")
+            | #[span(ng-bind="$dir.fund.description_short | str_limit:280")]
+            | #[tooltip(ng-if="$dir.fund.description_short.length > 280" text="$dir.fund.description_short")]    
 
         .fund-status-label
             .label.label-light(
