@@ -529,7 +529,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         component: "reservationsComponent",
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
-            reservations: ['ProductReservationService', (ProductReservationService) => repackPagination(ProductReservationService.list())],
+            reservations: ['ProductReservationService', (ProductReservationService) => repackPagination(ProductReservationService.list({ archived: 0 }))],
             organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
                 is_employee: 0,
                 has_reservations: 1,
