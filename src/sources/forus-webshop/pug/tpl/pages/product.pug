@@ -46,11 +46,11 @@ main(id="main-content")
                 
                 +bookmark_toggle()
 
-            .block.block-pane(ng-if="$ctrl.productMeta.funds.length > 0 && (!$ctrl.productDetailsOnlyAvailableFunds || $ctrl.productMeta.hasReservableFunds)")
+            .block.block-pane(ng-if="$ctrl.productMeta.funds.length > 0 && (!$ctrl.onlyAvailableFunds || $ctrl.productMeta.hasReservableFunds)")
                 .pane-head: h2(i18n="product.headers.funds" ui-sref="vouchers").pane-head-title
                 .pane-section.pane-section-collapsed
                     .product-funds-list: .fund-item(
-                        ng-if="!$ctrl.productDetailsOnlyAvailableFunds || fund.meta.isReservationAvailable" 
+                        ng-if="!$ctrl.onlyAvailableFunds || fund.meta.isReservationAvailable" 
                         ng-repeat="fund in $ctrl.productMeta.funds" 
                         dusk="fundItem")
                         .fund-item-section.fund-item-section-details.text-left
@@ -124,7 +124,7 @@ main(id="main-content")
                                 em.mdi.mdi-arrow-right.icon-right
 
             //- user not logged or no reservable funds
-            .block.block-action-card.block-action-card-compact(ng-if="!$root.auth_user || ($ctrl.productDetailsOnlyAvailableFunds && !$ctrl.productMeta.hasReservableFunds)")
+            .block.block-action-card.block-action-card-compact(ng-if="!$root.auth_user || ($ctrl.onlyAvailableFunds && !$ctrl.productMeta.hasReservableFunds)")
                 .block-card-logo: include ../../../resources/_webshop-common/assets/img/icon-funds-overview.svg
                 .block-card-details
                     h3.block-card-title(i18n="product.labels.funds_card_title")
