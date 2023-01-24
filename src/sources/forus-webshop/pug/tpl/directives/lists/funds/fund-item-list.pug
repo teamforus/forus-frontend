@@ -6,9 +6,12 @@ a.fund-item
     .fund-content: .fund-details
         .fund-name(ng-bind="$dir.fund.name")
 
-        .fund-description(
-            ng-if="$dir.fund.description_short" 
-            ng-bind="$dir.fund.description_short")
+        .fund-description(ng-if="$dir.fund.description_short")
+            span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
+            span(ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
+            br
+            span(ng-if="!$dir.showMore" ng-click="$dir.setShowMore($event, true)").fund-description-more Toon meer...
+            span(ng-if="$dir.showMore" ng-click="$dir.setShowMore($event, false)").fund-description-more Toon minder...
 
         .fund-status-label
             .label.label-light(

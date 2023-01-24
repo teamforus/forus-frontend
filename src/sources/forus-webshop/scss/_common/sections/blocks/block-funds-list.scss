@@ -6,12 +6,12 @@
         border-radius: $border_radius;
         display: flex;
         flex-direction: row;
-        min-height: 140px;
+        min-height: 150px;
         transition: box-shadow 0.4s;
 
         .fund-photo {
+            width: 150px;
             display: block;
-            width: 140px;
             overflow: hidden;
             position: relative;
             border-top-left-radius: inherit;
@@ -75,6 +75,16 @@
                 color: $tc;
                 padding: 5px 0 0;
                 max-width: 80ch;
+
+                .fund-description-more {
+                    font: inherit;
+                    display: block;
+                    color: $color_primary;
+                    text-decoration: underline;
+                    font-weight: 600;
+                    padding-top: 5px;
+                    color: #282B39;
+                }
             }
 
             .fund-organization {
