@@ -1,12 +1,12 @@
-const ProductsComponent = function(
+const ProductsComponent = function (
     $scope,
     $state,
     $stateParams,
     appConfigs,
     ProductService,
-    ProductCategoryService,
     FormBuilderService,
     PageLoadingBarService,
+    ProductCategoryService,
 ) {
     const $ctrl = this;
 
@@ -85,33 +85,11 @@ const ProductsComponent = function(
         $ctrl.loadProducts($ctrl.buildQuery(values));
     };
 
-    const loadSubCategories = () => {
-        let productCategory = $ctrl.productCategories.find(category => category.id == $ctrl.product_category_id);
-
-        if (!productCategory || $ctrl.product_category_id == null) {
-            $ctrl.productSubCategories = $ctrl.product_sub_category_id = null;
-            return;
-        }
-
-        ProductCategoryService.list({
-            parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
-            ...{ per_page: 1000, used: 1, used_type: 'budget' },
-        }).then(res => {
-            $ctrl.productSubCategories = res.data.meta.total ? res.data.data : null;
-
-            $ctrl.productSubCategories?.unshift({
-                name: 'Selecteer subcategorie...',
-                id: null
-            });
-        });
-    };
-
     $ctrl.loadProducts = (query) => {
         PageLoadingBarService.setProgress(0);
 
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
             $ctrl.products = res.data;
-            loadSubCategories();
         }).finally(() => {
             $ctrl.updateState(query, true);
             $ctrl.updateFiltersUsedCount();
@@ -136,7 +114,20 @@ const ProductsComponent = function(
     };
 
     $ctrl.changeCategory = (type) => {
-        if (type == 'category' || (type == 'subcategory' && !$ctrl.product_sub_category_id)) {
+        if (type === 'category') {
+            if ($ctrl.product_category_id) {
+                ProductCategoryService.list({
+                    parent_id: $ctrl.product_category_id, per_page: 1000, used: 1, used_type: $ctrl.fund_type,
+                }).then(res => {
+                    $ctrl.productSubCategories = res.data.meta.total ? [{
+                        name: 'Selecteer subcategorie...',
+                        id: null
+                    }, ...res.data.data] : null;
+                });
+            } else {
+                $ctrl.productSubCategories = null;
+            }
+
             return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
         }
 
@@ -160,8 +151,8 @@ const ProductsComponent = function(
         $ctrl.appConfigs = appConfigs;
 
         if ($stateParams.order_by && $stateParams.order_by_dir) {
-            $ctrl.sort_by = $ctrl.sortByOptions.find(sortOption => 
-                sortOption.value.order_by == $stateParams.order_by && 
+            $ctrl.sort_by = $ctrl.sortByOptions.find(sortOption =>
+                sortOption.value.order_by == $stateParams.order_by &&
                 sortOption.value.order_by_dir == $stateParams.order_by_dir
             );
         } else {
@@ -233,10 +224,10 @@ module.exports = {
         '$stateParams',
         'appConfigs',
         'ProductService',
-        'ProductCategoryService',
         'FormBuilderService',
         'PageLoadingBarService',
-        ProductsComponent
+        'ProductCategoryService',
+        ProductsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/products.html'
+    templateUrl: 'assets/tpl/pages/products.html',
 };

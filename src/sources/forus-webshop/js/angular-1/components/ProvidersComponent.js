@@ -1,8 +1,8 @@
 const ProvidersComponent = function (
     $state,
     $stateParams,
-    FormBuilderService,
     ProvidersService,
+    FormBuilderService,
     ProductCategoryService,
 ) {
     const $ctrl = this;
@@ -91,31 +91,9 @@ const ProvidersComponent = function (
         $ctrl.loadProviders({ ...$ctrl.buildQuery($ctrl.form.values), ...{ page: 1 } });
     }
 
-    const loadSubCategories = () => {
-        let productCategory = $ctrl.productCategories.find(category => category.id == $ctrl.product_category_id);
-
-        if (!productCategory || $ctrl.product_category_id == null) {
-            $ctrl.productSubCategories = $ctrl.product_sub_category_id = null;
-            return;
-        }
-
-        ProductCategoryService.list({
-            parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
-            ...{ per_page: 1000, used: 1 },
-        }).then(res => {
-            $ctrl.productSubCategories = res.data.meta.total ? res.data.data : null;
-
-            $ctrl.productSubCategories?.unshift({
-                name: 'Selecteer subcategorie...',
-                id: null
-            });
-        });
-    };
-
     $ctrl.loadProviders = (query) => {
         ProvidersService.search(Object.assign({}, query)).then(res => {
             $ctrl.providers = res.data;
-            loadSubCategories();
         });
 
         $ctrl.updateState(query);
@@ -151,7 +129,20 @@ const ProvidersComponent = function (
     };
 
     $ctrl.changeProductCategory = (type) => {
-        if (type == 'category' || (type == 'subcategory' && !$ctrl.product_sub_category_id)) {
+        if (type === 'category') {
+            if ($ctrl.product_category_id) {
+                ProductCategoryService.list({
+                    parent_id: $ctrl.product_category_id, per_page: 1000, used: 1,
+                }).then(res => {
+                    $ctrl.productSubCategories = res.data.meta.total ? [{
+                        name: 'Selecteer subcategorie...',
+                        id: null
+                    }, ...res.data.data] : null;
+                });
+            } else {
+                $ctrl.productSubCategories = null;
+            }
+
             return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
         }
 
@@ -238,8 +229,8 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        'FormBuilderService',
         'ProvidersService',
+        'FormBuilderService',
         'ProductCategoryService',
         ProvidersComponent,
     ],
