@@ -1374,7 +1374,7 @@ body {
                 float: left;
                 color: $color_primary;
                 font: 500 13px/20px $bf;
-                width: 210px;
+                width: 150px;
                 padding-right: 20px;
             }
 
@@ -1399,6 +1399,10 @@ body {
 
                 .icon {
                     margin-left: 7px;
+                }
+
+                .form-numeric {
+                    margin-top: -5px;
                 }
             }
 
