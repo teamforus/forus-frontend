@@ -14,7 +14,7 @@ main(id="main-content")
                         .block-body
                             .validator-item(ng-repeat="validator in $ctrl.validators")
                                 .validator-image: img(
-                                    ng-src="{{ validator.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                                    ng-src="{{ validator.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="")
                                 .validator-name(ng-bind="validator.organization.name")
                                 .validator-state
                                     
