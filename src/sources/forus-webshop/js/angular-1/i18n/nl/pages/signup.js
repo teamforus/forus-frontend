@@ -50,8 +50,5 @@ module.exports = {
         heumen: {
             start_email: "Start activatie",
         },
-        schagen: {
-            start_email: "Start",
-        },
     }
 };
