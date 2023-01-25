@@ -1,11 +1,11 @@
 module.exports = {
-    title: "Let op: controleer de wijzigingen voordat je bevestigt",
+    title: "Let op: Controleer de wijzigingen!",
     description: [
         `Je staat op het punt om het aantal personen op het tegoed aan te passen.`,
-        `Controleer of het aantal klopt voordat je je keuze bevestigd.`,
+        `Controleer of het aantal klopt voordat je verder gaat.`,
     ].join(" "),
     buttons: {
         cancel: 'Annuleren',
-        confirm: 'Toevoegen',
+        confirm: 'Bevestig',
     },
 };

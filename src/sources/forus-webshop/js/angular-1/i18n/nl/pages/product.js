@@ -19,7 +19,10 @@ module.exports = {
         pay_from_voucher: "U betaalt vanuit het tegoed:",
         price: "Prijs:",
         discount: "Korting:",
-        expire_prefix: ""
+        expire_prefix: "",
+        funds_card_title: "Fondsen informatie",
+        funds_card_description: "Wilt u weten met welk fonds u deze aanbieding kunt kopen? Ga dan naar het overzicht fondsen en kijk waar je voor in aanmerking komt!",
+        funds_card_btn_text: "Ga naar fondsen",
     },
     status: {
         active: "Actief",

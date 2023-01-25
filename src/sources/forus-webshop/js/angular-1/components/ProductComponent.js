@@ -1,5 +1,4 @@
-const ProductComponent = function(
-    $scope,
+const ProductComponent = function (
     $rootScope,
     $state,
     $stateParams,
@@ -9,7 +8,7 @@ const ProductComponent = function(
     AuthService,
     FundService,
     ModalService,
-    ProductService
+    ProductService,
 ) {
     const $ctrl = this;
     const $i18n = $filter('i18n');
@@ -62,9 +61,10 @@ const ProductComponent = function(
         ProductService.toggleBookmark(product);
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.signedIn = AuthService.hasCredentials();
+        $ctrl.onlyAvailableFunds = appConfigs.flags.productDetailsOnlyAvailableFunds;
 
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.productMeta = ProductService.checkEligibility($ctrl.product, $ctrl.vouchers);
@@ -73,8 +73,11 @@ const ProductComponent = function(
         $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
         $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
 
-        const implementation = $i18n('implementation_name.' + appConfigs.client_key);
-        $rootScope.pageTitle = $i18n('page_state_titles.product', { implementation, product_name: $ctrl.product.name, organization_name: $ctrl.product.organization.name,});
+        $rootScope.pageTitle = $i18n('page_state_titles.product', {
+            product_name: $ctrl.product.name,
+            implementation: $i18n(`implementation_name.${appConfigs.client_key}`),
+            organization_name: $ctrl.product.organization.name,
+        });
     };
 };
 
@@ -89,7 +92,6 @@ module.exports = {
         vouchers: '<',
     },
     controller: [
-        '$scope',
         '$rootScope',
         '$state',
         '$stateParams',
@@ -100,7 +102,7 @@ module.exports = {
         'FundService',
         'ModalService',
         'ProductService',
-        ProductComponent
+        ProductComponent,
     ],
-    templateUrl: 'assets/tpl/pages/product.html'
+    templateUrl: 'assets/tpl/pages/product.html',
 };
