@@ -18,6 +18,7 @@
         .search-media {
             display: flex;
             width: 120px;
+            min-width: 120px;
             overflow: hidden;
             background-size: cover;
             background-position: 50% 50%;
@@ -69,7 +70,7 @@
             flex-direction: column;
             justify-content: center;
             padding: 15px;
-            flex-grow: 1;
+            flex: 1;
 
             .search-title {
                 font: 700 16px/26px $bf;
@@ -85,12 +86,12 @@
 
         .search-actions {
             padding: 15px;
-            width: 270px;
             border-left: 1px solid $border_color;
             display: flex;
             align-items: flex-start;
             flex-wrap: wrap;
             flex-direction: row-reverse;
+            flex: 0 1 260px;
 
             &.with-button {
                 align-items: center;
