@@ -85,11 +85,33 @@ const ProductsComponent = function(
         $ctrl.loadProducts($ctrl.buildQuery(values));
     };
 
+    const loadSubCategories = () => {
+        let productCategory = $ctrl.productCategories.find(category => category.id == $ctrl.product_category_id);
+
+        if (!productCategory || $ctrl.product_category_id == null) {
+            $ctrl.productSubCategories = $ctrl.product_sub_category_id = null;
+            return;
+        }
+
+        ProductCategoryService.list({
+            parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
+            ...{ per_page: 1000, used: 1, used_type: 'budget' },
+        }).then(res => {
+            $ctrl.productSubCategories = res.data.meta.total ? res.data.data : null;
+
+            $ctrl.productSubCategories?.unshift({
+                name: 'Selecteer subcategorie...',
+                id: null
+            });
+        });
+    };
+
     $ctrl.loadProducts = (query) => {
         PageLoadingBarService.setProgress(0);
 
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
-            return $ctrl.products = res.data;
+            $ctrl.products = res.data;
+            loadSubCategories();
         }).finally(() => {
             $ctrl.updateState(query, true);
             $ctrl.updateFiltersUsedCount();

@@ -3,6 +3,7 @@ const ProvidersComponent = function (
     $stateParams,
     FormBuilderService,
     ProvidersService,
+    ProductCategoryService,
 ) {
     const $ctrl = this;
 
@@ -90,9 +91,31 @@ const ProvidersComponent = function (
         $ctrl.loadProviders({ ...$ctrl.buildQuery($ctrl.form.values), ...{ page: 1 } });
     }
 
+    const loadSubCategories = () => {
+        let productCategory = $ctrl.productCategories.find(category => category.id == $ctrl.product_category_id);
+
+        if (!productCategory || $ctrl.product_category_id == null) {
+            $ctrl.productSubCategories = $ctrl.product_sub_category_id = null;
+            return;
+        }
+
+        ProductCategoryService.list({
+            parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
+            ...{ per_page: 1000, used: 1 },
+        }).then(res => {
+            $ctrl.productSubCategories = res.data.meta.total ? res.data.data : null;
+
+            $ctrl.productSubCategories?.unshift({
+                name: 'Selecteer subcategorie...',
+                id: null
+            });
+        });
+    };
+
     $ctrl.loadProviders = (query) => {
         ProvidersService.search(Object.assign({}, query)).then(res => {
             $ctrl.providers = res.data;
+            loadSubCategories();
         });
 
         $ctrl.updateState(query);
@@ -217,6 +240,7 @@ module.exports = {
         '$stateParams',
         'FormBuilderService',
         'ProvidersService',
+        'ProductCategoryService',
         ProvidersComponent,
     ],
     templateUrl: 'assets/tpl/pages/providers.html',
