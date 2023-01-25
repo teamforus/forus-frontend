@@ -1,8 +1,9 @@
 const ProvidersComponent = function (
     $state,
     $stateParams,
-    FormBuilderService,
     ProvidersService,
+    FormBuilderService,
+    ProductCategoryService,
 ) {
     const $ctrl = this;
 
@@ -128,7 +129,20 @@ const ProvidersComponent = function (
     };
 
     $ctrl.changeProductCategory = (type) => {
-        if (type == 'category' || (type == 'subcategory' && !$ctrl.product_sub_category_id)) {
+        if (type === 'category') {
+            if ($ctrl.product_category_id) {
+                ProductCategoryService.list({
+                    parent_id: $ctrl.product_category_id, per_page: 1000, used: 1,
+                }).then(res => {
+                    $ctrl.productSubCategories = res.data.meta.total ? [{
+                        name: 'Selecteer subcategorie...',
+                        id: null
+                    }, ...res.data.data] : null;
+                });
+            } else {
+                $ctrl.productSubCategories = null;
+            }
+
             return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
         }
 
@@ -215,8 +229,9 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        'FormBuilderService',
         'ProvidersService',
+        'FormBuilderService',
+        'ProductCategoryService',
         ProvidersComponent,
     ],
     templateUrl: 'assets/tpl/pages/providers.html',
