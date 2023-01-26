@@ -2,7 +2,7 @@
     .reimbursement-section
         .reimbursement-media
             .media-preview: img(
-                ng-src="{{ $dir.reimbursement.files[$dir.previewIndex].preview.sizes.thumbnail }}")
+                ng-src="{{ $dir.reimbursement.files[$dir.previewIndex].preview.sizes.thumbnail }}" alt="reimbursement media")
 
             .media-pagination(ng-if="$dir.reimbursement.files.length > 1")
                 .media-pagination-prev(ng-click="$dir.prevPreviewMedia()"): .mdi.mdi-chevron-left

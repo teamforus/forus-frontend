@@ -88,11 +88,25 @@
                         th.text-right(translate='reservations.labels.actions')
 
                     tr(ng-repeat="reservation in $ctrl.reservations.data")
-                        td: .text-strong.text-primary(ng-bind="'#' + reservation.code")
-                        td(title="{{ reservation.product.name }}")
-                            .text-strong(ng-bind="reservation.product.name | str_limit:45" ng-class="{'text-strike' : reservation.product.deleted}")
-                            .text-strong.text-small.text-muted-dark(ng-bind="reservation.price_locale")
-                        td.text-primary: .text-strong(ng-bind="reservation.amount | currency_format")
+                        td: .text-strong(ng-bind="'#' + reservation.code")
+                        td
+                            mixin product_info(type)
+                                .text-strong(
+                                    class=type
+                                    title="{{ reservation.product.name }}"
+                                    ng-bind="reservation.product.name | str_limit:45" 
+                                    ng-class="{'text-strike' : reservation.product.deleted}")
+
+                                .text-strong.text-small.text-muted-dark(
+                                    ng-bind="reservation.price_locale")
+
+                            a(ng-if="$ctrl.organization | hasPerm:['manage_products']" ui-sref="products-show(reservation.product)") 
+                                +product_info('text-primary')
+
+                            div(ng-if="!($ctrl.organization | hasPerm:['manage_products'])") 
+                                +product_info()
+
+                        td.text-strong(ng-bind="reservation.amount | currency_format")
 
                         td
                             strong(
@@ -106,8 +120,8 @@
                                 .text-strong.text-primary(ng-bind="reservation.identity_email")
 
                         td: strong(ng-bind="reservation.created_at_locale").text-primary
-
                         td: strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
+
                         td: .flex-group.flex.flex-end
                             button.button.button-sm.button-primary-light.button-icon(
                                 ng-if="reservation.state === 'pending' && !reservation.expired && !reservation.product.deleted" 

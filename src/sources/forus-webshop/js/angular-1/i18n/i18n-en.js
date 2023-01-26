@@ -79,4 +79,5 @@ module.exports = {
     maps: require("./en/directives/google-map"),
     profile_menu: require("./en/directives/profile-menu"),
     top_navbar_search: require('./en/directives/top-navbar-search'),
+    reservation: require("./nl/directives/reservation-card"),
 };

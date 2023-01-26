@@ -27,7 +27,7 @@ main(id="main-content")
                         ng-if="$ctrl.options.includes('code')"
                         ng-click="$ctrl.setState('code')")
 
-                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="icon me-app").sign_up-option-media-img
                         .sign_up-option-details
                             .sign_up-option-title Ik heb een activatiecode
                             .sign_up-option-description Ga verder met het activeren van je tegoed door gebruik te maken van een activatiecode
@@ -39,7 +39,7 @@ main(id="main-content")
 
                         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                         .sign_up-option-details
-                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption") DigiD
+                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption" alt="icon digid") DigiD
                             .sign_up-option-description(ng-if="$ctrl.showFundRequestOption")
                                 | Open het DigiD inlogscherm
 
@@ -137,7 +137,7 @@ main(id="main-content")
             .sign_up-pane-body
                 p.sign_up-pane-text.text-center 
                     | U kunt zich niet aanmelden voor {{ $ctrl.fund.name }}.
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -160,7 +160,7 @@ main(id="main-content")
                     | De tegoeden zijn beschikbaar in het account van de persoon die 
                     br
                     | deze als eerste heeft geactiveerd.
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem voor vragen contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -178,7 +178,7 @@ main(id="main-content")
                     | Volgens onze gegevens bent u geen inwoner van de gemeente Nijmegen. De { $ctrl.fund.name }} geldt alleen voor inwoners van de gemeente Nijmegen. Mogelijk heeft uw eigen gemeente wel regelingen waarvoor u in aanmerking komt. Neem hiervoor contact op met de gemeente waar u woonachtig bent. 
                     | Heeft u hier een vraag over of wilt u een bezwaar indienen, neem dan contact op met 024-329 8065.
                     
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -192,7 +192,7 @@ main(id="main-content")
                 p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
                 p.sign_up-pane-text 
                     | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -208,7 +208,7 @@ main(id="main-content")
                 p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
                 p.sign_up-pane-text
                     | Uw aanvraag voor {{ $ctrl.fund.name }} is niet gelukt. Volgens onze informatie hebben wij een aanvraag van uw partner ontvangen. Voor meer informatie of vragen kunt u contact opnemen met de gemeente Nijmegen.
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -224,7 +224,7 @@ main(id="main-content")
                 p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
                 p.sign_up-pane-text 
                     | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -237,7 +237,7 @@ main(id="main-content")
                 h2.sign_up-pane-header-title(translate="fund_request.sign_up.header.title_fund_already_applied")
 
             .sign_up-pane-body
-                .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="")
+                .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="icon fund request error")
                 p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
 
                 ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
