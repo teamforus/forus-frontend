@@ -7,7 +7,7 @@
     .wrapper(ng-if="$dir.blocks.length > 0"): .section
         .block.block-cms-funds(ng-if="$dir.blocks.length")
             .fund-item(ng-repeat="block in $dir.blocks")
-                .fund-media: img(ng-src="{{ block.media.sizes.public || './assets/img/placeholders/product-small.png' }}")
+                .fund-media: img(ng-src="{{ block.media.sizes.public || './assets/img/placeholders/product-small.png' }}" alt="")
 
                 .fund-information
                     .fund-label
