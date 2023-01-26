@@ -29,6 +29,7 @@
             img {
                 display: block;
                 width: 100%;
+                object-fit: cover;
             }
 
             &:after {
@@ -91,7 +92,7 @@
             align-items: flex-start;
             flex-wrap: wrap;
             flex-direction: row-reverse;
-            flex: 0 1 260px;
+            flex: 0 1 160px;
 
             &.with-button {
                 align-items: center;
@@ -252,6 +253,7 @@
                 border: none;
                 padding: 0;
                 flex-direction: row;
+                flex: 1;
 
                 .label {
                     line-height: 18px;
