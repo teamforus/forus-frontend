@@ -201,7 +201,7 @@
                                         em.mdi.mdi-close.text-black
                                         strong(translate="product_vouchers.labels.no").text-black
 
-                            tr(ng-if="!$ctrl.voucher.product")
+                            tr(ng-if="!$ctrl.voucher.product && $ctrl.voucher.fund.type != 'subsidies'")
                                 td
                                     strong.text-strong.text-md.text-primary Totaal toegekend
                                     br
