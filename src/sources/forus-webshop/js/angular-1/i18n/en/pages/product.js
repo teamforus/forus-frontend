@@ -2,7 +2,10 @@ module.exports = {
     // PRODUCT = product.pug
     labels: {
         fund: "Funds",
-        find: "You can find us here!",      
+        find: "You can find us here!",
+        funds_card_title: "Funds information",
+        funds_card_description: "Do you want to know with which fund you can purchase this offer? Then go to the overview of funds and see what you are eligible for!",
+        funds_card_btn_text: "Go to funds",
     },
     status: {
         active: "Active",

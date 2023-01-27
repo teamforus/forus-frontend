@@ -121,87 +121,79 @@
                         ng-click="$ctrl.showQrCode()")
                         em.mdi.mdi-qrcode.icon-start 
                         string(translate="vouchers.labels.qr_code")
+                         
+            .card-section: .flex
+                .flex: .card-block.card-block-keyvalue
+                    //- Email
+                    .keyvalue-item
+                        .keyvalue-key(translate="vouchers.labels.email")
+                        .keyvalue-value(ng-bind="$ctrl.voucher.identity_email || 'Niet toegewezen'").text-black
 
+                    //- BSN
+                    .keyvalue-item(ng-if="$ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn")
+                        .keyvalue-key(translate="vouchers.labels.bsn")
+                        .keyvalue-value(ng-bind="($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
+
+                    //- Physical card
+                    .keyvalue-item(ng-if="$ctrl.voucher.physical_card")
+                        .keyvalue-key(translate="vouchers.labels.physical_card")
+                        .keyvalue-value(ng-bind="$ctrl.voucher.physical_card.code")
+                    
+                    //- Activation code
+                    .keyvalue-item(ng-if="$ctrl.voucher.activation_code")
+                        .keyvalue-key(translate="vouchers.labels.details_activation_code")
+                        .keyvalue-value(ng-bind="$ctrl.voucher.activation_code")
+                    
+                    //- Client uid
+                    .keyvalue-item(ng-if="$ctrl.voucher.client_uid")
+                        .keyvalue-key(translate="vouchers.labels.uid")
+                        .keyvalue-value(ng-bind="$ctrl.voucher.client_uid")
+
+                    //- Limit multiplier
+                    .keyvalue-item(ng-if="$ctrl.voucher.fund.type == 'subsidies'")
+                        .keyvalue-key(translate="vouchers.labels.limit_multiplier")
+                        .keyvalue-value: .form: control-numeric(
+                            min-value="1"
+                            max-value="1000"
+                            ng-model="$ctrl.voucher.limit_multiplier" 
+                            ng-change="$ctrl.submitLimitMultiplier($ctrl.voucher.limit_multiplier, {{ $ctrl.voucher.limit_multiplier }})"
+                            apply="true" 
+                            apply-text="Voorleggen")
+
+        .card(ng-if="$ctrl.voucher")
+            .card-header: .flex
+                .flex.flex-grow: .card-title
+                    .flex.flex-vertical.flex-center Voucher details
+                    
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table.table-fixed.table-align-top
                             tr
-                                //- always
-                                td
-                                    strong(translate="vouchers.labels.email").text-strong.text-md.text-muted-dark
-                                    br
-                                    strong.text-black(ng-bind="$ctrl.voucher.identity_email || 'Niet toegewezen'")
-
-                                //- optional
-                                td(ng-if="$ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn")
-                                    strong(translate="vouchers.labels.bsn").text-strong.text-md.text-muted-dark
-                                    br
-                                    strong(ng-bind="($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)").text-black
-
-                                //- optional
-                                td(ng-if="$ctrl.voucher.physical_card")
-                                    strong(translate="vouchers.labels.physical_card").text-strong.text-md.text-muted-dark
-                                    br
-                                    strong(ng-bind="$ctrl.voucher.physical_card.code").text-black
-
-                                td(ng-if="$ctrl.voucher.activation_code")
-                                    strong(translate="vouchers.labels.details_activation_code").text-strong.text-md.text-muted-dark
-                                    br
-                                    strong(ng-bind="$ctrl.voucher.activation_code").text-black
-
-                                td(ng-if="$ctrl.voucher.client_uid")
-                                    strong(translate="vouchers.labels.uid").text-strong.text-md.text-muted-dark
-                                    br
-                                    strong(ng-bind="$ctrl.voucher.client_uid").text-black
-
-                                td(ng-if="$ctrl.voucher.fund.type == 'subsidies'")
-                                    strong(translate="vouchers.labels.limit_multiplier").text-strong.text-md.text-muted-dark
-                                    br
-
-                                    .form: control-numeric(
-                                        min-value="1"
-                                        max-value="1000"
-                                        ng-model="$ctrl.voucher.limit_multiplier" 
-                                        ng-change="$ctrl.submitLimitMultiplier($ctrl.voucher.limit_multiplier, {{ $ctrl.voucher.limit_multiplier }})"
-                                        apply="true" 
-                                        apply-text="Bevestig")
-
-                                td(ng-if="!($ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn)")
-                                td(ng-if="!$ctrl.voucher.activation_code")
-                                td(ng-if="!$ctrl.voucher.client_uid")
-                                td(ng-if="!$ctrl.voucher.physical_card || ($ctrl.voucher.fund.type != 'subsidies')")
-
-                            tr
                                 td(ng-if="!$ctrl.fundClosed")
-                                    strong(translate="vouchers.labels.expire_date").text-strong.text-md.text-muted-dark
+                                    strong(translate="vouchers.labels.expire_date").text-strong.text-md.text-primary
                                     br
                                     strong(ng-bind="$ctrl.voucher.expire_at_locale").text-black
 
                                 td(ng-if="!$ctrl.fundClosed")
-                                    strong(translate="vouchers.labels.created_date").text-strong.text-md.text-muted-dark
+                                    strong(translate="vouchers.labels.created_date").text-strong.text-md.text-primary
                                     br
                                     strong(ng-bind="$ctrl.voucher.created_at_locale.split(' - ')[1]").text-black    
 
                                 td 
-                                    strong(translate="vouchers.labels.source").text-strong.text-md.text-muted-dark
+                                    strong(translate="vouchers.labels.source").text-strong.text-md.text-primary
                                     br
                                     strong(ng-bind="'vouchers.labels.source_' + $ctrl.voucher.source | translate").text-black
 
-                                td(ng-if="!$ctrl.fundClosed && !$ctrl.voucher.in_use")
-                                    strong(translate="vouchers.labels.used").text-strong.text-md.text-muted-dark
+                                td(ng-if="!$ctrl.fundClosed")
+                                    strong(translate="vouchers.labels.used").text-strong.text-md.text-primary
                                     br
                                     em.mdi.mdi-close.text-black
-                                    strong(translate="product_vouchers.labels.no").text-black
-
-                                td(ng-if="!$ctrl.fundClosed && $ctrl.voucher.in_use")
-                                    strong(translate="vouchers.labels.used").text-strong.text-md.text-muted-dark
-                                    br
-                                    em.mdi.mdi-check.text-black
-                                    strong(translate="product_vouchers.labels.yes").text-black
+                                    strong(ng-if="!$ctrl.voucher.in_use" translate="product_vouchers.labels.no").text-black
+                                    strong(ng-if="$ctrl.voucher.in_use" translate="product_vouchers.labels.yes").text-black
 
                                 td
-                                    strong(translate="vouchers.labels.used_date").text-strong.text-md.text-muted-dark
+                                    strong(translate="vouchers.labels.used_date").text-strong.text-md.text-primary
                                     br
                                     div(ng-if="$ctrl.voucher.first_use_date_locale")
                                         strong(ng-bind="$ctrl.voucher.first_use_date_locale").text-black
@@ -211,27 +203,27 @@
 
                             tr(ng-if="!$ctrl.voucher.product")
                                 td
-                                    strong.text-strong.text-md.text-muted-dark Totaal toegekend
+                                    strong.text-strong.text-md.text-primary Totaal toegekend
                                     br
                                     strong(ng-bind="$ctrl.voucher.amount_total | currency_format").text-black
 
                                 td
-                                    strong.text-strong.text-md.text-muted-dark Initieel toegekend
+                                    strong.text-strong.text-md.text-primary Initieel toegekend
                                     br
                                     strong(ng-bind="$ctrl.voucher.amount | currency_format").text-black
 
                                 td
-                                    strong.text-strong.text-md.text-muted-dark Totaal opgewaardeerd
+                                    strong.text-strong.text-md.text-primary Totaal opgewaardeerd
                                     br
                                     strong(ng-bind="$ctrl.voucher.amount_top_up | currency_format").text-black
 
                                 td
-                                    strong.text-strong.text-md.text-muted-dark Huidig bedrag
+                                    strong.text-strong.text-md.text-primary Huidig bedrag
                                     br
                                     strong(ng-bind="$ctrl.voucher.amount_available | currency_format").text-black
 
                                 td
-                                    strong.text-strong.text-md.text-muted-dark Uitgegeven bedrag
+                                    strong.text-strong.text-md.text-primary Uitgegeven bedrag
                                     br
                                     strong(ng-bind="($ctrl.voucher.amount_total - $ctrl.voucher.amount_available) | currency_format").text-black
 

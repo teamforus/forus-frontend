@@ -414,6 +414,9 @@
                     &:before {
                         content: '*';
                         padding-right: 2px;
+                        display: inline-block;
+                        margin-left: -8px;
+                        width: 8px;
                     }
 
                     &:after {
@@ -456,17 +459,17 @@
 
             &.form-group-inline-md {
                 &>.form-label {
-                    width: 120px;
+                    width: 125px;
                 }
 
                 &>.form-offset,
                 &>.form-control {
-                    width: calc(100% - 120px);
+                    width: calc(100% - 125px);
                 }
 
                 &>.form-error {
-                    margin-left: 120px;
-                    width: calc(100% - 120px);
+                    margin-left: 125px;
+                    width: calc(100% - 125px);
                 }
             }
 

@@ -246,7 +246,7 @@
     &.block-markdown {
         a:not(.button) {
             text-decoration: underline;
-            color: #77b431;
+            color: #0071B8;
 
             &:hover {
                 text-decoration: none;
@@ -429,9 +429,15 @@
             .footer-nav {
                 .footer-nav-item {
                     a {
-                        color: #efefef;
+                        color: #fff;
                         font: 500 16px/24px $bf;
                     }
+                }
+            }
+
+            &.block-markdown {
+                a:not(.button) {
+                    color: #fff;
                 }
             }
         }

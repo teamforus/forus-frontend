@@ -9,7 +9,7 @@ a(
     .reimbursement-image(
         ng-if="$dir.reimbursement.files[0].preview"
         ng-class="'reimbursement-image-' + $dir.reimbursement.state")
-        img(ng-src="{{ $dir.reimbursement.files[0].preview.sizes.thumbnail }}")
+        img(ng-src="{{ $dir.reimbursement.files[0].preview.sizes.thumbnail }}" alt="reimbursement image")
     
     .reimbursement-container
         .reimbursement-section

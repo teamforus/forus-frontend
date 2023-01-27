@@ -24,6 +24,12 @@ const ReservationsComponent = function(
     }, {
         key: 'rejected',
         name: 'Geweigerd' // Rejected
+    }, {
+        key: 'canceled',
+        name: 'Geannuleerd' // Canceled by provider
+    }, {
+        key: 'canceled_by_client',
+        name: 'Geannuleerd door aanvrager' // Canceled by client
     }];
 
     $ctrl.filters = {
