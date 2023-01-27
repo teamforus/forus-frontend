@@ -125,6 +125,22 @@ const VoucherService = function(ApiRequest) {
                 name: 'Verlopen'
             }];
         };
+
+        this.apiResourceToForm = function (apiResource) {
+            let expire_at_year = moment(apiResource.expire_at).year();
+
+            apiResource.expire_at_day_month = apiResource.expire_at_locale.replace(expire_at_year, '').trim();
+            apiResource.expire_at_year = expire_at_year;
+
+            if (apiResource.first_use_date) {
+                let first_use_year = moment(apiResource.first_use_date).year();
+                
+                apiResource.first_use_day_month = apiResource.first_use_date_locale.replace(first_use_year, '').trim();
+                apiResource.first_use_year = first_use_year;
+            }
+
+            return apiResource;
+        };
     });
 };
 

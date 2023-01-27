@@ -127,7 +127,12 @@ const VouchersComponent = function(
         VoucherService.index(
             $ctrl.organization.id,
             $ctrl.getQueryParams(query),
-        ).then((res => $ctrl.vouchers = res.data));
+        ).then((res => { 
+            $ctrl.vouchers = res.data;
+            $ctrl.vouchers.data.map(voucher => {
+                voucher = VoucherService.apiResourceToForm(voucher);
+            });
+        }));
     };
 
     $ctrl.showTooltip = (e, target) => {
