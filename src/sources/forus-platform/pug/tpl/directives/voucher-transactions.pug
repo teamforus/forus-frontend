@@ -8,6 +8,7 @@
                 table.table
                     tr
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.id" value="id")
+                        th(th-sortable filters="$dir.filters.values" label="transactions.labels.uid" value="id")
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.price" value="amount")
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.date" value="created_at")
                         th(th-sortable filters="$dir.filters.values" label="transactions.labels.fund" value="fund_name")
@@ -19,6 +20,8 @@
 
                     tr(ng-repeat="transaction in $dir.transactions.data")
                         td(ng-bind="transaction.id")
+                        td(ng-bind="(transaction.uid || '-') | str_limit:25" title="{{ transaction.uid || '-' }}")
+
                         td: a.text-primary-light(
                             ng-bind="transaction.amount | currency_format"
                             ui-sref="transaction(transaction.ui_sref)")
@@ -35,7 +38,7 @@
                         td(ng-bind="transaction.target_locale")
 
                         td(
-                            ng-bind="(transaction.organization.name || 'Geen')| str_limit:25"
+                            ng-bind="(transaction.organization.name || '-')| str_limit:25"
                             ng-class="transaction.organization ? '' : 'text-muted'"
                             title="{{ transaction.organization.name || '' }}"
                             ng-if="$dir.isSponsor")

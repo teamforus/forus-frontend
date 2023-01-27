@@ -6,17 +6,21 @@ const TransactionService = function(ApiRequest) {
             return ApiRequest.get(`${path}/${organization_id}/${type}/transactions`, filters);
         };
 
-        this.show = function(type, organization_id, address) {
+        this.show = (type, organization_id, address) => {
             return ApiRequest.get(`${path}/${organization_id}/${type}/transactions/${address}`);
         };
 
-        this.storeBatch = function(organization_id, data = {}) {
-            return ApiRequest.post(`${path}/${organization_id}/sponsor/transactions/batch`,{ ...data });
+        this.storeBatch = (organization_id, data = {}) => {
+            return ApiRequest.post(`${path}/${organization_id}/sponsor/transactions/batch`, { ...data });
+        };
+
+        this.storeBatchValidate = (organization_id, data = {}) => {
+            return ApiRequest.post(`${path}/${organization_id}/sponsor/transactions/batch/validate`, { ...data });
         };
 
         this.sampleCsvTransactions = () => {
             const headers = ['voucher_id', 'amount', 'direct_payment_iban', 'direct_payment_name', 'uid', 'note'];
-            const values = [1, 10, 'NL1111111111111111', 'name', '111', ''];
+            const values = [1, 10, 'NLXXXXXXXXXXXXXXXX', 'XXXX XXXX', '', ''];
 
             return Papa.unparse([headers, values]);
         };
