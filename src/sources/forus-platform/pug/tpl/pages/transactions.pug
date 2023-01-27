@@ -16,6 +16,7 @@
                 //- Filters
                 .flex: .block.block-inline-filters
                     .button.button-primary.button-sm(
+                        ng-if="$ctrl.hasDirectPayments"
                         ng-click="$ctrl.uploadTransactions()")
                         em.mdi.mdi-upload.icon-start
                         | Upload bulkbestand

@@ -290,6 +290,7 @@ const TransactionsComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.isSponsor = appConfigs.panel_type == 'sponsor';
         $ctrl.viewType = $ctrl.viewTypes.filter(type => type.key == $stateParams.type)[0] || $ctrl.viewTypes[0];
+        $ctrl.hasDirectPayments = $ctrl.funds.filter((fund) => fund.allow_direct_payments).length > 0;
 
         $ctrl.funds.unshift({
             id: null,
