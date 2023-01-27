@@ -5,7 +5,8 @@
             .card-header: .flex
                 .flex.flex-grow.card-title(
                     translate="reservations.header.title" 
-                    translate-values="$ctrl.reservations.meta")
+                    translate-values="$ctrl.reservations.meta"
+                    dusk="reservationsTitle")
 
                 .flex.block.block-inline-filters
                     .button.button-primary.button-sm(
@@ -87,7 +88,7 @@
                         th(translate='reservations.labels.status')
                         th.text-right(translate='reservations.labels.actions')
 
-                    tr(ng-repeat="reservation in $ctrl.reservations.data")
+                    tr(ng-repeat="reservation in $ctrl.reservations.data" dusk="{{ 'reservationRow' + reservation.id }}")
                         td: .text-strong(ng-bind="'#' + reservation.code")
                         td
                             mixin product_info(type)
@@ -120,7 +121,7 @@
                                 .text-strong.text-primary(ng-bind="reservation.identity_email")
 
                         td: strong(ng-bind="reservation.created_at_locale").text-primary
-                        td: strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
+                        td(dusk="reservationState"): strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
 
                         td: .flex-group.flex.flex-end
                             button.button.button-sm.button-primary-light.button-icon(
