@@ -10,13 +10,18 @@ a.fund-item
             span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
             span(ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
             br
-            span(
+            
+            .fund-description-more(
                 ng-if="!$dir.showMore && $dir.fund.description_short.length > 190" 
-                ng-click="$dir.setShowMore($event, true)").fund-description-more Toon meer...
+                ng-click="$dir.setShowMore($event, true)") 
+                span Toon meer
+                em.mdi.mdi-chevron-down
 
-            span(
+            .fund-description-more(
                 ng-if="$dir.showMore && $dir.fund.description_short.length > 190" 
-                ng-click="$dir.setShowMore($event, false)").fund-description-more Toon minder...
+                ng-click="$dir.setShowMore($event, false)") 
+                span Toon minder
+                em.mdi.mdi-chevron-up
 
         .fund-status-label
             .label.label-light(
