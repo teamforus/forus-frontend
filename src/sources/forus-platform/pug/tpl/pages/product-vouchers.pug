@@ -175,14 +175,18 @@
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
 
                                 td(ng-if="!$ctrl.fundClosed")
-                                    strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
+                                    strong(ng-bind="voucher.expire_at_locale.split(',')[0]").text-primary
+                                    br
+                                    strong(ng-bind="voucher.expire_at_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
                                 td(ng-if="!$ctrl.fundClosed"): .td-boolean.flex-vertical
-                                    .flex.text-primary
+                                    .text-primary
                                         em.mdi.mdi-check-circle(ng-if="voucher.in_use")
                                         em.mdi.mdi-close(ng-if="!voucher.in_use")
                                         string(ng-if="!voucher.in_use" translate="product_vouchers.labels.no")
-                                        string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale")
+                                        string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[0]").text-primary
+                                        br(ng-if="voucher.in_use")
+                                        string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
                                 //- voucher state
                                 td
