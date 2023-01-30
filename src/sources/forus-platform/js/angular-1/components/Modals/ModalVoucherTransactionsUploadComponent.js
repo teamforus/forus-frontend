@@ -85,7 +85,7 @@ const ModalVoucherTransactionsUploadComponent = function (
                 return $q((resolve) => {
                     const transactions = [...this.data].map((row) => ({ ...row }));
 
-                    setProgress(100, 'Validating the file');
+                    setProgress(100, 'Bestand wordt gecontroleerd...');
                     setStep(2);
 
                     this.startValidationUploadingData(transactions).then(() => {
@@ -120,7 +120,7 @@ const ModalVoucherTransactionsUploadComponent = function (
                 return $q((resolve, reject) => {
                     TransactionService.storeBatchValidate($ctrl.organization.id, { transactions }).then(
                         (res) => resolve(res),
-                        (res) => reject(res.status == 422 ? res.data?.errors : (res.data?.message || 'Unknown server error.')),
+                        (res) => reject(res.status == 422 ? res.data?.errors : (res.data?.message || 'Onbekende foutmelding.')),
                     );
                 });
             };
@@ -151,7 +151,7 @@ const ModalVoucherTransactionsUploadComponent = function (
 
                             return stats;
                         }, (res) => {
-                            const message = res.status == 422 ? 'Skipped.' : res.data?.message || 'Unknown server error.';
+                            const message = res.status == 422 ? 'Overgeslagen.' : res.data?.message || 'Onbekende foutmelding.';
 
                             const errors = transformErrors([...data.keys()].reduce((errors, index) => ({
                                 ...errors, [`transactions.${index}.amount`]: message,
@@ -194,9 +194,9 @@ const ModalVoucherTransactionsUploadComponent = function (
                 ].join(" ");
 
                 const messageValidation = [
-                    `${uniqueRows.length} from ${transactions.length} line(s) `,
-                    `in the uploaded file have invalid values, see the issues below. `,
-                    `No transactions have been imported, please fix the issues in the CSV file and try again.`,
+                    `${uniqueRows.length} op ${transactions.length} line(s) `,
+                    `in het bestand dat is geïmporteerd zijn fouten gevonden, bekijk de fouter hieronder. `,
+                    `Er zijn transacties geïmporteerd. Haal de fouten uit het CDV bestand en probeer het opniew.`,
                 ].join(" ");
 
                 if (validation) {
@@ -223,8 +223,8 @@ const ModalVoucherTransactionsUploadComponent = function (
                 return $q((resolve) => {
                     if (this.data.length > maxLinesPerFile) {
                         return resolve([
-                            `The file must contain no more than ${maxLinesPerFile} transactions`,
-                            `but the selected file contains ${this.data.length} transactions.`,
+                            `Het bestand mag niet meer dan ${maxLinesPerFile} transacties bevatten.`,
+                            `het huidige bestand bevat meer dan ${this.data.length} transacties.`,
                         ].join(' '));
                     }
 
