@@ -6,11 +6,11 @@
         border-radius: $border_radius;
         display: flex;
         flex-direction: row;
-        min-height: 150px;
+        min-height: 135px;
         transition: box-shadow 0.4s;
 
         .fund-photo {
-            width: 150px;
+            width: 135px;
             display: block;
             overflow: hidden;
             position: relative;
@@ -18,11 +18,9 @@
             border-bottom-left-radius: inherit;
 
             img {
-                position: absolute;
-                top: 0;
-                bottom: 0;
+                display: block;
                 width: 100%;
-                padding: 15px;
+                padding: 15px 10px 15px 15px;
             }
 
             &:after {
@@ -43,7 +41,7 @@
         }
 
         .fund-details {
-            padding: 15px 20px;
+            padding: 15px 20px 15px 10px;
             flex-grow: 1;
             position: relative;
             display: flex;
@@ -53,6 +51,7 @@
                 position: absolute;
                 top: 20px;
                 right: 20px;
+                display: flex;
 
                 .label {
                     cursor: pointer;
@@ -60,9 +59,10 @@
             }
 
             .fund-name {
-                font: 700 22px/30px $hf;
-                margin: 0 0 0;
+                font: 700 22px/32px $hf;
+                margin: 0 0 5px;
                 color: $tc;
+                padding-right: 80px;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -70,9 +70,8 @@
             }
 
             .fund-description {
-                font: 400 14px/22px $bf;
+                font: 400 14px/21px $bf;
                 color: $tc;
-                padding: 5px 0 0;
                 max-width: 80ch;
 
                 .fund-description-more {
@@ -81,7 +80,6 @@
                     color: $color_primary;
                     font-weight: 600;
                     padding-top: 5px;
-                    color: #004D93;
 
                     .mdi {
                         color: #DBDCDB;
@@ -143,7 +141,7 @@
                 }
 
                 .fund-name {
-                    font: 700 15px/20px $bf;
+                    font: 700 16px/24px $bf;
                 }
 
                 .fund-organization {
