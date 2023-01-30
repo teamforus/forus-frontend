@@ -1318,7 +1318,7 @@ module.exports = {
             requests: "Openstaande aanvragen ({{ count }})",
             bsn: "BSN: ",
             type: "Type",
-            requester: "Requester",
+            requester: "Aanvrager",
             value: "Eigenschap",
             date: "Datum, tijd",
             results: "{{ count }} resultaten",
@@ -1348,7 +1348,7 @@ module.exports = {
             email: "E-mailadres",
             empty_table: "Geen aanvragen",
             note_title: "Reden van weigeren",
-            assignee: "Assignee",
+            assignee: "Toegewezen aan",
         },
         person: {
             relations: {
@@ -1377,7 +1377,7 @@ module.exports = {
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
             view: "Bekijk",
-            add_partner_bsn: "Add partner bsn",
+            add_partner_bsn: "Voeg partner bsn toe",
             assign_to_me: "Toewijzen aan mij",
             assign: "Toewijzen",
             resign: "Meld af",
