@@ -5,6 +5,7 @@ module.exports = {
     },
     labels: {
         id: "ID",
+        uid: "UID",
         price: "Bedrag",
         description: "Beschrijving",
         customer: "Klant",
@@ -64,5 +65,8 @@ module.exports = {
             payment_id: 'Betalingskenmerk',
             state: 'Status'
         }
-    }
+    },
+    csv: {
+        default_note: ''
+    },
 };
