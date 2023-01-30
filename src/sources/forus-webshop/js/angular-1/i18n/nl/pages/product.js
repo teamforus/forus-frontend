@@ -20,9 +20,9 @@ module.exports = {
         price: "Prijs:",
         discount: "Korting:",
         expire_prefix: "",
-        funds_card_title: "Fondsen informatie",
-        funds_card_description: "Wilt u weten met welk fonds u deze aanbieding kunt kopen? Ga dan naar het overzicht fondsen en kijk waar je voor in aanmerking komt!",
-        funds_card_btn_text: "Ga naar fondsen",
+        funds_card_title: "Informatie over tegoeden",
+        funds_card_description: "Wilt u weten welk tegoed u kunt gebruiken voor dit aanbod? Ga dan naar het overzicht van tegoeden!",
+        funds_card_btn_text: "Ga naar tegoeden",
     },
     status: {
         active: "Actief",
