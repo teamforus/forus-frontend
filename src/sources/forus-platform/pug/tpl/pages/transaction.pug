@@ -67,7 +67,7 @@
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.statement")
                         .keyvalue-value(
                             ng-if="['provider', 'iban'].includes($ctrl.transaction.target)"
-                            ng-bind="$ctrl.transaction.organization.name || 'Fund user'")
+                            ng-bind="$ctrl.transaction.organization.name || 'Aanvrager'")
                         .keyvalue-value(ng-if="$ctrl.transaction.target === 'top_up'") Top up
 
                     .keyvalue-item(ng-if="$ctrl.transaction.product")
