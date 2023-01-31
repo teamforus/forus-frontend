@@ -128,7 +128,7 @@
 
                             //- Assigned employee(s)
                             td
-                                span(ng-if="!validatorRequest.assigned_employees.length").text-muted Not assigned
+                                span(ng-if="!validatorRequest.assigned_employees.length").text-muted Niet toegewezen
                                 div(ng-repeat="email in validatorRequest.assigned_employees track by $index")
                                     strong(ng-bind="email" ng-if="validatorRequest.assigned_employees.length").text-primary
 

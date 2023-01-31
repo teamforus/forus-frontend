@@ -158,7 +158,7 @@
                             ng-model="$ctrl.voucher.limit_multiplier" 
                             ng-change="$ctrl.submitLimitMultiplier($ctrl.voucher.limit_multiplier, {{ $ctrl.voucher.limit_multiplier }})"
                             apply="true" 
-                            apply-text="Voorleggen")
+                            apply-text="Aanpassen")
 
         .card(ng-if="$ctrl.voucher")
             .card-header: .flex
@@ -201,7 +201,7 @@
                                         em.mdi.mdi-close.text-black
                                         strong(translate="product_vouchers.labels.no").text-black
 
-                            tr(ng-if="!$ctrl.voucher.product")
+                            tr(ng-if="!$ctrl.voucher.product && $ctrl.voucher.fund.type != 'subsidies'")
                                 td
                                     strong.text-strong.text-md.text-primary Totaal toegekend
                                     br
