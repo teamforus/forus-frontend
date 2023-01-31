@@ -182,6 +182,8 @@ const ModalVouchersUploadComponent = function(
                         });
 
                         row.note = row.note || this.defaultNote(row);
+                        row.client_uid = row.client_uid || row.activation_code_uid || null;
+                        delete row.activation_code_uid;
 
                         return isEmpty(row) ? false : row;
                     }).filter(row => !!row);
