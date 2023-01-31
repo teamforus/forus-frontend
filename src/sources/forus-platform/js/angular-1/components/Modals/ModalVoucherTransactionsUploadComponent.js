@@ -188,15 +188,15 @@ const ModalVoucherTransactionsUploadComponent = function (
                 }, []);
 
                 const message = [
-                    `${uniqueRows.length} van ${transactions.length}`,
+                    `Voor ${uniqueRows.length} van de ${transactions.length}`,
                     `rij(en) uit het bulkbestand zijn niet geimporteerd,`,
                     `bekijk het bestand bij welke rij(en) het mis gaat.`,
                 ].join(" ");
 
                 const messageValidation = [
-                    `${uniqueRows.length} op ${transactions.length} line(s) `,
-                    `in het bestand dat is geïmporteerd zijn fouten gevonden, bekijk de fouter hieronder. `,
-                    `Er zijn transacties geïmporteerd. Haal de fouten uit het CDV bestand en probeer het opniew.`,
+                    `Voor ${uniqueRows.length} van de ${transactions.length} rij(en) `,
+                    `in het bestand dat is geïmporteerd zijn fouten gevonden, bekijk de fouten hieronder. `,
+                    `Er zijn geen transacties geïmporteerd. Haal de fouten uit het CSV-bestand en probeer het opnieuw.`,
                 ].join(" ");
 
                 if (validation) {
