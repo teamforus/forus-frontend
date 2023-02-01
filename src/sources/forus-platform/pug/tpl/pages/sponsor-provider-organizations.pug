@@ -111,6 +111,36 @@
                                         label(for="allow_products_all").radio-label
                                             .radio-circle
                                             | Alles
+                            
+                            .form-group
+                                form-label-toggle(label="Has products")
+                                .inline-filters-pane
+                                    .radio
+                                        input#has_products_yes(
+                                            type="radio" 
+                                            name="has_products" 
+                                            ng-model="$ctrl.filters.values.has_products" value="1")
+                                        label(for="has_products_yes").radio-label
+                                            .radio-circle
+                                            | Ja
+
+                                    .radio
+                                        input#has_products_no(
+                                            type="radio" 
+                                            name="has_products" 
+                                            ng-model="$ctrl.filters.values.has_products" value="0")
+                                        label(for="has_products_no").radio-label
+                                            .radio-circle
+                                            | Nee
+
+                                    .radio
+                                        input#has_products_all(
+                                            type="radio" 
+                                            name="has_products" 
+                                            ng-model="$ctrl.filters.values.has_products" value="")
+                                        label(for="has_products_all").radio-label
+                                            .radio-circle
+                                            | Alles
                             .form-actions
                                 button.button.button-primary.button-wide(
                                     ng-click="$ctrl.exportList()"
