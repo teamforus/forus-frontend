@@ -5,7 +5,6 @@ const FundsEditComponent = function(
     $stateParams,
     $rootScope,
     FundService,
-    ProductService,
     FormBuilderService,
     PushNotificationsService,
     MediaService,
@@ -13,7 +12,6 @@ const FundsEditComponent = function(
     const $ctrl = this;
     let mediaFile = false;
 
-    $ctrl.products = [];
     $ctrl.criteriaEditor = null;
     $ctrl.faqEditor = null
 
@@ -78,8 +76,6 @@ const FundsEditComponent = function(
             $ctrl.form.values.request_btn_text = method.default_button_text;
         }
     };
-
-    $ctrl.getProductOptions = (product) => ($ctrl.productOptions || []).concat(product);
 
     $ctrl.addProduct = () => {
         $ctrl.form.products.push(null);
@@ -171,6 +167,8 @@ const FundsEditComponent = function(
             delete values.formula_products;
         }
 
+        $ctrl.media = $ctrl.fund.logo
+
         $ctrl.form = FormBuilderService.build(values, (form) => {
             const onError = (res) => {
                 form.errors = res.data.errors;
@@ -223,29 +221,17 @@ const FundsEditComponent = function(
             onCriteriaSaved(true);
         }, true);
 
-        if ($ctrl.fund && $ctrl.fund.logo) {
-            MediaService.read($ctrl.fund.logo.uid).then((res) => $ctrl.media = res.data.data);
+        $ctrl.form.products = $ctrl.products = $ctrl.products.map((product) => ({
+            id: product.id,
+            price: product.price,
+            name: `${product.name} - €${product.price} (${product.organization.name})`,
+        }));
+
+        if ($rootScope.appConfigs.features.organizations.funds.formula_products) {
+            $ctrl.form.products = $ctrl.form.products.filter((product) => $ctrl.form.values.formula_products.includes(product.id));
         }
 
-        ProductService.listAll({
-            per_page: 1000,
-            unlimited_stock: 1,
-            simplified: 1,
-        }).then(res => {
-            $ctrl.form.products = $ctrl.products = res.data.data.map(product => ({
-                id: product.id,
-                price: product.price,
-                name: `${product.name} - €${product.price} (${product.organization.name})`,
-            }));
-
-            if ($rootScope.appConfigs.features.organizations.funds.formula_products) {
-                $ctrl.form.products = $ctrl.form.products.filter(
-                    product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
-                );
-            }
-
-            $ctrl.updateProductOptions();
-        }, console.error);
+        $ctrl.updateProductOptions();
     };
 };
 
@@ -253,10 +239,11 @@ module.exports = {
     bindings: {
         fund: '<',
         tags: '<',
+        products: '<',
+        fundStates: '<',
         validators: '<',
         recordTypes: '<',
         organization: '<',
-        fundStates: '<',
         productCategories: '<',
         validatorOrganizations: '<',
     },
@@ -267,11 +254,10 @@ module.exports = {
         '$stateParams',
         '$rootScope',
         'FundService',
-        'ProductService',
         'FormBuilderService',
         'PushNotificationsService',
         'MediaService',
-        FundsEditComponent
+        FundsEditComponent,
     ],
-    templateUrl: 'assets/tpl/pages/funds-edit.html'
+    templateUrl: 'assets/tpl/pages/funds-edit.html',
 };
