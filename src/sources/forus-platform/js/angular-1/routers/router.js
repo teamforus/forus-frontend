@@ -691,13 +691,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             }],
             validators: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
                 return repackResponse(OrganizationEmployeesService.list(
-                    $transition$.params().organization_id, { role: 'validation' })
-                );
+                    $transition$.params().organization_id, { role: 'validation' }
+                ));
             }],
             validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
                 return repackPagination(OrganizationService.readListValidators(
-                    $transition$.params().organization_id, { per_page: 100 })
-                );
+                    $transition$.params().organization_id, { per_page: 100 }
+                ));
+            }],
+            products: ['ProductService', 'permission', (ProductService) => {
+                return repackResponse(ProductService.listAll({ per_page: 1000, unlimited_stock: 1, simplified: 1 }));
             }],
         }
     });
