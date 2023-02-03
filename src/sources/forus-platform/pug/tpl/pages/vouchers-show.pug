@@ -124,11 +124,6 @@
                         .keyvalue-key(translate="vouchers.labels.email")
                         .keyvalue-value(ng-bind="$ctrl.voucher.identity_email || 'Niet toegewezen'").text-black
 
-                    //- Provider name (product vouchers only)
-                    .keyvalue-item(ng-if="$ctrl.voucher.product")
-                        .keyvalue-key(translate="vouchers.labels.provider_name")
-                        .keyvalue-value(ng-bind="$ctrl.voucher.product.organization.name || 'Niet aanbieder'").text-black
-
                     //- BSN
                     .keyvalue-item(ng-if="$ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn")
                         .keyvalue-key(translate="vouchers.labels.bsn")
@@ -159,6 +154,11 @@
                             ng-change="$ctrl.submitLimitMultiplier($ctrl.voucher.limit_multiplier, {{ $ctrl.voucher.limit_multiplier }})"
                             apply="true" 
                             apply-text="Aanpassen")
+
+                    //- Provider name (product vouchers only)
+                    .keyvalue-item(ng-if="$ctrl.voucher.product")
+                        .keyvalue-key(translate="vouchers.labels.provider_name")
+                        .keyvalue-value(ng-bind="$ctrl.voucher.product.organization.name || 'Niet aanbieder'").text-black
 
         .card(ng-if="$ctrl.voucher")
             .card-header: .flex
