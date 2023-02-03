@@ -25,6 +25,7 @@ const SponsorProviderOrganizationsComponent = function(
             fund_id: null,
             allow_budget: '',
             allow_products: '',
+            has_products: '',
         },
         reset: function() {
             this.values = { ...this.defaultValues };
