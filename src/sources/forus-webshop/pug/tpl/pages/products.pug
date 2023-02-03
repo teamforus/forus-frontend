@@ -158,5 +158,6 @@ block content
                         .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(
                             meta="$ctrl.products.meta" 
                             filters="$ctrl.form.values"
+                            delayed-filters="['q', 'postcode']"
                             count-buttons="5" 
                             on-page-change="$ctrl.onPageChange(query)")

@@ -1,4 +1,4 @@
-const PaginatorDirective = function(
+const PaginatorDirective = function (
     $scope,
     $state,
     $attrs,
@@ -9,15 +9,8 @@ const PaginatorDirective = function(
     let filterTimeout;
     let initialized;
 
-    let onInit = () => {
-        const filtersFromState = typeof $scope.filtersFromState !== 'undefined' ? $scope.filtersFromState : true;
-
-        $scope.filters = { ...$scope.filters, ...(filtersFromState ? $stateParams : {}) };
-        $scope.pages = $scope.getPages();
-    };
-
     $scope.setPage = (page) => {
-        let query = {};
+        const query = {};
 
         if (typeof ($scope.filters) == 'object' && $scope.filters) {
             Object.assign(query, $scope.filters, {
@@ -26,9 +19,7 @@ const PaginatorDirective = function(
         }
 
         if ($attrs.onPageChange) {
-            return $scope.onPageChange({
-                query: query
-            });
+            return $scope.onPageChange({query});
         }
 
         $state.go($state.$current.name, query);
@@ -49,19 +40,26 @@ const PaginatorDirective = function(
         return pages;
     };
 
-    $scope.$watch('filters', () => {
+    $scope.getPageChangeTimeout = (current, old) => {
+        const delayedFilters = Array.isArray($scope.delayedFilters) ? $scope.delayedFilters : ['q'];
+        const hasUpdatedDelayedFilters = delayedFilters.filter((filter) => current[filter] !== old[filter]).length > 0;
+
+        return hasUpdatedDelayedFilters ? 1000 : 0;
+    }
+
+    $scope.$watch('filters', (current, old) => {
         if (!initialized) {
             return initialized = true;
         }
 
-        $timeout.cancel(filterTimeout);
+        const timeout = $scope.getPageChangeTimeout(current ? current : {}, old ? old : {});
+        const callback = () => $scope.setPage($scope.meta.current_page);
 
-        filterTimeout = $timeout(() => {
-            $scope.setPage($scope.meta.current_page);
-        }, 1000);
+        $timeout.cancel(filterTimeout);
+        filterTimeout = $timeout(() => callback(), timeout);
     }, true);
 
-    $scope.$watch('meta', (cur) => {
+    $scope.$watch('meta', () => {
         $scope.pages = $scope.getPages();
 
         if ($scope.meta.current_page > $scope.meta.last_page) {
@@ -69,11 +67,18 @@ const PaginatorDirective = function(
         }
     }, true);
 
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function () {
         $timeout.cancel(filterTimeout);
     });
 
-    onInit();
+    $scope.onInit = () => {
+        const filtersFromState = typeof $scope.filtersFromState !== 'undefined' ? $scope.filtersFromState : true;
+
+        $scope.filters = { ...$scope.filters, ...(filtersFromState ? $stateParams : {}) };
+        $scope.pages = $scope.getPages();
+    };
+
+    $scope.onInit();
 };
 
 module.exports = () => {
@@ -81,9 +86,10 @@ module.exports = () => {
         scope: {
             meta: '=',
             filters: '=',
+            delayedFilters: '=',
             onPageChange: '&',
             filtersFromState: '=',
-            countButtons: '='
+            countButtons: '=',
         },
         restrict: "EA",
         replace: true,
@@ -93,8 +99,8 @@ module.exports = () => {
             '$attrs',
             '$timeout',
             '$stateParams',
-            PaginatorDirective
+            PaginatorDirective,
         ],
-        templateUrl: 'assets/tpl/directives/paginators/paginator.html'
+        templateUrl: 'assets/tpl/directives/paginators/paginator.html',
     };
 };
