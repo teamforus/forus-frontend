@@ -50,14 +50,9 @@
 
                     | &nbsp;&nbsp;
 
-                    //- voucher product (product vouchers only)
-                    span.text-primary(
-                        ng-if="$ctrl.voucher.product"
-                        ng-bind="$ctrl.voucher.product.organization.name")
-
                     //- voucher amount (budget funds only)
                     span.text-primary(
-                        ng-if="$ctrl.voucher.fund.type == 'budget' && !$ctrl.voucher.product" 
+                        ng-if="$ctrl.voucher.fund.type == 'budget'" 
                         ng-bind="$ctrl.voucher.amount_total | currency_format")
 
                 //- voucher actions
@@ -128,6 +123,11 @@
                     .keyvalue-item
                         .keyvalue-key(translate="vouchers.labels.email")
                         .keyvalue-value(ng-bind="$ctrl.voucher.identity_email || 'Niet toegewezen'").text-black
+
+                    //- Provider name (product vouchers only)
+                    .keyvalue-item(ng-if="$ctrl.voucher.product")
+                        .keyvalue-key(translate="vouchers.labels.provider_name")
+                        .keyvalue-value(ng-bind="$ctrl.voucher.product.organization.name || 'Niet aanbieder'").text-black
 
                     //- BSN
                     .keyvalue-item(ng-if="$ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn")
