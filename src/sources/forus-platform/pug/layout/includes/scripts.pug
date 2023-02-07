@@ -7,7 +7,10 @@ script(src=src_prefix + "./assets/dist/bundle/js/bundle.min" + qdt_c.append_asse
 script(src=src_prefix + "./assets/js/app.min" + qdt_c.append_assets + ".js")
 
 //- google maps
-script(
-    type="text/javascript" 
-    src="https://maps.googleapis.com/maps/api/js?libraries=places&language=nl&key=" + qdt_c.platform.env_data.google_maps_api_key
-    async defer)
+if (qdt_c.platform.env_data.google_maps_api_key)
+    script.
+        window.mapsCallback = () => window.mapsLoaded = true
+    script(
+        type="text/javascript" 
+        src="https://maps.googleapis.com/maps/api/js?libraries=places&language=nl&callback=mapsCallback&key=" + qdt_c.platform.env_data.google_maps_api_key
+        async defer)

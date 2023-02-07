@@ -1,27 +1,43 @@
-const FundProviderProductComponent = function(
+const FundProviderProductComponent = function (
+    $q,
     $stateParams,
     FundService,
     ModalService,
+    PageLoadingBarService,
     FundProviderChatService,
-    PushNotificationsService
+    PushNotificationsService,
 ) {
     const $ctrl = this;
 
-    $ctrl.disableProductItem = function(fundProvider, product) {
+    $ctrl.deal = null;
+
+    $ctrl.confirmDangerAction = (title, description_text, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
+        return $q((resolve) => {
+            ModalService.open("dangerZone", {
+                ...{ title, description_text, cancelButton, confirmButton, text_align: 'center' },
+                onConfirm: () => resolve(true),
+                onCancel: () => resolve(false),
+            });
+        });
+    }
+
+    $ctrl.disableProductItem = function (fundProvider, product) {
         FundService.stopActionConfirmationModal(() => {
             product.allowed = false;
             $ctrl.updateAllowBudgetItem(fundProvider, product);
         });
     };
 
-    $ctrl.updateAllowBudgetItem = function(fundProvider, product) {
+    $ctrl.updateAllowBudgetItem = function (fundProvider, product) {
+        const enable_products = product.allowed ? [{ id: product.id }] : [];
+        const disable_products = !product.allowed ? [product.id] : [];
+
         FundService.updateProvider(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
-            fundProvider.id, {
-            enable_products: product.allowed ? [{ id: product.id }] : [],
-            disable_products: !product.allowed ? [product.id] : [],
-        }).then((res) => {
+            fundProvider.id,
+            { enable_products, disable_products }
+        ).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
             $ctrl.updateProviderProduct();
@@ -72,7 +88,7 @@ const FundProviderProductComponent = function(
     };
 
     $ctrl.updateProviderProduct = () => {
-        FundService.getProviderProduct(
+        return FundService.getProviderProduct(
             $stateParams.organization_id,
             $stateParams.fund_id,
             $stateParams.fund_provider_id,
@@ -83,41 +99,75 @@ const FundProviderProductComponent = function(
         });
     };
 
+    $ctrl.onCancel = () => {
+        $ctrl.deal = null;
+    };
+
+    $ctrl.onUpdate = () => {
+        $ctrl.updateProviderProduct().then(() => {
+            $ctrl.onCancel();
+            PushNotificationsService.success("Het product is goedgekeurd.");
+        });
+    };
+
+    $ctrl.resetLimits = (deal) => {
+        $ctrl.confirmDangerAction('Remove restrictions?', [
+            'You are about to remove limits from the product, this will not remove the product from the webshop.',
+            "Instead it will remove the total limit and limit per voucher as well as the end date limit from the product.\n\n",
+            'To remove the product from the webshop, please close this modal and use the toggle in the top area of this page.'
+        ].join(" ")).then((confirmed = false) => {
+            if (!confirmed) {
+                return;
+            }
+
+            FundService.updateProvider($ctrl.fund.organization_id, $ctrl.fund.id, $ctrl.fundProvider.id, {
+                reset_products: [{ id: deal.product_id }]
+            }).then(
+                () => $ctrl.updateProviderProduct().then(() => PushNotificationsService.success("The limits have been reset.")),
+                (res) => PushNotificationsService.danger("Error!", res.data.message),
+            ).finally(() => {
+                $ctrl.deal = null;
+                PageLoadingBarService.setProgress(100);
+            });
+        });
+    };
+
     $ctrl.updateProductMeta = () => {
         $ctrl.product.allowed = $ctrl.fundProvider.products.indexOf($ctrl.product.id) !== -1;
         $ctrl.product.approvedActionParams = { ...$stateParams };
         $ctrl.product.editParams = { ...$stateParams };
-    };
-
-    $ctrl.$onInit = function() {
-        $ctrl.fundProviderProductChat = $ctrl.fundProviderProductChats[0] || null;
-        $ctrl.updateProductMeta();
+        $ctrl.product.hasLimits = $ctrl.product.deals_history.filter((deal) => deal.active).length > 0;
 
         if ($ctrl.product.deals_history && Array.isArray($ctrl.product.deals_history)) {
             $ctrl.product.deals_history = $ctrl.product.deals_history.map(deal => ({
-                ...deal, ...{
-                    showSubsidyDealParams: { ...$stateParams, ...{ deal_id: deal.id } }
-                }
+                ...deal, showSubsidyDealParams: { ...$stateParams, ...{ deal_id: deal.id } }
             }));
         }
+    };
+
+    $ctrl.$onInit = function () {
+        $ctrl.fundProviderProductChat = $ctrl.fundProviderProductChats[0] || null;
+        $ctrl.updateProductMeta();
     };
 };
 
 module.exports = {
     bindings: {
+        fund: '<',
+        product: '<',
         organization: '<',
         fundProvider: '<',
         fundProviderProductChats: '<',
-        fund: '<',
-        product: '<'
     },
     controller: [
+        '$q',
         '$stateParams',
         'FundService',
         'ModalService',
+        'PageLoadingBarService',
         'FundProviderChatService',
         'PushNotificationsService',
-        FundProviderProductComponent
+        FundProviderProductComponent,
     ],
-    templateUrl: 'assets/tpl/pages/fund-provider-product.html'
+    templateUrl: 'assets/tpl/pages/fund-provider-product.html',
 };

@@ -63,7 +63,8 @@ main(id="main-content")
                             .fund-item-section-value.fund-item-section-value-sm 
                                 | {{ "product.labels.expire_prefix" | translate }} {{ fund.meta.shownExpireDate.locale }}
                         
-                        .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
+                        .fund-item-section.text-right(
+                            ng-if="(fund.meta.applicableVouchers.length ? fund.limit_available : fund.limit_per_identity) != null")
                             .fund-item-section-label.tooltip-block(ng-if="$root.auth_user")
                                 | #[span(translate="product.labels.limit")]
                                 | #[tooltip(text="'product.tooltip'" ng-if="$root.auth_user")]
