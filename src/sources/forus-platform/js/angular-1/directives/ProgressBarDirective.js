@@ -1,21 +1,16 @@
-let ProgressBarDirective = function(
-    $scope
-) {
-    this.$onInit = function() {}
-};
+const ProgressBarDirective = function () { };
 
 module.exports = () => {
     return {
         scope: {
-            progress: '=',
             status: '=',
+            progress: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
-            '$scope',
-            ProgressBarDirective
+            ProgressBarDirective,
         ],
-        templateUrl: 'assets/tpl/directives/progress-bar.html' 
+        templateUrl: 'assets/tpl/directives/progress-bar.html',
     };
 };

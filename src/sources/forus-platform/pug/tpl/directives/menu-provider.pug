@@ -53,7 +53,8 @@ aside.app.app-sidebar
             "Reserveringen", "reservations", 'reservations', 
             '{organization_id: $root.activeOrganization.id}', 
             '($root.activeOrganization | hasPerm:["scan_vouchers"]) && $root.appConfigs.features.organizations.products.list',
-            'reservations')
+            'reservations',
+            'reservationsPage')
 
         +nav_item(
             "Medewerkers", "list", 'employees', 

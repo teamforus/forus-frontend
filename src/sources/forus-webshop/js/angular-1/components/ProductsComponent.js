@@ -1,12 +1,12 @@
-const ProductsComponent = function(
+const ProductsComponent = function (
     $scope,
     $state,
     $stateParams,
     appConfigs,
     ProductService,
-    ProductCategoryService,
     FormBuilderService,
     PageLoadingBarService,
+    ProductCategoryService,
 ) {
     const $ctrl = this;
 
@@ -89,7 +89,7 @@ const ProductsComponent = function(
         PageLoadingBarService.setProgress(0);
 
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
-            return $ctrl.products = res.data;
+            $ctrl.products = res.data;
         }).finally(() => {
             $ctrl.updateState(query, true);
             $ctrl.updateFiltersUsedCount();
@@ -108,11 +108,26 @@ const ProductsComponent = function(
             postcode: query.postcode,
             distance: query.distance,
             bookmarked: query.bookmarked,
+            order_by: query.order_by,
+            order_by_dir: query.order_by_dir,
         }, { location });
     };
 
     $ctrl.changeCategory = (type) => {
-        if (type == 'category' || (type == 'subcategory' && !$ctrl.product_sub_category_id)) {
+        if (type === 'category') {
+            if ($ctrl.product_category_id) {
+                ProductCategoryService.list({
+                    parent_id: $ctrl.product_category_id, per_page: 1000, used: 1, used_type: $ctrl.fund_type,
+                }).then(res => {
+                    $ctrl.productSubCategories = res.data.meta.total ? [{
+                        name: 'Selecteer subcategorie...',
+                        id: null
+                    }, ...res.data.data] : null;
+                });
+            } else {
+                $ctrl.productSubCategories = null;
+            }
+
             return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
         }
 
@@ -135,7 +150,15 @@ const ProductsComponent = function(
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.appConfigs = appConfigs;
 
-        $ctrl.sort_by = $ctrl.sortByOptions[0];
+        if ($stateParams.order_by && $stateParams.order_by_dir) {
+            $ctrl.sort_by = $ctrl.sortByOptions.find(sortOption =>
+                sortOption.value.order_by == $stateParams.order_by &&
+                sortOption.value.order_by_dir == $stateParams.order_by_dir
+            );
+        } else {
+            $ctrl.sort_by = $ctrl.sortByOptions[0];
+        }
+
         $ctrl.fund_type = $stateParams.fund_type;
         $ctrl.display_type = $stateParams.display_type;
         $ctrl.product_category_id = $stateParams.product_category_id;
@@ -201,10 +224,10 @@ module.exports = {
         '$stateParams',
         'appConfigs',
         'ProductService',
-        'ProductCategoryService',
         'FormBuilderService',
         'PageLoadingBarService',
-        ProductsComponent
+        'ProductCategoryService',
+        ProductsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/products.html'
+    templateUrl: 'assets/tpl/pages/products.html',
 };

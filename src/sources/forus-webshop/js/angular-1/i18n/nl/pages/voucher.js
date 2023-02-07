@@ -27,7 +27,8 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                description: "Neem de QR-code mee naar de aanbieder. De aanbieder scant de QR-code en levert het aanbod.",  
+                description: "1. Klik op Aanbod en kies en reserveer een activiteit.<br/>OF<br/>" + 
+                    "2. Neem de QR-code mee naar de aanbieder. Deze scant de QR-code en reserveert uw activiteit.",  
                 contact_sponsor: "Vragen? Neem contact met ons op.",
                 contact_provider: "Heeft u vragen over dit aanbod? Neem dan contact met ons op.",
             },

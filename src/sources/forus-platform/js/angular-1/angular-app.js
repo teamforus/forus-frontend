@@ -38,6 +38,7 @@ app.component('sponsorProviderOrganizationComponent', require('./components/Spon
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
+app.component('fundRequestsShowComponent', require('./components/FundRequestsShowComponent'));
 app.component('providerSignUpComponent', require('./components/ProviderSignUpComponent'));
 app.component('sponsorSignUpComponent', require('./components/SponsorSignUpComponent'));
 app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
@@ -121,6 +122,7 @@ app.component('modalVoucherTransactionComponent', require('./components/Modals/M
 app.component('modalFundRequestAssignValidatorComponent', require('./components/Modals/ModalFundRequestAssignValidatorComponent'));
 app.component('modalAddNoteComponent', require('./components/Modals/ModalAddNoteComponent'));
 app.component('modalReimbursementResolveComponent', require('./components/Modals/Reimbursements/ModalReimbursementResolveComponent'));
+app.component('modalVoucherTransactionsUploadComponent', require('./components/Modals/ModalVoucherTransactionsUploadComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -242,6 +244,7 @@ app.directive('fundConfigContactInfoEditor', require('./directives/FundConfigCon
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
+app.directive('controlNumeric', require('./directives/controls/ControlNumericDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('faqEditor', require('./directives/FaqEditorDirective'));
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));

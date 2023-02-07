@@ -6,21 +6,22 @@ const ModalProductVoucherCreateComponent = function(
 ) {
     const $ctrl = this;
 
-    $ctrl.lastReplaceConfirmed = null;
-    $ctrl.voucherType = 'activation_code_uid';
-    $ctrl.activationCodeSubmitted = false;
     $ctrl.assignTypes = [{
-        key: 'activation_code_uid',
+        key: 'activation_code',
         label: 'Activatiecode',
-        inputLabel: 'NR',
+        inputLabel: 'Uniek nummer',
+        hasInput: false,
     }, {
         key: 'email',
         label: 'E-mailadres',
         inputLabel: 'E-mailadres',
+        hasInput: true,
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
     $ctrl.dateMinLimit = new Date();
+    $ctrl.lastReplaceConfirmed = null;
+    $ctrl.activationCodeSubmitted = false;
 
     $ctrl.onAssignTypeChange = (assignType) => {
         if (assignType !== 'bsn') {
@@ -29,10 +30,6 @@ const ModalProductVoucherCreateComponent = function(
 
         if (assignType !== 'email') {
             delete $ctrl.form.values.email;
-        }
-
-        if (assignType !== 'activation_code_uid') {
-            delete $ctrl.form.values.activation_code_uid;
         }
     };
 
@@ -76,15 +73,31 @@ const ModalProductVoucherCreateComponent = function(
             product_id: $ctrl.product?.id,
             fund_id: $ctrl.fund.id,
         }, (form) => {
-            VoucherService.storeValidate($ctrl.organization.id, {
+            const values = {
                 ...form.values,
-                ...{ assign_by_type: $ctrl.assignType.key },
                 ...({
                     email: { activate: 1, activation_code: 0 },
                     bsn: { activate: 1, activation_code: 0 },
-                    activation_code_uid: { activate: 0, activation_code: 1 },
-                }[$ctrl.assignType.key])
-            }).then(() => {
+                    activation_code: { activate: 0, activation_code: 1 },
+                }[$ctrl.assignType.key]),
+                assign_by_type: $ctrl.assignType.key,
+            };
+
+            const makRequest = (form) => {
+                VoucherService.store($ctrl.organization.id, values).then(() => {
+                    $ctrl.onCreated();
+                    $ctrl.close();
+                }, res => {
+                    form.errors = res.data.errors;
+                    form.unlock();
+
+                    if (res.data.message && res.status !== 422) {
+                        alert(res.data.message);
+                    }
+                });
+            }
+
+            VoucherService.storeValidate($ctrl.organization.id, values).then(() => {
                 if ($ctrl.assignType.key === 'email' && (form.values.email !== $ctrl.lastReplaceConfirmed)) {
                     return VoucherService.index($ctrl.organization.id, {
                         type: 'product_voucher',
@@ -98,12 +111,12 @@ const ModalProductVoucherCreateComponent = function(
                             return $ctrl.confirmEmailSkip([form.values.email], (emails) => {
                                 if (emails.filter(email => email.model).length > 0) {
                                     $ctrl.lastReplaceConfirmed = form.values.email;
-                                    $ctrl.makRequest(form);
+                                    makRequest(form);
                                 }
                             });
                         }
 
-                        $ctrl.makRequest(form);
+                        makRequest(form);
                     });
                 }
 
@@ -121,44 +134,22 @@ const ModalProductVoucherCreateComponent = function(
                             return $ctrl.confirmBsnSkip([form.values.bsn], (bsns) => {
                                 if (bsns.filter(bsn => bsn.model).length > 0) {
                                     $ctrl.lastReplaceConfirmed = form.values.bsn;
-                                    $ctrl.makRequest(form);
+                                    makRequest(form);
                                 }
                             });
                         }
 
-                        $ctrl.makRequest(form);
+                        makRequest(form);
                     });
                 }
 
-                $ctrl.makRequest(form);
+                makRequest(form);
             }, res => {
                 form.errors = res.data.errors;
                 form.unlock();
             });
         }, true);
     };
-
-    $ctrl.makRequest = (form) => {
-        VoucherService.store($ctrl.organization.id, {
-            ...form.values,
-            ...{ assign_by_type: $ctrl.assignType.key },
-            ...({
-                email: { activate: 1, activation_code: 0 },
-                bsn: { activate: 1, activation_code: 0 },
-                activation_code_uid: { activate: 0, activation_code: 1 },
-            }[$ctrl.assignType.key])
-        }).then(() => {
-            $ctrl.onCreated();
-            $ctrl.close();
-        }, res => {
-            form.errors = res.data.errors;
-            form.unlock();
-
-            if (res.data.message && res.status !== 422) {
-                alert(res.data.message);
-            }
-        });
-    }
 
     $ctrl.$onInit = () => {
         $ctrl.modal.loaded = false;
@@ -170,7 +161,8 @@ const ModalProductVoucherCreateComponent = function(
             $ctrl.assignTypes.push({
                 key: 'bsn',
                 label: 'BSN',
-                inputLabel: 'BSN'
+                inputLabel: 'BSN',
+                hasInput: true,
             });
         }
 
@@ -217,9 +209,7 @@ module.exports = {
         'ProductService',
         'VoucherService',
         'ModalService',
-        ModalProductVoucherCreateComponent
+        ModalProductVoucherCreateComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-product-voucher-create.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-product-voucher-create.html',
 };

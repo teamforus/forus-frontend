@@ -16,7 +16,7 @@ const OrganizationsEditComponent = function(
     $ctrl.uploadMedia = () => {
         return $q((resolve, reject) => {
             if (!$ctrl.mediaFile) {
-                return resolve(null);
+                return resolve($ctrl.media ? $ctrl.media.uid : null);
             }
 
             return MediaService.store('organization_logo', $ctrl.mediaFile, []).then((res) => {

@@ -43,6 +43,9 @@ module.exports = {
         geertruidenberg: {
             title: "Activeren",
         },
+        schagen: {
+            title: "Regelingen",
+        }
     },
     labels: {
         categorie: "Categoriën",

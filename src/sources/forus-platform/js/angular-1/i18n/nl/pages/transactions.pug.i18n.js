@@ -5,6 +5,7 @@ module.exports = {
     },
     labels: {
         id: "ID",
+        uid: "UID",
         price: "Bedrag",
         description: "Beschrijving",
         customer: "Klant",
@@ -19,6 +20,8 @@ module.exports = {
         fund: "Fonds",
         status: "Status",
         provider: "Aanbieder",
+        product_id: "Aanbod ID",
+        product_name: "Aanbod naam",
         search: "Zoeken",
         from: "Vanaf",
         bulk: "Bulk",
@@ -37,6 +40,9 @@ module.exports = {
             "Gebeurt automatisch dagelijks om 09:00. Tenzij anders is ingesteld of bulks alleen handmatig aangemaakt kunnen worden."
         ].join("</br>"),
         target: "Target",
+        transfer_in: 'Transactie in (dagen)',
+        transfer_in_min: '0',
+        transfer_in_max: '14',
     },
     buttons: {
         previous: "Vorige",
@@ -59,5 +65,8 @@ module.exports = {
             payment_id: 'Betalingskenmerk',
             state: 'Status'
         }
-    }
+    },
+    csv: {
+        default_note: ''
+    },
 };

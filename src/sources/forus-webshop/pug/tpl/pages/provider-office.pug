@@ -72,6 +72,7 @@ block content
                                     .office-pane-block
                                         .office-logo: img(
                                             ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
+                                            alt="office thumbnail"
                                             ).office-logo-img
                                         .office-details
                                             .office-title(ng-bind="office.address")
