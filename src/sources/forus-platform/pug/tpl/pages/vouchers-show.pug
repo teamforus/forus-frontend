@@ -126,6 +126,11 @@
                 .flex: .card-block.card-block-keyvalue
                     //- Email
                     .keyvalue-item
+                        .keyvalue-key(translate="vouchers.labels.id")
+                        .keyvalue-value(ng-bind="$ctrl.voucher.id").text-black
+
+                    //- Email
+                    .keyvalue-item
                         .keyvalue-key(translate="vouchers.labels.email")
                         .keyvalue-value(ng-bind="$ctrl.voucher.identity_email || 'Niet toegewezen'").text-black
 
