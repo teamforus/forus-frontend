@@ -269,6 +269,12 @@
                     }
                 }
             }
+
+            &.selected {
+                td {
+                    background: #F8FBF7;
+                }
+            }
         }
 
         &>tr,

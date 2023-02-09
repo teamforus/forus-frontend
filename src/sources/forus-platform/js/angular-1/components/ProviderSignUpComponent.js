@@ -69,7 +69,6 @@ const ProviderSignUpComponent = function(
     $ctrl.employees = [];
     $ctrl.shareSmsSent = false;
     $ctrl.shareEmailSent = false;
-    $ctrl.fundsAvailable = [];
 
     $ctrl.showAddOfficeBtn = true;
     $ctrl.isAddingNewOffice = false;
@@ -454,23 +453,22 @@ const ProviderSignUpComponent = function(
 
     const loadAvailableFunds = (organization) => {
         $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag && !$stateParams.fund_id;
-        const search_params = $ctrl.filters.values;
 
         if (!$ctrl.showFilters) {
             if ($stateParams.organization_id) {
-                search_params.organization_id = $stateParams.organization_id;
+                $ctrl.filters.values.organization_id = $stateParams.organization_id;
             }
 
             if ($stateParams.tag) {
-                search_params.tag = $stateParams.tag;
+                $ctrl.filters.values.tag = $stateParams.tag;
             }
 
             if ($stateParams.fund_id) {
-                search_params.fund_id = $stateParams.fund_id;
+                $ctrl.filters.values.fund_id = $stateParams.fund_id;
             }
         }
 
-        getAvailableFunds(organization, search_params);
+        getAvailableFunds(organization, $ctrl.filters.values);
     };
 
     $ctrl.setStep = (step) => {

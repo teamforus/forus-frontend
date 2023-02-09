@@ -200,9 +200,6 @@ app.directive('menu', {
 } [env_data.panel_type]);
 
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
-app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
-app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
-app.directive('fundCardProviderCanJoin', require('./directives/FundCardProviderCanJoinDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
@@ -235,7 +232,6 @@ app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
-app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('fundCriteriaEditor', require('./directives/FundCriteriaEditorDirective'));
 app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditorItemDirective'));
@@ -251,6 +247,10 @@ app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEdit
 app.directive('eventLogs', require('./directives/EventLogsDirective'));
 app.directive('vouchers', require('./directives/VouchersDirective'));
 app.directive('voucherTransactions', require('./directives/VoucherTransactionsDirective'));
+app.directive('providerFundsTable', require('./directives/ProviderFundsTableDirective'));
+app.directive('providerAvailableFundsTable', require('./directives/ProviderAvailableFundsTableDirective'));
+app.directive('providerFundsInvitationTable', require('./directives/ProviderFundsInvitationTableDirective'));
+app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoinDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 

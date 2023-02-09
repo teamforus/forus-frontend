@@ -1,0 +1,72 @@
+.card
+    .card-header: .flex
+        .flex.flex-grow: .card-title
+            span(translate="provider_funds.title.{{ $dir.type }}")
+            span.span-count
+                | {{ $dir.selectedCount > 0 ? $dir.selectedCount + '/' : '' }}{{ $dir.invitations.length }}
+
+        .flex: .block
+            .button.button-primary.button-sm(
+                ng-if="$dir.selectedForInvitation.length"
+                ng-click="$dir.acceptSelectedInvitations()")
+                span(translate="provider_funds.labels.accept_invitation")
+
+    //- Vouchers list
+    .card-section(ng-if="$dir.invitations.length > 0")
+        .card-block.card-block-table.card-block-table-fund.form
+            .table-wrapper
+                table.table
+                    tr
+                        th(width="50px")
+                            input-checkbox-control(
+                                compact="true"
+                                name="all_funds"
+                                ng-model="$dir.allSelected"
+                                ng-change="$dir.updateAllSelected()")
+
+                        th(translate="provider_funds.labels.fund")
+                        th(translate="provider_funds.labels.organization")
+                        th(translate="provider_funds.labels.start_date")
+                        th(translate="provider_funds.labels.end_date")
+                        th(ng-if="$dir.type === 'expired_closed'" translate="provider_funds.labels.max_amount")
+                        th(translate="provider_funds.labels.status")
+                        th(ng-if="$dir.type === 'invitations'" translate="provider_funds.labels.actions").nowrap.text-right
+
+                    tr(ng-repeat="providerInvitation in $dir.invitations" ng-class="$dir.selected[providerInvitation.id] ? 'selected' : ''")
+                        td(width="50px")
+                            input-checkbox-control(
+                                compact="true"
+                                name="checkbox_fund_{{ providerInvitation.id }}"
+                                ng-model="$dir.selected[providerInvitation.id]")
+                        td
+                            .fund-img: img(ng-src="{{ providerInvitation.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
+                            .fund-title(ng-bind="providerInvitation.fund.name")
+
+                        td(
+                            ng-bind="providerInvitation.fund.organization.name | str_limit:25"
+                            title="{{ providerInvitation.fund.organization.name }}")
+
+                        td.nowrap
+                            strong(ng-bind="providerInvitation.fund.start_date_locale").text-strong.text-md.text-muted-dark
+                        td.nowrap
+                            strong(ng-bind="providerInvitation.fund.end_date_locale").text-strong.text-md.text-muted-dark
+
+                        td(ng-if="$dir.type === 'expired_closed'").nowrap
+                            span(ng-if="providerInvitation.fund.fund_amount" ng-bind="providerInvitation.fund.fund_amount | currency_format")
+
+                        td.nowrap
+                            .tag.tag-sm(
+                                ng-if="providerInvitation.status_text"
+                                ng-class="providerInvitation.status_class"
+                                ng-bind="providerInvitation.status_text")
+
+                        td(ng-if="$dir.type === 'invitations'"): .button-group.flex-end
+                            .button.button-primary.button-sm(
+                                ng-if="providerInvitation.fund.state != 'closed' && providerInvitation.state == 'pending' && !providerInvitation.expired"
+                                ng-click="$dir.acceptInvitation(providerInvitation)")
+                                em.mdi.mdi-check-circle.icon-start
+                                span(translate="provider_funds.labels.accept_invitation")
+
+    //- Not found
+    .card-section(ng-if="$dir.invitations.length == 0"): .block.block-empty.text-center
+        .empty-title(ng-bind="$dir.emptyBlockText")

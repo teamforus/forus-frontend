@@ -86,6 +86,7 @@ module.exports = {
     identities: require('./nl/pages/identities.pug.i18n'),
     transactions: require('./nl/pages/transactions.pug.i18n'),
     financial_dashboard_transaction: require('./nl/pages/transaction.pug.i18n'),
+    provider_funds: require('./nl/pages/provider-funds.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -754,24 +755,6 @@ module.exports = {
         }
     },
 
-    // FUNDS AVAILABLE FOR PROVIDERS = provider-funds-available.pug
-    provider_funds_available: {
-        title: "Fondsen",
-        applied_for_fund: {
-            title: "Uw aanvraag is ontvangen.",
-            description: "De gemeente zal uw verzoek behandelen, dit kan maximaal twee weken duren. Zodra de gemeente uw aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kunt u de status ook volgen op het dashboard."
-        },
-        error_apply: {
-            title: 'U heeft nog geen vestigingen aangemaakt!',
-            description: 'U heeft tenminste één vestiging nodig om uw organisatie aan te melden voor {{fund_name}}'
-        }
-    },
-
-    // PROVIDER FUNDS = provider-funds.pug
-    provider_funds: {
-        title: "Fondsen",
-    },
-
     // PROVIDER IDENTITIES = provider-identities.pug
     provider_identities: {
         labels: {
@@ -898,6 +881,9 @@ module.exports = {
             organization_add: 'Organisatie toevoegen',
             go_test_screen: "Doe een test betaling!",
             go_to_dashboard: "Ga naar uw dashboard",
+            join: "Aanmelden",
+            select_all: "Selecteer alles",
+            deselect_all: "Deselecteer alles",
         },
         step: {
             step_1: 'Stap 1',
@@ -988,7 +974,10 @@ module.exports = {
                 accept: "Bevestig",
                 cancel: "Annuleer"
             }
-        }
+        },
+        funds: {
+            title: "Fondsen",
+        },
     },
     // SIGN UP FORM FOR SPONSORS = sponsor-sign-up.pug
     sign_up_sponsor: {
@@ -1414,16 +1403,6 @@ module.exports = {
     // EMPTY BLOCK = empty-block.pug
     // No translations needed
 
-    // FUNDS FOR PROVIDERS = fund-card-available.pug
-    fund_card_available_provider: {
-        buttons: {
-            join: "Aanmelden",
-        },
-        labels: {
-            categories: "Categorieën",
-            nocategories: "Geen Categorieën",
-        },
-    },
     // FUND CARD FOR PROVIDERS = fund-card-provider.pug
     fund_card_provider_finances: {
         status: {
@@ -1435,54 +1414,6 @@ module.exports = {
             date: "Datum",
             status: "Status",
         },
-    },
-    // FUND CARD FOR PROVIDERS = fund-card-provider.pug
-    fund_card_provider: {
-        status: {
-            hold: "Wachten",
-            accepted: "Geaccepteerd",
-            reject: "Geweigerd",
-            stopped: "Gestopt",
-            accepted_only_products: "Geaccepteerd: alleen uw aanbod",
-            accepted_only_specific_products: "Geaccepteerd: specifiek aanbod",
-            pending: "Uitgenodigd",
-            expired: "Verlopen",
-            rejected: "Geweigerd"
-        },
-        labels: {
-            categories: "Categorieën",
-            nocategories: "Geen categorieën",
-            date: "Begindatum / Einddatum",
-            max_amount: "Maximaal tegoed per voucher",
-            closed: "Gesloten",
-            accept_invitation: "Accepteren",
-            allow_budget: "Scan tegoed op voucher",
-            allow_products: "Scan geplaatst aanbod",
-            allow_some_products: "Scan specifiek aanbod",
-            view_products: "Bekijk aanbod",
-            cancel_application: "Annuleren"
-        },
-        empty_block: {
-            available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
-            active: "Er zijn geen fondsen waar u actief voor bent.",
-            invitations: "Er zijn geen openstaande uitnodigingen die u kunt accepteren.",
-            expired_closed: "Er zijn geen verlopen uitnodigingen of gesloten fondsen waar u zich voor hebt aangemeld.",
-            pending_rejected: "Er zijn geen fondsen waar u aanmeldingen voor bent.",
-        },
-        tabs: {
-            active: 'Actief',
-            invitations: 'Uitnodigingen',
-            pending_rejected: "Aanmeldingen",
-            available: 'Beschikbaar',
-            expired: 'Archief',
-        },
-        title: {
-            available: "Beschikbare fondsen",
-            pending_rejected: "Aanmeldingen fondsen",
-            active: "Actieve fondsen",
-            invitations: "Uitnodigingen",
-            expired_closed: "Archief",
-        }
     },
 
     // FUND INFO SPONSOR = fund-show/implementation-view/organization-funds

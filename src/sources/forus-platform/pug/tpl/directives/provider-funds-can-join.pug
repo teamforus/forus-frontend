@@ -1,0 +1,69 @@
+.sign_up-funds-card
+    .sign_up-funds-section(ng-if="$dir.showFilters")
+        .form: .row
+            .form-group.col.col-lg-6.col-xs-12
+                label.form-label(translate="sign_up_provider.filters.labels.organizations")
+                select(
+                    ng-options="fundOrganization.id as fundOrganization.name for fundOrganization in $dir.organizations"
+                    ng-model="$dir.filters.values.organization_id").form-control
+
+            .form-group.col.col-lg-6.col-xs-12
+                label.form-label(translate="sign_up_provider.filters.labels.tags")
+                select(
+                    ng-options="tag.key as tag.name for tag in $dir.tags"
+                    ng-model="$dir.filters.values.tag").form-control
+
+    .sign_up-funds-section
+        .card-header: .flex
+            .flex.flex-grow: .card-title
+                span(translate="sign_up_provider.funds.title")
+                span.total-count
+                 | {{ $dir.selectedCount > 0 ? $dir.selectedCount + '/' : '' }}{{ $dir.funds.meta.total }}
+
+            .flex: .block.block-inline-filters
+                .button.button-primary(
+                    ng-if="$dir.hasSelected"
+                    ng-click="$dir.applySelectedFunds()")
+                    span(translate="sign_up_provider.buttons.join")
+
+                .button.button-secondary.button-sm(
+                    ng-if="!$dir.allSelected"
+                    ng-click="$dir.selectAll()")
+                    span(translate="sign_up_provider.buttons.select_all")
+
+                .button.button-secondary.button-sm(
+                    ng-if="$dir.allSelected"
+                    ng-click="$dir.deselectAll()")
+                    span(translate="sign_up_provider.buttons.deselect_all")
+
+        .card(ng-if="$dir.funds.data.length > 0" ng-repeat="fund in $dir.funds.data")
+            .card-section.card-section-fund(ng-class="fund.applied ? 'applied' : ($dir.selected[fund.id] ? 'selected' : '')")
+                .card-block-checkbox
+                    ui-control-checkbox(
+                        data-id="fund_{{ fund.id }}"
+                        data-label=""
+                        ng-model="$dir.selected[fund.id]"
+                        control-style="checkbox-primary")
+
+                .card-block.card-block-fund
+                    .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
+                    .fund-details
+                        .fund-title(ng-bind="fund.name")
+                        .fund-organization(ng-bind="fund.organization.name")
+                .card-section-actions
+                    button(
+                        ng-bind="(!fund.applied ? 'sign_up_provider.buttons.join' : 'fund_card_provider_finances.status.hold') | translate"
+                        ng-click="$dir.applyFund(fund)").button.button-primary.button-sm
+
+            .card-section(ng-if="fund.implementation.has_provider_terms_page"): .card-text
+                | Door u aan te melden gaat u akkoord met de
+                a(ng-href="{{ fund.implementation.url_webshop + '/aanbieders/aanmelden' }}" target="_blank").card-text-link algemene voorwaarden
+
+        //- Pagination
+        .card-section(ng-if="$dir.funds.meta" ng-show="$dir.funds.meta.last_page > 1")
+            paginator(meta="$dir.funds.meta" filters="$dir.filters.values" count-buttons="5" on-page-change="$dir.onPageChange(query)")
+
+        //- Not found
+        block-empty(
+            ng-if="$dir.funds.meta.total == 0"
+            text="Er zijn momenteel geen actieve fondsen.")

@@ -1485,6 +1485,28 @@ body {
         }
     }
 
+    &.card-block-table-fund {
+        .fund-img {
+            float: left;
+            display: block;
+            width: 24px;
+            height: 24px;
+            border: 1px solid #e7e7e7;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-right: 15px;
+
+            img {
+                width: 100%;
+                display: block;
+            }
+        }
+
+        .fund-title {
+            color: #004195;
+        }
+    }
+
     &.card-block-fund {
         padding-top: 15px;
 
@@ -2219,6 +2241,73 @@ body {
     }
 
     &.block-sign_up {
+        .card-header {
+            padding-top: 30px;
+            margin: 10px 0 15px;
+            position: relative;
+
+            &:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                border-top: 1px solid #DBDCDB;
+                width: calc(100% + 80px);
+                left: -40px;
+            }
+
+            & > .flex {
+                align-items: center;
+                gap: 10px;
+            }
+
+            .card-title {
+                display: flex;
+                align-items: center;
+
+                span {
+                    &:first-child {
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 18px;
+                        line-height: 27px;
+                        margin-right: 10px;
+                    }
+
+                    &.total-count {
+                        padding: 8px 10px;
+                        height: 32px;
+                        border: 1px solid #315EFD;
+                        border-radius: 7px;
+                        color: #315EFD;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 16px;
+                    }
+                }
+            }
+
+            .block.block-inline-filters .button {
+                height: 36px;
+                font-weight: 700;
+                font-size: 13px;
+                line-height: 18px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 9px 12px;
+
+                &.button-secondary {
+                    border: 1px solid #DBDCDB;
+
+                    &:hover {
+                        border-color: $color_primary;
+                    }
+                }
+            }
+        }
+
         .sign_up-pane {
             .block-photo-selector {
                 max-width: 200px;
@@ -2736,6 +2825,10 @@ body {
                                 }
                             }
                         }
+
+                        &.selected {
+                            background: #F8FBF7;
+                        }
                     }
 
                     &.card-section-primary {
@@ -2944,7 +3037,24 @@ body {
             }
         }
 
+        @media (max-width: 1199px) {
+            .card-header {
+                margin: 25px 0 15px;
+            }
+        }
+
         @media (max-width: 991px) {
+            .card-header {
+                &:before {
+                    width: calc(100% + 40px);
+                    left: -20px;
+                }
+
+                & > .flex {
+                    flex-direction: column;
+                }
+            }
+
             .block-title {
                 margin: 0 0 20px;
                 font: 500 28px/34px $bf;

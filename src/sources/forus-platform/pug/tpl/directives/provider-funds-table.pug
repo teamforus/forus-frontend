@@ -1,0 +1,81 @@
+.card
+    .card-header: .flex
+        .flex.flex-grow: .card-title
+            span(translate="provider_funds.title.{{ $dir.type }}")
+            span.span-count
+                | {{ $dir.selectedCount > 0 ? $dir.selectedCount + '/' : '' }}{{ $dir.providerFunds.length }}
+
+        .flex: .block
+            .button.button-primary.button-sm(
+                ng-if="$dir.selectedForCancel.length"
+                ng-click="$dir.cancelSelectedApplicationRequests()")
+                span(translate="provider_funds.labels.cancel_application")
+
+    //- Vouchers list
+    .card-section(ng-if="$dir.providerFunds.length > 0")
+        .card-block.card-block-table.card-block-table-fund.form
+            .table-wrapper
+                table.table
+                    tr
+                        th(width="50px")
+                            input-checkbox-control(
+                                compact="true"
+                                name="all_funds"
+                                ng-model="$dir.allSelected"
+                                ng-change="$dir.updateAllSelected()")
+
+                        th(translate="provider_funds.labels.fund")
+                        th(translate="provider_funds.labels.organization")
+                        th(translate="provider_funds.labels.start_date")
+                        th(translate="provider_funds.labels.end_date")
+                        th(ng-if="$dir.type === 'active'" translate="provider_funds.labels.max_amount")
+                        th(ng-if="$dir.type === 'pending_rejected'" translate="provider_funds.labels.allow_budget")
+                        th(ng-if="$dir.type === 'pending_rejected'" translate="provider_funds.labels.allow_products")
+                        th(ng-if="$dir.type === 'pending_rejected'" translate="provider_funds.labels.status")
+                        th(translate="provider_funds.labels.actions").nowrap.text-right
+
+                    tr(ng-repeat="providerFund in $dir.providerFunds" ng-class="$dir.selected[providerFund.id] ? 'selected' : ''")
+                        td(width="50px")
+                            input-checkbox-control(
+                                compact="true"
+                                name="checkbox_fund_{{ providerFund.id }}"
+                                ng-model="$dir.selected[providerFund.id]")
+                        td.nowrap
+                            .fund-img: img(ng-src="{{ providerFund.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
+                            .fund-title(ng-bind="providerFund.fund.name")
+
+                        td(
+                            ng-bind="providerFund.fund.organization.name | str_limit:25"
+                            title="{{ providerFund.fund.organization.name }}")
+
+                        td.nowrap
+                            strong(ng-bind="providerFund.fund.start_date_locale").text-strong.text-md.text-muted-dark
+                        td.nowrap
+                            strong(ng-bind="providerFund.fund.end_date_locale").text-strong.text-md.text-muted-dark
+
+                        td(ng-if="$dir.type === 'active'").nowrap
+                            span(ng-if="fund.fund_amount" ng-bind="fund.fund_amount | currency_format")
+
+                        td(ng-if="$dir.type === 'pending_rejected'")
+                            | {{ providerFund.allow_budget ? 'Yes' : '' }}
+                        td(ng-if="$dir.type === 'pending_rejected'")
+                            | {{ (providerFund.allow_some_products || providerFund.allow_products) ? 'Yes' : '' }}
+
+                        td(ng-if="$dir.type === 'pending_rejected'").nowrap
+                            .tag.tag-sm(ng-if="providerFund.status_text" ng-class="providerFund.status_class" ng-bind="providerFund.status_text")
+
+                        td: .button-group.flex-end
+                            .button.button-default.button-icon.pull-right(
+                                ng-if="providerFund.fund.type == 'subsidies' || (providerFund.fund.state != 'closed' && providerFund.allow_some_products)"
+                                ng-click="$dir.viewOffers(providerFund)")
+                                em.mdi.mdi-eye-outline.icon-start
+
+                            //- Cancel fund application
+                            .button.button-default.button-icon.pull-right(
+                                ng-if="providerFund.cancelable"
+                                ng-click="$dir.cancelApplicationRequest(providerFund)")
+                                em.mdi.mdi-close-circle-outline.icon-start
+
+    //- Not found
+    .card-section(ng-if="$dir.providerFunds.length == 0"): .block.block-empty.text-center
+        .empty-title(ng-bind="$dir.emptyBlockText")

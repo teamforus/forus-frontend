@@ -589,32 +589,14 @@
 
                 .sign_up-pane-body: .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_8")
                 .sign_up-pane-body
-                    provider-fund-filters(
-                        ng-if="$ctrl.showFilters"
-                        funds-available="$ctrl.fundsAvailable" 
+                    provider-funds-can-join(
+                        ng-if="$ctrl.fundsAvailable"
+                        funds="$ctrl.fundsAvailable"
                         organization="$ctrl.organization"
-                        filters="$ctrl.filters.values")
+                        show-filters="$ctrl.showFilters"
+                        filter-values="$ctrl.filters.values"
+                        on-apply="$ctrl.applyFund()")
 
-                    fund-card-provider-can-join(
-                        ng-if="$ctrl.fundsAvailable.meta.total > 0"
-                        ng-repeat="fund in $ctrl.fundsAvailable.data"
-                        template="provider-signup-fund-card"
-                        fund="fund"
-                        organization="$ctrl.organization"
-                        on-apply="$ctrl.applyFund()"
-                        hide-modal="true")    
-
-                    block-empty(
-                        ng-if="$ctrl.fundsAvailable.meta.total == 0" 
-                        text="Er zijn momenteel geen actieve fondsen.")
-
-                    .card-section(ng-if="$ctrl.fundsAvailable.meta" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
-                        paginator(
-                            meta="$ctrl.fundsAvailable.meta" 
-                            filters="$ctrl.filters.values" 
-                            count-buttons="5" 
-                            on-page-change="$ctrl.onFundsAvailablePageChange(query)")
-                    
                     ui-control-checkbox(
                         ng-if="!$ctrl.hasFundApplications"
                         name="confirm_no_application"
