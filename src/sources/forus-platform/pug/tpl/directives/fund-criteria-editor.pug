@@ -15,7 +15,9 @@
         unregister-editor="$dir.unregisterItem(childRef)")
 
     .criteria-editor-actions
-        .button.button-primary(ng-if="$dir.isEditable" ng-click="$dir.addCriteria()")
+        .button.button-primary(
+            ng-if="$dir.isEditable && ($ctrl.organization | hasPerm:'manage_funds')" 
+            ng-click="$dir.addCriteria()")
             em.mdi.mdi-plus-circle.icon-start
             translate(translate="components.fund_criteria_editor.buttons.add_criteria")
         

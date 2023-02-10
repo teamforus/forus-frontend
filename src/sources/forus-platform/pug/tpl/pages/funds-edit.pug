@@ -52,7 +52,8 @@
                         prop="key"
                         search="false"
                         ng-model="$ctrl.form.values.type" 
-                        options="$ctrl.fundTypes").form-control
+                        options="$ctrl.fundTypes"
+                        ng-disabled="{{ !($ctrl.organization | hasPerm:'manage_funds') }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
 
                     //- Fund type icon for edit
@@ -89,7 +90,7 @@
                     .form-offset: select-control(
                         prop="key"
                         search="false"
-                        ng-disabled="$ctrl.fund && ($ctrl.fund.state != 'waiting')"
+                        ng-disabled="($ctrl.fund && ($ctrl.fund.state != 'waiting')) || !($ctrl.organization | hasPerm:'manage_funds')"
                         ng-model="$ctrl.form.values.application_method" 
                         ng-change="$ctrl.onMethodChange($ctrl.form.values.application_method, '{{$ctrl.form.values.application_method}}')"
                         options="$ctrl.applicationMethods").form-control
@@ -138,7 +139,7 @@
                             ng-model="$ctrl.form.values.start_date"
                             type="text"
                             placeholder="dd-MM-jjjj"
-                            ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
+                            ng-disabled="($ctrl.form.values.state != 'waiting' || !($ctrl.organization | hasPerm:'manage_funds'))").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.start_date" ng-bind="error")
                 
                 //- Fund end date
@@ -153,11 +154,12 @@
                             ng-model="$ctrl.form.values.end_date"
                             type="text"
                             placeholder="dd-MM-jjjj"
-                            ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
+                            ng-disabled="($ctrl.form.values.state != 'waiting' || !($ctrl.organization | hasPerm:'manage_funds'))").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
 
             //- Formula products
-            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.formula_products")
+            .card-section.card-section-primary(
+                ng-if="$root.appConfigs.features.organizations.funds.formula_products && ($ctrl.organization | hasPerm:'manage_funds')")
                 .row: .col.col-lg-9.col-md-12
                     .form-group.form-group-inline(ng-repeat="product in $ctrl.form.products track by $index")
                         label(translate="{{ $index == 0 ? 'funds_edit.labels.products' : '' }}").form-label
@@ -186,6 +188,7 @@
                         prop="id"
                         as="email"
                         search="false"
+                        ng-disabled="!($ctrl.organization | hasPerm:'manage_funds')"
                         ng-model="$ctrl.form.values.default_validator_employee_id" 
                         options="$ctrl.validators").flex-grow
                     
@@ -196,6 +199,7 @@
                     input-checkbox-control(
                         name="show_attachment_{{ $index }}" 
                         ng-model="$ctrl.form.values.auto_requests_validation" 
+                        ng-disabled="!($ctrl.organization | hasPerm:'manage_funds')"
                         label="Automatisch goedkeuren wanneer er een BSN-nummer vast staat.")
                     
                     .form-error(ng-repeat="error in $ctrl.form.errors.auto_requests_validation" ng-bind="error")
@@ -240,7 +244,10 @@
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label(translate="funds_edit.labels.notification_amount")
-                    input(ng-model="$ctrl.form.values.notification_amount" type="text" placeholder="{{ funds_edit.labels.notification_amount | translate }}").form-control
+                    input(
+                        ng-model="$ctrl.form.values.notification_amount" 
+                        ng-disabled="!($ctrl.organization | hasPerm:'manage_funds')"
+                        placeholder="{{ 'funds_edit.labels.notification_amount' | translate }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.notification_amount" ng-bind="error")
 
             //- Submit

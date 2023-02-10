@@ -1,5 +1,6 @@
 const FundsShowComponent = function (
     $state,
+    $filter,
     FundService,
     ModalService,
     PageLoadingBarService,
@@ -7,6 +8,7 @@ const FundsShowComponent = function (
     FundIdentitiesExportService,
 ) {
     const $ctrl = this;
+    const $hasPerm = $filter('hasPerm');
 
     $ctrl.identitiesFilters = {
         order_by: 'id',
@@ -61,17 +63,23 @@ const FundsShowComponent = function (
     };
 
     $ctrl.$onInit = () => {
+        $ctrl.managesFunds = $hasPerm($ctrl.organization, 'manage_funds');
         $ctrl.implementations = [$ctrl.fund.implementation];
-        $ctrl.identitiesOnPageChange($ctrl.identitiesFilters);
+
+        if ($ctrl.managesFunds) {
+            $ctrl.identitiesOnPageChange($ctrl.identitiesFilters);
+        }
     }
 };
 
 module.exports = {
     bindings: {
         fund: '<',
+        organization: '<',
     },
     controller: [
         '$state',
+        '$filter',
         'FundService',
         'ModalService',
         'PageLoadingBarService',
