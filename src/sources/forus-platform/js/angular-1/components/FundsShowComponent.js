@@ -73,6 +73,7 @@ const FundsShowComponent = function (
 module.exports = {
     bindings: {
         fund: '<',
+        organization: '<',
     },
     controller: [
         '$state',

@@ -170,6 +170,7 @@ body {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        @extend .wrapper;
 
         .header-logo {
             float: left;
@@ -1373,7 +1374,7 @@ body {
                 float: left;
                 color: $color_primary;
                 font: 500 13px/20px $bf;
-                width: 210px;
+                width: 180px;
                 padding-right: 20px;
             }
 
@@ -1398,6 +1399,10 @@ body {
 
                 .icon {
                     margin-left: 7px;
+                }
+
+                .form-numeric {
+                    margin-top: -5px;
                 }
             }
 
@@ -3319,6 +3324,50 @@ body {
                 }
             }
 
+            &.tooltip-content-bottom {
+                top: 100%;
+                left: 50%;
+                transform: translate(-50%);
+                margin-left: 0;
+                margin-right: 0;
+                margin-top: 7.5px;
+
+
+                &:before, &::after {
+                    display: none;
+                }
+
+                .triangle {
+                    position: absolute;
+                    top: -10px;
+                    left: 0;
+                    width: 100%;
+                    bottom: 100%;
+                    margin: auto;
+
+                    &:before, &:after {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        bottom: 100%;
+                        width: 0px;
+                        height: 0px;
+                        border-style: solid;
+                        border-width: 0 10px 10px 10px;
+                        border-color: transparent transparent $borderColor transparent;
+                        transform: rotate(0deg) translate(-50%);
+                        z-index: 1;
+                    }
+
+                    &:before {
+                        z-index: 2;
+                        margin-top: 2px;
+                        border-color: transparent transparent #FFFFFF transparent;
+                    }
+                }
+            }
+
             &.tooltip-content-fit {
                 width: fit-content
             }
@@ -3326,6 +3375,15 @@ body {
             &.tooltip-content-ghost {
                 pointer-events: none;
             }
+        }
+
+        &.block-tooltip-details-inline {
+            font-size: 20px;
+            color: $colorPrimary;
+            height: inherit;
+            line-height: inherit;
+            display: inline-flex;
+            margin-left: 5px;
         }
 
         &.block-tooltip-hover:hover,
@@ -5733,7 +5791,6 @@ body {
                     color: #7E818C;
                     margin-left: 10px;
                     font-weight: 400;
-                    text-transform: uppercase;
                 }
 
                 .block-login-control {

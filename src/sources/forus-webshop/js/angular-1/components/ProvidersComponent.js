@@ -1,8 +1,9 @@
 const ProvidersComponent = function (
     $state,
     $stateParams,
+    ProvidersService,
     FormBuilderService,
-    ProvidersService
+    ProductCategoryService,
 ) {
     const $ctrl = this;
 
@@ -95,7 +96,7 @@ const ProvidersComponent = function (
             $ctrl.providers = res.data;
         });
 
-        $ctrl.updateState(query, location);
+        $ctrl.updateState(query);
         $ctrl.updateFiltersUsedCount();
     };
 
@@ -107,7 +108,7 @@ const ProvidersComponent = function (
             }, []);
         });
 
-        $ctrl.updateState(query, location);
+        $ctrl.updateState(query);
         $ctrl.updateFiltersUsedCount();
     };
 
@@ -122,11 +123,26 @@ const ProvidersComponent = function (
             product_category_id: query.product_category_id,
             show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
+            order_by: query.order_by,
+            order_by_dir: query.order_by_dir,
         }, { location });
     };
 
     $ctrl.changeProductCategory = (type) => {
-        if (type == 'category' || (type == 'subcategory' && !$ctrl.product_sub_category_id)) {
+        if (type === 'category') {
+            if ($ctrl.product_category_id) {
+                ProductCategoryService.list({
+                    parent_id: $ctrl.product_category_id, per_page: 1000, used: 1,
+                }).then(res => {
+                    $ctrl.productSubCategories = res.data.meta.total ? [{
+                        name: 'Selecteer subcategorie...',
+                        id: null
+                    }, ...res.data.data] : null;
+                });
+            } else {
+                $ctrl.productSubCategories = null;
+            }
+
             return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
         }
 
@@ -169,7 +185,16 @@ const ProvidersComponent = function (
         });
 
         $ctrl.showModalFilters = $stateParams.show_menu;
-        $ctrl.sortBy = $ctrl.sortByOptions[0];
+
+        if ($stateParams.order_by && $stateParams.order_by_dir) {
+            $ctrl.sortBy = $ctrl.sortByOptions.find(sortOption => 
+                sortOption.value.order_by == $stateParams.order_by && 
+                sortOption.value.order_by_dir == $stateParams.order_by_dir
+            );
+        } else {
+            $ctrl.sortBy = $ctrl.sortByOptions[0];
+        }
+        
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q,
             fund_id: $stateParams.fund_id || $ctrl.funds[0].id,
@@ -204,9 +229,10 @@ module.exports = {
     controller: [
         '$state',
         '$stateParams',
-        'FormBuilderService',
         'ProvidersService',
-        ProvidersComponent
+        'FormBuilderService',
+        'ProductCategoryService',
+        ProvidersComponent,
     ],
-    templateUrl: 'assets/tpl/pages/providers.html'
+    templateUrl: 'assets/tpl/pages/providers.html',
 };

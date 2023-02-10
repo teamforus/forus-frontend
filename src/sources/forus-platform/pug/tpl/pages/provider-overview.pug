@@ -1,6 +1,6 @@
 .app.app-container
     menu
-    section.app.app-content.provider-overview
+    section.app.app-content.provider-overview(dusk="providerOverview")
         .block.block-charts
             .chart-row
                 .card(ng-if="$ctrl.organization | hasPerm:['manage_products']"): .card-section: .chart-control.chart-control-provider_overview

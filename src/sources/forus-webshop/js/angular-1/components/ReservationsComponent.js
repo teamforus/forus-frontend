@@ -1,4 +1,7 @@
-const ReservationsComponent = function(ProductReservationService) {
+const ReservationsComponent = function (
+    PageLoadingBarService,
+    ProductReservationService,
+) {
     const $ctrl = this;
 
     $ctrl.filters = {
@@ -6,6 +9,7 @@ const ReservationsComponent = function(ProductReservationService) {
         per_page: 15,
         state: null,
         fund_id: null,
+        archived: 0,
         organization_id: null,
     };
 
@@ -30,18 +34,18 @@ const ReservationsComponent = function(ProductReservationService) {
     $ctrl.onPageChange = (query = {}) => {
         $ctrl.filters = { ...$ctrl.filters, ...query };
 
-        ProductReservationService.list({
-            ...$ctrl.filters,
-            ...{ fund_id: $ctrl.filters.fund_id ? $ctrl.filters.fund_id.id : null }
-        }).then((res) => {
-            $ctrl.reservations = res.data;
-        });
+        PageLoadingBarService.setProgress(0);
+
+        ProductReservationService
+            .list($ctrl.filters)
+            .then((res) => $ctrl.reservations = res.data)
+            .finally(() => PageLoadingBarService.setProgress(100));
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.states.unshift({
+            value: null,
             name: 'Selecteer status...',
-            value: null
         });
 
         $ctrl.funds.unshift({
@@ -50,8 +54,8 @@ const ReservationsComponent = function(ProductReservationService) {
         });
 
         $ctrl.organizations.unshift({
+            id: null,
             name: 'Selecteer aanbieder...',
-            id: null
         });
     };
 };
@@ -63,8 +67,9 @@ module.exports = {
         organizations: '<',
     },
     controller: [
+        'PageLoadingBarService',
         'ProductReservationService',
-        ReservationsComponent
+        ReservationsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/reservations.html'
+    templateUrl: 'assets/tpl/pages/reservations.html',
 };

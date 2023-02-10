@@ -8,6 +8,7 @@ module.exports = {
         assign_by_type_or_activate: 'Toewijzen of activeren',
         note: 'Notitie',
         expire_at: 'Geldig tot en met',
+        client_uid: 'Uniek nummer',
     },
     modal_section: {
         choose_title: "Selecteer op welke manier u een tegoed wilt aanmaken.",

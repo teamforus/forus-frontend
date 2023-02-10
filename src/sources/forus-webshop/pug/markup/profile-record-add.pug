@@ -21,7 +21,7 @@ block content
                             mixin record_category_item(name, icon, active)
                                 .categories-item(class=active?'active':''): .categories-item-inner
                                     .categories-radio
-                                    .categories-image: img(src="./assets/img/icon-record_categories/" + icon + ".png")
+                                    .categories-image: img(src="./assets/img/icon-record_categories/" + icon + ".png" alt="")
                                     .categories-name=name
 
                             +record_category_item("Persoonlijk", "persoonlijk", true)

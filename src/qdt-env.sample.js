@@ -751,6 +751,7 @@ module.exports = (core) => {
             client_key: 'ede',
             matomo_site_id: false,
             flags: {
+                logoExtension: '.png',
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
@@ -763,6 +764,7 @@ module.exports = (core) => {
 
                 // voucher settings
                 shareProducts: false,
+                productDetailsOnlyAvailableFunds: true,
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,

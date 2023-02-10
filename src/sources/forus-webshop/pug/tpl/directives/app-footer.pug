@@ -9,10 +9,11 @@ footer.section.section-footer(id="footer")
                 .block.block-markdown(ng-bind-html="description_opening_times_html")
 
             .col(ng-class="description_opening_times_html?'col-md-3':'col-md-4'")
-                .block.block-markdown
+                .block.block-markdown(ng-if="$root.appConfigs.features.pages.provider")
                     h3 Links
                     nav.footer-nav
                         .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
+
             .col.col-md-3
                 .block.block-markdown
                     h3 Download de Me-app

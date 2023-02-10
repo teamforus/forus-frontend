@@ -108,7 +108,7 @@ main(id="main-content")
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="{{ $ctrl.voucherCard.fund.organization.name }}")
                     .card-section
                         h2.card-title {{ "voucher.voucher_card.header.title" | translate }}
-                        .card-description(i18n="voucher.voucher_card.labels.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
+                        .card-description(translate="voucher.voucher_card.labels.description" translate-values="{fund_name: $ctrl.voucherCard.title}")
                 .card-footer
                     .card-label(i18n="voucher.voucher_card.labels.contact_sponsor" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
                     .card-value.card-value-sm
@@ -273,7 +273,7 @@ main(id="main-content")
             filters="{fund_id: $ctrl.voucher.fund_id}")
             
         .block.block-map_card(
-            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && $root.appConfigs.features.show_voucher_map && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
             .map_card-header
                 //- regular voucher
                 h2.map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")
