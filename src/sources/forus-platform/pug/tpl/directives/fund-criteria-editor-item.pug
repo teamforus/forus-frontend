@@ -27,7 +27,7 @@
                 label.form-label Eigenschap
                 .form-offset: select-control(
                     prop="key"
-                    ng-disabled="!$dir.isEditable || !($ctrl.organization | hasPerm:'manage_funds')"
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
                     ng-model="$dir.criterion.record_type_key" 
                     options="$dir.recordTypes").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.record_type_key']" ng-bind="error")
@@ -36,7 +36,7 @@
                 label.form-label Verhouding
                 .form-offset: select-control(
                     prop="key"
-                    ng-disabled="!$dir.isEditable || !($ctrl.organization | hasPerm:'manage_funds')"
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
                     ng-model="$dir.criterion.operator" 
                     options="$dir.operators").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.operator']" ng-bind="error")
@@ -46,7 +46,7 @@
                 input(
                     type="text" 
                     ng-model="$dir.criterion.value" 
-                    ng-disabled="!$dir.isEditable || !($ctrl.organization | hasPerm:'manage_funds')").form-control
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.value']" ng-bind="error")
             
             .flex-col.form-group
@@ -59,19 +59,19 @@
                 .button.button-default.button-icon.pull-left(
                     ng-if="$dir.isEditable" 
                     ng-click="$dir.removeCriterion()"
-                    ng-disabled="!$dir.isEditable || !($ctrl.organization | hasPerm:'manage_funds')")
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')")
                     em.mdi.mdi-close.icon-start
 
         .flex-row(ng-if="$dir.criterion.is_editing")
             .flex-col.flex-col-2.form-group
                 label(
                     for='criterion_{{ $dir.criterion.id }}'
-                    ng-disabled="!$dir.isEditable || !($ctrl.organization | hasPerm:'manage_funds')").checkbox.checkbox-narrow
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')").checkbox.checkbox-narrow
                     input(
                         type="checkbox" 
                         ng-model="$dir.criterion.show_attachment" 
                         id='criterion_{{ $dir.criterion.id }}'
-                        ng-disabled="!$dir.isEditable || !($ctrl.organization | hasPerm:'manage_funds')")
+                        ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')")
                     .checkbox-label 
                         .checkbox-box: .mdi.mdi-check
                         translate(translate="components.fund_criteria_editor_item.buttons.allow_attachments")

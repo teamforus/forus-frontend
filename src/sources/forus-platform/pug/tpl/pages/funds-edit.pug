@@ -53,7 +53,7 @@
                         search="false"
                         ng-model="$ctrl.form.values.type" 
                         options="$ctrl.fundTypes"
-                        ng-disabled="{{ !($ctrl.organization | hasPerm:'manage_funds') }}").form-control
+                        ng-disabled="!($ctrl.organization | hasPerm:'manage_funds')").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
 
                     //- Fund type icon for edit
@@ -205,7 +205,9 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.auto_requests_validation" ng-bind="error")
 
             //- Fund criteria editor
-            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
+            .card-section.card-section-primary(
+                ng-if="$root.appConfigs.features.organizations.funds.criteria"
+                ng-show="$ctrl.form.values.criteria.length > 0 || ($ctrl.organization | hasPerm:'manage_funds')")
                 .form-group.form-group-inline
                     label.form-label Criteria
                     .form-offset: fund-criteria-editor(
@@ -221,7 +223,10 @@
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label Requirements 
-                    .form-offset: fund-config-contact-info-editor(fund="$ctrl.form.values" inline="false")
+                    .form-offset: fund-config-contact-info-editor(
+                        fund="$ctrl.form.values" 
+                        inline="false"
+                        disabled="!($ctrl.organization | hasPerm:'manage_funds')")
 
             //- FAQ
             .card-section.card-section-primary

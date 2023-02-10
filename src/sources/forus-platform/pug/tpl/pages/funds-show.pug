@@ -43,7 +43,7 @@
                             | Verwijderen
 
                         .button.button-default(
-                            ng-if="($ctrl.fund.organization | hasPerm:'manage_funds')"
+                            ng-if="($ctrl.fund.organization | hasPerm:['manage_funds','manage_fund_texts']:false)"
                             ui-sref="funds-edit($ctrl.fund)")
                             em.mdi.mdi-pencil.icon-start
                             | Bewerken

@@ -5,7 +5,6 @@ mixin form_values()
             ng-disabled="$dir.disabled"
             name="email_required_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.email_required" 
-            ng-disabled="!($dir.fund.organization | hasPerm:'manage_funds')"
             label="Alleen aanvragers die een e-mailadres opgeven mogen het aanvraagformulier doorlopen.")
         .form-error(ng-repeat="error in $dir.form.errors.email_required" ng-bind="error")
 
@@ -18,7 +17,6 @@ mixin form_values()
             ng-disabled="$dir.disabled"
             name="contact_info_enabled_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.contact_info_enabled" 
-            ng-disabled="!($dir.fund.organization | hasPerm:'manage_funds')"
             label="Vraag aanvragers om contactgegevens")
         .form-error(ng-repeat="error in $dir.form.errors.contact_info_enabled" ng-bind="error")
         tooltip(text="'Het aanzetten van deze optie zorgt ervoor dat er contactgegevens opgevraagd kunnen worden voor aanvragers zonder e-mailadres.'")
@@ -29,7 +27,6 @@ mixin form_values()
             ng-disabled="$dir.disabled"
             name="contact_info_required_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.contact_info_required" 
-            ng-disabled="!($dir.fund.organization | hasPerm:'manage_funds')"
             label="Maak het opgeven van contactgegevens verplicht")
         .form-error(ng-repeat="error in $dir.form.errors.contact_info_required" ng-bind="error")
         tooltip(text="'Het aanzetten van deze optie zal het opgeven van contactgegevens verplicht maken.'")
@@ -40,7 +37,6 @@ mixin form_values()
             ng-disabled="$dir.disabled"
             name="contact_info_message_custom_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.contact_info_message_custom" 
-            ng-disabled="!($dir.fund.organization | hasPerm:'manage_funds')"
             label="Stel een bericht in voor het opvragen van contactgegevens")
         .form-error(ng-repeat="error in $dir.form.errors.contact_info_message_custom" ng-bind="error")
 
@@ -55,7 +51,6 @@ mixin form_values()
             ng-disabled="$dir.disabled"
             ng-if="$dir.form.values.contact_info_message_custom"
             placeholder="Geef het bericht op dat je wilt instellen..."
-            ng-disabled="!($dir.fund.organization | hasPerm:'manage_funds')"
             ng-model="$dir.form.values.contact_info_message_text")
         .form-error(ng-repeat="error in $dir.form.errors.contact_info_message_text" ng-bind="error")
 
