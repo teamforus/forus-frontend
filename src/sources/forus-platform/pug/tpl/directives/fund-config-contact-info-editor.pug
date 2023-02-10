@@ -2,6 +2,7 @@ mixin form_values()
     //- Make confirmed email required
     .form-group.form-group-last.tooltipped
         input-checkbox-control(
+            ng-disabled="$dir.disabled"
             name="email_required_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.email_required" 
             label="Alleen aanvragers die een e-mailadres opgeven mogen het aanvraagformulier doorlopen.")
@@ -13,6 +14,7 @@ mixin form_values()
     //- Ask for contact information 
     .form-group.form-group-last(ng-if="!$dir.form.values.email_required").tooltipped
         input-checkbox-control(
+            ng-disabled="$dir.disabled"
             name="contact_info_enabled_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.contact_info_enabled" 
             label="Vraag aanvragers om contactgegevens")
@@ -22,6 +24,7 @@ mixin form_values()
     //- Make contact information required
     .form-group.form-group-last(ng-if="!$dir.form.values.email_required && $dir.form.values.contact_info_enabled").tooltipped
         input-checkbox-control(
+            ng-disabled="$dir.disabled"
             name="contact_info_required_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.contact_info_required" 
             label="Maak het opgeven van contactgegevens verplicht")
@@ -31,6 +34,7 @@ mixin form_values()
     //- Use custom contact information message
     .form-group.form-group-last(ng-if="!$dir.form.values.email_required && $dir.form.values.contact_info_enabled").tooltipped
         input-checkbox-control(
+            ng-disabled="$dir.disabled"
             name="contact_info_message_custom_{{ $dir.fund.id }}" 
             ng-model="$dir.form.values.contact_info_message_custom" 
             label="Stel een bericht in voor het opvragen van contactgegevens")
@@ -44,13 +48,14 @@ mixin form_values()
             ng-bind="$dir.form.values.contact_info_message_default")
 
         textarea.form-control.r-n(
+            ng-disabled="$dir.disabled"
             ng-if="$dir.form.values.contact_info_message_custom"
             placeholder="Geef het bericht op dat je wilt instellen..."
             ng-model="$dir.form.values.contact_info_message_text")
         .form-error(ng-repeat="error in $dir.form.errors.contact_info_message_text" ng-bind="error")
 
 .form
-    form(ng-if="$dir.inline" ng-submit="$dir.form.submit()").form
+    form(ng-if="$dir.inline && !$dir.disabled" ng-submit="$dir.form.submit()").form
         +form_values()
 
         .row: .form-actions.col.col-lg-8.col-md-12 
@@ -58,4 +63,4 @@ mixin form_values()
                 .mdi.mdi-content-save-outline.icon-start
                 | Opslaan
 
-    .form(ng-if="!$dir.inline"): +form_values()
+    .form(ng-if="!$dir.inline || $dir.disabled"): +form_values()
