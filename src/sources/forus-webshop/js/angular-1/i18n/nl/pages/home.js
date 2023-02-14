@@ -54,6 +54,9 @@ module.exports = {
         nijmegen: {
             cta_av: "",
         },
+        vergoedingen: {
+            button: "Inloggen/registreren"
+        }
     },
     blog: {
         title: "Onze blog",
