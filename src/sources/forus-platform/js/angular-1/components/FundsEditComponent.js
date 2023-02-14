@@ -5,12 +5,12 @@ const FundsEditComponent = function(
     $stateParams,
     $rootScope,
     FundService,
+    MediaService,
     FormBuilderService,
     PushNotificationsService,
-    MediaService,
 ) {
     const $ctrl = this;
-    let mediaFile = false;
+    let mediaFile = null;
 
     $ctrl.criteriaEditor = null;
     $ctrl.faqEditor = null
@@ -167,7 +167,7 @@ const FundsEditComponent = function(
             delete values.formula_products;
         }
 
-        $ctrl.media = $ctrl.fund.logo
+        $ctrl.media = $ctrl.fund?.logo;
 
         $ctrl.form = FormBuilderService.build(values, (form) => {
             const onError = (res) => {
@@ -254,9 +254,9 @@ module.exports = {
         '$stateParams',
         '$rootScope',
         'FundService',
+        'MediaService',
         'FormBuilderService',
         'PushNotificationsService',
-        'MediaService',
         FundsEditComponent,
     ],
     templateUrl: 'assets/tpl/pages/funds-edit.html',

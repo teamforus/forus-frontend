@@ -628,29 +628,28 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('funds-create', 'manage_funds'),
-            validators: ['permission', '$transition$', 'OrganizationEmployeesService', (
-                permission, $transition$, OrganizationEmployeesService
-            ) => repackResponse(OrganizationEmployeesService.list(
-                $transition$.params().organization_id, {
-                role: 'validation'
-            }
-            ))],
-            productCategories: ['permission', 'ProductCategoryService', (
-                permission, ProductCategoryService
-            ) => repackResponse(ProductCategoryService.listAll())],
-            fundStates: ['permission', 'FundService', (
-                permission, FundService
-            ) => FundService.states()],
-            recordTypes: ['permission', 'RecordTypeService', (
-                permission, RecordTypeService
-            ) => repackResponse(RecordTypeService.list())],
-            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', (
-                permission, $transition$, OrganizationService
-            ) => repackPagination(OrganizationService.readListValidators(
-                $transition$.params().organization_id, {
-                per_page: 100
-            }
-            ))],
+            validators: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
+                return repackResponse(OrganizationEmployeesService.list($transition$.params().organization_id, {
+                    role: 'validation',
+                }));
+            }],
+            productCategories: ['ProductCategoryService', 'permission', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.listAll());
+            }],
+            fundStates: ['FundService','permission', (FundService) => {
+                return FundService.states();
+            }],
+            recordTypes: ['RecordTypeService','permission', (RecordTypeService) => {
+                return repackResponse(RecordTypeService.list());
+            }],
+            validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
+                return repackPagination(OrganizationService.readListValidators($transition$.params().organization_id, {
+                    per_page: 100,
+                }));
+            }],
+            products: ['ProductService', 'permission', (ProductService) => {
+                return repackResponse(ProductService.listAll({ per_page: 1000, unlimited_stock: 1, simplified: 1 }));
+            }],
         }
     });
 
@@ -660,7 +659,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "fundsShowComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-show', ['manage_funds', 'view_finances'], false),
+            permission: permissionMiddleware('funds-show', ['view_funds', 'manage_funds', 'view_finances'], false),
             fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
             }],
@@ -673,7 +672,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "fundsEditComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-edit', 'manage_funds'),
+            permission: permissionMiddleware('funds-edit', ['manage_funds', 'manage_fund_texts'], false),
             fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
             }],

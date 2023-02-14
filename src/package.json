@@ -67,7 +67,7 @@
     "gulp-protractor": "^4.1.1",
     "imap": "^0.8.19",
     "jquery": "^3.6.0",
-    "jszip": "^3.7.1",
+    "jszip": "^3.8.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.2",
     "nanoscroller": "^0.8.7",
