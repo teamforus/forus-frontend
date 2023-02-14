@@ -95,7 +95,7 @@
                     .arrow-box.border.bg-dim: .arrow
                     | Geen data
 
-        .card(ng-if="$ctrl.fund.type == 'budget' && (!$ctrl.product.hasLimits && $ctrl.deal === null)")
+        .card(ng-if="$ctrl.organization.allow_budget_fund_limits && $ctrl.fund.type == 'budget' && (!$ctrl.product.hasLimits && $ctrl.deal === null)")
             .card-section
                 .block.block-empty.text-center
                     .empty-details(ng-if="$ctrl.product.allowed || $ctrl.fundProvider.allow_products") 
@@ -117,11 +117,11 @@
 
         //- budget deal edit
         fund-provider-product-editor(
-            ng-if="$ctrl.fund.type == 'budget' && ($ctrl.deal || $ctrl.deal === false)"
+            ng-if="$ctrl.organization.allow_budget_fund_limits && $ctrl.fund.type == 'budget' && ($ctrl.deal || $ctrl.deal === false)"
             fund="$ctrl.fund" 
             deal="$ctrl.deal"
             on-cancel="$ctrl.onCancel()"
-            on-update="$ctrl.onUpdate()"
+            on-update="$ctrl.onUpdate(fundProvider)"
             on-reset="$ctrl.resetLimits(deal)"
             on-values-change="$ctrl.onValuesChange"
             product="$ctrl.product"
@@ -152,7 +152,7 @@
                     td(ng-bind="item.voucher_transactions_count")
                     td(ng-bind="item.product_reservations_pending_count")
                     td(ng-bind="item.limit_total_unlimited ? 'Onbeperkt' : item.limit_total")
-                    td(ng-bind="item.limit_per_identity")
+                    td(ng-bind="item.limit_per_identity === null ? 'Onbeperkt' : item.limit_per_identity")
                     td(ng-bind="item.amount | currency_format" ng-if="$ctrl.fund.type == 'subsidies'")
                     td(ng-bind="item.expire_at_locale ? item.expire_at_locale : 'Verloopt met het fonds'")
 

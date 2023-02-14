@@ -40,7 +40,7 @@ const FundProviderProductComponent = function (
         ).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
             $ctrl.fundProvider = res.data.data;
-            $ctrl.updateProviderProduct();
+            $ctrl.updateProviderProduct(res.data.data);
             $ctrl.$onInit();
         }, console.error);
     };
@@ -87,7 +87,9 @@ const FundProviderProductComponent = function (
         });
     };
 
-    $ctrl.updateProviderProduct = () => {
+    $ctrl.updateProviderProduct = (fundProvider) => {
+        $ctrl.fundProvider = fundProvider;
+
         return FundService.getProviderProduct(
             $stateParams.organization_id,
             $stateParams.fund_id,
@@ -103,8 +105,8 @@ const FundProviderProductComponent = function (
         $ctrl.deal = null;
     };
 
-    $ctrl.onUpdate = () => {
-        $ctrl.updateProviderProduct().then(() => {
+    $ctrl.onUpdate = (fundProvider) => {
+        $ctrl.updateProviderProduct(fundProvider).then(() => {
             $ctrl.onCancel();
             PushNotificationsService.success("Het product is goedgekeurd.");
         });
@@ -123,7 +125,7 @@ const FundProviderProductComponent = function (
             FundService.updateProvider($ctrl.fund.organization_id, $ctrl.fund.id, $ctrl.fundProvider.id, {
                 reset_products: [{ id: deal.product_id }]
             }).then(
-                () => $ctrl.updateProviderProduct().then(() => PushNotificationsService.success("The limits have been reset.")),
+                (res) => $ctrl.updateProviderProduct(res.data.data).then(() => PushNotificationsService.success("The limits have been reset.")),
                 (res) => PushNotificationsService.danger("Error!", res.data.message),
             ).finally(() => {
                 $ctrl.deal = null;

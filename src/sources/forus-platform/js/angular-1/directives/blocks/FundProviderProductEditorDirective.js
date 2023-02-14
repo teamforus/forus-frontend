@@ -25,8 +25,8 @@ const FundProviderProductEditorDirective = function (
             expire_at: fundProvider.fund.end_date,
             expires_with_fund: true,
             limit_total: stockAmount,
-            unlimited_stock: unlimited_stock,
             limit_per_identity: stockAmount,
+            limit_total_unlimited: unlimited_stock,
             ...(isTypeSubsidies ? { amount: 0, gratis: false } : {})
         };
 
@@ -35,6 +35,7 @@ const FundProviderProductEditorDirective = function (
             limit_total: Math.min(deal.limit_total, stock_amount),
             limit_per_identity: Math.min(deal.limit_per_identity, stock_amount),
             expires_with_fund: !deal.expire_at,
+            limit_total_unlimited: deal.limit_total_unlimited,
             ...(isTypeSubsidies ? {
                 amount: parseFloat(deal.amount),
                 gratis: parseFloat(deal.amount) === parseFloat(product.price),
@@ -47,12 +48,12 @@ const FundProviderProductEditorDirective = function (
                     id: $dir.product.id,
                     amount: form.values.gratis ? $dir.product.price : form.values.amount,
                     limit_total: form.values.limit_total,
-                    limit_total_unlimited: form.values.unlimited_stock ? 1 : 0,
+                    limit_total_unlimited: form.values.limit_total_unlimited ? 1 : 0,
                     limit_per_identity: form.values.limit_per_identity,
                     expire_at: form.values.expires_with_fund ? null : form.values.expire_at,
                 }],
             }).then((res) => {
-                $dir.onUpdate(res.data);
+                $dir.onUpdate({ fundProvider: res.data.data });
             }, (res) => {
                 form.errors = res.data.errors;
                 return form.unlock();
