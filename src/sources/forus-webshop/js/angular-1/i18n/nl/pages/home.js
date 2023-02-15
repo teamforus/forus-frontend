@@ -55,7 +55,7 @@ module.exports = {
             cta_av: "",
         },
         vergoedingen: {
-            button: "Inloggen/registreren"
+            button: "Inloggen / registreren"
         }
     },
     blog: {

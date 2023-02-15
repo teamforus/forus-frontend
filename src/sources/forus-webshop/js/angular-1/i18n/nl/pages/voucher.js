@@ -63,7 +63,7 @@ module.exports = {
                 how_it_works: "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag.",  
                 contact_sponsor: "Heeft u vragen?",
                 contact_sponsor_details: "Neem dan contact met ons op.",
-                redirect_to_funds: "Wilt u nog een vergoeding aanvragen? Klik dan <a ui-sref='funds'>hier</a> om terug te gaan naar het overzicht van de vergoedingen."
+                redirect_to_funds: "Wilt u nog een vergoeding aanvragen?",
             },
         },
         physical_card: {
