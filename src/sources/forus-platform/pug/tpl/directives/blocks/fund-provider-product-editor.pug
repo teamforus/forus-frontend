@@ -14,6 +14,7 @@
             .form-offset: .row
                 .col.col-lg-6.col-xs-12
                     input(
+                        required
                         ng-if="!($dir.product.unlimited_stock && $dir.form.values.limit_total_unlimited)"
                         ng-model="$dir.form.values.limit_total" 
                         type="number" 

@@ -151,7 +151,7 @@
                 tr(ng-repeat="item in $ctrl.product.deals_history")
                     td(ng-bind="item.voucher_transactions_count")
                     td(ng-bind="item.product_reservations_pending_count")
-                    td(ng-bind="item.limit_total_unlimited ? 'Onbeperkt' : item.limit_total")
+                    td(ng-bind="item.limit_total_unlimited || item.limit_total === null ? 'Onbeperkt' : item.limit_total")
                     td(ng-bind="item.limit_per_identity === null ? 'Onbeperkt' : item.limit_per_identity")
                     td(ng-bind="item.amount | currency_format" ng-if="$ctrl.fund.type == 'subsidies'")
                     td(ng-bind="item.expire_at_locale ? item.expire_at_locale : 'Verloopt met het fonds'")
