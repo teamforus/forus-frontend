@@ -17,7 +17,8 @@
                 .flex: .block.block-inline-filters
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.hasDirectPayments"
-                        ng-click="$ctrl.uploadTransactions()")
+                        ng-click="$ctrl.uploadTransactions()"
+                        dusk="uploadTransactionsBatchButton")
                         em.mdi.mdi-upload.icon-start
                         | Upload bulkbestand
 
@@ -30,7 +31,8 @@
                         span(i18n="Wis filters")
 
                     .form(ng-if="!$ctrl.filters.show && $ctrl.viewType.key == 'transactions'"): .form-group: input(
-                        ng-model="$ctrl.filters.values.q" 
+                        ng-model="$ctrl.filters.values.q"
+                        dusk="searchTransaction"
                         placeholder="{{ 'transactions.labels.search' | i18n }}").form-control
 
                     .form(ng-if="$ctrl.viewType.key == 'transactions'"): .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
@@ -213,7 +215,7 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
-                            tr(ng-repeat="transaction in $ctrl.transactions.data")
+                            tr(ng-repeat="transaction in $ctrl.transactions.data" dusk="transactionItem")
                                 td(ng-bind="transaction.id")
                                 td(ng-bind="(transaction.uid || '-') | str_limit:25" title="{{ transaction.uid || '-' }}" ng-if="$ctrl.isSponsor")
 
@@ -247,7 +249,7 @@
                                 td(ng-if="$ctrl.isSponsor && !transaction.voucher_transaction_bulk_id")
                                     .text-muted(ng-bind="transaction.bulk_status_locale")
 
-                                td
+                                td(dusk="transactionState")
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
                                     .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
 
