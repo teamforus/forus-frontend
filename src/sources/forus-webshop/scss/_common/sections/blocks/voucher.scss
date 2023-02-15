@@ -335,6 +335,16 @@
 
                             .card-description {
                                 font: 400 14px/20px $bf;
+
+                                .generic-link {
+                                    font: 400 14px/20px $bf;
+                                    color: #0000CD;
+                                    text-decoration: underline;
+
+                                    &:hover {
+                                        text-decoration: none;
+                                    }
+                                }
                             }
                         }
                     }
