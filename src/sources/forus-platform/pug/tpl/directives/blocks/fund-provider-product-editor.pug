@@ -14,7 +14,8 @@
             .form-offset: .row
                 .col.col-lg-6.col-xs-12
                     input(
-                        ng-if="!($dir.product.unlimited_stock && $dir.form.values.unlimited_stock)"
+                        required
+                        ng-if="!($dir.product.unlimited_stock && $dir.form.values.limit_total_unlimited)"
                         ng-model="$dir.form.values.limit_total" 
                         type="number" 
                         placeholder="Totaal aanbod" 
@@ -22,7 +23,7 @@
                         max="{{ $dir.product.unlimited_stock ? '' : $dir.product.stock_amount }}").form-control
                     input(
                         disabled
-                        ng-if="$dir.product.unlimited_stock && $dir.form.values.unlimited_stock"
+                        ng-if="$dir.product.unlimited_stock && $dir.form.values.limit_total_unlimited"
                         value='Ongelimiteerd').form-control
                     .form-error(ng-repeat="error in $dir.form.errors['enable_products.0.limit_total']" ng-bind="error")
                     .form-limit(ng-if="!$dir.product.unlimited_stock") Limiet 1/{{ $dir.product.stock_amount }}
@@ -30,7 +31,7 @@
                 
                 .col.col-lg-6.col-xs-12
                     label(ng-if="$dir.product.unlimited_stock" for='unlimited_stock_subsidy').checkbox
-                        input(type="checkbox" value="1" ng-model="$dir.form.values.unlimited_stock" id='unlimited_stock_subsidy')
+                        input(type="checkbox" value="1" ng-model="$dir.form.values.limit_total_unlimited" id='unlimited_stock_subsidy')
                         .checkbox-label 
                             .checkbox-box: .mdi.mdi-check
                             | Onbeperkt
@@ -41,6 +42,7 @@
             .form-offset: .row
                 .col.col-lg-6.col-xs-12
                     input(
+                        required
                         ng-model="$dir.form.values.limit_per_identity" 
                         type="number" 
                         placeholder="Limiet per aanvrager" 
