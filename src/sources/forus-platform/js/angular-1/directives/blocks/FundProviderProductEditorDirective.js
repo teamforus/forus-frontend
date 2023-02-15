@@ -32,8 +32,8 @@ const FundProviderProductEditorDirective = function (
 
         const values = deal ? {
             expire_at: deal.expire_at ? deal.expire_at : fundProvider.fund.end_date,
-            limit_total: Math.min(deal.limit_total, stock_amount),
-            limit_per_identity: Math.min(deal.limit_per_identity, stock_amount),
+            limit_total: unlimited_stock ? deal.limit_total : Math.min(deal.limit_total, stock_amount),
+            limit_per_identity: unlimited_stock ? deal.limit_per_identity : Math.min(deal.limit_per_identity, stock_amount),
             expires_with_fund: !deal.expire_at,
             limit_total_unlimited: deal.limit_total_unlimited,
             ...(isTypeSubsidies ? {
