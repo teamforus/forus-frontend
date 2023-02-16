@@ -1,5 +1,16 @@
 const BlockEmptyDirective = function($scope) {
-    $scope.align = $scope.align || 'center';
+    const { $dir } = $scope;
+
+    $dir.buttonHandler = ($event) => {
+        $event?.preventDefault();
+        $event?.stopPropagation();
+
+        if ($dir.buttonSref) {
+            return $state.go($dir.buttonSref, $dir.buttonSrefParams || {});
+        }
+
+        $dir.buttonCallback();
+    };
 };
 
 module.exports = () => {
@@ -9,13 +20,22 @@ module.exports = () => {
             text: '@',
             button: '=',
             align: '@',
+            buttonSref: '@',
+            buttonSrefParams: '=',
+            buttonCallback: '&',
+            buttonText: '@',
+            buttonType: '@',
+            buttonIcon: '@',
+            buttonIconEnd: '@',
         },
+        bindToController: true,
+        controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
-            BlockEmptyDirective
+            BlockEmptyDirective,
         ],
-        templateUrl: 'assets/tpl/directives/blocks/block-empty.html'
+        templateUrl: 'assets/tpl/directives/blocks/block-empty.html',
     };
 };
