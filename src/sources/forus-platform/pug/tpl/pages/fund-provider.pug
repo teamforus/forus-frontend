@@ -78,6 +78,7 @@
                 paginator(
                     meta="$ctrl.sponsorProducts.meta" 
                     filters="$ctrl.filtersSponsorProducts.values" 
+                    delayed-filters="['q']"
                     on-page-change="$ctrl.onPageChangeSponsorProducts(query)")
 
         //- Products for budget fund (managed by sponsor)
@@ -141,7 +142,8 @@
             .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
                 paginator(
                     meta="$ctrl.sponsorProducts.meta" 
-                    filters="$ctrl.filtersSponsorProducts.values" 
+                    filters="$ctrl.filtersSponsorProducts.values"
+                    delayed-filters="['q']" 
                     on-page-change="$ctrl.onPageChangeSponsorProducts(query)")
 
         //- Products for budget fund
@@ -198,7 +200,7 @@
 
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
-                paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+                paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" delayed-filters="['q']" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
 
         //- Products for subsidy fund
         .card(ng-if="$ctrl.fundProvider.fund.type == 'subsidies'")
@@ -253,4 +255,4 @@
 
             .card-section.text-center(ng-if="$ctrl.products.meta.total == 0") Geen aanbiedingen
             .card-section.card-section-narrow(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
-                paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+                paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" delayed-filters="['q']" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")

@@ -188,7 +188,7 @@
 
             //- Pagination
             .card-section(ng-if="$ctrl.reimbursements.meta" ng-show="$ctrl.reimbursements.meta.last_page > 1")
-                paginator(meta="$ctrl.reimbursements.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
+                paginator(meta="$ctrl.reimbursements.meta" filters="$ctrl.filters.values" delayed-filters="['q', 'amount_min', 'amount_max']" on-page-change="$ctrl.onPageChange(query)")
 
             //- Not found
             .card-section(ng-if="$ctrl.reimbursements.meta.total == 0"): .block.block-empty.text-center

@@ -144,7 +144,7 @@
             .card-section.card-section-narrow(
                 ng-if="$ctrl.identities"
                 ng-show="$ctrl.identities.meta.last_page > 1")
-                paginator(meta="$ctrl.identities.meta" filters="$ctrl.identitiesFilters" on-page-change="$ctrl.identitiesOnPageChange(query)")
+                paginator(meta="$ctrl.identities.meta" filters="$ctrl.identitiesFilters" delayed-filters="['q']" on-page-change="$ctrl.identitiesOnPageChange(query)")
 
             //- Fund users empty
             .card-section(ng-if="$ctrl.identities.meta.total == 0"): .block.block-empty.text-center

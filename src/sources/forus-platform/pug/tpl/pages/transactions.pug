@@ -282,7 +282,11 @@
 
             //- Transactions pagination
             .card-section(ng-if="$ctrl.transactions" ng-show="($ctrl.viewType.key == 'transactions') && ($ctrl.transactions.meta.last_page > 1)")
-                paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
+                paginator(
+                    meta="$ctrl.transactions.meta" 
+                    filters="$ctrl.filters.values"
+                    delayed-filters="['q', 'amount_min', 'amount_max', 'transfer_in_min', 'transfer_in_max']" 
+                    on-page-change="$ctrl.onPageChange(query)")
 
             //- Empty transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total == 0"): .block.block-empty.text-center
@@ -329,7 +333,11 @@
 
             //- Bulk transactions pagination
             .card-section(ng-if="$ctrl.transactionBulks" ng-show="($ctrl.viewType.key == 'bulks') && ($ctrl.transactionBulks.meta.last_page > 1)")
-                paginator(meta="$ctrl.transactionBulks.meta" filters="$ctrl.bulkFilters.values" on-page-change="$ctrl.onBulkPageChange(query)")
+                paginator(
+                    meta="$ctrl.transactionBulks.meta" 
+                    filters="$ctrl.bulkFilters.values" 
+                    delayed-filters="['amount_min', 'amount_max', 'quantity_min', 'quantity_max']" 
+                    on-page-change="$ctrl.onBulkPageChange(query)")
             
             //- Empty bulk transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total == 0"): .block.block-empty.text-center

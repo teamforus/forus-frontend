@@ -108,7 +108,7 @@
                                         | Bekijk op webshop
 
             .card-section(ng-if="$ctrl.funds.meta" ng-show="$ctrl.funds.meta.last_page > 1")
-                paginator(meta="$ctrl.funds.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+                paginator(meta="$ctrl.funds.meta" filters="$ctrl.filters.values" delayed-filters="['q']" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
         
         block-empty(
             ng-if="$ctrl.funds.meta.total == 0" 

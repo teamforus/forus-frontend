@@ -105,7 +105,8 @@
             .card-section.card-section-narrow(ng-if="$ctrl.fundProviders.meta" ng-show="$ctrl.fundProviders.meta.last_page > 1")
                 paginator(
                     meta="$ctrl.fundProviders.meta" 
-                    filters="$ctrl.providerFilters.values" 
+                    filters="$ctrl.providerFilters.values"
+                    delayed-filters="['q']"
                     on-page-change="$ctrl.onProviderFundsPageChange(query)")
 
         //- Provider description
