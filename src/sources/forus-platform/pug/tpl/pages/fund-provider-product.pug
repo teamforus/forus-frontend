@@ -99,21 +99,21 @@
             .card-section
                 .block.block-empty.text-center
                     .empty-details(ng-if="$ctrl.product.allowed || $ctrl.fundProvider.allow_products") 
-                        | There are currently no restrictions on the product.
+                        | Er zijn momenteel geen beperkingen op het aanbod ingesteld.
 
                     .empty-details(ng-if="!$ctrl.product.allowed && !$ctrl.fundProvider.allow_products") 
-                        .empty-details The product is current not approved
+                        .empty-details Het aanbod is nog niet goedgekeurd
 
                     .empty-actions
                         button.button.button-primary(ng-click="$ctrl.deal = false")
                             em.mdi.mdi-cog-outline.icon-start
-                            | {{ $ctrl.fundProvider.allow_products || $ctrl.product.allowed ? 'Set restrictions' : 'Approve with restrictions' }}
+                            | {{ $ctrl.fundProvider.allow_products || $ctrl.product.allowed ? 'Stel een limiet in' : 'Aanbod goedkeuren met ingesteld limit' }}
 
                         button.button.button-default(
                             ng-if="$ctrl.product.deals_history.length > 0"
                             ng-click="$ctrl.showHistory = !$ctrl.showHistory")
                             em.mdi.mdi-clipboard-text-clock-outline.icon-start
-                            | {{ $ctrl.showHistory ? 'Hide history' : 'Show history' }}
+                            | {{ $ctrl.showHistory ? 'Toon geschiedenis' : 'Verbeg geschiedenis' }}
 
         //- budget deal edit
         fund-provider-product-editor(
@@ -146,7 +146,7 @@
                     th(ng-if="$ctrl.fund.type == 'subsidies'") Bijdrage
                     th Status
                     th Verloopdatum
-                    th.text-right Actions
+                    th.text-right Acties
 
                 tr(ng-repeat="item in $ctrl.product.deals_history")
                     td(ng-bind="item.voucher_transactions_count")
@@ -180,4 +180,4 @@
                             ng-if="$ctrl.fund.type == 'subsidies'"
                             ui-sref="fund-provider-product-subsidy-edit(item.showSubsidyDealParams)")
                             em.mdi.mdi-eye-outline.icon-start
-                            | Kijk
+                            | Bekijk

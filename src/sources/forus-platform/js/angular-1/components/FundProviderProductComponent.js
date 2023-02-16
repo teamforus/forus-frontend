@@ -108,15 +108,15 @@ const FundProviderProductComponent = function (
     $ctrl.onUpdate = (fundProvider) => {
         $ctrl.updateProviderProduct(fundProvider).then(() => {
             $ctrl.onCancel();
-            PushNotificationsService.success("Het product is goedgekeurd.");
+            PushNotificationsService.success("Het aanbod is goedgekeurd.");
         });
     };
 
     $ctrl.resetLimits = (deal) => {
-        $ctrl.confirmDangerAction('Remove restrictions?', [
-            'You are about to remove limits from the product, this will not remove the product from the webshop.',
-            "Instead it will remove the total limit and limit per voucher as well as the end date limit from the product.\n\n",
-            'To remove the product from the webshop, please close this modal and use the toggle in the top area of this page.'
+        $ctrl.confirmDangerAction('Limiet verwijderen?', [
+            'U staat op het punt limieten van het aanbod te verwijderen, hiermee wordt het aanbod niet uit de webshop verwijderd.',
+            "In plaats daarvan wordt het totale limiet, limiet per tegoed en de vervaldatum van het aanbod verwijderd.\n\n",
+            'Wilt u het aabod van de webshop verwijderen? Sluit dan dit venster en gebruik de schakelaar in het bovenste gedeelte van deze pagina.'
         ].join(" ")).then((confirmed = false) => {
             if (!confirmed) {
                 return;
@@ -125,8 +125,8 @@ const FundProviderProductComponent = function (
             FundService.updateProvider($ctrl.fund.organization_id, $ctrl.fund.id, $ctrl.fundProvider.id, {
                 reset_products: [{ id: deal.product_id }]
             }).then(
-                (res) => $ctrl.updateProviderProduct(res.data.data).then(() => PushNotificationsService.success("The limits have been reset.")),
-                (res) => PushNotificationsService.danger("Error!", res.data.message),
+                (res) => $ctrl.updateProviderProduct(res.data.data).then(() => PushNotificationsService.success("De limieten zijn hersteld.")),
+                (res) => PushNotificationsService.danger("Foutmelding!", res.data.message),
             ).finally(() => {
                 $ctrl.deal = null;
                 PageLoadingBarService.setProgress(100);
