@@ -2103,6 +2103,72 @@ body {
             }
         }
     }
+
+    &.card-block-requests {
+        background-color: #FCFAF6;
+        border: 1px solid #F8E39A;
+        box-shadow: 0px 2px 5px rgba(25, 39, 52, 0.11);
+        border-radius: 4px;
+        margin: 20px 0;
+        color: #404040;
+
+        .card-section {
+            padding: 10px 15px;
+        }
+
+        .card-heading {
+            flex: 1;
+            margin: 0;
+            align-self: center;
+            font: 600 13px/13px $bf;
+            letter-spacing: -0.2px;
+            color: #404040;
+            cursor: pointer;
+        }
+
+        .button {
+            font: 600 12px/12px $bf;
+            color: #134478;
+        }
+
+        .mdi {
+            color: #FFB05A;
+            margin-right: 6px;
+        }
+
+        &.card-block-requests-urgent {
+            color: #404040;
+            background-color: #FFF5F0;
+            border: 1px solid #E63B3B;
+
+            .mdi {
+                color: #FFB05A;
+            }
+
+            .button {
+                .mdi {
+                    margin-left: 3px;
+                    color: #134478;
+                }
+            }
+        }
+
+        &.card-block-requests-empty {
+            color: #646F79;
+            background-color: #fff;
+            border: 1px solid #D4D9DD;
+
+            .mdi {
+                color: #9E9FAA;
+            }
+
+            .button {
+                .mdi {
+                    color: #134478;
+                }
+            }
+        }
+    }
 }
 
 .block {
@@ -7394,6 +7460,67 @@ body {
 
             .modal-actions {
                 text-align: center;
+            }
+        }
+    }
+
+    &.modal-fund-unsubscribe {
+        .modal-window {
+            width: 820px;
+            border-radius: 12px;
+
+            .modal-title {
+                font: 600 14px/21px $bf;
+                text-align: center;
+                color: #252325;
+                margin-bottom: 10px;
+            }
+
+            .modal-description {
+                font: 400 13px/18px $bf;
+                text-align: center;
+                color: #646F79;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+                border-bottom: 1px solid #D4D9DD;
+            }
+
+            .modal-warning {
+                border: 1px dashed #D4D9DD;
+                border-radius: 3px;
+                padding: 15px 13px;
+                margin-top: 20px;
+                background-color: #F6F9FC;
+
+                .modal-warning-icon {
+                    display: flex;
+                    width: 50px;
+                    height: 100%;
+
+                    .mdi {
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                }
+
+                .modal-warning-details {
+                    .modal-warning-title {
+                        color: #646F79;
+                        font: 500 13px/18px $bf;
+                        margin-bottom: 5px;
+                    }
+    
+                    .modal-warning-description {
+                        color: #134478;
+                        font: 600 11px/13px $bf;
+                        margin-bottom: 5px;
+                    }
+    
+                    .modal-warning-phone {
+                        color: #404040;
+                        font: 600 13px/18px $bf;
+                    }
+                }
             }
         }
     }

@@ -85,10 +85,23 @@ const SponsorProviderOrganizationsComponent = function(
         }
     });
 
+    const filterUnsubscribeRequestsByPriority = () => {
+        $ctrl.expiredUnsubscribeRequests = $ctrl.fundUnsubscribes.filter(
+            fundUnsubscribe => fundUnsubscribe.is_expired
+        );
+
+        $ctrl.lowPrioUnsubscribeRequests = $ctrl.fundUnsubscribes.filter(
+            fundUnsubscribe => !fundUnsubscribe.is_expired && fundUnsubscribe.state == 'pending'
+        );
+
+        $ctrl.hasNewUnsubscribeRequests = $ctrl.expiredUnsubscribeRequests.length || $ctrl.lowPrioUnsubscribeRequests.length;
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds]
         $ctrl.filters.reset();
         $ctrl.onPageChange($ctrl.filters.values);
+        filterUnsubscribeRequestsByPriority();
     };
 };
 
@@ -96,6 +109,7 @@ module.exports = {
     bindings: {
         funds: '<',
         organization: '<',
+        fundUnsubscribes: '<',
     },
     controller: [
         'FileService',

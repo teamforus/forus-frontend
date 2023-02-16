@@ -5,7 +5,7 @@
             .flex-col
                 span(translate="provider_funds.title.main")
 
-            .flex-col: .block.block-label-tabs.nowrap.pull-right: .label-tab-set
+            .flex-col: .block.block-label-tabs.nowrap: .label-tab-set
                 .label-tab.label-tab-sm(
                     ng-class="{'active' : $ctrl.shownFundsType == 'active'}" 
                     ng-click="$ctrl.filterByFundStatus('active')")
@@ -27,6 +27,13 @@
                     ng-click="$ctrl.filterByFundStatus('expired_closed')")
                     | {{ "provider_funds.tabs.expired" | translate }} ({{ $ctrl.archiveFunds.length }})
 
+                .flex-grow &nbsp;
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.shownFundsType == 'unsubscriptions'}" 
+                    ng-click="$ctrl.filterByFundStatus('unsubscriptions')")
+                    em.mdi.mdi-close-circle-outline.label-tab-icon-start
+                    | {{ "provider_funds.tabs.unsubscriptions" | translate }} ({{ $ctrl.fundUnsubscribes.meta.total }})
+
         provider-available-funds-table(
             ng-if="$ctrl.shownFundsType == 'available'"
             funds="$ctrl.fundsAvailable"
@@ -47,6 +54,12 @@
             organization="$ctrl.organization"
             on-removed="$ctrl.onChange()"
             type="pending_rejected")
+
+        provider-fund-unsubscriptions-table(
+            ng-if="$ctrl.shownFundsType == 'unsubscriptions'"
+            items="$ctrl.fundUnsubscribes"
+            organization="$ctrl.organization"
+            on-removed="$ctrl.onChange()")
 
         provider-funds-invitation-table(
             ng-if="$ctrl.shownFundsType == 'invitations'"

@@ -35,6 +35,7 @@ app.component('productsEditComponent', require('./components/ProductsEditCompone
 app.component('productsShowComponent', require('./components/ProductsShowComponent'));
 app.component('sponsorProviderOrganizationsComponent', require('./components/SponsorProviderOrganizationsComponent'));
 app.component('sponsorProviderOrganizationComponent', require('./components/SponsorProviderOrganizationComponent'));
+app.component('sponsorFundUnsubscriptionsComponent', require('./components/SponsorFundUnsubscriptionsComponent'));
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
@@ -122,6 +123,7 @@ app.component('modalVoucherTransactionComponent', require('./components/Modals/M
 app.component('modalFundRequestAssignValidatorComponent', require('./components/Modals/ModalFundRequestAssignValidatorComponent'));
 app.component('modalAddNoteComponent', require('./components/Modals/ModalAddNoteComponent'));
 app.component('modalReimbursementResolveComponent', require('./components/Modals/Reimbursements/ModalReimbursementResolveComponent'));
+app.component('modalFundUnsubscribeComponent', require('./components/Modals/ModalFundUnsubscribeComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -191,6 +193,7 @@ app.service('ProductBoardService', require('./services/ProductBoardService'));
 app.service('EventLogService', require('./services/EventLogService'));
 app.service('MarkdownService', require('./services/MarkdownService'));
 app.service('FaqService', require('./services/FaqService'));
+app.service('FundUnsubscribeService', require('./services/FundUnsubscribeService'));
 
 // Directives
 app.directive('menu', {
@@ -251,6 +254,7 @@ app.directive('providerFundsTable', require('./directives/ProviderFundsTableDire
 app.directive('providerAvailableFundsTable', require('./directives/ProviderAvailableFundsTableDirective'));
 app.directive('providerFundsInvitationTable', require('./directives/ProviderFundsInvitationTableDirective'));
 app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoinDirective'));
+app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 

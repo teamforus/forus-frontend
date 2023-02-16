@@ -10,6 +10,7 @@ module.exports = {
     buttons: {
         join: "Aanmelden",
         clear_filter: 'Wis filter',
+        unsubscribe: "Afmelden",
     },
     labels: {
         categories: "Categorieën",
@@ -76,5 +77,6 @@ module.exports = {
         pending_rejected: "Aanmeldingen",
         available: 'Beschikbaar',
         expired: 'Archief',
+        unsubscriptions: 'Uitgeschreven',
     },
 };

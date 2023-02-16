@@ -87,6 +87,7 @@ module.exports = {
     transactions: require('./nl/pages/transactions.pug.i18n'),
     financial_dashboard_transaction: require('./nl/pages/transaction.pug.i18n'),
     provider_funds: require('./nl/pages/provider-funds.pug.i18n'),
+    fund_unsubscriptions: require('./nl/pages/fund-unsubscriptions.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 

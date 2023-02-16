@@ -3,7 +3,6 @@ const ProviderFundsTableDirective = function (
     ProductService,
     ModalService,
     PushNotificationsService,
-    OfficeService,
     $scope,
     $filter,
     $q
@@ -129,6 +128,13 @@ const ProviderFundsTableDirective = function (
         });
     }
 
+    $dir.unsubscribe = (providerFund) => {
+        ModalService.open('fundUnsubscribe', {
+            organization: $dir.organization,
+            providerFund: providerFund,
+        });
+    }
+
     $dir.$onInit = () => {
         $dir.emptyBlockText = trans_fund_provider_empty($dir.type);
 
@@ -154,7 +160,6 @@ module.exports = () => {
             'ProductService',
             'ModalService',
             'PushNotificationsService',
-            'OfficeService',
             '$scope',
             '$filter',
             '$q',

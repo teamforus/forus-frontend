@@ -287,6 +287,27 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundService.list($transition$.params().organization_id, {
                 per_page: 100
             }))],
+            fundUnsubscribes: ['$transition$', 'FundUnsubscribeService', 'permission', (
+                $transition$, FundUnsubscribeService,
+            ) => repackResponse(FundUnsubscribeService.listSponsor($transition$.params().organization_id, {
+                per_page: 1000
+            }))],
+        }
+    });
+
+    // Fund unsubscribe requests (sponsor)
+    $stateProvider.state({
+        name: "sponsor-fund-unsubscriptions",
+        url: "/organizations/{organization_id}/fund-unsubscriptions",
+        component: "sponsorFundUnsubscriptionsComponent",
+        resolve: {
+            permission: permissionMiddleware('organization-providers', 'manage_providers'),
+            organization: organziationResolver(),
+            fundUnsubscribes: ['$transition$', 'FundUnsubscribeService', 'permission', (
+                $transition$, FundUnsubscribeService,
+            ) => repackPagination(FundUnsubscribeService.listSponsor($transition$.params().organization_id, {
+                per_page: 10
+            }))],
         }
     });
 
@@ -1386,6 +1407,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$, FundProviderInvitationsService
             ) => repackResponse(FundProviderInvitationsService.listInvitations(
                 $transition$.params().organization_id
+            ))],
+            fundUnsubscribes: ['$transition$', 'FundUnsubscribeService', (
+                $transition$, FundUnsubscribeService
+            ) => repackPagination(FundUnsubscribeService.listProvider(
+                $transition$.params().organization_id, {
+                    per_page: 10
+                }
             ))],
             fundLevel: () => 'fundsAvailable'
         }
