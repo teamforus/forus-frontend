@@ -272,7 +272,7 @@ main(id="main-content")
             filters="{fund_id: $ctrl.voucher.fund_id}")
         
         block-products(
-            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && && !$ctrl.voucherCard.is_external $ctrl.voucher.fund.type == 'subsidies'"
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && !$ctrl.voucherCard.is_external $ctrl.voucher.fund.type == 'subsidies'"
             type="subsidies"
             products="$ctrl.subsidies.data"
             filters="{fund_id: $ctrl.voucher.fund_id}")
