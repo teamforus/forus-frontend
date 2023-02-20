@@ -188,6 +188,12 @@
             }
         }
 
+        .sponsor-organization-logo {
+            img {
+                width: 180px;
+            }
+        }
+
         .footer-schedule {
             width: 100%;
             margin-bottom: 10px;
@@ -238,6 +244,10 @@
                 * {
                     text-align: inherit;
                 }
+            }
+
+            .sponsor-organization-logo {
+                text-align: center;
             }
         }
     }
