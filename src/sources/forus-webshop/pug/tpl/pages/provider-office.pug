@@ -61,7 +61,7 @@ block content
                                 .organization-title-value(ng-bind="$ctrl.provider.name")
                                 .organization-title-count(ng-bind="$ctrl.provider.offices.length")
                             
-                            .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')" role = "link" aria-label="Klik voor meer informatie over de aanbieder")
+                            .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')" role="button" aria-expanded="{{$ctrl.provider.showOffices}}" aria-label="Toon/verberg informatie over aanbieder")
                 
                 .block.block-organizations
                     .organization-item
