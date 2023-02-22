@@ -78,21 +78,24 @@ const FundsEditComponent = function(
     };
 
     $ctrl.addProduct = () => {
-        $ctrl.form.products.push(null);
+        $ctrl.form.values.formula_products.push({
+            product_id: null,
+            record_type_key_multiplier: null,
+        });
         $ctrl.updateProductOptions();
     };
 
-    $ctrl.removeProduct = (product) => {
+    $ctrl.removeProduct = (item) => {
         let index;
 
-        if ((index = $ctrl.form.products.indexOf(product)) != -1) {
-            $ctrl.form.products.splice(index, 1);
+        if ((index = $ctrl.form.values.formula_products.indexOf(item)) != -1) {
+            $ctrl.form.values.formula_products.splice(index, 1);
         }
 
         $ctrl.updateProductOptions();
     };
 
-    $scope.$watch('$ctrl.form.products', (products) => {
+    $scope.$watch('$ctrl.form.values.formula_products', (products) => {
         if (products && Array.isArray(products)) {
             $ctrl.updateProductOptions();
         }
@@ -101,13 +104,15 @@ const FundsEditComponent = function(
     $ctrl.updateProductOptions = () => {
         $timeout(() => {
             let productOptions = $ctrl.products.filter(product => {
-                return $ctrl.form.products.map(
-                    product => product ? product.id : false
-                ).filter(id => !!id).indexOf(product.id) == -1;
+                return $ctrl.form.values.formula_products.map(
+                    item => item.product_id ? item.product_id : false
+                ).filter(id => !!id).indexOf(product.id) === -1;
             });
 
             $ctrl.productOptions = [];
-            $ctrl.form.products.forEach((product, $index) => {
+            $ctrl.form.values.formula_products.forEach((el, $index) => {
+                const product = el.product_id ? $ctrl.products.filter(item => item.id == el.product_id)[0] : false;
+
                 $ctrl.productOptions[$index] = productOptions.concat(product ? [product] : []);
             });
         }, 250);
@@ -159,6 +164,11 @@ const FundsEditComponent = function(
             email: "Geen"
         });
 
+        $ctrl.recordTypes.unshift({
+            key: null,
+            name: "Geen"
+        });
+
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
             delete values.criteria;
         }
@@ -185,7 +195,7 @@ const FundsEditComponent = function(
                 } catch (e) {
                     PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
                     return form.unlock();
-                };
+                }
 
                 const { values } = form;
 
@@ -198,7 +208,6 @@ const FundsEditComponent = function(
                 const data = {
                     ...values,
                     ...$ctrl.findMethod(values.application_method).configs || {},
-                    ...{ formula_products: form.products.map(product => product.id) },
                 };
 
                 if ($ctrl.fund) {
@@ -221,17 +230,15 @@ const FundsEditComponent = function(
             onCriteriaSaved(true);
         }, true);
 
-        $ctrl.form.products = $ctrl.products = $ctrl.products.map((product) => ({
-            id: product.id,
-            price: product.price,
-            name: `${product.name} - €${product.price} (${product.organization.name})`,
-        }));
-
         if ($rootScope.appConfigs.features.organizations.funds.formula_products) {
-            $ctrl.form.products = $ctrl.form.products.filter((product) => $ctrl.form.values.formula_products.includes(product.id));
-        }
+            $ctrl.products = $ctrl.products.map((product) => ({
+                id: product.id,
+                price: product.price,
+                name: `${product.name} - €${product.price} (${product.organization.name})`,
+            }));
 
-        $ctrl.updateProductOptions();
+            $ctrl.updateProductOptions();
+        }
     };
 };
 

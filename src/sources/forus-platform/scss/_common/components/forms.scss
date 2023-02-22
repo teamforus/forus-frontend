@@ -529,6 +529,12 @@
         .select-control-search {
             cursor: pointer;
             padding-right: 20px;
+
+            span {
+                overflow: hidden;
+                display: block;
+                height: 100%;
+            }
         }
 
         .select-control-icon {
