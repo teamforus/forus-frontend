@@ -1,8 +1,10 @@
 top-navbar
 
 main(id="main-content")
-    section.section.section-details: .wrapper
-        .block.block-sign_up-provider(ng-if="!$ctrl.description_html")
+    section.section.section-details: .wrapper.flex.flex-vertical
+        .block.block-sign_up-provider(
+            ng-if="!$ctrl.description_html || $ctrl.page.description_default_position" 
+            ng-class="'order-' + $ctrl.page.description_default_position")
             .sign_up-overview: .block.block-steps: .block.block-markdown
                 h1.sr-only Aanmelden
                 h1 Aanmelden als aanbieder
@@ -15,7 +17,7 @@ main(id="main-content")
 
             .sign_up-images: .sign_up-image: img(src="assets/img/provider-sign_up-preview.svg" alt="")
 
-        .block.block-steps(ng-if="$ctrl.description_html"): .wrapper
+        .block.block-steps(ng-if="$ctrl.description_html" ng-class="'order-' + ($ctrl.page.description_default_position == 'top' ? 'bottom' : 'top')"): .wrapper
             .block-steps-description: .block.block-markdown(
                 ng-class="'block-markdown-' + $ctrl.page.description_alignment"
                 ng-bind-html="$ctrl.description_html")    

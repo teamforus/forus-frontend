@@ -17,4 +17,12 @@
             color: $color_primary;
         }
     }
+
+    &.order-top {
+        order: 1;
+    }
+
+    &.order-bottom {
+        order: 2;
+    }
 }

@@ -26,6 +26,17 @@ const ImplementationCmsPageEditComponent = function (
         name: 'Public',
     }];
 
+    $ctrl.descriptionDefaultOptions = [{
+        value: null,
+        name: 'Overwrite default description',
+    }, {
+        value: 'top',
+        name: 'Default description before CMS description',
+    }, {
+        value: 'bottom',
+        name: 'Default description after CMS description',
+    }];
+
     $ctrl.registerImplementationBlocksEditor = function (childRef) {
         $ctrl.implementationBlocksEditor = childRef;
     };
