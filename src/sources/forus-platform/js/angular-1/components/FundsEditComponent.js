@@ -161,12 +161,16 @@ const FundsEditComponent = function(
 
         $ctrl.validators.unshift({
             id: null,
-            email: "Geen"
+            email: "Geen",
         });
+
+        $ctrl.recordTypes = $ctrl.recordTypes.map((recordType) => ({
+            ...recordType, name: `Multiply by: ${recordType.name}`,
+        }));
 
         $ctrl.recordTypes.unshift({
             key: null,
-            name: "Geen"
+            name: "Assign 1 voucher",
         });
 
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
