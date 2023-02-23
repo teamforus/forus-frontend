@@ -160,10 +160,10 @@
             //- Formula products
             .card-section.card-section-primary(
                 ng-if="$root.appConfigs.features.organizations.funds.formula_products && ($ctrl.organization | hasPerm:'manage_funds')")
-                .row: .col.col-lg-12.col-md-12
-                    .form-group.form-group-inline(ng-repeat="formula_product in $ctrl.form.values.formula_products track by $index")
-                        label(translate="{{ $index == 0 ? 'funds_edit.labels.products' : '' }}").form-label
-                        .form-offset: .flex-row
+                .form-group.form-group-inline(ng-repeat="formula_product in $ctrl.form.values.formula_products track by $index")
+                    label(translate="{{ $index == 0 ? 'funds_edit.labels.products' : '' }}").form-label
+                    .form-offset: .flex-row
+                        .flex-col.flex-grow: .flex-row.flex-grow
                             .flex-col.flex-col-4
                                 select-control(
                                     prop="id"
@@ -179,17 +179,14 @@
                                     options="$ctrl.recordTypes"
                                     placeholder="Selecteer aanbieding...")
                                 .form-error(ng-repeat="error in $ctrl.form.errors['formula_products.' + $index + '.record_type_key_multiplier']" ng-bind="error")
+                        .flex-col: .button.button-primary.button-icon(ng-click="$ctrl.removeProduct(formula_product)"): em.mdi.mdi-close
 
-                            .flex-col: .button.button-primary.button-icon(
-                                ng-click="$ctrl.removeProduct(formula_product)"
-                                ): em.mdi.mdi-close
-
-                    .form-group.form-group-inline
-                        label(translate="{{ !$ctrl.form.values.formula_products.length ? 'funds_edit.labels.products' : '' }}").form-label
-                        .button.button-primary(ng-click="$ctrl.addProduct()")
-                            em.mdi.mdi-plus-circle.icon-start
-                            translate Aanbieding toevoegen
-            
+                .form-group.form-group-inline
+                    label(translate="{{ !$ctrl.form.values.formula_products.length ? 'funds_edit.labels.products' : '' }}").form-label
+                    .button.button-primary(ng-click="$ctrl.addProduct()")
+                        em.mdi.mdi-plus-circle.icon-start
+                        translate Aanbieding toevoegen
+        
             //- Default validator employee
             .card-section.card-section-primary: .row
                 .form-group.form-group-inline.col.col-lg-9.col-md-12
