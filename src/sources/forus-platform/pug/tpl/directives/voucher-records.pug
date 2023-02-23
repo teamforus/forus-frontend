@@ -1,0 +1,59 @@
+.card
+    .card-header: .flex
+        //- Title
+        .flex.flex-grow
+            .card-title(ng-bind="('voucher_records.header.title' | translate) + ($dir.records.meta ? (' (' + $dir.records.meta.total + ')') : '')")
+
+        //- Search box
+        .flex: .block.block-inline-filters
+            .form: .form-group: input(
+                type="search"
+                ng-model="$dir.filters.q"
+                placeholder="{{ 'voucher_records.labels.search' | translate }}").form-control
+
+            .button.button-primary.button-sm(ng-click="$dir.editRecord()") 
+                .mdi.mdi-plus-circle.icon-start
+                | {{ 'voucher_records.buttons.add_record' | translate }}
+
+    .card-section(ng-if="$dir.records.data.length > 0"): .card-block.card-block-table: .table-wrapper: table.table
+        tr.nowrap
+            th(th-sortable filters="$dir.filters" label="voucher_records.labels.id" value="id").td-narrow
+            th(th-sortable filters="$dir.filters" label="voucher_records.labels.record_type" value="record_type_name")
+            th(th-sortable filters="$dir.filters" label="voucher_records.labels.value" value="value")
+            th(th-sortable filters="$dir.filters" label="voucher_records.labels.created_at" value="created_at")
+            th(th-sortable filters="$dir.filters" label="voucher_records.labels.note" value="note")
+            th(th-sortable filters="$dir.filters" label="voucher_records.labels.action").th-narrow.text-right
+
+        tr(ng-repeat="record in $dir.records.data")
+            //- Id
+            td(ng-bind="record.id").td-narrow.nowrap
+
+            //- Record type
+            td(ng-bind="record.record_type.name").nowrap
+
+            //- Value
+            td(ng-bind="record.value_locale")
+
+            //- Created at
+            td(ng-bind="record.created_at_locale").nowrap
+            
+            //- Note
+            td(ng-bind="record.note || 'No note'" ng-class="record.note ? '' : 'text-muted'")
+
+            //- Actions
+            td: .button-group
+                //- Edit record
+                .button.button-sm.button-icon.button-default(ng-click="$dir.editRecord(record)")
+                    .mdi.mdi-pencil-outline.icon-start
+                
+                //- Delete record
+                .button.button-sm.button-icon.button-danger(ng-click="$dir.deleteRecord(record)")
+                    .mdi.mdi-delete-outline.icon-start
+
+    //- Pagination
+    .card-section(ng-if="$dir.records.meta" ng-show="$dir.records.meta.last_page > 1")
+        paginator(meta="$dir.records.meta" filters="$dir.filters" count-buttons="5" on-page-change="$dir.onPageChange(query)")
+
+    //- Not found
+    .card-section(ng-if="$dir.records.meta.total == 0"): .block.block-empty.text-center
+        .empty-title No records found

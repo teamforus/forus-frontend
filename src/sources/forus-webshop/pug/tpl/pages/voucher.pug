@@ -164,6 +164,31 @@ main(id="main-content")
                                 | Telefoonnummer: 
                                 span(ng-bind="$ctrl.voucherCard.fund.organization.phone")
 
+        //- Voucher make reimbursement request
+        .block.block-action-card.block-action-card-compact(ng-if="$ctrl.voucherCard.records.length"): .block-card-body
+            .block-card-section 
+                .block-card-logo
+                    include ../../../resources/_webshop-common/assets/img/icon-voucher-records.svg
+                
+                .block-card-details(ng-if="!$ctrl.voucherCard.records_title") 
+                    h3.block-card-title Persoonlijke eigenschappen
+
+                .block-card-details(ng-if="$ctrl.voucherCard.records_title") 
+                    h3.block-card-title.block-card-title-sm.text-muted-dim Persoonlijke eigenschappen
+                    h2.block-card-title.block-card-title-lg
+                        strong(ng-bind="$ctrl.voucherCard.records_title")
+                        span.text-separator
+                        span.text-muted-dim(ng-bind="$ctrl.voucherCard.records_by_key.birth_date")
+                
+                .block-card-actions: .button.button-primary-outline.button-sm(ng-click="$ctrl.showRecords = !$ctrl.showRecords") 
+                    span(ng-if="!$ctrl.showRecords") Toon alle details
+                    span(ng-if="$ctrl.showRecords") Verberg alle details
+                    .mdi.mdi-chevron-right.icon-right(ng-if="!$ctrl.showRecords")
+                    .mdi.mdi-chevron-up.icon-right(ng-if="$ctrl.showRecords")
+            
+            .block-card-section(ng-if="$ctrl.showRecords")
+                block-voucher-records(voucher="$ctrl.voucherCard")
+
         //- Voucher physical card (activation)
         .block.block-action-card(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.showPhysicalCardsOption")
             .block-card-logo: img(
@@ -178,7 +203,6 @@ main(id="main-content")
                 i18n="voucher.physical_card.buttons.reactivate" 
                 ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
             //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
-
 
         //- Voucher make reimbursement request
         .block.block-action-card(ng-if="$ctrl.voucher.fund.allow_reimbursements && !$ctrl.voucher.expired && !$ctrl.voucher.deactivated")

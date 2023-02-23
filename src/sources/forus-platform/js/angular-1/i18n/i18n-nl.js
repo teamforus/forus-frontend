@@ -74,6 +74,7 @@ module.exports = {
             remove_faq: require('./nl/modals/danger-zone/remove-faq'),
             remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
             confirm_custom_sponsor_email_notification: require('./nl/modals/danger-zone/confirm-custom-sponsor-email-notification'),
+            remove_voucher_record: require('./nl/modals/danger-zone/remove-voucher-record'),
         },
     },
     // PAGES
@@ -85,6 +86,7 @@ module.exports = {
     reimbursements: require('./nl/pages/reimbursements.pug.i18n'),
     identities: require('./nl/pages/identities.pug.i18n'),
     transactions: require('./nl/pages/transactions.pug.i18n'),
+    voucher_records: require('./nl/pages/voucher-records.pug.i18n'),
     financial_dashboard_transaction: require('./nl/pages/transaction.pug.i18n'),
 
     components: require("./nl/i18n-components"),
