@@ -30,14 +30,6 @@
             }
         }
     }
-
-    &.order-top {
-        order: 1;
-    }
-
-    &.order-bottom {
-        order: 2;
-    }
     
     @media screen and (max-width: 1000px) {
         flex-direction: column;

@@ -1105,6 +1105,14 @@ img {
     display: none !important;
 }
 
+.order-top {
+    order: 1;
+}
+
+.order-bottom {
+    order: 2;
+}
+
 @media (max-width: 767px) {
     .visible-xs {
         display: block !important;
