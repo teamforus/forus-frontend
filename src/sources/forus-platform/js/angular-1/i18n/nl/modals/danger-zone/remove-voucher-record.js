@@ -1,8 +1,8 @@
 module.exports = {
-    title: "Remove voucher record?",
-    description: `You are about to remove a voucher record, this action can't be undone, do you want to continue?`,
+    title: "Eigenschap verwijderen?",
+    description: `Je staat op het punt een eigenschap te verwijderen. Deze actie kan niet ongedaan worden gemaakt, weet je zeker dat je door wilt gaan?`,
     buttons: {
-        cancel: 'Cancel',
-        confirm: 'Confirm',
+        cancel: 'Annuleren',
+        confirm: 'Bevestigen',
     },
 };
