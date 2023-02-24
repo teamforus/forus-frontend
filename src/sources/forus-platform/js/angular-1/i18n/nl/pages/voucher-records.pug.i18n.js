@@ -6,7 +6,7 @@ module.exports = {
         id: 'ID',
         record_type: 'Soort eigenschap',
         value: 'Eigenschap',
-        created_at: 'Datum',
+        created_at: 'Aanmaakdatum',
         note: 'Notitie',
         action: 'Acties',
         search: 'Zoeken',
