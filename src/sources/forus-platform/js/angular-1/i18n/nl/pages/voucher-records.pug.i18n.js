@@ -1,17 +1,17 @@
 module.exports = {
     header: {
-        title: "Records",
+        title: "Persoonlijke eigenschappen",
     },
     labels: {
         id: 'ID',
-        record_type: 'Record type',
-        value: 'Value',
-        created_at: 'Date',
-        note: 'Note',
-        action: 'Actions',
-        search: 'Search',
+        record_type: 'Soort eigenschap',
+        value: 'Eigenschap',
+        created_at: 'Aanmaakdatum',
+        note: 'Notitie',
+        action: 'Acties',
+        search: 'Zoeken',
     },
     buttons: {
-        add_record: "Add record",
+        add_record: "Eigenschap toevoegen",
     },
 };

@@ -26,10 +26,10 @@ const ModalVoucherRecordEditComponent = function (
 
             promise.then((res) => {
                 $ctrl.closeModal(res.data.data);
-                PushNotificationsService.success('Success!', 'Voucher record created!');
+                PushNotificationsService.success('Gelukt!', 'Eigenschap is toegevoegd!');
             }, (res) => {
                 form.errors = res.data?.errors || {};
-                PushNotificationsService.danger('Error!', res.data.message);
+                PushNotificationsService.danger('Foutmelding!', res.data.message);
             }, true).finally(() => form.unlock());
         });
     };
@@ -61,7 +61,7 @@ const ModalVoucherRecordEditComponent = function (
             if ($ctrl.record_types.length == 0) {
                 $ctrl.record_types.push({
                     key: null,
-                    name: 'No more record types available',
+                    name: 'Er zijn niet meer eigenschappen beschikbaar.',
                 });
             }
 
