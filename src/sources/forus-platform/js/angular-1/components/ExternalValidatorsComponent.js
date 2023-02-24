@@ -1,4 +1,4 @@
-let ExternalValidatorsComponent = function(
+const ExternalValidatorsComponent = function(
     $q,
     $filter,
     ModalService,
@@ -7,9 +7,7 @@ let ExternalValidatorsComponent = function(
 ) {
     let $ctrl = this;
     let $translate = $filter('translate');
-    let $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.remove_external_validators.' + key
-    );
+    let $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_external_validators.${key}`);
 
     $ctrl.filters = {
         values: {},
