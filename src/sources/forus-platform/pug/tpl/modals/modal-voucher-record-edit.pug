@@ -6,12 +6,12 @@
     //- Voucher form
     form(ng-submit="$ctrl.form.submit()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
-        .modal-header Voeg een nieuw record toe
+        .modal-header Voeg een nieuwe eigenschap toe
         .modal-body
             .modal-section: .row: .col-lg-10.col-offset-lg-1
                 //- Record type
                 .form-group
-                    label.form-label.form-label-required Record type
+                    label.form-label.form-label-required Soort eigenschap
                     select-control(
                         prop="key"
                         search="false"
@@ -22,7 +22,7 @@
 
                 //- Record value
                 .form-group
-                    label.form-label.form-label-required Record value
+                    label.form-label.form-label-required Eigenschap
 
                     input(
                         ng-if="$ctrl.form.values.record_type_key != 'birth_date'"
