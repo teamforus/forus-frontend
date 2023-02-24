@@ -5,7 +5,7 @@ module.exports = {
         id: "ID",
         bunq_id: "ID bunq",
         bng_id: "ID BNG",
-        statement: "Naam begunstigde",
+        statement: "Overgemaakt naar",
         product_id: "Aanbod ID",
         product_name: "Aanbod naam",
         bunq: "Transactiekosten",
