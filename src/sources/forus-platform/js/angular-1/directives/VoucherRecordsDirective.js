@@ -43,7 +43,7 @@ const VoucherRecords = function (
             onConfirm: () => {
                 VoucherRecordService.destroy($dir.organization.id, $dir.voucher.id, record.id).then(() => {
                     $dir.onPageChange($dir.filters);
-                    PushNotificationsService.success('Deleted!', 'The voucher record have been deleted.');
+                    PushNotificationsService.success('Verwijderd!', 'Eigenschap is verwijderd!');
                 });
             }
         });
