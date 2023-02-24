@@ -6,10 +6,11 @@
 
         label.select-control-search.form-control(
             for="{{ $dir.controlId }}"
+            title="{{ $dir.value[$dir.as] || $dir.placeholder }}"
             ng-show="($dir.mode == 'strict' && !$dir.showOptions) || !$dir.searchEnabled" 
             ng-click="$dir.searchOption()"
             ng-disabled="$dir.disabled || $dir.ngDisabled")
-            span(ng-bind="$dir.value[$dir.as] || $dir.placeholder")
+            .select-control-search-placeholder(ng-bind="$dir.value[$dir.as] || $dir.placeholder")
             .select-control-icon: .mdi(ng-class="$dir.showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down'")
 
         input(
