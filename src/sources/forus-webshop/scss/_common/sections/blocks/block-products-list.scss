@@ -43,11 +43,11 @@
 
         .product-details {
             padding: 15px;
-            flex-grow: 1;
+            flex: 1;
 
             .product-name {
                 color: $tc;
-                font: 600 22px/30px $hf;
+                font: 600 22px/28px $hf;
                 margin: 0;
             }
 
@@ -60,7 +60,7 @@
 
         .product-actions {
             padding: 15px;
-            width: 270px;
+            flex: 0 1 260px;
             border-left: 1px solid $border_color;
             display: flex;
             justify-content: flex-end;
@@ -110,8 +110,8 @@
             border-radius: $border_radius / 2;
 
             .product-photo {
-                width: 250px;
-                min-width: 100px;
+                flex: 0 1 140px;
+                min-width: auto;
                 border-right: 1px solid $border_color;
 
                 img {
@@ -149,7 +149,7 @@
                 width: 100%;
                 border: none;
                 padding: 0;
-                flex-grow: 1;
+                flex: 1;
 
                 .label {
                     line-height: 18px;

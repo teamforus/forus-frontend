@@ -1,0 +1,62 @@
+.modal.modal-md.modal-animated.modal-loading(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+
+    //- Voucher form
+    form(ng-submit="$ctrl.form.submit()").modal-window.form
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+        .modal-header Voeg een nieuwe eigenschap toe
+        .modal-body
+            .modal-section: .row: .col-lg-10.col-offset-lg-1
+                //- Record type
+                .form-group
+                    label.form-label.form-label-required Soort eigenschap
+                    select-control(
+                        prop="key"
+                        search="false"
+                        ng-model="$ctrl.form.values.record_type_key"
+                        ng-disabled="$ctrl.record || ($ctrl.record_types.length == 1 && $ctrl.record_types[0].key == null)"
+                        options="$ctrl.record_types").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.record_type_key" ng-bind="error")
+
+                //- Record value
+                .form-group
+                    label.form-label.form-label-required Eigenschap
+
+                    input(
+                        ng-if="$ctrl.form.values.record_type_key != 'birth_date'"
+                        ng-model="$ctrl.form.values.value" 
+                        placeholder="Value").form-control
+
+                    datepicker(
+                        ng-if="$ctrl.form.values.record_type_key == 'birth_date'"
+                        input-visible="true" 
+                        date-format="yyyy-MM-dd" 
+                        datepicker-mobile="" 
+                        date-week-start-day="1").form-control
+                        input(
+                            ng-model="$ctrl.form.values.value"
+                            type="text"
+                            placeholder="yyyy-MM-dd").form-control
+
+                    .form-error(ng-repeat="error in $ctrl.form.errors.value" ng-bind="error")
+
+                //- Record note
+                .form-group
+                    label.form-label Notitie
+                    textarea(
+                        placeholder="Note"
+                        ng-model="$ctrl.form.values.note").form-control.r-n
+                    .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
+
+                //- Info block
+                .form-group
+                    label.form-label
+                    .form-offset: .block.block-info
+                        em.mdi.mdi-information.block-info-icon
+                        | Een tegoed eenmaal aangemaakt kan niet verwijderd worden.
+
+        .modal-footer.text-center
+            button.button.button-default(type="button" ng-click="$ctrl.close()") Annuleren
+            button.button.button-primary(type="submit") Bevestigen

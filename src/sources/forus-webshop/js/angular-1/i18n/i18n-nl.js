@@ -82,10 +82,12 @@ module.exports = {
     // PAGES
     signup_options: require("./nl/pages/signup-options"),
     fund: require("./nl/pages/fund"),
+    fund_activate: require("./nl/pages/fund-activate"),
     fund_request: require("./nl/pages/fund-request"),
     fund_request_clarification: require("./nl/pages/fund-request-clarification"),
     funds: require("./nl/pages/funds"),
     home: require("./nl/pages/home"),
+    signup: require("./nl/pages/signup"),
     meapp_index: require("./nl/pages/me-index"),
     product: require("./nl/pages/product"),
     records_validations: require("./nl/pages/record-validations"),
@@ -95,6 +97,7 @@ module.exports = {
     voucher: require("./nl/pages/voucher"),
     vouchers: require("./nl/pages/vouchers"),
     reservations: require("./nl/pages/reservations"),
+    reimbursements: require("./nl/pages/reimbursements"),
     notification_preferences: require("./nl/pages/notification-preferences"),
     email_preferences: require("./nl/pages/email-preferences"),
     voucher_printable: require('./nl/pages/voucher-printable'),
@@ -128,4 +131,5 @@ module.exports = {
     maps: require("./nl/directives/google-map"),
     profile_menu: require("./nl/directives/profile-menu"),
     top_navbar_search: require('./nl/directives/top-navbar-search'),
+    reservation: require("./nl/directives/reservation-card"),
 };

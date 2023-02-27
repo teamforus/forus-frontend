@@ -1,23 +1,43 @@
-let EmptyBlockDirective = function($state, $scope) {
-    $scope.hideLink = !!$scope.hideLink;
-    $scope.openActivateCodePopup = () => $state.go('start');
+const EmptyBlockDirective = function ($scope, $state) {
+    const { $dir } = $scope;
+
+    $dir.buttonHandler = ($event) => {
+        $event?.preventDefault();
+        $event?.stopPropagation();
+
+        if ($dir.buttonSref) {
+            return $state.go($dir.buttonSref, $dir.buttonSrefParams || {});
+        }
+
+        $dir.buttonCallback();
+    };
 };
 
 module.exports = () => {
     return {
         scope: {
             title: '@',
-            description: '@',
             text: '@',
-            hideLink: '=?'
+            description: '@',
+            hideLink: '=?',
+            svgIcon: '@',
+            buttonSref: '@',
+            buttonSrefParams: '=',
+            buttonCallback: '=',
+            buttonText: '@',
+            buttonType: '@',
+            buttonIcon: '@',
+            buttonIconEnd: '@',
         },
+        bindToController: true,
+        controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [
-            '$state',
             '$scope',
-            EmptyBlockDirective
+            '$state',
+            EmptyBlockDirective,
         ],
-        templateUrl: 'assets/tpl/directives/empty-block.html' 
+        templateUrl: 'assets/tpl/directives/empty-block.html'
     };
 };

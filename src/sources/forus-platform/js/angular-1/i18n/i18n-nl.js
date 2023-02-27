@@ -66,6 +66,7 @@ module.exports = {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
             remove_organization_employees: require('./nl/modals/danger-zone/remove-organization-employee'),
+            remove_reimbursement_note: require('./nl/modals/danger-zone/remove-reimbursement-note'),
             increase_limit_multiplier: require('./nl/modals/danger-zone/increase-limit-multiplier'),
             sponsor_provider_organization_state: require('./nl/modals/danger-zone/update-provider-organization-state'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
@@ -73,6 +74,7 @@ module.exports = {
             remove_faq: require('./nl/modals/danger-zone/remove-faq'),
             remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
             confirm_custom_sponsor_email_notification: require('./nl/modals/danger-zone/confirm-custom-sponsor-email-notification'),
+            remove_voucher_record: require('./nl/modals/danger-zone/remove-voucher-record'),
         },
     },
     // PAGES
@@ -81,8 +83,10 @@ module.exports = {
     voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
     system_notifications: require('./nl/pages/system-notifications.pug.i18n'),
     event_logs: require('./nl/pages/event-logs.pug.i18n'),
+    reimbursements: require('./nl/pages/reimbursements.pug.i18n'),
     identities: require('./nl/pages/identities.pug.i18n'),
     transactions: require('./nl/pages/transactions.pug.i18n'),
+    voucher_records: require('./nl/pages/voucher-records.pug.i18n'),
     financial_dashboard_transaction: require('./nl/pages/transaction.pug.i18n'),
 
     components: require("./nl/i18n-components"),
@@ -459,6 +463,8 @@ module.exports = {
             providers: "Aanbieders instellingen",
             provider: "Aanbieder instellingen",
             office: "Vestiging instellingen",
+            voucher: "Tegoeden instellingen",
+            product: "Aanbod instellingen",
         },
         blocks: {
             show_home_map: "Tonen van de map (Homepagina)",
@@ -466,6 +472,8 @@ module.exports = {
             show_providers_map: "Tonen van de map (Aanbieders pagina)",
             show_provider_map: "Tonen van de map (Aanbieder pagina)",
             show_office_map: "Tonen van de map (Aanbieder vestiging pagina)",
+            show_voucher_map: "Tonen van de map (Tegoeden pagina)",
+            show_product_map: "Tonen van de map (Aanbod pagina)",
         },
     },
 
@@ -1249,6 +1257,7 @@ module.exports = {
             delete: "Verwijderen",
             add: "Toevoegen",
             transfer_ownership: "Overdragen",
+            export: "Exporteren",
         }
     },
 
@@ -1307,9 +1316,11 @@ module.exports = {
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
     validation_requests: {
         labels: {
+            id: "ID",
             requests: "Openstaande aanvragen ({{ count }})",
             bsn: "BSN: ",
             type: "Type",
+            requester: "Aanvrager",
             value: "Eigenschap",
             date: "Datum, tijd",
             results: "{{ count }} resultaten",
@@ -1334,6 +1345,12 @@ module.exports = {
             birth_place: "Geboorteplaats",
             address: "Verblijfsplaats",
             disregarded_at: "Buiten behandeling gesteld op",
+            created_date: "Aangemaakt op",
+            fund: "Fonds",
+            email: "E-mailadres",
+            empty_table: "Geen aanvragen",
+            note_title: "Reden van weigeren",
+            assignee: "Toegewezen aan",
         },
         person: {
             relations: {
@@ -1357,10 +1374,18 @@ module.exports = {
             decline: "Weigeren",
             disregard: "Niet behandelen",
             disregard_undo: "Opnieuw beoordelen",
-            disregard_undo_disabled_replaced: "Aanvraag reeds vervangen",
+            disregard_undo_disabled_replaced: "Request already replaced",
             clear_filter: "Wis filter",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
+            view: "Bekijk",
+            add_partner_bsn: "Voeg partner bsn toe",
+            assign_to_me: "Toewijzen aan mij",
+            assign: "Toewijzen",
+            resign: "Meld af",
+        },
+        header: {
+            title: "Aanvragen",
         },
     },
 
@@ -1409,6 +1434,7 @@ module.exports = {
         },
         labels: {
             price: "Bedrag",
+            product_name: "Aanbod naam",
             date: "Datum",
             status: "Status",
         },

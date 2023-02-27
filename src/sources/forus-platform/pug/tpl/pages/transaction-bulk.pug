@@ -119,30 +119,37 @@
                         table.table
                             tr
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.id" value="id")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.uid" value="uid")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.price" value="amount")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.product_name" value="product_name")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
                             tr(ng-repeat="transaction in $ctrl.transactions.data")
                                 td(ng-bind="transaction.id")
+                                td(ng-bind="(transaction.uid || '-') | str_limit:25" title="{{ transaction.uid || '-' }}")
+
                                 td: a.text-primary-light(
                                     ng-bind="transaction.amount | currency_format" 
                                     ui-sref="transaction(transaction.ui_sref)")
 
-                                td(ng-bind="transaction.created_at_locale")
-                                td(ng-bind="transaction.fund.name")
-                                td(ng-bind="transaction.organization.name || 'Geen'" ng-class="transaction.organization ? '' : 'text-muted'")
+                                td
+                                    strong(ng-bind="transaction.created_at_locale.split(' - ')[0]").text-primary
+                                    br
+                                    strong(ng-bind="transaction.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+                                td(ng-bind="transaction.fund.name | str_limit:25")
+                                td(ng-bind="(transaction.organization.name | str_limit:25) || '-'" ng-class="transaction.organization ? '' : 'text-muted'")
+                                td(ng-bind="(transaction.product.name || '-') | str_limit:25")
 
                                 td
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
                                     .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
 
-                                td: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.pull-right
+                                td: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.button-icon.pull-right
                                     em.mdi.mdi-eye-outline.icon-start
-                                    translate(translate="transactions.buttons.view")
 
             //- Transactions pagination
             .card-section(ng-if="$ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")

@@ -15,7 +15,7 @@
             margin-bottom: 15px;
             box-shadow: $base_shadow;
             position: relative;
-            transition: 0.4s;
+            transition: background-color 0.4s, border 0.4s;
             min-height: 120px;
             overflow: hidden;
             cursor: default;
@@ -151,7 +151,7 @@
                 background: transparent;
             }
 
-            &:not(.voucher-item-static) {
+            &:not(.voucher-item-static):not(.voucher-item-select) {
                 cursor: pointer;
 
                 &:hover {
@@ -194,17 +194,33 @@
 
                 .voucher-details {
                     padding: 15px 15px;
+                    position: relative;
 
                     .voucher-name {
-                        font: 700 15px/16px $hf;
+                        font: 600 14px/20px $hf;
+                        padding-right: 140px;
                     }
 
                     .voucher-organization {
-                        font: 400 13px/14px $bf;
+                        font: 400 13px/20px $bf;
+                        margin: 0 0 5px;
+                        color: #595959;
+                        padding-right: 140px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .voucher-records {
+                        display: flex;
                     }
 
                     .voucher-value {
-                        font: 700 22px/30px $bf;
+                        font: 700 18px/30px $bf;
+                        position: absolute;
+                        right: 15px;
+                        top: 15px;;
                     }
                 }
 
@@ -223,6 +239,95 @@
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+            }
+            
+            &.voucher-item-select {
+                min-height: 60px;
+                margin-bottom: 0;
+                border-radius: 0;
+                border-bottom: 1px solid $border_color;
+                position: relative;
+                padding-right: 10px;
+                box-shadow: none;
+                cursor: pointer;
+
+                .voucher-image {
+                    flex-basis: 60px;
+                    padding: 7.5px;
+                }
+
+                .voucher-details {
+                    padding: 9px;
+
+                    .voucher-name,
+                    .voucher-value {
+                        font: 700 14px/22px $hf;
+                        margin: 0 0 0;
+                    }
+
+                    .voucher-date,
+                    .voucher-organization {
+                        font: 400 11px/18px $bf;
+                        margin: 0 0 0;
+                    }
+                }
+
+                .voucher-overview {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    &>.button {
+                        position: relative;
+                        top: auto;
+                        left: auto;
+                        transform: none;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                    border-bottom: none;
+                    border-bottom-left-radius: $border_radius / 2;
+                    border-bottom-right-radius: $border_radius / 2;
+                }
+
+                &:after {
+                    content: '';
+                    pointer-events: none;
+                    @include fill_parent();
+                    background-color: #000;
+                    opacity: 0;
+                    transition: opacity .3s;
+                }
+
+                &:hover {
+                    &:after {
+                        opacity: .035;
+                    }
+                }
+
+                &.voucher-item-select-placeholder {
+                    border: 1px solid $border_color;
+                    border-radius: $border_radius / 2;
+                    padding-right: 25px;
+                    background-image: url('../img/select-bg.png');
+                    background-position: calc(100% - 4px);
+                    background-repeat: no-repeat;
+                }
+            }
+        }
+
+        &.block-vouchers-select {
+            margin-bottom: 0;
+
+            &.block-vouchers-select-open {
+                .voucher-item-select {
+                    &.voucher-item-select-placeholder {
+                        border-bottom-left-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
                 }
             }
         }
@@ -328,27 +433,50 @@
                 }
 
                 &.voucher-item-compact {
+                    display: block;
+                    padding-top: 15px;
+
+                    .voucher-image {
+                        margin: 0;
+                        display: flex;
+                        flex-basis: initial;
+                        min-width: 80px;
+                        max-width: 80px;
+                        margin: 0 auto;
+                        width: 100%;
+                    }
+
                     .voucher-details {
+                        display: flex;
+                        width: 100%;
                         padding: 15px 10px;
+                        border-bottom: 1px solid $border_color;
+                        text-align: center;
 
                         .voucher-name {
-                            font: 700 14px/20px $bf;
-                            margin: 0 0 0;
+                            font: 700 16px/20px $bf;
+                            margin: 0 0 15px;
                             @include ellipsis();
+                            padding-right: 0;
                         }
     
                         .voucher-organization {
-                            font: 400 11px/18px $bf;
-                            margin: 0 0 0;
+                            font: 400 12px/20px $bf;
+                            padding-right: 0;
                         }
     
                         .voucher-value {
-                            font: 700 16px/22px $bf;
+                            position: initial;
+                            font: 700 22px/22px $bf;
+                            margin: 0 0 10px;
                         }
                     }
 
                     .voucher-overview {
                         display: flex;
+                        min-height: auto;
+                        width: 100%;
+                        padding: 20px;
 
                         .button {
                             padding: 10px;

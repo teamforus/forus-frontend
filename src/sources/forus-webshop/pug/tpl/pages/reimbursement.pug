@@ -1,0 +1,36 @@
+top-navbar
+section.section.section-profile: .wrapper
+    //- Breadcrumbs
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        a(translate="reimbursements.header.title" ui-sref="reimbursements").breadcrumb-item
+        .breadcrumb-item.active(aria-current="location") Bon insturen
+
+    //- Page
+    .block.block-profile
+        //- Menu
+        .profile-aside: profile-menu.hide-sm
+
+        mixin delete_button()
+            .button.button-text.button-sm.pull-right(
+                dusk="reimbursementDetailsPageDeleteBtn"
+                ng-if="$ctrl.reimbursement.state === 'draft'"
+                ng-click="$ctrl.cancelReimbursement($event)")
+                em.mdi.mdi-trash-can-outline.icon-start
+                | Annuleren
+
+        //- Page content
+        .profile-content(dusk="reimbursementDetailsPage")
+            //- Header
+            .profile-content-header
+                .flex
+                    .flex.flex-grow.flex-center: .profile-content-title.flex.flex-center.flex-vertical
+                        | Nummer: {{ '#' + $ctrl.reimbursement.code }}
+                    
+                    .flex.flex-center.hide-sm
+                        +delete_button()
+
+            //- Form
+            .card
+                .card-section: reimbursement-details(reimbursement="$ctrl.reimbursement" edit="true")
+                .card-section.card-section-sm.show-sm: .flex.flex-center: +delete_button()

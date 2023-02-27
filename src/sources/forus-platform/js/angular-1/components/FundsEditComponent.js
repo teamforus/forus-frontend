@@ -5,15 +5,13 @@ const FundsEditComponent = function(
     $stateParams,
     $rootScope,
     FundService,
-    ProductService,
+    MediaService,
     FormBuilderService,
     PushNotificationsService,
-    MediaService,
 ) {
     const $ctrl = this;
-    let mediaFile = false;
+    let mediaFile = null;
 
-    $ctrl.products = [];
     $ctrl.criteriaEditor = null;
     $ctrl.faqEditor = null
 
@@ -79,24 +77,25 @@ const FundsEditComponent = function(
         }
     };
 
-    $ctrl.getProductOptions = (product) => ($ctrl.productOptions || []).concat(product);
-
     $ctrl.addProduct = () => {
-        $ctrl.form.products.push(null);
+        $ctrl.form.values.formula_products.push({
+            product_id: null,
+            record_type_key_multiplier: null,
+        });
         $ctrl.updateProductOptions();
     };
 
-    $ctrl.removeProduct = (product) => {
+    $ctrl.removeProduct = (item) => {
         let index;
 
-        if ((index = $ctrl.form.products.indexOf(product)) != -1) {
-            $ctrl.form.products.splice(index, 1);
+        if ((index = $ctrl.form.values.formula_products.indexOf(item)) != -1) {
+            $ctrl.form.values.formula_products.splice(index, 1);
         }
 
         $ctrl.updateProductOptions();
     };
 
-    $scope.$watch('$ctrl.form.products', (products) => {
+    $scope.$watch('$ctrl.form.values.formula_products', (products) => {
         if (products && Array.isArray(products)) {
             $ctrl.updateProductOptions();
         }
@@ -105,13 +104,15 @@ const FundsEditComponent = function(
     $ctrl.updateProductOptions = () => {
         $timeout(() => {
             let productOptions = $ctrl.products.filter(product => {
-                return $ctrl.form.products.map(
-                    product => product ? product.id : false
-                ).filter(id => !!id).indexOf(product.id) == -1;
+                return $ctrl.form.values.formula_products.map(
+                    item => item.product_id ? item.product_id : false
+                ).filter(id => !!id).indexOf(product.id) === -1;
             });
 
             $ctrl.productOptions = [];
-            $ctrl.form.products.forEach((product, $index) => {
+            $ctrl.form.values.formula_products.forEach((el, $index) => {
+                const product = el.product_id ? $ctrl.products.filter(item => item.id == el.product_id)[0] : false;
+
                 $ctrl.productOptions[$index] = productOptions.concat(product ? [product] : []);
             });
         }, 250);
@@ -160,7 +161,16 @@ const FundsEditComponent = function(
 
         $ctrl.validators.unshift({
             id: null,
-            email: "Geen"
+            email: "Geen",
+        });
+
+        $ctrl.recordTypes = $ctrl.recordTypes.map((recordType) => ({
+            ...recordType, name: `Multiply by: ${recordType.name}`,
+        }));
+
+        $ctrl.recordTypes.unshift({
+            key: null,
+            name: "Assign 1 voucher",
         });
 
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
@@ -170,6 +180,8 @@ const FundsEditComponent = function(
         if (!$rootScope.appConfigs.features.organizations.funds.formula_products) {
             delete values.formula_products;
         }
+
+        $ctrl.media = $ctrl.fund?.logo;
 
         $ctrl.form = FormBuilderService.build(values, (form) => {
             const onError = (res) => {
@@ -187,7 +199,7 @@ const FundsEditComponent = function(
                 } catch (e) {
                     PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
                     return form.unlock();
-                };
+                }
 
                 const { values } = form;
 
@@ -200,7 +212,6 @@ const FundsEditComponent = function(
                 const data = {
                     ...values,
                     ...$ctrl.findMethod(values.application_method).configs || {},
-                    ...{ formula_products: form.products.map(product => product.id) },
                 };
 
                 if ($ctrl.fund) {
@@ -223,29 +234,15 @@ const FundsEditComponent = function(
             onCriteriaSaved(true);
         }, true);
 
-        if ($ctrl.fund && $ctrl.fund.logo) {
-            MediaService.read($ctrl.fund.logo.uid).then((res) => $ctrl.media = res.data.data);
-        }
-
-        ProductService.listAll({
-            per_page: 1000,
-            unlimited_stock: 1,
-            simplified: 1,
-        }).then(res => {
-            $ctrl.form.products = $ctrl.products = res.data.data.map(product => ({
+        if ($rootScope.appConfigs.features.organizations.funds.formula_products) {
+            $ctrl.products = $ctrl.products.map((product) => ({
                 id: product.id,
                 price: product.price,
                 name: `${product.name} - €${product.price} (${product.organization.name})`,
             }));
 
-            if ($rootScope.appConfigs.features.organizations.funds.formula_products) {
-                $ctrl.form.products = $ctrl.form.products.filter(
-                    product => $ctrl.form.values.formula_products.indexOf(product.id) != -1
-                );
-            }
-
             $ctrl.updateProductOptions();
-        }, console.error);
+        }
     };
 };
 
@@ -253,10 +250,11 @@ module.exports = {
     bindings: {
         fund: '<',
         tags: '<',
+        products: '<',
+        fundStates: '<',
         validators: '<',
         recordTypes: '<',
         organization: '<',
-        fundStates: '<',
         productCategories: '<',
         validatorOrganizations: '<',
     },
@@ -267,11 +265,10 @@ module.exports = {
         '$stateParams',
         '$rootScope',
         'FundService',
-        'ProductService',
+        'MediaService',
         'FormBuilderService',
         'PushNotificationsService',
-        'MediaService',
-        FundsEditComponent
+        FundsEditComponent,
     ],
-    templateUrl: 'assets/tpl/pages/funds-edit.html'
+    templateUrl: 'assets/tpl/pages/funds-edit.html',
 };

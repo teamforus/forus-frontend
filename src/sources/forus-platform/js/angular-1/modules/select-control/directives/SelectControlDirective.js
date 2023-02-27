@@ -88,6 +88,14 @@ const SelectControlDirective = function($scope, $timeout) {
         $dir.searchUpdate();
     };
 
+    $scope.$watch(function () {
+        return $dir.ngModelCtrl.$modelValue;
+    }, function(newValue) {
+        if (Array.isArray($dir.options)) {
+            $dir.value = $dir.findValue($dir.ngModel);
+        }
+    });
+
     $dir.onInputClick = () => {
         if ($dir.autoClearEnabled) {
             $dir.filter.q = "";

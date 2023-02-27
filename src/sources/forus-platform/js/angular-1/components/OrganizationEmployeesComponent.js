@@ -1,31 +1,34 @@
 const OrganizationEmployeesComponent = function (
     $scope,
     $filter,
+    FileService,
     ModalService,
     PushNotificationsService,
-    OrganizationEmployeesService
+    OrganizationEmployeesService,
+    appConfigs,
 ) {
     const $ctrl = this;
     const str_limit = $filter('str_limit');
     const $translate = $filter('translate');
-    
-    const $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.remove_organization_employees.' + key
-    );
+
+    const $translateDangerZone = (key) => {
+        return $translate(`modals.danger_zone.remove_organization_employees.${key}`);
+    };
 
     $ctrl.filters = {
         values: {
             q: "",
-            per_page: 15
+            per_page: 15,
         }
     };
 
     $ctrl.transformEmployee = (employee) => {
-        const rolesList = str_limit(employee.roles.map(role => role.name).sort((a, b) => {
-            return a == b ? 0 : (a < b ? -1 : 1);
-        }).join(', '), 64);
+        const rolesList = employee.roles
+            .map(role => role.name)
+            .sort((a, b) => a == b ? 0 : (a < b ? -1 : 1))
+            .join(', ');
 
-        return { ...employee, ...{ rolesList } };
+        return { ...employee, rolesList: str_limit(rolesList, 64) };
     };
 
     $ctrl.transformEmployees = (data) => {
@@ -77,10 +80,10 @@ const OrganizationEmployeesComponent = function (
         });
     }
 
-    $ctrl.transferOwnership = function (employees) {
+    $ctrl.transferOwnership = function (adminEmployees) {
         ModalService.open('transferOrganizationOwnership', {
+            adminEmployees,
             organization: $ctrl.organization,
-            adminEmployees: $ctrl.adminEmployees,
             submit: (employee) => {
                 $ctrl.organization.identity_address = employee.identity_address;
                 $scope.onPageChange();
@@ -95,6 +98,24 @@ const OrganizationEmployeesComponent = function (
         }).then((res) => res.data.data.filter((employee) => {
             return employee.identity_address !== $ctrl.organization.identity_address;
         }));
+    };
+
+    $ctrl.export = () => {
+        ModalService.open('exportType', {
+            success: (data) => {
+                OrganizationEmployeesService.export($ctrl.organization.id, {
+                    ...$ctrl.filters.values,
+                    export_type: data.exportType,
+                }).then((res => {
+                    const dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+                    const fileData = res.data;
+                    const fileType = res.headers('Content-Type') + ';charset=utf-8;';
+                    const fileName = `${appConfigs.panel_type}_${$ctrl.organization.name}_employees_${dateTime}.${data.exportType}`;
+
+                    FileService.downloadFile(fileName, fileData, fileType);
+                }), console.error);
+            }
+        });
     };
 
     $ctrl.$onInit = function () {
@@ -112,10 +133,12 @@ module.exports = {
     controller: [
         '$scope',
         '$filter',
+        'FileService',
         'ModalService',
         'PushNotificationsService',
         'OrganizationEmployeesService',
-        OrganizationEmployeesComponent
+        'appConfigs',
+        OrganizationEmployeesComponent,
     ],
-    templateUrl: 'assets/tpl/pages/organization-employees.html'
+    templateUrl: 'assets/tpl/pages/organization-employees.html',
 };

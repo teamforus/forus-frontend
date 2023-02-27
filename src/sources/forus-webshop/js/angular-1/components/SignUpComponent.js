@@ -38,10 +38,6 @@ const SignUpStartComponent = function (
             email: '',
             target: target,
         }, async (form) => {
-            if (!$ctrl.authForm.autofill && appConfigs.flags.privacyPage && !form.values.privacy) {
-                return form.unlock();
-            }
-
             const handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
@@ -59,11 +55,13 @@ const SignUpStartComponent = function (
             if (used) {
                 return IdentityService.makeAuthEmailToken(form.values.email, target).then(() => {
                     $ctrl.authEmailConfirmationSent = true;
+                    $ctrl.setState('email');
                 }, handleErrors).finally(() => PageLoadingBarService.setProgress(100));
             }
 
             IdentityService.make(form.values).then(() => {
                 $ctrl.authEmailRestoreSent = true;
+                $ctrl.setState('email');
             }, handleErrors).finally(() => PageLoadingBarService.setProgress(100));
         }, true);
 

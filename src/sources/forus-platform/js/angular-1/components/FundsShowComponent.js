@@ -2,6 +2,7 @@ const FundsShowComponent = function (
     $state,
     FundService,
     ModalService,
+    PermissionsService,
     PageLoadingBarService,
     PushNotificationsService,
     FundIdentitiesExportService,
@@ -62,18 +63,23 @@ const FundsShowComponent = function (
 
     $ctrl.$onInit = () => {
         $ctrl.implementations = [$ctrl.fund.implementation];
-        $ctrl.identitiesOnPageChange($ctrl.identitiesFilters);
+
+        if (PermissionsService.hasPermission($ctrl.fund.organization, 'manage_funds')) {
+            $ctrl.identitiesOnPageChange($ctrl.identitiesFilters);
+        }
     }
 };
 
 module.exports = {
     bindings: {
         fund: '<',
+        organization: '<',
     },
     controller: [
         '$state',
         'FundService',
         'ModalService',
+        'PermissionsService',
         'PageLoadingBarService',
         'PushNotificationsService',
         'FundIdentitiesExportService',

@@ -12,20 +12,23 @@ $logo-height:       75px;
 // navbar (auth)
 $tc-auth-menu:      #FFFFFF; 
 $tc-auth-btn:       #FFFFFF; 
-$btn-auth-bg:       transparent;
+$btn-auth-bg:       #306FB3;
 $btn-auth-border:   #0000;
 
 // navbar (start modal primary)
 $tc-start-btn:       #fff; 
-$btn-start-bg:       #77b431; 
-$btn-start-btn:      transparent;
+$btn-start-bg:       #D13E41;
+$btn-start-hov:      #A21522;
 $btn-start-border:   transparent;
 
 // header attributes
 $bg-values:          url("../img/splash-top-b.jpg") no-repeat 100% 0;
 
 // base font
-$bf:                'Helvetica', 'Open Sans', 'Arial', sans-serif;
+$bf:                'Century Gothic', 'Helvetica', 'Open Sans', 'Arial', sans-serif;
+
+// heading font
+$hf:                $bf;
 
 // text color
 $tc:                #4e4d40;
@@ -44,7 +47,7 @@ $bg_2:              #ffffff;
 $tf:                inherit;
 
 // footer color
-$fbc:                #3a3a3a;
+$fbc:                #306FB3;
 $fc:                #fff;
 
 $fc-link:           #fff;

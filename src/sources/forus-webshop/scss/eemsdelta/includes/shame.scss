@@ -41,9 +41,6 @@
         }
 
         .block-navbar-search {
-            max-width: 530px;
-            margin-right: -150px;
-
             .search-form.form {
                 .form-control {
                     border-radius: 5px;
@@ -53,11 +50,13 @@
     }
 }
 
-.section {
-    &.section-header {
-        .header-content {
-            padding: 80px 80px;
-            background-color: #004680;
+@media screen and (min-width: 1000px) {
+    .section {
+        &.section-header {
+            .header-content {
+                padding: 80px 80px;
+                background-color: #004680;
+            }
         }
     }
 }

@@ -254,11 +254,11 @@
                     form.sign-up-form(ng-submit="$ctrl.signUpForm.submit()").form: .row
                         .col.col-md-7.col-xs-12
                             .form-group
-                                label.form-label(translate="E-MAILadres")
+                                label.form-label(translate="E-mailadres")
                                 ui-control-text(
                                     data-id="employee"
                                     ng-model="$ctrl.signUpForm.values.email"
-                                    data-placeholder="Bijv. info@info.nl").large
+                                    data-placeholder="e-mail@e-mail.nl").large
                                 .form-error(ng-repeat="error in ($ctrl.signUpForm.errors.email || $ctrl.signUpForm.errors['records.primary_email'])" ng-bind="error")
 
                         .col.col-md-5.col-xs-12
@@ -553,7 +553,7 @@
                     form(ng-submit="$ctrl.saveEmployee()").form: .row
                         .col.col-md-8.col-xs-12
                             .form-group
-                                label.form-label(translate="E-MAILadres")
+                                label.form-label(translate="E-mailadres")
                                 ui-control-text(
                                     data-id="employee"
                                     ng-model="$ctrl.employeeForm.values.email"

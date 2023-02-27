@@ -152,6 +152,7 @@ block content
                             title= "{{ 'block_products.labels.title' | translate }}"
                             description="{{ 'block_products.labels.subtitle' | translate }}"
                             hide-link="true" 
+                            svg-icon="reimbursements"
                             ng-if="$ctrl.products.meta.total == 0")
 
                         .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(

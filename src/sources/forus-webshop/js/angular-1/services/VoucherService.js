@@ -66,7 +66,7 @@ const VoucherService = function(ApiRequest) {
             return ApiRequest.post(`${apiPrefix}/${address}/deactivate`, data);
         }
 
-        this.composeTransactions = function (voucher) {
+        this.composeTransactions = function(voucher) {
             const transactions = voucher.transactions.slice().map((transaction) => ({
                 ...transaction, type: 'transaction', incoming: transaction.target === 'top_up',
             }));
@@ -95,7 +95,7 @@ const VoucherService = function(ApiRequest) {
         };
 
         this.composeCardData = function(voucher) {
-            const { transactions, product, fund } = voucher;
+            const { transactions, product, fund, records } = voucher;
 
             return {
                 ...voucher,
@@ -104,6 +104,7 @@ const VoucherService = function(ApiRequest) {
                 subtitle: product ? product.organization.name : fund.organization.name,
                 description: product ? product.description_html : fund.description,
                 transactions: transactions ? this.composeTransactions(voucher) : [],
+                records_by_key: records?.reduce((records, record) => ({ ...records, [record.record_type_key]: record.value_locale }), {}),
                 product: voucher.product || null,
                 offices: voucher.offices || [],
             };
