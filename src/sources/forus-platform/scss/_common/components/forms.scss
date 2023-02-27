@@ -603,6 +603,7 @@
             display: none;
         }
 
+        &.checked,
         input[type='checkbox']:checked+.checkbox-label {
             .checkbox-box {
                 .mdi {
@@ -636,6 +637,10 @@
                     }
                 }
             }
+        }
+
+        &.checkbox-th {
+            margin: -6px 0;
         }
 
         &[disabled] {

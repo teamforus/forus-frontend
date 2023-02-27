@@ -1,5 +1,7 @@
 .sign_up-funds-card
-    .sign_up-funds-section(ng-if="$dir.showFilters")
+    .sign_up-funds-section(
+        ng-if="!$dir.externalFilters.fund_id && !$dir.externalFilters.organization_id && !$dir.externalFilters.tag")
+
         .form: .row
             .form-group.col.col-lg-6.col-xs-12
                 label.form-label(translate="sign_up_provider.filters.labels.organizations")
@@ -14,46 +16,48 @@
                     ng-model="$dir.filters.values.tag").form-control
 
     .sign_up-funds-section
-        .card-header: .flex
+        .card-header.card-header-no-line: .flex
             .flex.flex-grow: .card-title
                 span(translate="sign_up_provider.funds.title")
-                span.total-count
-                 | {{ $dir.selectedCount > 0 ? $dir.selectedCount + '/' : '' }}{{ $dir.funds.meta.total }}
+                span.total-count(ng-if="$dir.selected.length > 0" ng-bind="$dir.selected.length + '/' + $dir.funds.data.length")
+                span.total-count(ng-if="$dir.selected.length == 0" ng-bind="$dir.funds.meta.total")
 
             .flex: .block.block-inline-filters
+                //- Apply selected
                 .button.button-primary(
-                    ng-if="$dir.hasSelected"
-                    ng-click="$dir.applySelectedFunds()")
+                    ng-if="$dir.selected.length > 0"
+                    ng-click="$dir.applyFunds()")
                     span(translate="sign_up_provider.buttons.join")
 
+                //- Select all
                 .button.button-secondary.button-sm(
-                    ng-if="!$dir.allSelected"
-                    ng-click="$dir.selectAll()")
+                    ng-if="$dir.selected.length !== $dir.funds.data.length"
+                    ng-click="$dir.toggleAll($event, $dir.funds.data)")
                     span(translate="sign_up_provider.buttons.select_all")
 
+                //- Deselect all
                 .button.button-secondary.button-sm(
-                    ng-if="$dir.allSelected"
-                    ng-click="$dir.deselectAll()")
+                    ng-if="$dir.selected.length === $dir.funds.data.length"
+                    ng-click="$dir.toggleAll($event, [])")
                     span(translate="sign_up_provider.buttons.deselect_all")
 
         .card(ng-if="$dir.funds.data.length > 0" ng-repeat="fund in $dir.funds.data")
             .card-section.card-section-fund(ng-class="fund.applied ? 'applied' : ($dir.selected[fund.id] ? 'selected' : '')")
                 .card-block-checkbox
-                    ui-control-checkbox(
-                        data-id="fund_{{ fund.id }}"
-                        data-label=""
-                        ng-model="$dir.selected[fund.id]"
-                        control-style="checkbox-primary")
+                    .ui-control.ui-control-checkbox.ui-control-checkbox-primary(ng-click="$dir.toggle($event, fund)")
+                        input(type="checkbox" ng-checked="$dir.selected.includes(fund.id)").form-control
+                        label.ui-checkbox-label: .ui-checkbox-box: .mdi.mdi-check
 
                 .card-block.card-block-fund
                     .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
                     .fund-details
                         .fund-title(ng-bind="fund.name")
                         .fund-organization(ng-bind="fund.organization.name")
+
                 .card-section-actions
                     button(
                         ng-bind="(!fund.applied ? 'sign_up_provider.buttons.join' : 'fund_card_provider_finances.status.hold') | translate"
-                        ng-click="$dir.applyFund(fund)").button.button-primary.button-sm
+                        ng-click="$dir.applyFunds(fund)").button.button-primary.button-sm
 
             .card-section(ng-if="fund.implementation.has_provider_terms_page"): .card-text
                 | Door u aan te melden gaat u akkoord met de

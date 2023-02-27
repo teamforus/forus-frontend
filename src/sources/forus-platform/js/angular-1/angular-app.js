@@ -229,6 +229,7 @@ app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
+app.directive('tableCheckboxControl', require('./directives/TableCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 app.directive('scrollEnd', require('./directives/ScrollEndDirective'));

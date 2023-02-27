@@ -3,7 +3,9 @@ module.exports = {
         available: "Beschikbare fondsen",
         pending_rejected: "Aanmeldingen fondsen",
         active: "Actieve fondsen",
+        archived: 'Archief',
         invitations: "Uitnodigingen",
+        invitations_archived: "Expired archive",
         expired_closed: "Archief",
         main: "Fondsen",
     },
@@ -19,11 +21,12 @@ module.exports = {
         max_amount: "Maximaal", // "Maximaal tegoed per voucher",
         closed: "Gesloten",
         accept_invitation: "Accepteren",
-        allow_budget: "Allow budget",
-        allow_products: "Allow products",
+        allow_budget: "Budget",
+        allow_products: "Products",
         allow_some_products: "Scan specifiek aanbod",
         view_products: "Bekijk aanbod",
         cancel_application: "Annuleren",
+        unsubscribe: "Afmelden",
         fund: "Fund",
         organization: "Organization",
         tag: "Label",
@@ -35,12 +38,15 @@ module.exports = {
     empty_block: {
         available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
         active: "Er zijn geen fondsen waar u actief voor bent.",
+        archived: "No archived funds.",
         invitations: "Er zijn geen openstaande uitnodigingen die u kunt accepteren.",
-        expired_closed: "Er zijn geen verlopen uitnodigingen of gesloten fondsen waar u zich voor hebt aangemeld.",
+        invitations_archived: "No expired invitations.",
         pending_rejected: "Er zijn geen fondsen waar u aanmeldingen voor bent.",
+        unsubscriptions: "No unsubscription requests found.",
     },
     filters: {
         labels: {
+            search: 'Search',
             organizations: 'Organisaties',
             tags: 'Labels'
         },
@@ -74,9 +80,10 @@ module.exports = {
     tabs: {
         active: 'Actief',
         invitations: 'Uitnodigingen',
+        invitations_archived: 'Invitations archive',
         pending_rejected: "Aanmeldingen",
         available: 'Beschikbaar',
-        expired: 'Archief',
+        archived: 'Archief',
         unsubscriptions: 'Uitgeschreven',
     },
 };

@@ -1,36 +1,33 @@
 const ProviderAvailableFundsTableDirective = function (
-    ProviderFundService,
-    ModalService,
-    PushNotificationsService,
-    OfficeService,
+    $q,
     $scope,
     $filter,
-    $q
+    ModalService,
+    ProviderFundService,
+    PageLoadingBarService,
+    PushNotificationsService,
 ) {
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
-    $dir.hasOffices = false;
-    $dir.allSelected = false;
-    $dir.hasSelected = false;
-    $dir.selected = {};
-    $dir.selectedCount = 0;
+
+    $dir.selected = [];
+    $dir.selectedMeta = {};
+
+    $dir.filtersDefault = {
+        q: "",
+        tag: null,
+        page: 1,
+        per_page: 10,
+        organization_id: null,
+    };
 
     $dir.filters = {
         visible: false,
-        defaultValues: {
-            q: "",
-            organization_id: null,
-            tag: null,
-            per_page: 10,
-            page: 1,
-        },
-        values: {
-            q: "",
-            per_page: 10,
-            organization_id: null,
-            tag: null,
-        },
+        values: angular.copy($dir.filtersDefault),
         hide: (e) => {
+            e?.preventDefault();
+            e?.stopPropagation();
+
             $dir.filters.visible = false;
         },
         show: (e) => {
@@ -43,129 +40,67 @@ const ProviderAvailableFundsTableDirective = function (
             e?.preventDefault();
             e?.stopPropagation();
 
-            $dir.filters.values = angular.copy($dir.filters.defaultValues);
+            $dir.filters.visible = null;
+            $dir.filters.values = angular.copy($dir.filtersDefault);
         },
     };
 
-    const updateHasSelected = () => {
-        const items = [];
+    $dir.updateActions = () => {
+        const selected = $dir.funds.data?.filter((item) => $dir.selected.includes(item.id));
 
-        Object.keys($dir.selected).forEach((key) => {
-            if ($dir.selected[key]) {
-                let fund = $dir.funds.data.filter((item) => item.id == key)[0];
-                fund && items.push(key);
-            }
-        });
-
-        $dir.hasSelected = !!items.length;
-        $dir.allSelected = items.length === $dir.funds?.data.length;
-        $dir.selectedCount = items.length;
-    }
-
-    const setFilterData = () => {
-        $dir.tags = $dir.funds.meta.tags.slice();
-        $dir.organizations = $dir.funds.meta.organizations.slice();
-
-        $dir.tags.unshift({
-            key: 'null',
-            name: $translate('provider_funds.filters.options.all_labels')
-        });
-
-        $dir.organizations.unshift({
-            id: 'null',
-            name: $translate('provider_funds.filters.options.all_organizations')
-        });
-
-        $dir.filters.values.organization_id = $dir.filters.values.organization_id
-            ? $dir.filters.values.organization_id
-            : 'null';
-
-        if ($dir.filters.values.tag) {
-            const tag = $dir.tags.filter(tag => tag.key === $dir.filters.values.tag)[0];
-            if (tag) {
-                return;
-            }
-        }
-
-        $dir.filters.values.tag = 'null';
-    }
-
-    const getAvailableFunds = (organization, query) => {
-        ProviderFundService.listAvailableFunds(organization.id, query).then((res) => {
-            $dir.funds = res.data;
-            updateHasSelected();
-            setFilterData();
-            $dir.needReload = false;
-        });
+        $dir.selectedMeta.selected = selected;
     };
 
-    $dir.onPageChange = (query = {}) => {
-        const tag = query.tag || $dir.filters.values.tag;
-        const organization = query.organization_id || $dir.filters.values.organization_id;
+    $dir.toggleAll = (e, items = []) => {
+        e?.stopPropagation();
 
-        getAvailableFunds($dir.organization, {
-            per_page: query.per_page || $dir.filters.values.per_page,
-            page: query.page || 1,
-            tag: tag === 'null' ? null : tag,
-            organization_id: organization === 'null' ? null : organization,
-        });
+        $dir.selected = $dir.selected.length === items.length ? [] : items.map((item) => item.id);
     };
 
-    $dir.updateAllSelected = () => {
-        $dir.allSelected
-            ? $dir.funds.data.forEach((item) => $dir.selected[item.id] = true)
-            : $dir.selected = {};
-    };
+    $dir.toggle = (e, item) => {
+        e?.stopPropagation();
 
-    $dir.applySelectedFunds = () => {
-        if ($dir.hasOffices) {
-            const promises = [];
-            Object.keys($dir.selected).forEach((key) => {
-                if ($dir.selected[key]) {
-                    let fund = $dir.funds.data.filter((item) => item.id == key)[0];
-                    fund && promises.push(ProviderFundService.applyForFund($dir.organization.id, key));
-                }
-            });
-
-            if (promises.length) {
-                $q.all(promises).then(() => {
-                    successApplying();
-                    $dir.selected = {};
-                });
-            }
+        if ($dir.selected.includes(item.id)) {
+            $dir.selected.splice($dir.selected.indexOf(item.id), 1);
         } else {
-            failOfficesCheck();
+            $dir.selected.push(item.id);
         }
-    }
-
-    $dir.applyFund = (fund) => {
-        $dir.hasOffices
-            ? ProviderFundService.applyForFund($dir.organization.id, fund.id).then(() => successApplying())
-            : failOfficesCheck();
     };
 
-    const checkOffices = () => {
-        OfficeService.list($dir.organization.id, { per_page: 100 })
-            .then((res) => $dir.hasOffices = res.data.data.length > 0);
-    }
+    $dir.fetchAvailableFunds = (organization, filters = {}) => {
+        return ProviderFundService.listAvailableFunds(organization.id, filters);
+    };
 
-    const successApplying = () => {
+    $dir.onPageChange = (filters = {}) => {
+        $dir.selected = [];
+        PageLoadingBarService.setProgress(0);
+
+        return $dir.fetchAvailableFunds($dir.organization, filters).then((res) => {
+            $dir.funds = res.data;
+
+            $dir.tags = $dir.tags ? $dir.tags : [{
+                key: null,
+                name: $translate('provider_funds.filters.options.all_labels'),
+            }, ...$dir.funds.meta.tags];
+
+            $dir.organizations = $dir.organizations ? $dir.organizations : [{
+                id: null,
+                name: $translate('provider_funds.filters.options.all_organizations'),
+            }, ...$dir.funds.meta.organizations];
+        }).finally(() => PageLoadingBarService.setProgress(100));
+    };
+
+    $dir.successApplying = () => {
         return ModalService.open('modalNotification', {
             type: 'info',
             title: 'provider_funds.available.applied_for_fund.title',
             description: 'provider_funds.available.applied_for_fund.description',
             icon: 'fund_applied',
             closeBtnText: 'modal.buttons.confirm',
-        }, {
-            onClose: () => {
-                if (typeof $dir.onApply === 'function') {
-                    $dir.onApply();
-                }
-            }
         });
     }
 
-    const failOfficesCheck = () => {
+    $dir.failOfficesCheck = () => {
         return ModalService.open('modalNotification', {
             type: 'danger',
             title: 'provider_funds.available.error_apply.title',
@@ -173,13 +108,30 @@ const ProviderAvailableFundsTableDirective = function (
         });
     }
 
-    $dir.$onInit = () => {
-        setFilterData();
-        checkOffices();
+    $dir.applyFunds = (funds) => {
+        if ($dir.organization.offices_count == 0) {
+            return $dir.failOfficesCheck();
+        }
 
-        $scope.$watch('$dir.selected', updateHasSelected, true);
-        $scope.$watch('$dir.needReload', (newVal) => {
-            if (newVal) $dir.onPageChange();
+        $q.all(funds.map((fund) => {
+            return ProviderFundService.applyForFund($dir.organization.id, fund.id);
+        })).then(() => {
+            PushNotificationsService.success('Opgeslagen!');
+            $dir.successApplying();
+            $dir.selected = [];
+        }).finally(() => {
+            $dir.onPageChange($dir.filters.values);
+            typeof $dir.onChange === 'function' ? $dir.onChange() : null;
+        });
+    };
+
+    $dir.$onInit = () => {
+        $dir.loading = true;
+
+        $dir.onPageChange().finally(() => {
+            $dir.loading = false;
+            $scope.$watch('$dir.selected', () => $dir.updateActions(), true);
+            $scope.$watch('$dir.funds', () => $dir.updateActions(), true);
         });
     };
 };
@@ -188,24 +140,22 @@ module.exports = () => {
     return {
         scope: {},
         bindToController: {
+            onChange: '&',
             organization: '=',
-            funds: '=',
-            needReload: '=',
-            onApply: '&',
         },
         controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [
-            'ProviderFundService',
-            'ModalService',
-            'PushNotificationsService',
-            'OfficeService',
+            '$q',
             '$scope',
             '$filter',
-            '$q',
-            ProviderAvailableFundsTableDirective
+            'ModalService',
+            'ProviderFundService',
+            'PageLoadingBarService',
+            'PushNotificationsService',
+            ProviderAvailableFundsTableDirective,
         ],
-        templateUrl: 'assets/tpl/directives/provider-available-funds-table.html'
+        templateUrl: 'assets/tpl/directives/provider-available-funds-table.html',
     };
 };

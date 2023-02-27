@@ -74,6 +74,7 @@ module.exports = {
             remove_faq: require('./nl/modals/danger-zone/remove-faq'),
             remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
             confirm_custom_sponsor_email_notification: require('./nl/modals/danger-zone/confirm-custom-sponsor-email-notification'),
+            cancel_provider_unsubscription: require('./nl/modals/danger-zone/cancel-provider-unsubscription'),
         },
     },
     // PAGES

@@ -1088,6 +1088,18 @@ body {
             }
         }
 
+        .card-loading {
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+
+            .mdi {
+                font-size: 40px;
+                display: flex;
+                opacity: .5;
+            }
+        }
+
         .card-col {
             padding: 25px;
             border-right: 1px solid #d4d9dd;
@@ -2105,12 +2117,12 @@ body {
     }
 
     &.card-block-requests {
-        background-color: #FCFAF6;
-        border: 1px solid #F8E39A;
         box-shadow: 0px 2px 5px rgba(25, 39, 52, 0.11);
         border-radius: 4px;
         margin: 20px 0;
-        color: #404040;
+        color: #646F79;
+        background-color: #fff;
+        border: 1px solid #D4D9DD;
 
         .card-section {
             padding: 10px 15px;
@@ -2132,17 +2144,17 @@ body {
         }
 
         .mdi {
-            color: #FFB05A;
+            color: #134478;
             margin-right: 6px;
         }
 
-        &.card-block-requests-urgent {
+        &.card-block-requests-danger {
             color: #404040;
             background-color: #FFF5F0;
             border: 1px solid #E63B3B;
 
             .mdi {
-                color: #FFB05A;
+                color: #E63B3B;
             }
 
             .button {
@@ -2153,18 +2165,18 @@ body {
             }
         }
 
-        &.card-block-requests-empty {
-            color: #646F79;
-            background-color: #fff;
-            border: 1px solid #D4D9DD;
+        &.card-block-requests-warning {
+            background-color: #FCFAF6;
+            border: 1px solid #F8E39A;
+            color: #404040;
 
             .mdi {
-                color: #9E9FAA;
+                color: #FFB05A;
             }
 
             .button {
                 .mdi {
-                    color: #134478;
+                    color: #FFB05A;
                 }
             }
         }
@@ -2308,17 +2320,21 @@ body {
 
     &.block-sign_up {
         .card-header {
-            padding-top: 30px;
+            padding-top: 0;
             margin: 10px 0 15px;
             position: relative;
 
-            &:before {
-                content: "";
-                position: absolute;
-                top: 0;
-                border-top: 1px solid #DBDCDB;
-                width: calc(100% + 80px);
-                left: -40px;
+            &:not(.card-header-no-line) {
+                padding-top: 30px;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    border-top: 1px solid #DBDCDB;
+                    width: calc(100% + 80px);
+                    left: -40px;
+                }
             }
 
             & > .flex {

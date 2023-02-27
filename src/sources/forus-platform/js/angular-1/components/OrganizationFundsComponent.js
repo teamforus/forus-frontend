@@ -141,7 +141,6 @@ module.exports = {
     bindings: {
         funds: '<',
         archivedFunds: '<',
-        fundLevel: '<',
         recordTypes: '<',
         organization: '<',
         validatorOrganizations: '<',

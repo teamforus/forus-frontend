@@ -1,96 +1,32 @@
-const ProviderFundsComponent = function(
-    ProviderFundService,
-    FundProviderInvitationsService,
-    $stateParams,
-    $q,
-) {
+const ProviderFundsComponent = function ($state, ProviderFundService) {
     const $ctrl = this;
-    $ctrl.reloadAvailableFunds = false;
 
-    const sort = {
-        'pending': 0,
-        'approved': 1,
-        'declined': 2,
+    $ctrl.fetchFunds = (filters = {}) => {
+        return ProviderFundService
+            .listAvailableFunds($ctrl.organization.id, { per_page: 1, ...filters })
+            .then((res) => $ctrl.fundsAvailable = res.data);
     };
 
-    const is_pending_or_rejected = (fund) => {
-        return (!fund.allow_budget && !fund.allow_products && !fund.allow_some_products) || fund.dismissed;
+    $ctrl.onChange = (filters = {}) => {
+        $ctrl.fetchFunds(filters);
     };
 
-    const is_closed = (fund) => {
-        return fund.fund.state == 'closed';
-    };
-
-    const is_unsubscribed = (fund) => {
-        return fund.has_accepted_fund_unsubscribes;
-    };
-
-    $ctrl.filterByFundStatus = (type) => $ctrl.shownFundsType = type;
-
-    const filterFunds = () => {
-        $ctrl.fundAvailableInvitations = $ctrl.fundInvitations.filter(
-            fundInvitation => !fundInvitation.expired
-        );
-
-        $ctrl.archiveFunds = $ctrl.fundInvitations.filter(
-            fundInvitation => fundInvitation.expired
-        ).concat($ctrl.funds.filter((fund) => {
-            return is_closed(fund);
-        }));
-
-        $ctrl.pendingRejectedFunds = $ctrl.funds.filter((fund) => {
-            return is_pending_or_rejected(fund);
-        });
-
-        $ctrl.funds = $ctrl.funds.filter(fund => {
-            return !is_pending_or_rejected(fund) && !is_closed(fund) && !is_unsubscribed(fund);
-        });
-        $ctrl.funds.sort((a, b) => sort[a.state] - sort[b.state]);
-    };
-
-    const fetchFunds = () => {
-        return ProviderFundService.listFunds($ctrl.organization.id, {per_page: 1000,})
-            .then((res) => $ctrl.funds = res.data.data);
-    };
-
-    const fetchInvitations = () => {
-        return FundProviderInvitationsService.listInvitations($ctrl.organization.id)
-            .then((res) => $ctrl.fundInvitations = res.data.data);
-    };
-
-    $ctrl.onChange = () => {
-        $ctrl.reloadAvailableFunds = true;
-
-        const promises = [
-            fetchFunds(),
-            fetchInvitations()
-        ];
-
-        $q.all(promises).then(() => filterFunds());
-    };
-
-    $ctrl.$onInit = function() {
-        $ctrl.shownFundsType = $stateParams.fundsType || ($ctrl.funds.length ? 'active' : 'available');
-
-        filterFunds();
+    $ctrl.setTab = (tab = {}) => {
+        $ctrl.tab = tab;
+        $state.go($state.current.name, { tab });
     };
 };
 
 module.exports = {
     bindings: {
-        funds: '<',
-        fundsAvailable: '<',
-        fundInvitations: '<',
-        fundLevel: '<',
+        tab: '<',
         organization: '<',
-        fundUnsubscribes: '<',
+        fundsAvailable: '<',
     },
     controller: [
+        '$state',
         'ProviderFundService',
-        'FundProviderInvitationsService',
-        '$stateParams',
-        '$q',
-        ProviderFundsComponent
+        ProviderFundsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/provider-funds.html'
+    templateUrl: 'assets/tpl/pages/provider-funds.html',
 };

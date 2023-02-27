@@ -1,5 +1,4 @@
 const ModalFundUnsubscribeComponent = function(
-    $state,
     FormBuilderService,
     FundUnsubscribeService,
     PushNotificationsService
@@ -7,7 +6,8 @@ const ModalFundUnsubscribeComponent = function(
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        let organization = $ctrl.modal.scope.organization;
+        $ctrl.onUnsubscribe = $ctrl.modal.scope.onUnsubscribe;
+        $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.providerFund = $ctrl.modal.scope.providerFund;
         $ctrl.dateMinLimit = new Date();
 
@@ -15,14 +15,15 @@ const ModalFundUnsubscribeComponent = function(
             unsubscribe_date: null,
             note: "",
         }, (form) => {
-            FundUnsubscribeService.store(organization.id, {
+            FundUnsubscribeService.store($ctrl.organization.id, {
                 fund_provider_id: $ctrl.providerFund.id,
                 ...form.values
-            }).then((res) => {
-                PushNotificationsService.success('Fund unsubsribe request has been sent');
+            }).then(() => {
+                PushNotificationsService.success('Success!', 'Fund unsubscribe request has been sent');
                 $ctrl.close();
-                $state.reload();
+                $ctrl.onUnsubscribe();
             }, (res) => {
+                PushNotificationsService.danger('Error!', 'Please fix the errors and try again.');
                 form.errors = res.data.errors;
                 form.unlock();
             });
@@ -36,7 +37,6 @@ module.exports = {
         modal: '=',
     },
     controller: [
-        '$state',
         'FormBuilderService',
         'FundUnsubscribeService',
         'PushNotificationsService',

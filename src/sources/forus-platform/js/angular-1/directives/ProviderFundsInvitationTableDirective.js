@@ -1,120 +1,94 @@
 const ProviderFundsInvitationTableDirective = function (
-    FundProviderInvitationsService,
-    PushNotificationsService,
+    $q,
     $scope,
     $filter,
-    $q
+    PageLoadingBarService,
+    PushNotificationsService,
+    FundProviderInvitationsService,
 ) {
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
 
-    $dir.allSelected = false;
-    $dir.hasSelected = false;
-    $dir.selected = {};
-    $dir.selectedForInvitation = [];
-    $dir.selectedCount = 0;
+    $dir.selected = [];
+    $dir.selectedMeta = {};
 
-    const trans_fund_provider_empty = (key) => {
-        return $translate('provider_funds.empty_block.' + key);
+    $dir.filters = {
+        q: '',
+        per_page: 10,
     };
 
-    const updateHasSelected = () => {
-        const items = [];
-        const invitationItems = [];
+    $dir.toggleAll = (e, items = []) => {
+        e?.stopPropagation();
 
-        Object.keys($dir.selected).forEach((key) => {
-            if ($dir.selected[key]) {
-                let invitation = $dir.invitations.filter((item) => item.id == key)[0];
-
-                if (invitation) {
-                    items.push(invitation);
-
-                    if (
-                        invitation.fund.state != 'closed' &&
-                        invitation.state == 'pending' &&
-                        !invitation.expired
-                    ) {
-                        invitationItems.push(invitation);
-                    }
-                }
-            }
-        });
-
-        $dir.hasSelected = !!items.length;
-        $dir.allSelected = items.length === $dir.invitations?.length;
-        $dir.selectedForInvitation = invitationItems;
-        $dir.selectedCount = items.length;
-    }
-
-    $dir.updateAllSelected = () => {
-        $dir.allSelected
-            ? $dir.invitations.forEach((item) => $dir.selected[item.id] = true)
-            : $dir.selected = {};
+        $dir.selected = $dir.selected.length === items.length ? [] : items.map((item) => item.id);
     };
 
-    $dir.acceptInvitation = (providerInvitation) => {
-        FundProviderInvitationsService.acceptInvitationById(
-            providerInvitation.provider_organization.id,
-            providerInvitation.id
-        ).then(() => successAcceptInvitation(), console.error);
-    };
+    $dir.toggle = (e, item) => {
+        e?.stopPropagation();
 
-    $dir.acceptSelectedInvitations = () => {
-        const promises = [];
-        $dir.selectedForInvitation.forEach((invitation) => {
-            promises.push(
-                FundProviderInvitationsService.acceptInvitationById(
-                    invitation.provider_organization.id,
-                    invitation.id
-                )
-            );
-        });
-
-        if (promises.length) {
-            $q.all(promises).then(() => {
-                successAcceptInvitation()
-                $dir.selected = {};
-            });
+        if ($dir.selected.includes(item.id)) {
+            $dir.selected.splice($dir.selected.indexOf(item.id), 1);
+        } else {
+            $dir.selected.push(item.id);
         }
-    }
+    };
 
-    const successAcceptInvitation = () => {
-        PushNotificationsService.success('Uitnodiging succesvol geaccepteerd!');
+    $dir.updateActions = () => {
+        const selected = $dir.invitations.data?.filter((item) => $dir.selected.includes(item.id));
 
-        if (typeof $dir.onRemoved === 'function') {
-            $dir.onRemoved();
-        }
-    }
+        $dir.selectedMeta.selected = selected;
+        $dir.selectedMeta.selected_active = selected.filter((item) => item.can_be_accepted);
+    };
 
-    const mapProviderFunds = () => {
-        $dir.invitations = $dir.items.map((providerInvitation) => {
-            if (providerInvitation.state) {
-                providerInvitation.status_text = $translate(
-                    'provider_funds.status.' + (providerInvitation.expired ? 'expired' : providerInvitation.state)
-                );
-
-                if (providerInvitation.state == 'pending' && !providerInvitation.expired) {
-                    providerInvitation.status_class = 'tag-warning';
-                } else {
-                    providerInvitation.status_class = providerInvitation.expired
-                        ? 'tag-default' : 'tag-success';
-                }
-            } else {
-                providerInvitation.status_text = $translate('provider_funds.status.closed');
-                providerInvitation.status_class = 'tag-default';
-            }
-
-            return providerInvitation;
+    $dir.acceptInvitations = (invitations = []) => {
+        $q.all(invitations.map((item) => {
+            return FundProviderInvitationsService.acceptInvitationById($dir.organization.id, item.id);
+        })).then(() => {
+            PushNotificationsService.success('Uitnodiging succesvol geaccepteerd!');
+        }).finally(() => {
+            $dir.onPageChange($dir.filters.values);
+            typeof $dir.onChange === 'function' ? $dir.onChange() : null;
         });
+    };
 
-        updateHasSelected();
+    $dir.mapProviderFunds = (items) => {
+        return items.map((item) => ({
+            ...item,
+            ...(item.state ? {
+                status_text: $translate(`provider_funds.status.${item.expired ? 'expired' : item.state}`),
+                status_class: (item.state == 'pending' && !item.expired) ? 'tag-warning' : (item.expired ? 'tag-default' : 'tag-success'),
+            } : {
+                status_text: $translate('provider_funds.status.closed'),
+                status_class: 'tag-default',
+            })
+        }));
+    };
+
+    $dir.fetchInvitations = (filters = {}) => {
+        return FundProviderInvitationsService.listInvitations($dir.organization.id, {
+            ...filters,
+            expired: $dir.type == 'invitations_archived' ? 1 : 0,
+        });
+    }
+
+    $dir.onPageChange = (filters = {}) => {
+        $dir.selected = [];
+        PageLoadingBarService.setProgress(0);
+
+        return $dir.fetchInvitations(filters).then((res) => {
+            $dir.invitations = res.data;
+            $dir.invitations.data = $dir.mapProviderFunds($dir.invitations.data);
+        }).finally(() => PageLoadingBarService.setProgress(100));
     }
 
     $dir.$onInit = () => {
-        $dir.emptyBlockText = trans_fund_provider_empty($dir.type);
+        $dir.loading = true
 
-        $scope.$watch('$dir.selected', updateHasSelected, true);
-        $scope.$watch('$dir.items', mapProviderFunds, true);
+        $dir.onPageChange($dir.filters.values).finally(() => {
+            $dir.loading = false;
+            $scope.$watch('$dir.selected', () => $dir.updateActions(), true);
+            $scope.$watch('$dir.invitations', () => $dir.updateActions(), true);
+        });
     };
 };
 
@@ -122,22 +96,22 @@ module.exports = () => {
     return {
         scope: {},
         bindToController: {
-            organization: '=',
-            items: '=',
-            onRemoved: '&',
             type: '@',
+            onChange: '&',
+            organization: '=',
         },
         controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [
-            'FundProviderInvitationsService',
-            'PushNotificationsService',
+            '$q',
             '$scope',
             '$filter',
-            '$q',
-            ProviderFundsInvitationTableDirective
+            'PageLoadingBarService',
+            'PushNotificationsService',
+            'FundProviderInvitationsService',
+            ProviderFundsInvitationTableDirective,
         ],
-        templateUrl: 'assets/tpl/directives/provider-funds-invitation-table.html'
+        templateUrl: 'assets/tpl/directives/provider-funds-invitation-table.html',
     };
 };

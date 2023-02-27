@@ -1,47 +1,79 @@
-const SponsorFundUnsubscriptionsComponent = function(
-    FundUnsubscribeService
+const SponsorFundUnsubscriptionsComponent = function (
+    $state,
+    PageLoadingBarService,
+    FundUnsubscribeService,
 ) {
     const $ctrl = this;
 
-    $ctrl.emptyBlockText = "No unsubscription requests";
-    
-    $ctrl.shownType = 'all';
-
-    $ctrl.filterByType = (type) => {
-        $ctrl.shownType = type;
-        let query = {};
-
-        if (type == 'archive') {
-            query = { states: ['approved', 'canceled', 'expired']};
-        } else if (type == 'pending') {
-            query = { states: ['pending'] };
-        } else {
-            query = {};
-        }
-
-        fetchUnsubscriptions(query);
+    $ctrl.filters = {
+        per_page: 10,
     };
 
-    const fetchUnsubscriptions = (query = {}) => {
-        FundUnsubscribeService.listSponsor($ctrl.organization.id, {
-            ...query,
-            per_page: 10
-        }).then(res => {
-            $ctrl.fundUnsubscribes = res.data;
+    $ctrl.states = [{
+        label: 'Alle',
+        value: null,
+    }, {
+        label: 'In afwachting',
+        value: 'pending',
+    }, {
+        label: 'Gearchiveerd',
+        value: 'approved',
+    }, {
+        label: 'Geannuleerd',
+        value: 'canceled',
+    }];
+
+    $ctrl.setState = (state) => {
+        $ctrl.state = state.value;
+        $ctrl.loading = true;
+        $ctrl.filters.state = state.value;
+
+        $state.go($state.current.name, { state: $ctrl.state });
+    };
+
+    $ctrl.fetchUnsubscriptions = (filters = {}) => {
+        return FundUnsubscribeService.listSponsor($ctrl.organization.id, { ...filters });
+    };
+
+    $ctrl.onPageChange = (filters = {}) => {
+        PageLoadingBarService.setProgress(0);
+
+        return $ctrl.fetchUnsubscriptions(filters).then((res) => $ctrl.fundUnsubscribes = res.data).finally(() => {
+            $ctrl.loading = false;
+            PageLoadingBarService.setProgress(100);
         });
     };
 
-    $ctrl.$onInit = function() {};
+    $ctrl.showTooltip = (e, target) => {
+        e.stopPropagation();
+        $ctrl.fundUnsubscribes.data.forEach((item) => item.showTooltip = item == target);
+    };
+
+    $ctrl.hideTooltip = (e, item) => {
+        e.stopPropagation();
+        e.preventDefault();
+        item.showTooltip = false;
+    };
+
+    $ctrl.$onInit = () => {
+        const state = $state?.params?.state || null;
+        const stateItem = state ? $ctrl.states.find((state) => state.value == state) : null;
+
+        $ctrl.setState(stateItem ? stateItem : $ctrl.states[0]);
+        $ctrl.onPageChange($ctrl.filters);
+    };
 };
 
 module.exports = {
     bindings: {
+        state: '<',
         organization: '<',
-        fundUnsubscribes: '<',
     },
     controller: [
+        '$state',
+        'PageLoadingBarService',
         'FundUnsubscribeService',
-        SponsorFundUnsubscriptionsComponent
+        SponsorFundUnsubscriptionsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/sponsor-fund-unsubscriptions.html'
+    templateUrl: 'assets/tpl/pages/sponsor-fund-unsubscriptions.html',
 };

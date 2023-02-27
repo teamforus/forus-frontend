@@ -590,11 +590,9 @@
                 .sign_up-pane-body: .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_8")
                 .sign_up-pane-body
                     provider-funds-can-join(
-                        ng-if="$ctrl.fundsAvailable"
-                        funds="$ctrl.fundsAvailable"
                         organization="$ctrl.organization"
                         show-filters="$ctrl.showFilters"
-                        filter-values="$ctrl.filters.values"
+                        external-filters="$ctrl.filters.values"
                         on-apply="$ctrl.applyFund()")
 
                     ui-control-checkbox(
