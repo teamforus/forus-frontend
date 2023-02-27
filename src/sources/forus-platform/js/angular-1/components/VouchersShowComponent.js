@@ -5,8 +5,7 @@ const VouchersShowComponent = function (
     PermissionsService,
     PhysicalCardsService,
     PageLoadingBarService,
-    PushNotificationsService,
-    FundService
+    PushNotificationsService
 ) {
     const $ctrl = this;
     const $translate = $filter('translate');
@@ -126,22 +125,26 @@ const VouchersShowComponent = function (
             !$ctrl.voucher.expired;
     }
 
-    $ctrl.incrementLimitMultiplier = () => {
+    $ctrl.submitLimitMultiplier = (value, prevValue) => {
         ModalService.open("dangerZone", {
             title: $translateDangerZone('title'),
             description: $translateDangerZone('description'),
             cancelButton: $translateDangerZone('buttons.cancel'),
             confirmButton: $translateDangerZone('buttons.confirm'),
             onConfirm: () => {
+                PageLoadingBarService.setProgress(0);
+
                 VoucherService.update($ctrl.organization.id, $ctrl.voucher.id, {
-                    limit_multiplier: $ctrl.voucher.limit_multiplier + 1
+                    limit_multiplier: value
                 }).then(() => {
-                    $ctrl.voucher.limit_multiplier++;
                     PushNotificationsService.success('Opgeslagen!');
                 }, (err) => {
                     PushNotificationsService.danger('Error!');
                     console.error(err);
-                });
+                }).finally(() => PageLoadingBarService.setProgress(100));
+            },
+            onCancel: () => {
+                $ctrl.voucher.limit_multiplier = prevValue
             }
         });
     }
@@ -204,8 +207,7 @@ module.exports = {
         'PhysicalCardsService',
         'PageLoadingBarService',
         'PushNotificationsService',
-        'FundService',
-        VouchersShowComponent
+        VouchersShowComponent,
     ],
-    templateUrl: 'assets/tpl/pages/vouchers-show.html'
+    templateUrl: 'assets/tpl/pages/vouchers-show.html',
 };

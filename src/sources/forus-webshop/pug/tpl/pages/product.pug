@@ -46,10 +46,13 @@ main(id="main-content")
                 
                 +bookmark_toggle()
 
-            .block.block-pane(ng-if="$ctrl.productMeta.funds.length > 0")
+            .block.block-pane(ng-if="$ctrl.productMeta.funds.length > 0 && (!$ctrl.onlyAvailableFunds || $ctrl.productMeta.hasReservableFunds)")
                 .pane-head: h2(i18n="product.headers.funds" ui-sref="vouchers").pane-head-title
                 .pane-section.pane-section-collapsed
-                    .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds" dusk="fundItem")
+                    .product-funds-list: .fund-item(
+                        ng-if="!$ctrl.onlyAvailableFunds || fund.meta.isReservationAvailable" 
+                        ng-repeat="fund in $ctrl.productMeta.funds" 
+                        dusk="fundItem")
                         .fund-item-section.fund-item-section-details.text-left
                             .fund-item-media: img.fund-item-media-img(
                                 ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
@@ -63,7 +66,8 @@ main(id="main-content")
                             .fund-item-section-value.fund-item-section-value-sm 
                                 | {{ "product.labels.expire_prefix" | translate }} {{ fund.meta.shownExpireDate.locale }}
                         
-                        .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
+                        .fund-item-section.text-right(
+                            ng-if="(fund.meta.applicableVouchers.length ? fund.limit_available : fund.limit_per_identity) != null")
                             .fund-item-section-label.tooltip-block(ng-if="$root.auth_user")
                                 | #[span(translate="product.labels.limit")]
                                 | #[tooltip(text="'product.tooltip'" ng-if="$root.auth_user")]
@@ -119,6 +123,17 @@ main(id="main-content")
                             .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)")
                                 span(i18n="product.buttons.open_voucher")
                                 em.mdi.mdi-arrow-right.icon-right
+
+            //- user not logged or no reservable funds
+            .block.block-action-card.block-action-card-compact(ng-if="!$root.auth_user || ($ctrl.onlyAvailableFunds && !$ctrl.productMeta.hasReservableFunds)")
+                .block-card-logo: include ../../../resources/_webshop-common/assets/img/icon-funds-overview.svg
+                .block-card-details
+                    h3.block-card-title(i18n="product.labels.funds_card_title")
+                    .block-card-description(i18n="product.labels.funds_card_description")
+                .block-card-actions
+                    a(ui-sref="funds").button.button-primary
+                        span(i18n="product.labels.funds_card_btn_text")
+                        em.mdi.mdi-arrow-right.icon-right                    
 
             .block.block-organizations: provider-list-item(provider="$ctrl.provider")
 

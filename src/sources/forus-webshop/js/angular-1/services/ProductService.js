@@ -115,7 +115,9 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                 };
             })
 
-            return { regularActiveVouchers, funds };
+            const hasReservableFunds = funds.filter(fund => fund.meta.isReservationAvailable).length > 0;
+
+            return { regularActiveVouchers, funds, hasReservableFunds };
         }
 
         this.getSortOptions = () => {

@@ -82,6 +82,7 @@ module.exports = {
     // PAGES
     signup_options: require("./nl/pages/signup-options"),
     fund: require("./nl/pages/fund"),
+    fund_activate: require("./nl/pages/fund-activate"),
     fund_request: require("./nl/pages/fund-request"),
     fund_request_clarification: require("./nl/pages/fund-request-clarification"),
     funds: require("./nl/pages/funds"),
@@ -130,4 +131,5 @@ module.exports = {
     maps: require("./nl/directives/google-map"),
     profile_menu: require("./nl/directives/profile-menu"),
     top_navbar_search: require('./nl/directives/top-navbar-search'),
+    reservation: require("./nl/directives/reservation-card"),
 };

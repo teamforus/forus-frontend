@@ -1,4 +1,4 @@
-let AppFooterDirective = function(
+const AppFooterDirective = function(
     $sce,
     $scope,
     $rootScope
@@ -29,17 +29,13 @@ let AppFooterDirective = function(
         $dir.pageLinks = Object.values(pages).filter((page) => {
             return footerPageKeys.includes(page.page_type);
         });
-
     }, true);
 };
-
-
-// privacy accessibility, terms_and_conditions
 
 module.exports = () => {
     return {
         scope: {
-            settings: '=?'
+            settings: '=?',
         },
         restrict: "EA",
         replace: true,
@@ -47,8 +43,8 @@ module.exports = () => {
             '$sce',
             '$scope',
             '$rootScope',
-            AppFooterDirective
+            AppFooterDirective,
         ],
-        templateUrl: 'assets/tpl/directives/app-footer.html'
+        templateUrl: 'assets/tpl/directives/app-footer.html',
     };
 };

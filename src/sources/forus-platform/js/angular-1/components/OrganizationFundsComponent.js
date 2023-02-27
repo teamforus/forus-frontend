@@ -61,8 +61,23 @@ const OrganizationFundsComponent = function (
     };
 
     $ctrl.toggleFundStats = (fund) => {
-        fund.show_stats = !fund.show_stats;
-        fund.show_criteria = fund.show_top_ups = false;
+        const toggle = () => {
+            fund.show_stats = !fund.show_stats;
+            fund.show_criteria = fund.show_top_ups = false;
+        }
+
+        if (fund.show_stats) {
+            return toggle();
+        }
+
+        PageLoadingBarService.setProgress(0);
+
+        FundService.read(fund.organization_id, fund.id, { stats: 'budget' }).then((res) => {
+            Object.assign(fund, $ctrl.fundTransform(res.data.data));
+        }).finally(() => {
+            toggle();
+            PageLoadingBarService.setProgress(100)
+        });
     };
 
     $ctrl.fetchTopUpTransactions = (fund, query = {}) => {
@@ -115,22 +130,29 @@ const OrganizationFundsComponent = function (
         archived: $ctrl.archivedFunds.length,
     }[type]);
 
+    $ctrl.fundTransform = (fund) => ({
+        ...fund,
+        canAccessFund: fund.state != 'closed',
+        canInviteProviders: $ctrl.hasManagerPermission && fund.state != 'closed',
+        topUpTransactionFilters: { 
+            show: false, 
+            values: {},
+        },
+        form: { 
+            criteria: fund.criteria,
+        },
+        providersDescription: [
+            `${fund.provider_organizations_count}`,
+            `(${fund.provider_employees_count} ${$translate('fund_card_sponsor.labels.employees')})`,
+        ].join(' ')
+    });
+
     $ctrl.$onInit = function () {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
         $ctrl.hasManagerPermission = $hasPerm($ctrl.organization, 'manage_funds');
         $ctrl.canInviteProviders = $ctrl.hasManagerPermission && $ctrl.funds.length > 1;
 
-        $ctrl.funds.forEach((fund) => {
-            fund.canAccessFund = fund.state != 'closed';
-            fund.canInviteProviders = $ctrl.hasManagerPermission && fund.state != 'closed';
-            fund.topUpTransactionFilters = { show: false, values: {} };
-
-            fund.form = { criteria: fund.criteria };
-            fund.providersDescription = [
-                `${fund.provider_organizations_count}`,
-                `(${fund.provider_employees_count} ${$translate('fund_card_sponsor.labels.employees')})`,
-            ].join(' ');
-        });
+        $ctrl.funds = $ctrl.funds.map((fund) => $ctrl.fundTransform(fund));
 
         $ctrl.activeFunds = $ctrl.funds.filter((fund) => !fund.archived);
         $ctrl.archivedFunds = $ctrl.funds.filter((fund) => fund.archived);

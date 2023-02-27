@@ -51,6 +51,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalReservationUploadComponent'
     });
 
+    ModalRouteProvider.modal('voucherTransactionsUpload', {
+        component: 'modalVoucherTransactionsUploadComponent'
+    });
+
     ModalRouteProvider.modal('fundRequestRecordClarify', {
         component: 'modalFundRequestRecordClarifyComponent'
     });
@@ -185,5 +189,9 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('fundUnsubscribe', {
         component: 'modalFundUnsubscribeComponent'
+    });
+
+    ModalRouteProvider.modal('voucherRecordEditComponent', {
+        component: 'modalVoucherRecordEditComponent'
     });
 }];

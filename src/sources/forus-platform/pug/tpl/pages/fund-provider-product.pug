@@ -7,12 +7,12 @@
                 translate="page_state_titles.organization-providers")
             .breadcrumb-item(
                 ui-sref="sponsor-provider-organization({organization_id: $ctrl.organization.id, provider_organization_id:$ctrl.fundProvider.organization.id})" 
-                ng-bind="$ctrl.fundProvider.organization.name")
+                ng-bind="$ctrl.fundProvider.organization.name | str_limit:40")
             .breadcrumb-item(
                 ui-sref="fund-provider({organization_id:$ctrl.organization.id, fund_id: $ctrl.fund.id, fund_provider_id: $ctrl.fundProvider.id})" 
-                ng-bind="$ctrl.fundProvider.fund.name")
+                ng-bind="$ctrl.fundProvider.fund.name | str_limit:40")
             .breadcrumb-item.active(
-                ng-bind="$ctrl.product.name")
+                ng-bind="$ctrl.product.name | str_limit:40")
 
         .block.block-provider-product
             .product-overview
@@ -95,30 +95,89 @@
                     .arrow-box.border.bg-dim: .arrow
                     | Geen data
 
-        .card(ng-if="$ctrl.product.deals_history.length > 0")
-            .card-header: .flex-row
-                .flex-col: .card-title Lopende en verlopen acties op {{ $ctrl.product.name }}
+        .card(ng-if="$ctrl.organization.allow_budget_fund_limits && $ctrl.fund.type == 'budget' && (!$ctrl.product.hasLimits && $ctrl.deal === null)")
+            .card-section
+                .block.block-empty.text-center
+                    .empty-details(ng-if="$ctrl.product.allowed || $ctrl.fundProvider.allow_products") 
+                        | Er zijn momenteel geen beperkingen op het aanbod ingesteld.
+
+                    .empty-details(ng-if="!$ctrl.product.allowed && !$ctrl.fundProvider.allow_products") 
+                        .empty-details Het aanbod is nog niet goedgekeurd
+
+                    .empty-actions
+                        button.button.button-primary(ng-click="$ctrl.deal = false")
+                            em.mdi.mdi-cog-outline.icon-start
+                            | {{ $ctrl.fundProvider.allow_products || $ctrl.product.allowed ? 'Stel een limiet in' : 'Aanbod goedkeuren met ingesteld limit' }}
+
+                        button.button.button-default(
+                            ng-if="$ctrl.product.deals_history.length > 0"
+                            ng-click="$ctrl.showHistory = !$ctrl.showHistory")
+                            em.mdi.mdi-clipboard-text-clock-outline.icon-start
+                            | {{ $ctrl.showHistory ? 'Toon geschiedenis' : 'Verbeg geschiedenis' }}
+
+        //- budget deal edit
+        fund-provider-product-editor(
+            ng-if="$ctrl.organization.allow_budget_fund_limits && $ctrl.fund.type == 'budget' && ($ctrl.deal || $ctrl.deal === false)"
+            fund="$ctrl.fund" 
+            deal="$ctrl.deal"
+            on-cancel="$ctrl.onCancel()"
+            on-update="$ctrl.onUpdate(fundProvider)"
+            on-reset="$ctrl.resetLimits(deal)"
+            on-values-change="$ctrl.onValuesChange"
+            product="$ctrl.product"
+            fund-provider="$ctrl.fundProvider")
+
+        //- deals history
+        .card(
+            ng-if="$ctrl.deal === null && $ctrl.product.deals_history.length > 0"
+            ng-show="$ctrl.fund.type == 'subsidies' || ($ctrl.showHistory || $ctrl.product.hasLimits)")
+
+            .card-header
+                .card-title: .ellipsis(ng-bind="'Lopende en verlopen acties op {{ $ctrl.product.name }}'")
 
             .card-section.card-section-padless: .table-wrapper: table.table
                 tr
                     th.td-narrow Gebruikt
-                    th Totaal aantal aanbiedingen #[tooltip(text="'Totaal aantal aanbiedingen waaraan uw organisatie wilt bijdragen'")]
+                    th.td-narrow Gereserveerd
+                    th: .flex.flex-horizontal
+                        .flex Totaal aantal aanbiedingen 
+                        .flex: tooltip(text="'Totaal aantal aanbiedingen waaraan uw organisatie wilt bijdragen'")
                     th Limiet per aanvrager
-                    th Bijdrage
+                    th(ng-if="$ctrl.fund.type == 'subsidies'") Bijdrage
                     th Status
                     th Verloopdatum
-                    th
+                    th.text-right Acties
 
                 tr(ng-repeat="item in $ctrl.product.deals_history")
                     td(ng-bind="item.voucher_transactions_count")
-                    td(ng-bind="item.limit_total_unlimited ? 'Onbeperkt' : item.limit_total")
-                    td(ng-bind="item.limit_per_identity")
-                    td(ng-bind="item.amount | currency_format")
+                    td(ng-bind="item.product_reservations_pending_count")
+                    td(ng-bind="item.limit_total_unlimited || item.limit_total === null ? 'Onbeperkt' : item.limit_total")
+                    td(ng-bind="item.limit_per_identity === null ? 'Onbeperkt' : item.limit_per_identity")
+                    td(ng-bind="item.amount | currency_format" ng-if="$ctrl.fund.type == 'subsidies'")
                     td(ng-bind="item.expire_at_locale ? item.expire_at_locale : 'Verloopt met het fonds'")
+
                     td
                         .tag.tag-success(ng-if="item.active") Actief
                         .tag.tag-default(ng-if="!item.active") Afgelopen
-                    td.td-narrow
-                        a(ui-sref="fund-provider-product-subsidy-edit(item.showSubsidyDealParams)").button.button-default.button-sm
+
+                    td.td-narrow(ng-if="!($ctrl.fund.type == 'subsidies' || item.active)") 
+                        .text-right.text-muted - 
+
+                    td.td-narrow(ng-if="$ctrl.fund.type == 'subsidies' || item.active"): .button-group
+                        button.button.button-default.button-sm.button-icon(
+                            type="button"
+                            ng-if="$ctrl.fund.type == 'budget' && item.active"
+                            ng-click="$ctrl.deal = item")
+                            em.mdi.mdi-cog-outline
+
+                        button.button.button-danger.button-sm.button-icon(
+                            type="button"
+                            ng-if="$ctrl.fund.type == 'budget' && item.active"
+                            ng-click="$ctrl.resetLimits(item)")
+                            em.mdi.mdi-trash-can-outline
+                        
+                        a.button.button-default.button-sm(
+                            ng-if="$ctrl.fund.type == 'subsidies'"
+                            ui-sref="fund-provider-product-subsidy-edit(item.showSubsidyDealParams)")
                             em.mdi.mdi-eye-outline.icon-start
-                            | Kijk
+                            | Bekijk

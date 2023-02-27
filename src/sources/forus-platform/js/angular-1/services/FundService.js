@@ -271,11 +271,11 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
 
             const fields = [{
                 key: 'allow_budget',
-                name: 'Allow budget',
+                name: 'Tegoed scannen',
                 selected: fundProvider.state === 'pending' || fundProvider.allow_budget,
             }, {
                 key: 'allow_products',
-                name: 'Allow products',
+                name: 'Aanbod accepteren',
                 selected: fundProvider.state === 'pending' || fundProvider.allow_products,
             }];
 

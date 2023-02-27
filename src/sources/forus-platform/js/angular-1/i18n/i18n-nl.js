@@ -75,6 +75,7 @@ module.exports = {
             remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
             confirm_custom_sponsor_email_notification: require('./nl/modals/danger-zone/confirm-custom-sponsor-email-notification'),
             cancel_provider_unsubscription: require('./nl/modals/danger-zone/cancel-provider-unsubscription'),
+            remove_voucher_record: require('./nl/modals/danger-zone/remove-voucher-record'),
         },
     },
     // PAGES
@@ -86,6 +87,7 @@ module.exports = {
     reimbursements: require('./nl/pages/reimbursements.pug.i18n'),
     identities: require('./nl/pages/identities.pug.i18n'),
     transactions: require('./nl/pages/transactions.pug.i18n'),
+    voucher_records: require('./nl/pages/voucher-records.pug.i18n'),
     financial_dashboard_transaction: require('./nl/pages/transaction.pug.i18n'),
     provider_funds: require('./nl/pages/provider-funds.pug.i18n'),
     fund_unsubscriptions: require('./nl/pages/fund-unsubscriptions.pug.i18n'),
@@ -1246,6 +1248,7 @@ module.exports = {
             delete: "Verwijderen",
             add: "Toevoegen",
             transfer_ownership: "Overdragen",
+            export: "Exporteren",
         }
     },
 
@@ -1308,7 +1311,7 @@ module.exports = {
             requests: "Openstaande aanvragen ({{ count }})",
             bsn: "BSN: ",
             type: "Type",
-            requester: "Requester",
+            requester: "Aanvrager",
             value: "Eigenschap",
             date: "Datum, tijd",
             results: "{{ count }} resultaten",
@@ -1338,7 +1341,7 @@ module.exports = {
             email: "E-mailadres",
             empty_table: "Geen aanvragen",
             note_title: "Reden van weigeren",
-            assignee: "Assignee",
+            assignee: "Toegewezen aan",
         },
         person: {
             relations: {
@@ -1367,7 +1370,7 @@ module.exports = {
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
             view: "Bekijk",
-            add_partner_bsn: "Add partner bsn",
+            add_partner_bsn: "Voeg partner bsn toe",
             assign_to_me: "Toewijzen aan mij",
             assign: "Toewijzen",
             resign: "Meld af",

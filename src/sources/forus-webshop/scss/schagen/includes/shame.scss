@@ -1,23 +1,16 @@
-.section-title,
-.block-title {
-    color: #004680;
-}
-
 .block {
     &.block-navbar {
         .block-auth {
-            .auth-in {
-                .button {
-                    &.button-primary {
-                        &:hover {
-                            background-color: $btn-start-hov;
-                        }
+            .button {
+                &.button-primary {
+                    &:hover {
+                        background-color: $btn-start-hov;
                     }
+                }
 
-                    &.button-default {
-                        &:hover {
-                            background-color: #074e7d;
-                        }
+                &.button-default {
+                    &:hover {
+                        background-color: #074e7d;
                     }
                 }
             }
@@ -253,7 +246,7 @@
     &.block-markdown {
         a:not(.button) {
             text-decoration: underline;
-            color: #77b431;
+            color: #0071B8;
 
             &:hover {
                 text-decoration: none;
@@ -363,7 +356,6 @@
 
 .section {
     &.section-header {
-        width: 1280px;
         background-position: top center;
         padding: 50px 0;
         margin: 0 auto;
@@ -432,17 +424,26 @@
 
 .block {
     &.block-footer {
-        .footer-label {
-            color: #fff;
-        }
+        .block {
 
-        .footer-nav {
-            .footer-nav-item {
-                a {
-                    color: #efefef;
-                    font: 500 14px/24px $bf;
+            .footer-nav {
+                .footer-nav-item {
+                    a {
+                        color: #fff;
+                        font: 500 16px/24px $bf;
+                    }
                 }
             }
+
+            &.block-markdown {
+                a:not(.button) {
+                    color: #fff;
+                }
+            }
+        }
+
+        .footer-label {
+            color: #fff;
         }
 
         .footer-schedule {
@@ -469,7 +470,7 @@
 
     &.block-copyrights {
         border: none;
-        background-color: #212121;
+        background-color: $fbc;
         color: #fff;
         font-size: 1rem;
         padding: 25px 0;

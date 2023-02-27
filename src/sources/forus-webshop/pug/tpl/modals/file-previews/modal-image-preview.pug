@@ -6,4 +6,4 @@
     .modal-window
         .modal-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button"): .mdi.mdi-close
         .modal-header: h2.modal-title(translate="image_preview.header.title")
-        .modal-content: .file-image: img(ng-src="{{ $ctrl.imageSrc }}")
+        .modal-content: .file-image: img(ng-src="{{ $ctrl.imageSrc }}" alt="")

@@ -133,6 +133,7 @@
                     .table-wrapper
                         table.table
                             tr
+                                th(translate="vouchers.labels.id")
                                 th(translate="vouchers.labels.assigned_to")
                                 th(translate="vouchers.labels.source")
                                 th(translate="product_vouchers.labels.product")
@@ -146,6 +147,9 @@
                             tr(
                                 ng-repeat="voucher in $ctrl.vouchers.data"
                                 ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
+                                
+                                td(ng-bind="voucher.id")
+                                
                                 td
                                     strong(ng-bind="(voucher.identity_email | str_limit:25) || voucher.activation_code || 'Niet toegewezen'").text-primary
                                     span(ng-if="voucher.identity_bsn || voucher.relation_bsn").text-strong.text-md.text-muted-dark
@@ -175,14 +179,18 @@
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
 
                                 td(ng-if="!$ctrl.fundClosed")
-                                    strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
+                                    strong(ng-bind="voucher.expire_at_locale.split(',')[0]").text-primary
+                                    br
+                                    strong(ng-bind="voucher.expire_at_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
                                 td(ng-if="!$ctrl.fundClosed"): .td-boolean.flex-vertical
-                                    .flex.text-primary
+                                    .text-primary
                                         em.mdi.mdi-check-circle(ng-if="voucher.in_use")
                                         em.mdi.mdi-close(ng-if="!voucher.in_use")
                                         string(ng-if="!voucher.in_use" translate="product_vouchers.labels.no")
-                                        string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale")
+                                        string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[0]").text-primary
+                                        br(ng-if="voucher.in_use")
+                                        string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
                                 //- voucher state
                                 td

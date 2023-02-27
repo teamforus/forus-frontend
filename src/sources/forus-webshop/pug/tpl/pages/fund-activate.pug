@@ -27,7 +27,7 @@ main(id="main-content")
                         ng-if="$ctrl.options.includes('code')"
                         ng-click="$ctrl.setState('code')")
 
-                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="icon me-app").sign_up-option-media-img
                         .sign_up-option-details
                             .sign_up-option-title Ik heb een activatiecode
                             .sign_up-option-description Ga verder met het activeren van je tegoed door gebruik te maken van een activatiecode
@@ -39,7 +39,7 @@ main(id="main-content")
 
                         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
                         .sign_up-option-details
-                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption") DigiD
+                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption" alt="icon digid") DigiD
                             .sign_up-option-description(ng-if="$ctrl.showFundRequestOption")
                                 | Open het DigiD inlogscherm
 
@@ -90,7 +90,9 @@ main(id="main-content")
         //- DigiD confirmation (custom criteria)
         .sign_up-pane(ng-if="$ctrl.state == 'digid'")
             .sign_up-pane-header
-                h2.sign_up-pane-header-title Bevestig uw inkomen
+                h2.sign_up-pane-header-title(
+                    translate="fund_activate.header.{{ $root.client_key }}.title"
+                    translate-default="{{ 'fund_activate.header.title' | translate }}")
 
             .sign_up-pane-body: .form
                 fund-criteria-custom-overview(key="$ctrl.fund.key")
@@ -137,7 +139,7 @@ main(id="main-content")
             .sign_up-pane-body
                 p.sign_up-pane-text.text-center 
                     | U kunt zich niet aanmelden voor {{ $ctrl.fund.name }}.
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -160,7 +162,7 @@ main(id="main-content")
                     | De tegoeden zijn beschikbaar in het account van de persoon die 
                     br
                     | deze als eerste heeft geactiveerd.
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem voor vragen contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -170,15 +172,24 @@ main(id="main-content")
         //- Error: Requester is not a resident
         .sign_up-pane(ng-if="$ctrl.state == 'backoffice_error_not_resident'")
             .sign_up-pane-header
-                h2.sign_up-pane-header-title Aanvraag mislukt. U bent niet woonachtig in Nijmegen.
+                h2.sign_up-pane-header-title Aanvraag mislukt
 
             .sign_up-pane-body.text-center
-                p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
                 p.sign_up-pane-text 
-                    | Volgens onze gegevens bent u geen inwoner van de gemeente Nijmegen. De { $ctrl.fund.name }} geldt alleen voor inwoners van de gemeente Nijmegen. Mogelijk heeft uw eigen gemeente wel regelingen waarvoor u in aanmerking komt. Neem hiervoor contact op met de gemeente waar u woonachtig bent. 
-                    | Heeft u hier een vraag over of wilt u een bezwaar indienen, neem dan contact op met 024-329 8065.
+                    | Volgens onze gegevens bent u geen inwoner van de gemeente Nijmegen. De {{ $ctrl.fund.name }} geldt alleen voor inwoners van de gemeente Nijmegen. 
+                    br
+                    br
+                    | Mogelijk heeft uw eigen gemeente wel regelingen waarvoor u in aanmerking komt. Neem hiervoor contact op met de gemeente waar u woonachtig bent. 
                     
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
+                p.sign_up-pane-text.text-center 
+                    | Wilt u hiervoor een bezwaar indienen of heeft u vragen, neem dan contact met ons op.
+                    br
+                    | E-mailadres: #[a(href="mailto:inkomensondersteuning@nijmegen.nl").txt_link.var inkomensondersteuning@nijmegen.nl]
+                    br
+                    | Telefoonnumer: 14 024
+                    
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -192,7 +203,7 @@ main(id="main-content")
                 p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
                 p.sign_up-pane-text 
                     | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -202,15 +213,18 @@ main(id="main-content")
         //- Error: Backoffice taken by partner
         .sign_up-pane(ng-if="$ctrl.state == 'backoffice_error_taken_by_partner'")
             .sign_up-pane-header
-                h2.sign_up-pane-header-title Aanvraag mislukt. Volgens onze informatie heeft uw partner reeds een toekenning ontvangen.
+                h2.sign_up-pane-header-title Aanvraag mislukt
 
             .sign_up-pane-body.text-center
-                p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
                 p.sign_up-pane-text
-                    | Uw aanvraag voor {{ $ctrl.fund.name }} is niet gelukt. Volgens onze informatie hebben wij een aanvraag van uw partner ontvangen. Voor meer informatie of vragen kunt u contact opnemen met de gemeente Nijmegen.
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                    | Volgens onze informatie hebben wij al een aanvraag van uw partner ontvangen. Het is daarom niet mogelijk om een aanvraag een te doen.
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
-                    | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
+                    | Voor meer informatie of vragen kunt u contact opnemen met de {{ $ctrl.fund.organization.name }}.
+                    br
+                    | E-mailadres: #[a(href="mailto:inkomensondersteuning@nijmegen.nl") inkomensondersteuning@nijmegen.nl]
+                    br
+                    | Telefoonnumer: 14 024
 
                 .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
                 .form-group.col.col-lg-12.hidden-xs: br
@@ -224,7 +238,7 @@ main(id="main-content")
                 p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
                 p.sign_up-pane-text 
                     | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
                     | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
 
@@ -237,7 +251,7 @@ main(id="main-content")
                 h2.sign_up-pane-header-title(translate="fund_request.sign_up.header.title_fund_already_applied")
 
             .sign_up-pane-body
-                .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="")
+                .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="icon fund request error")
                 p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
 
                 ul.sign_up-pane-list.sign_up-pane-list-criteria: li(

@@ -108,7 +108,7 @@ main(id="main-content")
                     .card-photo: img(ng-src="{{ $ctrl.voucherCard.fund.organization.logo.sizes.large || './assets/img/placeholders/organization-large.png' }}", alt="{{ $ctrl.voucherCard.fund.organization.name }}")
                     .card-section
                         h2.card-title {{ "voucher.voucher_card.header.title" | translate }}
-                        .card-description(i18n="voucher.voucher_card.labels.description" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
+                        .card-description(translate="voucher.voucher_card.labels.description" translate-values="{fund_name: $ctrl.voucherCard.title}")
                 .card-footer
                     .card-label(i18n="voucher.voucher_card.labels.contact_sponsor" i18n-vars="{fund_name: $ctrl.voucherCard.title}")
                     .card-value.card-value-sm
@@ -163,6 +163,37 @@ main(id="main-content")
                                 br
                                 | Telefoonnummer: 
                                 span(ng-bind="$ctrl.voucherCard.fund.organization.phone")
+                                br
+                                br
+                                strong(translate="voucher.voucher_card_combined.labels.redirect_to_funds")
+                                br
+                                | Wilt u nog een vergoeding aanvragen? 
+                                | Klik dan #[a(ui-sref="funds").card-description-link hier] om terug te gaan naar het overzicht van de vergoedingen.       
+
+        //- Voucher make reimbursement request
+        .block.block-action-card.block-action-card-compact(ng-if="$ctrl.voucherCard.records.length"): .block-card-body
+            .block-card-section 
+                .block-card-logo
+                    include ../../../resources/_webshop-common/assets/img/icon-voucher-records.svg
+                
+                .block-card-details(ng-if="!$ctrl.voucherCard.records_title") 
+                    h3.block-card-title Persoonlijke eigenschappen
+
+                .block-card-details(ng-if="$ctrl.voucherCard.records_title") 
+                    h3.block-card-title.block-card-title-sm.text-muted-dim Persoonlijke eigenschappen
+                    h2.block-card-title.block-card-title-lg
+                        strong(ng-bind="$ctrl.voucherCard.records_title")
+                        span.text-separator
+                        span.text-muted-dim(ng-bind="$ctrl.voucherCard.records_by_key.birth_date")
+                
+                .block-card-actions: .button.button-primary-outline.button-sm(ng-click="$ctrl.showRecords = !$ctrl.showRecords") 
+                    span(ng-if="!$ctrl.showRecords") Toon alle details
+                    span(ng-if="$ctrl.showRecords") Verberg alle details
+                    .mdi.mdi-chevron-right.icon-right(ng-if="!$ctrl.showRecords")
+                    .mdi.mdi-chevron-up.icon-right(ng-if="$ctrl.showRecords")
+            
+            .block-card-section(ng-if="$ctrl.showRecords")
+                block-voucher-records(voucher="$ctrl.voucherCard")
 
         //- Voucher physical card (activation)
         .block.block-action-card(ng-if="!$ctrl.voucherCard.deactivated && $ctrl.showPhysicalCardsOption")
@@ -178,7 +209,6 @@ main(id="main-content")
                 i18n="voucher.physical_card.buttons.reactivate" 
                 ng-click="$ctrl.usePhysicalCard($ctrl.voucher, 'card_code')") 
             //-.block-card-close.mdi.mdi-close(ng-click="$ctrl.dismissPhysicalCard()")
-
 
         //- Voucher make reimbursement request
         .block.block-action-card(ng-if="$ctrl.voucher.fund.allow_reimbursements && !$ctrl.voucher.expired && !$ctrl.voucher.deactivated")
@@ -261,19 +291,19 @@ main(id="main-content")
                         .transactions-item-type {{ transaction.incoming ? "voucher.labels.add" : "voucher.labels.subtract" | translate }}
 
         block-products(
-            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'budget'"
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && !$ctrl.voucherCard.is_external && $ctrl.voucher.fund.type == 'budget'" 
             type="budget"
             products="$ctrl.products.data"
             filters="{fund_id: $ctrl.voucher.fund_id}")
         
         block-products(
-            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && $ctrl.voucher.fund.type == 'subsidies'"
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.appConfigs.features.products.list && !$ctrl.voucherCard.product && $ctrl.voucherCanUse && !$ctrl.voucherCard.is_external && $ctrl.voucher.fund.type == 'subsidies'"
             type="subsidies"
             products="$ctrl.subsidies.data"
             filters="{fund_id: $ctrl.voucher.fund_id}")
             
         .block.block-map_card(
-            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && $root.appConfigs.features.show_voucher_map && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
+            ng-if="!$ctrl.voucherCard.deactivated && $ctrl.voucherCanUse && $root.appConfigs.features.show_voucher_map && !$ctrl.voucherCard.is_external && ($ctrl.voucherCard.offices.length || !$ctrl.voucherCard.product)")
             .map_card-header
                 //- regular voucher
                 h2.map_card-title(ng-if="!$ctrl.voucherCard.product" translate="voucher.labels.offices")

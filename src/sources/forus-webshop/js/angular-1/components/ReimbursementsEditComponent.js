@@ -1,6 +1,7 @@
 const ReimbursementEditComponent = function (
     $state,
     ModalService,
+    VoucherService,
     FormBuilderService,
     ReimbursementService,
     PushNotificationsService,
@@ -65,6 +66,10 @@ const ReimbursementEditComponent = function (
         }, true);
     }
 
+    $ctrl.updateSelectedVoucher = () => {
+        $ctrl.selectedVoucher = $ctrl.vouchers.find((voucher) => voucher.id == $ctrl.form.values.voucher_id);
+    }
+
     $ctrl.submitAvailable = () => {
         return [
             $ctrl.form?.locked,
@@ -97,6 +102,8 @@ const ReimbursementEditComponent = function (
         $ctrl.form = $ctrl.makeForm($ctrl.reimbursement);
         $ctrl.files = $ctrl.reimbursement?.files || [];
         $ctrl.fileUploaderAccept = ['.pdf', '.png', '.jpg', '.jpeg'];
+        $ctrl.vouchers = $ctrl.vouchers.map((voucher) => VoucherService.composeCardData(voucher));
+        $ctrl.updateSelectedVoucher();
     };
 };
 
@@ -110,6 +117,7 @@ module.exports = {
     controller: [
         '$state',
         'ModalService',
+        'VoucherService',
         'FormBuilderService',
         'ReimbursementService',
         'PushNotificationsService',

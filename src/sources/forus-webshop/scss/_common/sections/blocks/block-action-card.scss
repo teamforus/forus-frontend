@@ -7,9 +7,31 @@
     border-radius: $border_radius;
     box-shadow: $base_shadow;
     cursor: default;
+    flex-direction: row;
+
+    .block-card-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin: -25px;
+
+        .block-card-section {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            padding: 25px;
+
+            &:not(:first-child) {
+                border-top: 1px solid $border_color;
+            }
+        }
+    }
 
     .block-card-logo {
         margin: 0 25px 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         
         img {
             display: block;
@@ -46,6 +68,14 @@
             font: 700 22px/25px $bf;
             color: $tc;
             margin: 0 0;
+
+            &.block-card-title-sm {
+                font: 400 13px/20px $bf;
+            }
+
+            &.block-card-title-lg {
+                font: 400 18px/25px $bf;
+            }
         }
 
         .block-card-description {
@@ -66,6 +96,8 @@
         
         .button {
             font-size: 14px;
+            display: inline-flex;
+            white-space: nowrap;
         }
     }
     
@@ -78,7 +110,14 @@
 
     &.block-action-card-compact {
         padding: 20px;
-        margin-bottom: 15px;
+
+        .block-card-body {
+            margin: -20px;
+
+            .block-card-section {
+                padding: 20px;
+            }
+        }
 
         .block-card-logo {
             margin: 0 20px 0 0;
@@ -86,7 +125,15 @@
 
         .block-card-details {
             .block-card-title {
-                font-size: 18px;
+                font: 700 18px/25px $bf;
+
+                &.block-card-title-sm {
+                    font: 400 13px/20px $bf;
+                }
+    
+                &.block-card-title-lg {
+                    font: 400 18px/25px $bf;
+                }
             }
         }
     }
@@ -95,11 +142,21 @@
         display: flex;
         flex-direction: column;
         text-align: center;
+
+        .block-card-body {
+            display: flex;
+            flex-direction: column;
+    
+            .block-card-section {
+                display: flex;
+                flex-direction: column;
+            }
+        }
         
         .block-card-logo {
-            margin: 0 0 10px;
+            margin: 0 auto 10px;
             
-            img {
+            img, svg {
                 max-width: 200px;
                 transform: rotate(0deg);
                 margin: 0 auto 0;
@@ -111,6 +168,10 @@
             .block-card-title {
                 font: 600 14px/20px $bf;
                 margin: 0 0 15px;
+
+                &.block-card-title-sm {
+                    margin-bottom: 0;
+                }
             }
 
             .block-card-description {
@@ -137,6 +198,10 @@
             .block-card-details {
                 .block-card-title {
                     font-size: 14px;
+
+                    &.block-card-title-lg {
+                        font-size: 16px;
+                    }
                 }
             }
         }
