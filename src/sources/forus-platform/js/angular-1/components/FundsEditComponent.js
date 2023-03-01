@@ -165,12 +165,12 @@ const FundsEditComponent = function(
         });
 
         $ctrl.recordTypes = $ctrl.recordTypes.map((recordType) => ({
-            ...recordType, name: `Multiply by: ${recordType.name}`,
+            ...recordType, name: `Vermenigvuldig met: ${recordType.name}`,
         }));
 
         $ctrl.recordTypes.unshift({
             key: null,
-            name: "Assign 1 voucher",
+            name: "Wijs 1 tegoed",
         });
 
         if (!$rootScope.appConfigs.features.organizations.funds.criteria) {
