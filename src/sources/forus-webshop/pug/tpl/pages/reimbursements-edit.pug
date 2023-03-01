@@ -79,11 +79,18 @@ section.section.section-profile: .wrapper
                                 search="false"
                                 dusk="voucherSelector"
                                 ng-model="$ctrl.form.values.voucher_id"
-                                ng-change="$ctrl.updateSortBy()"
+                                ng-change="$ctrl.updateSelectedVoucher()"
                                 options="$ctrl.vouchers"
                                 template="select-control-voucher"
                                 placeholder="SELECT VOUCHER")
+
                             .form-error(ng-repeat="error in $ctrl.form.errors.voucher_address" ng-bind="error")
+
+                            block-voucher-records(
+                                ng-if="$ctrl.selectedVoucher && $ctrl.selectedVoucher.records.length"
+                                toggle='true'
+                                compact='true'
+                                voucher="$ctrl.selectedVoucher")
 
                 .card-section: .row: .col.col-xs-12.col-md-10
                     //- Title

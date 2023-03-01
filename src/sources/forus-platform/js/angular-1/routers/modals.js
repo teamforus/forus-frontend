@@ -186,4 +186,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('reimbursementResolveComponent', {
         component: 'modalReimbursementResolveComponent'
     });
+
+    ModalRouteProvider.modal('voucherRecordEditComponent', {
+        component: 'modalVoucherRecordEditComponent'
+    });
 }];

@@ -123,6 +123,7 @@ app.component('modalFundRequestAssignValidatorComponent', require('./components/
 app.component('modalAddNoteComponent', require('./components/Modals/ModalAddNoteComponent'));
 app.component('modalReimbursementResolveComponent', require('./components/Modals/Reimbursements/ModalReimbursementResolveComponent'));
 app.component('modalVoucherTransactionsUploadComponent', require('./components/Modals/ModalVoucherTransactionsUploadComponent'));
+app.component('modalVoucherRecordEditComponent', require('./components/Modals/ModalVoucherRecordEditComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -136,6 +137,7 @@ app.service('TransactionsExportService', require('./services/TransactionsExportS
 app.service('TransactionBulkService', require('./services/TransactionBulkService'));
 app.service('TransactionBulksExportService', require('./services/TransactionBulksExportService'));
 app.service('VoucherService', require('./services/VoucherService'));
+app.service('VoucherRecordService', require('./services/VoucherRecordService'));
 app.service('ReimbursementService', require('./services/ReimbursementService'));
 app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
@@ -251,6 +253,7 @@ app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirect
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 app.directive('eventLogs', require('./directives/EventLogsDirective'));
+app.directive('voucherRecords', require('./directives/VoucherRecordsDirective'));
 app.directive('vouchers', require('./directives/VouchersDirective'));
 app.directive('voucherTransactions', require('./directives/VoucherTransactionsDirective'));
 

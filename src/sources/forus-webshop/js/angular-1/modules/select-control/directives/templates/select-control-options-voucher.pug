@@ -6,12 +6,15 @@ div: .select-control-options(scroll-end="$dir.onScrolledOption()")
             dusk="voucherSelectorOption{{ option.id }}")
 
             .voucher-image
-                img(src="{{ option.fund.logo.sizes.thumbnail || option.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                img(ng-src="{{ option.fund.logo.sizes.thumbnail || option.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png'}} ")
 
             .voucher-details: .flex.flex-horizontal
                 .flex.flex-vertical.flex-grow
                     .voucher-name(ng-bind="option.fund.name")
-                    .voucher-organization(ng-bind="option.fund.organization.name")
+                    .voucher-organization
+                        span(ng-if="option.records_title" ng-bind='option.records_title')
+                        .text-separator(ng-if="option.records_title")
+                        span(ng-bind="option.fund.organization.name")
 
                 .flex.flex-vertical.text-right
                     .voucher-value(ng-if="option.fund.type === 'budget'" ng-bind="option.amount | currency_format")

@@ -194,17 +194,33 @@
 
                 .voucher-details {
                     padding: 15px 15px;
+                    position: relative;
 
                     .voucher-name {
-                        font: 700 15px/16px $hf;
+                        font: 600 14px/20px $hf;
+                        padding-right: 140px;
                     }
 
                     .voucher-organization {
-                        font: 400 13px/14px $bf;
+                        font: 400 13px/20px $bf;
+                        margin: 0 0 5px;
+                        color: #595959;
+                        padding-right: 140px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .voucher-records {
+                        display: flex;
                     }
 
                     .voucher-value {
-                        font: 700 22px/30px $bf;
+                        font: 700 18px/30px $bf;
+                        position: absolute;
+                        right: 15px;
+                        top: 15px;;
                     }
                 }
 
@@ -417,27 +433,50 @@
                 }
 
                 &.voucher-item-compact {
+                    display: block;
+                    padding-top: 15px;
+
+                    .voucher-image {
+                        margin: 0;
+                        display: flex;
+                        flex-basis: initial;
+                        min-width: 80px;
+                        max-width: 80px;
+                        margin: 0 auto;
+                        width: 100%;
+                    }
+
                     .voucher-details {
+                        display: flex;
+                        width: 100%;
                         padding: 15px 10px;
+                        border-bottom: 1px solid $border_color;
+                        text-align: center;
 
                         .voucher-name {
-                            font: 700 14px/20px $bf;
-                            margin: 0 0 0;
+                            font: 700 16px/20px $bf;
+                            margin: 0 0 15px;
                             @include ellipsis();
+                            padding-right: 0;
                         }
     
                         .voucher-organization {
-                            font: 400 11px/18px $bf;
-                            margin: 0 0 0;
+                            font: 400 12px/20px $bf;
+                            padding-right: 0;
                         }
     
                         .voucher-value {
-                            font: 700 16px/22px $bf;
+                            position: initial;
+                            font: 700 22px/22px $bf;
+                            margin: 0 0 10px;
                         }
                     }
 
                     .voucher-overview {
                         display: flex;
+                        min-height: auto;
+                        width: 100%;
+                        padding: 20px;
 
                         .button {
                             padding: 10px;
