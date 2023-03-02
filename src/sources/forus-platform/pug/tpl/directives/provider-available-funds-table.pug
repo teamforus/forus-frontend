@@ -1,0 +1,103 @@
+.card
+    .card-header: .flex
+        .flex.flex-grow: .card-title
+            span(translate="provider_funds.title.available")
+            | &nbsp;
+            span.span-count(ng-if="!$dir.loading && $dir.selected.length > 0")
+                | {{ $dir.selected.length + '/' + $dir.funds.data.length }}
+            span.span-count(ng-if="!$dir.loading && $dir.selected.length == 0")
+                | {{ $dir.funds.meta.total }}
+
+        .flex.block.block-inline-filters
+            .button.button-primary.button-sm(
+                ng-if="$dir.selectedMeta.selected.length > 0"
+                ng-click="$dir.applyFunds($dir.selectedMeta.selected)")
+                em.mdi.mdi-send-circle-outline.icon-start
+                span(translate="provider_funds.buttons.join")
+
+            .form(ng-if="!$dir.filters.visible"): .form-group: input(
+                ng-model="$dir.filters.values.q" 
+                placeholder="Search").form-control
+
+            .button.button-text(ng-if="$dir.filters.visible" ng-click="$dir.filters.reset($event)")
+                em.mdi.mdi-close.icon-start
+                span(translate="provider_funds.buttons.clear_filter")
+
+            .inline-filters-dropdown.pull-right(click-outside="$dir.filters.hide($event)")
+                .inline-filters-dropdown-content(ng-show="$dir.filters.visible")
+                    .arrow-box.bg-dim: .arrow
+                    .form
+                        .form-group
+                            form-label-toggle(label="{{ 'provider_funds.filters.labels.search' | translate }}" is-active)
+                            input(
+                                ng-model="$dir.filters.values.q" 
+                                placeholder="{{ 'provider_funds.filters.labels.search' | translate }}").form-control
+
+                        .form-group(ng-click="$event.stopPropagation()")
+                            form-label-toggle(label="{{ 'provider_funds.filters.labels.organizations' | translate }}")
+                            .form-offset: select-control(
+                                prop="id"
+                                ng-model="$dir.filters.values.organization_id"
+                                options="$dir.organizations").form-control
+
+                        .form-group(ng-click="$event.stopPropagation()")
+                            form-label-toggle(label="{{ 'provider_funds.filters.labels.tags' | translate }}")
+                            .form-offset: select-control(
+                                prop="key"
+                                ng-model="$dir.filters.values.tag"
+                                options="$dir.tags" ).form-control
+
+                .button.button-default.button-icon(ng-click="$dir.filters.show($event)"): em.mdi.mdi-filter-outline
+
+    //- Vouchers list
+    .card-section(ng-if="$dir.funds.data.length > 0")
+        .card-block.card-block-table.card-block-table-fund.form
+            .table-wrapper
+                table.table
+                    tr
+                        th.th-narrow: table-checkbox-control(
+                            checked="$dir.selected.length == $dir.funds.data.length"
+                            ng-click="$dir.toggleAll($event, $dir.funds.data)")
+
+                        th(translate="provider_funds.labels.fund")
+                        th(translate="provider_funds.labels.organization")
+                        th(translate="provider_funds.labels.start_date")
+                        th(translate="provider_funds.labels.end_date")
+                        th(translate="provider_funds.labels.actions").nowrap.text-right
+
+                    tr(ng-repeat="fund in $dir.funds.data" ng-class="$dir.selected.includes(fund.id) ? 'selected' : ''")
+                        td.td-narrow: table-checkbox-control(
+                            checked="$dir.selected.includes(fund.id)"
+                            ng-click="$dir.toggle($event, fund)")
+
+                        td
+                            .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
+                            .fund-title(ng-bind="fund.name | str_limit:25" title="{{ fund.name }}")
+
+                        td(
+                            ng-bind="fund.organization.name | str_limit:25"
+                            title="{{ fund.organization.name }}")
+
+                        td.nowrap
+                            strong(ng-bind="fund.start_date_locale").text-strong.text-md.text-muted-dark
+
+                        td.nowrap
+                            strong(ng-bind="fund.end_date_locale").text-strong.text-md.text-muted-dark
+
+                        td: .button-group.flex-end
+                            .button.button-primary.button-sm(
+                                ng-if="fund.state != 'closed'"
+                                ng-click="$dir.applyFunds([fund])")
+                                em.mdi.mdi-send-circle-outline.icon-start
+                                span(translate="provider_funds.buttons.join")
+
+    //- Loading
+    .card-section(ng-if="$dir.loading"): .card-loading: .mdi.mdi-loading.mdi-spin
+
+    //- Pagination
+    .card-section(ng-if="$dir.funds.meta" ng-show="$dir.funds.meta.last_page > 1")
+        paginator(meta="$dir.funds.meta" filters="$dir.filters.values" count-buttons="5" on-page-change="$dir.onPageChange(query)")
+
+    //- Not found
+    .card-section(ng-if="!$dir.loading && $dir.funds.meta.total == 0"): .block.block-empty.text-center
+        .empty-title(translate="provider_funds.empty_block.available")

@@ -1,0 +1,110 @@
+.card
+    .card-header: .flex
+        .flex.flex-grow: .card-title
+            span(translate="provider_funds.title.{{ $dir.type }}")
+            | &nbsp;
+            span.span-count(ng-if="!$dir.loading && $dir.selected.length > 0")
+                | {{ $dir.selected.length + '/' + $dir.providerFunds.data.length }}
+            span.span-count(ng-if="!$dir.loading && $dir.selected.length == 0")
+                | {{ $dir.providerFunds.meta.total }}
+
+        .flex.block.block-inline-filters
+            .button.button-danger.button-sm(
+                ng-if="$dir.selectedMeta.selected_cancel.length > 0"
+                ng-disabled="$dir.selectedMeta.selected_cancel.length !== $dir.selected.length"
+                ng-click="$dir.cancelApplications($dir.selectedMeta.selected_cancel)")
+                em.mdi.mdi-close-circle-outline.icon-start
+                span(translate="provider_funds.labels.cancel_application")
+
+            .form: .form-group: input(
+                ng-model="$dir.filters.q" 
+                placeholder="Search").form-control
+
+    //- Vouchers list
+    .card-section(ng-if="!$dir.loading && $dir.providerFunds.data.length > 0")
+        .card-block.card-block-table.card-block-table-fund.form
+            .table-wrapper
+                table.table
+                    tr
+                        th.th-narrow(ng-if="$dir.type !== 'archived'"): table-checkbox-control(
+                            checked="$dir.selected.length == $dir.providerFunds.data.length"
+                            ng-click="$dir.toggleAll($event, $dir.providerFunds.data)")
+
+                        th(translate="provider_funds.labels.fund")
+                        th(translate="provider_funds.labels.organization")
+                        th(translate="provider_funds.labels.start_date")
+                        th(translate="provider_funds.labels.end_date")
+                        th(ng-if="$dir.type === 'active'" translate="provider_funds.labels.max_amount")
+                        th(translate="provider_funds.labels.allow_budget")
+                        th(translate="provider_funds.labels.allow_products")
+                        th(translate="provider_funds.labels.status")
+                        th(translate="provider_funds.labels.actions" ng-if="$dir.type !== 'archived'").nowrap.text-right
+
+                    tr(ng-repeat="providerFund in $dir.providerFunds.data" ng-class="$dir.selected.includes(providerFund.id) ? 'selected' : ''")
+                        td.td-narrow(ng-if="$dir.type !== 'archived'"): table-checkbox-control(
+                            checked="$dir.selected.includes(providerFund.id)"
+                            ng-click="$dir.toggle($event, providerFund)")
+
+                        td.nowrap
+                            .fund-img: img(ng-src="{{ providerFund.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
+                            .fund-title(ng-bind="providerFund.fund.name")
+
+                        td(
+                            ng-bind="providerFund.fund.organization.name | str_limit:25"
+                            title="{{ providerFund.fund.organization.name }}")
+
+                        td.nowrap
+                            strong(ng-bind="providerFund.fund.start_date_locale").text-strong.text-md.text-muted-dark
+
+                        td.nowrap
+                            strong(ng-bind="providerFund.fund.end_date_locale").text-strong.text-md.text-muted-dark
+
+                        td(ng-if="$dir.type === 'active'").nowrap
+                            span(ng-if="providerFund.fund.fund_amount" ng-bind="providerFund.fund.fund_amount | currency_format")
+                            span(ng-if="!providerFund.fund.fund_amount" ng-bind="'-'")
+
+                        td(ng-bind="providerFund.allow_budget ? 'Ja' : 'Nee'")
+
+                        td(ng-bind="(providerFund.allow_some_products || providerFund.allow_products) ? 'Ja' : 'Nee'")
+
+                        td.nowrap(ng-if="!providerFund.fund.archived && !providerFund.fund.expired")
+                            .tag.tag-sm.tag-success(ng-if="providerFund.state == 'accepted'" ng-bind="providerFund.state_locale")
+                            .tag.tag-sm.tag-warning(ng-if="providerFund.state == 'pending'" ng-bind="providerFund.state_locale")
+                            .tag.tag-sm.tag-danger(ng-if="providerFund.state == 'rejected'" ng-bind="providerFund.state_locale")
+
+                        td.nowrap(ng-if="providerFund.fund.archived || providerFund.fund.expired")
+                            .tag.tag-sm.tag-default Archived
+
+                        td(ng-if="$dir.type !== 'archived'"): .button-group.flex-end
+                            //- Show details
+                            .button.button-primary.button-sm.button-icon(
+                                title="Bekijk"
+                                ng-if="providerFund.fund.type == 'subsidies' || (providerFund.fund.state != 'closed' && providerFund.allow_some_products)"
+                                ng-click="$dir.viewOffers(providerFund)")
+                                em.mdi.mdi-eye-outline.icon-start
+
+                            //- Unsubscribe
+                            .button.button-danger.button-sm.button-icon(
+                                title="Unsubscribe"
+                                ng-if="$dir.type == 'active'"
+                                ng-click="$dir.unsubscribe(providerFund)"
+                                ng-disabled="!providerFund.can_unsubscribe")
+                                em.mdi.mdi-progress-close.icon-start
+
+                            //- Cancel fund application
+                            .button.button-danger.button-sm.button-icon(
+                                title="Cancel"
+                                ng-if="providerFund.can_cancel"
+                                ng-click="$dir.cancelApplications([providerFund])")
+                                em.mdi.mdi-close-circle-outline.icon-start
+
+    //- Loading
+    .card-section(ng-if="$dir.loading"): .card-loading: .mdi.mdi-loading.mdi-spin
+
+    //- Pagination
+    .card-section(ng-if="$dir.providerFunds.meta" ng-show="$dir.providerFunds.meta.last_page > 1")
+        paginator(meta="$dir.providerFunds.meta" filters="$dir.filters" count-buttons="5" on-page-change="$dir.onPageChange(query)")
+
+    //- Not found
+    .card-section(ng-if="!$dir.loading && $dir.providerFunds.meta.total == 0"): .block.block-empty.text-center
+        .empty-title(ng-bind="'provider_funds.empty_block.' + $dir.type | translate")
