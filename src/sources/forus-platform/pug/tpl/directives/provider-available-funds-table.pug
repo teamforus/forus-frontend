@@ -17,7 +17,7 @@
 
             .form(ng-if="!$dir.filters.visible"): .form-group: input(
                 ng-model="$dir.filters.values.q" 
-                placeholder="Search").form-control
+                placeholder="Zoeken").form-control
 
             .button.button-text(ng-if="$dir.filters.visible" ng-click="$dir.filters.reset($event)")
                 em.mdi.mdi-close.icon-start
