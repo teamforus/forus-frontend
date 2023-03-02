@@ -1294,7 +1294,38 @@ module.exports = {
             fund: "Fonds",
             status: "Status",
             actions: "Opties",
+            email: "E-mailadres",
+            expired_at: "Verlopen op",
+            first_name: "Naam",
+            last_name: "Voornamen",
+            price: "Bedrag",
+            sponsor_organization: "Sponsor",
+            product: "Aanbod",
+            rejected_at: "Geweigerd op",
+            accepted_at: "Geaccepteerd op",
+            created_at: "Aangemaakt op",
+            expire_at: "Verloopdatum",
+            phone: "Telefoonnummer",
+            address: "Adres",
+            birth_date: "Geboortedatum",
+            user_note: "Notitie",
         },
+    },
+
+    // RESERVATION SETTINGS - reservations-settings.pug
+    reservation_settings: {
+        header: {
+            title: "Reservation settings page",
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        },
+        labels: {
+            phone: "Telefoonnummer instellingen",
+            address: "Adres instellingen",
+            birth_date: "Geboortedatum instellingen",
+        }
     },
 
     // VALIDATION REQUEST - validation-request.pug

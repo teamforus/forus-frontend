@@ -1301,6 +1301,32 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
+        name: "reservations-show",
+        url: "/organizations/{organization_id}/reservations/{id}",
+        component: "reservationShowComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('reservations-show', 'scan_vouchers'),
+            reservation: ['$transition$', 'ProductReservationService', (
+                $transition$, ProductReservationService
+            ) => repackResponse(ProductReservationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().id
+            ))],
+        }
+    });
+
+    $stateProvider.state({
+        name: "reservations-settings",
+        url: "/organizations/{organization_id}/reservations-settings",
+        component: "reservationsSettingsComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('reservations-show', 'scan_vouchers', 'manage_organization'),
+        }
+    });
+
+    $stateProvider.state({
         name: "products-create",
         url: "/organizations/{organization_id}/products/create",
         component: "productsEditComponent",

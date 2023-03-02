@@ -48,7 +48,7 @@
                             type="text"
                             ng-model="$ctrl.form.values.first_name"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.first_name' | translate }}"
-                            dusk="productReserveFormFirstName").form-control.form-control
+                            dusk="productReserveFormFirstName").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.first_name" ng-bind="error")
 
                     .col.col-lg-6.form-group
@@ -57,8 +57,40 @@
                             type="text"
                             ng-model="$ctrl.form.values.last_name"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.last_name' | translate }}"
-                            dusk="productReserveFormLastName").form-control.form-control
+                            dusk="productReserveFormLastName").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.last_name" ng-bind="error")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
+
+                .row(ng-if="$ctrl.product.show_reservation_phone || $ctrl.product.show_reservation_address")
+                    .form-group.col.col-lg-6(ng-if="$ctrl.product.show_reservation_phone")
+                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.phone")
+                        input.form-control(
+                            ng-model="$ctrl.form.values.phone" 
+                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.phone' | i18n }}"
+                            dusk="productReserveFormPhone")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
+
+                    .form-group.col.col-lg-6(ng-if="$ctrl.product.show_reservation_address")
+                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.address")
+                        input.form-control(
+                            ng-model="$ctrl.form.values.address" 
+                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.address' | i18n }}"
+                            dusk="productReserveFormAddress")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.address" ng-bind="error")
+
+                    .form-group.col.col-lg-6(ng-if="!$ctrl.product.show_reservation_phone || !$ctrl.product.show_reservation_address")    
+
+                .row(ng-if="$ctrl.product.show_reservation_requester_birth_date")
+                    .col.col-lg-6.form-group
+                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.birth_date")
+                        datepicker(
+                            date-format="yyyy-MM-dd"
+                            datepicker-mobile=""
+                            date-max-limit="{{ $ctrl.dateMinLimit + '' }}"
+                            date-week-start-day="1").form-control
+                            input(ng-model="$ctrl.form.values.birth_date" type="text" placeholder="dd-MM-jjjj").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.birth_date" ng-bind="error")
+                    .col.col-lg-6.form-group
 
                 .form-group
                     .form-label(translate="modal_product_reserve_notes.fill_notes.labels.notes")
@@ -93,6 +125,27 @@
                 span(ng-bind="$ctrl.form.values.last_name")
                 br
                 br
+
+                div(ng-if="$ctrl.product.show_reservation_phone")
+                    strong(translate="modal_product_reserve_notes.confirm_notes.labels.phone")
+                    br
+                    span(ng-bind="$ctrl.form.values.phone")
+                    br
+                    br
+
+                div(ng-if="$ctrl.product.show_reservation_address")
+                    strong(translate="modal_product_reserve_notes.confirm_notes.labels.address")
+                    br
+                    span(ng-bind="$ctrl.form.values.address")
+                    br
+                    br
+
+                div(ng-if="$ctrl.product.show_reservation_requester_birth_date")
+                    strong(translate="modal_product_reserve_notes.confirm_notes.labels.requester_birth_date")
+                    br
+                    span(ng-bind="$ctrl.form.values.birth_date")
+                    br
+                    br
 
                 div(ng-if="$ctrl.form.values.user_note")
                     strong(translate="modal_product_reserve_notes.confirm_notes.labels.notes")

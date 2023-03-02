@@ -7,6 +7,8 @@ const ModalProductReserveDetailsComponent = function(
     AuthService
 ) {
     const $ctrl = this;
+    
+    $ctrl.dateMinLimit = new Date();
 
     // Initialize authorization form
     const makeEmailForm = () => {
