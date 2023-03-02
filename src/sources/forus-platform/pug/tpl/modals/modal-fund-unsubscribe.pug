@@ -10,23 +10,23 @@
         .modal-body.modal-body-visible: .modal-section
             .row: .col.col-sm-10.col-sm-offset-1
                 .modal-title.text-center 
-                    | Do you really want to unsubscribe from the {{ $ctrl.providerFund.fund.name }}?
+                    | Weet u zeker dat u zich wilt afmelden bij {{ $ctrl.providerFund.fund.name }}?
                 .modal-description.text-center
-                    | If everything is clear then fill the form below.
+                    | Als alles duidelijk is kunt u het onderstaande formulier invullen.
 
                 .form-group
-                    label.form-label.form-label-required Date of unsubscription
+                    label.form-label.form-label-required Afmeldingsdatum
                     datepicker(
                         date-format="yyyy-MM-dd" 
                         datepicker-mobile="" 
                         date-week-start-day="1"
                         date-min-limit="{{ $ctrl.dateMinLimit + '' }}").form-control
-                        input(ng-model="$ctrl.form.values.unsubscribe_at" type="text" placeholder="Choose a date").form-control
+                        input(ng-model="$ctrl.form.values.unsubscribe_at" type="text" placeholder="Kies een datum").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.unsubscribe_at" ng-bind="error")
                 
                 .form-group
                     label.form-label Notitie
-                    textarea(ng-model="$ctrl.form.values.note" placeholder="Reason").form-control
+                    textarea(ng-model="$ctrl.form.values.note" placeholder="Reden").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
                     .form-error(ng-repeat="error in $ctrl.form.errors.fund_provider_id" ng-bind="error")
 

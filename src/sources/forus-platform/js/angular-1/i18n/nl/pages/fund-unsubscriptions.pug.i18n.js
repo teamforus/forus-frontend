@@ -3,9 +3,9 @@ module.exports = {
     labels: {
         fund: "Fondsen",
         organization: "Organisatie",
-        created_at: "Sent on",
-        unsubscription_date: "Requires from",
-        note: "Reason",
+        created_at: "Verstuurd op",
+        unsubscription_date: "Vanaf",
+        note: "Reden",
         status: "Status",
         actions: "Acties",
         provider: "Aanbieder",
