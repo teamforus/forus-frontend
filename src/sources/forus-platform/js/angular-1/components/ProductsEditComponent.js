@@ -32,6 +32,20 @@ const ProductsEditComponent = function (
         label: 'Handmatig controleren',
     }];
 
+    $ctrl.reservationFieldOptions = [{
+        value: 'global',
+        label: 'Gebruik standaard instelling',
+    }, {
+        value: "no",
+        label: "Nee"
+    }, {
+        value: "optional",
+        label: "Optioneel"
+    }, {
+        value: "required",
+        label: "Verplicht"
+    }];
+
     $ctrl.goToFundProvider = (provider) => {
         $state.go('fund-provider', {
             organization_id: provider.fund.organization_id,

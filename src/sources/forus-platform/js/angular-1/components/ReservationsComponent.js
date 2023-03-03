@@ -1,5 +1,3 @@
-const ProductReservationsExportService = require("../services/ProductReservationsExportService");
-
 const ReservationsComponent = function(
     $filter,
     $timeout,
@@ -155,10 +153,6 @@ const ReservationsComponent = function(
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange(),
         });
-    };
-
-    $ctrl.viewNotes = (reservation) => {
-        ModalService.open('reservationNotes', { reservation });
     };
 
     $ctrl.exportReservations = () => {

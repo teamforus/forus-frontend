@@ -11,6 +11,12 @@
                 .flex.block.block-inline-filters
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.reservationEnabled"
+                        ui-sref="reservations-settings({organization_id: $ctrl.organization.id})")
+                        em.mdi.mdi-cog.icon-start
+                        | Settings
+
+                    .button.button-primary.button-sm(
+                        ng-if="$ctrl.reservationEnabled"
                         ng-click="$ctrl.makeReservation()")
                         em.mdi.mdi-plus-circle.icon-start
                         | Aanmaken
@@ -147,8 +153,8 @@
                                 em.mdi.mdi-eye-outline
 
                             button.button.button-sm.button-default.button-icon(
-                                ng-click="$ctrl.viewNotes(reservation)")
-                                em.mdi.mdi-message-text
+                                ui-sref="reservations-show({organization_id: $ctrl.organization.id, id: reservation.id})")
+                                em.mdi.mdi-eye
 
             .card-section(ng-if="$ctrl.reservations.meta.total == 0")
                 .card-subtitle.text-center Geen reserveringen.

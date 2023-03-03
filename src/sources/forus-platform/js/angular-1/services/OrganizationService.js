@@ -240,6 +240,10 @@ module.exports = [
                 return ApiRequest.get('/platform/organizations/' + id, query);
             };
 
+            this.updateReservationFields = function(id, query = {}) {
+                return ApiRequest.patch('/platform/organizations/' + id + '/update-reservation-fields', query);
+            };
+
             this.use = function(id) {
                 localStorage.setItem('active_organization', id);
                 $rootScope.$broadcast('organization-changed', id);
