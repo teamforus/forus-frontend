@@ -30,6 +30,21 @@ const ProductReservationService = function(ApiRequest) {
             return ApiRequest._delete(`${uriPrefix}/${organization_id}/product-reservations/${id}`);
         }
 
+        this.exportFields = function(organization_id) {
+            return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/export-fields`);
+        };
+
+        this.export = (organization_id, data = {}) => {
+            const callback = (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
+
+                return _cfg;
+            };
+
+            return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/export`, data, {}, true, callback);
+        };
+
         this.sampleCsvProductReservations = (product_id = '') => {
             const headers = ['number', 'product_id'];
             const values = ['000000000000', product_id];

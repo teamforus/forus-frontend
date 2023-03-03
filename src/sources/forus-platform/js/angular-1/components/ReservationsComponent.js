@@ -1,10 +1,13 @@
+const ProductReservationsExportService = require("../services/ProductReservationsExportService");
+
 const ReservationsComponent = function(
     $filter,
     $timeout,
     ModalService,
     OrganizationService,
     PushNotificationsService,
-    ProductReservationService
+    ProductReservationService,
+    ProductReservationsExportService,
 ) {
     const $ctrl = this;
     const $currencyFormat = $filter('currency_format');
@@ -158,6 +161,10 @@ const ReservationsComponent = function(
         ModalService.open('reservationNotes', { reservation });
     };
 
+    $ctrl.exportReservations = () => {
+        ProductReservationsExportService.export($ctrl.organization.id, $ctrl.filters);
+    };
+
     $ctrl.$onInit = () => {
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
@@ -194,6 +201,7 @@ module.exports = {
         'OrganizationService',
         'PushNotificationsService',
         'ProductReservationService',
+        'ProductReservationsExportService',
         ReservationsComponent
     ],
     templateUrl: 'assets/tpl/pages/reservations.html'

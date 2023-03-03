@@ -75,6 +75,13 @@
                                         ng-model="$ctrl.filters.values.state"
                                         options="$ctrl.states").form-control
 
+                                .form-actions
+                                    button.button.button-primary.button-wide(
+                                        ng-click="$ctrl.exportReservations()" 
+                                        ng-disabled="$ctrl.reservations.meta.total == 0")
+                                        em.mdi.mdi-download.icon-start  
+                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.reservations.meta.total }")
+
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
             .card-section.card-section-padless(ng-if="$ctrl.reservations.meta.total > 0")
