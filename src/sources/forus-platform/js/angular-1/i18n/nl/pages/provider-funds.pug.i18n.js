@@ -5,7 +5,7 @@ module.exports = {
         active: "Actieve fondsen",
         archived: 'Archief',
         invitations: "Uitnodigingen",
-        invitations_archived: "Geachriveerde uitnodigingen",
+        invitations_archived: "Gearchiveerde uitnodigingen",
         expired_closed: "Archief",
         main: "Fondsen",
     },
@@ -80,7 +80,7 @@ module.exports = {
     tabs: {
         active: 'Actief',
         invitations: 'Uitnodigingen',
-        invitations_archived: 'Invitations archive',
+        invitations_archived: 'Archief',
         pending_rejected: "Aanmeldingen",
         available: 'Beschikbaar',
         archived: 'Archief',
