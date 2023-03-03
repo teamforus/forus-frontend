@@ -3,14 +3,14 @@
     section.app.app-content
         a.button.button-text(ui-sref="sponsor-provider-organizations({ organization_id: $ctrl.organization.id })")
             em.mdi.mdi-arrow-left.icon-start
-            | Back to previous page
+            | Terug naar de vorige pagina
 
         //- Unsubscriptions list
         .card
             .card-header: .flex
                 //- Title
                 .flex.flex-grow: .card-title
-                    span(translate="Unsubscription requests")
+                    span(translate="Afmeldingsaanvragen")
                     | &nbsp;
                     span(ng-bind="$ctrl.fundUnsubscribes.meta.total").span-count
                 
