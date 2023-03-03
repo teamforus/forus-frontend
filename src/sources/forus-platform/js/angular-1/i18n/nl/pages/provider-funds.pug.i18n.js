@@ -80,7 +80,7 @@ module.exports = {
     tabs: {
         active: 'Actief',
         invitations: 'Uitnodigingen',
-        invitations_archived: 'Archief',
+        invitations_archived: 'Uitnodingen archief',
         pending_rejected: "Aanmeldingen",
         available: 'Beschikbaar',
         archived: 'Archief',
