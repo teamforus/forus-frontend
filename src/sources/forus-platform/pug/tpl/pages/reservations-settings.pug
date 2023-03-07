@@ -11,42 +11,33 @@
                 .flex
                     button(type="submit" translate="reservation_settings.buttons.confirm").button.button-primary.button-sm
 
-            .card-section.card-section-primary.card-section-settings
-                .card-title(translate="reservation_settings.labels.phone")
-                
-                .row
-                    .form-group.col.col-lg-6.col-xs-12
-                        label(for="reservation_phone").form-label
-                        select(
-                            id="reservation_phone"
-                            ng-model="$ctrl.form.values.reservation_phone" 
-                            ng-options="field.value as field.label for field in $ctrl.reservationFieldOptions").form-control
+            .card-section.card-section-primary.card-section-settings: .row: .col-xs-12.col-lg-8
+                //- Product reservation phone
+                .form-group.form-group-inline
+                    label(for="reservation_phone" translate="reservation_settings.labels.phone").form-label
+                    select(
+                        ng-model="$ctrl.form.values.reservation_phone" 
+                        ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.reservation_phone" ng-bind="error")
 
-        
-            .card-section.card-section-primary.card-section-settings
-                .card-title(translate="reservation_settings.labels.address")
-                
-                .row
-                    .form-group.col.col-lg-6.col-xs-12
-                        label(for="reservation_address").form-label
-                        select(
-                            id="reservation_address"
-                            ng-model="$ctrl.form.values.reservation_address" 
-                            ng-options="field.value as field.label for field in $ctrl.reservationFieldOptions").form-control
-            
-            .card-section.card-section-primary.card-section-settings
-                .card-title(translate="reservation_settings.labels.birth_date")
-                
-                .row
-                    .form-group.col.col-lg-6.col-xs-12
-                        label(for="reservation_requester_birth_date").form-label
-                        select(
-                            id="reservation_requester_birth_date"
-                            ng-model="$ctrl.form.values.reservation_requester_birth_date" 
-                            ng-options="field.value as field.label for field in $ctrl.reservationFieldOptions").form-control                   
+                //- Product reservation address
+                .form-group.form-group-inline
+                    label(for="reservation_address" translate="reservation_settings.labels.address").form-label
+                    select(
+                        ng-model="$ctrl.form.values.reservation_address" 
+                        ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.reservation_address" ng-bind="error")
+                        
+                //- Product reservation birth date
+                .form-group.form-group-inline
+                    label(for="reservation_birth_date" translate="reservation_settings.labels.birth_date").form-label
+                    select(
+                        ng-model="$ctrl.form.values.reservation_birth_date" 
+                        ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.reservation_birth_date" ng-bind="error")           
 
             //- Cancel or Submit
-            .card-section.card-section-primary: .text-center
+            .card-section.card-section-primary: .button-group.flex-center
                 button(
                     type="button"
                     ui-sref="reservations({organization_id: $ctrl.organization.id})"

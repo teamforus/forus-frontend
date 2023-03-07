@@ -89,7 +89,7 @@ let ProductService = function(ApiRequest) {
 
                 reservation_phone: apiResource.reservation_phone,
                 reservation_address: apiResource.reservation_address,
-                reservation_requester_birth_date: apiResource.reservation_requester_birth_date,
+                reservation_birth_date: apiResource.reservation_birth_date,
             };
         };
     });
