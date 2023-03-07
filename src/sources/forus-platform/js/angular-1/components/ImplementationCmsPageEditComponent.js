@@ -26,15 +26,15 @@ const ImplementationCmsPageEditComponent = function (
         name: 'Public',
     }];
 
-    $ctrl.descriptionDefaultOptions = [{
-        value: null,
-        name: 'Overwrite default description',
+    $ctrl.descriptionPositions = [{
+        value: 'replace',
+        name: 'Overwrite default page content',
     }, {
-        value: 'top',
-        name: 'Default description before CMS description',
+        value: 'before',
+        name: 'Show before default page content',
     }, {
-        value: 'bottom',
-        name: 'Default description after CMS description',
+        value: 'after',
+        name: 'Show after default page content',
     }];
 
     $ctrl.registerImplementationBlocksEditor = function (childRef) {
@@ -80,6 +80,7 @@ const ImplementationCmsPageEditComponent = function (
             state: $ctrl.states[0].value,
             external: $ctrl.types[0].value,
             page_type: $ctrl.page_type,
+            description_position: $ctrl.descriptionPositions[0]?.value,
         };
 
         if (!$ctrl.page_type_config.blocks) {

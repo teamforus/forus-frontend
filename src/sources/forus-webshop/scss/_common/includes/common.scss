@@ -32,6 +32,14 @@ img {
     flex-direction: row !important;
 }
 
+.flex-horizontal-reverse {
+    flex-direction: row-reverse !important;
+}
+
+.flex-vertical-reverse {
+    flex-direction: column-reverse !important;
+}
+
 .pull-right {
     float: right !important;
 }
@@ -1103,14 +1111,6 @@ img {
 .visible-lg-inline,
 .visible-lg-inline-block {
     display: none !important;
-}
-
-.order-top {
-    order: 1;
-}
-
-.order-bottom {
-    order: 2;
 }
 
 @media (max-width: 767px) {
