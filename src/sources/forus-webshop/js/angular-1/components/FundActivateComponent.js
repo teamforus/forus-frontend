@@ -52,22 +52,6 @@ const FundActivateComponent = function (
         $ctrl.state = state;
     };
 
-    $ctrl.getFunds = () => {
-        return FundService.list(null, {
-            check_criteria: 1,
-        }).then((res) => res.data.data);
-    }
-
-    $ctrl.getApplicableFunds = () => {
-        const alreadyAppliedFunds = $ctrl.vouchers.map((voucher) => voucher.fund_id);
-
-        return $ctrl.getFunds().then((funds) => {
-            return funds
-                .filter((fund) => !alreadyAppliedFunds.includes(fund.id))
-                .filter((fund) => fund.criteria.filter((criterion) => !criterion.is_valid).length == 0);
-        });
-    };
-
     $ctrl.redeemCode = (form, code) => {
         form.lock();
         form.enabled = false;
