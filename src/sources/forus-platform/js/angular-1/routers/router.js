@@ -90,6 +90,14 @@ const authUserResolver = () => {
     return ['$rootScope', ($rootScope) => $rootScope.loadAuthUser()];
 };
 
+const routeParam = (value = null, dynamic = true, squash = true) => {
+    return {
+        ...{ value },
+        ...(squash !== null ? { squash } : {}),
+        ...(dynamic !== null ? { dynamic } : {}),
+    };
+};
+
 module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider, $locationProvider, appConfigs
 ) => {
@@ -220,7 +228,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-funds', ['manage_funds', 'view_finances', 'view_funds'], false),
-            fundLevel: [('permission'), () => "organizationFunds"],
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.list($transition$.params().organization_id, { with_archived: 1, with_external: 1, stats: 'min' }))
             }],
@@ -287,6 +294,25 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundService.list($transition$.params().organization_id, {
                 per_page: 100
             }))],
+            fundUnsubscribes: ['$transition$', 'FundUnsubscribeService', 'permission', (
+                $transition$, FundUnsubscribeService,
+            ) => repackResponse(FundUnsubscribeService.listSponsor($transition$.params().organization_id, {
+                per_page: 1000
+            }))],
+        }
+    });
+
+    // Fund unsubscribe requests (sponsor)
+    $stateProvider.state({
+        name: "sponsor-fund-unsubscriptions",
+        url: "/organizations/{organization_id}/fund-unsubscriptions?state",
+        component: "sponsorFundUnsubscriptionsComponent",
+        params: {
+            state: routeParam('all'),
+        },
+        resolve: {
+            permission: permissionMiddleware('organization-providers', 'manage_providers'),
+            organization: organziationResolver(),
         }
     });
 
@@ -1389,13 +1415,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "provider-funds",
-        url: "/organizations/{organization_id}/provider/funds?fundsType",
+        url: "/organizations/{organization_id}/provider/funds?tab&page",
         component: "providerFundsComponent",
         params: {
-            fundsType: {
-                squash: true,
-                value: null
-            },
+            tab: routeParam(),
+            page: routeParam(),
         },
         resolve: {
             organization: organziationResolver(),
@@ -1403,19 +1427,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             fundsAvailable: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
             ) => repackPagination(ProviderFundService.listAvailableFunds($transition$.params().organization_id, {
-                per_page: 10
+                per_page: 1
             }))],
-            funds: ['$transition$', 'ProviderFundService', (
-                $transition$, ProviderFundService
-            ) => repackResponse(ProviderFundService.listFunds($transition$.params().organization_id, {
-                per_page: 1000,
-            }))],
-            fundInvitations: ['$transition$', 'FundProviderInvitationsService', (
-                $transition$, FundProviderInvitationsService
-            ) => repackResponse(FundProviderInvitationsService.listInvitations(
-                $transition$.params().organization_id
-            ))],
-            fundLevel: () => 'fundsAvailable'
+            tab: ['$transition$', 'fundsAvailable', ($transition$, fundsAvailable) => {
+                if ($transition$.params().tab) {
+                    return $transition$.params().tab;
+                }
+
+                return $transition$.params().organization_id || fundsAvailable.meta.totals.active ? 'active' : 'available'; 
+            }],
         }
     });
 
