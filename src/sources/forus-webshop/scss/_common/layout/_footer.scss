@@ -188,9 +188,12 @@
             }
         }
 
-        .sponsor-organization-logo {
-            img {
+        .footer-sponsor-logo {
+            display: flex;
+
+            .footer-sponsor-logo-mg {
                 width: 180px;
+                display: block;
             }
         }
 
@@ -246,8 +249,8 @@
                 }
             }
 
-            .sponsor-organization-logo {
-                text-align: center;
+            .footer-sponsor-logo {
+                justify-content: center;
             }
         }
     }
