@@ -12,12 +12,15 @@
 
             .voucher-item.voucher-item-select.voucher-item-select-placeholder
                 .voucher-image
-                    img(src="{{ $dir.value.fund.logo.sizes.thumbnail || $dir.value.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                    img(ng-src="{{ $dir.value.fund.logo.sizes.thumbnail || $dir.value.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
                 .voucher-details: .flex.flex-horizontal
                     .flex.flex-vertical.flex-grow
                         .voucher-name(ng-bind="$dir.value.fund.name")
-                        .voucher-organization(ng-bind="$dir.value.fund.organization.name")
+                        .voucher-organization
+                            span(ng-if="$dir.value.records_title" ng-bind='$dir.value.records_title')
+                            .text-separator(ng-if="$dir.value.records_title")
+                            span(ng-bind="$dir.value.fund.organization.name")
 
                     .flex.flex-vertical.text-right
                         .voucher-value(ng-if="$dir.value.fund.type === 'budget'" ng-bind="$dir.value.amount | currency_format")

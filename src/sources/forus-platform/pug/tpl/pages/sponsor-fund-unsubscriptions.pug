@@ -1,0 +1,101 @@
+.app.app-container
+    menu
+    section.app.app-content
+        a.button.button-text(ui-sref="sponsor-provider-organizations({ organization_id: $ctrl.organization.id })")
+            em.mdi.mdi-arrow-left.icon-start
+            | Terug naar de vorige pagina
+
+        //- Unsubscriptions list
+        .card
+            .card-header: .flex
+                //- Title
+                .flex.flex-grow: .card-title
+                    span(translate="Afmeldingsaanvragen")
+                    | &nbsp;
+                    span(ng-bind="$ctrl.fundUnsubscribes.meta.total").span-count
+                
+                .block.block-label-tabs.nowrap.pull-right: .label-tab-set
+                    .label-tab.label-tab-sm(
+                        ng-repeat="state in $ctrl.states"
+                        ng-class="{active : $ctrl.state == state.value}" 
+                        ng-click="$ctrl.setState(state)"
+                        ng-bind="state.label")
+
+            .card-section(ng-if="!$ctrl.loading && $ctrl.fundUnsubscribes.meta.total > 0")
+                .card-block.card-block-table.card-block-table-fund.form
+                    .table-wrapper
+                        table.table
+                            tr
+                                th(translate="fund_unsubscriptions.labels.provider")
+                                th(translate="fund_unsubscriptions.labels.fund")
+                                th(translate="fund_unsubscriptions.labels.created_at")
+                                th(translate="fund_unsubscriptions.labels.note")
+                                th(translate="fund_unsubscriptions.labels.status")
+                                th(translate="fund_unsubscriptions.labels.unsubscription_date").nowrap.text-right
+
+                            tr(
+                                ng-repeat="unsubscription in $ctrl.fundUnsubscribes.data"
+                                ui-sref="sponsor-provider-organization({ organization_id: $ctrl.organization.id, provider_organization_id: unsubscription.fund_provider.organization.id })")
+                                td.nowrap
+                                    .fund-img: img(ng-src="{{ unsubscription.fund_provider.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
+                                    .fund-title(ng-bind="unsubscription.fund_provider.organization.name")
+
+                                td(
+                                    ng-bind="unsubscription.fund_provider.fund.name | str_limit:25"
+                                    title="{{ unsubscription.fund_provider.fund.name }}")
+
+                                td.nowrap
+                                    strong(ng-bind="unsubscription.created_at_locale").text-strong.text-md.text-muted-dark
+
+                                
+                                td(title="{{ unsubscription.note }}") 
+                                    .flex 
+                                        span(ng-bind="unsubscription.note | str_limit:25")
+                                        | &nbsp;
+
+                                        em.td-icon.mdi.mdi-information.block.block-tooltip-details(
+                                            ng-if="unsubscription.note.length >= 25"
+                                            ng-click="$ctrl.showTooltip($event, unsubscription)"
+                                            ng-class="{active: unsubscription.showTooltip}")
+                                            
+                                            .tooltip-content.tooltip-content-bottom(
+                                                ng-if="unsubscription.showTooltip" 
+                                                click-outside="$ctrl.hideTooltip($event, unsubscription)")
+                                                .tooltip-text(ng-bind="(unsubscription.note || '-') | str_limit:512" title="{{ unsubscription.note }}")
+
+                                td.nowrap
+                                    //- Pending
+                                    .tag.tag-sm(
+                                        ng-if="unsubscription.state == 'approved'"
+                                        ng-bind="unsubscription.state_locale").tag-success
+
+                                    //- Pending
+                                    .tag.tag-sm(
+                                        ng-if="unsubscription.state == 'pending'"
+                                        ng-bind="unsubscription.state_locale").tag-warning
+
+                                    //- Pending overdue
+                                    .tag.tag-sm(
+                                        ng-if="unsubscription.state == 'overdue'"
+                                        ng-bind="unsubscription.state_locale").tag-danger
+
+                                    //- Canceled
+                                    .tag.tag-sm(
+                                        ng-if="unsubscription.state == 'canceled'"
+                                        ng-bind="unsubscription.state_locale").tag-default
+
+                                td.nowrap.text-right: div(ng-class="unsubscription.is_expired ? 'text-danger' : 'text-muted-dark'")
+                                    em.mdi.mdi-alert(ng-if="unsubscription.is_expired")
+                                    | &nbsp;
+                                    strong(ng-bind="unsubscription.unsubscribe_at_locale").text-strong.text-md
+            
+            //- Loading
+            .card-section(ng-if="$ctrl.loading"): .card-loading: .mdi.mdi-loading.mdi-spin
+
+            //- Pagination
+            .card-section(ng-if="$ctrl.fundUnsubscribes.meta" ng-show="!$ctrl.loading && $ctrl.fundUnsubscribes.meta.last_page > 1")
+                paginator(meta="$ctrl.fundUnsubscribes.meta" filters="$ctrl.filters" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+
+            //- Not found
+            .card-section(ng-if="!$ctrl.loading && $ctrl.fundUnsubscribes.meta.total == 0"): .block.block-empty.text-center
+                .empty-title No unsubscription requests
