@@ -231,6 +231,33 @@ $tf: uppercase;
             }
         }
 
+        &.ui-control-checkbox-primary {
+            padding-right: 5px;
+
+            .ui-checkbox-box {
+                background: #FBFBFB;
+                border-color: #848484;
+                width: 16px;
+                height: 16px;
+
+                .mdi {
+                    font-size: 16px;
+                    color: #FFFFFF;
+                }
+            }
+
+            input[type=checkbox]:checked+.ui-checkbox-label {
+                .ui-checkbox-box {
+                    background: #315EFD;
+                    border-color: #315EFD;
+
+                    .mdi {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
         &.ui-control-checkbox-slim {
             padding-top: 5px;
             padding-bottom: 5px;

@@ -46,7 +46,9 @@
                             .fund-subtitle(ng-bind="fund.type_locale")
 
                         .fund-actions
-                            a(ui-sref="funds-edit(fund)").button.button-default
+                            a(
+                                ng-if="fund.organization | hasPerm:['manage_funds','manage_fund_texts']:false"
+                                ui-sref="funds-edit(fund)").button.button-default
                                 em.mdi.mdi-pencil.icon-start
                                 translate(translate="product_card.buttons.edit")
 
@@ -63,12 +65,16 @@
                     .flex-row(ng-if="!fund.is_external")
                         .flex-col: .flex-row.flex-start
                             //- Criteria toggle
-                            .button.button-default(ng-click="$ctrl.toggleFundCriteria(fund)")
+                            .button.button-default(
+                                ng-if="fund.organization | hasPerm:'manage_funds'"
+                                ng-click="$ctrl.toggleFundCriteria(fund)")
                                 em.mdi.mdi-toggle-switch.icon-start
                                 translate(translate="components.organization_funds.buttons.criteria")
                             
                             //- Stats toggle
-                            .button.button-default(ng-if="fund.key && fund.is_configured" ng-click="$ctrl.toggleFundStats(fund)")
+                            .button.button-default(
+                                ng-if="fund.key && fund.is_configured && (fund.organization | hasPerm:'view_finances')" 
+                                ng-click="$ctrl.toggleFundStats(fund)")
                                 em.mdi.mdi-poll.icon-start
                                 translate(translate="components.organization_funds.buttons.statistics")
 
@@ -108,7 +114,10 @@
 
                 //- Email requirement and contact information
                 .fund-item-section.fund-item-section-primary.fund-item-section-with-arrow.form(ng-if="fund.show_criteria")
-                    .row: .col.col-lg-8.col-md-12: fund-config-contact-info-editor(fund="fund" inline="true")
+                    .row: .col.col-lg-8.col-md-12: fund-config-contact-info-editor(
+                        fund="fund" 
+                        inline="true"
+                        disabled="!(fund.organization | hasPerm:'manage_funds')")
                 
                 //- Fund stats
                 .fund-item-section.fund-item-section-warning.fund-item-section-with-arrow(ng-if="fund.is_configured && fund.show_stats")
@@ -224,10 +233,10 @@
                         .card-block.card-block-table
                             .table-wrapper: table.table
                                 thead: tr
-                                    th(translate="components.organization_funds.top_up_table.columns.code")
-                                    th(translate="components.organization_funds.top_up_table.columns.iban")
-                                    th(translate="components.organization_funds.top_up_table.columns.amount")
-                                    th.text-right(translate="components.organization_funds.top_up_table.columns.date")
+                                    th(th-sortable filters="fund.topUpTransactionFilters.values" label="components.organization_funds.top_up_table.columns.code" value="code")
+                                    th(th-sortable filters="fund.topUpTransactionFilters.values" label="components.organization_funds.top_up_table.columns.iban" value="iban")
+                                    th(th-sortable filters="fund.topUpTransactionFilters.values" label="components.organization_funds.top_up_table.columns.amount" value="amount")
+                                    th(th-sortable filters="fund.topUpTransactionFilters.values" label="components.organization_funds.top_up_table.columns.date" value="created_at").text-right
 
                                 tbody
                                     tr(ng-repeat="top_up_transaction in fund.top_up_transactions.data")

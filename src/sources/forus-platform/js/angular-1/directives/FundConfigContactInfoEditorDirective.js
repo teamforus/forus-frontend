@@ -27,6 +27,7 @@ module.exports = () => {
         scope: {
             fund: '=',
             inline: '=',
+            disabled: '=',
         },
         bindToController: true,
         controllerAs: '$dir',
@@ -39,6 +40,6 @@ module.exports = () => {
             'PushNotificationsService',
             FundConfigContactInfoEditorDirective,
         ],
-        templateUrl: 'assets/tpl/directives/fund-config-contact-info-editor.html'
+        templateUrl: 'assets/tpl/directives/fund-config-contact-info-editor.html',
     };
 };

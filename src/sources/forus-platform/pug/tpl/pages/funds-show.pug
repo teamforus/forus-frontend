@@ -43,7 +43,7 @@
                             | Verwijderen
 
                         .button.button-default(
-                            ng-if="($ctrl.fund.organization | hasPerm:'manage_funds')"
+                            ng-if="($ctrl.fund.organization | hasPerm:['manage_funds','manage_fund_texts']:false)"
                             ui-sref="funds-edit($ctrl.fund)")
                             em.mdi.mdi-pencil.icon-start
                             | Bewerken
@@ -96,7 +96,7 @@
 
 
         //- Fund users
-        .card.card-collapsed
+        .card.card-collapsed(ng-if="$ctrl.identities")
             //- Fund users header
             .card-header: .flex
                 //- Title
@@ -114,7 +114,7 @@
                         | Exporteren
 
             //- Fund users list
-            .card-section(ng-if="$ctrl.identities.meta.total > 0")
+            .card-section(ng-if="$ctrl.identities && $ctrl.identities.meta.total > 0")
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
@@ -147,7 +147,7 @@
                 paginator(meta="$ctrl.identities.meta" filters="$ctrl.identitiesFilters" delayed-filters="['q']" on-page-change="$ctrl.identitiesOnPageChange(query)")
 
             //- Fund users empty
-            .card-section(ng-if="$ctrl.identities.meta.total == 0"): .block.block-empty.text-center
+            .card-section(ng-if="$ctrl.identities && $ctrl.identities.meta.total == 0"): .block.block-empty.text-center
                 .empty-title(ng-if="!$ctrl.lastQuery")
                     | Geen gebruikers gevonden
 
@@ -155,15 +155,15 @@
                     | Geen gebruikers gevonden voor "{{ $ctrl.lastQuery }}"
 
             //- Identities stats
-            .card-section.card-section-primary
+            .card-section.card-section-primary(ng-if="$ctrl.identities")
                 .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
-                    .keyvalue-item.col.col-lg-3
+                    .keyvalue-item.col.col-lg-4
                         .keyvalue-key Aanvragers met vouchers
                         .keyvalue-value
                             span(ng-bind="$ctrl.identities.meta.counts.active")
                             span.icon.mdi.mdi-account-multiple-outline
 
-                    .keyvalue-item.col.col-lg-3
+                    .keyvalue-item.col.col-lg-4
                         .keyvalue-key Aanvragers zonder e-mailadres
                         .keyvalue-value
                             span(ng-bind="$ctrl.identities.meta.counts.without_email")
