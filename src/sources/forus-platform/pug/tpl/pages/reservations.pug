@@ -162,4 +162,4 @@
                 
 
             .card-section(ng-if="$ctrl.reservations" ng-show="$ctrl.reservations.meta.last_page > 1")
-                paginator(meta="$ctrl.reservations.meta" filters="$ctrl.filters.values" delayed-filters="['q']" on-page-change="$ctrl.onPageChange(query)")
+                paginator(meta="$ctrl.reservations.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")

@@ -76,7 +76,6 @@ block content
                         .card(ng-if="$ctrl.funds"): .card-section(ng-show="$ctrl.funds.meta.last_page > 1"): paginator(
                             meta="$ctrl.funds.meta"
                             filters="$ctrl.form.values"
-                            delayed-filters="['q']"
                             count-buttons="5"
                             on-page-change="$ctrl.onPageChange(query)")
 

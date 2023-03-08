@@ -145,7 +145,7 @@
 
         //- Fund requests pagination
         .card-section(ng-if="$ctrl.validatorRequests" ng-show="$ctrl.validatorRequests.meta.last_page > 1")
-            paginator(meta="$ctrl.validatorRequests.meta" filters="$ctrl.filters.values" delayed-filters="['q']" on-page-change="$ctrl.onPageChange(query)")
+            paginator(meta="$ctrl.validatorRequests.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
 
         //- Empty fund requests block
         .card-section(ng-if="$ctrl.validatorRequests.meta.total == 0"): .block.block-empty.text-center

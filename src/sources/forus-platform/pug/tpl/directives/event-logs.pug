@@ -79,7 +79,7 @@
 
     //- Pagination
     .card-section(ng-if="$dir.logs.meta" ng-show="$dir.logs.meta.last_page > 1")
-        paginator(meta="$dir.logs.meta" filters="$dir.filters.values" delayed-filters="['q']" count-buttons="5" on-page-change="$dir.onPageChange(query)")
+        paginator(meta="$dir.logs.meta" filters="$dir.filters.values" count-buttons="5" on-page-change="$dir.onPageChange(query)")
 
     //- Not found
     .card-section(ng-if="$dir.logs.meta.total == 0"): .block.block-empty.text-center
