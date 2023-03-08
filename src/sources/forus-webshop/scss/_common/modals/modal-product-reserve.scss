@@ -8,7 +8,6 @@
 
     .modal-content {
         background-color: #fff;
-        overflow: visible;
 
         .title {
             font-size: 28px;
@@ -65,7 +64,7 @@
                 border-radius: 8px;
                 margin-bottom: 20px;
 
-                .block-email-setup-main-section {
+                .block-email-setup-details {
                     display: flex;
                     align-items: center;
                     border-bottom: 1px solid #e3e3e3;
@@ -73,17 +72,21 @@
                     font: 700 17px/24px $bf;
                     color: #222222;
 
+                    .block-email-setup-details-logo {
+                        width: 48px;
+                        height: 48px;
+                        margin: 0 20px 0 0;
+                    }
+
+                    .block-email-setup-details-description {
+                        font: inherit;
+                    }
+
                     .form {
                         margin-right: 10px;
                     }
 
-                    img {
-                        width: 48px;
-                        height: 48px;
-                        margin-right: 20px;
-                    }
-
-                    button {
+                    .button {
                         padding: 10px 13px;
                         min-width: 150px;
                     }
@@ -152,6 +155,21 @@
                 .block-vouchers {
                     margin: 0 -20px 20px;
                     border-radius: 0;
+                }
+            }
+
+            .block {
+                &.block-email-setup {
+                    text-align: center;
+
+                    .block-email-setup-details {
+                        flex-direction: column;
+
+                        .block-email-setup-details-logo,
+                        .block-email-setup-details-description {
+                            margin: 0 0 20px 0;
+                        }
+                    }
                 }
             }
         }

@@ -1,7 +1,7 @@
 module.exports = {
-    title: "Cancel unsubscription",
+    title: "Annuleer afmelding",
     description: [
-        `Are you sure you want to remove your fund unsubscription request?`,
+        `Weet u zeker dat u uw afmeldingsaanvraag wilt annuleren?`,
     ].join("\n"),
     buttons: {
         cancel: 'Annuleren',

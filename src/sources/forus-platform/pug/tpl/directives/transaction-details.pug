@@ -21,11 +21,15 @@
                     .keyvalue-key(translate="financial_dashboard_transaction.labels.id")
                     .keyvalue-value(ng-bind="$dir.transaction.id")
 
+                .keyvalue-item(ng-if="!$dir.showAmount")
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.amount")
+                    .keyvalue-value(ng-bind="$dir.transaction.amount | currency_format")
+
                 .keyvalue-item(ng-if="$dir.appConfigs.panel_type == 'sponsor' &&  $dir.transaction.payment_id")
                     .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq_id")
                     .keyvalue-value(ng-bind="$dir.transaction.payment_id")
 
-                .keyvalue-item
+                .keyvalue-item(ng-if="$dir.appConfigs.panel_type == 'sponsor'")
                     .keyvalue-key(translate="financial_dashboard_transaction.labels.statement")
                     .keyvalue-value(
                         ng-if="['provider', 'iban'].includes($dir.transaction.target)"

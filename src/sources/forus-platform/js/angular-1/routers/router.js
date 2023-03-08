@@ -1348,7 +1348,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "reservationsSettingsComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('reservations-show', 'scan_vouchers', 'manage_organization'),
+            permission: permissionMiddleware('reservations-show', 'manage_organization'),
         }
     });
 

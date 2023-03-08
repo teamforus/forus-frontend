@@ -11,15 +11,15 @@
                 .flex.block.block-inline-filters
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.reservationEnabled"
-                        ui-sref="reservations-settings({organization_id: $ctrl.organization.id})")
-                        em.mdi.mdi-cog.icon-start
-                        | Settings
-
-                    .button.button-primary.button-sm(
-                        ng-if="$ctrl.reservationEnabled"
                         ng-click="$ctrl.makeReservation()")
                         em.mdi.mdi-plus-circle.icon-start
                         | Aanmaken
+
+                    .button.button-primary.button-sm(
+                        ng-if="$ctrl.reservationEnabled && ($ctrl.organization | hasPerm:'manage_organization')"
+                        ui-sref="reservations-settings({organization_id: $ctrl.organization.id})")
+                        em.mdi.mdi-cog.icon-start
+                        | Settings
 
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.organization.allow_batch_reservations && $ctrl.reservationEnabled" 
@@ -102,7 +102,10 @@
                         th.text-right(translate='reservations.labels.actions')
 
                     tr(ng-repeat="reservation in $ctrl.reservations.data" dusk="{{ 'reservationRow' + reservation.id }}")
-                        td: .text-strong(ng-bind="'#' + reservation.code")
+                        td: a.text-strong(
+                            ng-bind="'#' + reservation.code" 
+                            ui-sref="reservations-show({organization_id: $ctrl.organization.id, id: reservation.id})")
+
                         td
                             mixin product_info(type)
                                 .text-strong(
@@ -146,11 +149,6 @@
                                 ng-if="reservation.state === 'pending'" 
                                 ng-click="$ctrl.rejectReservation(reservation)")
                                 em.mdi.mdi-close
-
-                            button.button.button-sm.button-default.button-icon(
-                                ng-if='reservation.voucher_transaction && ($ctrl.organization | hasPerm:["view_finances"])'
-                                ui-sref="transaction({organization_id: $ctrl.organization.id, address: reservation.voucher_transaction.address})")
-                                em.mdi.mdi-eye-outline
 
                             button.button.button-sm.button-default.button-icon(
                                 ui-sref="reservations-show({organization_id: $ctrl.organization.id, id: reservation.id})")

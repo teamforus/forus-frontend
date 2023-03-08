@@ -1,7 +1,12 @@
-const ProductReservationService = function(ApiRequest) {
+const ProductReservationService = function (
+    $filter,
+    ApiRequest,
+    ModalService
+) {
     const uriPrefix = '/platform/organizations';
+    const $currencyFormat = $filter('currency_format');
 
-    return new (function() {
+    return new (function () {
         this.list = function(organization_id, data) {
             return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations`, data);
         }
@@ -51,10 +56,37 @@ const ProductReservationService = function(ApiRequest) {
 
             return Papa.unparse([headers, values]);
         };
+
+        this.confirmApproval = (reservation, onConfirm) => {
+            ModalService.open("dangerZone", {
+                description_title: "Weet u zeker dat u de reservering wilt accepteren?",
+                description_text: [
+                    "U staat op het punt om een reservering te accepteren voor het aanbod ",
+                    reservation.product.name + " voor " + $currencyFormat(reservation.amount) + "\n",
+                    `U kunt de transactie annuleren tot en met ${reservation.expire_at_locale}, daarna volgt de uitbetaling.`,
+                ].join("\n"),
+                text_align: 'center',
+                cancelButton: "Annuleren",
+                confirmButton: "Bevestigen",
+                onConfirm,
+            });
+        };
+
+        this.confirmRejection = (onConfirm) => {
+            ModalService.open("dangerZone", {
+                title: "Weet u zeker dat u de betaling wilt annuleren?",
+                description_text: "Wanneer u de betaling annuleert wordt u niet meer uitbetaald.",
+                cancelButton: "Annuleren",
+                confirmButton: "Bevestigen",
+                onConfirm,
+            });
+        };
     });
 };
 
 module.exports = [
+    '$filter',
     'ApiRequest',
+    'ModalService',
     ProductReservationService
 ];

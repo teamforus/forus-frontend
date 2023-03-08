@@ -3,9 +3,11 @@
     section.app.app-content
         //- Navigation
         .block.block-breadcrumbs(ng-if="$root.activeOrganization")
-            .breadcrumb-item(
+            a.breadcrumb-item(
                 ui-sref="reservations({organization_id: $root.activeOrganization.id})" 
                 ng-bind="'Reservations'")
+
+            .breadcrumb-item.active(ng-bind="'#' + $ctrl.reservation.code")
 
         //- Base reservation details
         .card(ng-if="$ctrl.reservation")
@@ -38,10 +40,30 @@
                         .mdi.mdi-clock-outline
                         | {{ $ctrl.reservation.created_at_locale }}
 
+                .flex.flex-self-start: .flex-row: .button-group
+                    .button.button-primary.button-sm(
+                        ng-if="$ctrl.reservation.state === 'pending' && !$ctrl.reservation.expired && !$ctrl.reservation.product.deleted" 
+                        ng-click="$ctrl.acceptReservation($ctrl.reservation)")
+                        em.mdi.mdi-check.icon-start
+                        | Accept
+
+                    .button.button-danger.button-sm(
+                        ng-if="$ctrl.reservation.state === 'pending'" 
+                        ng-click="$ctrl.rejectReservation($ctrl.reservation)")
+                        em.mdi.mdi-close.icon-start
+                        | Reject
+
+
             //- Base overview
             .card-section: .card-block.card-block-table: .table-wrapper
                 table.table.table-fixed
-                    tr                        
+                    tr 
+                        //- Price
+                        td
+                            strong(translate="reservations.labels.price").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.price_locale")    
+
                         //- Fund
                         td
                             strong(translate="reservations.labels.fund").text-strong.text-md.text-primary
@@ -52,19 +74,13 @@
                         td
                             strong(translate="reservations.labels.sponsor_organization").text-strong.text-md.text-primary
                             br
-                            strong.text-black(ng-bind="$ctrl.reservation.sponsor_organization.name")
+                            strong.text-black(ng-bind="$ctrl.reservation.fund.organization.name")
 
                         //- Product name
                         td
                             strong(translate="reservations.labels.product").text-strong.text-md.text-primary
                             br
                             strong.text-black(ng-bind="$ctrl.reservation.product.name")
-
-                        //- Price
-                        td
-                            strong(translate="reservations.labels.price").text-strong.text-md.text-primary
-                            br
-                            strong.text-black(ng-bind="$ctrl.reservation.price_locale")    
 
                     tr
                         //- Created at
@@ -103,40 +119,41 @@
                     //- Email
                     .keyvalue-item
                         .keyvalue-key(translate="reservations.labels.email")
-                        .keyvalue-value(ng-bind="$ctrl.reservation.identity_email").text-primary.text-medium
+                        .keyvalue-value(ng-bind="$ctrl.reservation.identity_email")
 
                     //- First name
                     .keyvalue-item
                         .keyvalue-key(translate="reservations.labels.first_name")
-                        .keyvalue-value(ng-bind="$ctrl.reservation.first_name").text-primary.text-medium
+                        .keyvalue-value(ng-bind="$ctrl.reservation.first_name")
                     
                     //- Last name
                     .keyvalue-item
                         .keyvalue-key(translate="reservations.labels.last_name")
-                        .keyvalue-value(ng-bind="$ctrl.reservation.last_name").text-primary.text-medium
+                        .keyvalue-value(ng-bind="$ctrl.reservation.last_name")
                     
                     //- Phone
                     .keyvalue-item(ng-if="$ctrl.reservation.phone")
                         .keyvalue-key(translate="reservations.labels.phone")
-                        .keyvalue-value(ng-bind="$ctrl.reservation.phone").text-primary.text-medium
+                        .keyvalue-value(ng-bind="$ctrl.reservation.phone")
                     
                     //- Address
                     .keyvalue-item(ng-if="$ctrl.reservation.address")
                         .keyvalue-key(translate="reservations.labels.address")
-                        .keyvalue-value(ng-bind="$ctrl.reservation.address").text-primary.text-medium
+                        .keyvalue-value(ng-bind="$ctrl.reservation.address")
                     
                     //- Birth date
                     .keyvalue-item(ng-if="$ctrl.reservation.birth_date")
                         .keyvalue-key(translate="reservations.labels.birth_date")
-                        .keyvalue-value(ng-bind="$ctrl.reservation.birth_date_locale").text-primary.text-medium
+                        .keyvalue-value(ng-bind="$ctrl.reservation.birth_date_locale")
                     
                     //- Note
                     .keyvalue-item(ng-if="$ctrl.reservation.user_note")
                         .keyvalue-key(translate="reservations.labels.user_note")
-                        .keyvalue-value(ng-bind="$ctrl.reservation.user_note").text-primary.text-medium
+                        .keyvalue-value(ng-bind="$ctrl.reservation.user_note")
         
         //- Voucher transaction details
         voucher-transaction-details(
-            ng-if="$ctrl.reservation.voucher_transaction"
+            ng-if="$ctrl.transaction && ($ctrl.organization | hasPerm:'view_finances')"
             organization="$ctrl.organization"
-            transaction="$ctrl.reservation.voucher_transaction")                
+            transaction="$ctrl.transaction"
+            on-update="$ctrl.onTransactionUpdate()")

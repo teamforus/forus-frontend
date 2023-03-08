@@ -28,6 +28,10 @@ const TransactionDetailsDirective = function (
                 ProductReservationService.reject($dir.organization.id, reservation.id).then(() => {
                     PushNotificationsService.success('Opgeslagen!');
                     $dir.updateTransaction();
+
+                    if (typeof $dir.onUpdate == 'function') {
+                        $dir.onUpdate();
+                    }
                 }, (res) => PushNotificationsService.danger(res.data.message));
             },
         });
@@ -45,6 +49,7 @@ module.exports = () => {
             organization: '=',
             transaction: '=',
             showAmount: '=',
+            onUpdate: '&',
         },
         controllerAs: '$dir',
         restrict: "EA",

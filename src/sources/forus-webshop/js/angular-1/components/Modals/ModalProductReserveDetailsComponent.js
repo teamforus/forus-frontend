@@ -1,17 +1,17 @@
 const ModalProductReserveDetailsComponent = function(
     $state,
-    ProductReservationService,
-    PushNotificationsService,
+    AuthService,
     FormBuilderService,
     IdentityEmailsService,
-    AuthService
+    PushNotificationsService,
+    ProductReservationService,
 ) {
     const $ctrl = this;
     
     $ctrl.dateMinLimit = new Date();
 
     // Initialize authorization form
-    const makeEmailForm = () => {
+    $ctrl.makeEmailForm = () => {
         return FormBuilderService.build({
             email: ``,
         }, (form) => {
@@ -46,10 +46,11 @@ const ModalProductReserveDetailsComponent = function(
             }).then($ctrl.onReserved, $ctrl.onError);
         });
 
-        AuthService.identity().then(res => {
-            let identity = res.data;
-            $ctrl.emailSetupShow = !identity.email;
-            $ctrl.emailForm = makeEmailForm();
+        AuthService.identity().then((res) => {
+            if (!res.data.email) {
+                $ctrl.emailSetupShow = true;
+                $ctrl.emailForm = $ctrl.makeEmailForm();
+            }
         });
     };
 
@@ -99,14 +100,12 @@ module.exports = {
     },
     controller: [
         '$state',
-        'ProductReservationService',
-        'PushNotificationsService',
+        'AuthService',
         'FormBuilderService',
         'IdentityEmailsService',
-        'AuthService',
-        ModalProductReserveDetailsComponent
+        'PushNotificationsService',
+        'ProductReservationService',
+        ModalProductReserveDetailsComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-product-reserve-details.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-product-reserve-details.html',
 };

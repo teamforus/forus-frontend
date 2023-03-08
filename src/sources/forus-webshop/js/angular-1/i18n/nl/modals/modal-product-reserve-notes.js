@@ -19,6 +19,9 @@ module.exports = {
             phone: 'Telefoonnummer',
             address: 'Adres',
             birth_date: 'Geboortedatum',
+            phone_optional: 'Telefoonnummer (optioneel)',
+            address_optional: 'Adres (optioneel)',
+            birth_date_optional: 'Geboortedatum (optioneel)',
         }
     },
     confirm_notes: {
