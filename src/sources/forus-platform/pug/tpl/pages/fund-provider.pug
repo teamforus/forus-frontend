@@ -141,8 +141,7 @@
             .card-section.card-section-narrow(ng-if="$ctrl.sponsorProducts.meta" ng-show="$ctrl.sponsorProducts.meta.last_page > 1")
                 paginator(
                     meta="$ctrl.sponsorProducts.meta" 
-                    filters="$ctrl.filtersSponsorProducts.values"
-                    
+                    filters="$ctrl.filtersSponsorProducts.values"                    
                     on-page-change="$ctrl.onPageChangeSponsorProducts(query)")
 
         //- Products for budget fund
