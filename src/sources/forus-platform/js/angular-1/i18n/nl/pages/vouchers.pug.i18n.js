@@ -39,6 +39,7 @@ module.exports = {
         to: "Tot en met",
         date_type: 'Pas toe op',
         provider_name: "Aanbieder naam",
+        product_name: "Aanbod naam",
     },
     events: {
         created_budget: 'Aangemaakt',

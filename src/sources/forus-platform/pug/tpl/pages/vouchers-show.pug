@@ -18,15 +18,14 @@
                 ui-sref="vouchers({organization_id:$root.activeOrganization.id})" 
                 ng-bind="$ctrl.voucher.fund.name")
 
-            .breadcrumb-item.active(ng-bind="$ctrl.voucher.fund.name + ' #' + $ctrl.voucher.id")
+            .breadcrumb-item.active(ng-bind="($ctrl.voucher.fund.name | str_limit:50) + ' #' + $ctrl.voucher.id")
 
         //- Base voucher details
         .card(ng-if="$ctrl.voucher")
             .card-header: .flex
                 .flex.flex-grow: .card-title
                     //- voucher fund or product name
-                    .flex.flex-vertical.flex-center(ng-bind="$ctrl.voucher.fund.name" ng-if="!$ctrl.voucher.product") 
-                    .flex.flex-vertical.flex-center(ng-bind="$ctrl.voucher.product.name" ng-if="$ctrl.voucher.product")
+                    .flex.flex-vertical.flex-center(ng-bind="($ctrl.voucher.fund.name | str_limit:50) + ' #' + $ctrl.voucher.id")
 
                     //- is active
                     .flex.flex-vertical.flex-center: .tag.tag-success.tag-sm(
@@ -164,6 +163,11 @@
                     .keyvalue-item(ng-if="$ctrl.voucher.product")
                         .keyvalue-key(translate="vouchers.labels.provider_name")
                         .keyvalue-value(ng-bind="$ctrl.voucher.product.organization.name || 'Niet aanbieder'").text-black
+
+                    //- Product name (product vouchers only)
+                    .keyvalue-item(ng-if="$ctrl.voucher.product")
+                        .keyvalue-key(translate="vouchers.labels.product_name")
+                        .keyvalue-value(ng-bind="$ctrl.voucher.product.name").text-black
 
         .card(ng-if="$ctrl.voucher")
             .card-header: .flex
