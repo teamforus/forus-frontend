@@ -208,7 +208,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
                 is_employee: 0,
                 has_products: 1,
-                per_page: 100,
+                per_page: 300,
                 fund_type: 'budget'
             })],
         }
@@ -560,7 +560,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
                 is_employee: 0,
                 has_reservations: 1,
-                per_page: 100,
+                per_page: 300,
                 fund_type: 'budget'
             })],
         }
