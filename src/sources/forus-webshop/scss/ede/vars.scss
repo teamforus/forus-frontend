@@ -1,6 +1,7 @@
 @import '../general/vars.scss';
 
 /*==========  Style Sheet - Vars  ==========*/
+$fonts: 'https://fonts.googleapis.com/css?family=Open+Sans';
 
 // navbar
 $bg-nav:            #3558A2;
@@ -24,7 +25,7 @@ $btn-start-border:   transparent;
 $bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
 
 // base font
-$bf:                Open Sans, Verdana;
+$bf:                'Open Sans', Verdana;
 
 // text color
 $tc:                #1a1919;
