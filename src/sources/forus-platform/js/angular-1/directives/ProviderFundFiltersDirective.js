@@ -1,14 +1,8 @@
-let ProviderFundFiltersDirective = function(
-    $scope,
-    $stateParams,
-    $filter,
-    ProviderFundService
-) {
+let ProviderFundFiltersDirective = function($scope, $filter) {
     let $translate  = $filter('translate');
-    $scope.allFunds = $scope.fundsAvailable;
 
     $scope.getFundFilters = () => {
-        if (!$scope.fundsAvailable || !$scope.fundsAvailable.data) {
+        if (!$scope.fundsAvailable || !$scope.fundsAvailable.meta) {
             return;
         }
 
@@ -29,41 +23,20 @@ let ProviderFundFiltersDirective = function(
         $scope.fundOrganization = $scope.fundOrganization ? $scope.fundOrganization : 'null';
     }
 
-    $scope.filterFunds = (organization = $scope.organization) => {
-        let search_params = { 
-            per_page: $scope.fundsAvailable.meta.per_page 
-        };
-
-        if ($scope.fundOrganization && $scope.fundOrganization != 'null') {
-            search_params.organization_id = $scope.fundOrganization;
-        }
-
-        if ($scope.fundLabel && $scope.fundLabel != 'null') {
-            search_params.tag = $scope.fundLabel;
-        }
-
-        if ($stateParams.fund_id) {
-            search_params.fund_id = $stateParams.fund_id;
-        }
-
-        if (!Object.keys(search_params).length) {
-            $scope.fundsAvailable = $scope.allFunds;
-        }
-
-        return ProviderFundService.listAvailableFunds(organization.id, search_params).then(res => {
-            $scope.fundsAvailable = {
-                meta: res.data.meta,
-                data: res.data.data
-            };
-        });
+    $scope.filterFunds = () => {
+        $scope.filters.tag = $scope.fundLabel !== 'null' ? $scope.fundLabel : null;
+        $scope.filters.organization_id = $scope.fundOrganization !== 'null' ? $scope.fundOrganization : null;
     }
 
     this.$onInit = function() {
         $scope.$watch('fundsAvailable', function(value) {
-            if (!$scope.fundOrganizations || !$scope.fundOrganizations.length) {
-                $scope.getFundFilters();
-            }
+            $scope.getFundFilters();
         });
+
+        $scope.$watch('filters', (newVal) => {
+            $scope.fundLabel = newVal.tag ? newVal.tag : 'null';
+            $scope.fundOrganization = newVal.organization_id ? newVal.organization_id : 'null';
+        }, true);
     }
 };
 
@@ -72,14 +45,13 @@ module.exports = () => {
         scope: {
             fundsAvailable: '=',
             organization: '=',
+            filters: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
-            '$stateParams',
             '$filter',
-            'ProviderFundService',
             ProviderFundFiltersDirective
         ],
         templateUrl: 'assets/tpl/directives/provider-fund-filters.html' 

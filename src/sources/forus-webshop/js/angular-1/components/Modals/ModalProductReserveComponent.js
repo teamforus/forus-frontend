@@ -1,8 +1,9 @@
 const moment = require("moment");
 
-const ModalProductReserveComponent = function(
+const ModalProductReserveComponent = function (
     appConfigs,
     ModalService,
+    VoucherService,
 ) {
     const $ctrl = this;
 
@@ -15,7 +16,7 @@ const ModalProductReserveComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.appConfigs = appConfigs;
         $ctrl.product = $ctrl.modal.scope.product;
-        $ctrl.vouchers = $ctrl.modal.scope.vouchers;
+        $ctrl.vouchers = $ctrl.modal.scope.vouchers.map((voucher) => VoucherService.composeCardData({ ...voucher }));
 
         const reservationExpireDate = moment().startOf('day').add(14, 'day').unix();
         const closestDate = Math.min(reservationExpireDate, $ctrl.modal.scope.meta.shownExpireDate.unix);
@@ -34,14 +35,13 @@ const ModalProductReserveComponent = function(
 module.exports = {
     bindings: {
         close: '=',
-        modal: '='
+        modal: '=',
     },
     controller: [
         'appConfigs',
         'ModalService',
-        ModalProductReserveComponent
+        'VoucherService',
+        ModalProductReserveComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-product-reserve.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-product-reserve.html',
 };

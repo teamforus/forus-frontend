@@ -6,24 +6,21 @@
         border-radius: $border_radius;
         display: flex;
         flex-direction: row;
-        min-height: 100px;
+        min-height: 135px;
         transition: box-shadow 0.4s;
 
         .fund-photo {
+            width: 135px;
             display: block;
-            width: 130px;
-            min-width: 100px;
             overflow: hidden;
             position: relative;
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
 
             img {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                margin: auto;
+                display: block;
                 width: 100%;
+                padding: 15px 10px 15px 15px;
             }
 
             &:after {
@@ -40,20 +37,21 @@
             display: flex;
             flex-direction: row;
             width: 100%;
+            flex: 1 0;
         }
 
         .fund-details {
-            padding: 15px 20px;
+            padding: 15px 20px 15px 10px;
             flex-grow: 1;
             position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: center;
 
             .fund-status-label {
                 position: absolute;
                 top: 20px;
                 right: 20px;
+                display: flex;
 
                 .label {
                     cursor: pointer;
@@ -61,9 +59,10 @@
             }
 
             .fund-name {
-                font: 700 22px/30px $hf;
+                font: 700 22px/32px $hf;
                 margin: 0 0 5px;
                 color: $tc;
+                padding-right: 80px;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -71,9 +70,23 @@
             }
 
             .fund-description {
-                font: 400 14px/22px $bf;
+                font: 400 14px/21px $bf;
                 color: $tc;
                 max-width: 80ch;
+
+                .fund-description-more {
+                    font: inherit;
+                    display: flex;
+                    color: $color_primary;
+                    font-weight: 600;
+                    padding-top: 5px;
+
+                    .mdi {
+                        color: #DBDCDB;
+                        margin-left: 3px;
+                        font-size: 16px;
+                    }
+                }
             }
 
             .fund-organization {
@@ -109,10 +122,8 @@
             border-radius: $border_radius / 2;
 
             .fund-photo {
-                width: 70px;
-                min-width: 70px;
-                border-radius: 70px;
-                margin: 15px;
+                width: 80px;
+                justify-content: flex-start;
             }
 
             .fund-content {
@@ -122,7 +133,6 @@
 
             .fund-details {
                 width: 100%;
-                padding-left: 0;
 
                 .fund-status-label {
                     position: absolute;
@@ -131,8 +141,7 @@
                 }
 
                 .fund-name {
-                    font: 700 13px/18px $bf;
-                    margin: 0;
+                    font: 700 16px/24px $bf;
                 }
 
                 .fund-organization {

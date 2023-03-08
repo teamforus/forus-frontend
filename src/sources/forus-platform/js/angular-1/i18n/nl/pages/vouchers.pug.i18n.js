@@ -3,6 +3,7 @@ module.exports = {
         title: "Vouchers",
     },
     labels: {
+        id: 'ID',
         state: "Status",
         activation_code: "Code",
         details_activation_code: 'Activatiecode',

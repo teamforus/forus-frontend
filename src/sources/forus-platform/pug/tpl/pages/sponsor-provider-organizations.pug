@@ -120,6 +120,27 @@
 
                     .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
+        .card-block.card-block-requests(
+            ng-class="'card-block-requests' + ($ctrl.requestsExpired > 0 ? '-danger' : ($ctrl.requestsPending > 0 ? '-warning' : ''))" 
+            ng-if="$ctrl.requests > 0")
+
+            a.card-section.flex(ui-sref="sponsor-fund-unsubscriptions({ organization_id: $ctrl.organization.id})")
+                .card-heading(ng-if="$ctrl.requestsExpired > 0")
+                    em.mdi.mdi-alert
+                    | {{ $ctrl.requestsExpired }} urgente afmeldingsaanvragen
+
+                .card-heading(ng-if="($ctrl.requestsExpired == 0) && ($ctrl.requestsPending > 0)")
+                    em.mdi.mdi-alert-circle
+                    | {{ $ctrl.requestsPending }} afmeldingsaanvragen
+
+                .card-heading(ng-if="($ctrl.requestsExpired == 0) && ($ctrl.requestsPending == 0)")
+                    em.mdi.mdi-alert-circle
+                    | Geen nieuwe afmeldingsaanvragen
+
+                .button.button-text.pull-right(ui-sref="sponsor-fund-unsubscriptions({ organization_id: $ctrl.organization.id})")
+                    | Bekijken
+                    em.mdi.mdi-arrow-right.icon-end
+
         //- Provider list
         .block.block-providers: .provider-item(ng-repeat="providerOrganization in $ctrl.providerOrganizations.data")
             .provider-overview
