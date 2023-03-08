@@ -3,7 +3,8 @@ const ReservationsComponent = function(
     ModalService,
     OrganizationService,
     PushNotificationsService,
-    ProductReservationService
+    ProductReservationService,
+    ProductReservationsExportService,
 ) {
     const $ctrl = this;
 
@@ -135,6 +136,10 @@ const ReservationsComponent = function(
         });
     };
 
+    $ctrl.exportReservations = () => {
+        ProductReservationsExportService.export($ctrl.organization.id, $ctrl.filters);
+    };
+
     $ctrl.$onInit = () => {
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
@@ -170,7 +175,8 @@ module.exports = {
         'OrganizationService',
         'PushNotificationsService',
         'ProductReservationService',
-        ReservationsComponent
+        'ProductReservationsExportService',
+        ReservationsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/reservations.html'
+    templateUrl: 'assets/tpl/pages/reservations.html',
 };
