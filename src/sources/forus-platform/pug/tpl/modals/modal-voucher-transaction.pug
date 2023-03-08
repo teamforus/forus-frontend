@@ -5,7 +5,7 @@
     .modal-backdrop(ng-click="$ctrl.closeModal()")
 
     //- Form
-    .modal-window(ng-if="$ctrl.state == 'form'"): form(ng-submit="$ctrl.state = 'preview'").form
+    form(ng-if="$ctrl.state == 'form'" ng-submit="$ctrl.state = 'preview'").form.modal-window
         .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" role="button")
         
         //- Transaction title
@@ -18,7 +18,7 @@
             ng-if="$ctrl.form.values.target === 'top_up'" 
             translate="modals.modal_voucher_transaction.top_up_title")
 
-        .modal-body.modal-body-visible
+        .modal-body
             .modal-section.modal-section-pad
                 //- Target type
                 .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.targets.length > 1 && $ctrl.form.values.target !== 'top_up'")
