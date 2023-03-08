@@ -121,14 +121,18 @@
                     }
                 }
 
-                .reservation-overview-link {
-                    cursor: pointer;
-                    font: 700 15px/20px $bf;
-                    color: #646f79;
-                    text-decoration: underline;
-
-                    &:hover {
-                        text-decoration: none;
+                .button {
+                    padding: 7px 8px;
+                    font: 600 13px/18px $bf;
+                    color: #282B39;
+                    background: #F5F5F5;
+                    border: none;
+        
+                    .mdi {
+                        margin-left: 0px;
+                        margin-right: 5px;
+                        font-size: 13px;
+                        float: none;
                     }
                 }
 

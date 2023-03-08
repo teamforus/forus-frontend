@@ -68,59 +68,69 @@ section.section.section-profile: .wrapper
                         br
                         .form-error(ng-repeat="error in $ctrl.form.errors.files" ng-bind="error")
 
-                .card-section: .row: .col.col-xs-12.col-md-10
-                    .form-group.form-group-inline
-                        label(for="voucher_id").form-label VOUCHER
-                        .form-offset
-                            select-control(
-                                id="voucher_id"
-                                as="address"
-                                prop="id"
-                                search="false"
-                                dusk="voucherSelector"
-                                ng-model="$ctrl.form.values.voucher_id"
-                                ng-change="$ctrl.updateSelectedVoucher()"
-                                options="$ctrl.vouchers"
-                                template="select-control-voucher"
-                                placeholder="SELECT VOUCHER")
+                .card-section: .row
+                    .flex.flex-align-center
+                        .col.col-xs-12.col-md-10
+                            .form-group.form-group-inline
+                                label(for="voucher_id").form-label Tegoed
+                                .form-offset
+                                    select-control(
+                                        id="voucher_id"
+                                        as="address"
+                                        prop="id"
+                                        search="false"
+                                        dusk="voucherSelector"
+                                        ng-model="$ctrl.form.values.voucher_id"
+                                        ng-change="$ctrl.updateSelectedVoucher()"
+                                        options="$ctrl.vouchers"
+                                        template="select-control-voucher"
+                                        placeholder="Select voucher")
 
-                            .form-error(ng-repeat="error in $ctrl.form.errors.voucher_address" ng-bind="error")
+                                    .form-error(ng-repeat="error in $ctrl.form.errors.voucher_address" ng-bind="error")
+                        
+                        .col.col-xs-12.col-md-2        
+                            .tooltip-block
+                                | #[tooltip(text="'Kies het tegoed dat u wilt gebruiken voor het terugvragen van uw kosten.'")]
 
-                            block-voucher-records(
-                                ng-if="$ctrl.selectedVoucher && $ctrl.selectedVoucher.records.length"
-                                toggle='true'
-                                compact='true'
-                                voucher="$ctrl.selectedVoucher")
+                    .col.col-xs-12.col-md-10
+                        .form-group.form-group-inline
+                            label(for="voucher_id").form-label
+                            .form-offset    
+                                block-voucher-records(
+                                    ng-if="$ctrl.selectedVoucher && $ctrl.selectedVoucher.records.length"
+                                    toggle='true'
+                                    compact='true'
+                                    voucher="$ctrl.selectedVoucher")
 
                 .card-section: .row: .col.col-xs-12.col-md-10
                     //- Title
                     .form-group.form-group-inline
-                        label(for="title").form-label TITEL VAN DECLARATIE
+                        label(for="title").form-label Titel van de declaratie
                         input(name="title" type="text" ng-model="$ctrl.form.values.title" placeholder="Wat heeft u gekocht?" maxlength="200").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
                     
                     //- Amount
                     .form-group.form-group-inline 
-                        label(for="amount").form-label BEDRAG €
-                        input(type="number" name="amount" step=".01" min="0.01" ng-model="$ctrl.form.values.amount" placeholder="BEDRAG €").form-control
+                        label(for="amount").form-label Bedrag €
+                        input(type="number" name="amount" step=".01" min="0.01" ng-model="$ctrl.form.values.amount" placeholder="Welk bedrag wilt u terugvragen?").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
                     
                     //- Description
                     .form-group.form-group-inline
-                        label(for="description").form-label OMSCHRIJVING
+                        label(for="description").form-label Omschrijving
                         textarea(ng-model="$ctrl.form.values.description" name="description" placeholder="Wilt u nog iets kwijt?" resize="vertical" max="2000").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
                     
                     //- IBAN
                     .form-group.form-group-inline
-                        label(for="iban").form-label IBAN NUMMER
-                        input(type="text" name="iban" ng-model="$ctrl.form.values.iban" placeholder="IBAN NUMMER" maxlength="34").form-control
+                        label(for="iban").form-label IBAN nummer
+                        input(type="text" name="iban" ng-model="$ctrl.form.values.iban" placeholder="IBAN nummer" maxlength="34").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
 
                     //- IBAN Name
                     .form-group.form-group-inline
-                        label(for="iban_name").form-label TE NAAM STELLING VAN
-                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="Naam rekeninghouder" maxlength="45").form-control
+                        label(for="iban_name").form-label Naam rekeninghouder
+                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="Op welke naam staat uw bankrekening?" maxlength="45").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban_name" ng-bind="error")
 
                 .card-section: .flex.flex-horizontal

@@ -18,10 +18,17 @@
             .reservation-overview-label(translate="reservation.labels.code")
             .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
 
-        .reservation-overview-item: .reservation-overview-link(
-            ng-click="$dir.cancelReservation($dir.reservation)"
-            dusk="btnCancelReservation" 
-            translate="reservation.labels.cancel")
+        .reservation-overview-item
+            .button(
+                dusk="btnCancelReservation" 
+                ng-click="$dir.cancelReservation($dir.reservation)")
+                em.mdi.mdi-trash-can-outline.icon-start
+                | {{ "reservation.labels.cancel" | translate }}
+                
+            //- .reservation-overview-link(
+            //-     ng-click="$dir.cancelReservation($dir.reservation)"
+            //-     dusk="btnCancelReservation" 
+            //-     translate="reservation.labels.cancel")
 
     //- reservation accepted
     .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'accepted'")
@@ -33,10 +40,17 @@
             .reservation-overview-label(translate="reservation.labels.code")
             .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
 
-        .reservation-overview-item: .reservation-overview-link(
-            ng-click="$dir.cancelReservation($dir.reservation)"
-            dusk="btnCancelReservation" 
-            translate="reservation.labels.cancel")
+        .reservation-overview-item 
+            .button(
+                dusk="btnCancelReservation" 
+                ng-click="$dir.cancelReservation($dir.reservation)")
+                em.mdi.mdi-trash-can-outline.icon-start
+                | {{ "reservation.labels.cancel" | translate }}
+        
+            //- .reservation-overview-link(
+            //-     ng-click="$dir.cancelReservation($dir.reservation)"
+            //-     dusk="btnCancelReservation" 
+            //-     translate="reservation.labels.cancel")
 
     //- reservation rejected
     .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'rejected'")
@@ -80,7 +94,14 @@
             .reservation-overview-label(translate="reservation.labels.expired_at")
             .reservation-overview-value(ng-bind="$dir.reservation.expire_at_locale")
 
-        .reservation-overview-item: .reservation-overview-link(
-            ng-click="$dir.cancelReservation($dir.reservation)"
-            dusk="btnCancelReservation"
-            translate="reservation.labels.cancel")
+        .reservation-overview-item
+            //- .reservation-overview-link(
+            //-     ng-click="$dir.cancelReservation($dir.reservation)"
+            //-     dusk="btnCancelReservation"
+            //-     translate="reservation.labels.cancel")
+
+            .button(
+                dusk="btnCancelReservation" 
+                ng-click="$dir.cancelReservation($dir.reservation)")
+                em.mdi.mdi-trash-can-outline.icon-start
+                | {{ "reservation.labels.cancel" | translate }}
