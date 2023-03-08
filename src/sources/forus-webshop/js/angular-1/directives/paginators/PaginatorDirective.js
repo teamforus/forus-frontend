@@ -72,7 +72,7 @@ const PaginatorDirective = function (
     });
 
     $scope.onInit = () => {
-        const filtersFromState = typeof $scope.filtersFromState !== 'undefined' ? $scope.filtersFromState : true;
+        const filtersFromState = typeof $scope.filtersFromState !== 'undefined' ? $scope.filtersFromState : false;
 
         $scope.filters = { ...$scope.filters, ...(filtersFromState ? $stateParams : {}) };
         $scope.pages = $scope.getPages();
