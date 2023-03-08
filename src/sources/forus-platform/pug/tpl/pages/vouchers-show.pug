@@ -122,12 +122,17 @@
                         em.mdi.mdi-qrcode.icon-start 
                         string(translate="vouchers.labels.qr_code")
                          
-            .card-section: .flex
-                .flex: .card-block.card-block-keyvalue
+            .card-section
+                .card-block.card-block-keyvalue
+                    //- Email
+                    .keyvalue-item
+                        .keyvalue-key(translate="vouchers.labels.id")
+                        .keyvalue-value(ng-bind="$ctrl.voucher.id").text-black
+
                     //- Email
                     .keyvalue-item
                         .keyvalue-key(translate="vouchers.labels.email")
-                        .keyvalue-value(ng-bind="$ctrl.voucher.identity_email || 'Niet toegewezen'").text-black
+                        .keyvalue-value(ng-bind="$ctrl.voucher.identity_email || 'Niet toegewezen'").text-muted-dark
 
                     //- BSN
                     .keyvalue-item(ng-if="$ctrl.voucher.identity_bsn || $ctrl.voucher.relation_bsn")
@@ -226,6 +231,12 @@
                                     strong.text-strong.text-md.text-primary Uitgegeven bedrag
                                     br
                                     strong(ng-bind="($ctrl.voucher.amount_total - $ctrl.voucher.amount_available) | currency_format").text-black
+
+        //- Voucher records
+        voucher-records(
+            ng-if="$ctrl.voucher.fund.allow_voucher_records"
+            voucher="$ctrl.voucher"
+            organization="$ctrl.organization")
 
         //- Voucher history
         event-logs(

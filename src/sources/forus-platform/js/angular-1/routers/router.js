@@ -90,6 +90,14 @@ const authUserResolver = () => {
     return ['$rootScope', ($rootScope) => $rootScope.loadAuthUser()];
 };
 
+const routeParam = (value = null, dynamic = true, squash = true) => {
+    return {
+        ...{ value },
+        ...(squash !== null ? { squash } : {}),
+        ...(dynamic !== null ? { dynamic } : {}),
+    };
+};
+
 module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider, $locationProvider, appConfigs
 ) => {
@@ -220,7 +228,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('organization-funds', ['manage_funds', 'view_finances', 'view_funds'], false),
-            fundLevel: [('permission'), () => "organizationFunds"],
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.list($transition$.params().organization_id, { with_archived: 1, with_external: 1, stats: 'min' }))
             }],
@@ -287,6 +294,25 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundService.list($transition$.params().organization_id, {
                 per_page: 100
             }))],
+            fundUnsubscribes: ['$transition$', 'FundUnsubscribeService', 'permission', (
+                $transition$, FundUnsubscribeService,
+            ) => repackResponse(FundUnsubscribeService.listSponsor($transition$.params().organization_id, {
+                per_page: 1000
+            }))],
+        }
+    });
+
+    // Fund unsubscribe requests (sponsor)
+    $stateProvider.state({
+        name: "sponsor-fund-unsubscriptions",
+        url: "/organizations/{organization_id}/fund-unsubscriptions?state",
+        component: "sponsorFundUnsubscriptionsComponent",
+        params: {
+            state: routeParam('all'),
+        },
+        resolve: {
+            permission: permissionMiddleware('organization-providers', 'manage_providers'),
+            organization: organziationResolver(),
         }
     });
 
@@ -628,29 +654,28 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('funds-create', 'manage_funds'),
-            validators: ['permission', '$transition$', 'OrganizationEmployeesService', (
-                permission, $transition$, OrganizationEmployeesService
-            ) => repackResponse(OrganizationEmployeesService.list(
-                $transition$.params().organization_id, {
-                role: 'validation'
-            }
-            ))],
-            productCategories: ['permission', 'ProductCategoryService', (
-                permission, ProductCategoryService
-            ) => repackResponse(ProductCategoryService.listAll())],
-            fundStates: ['permission', 'FundService', (
-                permission, FundService
-            ) => FundService.states()],
-            recordTypes: ['permission', 'RecordTypeService', (
-                permission, RecordTypeService
-            ) => repackResponse(RecordTypeService.list())],
-            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', (
-                permission, $transition$, OrganizationService
-            ) => repackPagination(OrganizationService.readListValidators(
-                $transition$.params().organization_id, {
-                per_page: 100
-            }
-            ))],
+            validators: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
+                return repackResponse(OrganizationEmployeesService.list($transition$.params().organization_id, {
+                    role: 'validation',
+                }));
+            }],
+            productCategories: ['ProductCategoryService', 'permission', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.listAll());
+            }],
+            fundStates: ['FundService','permission', (FundService) => {
+                return FundService.states();
+            }],
+            recordTypes: ['RecordTypeService','permission', (RecordTypeService) => {
+                return repackResponse(RecordTypeService.list());
+            }],
+            validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
+                return repackPagination(OrganizationService.readListValidators($transition$.params().organization_id, {
+                    per_page: 100,
+                }));
+            }],
+            products: ['ProductService', 'permission', (ProductService) => {
+                return repackResponse(ProductService.listAll({ per_page: 1000, unlimited_stock: 1, simplified: 1 }));
+            }],
         }
     });
 
@@ -660,7 +685,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "fundsShowComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-show', ['manage_funds', 'view_finances'], false),
+            permission: permissionMiddleware('funds-show', ['view_funds', 'manage_funds', 'view_finances'], false),
             fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
             }],
@@ -673,7 +698,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "fundsEditComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('funds-edit', 'manage_funds'),
+            permission: permissionMiddleware('funds-edit', ['manage_funds', 'manage_fund_texts'], false),
             fund: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.read($transition$.params().organization_id, $transition$.params().id));
             }],
@@ -691,13 +716,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             }],
             validators: ['$transition$', 'OrganizationEmployeesService', 'permission', ($transition$, OrganizationEmployeesService) => {
                 return repackResponse(OrganizationEmployeesService.list(
-                    $transition$.params().organization_id, { role: 'validation' })
-                );
+                    $transition$.params().organization_id, { role: 'validation' }
+                ));
             }],
             validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
                 return repackPagination(OrganizationService.readListValidators(
-                    $transition$.params().organization_id, { per_page: 100 })
-                );
+                    $transition$.params().organization_id, { per_page: 100 }
+                ));
+            }],
+            products: ['ProductService', 'permission', (ProductService) => {
+                return repackResponse(ProductService.listAll({ per_page: 1000, unlimited_stock: 1, simplified: 1 }));
             }],
         }
     });
@@ -1361,13 +1389,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "provider-funds",
-        url: "/organizations/{organization_id}/provider/funds?fundsType",
+        url: "/organizations/{organization_id}/provider/funds?tab&page",
         component: "providerFundsComponent",
         params: {
-            fundsType: {
-                squash: true,
-                value: null
-            },
+            tab: routeParam(),
+            page: routeParam(),
         },
         resolve: {
             organization: organziationResolver(),
@@ -1375,19 +1401,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             fundsAvailable: ['$transition$', 'ProviderFundService', (
                 $transition$, ProviderFundService
             ) => repackPagination(ProviderFundService.listAvailableFunds($transition$.params().organization_id, {
-                per_page: 10
+                per_page: 1
             }))],
-            funds: ['$transition$', 'ProviderFundService', (
-                $transition$, ProviderFundService
-            ) => repackResponse(ProviderFundService.listFunds($transition$.params().organization_id, {
-                per_page: 1000,
-            }))],
-            fundInvitations: ['$transition$', 'FundProviderInvitationsService', (
-                $transition$, FundProviderInvitationsService
-            ) => repackResponse(FundProviderInvitationsService.listInvitations(
-                $transition$.params().organization_id
-            ))],
-            fundLevel: () => 'fundsAvailable'
+            tab: ['$transition$', 'fundsAvailable', ($transition$, fundsAvailable) => {
+                if ($transition$.params().tab) {
+                    return $transition$.params().tab;
+                }
+
+                return $transition$.params().organization_id || fundsAvailable.meta.totals.active ? 'active' : 'available'; 
+            }],
         }
     });
 

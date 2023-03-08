@@ -12,8 +12,10 @@
         flex-direction: row;
         
         .fund-media {
+            display: flex;
             border-top-left-radius: $border_radius / 2;
             overflow: hidden;
+            width: 190px;
 
             .fund-media-img {
                 display: block;
@@ -24,8 +26,8 @@
         .fund-details {
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
             padding: 25px 25px;
+            flex: 1 0;
 
             .fund-name {
                 font: 600 16px/20px $bf;

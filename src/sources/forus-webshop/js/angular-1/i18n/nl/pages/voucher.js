@@ -60,9 +60,10 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                how_it_works: "Wij hebben uw aanvraag ontvangen. Wij sturen u binnen 8 weken een brief met de beslissing op uw aanvraag.",  
-                contact_sponsor: "Vragen?",
-                contact_sponsor_details: "Nem contact met ons op.",
+                how_it_works: "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag.",  
+                contact_sponsor: "Heeft u vragen?",
+                contact_sponsor_details: "Neem dan contact met ons op.",
+                redirect_to_funds: "Wilt u nog een vergoeding aanvragen?",
             },
         },
         physical_card: {

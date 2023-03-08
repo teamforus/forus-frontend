@@ -45,9 +45,11 @@
     }
 
     &.block-danger_zone-success {
-        border-color: #134478;
+        border-color: $color_primary;
 
         .danger_zone-title {
+            color: $color_primary;
+
             .mdi {
                 color: rgba($color: #000000, $alpha: .4);
             }

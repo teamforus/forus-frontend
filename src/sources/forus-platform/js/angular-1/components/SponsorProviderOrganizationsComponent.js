@@ -90,6 +90,10 @@ const SponsorProviderOrganizationsComponent = function(
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds]
         $ctrl.filters.reset();
         $ctrl.onPageChange($ctrl.filters.values);
+
+        $ctrl.requests = $ctrl.fundUnsubscribes.length;
+        $ctrl.requestsExpired = $ctrl.fundUnsubscribes.filter((item) => item.state == 'overdue').length;
+        $ctrl.requestsPending = $ctrl.fundUnsubscribes.filter((item) => item.state == 'pending').length;
     };
 };
 
@@ -97,6 +101,7 @@ module.exports = {
     bindings: {
         funds: '<',
         organization: '<',
+        fundUnsubscribes: '<',
     },
     controller: [
         'FileService',
