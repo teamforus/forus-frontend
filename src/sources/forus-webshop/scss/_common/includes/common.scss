@@ -6,6 +6,10 @@ img {
     display: flex !important;
 }
 
+.flex-inline {
+    display: inline-flex !important;
+}
+
 .flex-grow {
     flex-grow: 100 !important;
 }
@@ -30,10 +34,6 @@ img {
 
 .flex-horizontal {
     flex-direction: row !important;
-}
-
-.flex-align-center {
-    align-items: center !important;
 }
 
 .pull-right {

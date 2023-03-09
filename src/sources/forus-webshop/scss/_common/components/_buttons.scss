@@ -131,7 +131,7 @@
     &.button-light {
         display: inline-block;
         color: #303030;
-        background: #f7f9fb;
+        background: #fff;
         border: 1px solid #d4d9dd;
 
         &:hover {
@@ -188,6 +188,7 @@
     &.button-sm {
         font: 700 14px/20px $bf;
         padding: 10px 15px;
+        border-radius: $border_radius / 2;
 
         .mdi {
             margin-right: 4px;
@@ -197,9 +198,17 @@
     &.button-xs {
         font: 700 12px/20px $bf;
         padding: 5px 10px;
+        border-radius: $border_radius / 2;
 
         .mdi {
-            margin-right: 4px;
+            font-size: 1.2em;
+            margin-right: 5px;
+            margin-left: -5px;
+    
+            &.icon-right {
+                margin-right: -5px;
+                margin-left: 5px;
+            }
         }
     }
 

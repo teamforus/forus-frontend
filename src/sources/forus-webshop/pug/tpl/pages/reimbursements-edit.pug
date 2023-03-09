@@ -68,39 +68,33 @@ section.section.section-profile: .wrapper
                         br
                         .form-error(ng-repeat="error in $ctrl.form.errors.files" ng-bind="error")
 
-                .card-section: .row
-                    .flex.flex-align-center
-                        .col.col-xs-12.col-md-10
-                            .form-group.form-group-inline
-                                label(for="voucher_id").form-label Tegoed
-                                .form-offset
-                                    select-control(
-                                        id="voucher_id"
-                                        as="address"
-                                        prop="id"
-                                        search="false"
-                                        dusk="voucherSelector"
-                                        ng-model="$ctrl.form.values.voucher_id"
-                                        ng-change="$ctrl.updateSelectedVoucher()"
-                                        options="$ctrl.vouchers"
-                                        template="select-control-voucher"
-                                        placeholder="Select voucher")
+                .card-section: .row: .col.col-xs-12.col-md-10
+                    .form-group.form-group-inline
+                        label(for="voucher_id").form-label: .flex-inline
+                            .flex Tegoed&nbsp;
+                            .flex-inline.flex-center.flex-vertical
+                                tooltip(text="'Kies het tegoed dat u wilt gebruiken voor het terugvragen van uw kosten.'")
 
-                                    .form-error(ng-repeat="error in $ctrl.form.errors.voucher_address" ng-bind="error")
-                        
-                        .col.col-xs-12.col-md-2        
-                            .tooltip-block
-                                | #[tooltip(text="'Kies het tegoed dat u wilt gebruiken voor het terugvragen van uw kosten.'")]
+                        .form-offset
+                            select-control(
+                                id="voucher_id"
+                                as="address"
+                                prop="id"
+                                search="false"
+                                dusk="voucherSelector"
+                                ng-model="$ctrl.form.values.voucher_id"
+                                ng-change="$ctrl.updateSelectedVoucher()"
+                                options="$ctrl.vouchers"
+                                template="select-control-voucher"
+                                placeholder="Select voucher")
 
-                    .col.col-xs-12.col-md-10
-                        .form-group.form-group-inline
-                            label(for="voucher_id").form-label
-                            .form-offset    
-                                block-voucher-records(
-                                    ng-if="$ctrl.selectedVoucher && $ctrl.selectedVoucher.records.length"
-                                    toggle='true'
-                                    compact='true'
-                                    voucher="$ctrl.selectedVoucher")
+                            .form-error(ng-repeat="error in $ctrl.form.errors.voucher_address" ng-bind="error")
+
+                            block-voucher-records(
+                                ng-if="$ctrl.selectedVoucher && $ctrl.selectedVoucher.records.length"
+                                toggle='true'
+                                compact='true'
+                                voucher="$ctrl.selectedVoucher")
 
                 .card-section: .row: .col.col-xs-12.col-md-10
                     //- Title

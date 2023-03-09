@@ -19,10 +19,10 @@
             .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
 
         .reservation-overview-item
-            .button(
+            button.button.button-light.button-xs(
                 dusk="btnCancelReservation" 
                 ng-click="$dir.cancelReservation($dir.reservation)")
-                em.mdi.mdi-trash-can-outline.icon-start
+                em.mdi.mdi-trash-can-outline
                 | {{ "reservation.labels.cancel" | translate }}
 
     //- reservation accepted
@@ -36,10 +36,10 @@
             .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
 
         .reservation-overview-item 
-            .button(
+            button.button.button-light.button-xs(
                 dusk="btnCancelReservation" 
                 ng-click="$dir.cancelReservation($dir.reservation)")
-                em.mdi.mdi-trash-can-outline.icon-start
+                em.mdi.mdi-trash-can-outline
                 | {{ "reservation.labels.cancel" | translate }}
 
     //- reservation rejected
@@ -85,8 +85,8 @@
             .reservation-overview-value(ng-bind="$dir.reservation.expire_at_locale")
 
         .reservation-overview-item
-            .button(
+            button.button.button-light.button-xs(
                 dusk="btnCancelReservation" 
                 ng-click="$dir.cancelReservation($dir.reservation)")
-                em.mdi.mdi-trash-can-outline.icon-start
+                em.mdi.mdi-trash-can-outline
                 | {{ "reservation.labels.cancel" | translate }}

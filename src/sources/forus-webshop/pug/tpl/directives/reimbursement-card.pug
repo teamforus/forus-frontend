@@ -117,8 +117,8 @@ a(
                 strong(ng-bind="$dir.reimbursement.resolved_at_locale")
 
             .reimbursement-value(ng-if="!$dir.reimbursement.expired && $dir.reimbursement.state === 'draft'")
-                .button(
+                button.button.button-light.button-xs(
                     dusk="reimbursementsItemBtnCancel" 
                     ng-click="$dir.cancelReimbursement($event, $dir.reimbursement)")
-                    em.mdi.mdi-trash-can-outline.icon-start
+                    em.mdi.mdi-trash-can-outline
                     | Annuleren
