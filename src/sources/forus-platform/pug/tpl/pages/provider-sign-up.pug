@@ -258,7 +258,7 @@
                                 ui-control-text(
                                     data-id="employee"
                                     ng-model="$ctrl.signUpForm.values.email"
-                                    data-placeholder="Bijv. info@info.nl").large
+                                    data-placeholder="e-mail@e-mail.nl").large
                                 .form-error(ng-repeat="error in ($ctrl.signUpForm.errors.email || $ctrl.signUpForm.errors['records.primary_email'])" ng-bind="error")
 
                         .col.col-md-5.col-xs-12
@@ -589,31 +589,12 @@
 
                 .sign_up-pane-body: .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_8")
                 .sign_up-pane-body
-                    provider-fund-filters(
-                        ng-if="$ctrl.showFilters"
-                        funds-available="$ctrl.fundsAvailable" 
-                        organization="$ctrl.organization")
-
-                    fund-card-provider-can-join(
-                        ng-if="$ctrl.fundsAvailable.meta.total > 0"
-                        ng-repeat="fund in $ctrl.fundsAvailable.data"
-                        template="provider-signup-fund-card"
-                        fund="fund"
+                    provider-funds-can-join(
                         organization="$ctrl.organization"
-                        on-apply="$ctrl.applyFund()"
-                        hide-modal="true")    
+                        show-filters="$ctrl.showFilters"
+                        external-filters="$ctrl.filters.values"
+                        on-apply="$ctrl.applyFund()")
 
-                    block-empty(
-                        ng-if="$ctrl.fundsAvailable.meta.total == 0" 
-                        text="Er zijn momenteel geen actieve fondsen.")
-
-                    .card-section(ng-if="$ctrl.fundsAvailable.meta" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
-                        paginator(
-                            meta="$ctrl.fundsAvailable.meta" 
-                            filters="$ctrl.filters.values" 
-                            count-buttons="5" 
-                            on-page-change="$ctrl.onFundsAvailablePageChange(query)")
-                    
                     ui-control-checkbox(
                         ng-if="!$ctrl.hasFundApplications"
                         name="confirm_no_application"

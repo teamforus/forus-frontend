@@ -113,6 +113,7 @@ app.directive('fundCriterion', require('./directives/FundCriterionDirective'));
 app.directive('fundCriteriaCustomOverview', require('./directives/FundCriteriaCustomOverviewComponent'));
 app.directive('profileMenu', require('./directives/ProfileMenuDirective'));
 app.directive('blockProducts', require('./directives/BlockProductsDirective'));
+app.directive('blockVoucherRecords', require('./directives/BlockVoucherRecordsDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
 app.directive('dashInputControl', require('./directives/DashInputControlDirective'));

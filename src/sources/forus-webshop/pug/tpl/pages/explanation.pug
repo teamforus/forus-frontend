@@ -32,10 +32,11 @@ main(id="main-content")
                     collapse-item)
 
                     .faq-item-header(collapse-header)
-                        span(ng-bind="faq.title")
-                        .faq-item-chevron-down.mdi.mdi-chevron-down
-                        .faq-item-chevron-up.mdi.mdi-chevron-up
-                    .faq-item-content(ng-bind-html="faq.description_html")
+                        span(ng-bind="faq.title" aria-expanded="{{faq.isActive}}" role="button")
+                        .faq-item-chevron-down.mdi.mdi-chevron-down(aria-hidden="true")
+                        .faq-item-chevron-up.mdi.mdi-chevron-up(aria-hidden="true")
+                    .faq-item-content(ng-bind-html="faq.description_html" role="region" aria-labelledby="{{faq.title}}")
+
 
             //- Default FAQ
             .faq(collapse ng-if="!$ctrl.faq.length")

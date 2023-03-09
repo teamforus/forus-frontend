@@ -1,0 +1,14 @@
+.block.block-voucher-records(
+    ng-class="[$dir.toggle ? 'block-voucher-records-toggle' : '', $dir.compact ? 'block-voucher-records-compact' : '']")
+    
+    .records-toggle(
+        ng-if="$dir.toggle"
+        ng-click="$dir.showRecords = !$dir.showRecords")
+        span(ng-if="!$dir.showRecords") Toon alle details
+        span(ng-if="$dir.showRecords") Verberg alle details
+        em.mdi(ng-class="$dir.showRecords ? 'mdi-chevron-up' : 'mdi-chevron-down'")
+
+    .records-pane(ng-if="!$dir.toggle || $dir.showRecords")
+        .record-item(ng-repeat="record in $dir.voucher.records")
+            .record-key(ng-bind="record.record_type_name")
+            .record-value(ng-bind="record.value_locale")

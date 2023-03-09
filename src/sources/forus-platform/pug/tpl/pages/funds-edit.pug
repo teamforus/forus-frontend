@@ -36,10 +36,10 @@
                     label(translate="funds_edit.labels.description_short").form-label
                     .form-offset
                         textarea(
-                            maxlength="280"
+                            maxlength="500"
                             placeholder="Omschrijving"
                             ng-model="$ctrl.form.values.description_short").form-control.r-n
-                        .form-hint Max. 280 tekens
+                        .form-hint Max. 500 tekens
                         .form-error(ng-repeat="error in $ctrl.form.errors.description_short" ng-bind="error")
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
@@ -52,7 +52,8 @@
                         prop="key"
                         search="false"
                         ng-model="$ctrl.form.values.type" 
-                        options="$ctrl.fundTypes").form-control
+                        options="$ctrl.fundTypes"
+                        ng-disabled="!($ctrl.organization | hasPerm:'manage_funds')").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
 
                     //- Fund type icon for edit
@@ -89,7 +90,7 @@
                     .form-offset: select-control(
                         prop="key"
                         search="false"
-                        ng-disabled="$ctrl.fund && ($ctrl.fund.state != 'waiting')"
+                        ng-disabled="($ctrl.fund && ($ctrl.fund.state != 'waiting')) || !($ctrl.organization | hasPerm:'manage_funds')"
                         ng-model="$ctrl.form.values.application_method" 
                         ng-change="$ctrl.onMethodChange($ctrl.form.values.application_method, '{{$ctrl.form.values.application_method}}')"
                         options="$ctrl.applicationMethods").form-control
@@ -138,7 +139,7 @@
                             ng-model="$ctrl.form.values.start_date"
                             type="text"
                             placeholder="dd-MM-jjjj"
-                            ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
+                            ng-disabled="($ctrl.form.values.state != 'waiting' || !($ctrl.organization | hasPerm:'manage_funds'))").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.start_date" ng-bind="error")
                 
                 //- Fund end date
@@ -153,31 +154,39 @@
                             ng-model="$ctrl.form.values.end_date"
                             type="text"
                             placeholder="dd-MM-jjjj"
-                            ng-disabled="$ctrl.form.values.state != 'waiting'").form-control
+                            ng-disabled="($ctrl.form.values.state != 'waiting' || !($ctrl.organization | hasPerm:'manage_funds'))").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.end_date" ng-bind="error")
 
             //- Formula products
-            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.formula_products")
-                .row: .col.col-lg-9.col-md-12
-                    .form-group.form-group-inline(ng-repeat="product in $ctrl.form.products track by $index")
-                        label(translate="{{ $index == 0 ? 'funds_edit.labels.products' : '' }}").form-label
-                        .form-offset: .flex-row
-                            .flex-col.flex-grow: select-control(
-                                ng-model="$ctrl.form.products[$index]" 
-                                options="$ctrl.productOptions[$index]"
-                                placeholder="Selecteer aanbieding...").flex-grow
+            .card-section.card-section-primary(
+                ng-if="$root.appConfigs.features.organizations.funds.formula_products && ($ctrl.organization | hasPerm:'manage_funds')")
+                .form-group.form-group-inline(ng-repeat="formula_product in $ctrl.form.values.formula_products track by $index")
+                    label(translate="{{ $index == 0 ? 'funds_edit.labels.products' : '' }}").form-label
+                    .form-offset: .flex-row
+                        .flex-col.flex-grow: .flex-row.flex-grow
+                            .flex-col.flex-col-4
+                                select-control(
+                                    prop="id"
+                                    ng-model="formula_product.product_id"
+                                    options="$ctrl.productOptions[$index]"
+                                    placeholder="Selecteer aanbieding...")
+                                .form-error(ng-repeat="error in $ctrl.form.errors['formula_products.' + $index + '.product_id']" ng-bind="error")
 
-                            .flex-col: .button.button-primary.button-icon(
-                                ng-click="$ctrl.removeProduct($ctrl.form.products[$index])"
-                                ): em.mdi.mdi-close
+                            .flex-col.flex-col-2
+                                select-control(
+                                    prop="key"
+                                    ng-model="formula_product.record_type_key_multiplier"
+                                    options="$ctrl.recordTypes"
+                                    placeholder="Selecteer aanbieding...")
+                                .form-error(ng-repeat="error in $ctrl.form.errors['formula_products.' + $index + '.record_type_key_multiplier']" ng-bind="error")
+                        .flex-col: .button.button-primary.button-icon(ng-click="$ctrl.removeProduct(formula_product)"): em.mdi.mdi-close
 
-                        .form-error(ng-repeat="error in $ctrl.form.errors['products.' + ($index - 1)]" ng-bind="error")
-                    .form-group.form-group-inline
-                        label(translate="{{ !$ctrl.form.products.length ? 'funds_edit.labels.products' : '' }}").form-label
-                        .button.button-primary(ng-click="$ctrl.addProduct()")
-                            em.mdi.mdi-plus-circle.icon-start
-                            translate Aanbieding toevoegen
-            
+                .form-group.form-group-inline
+                    label(translate="{{ !$ctrl.form.values.formula_products.length ? 'funds_edit.labels.products' : '' }}").form-label
+                    .button.button-primary(ng-click="$ctrl.addProduct()")
+                        em.mdi.mdi-plus-circle.icon-start
+                        translate Aanbieding toevoegen
+        
             //- Default validator employee
             .card-section.card-section-primary: .row
                 .form-group.form-group-inline.col.col-lg-9.col-md-12
@@ -186,6 +195,7 @@
                         prop="id"
                         as="email"
                         search="false"
+                        ng-disabled="!($ctrl.organization | hasPerm:'manage_funds')"
                         ng-model="$ctrl.form.values.default_validator_employee_id" 
                         options="$ctrl.validators").flex-grow
                     
@@ -196,12 +206,15 @@
                     input-checkbox-control(
                         name="show_attachment_{{ $index }}" 
                         ng-model="$ctrl.form.values.auto_requests_validation" 
+                        ng-disabled="!($ctrl.organization | hasPerm:'manage_funds')"
                         label="Automatisch goedkeuren wanneer er een BSN-nummer vast staat.")
                     
                     .form-error(ng-repeat="error in $ctrl.form.errors.auto_requests_validation" ng-bind="error")
 
             //- Fund criteria editor
-            .card-section.card-section-primary(ng-if="$root.appConfigs.features.organizations.funds.criteria")
+            .card-section.card-section-primary(
+                ng-if="$root.appConfigs.features.organizations.funds.criteria"
+                ng-show="$ctrl.form.values.criteria.length > 0 || ($ctrl.organization | hasPerm:'manage_funds')")
                 .form-group.form-group-inline
                     label.form-label Criteria
                     .form-offset: fund-criteria-editor(
@@ -217,7 +230,10 @@
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label Requirements 
-                    .form-offset: fund-config-contact-info-editor(fund="$ctrl.form.values" inline="false")
+                    .form-offset: fund-config-contact-info-editor(
+                        fund="$ctrl.form.values" 
+                        inline="false"
+                        disabled="!($ctrl.organization | hasPerm:'manage_funds')")
 
             //- FAQ
             .card-section.card-section-primary
@@ -240,7 +256,10 @@
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label(translate="funds_edit.labels.notification_amount")
-                    input(ng-model="$ctrl.form.values.notification_amount" type="text" placeholder="{{ funds_edit.labels.notification_amount | translate }}").form-control
+                    input(
+                        ng-model="$ctrl.form.values.notification_amount" 
+                        ng-disabled="!($ctrl.organization | hasPerm:'manage_funds')"
+                        placeholder="{{ 'funds_edit.labels.notification_amount' | translate }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.notification_amount" ng-bind="error")
 
             //- Submit

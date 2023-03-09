@@ -30,8 +30,15 @@
 
                     .voucher-details
                         .voucher-name(ng-bind="voucher.fund.name")
-                        .voucher-organization(ng-bind="voucher.fund.organization.name")
                         .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount | currency_format")
+
+                        .voucher-organization
+                            span(ng-if="voucher.records_title" ng-bind="voucher.records_title")
+                            span.text-separator(ng-if="voucher.records_title")
+                            span(ng-bind="voucher.fund.organization.name")
+                            
+                        .voucher-records(ng-if="voucher.records.length")
+                            block-voucher-records(toggle="true" compact="true" voucher="voucher")
 
                     .voucher-overview(ng-if="$ctrl.vouchers.length > 1")
                         button.button.button-primary(ng-click="$ctrl.reserveProduct($ctrl.product, voucher)") Kies

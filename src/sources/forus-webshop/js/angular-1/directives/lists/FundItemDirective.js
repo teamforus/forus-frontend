@@ -1,6 +1,12 @@
 const FundItemDirective = function($state, $scope, FundService, PushNotificationsService) {
     const $dir = $scope.$dir = {};
-    let $ctrl = this;
+    
+    $dir.setShowMore = (e, showMore = false) => {
+        e?.preventDefault();
+        e?.stopPropagation();
+        
+        $dir.showMore = showMore;
+    };
 
     $dir.applyFund = function($event, fund) {
         $event.stopPropagation();
