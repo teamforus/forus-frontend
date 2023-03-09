@@ -245,7 +245,13 @@
                                     ng-bind="'#' + transaction.voucher_transaction_bulk_id").text-primary-light
                                 
                                 td(ng-if="$ctrl.isSponsor && !transaction.voucher_transaction_bulk_id")
-                                    .text-muted(ng-bind="transaction.bulk_status_locale")
+                                    div(ng-if="transaction.transaction_in > 0 && transaction.state == 'pending' && transaction.attempts < 3 ")
+                                        | In afwachting
+                                        .text-sm.text-muted-dark
+                                            em.mdi.mdi-clock-outline 
+                                            | {{ transaction.transaction_in }} dagen resterend
+
+                                    span(ng-if="!transaction.transaction_in > 0 || transaction.state != 'pending' || transaction.attempts >= 3 ") -
 
                                 td
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
