@@ -19,16 +19,7 @@ const ImplementationNotificationsSendComponent = function (
     const contentToPreview = ImplementationNotificationsService.contentToPreview;
     const makeCustomNotification = ImplementationNotificationsService.makeCustomNotification;
 
-    const targets = [{
-        value: "providers_approved",
-        name: 'Alleen active aanbieders',
-    }, {
-        value: "providers_rejected",
-        name: 'Alleen geweigerd aanbieders',
-    }, {
-        value: "providers_all",
-        name: 'Alle aanbieders',
-    }, {
+    const identityTargets = [{
         value: "all",
         name: 'Alle gebruikers met een actieve voucher',
     }, {
@@ -36,17 +27,35 @@ const ImplementationNotificationsSendComponent = function (
         name: 'Alle gebruikers die nog budget beschikbaar hebben of een ongebruike reservering en/of aanbiedings voucher',
     }];
 
-    $ctrl.targets = targets;
-    $ctrl.submitting = false;
+    const providerTargets = [{
+        value: "providers_approved",
+        name: 'Alleen active aanbieders',
+    }, {
+        value: "providers_rejected",
+        name: 'All pending and rejected providers',
+    }, {
+        value: "providers_all",
+        name: 'Alle aanbieders',
+    }];
+
+    $ctrl.identityTargets = identityTargets;
+    $ctrl.providerTargets = providerTargets;
+    $ctrl.targetGroup = 'identities',
+
+        $ctrl.submitting = false;
     $ctrl.submittingToSelf = false;
-    $ctrl.lastQuery = '';
+    $ctrl.lastIdentitiesQuery = '';
 
     $ctrl.identitiesFilters = {
         order_by: 'id',
         order_dir: 'asc',
-        target: targets[0].value,
-        per_page: 10,
+        target: identityTargets[0].value,
         with_reservations: 1,
+        per_page: 10,
+    };
+
+    $ctrl.providersFilters = {
+        target: providerTargets[0].value,
     };
 
     $ctrl.setEditing = (editing) => {
@@ -82,7 +91,7 @@ const ImplementationNotificationsSendComponent = function (
         }, (res) => {
             PushNotificationsService.danger('Error!', res.data.message);
         }).finally(() => {
-            $ctrl.lastQuery = query.q;
+            $ctrl.lastIdentitiesQuery = query.q;
             PageLoadingBarService.setProgress(100);
         });
     };
@@ -99,10 +108,18 @@ const ImplementationNotificationsSendComponent = function (
         ));
     };
 
-    $ctrl.askConfirmation = (onConfirm) => {
+    $ctrl.askConfirmation = (target, onConfirm) => {
+        const descriptionKey = {
+            all: 'description_identities_all',
+            has_balance: 'description_identities_has_balance',
+            providers_all: 'description_providers_all',
+            providers_approved: 'description_providers_approved',
+            providers_rejected: 'description_providers_rejected',
+        }[target] || 'description';
+
         ModalService.open("dangerZone", {
             title: $translateDangerZone('title'),
-            description: $translateDangerZone('description', { identity_count: $ctrl.identities.meta.counts.selected }),
+            description: $translateDangerZone(descriptionKey, { identity_count: $ctrl.identities.meta.counts.selected }),
             cancelButton: $translateDangerZone('buttons.cancel'),
             confirmButton: $translateDangerZone('buttons.confirm'),
             onConfirm: onConfirm,
@@ -134,12 +151,15 @@ const ImplementationNotificationsSendComponent = function (
             return false;
         }
 
-        $ctrl.askConfirmation(() => {
+        const target = $ctrl.targetGroup == 'identities' ? $ctrl.identitiesFilters?.target : $ctrl.providersFilters?.target;
+
+        $ctrl.askConfirmation(target, () => {
             $ctrl.submitting = true;
             PageLoadingBarService.setProgress(0);
 
             FundService.sendNotification($ctrl.organization.id, $ctrl.fund.id, {
                 ...$ctrl.identitiesFilters,
+                target: target,
                 subject: labelsToVars($ctrl.template.title),
                 content: labelsToVars($ctrl.template.content),
             }).then(() => {
@@ -224,7 +244,7 @@ module.exports = {
         'PushNotificationsService',
         'FundIdentitiesExportService',
         'ImplementationNotificationsService',
-        ImplementationNotificationsSendComponent
+        ImplementationNotificationsSendComponent,
     ],
-    templateUrl: 'assets/tpl/pages/implementation-notifications-send.html'
+    templateUrl: 'assets/tpl/pages/implementation-notifications-send.html',
 };
