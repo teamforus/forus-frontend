@@ -194,9 +194,22 @@
         }
     }
 
+    &.button-xs {
+        font: 700 12px/20px $bf;
+        padding: 5px 10px;
+
+        .mdi {
+            margin-right: 4px;
+        }
+    }
+
     &.button-text {
         background: none;
         border: none;
+
+        &:last-child {
+            padding-right: 0;
+        }
         
         &.button-text-padless {
             padding-left: 0;
@@ -204,7 +217,7 @@
         }
 
         &.button-text-primary {
-            color: #305dfb;
+            color: $color_primary;
         }
 
         &[disabled],
@@ -267,19 +280,6 @@
         & > .mdi {
             margin: 0 -5px;
         }
-    }
-
-    &.button-digid {
-        background-color: #000;
-        background-image: url('../img/icon-digid.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        border-color: #000;
-        box-shadow: none;
-        cursor: default;
-        pointer-events: none;
-        height: 48px; 
-        width: 48px;
     }
 }
 

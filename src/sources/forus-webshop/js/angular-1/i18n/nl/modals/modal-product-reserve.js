@@ -6,11 +6,11 @@ module.exports = {
     },
     description_formal: [
         'U gebruikt uw <strong>{{fund}}</strong> tegoed voor deze reservering.', 
-        'Voor het maken van de reservering wordt uw e-mailadres gedeeld met de aanbieder.',
+        'Plaatst u een reservering? Dan gaat u ermee akkoord dat wij uw persoonlijke gegevens delen met de aanbieder.',
     ].join('<br/>'),
     description_informal: [
         'Je gebruikt jouw <strong>{{fund}}</strong> tegoed voor deze reservering.',
-        'Voor het maken van de reservering wordt je e-mailadres gedeeld met de aanbieder.',
+        'Plaatst je een reservering? Dan gaat je ermee akkoord dat wij je persoonlijke gegevens delen met de aanbieder.',
     ].join('<br/>'),
 
     description_formal_time: "De reservering kunt u na bevestiging nog binnen {{ days_to_cancel }} dagen annuleren. ",

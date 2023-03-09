@@ -68,7 +68,7 @@ main(id="main-content")
                         .form-group: .row
                             .col.col-lg-9
                                 label.form-label(i18n="popup_auth.input.mail" for="email")
-                                ui-control-email(ng-model="$ctrl.emailForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email" tabindex="1")
+                                ui-control-email(ng-model="$ctrl.emailForm.values.email" data-placeholder="e-mail@e-mail.nl" data-id="email" tabindex="1")
                                 .form-error(ng-repeat="error in $ctrl.emailForm.errors.email" ng-bind="error")
 
                             .col.col-lg-3
@@ -235,6 +235,7 @@ main(id="main-content")
                                 ng-if="invalidCriteria.show_attachment"
                                 type="fund_request_record_proof"
                                 files="invalidCriteria.files"
+                                crop-media="false"
                                 on-file-removed="$ctrl.onFileInfo(invalidCriteria, files)"
                                 on-file-resolved="$ctrl.onFileInfo(invalidCriteria, files)"
                                 on-file-batch-queued="$ctrl.onFileInfo(invalidCriteria, files)")
@@ -445,7 +446,7 @@ main(id="main-content")
                             .sign_up-pane-separator
 
                         .sign_up-options: .sign_up-option(ng-click="$ctrl.startDigId()")
-                            .sign_up-option-media: img(src="/assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
+                            .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="icon digid").sign_up-option-media-img
                             .sign_up-option-details
                                 .sign_up-option-title DigiD
                                 .sign_up-option-description Log opnieuw in met DigiD om opnieuw te beginnen.

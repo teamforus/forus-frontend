@@ -145,6 +145,7 @@
                     .table-wrapper
                         table.table
                             tr
+                                th(translate="vouchers.labels.id")
                                 th(translate="vouchers.labels.assigned_to")
                                 th(translate="vouchers.labels.source")
                                 th(ng-if="$ctrl.fund.type == 'budget'" translate="vouchers.labels.amount")
@@ -158,14 +159,17 @@
                             tr(
                                 ng-repeat="voucher in $ctrl.vouchers.data" 
                                 ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
+                                
+                                td(ng-bind="voucher.id")
+                                
                                 td
                                     strong(ng-bind="(voucher.identity_email | str_limit:25) || voucher.activation_code || 'Niet toegewezen'").text-primary
                                     span(ng-if="voucher.identity_bsn || voucher.relation_bsn").text-strong.text-md.text-muted-dark
                                         br
                                         | {{ 'BSN: ' + (voucher.identity_bsn || voucher.relation_bsn) }}
-                                    span(ng-if="(!voucher.identity_email && voucher.activation_code) || ((!voucher.identity_bsn && !voucher.relation_bsn) && voucher.physical_card.code)").text-strong.text-md.text-muted-dark
+                                    span(ng-if="voucher.client_uid || (!voucher.identity_email && voucher.activation_code) || ((!voucher.identity_bsn && !voucher.relation_bsn) && voucher.physical_card.code)").text-strong.text-md.text-muted-dark
                                         br
-                                        | {{ 'NR: ' + (voucher.activation_code_uid || voucher.physical_card.code || 'Nee') }}
+                                        | {{ 'NR: ' + (voucher.client_uid || voucher.physical_card.code || 'Nee') }}
                                 td: strong(ng-bind="'vouchers.labels.source_' + voucher.source | translate").text-md.text-muted-dark
 
                                 td(
@@ -184,14 +188,19 @@
                                     br
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
 
-                                td(ng-if="!$ctrl.fundClosed"): strong(ng-bind="voucher.expire_at_locale").text-strong.text-md.text-muted-dark
+                                td(ng-if="!$ctrl.fundClosed")
+                                    strong(ng-bind="voucher.expire_at_locale.split(',')[0]").text-primary
+                                    br
+                                    strong(ng-bind="voucher.expire_at_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
                                 td(ng-if="!$ctrl.fundClosed"): .td-boolean.flex-vertical
-                                    .flex.text-primary
+                                    .text-primary
                                         em.mdi.mdi-check-circle(ng-if="voucher.in_use")
                                         em.mdi.mdi-close(ng-if="!voucher.in_use")
                                         string(ng-if="!voucher.in_use" translate="product_vouchers.labels.no")
-                                        string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale")
+                                        strong(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[0]").text-primary
+                                        br(ng-if="voucher.in_use")
+                                        strong(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
                                 td
                                     .td-boolean(ng-if="voucher.expired")
@@ -219,11 +228,11 @@
                                                         span.text-primary.text-sm.text-strong CODE:
                                                         br
                                                         span(ng-bind="voucher.activation_code").text-strong
-                                                    span(ng-if="voucher.activation_code")
+                                                    span(ng-if="voucher.client_uid || voucher.activation_code")
                                                         br
                                                         span.text-primary.text-sm.text-strong UNIEK NUMMER:
                                                         br
-                                                        span(ng-bind="voucher.activation_code_uid || 'Nee'").text-strong
+                                                        span(ng-bind="voucher.client_uid || 'Nee'").text-strong
                                                     span(ng-if="voucher.physical_card.code")
                                                         br
                                                         span.text-primary.text-sm.text-strong PASNUMMER:

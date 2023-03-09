@@ -40,6 +40,54 @@
         color: $tc;
     }
 
+    .form-numeric {
+        display: inline-flex;
+
+        .form-numeric-btn {
+            display: inline-flex;
+            height: 30px;
+            flex-direction: column;
+            justify-content: center;
+            user-select: none;
+            
+            .mdi {
+                color: $tc;
+                display: inline-flex;
+                font-size: 14px;
+                width: 18px;
+                height: 18px;
+                background-color: #fff;
+                border: 1px solid $borderColor;
+                border-radius: 18px;
+                line-height: 16px;
+                justify-content: center;
+                box-shadow: $box_shadow;
+            }
+
+            &.disabled, &[disabled] {
+                pointer-events: none;
+                filter: grayscale(1) opacity(.5);
+            }
+        }
+
+        .form-numeric-value {
+            display: inline-flex;
+            font: 600 12px/30px $bf;
+            padding: 0 5px;
+            min-width: 25px;
+            justify-content: center;
+            color: $tc;
+        }
+
+        .form-numeric-actions {
+            padding-left: 10px;
+        }
+
+        &.form-numeric-compact {
+            margin: -2px 0;
+        }
+    }
+
     .form-toggle {
         display: flex;
         width: 100%;
@@ -326,9 +374,16 @@
             .block-form_tooltip {
                 position: absolute;
                 top: 20px;
-                right: -45px;
+                right: -25px;
                 transform: translate(0, -50%);
                 z-index: 5;
+                padding: 0;
+            }
+
+            &.tooltipped-inner {
+                .block-form_tooltip {
+                    right: 0;
+                }
             }
         }
 
@@ -359,6 +414,9 @@
                     &:before {
                         content: '*';
                         padding-right: 2px;
+                        display: inline-block;
+                        margin-left: -8px;
+                        width: 8px;
                     }
 
                     &:after {
@@ -401,17 +459,17 @@
 
             &.form-group-inline-md {
                 &>.form-label {
-                    width: 120px;
+                    width: 125px;
                 }
 
                 &>.form-offset,
                 &>.form-control {
-                    width: calc(100% - 120px);
+                    width: calc(100% - 125px);
                 }
 
                 &>.form-error {
-                    margin-left: 120px;
-                    width: calc(100% - 120px);
+                    margin-left: 125px;
+                    width: calc(100% - 125px);
                 }
             }
 
@@ -471,6 +529,12 @@
         .select-control-search {
             cursor: pointer;
             padding-right: 20px;
+
+            .select-control-search-placeholder {
+                overflow: hidden;
+                display: block;
+                height: 100%;
+            }
         }
 
         .select-control-icon {
@@ -596,6 +660,7 @@
             display: none;
         }
 
+        &.checked,
         input[type='checkbox']:checked+.checkbox-label {
             .checkbox-box {
                 .mdi {
@@ -607,6 +672,32 @@
         &.checkbox-narrow {
             padding-top: 5px;
             padding-bottom: 5px;
+        }
+
+        &.checkbox-compact {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 0;
+
+            .checkbox-box {
+                border-color: #D4D9DD;
+                background-color: #F6F9FC;
+            }
+
+            input[type='checkbox']:checked+.checkbox-label {
+                .checkbox-box {
+                    border-color: #134478;
+                    background-color: #134478;
+
+                    .mdi {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+
+        &.checkbox-th {
+            margin: -6px 0;
         }
 
         &[disabled] {

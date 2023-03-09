@@ -134,6 +134,15 @@
                     font: 700 14px/20px $bf;
                 }
 
+                .td-text {
+                    font: inherit;
+                    margin: 0 0 10px;
+
+                    &:last-child {
+                        margin: 0 0 0;
+                    }
+                }
+
                 .button {
                     &.button-icon {
                         padding: 4px 10px;
@@ -160,7 +169,6 @@
                     }
                 }
 
-
                 .td-icons {
                     .mdi {
                         text-align: center;
@@ -175,6 +183,10 @@
                             margin-right: 0;
                         }
                     }
+                }
+
+                .td-drawn {
+                    margin: -5px 0;
                 }
 
                 .td-media {
@@ -201,7 +213,7 @@
                 }
 
                 .button-group {
-                    margin: -2.5px 0;
+                    margin: -5px 0;
                 }
 
                 &:first-child {
@@ -215,9 +227,21 @@
                 &.td-narrow {
                     width: 1%;
                 }
+
+                &.td-grow {
+                    width: 100%;
+                }
                 
                 &.td-paddless {
                     padding: 0;
+                }
+            }
+
+            &[ng-click]:hover, &[ui-sref]:hover {
+                td,
+                th {
+                    background: #f6f8f9;
+                    cursor: pointer;
                 }
             }
 
@@ -227,11 +251,28 @@
                 }
             }
 
-            &[ng-click]:hover, &[ui-sref]:hover {
-                td,
-                th {
-                    background: #f6f8f9;
-                    cursor: pointer;
+            &.tr-danger {
+                td {
+                    background-color: rgba(255, 150, 150, $alpha: .1);
+                }
+            }
+
+            &.tr-warning {
+                td {
+                    background-color: rgba(#fcf2dd, $alpha: .3);
+                }
+
+                &[ng-click]:hover, &[ui-sref]:hover {
+                    td,
+                    th {
+                        background-color: rgba(#fcf2dd, $alpha: .5);
+                    }
+                }
+            }
+
+            &.selected {
+                td {
+                    background: #F8FBF7;
                 }
             }
         }
@@ -245,6 +286,16 @@
                 th {
                     border-bottom: 0;
                 }
+            }
+        }
+
+        &.table-fixed {
+            table-layout: fixed;
+        }
+
+        &.table-align-top {
+            td {
+                vertical-align: top;
             }
         }
     }

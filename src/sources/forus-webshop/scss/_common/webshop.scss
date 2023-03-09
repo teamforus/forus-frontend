@@ -21,24 +21,24 @@
 'layout/_navigation.scss';
 
 // COMPONENTS
-@import 'components/_breadcrumbs.scss',
-'components/_buttons.scss',
-'components/button-groups.scss',
-'components/flex-grid.scss',
-'components/rate.scss',
-'components/_carrousel.scss',
-'components/_dropdown.scss',
-'components/_form.scss',
-'components/_ui-controls.scss',
-'components/_label.scss',
-'components/_map-card.scss',
-'components/_modals.scss',
-'components/_tooltip.scss',
-'components/_triangle.scss',
-'components/_printables.scss',
-'components/card.scss',
-'components/skiplinks.scss',
-'components/table.scss';
+@import 'components/_breadcrumbs.scss';
+@import 'components/_buttons.scss';
+@import 'components/button-groups.scss';
+@import 'components/flex-grid.scss';
+@import 'components/rate.scss';
+@import 'components/_carrousel.scss';
+@import 'components/_dropdown.scss';
+@import 'components/_form.scss';
+@import 'components/_ui-controls.scss';
+@import 'components/_label.scss';
+@import 'components/_map-card.scss';
+@import 'components/_modals.scss';
+@import 'components/_tooltip.scss';
+@import 'components/_triangle.scss';
+@import 'components/_printables.scss';
+@import 'components/card.scss';
+@import 'components/skiplinks.scss';
+@import 'components/table.scss';
 @import 'components/table-pagination';
 
 // SECTIONS
@@ -53,7 +53,6 @@
 // BLOCKS
 @import 'sections/blocks/block-fund.scss',
 'sections/blocks/cards.scss',
-'sections/blocks/empty.scss',
 'sections/blocks/fund_criteria.scss',
 'sections/blocks/funds.scss',
 'sections/blocks/map.scss',
@@ -106,21 +105,27 @@
     
     @import 'sections/blocks/block-subsidies.scss';
     @import 'sections/blocks/block-subsidies-list.scss';
-    @import 'sections/blocks/block-physical-card.scss';
+    @import 'sections/blocks/block-action-card.scss';
+    @import 'sections/blocks/block-voucher-records.scss';
     @import 'sections/blocks/block-error-page.scss';
     @import 'sections/blocks/block-about-me_app.scss';
     @import 'sections/blocks/block-app_links.scss';
     @import 'sections/blocks/block-navbar-search';
     @import 'sections/blocks/block-search-results';
 
+    @import 'sections/blocks/block-reimbursements.scss';
+    @import 'sections/blocks/block-reimbursement.scss';
     @import 'sections/blocks/block-reservations.scss';
     @import 'sections/blocks/block-map_card.scss';
     @import 'sections/blocks/block-cms-funds.scss';
     @import 'sections/blocks/block-announcement.scss';
+    @import 'sections/blocks/block-empty.scss';
     @import 'sections/blocks/block-bookmark-toggle.scss';
 }
 
 .modal {
+    @import 'modals/modal-file-preview.scss';
+    @import 'modals/modal-photo-cropper.scss';
     @import 'modals/modal-physical-cards.scss';
     @import 'modals/modal-product-reserve.scss';
 }

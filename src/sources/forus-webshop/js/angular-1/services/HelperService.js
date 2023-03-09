@@ -1,4 +1,4 @@
-let HelperService = function($q) {
+const HelperService = function($q) {
     return new (function() {
         this.recursiveLeacher = (request, concurrency = 1, page = 1, last_page = null, data = []) => {
             return $q((resolve, reject) => {

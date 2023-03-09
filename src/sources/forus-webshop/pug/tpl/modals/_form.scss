@@ -36,7 +36,7 @@ $formPadding: 14px 15px;
         font: $formFont;
         line-height: 20px;
         transition: background-color .4s ease, border .4s ease;
-        border-radius: 6px;
+        border-radius: $border_radius;
         appearance: none;
         border: 1px solid desaturate($color: darken($color: $border_color, $amount: 35%), $amount: 75%);
 
@@ -158,6 +158,13 @@ $formPadding: 14px 15px;
 
         .select-control-search {
             cursor: pointer;
+            padding-right: 20px;
+
+            .select-control-search-placeholder {
+                overflow: hidden;
+                display: block;
+                height: 100%;
+            }
 
             &:focus {
                 border: 1px solid black;
@@ -194,8 +201,8 @@ $formPadding: 14px 15px;
             background: #fff;
             border: 1px solid #d4d9dd;
             border-top: none;
-            border-bottom-right-radius: 3px;
-            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: $border_radius;
+            border-bottom-left-radius: $border_radius;
             overflow: auto;
             max-height: $optionHeight * 5;
             margin-bottom: 30px;
@@ -237,6 +244,17 @@ $formPadding: 14px 15px;
     .form-group {
         margin-bottom: 10px;
         @include cf();
+
+        .checkbox-label {
+            display: inline-block;
+            font: 400 13px/13px "Open Sans",arial,sans-serif;
+            margin-left: 10px;
+            margin-bottom: 3px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
         
         &.form-group-inline {
             margin-bottom: 10px;
@@ -267,17 +285,6 @@ $formPadding: 14px 15px;
             &:last-child, &:last-of-type {
                 margin-bottom: 0;
             }
-        }
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-
-        .checkbox-label {
-            display: inline-block;
-            font: 400 13px/13px "Open Sans",arial,sans-serif;
-            margin-left: 10px;
-            margin-bottom: 3px;
         }
     }
 

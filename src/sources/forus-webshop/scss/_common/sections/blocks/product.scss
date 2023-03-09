@@ -37,7 +37,9 @@
 
             .product-name {
                 color: $tc;
-                font: 700 22px $hf;
+                font: 700 22px/28px $hf;
+                padding-right: 30px;
+                margin: 0 0 5px;
 
                 .label {
                     margin-top: 6px;

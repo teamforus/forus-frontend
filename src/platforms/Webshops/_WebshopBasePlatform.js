@@ -20,6 +20,7 @@ platform.setLibs([
     "mdi",
     "moment",
     "qrcodejs",
+    "ui_cropper",
     "ui_router",
     "ui_select",
     "file_saver",

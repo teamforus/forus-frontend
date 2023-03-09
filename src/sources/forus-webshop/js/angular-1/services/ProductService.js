@@ -115,7 +115,9 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                 };
             })
 
-            return { regularActiveVouchers, funds };
+            const hasReservableFunds = funds.filter(fund => fund.meta.isReservationAvailable).length > 0;
+
+            return { regularActiveVouchers, funds, hasReservableFunds };
         }
 
         this.getSortOptions = () => {
@@ -147,6 +149,18 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                 label: 'Meest gewild',
                 value: {
                     order_by: 'most_popular',
+                    order_by_dir: 'desc',
+                }
+            }, {
+                label: 'Naam (oplopend)',
+                value: {
+                    order_by: 'name',
+                    order_by_dir: 'asc',
+                }
+            }, {
+                label: 'Naam (aflopend)',
+                value: {
+                    order_by: 'name',
                     order_by_dir: 'desc',
                 }
             }];

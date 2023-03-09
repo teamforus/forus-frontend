@@ -70,6 +70,7 @@ block content
                             title= "{{ 'block_funds.labels.title' | translate }}"
                             description="{{ 'block_funds.labels.subtitle' | translate }}"
                             hide-link="true" 
+                            svg-icon="reimbursements"
                             ng-if="$ctrl.funds.data.length == 0")
                     
                         .card(ng-if="$ctrl.funds"): .card-section(ng-show="$ctrl.funds.meta.last_page > 1"): paginator(

@@ -9,7 +9,7 @@
         .notification-icon(ng-if="notification.icon" ng-class="'mdi mdi-' + notification.icon")
         
         .notification-image(ng-if="notification.imageSrc")
-            img(ng-src="{{ notification.imageSrc }}")
+            img(ng-src="{{ notification.imageSrc }}" alt="notification")
         
         .notification-details
             strong.notification-title(ng-if="notification.title" ng-bind="notification.title")

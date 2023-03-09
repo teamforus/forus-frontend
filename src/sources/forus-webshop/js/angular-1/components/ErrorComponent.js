@@ -5,6 +5,7 @@ function ErrorComponent($state, $stateParams) {
 
     $ctrl.$onInit = () => {
         $ctrl.errorCode = snakeCase($stateParams.errorCode);
+        $ctrl.customLink = $stateParams.customLink;
         $ctrl.hideHomeLinkButton = $stateParams.hideHomeLinkButton;
 
         $ctrl.transParams = {

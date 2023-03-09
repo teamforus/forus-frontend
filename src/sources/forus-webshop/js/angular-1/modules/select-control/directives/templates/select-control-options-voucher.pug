@@ -1,0 +1,21 @@
+div: .select-control-options(scroll-end="$dir.onScrolledOption()")
+    .block.block-vouchers.block-vouchers-select
+        .voucher-item.voucher-item-select.voucher-item-select(
+            ng-repeat="option in $dir.options track by $index"
+            ng-click="$dir.select(option)"
+            dusk="voucherSelectorOption{{ option.id }}")
+
+            .voucher-image
+                img(ng-src="{{ option.fund.logo.sizes.thumbnail || option.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png'}} ")
+
+            .voucher-details: .flex.flex-horizontal
+                .flex.flex-vertical.flex-grow
+                    .voucher-name(ng-bind="option.fund.name")
+                    .voucher-organization
+                        span(ng-if="option.records_title" ng-bind='option.records_title')
+                        .text-separator(ng-if="option.records_title")
+                        span(ng-bind="option.fund.organization.name")
+
+                .flex.flex-vertical.text-right
+                    .voucher-value(ng-if="option.fund.type === 'budget'" ng-bind="option.amount | currency_format")
+                    .voucher-date(ng-bind="option.expire_at_locale")

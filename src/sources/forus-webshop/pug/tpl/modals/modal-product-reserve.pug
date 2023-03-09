@@ -26,12 +26,19 @@
             .block.block-vouchers.block-vouchers-padding(ng-class="{'block-vouchers-compact': $ctrl.vouchers.length === 1}")
                 .voucher-item.voucher-item-compact.voucher-item-static(ng-repeat="voucher in $ctrl.vouchers")
                     .voucher-image
-                        img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                        img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
 
                     .voucher-details
                         .voucher-name(ng-bind="voucher.fund.name")
-                        .voucher-organization(ng-bind="voucher.fund.organization.name")
                         .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount | currency_format")
+
+                        .voucher-organization
+                            span(ng-if="voucher.records_title" ng-bind="voucher.records_title")
+                            span.text-separator(ng-if="voucher.records_title")
+                            span(ng-bind="voucher.fund.organization.name")
+                            
+                        .voucher-records(ng-if="voucher.records.length")
+                            block-voucher-records(toggle="true" compact="true" voucher="voucher")
 
                     .voucher-overview(ng-if="$ctrl.vouchers.length > 1")
                         button.button.button-primary(ng-click="$ctrl.reserveProduct($ctrl.product, voucher)") Kies

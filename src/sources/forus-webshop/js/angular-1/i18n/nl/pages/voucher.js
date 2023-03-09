@@ -27,7 +27,8 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                description: "Neem de QR-code mee naar de aanbieder. De aanbieder scant de QR-code en levert het aanbod.",  
+                description: "1. Klik op Aanbod en kies en reserveer een activiteit.<br/>OF<br/>" + 
+                    "2. Neem de QR-code mee naar de aanbieder. Deze scant de QR-code en reserveert uw activiteit.",  
                 contact_sponsor: "Vragen? Neem contact met ons op.",
                 contact_provider: "Heeft u vragen over dit aanbod? Neem dan contact met ons op.",
             },
@@ -59,9 +60,10 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                how_it_works: "Wij hebben uw aanvraag ontvangen. Wij sturen u binnen 8 weken een brief met de beslissing op uw aanvraag.",  
-                contact_sponsor: "Vragen?",
-                contact_sponsor_details: "Nem contact met ons op.",
+                how_it_works: "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag.",  
+                contact_sponsor: "Heeft u vragen?",
+                contact_sponsor_details: "Neem dan contact met ons op.",
+                redirect_to_funds: "Wilt u nog een vergoeding aanvragen?",
             },
         },
         physical_card: {

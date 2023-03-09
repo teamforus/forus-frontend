@@ -457,7 +457,23 @@ module.exports = (core) => {
                     enableXRay: false
                 },
             }, */
-            flags: {},
+            flags: {
+                startPage: {
+                    combineColumns: false,
+                    // left column and combined column options
+                    ...{
+                        // hideSignUpDigidOption: true,
+                        // hideSignUpEmailOption: true,
+                        // hideSignUpQrCodeOption true,
+                    }, 
+                    // right column options, right column is not visible when combineColumns is true
+                    ...{
+                        // hideSignInDigidOption: true,
+                        // hideSignInEmailOption: true,
+                        // hideSignInQrCodeOption: true,
+                    }
+                },
+            },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
             android_link: android_link,
@@ -735,6 +751,7 @@ module.exports = (core) => {
             client_key: 'ede',
             matomo_site_id: false,
             flags: {
+                logoExtension: '.png',
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
@@ -747,6 +764,7 @@ module.exports = (core) => {
 
                 // voucher settings
                 shareProducts: false,
+                productDetailsOnlyAvailableFunds: true,
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -764,6 +782,7 @@ module.exports = (core) => {
             client_key: 'hartvanwestbrabant',
             matomo_site_id: false,
             flags: {
+                logoExtension: '.svg',
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
@@ -820,6 +839,38 @@ module.exports = (core) => {
             api_url: apiUrl,
             client_type: 'webshop',
             client_key: 'vergoedingen',
+            matomo_site_id: false,
+            flags: {
+                logoExtension: '.svg',
+                showAccountSidebar: false,
+                accessibilityPage: true,
+                genericSearch: true,
+                
+                // menu settings
+                meAppMenu: false,
+                forusPlatformMenu: false,
+                portfolioMenu: false,
+                aboutSiteMenu: false,
+                fundsMenu: true,
+                fundsMenuIfLoggedOut: true,
+
+                // voucher settings
+                shareProducts: false,
+            },
+            sessions: sessions,
+            google_maps_api_key: google_maps_api_key,
+        });
+
+        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
+
+        return platform;
+    });
+
+    core.editPlatform('webshop_schagen', (platform) => {
+        platform.setEnvData({
+            api_url: apiUrl,
+            client_type: 'webshop',
+            client_key: 'schagen',
             matomo_site_id: false,
             flags: {
                 logoExtension: '.svg',

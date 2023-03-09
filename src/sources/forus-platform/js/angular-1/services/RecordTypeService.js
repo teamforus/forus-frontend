@@ -1,12 +1,12 @@
+const RecordTypeService = function(ApiRequest) {
+    return new(function() {
+        this.list = (filters = {}) => {
+            return ApiRequest.get('/identity/record-types', filters);
+        };
+    });
+};
+
 module.exports = [
-    'ApiRequest',
-    function(
-        ApiRequest
-    ) {
-        return new(function() {
-            this.list = function() {
-                return ApiRequest.get('/identity/record-types');
-            };
-        });
-    }
+    'ApiRequest', 
+    RecordTypeService,
 ];
