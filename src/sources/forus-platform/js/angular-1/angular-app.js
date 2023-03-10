@@ -197,6 +197,7 @@ app.service('EventLogService', require('./services/EventLogService'));
 app.service('MarkdownService', require('./services/MarkdownService'));
 app.service('FaqService', require('./services/FaqService'));
 app.service('FundUnsubscribeService', require('./services/FundUnsubscribeService'));
+app.service('AnnouncementService', require('./services/AnnouncementService'));
 
 // Directives
 app.directive('menu', {

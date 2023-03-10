@@ -5,6 +5,10 @@ const AnnouncementsDirective = function (
     const $dir = $scope.$dir;
     const storageKey = 'dismissed_announcements';
 
+    const onAnnouncementChange = () => {
+        $dir.announcements = $dir.list.filter((item) => !$dir.dismissed.includes(item.id));
+    };
+
     $dir.dismiss = (announcement) => {
         announcement.dismissed = true;
 
@@ -19,7 +23,8 @@ const AnnouncementsDirective = function (
     $dir.$onInit = () => {
         $dir.dismissed = JSON.parse(localStorage.getItem(storageKey));
         $dir.dismissed = Array.isArray($dir.dismissed) ? $dir.dismissed : [];
-        $dir.announcements = $dir.list.filter((item) => !$dir.dismissed.includes(item.id));
+
+        $scope.$watch('$dir.list', onAnnouncementChange);
     };
 };
 

@@ -13,7 +13,8 @@ const BaseController = function(
     PermissionsService,
     appConfigs,
     ModalService,
-    ImageConvertorService
+    ImageConvertorService,
+    AnnouncementService
 ) {
     document.imageConverter = ImageConvertorService;
 
@@ -37,6 +38,10 @@ const BaseController = function(
         } else {
             OrganizationService.read(organizationId).then((res) => {
                 $rootScope.activeOrganization = res.data.data;
+
+                AnnouncementService.list($rootScope.activeOrganization.id).then((res) => {
+                    $rootScope.appConfigs.features.announcements = res.data.data;
+                });
             }, () => {
                 OrganizationService.clearActive();
             });
@@ -284,5 +289,6 @@ module.exports = [
     'appConfigs',
     'ModalService',
     'ImageConvertorService',
+    'AnnouncementService',
     BaseController
 ];
