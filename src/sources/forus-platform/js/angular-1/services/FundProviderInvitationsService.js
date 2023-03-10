@@ -48,11 +48,8 @@ let FundProviderInvitationsService = function(ApiRequest) {
             ));
         };
 
-        this.listInvitations = (organization_id) => {
-            return ApiRequest.get(sprintf(
-                '/platform/organizations/%s/provider-invitations',
-                organization_id
-            ));
+        this.listInvitations = (organization_id, filters = {}) => {
+            return ApiRequest.get(`/platform/organizations/${organization_id}/provider-invitations`, filters);
         };
 
         this.acceptInvitationById = (organization_id, invitation_id) => {

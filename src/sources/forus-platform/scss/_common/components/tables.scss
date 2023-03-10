@@ -213,7 +213,7 @@
                 }
 
                 .button-group {
-                    margin: -2.5px 0;
+                    margin: -5px 0;
                 }
 
                 &:first-child {
@@ -267,6 +267,12 @@
                     th {
                         background-color: rgba(#fcf2dd, $alpha: .5);
                     }
+                }
+            }
+
+            &.selected {
+                td {
+                    background: #F8FBF7;
                 }
             }
         }

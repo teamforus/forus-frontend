@@ -167,8 +167,9 @@ const ModalVouchersUploadComponent = function(
                 }
 
                 new $q((resolve) => Papa.parse(file, { complete: resolve })).then((res) => {
-                    let body = res.data;
-                    let header = res.data.shift();
+                    let csvData = this.transformCsvData(res.data);
+                    let body = csvData;
+                    let header = csvData.shift();
 
                     let data = body.filter(row => {
                         return row.filter(col => !isEmpty(col)).length > 0;
@@ -177,7 +178,7 @@ const ModalVouchersUploadComponent = function(
 
                         header.forEach((hVal, hKey) => {
                             if (val[hKey] && val[hKey] != '') {
-                                row[hVal.trim()] = val[hKey].trim();
+                                row[hVal.trim()] = typeof val[hKey] === 'object' ? val[hKey] : val[hKey].trim();
                             }
                         });
 
@@ -193,6 +194,28 @@ const ModalVouchersUploadComponent = function(
                     this.csvFile = file;
                     this.progress = 1;
                 }, console.error);
+            };
+
+            this.transformCsvData = (rawData) => {
+                const header = rawData[0];
+
+                const recordIndexes = header.reduce((list, row, index) => {
+                    return row.startsWith('record.') ? [...list, index] : list;
+                }, []);
+
+                const body = rawData.slice(1).map((row) => {
+                    const records = recordIndexes.reduce((list, index) => {
+                        return { ...list, [header[index].slice('record.'.length)]: row[index] };
+                    }, {});
+
+                    const values = row.reduce((list, item, key) => {
+                        return recordIndexes.includes(key) ? list : [...list, item];
+                    }, []);
+
+                    return [...values, records];
+                });
+
+                return [[...header.filter((value, index) => value && !recordIndexes.includes(index)), 'records'], ...body];
             };
 
             this.validateProductId = function(data = []) {

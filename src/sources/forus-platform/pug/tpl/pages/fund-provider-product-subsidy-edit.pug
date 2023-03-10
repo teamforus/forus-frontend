@@ -62,12 +62,12 @@
 
                     .subsidy-property.subsidy-property-monetary
                         .subsidy-property-label(ng-bind="$ctrl.fund.organization.name + ' betaalt'")
-                        .subsidy-property-value.text-left(ng-bind="($ctrl.form.values.gratis ? 0 : ($ctrl.form.values.amount || 0)) | currency_format")
+                        .subsidy-property-value.text-left(ng-bind="($ctrl.values.gratis ? $ctrl.product.price : ($ctrl.values.amount || $ctrl.deal.amount || 0)) | currency_format")
 
                     .subsidy-property.subsidy-property-monetary(ng-if="$ctrl.product.price_type === 'regular'")
                         .subsidy-property-label Prijs voor de klant
                         .subsidy-property-value.text-left(
-                            ng-bind='$ctrl.max(0, $ctrl.form.values.gratis ? 0 : $ctrl.product.price - $ctrl.form.values.amount) | currency_format')
+                            ng-bind='$ctrl.max(0, $ctrl.values.gratis ? 0 : $ctrl.product.price - ($ctrl.values.amount || $ctrl.deal.amount)) | currency_format')
 
         //- Subsidy form overview
         .card(ng-if="$ctrl.readOnly")
@@ -80,13 +80,13 @@
                                 | Totaal aantal 
                                 tooltip(text="'Totaal aantal aanbiedingen dat vanuit ' + $ctrl.fund.name + ' gebruikt mag worden.'")
                             .form-offset: .col.col-lg-12: .form-value-placeholder.text-right(
-                                ng-bind="$ctrl.form.values.unlimited_stock ? 'Onbeperkt' : $ctrl.form.values.limit_total")
+                                ng-bind="$ctrl.deal.limit_total_unlimited ? 'Onbeperkt' : $ctrl.deal.limit_total")
                         .form-group.form-group-inline
                             .form-label 
                                 | Limiet per aanvrager
                                 tooltip(text="'Hoevaak mag er per inwoner gebruik gemaakt worden van deze aanbieding.'")
                             .form-offset: .col.col-lg-12: .form-value-placeholder.text-right(
-                                ng-bind="$ctrl.form.values.limit_per_identity")
+                                ng-bind="$ctrl.deal.limit_per_identity")
 
                         .form-group.form-group-inline
                             .form-label 
@@ -94,7 +94,7 @@
                                 tooltip(text="'Volledige bijdrage vanuit de sponsor'")
                                 
                             .form-offset: .col.col-lg-12: .form-value-placeholder.text-right(
-                                ng-bind="$ctrl.form.values.amount | currency_format")
+                                ng-bind="$ctrl.deal.amount | currency_format")
 
                         .form-group.form-group-inline
                             .form-label 
@@ -104,107 +104,12 @@
                                 ng-bind="$ctrl.deal.voucher_transactions_count")
         
         //- Subsidy edit form
-        .card(ng-if="!$ctrl.readOnly"): form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title Subsidie starten
-            .card-section.card-section-primary.form: .row: .col.col-lg-8.col-md-12
-                .form-group.form-group-inline.tooltipped
-                    tooltip(text="'Totaal aantal aanbiedingen dat vanuit ' + $ctrl.fund.name + ' gebruikt mag worden'")
-                    .form-label.form-label-required Totaal aantal
-                    .form-offset: .row
-                        .col.col-lg-6.col-xs-12
-                            input(
-                                ng-if="!($ctrl.product.unlimited_stock && $ctrl.form.values.unlimited_stock)"
-                                ng-model="$ctrl.form.values.limit_total" 
-                                type="number" 
-                                placeholder="Totaal aanbod" 
-                                min="1" 
-                                max="{{ $ctrl.product.unlimited_stock ? '' : $ctrl.product.total_amount }}").form-control
-                            input(
-                                disabled
-                                ng-if="$ctrl.product.unlimited_stock && $ctrl.form.values.unlimited_stock"
-                                value='Ongelimiteerd').form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0.limit_total']" ng-bind="error")
-                            .form-limit(ng-if="!$ctrl.product.unlimited_stock") Limiet 1/{{ $ctrl.product.total_amount }}
-                            .form-limit(ng-if="$ctrl.product.unlimited_stock") Ongelimiteerd
-                        
-                        .col.col-lg-6.col-xs-12
-                            label(ng-if="$ctrl.product.unlimited_stock" for='unlimited_stock_subsidy').checkbox
-                                input(type="checkbox" value="1" ng-model="$ctrl.form.values.unlimited_stock" id='unlimited_stock_subsidy')
-                                .checkbox-label 
-                                    .checkbox-box: .mdi.mdi-check
-                                    | Onbeperkt
-                .form-group.form-group-inline.tooltipped
-                    tooltip(text="'Hoevaak mag er per inwoner gebruik gemaakt worden van deze aanbieding?'")
-                    .form-label.form-label-required Aantal per aanvrager
-                    .form-offset: .row
-                        .col.col-lg-6.col-xs-12
-                            input(
-                                ng-model="$ctrl.form.values.limit_per_identity" 
-                                type="number" 
-                                placeholder="Limiet per aanvrager" 
-                                min="1" 
-                                max="{{ $ctrl.product.unlimited_stock ? '' : $ctrl.product.total_amount }}").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0.limit_per_identity']" ng-bind="error")
-                            .form-limit(ng-if="!$ctrl.product.unlimited_stock") Limiet 1/{{ $ctrl.product.total_amount }}
-                            .form-limit(ng-if="$ctrl.product.unlimited_stock") Ongelimiteerd
-                        .col.col-lg-6.col-xs-12
-
-                .form-group.form-group-inline.tooltipped
-                    tooltip(text="'Volledige bijdrage vanuit de sponsor (voor de inwoner is het gratis)'")
-                    .form-label.form-label-required Bijdrage
-                    .form-offset: .row
-                        .col.col-lg-6.col-xs-12
-                            input(
-                                ng-if="!$ctrl.form.values.gratis"
-                                ng-disabled="$ctrl.form.values.gratis"
-                                ng-model="$ctrl.form.values.amount" 
-                                type="number" 
-                                placeholder="Bijdrage" 
-                                step=".05"
-                                min="0" 
-                                ng-change="$ctrl.amountChange()").form-control
-                            input(
-                                disabled
-                                ng-if="$ctrl.form.values.gratis"
-                                ng-model="$ctrl.product.price").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0.amount']" ng-bind="error")
-
-                        .col.col-lg-6.col-xs-12
-                            label(
-                                ng-if="$ctrl.product.price_type === 'free' || $ctrl.product.price_type === 'regular'" 
-                                for='subsidie').checkbox
-                                input(type="checkbox" ng-model="$ctrl.form.values.gratis" id='subsidie')
-                                .checkbox-label 
-                                    .checkbox-box: .mdi.mdi-check
-                                    | Volledige bijdrage
-
-                .form-group.form-group-inline.tooltipped
-                    tooltip(text="'Tot wanneer de subsidie geldig is. Kies de gewenste datum of de einddatum van het fonds.'")
-                    .form-label Verloopdatum
-                    .form-offset: .row
-                        .col.col-lg-6.col-xs-12(ng-if="$ctrl.form.values.expires_with_fund")
-                            input(ng-model="$ctrl.fund.end_date_locale" disabled).form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0.expire_at']" ng-bind="error")
-
-                        .col.col-lg-6.col-xs-12(ng-if="!$ctrl.form.values.expires_with_fund")
-                            datepicker(
-                                input-visible="true"
-                                date-format="yyyy-MM-dd" 
-                                datepicker-mobile=""
-                                date-week-start-day="1").form-control
-                                input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0.expire_at']" ng-bind="error")
-
-                        .col.col-lg-6.col-xs-12: label(for='expires_with_fund').checkbox
-                            input(type="checkbox" ng-model="$ctrl.form.values.expires_with_fund" id='expires_with_fund')
-                            .checkbox-label 
-                                .checkbox-box: .mdi.mdi-check
-                                | Verloopt met het fonds
-
-                .form-group.form-group-inline(ng-if="$ctrl.form.errors['enable_products.0']")
-                    .form-label &nbsp;
-                    .form-offset: .form-error(ng-repeat="error in $ctrl.form.errors['enable_products.0']" ng-bind="error")
-
-            .card-section.card-section-primary: .text-center
-                a(ui-sref="fund-provider-product($ctrl.stateParams.fund_provider_product)" translate="product_edit.buttons.cancel").button.button-default
-                button(type="submit" translate="product_edit.buttons.confirm").button.button-primary
+        fund-provider-product-editor(
+            ng-if="!$ctrl.readOnly"
+            fund="$ctrl.fund" 
+            deal="$ctrl.deal"
+            on-cancel="$ctrl.onCancel()"
+            on-update="$ctrl.onUpdate()"
+            on-values-change="$ctrl.onValuesChange"
+            product="$ctrl.product"
+            fund-provider="$ctrl.fundProvider")
