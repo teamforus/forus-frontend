@@ -22,7 +22,7 @@
 
                     //- Search box
                     .form(ng-if="!$ctrl.filters.show")
-                        .form-group: input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'reimbursements.labels.search' | translate }}").form-control
+                        .form-group: input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'reimbursements.labels.search' | translate }}" dusk="searchReimbursement").form-control
 
                     //- Filters dropdown
                     .form: .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
@@ -34,7 +34,8 @@
                                     form-label-toggle(label="{{ 'reimbursements.labels.search' | translate }}" is-active)
                                     input(
                                         ng-model="$ctrl.filters.values.q" 
-                                        placeholder="{{ 'reimbursements.labels.search' | translate }}").form-control
+                                        placeholder="{{ 'reimbursements.labels.search' | translate }}"
+                                        dusk="searchReimbursement").form-control
 
                                 //- State filter
                                 .form-group(ng-click="$event.stopPropagation()")
@@ -104,10 +105,11 @@
                         ng-repeat="viewType in $ctrl.archived_options" 
                         ng-class="{active: $ctrl.filters.values.archived == viewType.value}"
                         ng-click="$ctrl.setArchivedOption(viewType.value)"
-                        ng-bind="viewType.name")
+                        ng-bind="viewType.name"
+                        dusk="{{ 'reimbursementsFilter' + (viewType.value ? 'Archived' : 'Active') }}")
 
             //- Vouchers list
-            .card-section(ng-if="$ctrl.reimbursements.data.length > 0")
+            .card-section(ng-if="$ctrl.reimbursements.data.length > 0" dusk="reimbursementsList")
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
@@ -139,13 +141,15 @@
                             tr(
                                 ng-repeat="reimbursement in $ctrl.reimbursements.data" 
                                 ui-sref="reimbursements-show({organization_id: $ctrl.organization.id, id: reimbursement.id})"
-                                ng-class="reimbursement.expired ? 'tr-warning' : ''")
+                                ng-class="reimbursement.expired ? 'tr-warning' : ''"
+                                dusk="{{ 'reimbursement' + reimbursement.id }}")
 
                                 //- Identity
                                 td
                                     //- Email
                                     strong(
-                                        ng-bind="(reimbursement.identity_email | str_limit:25) || 'Geen E-mail'").text-primary
+                                        ng-bind="(reimbursement.identity_email | str_limit:25) || 'Geen E-mail'" 
+                                        dusk="{{ 'reimbursementIdentityEmail' + reimbursement.id }}").text-primary
 
                                     //- BSN
                                     span(ng-if="$ctrl.organization.bsn_enabled").text-strong.text-md.text-muted-dark
@@ -153,7 +157,7 @@
                                         | {{ reimbursement.identity_bsn ? ('BSN: ' + reimbursement.identity_bsn) : 'Geen BSN' }}
 
                                 //- Amount
-                                td(ng-bind="reimbursement.amount | currency_format").nowrap
+                                td(ng-bind="reimbursement.amount | currency_format" dusk="{{ 'reimbursementAmount' + reimbursement.id }}").nowrap
 
                                 //- Creation date
                                 td
@@ -177,7 +181,8 @@
                                 //- State
                                 td: .label(
                                     ng-bind="reimbursement.state_locale"
-                                    ng-class="{pending: 'label-default', approved: 'label-success', declined: 'label-danger'}[reimbursement.state]")
+                                    ng-class="{pending: 'label-default', approved: 'label-success', declined: 'label-danger'}[reimbursement.state]"
+                                    dusk="{{ 'reimbursementState' + reimbursement.id }}")
 
                                 //- Actions
                                 td: .button-group.flex-end

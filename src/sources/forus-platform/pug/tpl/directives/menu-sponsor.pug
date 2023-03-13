@@ -42,7 +42,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             "Declaraties", "reimbursements", 'reimbursements', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_employees"]',
-            'reimbursements')
+            'reimbursements', 'reimbursementsPage')
         
         //- '$root.activeOrganization | hasPerm:["manage_reimbursements"]',
 
