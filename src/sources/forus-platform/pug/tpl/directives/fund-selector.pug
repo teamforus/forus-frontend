@@ -2,7 +2,7 @@
     div(
         ng-repeat="fund in $dir.funds"
         ng-click="$dir.selectFund(fund)"
-        dusk="{{ 'fundSelectorOption' + fund.name }}").organization-item  
+        dusk="{{ 'fundSelectorOption' + fund.id }}").organization-item  
         .organization-item-inner(ng-class="{ 'active' : $dir.activeFund.id == fund.id }")
             .organization-logo: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
             .organization-name(ng-bind="fund.name")
