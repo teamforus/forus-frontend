@@ -37,12 +37,12 @@
 
                         form.form.flex-grow
                             .form-group.form-group-inline
-                                ui-control-email(ng-model="$ctrl.emailForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email" tabindex="1")
+                                ui-control-email(ng-model="$ctrl.emailForm.values.email" data-placeholder="e-mail@e-mail.nl" data-id="email" tabindex="1")
                                 .form-error(ng-repeat="error in $ctrl.emailForm.errors.email" ng-bind="error")
                         
-                        button.button.button-sm.button-primary(type="submit" ng-click="$ctrl.emailForm.submit()") E-mail submit
+                        button.button.button-sm.button-primary(type="submit" ng-click="$ctrl.emailForm.submit()") E-mail toevoegen
 
-                    .block-email-setup-details(ng-if="$ctrl.emailSubmitted") 
+                    .block-email-setup-details(ng-if="$ctrl.emailSubmitted")
                         img.block-email-setup-details-logo(src="./assets/img/modal/product-reservation-info.svg")
                         .block-email-setup-details-description An email was sent to the indicated address, please confirm it
                     
