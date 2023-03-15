@@ -1306,7 +1306,7 @@ module.exports = {
     // RESERVATION SETTINGS - reservations-settings.pug
     reservation_settings: {
         header: {
-            title: "Reservation settings page",
+            title: "Reservering instellingen",
         },
         buttons: {
             cancel: "Annuleren",

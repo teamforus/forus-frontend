@@ -18,7 +18,7 @@ const ProductReservationsExportService = function(
         ]);
 
         const saveExportedReservations = (data, organization_id, res) => {
-            PushNotificationsService.success('Success!', 'The downloading should start shortly.');
+            PushNotificationsService.success('Succes!', 'De download begint over enkele ogenblikken.');
 
             const fileName = [
                 appConfigs.panel_type,
@@ -41,7 +41,7 @@ const ProductReservationsExportService = function(
                 ProductReservationService.export(organization_id, queryFilters).then((res) => {
                     saveExportedReservations(data, organization_id, res);
                 }, (res) => {
-                    PushNotificationsService.danger('Error!', res.data.message);
+                    PushNotificationsService.danger('Er is iets fout gegaan.!', res.data.message);
                     PageLoadingBarService.setProgress(100);
                 });
             }

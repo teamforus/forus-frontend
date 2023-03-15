@@ -45,13 +45,13 @@
                         ng-if="$ctrl.reservation.state === 'pending' && !$ctrl.reservation.expired && !$ctrl.reservation.product.deleted" 
                         ng-click="$ctrl.acceptReservation($ctrl.reservation)")
                         em.mdi.mdi-check.icon-start
-                        | Accept
+                        | Accepteer
 
                     .button.button-danger.button-sm(
                         ng-if="$ctrl.reservation.state === 'pending'" 
                         ng-click="$ctrl.rejectReservation($ctrl.reservation)")
                         em.mdi.mdi-close.icon-start
-                        | Reject
+                        | Weiger
 
 
             //- Base overview
