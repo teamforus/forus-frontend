@@ -93,7 +93,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             "Transacties", "transactions", 'transactions', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["view_finances"]',
-            'transactions')
+            'transactions', 'transactionsPage')
 
         +nav_item(
             'Activiteitenlogboek', 'organization-logs', 'organization-logs',
