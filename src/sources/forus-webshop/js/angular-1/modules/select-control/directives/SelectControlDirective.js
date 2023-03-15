@@ -1,4 +1,5 @@
 const uniqueId = require('lodash/uniqueId');
+const isEqual = require('lodash/isEqual');
 
 const SelectControlDirective = function($scope, $timeout) {
     const $dir = $scope.$dir;
@@ -70,7 +71,7 @@ const SelectControlDirective = function($scope, $timeout) {
     };
 
     $dir.selectOption = (option) => {
-        $dir.setModel(option);
+        $dir.setModel(option.raw);
         $dir.showOptions = false;
     };
 
@@ -88,6 +89,14 @@ const SelectControlDirective = function($scope, $timeout) {
         $dir.searchUpdate();
     };
 
+    $scope.$watch(function () {
+        return $dir.ngModelCtrl.$modelValue;
+    }, function(newValue) {
+        if (Array.isArray($dir.options)) {
+            $dir.value = $dir.findValue($dir.ngModel);
+        }
+    });
+
     $dir.onInputClick = () => {
         if ($dir.autoClearEnabled) {
             $dir.filter.q = "";
@@ -99,10 +108,10 @@ const SelectControlDirective = function($scope, $timeout) {
     $dir.findValue = (ngModel) => {
         return $dir.options.filter((option) => {
             if ($dir.strict) {
-                return $dir.prop ? option[$dir.prop] === ngModel : option === ngModel;
+                return $dir.prop ? option[$dir.prop] === ngModel : isEqual(option) === isEqual(ngModel);
             }
 
-            return $dir.prop ? option[$dir.prop] == ngModel : option == ngModel;
+            return $dir.prop ? option[$dir.prop] == ngModel : isEqual(option) == isEqual(ngModel);
         })[0] || null
     }
 
@@ -126,7 +135,7 @@ const SelectControlDirective = function($scope, $timeout) {
             }
 
             $dir.optionsPrepared = JSON.parse(JSON.stringify(options)).map((option) => {
-                return { ...option, _name: option[$dir.as].toString().toLowerCase() };
+                return { ...option, _name: option[$dir.as].toString().toLowerCase(), raw: { ...option } };
             });
 
             $dir.buildSearchedOptions();
