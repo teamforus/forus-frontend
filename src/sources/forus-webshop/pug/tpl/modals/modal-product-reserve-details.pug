@@ -137,7 +137,7 @@
                         ng-model="$ctrl.form.values.user_note" 
                         placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.notes' | i18n }}"
                         dusk="productReserveFormNote")
-                    .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.user_note" ng-bind="error")
                 
                 //- Submit
                 .form-group.text-center

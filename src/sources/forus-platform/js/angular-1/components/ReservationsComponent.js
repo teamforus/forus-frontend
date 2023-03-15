@@ -137,7 +137,7 @@ const ReservationsComponent = function(
     };
 
     $ctrl.exportReservations = () => {
-        ProductReservationsExportService.export($ctrl.organization.id, $ctrl.filters);
+        ProductReservationsExportService.export($ctrl.organization.id, $ctrl.filters.values);
     };
 
     $ctrl.$onInit = () => {

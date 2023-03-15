@@ -59,9 +59,8 @@
 
             &.block-email-setup {
                 background: #FFFFFF;
-                box-shadow: inset 0px -1px 0px #E5E5E5;
                 border: 1px solid #e3e3e3;
-                border-radius: 8px;
+                border-radius: $border_radius;
                 margin-bottom: 20px;
 
                 .block-email-setup-details {
