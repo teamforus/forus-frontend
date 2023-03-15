@@ -98,6 +98,23 @@
                                 text="'De status van bulkbetaling wordt om het uur gecontroleerd.'" 
                                 ng-if="$ctrl.transactionBulk.state == 'pending'")
 
+            .card-section(ng-if="$ctrl.showExportButton || $ctrl.showSetPaidButton"): .flex-row.pull-right
+                .flex: .button-group
+                    //- Set bulk as exported
+                    button(
+                        ng-if="$ctrl.showSetPaidButton"
+                        ng-click="$ctrl.setAcceptedManually($ctrl.transactionBulk)").button.button-default.button-sm
+                        .mdi.mdi-send-outline.icon-start
+                        | Set as paid
+
+                    //- BNG: Export SEPA file
+                    button(
+                        ng-if="$ctrl.showExportButton"
+                        ng-click="$ctrl.exportBulkToBNG($ctrl.transactionBulk)").button.button-primary.button-sm
+
+                        .mdi.mdi-download.icon-start
+                        | Export payment file
+                
         //- Lit bulk transactions
         .card(ng-if="$ctrl.transactions")
             .card-header: .flex-row

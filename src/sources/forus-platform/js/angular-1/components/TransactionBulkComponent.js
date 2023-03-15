@@ -4,12 +4,13 @@ const TransactionBulkComponent = function(
     $stateParams,
     $filter,
     appConfigs,
+    FileService,
     ModalService,
     TransactionService,
     TransactionBulkService,
     TransactionsExportService,
     PageLoadingBarService,
-    PushNotificationsService
+    PushNotificationsService,
 ) {
     const $ctrl = this;
 
@@ -174,6 +175,30 @@ const TransactionBulkComponent = function(
         });
     };
 
+    $ctrl.exportBulkToBNG = (transactionBulk) => {
+        TransactionBulkService.exportBulkToBNG($ctrl.organization.id, transactionBulk.id).then(res => {
+            const date = moment().format('YYYY-MM-DD HH:mm:ss') + '.xml';
+            const fileName = [appConfigs.panel_type, $ctrl.organization.id, transactionBulk.id, date].join('_');
+
+            FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+            PageLoadingBarService.setProgress(100);
+
+            $ctrl.transactionBulk.is_exported = true;
+            $state.reload();
+        });
+    };
+
+    $ctrl.setAcceptedManually = (transactionBulk) => {
+        TransactionBulkService.setAcceptedManually($ctrl.organization.id, transactionBulk.id).then(res => {
+            PushNotificationsService.success(`Succes!`, `Transaction bulk was manually accepted`);
+
+            $ctrl.transactionBulk.accepted_manually = true;
+            $state.reload();
+        }, (res) => {
+            PushNotificationsService.danger('Error!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+        });
+    };
+
     $ctrl.updateFlags = () => {
         const bulk = $ctrl.transactionBulk;
         const hasPermission = $filter('hasPerm')($ctrl.organization, 'manage_transaction_bulks');
@@ -196,6 +221,14 @@ const TransactionBulkComponent = function(
 
         if (hasPermission && bulk.bank.key === 'bunq' && bulk.state == 'rejected') {
             $ctrl.showResetBulkButton = true;
+        }
+
+        if (hasPermission && bulk.bank.key === 'bng' && bulk.is_exported && !bulk.accepted_manually && (bulk.state == 'pending' || bulk.state == 'draft')) {
+            $ctrl.showSetPaidButton = true;
+        }
+
+        if (hasPermission && bulk.bank.key === 'bng' && !bulk.is_exported && (bulk.state == 'pending' || bulk.state == 'draft')) {
+            $ctrl.showExportButton = true;
         }
     }
 
@@ -221,6 +254,7 @@ module.exports = {
         '$stateParams',
         '$filter',
         'appConfigs',
+        'FileService',
         'ModalService',
         'TransactionService',
         'TransactionBulkService',
