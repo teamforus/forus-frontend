@@ -188,6 +188,15 @@
             }
         }
 
+        .footer-sponsor-logo {
+            display: flex;
+
+            .footer-sponsor-logo-mg {
+                width: 180px;
+                display: block;
+            }
+        }
+
         .footer-schedule {
             width: 100%;
             margin-bottom: 10px;
@@ -238,6 +247,10 @@
                 * {
                     text-align: inherit;
                 }
+            }
+
+            .footer-sponsor-logo {
+                justify-content: center;
             }
         }
     }

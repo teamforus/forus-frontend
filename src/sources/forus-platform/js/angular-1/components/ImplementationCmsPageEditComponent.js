@@ -26,6 +26,17 @@ const ImplementationCmsPageEditComponent = function (
         name: 'Public',
     }];
 
+    $ctrl.descriptionPositions = [{
+        value: 'replace',
+        name: 'Standaard pagina-inhoud overschrijven',
+    }, {
+        value: 'before',
+        name: 'Voor standaard pagina-inhoud tonen',
+    }, {
+        value: 'after',
+        name: 'Na standaard pagina-inhoud tonen',
+    }];
+
     $ctrl.registerImplementationBlocksEditor = function (childRef) {
         $ctrl.implementationBlocksEditor = childRef;
     };
@@ -69,6 +80,7 @@ const ImplementationCmsPageEditComponent = function (
             state: $ctrl.states[0].value,
             external: $ctrl.types[0].value,
             page_type: $ctrl.page_type,
+            description_position: $ctrl.descriptionPositions[0]?.value,
         };
 
         if (!$ctrl.page_type_config.blocks) {
