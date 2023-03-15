@@ -31,7 +31,7 @@ const ImplementationCmsPageEditComponent = function (
         name: 'Standaard content overschrijven',
     }, {
         value: 'before',
-        name: ' Voor de standaard content tonen',
+        name: 'Voor de standaard content tonen',
     }, {
         value: 'after',
         name: 'Na de standaard content tonen',
