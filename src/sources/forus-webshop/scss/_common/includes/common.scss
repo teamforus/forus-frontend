@@ -32,6 +32,14 @@ img {
     flex-direction: row !important;
 }
 
+.flex-horizontal-reverse {
+    flex-direction: row-reverse !important;
+}
+
+.flex-vertical-reverse {
+    flex-direction: column-reverse !important;
+}
+
 .pull-right {
     float: right !important;
 }

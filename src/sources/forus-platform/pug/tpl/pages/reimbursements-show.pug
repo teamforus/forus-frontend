@@ -54,7 +54,9 @@
 
                 .flex.flex-self-start(ng-if="$ctrl.reimbursement.state === 'pending'"): .flex-row
                     //- not assigned actions
-                    .button-group(ng-if="!$ctrl.reimbursement.employee && !$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated")
+                    .button-group(
+                        ng-if="!$ctrl.reimbursement.employee && !$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated"
+                        dusk="reimbursementAssign")
                         //- Self assign
                         .button.button-primary.button-sm(ng-click="$ctrl.assign()")
                             em.mdi.mdi-account-plus-outline.icon-start 
@@ -65,19 +67,23 @@
                         //- Approve
                         .button.button-primary.button-sm(
                             ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated"
-                            ng-click="$ctrl.approve()")
+                            ng-click="$ctrl.approve()"
+                            dusk="reimbursementApprove")
                             em.mdi.mdi-check-circle.icon-start
                             | Accepteren
 
                         //- Decline
                         .button.button-default.button-sm(
                             ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated"
-                            ng-click="$ctrl.decline()")
+                            ng-click="$ctrl.decline()"
+                            dusk="reimbursementDecline")
                             em.mdi.mdi-close-circle.icon-start
                             | Weigeren
 
                         //- Resign
-                        .button.button-primary-light.button-sm(ng-click="$ctrl.resign()")
+                        .button.button-primary-light.button-sm(
+                            ng-click="$ctrl.resign()"
+                            dusk="reimbursementResign")
                             em.mdi.mdi-account-minus.icon-start 
                             | Meld af
 
@@ -152,7 +158,7 @@
                             strong.text-black(ng-bind="$ctrl.reimbursement.resolved_at_locale")
 
         //- Reimbursement details
-        .card(ng-if="$ctrl.reimbursement")
+        .card(ng-if="$ctrl.reimbursement" dusk="reimbursementDetails")
             //- Header
             .card-header: .card-title Gegevens
 
@@ -162,34 +168,35 @@
                     //- IBAN
                     .keyvalue-item
                         .keyvalue-key(translate="reimbursements.labels.iban")
-                        .keyvalue-value(ng-bind="$ctrl.reimbursement.iban")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.iban" dusk="reimbursementIBAN")
 
                     //- IBAN Name
                     .keyvalue-item
                         .keyvalue-key(translate="reimbursements.labels.iban_name")
-                        .keyvalue-value(ng-bind="$ctrl.reimbursement.iban_name")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.iban_name" dusk="reimbursementIBANName")
 
                     //- Amount
                     .keyvalue-item
                         .keyvalue-key(translate="reimbursements.labels.amount")
-                        .keyvalue-value(ng-bind="$ctrl.reimbursement.amount_locale").text-primary.text-medium
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.amount_locale" dusk="reimbursementAmount").text-primary.text-medium
 
                     //- State
                     .keyvalue-item
                         .keyvalue-key(translate="reimbursements.labels.state")
                         .keyvalue-value: .label(
                             ng-class="{pending: 'label-default', approved: 'label-success', declined: 'label-danger'}[$ctrl.reimbursement.state]"
-                            ng-bind="$ctrl.reimbursement.state_locale")
+                            ng-bind="$ctrl.reimbursement.state_locale"
+                            dusk="reimbursementState")
 
                     //- Title
                     .keyvalue-item
                         .keyvalue-key(translate="reimbursements.labels.title")
-                        .keyvalue-value(ng-bind="$ctrl.reimbursement.title")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.title" dusk="reimbursementTitle")
 
                     //- Description
                     .keyvalue-item
                         .keyvalue-key(translate="reimbursements.labels.description")
-                        .keyvalue-value(ng-bind="$ctrl.reimbursement.description")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.description" dusk="reimbursementDescription")
 
                     //- Creation date
                     .keyvalue-item

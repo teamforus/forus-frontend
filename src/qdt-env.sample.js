@@ -687,6 +687,7 @@ module.exports = (core) => {
                 showStartButton: true,
                 showStartButtonText: 'Start aanvraag',
                 accessibilityPage: false,
+                showFooterSponsorLogo: true,
             },
             sessions: sessions,
         });
