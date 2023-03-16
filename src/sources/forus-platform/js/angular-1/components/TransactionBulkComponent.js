@@ -223,11 +223,11 @@ const TransactionBulkComponent = function(
             $ctrl.showResetBulkButton = true;
         }
 
-        if (hasPermission && bulk.bank.key === 'bng' && bulk.is_exported && !bulk.accepted_manually && (bulk.state == 'pending' || bulk.state == 'draft')) {
+        if (hasPermission && bulk.bank.key === 'bng' && bulk.is_exported && !bulk.accepted_manually && bulk.state == 'draft') {
             $ctrl.showSetPaidButton = true;
         }
 
-        if (hasPermission && bulk.bank.key === 'bng' && !bulk.is_exported && (bulk.state == 'pending' || bulk.state == 'draft')) {
+        if (hasPermission && bulk.bank.key === 'bng' && !bulk.is_exported && bulk.state == 'draft') {
             $ctrl.showExportButton = true;
         }
     }
