@@ -19,7 +19,8 @@
                         ng-if="$ctrl.reservationEnabled && ($ctrl.organization | hasPerm:'manage_organization')"
                         ui-sref="reservations-settings({organization_id: $ctrl.organization.id})")
                         em.mdi.mdi-cog.icon-start
-                        | Settings
+                        | Instellingen
+
 
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.organization.allow_batch_reservations && $ctrl.reservationEnabled" 
