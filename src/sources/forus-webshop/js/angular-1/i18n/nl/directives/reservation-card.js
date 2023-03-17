@@ -1,7 +1,7 @@
 module.exports = {
     labels: {
         code: "Reserveringsnummer:",
-        cancel: "Reservering annuleren",
+        cancel: "Annuleren",
         status: {
             canceled: "Geannuleerd door aanbieder",
             canceled_by_client: "Geannuleerd door aanvrager",
