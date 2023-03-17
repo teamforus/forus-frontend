@@ -60,12 +60,14 @@ const ReservationsComponent = function(
     };
 
     $ctrl.acceptReservation = (reservation) => {
+        const transactionCancelExpireDate = moment().add(13, 'days').format('DD MMM, YYYY'); 
+
         ModalService.open("dangerZone", {
             description_title: "Weet u zeker dat u de reservering wilt accepteren?",
             description_text: [
                 "U staat op het punt om een reservering te accepteren voor het aanbod ",
                 reservation.product.name + " voor " + $currencyFormat(reservation.amount) + "\n",
-                `U kunt de transactie annuleren tot en met ${reservation.expire_at_locale}, daarna volgt de uitbetaling.`,
+                `U kunt de transactie annuleren tot en met ` + transactionCancelExpireDate + `, daarna volgt de uitbetaling.`,
             ].join("\n"),
             text_align: 'center',
             cancelButton: "Annuleren",
