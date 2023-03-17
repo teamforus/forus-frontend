@@ -2,6 +2,23 @@ $formFont: 500 16px/24px $bf;
 $formPadding: 14px 15px;
 
 .form {
+    datepicker,
+    .datepicker {
+        height: 50px;
+        border: none;
+        outline: none;
+        position: relative;
+
+        .form-control {
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            right: -1px;
+            bottom: -1px;
+            width: calc(100% + 2px) !important;
+        }
+    }
+    
     .form-error {
         font: 400 13px/20px $bf;
         color: #ad0003;

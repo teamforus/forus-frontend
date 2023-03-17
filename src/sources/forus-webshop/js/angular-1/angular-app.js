@@ -5,7 +5,7 @@ require('./modules/page-loading-bar/PageLoadingBarModule');
 const appConfigs = { bsn_confirmation_offset: 300, showStartButton: false, ...env_data };
 
 const app = angular.module('forusApp', [
-    'pascalprecht.translate', 'ui.router', 'ngCookies', 'ngAria', 'uiCropper', 
+    'pascalprecht.translate', 'ui.router', 'ngCookies', 'ngAria', 'uiCropper', '720kb.datepicker',
     'forus.selectControl', 'forus.uiControls', 'forus.pageLoadingBarModule',
 ]);
 

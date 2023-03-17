@@ -105,7 +105,7 @@ module.exports = function () {
                             (res) => {
                                 if (res.status == 401) {
                                     $rootScope.signOut(false, false, false, ($state) => $state.go('home', {
-                                        session_expired: response.data.message == 'session_expired',
+                                        session_expired: res.data.message == 'session_expired',
                                     }));
                                 }
 
