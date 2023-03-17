@@ -42,7 +42,7 @@
     "pugify": "^2.2.0",
     "stream-combiner": "^0.2.2",
     "tsify": "^5.0.4",
-    "typescript": "^4.5.2",
+    "typescript": "^5.0.0",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
