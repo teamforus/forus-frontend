@@ -342,6 +342,114 @@
     float: left;
 }
 
+._720kb {
+    &-datepicker {
+        &-calendar {
+            max-width: 275px;
+            border: 1px solid #e9ecee;
+            border-radius: 5px;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, .1);
+
+            &-days-header {
+                background: #fff;
+                border-bottom: 0;
+                padding: 0 5px;
+
+                div {
+                    color: #134478;
+                    font-size: 12px;
+                }
+            }
+
+            &-body {
+                display: flex;
+                flex-direction: row;
+                align-content: center;
+                flex-wrap: wrap;
+                padding: 0 5px 5px;
+                margin: 0;
+                width: 100%;
+            }
+
+            &-day {
+                width: (100%/7);
+                padding: 0;
+                font-size: 13px;
+                font-weight: 500;
+                color: #282b39;
+                border-radius: 40px;
+                margin: 0;
+                height: 35px;
+                line-height: 35px;
+                position: relative;
+                z-index: 1;
+                transition: color .4s;
+
+                &:before {
+                    content: '';
+                    display: block;
+                    width: 28px;
+                    height: 28px;
+                    margin: 0;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: -1;
+                    border-radius: 20px;
+                    transition: background .4s;
+                }
+
+                &:hover {
+                    background: transparent;
+
+                    &:before {
+                        background: rgba(0,0,0,.03);
+                    }
+                }
+
+                &._720kb-datepicker-active {
+                    color: #fff;
+                    background: transparent;
+
+                    &:before {
+                        background: #009ef4;
+                    }
+                }
+
+                &._720kb-datepicker-disabled {
+                    color: rgba(0,0,0,.2);
+                    background: transparent;
+
+                    &:before {
+                        background: rgba(25,2,0,.02);
+                    }
+                }
+            }
+
+            &-header {
+                &:nth-child(odd), 
+                &:nth-child(even) {
+                    background: #fff;
+                    border-bottom: 1px solid #e9ecee;
+                }
+            }
+
+            &-month {
+                color: #282b39;
+                font: 500 13px/40px $bf;
+
+                a {
+                    &>span {
+                        color: #282b39;
+                        font: 500 13px/40px $bf;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media print {
     .gm-style .gmnoprint,
     .gmnoprint {
