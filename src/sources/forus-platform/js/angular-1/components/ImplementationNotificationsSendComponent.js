@@ -29,10 +29,10 @@ const ImplementationNotificationsSendComponent = function (
 
     const providerTargets = [{
         value: "providers_approved",
-        name: 'Alleen active aanbieders',
+        name: 'Alleen geaccepteerde aanbieders',
     }, {
         value: "providers_rejected",
-        name: 'All pending and rejected providers',
+        name: 'Alle aanbieders niet nog niet geaccepteerd of geweigerd zijn',
     }, {
         value: "providers_all",
         name: 'Alle aanbieders',
