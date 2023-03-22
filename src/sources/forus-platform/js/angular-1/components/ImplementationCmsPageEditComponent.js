@@ -28,13 +28,13 @@ const ImplementationCmsPageEditComponent = function (
 
     $ctrl.descriptionPositions = [{
         value: 'replace',
-        name: 'Standaard pagina-inhoud overschrijven',
+        name: 'Standaard content overschrijven',
     }, {
         value: 'before',
-        name: 'Voor standaard pagina-inhoud tonen',
+        name: 'Voor de standaard content tonen',
     }, {
         value: 'after',
-        name: 'Na standaard pagina-inhoud tonen',
+        name: 'Na de standaard content tonen',
     }];
 
     $ctrl.registerImplementationBlocksEditor = function (childRef) {

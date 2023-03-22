@@ -188,18 +188,27 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                     repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
             }],
             productCategories: ['ProductCategoryService', (ProductCategoryService) => {
-                return repackResponse(ProductCategoryService.list({ parent_id: 'null', per_page: 1000, used: 1, used_type: 'budget' }))
+                return repackResponse(ProductCategoryService.list({ 
+                    parent_id: 'null', 
+                    per_page: 1000, 
+                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                    used_type: 'budget'
+                }))
             }],
             productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
                 return productCategory ? repackResponse(ProductCategoryService.list({
                     parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
-                    ...{ per_page: 1000, used: 1, used_type: 'budget' },
+                    ...{ 
+                        per_page: 1000, 
+                        used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                        used_type: 'budget' 
+                    },
                 })) : null;
             }],
             organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
                 is_employee: 0,
                 has_products: 1,
-                per_page: 100,
+                per_page: 300,
                 fund_type: 'budget'
             })],
         }
@@ -242,12 +251,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                     repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
             }],
             productCategories: ['ProductCategoryService', (ProductCategoryService) => {
-                return repackResponse(ProductCategoryService.list({ parent_id: 'null', per_page: 1000, used: 1, used_type: 'subsidies' }))
+                return repackResponse(ProductCategoryService.list({ 
+                    parent_id: 'null', 
+                    per_page: 1000, 
+                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                    used_type: 'subsidies'
+                }))
             }],
             productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
                 return productCategory ? repackResponse(ProductCategoryService.list({
                     parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
-                    ...{ per_page: 1000, used: 1, used_type: 'subsidies' },
+                    ...{ 
+                        per_page: 1000,
+                        used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                        used_type: 'subsidies',
+                    },
                 })) : null;
             }],
             organizations: ['OrganizationService', 'HelperService', (
@@ -316,12 +334,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                     repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
             }],
             productCategories: ['ProductCategoryService', (ProductCategoryService) => {
-                return repackResponse(ProductCategoryService.list({ parent_id: 'null', per_page: 1000, used: 1 }))
+                return repackResponse(ProductCategoryService.list({ 
+                    parent_id: 'null', 
+                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null,
+                    per_page: 1000, 
+                }))
             }],
             productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
                 return productCategory ? repackResponse(ProductCategoryService.list({
                     parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
-                    ...{ per_page: 1000, used: 1 },
+                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null,
+                    per_page: 1000, 
                 })) : null;
             }],
             businessTypes: ['BusinessTypeService', (
@@ -396,7 +419,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             }))],
             productCategories: ['ProductCategoryService', (
                 ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({ parent_id: 'null', used: 1, per_page: 1000 }))],
+            ) => repackResponse(ProductCategoryService.list({ 
+                parent_id: 'null', 
+                used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                per_page: 1000,
+            }))],
             vouchers: ['AuthService', 'VoucherService', (
                 AuthService, VoucherService
             ) => AuthService.hasCredentials() ? repackResponse(
@@ -533,7 +560,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
                 is_employee: 0,
                 has_reservations: 1,
-                per_page: 100,
+                per_page: 300,
                 fund_type: 'budget'
             })],
         }
