@@ -6,11 +6,11 @@
             padding: 0;
             background: transparent;
             border: none;
-            @include cf();
+            display: flex;
 
             .mdi {
                 display: block;
-                width: 33px;
+                width: 32px;
                 text-align: center;
                 line-height: 32px;
                 font-size: 20px;
@@ -55,9 +55,8 @@
             }
 
             .note-btn-group {
-                @include cf();
-                float: left;
                 margin: 0 0 5px;
+                display: flex;
 
                 .note-btn {
                     transition: 0.4s;
@@ -92,6 +91,15 @@
                         box-shadow: inset 0 0 2px rgba(0, 0, 0, .5);
                         background: #ebebeb;
                     }
+
+                    &.disabled {
+                        cursor: default;
+                        pointer-events: none;
+                        background-color: #595d60;
+                        border-color: #595d60;
+                        color: #fff;
+                        opacity: 1;
+                    }
                 }
 
                 &:last-child {
@@ -112,6 +120,19 @@
             .note-placeholder {
                 color: $ptc;
                 font: 400 14px/24px $bf;
+            }
+
+            .note-editing-code {
+                top: 0;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                border: none;
+                padding: 10px;
+                outline: none;
+                font: 600 14px/24px monospace;
             }
         }
 
