@@ -33,7 +33,7 @@ module.exports = {
     buttons: {
         buy: "Reserveren",
         request: "Activeren",
-        open_voucher: "Open tegoed", 
+        open_voucher: "Aanvragen", 
         nijmegen: {
             request: "Aanvragen"
         },
