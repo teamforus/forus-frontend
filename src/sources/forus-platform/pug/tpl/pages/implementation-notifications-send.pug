@@ -12,18 +12,26 @@
                     em.mdi.mdi-account-multiple-outline
                     | Kies een doelgroep
 
-                .flex(ng-if="$ctrl.organization | hasPerm:['manage_vouchers']")
+                .flex
+                    //- Show target users toggle
                     .button.button-primary.button-sm(
-                        ng-if="!$ctrl.showIdentities"
-                        ng-click="$ctrl.showIdentities = true")
+                        ng-if="$ctrl.targetGroup == 'identities' && ($ctrl.organization | hasPerm:['manage_vouchers'])"
+                        ng-click="$ctrl.showIdentities = !$ctrl.showIdentities")
                         em.mdi.mdi-view-list.icon-start
-                        | Bekijk de lijst met geadresseerden
+                        span(ng-bind="$ctrl.showIdentities ? 'Verberg de lijst met geadresseerden' : 'Bekijk de lijst met geadresseerden'")
 
-                    .button.button-primary.button-sm(
-                        ng-if="$ctrl.showIdentities"
-                        ng-click="$ctrl.showIdentities = false")
-                        em.mdi.mdi-view-list.icon-start
-                        | Verberg de lijst met geadresseerden
+                    //- View type
+                    .flex: div: .block.block-label-tabs: .label-tab-set
+                        //- Identities
+                        .label-tab(ng-class="{active: $ctrl.targetGroup == 'identities'}" ng-click="$ctrl.targetGroup = 'identities'")
+                            .mdi.mdi-account-multiple-outline.label-tab-icon-start
+                            | Aanvragers
+
+                        //- Providers
+                        .label-tab(ng-class="{active: $ctrl.targetGroup == 'providers'}" ng-click="$ctrl.targetGroup = 'providers'")
+                            .mdi.mdi-store-outline.label-tab-icon-start
+                            span(ng-bind="targetGroup.label")
+                            | Aanbieders
 
             //- Audience select
             .card-section
@@ -35,93 +43,103 @@
                         ng-change="$ctrl.onFundChange()"
                         options="$ctrl.funds").form-control
 
-                .form-group
+                .form-group(ng-if="$ctrl.targetGroup == 'identities'")
                     label.form-label Verstuur naar
                     .form-offset: select-control(
                         prop="value"
                         search="false"
                         ng-model="$ctrl.identitiesFilters.target"
-                        options="$ctrl.targets").form-control
+                        options="$ctrl.identityTargets").form-control
+
+                .form-group(ng-if="$ctrl.targetGroup == 'providers'")
+                    label.form-label Verstuur naar
+                    .form-offset: select-control(
+                        prop="value"
+                        search="false"
+                        ng-model="$ctrl.providersFilters.target"
+                        options="$ctrl.providerTargets").form-control
             
-            //- Audience header
-            .card-header(ng-if="$ctrl.showIdentities"): .flex
-                .flex.flex-grow: .card-title
-                    em.mdi.mdi-view-list
-                    | Lijst met geadresseerden
+            //- Identities list
+            div(ng-show="$ctrl.targetGroup == 'identities'")
+                //- Audience header
+                .card-header(ng-if="$ctrl.showIdentities"): .flex
+                    .flex.flex-grow: .card-title
+                        em.mdi.mdi-view-list
+                        | Lijst met geadresseerden
 
-                //- Filters
-                .flex
-                    .block.block-inline-filters
-                        .form: .form-group
-                            input(
-                                ng-model="$ctrl.identitiesFilters.q" 
-                                placeholder="Zoeken").form-control
+                    //- Filters
+                    .flex
+                        .block.block-inline-filters
+                            .form: .form-group
+                                input(
+                                    ng-model="$ctrl.identitiesFilters.q" 
+                                    placeholder="Zoeken").form-control
 
-                        .button.button-primary.button-sm(
-                            ng-click="$ctrl.exportIdentities()")
-                            em.mdi.mdi-download.icon-start
-                            | Exporteren
+                            .button.button-primary.button-sm(
+                                ng-click="$ctrl.exportIdentities()")
+                                em.mdi.mdi-download.icon-start
+                                | Exporteren
 
-            //- Audience list
-            .card-section(ng-if="$ctrl.showIdentities && $ctrl.identities.meta.total > 0")
-                .card-block.card-block-table
-                    .table-wrapper
-                        table.table
-                            tr
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="ID" value="id")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="E-mail" value="email")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="Aantal tegoeden" value="count_vouchers")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="Actieve tegoeden" value="count_vouchers_active")
-                                th(th-sortable filters="$ctrl.identitiesFilters" label="Actieve tegoeden met een restant budget" value="count_vouchers_active_with_balance")
-                                //- th(th-sortable filters="$ctrl.identitiesFilters" label="Action").th-narrow.text-right
+                //- Audience list
+                .card-section(ng-if="$ctrl.showIdentities && $ctrl.identities.meta.total > 0")
+                    .card-block.card-block-table
+                        .table-wrapper
+                            table.table
+                                tr
+                                    th(th-sortable filters="$ctrl.identitiesFilters" label="ID" value="id")
+                                    th(th-sortable filters="$ctrl.identitiesFilters" label="E-mail" value="email")
+                                    th(th-sortable filters="$ctrl.identitiesFilters" label="Aantal tegoeden" value="count_vouchers")
+                                    th(th-sortable filters="$ctrl.identitiesFilters" label="Actieve tegoeden" value="count_vouchers_active")
+                                    th(th-sortable filters="$ctrl.identitiesFilters" label="Actieve tegoeden met een restant budget" value="count_vouchers_active_with_balance")
+                                    //- th(th-sortable filters="$ctrl.identitiesFilters" label="Action").th-narrow.text-right
 
-                            tr(ng-repeat="identity in $ctrl.identities.data")
-                                td(ng-bind="identity.id")
-                                td(ng-bind="identity.email")
-                                td(ng-bind="identity.count_vouchers")
-                                td(ng-bind="identity.count_vouchers_active")
-                                td(ng-bind="identity.count_vouchers_active_with_balance")
+                                tr(ng-repeat="identity in $ctrl.identities.data")
+                                    td(ng-bind="identity.id")
+                                    td(ng-bind="identity.email")
+                                    td(ng-bind="identity.count_vouchers")
+                                    td(ng-bind="identity.count_vouchers_active")
+                                    td(ng-bind="identity.count_vouchers_active_with_balance")
 
-            //- Audience pagination
-            .card-section.card-section-narrow(
-                ng-if="$ctrl.identities"
-                ng-show="$ctrl.showIdentities && $ctrl.identities.meta.last_page > 1")
-                paginator(meta="$ctrl.identities.meta" filters="$ctrl.identitiesFilters" on-page-change="$ctrl.identitiesOnPageChange(query)")
+                //- Audience pagination
+                .card-section.card-section-narrow(
+                    ng-if="$ctrl.identities"
+                    ng-show="$ctrl.showIdentities && $ctrl.identities.meta.last_page > 1")
+                    paginator(meta="$ctrl.identities.meta" filters="$ctrl.identitiesFilters" on-page-change="$ctrl.identitiesOnPageChange(query)")
 
-            //- Empty audience block
-            .card-section(ng-if="$ctrl.showIdentities && $ctrl.identities.meta.total == 0"): .block.block-empty.text-center
-                .empty-title(ng-if="!$ctrl.lastQuery")
-                    | Geen gebruikers gevonden
+                //- Empty audience block
+                .card-section(ng-if="$ctrl.showIdentities && $ctrl.identities.meta.total == 0"): .block.block-empty.text-center
+                    .empty-title(ng-if="!$ctrl.lastIdentitiesQuery")
+                        | Geen gebruikers gevonden
 
-                .empty-title(ng-if="$ctrl.lastQuery")
-                    | Geen gebruikers gevonden voor "{{ $ctrl.lastQuery }}"
+                    .empty-title(ng-if="$ctrl.lastIdentitiesQuery")
+                        | Geen gebruikers gevonden voor "{{ $ctrl.lastIdentitiesQuery }}"
 
-            //- Audience stats
-            .card-section.card-section-primary
-                .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
-                    .keyvalue-item.col.col-lg-3
-                        .keyvalue-key Met vouchers
-                        .keyvalue-value
-                            span(ng-bind="$ctrl.identities.meta.counts.active")
-                            span.icon.mdi.mdi-account-multiple-outline
+                //- Audience stats
+                .card-section.card-section-primary
+                    .card-block.card-block-keyvalue.card-block-keyvalue-horizontal.row
+                        .keyvalue-item.col.col-lg-3
+                            .keyvalue-key Met vouchers
+                            .keyvalue-value
+                                span(ng-bind="$ctrl.identities.meta.counts.active")
+                                span.icon.mdi.mdi-account-multiple-outline
 
-                    .keyvalue-item.col.col-lg-3
-                        .keyvalue-key Binnen de doelgroep
-                        .keyvalue-value
-                            span(ng-bind="$ctrl.identities.meta.counts.selected")
-                            span.icon.mdi.mdi-account-multiple-check-outline
+                        .keyvalue-item.col.col-lg-3
+                            .keyvalue-key Binnen de doelgroep
+                            .keyvalue-value
+                                span(ng-bind="$ctrl.identities.meta.counts.selected")
+                                span.icon.mdi.mdi-account-multiple-check-outline
 
-                    .keyvalue-item.col.col-lg-3
-                        .keyvalue-key Uitgesloten gebruikers
-                        .keyvalue-value
-                            span(ng-bind="$ctrl.identities.meta.counts.active - $ctrl.identities.meta.counts.selected - $ctrl.identities.meta.counts.without_email")
-                            span.icon.mdi.mdi-account-multiple-remove-outline
+                        .keyvalue-item.col.col-lg-3
+                            .keyvalue-key Uitgesloten gebruikers
+                            .keyvalue-value
+                                span(ng-bind="$ctrl.identities.meta.counts.active - $ctrl.identities.meta.counts.selected - $ctrl.identities.meta.counts.without_email")
+                                span.icon.mdi.mdi-account-multiple-remove-outline
 
-                    .keyvalue-item.col.col-lg-3
-                        .keyvalue-key Zonder e-mailadres
-                        .keyvalue-value
-                            span(ng-bind="$ctrl.identities.meta.counts.without_email")
-                            span.icon.mdi.mdi-email-off-outline
+                        .keyvalue-item.col.col-lg-3
+                            .keyvalue-key Zonder e-mailadres
+                            .keyvalue-value
+                                span(ng-bind="$ctrl.identities.meta.counts.without_email")
+                                span.icon.mdi.mdi-email-off-outline
 
         //- Mail template editor
         .block.block-system-notification-editor
