@@ -25,13 +25,13 @@
                         //- Identities
                         .label-tab(ng-class="{active: $ctrl.targetGroup == 'identities'}" ng-click="$ctrl.targetGroup = 'identities'")
                             .mdi.mdi-account-multiple-outline.label-tab-icon-start
-                            | Identities
+                            | Aanvragers
 
                         //- Providers
                         .label-tab(ng-class="{active: $ctrl.targetGroup == 'providers'}" ng-click="$ctrl.targetGroup = 'providers'")
                             .mdi.mdi-store-outline.label-tab-icon-start
                             span(ng-bind="targetGroup.label")
-                            | Providers
+                            | Aanbieders
 
             //- Audience select
             .card-section
