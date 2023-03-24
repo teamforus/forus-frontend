@@ -1792,6 +1792,12 @@ module.exports = {
                     description: 'Ontvang een notificatie wanneer een aanbieder voor een fonds is afgewezen.'
                 },
             },
+            funds_requests: {
+                assigned_by_supervisor: {
+                    title: 'Assigned to fund request by supervisor',
+                    description: 'Receive an email when a fund-request is assigned to you by a supervisor.'
+                }
+            },
             validations: {
                 new_validation_request: {
                     title: 'Nieuw aanvraag',
