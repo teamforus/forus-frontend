@@ -1,0 +1,159 @@
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user")
+    menu
+    section.app.app-content
+        //- Navigation
+        .block.block-breadcrumbs(ng-if="$root.activeOrganization")
+            a.breadcrumb-item(
+                ui-sref="reservations({organization_id: $root.activeOrganization.id})" 
+                ng-bind="'Reservations'")
+
+            .breadcrumb-item.active(ng-bind="'#' + $ctrl.reservation.code")
+
+        //- Base reservation details
+        .card(ng-if="$ctrl.reservation")
+            //- Title and actions
+            .card-header: .flex
+                //- Title and subtitle
+                .flex.flex-grow: .flex.flex-vertical
+                    //- Title
+                    .card-title: .flex
+                        //- Product name
+                        .flex.flex-vertical: .flex
+                            span.text-muted Product name:&nbsp;
+                            | {{ $ctrl.reservation.product.name }} &nbsp;
+
+                        //- Label
+                        .flex.flex-vertical.flex-center: .flex.flex-horizontal
+                            //- State label
+                            label.label(
+                                ng-if="!$ctrl.reservation.expired"
+                                ng-class="{pending: 'label-default', accepted: 'label-success', rejected: 'label-danger', canceled: 'label-danger', canceled_by_client: 'label-danger'}[$ctrl.reservation.state]"
+                                ng-bind="$ctrl.reservation.state_locale")
+
+                            //- Expired label
+                            label.label.label-danger-light(
+                                ng-if="$ctrl.reservation.expired"
+                                ng-bind="'Expired'")
+
+                    //- Subtitle
+                    .card-subtitle: .flex
+                        .mdi.mdi-clock-outline
+                        | {{ $ctrl.reservation.created_at_locale }}
+
+                .flex.flex-self-start: .flex-row: .button-group
+                    .button.button-primary.button-sm(
+                        ng-if="$ctrl.reservation.state === 'pending' && !$ctrl.reservation.expired && !$ctrl.reservation.product.deleted" 
+                        ng-click="$ctrl.acceptReservation($ctrl.reservation)")
+                        em.mdi.mdi-check.icon-start
+                        | Accepteer
+
+                    .button.button-danger.button-sm(
+                        ng-if="$ctrl.reservation.state === 'pending'" 
+                        ng-click="$ctrl.rejectReservation($ctrl.reservation)")
+                        em.mdi.mdi-close.icon-start
+                        | Weiger
+
+
+            //- Base overview
+            .card-section: .card-block.card-block-table: .table-wrapper
+                table.table.table-fixed
+                    tr 
+                        //- Price
+                        td
+                            strong(translate="reservations.labels.price").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.price_locale")    
+
+                        //- Fund
+                        td
+                            strong(translate="reservations.labels.fund").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.fund.name")
+
+                        //- Sponsor organization
+                        td
+                            strong(translate="reservations.labels.sponsor_organization").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.fund.organization.name")
+
+                        //- Product name
+                        td
+                            strong(translate="reservations.labels.product").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.product.name")
+
+                    tr
+                        //- Created at
+                        td
+                            strong(translate="reservations.labels.created_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.created_at_locale")    
+
+                        //- Expire at
+                        td
+                            strong(translate="reservations.labels.expire_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.expire_at_locale")    
+
+                        //- Rejected at
+                        td(ng-if="ctrl.reservation.rejected_at")
+                            strong(translate="reservations.labels.rejected_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.rejected_at_locale")   
+
+                        //- Accepted at
+                        td(ng-if="ctrl.reservation.accepted_at")
+                            strong(translate="reservations.labels.accepted_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.accepted_at_locale")   
+
+
+        //- Reservation details
+        .card
+            //- Header
+            .card-header: .card-title Gegevens
+
+            //- Reservation details
+            .card-section: .flex
+                .flex: .card-block.card-block-keyvalue
+                    //- Email
+                    .keyvalue-item
+                        .keyvalue-key(translate="reservations.labels.email")
+                        .keyvalue-value(ng-bind="$ctrl.reservation.identity_email")
+
+                    //- First name
+                    .keyvalue-item
+                        .keyvalue-key(translate="reservations.labels.first_name")
+                        .keyvalue-value(ng-bind="$ctrl.reservation.first_name")
+                    
+                    //- Last name
+                    .keyvalue-item
+                        .keyvalue-key(translate="reservations.labels.last_name")
+                        .keyvalue-value(ng-bind="$ctrl.reservation.last_name")
+                    
+                    //- Phone
+                    .keyvalue-item(ng-if="$ctrl.reservation.phone")
+                        .keyvalue-key(translate="reservations.labels.phone")
+                        .keyvalue-value(ng-bind="$ctrl.reservation.phone")
+                    
+                    //- Address
+                    .keyvalue-item(ng-if="$ctrl.reservation.address")
+                        .keyvalue-key(translate="reservations.labels.address")
+                        .keyvalue-value(ng-bind="$ctrl.reservation.address")
+                    
+                    //- Birth date
+                    .keyvalue-item(ng-if="$ctrl.reservation.birth_date")
+                        .keyvalue-key(translate="reservations.labels.birth_date")
+                        .keyvalue-value(ng-bind="$ctrl.reservation.birth_date_locale")
+                    
+                    //- Note
+                    .keyvalue-item(ng-if="$ctrl.reservation.user_note")
+                        .keyvalue-key(translate="reservations.labels.user_note")
+                        .keyvalue-value(ng-bind="$ctrl.reservation.user_note")
+        
+        //- Voucher transaction details
+        voucher-transaction-details(
+            ng-if="$ctrl.transaction && ($ctrl.organization | hasPerm:'view_finances')"
+            organization="$ctrl.organization"
+            transaction="$ctrl.transaction"
+            on-update="$ctrl.onTransactionUpdate()")

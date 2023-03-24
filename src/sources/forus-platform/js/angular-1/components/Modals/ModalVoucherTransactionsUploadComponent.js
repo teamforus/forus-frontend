@@ -57,6 +57,7 @@ const ModalVoucherTransactionsUploadComponent = function (
 
                 const input = document.createElement('input');
 
+                input.setAttribute("dusk", "inputUpload");
                 input.setAttribute("type", "file");
                 input.setAttribute("accept", ".csv");
                 input.style.display = 'none';

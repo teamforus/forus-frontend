@@ -1,8 +1,10 @@
 const turndownPluginGfm = require('../libs/turndown-plugin-gfm.cjs')
 
-const MarkdownService = function () {
+const MarkdownService = function (ApiRequest) {
+    const uriPrefix = '/platform';
+
     return new (function () {
-        this.getTurndownService = function() {
+        this.getTurndownService = function () {
             const turndownService = (new TurndownService({ headingStyle: "atx" }));
 
             turndownService.addRule('strikethrough', {
@@ -32,9 +34,14 @@ const MarkdownService = function () {
                 return ((index != 0) && (markdown[index - 1] === '') && (line.trim() === '')) ? "&nbsp;  " : line;
             }).join("\n");
         };
+
+        this.toHtml = function (markdown) {
+            return ApiRequest.post(`${uriPrefix}/format`, { markdown });
+        };
     });
 };
 
 module.exports = [
-    MarkdownService
+    'ApiRequest',
+    MarkdownService,
 ];

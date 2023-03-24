@@ -233,10 +233,10 @@
                         .card-block.card-block-table
                             .table-wrapper: table.table
                                 thead: tr
-                                    th(translate="components.organization_funds.top_up_table.columns.code")
-                                    th(translate="components.organization_funds.top_up_table.columns.iban")
-                                    th(translate="components.organization_funds.top_up_table.columns.amount")
-                                    th.text-right(translate="components.organization_funds.top_up_table.columns.date")
+                                    th(th-sortable filters="fund.topUpTransactionFilters.values" label="components.organization_funds.top_up_table.columns.code" value="code")
+                                    th(th-sortable filters="fund.topUpTransactionFilters.values" label="components.organization_funds.top_up_table.columns.iban" value="iban")
+                                    th(th-sortable filters="fund.topUpTransactionFilters.values" label="components.organization_funds.top_up_table.columns.amount" value="amount")
+                                    th(th-sortable filters="fund.topUpTransactionFilters.values" label="components.organization_funds.top_up_table.columns.date" value="created_at").text-right
 
                                 tbody
                                     tr(ng-repeat="top_up_transaction in fund.top_up_transactions.data")
@@ -251,7 +251,7 @@
                         paginator(
                             ng-if="fund.top_up_transactions.meta"
                             meta="fund.top_up_transactions.meta"
-                            filters="fund.topUpTransactionFilters.values" 
+                            filters="fund.topUpTransactionFilters.values"
                             on-page-change="$ctrl.fetchTopUpTransactions(fund, query)")
 
                     block-empty(
