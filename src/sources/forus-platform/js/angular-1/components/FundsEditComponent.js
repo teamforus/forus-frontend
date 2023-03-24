@@ -113,7 +113,9 @@ const FundsEditComponent = function(
             $ctrl.form.values.formula_products.forEach((el, $index) => {
                 const product = el.product_id ? $ctrl.products.filter(item => item.id == el.product_id)[0] : false;
 
-                $ctrl.productOptions[$index] = productOptions.concat(product ? [product] : []);
+                $ctrl.productOptions[$index] = productOptions.concat(product ? [product] : []).sort((a, b) => {
+                    return a.name[0] == b.name[0] ? 0 : (a.name[0] > b.name[0] ? 1 : -1);
+                });
             });
         }, 250);
     };
