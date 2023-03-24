@@ -1,7 +1,6 @@
 const uniqueId = require('lodash/uniqueId');
-const isEqual = require('lodash/isEqual');
 
-const SelectControlDirective = function($scope, $timeout) {
+const SelectControlDirective = function ($scope, $timeout) {
     const $dir = $scope.$dir;
 
     $dir.filter = {
@@ -26,12 +25,12 @@ const SelectControlDirective = function($scope, $timeout) {
         const options = $dir.searchEnabled ? $dir.prepareOptions(search) : $dir.optionsPrepared;
 
         $dir.optionsFiltered = options.map((option) => {
-            const end = -(option[$dir.as].length - (option._index + search_len));
+            const end = -(option.raw[$dir.as].length - (option._index + search_len));
             const nameFormat = $dir.searchEnabled ? [
-                option[$dir.as].slice(0, option._index),
-                option[$dir.as].slice(option._index, option._index + search_len),
-                end < 0 ? option[$dir.as].slice(end) : "",
-            ] : [option[$dir.as]];
+                option.raw[$dir.as].slice(0, option._index),
+                option.raw[$dir.as].slice(option._index, option._index + search_len),
+                end < 0 ? option.raw[$dir.as].slice(end) : "",
+            ] : [option.raw[$dir.as]];
 
             return { ...option, nameFormat };
         });
@@ -71,7 +70,11 @@ const SelectControlDirective = function($scope, $timeout) {
     };
 
     $dir.selectOption = (option) => {
-        $dir.setModel(option.raw);
+        $dir.value = option;
+        $dir.filter.q = option.raw[$dir.as];
+
+        $dir.ngModelCtrl.$setViewValue($dir.prop ? option.raw[$dir.prop] : option.raw);
+        $dir.searchUpdate();
         $dir.showOptions = false;
     };
 
@@ -80,22 +83,6 @@ const SelectControlDirective = function($scope, $timeout) {
             $dir.showOptions = false;
         }, 0);
     };
-
-    $dir.setModel = (value) => {
-        $dir.value = value;
-        $dir.filter.q = value[$dir.as];
-
-        $dir.ngModelCtrl.$setViewValue($dir.prop ? value[$dir.prop] : value);
-        $dir.searchUpdate();
-    };
-
-    $scope.$watch(function () {
-        return $dir.ngModelCtrl.$modelValue;
-    }, function(newValue) {
-        if (Array.isArray($dir.options)) {
-            $dir.value = $dir.findValue($dir.ngModel);
-        }
-    });
 
     $dir.onInputClick = () => {
         if ($dir.autoClearEnabled) {
@@ -106,13 +93,13 @@ const SelectControlDirective = function($scope, $timeout) {
     }
 
     $dir.findValue = (ngModel) => {
-        return $dir.options.filter((option) => {
+        return $dir.optionsPrepared.find((option) => {
             if ($dir.strict) {
-                return $dir.prop ? option[$dir.prop] === ngModel : isEqual(option) === isEqual(ngModel);
+                return $dir.prop ? option.raw[$dir.prop] === ngModel : option.raw == ngModel;
             }
 
-            return $dir.prop ? option[$dir.prop] == ngModel : isEqual(option) == isEqual(ngModel);
-        })[0] || null
+            return $dir.prop ? option.raw[$dir.prop] == ngModel : option.raw == ngModel;
+        }) || null
     }
 
     $dir.$onInit = () => {
@@ -134,13 +121,22 @@ const SelectControlDirective = function($scope, $timeout) {
                 return;
             }
 
-            $dir.optionsPrepared = JSON.parse(JSON.stringify(options)).map((option) => {
-                return { ...option, _name: option[$dir.as].toString().toLowerCase(), raw: { ...option } };
+            $dir.optionsPrepared = options.map((option) => {
+                return { _name: option[$dir.as].toString().toLowerCase(), raw: option };
             });
 
             $dir.buildSearchedOptions();
-
             $dir.value = $dir.findValue($dir.ngModel);
+        });
+
+        $scope.$watch('$dir.ngModel', (ngModel, modalOld) => {
+            if (ngModel == modalOld) {
+                return;
+            }
+    
+            if (Array.isArray($dir.optionsPrepared) && (ngModel != undefined)) {
+                $dir.value = $dir.findValue(ngModel);
+            }
         });
 
         if (typeof $dir.ngChangeQuery == 'function') {
