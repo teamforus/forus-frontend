@@ -117,7 +117,12 @@ const FundRequestsComponent = function (
 
         $ctrl.employees.data.unshift({
             id: null,
-            email: "Selecteer medewerker"
+            email: "Alle medewerker"
+        });
+
+        $ctrl.employees.data.unshift({
+            id: 'null',
+            email: "Niet toegewezen"
         });
 
         $ctrl.filters.reset();
