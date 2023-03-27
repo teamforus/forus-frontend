@@ -67,6 +67,12 @@ const FaqEditorDirective = function(
             );
         });
     };
+    
+    $dir.sortable = {
+        sort: true,
+        animation: 150,
+        handle: '.question-icon',
+    };
 
     $dir.init = function() {
         $dir.faq = $scope.faq;
