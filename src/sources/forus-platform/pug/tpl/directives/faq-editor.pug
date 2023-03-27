@@ -3,6 +3,8 @@
         //- Questions list
         .question-item(ng-repeat="question in $dir.faq")
             .question-header
+                em.mdi.mdi-sort.sort-icon
+
                 //- Question icon
                 .question-icon(ng-class="{'text-danger' : !question.collapsed && (!question.title || !question.description)}")
                     em.mdi.mdi-frequently-asked-questions

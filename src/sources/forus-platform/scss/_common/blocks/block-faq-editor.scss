@@ -15,7 +15,14 @@
         .question-header {
             display: flex;
             flex-direction: row;
-            padding: 10px 10px 10px 20px;
+            padding: 10px;
+
+            .sort-icon {
+                font-size: 15px;
+                line-height: 30px;
+                padding-right: 5px;
+                cursor: pointer;
+            }
 
             .question-icon {
                 display: flex;

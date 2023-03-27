@@ -71,7 +71,7 @@ const FaqEditorDirective = function(
     $dir.sortable = {
         sort: true,
         animation: 150,
-        handle: '.question-icon',
+        handle: '.sort-icon',
     };
 
     $dir.init = function() {
