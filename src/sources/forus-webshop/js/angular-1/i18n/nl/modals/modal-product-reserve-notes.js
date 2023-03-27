@@ -7,12 +7,21 @@ module.exports = {
         placeholders: {
             first_name: 'Voornaam',
             last_name: 'Achternaam',
-            notes: 'Opmerking'
+            notes: 'Opmerking',
+            phone: 'Telefoonnummer',
+            address: 'Adres',
+            birth_date: 'Geboortedatum',
         },
         labels: {
             first_name: 'Voornaam',
             last_name: 'Achternaam',
-            notes: 'Opmerking (optioneel)'
+            notes: 'Opmerking (optioneel)',
+            phone: 'Telefoonnummer',
+            address: 'Adres',
+            birth_date: 'Geboortedatum',
+            phone_optional: 'Telefoonnummer (optioneel)',
+            address_optional: 'Adres (optioneel)',
+            birth_date_optional: 'Geboortedatum (optioneel)',
         }
     },
     confirm_notes: {
@@ -25,7 +34,10 @@ module.exports = {
         labels: {
             first_name: 'Voornaam: ',
             last_name: 'Achternaam: ',
-            notes: 'Opmerking: '
+            notes: 'Opmerking: ',
+            phone: 'Telefoonnummer: ',
+            address: 'Adres: ',
+            requester_birth_date: 'Geboortedatum: '
         },
         buttons: {
             adjust: 'Terug',
