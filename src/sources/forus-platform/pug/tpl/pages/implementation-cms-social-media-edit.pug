@@ -1,0 +1,61 @@
+.app.app-container
+    menu
+    section.app.app-content
+        //- Breadcrumbs
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementations($ctrl.implementation)") Webshops 
+            .breadcrumb-item(ui-sref="implementation-view($ctrl.implementation)" ng-bind="$ctrl.implementation.name")
+            .breadcrumb-item(ui-sref="implementation-cms($ctrl.implementation)") Content Management System
+            .breadcrumb-item.active(translate="implementation_edit.labels.cms_media_links")
+
+        .card
+            //- Header
+            .card-header.flex-row
+                .card-title(translate="implementation_edit.labels.cms_media_links")
+                .flex.flex-grow.flex-end
+                    a.button.button-text.button-sm(
+                        ng-if="($ctrl.page.state == 'public') || $ctrl.page_type_config.type === 'static'" 
+                        href="{{ $ctrl.page_type_config.webshop_url }}" 
+                        target="_blank")
+                        | Bekijk pagina
+                        .mdi.mdi-open-in-new.icon-end 
+
+                    button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
+
+            //- Content
+            .card-section.card-section-primary
+                .card-block.card-block-table(ng-if="$ctrl.socialMedia.length"): .table-wrapper: table.table
+                    tr
+                        th Icon
+                        th Type
+                        th Url
+                        th.th-narrow.text-right Opties
+
+                    tr(ng-repeat="socialMedia in $ctrl.socialMedia")
+                        td(ng-bind="socialMedia.icon")
+                        td(ng-bind="socialMedia.type")
+                        td(ng-bind="socialMedia.url")
+
+                        td.td-narrow.text-right: .flex
+                            a(ng-click="$ctrl.editMedia(socialMedia)").button.button-sm.button-default
+                                em.mdi.mdi-pen.icon-start
+                                translate(translate="Edit")
+
+                            button(ng-click="$ctrl.deleteMedia(socialMedia)").button.button-danger.button-icon
+                                em.icon-start.mdi.mdi-delete
+            
+            //- Submit or Cancel
+            .card-section.card-section-primary: .text-center
+                button(
+                    type="button" 
+                    ui-sref="implementation-cms({organization_id: $ctrl.organization.id, id: $ctrl.implementation.id})" 
+                    translate="funds_edit.buttons.cancel").button.button-default
+
+                button(
+                    type="submit" 
+                    translate="funds_edit.buttons.confirm").button.button-primary
+
+        //- Not found
+        block-empty(
+            ng-if="$ctrl.socialMedia.length == 0"
+            text="Er zijn momenteel geen social media.")            

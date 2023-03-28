@@ -424,6 +424,7 @@ module.exports = {
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
+            cms_media_links: "CMS media links"
         },
         implementations_table: {
             title: "Webshop pagina's",

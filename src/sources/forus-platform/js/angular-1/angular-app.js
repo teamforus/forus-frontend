@@ -77,6 +77,7 @@ app.component('identitiesShowComponent', require('./components/IdentitiesShowCom
 app.component('implementationCmsConfigEditComponent', require('./components/ImplementationCmsConfigEditComponent'));
 app.component('emailConfirmedComponent', require('./components/EmailConfirmedComponent'));
 app.component('reservationsSettingsComponent', require('./components/ReservationsSettingsComponent'));
+app.component('implementationCmsSocialMediaEditComponent', require('./components/ImplementationCmsSocialMediaEditComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
