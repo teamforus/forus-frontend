@@ -169,7 +169,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             order_by_dir: routeParam('desc'),
         },
         resolve: {
-            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_products: 1 }))],
             products: ['$transition$', 'ProductService', (
                 $transition$, ProductService
             ) => repackPagination(ProductService.list({
@@ -235,7 +235,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             postcode: routeParam(''),
         },
         resolve: {
-            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_subsidies: 1 }))],
             products: ['$transition$', 'ProductService', ($transition$, ProductService) => repackPagination(ProductService.list({
                 q: $transition$.params().q,
                 page: $transition$.params().page,
@@ -328,7 +328,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             order_by_dir: routeParam('asc'),
         },
         resolve: {
-            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_providers: 1 }))],
             productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
                 return $transition$.params().product_category_id ?
                     repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
