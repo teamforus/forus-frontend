@@ -10,7 +10,7 @@
             .card-header: .flex
                 //- Title
                 .flex.flex-grow: .card-title
-                    span(translate="Afmeldingsaanvragen")
+                    span(translate="Afmeldingen")
                     | &nbsp;
                     span(ng-bind="$ctrl.fundUnsubscribes.meta.total").span-count
                 
@@ -98,4 +98,4 @@
 
             //- Not found
             .card-section(ng-if="!$ctrl.loading && $ctrl.fundUnsubscribes.meta.total == 0"): .block.block-empty.text-center
-                .empty-title No unsubscription requests
+                .empty-title Geen afmeldingen van aanbieders
