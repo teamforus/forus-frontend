@@ -1794,8 +1794,8 @@ module.exports = {
             },
             funds_requests: {
                 assigned_by_supervisor: {
-                    title: 'Assigned to fund request by supervisor',
-                    description: 'Receive an email when a fund-request is assigned to you by a supervisor.'
+                    title: 'De beheerder heeft een aanvraag aan u toegewezen',
+                    description: 'Ontvang een e-mail wanneer er een aanvraag voor een fonds aan u is toegewezen.'
                 }
             },
             validations: {
