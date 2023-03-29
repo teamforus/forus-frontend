@@ -42,6 +42,7 @@ let EmailPreferencesComponent = function(
             'employee.created',
             'employee.deleted',
             'digest.daily_validator',
+            'funds_requests.assigned_by_supervisor',
         ];
     }
 
