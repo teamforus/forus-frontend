@@ -105,10 +105,10 @@ const NotificationTemplateEditorDirective = function (
             const { formal, title, content, content_html = '' } = form.values;
 
             const newTemplate = {
-                title: labelsToVars(title), 
-                content: labelsToVars(content), 
+                title: labelsToVars(title),
+                content: labelsToVars(content),
                 content_html: content_html ? labelsToVars(content_html) : null,
-                ...{ formal, type: $dir.type },
+                ...{ formal, type: $dir.type, fund_id: $dir.fund?.id },
             };
 
             const defaultTemplate = $dir.notification.templates_default.filter((item) => item.type == $dir.type)[0] || null;
@@ -170,10 +170,10 @@ const NotificationTemplateEditorDirective = function (
             text_align: "center",
             onConfirm: () => {
                 if (!$dir.compose) {
-                    updateTemplate({ templates_remove: [{ formal: $dir.template.formal, type: $dir.type }] });
+                    updateTemplate({ templates_remove: [{ formal: $dir.template.formal, type: $dir.type, fund_id: $dir.fund?.id }] });
                 }
 
-                $dir.resetTemplate({ type: $dir.type });
+                $dir.resetTemplate({ type: $dir.type, fund_id: $dir.fund?.id });
                 $dir.cancelTemplateEdit();
             },
         });
@@ -217,8 +217,8 @@ const NotificationTemplateEditorDirective = function (
         if (template.type === 'mail') {
             $dir.content_preview_sce = $sce.trustAsHtml(
                 labelsToBlocks(contentToPreview(template?.content_html || '', $dir.variableValues),
-                $dir.implementation
-            ));
+                    $dir.implementation
+                ));
         }
     }
 
@@ -279,6 +279,7 @@ module.exports = () => {
         scope: {
             template: '=',
             type: '@',
+            fund: '=',
             template: '<',
             compose: '<',
             notification: '<',
@@ -304,7 +305,7 @@ module.exports = () => {
             'FormBuilderService',
             'PushNotificationsService',
             'ImplementationNotificationsService',
-            NotificationTemplateEditorDirective
+            NotificationTemplateEditorDirective,
         ],
         templateUrl: 'assets/tpl/directives/elements/system-notification-template-editor.html'
     };

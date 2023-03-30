@@ -6,12 +6,13 @@ const ImplementationNotificationsShowComponent = function() {
 
 module.exports = {
     bindings: {
+        funds: '<',
         organization: '<',
         notification: '<',
         implementation: '<',
     },
     controller: [
-        ImplementationNotificationsShowComponent
+        ImplementationNotificationsShowComponent,
     ],
-    templateUrl: 'assets/tpl/pages/implementation-notifications-show.html'
+    templateUrl: 'assets/tpl/pages/implementation-notifications-show.html',
 };

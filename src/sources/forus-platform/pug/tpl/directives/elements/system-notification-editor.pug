@@ -5,13 +5,26 @@
                 .card-title(ng-class="$dir.notification.enable_all ? '' : 'text-muted-dark'")
                     em.mdi.mdi-web
                     span(ng-bind="$dir.notification.title")
+                    span(ng-bind="('system_notifications.notifications.' + $dir.notification.key + '.title') | translate")
 
             .flex.flex-pad.flex-vertical.flex-center(ng-if="$dir.notification.editable")
                 control-toggle.form-toggle-danger(
                     label="{{ $dir.notification.enable_all ? '' : $dir.notificationToggleLabel.disabled }}" 
                     ng-change="$dir.toggleSwitched()"
                     ng-model="$dir.notification.enable_all" form-id="enable_all")
-            
+
+        .card-section(
+            ng-if="$dir.funds.length > 0"
+            ng-class="$dir.notification.enable_all ? '' : 'card-section-danger'")
+            .card-block.card-block-keyvalue
+                .keyvalue-item.flex
+                    .keyvalue-key.text-right.flex.flex-vertical.flex-center: .text-strong Select fund
+                    .keyvalue-value: .col.col-xs-12.col-lg-8: select-control(
+                        placeholder="Select fund"
+                        ng-model="$dir.fund"
+                        ng-change="$dir.onFundChanged($dir.fund)"
+                        options="$dir.funds").form-control
+                
         .card-section(ng-class="$dir.notification.enable_all ? '' : 'card-section-danger'")
             .card-block.card-block-keyvalue
                 .keyvalue-item
@@ -22,16 +35,17 @@
 
                 .keyvalue-item
                     .keyvalue-key.text-right: .text-strong Beschrijving
-                    .keyvalue-value(ng-bind="$dir.notification.description")
+                    .keyvalue-value(ng-bind="('system_notifications.notifications.' + $dir.notification.key + '.description') | translate")
 
                 .keyvalue-item
                     .keyvalue-key.text-right: .text-strong Aanspreekvorm
                     .keyvalue-value(ng-bind="$dir.implementation.informal_communication ? 'Je/jouw' : 'U/uw'")
 
-    //- Mail tempalte
+    //- Mail template
     system-notification-template-editor(
         type="mail" 
         ng-if="$dir.templates.mail"
+        fund="$dir.fund"
         template="$dir.templates.mail"
         notification="$dir.notification"
         organization="$dir.organization"
@@ -45,6 +59,7 @@
         type="push" 
         ng-if="$dir.templates.push"
         template="$dir.templates.push"
+        fund="$dir.fund"
         notification="$dir.notification"
         organization="$dir.organization"
         implementation="$dir.implementation"
@@ -56,6 +71,7 @@
     system-notification-template-editor(
         type="database" 
         ng-if="$dir.templates.database"
+        fund="$dir.fund"
         template="$dir.templates.database"
         notification="$dir.notification"
         organization="$dir.organization"
