@@ -14,7 +14,7 @@ main(id="main-content")
                     .profile-content-header.clearfix
                         .profile-content-title
                             div.pull-left
-                                .profile-content-title-count(ng-bind="$ctrl.vouchers.length")
+                                .profile-content-title-count(ng-bind="$ctrl.vouchers.meta.total")
                                 h1.profile-content-header(translate="vouchers.header.regular.title")
 
                         .block.block-label-tabs.form.pull-right
@@ -31,17 +31,25 @@ main(id="main-content")
                                     role="button")
                                     | Archief
 
-                    .block.block-vouchers(ng-if="$ctrl.vouchers.length > 0")
+                    .block.block-vouchers(ng-show="$ctrl.vouchers.data.length > 0")
                         voucher-card(ng-repeat="voucher in $ctrl.regularVouchers" voucher="voucher")
                         voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
 
-                        .block.block-action-card.block-action-card-compact(ng-if="$ctrl.reimbursementVouchers.length > 0")
+                        //- Pagination
+                        .card(ng-if="$ctrl.vouchers"): .card-section(ng-show="$ctrl.vouchers.meta.last_page > 1")
+                            paginator(
+                                meta="$ctrl.vouchers.meta"
+                                filters="$ctrl.filters"
+                                on-page-change="$ctrl.onPageChange(query)")
+
+                        .block.block-action-card.block-action-card-compact(
+                            ng-if="$ctrl.vouchers.data.length > 0 && $ctrl.reimbursementVouchers.length > 0")
                             .block-card-logo: include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
                             .block-card-details: h3.block-card-title Kosten terugvragen
                             .block-card-actions: a(ui-sref="reimbursements-create"): .button.button-primary-outline Bon insturen
 
                     empty-block(
-                        ng-if="$ctrl.vouchers.length == 0"
+                        ng-if="$ctrl.vouchers.data.length == 0"
                         svg-icon="reimbursements"
                         title="{{ 'vouchers.empty_block.title' | translate }}"
                         description="{{ 'vouchers.empty_block.subtitle' | translate }}"
