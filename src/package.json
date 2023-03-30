@@ -60,7 +60,7 @@
     "angularjs-datepicker": "^2.1.23",
     "bootstrap": "^5.2.3",
     "browserstack-local": "^1.5.1",
-    "chart.js": "4.2.0",
+    "chart.js": "4.2.1",
     "chromedriver": "^109.0.0",
     "date-fns": "^2.29.3",
     "file-saver": "^2.0.5",
