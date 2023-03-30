@@ -63,7 +63,15 @@ module.exports = {
                 how_it_works: "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag.",  
                 contact_sponsor: "Heeft u vragen?",
                 contact_sponsor_details: "Neem dan contact met ons op.",
-                redirect_to_funds: "Wilt u nog een vergoeding aanvragen?",
+                redirect_to: "Wilt u nog een vergoeding aanvragen?",
+                IIT: {
+                    how_it_works: "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag.",  
+                    redirect_to: "Wilt u nog een vergoeding aanvragen?",
+                },
+                meedoenregeling_volwassenen_ww: {
+                    how_it_works: "Heeft u kosten gemaakt die binnen deze regeling vallen? Vraag uw kosten terug door een bon in te sturen. Na goedkeuring ontvangt u het bedrag op uw persoonlijke bankrekening.",  
+                    redirect_to: "Kosten terugvragen?",
+                },
             },
         },
         physical_card: {
