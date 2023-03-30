@@ -221,49 +221,11 @@
                                         ng-click="$ctrl.previewFile($event, file)")
                                         .mdi.mdi-eye
 
-        //- Notes
-        .card(ng-if="$ctrl.notes")
-            .card-header: .flex-row
-                //- Title
-                .flex.flex-grow: .card-title
-                    span(i18n="reimbursements.notes.header.title") 
-                    span(ng-bind="$ctrl.notes.meta.total").span-count
-
-                //- Filters
-                .flex: .block.block-inline-filters
-                    .button.button-primary(
-                        ng-if="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"
-                        ng-click="$ctrl.addNote()")
-                        em.mdi.mdi-plus-circle.icon-start
-                        span(translate="reimbursements.notes.buttons.add_new")
-
-            //- Notes
-            .card-section(ng-if="$ctrl.notes.meta.total > 0"): .card-block.card-block-table: .table-wrapper: table.table.table-align-top
-                tr
-                    th(translate="reimbursements.notes.labels.id")
-                    th(translate="reimbursements.notes.labels.created_at")
-                    th(translate="reimbursements.notes.labels.created_by")
-                    th(translate="reimbursements.notes.labels.note")
-                    th(translate="reimbursements.notes.labels.actions").text-right
-
-                tr(ng-repeat="note in $ctrl.notes.data")
-                    td(ng-bind="note.id").td-narrow.nowrap
-                    td(ng-bind="note.created_at_locale").nowrap
-                    td(ng-bind="note.employee.email").nowrap.text-primary
-                    td: .td-text(ng-repeat="line in (note.description | lines_to_array) track by $index" ng-bind="line")
-                    td.text-right: .td-drawn
-                        button(
-                            ng-if="note.employee.identity_address === $root.auth_user.address"
-                            ng-click="$ctrl.deleteNote(note)").button.button-default.button-icon
-                            .mdi.mdi-delete-outline
-
-            //- Notes pagination
-            .card-section(ng-if="$ctrl.notes.meta.total > 0" ng-show="$ctrl.notes.meta.last_page > 1")
-                paginator(
-                    meta="$ctrl.notes.meta" 
-                    filters="$ctrl.notesFilters" 
-                    on-page-change="$ctrl.onNotePageChange(query)")
-
-            //- Empty notes block
-            .card-section(ng-if="$ctrl.notes.meta.total == 0"): .block.block-empty.text-center
-                .empty-title Geen notites
+        block-card-note(
+            organization="$ctrl.organization"
+            employee="$ctrl.reimbursement.employee"
+            item="$ctrl.reimbursement"
+            is-assigned="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"
+            on-reload="$ctrl.onNotePageChange(query)"
+            on-delete="$ctrl.deleteNote(note)"
+            on-add="$ctrl.addNote(data)")

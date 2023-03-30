@@ -84,54 +84,15 @@ const ReimbursementsShowComponent = function (
     };
 
     $ctrl.onNotePageChange = (query = {}) => {
-        ReimbursementService.notes($ctrl.organization.id, $ctrl.reimbursement.id, query).then((res) => {
-            $ctrl.notes = res.data;
-        })
+        return ReimbursementService.notes($ctrl.organization.id, $ctrl.reimbursement.id, query);
     }
 
     $ctrl.deleteNote = (note) => {
-        ModalService.open("dangerZone", {
-            title: $translateDangerZone('title'),
-            text_align: 'center',
-            description: $translateDangerZone('description'),
-            cancelButton: $translateDangerZone('buttons.cancel'),
-            confirmButton: $translateDangerZone('buttons.confirm'),
-            onConfirm: () => {
-                ReimbursementService.noteDestroy($ctrl.organization.id, $ctrl.reimbursement.id, note.id).then(() => {
-                    $ctrl.onNotePageChange($ctrl.notesFilters);
-                    PushNotificationsService.success('Gelukt!', 'Notitie verwijderd.');
-                }, (res) => {
-                    PushNotificationsService.danger('Foutmelding!', res.data.message);
-                });
-            }
-        });
+        return ReimbursementService.noteDestroy($ctrl.organization.id, $ctrl.reimbursement.id, note.id);
     }
 
-    $ctrl.addNote = () => {
-        ModalService.open('addNoteComponent', {
-            title: null,
-            description: 'De notitie is alleen zichtbaar voor medewerkers met dezelfde rechten.',
-            onSubmit: (form, modal) => {
-                modal.submitting = true;
-                PageLoadingBarService.setProgress(0);
-
-                return ReimbursementService.storeNote(
-                    $ctrl.organization.id,
-                    $ctrl.reimbursement.id,
-                    form.values,
-                ).then(() => {
-                    form.errors = null;
-                    modal.close();
-                    $ctrl.onNotePageChange($ctrl.notesFilters);
-                }, (res) => {
-                    form.errors = res.data.errors;
-                    form.unlock();
-                }).finally(() => {
-                    PageLoadingBarService.setProgress(100);
-                    modal.submitting = false;
-                });
-            }
-        });
+    $ctrl.addNote = (data) => {
+        return ReimbursementService.storeNote($ctrl.organization.id, $ctrl.reimbursement.id, data);
     };
 
     $ctrl.$onInit = function () {

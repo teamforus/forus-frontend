@@ -327,6 +327,18 @@ const FundRequestsShowComponent = function(
         }
     };
 
+    $ctrl.onNotePageChange = (query = {}) => {
+        return FundRequestValidatorService.notes($ctrl.organization.id, $ctrl.validatorRequest.id, query);
+    }
+
+    $ctrl.deleteNote = (note) => {
+        return FundRequestValidatorService.noteDestroy($ctrl.organization.id, $ctrl.validatorRequest.id, note.id);
+    }
+
+    $ctrl.addNote = (data) => {
+        return FundRequestValidatorService.storeNote($ctrl.organization.id, $ctrl.validatorRequest.id, data);
+    };
+
     $ctrl.$onInit = function() {
         if (!appConfigs.features.organizations.funds.fund_requests) {
             return $state.go('csv-validation');

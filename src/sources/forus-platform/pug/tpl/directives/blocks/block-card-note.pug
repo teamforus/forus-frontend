@@ -1,0 +1,46 @@
+//- Notes
+.card
+    .card-header: .flex-row
+        //- Title
+        .flex.flex-grow: .card-title
+            span(i18n="notes.header.title") 
+            span(ng-bind="$dir.notes.meta.total").span-count
+
+        //- Filters
+        .flex: .block.block-inline-filters
+            .button.button-primary(
+                ng-if="$dir.isAssigned"
+                ng-click="$dir.addNote()")
+                em.mdi.mdi-plus-circle.icon-start
+                span(translate="notes.buttons.add_new")
+
+    //- Notes
+    .card-section(ng-if="$dir.notes.meta.total > 0"): .card-block.card-block-table: .table-wrapper: table.table.table-align-top
+        tr
+            th(translate="notes.labels.id")
+            th(translate="notes.labels.created_at")
+            th(translate="notes.labels.created_by")
+            th(translate="notes.labels.note")
+            th(translate="notes.labels.actions").text-right
+
+        tr(ng-repeat="note in $dir.notes.data")
+            td(ng-bind="note.id").td-narrow.nowrap
+            td(ng-bind="note.created_at_locale").nowrap
+            td(ng-bind="note.employee.email").nowrap.text-primary
+            td: .td-text(ng-repeat="line in (note.description | lines_to_array) track by $index" ng-bind="line")
+            td.text-right: .td-drawn
+                button(
+                    ng-if="note.employee.identity_address === $root.auth_user.address"
+                    ng-click="$dir.deleteNote(note)").button.button-default.button-icon
+                    .mdi.mdi-delete-outline
+
+    //- Notes pagination
+    .card-section(ng-if="$dir.notes.meta.total > 0" ng-show="$dir.notes.meta.last_page > 1")
+        paginator(
+            meta="$dir.notes.meta" 
+            filters="$dir.notesFilters" 
+            on-page-change="$dir.onNotePageChange(query)")
+
+    //- Empty notes block
+    .card-section(ng-if="$dir.notes.meta.total == 0"): .block.block-empty.text-center
+        .empty-title Geen notites
