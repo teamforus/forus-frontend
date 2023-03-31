@@ -1,3 +1,5 @@
+const sortBy = require('lodash/sortBy');
+
 const FundsEditComponent = function(
     $state,
     $scope,
@@ -113,7 +115,9 @@ const FundsEditComponent = function(
             $ctrl.form.values.formula_products.forEach((el, $index) => {
                 const product = el.product_id ? $ctrl.products.filter(item => item.id == el.product_id)[0] : false;
 
-                $ctrl.productOptions[$index] = productOptions.concat(product ? [product] : []);
+                $ctrl.productOptions[$index] = sortBy(productOptions.concat(product ? [product] : []), (product) => {
+                    return product.name;
+                });
             });
         }, 250);
     };
