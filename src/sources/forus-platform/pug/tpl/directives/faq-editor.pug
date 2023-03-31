@@ -1,70 +1,69 @@
 .block.block-faq-editor
-    div(ng-sortable="$dir.sortable")
-        //- Questions list
-        .question-item(ng-repeat="question in $dir.faq")
-            .question-header
-                em.mdi.mdi-sort.sort-icon
+    //- Questions list
+    .question-wrapper(ng-sortable="$dir.sortable"): .question-item(ng-repeat="question in $dir.faq")
+        .question-header
+            em.mdi.mdi-dots-vertical.question-drag
 
-                //- Question icon
-                .question-icon(ng-class="{'text-danger' : !question.collapsed && (!question.title || !question.description)}")
-                    em.mdi.mdi-frequently-asked-questions
+            //- Question icon
+            .question-icon(ng-class="{'text-danger' : !question.collapsed && (!question.title || !question.description)}")
+                em.mdi.mdi-frequently-asked-questions
 
-                //- Question title
-                .question-title
-                    //- Expanded title
-                    span(
-                        ng-if="question.collapsed" 
-                        ng-bind="!question.id ? 'Nieuwe vraag' : 'Vraag aanpassen'")
+            //- Question title
+            .question-title
+                //- Expanded title
+                span(
+                    ng-if="question.collapsed" 
+                    ng-bind="!question.id ? 'Nieuwe vraag' : 'Vraag aanpassen'")
 
-                    //- Collapsed title
-                    span(
-                        ng-if="!question.collapsed" 
-                        ng-bind="question.title || 'Geen vraag'")
+                //- Collapsed title
+                span(
+                    ng-if="!question.collapsed" 
+                    ng-bind="question.title || 'Geen vraag'")
 
-                //- Question actions
-                .question-actions
-                    //- Expand
-                    .button.button-default.button-sm(
-                        ng-if="question.collapsed" 
-                        ng-click="question.collapsed = false")
-                        em.mdi.mdi-arrow-collapse-vertical.icon-start
-                        translate(translate="components.faq_editor.item.buttons.collapse")
+            //- Question actions
+            .question-actions
+                //- Expand
+                .button.button-default.button-sm(
+                    ng-if="question.collapsed" 
+                    ng-click="question.collapsed = false")
+                    em.mdi.mdi-arrow-collapse-vertical.icon-start
+                    translate(translate="components.faq_editor.item.buttons.collapse")
 
-                    //- Collapse 
-                    .button.button-primary.button-sm(
-                        ng-if="!question.collapsed" 
-                        ng-click="question.collapsed = true")
-                        em.mdi.mdi-arrow-expand-vertical.icon-start
-                        translate(translate="components.faq_editor.item.buttons.expand")
-                        
-                    //- Remove
-                    .button.button-danger.button-sm(
-                        ng-click="$dir.removeQuestion($index)")
-                        em.mdi.mdi-trash-can-outline.icon-start
-                        translate(translate="components.faq_editor.item.buttons.delete")
+                //- Collapse 
+                .button.button-primary.button-sm(
+                    ng-if="!question.collapsed" 
+                    ng-click="question.collapsed = true")
+                    em.mdi.mdi-arrow-expand-vertical.icon-start
+                    translate(translate="components.faq_editor.item.buttons.expand")
+                    
+                //- Remove
+                .button.button-danger.button-sm(
+                    ng-click="$dir.removeQuestion($index)")
+                    em.mdi.mdi-trash-can-outline.icon-start
+                    translate(translate="components.faq_editor.item.buttons.delete")
 
-            //- Question form
-            .question-body(ng-if="question.collapsed"): .form
-                //- Question
-                .form-group
-                    label.form-label.form-label-required Vraag
-                    input(type="text" ng-model="question.title" placeholder="Vraag...").form-control
-                    .form-hint Max. 200 tekens
-                    .form-error(ng-repeat="error in $dir.errors['faq.' + $parent.$index + '.title']" ng-bind="error")
-                
-                //- Answer
-                .form-group
-                    label.form-label.form-label-required Antwoord
-                    markdown(
-                        extended-options="true"
-                        value="question.description_html"
-                        ng-model="question.description"
-                        placeholder="Antwoord...")
-                    .form-hint Max. 5000 tekens
-                    .form-error(ng-repeat="error in $dir.errors['faq.' + $parent.$index + '.description']" ng-bind="error")
+        //- Question form
+        .question-body(ng-if="question.collapsed"): .form
+            //- Question
+            .form-group
+                label.form-label.form-label-required Vraag
+                input(type="text" ng-model="question.title" placeholder="Vraag...").form-control
+                .form-hint Max. 200 tekens
+                .form-error(ng-repeat="error in $dir.errors['faq.' + $parent.$index + '.title']" ng-bind="error")
+            
+            //- Answer
+            .form-group
+                label.form-label.form-label-required Antwoord
+                markdown(
+                    extended-options="true"
+                    value="question.description_html"
+                    ng-model="question.description"
+                    placeholder="Antwoord...")
+                .form-hint Max. 5000 tekens
+                .form-error(ng-repeat="error in $dir.errors['faq.' + $parent.$index + '.description']" ng-bind="error")
 
-        //- Actions
-        .faq-editor-actions
-            .button.button-primary(ng-click="$dir.addQuestion()")
-                em.mdi.mdi-plus-circle.icon-start
-                translate(translate="components.faq_editor.buttons.add_question")
+    //- Actions
+    .faq-editor-actions
+        .button.button-primary(ng-click="$dir.addQuestion()")
+            em.mdi.mdi-plus-circle.icon-start
+            translate(translate="components.faq_editor.buttons.add_question")

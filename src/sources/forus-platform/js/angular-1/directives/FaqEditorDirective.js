@@ -13,6 +13,12 @@ const FaqEditorDirective = function(
     const $translateDangerZone = (key) => $translate('modals.danger_zone.remove_faq.' + key);
 
     $dir.collapsed = false;
+    
+    $dir.sortable = {
+        sort: true,
+        animation: 150,
+        handle: '.question-drag',
+    };
 
     $dir.askConfirmation = (onConfirm) => {
         ModalService.open("dangerZone", {
@@ -66,12 +72,6 @@ const FaqEditorDirective = function(
                 },
             );
         });
-    };
-    
-    $dir.sortable = {
-        sort: true,
-        animation: 150,
-        handle: '.sort-icon',
     };
 
     $dir.init = function() {

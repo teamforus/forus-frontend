@@ -2,6 +2,10 @@
     display: flex;
     flex-direction: column;
 
+    .question-wrapper {
+        margin: 0 0 10px;   
+    }
+
     .question-item {
         display: flex;
         flex-direction: column;
@@ -17,11 +21,11 @@
             flex-direction: row;
             padding: 10px;
 
-            .sort-icon {
+            .question-drag {
                 font-size: 15px;
                 line-height: 30px;
                 padding-right: 5px;
-                cursor: pointer;
+                cursor: grab;
             }
 
             .question-icon {
