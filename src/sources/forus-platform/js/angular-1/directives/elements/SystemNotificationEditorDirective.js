@@ -72,9 +72,9 @@ const NotificationEditor = function(
         }), $dir.implementation, fund), 'type') : null;
 
         const templates = {
-            mail: channels.mail ? templatesFund.mail || templatesImplementation.mail || templatesDefault.mail : null,
-            push: channels.push ? templatesFund.push || templatesImplementation.push || templatesDefault.push : null,
-            database: channels.database ? templatesFund.database || templatesImplementation.database || templatesDefault.database : null,
+            mail: channels.mail ? templatesFund?.mail || templatesImplementation?.mail || templatesDefault.mail : null,
+            push: channels.push ? templatesFund?.push || templatesImplementation?.push || templatesDefault.push : null,
+            database: channels.database ? templatesFund?.database || templatesImplementation.database || templatesDefault.database : null,
         };
 
         $dir.templates = templates;
