@@ -10,52 +10,46 @@
 
         .card
             //- Header
-            .card-header.flex-row
-                .card-title(translate="implementation_edit.labels.cms_media_links")
-                .flex.flex-grow.flex-end
-                    a.button.button-text.button-sm(
-                        ng-if="($ctrl.page.state == 'public') || $ctrl.page_type_config.type === 'static'" 
-                        href="{{ $ctrl.page_type_config.webshop_url }}" 
-                        target="_blank")
-                        | Bekijk pagina
-                        .mdi.mdi-open-in-new.icon-end 
-
-                    button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
+            .card-header: .flex
+                .flex.flex-grow: .card-title(ng-bind="'Social media links (' + $ctrl.socialMedias.length + ')'")
+                
+                .flex: .block.block-inline-filters
+                    a(ng-click="$ctrl.addSocialMedia()" id="add_social_media").button.button-primary.button-sm
+                        em.mdi.mdi-plus-circle.icon-start
+                        translate(translate="Toevoegen")
 
             //- Content
-            .card-section.card-section-primary
-                .card-block.card-block-table(ng-if="$ctrl.socialMedia.length"): .table-wrapper: table.table
+            .card-section.card-section-primary(ng-if="$ctrl.socialMedias.length")
+                .card-block.card-block-table: .table-wrapper: table.table
                     tr
                         th Icon
                         th Type
-                        th Url
+                        th URL
+                        th Title
                         th.th-narrow.text-right Opties
 
-                    tr(ng-repeat="socialMedia in $ctrl.socialMedia")
+                    tr(ng-repeat="socialMedia in $ctrl.socialMedias")
                         td(ng-bind="socialMedia.icon")
                         td(ng-bind="socialMedia.type")
-                        td(ng-bind="socialMedia.url")
+                        td(ng-bind="socialMedia.link")
+                        td(ng-bind="socialMedia.title")
 
                         td.td-narrow.text-right: .flex
-                            a(ng-click="$ctrl.editMedia(socialMedia)").button.button-sm.button-default
+                            a(ng-click="$ctrl.editSocialMedia(socialMedia)").button.button-sm.button-default
                                 em.mdi.mdi-pen.icon-start
                                 translate(translate="Edit")
 
-                            button(ng-click="$ctrl.deleteMedia(socialMedia)").button.button-danger.button-icon
+                            button(ng-click="$ctrl.deleteSocialMedia(socialMedia)").button.button-danger.button-icon
                                 em.icon-start.mdi.mdi-delete
             
             //- Submit or Cancel
-            .card-section.card-section-primary: .text-center
+            .card-section.card-section-primary(ng-if="$ctrl.socialMedias.length"): .text-center
                 button(
                     type="button" 
                     ui-sref="implementation-cms({organization_id: $ctrl.organization.id, id: $ctrl.implementation.id})" 
                     translate="funds_edit.buttons.cancel").button.button-default
 
-                button(
-                    type="submit" 
-                    translate="funds_edit.buttons.confirm").button.button-primary
-
-        //- Not found
-        block-empty(
-            ng-if="$ctrl.socialMedia.length == 0"
-            text="Er zijn momenteel geen social media.")            
+            //- Not found
+            block-empty(
+                ng-if="$ctrl.socialMedias.length == 0"
+                text="Er zijn momenteel geen social media.")            

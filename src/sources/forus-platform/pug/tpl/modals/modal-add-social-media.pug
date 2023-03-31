@@ -1,0 +1,45 @@
+.modal.modal-md.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+
+    form(ng-submit="$ctrl.form.submit()").modal-window.form
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        .modal-header Add social media
+
+        .modal-body.modal-body-visible
+            .modal-section.form: .row: .col.col-lg-12
+                .form-group.col.col-lg-3
+                    label.form-label Social media source
+
+                    .flex-row
+                        .flex-col.flex-col-padless-right.flex-grow 
+                            .form-offset: select-control(
+                                prop="key"
+                                ng-model="$ctrl.form.values.type"
+                                options="$ctrl.socialMediaTypes").form-control
+
+                    .form-error(ng-repeat="error in $ctrl.form.errors" ng-bind="error")
+
+                .form-group.col.col-lg-5
+                    label.form-label Link
+
+                    .flex-row
+                        .flex-col.flex-col-padless-right.flex-grow 
+                            .form-offset: input(
+                                ng-model="$ctrl.form.values.link"
+                                placeholder="link").form-control
+
+                .form-group.col.col-lg-4
+                    label.form-label Title
+
+                    .flex-row
+                        .flex-col.flex-col-padless-right.flex-grow 
+                            .form-offset: input(
+                                ng-model="$ctrl.form.values.title"
+                                placeholder="title").form-control
+
+        //- form submit
+        .modal-footer.text-center
+            button.button.button-default(type="button" ng-click="$ctrl.close()" id="close") Sluiten
+            button.button.button-primary(type="submit") Bevestigen
