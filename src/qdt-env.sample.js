@@ -458,6 +458,8 @@ module.exports = (core) => {
                 },
             }, */
             flags: {
+                showOnlyUsedCategories: true,
+
                 startPage: {
                     combineColumns: false,
                     // left column and combined column options
@@ -685,6 +687,7 @@ module.exports = (core) => {
                 showStartButton: true,
                 showStartButtonText: 'Start aanvraag',
                 accessibilityPage: false,
+                showFooterSponsorLogo: true,
             },
             sessions: sessions,
         });

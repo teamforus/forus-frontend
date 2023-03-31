@@ -2,6 +2,14 @@ const MarkdownDirective = function ($scope, $element, $timeout, ModalService, Ma
     const $dir = $scope.$dir;
     const $theEditor = $($element.find('[editor]')[0]);
 
+    const find = (selector) => {
+        return $element.find(selector);
+    };
+
+    const getEditingArea = () => {
+        return $element.find('.note-editing-area');
+    };
+
     const getCustomLink = (type, values) => {
         return new Promise((resolve) => $timeout(() => {
             ModalService.open('markdownCustomLink', {
@@ -51,7 +59,6 @@ const MarkdownDirective = function ($scope, $element, $timeout, ModalService, Ma
                         makeLabelItem('Tekst rechts uitlijnen', 'right', 'align-horizontal-right'),
                     ],
                     callback: function (items) {
-
                         $(items).find('.note-dropdown-item [data-action]').on('click', function (e) {
                             const option = $(this);
                             const parent = $(items[0]).parent();
@@ -140,6 +147,54 @@ const MarkdownDirective = function ($scope, $element, $timeout, ModalService, Ma
         }
     }
 
+    const CmsCodeMarkdown = () => {
+        const timer = {
+            timeout: null,
+            interval: 500,
+        }
+
+        return function () {
+            const ui = $.summernote.ui;
+            const btnIcon = `mdi mdi-code-braces`;
+
+            // create button
+            const button = ui.button({
+                contents: `<em class="${btnIcon}"/></em>`,
+                // tooltip: 'hello',
+                click: function () {
+                    if (!$dir.codeArea) {
+                        $dir.codeArea = document.createElement('textarea');
+                        $dir.codeArea.classList.add('note-editing-code');
+                        $dir.codeArea.value = $dir.ngModel ? $dir.ngModel : '';
+
+                        getEditingArea().append($dir.codeArea);
+                        find('.note-btn-group:not(.note-code) .note-btn').addClass('disabled');
+
+                        $dir.codeArea.oninput = () => {
+                            clearTimeout(timer.timeout);
+
+                            timer.timeout = setTimeout(() => MarkdownService.toHtml($dir.codeArea.value).then((res) => {
+                                replace(res.data.html);
+                            }), timer.interval);
+                        };
+                    } else {
+                        $theEditor.summernote('disable');
+                        clearTimeout(timer.timeout);
+                        
+                        MarkdownService.toHtml($dir.codeArea.value).then((res) => {
+                            replace(res.data.html);
+                            $dir.codeArea.remove();
+                            $dir.codeArea = null;
+                            $theEditor.summernote('enable');
+                        });
+                    }
+                }
+            });
+
+            return button.render();   // return button as jquery object
+        }
+    }
+
     const clear = () => {
         $theEditor.summernote('reset');
     }
@@ -169,6 +224,7 @@ const MarkdownDirective = function ($scope, $element, $timeout, ModalService, Ma
         toolbars.push(allowLists ? ['para', ['ol', 'ul']] : null);
         toolbars.push(extendedOptions ? ['table', ['table']] : null);
         toolbars.push(['cms', ['cmsLink', 'unlink', ...(extendedOptions ? ['cmsMedia', 'cmsLinkYoutube'] : [])]]);
+        toolbars.push(['code', localStorage.markdownCode == 'true' ? ['cmsCodeMarkdown'] : '']);
         toolbars.push(['view', ['fullscreen', ...(allowPreview ? ['cmsMailView'] : [])]]);
         buttons.length && toolbars.push(['buttons', buttons.map((button) => button.key)]);
 
@@ -228,6 +284,7 @@ const MarkdownDirective = function ($scope, $element, $timeout, ModalService, Ma
                 cmsLinkYoutube: CmsButton('youtubeLink', 'video'),
                 cmsMailView: CmsButton('mailPreview', 'view'),
                 cmsBlockAlign: AlignButton(),
+                cmsCodeMarkdown: CmsCodeMarkdown(),
             },
             callbacks: {
                 onChange: function (content_html) {
@@ -258,6 +315,8 @@ const MarkdownDirective = function ($scope, $element, $timeout, ModalService, Ma
         if (typeof $dir.bindEditor == 'function') {
             $dir.bindEditor({ editor: { editor: $theEditor, clear, replace, insertText, insertHTML } });
         }
+
+        $dir.showCode = null;
 
         $scope.$watch('$dir.value', (value) => $theEditor.summernote("code", value), true);
     };
