@@ -20,20 +20,19 @@ main(id="main-content")
                         .block.block-label-tabs.form.pull-right
                             .label-tab-set
                                 .label-tab.label-tab-sm(
-                                    ng-class="{active: !$ctrl.archived}"
-                                    ng-click="$ctrl.setArchived(false)"
+                                    ng-class="{active: !$ctrl.filters.archived}"
+                                    ng-click="$ctrl.filters.archived = 0"
                                     role="button")
                                     | Actief
 
                                 .label-tab.label-tab-sm(
-                                    ng-class="{active: $ctrl.archived}"
-                                    ng-click="$ctrl.setArchived(true)"
+                                    ng-class="{active: $ctrl.filters.archived}"
+                                    ng-click="$ctrl.filters.archived = 1"
                                     role="button")
                                     | Archief
 
                     .block.block-vouchers(ng-show="$ctrl.vouchers.data.length > 0")
-                        voucher-card(ng-repeat="voucher in $ctrl.regularVouchers" voucher="voucher")
-                        voucher-card(ng-repeat="voucher in $ctrl.productVouchers" voucher="voucher")
+                        voucher-card(ng-repeat="voucher in $ctrl.vouchers.data" voucher="voucher")
 
                         //- Pagination
                         .card(ng-if="$ctrl.vouchers"): .card-section(ng-show="$ctrl.vouchers.meta.last_page > 1")

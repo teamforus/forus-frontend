@@ -519,6 +519,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             vouchers: ['VoucherService', (VoucherService) => repackPagination(VoucherService.list({
                 archived: 0,
                 per_page: 15,
+                order_by: 'voucher_type',
+                order_dir: 'desc',
             }))],
             reimbursementVouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({ 
                 archived: 0,
