@@ -2,8 +2,33 @@ footer.section.section-footer(id="footer")
     .wrapper
         .block.block-footer: .row
             h2.sr-only Site informatie
-            .col.col-md-4(ng-if="description_contact_details_html")
-                .block.block-markdown(ng-bind-html="description_contact_details_html")
+
+            .col.col-md-4
+                .block.block-markdown(ng-if="description_contact_details_html" ng-bind-html="description_contact_details_html")
+                .block-social-medias(ng-if="$dir.socialMedias.length") 
+                    .block-social-media-title Stay with us on: 
+                    
+                    .block-social-media-icons.flex
+                        a.block-social-media-icon(
+                            ng-if="$dir.facebookMedia"
+                            href="{{ $dir.facebookMedia.link }}" 
+                            title="{{ $dir.facebookMedia.title }}"
+                            target="_blank")
+                            include ../../../resources/_webshop-common/assets/img/social-medias/facebook.svg
+
+                        a.block-social-media-icon(
+                            ng-if="$dir.twitterMedia" 
+                            href="{{ $dir.twitterMedia.link }}" 
+                            title="{{ $dir.twitterMedia.title }}"
+                            target="_blank") 
+                            include ../../../resources/_webshop-common/assets/img/social-medias/twitter.svg
+                        
+                        a.block-social-media-icon(
+                            ng-if="$dir.youtubeMedia" 
+                            href="{{ $dir.youtubeMedia.link }}" 
+                            title="{{ $dir.youtubeMedia.title }}"
+                            target="_blank")
+                            include ../../../resources/_webshop-common/assets/img/social-medias/youtube.svg
 
             .col.col-md-4(ng-if="description_opening_times_html")
                 .block.block-markdown(ng-bind-html="description_opening_times_html")

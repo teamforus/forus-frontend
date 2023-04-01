@@ -339,6 +339,21 @@
                             }
                         }
                     }
+                    
+                    &:after {
+                        display: none;
+                    }
+                }
+
+                &_social_icons {
+                    display: inline-flex;
+                    padding: 15px 0;
+                    float: right;
+
+                    .navbar-social-media-icon {
+                        padding-right: 20px;
+                        font-size: 20px;
+                    }
                 }
             }
 

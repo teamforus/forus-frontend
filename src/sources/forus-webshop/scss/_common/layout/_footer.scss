@@ -160,6 +160,20 @@
             color: $fc;
         }
 
+        .block-social-medias {
+            .block-social-media-title {
+                margin-top: 25px;
+                margin-bottom: 15px;
+                font: 600 16px/24px $bf;
+                color: #595959;
+            }
+
+            .block-social-media-icon {
+                padding-right: 10px;
+                font-size: 20px;
+            }
+        }
+
         .footer-nav {
             .footer-nav-item {
                 display: block;
@@ -249,8 +263,12 @@
                 }
             }
 
-            .footer-sponsor-logo {
+            .footer-sponsor-logo, .block-social-media-icons {
                 justify-content: center;
+            }
+
+            .block-social-media-title {
+                text-align: center;
             }
         }
     }

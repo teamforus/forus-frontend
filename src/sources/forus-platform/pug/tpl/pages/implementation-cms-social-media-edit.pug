@@ -22,14 +22,15 @@
             .card-section.card-section-primary(ng-if="$ctrl.socialMedias.length")
                 .card-block.card-block-table: .table-wrapper: table.table
                     tr
-                        th Icon
+                        th.th-narrow Icon
                         th Type
                         th URL
                         th Title
                         th.th-narrow.text-right Opties
 
                     tr(ng-repeat="socialMedia in $ctrl.socialMedias")
-                        td(ng-bind="socialMedia.icon")
+                        td.td-narrow
+                            em.mdi(ng-class="'mdi-' + socialMedia.type")
                         td(ng-bind="socialMedia.type")
                         td(ng-bind="socialMedia.link")
                         td(ng-bind="socialMedia.title")

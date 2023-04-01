@@ -94,6 +94,28 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     span.navbar-item(translate="topnavbar.buttons.logout")
                     em.mdi.mdi-logout
 
+            li.navbar-item-wrapper.navbar-item-wrapper_social_icons
+                a.navbar-social-media-icon(
+                    ng-if="$dir.facebookMedia"
+                    href="{{ $dir.facebookMedia.link }}" 
+                    title="{{ $dir.facebookMedia.title }}"
+                    target="_blank")
+                    em.mdi.mdi-facebook
+
+                a.navbar-social-media-icon(
+                    ng-if="$dir.twitterMedia" 
+                    href="{{ $dir.twitterMedia.link }}" 
+                    title="{{ $dir.twitterMedia.title }}"
+                    target="_blank") 
+                    em.mdi.mdi-twitter
+                
+                a.navbar-social-media-icon(
+                    ng-if="$dir.youtubeMedia" 
+                    href="{{ $dir.youtubeMedia.link }}" 
+                    title="{{ $dir.youtubeMedia.title }}"
+                    target="_blank")
+                    em.mdi.mdi-youtube
+
     .block.block-subnav
         .subnav-inner.wrapper   
             a(ui-sref="home").navbar-logo.hide-sm

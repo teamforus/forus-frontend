@@ -17,7 +17,6 @@ let ModalAddSocialMediaComponent = function(
     $ctrl.buildForm = (values, onSubmit) => {
         return FormBuilderService.build(values, (form) => {
             onSubmit(form, $ctrl);
-            $ctrl.close();
         });
     }
 
@@ -42,6 +41,6 @@ module.exports = {
         ModalAddSocialMediaComponent
     ],
     templateUrl: () => {
-        return 'assets/tpl/modals/modal-add-social-media.html';
+        return 'assets/tpl/modals/modal-edit-social-media.html';
     }
 };

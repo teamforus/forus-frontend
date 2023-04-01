@@ -18,8 +18,7 @@
                                 prop="key"
                                 ng-model="$ctrl.form.values.type"
                                 options="$ctrl.socialMediaTypes").form-control
-
-                    .form-error(ng-repeat="error in $ctrl.form.errors" ng-bind="error")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
 
                 .form-group.col.col-lg-5
                     label.form-label Link
@@ -29,6 +28,7 @@
                             .form-offset: input(
                                 ng-model="$ctrl.form.values.link"
                                 placeholder="link").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.link" ng-bind="error")
 
                 .form-group.col.col-lg-4
                     label.form-label Title
@@ -38,6 +38,7 @@
                             .form-offset: input(
                                 ng-model="$ctrl.form.values.title"
                                 placeholder="title").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
 
         //- form submit
         .modal-footer.text-center

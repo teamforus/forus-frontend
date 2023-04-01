@@ -21,12 +21,14 @@ const ImplementationCmsSocialMediaEditComponent = function (
 
     $ctrl.addSocialMedia = () => {
         ModalService.open('editSocialMediaComponent', {
-            onSubmit: (form) => {
+            onSubmit: (form, modal) => {
                 ImplementationSocialMediaService.store($ctrl.organization.id, $ctrl.implementation.id, form.values).then(res => {
                     PushNotificationsService.success('Opgeslagen!');
+                    modal.close();
                     $ctrl.getSocialMedias();
                 }, (res) => {
                     PushNotificationsService.danger('Error!', res.data.message);
+                    form.errors = res.data.errors;
                 });
             }
         });
@@ -37,12 +39,14 @@ const ImplementationCmsSocialMediaEditComponent = function (
             socialMediaType: socialMedia.type,
             socialMediaLink: socialMedia.link,
             socialMediaTitle: socialMedia.title,
-            onSubmit: (form) => {
+            onSubmit: (form, modal) => {
                 ImplementationSocialMediaService.update($ctrl.organization.id, $ctrl.implementation.id, socialMedia.id, form.values).then(res => {
                     PushNotificationsService.success('Opgeslagen!');
+                    modal.close();
                     $ctrl.getSocialMedias();
                 }, (res) => {
                     PushNotificationsService.danger('Error!', res.data.message);
+                    form.errors = res.data.errors;
                 });
             }
         });
