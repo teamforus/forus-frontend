@@ -85,7 +85,7 @@ const NotificationEditor = function(
 
     $dir.$onInit = () => {
         if ($dir.funds && $dir.funds[0]?.id !== null) {
-            $dir.funds = [{ id: null, name: 'All funds' }, ...$dir.funds];
+            $dir.funds = [{ id: null, name: 'Alle fondsen' }, ...$dir.funds];
             $dir.fund = $dir.funds[0];
         }
 

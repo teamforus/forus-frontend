@@ -18,9 +18,9 @@
             ng-class="$dir.notification.enable_all ? '' : 'card-section-danger'")
             .card-block.card-block-keyvalue
                 .keyvalue-item.flex
-                    .keyvalue-key.text-right.flex.flex-vertical.flex-center: .text-strong Select fund
+                    .keyvalue-key.text-right.flex.flex-vertical.flex-center: .text-strong Kies een fonds
                     .keyvalue-value: .col.col-xs-12.col-lg-8: select-control(
-                        placeholder="Select fund"
+                        placeholder="Kies een fonds"
                         ng-model="$dir.fund"
                         ng-change="$dir.onFundChanged($dir.fund)"
                         options="$dir.funds").form-control
