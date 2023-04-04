@@ -147,7 +147,7 @@ main(id="main-content")
                             h2(ng-bind="$ctrl.voucherCard.title | str_limit:40").card-title
                             .card-subtitle(ng-if="!$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.fund.organization.name")
                             .card-subtitle(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.product.organization.name")
-                            div(ng-if="$ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product && $ctrl.voucherCard.fund.key == 'schoolkosten_basis_2020'")
+                            div(ng-if="$ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product && $ctrl.voucherCard.fund.key == 'meedoenregeling_volwassenen_ww'")
                                 .card-value.euro(ng-bind="$ctrl.voucherCard.amount | currency_format")
 
                     .card-footer
