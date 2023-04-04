@@ -217,7 +217,6 @@ const ProvidersComponent = function (
         }
 
         $ctrl.updateFiltersUsedCount();
-        console.log(appConfigs);
     };
 };
 
