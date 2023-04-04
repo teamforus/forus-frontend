@@ -11,6 +11,11 @@ const ProviderFundsComponent = function ($state, ProviderFundService) {
         $ctrl.fetchFunds(filters);
     };
 
+    $ctrl.onChangeAvailable = (filters = {}) => {
+        $ctrl.onChange(filters);
+        $ctrl.setTab('pending_rejected');
+    };
+
     $ctrl.setTab = (tab = {}) => {
         $ctrl.tab = tab;
         $state.go($state.current.name, { tab });
