@@ -101,11 +101,16 @@ main(id="main-content")
                     ng-model="$ctrl.confirm_criteria"
                     data-id="confirm_criteria"
                     data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
+
+                p.sign_up-pane-text(ng-if="$ctrl.fund.key == 'IIT'"): ui-control-checkbox(
+                    ng-model="$ctrl.confirm_criteria_warning"
+                    data-id="confirm_criteria_warning"
+                    data-label="Ik weet dat het verstrekken van onjuiste informatie strafbaar is, dat ik een onterecht of een teveel ontvangen vergoeding terug moet betalen en dat ik een boete kan krijgen.")
             
             .sign_up-pane-footer: .row
                 .col.col-lg-6.text-left &nbsp;
                 .col.col-lg-6.text-right: .button.button-text.button-text-padless(
-                    ng-if="$ctrl.confirm_criteria"
+                    ng-if="$ctrl.confirm_criteria && $ctrl.confirm_criteria_warning"
                     ng-click="$ctrl.confirmCriteria()"
                     role="button")
                     span(i18n="fund_request.sign_up.pane.footer.next")
