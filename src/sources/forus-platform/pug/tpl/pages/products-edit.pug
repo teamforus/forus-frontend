@@ -204,6 +204,30 @@
                             ng-options="policy.value as policy.label for policy in $ctrl.reservationPolicies").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.reservation_policy" ng-bind="error")
                         tooltip(text="'Standaard instelling kunt u bij uw reserveringen aanpassen. Geef hier optioneel aan of u de reservering handmatig of automatisch wilt accepteren.'")
+                
+                    //- Product reservation phone
+                    .form-group.form-group-inline
+                        label(for="reservation_phone").form-label Telefoonnummer klant
+                        select(
+                            ng-model="$ctrl.form.values.reservation_phone" 
+                            ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_phone" ng-bind="error")
+
+                    //- Product reservation address
+                    .form-group.form-group-inline
+                        label(for="reservation_address").form-label Adres klant
+                        select(
+                            ng-model="$ctrl.form.values.reservation_address" 
+                            ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_address" ng-bind="error")
+                            
+                    //- Product reservation birth date
+                    .form-group.form-group-inline
+                        label(for="reservation_birth_date").form-label Geboortedatum klant
+                        select(
+                            ng-model="$ctrl.form.values.reservation_birth_date" 
+                            ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_birth_date" ng-bind="error")
 
             //- Product category
             .card-section.card-section-primary: .row

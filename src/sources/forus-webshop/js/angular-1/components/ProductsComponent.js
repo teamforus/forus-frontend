@@ -117,7 +117,10 @@ const ProductsComponent = function (
         if (type === 'category') {
             if ($ctrl.product_category_id) {
                 ProductCategoryService.list({
-                    parent_id: $ctrl.product_category_id, per_page: 1000, used: 1, used_type: $ctrl.fund_type,
+                    parent_id: $ctrl.product_category_id, 
+                    per_page: 1000, 
+                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                    used_type: $ctrl.fund_type,
                 }).then(res => {
                     $ctrl.productSubCategories = res.data.meta.total ? [{
                         name: 'Selecteer subcategorie...',

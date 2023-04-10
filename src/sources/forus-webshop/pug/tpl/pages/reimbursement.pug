@@ -12,7 +12,7 @@ section.section.section-profile: .wrapper
         .profile-aside: profile-menu.hide-sm
 
         mixin delete_button()
-            .button.button-text.button-sm.pull-right(
+            .button.button-dark.button-sm.pull-right(
                 dusk="reimbursementDetailsPageDeleteBtn"
                 ng-if="$ctrl.reimbursement.state === 'draft'"
                 ng-click="$ctrl.cancelReimbursement($event)")

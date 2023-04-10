@@ -23,6 +23,7 @@ app.component('fundsShowComponent', require('./components/FundsShowComponent'));
 app.component('fundBackofficeEdit', require('./components/FundBackofficeEditComponent'));
 app.component('transactionsComponent', require('./components/TransactionsComponent'));
 app.component('reservationsComponent', require('./components/ReservationsComponent'));
+app.component('reservationShowComponent', require('./components/ReservationShowComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('vouchersShowComponent', require('./components/VouchersShowComponent'));
 app.component('reimbursementsComponent', require('./components/ReimbursementsComponent'));
@@ -75,6 +76,7 @@ app.component('eventLogsComponent', require('./components/EventLogsComponent'));
 app.component('identitiesShowComponent', require('./components/IdentitiesShowComponent'));
 app.component('implementationCmsConfigEditComponent', require('./components/ImplementationCmsConfigEditComponent'));
 app.component('emailConfirmedComponent', require('./components/EmailConfirmedComponent'));
+app.component('reservationsSettingsComponent', require('./components/ReservationsSettingsComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -116,7 +118,6 @@ app.component('modalVoucherDeactivationComponent', require('./components/Modals/
 app.component('modalVoucherActivationComponent', require('./components/Modals/ModalVoucherActivationComponent'));
 app.component('modalMailPreviewComponent', require('./components/Modals/ModalMailPreviewComponent'));
 app.component('modalPhysicalCardOrderComponent', require('./components/Modals/ModalPhysicalCardOrderComponent'));
-app.component('modalReservationNotesComponent', require('./components/Modals/ModalReservationNotesComponent'));
 app.component('modalSwitchBankConnectionAccountComponent', require('./components/Modals/ModalSwitchBankConnectionAccountComponent'));
 app.component('modalExportDataSelectComponent', require('./components/Modals/ModalExportDataSelectComponent'));
 app.component('modalVoucherTransactionComponent', require('./components/Modals/ModalVoucherTransactionComponent'));
@@ -198,6 +199,7 @@ app.service('MarkdownService', require('./services/MarkdownService'));
 app.service('FaqService', require('./services/FaqService'));
 app.service('FundUnsubscribeService', require('./services/FundUnsubscribeService'));
 app.service('AnnouncementService', require('./services/AnnouncementService'));
+app.service('ProductReservationsExportService', require('./services/ProductReservationsExportService'));
 
 // Directives
 app.directive('menu', {
@@ -257,6 +259,7 @@ app.directive('eventLogs', require('./directives/EventLogsDirective'));
 app.directive('voucherRecords', require('./directives/VoucherRecordsDirective'));
 app.directive('vouchers', require('./directives/VouchersDirective'));
 app.directive('voucherTransactions', require('./directives/VoucherTransactionsDirective'));
+app.directive('voucherTransactionDetails', require('./directives/TransactionDetailsDirective'));
 app.directive('providerFundsTable', require('./directives/ProviderFundsTableDirective'));
 app.directive('providerAvailableFundsTable', require('./directives/ProviderAvailableFundsTableDirective'));
 app.directive('providerFundsInvitationTable', require('./directives/ProviderFundsInvitationTableDirective'));

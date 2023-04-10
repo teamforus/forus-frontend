@@ -52,54 +52,16 @@ const FundActivateComponent = function (
         $ctrl.state = state;
     };
 
-    $ctrl.getFunds = () => {
-        return FundService.list(null, {
-            check_criteria: 1,
-        }).then((res) => res.data.data);
-    }
-
-    $ctrl.getApplicableFunds = () => {
-        const alreadyAppliedFunds = $ctrl.vouchers.map((voucher) => voucher.fund_id);
-
-        return $ctrl.getFunds().then((funds) => {
-            return funds
-                .filter((fund) => !alreadyAppliedFunds.includes(fund.id))
-                .filter((fund) => fund.criteria.filter((criterion) => !criterion.is_valid).length == 0);
-        });
-    };
-
     $ctrl.redeemCode = (form, code) => {
         form.lock();
         form.enabled = false;
 
         FundService.redeem(code).then(res => {
-            if (res.data.vouchers.length > 0) {
-                if (res.data.vouchers.length === 1) {
-                    return $state.go('voucher', res.data.vouchers[0]);
-                }
-
-                return $state.go('vouchers');
+            if (res.data.vouchers.length === 1) {
+                return $state.go('voucher', res.data.vouchers[0]);
             }
 
-            if (res.data.prevalidation) {
-                $ctrl.getApplicableFunds().then((funds) => {
-                    if (funds.length == 0) {
-                        $state.go('funds');
-                    }
-
-                    Promise.all(funds.map((fund) => $ctrl.applyFund(fund))).then((vouchers) => {
-                        if (vouchers.length == 0) {
-                            return $state.go('funds');
-                        }
-
-                        if (vouchers.length == 1) {
-                            return $state.go('voucher', vouchers[0]);
-                        }
-
-                        return $state.go('vouchers');
-                    });
-                });
-            }
+            return res.data.vouchers.length > 0 ? $state.go('vouchers') : $state.go('funds');
         }, (res) => {
             if ((res.status == 404 || res.status === 403) && res.data.meta) {
                 form.errors.code = [res.data.meta.message];
@@ -174,7 +136,7 @@ const FundActivateComponent = function (
             }
 
             FundService.check($ctrl.fund.id).then((res) => {
-                const { backoffice, prevalidations, vouchers } = res.data;
+                const { backoffice, prevalidations, vouchers, prevalidation_vouchers } = res.data;
                 const { backoffice_error, backoffice_fallback, backoffice_error_key, backoffice_redirect } = backoffice || {};
 
                 // Backoffice not responding and fallback is disabled
@@ -183,13 +145,21 @@ const FundActivateComponent = function (
                 }
 
                 // Fund requesting is not available after successful signing with DigiD
-                if (!prevalidations && !vouchers && !this.fundRequestIsAvailable($ctrl.fund)) {
+                if (!prevalidations && !vouchers && !prevalidation_vouchers.length && !this.fundRequestIsAvailable($ctrl.fund)) {
                     return $ctrl.setState('error_not_available');
                 }
 
                 // User is not eligible and has to be redirected
                 if (backoffice_redirect) {
                     return document.location = backoffice_redirect;
+                }
+
+                if (prevalidation_vouchers.length > 0) {
+                    if (prevalidation_vouchers.length === 1) {
+                        return $state.go('voucher', prevalidation_vouchers[0]);
+                    }
+
+                    return $state.go('vouchers');
                 }
 
                 $state.go('fund-request', { id: $ctrl.fund.id, from: 'fund-activate' });
