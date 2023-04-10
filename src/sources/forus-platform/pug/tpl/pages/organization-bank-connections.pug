@@ -91,7 +91,7 @@
                             tr(ng-repeat="bankConnection in $ctrl.bankConnections.data")
                                 td(ng-bind="bankConnection.created_at_locale")
                                 td(ng-bind="bankConnection.bank.name")
-                                td(ng-bind="bankConnection.session_expire_at ? bankConnection.session_expire_at_locale : 'Geen verloopdatum'")
+                                td(ng-bind="bankConnection.expire_at ? bankConnection.expire_at_locale : 'Geen verloopdatum'")
                                 td(ng-bind="bankConnection.iban")
                                 td.text-right: .label(
                                     ng-class="bankConnection.state == 'active' ? 'label-success' : 'label-default'" 

@@ -6,7 +6,7 @@ const AnnouncementsDirective = function (
     const storageKey = 'dismissed_announcements';
 
     const onAnnouncementChange = () => {
-        $dir.announcements = $dir.list.filter((item) => !$dir.dismissed.includes(item.id));
+        $dir.announcements = $dir.list.filter((item) => !item.dismissible || !$dir.dismissed.includes(item.id));
     };
 
     $dir.dismiss = (announcement) => {

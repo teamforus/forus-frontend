@@ -8,5 +8,5 @@ const AnnouncementService = function(ApiRequest) {
 
 module.exports = [
     'ApiRequest',
-    AnnouncementService
+    AnnouncementService,
 ];

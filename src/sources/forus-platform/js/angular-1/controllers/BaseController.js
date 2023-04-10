@@ -14,7 +14,7 @@ const BaseController = function(
     appConfigs,
     ModalService,
     ImageConvertorService,
-    AnnouncementService
+    AnnouncementService,
 ) {
     document.imageConverter = ImageConvertorService;
 
@@ -40,7 +40,7 @@ const BaseController = function(
                 $rootScope.activeOrganization = res.data.data;
 
                 AnnouncementService.list($rootScope.activeOrganization.id).then((res) => {
-                    $rootScope.appConfigs.features.announcements = res.data.data;
+                    $rootScope.organizationAnnouncements = res.data.data;
                 });
             }, () => {
                 OrganizationService.clearActive();
@@ -266,8 +266,11 @@ const BaseController = function(
     }
 
     ConfigService.get('dashboard').then((res) => {
+        const { fronts, announcements } = res.data;
+
         $rootScope.appConfigs.features = res.data;
-        $rootScope.appConfigs.frontends = res.data.fronts;
+        $rootScope.appConfigs.frontends = fronts;
+        $rootScope.systemAnnouncements = announcements;
     });
 
     $translate.use(localStorage.getItem('lang') || 'nl');
@@ -290,5 +293,5 @@ module.exports = [
     'ModalService',
     'ImageConvertorService',
     'AnnouncementService',
-    BaseController
+    BaseController,
 ];
