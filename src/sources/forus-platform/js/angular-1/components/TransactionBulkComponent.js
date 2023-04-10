@@ -1,4 +1,4 @@
-const TransactionBulkComponent = function(
+const TransactionBulkComponent = function (
     $q,
     $state,
     $stateParams,
@@ -61,6 +61,20 @@ const TransactionBulkComponent = function(
         return $ctrl.confirmDangerAction('Betalingsverkeer via de BNG', [
             'U wordt doorverwezen naar de betalingsverkeer pagina van de BNG.\n',
             'Weet u zeker dat u door wil gaan?',
+        ].join(" "));
+    }
+
+    $ctrl.confirmExport = () => {
+        return $ctrl.confirmDangerAction('Export SEPA file', [
+            'Are you you want to export the SEPA file?',
+        ].join(" "));
+    }
+
+    $ctrl.confirmSetPaidExport = () => {
+        return $ctrl.confirmDangerAction('Mark bulk as paid', [
+            'Are you sure you want to mark this bulk as paid?\n',
+            'In this case it will be your responsibility to make the actual payments using the SEPA file you exported.',
+            'The system will not be able to check whatever the payments where actually done.',
         ].join(" "));
     }
 
@@ -175,27 +189,40 @@ const TransactionBulkComponent = function(
         });
     };
 
-    $ctrl.exportBulkToBNG = (transactionBulk) => {
-        TransactionBulkService.exportBulkToBNG($ctrl.organization.id, transactionBulk.id).then(res => {
-            const date = moment().format('YYYY-MM-DD HH:mm:ss') + '.xml';
-            const fileName = [appConfigs.panel_type, $ctrl.organization.id, transactionBulk.id, date].join('_');
+    $ctrl.exportSepa = (transactionBulk) => {
+        $ctrl.confirmExport().then((confirmed) => {
+            if (!confirmed) {
+                return;
+            }
 
-            FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-            PageLoadingBarService.setProgress(100);
+            PageLoadingBarService.setProgress(0);
 
-            $ctrl.transactionBulk.is_exported = true;
-            $state.reload();
+            TransactionBulkService.exportSepa($ctrl.organization.id, transactionBulk.id).then((res) => {
+                const date = moment().format('YYYY-MM-DD HH:mm:ss') + '.xml';
+                const fileName = [appConfigs.panel_type, $ctrl.organization.id, transactionBulk.id, date].join('_');
+
+                FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+                $state.reload();
+            }, (res) => {
+                PushNotificationsService.danger('Error!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+            }).finally(() => PageLoadingBarService.setProgress(100));
         });
     };
 
-    $ctrl.setAcceptedManually = (transactionBulk) => {
-        TransactionBulkService.setAcceptedManually($ctrl.organization.id, transactionBulk.id).then(res => {
-            PushNotificationsService.success(`Succes!`, `Transaction bulk was manually accepted`);
+    $ctrl.acceptManually = (transactionBulk) => {
+        $ctrl.confirmSetPaidExport().then((confirmed) => {
+            if (!confirmed) {
+                return;
+            }
 
-            $ctrl.transactionBulk.accepted_manually = true;
-            $state.reload();
-        }, (res) => {
-            PushNotificationsService.danger('Error!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+            PageLoadingBarService.setProgress(0);
+
+            TransactionBulkService.acceptManually($ctrl.organization.id, transactionBulk.id).then(res => {
+                PushNotificationsService.success(`Succes!`, `Transaction bulk was manually accepted`);
+                $state.reload();
+            }, (res) => {
+                PushNotificationsService.danger('Error!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+            }).finally(() => PageLoadingBarService.setProgress(100));
         });
     };
 
@@ -223,12 +250,16 @@ const TransactionBulkComponent = function(
             $ctrl.showResetBulkButton = true;
         }
 
-        if (hasPermission && bulk.bank.key === 'bng' && bulk.is_exported && !bulk.accepted_manually && bulk.state == 'draft') {
-            $ctrl.showSetPaidButton = true;
+        if (hasPermission && bulk.bank.key === 'bng' && bulk.state == 'draft') {
+            $ctrl.showExportButton = $ctrl.organization.allow_manual_bulk_processing;
         }
 
-        if (hasPermission && bulk.bank.key === 'bng' && !bulk.is_exported && bulk.state == 'draft') {
-            $ctrl.showExportButton = true;
+        if (hasPermission && bulk.bank.key === 'bng' && bulk.is_exported && bulk.state == 'draft') {
+            $ctrl.showSetPaidButton = $ctrl.organization.allow_manual_bulk_processing;
+        }
+
+        if (hasPermission && bulk.bank.key === 'bng' && $ctrl.transactionBulk.state == 'accepted') {
+            $ctrl.showAcceptType = $ctrl.organization.allow_manual_bulk_processing;
         }
     }
 
