@@ -3,24 +3,15 @@ const VouchersComponent = function (
 ) {
     const $ctrl = this;
 
-    $ctrl.archived = false;
-
-    const groupByType = (vouchers) => {
-        $ctrl.regularVouchers = vouchers.filter((voucher) => voucher.type == 'regular');
-        $ctrl.productVouchers = vouchers.filter((voucher) => voucher.type == 'product');
+    $ctrl.filters = {
+        per_page: 15,
+        archived: 0,
+        order_by: 'voucher_type',
+        order_dir: 'desc',
     };
 
-    $ctrl.setArchived = (archived) => {
-        $ctrl.archived = archived;
-
-        VoucherService.list({ archived: $ctrl.archived ? 1 : 0 }).then((res) => {
-            $ctrl.vouchers = res.data.data;
-            groupByType(res.data.data);
-        });
-    };
-
-    $ctrl.$onInit = function () {
-        groupByType($ctrl.vouchers);
+    $ctrl.onPageChange = (query = {}) => {
+        VoucherService.list({ ...$ctrl.filters, ...query }).then((res) => $ctrl.vouchers = res.data);
     };
 };
 

@@ -1,5 +1,6 @@
 const ProvidersComponent = function (
     $state,
+    appConfigs,
     $stateParams,
     ProvidersService,
     FormBuilderService,
@@ -132,7 +133,9 @@ const ProvidersComponent = function (
         if (type === 'category') {
             if ($ctrl.product_category_id) {
                 ProductCategoryService.list({
-                    parent_id: $ctrl.product_category_id, per_page: 1000, used: 1,
+                    parent_id: $ctrl.product_category_id, 
+                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null,
+                    per_page: 1000, 
                 }).then(res => {
                     $ctrl.productSubCategories = res.data.meta.total ? [{
                         name: 'Selecteer subcategorie...',
@@ -228,6 +231,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        'appConfigs',
         '$stateParams',
         'ProvidersService',
         'FormBuilderService',

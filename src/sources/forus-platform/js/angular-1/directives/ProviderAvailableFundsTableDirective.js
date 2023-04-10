@@ -116,7 +116,6 @@ const ProviderAvailableFundsTableDirective = function (
         $q.all(funds.map((fund) => {
             return ProviderFundService.applyForFund($dir.organization.id, fund.id);
         })).then(() => {
-            PushNotificationsService.success('Opgeslagen!');
             $dir.successApplying();
             $dir.selected = [];
         }).finally(() => {

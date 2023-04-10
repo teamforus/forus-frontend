@@ -662,10 +662,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             productCategories: ['ProductCategoryService', 'permission', (ProductCategoryService) => {
                 return repackResponse(ProductCategoryService.listAll());
             }],
-            fundStates: ['FundService','permission', (FundService) => {
+            fundStates: ['FundService', 'permission', (FundService) => {
                 return FundService.states();
             }],
-            recordTypes: ['RecordTypeService','permission', (RecordTypeService) => {
+            recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
                 return repackResponse(RecordTypeService.list());
             }],
             validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
@@ -795,11 +795,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 organization: organziationResolver(),
                 permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
                 voucher: ['$transition$', 'VoucherService', 'permission', ($transition$, VoucherService) => repackResponse(VoucherService.show(
-                    $transition$.params().organization_id, 
+                    $transition$.params().organization_id,
                     $transition$.params().voucher_id,
                 ))],
                 fund: ['FundService', 'voucher', (FundService, voucher) => repackResponse(FundService.read(
-                    voucher.fund.organization_id, 
+                    voucher.fund.organization_id,
                     voucher.fund.id,
                 ))],
             }
@@ -933,8 +933,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('implementation-manage', ['manage_implementation_cms'], false),
-            implementation: ['permission', '$transition$', 'ImplementationService', (
-                permission, $transition$, ImplementationService
+            funds: ['$transition$', 'FundService', 'implementation', 'permission', ($transition$, FundService, implementation) => {
+                return implementation.allow_per_fund_notification_templates ? repackResponse(FundService.list(
+                    $transition$.params().organization_id,
+                    { implementation_id: implementation?.id, with_archived: 1, stats: 'min' },
+                )) : null;
+            }],
+            implementation: ['$transition$', 'ImplementationService', 'permission', (
+                $transition$, ImplementationService
             ) => repackResponse(ImplementationService.read(
                 $transition$.params().organization_id,
                 $transition$.params().implementation_id
@@ -1110,7 +1116,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     /**
      * Implementation edit (CMS)
      */
-     $stateProvider.state({
+    $stateProvider.state({
         name: "implementation-config",
         url: "/organizations/{organization_id}/implementation/{implementation_id}/config",
         component: "implementationCmsConfigEditComponent",
@@ -1327,6 +1333,32 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
+        name: "reservations-show",
+        url: "/organizations/{organization_id}/reservations/{id}",
+        component: "reservationShowComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('reservations-show', 'scan_vouchers'),
+            reservation: ['$transition$', 'ProductReservationService', (
+                $transition$, ProductReservationService
+            ) => repackResponse(ProductReservationService.read(
+                $transition$.params().organization_id,
+                $transition$.params().id
+            ))],
+        }
+    });
+
+    $stateProvider.state({
+        name: "reservations-settings",
+        url: "/organizations/{organization_id}/reservations-settings",
+        component: "reservationsSettingsComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('reservations-show', 'manage_organization'),
+        }
+    });
+
+    $stateProvider.state({
         name: "products-create",
         url: "/organizations/{organization_id}/products/create",
         component: "productsEditComponent",
@@ -1408,7 +1440,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                     return $transition$.params().tab;
                 }
 
-                return $transition$.params().organization_id || fundsAvailable.meta.totals.active ? 'active' : 'available'; 
+                return $transition$.params().organization_id || fundsAvailable.meta.totals.active ? 'active' : 'available';
             }],
         }
     });

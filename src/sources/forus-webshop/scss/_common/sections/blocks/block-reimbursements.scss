@@ -115,7 +115,7 @@
         }
 
         .reimbursement-values {
-            padding: 0px 20px 15px;
+            padding: 0px 15px 15px 20px;
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
@@ -125,16 +125,6 @@
                 padding: 0 10px;
                 font: 400 12px/20px $bf;
                 color: #646f79;
-
-                .reimbursement-value-link {
-                    font-weight: 700;
-                    text-decoration: underline;
-                    cursor: pointer;
-
-                    &:hover {
-                        text-decoration: none;
-                    }
-                }
 
                 &:after {
                     content: "";
@@ -317,6 +307,10 @@
                     flex-direction: row;
                     justify-content: center;
                     padding: 0 0;
+
+                    .button {
+                        width: 100%;
+                    }
                 }
             }
 

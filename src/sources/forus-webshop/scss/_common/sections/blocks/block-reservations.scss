@@ -121,17 +121,6 @@
                     }
                 }
 
-                .reservation-overview-link {
-                    cursor: pointer;
-                    font: 700 15px/20px $bf;
-                    color: #646f79;
-                    text-decoration: underline;
-
-                    &:hover {
-                        text-decoration: none;
-                    }
-                }
-
                 &:last-of-type,
                 &:last-child {
                     margin-bottom: 0;

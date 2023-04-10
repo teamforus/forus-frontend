@@ -1285,7 +1285,38 @@ module.exports = {
             fund: "Fonds",
             status: "Status",
             actions: "Opties",
+            email: "E-mailadres",
+            expired_at: "Verlopen op",
+            first_name: "Naam",
+            last_name: "Voornamen",
+            price: "Bedrag",
+            sponsor_organization: "Sponsor",
+            product: "Aanbod",
+            rejected_at: "Geweigerd op",
+            accepted_at: "Geaccepteerd op",
+            created_at: "Aangemaakt op",
+            expire_at: "Verloopdatum",
+            phone: "Telefoonnummer",
+            address: "Adres",
+            birth_date: "Geboortedatum",
+            user_note: "Notitie",
         },
+    },
+
+    // RESERVATION SETTINGS - reservations-settings.pug
+    reservation_settings: {
+        header: {
+            title: "Reservering instellingen",
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        },
+        labels: {
+            phone: "Telefoonnummer instellingen",
+            address: "Adres instellingen",
+            birth_date: "Geboortedatum instellingen",
+        }
     },
 
     // VALIDATION REQUEST - validation-request.pug
@@ -1760,6 +1791,12 @@ module.exports = {
                     title: 'Aanmelding aanbieder afgewezen',
                     description: 'Ontvang een notificatie wanneer een aanbieder voor een fonds is afgewezen.'
                 },
+            },
+            funds_requests: {
+                assigned_by_supervisor: {
+                    title: 'De beheerder heeft een aanvraag aan u toegewezen',
+                    description: 'Ontvang een e-mail wanneer er een aanvraag voor een fonds aan u is toegewezen.'
+                }
             },
             validations: {
                 new_validation_request: {
