@@ -424,6 +424,7 @@ module.exports = {
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
+            footer_app_info: "Footer app content",
         },
         implementations_table: {
             title: "Webshop pagina's",

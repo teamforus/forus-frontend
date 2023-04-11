@@ -16,7 +16,7 @@ const AppFooterDirective = function(
         $scope.appConfigs = configs;
 
         const { pages } = configs.features;
-        const { footer_opening_times, footer_contact_details } = pages;
+        const { footer_opening_times, footer_contact_details, footer_app_info } = pages;
 
         if (footer_opening_times && footer_opening_times.description_html) {
             $scope.description_opening_times_html = $sce.trustAsHtml(footer_opening_times.description_html);
@@ -24,6 +24,11 @@ const AppFooterDirective = function(
 
         if (footer_contact_details && footer_contact_details.description_html) {
             $scope.description_contact_details_html = $sce.trustAsHtml(footer_contact_details.description_html);
+        }
+
+        if (footer_app_info && footer_app_info.description_html) {
+            $scope.description_footer_app_info_position = footer_app_info.description_position;
+            $scope.description_footer_app_info_html = $sce.trustAsHtml(footer_app_info.description_html);
         }
 
         $dir.pageLinks = Object.values(pages).filter((page) => {
