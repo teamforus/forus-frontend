@@ -63,8 +63,16 @@ const FundRequestsComponent = function (
         }
     };
 
+    $ctrl.transformQuery = (query = {}) => {
+        return {
+            ...query,
+            employee_id: query.employee_id !== false ? query.employee_id : null,
+            assigned: query.employee_id === false ? 0 : null,
+        };
+    };
+
     $ctrl.fetchRequests = (query) => {
-        FundRequestValidatorService.indexAll($ctrl.organization.id, query).then(function (res) {
+        FundRequestValidatorService.indexAll($ctrl.organization.id, $ctrl.transformQuery(query)).then((res) => {
             const data = res.data.data.map((request) => {
                 const ui_sref = { id: request.id, organization_id: $ctrl.organization.id };
                 const assigned_employees = request.records
@@ -90,10 +98,10 @@ const FundRequestsComponent = function (
     $ctrl.exportRequests = () => {
         ModalService.open('exportType', {
             success: (data) => {
-                FundRequestValidatorService.exportAll($ctrl.organization.id, {
+                FundRequestValidatorService.exportAll($ctrl.organization.id, $ctrl.transformQuery({
                     ...$ctrl.filters.values,
                     ...{ export_format: data.exportType },
-                }).then((res => {
+                })).then((res => {
                     const fileName = [
                         appConfigs.panel_type,
                         $ctrl.organization.id,
@@ -118,10 +126,8 @@ const FundRequestsComponent = function (
         $ctrl.employees.data.unshift({
             id: null,
             email: "Alle medewerker"
-        });
-
-        $ctrl.employees.data.unshift({
-            id: 'null',
+        }, {
+            id: false,
             email: "Niet toegewezen"
         });
 
