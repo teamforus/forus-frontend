@@ -1,5 +1,4 @@
 const ReimbursementsShowComponent = function (
-    $filter,
     FileService,
     ModalService,
     ReimbursementService,
@@ -7,20 +6,9 @@ const ReimbursementsShowComponent = function (
     PushNotificationsService,
 ) {
     const $ctrl = this;
-    const $translate = $filter('translate');
-    
-    const $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.remove_reimbursement_note.' + key
-    );
-
-    $ctrl.notesFilters = {
-        q: '',
-        per_page: 10,
-    };
 
     $ctrl.updateReimbursement = (res) => {
         $ctrl.reimbursement = res.data.data;
-        $ctrl.onNotePageChange($ctrl.notesFilters);
     };
 
     $ctrl.handleOnReimbursementUpdated = (promise, successMessage = null) => {
@@ -83,76 +71,31 @@ const ReimbursementsShowComponent = function (
         }
     };
 
-    $ctrl.onNotePageChange = (query = {}) => {
-        ReimbursementService.notes($ctrl.organization.id, $ctrl.reimbursement.id, query).then((res) => {
-            $ctrl.notes = res.data;
-        })
+    $ctrl.fetchNotes = (query = {}) => {
+        return ReimbursementService.notes($ctrl.organization.id, $ctrl.reimbursement.id, query);
     }
 
     $ctrl.deleteNote = (note) => {
-        ModalService.open("dangerZone", {
-            title: $translateDangerZone('title'),
-            text_align: 'center',
-            description: $translateDangerZone('description'),
-            cancelButton: $translateDangerZone('buttons.cancel'),
-            confirmButton: $translateDangerZone('buttons.confirm'),
-            onConfirm: () => {
-                ReimbursementService.noteDestroy($ctrl.organization.id, $ctrl.reimbursement.id, note.id).then(() => {
-                    $ctrl.onNotePageChange($ctrl.notesFilters);
-                    PushNotificationsService.success('Gelukt!', 'Notitie verwijderd.');
-                }, (res) => {
-                    PushNotificationsService.danger('Foutmelding!', res.data.message);
-                });
-            }
-        });
+        return ReimbursementService.noteDestroy($ctrl.organization.id, $ctrl.reimbursement.id, note.id);
     }
 
-    $ctrl.addNote = () => {
-        ModalService.open('addNoteComponent', {
-            title: null,
-            description: 'De notitie is alleen zichtbaar voor medewerkers met dezelfde rechten.',
-            onSubmit: (form, modal) => {
-                modal.submitting = true;
-                PageLoadingBarService.setProgress(0);
-
-                return ReimbursementService.storeNote(
-                    $ctrl.organization.id,
-                    $ctrl.reimbursement.id,
-                    form.values,
-                ).then(() => {
-                    form.errors = null;
-                    modal.close();
-                    $ctrl.onNotePageChange($ctrl.notesFilters);
-                }, (res) => {
-                    form.errors = res.data.errors;
-                    form.unlock();
-                }).finally(() => {
-                    PageLoadingBarService.setProgress(100);
-                    modal.submitting = false;
-                });
-            }
-        });
+    $ctrl.storeNote = (data) => {
+        return ReimbursementService.storeNote($ctrl.organization.id, $ctrl.reimbursement.id, data);
     };
-
-    $ctrl.$onInit = function () {
-        $ctrl.onNotePageChange($ctrl.notesFilters);
-    }
 };
 
 module.exports = {
     bindings: {
-        reimbursement: '<',
         organization: '<',
-        notes: '<',
+        reimbursement: '<',
     },
     controller: [
-        '$filter',
         'FileService',
         'ModalService',
         'ReimbursementService',
         'PageLoadingBarService',
         'PushNotificationsService',
-        ReimbursementsShowComponent
+        ReimbursementsShowComponent,
     ],
     templateUrl: 'assets/tpl/pages/reimbursements-show.html',
 };

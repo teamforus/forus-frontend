@@ -264,6 +264,7 @@ app.directive('providerAvailableFundsTable', require('./directives/ProviderAvail
 app.directive('providerFundsInvitationTable', require('./directives/ProviderFundsInvitationTableDirective'));
 app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoinDirective'));
 app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
+app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 

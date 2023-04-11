@@ -66,7 +66,7 @@ module.exports = {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
             remove_organization_employees: require('./nl/modals/danger-zone/remove-organization-employee'),
-            remove_reimbursement_note: require('./nl/modals/danger-zone/remove-reimbursement-note'),
+            remove_note: require('./nl/modals/danger-zone/remove-note'),
             increase_limit_multiplier: require('./nl/modals/danger-zone/increase-limit-multiplier'),
             sponsor_provider_organization_state: require('./nl/modals/danger-zone/update-provider-organization-state'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
@@ -1425,6 +1425,24 @@ module.exports = {
     },
 
     // DIRECTIVES
+
+    notes: {
+        header: {
+            title: "Notities",
+        },
+
+        labels: {
+            id: "ID",
+            created_at: "Aangemaakt op",
+            created_by: "Aangemaakt door",
+            note: "Notite",
+            actions: "Acties",
+        },
+    
+        buttons: {
+            add_new: 'Nieuwe aanmaken',
+        },
+    },
 
     // CSV UPLOADER
     csv_upload: {
