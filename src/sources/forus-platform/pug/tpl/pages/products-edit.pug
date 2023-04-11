@@ -207,7 +207,7 @@
                 
                     //- Product reservation phone
                     .form-group.form-group-inline
-                        label(for="reservation_phone").form-label Reserveringen telefoon
+                        label(for="reservation_phone").form-label Telefoonnummer klant
                         select(
                             ng-model="$ctrl.form.values.reservation_phone" 
                             ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
@@ -215,7 +215,7 @@
 
                     //- Product reservation address
                     .form-group.form-group-inline
-                        label(for="reservation_address").form-label Reserveringen adres
+                        label(for="reservation_address").form-label Adres klant
                         select(
                             ng-model="$ctrl.form.values.reservation_address" 
                             ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
@@ -223,7 +223,7 @@
                             
                     //- Product reservation birth date
                     .form-group.form-group-inline
-                        label(for="reservation_birth_date").form-label Reserveringen geboort
+                        label(for="reservation_birth_date").form-label Geboortedatum klant
                         select(
                             ng-model="$ctrl.form.values.reservation_birth_date" 
                             ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
