@@ -5,7 +5,7 @@ require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModul
 const app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper',
     'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
-    'forus.uiControls', 'forus.pageLoadingBarModule',
+    'forus.uiControls', 'forus.pageLoadingBarModule', 'ng-sortable', 
 ]);
 
 app.constant('appConfigs', {...env_data, ...require('./config/configs')});

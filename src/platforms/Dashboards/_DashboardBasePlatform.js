@@ -33,6 +33,8 @@ platform.setLibs([
     "ui_select",
     "file_saver",
     "pdfjs",
+    "sortablejs",
+    "angular-legacy-sortablejs",
 ]);
 
 // tweaking output and cleaned paths config
