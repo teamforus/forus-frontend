@@ -1,4 +1,4 @@
-const BlockCardNoteDirective = function(
+const BlockCardNoteDirective = function (
     $scope,
     $filter,
     ModalService,
@@ -8,10 +8,7 @@ const BlockCardNoteDirective = function(
     const { $dir } = $scope;
 
     const $translate = $filter('translate');
-    
-    const $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.remove_reimbursement_note.' + key
-    );
+    const $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_note.${key}`);
 
     $dir.notesFilters = {
         q: '',
@@ -19,12 +16,10 @@ const BlockCardNoteDirective = function(
     };
 
     $dir.onNotePageChange = (query = {}) => {
-        $dir.onReload({ query: query }).then(res => {
-            $dir.notes = res.data;
-        });
+        $dir.fetchNotes({ query }).then((res) => $dir.notes = res.data);
     }
 
-    $dir.deleteNote = (note) => {
+    $dir.onDeleteNote = (note) => {
         ModalService.open("dangerZone", {
             title: $translateDangerZone('title'),
             text_align: 'center',
@@ -32,17 +27,17 @@ const BlockCardNoteDirective = function(
             cancelButton: $translateDangerZone('buttons.cancel'),
             confirmButton: $translateDangerZone('buttons.confirm'),
             onConfirm: () => {
-                $dir.onDelete({note: note}).then(() => {
+                $dir.deleteNote({ note: note }).then(() => {
                     $dir.onNotePageChange($dir.notesFilters);
                     PushNotificationsService.success('Gelukt!', 'Notitie verwijderd.');
-                }, (res) =>  {
+                }, (res) => {
                     PushNotificationsService.danger('Foutmelding!', res.data.message);
                 });
             }
         });
     }
 
-    $dir.addNote = () => {
+    $dir.onAddNote = () => {
         ModalService.open('addNoteComponent', {
             title: null,
             description: 'De notitie is alleen zichtbaar voor medewerkers met dezelfde rechten.',
@@ -50,7 +45,7 @@ const BlockCardNoteDirective = function(
                 modal.submitting = true;
                 PageLoadingBarService.setProgress(0);
 
-                $dir.onAdd({ data: form.values }).then(() => {
+                $dir.storeNote({ data: form.values }).then(() => {
                     $dir.onNotePageChange($dir.notesFilters);
                     form.errors = null;
                     modal.close();
@@ -75,13 +70,10 @@ const BlockCardNoteDirective = function(
 module.exports = () => {
     return {
         scope: {
-            employee: '<',
-            organization: '<',
-            item: '=',
             isAssigned: '=',
-            onAdd: '&',
-            onDelete: '&',
-            onReload: '&',
+            storeNote: '&',
+            deleteNote: '&',
+            fetchNotes: '&',
         },
         bindToController: true,
         controllerAs: '$dir',

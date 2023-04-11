@@ -10,7 +10,7 @@
         .flex: .block.block-inline-filters
             .button.button-primary(
                 ng-if="$dir.isAssigned"
-                ng-click="$dir.addNote()")
+                ng-click="$dir.onAddNote()")
                 em.mdi.mdi-plus-circle.icon-start
                 span(translate="notes.buttons.add_new")
 
@@ -28,11 +28,11 @@
             td(ng-bind="note.created_at_locale").nowrap
             td(ng-bind="note.employee.email").nowrap.text-primary
             td: .td-text(ng-repeat="line in (note.description | lines_to_array) track by $index" ng-bind="line")
-            td.text-right: .td-drawn
-                button(
-                    ng-if="note.employee.identity_address === $root.auth_user.address"
-                    ng-click="$dir.deleteNote(note)").button.button-default.button-icon
+            td.text-right
+                .td-drawn(ng-if="note.employee.identity_address === $root.auth_user.address"): button(
+                    ng-click="$dir.onDeleteNote(note)").button.button-default.button-icon
                     .mdi.mdi-delete-outline
+                span(ng-if="note.employee.identity_address !== $root.auth_user.address" ng-bind="'-'")
 
     //- Notes pagination
     .card-section(ng-if="$dir.notes.meta.total > 0" ng-show="$dir.notes.meta.last_page > 1")

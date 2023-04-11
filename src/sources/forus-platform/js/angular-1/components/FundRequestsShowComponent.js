@@ -1,4 +1,4 @@
-const FundRequestsShowComponent = function(
+const FundRequestsShowComponent = function (
     $state,
     $timeout,
     FileService,
@@ -327,7 +327,7 @@ const FundRequestsShowComponent = function(
         }
     };
 
-    $ctrl.onNotePageChange = (query = {}) => {
+    $ctrl.fetchNotes = (query = {}) => {
         return FundRequestValidatorService.notes($ctrl.organization.id, $ctrl.validatorRequest.id, query);
     }
 
@@ -335,11 +335,11 @@ const FundRequestsShowComponent = function(
         return FundRequestValidatorService.noteDestroy($ctrl.organization.id, $ctrl.validatorRequest.id, note.id);
     }
 
-    $ctrl.addNote = (data) => {
+    $ctrl.storeNote = (data) => {
         return FundRequestValidatorService.storeNote($ctrl.organization.id, $ctrl.validatorRequest.id, data);
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         if (!appConfigs.features.organizations.funds.fund_requests) {
             return $state.go('csv-validation');
         }

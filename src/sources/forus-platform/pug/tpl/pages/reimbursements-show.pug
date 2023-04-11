@@ -222,10 +222,7 @@
                                         .mdi.mdi-eye
 
         block-card-note(
-            organization="$ctrl.organization"
-            employee="$ctrl.reimbursement.employee"
-            item="$ctrl.reimbursement"
             is-assigned="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"
-            on-reload="$ctrl.onNotePageChange(query)"
-            on-delete="$ctrl.deleteNote(note)"
-            on-add="$ctrl.addNote(data)")
+            fetch-notes="$ctrl.fetchNotes(query)"
+            delete-note="$ctrl.deleteNote(note)"
+            store-note="$ctrl.storeNote(data)")

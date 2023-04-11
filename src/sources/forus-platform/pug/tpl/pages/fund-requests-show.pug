@@ -285,10 +285,7 @@
                 fund-request="$ctrl.validatorRequest")
 
         block-card-note(
-            organization="$ctrl.organization"
-            employee="$ctrl.validatorRequest.employee"
-            item="$ctrl.validatorRequest"
             is-assigned="$ctrl.validatorRequest.is_assigned"
-            on-reload="$ctrl.onNotePageChange(query)"
-            on-delete="$ctrl.deleteNote(note)"
-            on-add="$ctrl.addNote(data)")        
+            fetch-notes="$ctrl.fetchNotes(query)"
+            delete-note="$ctrl.deleteNote(note)"
+            store-note="$ctrl.storeNote(data)")

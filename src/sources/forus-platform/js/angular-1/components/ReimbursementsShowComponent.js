@@ -1,5 +1,4 @@
 const ReimbursementsShowComponent = function (
-    $filter,
     FileService,
     ModalService,
     ReimbursementService,
@@ -7,20 +6,9 @@ const ReimbursementsShowComponent = function (
     PushNotificationsService,
 ) {
     const $ctrl = this;
-    const $translate = $filter('translate');
-    
-    const $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.remove_reimbursement_note.' + key
-    );
-
-    $ctrl.notesFilters = {
-        q: '',
-        per_page: 10,
-    };
 
     $ctrl.updateReimbursement = (res) => {
         $ctrl.reimbursement = res.data.data;
-        $ctrl.onNotePageChange($ctrl.notesFilters);
     };
 
     $ctrl.handleOnReimbursementUpdated = (promise, successMessage = null) => {
@@ -83,7 +71,7 @@ const ReimbursementsShowComponent = function (
         }
     };
 
-    $ctrl.onNotePageChange = (query = {}) => {
+    $ctrl.fetchNotes = (query = {}) => {
         return ReimbursementService.notes($ctrl.organization.id, $ctrl.reimbursement.id, query);
     }
 
@@ -91,29 +79,23 @@ const ReimbursementsShowComponent = function (
         return ReimbursementService.noteDestroy($ctrl.organization.id, $ctrl.reimbursement.id, note.id);
     }
 
-    $ctrl.addNote = (data) => {
+    $ctrl.storeNote = (data) => {
         return ReimbursementService.storeNote($ctrl.organization.id, $ctrl.reimbursement.id, data);
     };
-
-    $ctrl.$onInit = function () {
-        $ctrl.onNotePageChange($ctrl.notesFilters);
-    }
 };
 
 module.exports = {
     bindings: {
-        reimbursement: '<',
         organization: '<',
-        notes: '<',
+        reimbursement: '<',
     },
     controller: [
-        '$filter',
         'FileService',
         'ModalService',
         'ReimbursementService',
         'PageLoadingBarService',
         'PushNotificationsService',
-        ReimbursementsShowComponent
+        ReimbursementsShowComponent,
     ],
     templateUrl: 'assets/tpl/pages/reimbursements-show.html',
 };
