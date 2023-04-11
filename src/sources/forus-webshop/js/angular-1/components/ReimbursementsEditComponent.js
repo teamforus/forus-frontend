@@ -41,6 +41,10 @@ const ReimbursementEditComponent = function (
                 files: $ctrl.files.map((file) => file.file_data.uid),
             };
 
+            if (typeof (values.iban) === 'string') {
+                values.iban = values.iban.replace(/\s/g, '');
+            }
+
             const promise = !reimbursement ?
                 ReimbursementService.store(values) :
                 ReimbursementService.update(reimbursement.id, values);

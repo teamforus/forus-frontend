@@ -7,6 +7,8 @@
         .flex.flex-pad.flex-grow: .card-title
             em.mdi(ng-class="'mdi-' + $dir.header.icon")
             span(ng-bind="$dir.header.title")
+            | &nbsp;
+            span(ng-if="$dir.fund" ng-bind="'(' + $dir.fund.name + ')'")
 
         //- Enable/Disable toggle
         .flex.flex-pad.flex-vertical.flex-center(ng-show="$dir.notification.editable && !$dir.editForm")
