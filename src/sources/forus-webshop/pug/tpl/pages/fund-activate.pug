@@ -110,7 +110,7 @@ main(id="main-content")
             .sign_up-pane-footer: .row
                 .col.col-lg-6.text-left &nbsp;
                 .col.col-lg-6.text-right: .button.button-text.button-text-padless(
-                    ng-if="$ctrl.confirm_criteria && $ctrl.confirm_criteria_warning"
+                    ng-if="$ctrl.confirm_criteria && ($ctrl.fund.key != 'IIT' || $ctrl.confirm_criteria_warning)"
                     ng-click="$ctrl.confirmCriteria()"
                     role="button")
                     span(i18n="fund_request.sign_up.pane.footer.next")

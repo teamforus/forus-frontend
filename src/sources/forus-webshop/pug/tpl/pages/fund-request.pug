@@ -278,7 +278,7 @@ main(id="main-content")
 
                         .flex-col.text-right
                             button.button.button-text.button-text-padless(
-                                ng-disabled="!$ctrl.confirm_criteria || !$ctrl.confirm_criteria_warning"
+                                ng-disabled="!$ctrl.confirm_criteria || ($ctrl.fund.key == 'IIT' && !$ctrl.confirm_criteria_warning)"
                                 ng-click="$ctrl.submitConfirmCriteria()"
                                 type="button"
                                 role="button")
