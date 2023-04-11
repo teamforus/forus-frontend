@@ -36,6 +36,16 @@
                                     ng-model="$ctrl.filters.values.state"
                                     options="$ctrl.states").form-control
 
+                            //- Assigned/Unassigned
+                            .form-group(ng-click="$event.stopPropagation()")
+                                form-label-toggle(label="{{ 'validation_requests.labels.assignee_state' | i18n }}")
+                                .form-offset: select-control(
+                                    prop="value"
+                                    as="label"
+                                    search="false"
+                                    ng-model="$ctrl.filters.values.assigned"
+                                    options="$ctrl.assignedOptions").form-control
+
                             //- Assigned employee
                             .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="{{ 'validation_requests.labels.assigned_to' | i18n }}")

@@ -1351,7 +1351,7 @@ module.exports = {
             records: "Eigenschappen",
             actions: "Acties",
             search: "Zoeken",
-            assigned_to: "Toegewezen",
+            assigned_to: "Toegewezen aan",
             from: "Vanaf",
             to: "Tot",
             pending_since: "In behandeling sinds",
@@ -1374,6 +1374,7 @@ module.exports = {
             empty_table: "Geen aanvragen",
             note_title: "Reden van weigeren",
             assignee: "Toegewezen aan",
+            assignee_state: "Toegewezen staat",
         },
         person: {
             relations: {
