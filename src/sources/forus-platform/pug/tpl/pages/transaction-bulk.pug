@@ -11,6 +11,15 @@
             .card-header: .flex-row
                 .flex.flex-grow: .card-title(translate="financial_dashboard_transaction.labels.details")
                 .flex: .button-group
+
+                    //- Export SEPA file
+                    button(
+                        ng-if="$ctrl.showExportButton"
+                        ng-click="$ctrl.exportSepa($ctrl.transactionBulk)").button.button-default.button-sm
+
+                        .mdi.mdi-download.icon-start
+                        | Export SEPA file
+
                     //- BNG: Auth url button
                     a(
                         ng-if="$ctrl.showAuthLink"
@@ -39,6 +48,13 @@
                         .mdi.mdi-reload.icon-start(ng-if="!$ctrl.resettingBulk")
                         .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.resettingBulk")
                         | Verstuur bulktransactie opnieuw
+
+                    //- Set paid
+                    button(
+                        ng-if="$ctrl.showSetPaidButton"
+                        ng-click="$ctrl.acceptManually($ctrl.transactionBulk)").button.button-danger.button-sm
+                        .mdi.mdi-alert-outline.icon-start
+                        | Markeer de bulk lijst en de transacties als betaald.
 
             .card-section: .flex
                 .flex: .card-block.card-block-keyvalue
@@ -98,6 +114,10 @@
                                 text="'De status van bulkbetaling wordt om het uur gecontroleerd.'" 
                                 ng-if="$ctrl.transactionBulk.state == 'pending'")
 
+                    .keyvalue-item(ng-if="$ctrl.showAcceptType")
+                        .keyvalue-key Accepted
+                        .keyvalue-value {{ $ctrl.transactionBulk.accepted_manually ? 'Handmatig' : 'Verstuurd naar de BNG'}}
+                
         //- Lit bulk transactions
         .card(ng-if="$ctrl.transactions")
             .card-header: .flex-row
