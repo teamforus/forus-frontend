@@ -54,7 +54,7 @@
                         ng-if="$ctrl.showSetPaidButton"
                         ng-click="$ctrl.acceptManually($ctrl.transactionBulk)").button.button-danger.button-sm
                         .mdi.mdi-alert-outline.icon-start
-                        | Mark bulk and the transactions as paid
+                        | Markeer de bulk lijst en de transacties als betaald.
 
             .card-section: .flex
                 .flex: .card-block.card-block-keyvalue
@@ -116,7 +116,7 @@
 
                     .keyvalue-item(ng-if="$ctrl.showAcceptType")
                         .keyvalue-key Accepted
-                        .keyvalue-value {{ $ctrl.transactionBulk.accepted_manually ? 'Manually' : 'Submitted to BNG'}}
+                        .keyvalue-value {{ $ctrl.transactionBulk.accepted_manually ? 'Handmatig' : 'Verstuurd naar de BNG'}}
                 
         //- Lit bulk transactions
         .card(ng-if="$ctrl.transactions")

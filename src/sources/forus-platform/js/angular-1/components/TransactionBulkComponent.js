@@ -65,21 +65,21 @@ const TransactionBulkComponent = function (
     }
 
     $ctrl.confirmExport = () => {
-        return $ctrl.confirmDangerAction('Export SEPA file', [
-            'Are you you want to export the SEPA file?',
+        return $ctrl.confirmDangerAction('Exporteer SEPA bestand', [
+            'Weet u zeker dat u het bestand wilt exporteren?',
         ].join(" "));
     }
 
     $ctrl.confirmSetPaidExport = () => {
-        return $ctrl.confirmDangerAction('Mark bulk as paid', [
-            'Are you sure you want to mark this bulk as paid?\n',
-            'In this case it will be your responsibility to make the actual payments using the SEPA file you exported.',
-            'The system will not be able to check whatever the payments where actually done.',
+        return $ctrl.confirmDangerAction('Markeer bulk lijst als betaald', [
+            'Bevestig dat de bulk lijst is betaald.\n',
+            'Betalingen via het SEPA bestand vinden niet (automatisch) via het systeem plaats.',
+            'Het is uw verantwoordelijkheid om de betaling te verwerken middels de SEPA export.',
         ].join(" "));
     }
 
     $ctrl.onError = (res = null) => {
-        PushNotificationsService.danger('Error!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+        PushNotificationsService.danger('Mislukt!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
     };
 
     $ctrl.resetPaymentRequest = (transactionBulk) => {
@@ -218,10 +218,10 @@ const TransactionBulkComponent = function (
             PageLoadingBarService.setProgress(0);
 
             TransactionBulkService.acceptManually($ctrl.organization.id, transactionBulk.id).then(res => {
-                PushNotificationsService.success(`Succes!`, `Transaction bulk was manually accepted`);
+                PushNotificationsService.success(`Succes!`, `De bulk lijst is handmatig geaccepteerd.`);
                 $state.reload();
             }, (res) => {
-                PushNotificationsService.danger('Error!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+                PushNotificationsService.danger('Mislukt!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
             }).finally(() => PageLoadingBarService.setProgress(100));
         });
     };
