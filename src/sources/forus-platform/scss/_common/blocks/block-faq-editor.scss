@@ -2,6 +2,10 @@
     display: flex;
     flex-direction: column;
 
+    .question-wrapper {
+        margin: 0 0 10px;   
+    }
+
     .question-item {
         display: flex;
         flex-direction: column;
@@ -15,7 +19,14 @@
         .question-header {
             display: flex;
             flex-direction: row;
-            padding: 10px 10px 10px 20px;
+            padding: 10px;
+
+            .question-drag {
+                font-size: 15px;
+                line-height: 30px;
+                padding-right: 5px;
+                cursor: grab;
+            }
 
             .question-icon {
                 display: flex;

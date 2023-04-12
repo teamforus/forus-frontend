@@ -1,15 +1,16 @@
-const TransactionBulkComponent = function(
+const TransactionBulkComponent = function (
     $q,
     $state,
     $stateParams,
     $filter,
     appConfigs,
+    FileService,
     ModalService,
     TransactionService,
     TransactionBulkService,
     TransactionsExportService,
     PageLoadingBarService,
-    PushNotificationsService
+    PushNotificationsService,
 ) {
     const $ctrl = this;
 
@@ -63,8 +64,22 @@ const TransactionBulkComponent = function(
         ].join(" "));
     }
 
+    $ctrl.confirmExport = () => {
+        return $ctrl.confirmDangerAction('Exporteer SEPA bestand', [
+            'Weet u zeker dat u het bestand wilt exporteren?',
+        ].join(" "));
+    }
+
+    $ctrl.confirmSetPaidExport = () => {
+        return $ctrl.confirmDangerAction('Markeer bulk lijst als betaald', [
+            'Bevestig dat de bulk lijst is betaald.\n',
+            'Betalingen via het SEPA bestand vinden niet (automatisch) via het systeem plaats.',
+            'Het is uw verantwoordelijkheid om de betaling te verwerken middels de SEPA export.',
+        ].join(" "));
+    }
+
     $ctrl.onError = (res = null) => {
-        PushNotificationsService.danger('Error!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+        PushNotificationsService.danger('Mislukt!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
     };
 
     $ctrl.resetPaymentRequest = (transactionBulk) => {
@@ -174,6 +189,43 @@ const TransactionBulkComponent = function(
         });
     };
 
+    $ctrl.exportSepa = (transactionBulk) => {
+        $ctrl.confirmExport().then((confirmed) => {
+            if (!confirmed) {
+                return;
+            }
+
+            PageLoadingBarService.setProgress(0);
+
+            TransactionBulkService.exportSepa($ctrl.organization.id, transactionBulk.id).then((res) => {
+                const date = moment().format('YYYY-MM-DD HH:mm:ss') + '.xml';
+                const fileName = [appConfigs.panel_type, $ctrl.organization.id, transactionBulk.id, date].join('_');
+
+                FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+                $state.reload();
+            }, (res) => {
+                PushNotificationsService.danger('Error!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+            }).finally(() => PageLoadingBarService.setProgress(100));
+        });
+    };
+
+    $ctrl.acceptManually = (transactionBulk) => {
+        $ctrl.confirmSetPaidExport().then((confirmed) => {
+            if (!confirmed) {
+                return;
+            }
+
+            PageLoadingBarService.setProgress(0);
+
+            TransactionBulkService.acceptManually($ctrl.organization.id, transactionBulk.id).then(res => {
+                PushNotificationsService.success(`Succes!`, `De bulk lijst is handmatig geaccepteerd.`);
+                $state.reload();
+            }, (res) => {
+                PushNotificationsService.danger('Mislukt!', res && res?.data?.message ? res.data.message : 'Er ging iets mis!')
+            }).finally(() => PageLoadingBarService.setProgress(100));
+        });
+    };
+
     $ctrl.updateFlags = () => {
         const bulk = $ctrl.transactionBulk;
         const hasPermission = $filter('hasPerm')($ctrl.organization, 'manage_transaction_bulks');
@@ -196,6 +248,18 @@ const TransactionBulkComponent = function(
 
         if (hasPermission && bulk.bank.key === 'bunq' && bulk.state == 'rejected') {
             $ctrl.showResetBulkButton = true;
+        }
+
+        if (hasPermission && bulk.bank.key === 'bng' && bulk.state == 'draft') {
+            $ctrl.showExportButton = $ctrl.organization.allow_manual_bulk_processing;
+        }
+
+        if (hasPermission && bulk.bank.key === 'bng' && bulk.is_exported && bulk.state == 'draft') {
+            $ctrl.showSetPaidButton = $ctrl.organization.allow_manual_bulk_processing;
+        }
+
+        if (hasPermission && bulk.bank.key === 'bng' && $ctrl.transactionBulk.state == 'accepted') {
+            $ctrl.showAcceptType = $ctrl.organization.allow_manual_bulk_processing;
         }
     }
 
@@ -221,6 +285,7 @@ module.exports = {
         '$stateParams',
         '$filter',
         'appConfigs',
+        'FileService',
         'ModalService',
         'TransactionService',
         'TransactionBulkService',

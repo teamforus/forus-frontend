@@ -1,7 +1,7 @@
-const TransactionBulkService = function(ApiRequest) {
+const TransactionBulkService = function (ApiRequest) {
     const path = '/platform/organizations';
-    
-    return new (function() {
+
+    return new (function () {
         this.list = (organization_id, filters = {}) => {
             return ApiRequest.get(`${path}/${organization_id}/sponsor/transaction-bulks`, filters);
         };
@@ -28,24 +28,35 @@ const TransactionBulkService = function(ApiRequest) {
             });
         };
 
-        this.export = (type, organization_id, filters = {}) => {
-            const callback = (_cfg) => {
-                _cfg.responseType = 'arraybuffer';
-                _cfg.cache = false;
-
-                return _cfg;
-            };
-
-            return ApiRequest.get(`${path}/${organization_id}/${type}/transaction-bulks/export`, filters, {}, true, callback);
+        // set the bulk as paid
+        this.acceptManually = (organization_id, bulk_id) => {
+            return ApiRequest.patch(`${path}/${organization_id}/sponsor/transaction-bulks/${bulk_id}/set-accepted`);
         };
 
-        this.exportFields = function(type, organization_id) {
+        // export bulk details
+        this.export = (type, organization_id, filters = {}) => {
+            return ApiRequest.get(`${path}/${organization_id}/${type}/transaction-bulks/export`, filters, {}, true, {
+                responseType: 'arraybuffer',
+                cache: false,
+            });
+        };
+
+        // get export fields
+        this.exportFields = function (type, organization_id) {
             return ApiRequest.get(`${path}/${organization_id}/${type}/transaction-bulks/export-fields`);
+        };
+
+        // export SEPA file
+        this.exportSepa = (organization_id, bulk_id, filters = {}) => {
+            return ApiRequest.get(`${path}/${organization_id}/sponsor/transaction-bulks/${bulk_id}/export-sepa`, filters, {}, true, {
+                responseType: 'arraybuffer',
+                cache: false,
+            });
         };
     });
 };
 
 module.exports = [
     'ApiRequest',
-    TransactionBulkService
+    TransactionBulkService,
 ];

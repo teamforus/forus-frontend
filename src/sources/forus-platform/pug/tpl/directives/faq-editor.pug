@@ -1,7 +1,9 @@
 .block.block-faq-editor
     //- Questions list
-    .question-item(ng-repeat="question in $dir.faq")
+    .question-wrapper(ng-sortable="$dir.sortable"): .question-item(ng-repeat="question in $dir.faq")
         .question-header
+            em.mdi.mdi-dots-vertical.question-drag
+
             //- Question icon
             .question-icon(ng-class="{'text-danger' : !question.collapsed && (!question.title || !question.description)}")
                 em.mdi.mdi-frequently-asked-questions

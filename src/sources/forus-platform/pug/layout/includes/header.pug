@@ -1,5 +1,10 @@
 header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
-    .wrapper: announcements(ng-if="$root.appConfigs.features.announcements" list="$root.appConfigs.features.announcements")
+    .wrapper
+        //- System announcements
+        announcements(ng-if="$root.systemAnnouncements" list="$root.systemAnnouncements")
+
+        //- Organization announcements
+        announcements(ng-if="$root.organizationAnnouncements" list="$root.organizationAnnouncements")
 
     .wrapper.flex-row.relative
         a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
