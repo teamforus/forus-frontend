@@ -127,6 +127,11 @@ const FundActivateComponent = function (
     };
 
     $ctrl.checkFund = (fromDigid = false) => {
+        if ($ctrl.fetchingData) {
+            return;
+        }
+
+        $ctrl.fetchingData = true;
         IdentityService.identity().then((res) => {
             const identity = res.data;
             const timeToSkipBsn = $ctrl.getTimeToSkipDigid(identity);
@@ -177,7 +182,9 @@ const FundActivateComponent = function (
                 }
 
                 $state.go('fund-activate', { ...$stateParams, digid_error: null, digid_success: null }, { reload: 'replace' });
-            });
+            }).finally(() => {
+                $ctrl.fetchingData = false;
+            });;;
         });
     }
 

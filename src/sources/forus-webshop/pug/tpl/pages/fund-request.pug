@@ -284,7 +284,8 @@ main(id="main-content")
                                 role="button")
 
                                 translate(translate='fund_request.sign_up.pane.footer.next')
-                                .mdi.mdi-chevron-right.icon-right
+                                .mdi.mdi-reload.mdi-spin.icon-right(ng-if="$ctrl.fetchingData")
+                                .mdi.mdi-chevron-right.icon-right(ng-if="!$ctrl.fetchingData")
 
                 //- Fund criteria overivew
                 .sign_up-pane

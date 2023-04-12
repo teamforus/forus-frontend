@@ -89,6 +89,11 @@ const FundRequestComponent = function (
             $ctrl.submitInProgress = true;
         }
 
+        if ($ctrl.fetchingData) {
+            return;
+        }
+
+        $ctrl.fetchingData = true;
         FundRequestService.store($ctrl.fund.id, formDataBuild($ctrl.invalidCriteria)).then(() => {
             if ($ctrl.fund.auto_validation) {
                 return $ctrl.applyFund($ctrl.fund);
@@ -108,7 +113,9 @@ const FundRequestComponent = function (
             }
 
             $ctrl.setStepByName('done');
-        });
+        }).finally(() => {
+            $ctrl.fetchingData = false;
+        });;
     };
 
     // Initialize authorization form

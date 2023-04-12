@@ -114,7 +114,8 @@ main(id="main-content")
                     ng-click="$ctrl.confirmCriteria()"
                     role="button")
                     span(i18n="fund_request.sign_up.pane.footer.next")
-                    em.mdi.mdi-chevron-right.icon-right
+                    em.mdi.mdi-reload.mdi-spin.icon-right(ng-if="$ctrl.fetchingData")
+                    em.mdi.mdi-chevron-right.icon-right(ng-if="!$ctrl.fetchingData")
 
             //- Prevalidation pin code
             div(ng-if="$ctrl.state == 'pincode_activate'")
