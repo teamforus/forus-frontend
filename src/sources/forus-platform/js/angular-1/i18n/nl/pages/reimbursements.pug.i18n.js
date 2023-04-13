@@ -32,22 +32,4 @@ module.exports = {
     buttons: {
         clear_filter: "Wis filter",
     },
-
-    notes: {
-        header: {
-            title: "Notities",
-        },
-
-        labels: {
-            id: "ID",
-            created_at: "Aangemaakt op",
-            created_by: "Aangemaakt door",
-            note: "Notite",
-            actions: "Acties",
-        },
-    
-        buttons: {
-            add_new: 'Nieuwe aanmaken',
-        },
-    }
 };
