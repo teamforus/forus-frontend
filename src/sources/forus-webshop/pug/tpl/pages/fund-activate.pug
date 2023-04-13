@@ -94,7 +94,7 @@ main(id="main-content")
                     translate="fund_activate.header.{{ $root.client_key }}.title"
                     translate-default="{{ 'fund_activate.header.title' | translate }}")
 
-            .sign_up-pane-body: .form
+            .sign_up-pane-body(ng-if="!$ctrl.fetchingData"): .form
                 fund-criteria-custom-overview(key="$ctrl.fund.key")
 
                 p.sign_up-pane-text: ui-control-checkbox(
@@ -107,6 +107,9 @@ main(id="main-content")
                     data-id="confirm_criteria_warning"
                     data-label="Ik weet dat het verstrekken van onjuiste informatie strafbaar is, dat ik een onterecht of een teveel ontvangen vergoeding terug moet betalen en dat ik een boete kan krijgen.")
             
+            .sign_up-pane-body(ng-if="$ctrl.fetchingData")
+                .sign_up-pane-loading: .mdi.mdi-loading.mdi-spin
+
             .sign_up-pane-footer: .row
                 .col.col-lg-6.text-left &nbsp;
                 .col.col-lg-6.text-right: .button.button-text.button-text-padless(
@@ -114,8 +117,7 @@ main(id="main-content")
                     ng-click="$ctrl.confirmCriteria()"
                     role="button")
                     span(i18n="fund_request.sign_up.pane.footer.next")
-                    em.mdi.mdi-reload.mdi-spin.icon-right(ng-if="$ctrl.fetchingData")
-                    em.mdi.mdi-chevron-right.icon-right(ng-if="!$ctrl.fetchingData")
+                    em.mdi.mdi-chevron-right.icon-right
 
             //- Prevalidation pin code
             div(ng-if="$ctrl.state == 'pincode_activate'")
