@@ -1,6 +1,7 @@
 const TopNavbarDirective = function (
     $state,
     $scope,
+    $rootScope,
     ModalService,
     ConfigService
 ) {
@@ -42,6 +43,8 @@ const TopNavbarDirective = function (
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
         $dir.logoExtension = ConfigService.getFlag('logoExtension');
+
+        $rootScope.showSearchBox = window.innerWidth >= 1000;
     };
 
     $dir.$onDestroy = () => {
@@ -62,6 +65,7 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
+            '$rootScope',
             'ModalService',
             'ConfigService',
             TopNavbarDirective

@@ -3,7 +3,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
         ng-if="$root.appConfigs.features.announcements" 
         list="$root.appConfigs.features.announcements")
 
-    .navbar-inner.wrapper   
+    .navbar-inner.wrapper
         a.button(
             ui-sref="explanation"
             target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
@@ -16,17 +16,26 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
         a(ui-sref="home").navbar-logo.show-sm
             img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="Terug naar hoofdpagina")
             img(ng-src="{{ './assets/img/logo-hover' + $dir.logoExtension }}" alt="Terug naar hoofdpagina").hover
+        
+        a.button(ng-click="$root.showSearchBox = true").navbar-search-button.show-sm
+            em.mdi.mdi-magnify
+            translate(translate="topnavbar.items.search")
 
-        .block.block-auth.show-sm
-            .auth-in(ng-if="$root.auth_user").show-sm
-                button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
-                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
-                    div(translate="topnavbar.buttons.logout")
+    .navbar-inner.wrapper
+        .block.block-auth.show-sm(ng-if="!$root.showSearchBox")
+            button.button.button-primary(ng-click="$root.signOut()" role="button" aria-label="sign_out" ng-if="$root.auth_user").show-sm
+                translate(translate="topnavbar.buttons.logout")
 
-            .auth-out(ng-if="!$root.auth_user" id="login_mobile")                
-                button.button.button-mobile(ng-click="$dir.startFundRequest()" role="button" aria-label="login").show-sm
-                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
-                    div(translate="topnavbar.buttons.login")
+            button.button.button-primary(ng-click="$dir.startFundRequest()" role="button" aria-label="login" ng-if="!$root.auth_user" id="login_mobile").show-sm
+                translate(translate="topnavbar.buttons.login")
+
+            button.button.button-default(
+                ng-click="$dir.startFundRequest({ restore_with_email: true })"
+                role="button").show-sm
+
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start.svg
+
+                span(ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'")
         
         ul.navbar-list#primary-menu.hide-sm
             li.navbar-item-wrapper
@@ -94,7 +103,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     span.navbar-item(translate="topnavbar.buttons.logout")
                     em.mdi.mdi-logout
 
-    .block.block-subnav
+    .block.block-subnav(ng-if="$root.showSearchBox")
         .subnav-inner.wrapper   
             a(ui-sref="home").navbar-logo.hide-sm
                 img(

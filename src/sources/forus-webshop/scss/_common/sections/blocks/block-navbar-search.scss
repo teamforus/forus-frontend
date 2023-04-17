@@ -267,8 +267,117 @@
             }
         }
 
+        .search-area {
+            display: flex;
+            border: 1px solid #848484;
+
+            .navbar-search-icon {
+                z-index: 99;
+            }
+
+            input {
+                &.form-control {
+                    border: none;
+                    background: red;
+                }
+            }
+
+            .search-reset {
+                position: absolute;
+                align-self: center;
+                z-index: 99;
+                right: 10px;
+
+                .mdi {
+                    font-size: 20px;
+                }
+            }
+        }
+
         .search-result {
             border-radius: 0;
+            display: flex;
+            flex-direction: column;
+
+            .search-result-sidebar {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                background-color: #fff;
+
+                .search-result-sidebar-item {
+                    width: auto;
+                    height: 35px;
+                    align-items: center;
+                    padding: 10px 15px;
+                    border: 1px solid #F5F5F5;
+                    border-radius: 5px;
+                    font: 600 13px/13px $bf;
+                    background: #F5F5F5;
+                    border-radius: 5px;
+                    color: #353535;
+                    flex-grow: 1;
+                    margin-right: 10px;
+
+                    .search-result-sidebar-item-name {
+                        text-align: center;
+                    }
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    &.active {
+                        background-color: #315EFD;
+                        color: #fff;
+                    }
+                }
+            }
+
+            .search-result-content {
+                min-height: 60vh;
+
+                .search-result-section {
+                    margin-bottom: 30px;
+
+                    .search-result-group-header {
+                        border: none;
+                        padding-bottom: 0;
+
+                        .search-result-group-title {
+                            cursor: pointer;
+                        }
+                    }
+
+                    .search-result-items {
+                        .search-result-item {
+                            display: flex;
+                            padding: 8px 20px;
+                            font: 700 13px/13px $bf;
+                            
+                            .mdi {
+                                position: absolute;
+                                right: 10px;
+                                font-size: 20px;
+                                color: #DBDCDB;
+                            }
+                        }
+
+                        .search-result-group-link {
+                            padding: 8px 20px;
+                            line-height: 13px;
+                            font: 700 13px/13px $bf;
+                            color: #315EFD;
+                        }
+                    }
+                }
+
+                .search-noresult {
+                    min-height: 60vh;
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+            }
         }
 
         .search-result-actions {

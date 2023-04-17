@@ -28,9 +28,9 @@
         //- Start fund request
         li(
             ng-if="!$dir.vouchers.length || !$root.auth_user" 
-            ng-click="$dir.startFundRequest()" 
+            ui-sref="funds" 
             ui-sref-active="active")
-            a.sticky-footer-item(ng-click="$dir.startFundRequest()" aria-current="{{ $dir.$state.current.name == 'start' }}" tabindex="0" role="link")
+            a.sticky-footer-item(ui-sref="funds" aria-current="{{ $dir.$state.current.name == 'start' }}" tabindex="0" role="link")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
                 span(
                     translate="topnavbar.buttons.{{ $root.client_key }}.activate" 

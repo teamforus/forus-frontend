@@ -8,6 +8,7 @@ module.exports = {
         explanation:"Uitleg",
         identity:"Profiel",
         signup:"Uitleg aanbieders",
+        search:"Zoek",
         westerkwartier: {
             funds:"Potjes",
         },
@@ -82,19 +83,19 @@ module.exports = {
         providers: "Aanbieders",
 
         mobile: {
-            voucher: "Tegoeden",
+            voucher: "Mijn tegoeden",
             request: "Aanvragen",
             profile: "Profiel",
             more: "Meer",
             dropdown: {
-                vouchers: "Tegoeden",
+                vouchers: "Mijn tegoeden",
                 reservations: "Reserveringen",
                 reimbursements:"Kosten terugvragen",
                 notifications: "Notificaties",
                 preferences_notifications: "Notificatievoorkeuren",
                 preferences_emails: "E-mailinstellingen",
                 records: "Profiel",
-                funds: "Fondsen",
+                funds: "Alle tegoeden",
                 sessions: "Sessies"
             }
         }
