@@ -66,6 +66,7 @@ app.provider('ModalRoute', require('./providers/ModalRouteProvider'));
 // Filters
 app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
+app.filter('str_limit', require('./filters/StrLimitFilter'));
 
 // Config
 app.config(require('./routers/landing/router'));
