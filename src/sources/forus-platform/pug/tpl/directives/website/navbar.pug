@@ -28,13 +28,15 @@ nav.navbar.navbar-inverse
 					a(ui-sref="contact") Contact
 				li
 					a(href="https://vacatures.forus.io/jobs/Careers" target="_blank") Vacatures
-			ul.nav.navbar-nav.navbar-right
+			
+			ul.nav.navbar-nav.navbar-right(ng-if="!$root.auth_user")
 				li
-					a.login_btn(ng-click="openAuthPopup()" ng-if="!$root.auth_user")
+					a.login_btn(ng-click="openAuthPopup()")
 						span.glyphicon.glyphicon-log-in
 						|  Inloggen
+
 			ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
-				.header-auth(ng-if="$root.auth_user")
+				.header-auth
 					.auth-user(ng-click="$ctrl.openUserMenu($event)")
 						.auth-user-details
 							.auth-user-name {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
