@@ -88,13 +88,13 @@ main(id="main-content")
                     | Terug
 
         //- DigiD confirmation (custom criteria)
-        .sign_up-pane(ng-if="$ctrl.state == 'digid'")
+        .sign_up-pane(ng-if="$ctrl.state == 'digid' && !$ctrl.fetchingData")
             .sign_up-pane-header
                 h2.sign_up-pane-header-title(
                     translate="fund_activate.header.{{ $root.client_key }}.title"
                     translate-default="{{ 'fund_activate.header.title' | translate }}")
 
-            .sign_up-pane-body(ng-if="!$ctrl.fetchingData"): .form
+            .sign_up-pane-body: .form
                 fund-criteria-custom-overview(key="$ctrl.fund.key")
 
                 p.sign_up-pane-text: ui-control-checkbox(
@@ -106,9 +106,6 @@ main(id="main-content")
                     ng-model="$ctrl.confirm_criteria_warning"
                     data-id="confirm_criteria_warning"
                     data-label="Ik weet dat het verstrekken van onjuiste informatie strafbaar is, dat ik een onterecht of een teveel ontvangen vergoeding terug moet betalen en dat ik een boete kan krijgen.")
-            
-            .sign_up-pane-body(ng-if="$ctrl.fetchingData")
-                .sign_up-pane-loading: .mdi.mdi-loading.mdi-spin
 
             .sign_up-pane-footer: .row
                 .col.col-lg-6.text-left &nbsp;
@@ -138,6 +135,14 @@ main(id="main-content")
                                 type="submit" 
                                 i18n="popup_auth.buttons.submit" 
                                 ng-class="($ctrl.activateCodeForm.values.code.length != 8 || !$ctrl.activateCodeForm.enabled) ? 'button-disabled' : ''").button.button-primary
+
+        //- DigiD confirmation (custom criteria)
+        .sign_up-pane(ng-if="$ctrl.state == 'digid' && $ctrl.fetchingData")
+            .sign_up-pane-body
+                br
+                .sign_up-pane-loading: .mdi.mdi-loading.mdi-spin
+                .sign_up-pane-text.text-center.text-muted Loading, please wait...
+                br
 
         //- Error: No funds received after signing-up through DigiD, fund requests are disabled
         .sign_up-pane(ng-if="$ctrl.state == 'error_not_available'")

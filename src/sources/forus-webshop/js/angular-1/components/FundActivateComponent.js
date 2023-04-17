@@ -132,6 +132,7 @@ const FundActivateComponent = function (
         }
 
         $ctrl.fetchingData = true;
+
         IdentityService.identity().then((res) => {
             const identity = res.data;
             const timeToSkipBsn = $ctrl.getTimeToSkipDigid(identity);
