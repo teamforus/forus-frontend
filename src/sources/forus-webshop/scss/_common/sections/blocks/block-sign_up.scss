@@ -527,6 +527,18 @@
                 }
             }
 
+            .sign_up-pane-loading {
+                padding: 15px 0;
+                display: flex;
+                justify-content: center;
+
+                .mdi {
+                    display: flex;
+                    font-size: 40px;
+                    opacity: .5;
+                }
+            }
+
             &.sign_up-pane-body-padless {
                 padding: 0;
             }
