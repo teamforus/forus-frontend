@@ -62,7 +62,6 @@ const TopNavbarSearchDirective = function (
         $event.preventDefault();
         $event.stopPropagation();
 
-        console.log('hide');
         $dir.results[groupKey].hidden = true;
     };
 
@@ -70,7 +69,6 @@ const TopNavbarSearchDirective = function (
         $event.preventDefault();
         $event.stopPropagation();
         
-        console.log('show');
         $dir.results[groupKey].hidden = false;
     };
 
