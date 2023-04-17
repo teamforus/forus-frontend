@@ -283,3 +283,9 @@
                 ng-show="$ctrl.validatorRequest.is_assigned"
                 organization="$ctrl.organization"
                 fund-request="$ctrl.validatorRequest")
+
+        block-card-note(
+            is-assigned="$ctrl.validatorRequest.is_assigned"
+            fetch-notes="$ctrl.fetchNotes(query)"
+            delete-note="$ctrl.deleteNote(note)"
+            store-note="$ctrl.storeNote(data)")

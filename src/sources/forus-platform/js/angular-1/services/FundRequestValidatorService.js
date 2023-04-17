@@ -145,6 +145,18 @@ const FundRequestValidatorService = function(ApiRequest) {
                 request_id
             ), data);
         };
+
+        this.notes = (organization_id, id, query) => {
+            return ApiRequest.get(`/platform/organizations/${organization_id}/fund-requests/${id}/notes`, query);
+        };
+
+        this.noteDestroy = (organization_id, id, note_id) => {
+            return ApiRequest.delete(`/platform/organizations/${organization_id}/fund-requests/${id}/notes/${note_id}`);
+        };
+
+        this.storeNote = (organization_id, id, data = {}) => {
+            return ApiRequest.post(`/platform/organizations/${organization_id}/fund-requests/${id}/notes`, data);
+        };
     };
 
     return new FundRequestValidatorService();

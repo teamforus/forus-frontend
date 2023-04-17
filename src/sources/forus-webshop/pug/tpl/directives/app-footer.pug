@@ -14,19 +14,22 @@ footer.section.section-footer(id="footer")
                     nav.footer-nav
                         .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
 
-            .col.col-md-3
-                .block.block-markdown
-                    h3 Download de Me-app
-                    app-links
-                    
-                    nav.footer-nav
-                        .footer-nav-item
-                            include ../../../resources/_webshop-common/assets/img/me-logo.svg
-                            a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
+            .col.col-md-3: .flex.flex-vertical(ng-class="description_footer_app_info_position == 'after' ? 'flex-vertical-reverse' : ''")
+                .block.block-markdown(ng-bind-html="description_footer_app_info_html")
 
-                .footer-sponsor-logo: img.footer-sponsor-logo-img(
-                    ng-if="$root.appConfigs.flags.showFooterSponsorLogo" 
-                    ng-src="./assets/img/logo-footer.png")    
+                div(ng-if="!description_footer_app_info_html || description_footer_app_info_position !== 'replace'")
+                    .block.block-markdown
+                        h3 Download de Me-app
+                        app-links
+                        
+                        nav.footer-nav
+                            .footer-nav-item
+                                include ../../../resources/_webshop-common/assets/img/me-logo.svg
+                                a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
+
+                    .footer-sponsor-logo: img.footer-sponsor-logo-img(
+                        ng-if="$root.appConfigs.flags.showFooterSponsorLogo" 
+                        ng-src="./assets/img/logo-footer.png")    
 
     .block.block-copyrights: .wrapper
         .copyrights 
