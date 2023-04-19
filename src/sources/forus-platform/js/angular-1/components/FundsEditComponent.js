@@ -168,11 +168,11 @@ const FundsEditComponent = function(
             email: "Geen",
         });
 
-        $ctrl.recordTypes = $ctrl.recordTypes.map((recordType) => ({
+        $ctrl.recordTypesMultiplier = $ctrl.recordTypes.map((recordType) => ({
             ...recordType, name: `Vermenigvuldig met: ${recordType.name}`,
         }));
 
-        $ctrl.recordTypes.unshift({
+        $ctrl.recordTypesMultiplier.unshift({
             key: null,
             name: "Wijs 1 tegoed",
         });
