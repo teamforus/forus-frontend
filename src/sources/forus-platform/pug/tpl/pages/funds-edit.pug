@@ -176,7 +176,7 @@
                                 select-control(
                                     prop="key"
                                     ng-model="formula_product.record_type_key_multiplier"
-                                    options="$ctrl.recordTypes"
+                                    options="$ctrl.recordTypesMultiplier"
                                     placeholder="Selecteer aanbieding...")
                                 .form-error(ng-repeat="error in $ctrl.form.errors['formula_products.' + $index + '.record_type_key_multiplier']" ng-bind="error")
                         .flex-col: .button.button-primary.button-icon(ng-click="$ctrl.removeProduct(formula_product)"): em.mdi.mdi-close
