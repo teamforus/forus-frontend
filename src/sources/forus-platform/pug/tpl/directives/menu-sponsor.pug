@@ -30,7 +30,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
                 "Vouchers", "vouchers", 'vouchers', 
                 '{organization_id: $root.activeOrganization.id}',
                 '$root.activeOrganization | hasPerm:["manage_vouchers"]',
-                'vouchers')
+                'vouchers', 'vouchersPage')
 
             +nav_item(
                 "Aanbiedingsvouchers", "product_voucher", 'product-vouchers', 
