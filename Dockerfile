@@ -1,6 +1,6 @@
 ### STAGE 1: Build ###    
 # We label our stage as 'builder'
-FROM node:19-alpine as builder
+FROM node:20-alpine as builder
 
 LABEL maintainer="support@forus.io"
 LABEL description="Forus platform (frontend), used for creating docker image"
