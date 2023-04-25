@@ -5,30 +5,15 @@ footer.section.section-footer(id="footer")
 
             .col.col-md-4
                 .block.block-markdown(ng-if="description_contact_details_html" ng-bind-html="description_contact_details_html")
-                .block-social-medias(ng-if="$dir.socialMedias.length") 
-                    .block-social-media-title Stay with us on: 
+                .footer-social-medias(ng-if="$root.appConfigs.features.social_medias.length") 
+                    .footer-social-media-title Stay with us on: 
                     
-                    .block-social-media-icons.flex
-                        a.block-social-media-icon(
-                            ng-if="$dir.facebookMedia"
-                            href="{{ $dir.facebookMedia.link }}" 
-                            title="{{ $dir.facebookMedia.title }}"
-                            target="_blank")
-                            include ../../../resources/_webshop-common/assets/img/social-medias/facebook.svg
-
-                        a.block-social-media-icon(
-                            ng-if="$dir.twitterMedia" 
-                            href="{{ $dir.twitterMedia.link }}" 
-                            title="{{ $dir.twitterMedia.title }}"
-                            target="_blank") 
-                            include ../../../resources/_webshop-common/assets/img/social-medias/twitter.svg
-                        
-                        a.block-social-media-icon(
-                            ng-if="$dir.youtubeMedia" 
-                            href="{{ $dir.youtubeMedia.link }}" 
-                            title="{{ $dir.youtubeMedia.title }}"
-                            target="_blank")
-                            include ../../../resources/_webshop-common/assets/img/social-medias/youtube.svg
+                    .footer-social-media-icons.flex: a.footer-social-media-icon(
+                        ng-repeat="social_media in $root.appConfigs.features.social_medias"
+                        href="{{ social_media.url }}" 
+                        title="{{ social_media.title }}"
+                        target="_blank")
+                        em.mdi(ng-class="'mdi-' + social_media.type")
 
             .col.col-md-4(ng-if="description_opening_times_html")
                 .block.block-markdown(ng-bind-html="description_opening_times_html")

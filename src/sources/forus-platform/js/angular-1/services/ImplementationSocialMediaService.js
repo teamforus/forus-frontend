@@ -26,5 +26,5 @@ const ImplementationSocialMediaService = function (ApiRequest) {
 
 module.exports = [
     'ApiRequest',
-    ImplementationSocialMediaService
+    ImplementationSocialMediaService,
 ];

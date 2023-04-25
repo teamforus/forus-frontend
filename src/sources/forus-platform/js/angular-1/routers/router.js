@@ -1138,7 +1138,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     /**
-     * Implementation edit (CMS)
+     * Implementation edit social media (CMS)
      */
      $stateProvider.state({
         name: "implementation-social-media",

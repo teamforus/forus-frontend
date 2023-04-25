@@ -6,49 +6,28 @@ const ImplementationCmsSocialMediaEditComponent = function (
 ) {
     const $ctrl = this;
 
-    let $translate = $filter('translate');
-    let $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.remove_implementation_social_media.' + key
-    );
+    const $translate = $filter('translate');
+    const $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_implementation_social_media.${key}`);
 
-    $ctrl.socialMedias = [];
-
-    $ctrl.getSocialMedias = () => {
-        ImplementationSocialMediaService.list($ctrl.organization.id, $ctrl.implementation.id).then(res => {
-            $ctrl.socialMedias = res.data.data;
-        });
+    $ctrl.filters = {
+        per_page: 15,
     };
 
-    $ctrl.addSocialMedia = () => {
-        ModalService.open('editSocialMediaComponent', {
-            onSubmit: (form, modal) => {
-                ImplementationSocialMediaService.store($ctrl.organization.id, $ctrl.implementation.id, form.values).then(res => {
-                    PushNotificationsService.success('Opgeslagen!');
-                    modal.close();
-                    $ctrl.getSocialMedias();
-                }, (res) => {
-                    PushNotificationsService.danger('Error!', res.data.message);
-                    form.errors = res.data.errors;
-                });
-            }
-        });
+    $ctrl.onPageChange = (query = {}) => {
+        ImplementationSocialMediaService.list(
+            $ctrl.organization.id,
+            $ctrl.implementation.id,
+            query,
+        ).then((res) => $ctrl.socialMedias = res.data);
     };
 
-    $ctrl.editSocialMedia = (socialMedia) => {
+    $ctrl.editSocialMedia = (socialMedia = null) => {
         ModalService.open('editSocialMediaComponent', {
-            socialMediaType: socialMedia.type,
-            socialMediaLink: socialMedia.link,
-            socialMediaTitle: socialMedia.title,
-            onSubmit: (form, modal) => {
-                ImplementationSocialMediaService.update($ctrl.organization.id, $ctrl.implementation.id, socialMedia.id, form.values).then(res => {
-                    PushNotificationsService.success('Opgeslagen!');
-                    modal.close();
-                    $ctrl.getSocialMedias();
-                }, (res) => {
-                    PushNotificationsService.danger('Error!', res.data.message);
-                    form.errors = res.data.errors;
-                });
-            }
+            usedTypes: $ctrl.socialMedias.data.map((socialMedia) => socialMedia.type),
+            organization: $ctrl.organization,
+            implementation: $ctrl.implementation,
+            implementationSocialMedia: socialMedia,
+            onChange: () => $ctrl.onPageChange($ctrl.filters),
         });
     };
 
@@ -60,16 +39,20 @@ const ImplementationCmsSocialMediaEditComponent = function (
             confirmButton: $translateDangerZone('buttons.confirm'),
             text_align: 'center',
             onConfirm: () => {
-                ImplementationSocialMediaService.destroy($ctrl.organization.id, $ctrl.implementation.id, socialMedia.id).then((res) => {
+                ImplementationSocialMediaService.destroy(
+                    $ctrl.organization.id,
+                    $ctrl.implementation.id,
+                    socialMedia.id,
+                ).then(() => {
                     PushNotificationsService.success('Opgeslagen!');
-                    $ctrl.getSocialMedias();
+                    $ctrl.onPageChange();
                 }, (res) => PushNotificationsService.danger('Error!', res?.data?.message));
             },
         });
-    }; 
+    };
 
-    $ctrl.$onInit = function() {
-        $ctrl.getSocialMedias();
+    $ctrl.$onInit = () => {
+        $ctrl.onPageChange($ctrl.filters);
     };
 };
 
@@ -83,7 +66,7 @@ module.exports = {
         'ModalService',
         'PushNotificationsService',
         'ImplementationSocialMediaService',
-        ImplementationCmsSocialMediaEditComponent
+        ImplementationCmsSocialMediaEditComponent,
     ],
-    templateUrl: 'assets/tpl/pages/implementation-cms-social-media-edit.html'
+    templateUrl: 'assets/tpl/pages/implementation-cms-social-media-edit.html',
 };

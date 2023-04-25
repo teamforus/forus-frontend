@@ -1,7 +1,6 @@
 const TopNavbarDirective = function (
     $state,
     $scope,
-    appConfigs,
     ModalService,
     ConfigService
 ) {
@@ -43,22 +42,6 @@ const TopNavbarDirective = function (
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
         $dir.logoExtension = ConfigService.getFlag('logoExtension');
-
-        $dir.socialMedias = appConfigs.features.social_medias;
-
-        if ($dir.socialMedias.length) {
-            $dir.facebookMedia = $dir.socialMedias.find(socialMedia => {
-                return socialMedia.type == 'facebook';
-            });
-    
-            $dir.twitterMedia = $dir.socialMedias.find(socialMedia => {
-                return socialMedia.type == 'twitter';
-            });
-    
-            $dir.youtubeMedia = $dir.socialMedias.find(socialMedia => {
-                return socialMedia.type == 'youtube';
-            });
-        }
     };
 
     $dir.$onDestroy = () => {
@@ -79,11 +62,10 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
-            'appConfigs',
             'ModalService',
             'ConfigService',
-            TopNavbarDirective
+            TopNavbarDirective,
         ],
-        templateUrl: 'assets/tpl/directives/top-navbar.html'
+        templateUrl: 'assets/tpl/directives/top-navbar.html',
     };
 };

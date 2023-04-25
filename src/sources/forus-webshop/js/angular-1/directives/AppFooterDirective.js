@@ -2,7 +2,6 @@ const AppFooterDirective = function(
     $sce,
     $scope,
     $rootScope,
-    appConfigs,
 ) {
     const $dir = $scope.$dir = {};
     const footerPageKeys = [
@@ -30,22 +29,6 @@ const AppFooterDirective = function(
         $dir.pageLinks = Object.values(pages).filter((page) => {
             return footerPageKeys.includes(page.page_type);
         });
-
-        $dir.socialMedias = appConfigs.features.social_medias;
-
-        if ($dir.socialMedias.length) {
-            $dir.facebookMedia = $dir.socialMedias.find(socialMedia => {
-                return socialMedia.type == 'facebook';
-            });
-    
-            $dir.twitterMedia = $dir.socialMedias.find(socialMedia => {
-                return socialMedia.type == 'twitter';
-            });
-    
-            $dir.youtubeMedia = $dir.socialMedias.find(socialMedia => {
-                return socialMedia.type == 'youtube';
-            });
-        }
     }, true);
 };
 
@@ -60,7 +43,6 @@ module.exports = () => {
             '$sce',
             '$scope',
             '$rootScope',
-            'appConfigs',
             AppFooterDirective,
         ],
         templateUrl: 'assets/tpl/directives/app-footer.html',
