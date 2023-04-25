@@ -304,6 +304,8 @@
                 width: 100%;
                 justify-content: space-between;
                 background-color: #fff;
+                overflow: scroll;
+                padding: 10px;
 
                 .search-result-sidebar-item {
                     width: auto;
@@ -321,6 +323,7 @@
 
                     .search-result-sidebar-item-name {
                         text-align: center;
+                        white-space: nowrap;
                     }
 
                     &:last-child {
@@ -335,36 +338,40 @@
             }
 
             .search-result-content {
-                min-height: 60vh;
+                min-height: 100vh;
 
                 .search-result-section {
-                    margin-bottom: 30px;
+                    margin-bottom: 10px;
 
                     .search-result-group-header {
                         border: none;
                         padding-bottom: 0;
+                        margin-left: 15px;
 
                         .search-result-group-title {
                             cursor: pointer;
+                            font: 700 14px/14px $bf;
                         }
                     }
 
                     .search-result-items {
                         .search-result-item {
-                            display: flex;
+                            position: relative;
                             padding: 8px 20px;
-                            font: 700 13px/13px $bf;
+                            font: 600 12px/12px $bf;
                             
                             .mdi {
                                 position: absolute;
                                 right: 10px;
+                                top: 50%;
+                                transform: translate(0, -50%);
                                 font-size: 20px;
                                 color: #DBDCDB;
                             }
                         }
 
                         .search-result-group-link {
-                            padding: 8px 20px;
+                            padding: 5px 20px;
                             line-height: 13px;
                             font: 700 13px/13px $bf;
                             color: #315EFD;
@@ -377,15 +384,21 @@
                     margin-top: auto;
                     margin-bottom: auto;
                 }
-            }
-        }
 
-        .search-result-actions {
-            .button {
-                padding: 10px 15px;
-                font: 700 14px/20px $bf;
-                width: 100%;
-                justify-content: center;
+                .search-result-actions {
+                    position: absolute;
+                    margin-top: 0;
+                    padding: 10px 20px;
+                    width: 100%;
+                    bottom: 120px;
+                    
+                    .button {
+                        padding: 8px 15px;
+                        font: 700 12px/18px $bf;
+                        width: 100%;
+                        justify-content: center;
+                    }
+                }
             }
         }
     }

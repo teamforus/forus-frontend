@@ -58,18 +58,11 @@ const TopNavbarSearchDirective = function (
         ].join("") : name;
     };
 
-    $dir.hideGroup = ($event, groupKey) => {
+    $dir.toggleGroup = ($event, groupKey) => {
         $event.preventDefault();
         $event.stopPropagation();
 
-        $dir.results[groupKey].hidden = true;
-    };
-
-    $dir.showGroup = ($event, groupKey) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-        
-        $dir.results[groupKey].hidden = false;
+        $dir.results[groupKey].shown = !$dir.results[groupKey].shown;
     };
 
     $dir.setGroupKey = (groupKey) => {

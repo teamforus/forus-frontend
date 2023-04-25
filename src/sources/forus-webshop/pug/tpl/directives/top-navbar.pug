@@ -3,7 +3,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
         ng-if="$root.appConfigs.features.announcements" 
         list="$root.appConfigs.features.announcements")
 
-    .navbar-inner.wrapper
+    .navbar-inner.wrapper(ng-if="!$root.showSearchBox")
         a.button(
             ui-sref="explanation"
             target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
@@ -26,9 +26,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             button.button.button-primary(ng-click="$root.signOut()" role="button" aria-label="sign_out" ng-if="$root.auth_user").show-sm
                 translate(translate="topnavbar.buttons.logout")
 
-            button.button.button-primary(ng-click="$dir.startFundRequest()" role="button" aria-label="login" ng-if="!$root.auth_user" id="login_mobile").show-sm
-                translate(translate="topnavbar.buttons.login")
-
             button.button.button-default(
                 ng-click="$dir.startFundRequest({ restore_with_email: true })"
                 role="button").show-sm
@@ -36,6 +33,9 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start.svg
 
                 span(ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'")
+
+            button.button.button-primary(ng-click="$dir.startFundRequest()" role="button" aria-label="login" ng-if="!$root.auth_user" id="login_mobile").show-sm
+                translate(translate="topnavbar.buttons.login")
         
         ul.navbar-list#primary-menu.hide-sm
             li.navbar-item-wrapper

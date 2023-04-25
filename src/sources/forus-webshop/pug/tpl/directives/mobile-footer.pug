@@ -1,4 +1,4 @@
-.block.block-sticky-footer.show-sm(ng-class='{ "scrolled" : !$dir.visible }' tabindex="0")
+.block.block-sticky-footer.show-sm(ng-if="!$root.showSearchBox" ng-class='{ "scrolled" : !$dir.visible }' tabindex="0")
     ul.sticky-footer-list
         //- Products
         li(

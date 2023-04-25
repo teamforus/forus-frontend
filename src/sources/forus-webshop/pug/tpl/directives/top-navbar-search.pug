@@ -61,9 +61,9 @@
                             include ../../../resources/_webshop-common/assets/img/icon-search/providers.svg
 
                         .search-result-group-title.flex
-                            em.mdi.mdi-menu-down.show-sm(ng-click="$dir.hideGroup($event, groupKey)" ng-if="!$dir.results[groupKey].hidden")
-                            em.mdi.mdi-menu-up.show-sm(ng-click="$dir.showGroup($event, groupKey)" ng-if="$dir.results[groupKey].hidden")
-                            translate(translate="top_navbar_search.result.{{ groupKey }}_label")
+                            em.mdi.mdi-menu-down.show-sm(ng-if="!$dir.results[groupKey].shown" ng-click="$dir.toggleGroup($event, groupKey)")
+                            em.mdi.mdi-menu-up.show-sm(ng-if="$dir.results[groupKey].shown" ng-click="$dir.toggleGroup($event, groupKey)")
+                            translate(translate="top_navbar_search.result.{{ groupKey }}_label" ng-click="$dir.toggleGroup($event, groupKey)")
 
                         a.search-result-group-link(
                             ng-if="$dir.results[groupKey].count > 3"
@@ -71,7 +71,7 @@
                             ng-bind="$dir.results[groupKey].count + ' resultaten gevonden...'").hide-sm
 
                     //- Result sections list
-                    .search-result-items(ng-if="$dir.results[groupKey] && !$dir.results[groupKey].hidden")
+                    .search-result-items(ng-if="$dir.results[groupKey] && !$dir.results[groupKey].shown")
                         a.search-result-item(
                             ng-repeat="value in $dir.results[groupKey].items"
                             ui-sref="{{value.uiSref}}(value.uiSrefParams)")
