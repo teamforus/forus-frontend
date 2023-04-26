@@ -1,0 +1,23 @@
+&.block-profile {
+    .profile-aside {
+        .profile-menu {
+            .profile-menu-item {
+                &.active {
+                    background-color: #492638;
+                }
+            }
+        }
+    }
+
+    .profile-content {
+        .block-actions {
+            .button {
+                background-color: #492638;
+            }
+        }
+        
+        .button {
+            background-color: #492638;
+        }
+    }
+}

@@ -40,6 +40,8 @@
                 font: 700 22px/28px $hf;
                 padding-right: 30px;
                 margin: 0 0 5px;
+                word-wrap: break-word;
+                hyphens: auto;
 
                 .label {
                     margin-top: 6px;

@@ -24,15 +24,15 @@ const serverTask = function() {
             port: platform.server.port || 3000,
             rewriteRules: [
                 {
-                    match: /script /g,
+                    match: /<script /g,
                     fn: function(req, res, match) {
-                        return `script nonce='1Py20ko19vEhus6l1yvGJw=='`;
+                        return `<script nonce='1Py20ko19vEhus6l1yvGJw=='`;
                     }
                 },
                 {
-                    match: /style /g,
+                    match: /<style /g,
                     fn: function(req, res, match) {
-                        return `style nonce='1Py20ko19vEhus6l1yvGJw=='`;
+                        return `<style nonce='1Py20ko19vEhus6l1yvGJw=='`;
                     }
                 },
             ],

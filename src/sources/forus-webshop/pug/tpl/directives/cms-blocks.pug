@@ -1,4 +1,4 @@
-.wrapper(ng-if="$dir.description_html || $dir.blocks.length > 0")
+.block.block-cms(ng-class="{'block-cms-with-items': $dir.blocks.length}"): .wrapper(ng-if="$dir.description_html || $dir.blocks.length > 0")
     .block.block-markdown(
         ng-class="'block-markdown-' + $dir.description_alignment"
         ng-if="$dir.description_html"
