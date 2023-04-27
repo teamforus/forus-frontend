@@ -1,5 +1,7 @@
 ## Changes description*
 *if final solution differs with issue description
+or developer wants to give info for QA and put attention on any test scenarios
+
 
 ## Developers checklist
 - [ ] Design is consistant - this change is same as other similar features in a platform
