@@ -8,7 +8,7 @@
 - [ ] Translations are placed in a separate file if it is possible
 
 ## QA checklist
-- [ ] Tag @ sashoa is design review needed
+- [ ] Tag @ sashoa if design review needed
 - [ ] Feature is tested in different screen sizes
 - [ ] WCAG requirements are met
 - [ ] Translations are done
