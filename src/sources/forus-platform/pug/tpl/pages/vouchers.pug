@@ -4,7 +4,7 @@
         //-.card-heading(ng-if="$ctrl.funds.length > 1" ng-bind="'csv_validation.header.title' | translate")
         fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
 
-        .card(ng-if="$ctrl.vouchers")
+        .card(ng-if="$ctrl.vouchers" dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
             .card-header: .flex
                 .flex.flex-grow: .card-title(dusk="vouchersTitle")
                     span(translate="vouchers.header.title") 
@@ -164,7 +164,7 @@
                             tr(
                                 ng-repeat="voucher in $ctrl.vouchers.data" 
                                 ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})"
-                                dusk="voucherItem")
+                                dusk="voucherItem{{ voucher.id }}")
                                 
                                 td(ng-bind="voucher.id")
                                 
