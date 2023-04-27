@@ -1,4 +1,5 @@
-## Describe your changes (optional)
+## Changes description*
+* if final solution differs with issue description
 
 ## Developers checklist
 - [ ] Design is consistant - this change is same as other similar features in a platform
