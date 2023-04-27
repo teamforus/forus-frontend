@@ -204,7 +204,7 @@ const ModalVouchersUploadComponent = function(
                     return row.startsWith('record.') ? [...list, index] : list;
                 }, []);
 
-                const body = rawData.slice(1).filter(row => {
+                const body = rawData.slice(1).filter((row) => {
                     return row.filter(col => !isEmpty(col)).length > 0;
                 }).map((row) => {
                     const records = recordIndexes.reduce((list, index) => {
