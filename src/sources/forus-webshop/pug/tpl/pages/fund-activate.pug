@@ -88,7 +88,7 @@ main(id="main-content")
                     | Terug
 
         //- DigiD confirmation (custom criteria)
-        .sign_up-pane(ng-if="$ctrl.state == 'digid'")
+        .sign_up-pane(ng-if="$ctrl.state == 'digid' && !$ctrl.fetchingData")
             .sign_up-pane-header
                 h2.sign_up-pane-header-title(
                     translate="fund_activate.header.{{ $root.client_key }}.title"
@@ -101,11 +101,16 @@ main(id="main-content")
                     ng-model="$ctrl.confirm_criteria"
                     data-id="confirm_criteria"
                     data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
-            
+
+                p.sign_up-pane-text(ng-if="$ctrl.fund.key == 'IIT'"): ui-control-checkbox(
+                    ng-model="$ctrl.confirm_criteria_warning"
+                    data-id="confirm_criteria_warning"
+                    data-label="Ik weet dat het verstrekken van onjuiste informatie strafbaar is, dat ik een onterecht of een teveel ontvangen vergoeding terug moet betalen en dat ik een boete kan krijgen.")
+
             .sign_up-pane-footer: .row
                 .col.col-lg-6.text-left &nbsp;
                 .col.col-lg-6.text-right: .button.button-text.button-text-padless(
-                    ng-if="$ctrl.confirm_criteria"
+                    ng-if="$ctrl.confirm_criteria && ($ctrl.fund.key != 'IIT' || $ctrl.confirm_criteria_warning)"
                     ng-click="$ctrl.confirmCriteria()"
                     role="button")
                     span(i18n="fund_request.sign_up.pane.footer.next")
@@ -130,6 +135,14 @@ main(id="main-content")
                                 type="submit" 
                                 i18n="popup_auth.buttons.submit" 
                                 ng-class="($ctrl.activateCodeForm.values.code.length != 8 || !$ctrl.activateCodeForm.enabled) ? 'button-disabled' : ''").button.button-primary
+
+        //- DigiD confirmation (custom criteria)
+        .sign_up-pane(ng-if="$ctrl.state == 'digid' && $ctrl.fetchingData")
+            .sign_up-pane-body
+                br
+                .sign_up-pane-loading: .mdi.mdi-loading.mdi-spin
+                .sign_up-pane-text.text-center.text-muted Een moment geduld, het verzoek wordt verwerkt.
+                br
 
         //- Error: No funds received after signing-up through DigiD, fund requests are disabled
         .sign_up-pane(ng-if="$ctrl.state == 'error_not_available'")
@@ -183,15 +196,11 @@ main(id="main-content")
                     
                 .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
-                    | Wilt u hiervoor een bezwaar indienen of heeft u vragen, neem dan contact met ons op.
+                    | Voor meer informatie of vragen kunt u contact opnemen met gemeente Nijmegen.
                     br
                     | E-mailadres: #[a(href="mailto:inkomensondersteuning@nijmegen.nl").txt_link.var inkomensondersteuning@nijmegen.nl]
                     br
                     | Telefoonnumer: 14 024
-                    
-                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
-                p.sign_up-pane-text.text-center 
-                    | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
 
                 .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
                 .form-group.col.col-lg-12.hidden-xs: br
@@ -205,7 +214,7 @@ main(id="main-content")
                     | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
                 .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
-                    | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
+                    | Neem voor meer informatie contact op met gemeente Nijmegen.
 
                 .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
                 .form-group.col.col-lg-12.hidden-xs: br
@@ -217,10 +226,10 @@ main(id="main-content")
 
             .sign_up-pane-body.text-center
                 p.sign_up-pane-text
-                    | Volgens onze informatie hebben wij al een aanvraag van uw partner ontvangen. Het is daarom niet mogelijk om een aanvraag een te doen.
+                    | Volgens onze informatie hebben wij al een aanvraag van uw partner ontvangen. Het is daarom niet mogelijk om een aanvraag te doen.
                 .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
-                    | Voor meer informatie of vragen kunt u contact opnemen met de {{ $ctrl.fund.organization.name }}.
+                    | Wilt u hiervoor een bezwaar indienen of heeft u vragen, neem dan contact met ons op.
                     br
                     | E-mailadres: #[a(href="mailto:inkomensondersteuning@nijmegen.nl") inkomensondersteuning@nijmegen.nl]
                     br
@@ -240,7 +249,7 @@ main(id="main-content")
                     | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
                 .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
                 p.sign_up-pane-text.text-center 
-                    | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
+                    | Neem voor meer informatie contact op met gemeente Nijmegen.
 
                 .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
                 .form-group.col.col-lg-12.hidden-xs: br

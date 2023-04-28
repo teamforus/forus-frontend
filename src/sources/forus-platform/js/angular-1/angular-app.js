@@ -5,7 +5,7 @@ require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModul
 const app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper',
     'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
-    'forus.uiControls', 'forus.pageLoadingBarModule',
+    'forus.uiControls', 'forus.pageLoadingBarModule', 'ng-sortable', 
 ]);
 
 app.constant('appConfigs', {...env_data, ...require('./config/configs')});
@@ -200,6 +200,7 @@ app.service('EventLogService', require('./services/EventLogService'));
 app.service('MarkdownService', require('./services/MarkdownService'));
 app.service('FaqService', require('./services/FaqService'));
 app.service('FundUnsubscribeService', require('./services/FundUnsubscribeService'));
+app.service('AnnouncementService', require('./services/AnnouncementService'));
 app.service('ProductReservationsExportService', require('./services/ProductReservationsExportService'));
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 
@@ -267,6 +268,7 @@ app.directive('providerAvailableFundsTable', require('./directives/ProviderAvail
 app.directive('providerFundsInvitationTable', require('./directives/ProviderFundsInvitationTableDirective'));
 app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoinDirective'));
 app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
+app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 

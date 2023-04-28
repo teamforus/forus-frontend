@@ -66,7 +66,7 @@ module.exports = {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
             remove_organization_employees: require('./nl/modals/danger-zone/remove-organization-employee'),
-            remove_reimbursement_note: require('./nl/modals/danger-zone/remove-reimbursement-note'),
+            remove_note: require('./nl/modals/danger-zone/remove-note'),
             increase_limit_multiplier: require('./nl/modals/danger-zone/increase-limit-multiplier'),
             sponsor_provider_organization_state: require('./nl/modals/danger-zone/update-provider-organization-state'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
@@ -425,7 +425,8 @@ module.exports = {
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
-            cms_media_links: "CMS media links"
+            cms_media_links: "CMS media links",
+            footer_app_info: "Footer app content",
         },
         implementations_table: {
             title: "Webshop pagina's",
@@ -1352,7 +1353,7 @@ module.exports = {
             records: "Eigenschappen",
             actions: "Acties",
             search: "Zoeken",
-            assigned_to: "Toegewezen",
+            assigned_to: "Toegewezen aan",
             from: "Vanaf",
             to: "Tot",
             pending_since: "In behandeling sinds",
@@ -1375,6 +1376,7 @@ module.exports = {
             empty_table: "Geen aanvragen",
             note_title: "Reden van weigeren",
             assignee: "Toegewezen aan",
+            assignee_state: "Toegewezen staat",
         },
         person: {
             relations: {
@@ -1425,6 +1427,24 @@ module.exports = {
     },
 
     // DIRECTIVES
+
+    notes: {
+        header: {
+            title: "Notities",
+        },
+
+        labels: {
+            id: "ID",
+            created_at: "Aangemaakt op",
+            created_by: "Aangemaakt door",
+            note: "Notite",
+            actions: "Acties",
+        },
+    
+        buttons: {
+            add_new: 'Nieuwe aanmaken',
+        },
+    },
 
     // CSV UPLOADER
     csv_upload: {
@@ -1794,6 +1814,12 @@ module.exports = {
                     description: 'Ontvang een notificatie wanneer een aanbieder voor een fonds is afgewezen.'
                 },
             },
+            funds_requests: {
+                assigned_by_supervisor: {
+                    title: 'De beheerder heeft een aanvraag aan u toegewezen',
+                    description: 'Ontvang een e-mail wanneer er een aanvraag voor een fonds aan u is toegewezen.'
+                }
+            },
             validations: {
                 new_validation_request: {
                     title: 'Nieuw aanvraag',
@@ -1835,6 +1861,5 @@ module.exports = {
                 }
             }
         }
-
     }
 }

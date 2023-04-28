@@ -14,21 +14,6 @@ let BaseController = function(
     $scope.appConfigs = appConfigs;
     let $ctrl = this;
 
-    let invalidPermissions = {
-        sponsor: [
-            "manage_provider_funds", "manage_products", "manage_offices",
-            "scan_vouchers"
-        ],
-        validator: [
-            "manage_provider_funds", "manage_products", "manage_offices",
-            "scan_vouchers"
-        ],
-        provider: [
-            "manage_funds", "manage_providers", "manage_validators",
-            "validate_records", "scan_vouchers"
-        ]
-    } [appConfigs.panel_type];
-
     ConfigService.get('dashboard').then((res) => {
         $rootScope.appConfigs.features = res.data;
         $rootScope.appConfigs.frontends = res.data.fronts;
@@ -65,11 +50,7 @@ let BaseController = function(
             let auth_user = res.data;
 
             OrganizationService.list().then((res) => {
-                $ctrl.organizations = res.data.data.filter(organization => {
-                    return organization.permissions.filter((permission => {
-                        return invalidPermissions.indexOf(permission) == -1;
-                    })).length > 0;
-                });
+                $ctrl.organizations = res.data.data;
                 if ($ctrl.organizations.length == 1) {
                     OrganizationService.use($ctrl.organizations[0].id);
                 }
