@@ -12,7 +12,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6, p, span, b, i, li, td{
-    font-family: $bf;
+    font-family: var(--base-font);
     color: inherit;
     padding: 0;
 }
@@ -23,7 +23,7 @@ ul {
     list-style: none;
 
     li {
-        font: 300 16px/28px $bf;
+        font: 300 16px/28px var(--base-font);
     }
 }
 

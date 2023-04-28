@@ -1,38 +1,35 @@
-@import '../general/vars.scss';
+@import "../general/vars.scss";
 
 /*==========  Style Sheet - Vars  ==========*/
+:root {
+    // base font
+    --base-font: "Source Sans Pro", sans-serif;
+    --base-font-landing: "Source Sans Pro", sans-serif;
 
-// base font
-$bf: 'Source Sans Pro', sans-serif;
-$bf-landing: 'Source Sans Pro', sans-serif;
+    // text color
+    --text-color: #353535;
 
-// text color
-$tc: #353535;
+    // base color
+    --base-color: #305dfb;
+    --base-color-hover: #fff;
+    // placeholder text color
+    --placeholder-color: #646f79;
 
-// base color
-$bc: #305dfb;
-$bc-hover: #fff;
-// placeholder text color
-$ptc: #646f79;
+    --boarder-color: #d2e6ff;
 
-$border_color: #d2e6ff;
+    --boarder-radius: 8px;
 
-$border_radius: 8px;
+    --color-primary: #134478;
+    --color-primary-light: #2987fd;
 
-$color_primary: #134478;
-$color_primary_light: #2987fd;
+    --color-default: #134478;
+    --color-default-light: #2987fd;
 
-$color_default: #134478;
-$color_default_light: #2987fd;
+    --box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
 
-$box_shadow: 1px 1px 6px 0 rgba(0,0,0,.1);
+    // base error color
+    --color-danger: #e63b3b;
 
-// base error color
-$bec: #e63b3b;
-
-// border color
-$borderColor: #ddd;
-
-// wrapper size
-$wrapperWidth: 1400px;
-$wrapperPadding: 30px;
+    // border color
+    --boarder-color: #ddd;
+}

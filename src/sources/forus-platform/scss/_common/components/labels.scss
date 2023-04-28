@@ -1,8 +1,8 @@
 .label {
-    font: 600 11px/20px $bf;
+    font: 600 11px/20px var(--base-font);
     display: inline-flex;
     padding: 0 7.5px;
-    border-radius: $border_radius / 2;
+    border-radius: calc(var(--boarder-radius) / 2);
     cursor: default;
 
     .mdi {
@@ -61,17 +61,17 @@
     }
 
     &.label-primary {
-        background: $color_primary;
+        background: var(--color-primary);
         color: #fff;
     }
 
     &.label-primary-light {
         background: #e1efff;
-        color: $color_primary;
+        color: var(--color-primary);
     }
 
     &.label-primary-variant {
-        background: $color_primary_light;
+        background: var(--color-primary-light);
         color: #fff;
     }
 
@@ -94,7 +94,7 @@
     }
 
     &.label-tag {
-        font: 600 12px/25px $bf;
+        font: 600 12px/25px var(--base-font);
         padding: 0 10px;
     }
 
@@ -110,6 +110,6 @@
 @media screen and (max-width: 1000px) {
     .label {
         padding: 0 10px;
-        font: 700 11px/22px $bf;
+        font: 700 11px/22px var(--base-font);
     }
 }

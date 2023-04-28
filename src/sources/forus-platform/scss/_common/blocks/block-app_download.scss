@@ -45,7 +45,7 @@
     }
 
     .app_download-heading {
-        font: 500 18px/26px $bf;
+        font: 500 18px/26px var(--base-font);
         margin: 0 0 10px;
         display: block;
 
@@ -55,7 +55,7 @@
     }
 
     .app_download-text {
-        font: 400 16px/22px $bf;
+        font: 400 16px/22px var(--base-font);
         margin: 0 0 10px;
         color: #222530;
 
@@ -64,7 +64,7 @@
         }
 
         &.app_download-text-xs {
-            font: 500 13px/20px $bf;
+            font: 500 13px/20px var(--base-font);
         }
     }
 

@@ -1,7 +1,7 @@
 .tag {
     border-radius: 20px;
     color: #fff;
-    font: 600 12px/25px $bf;
+    font: 600 12px/25px var(--base-font);
     padding: 0 10px;
     display: inline-flex;
     margin-bottom: 10px;
@@ -29,11 +29,11 @@
     }
 
     &.tag-primary {
-        background: $color_primary;
+        background: var(--color-primary);
     }
 
     &.tag-primary-light {
-        background: $color_primary_light;
+        background: var(--color-primary-light);
     }
 
     &.tag-success {

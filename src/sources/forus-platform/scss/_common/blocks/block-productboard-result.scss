@@ -9,12 +9,12 @@
     }
 
     .productboard-result-title {
-        font: 600 18px/27px $bf;
+        font: 600 18px/27px var(--base-font);
         color: #252325;
     }
 
     .productboard-result-info {
-        font: 500 13px/18px $bf;
+        font: 500 13px/18px var(--base-font);
         color: #646F79;
     }
 }

@@ -20,10 +20,10 @@ $forus-light-pink:  rgba(255, 75, 153, 0.3);
 $forus-gradient:    linear-gradient(to top left, #3578ff 0%, #35d7ff 100%);
 
 // base font
-$bf:                'Montserrat', sans-serif;
+--base-font:                'Montserrat', sans-serif;
 
 // text color
-$tc:                #191a1c;
+--text-color:                #191a1c;
 
 // button like text
 $forus-sky-blue: #0c66ff;
@@ -34,18 +34,18 @@ $forus-demi-blue: #3561ff;
 $forus-dark-blue: rgba(12,102,255,0.1);
 
 // base color
-$bc:                #315efd;
+--base-color:                #315efd;
 
 // placeholder text color
-$ptc:               #736666;
+--placeholder-color:               #736666;
 
 //images path
 $img_path: '../img';
 
 
-$border_radius: 8px;
-$color_primary: #134478;
-$color_primary_light: #305dfb;
+--boarder-radius: 8px;
+--color-primary: #134478;
+--color-primary-light: #305dfb;
 
 // sign up
 $sign_up_accent_color: #305dfb;
