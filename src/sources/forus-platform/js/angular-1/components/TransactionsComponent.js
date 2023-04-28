@@ -75,7 +75,20 @@ const TransactionsComponent = function(
 
     $ctrl.filters = {
         show: false,
-        values: {},
+        values: {
+            q: $stateParams.q,
+            state: $stateParams.state,
+            fund_id: $stateParams.fund_id,
+            fund_state: $stateParams.fund_state,
+            from: $stateParams.from,
+            to: $stateParams.to,
+            amount_min: $stateParams.amount_min,
+            amount_max: $stateParams.amount_max,
+            page: $stateParams.page,
+            per_page: 20,
+            order_by: $stateParams.order_by,
+            order_dir: $stateParams.order_dir,
+        },
         valuesDefault: {
             q: '',
             state: $ctrl.states[0].key,
@@ -89,11 +102,26 @@ const TransactionsComponent = function(
             order_by: 'created_at',
             order_dir: 'desc',
         },
-        reset: () => $ctrl.filters.values = { ...$ctrl.filters.valuesDefault }
+        reset: () => { 
+            $ctrl.filters.values = { ...$ctrl.filters.valuesDefault };
+            $ctrl.updateState($ctrl.filters.valuesDefault, true);
+        }
     };
 
     $ctrl.bulkFilters = {
-        values: {},
+        values: {
+            from: $stateParams.from,
+            to: $stateParams.to,
+            amount_min: $stateParams.amount_min,
+            amount_max: $stateParams.amount_max,
+            quantity_min: $stateParams.quantity_min,
+            quantity_max: $stateParams.quantity_max,
+            state: $stateParams.state,
+            per_page: 20,
+            page: $stateParams.page,
+            order_by: $stateParams.order_by,
+            order_dir: $stateParams.order_dir,
+        },
         valuesDefault: {
             from: null,
             to: null,
@@ -106,7 +134,10 @@ const TransactionsComponent = function(
             order_by: 'created_at',
             order_dir: 'desc',
         },
-        reset: () => $ctrl.bulkFilters.values = { ...$ctrl.bulkFilters.valuesDefault }
+        reset: () => { 
+            $ctrl.bulkFilters.values = { ...$ctrl.bulkFilters.valuesDefault };
+            $ctrl.updateState($ctrl.bulkFilters.valuesDefault, true);
+        }
     };
 
     $ctrl.resetFilters = () => {
@@ -216,43 +247,75 @@ const TransactionsComponent = function(
         });
     };
 
+    let mapTransactionBulks = (bulkTransactions) => {
+        const data = bulkTransactions.data.map((transactionBulk) => {
+            const ui_sref = {
+                organization_id: $ctrl.organization.id,
+                id: transactionBulk.id
+            };
+
+            return { ...transactionBulk, ui_sref };
+        });
+
+        $ctrl.transactionBulks = { ...bulkTransactions, data };
+    };
+
     $ctrl.onBulkPageChange = (query) => {
         $ctrl.fetchBulks(query).then(((res) => {
-            const data = res.data.data.map((transactionBulk) => {
-                const ui_sref = {
-                    organization_id: $ctrl.organization.id,
-                    id: transactionBulk.id
-                };
+            mapTransactionBulks(res.data);
 
-                return { ...transactionBulk, ui_sref };
-            });
-
-            $ctrl.transactionBulks = { ...res.data, data };
+            $ctrl.updateState(query, true);
         }));
     };
 
-    $ctrl.onPageChange = (query) => {
-        $ctrl.fetchTransactions(query).then((res => {
-            const data = res.data.data.map((transaction) => {
-                const ui_sref = ({
-                    address: transaction.address,
-                    organization_id: $ctrl.organization.id,
-                });
+    $ctrl.updateState = (query, location = 'replace') => {
+        $state.go('transactions', {
+            type: $ctrl.viewType.key,
+            q: query.q || '',
+            page: query.page,
+            state: query.state,
+            fund_id: query.fund_id,
+            fund_state: query.fund_state,
+            from: query.from,
+            to: query.to,
+            amount_min: query.amount_min,
+            amount_max: query.amount_max,
+            quantity_min: query.quantity_min,
+            quantity_max: query.quantity_max,
+            organization_id: $ctrl.organization.id,
+            order_by: query.order_by,
+            order_by_dir: query.order_by_dir,
+        }, { location });
+    };
 
-                const ui_sref_bulk = {
-                    organization_id: $ctrl.organization.id,
-                    id: transaction.voucher_transaction_bulk_id
-                };
-
-                return { ...transaction, ui_sref, ui_sref_bulk };
+    const mapTransactions = (transactions) => {
+        const data = transactions.data.map((transaction) => {
+            const ui_sref = ({
+                address: transaction.address,
+                organization_id: $ctrl.organization.id,
             });
 
-            $ctrl.transactions = { ...res.data, data };
-            $ctrl.transactionsTotal = res.data.meta.total_amount;
+            const ui_sref_bulk = {
+                organization_id: $ctrl.organization.id,
+                id: transaction.voucher_transaction_bulk_id
+            };
 
-            if ($ctrl.isSponsor && $ctrl.organization.has_bank_connection) {
-                $ctrl.updateHasPendingBulking();
-            }
+            return { ...transaction, ui_sref, ui_sref_bulk };
+        });
+
+        $ctrl.transactions = { ...transactions, data };
+        $ctrl.transactionsTotal = transactions.meta.total_amount;
+
+        if ($ctrl.isSponsor && $ctrl.organization.has_bank_connection) {
+            $ctrl.updateHasPendingBulking();
+        }
+    }; 
+
+    $ctrl.onPageChange = (query) => {
+        $ctrl.fetchTransactions(query).then((res => {
+            mapTransactions(res.data);
+
+            $ctrl.updateState(query, true);
         }));
     };
 
@@ -297,12 +360,10 @@ const TransactionsComponent = function(
             name: 'Selecteer fond'
         });
 
-        $ctrl.filters.reset();
-        $ctrl.onPageChange($ctrl.filters.values);
+        mapTransactions($ctrl.transactions);
 
         if ($ctrl.isSponsor) {
-            $ctrl.bulkFilters.reset();
-            $ctrl.onBulkPageChange($ctrl.bulkFilters.values);
+            mapTransactionBulks($ctrl.transactionBulks);
 
             if ($ctrl.organization.has_bank_connection) {
                 $ctrl.updateHasPendingBulking();
@@ -315,6 +376,8 @@ module.exports = {
     bindings: {
         organization: '<',
         funds: '<',
+        transactions: '<',
+        transactionBulks: '<',
     },
     controller: [
         '$q',
