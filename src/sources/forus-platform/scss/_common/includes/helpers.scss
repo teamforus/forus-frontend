@@ -68,7 +68,7 @@
     }
 }
 
-@mixin webkit_scrollbar($color: $color_primary_light) {
+@mixin webkit_scrollbar($color: --color-primary-light) {
     &::-webkit-scrollbar {
         width: 8px;
         height: 8px;

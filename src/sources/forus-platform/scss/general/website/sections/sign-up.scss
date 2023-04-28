@@ -15,7 +15,7 @@
         margin-bottom: 10px;
 
         em {
-            font: 500 25px/30px $bf;
+            font: 500 25px/30px var(--base-font);
     
             &.icon-start {
                 margin-right: 2px;
@@ -32,7 +32,7 @@
         border-bottom: none;
 
         .block-sign-up-title {
-            font: 500 20px/30px $bf;
+            font: 500 20px/30px var(--base-font);
             text-align: center;
         }
     }
@@ -80,7 +80,7 @@
                 }
     
                 .block-sign-up-option-description {
-                    font: 500 17px/25px $bf;
+                    font: 500 17px/25px var(--base-font);
                 }
     
                 &:hover {
@@ -114,7 +114,7 @@
         border-top: none;
 
         .block-sign-up-footer-title {
-            font: 500 20px/21px $bf;
+            font: 500 20px/21px var(--base-font);
             text-align: center;
         }
 
@@ -129,7 +129,7 @@
             background: #fff;
             border: 1px solid #0c66ff;
             border-radius: 8px;
-            font: 600 17px/21px $bf;
+            font: 600 17px/21px var(--base-font);
             transition: color 0.3s, border-color .3s, background 0.3s, box-shadow 0.3s;
 
             &:hover {
@@ -150,7 +150,7 @@
         padding: 20px 0;
 
         .block-sign-up-header {
-            font: 500 17px/21px $bf;
+            font: 500 17px/21px var(--base-font);
             border: none;   
         }
 
@@ -177,7 +177,7 @@
                     }
 
                     .block-sign-up-option-description {
-                        font: 500 14px/18px $bf;
+                        font: 500 14px/18px var(--base-font);
                         margin: 0 -5px;
                     }
                 }
@@ -188,7 +188,7 @@
             border: none;
 
             .block-sign-up-footer-title {
-                font: 500 17px/21px $bf;
+                font: 500 17px/21px var(--base-font);
             }
 
             .block-sign-up-footer-button {

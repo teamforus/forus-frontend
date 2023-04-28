@@ -2,14 +2,14 @@
     cursor: default;
 
     .modal-title {
-        font: 500 21px/29px $bf;
+        font: 500 21px/29px var(--base-font);
         text-align: center;
         color: #191A1C;
         margin-bottom: 10px;
     }
 
     .modal-description {
-        font: 400 15px/22px $bf;
+        font: 400 15px/22px var(--base-font);
         text-align: center;
         color: #454545;
         margin: 0 0 18px;
@@ -101,7 +101,7 @@
                 .photo-crop-info {
                     text-align: center;
                     color: #5e636b;
-                    font: 400 13px/20px $bf;
+                    font: 400 13px/20px var(--base-font);
                     margin: 0 0 5px;
                 }
 
@@ -110,7 +110,7 @@
                         .checkbox-label {
                             text-align: center;
                             color: #5e636b;
-                            font: 400 13px/20px $bf;
+                            font: 400 13px/20px var(--base-font);
 
                             a {
                                 text-decoration: underline;
@@ -149,12 +149,12 @@
         cursor: default;
 
         .modal-title {
-            font: 500 20px/26px $bf;
+            font: 500 20px/26px var(--base-font);
             margin-bottom: 10px;
         }
 
         .modal-description {
-            font: 400 13px/18px $bf;
+            font: 400 13px/18px var(--base-font);
             margin: 0 0 15px;
         }
 
@@ -168,7 +168,7 @@
                     .form {
                         .checkbox {
                             .checkbox-label {
-                                font: 400 13px/18px $bf;
+                                font: 400 13px/18px var(--base-font);
                             }
                         }
                     }

@@ -134,13 +134,13 @@ html {
                                     padding: 5px 10px 5px 0;
     
                                     .auth-user-name {
-                                        font: 500 14px/20px $bf;
+                                        font: 500 14px/20px var(--base-font);
                                         color: #151b26;
                                         text-align: right;
                                     }
                     
                                     .auth-user-role {
-                                        font: 400 12px/20px $bf;
+                                        font: 400 12px/20px var(--base-font);
                                         color: #151b26;
                                         text-align: right;
     
@@ -197,7 +197,7 @@ html {
                                         display: block;
                                         cursor: pointer;
                                         padding: 5px 15px;
-                                        font: 500 13px/30px $bf;
+                                        font: 500 13px/30px var(--base-font);
                                         color: #282b39;
                                         transition: 0.4s;
     
