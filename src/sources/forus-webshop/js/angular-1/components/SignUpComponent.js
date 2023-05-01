@@ -38,6 +38,16 @@ const SignUpStartComponent = function (
             email: '',
             target: target,
         }, async (form) => {
+            if (
+                !form.values.privacy &&
+                $rootScope.appConfigs.flags.privacyPage &&
+                !$ctrl.appConfigs.flags.startPage.combineColumns
+            ) {
+                // prevent submit if policy exist and not checked
+                form.unlock();
+                return;
+            }
+
             const handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
