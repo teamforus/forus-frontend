@@ -77,11 +77,11 @@ img {
 }
 
 .text-primary {
-    color: $color_primary !important;
+    color: var(--color-primary) !important;
 }
 
 .text-primary-light {
-    color: $color_primary_light !important;
+    color: var(--color-primary-light) !important;
 }
 
 .text-danger {

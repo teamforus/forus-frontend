@@ -21,7 +21,7 @@
         &.block-breadcrumbs {
             .breadcrumb-item {
                 &.active {
-                    color: $tc;
+                    color: var(--tc);
                 }
             }
         }

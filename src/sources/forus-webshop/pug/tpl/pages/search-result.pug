@@ -101,7 +101,7 @@ block content
                             hide-link="true"
                             ng-if="$ctrl.searchItems.data.length == 0")
 
-                        .card(ng-if="$ctrl.searchItems"): .card-section(ng-show="$ctrl.searchItems.meta.last_page > 1")
+                        .card(ng-if="$ctrl.searchItems" ng-show="$ctrl.searchItems.meta.last_page > 1"): .card-section
                             paginator(
                                 ng-show="$ctrl.searchItems.meta.total > 0"
                                 ng-if="$ctrl.searchItems.meta"

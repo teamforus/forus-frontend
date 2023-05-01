@@ -1,6 +1,6 @@
 .button {
     border-radius: 0;
-    font: 700 16px/1.5em $bf;
+    font: 700 16px/1.5em var(--base-font);
 
     &:hover {
         box-shadow: none;
@@ -30,24 +30,24 @@
     }
 
     &.button-primary {
-        color: $tc-var;
-        background: $color-default;
+        color: var(--tc-var);
+        background: var(--color-default);
         text-shadow: none;
         border: 1px solid transparent;
         box-shadow: none;
 
         &:hover {
-            color: $color-default;
+            color: var(--color-default);
             text-decoration: underline;
-            background-color: $bg;
+            background-color: var(--bg);
             box-shadow: none;
-            border: 1px solid $color-default;
+            border: 1px solid var(--color-default);
         }
     }
 
     &.button-disabled {
-        color: $ptc;
-        border: 1px solid $ptc;
+        color: var(--placeholder_text_color);
+        border: 1px solid var(--placeholder_text_color);
     }
 
     &.button-wide {
@@ -63,7 +63,7 @@
 
         .icon-me {
             mask: url("../img/icon-me.svg");
-            background: $color_default;
+            background: var(--color-default);
             transition: background-color 0.5s ease;
             display: inline-block;
             mask-size: cover;

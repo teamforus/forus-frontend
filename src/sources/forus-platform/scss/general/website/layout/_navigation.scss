@@ -246,7 +246,7 @@ html {
                                 transform: rotate(0);
                                 cursor: pointer !important;
                                 &:hover, &:active, &:focus, &.active{
-                                    color: $forus-sky-blue;
+                                    color: var(--forus-sky-blue);
                                 }
                                 &[aria-expanded="true"]{
                                     svg{
@@ -277,7 +277,7 @@ html {
                                 transition: opacity 0.1s linear;
                                 &:hover {
                                     transition: all 0.3s linear;
-                                    background-color: $forus-sky-blue;
+                                    background-color: var(--forus-sky-blue);
                                     &a {
                                         color: #fff;
                                         transition: all 0.3s linear;

@@ -1,6 +1,6 @@
 &.block-steps {
     .block-steps-description {
-        font: 400 16px/28px $bf;
+        font: 400 16px/28px var(--base-font);
         text-align: center;
         color: #191A1C;
         width: 820px;
@@ -10,11 +10,11 @@
     }
 
     .block-markdown {
-        font: 400 16px/28px $bf;
+        font: 400 16px/28px var(--base-font);
 
         a:not(.button) {
             text-decoration: underline;
-            color: $color_primary;
+            color: var(--color-primary);
         }
     }
 }

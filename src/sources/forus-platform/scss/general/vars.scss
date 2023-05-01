@@ -24,19 +24,14 @@
     --color-default-light: #2987fd;
 
     --box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
+
+    // sign up
+    --sign_up_accent_color: #305dfb;
+    --sign_up_accent_color_light: #bdcbff;
+    --sign_up_link_color: #e60003;
+    --sign_up_step_btns_color: #305dfb;
+    --sign_up_digid_btn_bkg: #e1e7ff;
+    --sign_up_digid_btn_text: #4b71ff;
+    --sign_up_digid_btn_border: none;
+    --sign_up_digid_btn_border_radius: 5px;
 }
-
-$bf: var(--base-font);
-$tc: --tc;
-$color_primary: var(--color-primary);
-$border_radius: --border-radius;
-$borderColor: --border-color;
-
-$sign_up_accent_color: #305dfb;
-$sign_up_accent_color_light: #bdcbff;
-$sign_up_link_color: #e60003;
-$sign_up_step_btns_color: #305dfb;
-$sign_up_digid_btn_bkg: #e1e7ff;
-$sign_up_digid_btn_text: #4b71ff;
-$sign_up_digid_btn_border: none;
-$sign_up_digid_btn_border_radius: 5px;

@@ -17,13 +17,13 @@
         }
 
         .cropper-title {
-            font: 700 20px/30px $bf;
+            font: 700 20px/30px var(--base-font);
             margin: 0 0 10px;
             text-align: center;
         }
 
         .cropper-description {
-            font: 400 14px/20px $bf;
+            font: 400 14px/20px var(--base-font);
             margin: 0 0 20px;
             text-align: center;
             padding: 0 10px;
@@ -57,7 +57,7 @@
                         flex-direction: column;
                         justify-content: center;
                         color: rgba($color: #fff, $alpha: .8);
-                        font: 600 16px/28px $bf;
+                        font: 600 16px/28px var(--base-font);
                         text-align: center;
                         padding: 0 60px;
 
@@ -88,7 +88,7 @@
                         width: 100%;
                         display: block;
                         overflow: auto;
-                        border: 1px solid $border_color;
+                        border: 1px solid var(--border-color);
 
                         canvas {
                             width: 100%;
@@ -158,13 +158,15 @@
 
                         &:hover {
                             &:before {
-                                background-color: rgba($color_primary, .5);
+                                background-color: var(--color-primary);
+                                opacity: .5;
                             }
                         }
 
                         &.active {
                             &:before {
-                                background-color: $color_primary;
+                                background-color: var(--color-primary);
+                                opacity: .5;
                             }
                         }
                     }
@@ -186,8 +188,8 @@
                         display: inline-flex;
                         line-height: 26px;
                         justify-content: center;
-                        border: 1px solid $border_color;
-                        border-radius: $border_radius / 2;
+                        border: 1px solid var(--border-color);
+                        border-radius: calc(var(--border-radius) / 2);
                         margin-right: 5px;
                         color: #595959;
                         background-color: #ffffff;
@@ -203,8 +205,8 @@
                 }
 
                 .cropper-action-change {
-                    font: 700 14px/28px $bf;
-                    color: $color_primary;
+                    font: 700 14px/28px var(--base-font);
+                    color: var(--color-primary);
 
                     .mdi {
                         margin-right: 5px;

@@ -103,7 +103,7 @@ section.section.section-profile: .wrapper
                 hide-link="true")
 
             //- Pagination
-            .card(ng-if="$ctrl.reimbursements"): .card-section(ng-show="$ctrl.reimbursements.meta.last_page > 1")
+            .card(ng-if="$ctrl.reimbursements" ng-show="$ctrl.reimbursements.meta.last_page > 1"): .card-section
                 paginator(
                     meta="$ctrl.reimbursements.meta" 
                     filters="$ctrl.filters" 

@@ -13,13 +13,13 @@
                 border: 1px solid #e6ecf0;
                 &:hover:not(.active) {
                     .faq-item-header {
-                        color: $color_primary;
+                        color: var(--color-primary);
 
                         .faq-item-chevron-up {
                             color: #6dad50;
                         }
                         .faq-item-chevron-down {
-                            color: $color_primary;
+                            color: var(--color-primary);
                         }
                     }
                 }

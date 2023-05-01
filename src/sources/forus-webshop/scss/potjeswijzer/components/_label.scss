@@ -1,6 +1,6 @@
 .label {
     &.label-success {
-        background: $color_primary;
+        background: var(--color-primary);
         color: #fff;
     }
 
