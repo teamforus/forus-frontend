@@ -140,7 +140,7 @@ block content
                                 ng-repeat="provider in $ctrl.providers.data"
                                 provider="provider")
 
-                            .card(ng-if="$ctrl.providers"): .card-section(ng-show="$ctrl.providers.meta.last_page > 1"): paginator(
+                            .card(ng-if="$ctrl.providers" ng-show="$ctrl.providers.meta.last_page > 1"): .card-section: paginator(
                                 meta="$ctrl.providers.meta"
                                 filters="$ctrl.form.values"
                                 count-buttons="5"

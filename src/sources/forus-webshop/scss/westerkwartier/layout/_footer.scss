@@ -1,6 +1,6 @@
 .section {
     &.section-footer {
-        background-color: $fd;
+        background-color: var(--footer_display);
         position: relative;
 
         &:before,
@@ -50,10 +50,10 @@
 .block {
     &.block-footer {
         a {
-            color: $fc-link;
+            color: var(--footer_color_link);
 
             &:hover {
-                color: $fc-link-hover;
+                color: var(--footer_color_link_hover);
                 text-decoration: none;
             }
         }

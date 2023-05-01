@@ -2,39 +2,39 @@
     &:hover {
         box-shadow: none;
     }
-    font: 700 16px/1.5em $bf;
+    font: 700 16px/1.5em var(--base-font);
     border-radius: 0;
     &.button-default {
-        background-color: $color_primary;
+        background-color: var(--color-primary);
         border: 1px solid transparent;
-        color: $tc-var;
+        color: var(--tc-var);
 
         .mdi {
-            color: $tc-var;
+            color: var(--tc-var);
         }
 
         &:hover {
             background-color: #fff;
-            border: 1px solid $color_primary;
-            color:  $tc;
+            border: 1px solid var(--color-primary);
+            color:  var(--tc);
             text-decoration: underline;
             box-shadow: none;
             .mdi {
-                color: $tc;
+                color: var(--tc);
             }
         }
     }
     &.button-primary {
-        color: $tc-var;
-        background: $color-default;
+        color: var(--tc-var);
+        background: var(--color-default);
         text-shadow: none;
         border: 1px solid transparent;
         &:hover {
-            color: $color-default;
+            color: var(--color-default);
             text-decoration: underline;
             background-color: #fff;
             box-shadow: none;
-            border: 1px solid $color-default;
+            border: 1px solid var(--color-default);
         }
     }
 }

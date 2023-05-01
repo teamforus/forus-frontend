@@ -2,7 +2,7 @@
     &.block-fund {
         .fund-content {
             padding-bottom: 30px;
-            border-bottom: 1px solid $border_color;
+            border-bottom: 1px solid var(--border-color);
 
             .fund-card {
                 background: none;

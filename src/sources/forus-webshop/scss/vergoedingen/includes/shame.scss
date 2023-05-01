@@ -194,7 +194,7 @@
     &.block-fund {
         .fund-content {
             padding-bottom: 30px;
-            border-bottom: 1px solid $border_color;
+            border-bottom: 1px solid var(--border-color);
 
             .fund-card {
                 background: none;
@@ -348,7 +348,7 @@
             .footer-nav-item {
                 a {
                     color: #efefef;
-                    font: 500 14px/24px $bf;
+                    font: 500 14px/24px var(--base-font);
                 }
             }
         }
@@ -366,7 +366,7 @@
         .footer-subscribe {
             .button {
                 margin: 0;
-                border-radius: $border_radius;
+                border-radius: var(--border-radius);
 
                 .mdi {
                     float: none;

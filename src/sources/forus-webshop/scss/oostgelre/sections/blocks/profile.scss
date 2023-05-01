@@ -2,7 +2,7 @@
     &.section-profile {
         .section-title {
             text-align: left;
-            color: $tc;
+            color: var(--tc);
         }
     }
 }
@@ -13,20 +13,20 @@
             .profile-card {
                 .profile-details {
                     .profile-heading {
-                        color: $bc;
+                        color: var(--bc);
                     }
                 }
 
                 .profile-actions {
                     .profile-action {
-                        color: $tc;
+                        color: var(--tc);
 
                         .mdi {
-                            color: $color_primary;
+                            color: var(--color-primary);
                         }
 
                         &:hover {
-                            color: $color_primary;
+                            color: var(--color-primary);
                         }
                     }
                 }
@@ -35,35 +35,35 @@
             .profile-menu {
                 .profile-menu-item {
                     box-shadow: none;
-                    color: $tc-var;
-                    background: $color-default;
+                    color: var(--tc-var);
+                    background: var(--color-default);
                     text-shadow: none;
                     border: 1px solid transparent;
 
                     .mdi {
-                        color: $tc-var;
+                        color: var(--tc-var);
                     }
 
                     &:hover {
-                        color: $color-default;
+                        color: var(--color-default);
                         text-decoration: underline;
                         background-color: #fff;
                         box-shadow: none;
-                        border: 1px solid $color-default;
+                        border: 1px solid var(--color-default);
 
                         .mdi {
-                            color: $color-default;
+                            color: var(--color-default);
                         }
                     }
 
                     &.active {
                         background-color: #fff;
-                        color: $color-default;
+                        color: var(--color-default);
                         box-shadow: none;
-                        border: 1px solid $color-default;
+                        border: 1px solid var(--color-default);
 
                         .mdi {
-                            color: $color-default;
+                            color: var(--color-default);
                         }
                     }
                 }

@@ -7,8 +7,8 @@
 
         .fund-information {
             .fund-title {
-                color: $tc;
-                font: 500 45px/56px $bf;
+                color: var(--tc);
+                font: 500 45px/56px var(--base-font);
             }
 
             .fund-label {
@@ -19,7 +19,7 @@
                     background-color: #00B695;
                     border-radius: 40px;
                     padding: 8px 12px;
-                    font: 700 14px/18px $bf;
+                    font: 700 14px/18px var(--base-font);
                 }
             }
 
@@ -28,7 +28,7 @@
                     color: #292F2E;
 
                     p {
-                        font: 300 16px/28px $bf;
+                        font: 300 16px/28px var(--base-font);
                     }
                 }
             }

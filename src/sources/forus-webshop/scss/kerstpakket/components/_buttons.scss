@@ -1,21 +1,21 @@
 .button {
     &.button-default {
-        color: $color_default;
-        border: 1px solid $color_default;
+        color: var(--color-default);
+        border: 1px solid var(--color-default);
 
         .mdi {
-            color: $color_default;
+            color: var(--color-default);
         }
 
         &:hover {
             background-color: #fff;
-            border: 1px solid $color_primary;
-            color:  $color_default;
+            border: 1px solid var(--color-primary);
+            color:  var(--color-default);
             text-decoration: underline;
             box-shadow: none;
 
             .mdi {
-                color: $color_default;
+                color: var(--color-default);
             }
         }
     }
@@ -23,7 +23,7 @@
     &.button-primary {
         &:hover {
             background-color: #fff;
-            color: $color_default;
+            color: var(--color-default);
         }
     }
 }

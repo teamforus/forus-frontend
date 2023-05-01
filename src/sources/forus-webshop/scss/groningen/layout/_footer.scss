@@ -4,22 +4,22 @@
         p {
             width: 65%;
             text-align: left;
-            font: 400 16px/1.5em $bf;
+            font: 400 16px/1.5em var(--base-font);
         }
 
         a {
-            font: 400 16px/1.5em $bf;
-            color: $fc;
+            font: 400 16px/1.5em var(--base-font);
+            color: var(--footer_color);
             text-decoration: underline;
 
             &:hover {
                 text-decoration: none;
-                color: $fc;
+                color: var(--footer_color);
             }
         }
               
         .footer-label {
-            color: $tc-var;
+            color: var(--tc-var);
             margin-bottom: 15px;
             
             img {
@@ -30,33 +30,33 @@
         .footer-schedule {
 
             a {
-                font: 400 16px/1.5em $bf;
-                color: $tc-var;
+                font: 400 16px/1.5em var(--base-font);
+                color: var(--tc-var);
                 text-decoration: underline;
 
                 &:hover {
                     text-decoration: none;
-                    color: $tc-var;
+                    color: var(--tc-var);
                 }
             }
         
             .schedule-label,
             .schedule-value {
-                font: 400 16px/1.5em $bf;
-                color: $tc-var;
+                font: 400 16px/1.5em var(--base-font);
+                color: var(--tc-var);
             }
         }
 
         .footer-nav {
             .footer-nav-item {
                 a {
-                    font: 400 16px/1.5em $bf;
-                    color: $tc-var;
+                    font: 400 16px/1.5em var(--base-font);
+                    color: var(--tc-var);
                     text-decoration: underline;
 
                     &:hover {
                         text-decoration: none;
-                        color: $tc-var;
+                        color: var(--tc-var);
                     }
                 }
             }

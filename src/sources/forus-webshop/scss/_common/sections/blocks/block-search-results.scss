@@ -8,8 +8,8 @@
     .search-item {
         position: relative;
         background: #ffffff;
-        box-shadow: $base_shadow;
-        border-radius: $border_radius;
+        box-shadow: var(--box-shadow);
+        border-radius: var(--border-radius);
         display: flex;
         flex-direction: row;
         transition: box-shadow 0.4s;
@@ -74,12 +74,12 @@
             flex: 1;
 
             .search-title {
-                font: 700 16px/26px $bf;
+                font: 700 16px/26px var(--base-font);
                 margin: 0;
             }
 
             .search-subtitle {
-                font: 400 14px/20px $bf;
+                font: 400 14px/20px var(--base-font);
                 max-width: 440px;
                 margin: 0 0 0;
             }
@@ -87,7 +87,7 @@
 
         .search-actions {
             padding: 15px;
-            border-left: 1px solid $border_color;
+            border-left: 1px solid var(--border-color);
             display: flex;
             align-items: flex-start;
             flex-wrap: wrap;
@@ -100,7 +100,7 @@
             }
 
             .search-price {
-                font: 700 17px/30px $bf;
+                font: 700 17px/30px var(--base-font);
                 position: relative;
                 width: 135px;
                 text-align: right;
@@ -212,12 +212,12 @@
         .search-item {
             min-height: 80px;
             position: relative;
-            border-radius: $border_radius / 2;
+            border-radius: calc(var(--border-radius) / 2);
 
             .search-photo {
                 width: 250px;
                 min-width: 100px;
-                border-right: 1px solid $border_color;
+                border-right: 1px solid var(--border-color);
 
                 img {
                     width: 100%;
@@ -237,12 +237,12 @@
                 flex-grow: 0;
 
                 .search-title {
-                    font: 700 13px/18px $bf;
+                    font: 700 13px/18px var(--base-font);
                     margin: 0;
                 }
 
                 .search-subtitle {
-                    font: 400 12px/18px $bf;
+                    font: 400 12px/18px var(--base-font);
                     margin: 0;
                 }
             }
@@ -261,7 +261,7 @@
                 }
 
                 .search-price {
-                    font: 700 13px/18px $bf;
+                    font: 700 13px/18px var(--base-font);
                     width: auto;
                 }
 
@@ -269,7 +269,7 @@
                     position: absolute;
                     left: 0;
                     top: 0;
-                    border-radius: $border_radius / 2 0 0 0;
+                    border-radius: calc(var(--border-radius) / 2) 0 0 0;
                 }
             }
         }

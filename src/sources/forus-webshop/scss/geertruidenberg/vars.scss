@@ -1,73 +1,80 @@
-@import '../general/vars.scss';
+@import "../general/vars.scss";
 
 /*==========  Style Sheet - Vars  ==========*/
 $fonts: "https://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700,700italic,500italic,500,400italic,300,100italic,100,300italic&subset=latin,cyrillic,latin-ext";
+$primaryColor: #666666;
+$primaryColorLight: #ee8016;
 
-// navbar
-$bg-nav:            #ECECEC;
-$tc-nav-hov:        #EE8016;
-$tc-nav:            #000000;
-$logo-padding:      30px 0px;
-$logo-height:       75px;
+:root {
+    // navbar
+    --bg-nav: #ececec;
+    --tc-nav-hov: #ee8016;
+    --tc-nav: #000000;
+    --logo-padding: 30px 0px;
+    --logo-height: 75px;
 
-// navbar (auth)
-$tc-auth-menu:      #6699CC; 
-$tc-auth-btn:       #fff; 
-$btn-auth-bg:       #6699CC; 
-$btn-auth-border:   transparent;
+    // navbar (auth)
+    --tc-auth-menu: #6699cc;
+    --tc-auth-btn: #fff;
+    --btn-auth-bg: #6699cc;
+    --btn-auth-border: transparent;
 
-// navbar (start modal primary)
-$tc-start-btn:       #fff; 
-$btn-start-bg:       #EE8016; 
-$btn-start-btn:      #EE8016;
-$btn-start-border:   transparent;
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #ee8016;
+    --btn-start-btn: #ee8016;
+    --btn-start-border: transparent;
 
-$bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
+    --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
 
-// base font
-$bf:                Roboto, Verdana, arial;
+    // base font
+    --base-font: Roboto, Verdana, arial;
 
-// text color
-$tc:                #1a1919;
-$tc-var:            #fff;
-$tc-link:           inherit;
+    // text color
+    --tc: #1a1919;
+    --tc-var: #fff;
+    --tc-link: inherit;
 
-// base color
-$bc:                #EE8016;
+    // base color
+    --bc: #ee8016;
 
-// background color
-$bg:                #fff;
+    // background color
+    --bg: #fff;
 
-$bg_2:              none;
+    --bg_2: none;
 
-// text formatting
-$tf:                inherit;
+    // text formatting
+    --text_format: inherit;
 
-// footer color
-$fbc:                #fff;
-$fc:                #282b39;
+    // footer color
+    --footer_background_color: #fff;
+    --footer_color: #282b39;
 
-// displayed or not
-$fd:                block;
+    // displayed or not
+    --footer_display: block;
 
-// product image
-$pi:                0px;
+    // product image
+    --product-image-padding: 0px;
 
-// placeholder text color
-$ptc:               #515152;
+    // placeholder text color
+    --placeholder_text_color: #515152;
 
-$border_color:      #dce0e0;
+    --border-color: #dce0e0;
 
-$border_radius:     0px;
-$base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    --border-radius: 0px;
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
-$color_primary:         #666666;
-$color_primary_light:   #EE8016;
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
 
-$color_default:         #EE8016;
-$color_default_light:   #EE8016;
+    --color-default: #ee8016;
+    --color-default-light: #ee8016;
 
-// Login button
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
-$lb:                #fff;
+    // Login button
 
+    --login-button-background: #fff;
+}

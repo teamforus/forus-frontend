@@ -8,20 +8,20 @@
             border-top-left-radius: 10px;  
             
             .product-name {
-                color:$color_default;
+                color:var(--color-default);
             }
             .product-image {
                 border-radius: 0px;
             }
             &:hover {
                 .product-name {
-                    color: $color_default_light;
+                    color: var(--color-default-light);
                 }
             }
         }
 
         .product-discount {
-            color: $color_primary;
+            color: var(--color-primary);
         }
     }
 }

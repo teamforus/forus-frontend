@@ -39,7 +39,7 @@ main(id="main-content")
                     svg-icon="reimbursements"
                     ng-if="$ctrl.notifications.data.length == 0")
 
-                .card(ng-if="$ctrl.notifications"): .card-section(ng-show="$ctrl.notifications.meta.last_page > 1"): paginator(
+                .card(ng-if="$ctrl.notifications" ng-show="$ctrl.notifications.meta.last_page > 1"): .card-section: paginator(
                     meta="$ctrl.notifications.meta" 
                     filters="$ctrl.form.values" 
                     count-buttons="5" 

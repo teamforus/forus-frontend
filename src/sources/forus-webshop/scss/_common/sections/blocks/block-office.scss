@@ -46,7 +46,7 @@
         }
 
         &>.block-map-office-card {
-            box-shadow: $base_shadow;
+            box-shadow: var(--box-shadow);
         }
     }
 
@@ -79,7 +79,7 @@
 
             .organization-title {
                 padding-left: 15px;
-                font: 700 14px/18px $bf;
+                font: 700 14px/18px var(--base-font);
                 display: flex;
                 flex-grow: 1;
 
@@ -111,7 +111,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    color: $color_primary;
+                    color: var(--color-primary);
                 }
             }
         }

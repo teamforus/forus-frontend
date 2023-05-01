@@ -23,14 +23,14 @@
             padding-left: 45px;
             background-color: #fff;
             transition: 0.4s;
-            border-radius: $border_radius;
+            border-radius: var(--border-radius);
 
             &::placeholder {
                 font-weight: 700;
             }
 
             &:focus {
-                box-shadow: $base_shadow;
+                box-shadow: var(--box-shadow);
             }
         }
     }
@@ -39,13 +39,13 @@
         display: flex;
         width: 100%;
         background: #ffffff;
-        box-shadow: $base_shadow;
+        box-shadow: var(--box-shadow);
         position: absolute;
         z-index: 10;
         top: 100%;
-        border: 1px solid $border_color;
+        border: 1px solid var(--border-color);
         border-top: none;
-        border-radius: $border_radius;
+        border-radius: var(--border-radius);
         font-size: 16px;
         max-height: 700px;
         overflow: auto;
@@ -53,9 +53,9 @@
         .search-result-sidebar {
             padding: 20px 10px;
             background: #f6f9fc;
-            border-right: 1px solid $border_color;
+            border-right: 1px solid var(--border-color);
             border-radius: 0;
-            border-bottom-left-radius: $border_radius;
+            border-bottom-left-radius: var(--border-radius);
 
             .search-result-sidebar-item {
                 display: flex;
@@ -63,24 +63,24 @@
                 padding: 14px 15px;
                 margin-left: 0;
                 align-items: center;
-                border-radius: $border_radius / 2;
-                font: 700 16px/24px $bf;
+                border-radius: calc(var(--border-radius) / 2);
+                font: 700 16px/24px var(--base-font);
                 margin-bottom: 5px;
                 transition: color 0.4s, background-color 0.4s;
 
                 .search-result-sidebar-item-icon {
                     padding-right: 10px;
 
+                    .svg_fill_dark {
+                        fill: var(--color-search-icon-dark) !important;
+                    }
+
                     .svg_fill_light {
-                        fill: lighten($color_primary, 20%);
+                        fill: var(--color-search-icon-light) !important;
                     }
 
                     .svg_fill_medium {
-                        fill: $color_primary !important;
-                    }
-
-                    .svg_fill_dark {
-                        fill: darken($color_primary, 10%) !important;
+                        fill: var(--color-search-icon-medium) !important;
                     }
                 }
 
@@ -116,26 +116,26 @@
             .search-result-group-header {
                 display: flex;
                 align-items: center;
-                font: 700 18px/25px $bf;
+                font: 700 18px/25px var(--base-font);
                 margin: 0 20px 0;
                 padding: 10px 0;
                 position: relative;
-                border-bottom: 1px solid $border_color;
+                border-bottom: 1px solid var(--border-color);
                 @include cf();
 
                 .search-result-group-icon {
                     padding-right: 10px;
 
+                    .svg_fill_dark {
+                        fill: var(--color-search-icon-dark) !important;
+                    }
+
                     .svg_fill_light {
-                        fill: lighten($color_primary, 25%);
+                        fill: var(--color-search-icon-light) !important;
                     }
 
                     .svg_fill_medium {
-                        fill: $color_primary !important;
-                    }
-
-                    .svg_fill_dark {
-                        fill: darken($color_primary, 10%) !important;
+                        fill: var(--color-search-icon-medium) !important;
                     }
                 }
 
@@ -145,9 +145,9 @@
 
                 .search-result-group-link {
                     display: flex;
-                    font: 600 14px/20px $bf;
+                    font: 600 14px/20px var(--base-font);
                     float: right;
-                    color: $color_primary;
+                    color: var(--color-primary);
                 }
             }
 
@@ -155,15 +155,23 @@
                 margin-top: 5px;
 
                 .search-result-item {
-                    font: 400 15px/24px $bf;
+                    font: 400 15px/24px var(--base-font);
                     padding: 8px 20px;
                     color: #666666;
                     @include ellipsis();
 
                     strong {
                         font-weight: 700;
-                        color: $color_primary;
-                        background: rgba($color_primary, 0.1);
+                        color: var(--color-search-icon-medium);
+                        display: inline-flex;
+                        position: relative;
+                        
+                        &::before {
+                            content: '';
+                            @include fill_parent();
+                            background: var(--color-primary);
+                            opacity: .1;
+                        }
                     }
 
                     &:before {
@@ -192,7 +200,7 @@
         }
 
         .search-result-actions {
-            border-top: 1px solid $border_color;
+            border-top: 1px solid var(--border-color);
             margin-top: 30px;
             padding: 20px 20px 20px;
         }
@@ -211,12 +219,12 @@
             margin: 0 auto 15px;
 
             .svg_color_primary {
-                fill: $color_primary;
+                fill: var(--color-primary);
             }
         }
 
         .search-noresult-description {
-            font: 600 18px/25px $bf;
+            font: 600 18px/25px var(--base-font);
             margin: 0 0 10px;
             color: #353535;
             max-width: 400px;
@@ -230,7 +238,7 @@
 
         .search-noresult-item {
             display: flex;
-            font: 500 15px/24px $bf;
+            font: 500 15px/24px var(--base-font);
             margin: 0 0 10px;
             color: #2b2bff;
 
@@ -274,7 +282,7 @@
         .search-result-actions {
             .button {
                 padding: 10px 15px;
-                font: 700 14px/20px $bf;
+                font: 700 14px/20px var(--base-font);
                 width: 100%;
                 justify-content: center;
             }

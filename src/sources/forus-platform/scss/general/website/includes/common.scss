@@ -37,7 +37,7 @@
 
 .upper {
 	h2 {
-		color: $forus-blue;
+		color: var(--forus-blue);
 		font-weight: 600;
 	}
     svg {
@@ -75,7 +75,7 @@
 	}
 	p:nth-of-type(2) {
 			a {
-			color: $forus-blue;
+			color: var(--forus-blue);
 			font-weight: 600;
 			&:hover {
 				text-decoration: underline;
@@ -151,9 +151,9 @@ input[type="checkbox"]:checked {
 .text-muted-dim { color: #626F79; }
 
 .hidden { display: none; }
-.gradient {background: $forus-gradient; color: $forus-white;}
-.blue {color: $forus-demi-blue;}
-.bg_gr {background: $forus-grey; color: $forus-black}
+.gradient {background: var(--forus-gradient); color: var(--forus-white);}
+.blue {color: var(--forus-demi-blue);}
+.bg_gr {background: var(--forus-grey); color: var(--forus-black)}
 
 .cf { @include cf(); }
 

@@ -4,10 +4,10 @@
         background: none;
 
         .section-title {
-            font: 600 24px/36px $hf;
+            font: 600 24px/36px var(--hf);
             margin: 0 0 30px;
             text-align:center;
-            color: $tc;
+            color: var(--tc);
         }
 
         .steps {
@@ -18,7 +18,7 @@
                 width: 100%;
                 margin: 0 0 20px;
                 h4 {
-                    font: 700 18px $bf;
+                    font: 700 18px var(--base-font);
                     color: #00122a;
                     margin: 0 0 10px;
                 }
@@ -106,7 +106,7 @@
 
             .section-title {
                 text-align: center;
-                font: 600 40px/60px $hf;
+                font: 600 40px/60px var(--hf);
                 margin: 0 0 70px;
             }
 
@@ -127,7 +127,7 @@
                     cursor: default;
 
                     p {
-                        font: 400 16px/22px $bf;
+                        font: 400 16px/22px var(--base-font);
                         color: #646f79;
                     }
                     u {

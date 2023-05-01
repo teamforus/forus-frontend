@@ -2,7 +2,7 @@
     &.block-records {
         .record-item {
             border-radius: 2px;
-            box-shadow: $base_shadow;
+            box-shadow: var(--box-shadow);
 
             .record-details {
                 .record-type {

@@ -3,9 +3,9 @@
 
     .product-card {
         background-color: #fff;
-        border-radius: $border_radius;
+        border-radius: var(--border-radius);
         margin-bottom: 30px;
-        box-shadow: $base_shadow;
+        box-shadow: var(--box-shadow);
         cursor: default;
         @include cf();
         position: relative;
@@ -31,13 +31,13 @@
             width: 100%;
             position: relative;
             background: #fff;
-            border-radius: $border_radius;
+            border-radius: var(--border-radius);
             border-top-right-radius: inherit;
             border-bottom-right-radius: inherit;
 
             .product-name {
-                color: $tc;
-                font: 700 22px/28px $hf;
+                color: var(--tc);
+                font: 700 22px/28px var(--hf);
                 padding-right: 30px;
                 margin: 0 0 5px;
                 word-wrap: break-word;
@@ -52,7 +52,7 @@
 
             .organization-name {
                 color: #646f79;
-                font: 700 14px/24px $bf;
+                font: 700 14px/24px var(--base-font);
                 margin: 0px 0px 20px;
             }
 
@@ -69,14 +69,14 @@
 
                     .product-property-label {
                         display: flex;
-                        font: 600 12px/16px $bf;
+                        font: 600 12px/16px var(--base-font);
                         color: #646f79;
                         margin-bottom: 10px;
                     }
 
                     .product-property-value {
                         color: #282b39;
-                        font: 600 16px/18px $bf;
+                        font: 600 16px/18px var(--base-font);
 
                         p:last-child {
                             margin-bottom: 0;
@@ -113,11 +113,11 @@
         .fund-item {
             display: flex;
             flex-direction: row;
-            border-bottom: 1px solid $border_color;
-            border-radius: $border_radius;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
 
             .fund-item-section {
-                border-right: 1px solid $border_color;
+                border-right: 1px solid var(--border-color);
                 padding: 15px 25px;
                 min-width: 175px;
                 display: flex;
@@ -125,7 +125,7 @@
 
                 .fund-item-section-label {
                     display: flex;
-                    font: 700 12px/20px $bf;
+                    font: 700 12px/20px var(--base-font);
                     color: #646F79;
                     justify-content: flex-end;
                 }
@@ -136,11 +136,11 @@
 
                 .fund-item-section-value {
                     display: flex;
-                    font: 700 22px/30px $bf;
+                    font: 700 22px/30px var(--base-font);
                     justify-content: flex-end;
 
                     &.fund-item-section-value-sm {
-                        font: 700 16px/30px $bf;
+                        font: 700 16px/30px var(--base-font);
                     }
                 }
 
@@ -149,7 +149,7 @@
                     display: flex;
                     flex-direction: row;
                     flex-grow: 1;
-                    border-right: 1px solid $border_color;
+                    border-right: 1px solid var(--border-color);
                     border-right: 0;
 
                     .fund-item-media {
@@ -159,7 +159,7 @@
                         .fund-item-media-img {
                             width: 100%;
                             display: block;
-                            border-radius: $border_radius;
+                            border-radius: var(--border-radius);
                         }
                     }
 
@@ -168,12 +168,12 @@
                         flex-direction: column;
 
                         .fund-item-title {
-                            font: 700 18px/25px $bf;
+                            font: 700 18px/25px var(--base-font);
                             color: #303030;
                         }
             
                         .fund-item-subtitle {
-                            font: 400 14px/25px $bf;
+                            font: 400 14px/25px var(--base-font);
                             color: #303030;
                         }
                     }
@@ -252,7 +252,7 @@
                     padding: 10px;
                     .fund-item-section-value {
                         &.fund-item-section-value-sm {
-                            font: 700 14px/32px $bf;
+                            font: 700 14px/32px var(--base-font);
                         }
                     }
                 }
@@ -268,12 +268,12 @@
                 min-width: 100%;
                 max-width: 100%;
                 background: none;
-                border-radius: $border_radius;
+                border-radius: var(--border-radius);
                 max-height: inherit;
 
                 img {
                     display: block;
-                    border-radius: $border_radius;
+                    border-radius: var(--border-radius);
                     border-top-left-radius: inherit;
                     border-top-right-radius: inherit;
                 }
@@ -281,7 +281,7 @@
 
             .product-details {
                 padding: 25px;
-                border-radius: $border_radius;
+                border-radius: var(--border-radius);
                 border-bottom-left-radius: inherit;
                 border-bottom-right-radius: inherit;
 
@@ -311,7 +311,7 @@
                     border: none;
                     display: flex;
                     flex-direction: row;
-                    border-bottom: 1px solid $border_color;
+                    border-bottom: 1px solid var(--border-color);
 
                     .button {
                         width: 100%;

@@ -1,8 +1,8 @@
 .label {
-    font: 600 11px/20px $bf;
+    font: 600 11px/20px var(--base-font);
     display: inline-block;
     padding: 0 7.5px;
-    border-radius: max(2px, $border-radius / 2);
+    border-radius: var(--border-radius);
     cursor: default;
 
     .mdi {
@@ -53,7 +53,7 @@
     }
 
     &.label-primary {
-        background: $color_primary;
+        background: var(--color-primary);
         color: #fff;
     }
 
@@ -95,6 +95,6 @@
 @media screen and (max-width: 1000px) {
     .label {
         padding: 0 10px;
-        font: 700 11px/22px $bf;
+        font: 700 11px/22px var(--base-font);
     }
 }

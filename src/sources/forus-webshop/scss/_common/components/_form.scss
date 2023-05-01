@@ -1,5 +1,7 @@
-$formFont: 500 16px/24px $bf;
-$formPadding: 14px 15px;
+:root {
+    --form-font: 500 16px/24px var(--base-font);
+    --form-padding: 14px 15px;
+}
 
 .form {
     datepicker,
@@ -18,9 +20,9 @@ $formPadding: 14px 15px;
             width: calc(100% + 2px) !important;
         }
     }
-    
+
     .form-error {
-        font: 400 13px/20px $bf;
+        font: 400 13px/20px var(--base-font);
         color: #ad0003;
         margin: 0;
     }
@@ -28,11 +30,11 @@ $formPadding: 14px 15px;
     .form-label {
         display: block;
         cursor: default;
-        font: 500 12px/20px $bf;
+        font: 500 12px/20px var(--base-font);
         margin-bottom: 4px;
-        color: $tc;
+        color: var(--tc);
         padding: 0;
-        color: $tc;
+        color: var(--tc);
 
         &.form-label-required {
             &:after {
@@ -48,14 +50,14 @@ $formPadding: 14px 15px;
         width: 100%;
         border: 1px solid transparent;
         background-color: #fbfbfb;
-        padding: $formPadding;
-        color: $tc;
-        font: $formFont;
+        padding: var(--form-padding);
+        color: var(--tc);
+        font: var(--form-font);
         line-height: 20px;
         transition: background-color 0.4s ease, border 0.4s ease;
-        border-radius: $border_radius / 2;
+        border-radius: calc(var(--border-radius) / 2);
         appearance: none;
-        border: 1px solid desaturate($color: darken($color: $border_color, $amount: 35%), $amount: 75%);
+        border: 1px solid var(--border-color-form);
 
         &[disabled] {
             background-color: #e1e1e1;
@@ -69,11 +71,11 @@ $formPadding: 14px 15px;
             outline: 5px auto -webkit-focus-ring-color !important;
             outline-offset: -2px;
             background-color: #ffffff;
-            border: 1px solid desaturate($color: darken($color: $border_color, $amount: 75%), $amount: 85%);
+            border: 1px solid var(--border-color);
         }
 
         &.form-control-fancy {
-            box-shadow: 0 10px 20px rgba(#000, 0.075);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.075);
             border: 1px solid transparent;
             transition: 0.4s;
             padding: 14px 25px;
@@ -83,7 +85,7 @@ $formPadding: 14px 15px;
 
             &:hover,
             &:focus {
-                box-shadow: 0 10px 30px rgba(#000, 0.15);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             }
         }
 
@@ -112,7 +114,7 @@ $formPadding: 14px 15px;
             line-height: 50px;
             padding: 0 15px;
             font-size: 25px;
-            color: $color_primary;
+            color: var(--color-primary);
         }
     }
 
@@ -158,7 +160,7 @@ $formPadding: 14px 15px;
         &:focus {
             outline: none;
             background-color: #ffffff;
-            border: 1px solid desaturate($color: darken($color: $border_color, $amount: 15%), $amount: 90%);
+            border: 1px solid var(--border-color);
         }
 
         &::-ms-expand {
@@ -176,7 +178,7 @@ $formPadding: 14px 15px;
 
             &:focus {
                 border: 1px solid black;
-                box-shadow: 0 3px 5px rgba(#000000, 0.3);
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             }
         }
 
@@ -185,7 +187,7 @@ $formPadding: 14px 15px;
 
             &:focus {
                 border: 1px solid black;
-                box-shadow: 0 3px 5px rgba(#000000, 0.3);
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             }
         }
 
@@ -218,16 +220,16 @@ $formPadding: 14px 15px;
             background: #fff;
             border: 1px solid #d4d9dd;
             border-top: none;
-            border-bottom-right-radius: $border_radius;
-            border-bottom-left-radius: $border_radius;
+            border-bottom-right-radius: var(--border-radius);
+            border-bottom-left-radius: var(--border-radius);
             overflow: auto;
             max-height: $optionHeight * 5;
             margin-bottom: 30px;
 
             .select-control-option {
                 padding: 5px 15px 4px;
-                font: 500 13px/30px $bf;
-                color: rgba($tc, 0.75);
+                font: 500 13px/30px var(--base-font);
+                color: rgba(var(--tc), 0.75);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
                 transition: 0.4s;
@@ -236,7 +238,7 @@ $formPadding: 14px 15px;
 
                 strong,
                 b {
-                    color: $tc;
+                    color: var(--tc);
                     font-weight: 700;
                 }
 
@@ -279,7 +281,7 @@ $formPadding: 14px 15px;
             margin-bottom: 10px;
             flex-wrap: wrap;
 
-            &>.form-label {
+            & > .form-label {
                 width: 200px;
                 padding-top: 8px;
                 padding-bottom: 8px;
@@ -289,13 +291,13 @@ $formPadding: 14px 15px;
                 float: left;
             }
 
-            &>.form-offset,
-            &>.form-control {
+            & > .form-offset,
+            & > .form-control {
                 width: calc(100% - 200px);
                 float: left;
             }
 
-            &>.form-error {
+            & > .form-error {
                 margin-left: 200px;
                 width: calc(100% - 200px);
                 float: left;
@@ -310,7 +312,7 @@ $formPadding: 14px 15px;
                 display: flex;
                 flex-direction: column;
 
-                &>.form-label {
+                & > .form-label {
                     float: none;
                     width: auto;
                     float: none;
@@ -318,13 +320,13 @@ $formPadding: 14px 15px;
                     padding: 0 0 0;
                 }
 
-                &>.form-offset,
-                &>.form-control {
+                & > .form-offset,
+                & > .form-control {
                     width: auto;
                     float: none;
                 }
 
-                &>.form-error {
+                & > .form-error {
                     margin-left: 0;
                     width: auto;
                     float: none;
@@ -335,7 +337,7 @@ $formPadding: 14px 15px;
 
     .form-hint {
         color: #222530;
-        font: 500 12px/18px $bf;
+        font: 500 12px/18px var(--base-font);
 
         &:before {
             color: #ff2100;
@@ -363,7 +365,7 @@ $formPadding: 14px 15px;
         ._720kb-datepicker-calendar {
             max-width: 340px;
             border: 1px solid #e9ecee;
-            border-radius: $border_radius;
+            border-radius: var(--border-radius);
             box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
             top: calc(100% + 5px);
             left: 0;
@@ -433,7 +435,7 @@ $formPadding: 14px 15px;
                     background: transparent;
 
                     &:before {
-                        background: $color_primary;
+                        background: var(--color-primary);
                     }
                 }
 
@@ -457,12 +459,12 @@ $formPadding: 14px 15px;
 
             &-month {
                 color: #282b39;
-                font: 500 13px/40px $bf;
+                font: 500 13px/40px var(--base-font);
 
                 a {
                     & > span {
                         color: #282b39;
-                        font: 500 13px/40px $bf;
+                        font: 500 13px/40px var(--base-font);
                     }
                 }
             }
@@ -499,7 +501,7 @@ $formPadding: 14px 15px;
         }
 
         .checkbox-label {
-            font: 400 13px/20px $bf;
+            font: 400 13px/20px var(--base-font);
             color: #45535e;
             display: inline-block;
             vertical-align: middle;
@@ -548,7 +550,7 @@ $formPadding: 14px 15px;
 
             &:after {
                 content: "";
-                background: $bc;
+                background: var(--bc);
                 position: absolute;
                 display: block;
                 left: 50%;
@@ -564,7 +566,7 @@ $formPadding: 14px 15px;
         }
 
         .radio-label {
-            font: 400 13px/20px $bf;
+            font: 400 13px/20px var(--base-font);
             color: #45535e;
             display: inline-block;
             vertical-align: middle;
@@ -610,9 +612,9 @@ $formPadding: 14px 15px;
     label.radio {
         cursor: pointer;
         margin-right: 8px;
-        color: $tc;
+        color: var(--tc);
         text-transform: inherit;
-        font: 400 12px/30px $bf;
+        font: 400 12px/30px var(--base-font);
 
         .dot {
             display: inline-block;
@@ -633,7 +635,7 @@ $formPadding: 14px 15px;
                 width: 10px;
                 height: 10px;
                 display: block;
-                background-color: $bc;
+                background-color: var(--bc);
                 border-radius: 20px;
                 opacity: 0;
                 transition: all 0.3s ease-out;
@@ -664,8 +666,7 @@ $formPadding: 14px 15px;
 
     .form-toggle {
         width: 100%;
-        $borderColor: #ddd;
-        $colorPrimary: $color_primary;
+        $colorPrimary: #ddd;
         $borderRadius: 4px;
 
         & > input[type="radio"],
@@ -682,7 +683,7 @@ $formPadding: 14px 15px;
                 margin-right: 10px;
                 border-radius: 10px;
                 width: 45px;
-                border: 1px solid $borderColor;
+                border: 1px solid #ddd;
                 height: 20px;
                 position: relative;
                 transition: all 0.4s ease-in-out;
@@ -732,7 +733,7 @@ $formPadding: 14px 15px;
             }
 
             .toggle-label {
-                font: 700 12px/20px $bf;
+                font: 700 12px/20px var(--base-font);
                 color: #262626;
 
                 span {
@@ -745,7 +746,7 @@ $formPadding: 14px 15px;
                     transition: color 0.4s;
 
                     &:hover {
-                        color: $bc;
+                        color: var(--bc);
                     }
                 }
             }
@@ -756,12 +757,12 @@ $formPadding: 14px 15px;
         & > input[type="radio"]:checked + .form-toggle-inner,
         & > input[type="checkbox"]:checked + .form-toggle-inner {
             .toggle-input {
-                background: lighten($colorPrimary, 25);
-                border-color: desaturate(lighten($colorPrimary, 25), 5);
+                background: var(--color-primary);
+                border-color: var(--color-primary);
 
                 .toggle-input-dot {
-                    background: desaturate($color: lighten($colorPrimary, 2), $amount: 10);
-                    border-color: desaturate($color: lighten($colorPrimary, 2), $amount: 10);
+                    background: var(--color-primary);
+                    border-color: var(--color-primary);
                     left: 100%;
                     transform: translate(-100%, -50%);
                     margin-right: -1px;
@@ -772,7 +773,7 @@ $formPadding: 14px 15px;
 
     &.form-compact {
         .form-label {
-            font: 700 11px/26px $bf;
+            font: 700 11px/26px var(--base-font);
             margin: 0 0 0;
         }
 
@@ -780,32 +781,32 @@ $formPadding: 14px 15px;
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
             /* height: 50px; */
             padding: 8px 15px;
-            font: 400 13px/24px $bf;
+            font: 400 13px/24px var(--base-font);
         }
 
         ::-webkit-input-placeholder {
-            color: $ptc;
-            font: 400 13px $bf;
+            color: var(--placeholder_text_color);
+            font: 400 13px var(--base-font);
         }
 
         ::-moz-placeholder {
-            color: $ptc;
-            font: 400 13px $bf;
+            color: var(--placeholder_text_color);
+            font: 400 13px var(--base-font);
         }
 
         :-moz-placeholder {
-            color: $ptc;
-            font: 400 13px $bf;
+            color: var(--placeholder_text_color);
+            font: 400 13px var(--base-font);
         }
 
         :-ms-input-placeholder {
-            color: $ptc;
-            font: 400 13px $bf;
+            color: var(--placeholder_text_color);
+            font: 400 13px var(--base-font);
         }
 
         &.form-compact-flat {
             .form-control {
-                border-color: $border_color;
+                border-color: var(--border-color);
             }
         }
     }
@@ -817,7 +818,7 @@ $formPadding: 14px 15px;
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
             /* height: 50px; */
             padding: 10px 15px;
-            font: 400 14px/24px $bf;
+            font: 400 14px/24px var(--base-font);
         }
     }
 }

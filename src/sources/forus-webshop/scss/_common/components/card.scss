@@ -1,9 +1,9 @@
 .card {
     background: #ffffff;
     border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(#000, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    font: 400 14px $bf;
+    font: 400 14px var(--base-font);
 
     .card-header,
     .card-section,
@@ -22,8 +22,8 @@
     }
 
     .card-title {
-        font: 500 16px/28px $hf;
-        color: $tc;
+        font: 500 16px/28px var(--hf);
+        color: var(--tc);
         cursor: inherit;
         margin: 0;
 
@@ -58,8 +58,8 @@
         @include cf();
 
         .card-title {
-            font: 500 16px/30px $hf;
-            color: $tc;
+            font: 500 16px/30px var(--hf);
+            color: var(--tc);
             cursor: inherit;
             margin: 0 0 10px;
 
@@ -114,7 +114,7 @@
 
             .card-section-action {
                 display: inline-block;
-                font: 500 13px/25px $bf;
+                font: 500 13px/25px var(--base-font);
                 color: #646f79;
                 margin-right: 10px;
                 vertical-align: top;
@@ -143,13 +143,13 @@
             .card-section-action-price {
                 margin-right: 10px;
                 display: inline-block;
-                font: 500 16px $bf;
+                font: 500 16px var(--base-font);
                 color: #151b26;
                 vertical-align: top;
                 text-align: right;
 
                 .old-price {
-                    font: 500 14px $bf;
+                    font: 500 14px var(--base-font);
                     color: #646f79;
                     display: block;
                     text-decoration: line-through;
@@ -187,18 +187,18 @@
     }
 
     .label-item{
-        font: 500 13px $bf;
+        font: 500 13px var(--base-font);
         color: #646f79;
         margin-bottom: 5px;
     }
 
     .card-heading {
-        font: 600 14px/22px $bf;
+        font: 600 14px/22px var(--base-font);
         color: #282b39;
         margin: 0 0 15px;
 
         &.card-heading-lg {
-            font: 600 18px/27px $bf;
+            font: 600 18px/27px var(--base-font);
         }
 
         &:last-child, 
@@ -208,7 +208,7 @@
     }
 
     .card-text {
-        font: 500 13px/18px $bf;
+        font: 500 13px/18px var(--base-font);
         color: #646f79;
         margin: 0 0 15px;
 
@@ -217,7 +217,7 @@
         }
         &.alert {
             color: #a80a2d;
-            font: 600 16px/18px $bf;
+            font: 600 16px/18px var(--base-font);
         }
     }
 
@@ -226,7 +226,7 @@
         transition: background .4s;
 
         &:hover {
-            background: lighten($color: #f3f4f5, $amount: 2);
+            background: #f3f4f5;
         }
     }
 

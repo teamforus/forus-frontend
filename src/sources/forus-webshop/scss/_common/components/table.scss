@@ -31,7 +31,7 @@ table.table {
             color: #646f79;
             padding-top: 10px;
             padding-bottom: 10px;
-            font: 700 12px/20px $bf;
+            font: 700 12px/20px var(--base-font);
 
             &:first-child {
                 padding-left: 25px;
@@ -45,7 +45,7 @@ table.table {
         td {
             background: #fff;
             color: #444a4f;
-            font: 500 16px/20px $bf;
+            font: 500 16px/20px var(--base-font);
 
             .td-menu-icon {
                 display: inline-block;
@@ -71,18 +71,18 @@ table.table {
             }
 
             .td-icon {
-                color: $color_primary;
+                color: var(--color-primary);
                 transition: .4s;
                 font-size: 20px;
 
                 &:hover {
-                    color: $color_primary_light;
+                    color: var(--color-primary-light);
                 }
             }
 
             .td-boolean {
                 color: #646f79;
-                font: 500 13px/20px $bf;
+                font: 500 13px/20px var(--base-font);
 
                 .mdi {
                     font-size: 16px;
