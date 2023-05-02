@@ -44,7 +44,9 @@ main(id="main-content")
                     a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.alreadyReceived" 
                         ui-sref="voucher({ address: $ctrl.fund.vouchers[0].address })")
-                        translate(translate="funds.buttons.already_received")
+                        translate(
+                            translate="funds.buttons.{{ $ctrl.fund.key }}.already_received"
+                            translate-default="{{'funds.buttons.already_received' | translate }}")
                         em.mdi.mdi-arrow-right.icon-right
 
             .fund-content
