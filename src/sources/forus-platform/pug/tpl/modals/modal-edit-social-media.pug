@@ -15,12 +15,12 @@
 
             .form-group
                 label.form-label.form-label-required URL
-                input(ng-model="$ctrl.form.values.url" placeholder="Link").form-control
+                input(ng-model="$ctrl.form.values.url" placeholder="URL").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.url" ng-bind="error")
 
             .form-group
                 label.form-label Titel
-                input(ng-model="$ctrl.form.values.title" placeholder="Title").form-control
+                input(ng-model="$ctrl.form.values.title" placeholder="Titel").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
 
         //- form submit
