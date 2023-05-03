@@ -6,7 +6,7 @@ footer.section.section-footer(id="footer")
             .col.col-md-4
                 .block.block-markdown(ng-if="description_contact_details_html" ng-bind-html="description_contact_details_html")
                 .footer-social-medias(ng-if="$root.appConfigs.features.social_medias.length") 
-                    .footer-social-media-title Stay with us on: 
+                    .footer-social-media-title Volg ons op: 
                     
                     .footer-social-media-icons.flex: a.footer-social-media-icon(
                         ng-repeat="social_media in $root.appConfigs.features.social_medias"

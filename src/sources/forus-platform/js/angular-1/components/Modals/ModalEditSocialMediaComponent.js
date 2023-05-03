@@ -7,7 +7,7 @@ const ModalEditSocialMediaComponent = function (
 
     const socialMediaTypes = [{
         key: null,
-        name: 'Select type',
+        name: 'Selecteer type',
     }, {
         key: 'facebook',
         name: 'Facebook',

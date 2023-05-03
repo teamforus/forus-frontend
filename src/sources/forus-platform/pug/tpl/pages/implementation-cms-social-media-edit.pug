@@ -22,10 +22,10 @@
             .card-section.card-section-primary(ng-if="$ctrl.socialMedias.data.length")
                 .card-block.card-block-table: .table-wrapper: table.table
                     tr
-                        th.th-narrow Icon
-                        th Type
+                        th.th-narrow Icoon
+                        th Soort
                         th URL
-                        th Title
+                        th Titel
                         th.th-narrow.text-right Opties
 
                     tr(ng-repeat="socialMedia in $ctrl.socialMedias.data")
@@ -37,7 +37,7 @@
                         td.td-narrow.text-right: .flex
                             a(ng-click="$ctrl.editSocialMedia(socialMedia)").button.button-sm.button-default
                                 em.mdi.mdi-pen.icon-start
-                                translate(translate="Edit")
+                                translate(translate="Bewerken")
 
                             button(ng-click="$ctrl.deleteSocialMedia(socialMedia)").button.button-danger.button-icon
                                 em.icon-start.mdi.mdi-delete
