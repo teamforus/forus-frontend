@@ -67,6 +67,9 @@ module.exports = {
         nijmegen: {
             start_request: "Aanvragen"
         },
+        IIT: {
+            already_received: "Aanvragen",
+        },
         groningen: {
             start_request: "Aanvragen"
         },
