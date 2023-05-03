@@ -1,0 +1,24 @@
+.select-control-options-group
+    .select-control-options(scroll-end="$dir.onScrolledOption()")
+        .select-control-option(
+            ng-repeat="option in $dir.options track by $index"
+            ng-click="$dir.select(option)" ng-class="{selected: $root.activeOrganization.id == option.raw.id}"
+            dusk="{{ 'headerOrganizationItem' + option.raw.id }}")
+            .select-control-logo
+                img(
+                    ng-src="{{ option.raw.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+            span(ng-repeat="str in option.nameFormat track by $index")
+                span(ng-if="$index != 1" ng-bind="str")
+                strong(ng-if="$index == 1" ng-bind="str")
+
+    .select-control-switcher-group: .select-control-switcher-settings
+        .select-control-switcher-setting(
+            ng-if="$root.activeOrganization | hasPerm:'manage_organization'"
+            ui-sref="organizations-edit({organization_id: $root.activeOrganization.id})"
+            ng-click="hideOptions()")
+            .select-control-switcher-setting-icon: include ../../../../../../resources/_platform-common/assets/img/icon-select/select-settings.svg
+            .select-control-switcher-setting-name(translate="organizations.buttons.edit")
+
+        .select-control-switcher-setting(ui-sref="organizations-create" ng-click="hideOptions()")
+            .select-control-switcher-setting-icon: include ../../../../../../resources/_platform-common/assets/img/icon-select/select-add.svg
+            .select-control-switcher-setting-name(translate="organizations.buttons.add")

@@ -23,7 +23,8 @@ const BaseController = function(
     let loadOrganizations = () => {
         return $q((resolve, reject) => {
             OrganizationService.list({
-                per_page: 300,
+                per_page: 500,
+                order_by: 'sponsor'
             }).then(res => {
                 resolve($scope.organizations = res.data.data);
             }, reject);
@@ -38,6 +39,7 @@ const BaseController = function(
         } else {
             OrganizationService.read(organizationId).then((res) => {
                 $rootScope.activeOrganization = res.data.data;
+                $rootScope.activeOrganizationId = $rootScope.activeOrganization.id;
 
                 AnnouncementService.list($rootScope.activeOrganization.id).then((res) => {
                     $rootScope.organizationAnnouncements = res.data.data;
@@ -67,44 +69,21 @@ const BaseController = function(
     $rootScope.appConfigs = appConfigs;
     $rootScope.placeholders = appConfigs.placeholders;
     $rootScope.activeOrganization = OrganizationService.active();
-    $rootScope.showOrganizationsMenu = false;
 
-    $rootScope.chooseOrganization = (organization) => {
-        $rootScope.showOrganizationsMenu = false;
-        OrganizationService.use(organization.id);
+    $rootScope.changeOrganization = () => {
+        const organization = $scope.organizations.filter(
+            item => item.id === $rootScope.activeOrganizationId
+        )[0];
 
-        localStorage.setItem(selected_organization_key, organization.id);
+        if (organization) {
+            OrganizationService.use(organization.id);
 
-        $state.go($state.current.name, {
-            organization_id: organization.id
-        });
-    };
+            localStorage.setItem(selected_organization_key, organization.id);
 
-    $rootScope.organizationEdit = (organization) => {
-        $rootScope.showOrganizationsMenu = false;
-
-        $state.go('organizations-edit', {
-            organization_id: organization.id
-        });
-    };
-
-    $rootScope.organizationCreate = () => {
-        $rootScope.showOrganizationsMenu = false;
-
-        $state.go('organizations-create');
-    };
-
-    $rootScope.openOrganizationsMenu = (e) => {
-        e.originalEvent.stopPropagation();
-        e.originalEvent.preventDefault();
-
-        $rootScope.showOrganizationsMenu = !$rootScope.showOrganizationsMenu;
-    };
-
-    $rootScope.hideOrganizationsMenu = () => {
-        $scope.$apply(() => {
-            $rootScope.showOrganizationsMenu = false;
-        });
+            $state.go($state.current.name, {
+                organization_id: organization.id
+            });
+        }
     };
 
     $rootScope.openPinCodePopup = function() {
@@ -199,6 +178,7 @@ const BaseController = function(
             loadActiveOrganization();
         } else {
             $rootScope.activeOrganization = null;
+            $rootScope.activeOrganizationId = null;
             $state.go('organziations');
         }
     });
@@ -211,6 +191,7 @@ const BaseController = function(
         AuthService.signOut(deleteToken);
         $state.go('home');
         $rootScope.activeOrganization = null;
+        $rootScope.activeOrganizationId = null;
         $rootScope.auth_user = false;
     };
 
