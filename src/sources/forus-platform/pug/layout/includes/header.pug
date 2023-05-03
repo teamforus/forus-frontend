@@ -10,41 +10,15 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
         a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
             img(ng-src="./assets/img/logo.svg").header-logo-img
 
-        .header-organization-switcher(ng-if="$root.activeOrganization" ng-class="{active:$root.showOrganizationsMenu}" dusk="headerOrganizationSwitcher")
-            .organization-preview(ng-click="$root.openOrganizationsMenu($event)")
+        .form.form-organizations(ng-if="$root.activeOrganizationId")
+            select-control(
+                prop="id"
+                ng-model="$root.activeOrganizationId"
+                template="select-control-organization"
+                ng-change="$root.changeOrganization()"
+                placeholder="{{ $root.activeOrganization.name }}"
+                options="organizations").form-control
 
-                img.organization-logo(
-                    ng-src="{{ $root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-                .organization-name(ng-bind="$root.activeOrganization.name")
-                .organization-switcher-arrow
-
-            .organization-switcher-menu(
-                ng-if="$root.showOrganizationsMenu"
-                click-outside="$root.hideOrganizationsMenu()")
-                
-                .organization-switcher-menu-group: .organization-switcher-menu-organizations
-                    .organization-switcher-menu-organization(
-                        ng-repeat="organization in organizations"
-                        ng-click="$root.chooseOrganization(organization)"
-                        ng-class="{'active' : organization.id == $root.activeOrganization.id}"
-                        dusk="{{ 'headerOrganizationItem' + organization.id }}")
-                        img.organization-logo(
-                            ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-                        .organization-name(ng-bind="organization.name")
-                    
-                .organization-switcher-separator
-
-                .organization-switcher-menu-group: .organization-switcher-settings
-                    .organization-switcher-setting(
-                        ng-if="$root.activeOrganization | hasPerm:'manage_organization'"
-                        ng-click="$root.organizationEdit($root.activeOrganization)")
-                        .em.mdi.mdi-cogs.organization-switcher-setting-icon
-                        .organization-switcher-setting-name(translate="organizations.buttons.edit")
-                    
-                    .organization-switcher-setting(ng-click="$root.organizationCreate()")
-                        .em.mdi.mdi-plus-circle.organization-switcher-setting-icon
-                        .organization-switcher-setting-name(translate="organizations.buttons.add")
-        
         .flex-grow &nbsp;
         
         header-notifications(ng-if="$root.activeOrganization.id" organization-id="{{$root.activeOrganization.id}}")
