@@ -4,7 +4,7 @@
             .button {
                 &.button-primary {
                     &:hover {
-                        background-color: $btn-start-hov;
+                        background-color: #a21522;
                     }
                 }
 
@@ -145,11 +145,11 @@
                 }
 
                 .button.button-primary-outline {
-                    background-color: $color_primary;
+                    background-color: var(--color-primary);
                     color: #fff;
 
                     &:hover {
-                        background: $color_primary_light;
+                        background: var(--color-primary-light);
                     }
                 }
             }
@@ -189,7 +189,7 @@
                 display: block;
 
                 .fund-title {
-                    color: $tc;
+                    color: var(--tc);
                 }
             }
         }
@@ -225,7 +225,7 @@
     &.block-fund {
         .fund-content {
             padding-bottom: 30px;
-            border-bottom: 1px solid $border_color;
+            border-bottom: 1px solid var(--border-color);
 
             .fund-card {
                 background: none;
@@ -285,64 +285,10 @@
         }
     }
 
-    &.block-organization-info {
-        display: block;
-        width: 100%;
-        padding: 20px 0 20px 0;
-
-        .info-block-panel {
-            width: 100%;
-            margin: 0px 0 60px 0;
-
-            .block-title {
-                font: 700 22px/35px $bf;
-            }
-
-            .block-description {
-                padding-right: 50px;
-            }
-
-            .block-list {
-                list-style: disc;
-                padding-left: 15px;
-                margin: 30px 0 30px 0;
-
-                a {
-                    text-decoration: underline;
-                    font: 600 16px/1.5em $bf;
-                    color: #03689b;
-
-                    &:hover {
-                        text-decoration: none;
-                    }
-                }
-            }
-
-            a {
-                text-decoration: underline;
-                font: 600 16px/1.5em $bf;
-                color: #03689b;
-
-                &:hover {
-                    text-decoration: none;
-                }
-            }
-        }
-    }
-
     @media screen and (min-width: 1000px) {
         &.block-products {
             max-width: 1280px;
             margin: 0 auto;
-        }
-
-        &.block-organization-info {
-            display: flex;
-            margin: 50px 0 50px 0;
-
-            .info-block-panel {
-                width: 50%;
-            }
         }
     }
 }
@@ -430,7 +376,7 @@
                 .footer-nav-item {
                     a {
                         color: #fff;
-                        font: 500 16px/24px $bf;
+                        font: 500 16px/24px var(--base-font);
                     }
                 }
             }
@@ -459,7 +405,7 @@
         .footer-subscribe {
             .button {
                 margin: 0;
-                border-radius: $border_radius;
+                border-radius: var(--border-radius);
 
                 .mdi {
                     float: none;
@@ -470,7 +416,7 @@
 
     &.block-copyrights {
         border: none;
-        background-color: $fbc;
+        background-color: var(--footer_background_color);
         color: #fff;
         font-size: 1rem;
         padding: 25px 0;
@@ -489,7 +435,7 @@
 
 // MOVE TO LAYOUT FOOTER FILE
 .block.block-footer .footer-nav .footer-nav-item a {
-    font: 400 14px/24px $bf;
+    font: 400 14px/24px var(--base-font);
     color: #ffffff;
 }
 

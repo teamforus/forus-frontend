@@ -4,12 +4,12 @@
             .faq-item {
                 .faq-item-content{
                     a{
-                        color: $bc;
+                        color: var(--bc);
                         font-size: 14px;
                         text-decoration: underline;
                     
                         &:hover{
-                            color: $bc;
+                            color: var(--bc);
                             text-decoration: none;
                         }
                     }

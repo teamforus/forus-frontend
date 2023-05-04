@@ -1,73 +1,80 @@
-@import '../general/vars.scss';
+@import "../general/vars.scss";
 
 /*==========  Style Sheet - Vars  ==========*/
+$fonts: null;
+$primaryColor: #08193e;
+$primaryColorLight: #08193e;
 
-// navbar
-$bg-nav:            #FFFFFF;
-$tc-nav-hov:        #4a60b3;
-$tc-nav:            #08193e;
-$logo-padding:      30px 0px;
-$logo-height:       40px;
+:root {
+    // navbar
+    --bg-nav: #ffffff;
+    --tc-nav-hov: #4a60b3;
+    --tc-nav: #08193e;
+    --logo-padding: 30px 0px;
+    --logo-height: 40px;
 
-// navbar (auth)
-$tc-auth-menu:      #08193e; 
-$tc-auth-btn:       #fff; 
-$btn-auth-bg:       #08193e; 
-$btn-auth-border:   #fff; 
+    // navbar (auth)
+    --tc-auth-menu: #08193e;
+    --tc-auth-btn: #fff;
+    --btn-auth-bg: #08193e;
+    --btn-auth-border: #fff;
 
-// navbar (start modal primary)
-$tc-start-btn:       #fff; 
-$btn-start-bg:       #08193e; 
-$btn-start-btn:      #08193e;
-$btn-start-border:   #fff; 
+  // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #08193e;
+    --btn-start-btn: #08193e;
+    --btn-start-border: transparent;
 
-$bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
+    --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
 
-// base font
-$bf:                Arial, Verdana;
+    // base font
+    --base-font: Arial, Verdana;
 
-// text color
-$tc:                #1a1919;
-$tc-var:            #fff;
-$tc-link:           inherit;
+    // text color
+    --tc: #1a1919;
+    --tc-var: #fff;
+    --tc-link: inherit;
 
-// base color
-$bc:                #f98653;
+    // base color
+    --bc: #f98653;
 
-// background color
-$bg:                #fff;
+    // background color
+    --bg: #fff;
 
-$bg_2:              none;
+    --bg_2: none;
 
-// text formatting
-$tf:                inherit;
+    // text formatting
+    --text_format: inherit;
 
-// footer color
-$fbc:                #08193e;
-$fc:                 #ffffff;
-$fc-link:            #ffffff;
+    // footer color
+    --footer_background_color: #08193e;
+    --footer_color: #ffffff;
+    --footer_color_link: #ffffff;
 
-// displayed or not
-$fd:                block;
+    // displayed or not
+    --footer_display: block;
 
-// product image
-$pi:                0px;
+    // product image
+    --product-image-padding: 0px;
 
-// placeholder text color
-$ptc:               #515152;
+    // placeholder text color
+    --placeholder_text_color: #515152;
 
-$border_color:      #dce0e0;
+    --border-color: #dce0e0;
 
-$border_radius:     0px;
-$base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    --border-radius: 0px;
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
-$color_primary:         #08193e;
-$color_primary_light:   #08193e;
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
 
-$color_default:         #08193e;
-$color_default_light:   #08193e;
+    --color-default: #{$primaryColor};
+    --color-default-light: #{$primaryColorLight};
 
-// Login button
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
-$lb:                #fff;
-
+    // Login button
+    --login-button-background: #fff;
+}

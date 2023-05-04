@@ -1,6 +1,6 @@
 .block {    
     &.block.block-empty {
-        box-shadow: $base_shadow;
+        box-shadow: var(--box-shadow);
         border-radius: 2px;
 
         .block-title {

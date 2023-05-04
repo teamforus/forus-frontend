@@ -25,11 +25,11 @@
         padding: 0 30px;
         text-align: center;
         color: #242424;
-        font: 700 40px/54px $bf;
+        font: 700 40px/54px var(--base-font);
     }
 
     .download-subtitle {
-        font: 700 28px/32px $bf;
+        font: 700 28px/32px var(--base-font);
         margin: 0 0 90px;
         text-align: center;
     }
@@ -59,7 +59,7 @@
     @media (max-width: 1000px) {
         .download-title {
             width: 600px;
-            font: 700 28px/36px $bf;
+            font: 700 28px/36px var(--base-font);
             margin-bottom: 20px;
         }
 

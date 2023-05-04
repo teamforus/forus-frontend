@@ -89,7 +89,7 @@ section.section.section-profile: .wrapper
                 text="{{ 'reservations.empty_block.cta' | translate }}"
                 hide-link="true")
 
-            .card(ng-if="$ctrl.reservations"): .card-section(ng-show="$ctrl.reservations.meta.last_page > 1")
+            .card(ng-if="$ctrl.reservations" ng-show="$ctrl.reservations.meta.last_page > 1"): .card-section
                 paginator(
                     meta="$ctrl.reservations.meta" 
                     filters="$ctrl.filters" 

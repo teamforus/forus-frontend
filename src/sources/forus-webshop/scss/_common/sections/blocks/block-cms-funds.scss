@@ -1,6 +1,5 @@
 &.block-cms-funds {
     width: 100%;
-    padding-top: 10px;
 
     .fund-item {
         width: 100%;
@@ -8,7 +7,7 @@
         display: flex;
         margin: 0 0 60px;
         padding: 0 0 60px;
-        border-bottom: 1px solid $border_color;
+        border-bottom: 1px solid var(--border-color);
 
         .fund-media {
             width: 52%;
@@ -35,14 +34,14 @@
             }
     
             .fund-title {
-                font: 400 24px/36px $bf;
+                font: 400 24px/36px var(--base-font);
                 margin-top: 5px;
                 color: #a80a2d;
                 margin: 0 0 20px;
             }
     
             .fund-description {
-                font: 400 18px/28px $bf;
+                font: 400 18px/28px var(--base-font);
                 margin: 0 0 20px;
             }
     
@@ -87,7 +86,7 @@
                 padding: 0;
 
                 .fund-title {
-                    font: 400 20px/26px $bf;
+                    font: 400 20px/26px var(--base-font);
                     margin: 0 0 10px;
                 }
 

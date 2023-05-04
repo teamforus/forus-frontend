@@ -4,14 +4,14 @@
     background: #ffffff;
     opacity: 1;
     transition: opacity 0.4s;
-    border: 1px solid $borderColor;
+    border: 1px solid var(--border-color);
     border-top: none;
     cursor: default;
     position: relative;
 
     .announcement-title {
         display: flex;
-        font: 700 18px/21px $bf;
+        font: 700 18px/21px var(--base-font);
         color: #191a1c;
         margin-bottom: 10px;
         padding-right: 20px;
@@ -25,7 +25,7 @@
     }
 
     .announcement-description {
-        font: 400 15px/22px $bf;
+        font: 400 15px/22px var(--base-font);
         color: #4f4f4f;
 
         .block.block-markdown {

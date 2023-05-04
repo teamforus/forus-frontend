@@ -55,7 +55,7 @@ main(id="main-content")
                             svg-icon="reimbursements"
                             hide-link='true')
 
-                        .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(
+                        .card(ng-if="$ctrl.products" ng-show="$ctrl.products.meta.last_page > 1"): .card-section: paginator(
                             meta="$ctrl.products.meta" 
                             filters="$ctrl.form.values"
                             count-buttons="5" 

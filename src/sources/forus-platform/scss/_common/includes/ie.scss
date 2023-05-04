@@ -35,18 +35,18 @@
     border-radius: 10px;
 
     .title{
-      font: 700 30px/50px $bf;
+      font: 700 30px/50px var(--base-font);
     }
 
     .description{
-      font: 400 15px/24px $bf;
+      font: 400 15px/24px var(--base-font);
     }
 
     .btn-block{
       margin-top: 35px;
 
       .button {
-        font: 700 14px/24px $bf;
+        font: 700 14px/24px var(--base-font);
         color: #646f79;
         cursor: pointer;
         border: 1px solid transparent;

@@ -8,7 +8,7 @@
                 box-shadow: none;
 
                 .product-organization {
-                    font: 700 18px/1.5em $bf;
+                    font: 700 18px/1.5em var(--base-font);
                 }
 
                 .product-image {
@@ -20,7 +20,7 @@
                 }
 
                 .product-discount {
-                    color: $color_default;
+                    color: var(--color-default);
                 }
             }
         }

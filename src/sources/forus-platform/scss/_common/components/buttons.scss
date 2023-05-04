@@ -2,9 +2,9 @@
     display: inline-flex;
     width: fit-content;
     border-radius: 3px;
-    font: 500 13px/20px $bf;
+    font: 500 13px/20px var(--base-font);
     padding: 7px 10px;
-    box-shadow: $box_shadow;
+    box-shadow: var(--box-shadow);
     border: 1px solid transparent;
     transition: color 0.3s, border-color .3s, background 0.3s, box-shadow 0.3s;
     text-align: center;
@@ -36,8 +36,8 @@
     }
 
     &.button-primary {
-        background: $color_primary;
-        border-color: $color_primary;
+        background: var(--color-primary);
+        border-color: var(--color-primary);
         color: #fff;
 
         &>.mdi {
@@ -80,8 +80,8 @@
     }
 
     &.button-primary-light {
-        background: $color_default_light;
-        border-color: $color_default_light;
+        background: var(--color-default-light);
+        border-color: var(--color-default-light);
         color: #fff;
 
         &>.mdi {
@@ -108,7 +108,7 @@
 
         &:hover {
             background: #f3f4f5;
-            color: $color_primary;
+            color: var(--color-primary);
 
             &>.mdi {
                 color: inherit;
@@ -126,7 +126,7 @@
         }
 
         &:hover {
-            background: $color_primary_light;
+            background: var(--color-primary-light);
             color: #fff;
 
             &>.mdi {
@@ -138,7 +138,7 @@
     &.button-default-dashed {
         background: transparent;
         color: #151b26;
-        border: 1px dashed $borderColor;
+        border: 1px dashed var(--boarder-color);
         box-shadow: none;
 
         &>.mdi {
@@ -147,7 +147,7 @@
 
         &:hover {
             background: #f3f4f5;
-            color: $color_primary;
+            color: var(--color-primary);
 
             &>.mdi {
                 color: inherit;
@@ -178,10 +178,10 @@
         &:focus,
         &:hover {
             background: none;
-            color: $color_primary;
+            color: var(--color-primary);
 
             .mdi {
-                color: $color_primary;
+                color: var(--color-primary);
             }
         }
 
@@ -199,7 +199,7 @@
         }
 
         &.button-text-primary {
-            color: $color_primary;
+            color: var(--color-primary);
         }
         
         &[disabled],
@@ -289,12 +289,12 @@
     }
 
     &.button-sm {
-        font: 500 12px/20px $bf;
+        font: 500 12px/20px var(--base-font);
         padding: 4px 7px;
     }
 
     &.button-xs {
-        font: 500 12px/16px $bf;
+        font: 500 12px/16px var(--base-font);
         padding: 2px 7px;
     }
 
@@ -304,7 +304,7 @@
         cursor: default !important;
         background: #fafafa !important;
         border-color: #fafafa !important;
-        box-shadow: $box_shadow !important;
+        box-shadow: var(--box-shadow) !important;
         color: #bbc1c6 !important;
         user-select: none !important;
         pointer-events: none !important;
@@ -313,7 +313,7 @@
             background: #fafafa !important;
             border-color: #fafafa !important;
             color: #bbc1c6 !important;
-            box-shadow: $box_shadow !important;
+            box-shadow: var(--box-shadow) !important;
             transform: none !important;
             top: 0 !important;
         }

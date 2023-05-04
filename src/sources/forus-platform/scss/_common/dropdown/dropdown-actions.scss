@@ -1,18 +1,16 @@
-$boxShadow: $box_shadow;
-
 &.dropdown-actions {
-    border: 1px solid $borderColor;
-    border-radius: $borderRadius;
+    border: 1px solid var(--boarder-color);
+    border-radius: var(--boarder-radius);
     background: #fff;
     width: 240px;
-    color: $tc;
-    box-shadow: $boxShadow;
+    color: var(--text-color);
+    box-shadow: var(--box-shadow);
     display: flex;
     flex-direction: column;
-    border-radius: $borderRadius;
-    border: 1px solid $borderColor;
+    border-radius: var(--boarder-radius);
+    border: 1px solid var(--boarder-color);
     background: #ffffff;
-    box-shadow: $boxShadow;
+    box-shadow: var(--box-shadow);
     padding: 5px 0;
     flex-direction: column;
 
@@ -30,7 +28,7 @@ $boxShadow: $box_shadow;
         flex: 1 1 100%;
         padding: 10px 15px;
         color: #45535e;
-        font: 600 11px $bf;
+        font: 600 11px var(--base-font);
         text-transform: uppercase;
         text-align: left;
     }
@@ -40,7 +38,7 @@ $boxShadow: $box_shadow;
         align-items: center;
         flex: 1 1 100%;
         color: #150ae9;
-        font: 500 12px $bf;
+        font: 500 12px var(--base-font);
         padding: 10px 15px;
         transition: all .3s;
         cursor: pointer;

@@ -4,7 +4,7 @@
     form(ng-submit="$dir.doSearch()" click-outside="$dir.hideDropDown()").search-form.form
         .search-area
             //- Search icon
-            .navbar-search-icon: .mdi.mdi-magnify
+            .navbar-search-icon(ng-class="{'focused': $dir.searchFocused || $dir.dropdown}"): .mdi.mdi-magnify
 
             //- Search input
             input.form-control(
@@ -13,7 +13,10 @@
                 ng-model="$dir.query"
                 ng-change="$dir.doSearch()"
                 ng-keydown="$dir.cancelSearch($event)"
-                aria-label="Zoeken")
+                aria-label="Zoeken"
+                ng-class="{'focused': $dir.searchFocused || $dir.dropdown}"
+                ng-focus="$dir.searchFocused=true"
+                ng-blur="$dir.searchFocused=false")
 
             .search-reset.show-sm
                 .mdi.mdi-close(ng-if="$dir.query" ng-click="$root.showSearchBox = false")

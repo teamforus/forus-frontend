@@ -1,83 +1,90 @@
-@import '../general/vars.scss';
+@import "../general/vars.scss";
 
 /*==========  Style Sheet - Vars  ==========*/
+$fonts: null;
+$primaryColor: #305dfb;
+$primaryColorLight: #305dfb;
 
-// navbar
-$bg-nav:            #191818;
-$tc-nav-hov:        #ECECEC;
-$tc-nav:            #B3B3B3;
-$logo-padding:      20px 0px;
-$logo-height:       50px;
-// navbar (auth)
-$tc-auth-menu:      #fff; 
-$tc-auth-btn:       #282B39; 
-$btn-auth-bg:       #fff; 
-$btn-auth-border:   #E60103;
+:root {
+    // navbar
+    --bg-nav: #191818;
+    --tc-nav-hov: #ececec;
+    --tc-nav: #b3b3b3;
+    --logo-padding: 20px 0px;
+    --logo-height: 50px;
+    // navbar (auth)
+    --tc-auth-menu: #fff;
+    --tc-auth-btn: #282b39;
+    --btn-auth-bg: #fff;
+    --btn-auth-border: #E60103;
 
-// navbar (start modal primary)
-$tc-start-btn:       #fff; 
-$btn-start-bg:       #E60103; 
-$btn-start-btn:      #E60103;
-$btn-start-border:   transparent;
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #e60103;
+    --btn-start-btn: #e60103;
+    --btn-start-border: transparent;
 
-// sign up
-$sign_up_accent_color: #191A1C;
-$sign_up_accent_color_light: #45535E;
-$sign_up_link_color: #E60004;
-$sign_up_step_btns_color: #E60004;
-$sign_up_digid_btn_bkg: #fff;
-$sign_up_digid_btn_text: #191818;
-$sign_up_digid_btn_border: 1px solid #191818;
-$sign_up_digid_btn_border_radius: 0;
+    // sign up
+    --sign_up_accent_color: #191a1c;
+    --sign_up_accent_color_light: #45535e;
+    --sign_up_link_color: #e60004;
+    --sign_up_step_btns_color: #e60004;
+    --sign_up_digid_btn_bkg: #fff;
+    --sign_up_digid_btn_text: #191818;
+    --sign_up_digid_btn_border: 1px solid #191818;
+    --sign_up_digid_btn_border_radius: 0;
 
-$bg-values:         none;
+    --bg-values: none;
 
-// base font
-$bf:                Verdana, arial;
+    // base font
+    --base-font: Verdana, arial;
 
-// text color
-$tc:                #1a1919;
-$tc-var:            #fff;
-$tc-link:           #2b2bff;
+    // text color
+    --tc: #1a1919;
+    --tc-var: #fff;
+    --tc-link: #2b2bff;
 
-// base color
-$bc:                #e60003;
+    // base color
+    --bc: #e60003;
 
-// background color
-$bg:                #fff;
+    // background color
+    --bg: #fff;
 
-$bg_2:              none;
+    --bg_2: none;
 
-// text formatting
-$tf:                inherit;
+    // text formatting
+    --text_format: inherit;
 
-// footer color
-$fbc:                #e60004;
-$fc:                #fff;
-$fc-link:           #fff;
-$fc-link-hover:     #fff;
+    // footer color
+    --footer_background_color: #e60004;
+    --footer_color: #fff;
+    --footer_color_link: #fff;
+    --footer_color_link_hover: #fff;
 
-// displayed or not
-$fd:                block;
+    // displayed or not
+    --footer_display: block;
 
-// product image
-$pi:                0px;
+    // product image
+    --product-image-padding: 0px;
 
-// placeholder text color
-$ptc:               #515152;
+    // placeholder text color
+    --placeholder_text_color: #515152;
 
-$border_color:      #dce0e0;
+    --border-color: #dce0e0;
 
-$border_radius:     0px;
-$base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    --border-radius: 0px;
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
-$color_primary:         #000;
-$color_primary_light:   #e60204;
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
 
-$color_default:         #e60204;
-$color_default_light:   #FF0031;
+    --color-default: #e60204;
 
-// Login button
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
-$lb:                #fff;
+    // Login button
 
+    --login-button-background: #fff;
+}

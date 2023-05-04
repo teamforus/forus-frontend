@@ -39,7 +39,7 @@
                 background: #f6f9fc;
                 padding-top: 6px;
                 padding-bottom: 6px;
-                font: 500 12px/18px $bf;
+                font: 500 12px/18px var(--base-font);
 
                 .th-sort {
                     display: inline-flex;
@@ -99,7 +99,7 @@
 
                         .th-sort-icon {
                             .mdi:before {
-                                color: $color_primary;
+                                color: var(--color-primary);
                             }
                         }
                     }
@@ -121,7 +121,7 @@
             td {
                 background: #fff;
                 color: #444a4f;
-                font: 500 13px/20px $bf;
+                font: 500 13px/20px var(--base-font);
 
                 .td-menu-icon {
                     display: inline-block;
@@ -131,7 +131,7 @@
                 }
 
                 .td-title {
-                    font: 700 14px/20px $bf;
+                    font: 700 14px/20px var(--base-font);
                 }
 
                 .td-text {
@@ -160,19 +160,19 @@
                 }
 
                 .td-icon {
-                    color: $color_primary;
+                    color: var(--color-primary);
                     transition: .4s;
                     font-size: 20px;
 
                     &:hover {
-                        color: $color_primary_light;
+                        color: var(--color-primary-light);
                     }
                 }
 
                 .td-icons {
                     .mdi {
                         text-align: center;
-                        color: $color_primary;
+                        color: var(--color-primary);
                         transition: .4s;
                         font-size: 16px;
                         line-height: 26px;
@@ -192,12 +192,12 @@
                 .td-media {
                     display: block;
                     width: 70px;
-                    border-radius: $border_radius;
+                    border-radius: var(--boarder-radius);
                 }
 
                 .td-boolean {
                     color: #646f79;
-                    font: 500 13px/20px $bf;
+                    font: 500 13px/20px var(--base-font);
 
                     .mdi {
                         font-size: 16px;
@@ -316,10 +316,10 @@
     .table-pagination-counter {
         float: left;
         color: #282b39;
-        font: 500 13px/36px $bf;
+        font: 500 13px/36px var(--base-font);
         
         &.table-pagination-counter-sm {
-            font: 500 13px/30px $bf;
+            font: 500 13px/30px var(--base-font);
         }
     }
 

@@ -289,7 +289,7 @@ main(id="main-content")
                 //- Fund criteria overivew
                 .sign_up-pane
                     .sign_up-pane-header Bevestig uw inkomen
-                    .sign_up-pane-body
+                    .sign_up-pane-body(ng-if="!$ctrl.submitInProgress")
                         fund-criteria-custom-overview(
                             ng-if="['IIT','bus_2020', 'meedoen'].includes($ctrl.fund.key)"
                             key="$ctrl.fund.key")
@@ -309,6 +309,12 @@ main(id="main-content")
                             ng-model="$ctrl.confirm_criteria_warning"
                             data-id="confirm_criteria_warning"
                             data-label="Ik weet dat het verstrekken van onjuiste informatie strafbaar is, dat ik een onterecht of een teveel ontvangen vergoeding terug moet betalen en dat ik een boete kan krijgen.")
+
+                    .sign_up-pane-body(ng-if="$ctrl.submitInProgress")
+                        br
+                        .sign_up-pane-loading: .mdi.mdi-loading.mdi-spin
+                        .sign_up-pane-text.text-center.text-muted Een moment geduld, het verzoek wordt verwerkt.
+                        br
 
                     +confirm_criteria_footer()
 

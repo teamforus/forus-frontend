@@ -1,7 +1,7 @@
 .block {    
     &.block-validations {
         .validation-record-details {
-            box-shadow: $base_shadow;
+            box-shadow: var(--box-shadow);
             border-radius: 2px;
 
             .record-type {
@@ -29,7 +29,7 @@
                 width: 100%;
                 text-align: center;
                 background-color: #fff;
-                border: 1px solid $border_color;
+                border: 1px solid var(--border-color);
                 color: #157c68;
 
                 &:hover,
@@ -42,7 +42,7 @@
         }
 
         .validation-card {
-            box-shadow: $base_shadow;
+            box-shadow: var(--box-shadow);
             border-radius: 2px;
         }
 

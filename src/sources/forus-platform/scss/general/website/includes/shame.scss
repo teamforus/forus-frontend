@@ -15,9 +15,9 @@
 html {
     line-height: 1.2;
     body {
-        font-family: $bf;
+        font-family: var(--base-font);
         * {
-            font-family: $bf;
+            font-family: var(--base-font);
         }
         .thanks {
             display:none;

@@ -44,7 +44,9 @@ main(id="main-content")
                     a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.alreadyReceived" 
                         ui-sref="voucher({ address: $ctrl.fund.vouchers[0].address })")
-                        translate(translate="funds.buttons.already_received")
+                        translate(
+                            translate="funds.buttons.{{ $ctrl.fund.key }}.already_received"
+                            translate-default="{{'funds.buttons.already_received' | translate }}")
                         em.mdi.mdi-arrow-right.icon-right
 
             .fund-content
@@ -60,11 +62,11 @@ main(id="main-content")
                             .fund-details-item-label(translate="fund.criterias.multiplied_amount")
                             .fund-details-item-value(ng-bind="formula.amount | currency_format")                                 
 
-                        .fund-details-item
+                        .fund-details-item(ng-hide="$ctrl.fund.key == 'IIT'")
                             .fund-details-item-label Startdatum:
                             .fund-details-item-value(ng-bind="$ctrl.fund.start_date_locale")
 
-                        .fund-details-item
+                        .fund-details-item(ng-hide="$ctrl.fund.key == 'IIT'")
                             .fund-details-item-label Einddatum:
                             .fund-details-item-value(ng-bind="$ctrl.fund.end_date_locale")
 

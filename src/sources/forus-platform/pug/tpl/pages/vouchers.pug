@@ -4,9 +4,9 @@
         //-.card-heading(ng-if="$ctrl.funds.length > 1" ng-bind="'csv_validation.header.title' | translate")
         fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
 
-        .card(ng-if="$ctrl.vouchers")
+        .card(ng-if="$ctrl.vouchers" dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
             .card-header: .flex
-                .flex.flex-grow: .card-title
+                .flex.flex-grow: .card-title(dusk="vouchersTitle")
                     span(translate="vouchers.header.title") 
                     span(ng-bind="$ctrl.vouchers.meta.total").span-count
 
@@ -21,7 +21,8 @@
                     .button.button-primary(
                         ng-click="$ctrl.uploadVouchersCsv()"
                         id="voucher_upload_csv"
-                        ng-if="!$root.appConfigs.hide_vouchers_csv && !$ctrl.fundClosed")
+                        ng-if="!$root.appConfigs.hide_vouchers_csv && !$ctrl.fundClosed"
+                        dusk="uploadVouchersBatchButton")
                         em.mdi.mdi-upload.icon-start 
                         span(translate="vouchers.buttons.upload_csv")
 
@@ -30,7 +31,11 @@
                         span(translate="vouchers.buttons.clear_filter")
 
                     .form(ng-if="!$ctrl.filters.show")
-                        .form-group: input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'vouchers.labels.search' | translate }}").form-control
+                        .form-group: input(
+                            ng-model="$ctrl.filters.values.q"
+                            type="text"
+                            placeholder="{{ 'vouchers.labels.search' | translate }}"
+                            dusk="searchVoucher").form-control
 
                     .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
                         .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
@@ -158,7 +163,8 @@
 
                             tr(
                                 ng-repeat="voucher in $ctrl.vouchers.data" 
-                                ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})")
+                                ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})"
+                                dusk="voucherItem{{ voucher.id }}")
                                 
                                 td(ng-bind="voucher.id")
                                 

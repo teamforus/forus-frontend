@@ -5,13 +5,13 @@
 
         .block-title {
             color: #151b26;
-            font: 700 40px/40px $bf;
+            font: 700 40px/40px var(--base-font);
             margin-bottom: 10px;
         }
 
         .block-description {
             color: #646f79;
-            font: 400 16px $bf;
+            font: 400 16px var(--base-font);
             margin-bottom: 25px;
         }
 
@@ -32,9 +32,9 @@
 
                 .categories-item-inner {
                     background: #fff;
-                    border-radius: $border_radius;
+                    border-radius: var(--border-radius);
                     padding: 15px;
-                    box-shadow: 0 5px 30px rgba(#000, .05);
+                    box-shadow: 0 5px 30px rgba(0, 0, 0, .05);
                     position: relative;
 
                     .categories-radio {
@@ -44,7 +44,7 @@
                         width: 24px;
                         height: 24px;
                         border-radius: 24px;
-                        border: 2px solid $color_primary;
+                        border: 2px solid var(--color-primary);
                     }
 
                     .categories-image {
@@ -57,7 +57,7 @@
                     }
 
                     .categories-name {
-                        font: 700 14px $bf;
+                        font: 700 14px var(--base-font);
                         color: #151b26;
                     }
                 }
@@ -78,8 +78,8 @@
             .record_type-item {
                 padding: 20px 25px;
                 background: #fff;
-                box-shadow: 0 5px 20px rgba(#000000, 0.1);
-                border-radius: $border_radius;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+                border-radius: var(--border-radius);
                 overflow: hidden;
                 margin-bottom: 15px;
                 position: relative;
@@ -88,7 +88,7 @@
                 cursor: pointer;
 
                 .record_type-name {
-                    font: 700 18px/30px $bf;
+                    font: 700 18px/30px var(--base-font);
                     color: #282b39;
                     transition: color .4s;
                 }
@@ -100,7 +100,7 @@
                     width: 24px;
                     height: 24px;
                     border-radius: 24px;
-                    border: 2px solid $color_primary;
+                    border: 2px solid var(--color-primary);
                     top: 50%;
                     right: 20px;
                     transform: translate(0, -50%);
@@ -122,10 +122,10 @@
 
                 &.active,
                 &:hover {
-                    box-shadow: 0 5px 20px rgba(#000000, 0.25);
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
 
                     .record_type-name {
-                        color: $color_default;
+                        color: var(--color-default);
                     }
 
                     .record_type-radio {
@@ -148,8 +148,8 @@
         .record_types-form {
             padding: 20px 25px;
             background: #fff;
-            box-shadow: 0 5px 20px rgba(#000000, 0.1);
-            border-radius: $border_radius;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
             overflow: hidden;
             margin-bottom: 25px;
             position: relative;
@@ -170,12 +170,12 @@
     @media screen and (max-width: 1000px) {
         &.block-record_create {
             .block-title {
-                font: 700 20px/30px $bf;
+                font: 700 20px/30px var(--base-font);
                 margin: 0 0 10px;
             }
 
             .block-description {
-                font: 400 14px/20px $bf;
+                font: 400 14px/20px var(--base-font);
                 margin: 0 0 20px;
             }
 
@@ -191,7 +191,7 @@
                     box-shadow: 0 2px 5px rgba($color: #000000, $alpha: .1);
 
                     .record_type-name {
-                        font: 700 15px/30px $bf;
+                        font: 700 15px/30px var(--base-font);
                     }
 
                     &:hover,

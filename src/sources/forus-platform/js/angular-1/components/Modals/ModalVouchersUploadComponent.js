@@ -67,6 +67,7 @@ const ModalVouchersUploadComponent = function(
                 }
 
                 input = document.createElement('input');
+                input.setAttribute("dusk", "inputUpload");
                 input.setAttribute("type", "file");
                 input.setAttribute("accept", ".csv");
                 input.style.display = 'none';
@@ -203,7 +204,9 @@ const ModalVouchersUploadComponent = function(
                     return row.startsWith('record.') ? [...list, index] : list;
                 }, []);
 
-                const body = rawData.slice(1).map((row) => {
+                const body = rawData.slice(1).filter((row) => {
+                    return row.filter(col => !isEmpty(col)).length > 0;
+                }).map((row) => {
                     const records = recordIndexes.reduce((list, index) => {
                         return { ...list, [header[index].slice('record.'.length)]: row[index] };
                     }, {});
