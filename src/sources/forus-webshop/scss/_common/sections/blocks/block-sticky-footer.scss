@@ -143,6 +143,25 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                 a {
                     display: block;
                 }
+
+                &.sticky-footer-dropdown {
+                    .sticky-footer-dropwdown-subitems {
+                        bottom: 62px;
+                        right: 0;
+                        left: 0;
+                        width: 100%;
+                        height: calc(100vh - 122px);
+                        border-left: none;
+                        border-right: none;
+                        box-shadow: none;
+
+                        .sticky-footer-dropwdown-subitem {
+                            &:hover {
+                                background-color: #FBFBFB;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

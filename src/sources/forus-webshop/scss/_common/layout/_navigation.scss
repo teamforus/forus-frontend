@@ -751,6 +751,10 @@
                         text-align: center;
                         float: none;
                     }
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
                 }
 
                 .mdi-cog {

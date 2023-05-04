@@ -269,7 +269,7 @@
 
         .search-area {
             display: flex;
-            border: 1px solid #848484;
+            border: 1px solid #DBDCDB;
 
             .navbar-search-icon {
                 z-index: 99;
@@ -279,6 +279,8 @@
                 &.form-control {
                     border: none;
                     background: red;
+                    background-color: #FBFBFB;
+                    box-shadow: inset 0px 1px 0px #E5E5E5, inset 0px -1px 0px #E5E5E5;
                 }
             }
 
