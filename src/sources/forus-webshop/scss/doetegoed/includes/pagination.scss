@@ -1,7 +1,7 @@
 .table-pagination {
     .table-pagination-navigation {
         .button {
-            border-radius: $border_radius / 2;
+            border-radius: calc(var(--border-radius) / 2);
 
             &.button-primary {
                 background: #00B695;

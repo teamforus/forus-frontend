@@ -22,7 +22,7 @@
         }
 
         .section-description {
-            font: 400 22px/32px $bf;
+            font: 400 22px/32px var(--base-font);
             color: #646f79;
             text-align: center;
             padding: 0 50px;
@@ -46,7 +46,7 @@
         }
 
         .section-description {
-            font: 400 22px/32px $bf;
+            font: 400 22px/32px var(--base-font);
             color: #646f79;
             text-align: center;
             padding: 0 50px;
@@ -85,13 +85,13 @@
 
                     h4 {
                         color: #00122a;
-                        font: 500 28px/38px $bf;
+                        font: 500 28px/38px var(--base-font);
                         margin: 0 0 10px;
                     }
 
                     p {
                         color: #646f79;
-                        font: 400 15px/24px $bf;
+                        font: 400 15px/24px var(--base-font);
                         margin: 0 0 10px;
                     }
                 }
@@ -181,12 +181,12 @@
 
             .section-title {
                 padding: 0;
-                font: 700 18px/32px $hf;
+                font: 700 18px/32px var(--hf);
             }
 
             .section-description {
                 padding: 0;
-                font: 400 15px/26px $bf;
+                font: 400 15px/26px var(--base-font);
                 margin: 0 0 30px;
             }
 
@@ -213,13 +213,13 @@
 
             .section-title {
                 padding: 0;
-                font: 700 20px/28px $hf;
+                font: 700 20px/28px var(--hf);
                 margin-bottom: 15px;
             }
 
             .section-description {
                 padding: 0;
-                font: 400 14px/22px $bf;
+                font: 400 14px/22px var(--base-font);
                 margin: 0 0 30px;
                 color: #353b46;
             }
@@ -260,11 +260,11 @@
                         }
 
                         h4 {
-                            font: 600 16px/28px $bf;
+                            font: 600 16px/28px var(--base-font);
                         }
 
                         p {
-                            font: 400 13px/20px $bf;
+                            font: 400 13px/20px var(--base-font);
                         }
                     }
                 }

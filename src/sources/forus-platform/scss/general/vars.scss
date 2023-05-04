@@ -1,47 +1,37 @@
 /*==========  Style Sheet - Vars  ==========*/
+:root {
+    // base font
+    --base-font: "Montserrat", arial, sans-serif;
+    --base-font-landing: "Montserrat", arial, sans-serif;
 
-// base font
-$bf: 'Montserrat', arial, sans-serif;
-$bf-landing: 'Montserrat', arial, sans-serif;
+    --text-color: #353535;
 
-// text color
-$tc: #353535;
+    --base-color: #305dfb;
+    --base-color-hover: #fff;
 
-// base color
-$bc: #305dfb;
-$bc-hover: #fff;
+    --placeholder-color: #9b9b9b;
 
-// placeholder text color
-$ptc: #9b9b9b;
+    --boarder-color: #ddd;
+    --boarder-color-light: #eee;
+    --boarder-radius: 8px;
 
+    --color-primary: #134478;
+    --color-primary-light: #305dfb;
 
-// border color
-$borderColor: #ddd;
-$border_color: $borderColor; // #d2e6ff;
+    --color-danger: #e63b3b;
 
-$border_radius: 8px;
+    --color-default: #134478;
+    --color-default-light: #2987fd;
 
-$color_primary: #134478;
-$color_primary_light: #305dfb;
+    --box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
 
-$color_default: #134478;
-$color_default_light: #2987fd;
-
-$box_shadow: 1px 1px 6px 0 rgba(0,0,0,.1);
-
-// base error color
-$bec: #e63b3b;
-
-// wrapper size
-$wrapperWidth: 1400px;
-$wrapperPadding: 30px;
-
-// sign up
-$sign_up_accent_color: #305dfb;
-$sign_up_accent_color_light: #bdcbff;
-$sign_up_link_color: #e60003;
-$sign_up_step_btns_color: #305dfb;
-$sign_up_digid_btn_bkg: #e1e7ff;
-$sign_up_digid_btn_text: #4b71ff;
-$sign_up_digid_btn_border: none;
-$sign_up_digid_btn_border_radius: 5px;
+    // sign up
+    --sign_up_accent_color: #305dfb;
+    --sign_up_accent_color_light: #bdcbff;
+    --sign_up_link_color: #e60003;
+    --sign_up_step_btns_color: #305dfb;
+    --sign_up_digid_btn_bkg: #e1e7ff;
+    --sign_up_digid_btn_text: #4b71ff;
+    --sign_up_digid_btn_border: none;
+    --sign_up_digid_btn_border_radius: 5px;
+}

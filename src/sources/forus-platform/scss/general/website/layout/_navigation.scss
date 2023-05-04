@@ -134,13 +134,13 @@ html {
                                     padding: 5px 10px 5px 0;
     
                                     .auth-user-name {
-                                        font: 500 14px/20px $bf;
+                                        font: 500 14px/20px var(--base-font);
                                         color: #151b26;
                                         text-align: right;
                                     }
                     
                                     .auth-user-role {
-                                        font: 400 12px/20px $bf;
+                                        font: 400 12px/20px var(--base-font);
                                         color: #151b26;
                                         text-align: right;
     
@@ -197,7 +197,7 @@ html {
                                         display: block;
                                         cursor: pointer;
                                         padding: 5px 15px;
-                                        font: 500 13px/30px $bf;
+                                        font: 500 13px/30px var(--base-font);
                                         color: #282b39;
                                         transition: 0.4s;
     
@@ -246,7 +246,7 @@ html {
                                 transform: rotate(0);
                                 cursor: pointer !important;
                                 &:hover, &:active, &:focus, &.active{
-                                    color: $forus-sky-blue;
+                                    color: var(--forus-sky-blue);
                                 }
                                 &[aria-expanded="true"]{
                                     svg{
@@ -277,7 +277,7 @@ html {
                                 transition: opacity 0.1s linear;
                                 &:hover {
                                     transition: all 0.3s linear;
-                                    background-color: $forus-sky-blue;
+                                    background-color: var(--forus-sky-blue);
                                     &a {
                                         color: #fff;
                                         transition: all 0.3s linear;

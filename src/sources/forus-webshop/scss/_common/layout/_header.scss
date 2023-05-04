@@ -1,15 +1,15 @@
 .section {
     .section-title {
-        font: 700 40px/60px $hf;
+        font: 700 40px/60px var(--hf);
         margin: 0 0 20px;
         text-align: center;
     }
 
     .section-description {
-        font: 600 16px/24px $bf;
+        font: 600 16px/24px var(--base-font);
         margin: 0 0 30px;
         position: relative;
-        color: $tc;
+        color: var(--tc);
     }
 
     &.section-header {
@@ -41,7 +41,7 @@
             bottom: 10px;
             right: 15px;
             color: #fff;
-            font: 400 16px/32px $bf;
+            font: 400 16px/32px var(--base-font);
         }
 
         .wrapper {
@@ -63,14 +63,14 @@
 
             .header-title {
                 color: inherit;
-                font: 700 48px/1.3em $hf;
+                font: 700 48px/1.3em var(--hf);
                 margin: 0 0 20px;
                 text-shadow: inherit;
             }
 
             .header-description {
                 color: inherit;
-                font: 400 21px/1.5em $bf;
+                font: 400 21px/1.5em var(--base-font);
                 text-shadow: inherit;
                 text-align: inherit;
                 margin: 0 0 20px;
@@ -101,7 +101,7 @@
                 text-decoration: underline;
                 cursor: pointer;
                 margin: 0 0 20px;
-                font: 400 15px/1.5em $bf;
+                font: 400 15px/1.5em var(--base-font);
                 font-style: italic;
                 transition: 0.4s;
                 color: inherit;
@@ -128,7 +128,7 @@
             .header-description,
             .header-how-it-works {
                 text-shadow: none;
-                color: $tc;
+                color: var(--tc);
             }
         }
 
@@ -145,15 +145,15 @@
                 text-align: center;
                 max-width: 100%;
                 padding: 0;
-                color: $tc;
+                color: var(--tc);
 
                 .header-title {
-                    font: 700 28px/1.5em $hf;
+                    font: 700 28px/1.5em var(--hf);
                     margin: 0 0 15px;
                 }
 
                 .header-description {
-                    font: 300 16px/1.5em $bf;
+                    font: 300 16px/1.5em var(--base-font);
                     margin: 0 0 10px;
                 }
             }

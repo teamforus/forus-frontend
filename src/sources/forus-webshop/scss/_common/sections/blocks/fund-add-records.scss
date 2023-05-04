@@ -3,7 +3,7 @@
     cursor: default;
 
     .block-title {
-        font: 500 36px/36px $bf;
+        font: 500 36px/36px var(--base-font);
         margin: 0 0 30px;
         text-align: center;
         color: #191A1C;
@@ -13,11 +13,11 @@
         text-align: center;
         font-size: 96px;
         padding: 40px 0 30px;
-        color: $color_primary;
+        color: var(--color-primary);
     }
 
     .block-description {
-        font: 400 18px/26px $bf;
+        font: 400 18px/26px var(--base-font);
         text-align: center;
         color: #191A1C;
         margin: 0 0 40px;
@@ -41,7 +41,7 @@
             flex-grow: 1;
             text-align: right;
             border-top: 6px solid #EBEDF0;
-            font: 500 14px/30px $bf;
+            font: 500 14px/30px var(--base-font);
             color: #DADADA;
 
             &.request-step-active {
@@ -64,7 +64,7 @@
         
         .request-pane-header {
             border-bottom: 1px solid #EBEDF0;
-            font: 500 18px/34px $bf;
+            font: 500 18px/34px var(--base-font);
             padding: 15px 40px;
             text-align: center;
         }
@@ -73,12 +73,12 @@
             padding: 30px 30px;
 
             .request-pane-heading {
-                font: 500 21px/30px $bf;   
+                font: 500 21px/30px var(--base-font);   
                 margin: 0 0 20px;
             }
 
             .request-pane-text {
-                font: 400 16px/28px $bf;
+                font: 400 16px/28px var(--base-font);
                 margin: 0 0 20px;
             }
 
@@ -86,7 +86,7 @@
                 margin: 0 0 20px;
 
                 li {
-                    font: 400 16px/28px $bf;
+                    font: 400 16px/28px var(--base-font);
                     vertical-align: middle;
                     position: relative;
                     padding-left: 15px;
@@ -122,14 +122,14 @@
 
                 .request-pane-text {
                     margin-bottom: 0;
-                    font: 400 14px/24px $bf;
+                    font: 400 14px/24px var(--base-font);
                 }
 
                 .request-pane-list {
                     margin-bottom: 0;
                     
                     li {
-                        font: 400 14px/24px $bf;
+                        font: 400 14px/24px var(--base-font);
                     }   
                 }
             }

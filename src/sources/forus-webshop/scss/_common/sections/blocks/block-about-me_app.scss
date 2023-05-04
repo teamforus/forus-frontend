@@ -11,25 +11,25 @@
         z-index: 2;
         
         h1 {
-            font: 600 40px/54px $hf;
+            font: 600 40px/54px var(--hf);
             color: #000000;
             margin-bottom: 30px;
         }
 
         h2 {
-            font: 600 28px/34px $hf;
+            font: 600 28px/34px var(--hf);
             color: #000000;
         }
     
         .block-description {
-            font: 400 20px/30px $bf;
+            font: 400 20px/30px var(--base-font);
             color: #000000;
             margin-bottom: 30px;
 
             a {
                 color: #3661ff;
                 text-decoration: underline;
-                font: 400 20px/30px $bf;
+                font: 400 20px/30px var(--base-font);
             }
         }
     }
@@ -95,24 +95,24 @@
             padding: 0 0;
 
             h1 {
-                font: 600 28px/36px $bf;
+                font: 600 28px/36px var(--base-font);
                 margin-bottom: 20px;
                 text-align: center;
             }
 
             h2 {
-                font: 600 21px/34px $bf;
+                font: 600 21px/34px var(--base-font);
                 margin-bottom: 20px;
                 text-align: center;
             }
         
             .block-description {
-                font: 400 16px/24px $bf;
+                font: 400 16px/24px var(--base-font);
                 margin-bottom: 5px;
                 text-align: center;
 
                 a {
-                    font: 400 16px/24px $bf;
+                    font: 400 16px/24px var(--base-font);
                 }
             }
         }

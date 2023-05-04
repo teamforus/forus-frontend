@@ -20,7 +20,7 @@
             color: #595959;
 
             a {
-                color: $color_primary;
+                color: var(--color-primary);
                 text-decoration: underline;
             }
         }
@@ -28,9 +28,9 @@
         .block {
             &.block-vouchers {
                 padding: 15px;
-                border: 1px solid $border_color;
-                border-radius: $border_radius;
-                background-color: lighten($color: whitesmoke, $amount: 1.5%);
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                background-color: rgb(250, 250, 250);
                 max-height: 360px;
                 overflow: auto;
                 @include webkit_scrollbar();
@@ -42,15 +42,15 @@
                     overflow: visible;
     
                     .voucher-item {
-                        box-shadow: $base_shadow;
+                        box-shadow: var(--box-shadow);
     
                         .voucher-details {
                             .voucher-name {
-                                font: 700 24px/32px $bf;
+                                font: 700 24px/32px var(--base-font);
                             }
     
                             .voucher-organization {
-                                font: 500 14px/22px $bf;
+                                font: 500 14px/22px var(--base-font);
                             }
                         }
                     }
@@ -60,7 +60,7 @@
             &.block-email-setup {
                 background: #FFFFFF;
                 border: 1px solid #e3e3e3;
-                border-radius: $border_radius;
+                border-radius: var(--border-radius);
                 margin-bottom: 20px;
 
                 .block-email-setup-details {
@@ -68,7 +68,7 @@
                     align-items: center;
                     border-bottom: 1px solid #e3e3e3;
                     padding: 20px;
-                    font: 700 17px/24px $bf;
+                    font: 700 17px/24px var(--base-font);
                     color: #222222;
 
                     .block-email-setup-details-logo {
@@ -92,7 +92,7 @@
                 }
 
                 .block-email-setup-description {
-                    font: 400 15px/21px $bf;
+                    font: 400 15px/21px var(--base-font);
                     color: #595959;
                     padding: 20px;
                 }
@@ -106,7 +106,7 @@
 
             .form-label {
                 color: #595959;
-                font: 600 13px/18px $bf;
+                font: 600 13px/18px var(--base-font);
             }
         }
     }
@@ -141,13 +141,13 @@
 
                 .title {
                     padding: 0;
-                    font: 700 22px/28px $bf;
+                    font: 700 22px/28px var(--base-font);
                     margin: 0 0 20px;
                 }
 
                 .description {
                     padding: 0;
-                    font: 400 15px/22px $bf;
+                    font: 400 15px/22px var(--base-font);
                     margin: 0 0 20px;
                 }
 

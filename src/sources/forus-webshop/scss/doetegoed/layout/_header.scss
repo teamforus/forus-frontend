@@ -13,12 +13,12 @@
             height: 100%;
 
             .header-title {
-                font: 500 68px/88px $bf;
+                font: 500 68px/88px var(--base-font);
                 color: #003B49;
             }
 
             .header-description {
-                font: 400 21px/36px $bf;
+                font: 400 21px/36px var(--base-font);
                 color: #003B49;
             }
 
@@ -27,9 +27,9 @@
                 cursor: pointer;
                 padding: 12px 20px 12px 50px;
                 background-color: #FAE053;
-                border-radius: $border_radius;
-                font: 500 17px/27px $bf;
-                color: $tc;
+                border-radius: var(--border-radius);
+                font: 500 17px/27px var(--base-font);
+                color: var(--tc);
                 text-decoration: none;
                 z-index: 2;
 
@@ -84,11 +84,11 @@
                 text-align: center;
 
                 .header-title {
-                    font: 500 45px/60px $bf;
+                    font: 500 45px/60px var(--base-font);
                 }
 
                 .header-description {
-                    font: 400 18px/28px $bf;
+                    font: 400 18px/28px var(--base-font);
                     margin: 0 0 30px;
                 }
             }

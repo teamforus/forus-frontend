@@ -437,12 +437,12 @@
 
             &-month {
                 color: #282b39;
-                font: 500 13px/40px $bf;
+                font: 500 13px/40px var(--base-font);
 
                 a {
                     &>span {
                         color: #282b39;
-                        font: 500 13px/40px $bf;
+                        font: 500 13px/40px var(--base-font);
                     }
                 }
             }

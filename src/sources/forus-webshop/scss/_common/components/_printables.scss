@@ -32,7 +32,7 @@ body {
                     top: 10px;
                     left: 10px;
                     text-align: left;
-                    font: 400 12px/15px $bf;
+                    font: 400 12px/15px var(--base-font);
                 }
 
                 .printable-logo {
@@ -47,13 +47,13 @@ body {
                 }
 
                 .printable-title {
-                    font: 500 24px/29px $bf;
+                    font: 500 24px/29px var(--base-font);
                     text-align: center;
                     margin-bottom: 10px;
                 }
     
                 .printable-description {
-                    font: 400 12px $bf;
+                    font: 400 12px var(--base-font);
                     text-align: center;
                     margin-bottom: 20px;
                 }
@@ -82,16 +82,16 @@ body {
                 text-align: center;
 
                 .notice {
-                    font: 400 13px/17px $bf;
+                    font: 400 13px/17px var(--base-font);
                     margin-bottom: 20px;
                 }
 
                 .description {
-                    font: 400 15px/21px $bf;
+                    font: 400 15px/21px var(--base-font);
                 }
 
                 .reference {
-                    font: 500 21px/52px $bf;
+                    font: 500 21px/52px var(--base-font);
                 }
             }
 
@@ -101,7 +101,7 @@ body {
                 padding: 20px;
                 margin-left: 70px;
                 margin-right: 70px;
-                font: 400 13px/21px $bf;
+                font: 400 13px/21px var(--base-font);
                 text-align: left;
                 position: relative;
 

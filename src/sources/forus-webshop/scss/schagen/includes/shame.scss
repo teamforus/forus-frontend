@@ -4,7 +4,7 @@
             .button {
                 &.button-primary {
                     &:hover {
-                        background-color: $btn-start-hov;
+                        background-color: #a21522;
                     }
                 }
 
@@ -145,11 +145,11 @@
                 }
 
                 .button.button-primary-outline {
-                    background-color: $color_primary;
+                    background-color: var(--color-primary);
                     color: #fff;
 
                     &:hover {
-                        background: $color_primary_light;
+                        background: var(--color-primary-light);
                     }
                 }
             }
@@ -189,7 +189,7 @@
                 display: block;
 
                 .fund-title {
-                    color: $tc;
+                    color: var(--tc);
                 }
             }
         }
@@ -225,7 +225,7 @@
     &.block-fund {
         .fund-content {
             padding-bottom: 30px;
-            border-bottom: 1px solid $border_color;
+            border-bottom: 1px solid var(--border-color);
 
             .fund-card {
                 background: none;
@@ -376,7 +376,7 @@
                 .footer-nav-item {
                     a {
                         color: #fff;
-                        font: 500 16px/24px $bf;
+                        font: 500 16px/24px var(--base-font);
                     }
                 }
             }
@@ -405,7 +405,7 @@
         .footer-subscribe {
             .button {
                 margin: 0;
-                border-radius: $border_radius;
+                border-radius: var(--border-radius);
 
                 .mdi {
                     float: none;
@@ -416,7 +416,7 @@
 
     &.block-copyrights {
         border: none;
-        background-color: $fbc;
+        background-color: var(--footer_background_color);
         color: #fff;
         font-size: 1rem;
         padding: 25px 0;
@@ -435,7 +435,7 @@
 
 // MOVE TO LAYOUT FOOTER FILE
 .block.block-footer .footer-nav .footer-nav-item a {
-    font: 400 14px/24px $bf;
+    font: 400 14px/24px var(--base-font);
     color: #ffffff;
 }
 

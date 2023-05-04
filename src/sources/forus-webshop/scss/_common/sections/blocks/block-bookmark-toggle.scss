@@ -9,7 +9,7 @@
     margin-bottom: 10px;
     z-index: 1;
     transition: color .4s, background-color .4s;
-    border: 1px solid $border_color;
+    border: 1px solid var(--border-color);
 
     &:hover {
         color: rgba($color: #df0c2d, $alpha: .3);

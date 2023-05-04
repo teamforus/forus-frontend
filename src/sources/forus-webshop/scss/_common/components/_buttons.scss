@@ -1,11 +1,11 @@
 .button {
-    font: 700 16px/1.5em $bf;
+    font: 700 16px/1.5em var(--base-font);
     padding: 12px 25px;
     color: #646f79;
     cursor: pointer;
     border: 1px solid transparent;
     transition: color 0.4s, background 0.4s, box-shadow 0.4s, border 0.4s;
-    border-radius: $border_radius;
+    border-radius: var(--border-radius);
     display: inline-block;
     text-align: center;
     margin-right: 15px;
@@ -32,20 +32,20 @@
 
     &.button-default {
         background: #ffffff;
-        text-transform: $tf;
-        color: $color_default;
-        //border: 1px solid $border_color;
+        text-transform: var(--text_format);
+        color: var(--color-default);
+        //border: 1px solid var(--border-color);
         box-shadow: none;
 
         .mdi {
-            color: $color_default_light;
+            color: var(--color-default-light);
         }
 
         &:hover, &:focus {
             color: #fff;
-            background: $color_default_light;
-            border-color: $color_default_light;
-            box-shadow: 0 10px 20px rgba(#000, 0.2);
+            background: var(--color-default-light);
+            border-color: var(--color-default-light);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 
             .mdi {
                 color: #fff;
@@ -60,7 +60,7 @@
 
         .icon-me {
             mask: url("../img/icon-me.svg");
-            background: $color_default;
+            background: var(--color-default);
             transition: background-color 0.5s ease;
             display: inline-block;
             mask-size: cover;
@@ -93,15 +93,15 @@
 
     &.button-primary {
         color: #fff;
-        background: $color_primary;
-        border: 1px solid $color_primary;
-        text-transform: $tf;
+        background: var(--color-primary);
+        border: 1px solid var(--color-primary);
+        text-transform: var(--text_format);
 
         &:hover, &:focus {
             color: #fff;
-            background: $color_primary_light;
-            background-color: $color_primary_light;
-            box-shadow: 0 10px 20px rgba(#000, 0.3);
+            background: var(--color-primary-light);
+            background-color: var(--color-primary-light);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 
             img {
                 filter: brightness(5);
@@ -114,13 +114,13 @@
         color: #fff;
         background: #282b39;
         border: 1px solid #282b39;
-        box-shadow: 0 10px 25px rgba(#000, 0.15);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 
         &:hover {
             color: #fff;
             background: #646f79;
             border-color: #646f79;
-            box-shadow: 0 10px 20px rgba(#000, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 
             img {
                 filter: brightness(5);
@@ -138,7 +138,7 @@
             color: #fff;
             background: #626161;
             border-color: #626161;
-            box-shadow: 0 10px 20px rgba(#000, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 
             img {
                 filter: brightness(5);
@@ -175,20 +175,20 @@
     }
 
     &.button-primary-outline {
-        color: $color_primary;
-        border: 1px solid $color_primary;
+        color: var(--color-primary);
+        border: 1px solid var(--color-primary);
         background: transparent;
 
         &:hover {
-            background: $color_primary;
+            background: var(--color-primary);
             color: #fff;
         }
     }
 
     &.button-sm {
-        font: 700 14px/20px $bf;
+        font: 700 14px/20px var(--base-font);
         padding: 10px 15px;
-        border-radius: $border_radius / 2;
+        border-radius: calc(var(--border-radius) / 2);
 
         .mdi {
             margin-right: 4px;
@@ -196,9 +196,9 @@
     }
 
     &.button-xs {
-        font: 700 12px/20px $bf;
+        font: 700 12px/20px var(--base-font);
         padding: 5px 10px;
-        border-radius: $border_radius / 2;
+        border-radius: calc(var(--border-radius) / 2);
 
         .mdi {
             font-size: 1.2em;
@@ -226,7 +226,7 @@
         }
 
         &.button-text-primary {
-            color: $color_primary;
+            color: var(--color-primary);
         }
 
         &[disabled],

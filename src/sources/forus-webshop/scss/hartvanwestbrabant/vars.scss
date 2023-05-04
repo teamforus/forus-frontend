@@ -1,74 +1,80 @@
-@import '../general/vars.scss';
+@import "../general/vars.scss";
 
 /*==========  Style Sheet - Vars  ==========*/
-$fonts: 'https://fonts.googleapis.com/css?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400';
+$fonts: "https://fonts.googleapis.com/css?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400";
+$primaryColor: #24a1a1;
+$primaryColorLight: #24a1a1;
 
-// navbar
-$bg-nav:            #5D646F;
-$tc-nav-hov:        #c7c7c7;
-$tc-nav:            #FFFFFF;
-$logo-padding:      30px 0px;
-$logo-height:       75px;
+:root {
+    // navbar
+    --bg-nav: #5d646f;
+    --tc-nav-hov: #c7c7c7;
+    --tc-nav: #ffffff;
+    --logo-padding: 30px 0px;
+    --logo-height: 75px;
 
-// navbar (auth)
-$tc-auth-menu:      #24A1A1; 
-$tc-auth-btn:       #fff; 
-$btn-auth-bg:       #24A1A1; 
-$btn-auth-border:   transparent;
+    // navbar (auth)
+    --tc-auth-menu: #24a1a1;
+    --tc-auth-btn: #fff;
+    --btn-auth-bg: #24a1a1;
+    --btn-auth-border: transparent;
 
-// navbar (start modal primary)
-$tc-start-btn:       #fff; 
-$btn-start-bg:       #24A1A1; 
-$btn-start-btn:      #24A1A1;
-$btn-start-border:   transparent;
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #24a1a1;
+    --btn-start-btn: #24a1a1;
+    --btn-start-border: transparent;
 
-$bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
+    --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
 
-// base font
-$bf:                'Montserrat', Arial, Verdana;
+    // base font
+    --base-font: "Montserrat", Arial, Verdana;
 
-// text color
-$tc:                #1a1919;
-$tc-var:            #fff;
-$tc-link:           inherit;
+    // text color
+    --tc: #1a1919;
+    --tc-var: #fff;
+    --tc-link: inherit;
 
-// base color
-$bc:                #24A1A1;
+    // base color
+    --bc: #24a1a1;
 
-// background color
-$bg:                #fff;
+    // background color
+    --bg: #fff;
 
-$bg_2:              none;
+    --bg_2: none;
 
-// text formatting
-$tf:                inherit;
+    // text formatting
+    --text_format: inherit;
 
-// footer color
-$fbc:                #24A1A1;
-$fc:                #ffffff;
-$fc-link:            #ffffff;
+    // footer color
+    --footer_background_color: #24a1a1;
+    --footer_color: #ffffff;
+    --footer_color_link: #ffffff;
 
-// displayed or not
-$fd:                block;
+    // displayed or not
+    --footer_display: block;
 
-// product image
-$pi:                0px;
+    // product image
+    --product-image-padding: 0px;
 
-// placeholder text color
-$ptc:               #515152;
+    // placeholder text color
+    --placeholder_text_color: #515152;
 
-$border_color:      #dce0e0;
+    --border-color: #dce0e0;
 
-$border_radius:     0px;
-$base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    --border-radius: 0px;
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
-$color_primary:         #24A1A1;
-$color_primary_light:   #24A1A1;
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
 
-$color_default:         #24A1A1;
-$color_default_light:   #24A1A1;
+    --color-default: #24a1a1;
+    --color-default-light: #24a1a1;
 
-// Login button
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
-$lb:                #fff;
-
+    // Login button
+    --login-button-background: #fff;
+}

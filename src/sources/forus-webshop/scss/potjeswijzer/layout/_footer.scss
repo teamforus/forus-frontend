@@ -1,6 +1,6 @@
 .section {
     &.section-footer {
-        background-color: $fbc;
+        background-color: var(--footer_background_color);
         margin-top: 50px;
 
         @media screen and (min-width: 1024px) { 
@@ -12,17 +12,17 @@
     &.block-footer {
         .footer-nav {
             .footer-nav-item {
-                color: $tc-var;
+                color: var(--tc-var);
                 a {
-                    color: $tc-var;
+                    color: var(--tc-var);
     
                     &:hover {
-                        color: $tc-var;
+                        color: var(--tc-var);
                     }
                 }
                 svg {
                     path {
-                        fill: $tc-var;
+                        fill: var(--tc-var);
                     }
                 }
             }
@@ -55,7 +55,7 @@
     }
 
     &.block-copyrights {
-        background-color: $tc-nav;
+        background-color: var(--tc-nav);
         .links {
             a {
                 &:hover {
@@ -66,10 +66,10 @@
 
         .developed {
             a {
-                color: $tc-var;
+                color: var(--tc-var);
 
                 &:hover {
-                    color: $tc-var;
+                    color: var(--tc-var);
                 }
             }
         }

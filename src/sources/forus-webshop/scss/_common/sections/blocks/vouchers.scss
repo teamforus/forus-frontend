@@ -3,7 +3,7 @@
         margin-bottom: 30px;
 
         .block-title {
-            font: 700 40px $bf;
+            font: 700 40px var(--base-font);
             margin-bottom: 20px;
             cursor: default;
         }
@@ -11,9 +11,9 @@
         .voucher-item {
             display: flex;
             background-color: #fff;
-            border-radius: $border_radius;
+            border-radius: var(--border-radius);
             margin-bottom: 15px;
-            box-shadow: $base_shadow;
+            box-shadow: var(--box-shadow);
             position: relative;
             transition: background-color 0.4s, border 0.4s;
             min-height: 120px;
@@ -59,20 +59,20 @@
                 }
 
                 .voucher-name {
-                    font: 700 22px/28px $hf;
+                    font: 700 22px/28px var(--hf);
                     color: #00122a;
                     margin: 0 0 0;
                     @include ellipsis();
                 }
 
                 .voucher-organization {
-                    font: 400 14px/22px $bf;
+                    font: 400 14px/22px var(--base-font);
                     color: #282b39;
                     margin-bottom: 10px;
                 }
 
                 .voucher-value {
-                    font: 700 24px $bf;
+                    font: 700 24px var(--base-font);
                     color: #00122a;
                 }
 
@@ -84,7 +84,7 @@
 
                 .voucher-cancel-label {
                     color: #646f79;
-                    font: 400 14px/16px $bf;
+                    font: 400 14px/16px var(--base-font);
                     margin-top: 5px;
 
                     a {
@@ -97,7 +97,7 @@
 
             .voucher-overview {
                 float: right;
-                border-left: 1px solid $border_color;
+                border-left: 1px solid var(--border-color);
                 padding: 20px 25px;
                 min-width: 200px;
                 min-height: inherit;
@@ -115,17 +115,17 @@
                     left: 25px;
 
                     .voucher-overview-label {
-                        font: 400 14px/18px $bf;
+                        font: 400 14px/18px var(--base-font);
                         color: #646f79;
                     }
 
                     .voucher-overview-value {
-                        font: 600 15px/17px $bf;
+                        font: 600 15px/17px var(--base-font);
                         color: #282b39;
 
                         small {
                             font: inherit;
-                            font: 400 13px $bf;
+                            font: 400 13px var(--base-font);
                             color: #646f79;
                             margin-left: 5px;
                         }
@@ -155,7 +155,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    box-shadow: 0 10px 30px rgba(#000, 0.15);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 
                     .voucher-image {
                         &:after {
@@ -185,8 +185,8 @@
             &.voucher-item-compact {
                 margin-bottom: 10px;
                 min-height: 100px;
-                border: 1px solid $border_color;
-                border-radius: $border_radius;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
 
                 .voucher-image {
                     flex-basis: 100px;
@@ -197,12 +197,12 @@
                     position: relative;
 
                     .voucher-name {
-                        font: 600 14px/20px $hf;
+                        font: 600 14px/20px var(--hf);
                         padding-right: 140px;
                     }
 
                     .voucher-organization {
-                        font: 400 13px/20px $bf;
+                        font: 400 13px/20px var(--base-font);
                         margin: 0 0 5px;
                         color: #595959;
                         padding-right: 140px;
@@ -217,7 +217,7 @@
                     }
 
                     .voucher-value {
-                        font: 700 18px/30px $bf;
+                        font: 700 18px/30px var(--base-font);
                         position: absolute;
                         right: 15px;
                         top: 15px;;
@@ -246,7 +246,7 @@
                 min-height: 60px;
                 margin-bottom: 0;
                 border-radius: 0;
-                border-bottom: 1px solid $border_color;
+                border-bottom: 1px solid var(--border-color);
                 position: relative;
                 padding-right: 10px;
                 box-shadow: none;
@@ -262,13 +262,13 @@
 
                     .voucher-name,
                     .voucher-value {
-                        font: 700 14px/22px $hf;
+                        font: 700 14px/22px var(--hf);
                         margin: 0 0 0;
                     }
 
                     .voucher-date,
                     .voucher-organization {
-                        font: 400 11px/18px $bf;
+                        font: 400 11px/18px var(--base-font);
                         margin: 0 0 0;
                     }
                 }
@@ -289,8 +289,8 @@
                 &:last-child {
                     margin-bottom: 0;
                     border-bottom: none;
-                    border-bottom-left-radius: $border_radius / 2;
-                    border-bottom-right-radius: $border_radius / 2;
+                    border-bottom-left-radius: calc(var(--border-radius) / 2);
+                    border-bottom-right-radius: calc(var(--border-radius) / 2);
                 }
 
                 &:after {
@@ -309,8 +309,8 @@
                 }
 
                 &.voucher-item-select-placeholder {
-                    border: 1px solid $border_color;
-                    border-radius: $border_radius / 2;
+                    border: 1px solid var(--border-color);
+                    border-radius: calc(var(--border-radius) / 2);
                     padding-right: 25px;
                     background-image: url('../img/select-bg.png');
                     background-position: calc(100% - 4px);
@@ -342,7 +342,7 @@
             margin-bottom: 30px;
 
             .block-title {
-                font: 700 20px $bf;
+                font: 700 20px var(--base-font);
                 margin-bottom: 20px;
                 cursor: default;
             }
@@ -383,18 +383,18 @@
                     flex-direction: column;
 
                     .voucher-name {
-                        font: 700 16px/20px $hf;
+                        font: 700 16px/20px var(--hf);
                         margin: 0 0 0;
                         @include ellipsis();
                     }
 
                     .voucher-organization {
-                        font: 400 11px/18px $bf;
+                        font: 400 11px/18px var(--base-font);
                         margin: 0 0 0;
                     }
 
                     .voucher-value {
-                        font: 700 16px/22px $bf;
+                        font: 700 16px/22px var(--base-font);
                     }
 
                     .voucher-read_more {
@@ -450,24 +450,24 @@
                         display: flex;
                         width: 100%;
                         padding: 15px 10px;
-                        border-bottom: 1px solid $border_color;
+                        border-bottom: 1px solid var(--border-color);
                         text-align: center;
 
                         .voucher-name {
-                            font: 700 16px/20px $bf;
+                            font: 700 16px/20px var(--base-font);
                             margin: 0 0 15px;
                             @include ellipsis();
                             padding-right: 0;
                         }
     
                         .voucher-organization {
-                            font: 400 12px/20px $bf;
+                            font: 400 12px/20px var(--base-font);
                             padding-right: 0;
                         }
     
                         .voucher-value {
                             position: initial;
-                            font: 700 22px/22px $bf;
+                            font: 700 22px/22px var(--base-font);
                             margin: 0 0 10px;
                         }
                     }

@@ -14,17 +14,17 @@ ui-view {
 
 .form {
     .form-error {
-        font: 400 13px/24px $bf-landing;
-        color: $bc;
+        font: 400 13px/24px var(--base-font-landing);
+        color: var(--base-color);
         margin: 0;
     }
 
     .form-label {
         display: block;
         cursor: default;
-        font: 700 12px/20px $bf-landing;
+        font: 700 12px/20px var(--base-font-landing);
         margin-bottom: 4px;
-        color: $tc;
+        color: var(--text-color);
         padding: 0;
         color: #134478;
 
@@ -45,7 +45,7 @@ ui-view {
         padding: 14px 15px;
         height: 50px;
         color: rgba(#00122a, .9);
-        font: 600 17px/24px $bf-landing;
+        font: 600 17px/24px var(--base-font-landing);
         line-height: 24px !important;
         transition: background-color .4s ease, border .4s ease;
         border-radius: 6px;
@@ -227,7 +227,7 @@ ui-view {
         }
 
         .checkbox-label {
-            font: 400 13px/20px $bf-landing;
+            font: 400 13px/20px var(--base-font-landing);
             color: #45535e;
             display: inline-block;
             vertical-align: middle;
@@ -271,7 +271,7 @@ ui-view {
 
             &:after {
                 content: '';
-                background: $bc;
+                background: var(--base-color);
                 position: absolute;
                 display: block;
                 left: 50%;
@@ -287,7 +287,7 @@ ui-view {
         }
 
         .radio-label {
-            font: 400 13px/20px $bf-landing;
+            font: 400 13px/20px var(--base-font-landing);
             color: #45535e;
             display: inline-block;
             vertical-align: middle;
@@ -311,9 +311,9 @@ ui-view {
     label.radio {
         cursor: pointer;
         margin-right: 8px;
-        color: $tc;
+        color: var(--text-color);
         text-transform: inherit;
-        font: 400 12px/30px $bf-landing;
+        font: 400 12px/30px var(--base-font-landing);
 
         .dot {
             display: inline-block;
@@ -334,7 +334,7 @@ ui-view {
                 width: 10px;
                 height: 10px;
                 display: block;
-                background-color: $bc;
+                background-color: var(--base-color);
                 border-radius: 20px;
                 opacity: 0;
                 transition: all .3s ease-out;
@@ -382,7 +382,7 @@ ui-view {
 }
 
 .button {
-    font: 700 14px/24px $bf-landing;
+    font: 700 14px/24px var(--base-font-landing);
     color: #646f79;
     cursor: pointer;
     border: 1px solid transparent;
@@ -409,18 +409,18 @@ ui-view {
     }
 
     &.button-default {
-        color: $bc;
-        border: 1px solid $bc;
+        color: var(--base-color);
+        border: 1px solid var(--base-color);
         box-shadow: 0 10px 25px rgba(#000, 0);
 
         .mdi {
-            color: $bc;
+            color: var(--base-color);
         }
 
         &:hover {
-            color: $bc-hover;
-            background: $bc;
-            border-color: $bc;
+            color: var(--base-color-hover);
+            background: var(--base-color);
+            border-color: var(--base-color);
             box-shadow: 0 10px 20px rgba(#000, .2);
 
             .mdi {
@@ -431,15 +431,15 @@ ui-view {
 
     &.button-primary {
         color: #fff;
-        background: $bc;
-        border: 1px solid $borderColor;
+        background: var(--base-color);
+        border: 1px solid var(--boarder-color);
         box-shadow: none;
 
         &:hover {
-            color: $bc;
-            background: $bc-hover;
+            color: var(--base-color);
+            background: var(--base-color-hover);
             box-shadow: none;
-            border: 1px solid $bc;
+            border: 1px solid var(--base-color);
 
             img {
                 filter: brightness(5);
@@ -466,12 +466,12 @@ ui-view {
     }
 
     &.button-primary-outline {
-        color: $color_primary;
-        border: $color_default_light;
+        color: var(--color-primary);
+        border: var(--color-default-light);
         border-radius: 50px;
 
         &:hover {
-            background: $color_default;
+            background: var(--color-default);
             color: #fff;
         }
     }
@@ -494,7 +494,7 @@ ui-view {
 
 .section {
     .section-title {
-        font: 700 40px/60px $bf-landing;
+        font: 700 40px/60px var(--base-font-landing);
         margin: 40px 0 40px;
     }
 
@@ -539,12 +539,12 @@ ui-view {
             color: #fff;
 
             .header-title {
-                font: 700 40px/50px $bf-landing;
+                font: 700 40px/50px var(--base-font-landing);
                 margin: 0 0 25px;
             }
 
             .header-description {
-                font: 400 22px/36px $bf-landing;
+                font: 400 22px/36px var(--base-font-landing);
                 margin: 0 0 50px;
             }
 
@@ -557,7 +557,7 @@ ui-view {
                     display: block;
                     margin-bottom: 20px;
                     padding: 50px 50px 50px 200px;
-                    font: 700 18px/30px $bf-landing;
+                    font: 700 18px/30px var(--base-font-landing);
                     position: relative;
                     color: #282b39;
                     overflow: hidden;
@@ -632,7 +632,7 @@ ui-view {
 
             .lang-label {
                 padding: 4px 0 0;
-                font: 400 10px/16px $bf-landing;
+                font: 400 10px/16px var(--base-font-landing);
 
                 .mdi {
                     display: block;
@@ -645,7 +645,7 @@ ui-view {
             }
 
             .lang-active {
-                font: 700 13px/20px $bf-landing;
+                font: 700 13px/20px var(--base-font-landing);
             }
 
             .lang-list {
@@ -675,7 +675,7 @@ ui-view {
                 .lang-list-item {
                     padding: 5px 15px;
                     min-width: 110px;
-                    font: 600 12px/18px $bf-landing;
+                    font: 600 12px/18px var(--base-font-landing);
                     background: #fff;
                     transition: background .4s;
 
@@ -703,7 +703,7 @@ ui-view {
 
         .section-title {
             color: #00122a;
-            font: 700 40px/60px $bf-landing;
+            font: 700 40px/60px var(--base-font-landing);
             margin: 40px 0 40px;
             text-align: center;
             z-index: 2;
@@ -737,7 +737,7 @@ ui-view {
                 .faq-item-header {
                     padding: 15px 30px;
                     padding-right: 45px;
-                    font: 500 18px $bf-landing;
+                    font: 500 18px var(--base-font-landing);
                     color: #00122a;
                     position: relative;
                     transition: .4s;
@@ -770,7 +770,7 @@ ui-view {
 
                 .faq-item-content {
                     padding-right: 200px;
-                    font: 400 16px $bf-landing;
+                    font: 400 16px var(--base-font-landing);
                     padding: 0 30px 20px;
                     color: #646f79;
                     display: none;
@@ -823,7 +823,7 @@ ui-view {
         }
 
         .section-description {
-            font: 400 18px/1.5em $bf-landing;
+            font: 400 18px/1.5em var(--base-font-landing);
             color: #646f79;
             text-align: center;
             padding: 0 50px;
@@ -861,13 +861,13 @@ ui-view {
 
                     h4 {
                         color: #00122a;
-                        font: 500 28px/38px $bf-landing;
+                        font: 500 28px/38px var(--base-font-landing);
                         margin: 0 0 10px;
                     }
 
                     p {
                         color: #646f79;
-                        font: 400 15px/24px $bf-landing;
+                        font: 400 15px/24px var(--base-font-landing);
                         margin: 0 0 10px;
                     }
                 }
@@ -961,7 +961,7 @@ ui-view {
     @media screen and (max-width: 1500px) {
         .section-title {
             margin: 0 0 20px;
-            font: 700 30px/40px $bf-landing;
+            font: 700 30px/40px var(--base-font-landing);
         }
 
         &.section-header {
@@ -972,12 +972,12 @@ ui-view {
             .header-content {
 
                 .header-title {
-                    font: 700 30px/46px $bf-landing;
+                    font: 700 30px/46px var(--base-font-landing);
                     margin: 0 0 20px;
                 }
 
                 .header-description {
-                    font: 400 18px/30px $bf-landing;
+                    font: 400 18px/30px var(--base-font-landing);
                     margin: 0 0 20px;
                 }
             }
@@ -986,7 +986,7 @@ ui-view {
 
     @media screen and (max-width: 1000px) {
         .section-title {
-            font: 700 20px/30px $bf-landing;
+            font: 700 20px/30px var(--base-font-landing);
             margin: 0 0 20px;
         }
 
@@ -1035,12 +1035,12 @@ ui-view {
                 }
 
                 .header-title {
-                    font: 700 20px/28px $bf-landing;
+                    font: 700 20px/28px var(--base-font-landing);
                     margin: 0 0 20px;
                 }
 
                 .header-description {
-                    font: 400 14px/24px $bf-landing;
+                    font: 400 14px/24px var(--base-font-landing);
                     margin: 0;
                     color: #fff;
                 }
@@ -1058,7 +1058,7 @@ ui-view {
 
                     .app-item {
                         padding: 25px 20px 25px 90px;
-                        font: 700 12px/20px $bf-landing;
+                        font: 700 12px/20px var(--base-font-landing);
                         @include ellipsis();
 
                         &:before {
@@ -1100,7 +1100,7 @@ ui-view {
             margin-bottom: 60px;
 
             .section-title {
-                font: 700 24px/36px $bf-landing;
+                font: 700 24px/36px var(--base-font-landing);
                 margin: 0 0 30px;
             }
 
@@ -1111,11 +1111,11 @@ ui-view {
             .faq {
                 .faq-item {
                     .faq-item-header {
-                        font: 500 14px $bf-landing;
+                        font: 500 14px var(--base-font-landing);
                     }
 
                     .faq-item-content {
-                        font: 400 14px $bf-landing;
+                        font: 400 14px var(--base-font-landing);
                     }
                 }
             }
@@ -1126,13 +1126,13 @@ ui-view {
 
             .section-title {
                 padding: 0;
-                font: 700 20px/28px $bf-landing;
+                font: 700 20px/28px var(--base-font-landing);
                 margin-bottom: 15px;
             }
 
             .section-description {
                 padding: 0;
-                font: 400 14px/22px $bf-landing;
+                font: 400 14px/22px var(--base-font-landing);
                 margin: 0 0 30px;
                 color: #353b46;
             }
@@ -1173,11 +1173,11 @@ ui-view {
                         }
 
                         h4 {
-                            font: 600 16px/28px $bf-landing;
+                            font: 600 16px/28px var(--base-font-landing);
                         }
 
                         p {
-                            font: 400 13px/20px $bf-landing;
+                            font: 400 13px/20px var(--base-font-landing);
                         }
                     }
                 }
@@ -1191,7 +1191,7 @@ ui-view {
         padding: 0 30px;
 
         .navbar-inner {
-            border-radius: $border_radius;
+            border-radius: var(--boarder-radius);
             background-color: #ffffff;
             box-shadow: 0 10px 20px rgba(#000, .075);
             @include cf();
@@ -1203,7 +1203,7 @@ ui-view {
         .navbar-logo {
             justify-self: flex-start;
             padding: 30px 40px;
-            border-right: 1px solid $border_color;
+            border-right: 1px solid var(--boarder-color);
             min-width: 200px;
 
             @media screen and (min-width: 1024px) {
@@ -1234,7 +1234,7 @@ ui-view {
                 .navbar-item {
                     color: #646f79;
                     display: inline-block;
-                    font: 700 15px/30px $bf-landing;
+                    font: 700 15px/30px var(--base-font-landing);
                     padding: 30px 25px;
                     position: relative;
                     transition: .4s;
@@ -1298,7 +1298,7 @@ ui-view {
                     .navbar-menu-item {
                         display: block;
                         padding: 5px 15px;
-                        font: 700 13px/26px $bf-landing;
+                        font: 700 13px/26px var(--base-font-landing);
                         transition: .4s;
                         cursor: pointer;
 
@@ -1319,7 +1319,7 @@ ui-view {
                         }
 
                         &:hover {
-                            color: $color_primary;
+                            color: var(--color-primary);
                             background: #f6f8f9;
                         }
                     }
@@ -1365,7 +1365,7 @@ ui-view {
                 padding: 7px 15px;
                 float: left;
                 margin-right: 20px;
-                font: 700 14px/24px $bf-landing;
+                font: 700 14px/24px var(--base-font-landing);
 
                 &:last-of-type {
                     margin-right: 0px;
@@ -1393,14 +1393,14 @@ ui-view {
                     @include cf();
 
                     .auth-user-email {
-                        font: 700 13px $bf-landing;
-                        color: $color_primary;
+                        font: 700 13px var(--base-font-landing);
+                        color: var(--color-primary);
                         float: left;
                         text-align: right
                     }
 
                     .auth-user-type {
-                        font: 400 13px $bf-landing;
+                        font: 400 13px var(--base-font-landing);
                         color: #151b26;
                         float: right;
                         clear: both;
@@ -1410,7 +1410,7 @@ ui-view {
                         width: 40px;
                         height: 40px;
                         border-radius: 40px;
-                        border: 1px solid $border_color;
+                        border: 1px solid var(--boarder-color);
                         position: absolute;
                         right: 0;
                         top: 20px;
@@ -1442,7 +1442,7 @@ ui-view {
                         .auth-user-menu-item {
                             display: block;
                             padding: 5px 15px;
-                            font: 700 13px/26px $bf-landing;
+                            font: 700 13px/26px var(--base-font-landing);
                             transition: .4s;
                             cursor: pointer;
 
@@ -1463,7 +1463,7 @@ ui-view {
                             }
 
                             &:hover {
-                                color: $color_primary;
+                                color: var(--color-primary);
                                 background: #f6f8f9;
                             }
                         }
@@ -1511,19 +1511,19 @@ ui-view {
             .navbar-item-wrapper {
                 .navbar-item {
                     &:hover {
-                        color: $tc;
+                        color: var(--text-color);
 
                         &:before {
-                            background-color: $color_default;
+                            background-color: var(--color-default);
                             opacity: .5;
                         }
                     }
 
                     &.active {
-                        color: $tc;
+                        color: var(--text-color);
 
                         &:before {
-                            background-color: $color_default;
+                            background-color: var(--color-default);
                             opacity: 1;
                         }
                     }
@@ -1535,11 +1535,11 @@ ui-view {
             .auth-in {
                 .auth-user {
                     .auth-user-email {
-                        color: $color_default_light;
+                        color: var(--color-default-light);
                     }
 
                     .auth-user-avatar {
-                        border-color: $color_default;
+                        border-color: var(--color-default);
                         border-radius: 4px;
 
                         img {
@@ -1599,13 +1599,13 @@ ui-view {
 
             .blog-name {
                 color: #00122a;
-                font: 700 18px/26px $bf-landing;
+                font: 700 18px/26px var(--base-font-landing);
                 margin: 0 0 20px;
                 transition: .4s;
             }
 
             .blog-read-more {
-                font: 500 13px $bf-landing;
+                font: 500 13px var(--base-font-landing);
                 color: #004195;
             }
 
@@ -1647,7 +1647,7 @@ ui-view {
 
         .contact-title {
             color: #fff;
-            font: 700 60px/60px $bf-landing;
+            font: 700 60px/60px var(--base-font-landing);
             margin-bottom: 60px;
         }
 
@@ -1678,18 +1678,18 @@ ui-view {
             .contact-details {
                 .contact-label {
                     color: #003366;
-                    font: 700 14px $bf-landing;
+                    font: 700 14px var(--base-font-landing);
                     margin-bottom: 5px;
                 }
 
                 .contact-address {
                     color: #191919;
-                    font: 400 18px/30px $bf-landing;
+                    font: 400 18px/30px var(--base-font-landing);
                 }
 
                 .contact-email {
                     color: #00a5fe;
-                    font: 400 18px/30px $bf-landing;
+                    font: 400 18px/30px var(--base-font-landing);
                     margin-bottom: 20px;
                 }
 
@@ -1768,7 +1768,7 @@ ui-view {
 
         .footer-label {
             color: #282b39;
-            font: 700 18px $bf-landing;
+            font: 700 18px var(--base-font-landing);
             margin-bottom: 25px;
         }
 
@@ -1779,7 +1779,7 @@ ui-view {
 
                 a {
                     color: #004195;
-                    font: 700 14px/24px $bf-landing;
+                    font: 700 14px/24px var(--base-font-landing);
                     transition: color .4s;
 
                     &:hover {
@@ -1800,14 +1800,14 @@ ui-view {
 
             .schedule-label {
                 color: #646f79;
-                font: 400 13px/24px $bf-landing;
+                font: 400 13px/24px var(--base-font-landing);
                 float: left;
                 width: 35%;
             }
 
             .schedule-value {
                 color: #00122a;
-                font: 700 13px/24px $bf-landing;
+                font: 700 13px/24px var(--base-font-landing);
                 float: left;
                 width: 65%;
             }
@@ -1847,12 +1847,12 @@ ui-view {
             /*text-align: center;*/
 
             .download-label {
-                font: 400 12px $bf-landing;
+                font: 400 12px var(--base-font-landing);
                 color: #646f79;
             }
 
             .download-value {
-                font: 700 16px $bf-landing;
+                font: 700 16px var(--base-font-landing);
                 color: #282b39;
             }
 
@@ -1881,7 +1881,7 @@ ui-view {
         border-top: 1px solid #d7e9ed;
         padding: 40px 0;
         text-align: center;
-        font: 400 14px/30px $bf-landing;
+        font: 400 14px/30px var(--base-font-landing);
 
         .wrapper {
             @include cf();
@@ -2002,7 +2002,7 @@ ui-view {
                 }
 
                 .card-title {
-                    font: 700 18px/24px $bf-landing;
+                    font: 700 18px/24px var(--base-font-landing);
                     color: #282b39;
                     margin-bottom: 5px;
 
@@ -2018,7 +2018,7 @@ ui-view {
                 }
 
                 .card-description {
-                    font: 600 14px/25px $bf-landing;
+                    font: 600 14px/25px var(--base-font-landing);
                     color: #646f79;
                 }
             }
@@ -2067,7 +2067,7 @@ ui-view {
             }
 
             .auth_type-name {
-                font: 700 18px $bf-landing;
+                font: 700 18px var(--base-font-landing);
                 color: #282b39;
                 transition: .4s;
             }
@@ -2137,7 +2137,7 @@ ui-view {
                     .pincode-number {
                         width: 40px;
                         height: 60px;
-                        font: 600 26px/60px $bf-landing;
+                        font: 600 26px/60px var(--base-font-landing);
                     }
                 }
             }
@@ -2152,7 +2152,7 @@ ui-view {
             background: #fff;
             border-radius: 4px;
             margin-right: 10px;
-            font: 600 28px/75px $bf-landing;
+            font: 600 28px/75px var(--base-font-landing);
             text-align: center;
             cursor: default;
 
@@ -2173,7 +2173,7 @@ ui-view {
 
                 .navbar-item-wrapper {
                     .navbar-item {
-                        font: 700 12px/30px $bf-landing;
+                        font: 700 12px/30px var(--base-font-landing);
 
                         &:before {
                             left: 15px;
@@ -2187,17 +2187,17 @@ ui-view {
                 .auth-in {
                     .auth-user {
                         .auth-user-email {
-                            font: 700 12px/20px $bf-landing;
+                            font: 700 12px/20px var(--base-font-landing);
                         }
 
                         .auth-user-type {
-                            font: 400 11px/20px $bf-landing;
+                            font: 400 11px/20px var(--base-font-landing);
                         }
                     }
                 }
 
                 .button {
-                    font: 700 12px/24px $bf-landing;
+                    font: 700 12px/24px var(--base-font-landing);
 
                     &:hover {
                         box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.1);
@@ -2276,11 +2276,11 @@ ui-view {
                 .auth-in {
                     .auth-user {
                         .auth-user-email {
-                            font: 700 12px/22px $bf-landing;
+                            font: 700 12px/22px var(--base-font-landing);
                         }
 
                         .auth-user-type {
-                            font: 500 12px/14px $bf-landing;
+                            font: 500 12px/14px var(--base-font-landing);
                         }
                     }
                 }
@@ -2303,7 +2303,7 @@ ui-view {
                     .navbar-item {
                         padding: 10px 20px;
                         padding-left: 15px;
-                        font: 700 12px/30px $bf-landing;
+                        font: 700 12px/30px var(--base-font-landing);
                         color: #646f79;
                         border-bottom: 1px solid #e6ecf0;
                         width: 100%;
@@ -2317,7 +2317,7 @@ ui-view {
 
                         &:hover,
                         &.active {
-                            border-left-color: $bc;
+                            border-left-color: var(--base-color);
 
                             &:before,
                             &:after {
@@ -2369,11 +2369,11 @@ ui-view {
             padding: 40px 0 0;
 
             .contact-title {
-                color: $tc;
+                color: var(--text-color);
                 position: relative;
                 z-index: 2;
                 margin: 0 0 10px;
-                font: 700 32px/46px $bf-landing;
+                font: 700 32px/46px var(--base-font-landing);
                 padding: 0 25px;
             }
 
@@ -2393,12 +2393,12 @@ ui-view {
                     }
 
                     .contact-address {
-                        font: 400 14px/24px $bf-landing;
+                        font: 400 14px/24px var(--base-font-landing);
                         margin: 0 0 5px;
                     }
 
                     .contact-email {
-                        font: 400 14px/24px $bf-landing;
+                        font: 400 14px/24px var(--base-font-landing);
                         margin: 0 0 5px;
                     }
 
@@ -2426,18 +2426,18 @@ ui-view {
             .footer-label {
                 padding: 20px 0 0;
                 margin: 0 0 20px;
-                font: 700 15px/24px $bf-landing;
+                font: 700 15px/24px var(--base-font-landing);
             }
 
             .footer-schedule {
                 .schedule-label {
-                    font: 400 12px/24px $bf-landing;
+                    font: 400 12px/24px var(--base-font-landing);
                     width: 30%;
                 }
 
                 .schedule-value {
                     width: 70%;
-                    font: 700 12px/24px $bf-landing;
+                    font: 700 12px/24px var(--base-font-landing);
                 }
             }
 
@@ -2508,12 +2508,12 @@ ui-view {
                     }
 
                     .card-title {
-                        font: 700 16px/24px $bf-landing;
+                        font: 700 16px/24px var(--base-font-landing);
                         margin: 0 0 10px;
                     }
 
                     .card-description {
-                        font: 400 14px/22px $bf-landing;
+                        font: 400 14px/22px var(--base-font-landing);
                         margin: 0 0 10px;
                     }
 
@@ -2551,7 +2551,7 @@ ui-view {
                     }
 
                     .auth_type-name {
-                        font: 700 12px $bf-landing;
+                        font: 700 12px var(--base-font-landing);
                         @include ellipsis();
                         margin: 0 -10px;
                     }
@@ -2594,7 +2594,7 @@ ui-view {
 
 
         .app-title {
-            font: 500 13px/24px $bf-landing;
+            font: 500 13px/24px var(--base-font-landing);
             padding: 5px 0 15px 0;
             text-align: center;
         }
@@ -2665,7 +2665,7 @@ ui-view {
 
     .label {
         padding: 0 10px;
-        font: 700 11px/22px $bf-landing;
+        font: 700 11px/22px var(--base-font-landing);
     }
 
     .button {
@@ -2680,7 +2680,7 @@ ui-view {
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
             height: 50px;
             padding: 5px 15px;
-            font: 400 15px/24px $bf-landing;
+            font: 400 15px/24px var(--base-font-landing);
         }
     }
 

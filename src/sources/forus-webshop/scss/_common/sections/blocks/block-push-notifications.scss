@@ -7,12 +7,12 @@
 
     .notification {
         background: #fff;
-        box-shadow: 5px 10px 30px rgba(#000, .2);
+        box-shadow: 5px 10px 30px rgba(0, 0, 0, .2);
         border-radius: 6px;
         margin: 0 0 -59px;
         padding: 20px 30px 20px 45px;
         position: relative;
-        font: 500 13px/18px $bf;
+        font: 500 13px/18px var(--base-font);
         color: #262626;
         width: 100%;
         cursor: default;
@@ -44,7 +44,7 @@
             }
 
             &:hover {
-                color: $bc;
+                color: var(--bc);
             }
         }
 
@@ -104,7 +104,7 @@
             width: 1280px;
             margin: 0 auto;
             background: #fff;
-            border-radius: $border_radius;
+            border-radius: var(--border-radius);
             max-width: 100%;
             transform: translate(0, 120%);
             pointer-events: all;
@@ -124,13 +124,13 @@
             }
 
             .notification-title {
-                font: 700 18px/21px $bf;
+                font: 700 18px/21px var(--base-font);
                 color: #191A1C;
                 margin-bottom: 7px;
             }
 
             .notification-description {
-                font: 400 15px/22px $bf;
+                font: 400 15px/22px var(--base-font);
                 color: #4F4F4F;
             }
 

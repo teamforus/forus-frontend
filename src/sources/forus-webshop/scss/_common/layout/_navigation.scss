@@ -2,7 +2,7 @@
     &.block-navbar {
         border-bottom: 1px solid #dbdcdb;
         z-index: 5;
-        background-color: $bg-nav;
+        background-color: var(--bg-nav);
         position: relative;
         top: 0;
         max-width: 100%;
@@ -21,35 +21,35 @@
             }
 
             &.button-default {
-                background-color: $btn-auth-bg;
-                border: solid 1px $btn-auth-border;
-                color: $tc-auth-btn;
+                background-color: var(--btn-auth-bg);
+                border: solid 1px var(--btn-auth-border);
+                color: var(--tc-auth-btn);
 
                 svg {
                     path {
-                        fill: $tc-auth-btn;
+                        fill: var(--tc-auth-btn);
                     }
                 }
 
                 &:hover {
-                    border: solid 1px $btn-auth-border;
+                    border: solid 1px var(--btn-auth-border);
 
                     svg {
                         path {
-                            fill: $tc-auth-btn;
+                            fill: var(--tc-auth-btn);
                         }
                     }
                 }
             }
 
             &.button-primary {
-                background-color: $btn-start-bg;
-                color: $tc-start-btn;
-                border: solid 1px $btn-start-border;
+                background-color: var(--btn-start-bg);
+                color: var(--tc-start-btn);
+                border: solid 1px var(--btn-start-border);
 
                 svg {
                     path {
-                        fill: $tc-start-btn;
+                        fill: var(--tc-start-btn);
                     }
                 }
             }
@@ -67,10 +67,10 @@
 
                 .navbar-logo {
                     display: flex;
-                    padding: $logo-padding;
+                    padding: var(--logo-padding);
 
                     img {
-                        height: $logo-height;
+                        height: var(--logo-height);
                         flex-shrink: 0;
                     }
                 }
@@ -80,9 +80,9 @@
                 margin-left: 25px;
                 .auth-user {
                     .auth-user-avatar {
-                        border-color: $color_default;
-                        border-radius: $border_radius;
-                        background: $btn-start-bg;
+                        border-color: var(--color-default);
+                        border-radius: var(--border-radius);
+                        background: var(--btn-start-bg);
 
                         &:after {
                             content: "";
@@ -149,6 +149,7 @@
         }
 
         .navbar-list {
+            float: left;
             flex-grow: 1;
             display: flex;
             text-align: left;
@@ -159,12 +160,12 @@
                 padding-right: 50px;
 
                 .navbar-item {
-                    color: $tc-nav;
+                    color: var(--tc-nav);
                     display: inline-block;
                     padding: 15px 0px;
                     position: relative;
                     transition: 0.4s;
-                    font: 400 18px/1.3em $bf;
+                    font: 400 18px/1.3em var(--base-font);
                     cursor: pointer;
 
                     &:before {
@@ -179,25 +180,25 @@
                     }
 
                     &:hover {
-                        color: $tc-nav-hov;
+                        color: var(--tc-nav-hov);
 
                         &:before {
-                            background: $tc-nav-hov;
+                            background: var(--tc-nav-hov);
                         }
                     }
 
                     &.active {
-                        color: $tc-nav-hov;
+                        color: var(--tc-nav-hov);
 
                         &:before {
-                            background: $tc-nav-hov;
+                            background: var(--tc-nav-hov);
                         }
                     }
                 }
 
                 .navbar-menu {
                     background: #ffffff;
-                    box-shadow: 0 0 20px rgba(#000, 0.075);
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.075);
                     width: 220px;
                     left: 20px;
                     position: absolute;
@@ -216,7 +217,7 @@
                     .navbar-menu-item {
                         display: block;
                         padding: 5px 15px;
-                        font: 700 13px/26px $bf;
+                        font: 700 13px/26px var(--base-font);
                         transition: 0.4s;
                         cursor: pointer;
 
@@ -237,7 +238,7 @@
                         }
 
                         &:hover {
-                            color: $color_primary;
+                            color: var(--color-primary);
                             background: #f6f8f9;
                         }
                     }
@@ -257,9 +258,10 @@
                     top: 50%;
                     right: 25px;
                     bottom: 0;
-                    width: 1px;
-                    height: 14px;
-                    background-color: #282B39;
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 10px;
+                    background-color: var(--tc-nav);
                     transform: translate(50%, -50%);
                     opacity: .25;
                     display: block;
@@ -296,7 +298,7 @@
                     .navbar-user {
                         font-weight: 600;
                         font-size: 16px;
-                        color: $tc-nav;
+                        color: var(--tc-nav);
                         display: flex; 
                         margin-right: 20px;
                         position: relative;
@@ -324,7 +326,7 @@
                         margin-left: 5px;
 
                         &:before {
-                            color: $tc-nav;
+                            color: var(--tc-nav);
                         }
                     }
 
@@ -340,7 +342,7 @@
                             }
                         }
                     }
-                    
+
                     &:after {
                         display: none;
                     }
@@ -352,8 +354,8 @@
                     justify-content: flex-end;
 
                     .navbar-social-media-icon {
-                        color: $tc-nav;
-                        font: 400 20px/1.3em $bf;
+                        color: var(--tc-nav);
+                        font: 400 20px/1.3em var(--base-font);
                         margin-right: 15px;
                         display: inline-flex;
                         flex-direction: column;
@@ -421,8 +423,8 @@
                 margin-right: 30px;
 
                 .button {
-                    background-color: $btn-start-bg;
-                    border: 1px solid $btn-start-border;
+                    background-color: var(--btn-start-bg);
+                    border: 1px solid var(--btn-start-border);
                 }
             }
 
@@ -457,7 +459,7 @@
                         padding-right: 10px;
 
                         .auth-user-email {
-                            font: 700 13px/20px $bf;
+                            font: 700 13px/20px var(--base-font);
                             color: #282b39;
                             text-align: right;
                             grid-row: 1;
@@ -466,7 +468,7 @@
 
                         .auth-user-logout,
                         .auth-user-type {
-                            font: 400 13px/20px $bf;
+                            font: 400 13px/20px var(--base-font);
                             color: #151b26;
                             grid-row: 2;
                             grid-column: 2 / 3;
@@ -474,7 +476,7 @@
                         }
 
                         .auth-user-logout {
-                            font: 600 12px/20px $bf;
+                            font: 600 12px/20px var(--base-font);
                             display: flex;
                             justify-items: flex-end;
                             justify-content: flex-end;
@@ -483,7 +485,7 @@
 
                             .mdi {
                                 line-height: 20px;
-                                color: lighten($color: $tc, $amount: 15%);
+                                color: var(--tc);
                                 font-size: 14px;
 
                                 &:first-child {
@@ -530,13 +532,13 @@
 
                     .auth-user-menu {
                         background: #ffffff;
-                        box-shadow: 2px 0 15px rgba(#000, 0.1);
+                        box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
                         width: 240px;
                         right: 1px;
                         position: absolute;
                         top: 38px;
                         border: 1px solid #f3f4f5;
-                        border-radius: $border_radius;
+                        border-radius: var(--border-radius);
                         padding: 5px 0;
                         display: none;
 
@@ -549,7 +551,7 @@
                         .auth-user-menu-user {
                             display: block;
                             padding: 5px 15px;
-                            font: 700 13px/20px $bf;
+                            font: 700 13px/20px var(--base-font);
                             transition: 0.4s;
                             width: 100%;
                             text-align: left;
@@ -563,7 +565,7 @@
                         .auth-user-menu-item {
                             display: block;
                             padding: 5px 15px;
-                            font: 700 13px/26px $bf;
+                            font: 700 13px/26px var(--base-font);
                             transition: 0.4s;
                             cursor: pointer;
                             border: none;
@@ -588,7 +590,7 @@
                             }
     
                             &:hover {
-                                color: $color_primary;
+                                color: var(--color-primary);
                                 background: #f6f8f9;
                             }
                         }
@@ -660,12 +662,12 @@
                 .auth-in {
                     .auth-user {
                         .auth-user-email {
-                            font: 700 12px/20px $bf;
+                            font: 700 12px/20px var(--base-font);
                         }
 
                         .auth-user-logout,
                         .auth-user-type {
-                            font: 400 11px/20px $bf;
+                            font: 400 11px/20px var(--base-font);
                         }
                     }
                 }
@@ -721,7 +723,7 @@
             }
 
             .button {
-                font: 400 14px/1.5em $bf;
+                font: 400 14px/1.5em var(--base-font);
                 margin-right: 0;
             }
 
@@ -769,12 +771,12 @@
                         justify-content: flex-end;
 
                         .auth-user-email {
-                            font: 700 12px/22px $bf;
+                            font: 700 12px/22px var(--base-font);
                         }
 
                         .auth-user-logout,
                         .auth-user-type {
-                            font: 500 12px/14px $bf;
+                            font: 500 12px/14px var(--base-font);
                         }
                     }
                 }
@@ -802,7 +804,7 @@
                     .navbar-item {
                         padding: 10px 20px;
                         padding-left: 15px;
-                        font: 700 12px/30px $bf;
+                        font: 700 12px/30px var(--base-font);
                         color: #646f79;
                         border-bottom: 1px solid #e6ecf0;
                         width: 100%;
@@ -856,7 +858,7 @@
             .button {
                 padding: 10px 0px;
                 min-width: 80px;
-                font: 400 12px/1.5em $bf;
+                font: 400 12px/1.5em var(--base-font);
             }
         }
     }
