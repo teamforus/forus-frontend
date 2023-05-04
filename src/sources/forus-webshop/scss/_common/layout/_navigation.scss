@@ -738,11 +738,10 @@
                     flex-direction: column;
                     margin-right: 10px;
                     flex-grow: 1;
-                    font: 700 12px/16px $bf;
+                    font: 700 12px/16px var(--base-font);
 
                     svg {
                         float: left;
-                        margin-right: 10px;
                     }
 
                     .mdi,
@@ -750,6 +749,14 @@
                         margin: 0 auto;
                         text-align: center;
                         float: none;
+                    }
+
+                    .mdi, svg {
+                        margin-right: 10px;
+                    }
+
+                    .mdi {
+                        font: 700 12px/16px var(--base-font);
                     }
 
                     &:last-child {

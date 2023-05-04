@@ -23,9 +23,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
     .navbar-inner.wrapper
         .block.block-auth.show-sm(ng-if="!$root.showSearchBox")
-            button.button.button-primary(ng-click="$root.signOut()" role="button" aria-label="sign_out" ng-if="$root.auth_user").show-sm
-                translate(translate="topnavbar.buttons.logout")
-
             button.button.button-default(
                 ng-click="$dir.startFundRequest({ restore_with_email: true })"
                 role="button").show-sm
@@ -34,9 +31,12 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
                 span(ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'")
 
+            button.button.button-primary(ng-click="$root.signOut()" role="button" aria-label="sign_out" ng-if="$root.auth_user").show-sm
+                em.mdi.mdi-logout
+                translate(translate="topnavbar.buttons.logout")
+
             button.button.button-primary(ng-click="$dir.startFundRequest()" role="button" aria-label="login" ng-if="!$root.auth_user" id="login_mobile").show-sm
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
-
                 translate(translate="topnavbar.buttons.login")
         
         ul.navbar-list#primary-menu.hide-sm
