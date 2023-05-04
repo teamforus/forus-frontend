@@ -77,6 +77,7 @@ app.component('identitiesShowComponent', require('./components/IdentitiesShowCom
 app.component('implementationCmsConfigEditComponent', require('./components/ImplementationCmsConfigEditComponent'));
 app.component('emailConfirmedComponent', require('./components/EmailConfirmedComponent'));
 app.component('reservationsSettingsComponent', require('./components/ReservationsSettingsComponent'));
+app.component('implementationCmsSocialMediaEditComponent', require('./components/ImplementationCmsSocialMediaEditComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -127,6 +128,7 @@ app.component('modalReimbursementResolveComponent', require('./components/Modals
 app.component('modalFundUnsubscribeComponent', require('./components/Modals/ModalFundUnsubscribeComponent'));
 app.component('modalVoucherTransactionsUploadComponent', require('./components/Modals/ModalVoucherTransactionsUploadComponent'));
 app.component('modalVoucherRecordEditComponent', require('./components/Modals/ModalVoucherRecordEditComponent'));
+app.component('modalEditSocialMediaComponent', require('./components/Modals/ModalEditSocialMediaComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -200,6 +202,7 @@ app.service('FaqService', require('./services/FaqService'));
 app.service('FundUnsubscribeService', require('./services/FundUnsubscribeService'));
 app.service('AnnouncementService', require('./services/AnnouncementService'));
 app.service('ProductReservationsExportService', require('./services/ProductReservationsExportService'));
+app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 
 // Directives
 app.directive('menu', {

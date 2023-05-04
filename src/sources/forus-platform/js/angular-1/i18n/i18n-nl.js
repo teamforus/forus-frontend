@@ -76,6 +76,7 @@ module.exports = {
             confirm_custom_sponsor_email_notification: require('./nl/modals/danger-zone/confirm-custom-sponsor-email-notification'),
             cancel_provider_unsubscription: require('./nl/modals/danger-zone/cancel-provider-unsubscription'),
             remove_voucher_record: require('./nl/modals/danger-zone/remove-voucher-record'),
+            remove_implementation_social_media: require('./nl/modals/danger-zone/remove-implementation-social-media'),
         },
     },
     // PAGES
@@ -424,7 +425,8 @@ module.exports = {
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
-            footer_app_info: "Footer app content",
+            cms_media_links: "Social media links",
+            footer_app_info: "",
         },
         implementations_table: {
             title: "Webshop pagina's",
@@ -1859,6 +1861,5 @@ module.exports = {
                 }
             }
         }
-
     }
 }
