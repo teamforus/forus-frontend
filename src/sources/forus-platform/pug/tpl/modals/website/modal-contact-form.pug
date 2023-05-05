@@ -1,0 +1,11 @@
+#modalContact.modal.fade(ng-if="$ctrl.modal.ready" ng-class="[$ctrl.modal.loaded ? 'in' : '']" role="dialog")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-dialog: .modal-content
+        .modal-header
+            button.close(type="button" data-dismiss="modal" ng-click="$ctrl.close()")
+                include ../../../../resources/platform-general/assets/img/svg/close.svg
+            h2.modal-title Vragen?
+                br
+                | Neem contact met ons op
+        .modal-body
+            contact-form
