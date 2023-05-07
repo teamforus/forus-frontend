@@ -188,7 +188,6 @@ const ReservationsComponent = function(
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
         $ctrl.filters.reset();
-        $ctrl.onPageChange($ctrl.filters.values);
 
         $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
         $ctrl.reservationEnabled = reservations_budget_enabled || reservations_subsidy_enabled;
