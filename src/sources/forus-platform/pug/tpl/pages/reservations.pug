@@ -28,6 +28,18 @@
                         em.mdi.mdi-upload.icon-start
                         | Upload bulkbestand
 
+                    //- Filters active/archived
+                    .flex-col: .block.block-label-tabs.nowrap.pull-right: .label-tab-set
+                        .label-tab.label-tab-sm(
+                            ng-class="{'active' : $ctrl.shownReservationsType == 'active'}"
+                            ui-sref="reservations({reservations_type: 'active'})")
+                            | Lopend ({{ $ctrl.activeReservations.meta.total }})
+
+                        .label-tab.label-tab-sm(
+                            ng-class="{'active' : $ctrl.shownReservationsType == 'archived'}"
+                            ui-sref="reservations({reservations_type: 'archived'})")
+                            | Archief ({{ $ctrl.archivedReservations.meta.total }})    
+
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start
                         span(i18n="Wis filters")
@@ -150,6 +162,16 @@
                                 ng-if="reservation.state === 'pending'" 
                                 ng-click="$ctrl.rejectReservation(reservation)")
                                 em.mdi.mdi-close
+
+                            button.button.button-sm.button-default.button-icon(
+                                ng-if="reservation.archivable"
+                                ng-click="$ctrl.archiveReservation(reservation)")
+                                em.mdi.mdi-download-box-outline
+
+                            button.button.button-sm.button-primary.button-icon(
+                                ng-if="!reservation.archivable && reservation.archived"
+                                ng-click="$ctrl.unarchiveReservation(reservation)")
+                                em.mdi.mdi-lock-reset    
 
                             button.button.button-sm.button-default.button-icon(
                                 ui-sref="reservations-show({organization_id: $ctrl.organization.id, id: reservation.id})")

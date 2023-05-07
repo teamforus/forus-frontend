@@ -39,6 +39,8 @@ const ModalProductReserveDetailsComponent = function(
         $ctrl.provider = $ctrl.product.organization;
 
         $ctrl.form = FormBuilderService.build({}, (form) => {
+            form.lock();
+
             ProductReservationService.reserve({
                 ...form.values,
                 voucher_address: $ctrl.voucher.address,
@@ -70,6 +72,7 @@ const ModalProductReserveDetailsComponent = function(
         const firstError = typeof errors === 'object' ? Object.values(errors)[0] : null
 
         PushNotificationsService.danger(firstError ? firstError[0] || message : message);
+        $ctrl.form.unlock();
     };
 
     $ctrl.productReserve = () => {

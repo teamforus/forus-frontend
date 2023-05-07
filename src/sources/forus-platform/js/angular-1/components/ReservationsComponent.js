@@ -1,5 +1,8 @@
 const ReservationsComponent = function(
+    $q,
+    $state,
     $timeout,
+    $stateParams,
     ModalService,
     OrganizationService,
     PushNotificationsService,
@@ -10,6 +13,8 @@ const ReservationsComponent = function(
 
     $ctrl.empty = null;
     $ctrl.acceptedByDefault = false;
+
+    $ctrl.shownReservationsType = $stateParams.reservations_type || 'active';
 
     $ctrl.states = [{
         key: null,
@@ -52,9 +57,26 @@ const ReservationsComponent = function(
         $timeout(() => $ctrl.filters.show = false, 0);
     };
 
+    const fetchReservations = (query, archived = false) => {
+        return $q((resolve, reject) => {
+            ProductReservationService.list($ctrl.organization.id, { ...$ctrl.filters.values, ...query, archived: archived ? 1 : 0 }).then((res) => {
+                if (archived) {
+                    resolve($ctrl.archivedReservations = res.data);
+                }
+
+                resolve($ctrl.activeReservations = res.data);
+            }, reject);
+        });
+    };
+
     $ctrl.onPageChange = (query = {}) => {
-        ProductReservationService.list($ctrl.organization.id, { ...$ctrl.filters.values, ...query }).then((res) => {
-            $ctrl.reservations = res.data;
+        let promisses = [
+            fetchReservations(query),
+            fetchReservations(query, true),
+        ];
+
+        $q.all(promisses).then(() => {
+            $ctrl.reservations = $ctrl.shownReservationsType == 'active' ? $ctrl.activeReservations : $ctrl.archivedReservations;
         });
     };
 
@@ -140,7 +162,29 @@ const ReservationsComponent = function(
         ProductReservationsExportService.export($ctrl.organization.id, $ctrl.filters.values);
     };
 
+    $ctrl.archiveReservation = (reservation) => {
+        ProductReservationService.confirmArchiving(reservation, () => {
+            ProductReservationService.archive($ctrl.organization.id, reservation.id).then((res) => {
+                PushNotificationsService.success('Opgeslagen!');
+                $ctrl.onPageChange();
+                $state.reload();
+            }, (res) => PushNotificationsService.danger(res.data.message));
+        });
+    };
+
+    $ctrl.unarchiveReservation = (reservation) => {
+        ProductReservationService.confirmUnarchiving(reservation, () => {
+            ProductReservationService.unarchive($ctrl.organization.id, reservation.id).then((res) => {
+                PushNotificationsService.success('Opgeslagen!');
+                $ctrl.onPageChange();
+                $state.reload();
+            }, (res) => PushNotificationsService.danger(res.data.message));
+        });
+    };
+
     $ctrl.$onInit = () => {
+        $ctrl.reservations = $ctrl.shownReservationsType == 'active' ? $ctrl.activeReservations : $ctrl.archivedReservations;
+
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
         $ctrl.filters.reset();
@@ -168,9 +212,14 @@ module.exports = {
         funds: '<',
         products: '<',
         organization: '<',
+        activeReservations: '<',
+        archivedReservations: '<',
     },
     controller: [
+        '$q',
+        '$state',
         '$timeout',
+        '$stateParams',
         'ModalService',
         'OrganizationService',
         'PushNotificationsService',

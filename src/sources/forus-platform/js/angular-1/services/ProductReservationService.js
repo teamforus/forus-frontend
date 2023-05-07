@@ -49,6 +49,14 @@ const ProductReservationService = function (
 
             return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/export`, data, {}, true, callback);
         };
+        
+        this.archive = function(organization_id, id) {
+            return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/${id}/archive`);
+        }
+
+        this.unarchive = function(organization_id, id) {
+            return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/${id}/unarchive`);
+        }
 
         this.sampleCsvProductReservations = (product_id = '') => {
             const headers = ['number', 'product_id'];
@@ -76,6 +84,28 @@ const ProductReservationService = function (
             ModalService.open("dangerZone", {
                 title: "Weet u zeker dat u de betaling wilt annuleren?",
                 description_text: "Wanneer u de betaling annuleert wordt u niet meer uitbetaald.",
+                cancelButton: "Annuleren",
+                confirmButton: "Bevestigen",
+                onConfirm,
+            });
+        };
+
+        this.confirmArchiving = (reservation, onConfirm) => {
+            ModalService.open("dangerZone", {
+                description_title: "Do you confirm reservation archiving?",
+                description_text: `The reservation for ${reservation.product.name} will be archived`,
+                text_align: 'center',
+                cancelButton: "Annuleren",
+                confirmButton: "Bevestigen",
+                onConfirm,
+            });
+        };
+
+        this.confirmUnarchiving = (reservation, onConfirm) => {
+            ModalService.open("dangerZone", {
+                description_title: "Do you confirm reservation unarchiving?",
+                description_text: `The reservation for ${reservation.product.name} will be unarchived`,
+                text_align: 'center',
                 cancelButton: "Annuleren",
                 confirmButton: "Bevestigen",
                 onConfirm,
