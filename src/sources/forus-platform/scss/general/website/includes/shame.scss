@@ -19,8 +19,25 @@ html {
         * {
             font-family: var(--base-font);
         }
+
         .thanks {
             text-align: center;
+
+            .thanks-icon {
+                text-align: center;
+                color: var(--forus-blue);
+                font: 400 96px/1em var(--base-font);
+                display: block;
+                margin: 0 0 0;
+            }
+
+            .thanks-header {
+                text-align: center;
+                color: var(--forus-blue);
+                font: 400 36px/1.5em var(--base-font);
+                display: block;
+                margin: 0 0 5px;
+            }
         }
         .blur{
             -webkit-filter: blur(5px);

@@ -1,60 +1,77 @@
-form#formContact(ng-if="$dir.form" ng-submit="$dir.form.submit()")
-  .row
-    .col-xs-12.col-lg-6
-      .form-group.required
-        label.control-label NAAM
-        .input-group
-          input.form-control(type="text" placeholder="Naam" ng-model="$dir.form.values.name" required)
-          a(ng-click="$dir.form.values.name = ''").clear_field
-            include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-          span.help-block(ng-repeat="error in $dir.form.errors.name" ng-bind="error")
+form#formContact(ng-show="$dir.form" ng-submit="$dir.form.submit()")
+    .modal-header(ng-if="$dir.type == 'modal'")
+        button.close(type="button" data-dismiss="modal" ng-click="$dir.close()")
+            include ../../../../resources/platform-general/assets/img/svg/close.svg
 
-    .col-xs-12.col-lg-6
-      .form-group.required
-        label.control-label EMAIL
-        .input-group
-          input.form-control(type="email" placeholder="Email" ng-model="$dir.form.values.email" required)
-          a(ng-click="$dir.form.values.email = ''").clear_field
-            include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-          span.help-block(ng-repeat="error in $dir.form.errors.email" ng-bind="error")
+        h2.modal-title(ng-if='!$dir.formSuccess') 
+            | Vragen?
+            br
+            | Neem contact met ons op
 
-    .col-xs-12.col-lg-6
-      .form-group
-        label.control-label ORGANISATIE
-        .input-group
-          input.form-control(type="text" placeholder="Organisatie" ng-model="$dir.form.values.organization")
-          a(ng-click="$dir.form.values.organization = ''").clear_field
-            include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-          span.help-block(ng-repeat="error in $dir.form.errors.organization" ng-bind="error")
+    div(ng-class="$dir.type == 'modal' ? 'modal-body' : ''" ng-show="!$dir.formSuccess")
+        .col-xs-12.col-lg-6
+            .form-group.required
+                label.control-label NAAM
+                .input-group
+                    input.form-control(type="text" placeholder="Naam" ng-model="$dir.form.values.name" required)
+                    a(ng-click="$dir.form.values.name = ''").clear_field
+                        include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                    span.help-block(ng-repeat="error in $dir.form.errors.name" ng-bind="error")
 
-    .col-xs-12.col-lg-6
-      .form-group
-        label.control-label TELEFOONNUMMER
-        .input-group
-          input.form-control(type="text" placeholder="Telefoonnummer" ng-model="$dir.form.values.phone")
-          a(ng-click="$dir.form.values.phone = ''").clear_field
-            include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-          span.help-block(ng-repeat="error in $dir.form.errors.phone" ng-bind="error")
+        .col-xs-12.col-lg-6
+            .form-group.required
+                label.control-label EMAIL
+                .input-group
+                    input.form-control(type="email" placeholder="Email" ng-model="$dir.form.values.email" required)
+                    a(ng-click="$dir.form.values.email = ''").clear_field
+                        include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                    span.help-block(ng-repeat="error in $dir.form.errors.email" ng-bind="error")
 
-    .col-xs-12
-      .form-group.required
-        label.control-label BERICHT
-        .input-group
-          textarea.form-control(placeholder="Bericht" ng-model="$dir.form.values.message" required)
+        .col-xs-12.col-lg-6
+            .form-group
+                label.control-label ORGANISATIE
+                .input-group
+                    input.form-control(type="text" placeholder="Organisatie" ng-model="$dir.form.values.organization")
+                    a(ng-click="$dir.form.values.organization = ''").clear_field
+                        include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                    span.help-block(ng-repeat="error in $dir.form.errors.organization" ng-bind="error")
 
-          a(ng-click="$dir.form.values.message = ''").clear_field
-            include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-          span.help-block(ng-repeat="error in $dir.form.errors.message" ng-bind="error")
+        .col-xs-12.col-lg-6
+            .form-group
+                label.control-label TELEFOONNUMMER
+                .input-group
+                    input.form-control(type="text" placeholder="Telefoonnummer" ng-model="$dir.form.values.phone")
+                    a(ng-click="$dir.form.values.phone = ''").clear_field
+                        include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                    span.help-block(ng-repeat="error in $dir.form.errors.phone" ng-bind="error")
 
-    .col-xs-12.info
-      span(style="color: red") *
-      | velden zijn verplicht
+        .col-xs-12
+            .form-group.required
+                label.control-label BERICHT
+                .input-group
+                    textarea.form-control(placeholder="Bericht" ng-model="$dir.form.values.message" required)
 
-    .col-xs-12
-      .form-group.center-block
-        .recaptcha(id="{{ $dir.recaptchaId }}")
-        span.help-block(ng-repeat="error in $dir.form.errors.recaptcha" ng-bind="error")
-        p.thanks(ng-if="$dir.formSuccess") Bedankt! Er wordt zo snel mogelijk contact met u opgenomen.
-        button.button-center.btn.main_button(
-          ng-if="!$dir.formSuccess"
-          type="submit") Versturen
+                    a(ng-click="$dir.form.values.message = ''").clear_field
+                        include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
+                    span.help-block(ng-repeat="error in $dir.form.errors.message" ng-bind="error")
+
+        .col-xs-12.info
+            span(style="color: red") *
+            | velden zijn verplicht
+
+        .col-xs-12
+            .form-group.center-block
+                .recaptcha(id="{{ $dir.recaptchaId }}")
+                span.help-block(ng-repeat="error in $dir.form.errors.recaptcha" ng-bind="error")
+                button.button-center.btn.main_button(type="submit") Versturen
+
+    .row(ng-show="$dir.formSuccess")
+        .col-xs-12
+            .form-group.center-block
+                span.help-block(ng-repeat="error in $dir.form.errors.recaptcha" ng-bind="error")
+                p.thanks
+                    span.thanks-icon: em.mdi.mdi-checkbox-marked-circle-outline
+                    span.thanks-header Bedankt! 
+                    | Er wordt zo snel mogelijk contact met u opgenomen.
+
+                button.button-center.btn.main_button(ng-if="!$dir.formSuccess" type="submit") Versturen
