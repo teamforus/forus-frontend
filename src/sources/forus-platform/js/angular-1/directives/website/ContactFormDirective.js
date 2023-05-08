@@ -1,21 +1,23 @@
 const uniqueId = require('lodash/uniqueId');
 
 const ContactFormDirective = function (
+    $q,
     $scope,
-    $timeout,
+    $element,
+    appConfigs,
+    ContactService,
     FormBuilderService,
-    ContactService
 ) {
     const $dir = $scope.$dir;
+
+    $dir.widgetId;
     $dir.formSuccess = false;
     $dir.recaptchaValid = false;
-    let widgetId;
-    let siteKey = '6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ';
 
     $dir.buildForm = () => {
         $dir.form = FormBuilderService.build({}, (form) => {
             if ($dir.recaptchaValid) {
-                ContactService.send(form.values).then((res) => {
+                ContactService.send(form.values).then(() => {
                     $dir.formSuccess = true;
                     $dir.recaptchaValid = false;
 
@@ -31,46 +33,54 @@ const ContactFormDirective = function (
                 };
                 form.unlock();
             }
-        });
+        }, true);
     }
 
-    const generateRecaptchaId = () => {
-        return 'recaptcha-form-' + uniqueId();
-    }
-
-    const initRecaptcha = () => {
-        if (typeof grecaptcha === 'undefined' || typeof grecaptcha.render === 'undefined') {
-            return $timeout(() => initRecaptcha(), 500);
-        }
-
-        widgetId = grecaptcha.render($dir.recaptchaId, {
-            'sitekey': siteKey,
-            'callback': () => $dir.recaptchaValid = true,
-            'size': 'invisible'
-        });
-
-        grecaptcha.execute(widgetId);
+    $dir.initRecaptcha = (captcha) => {
+        $q((resolve) => {
+            captcha.execute(captcha.render($dir.recaptchaId, {
+                sitekey: appConfigs?.captcha_site_key,
+                callback: resolve,
+                size: 'invisible'
+            }));
+        }).then(
+            () => $dir.recaptchaValid = true,
+            () => $dir.recaptchaValid = false,
+        );
     }
 
     $dir.$onInit = () => {
-        $dir.recaptchaId = generateRecaptchaId();
         $dir.buildForm();
-        $timeout(() => initRecaptcha());
+        $dir.recaptchaId = `recaptcha-form-${uniqueId()}`;
+
+        $dir.unwatch = $scope.$watch(() => grecaptcha?.render && $element.find(`#${$dir.recaptchaId}`).length > 0, (ready) => {
+            if (ready) {
+                $dir.unwatch();
+                $dir.initRecaptcha(grecaptcha);
+            }
+        });
     };
 };
 
 module.exports = () => {
     return {
-        bindToController: {},
+        scope: {
+            type: '@',
+            close: '=',
+        },
+        bindToController: true,
         controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [
+            '$q',
             '$scope',
-            '$timeout',
-            'FormBuilderService',
+            '$element',
+            'appConfigs',
             'ContactService',
-            ContactFormDirective
+            'FormBuilderService',
+            'FormBuilderService',
+            ContactFormDirective,
         ],
         templateUrl: 'assets/tpl/directives/website/contact-form.html',
     };
