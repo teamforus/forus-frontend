@@ -68,23 +68,34 @@ const SponsorProviderOrganizationsComponent = function(
     $ctrl.hideFilters = () => $ctrl.filters.show = false;
     $ctrl.transformList = (providers) => providers.map(provider => $ctrl.transformItem(provider));
 
-    $ctrl.transformItem = (providerOrganization) => ({
-        ...providerOrganization,
-        ...{
-            uiViewParams: {
-                organization_id: $ctrl.organization.id,
-                provider_organization_id: providerOrganization.id
-            },
-            funds: (providerOrganization.funds || []).map((fund) => ({
-                ...fund,
+    $ctrl.transformItem = (providerOrganization) => {
+        const acceptedFunds = (providerOrganization.funds || [])
+            .filter((fund) => fund.fund_provider_state === 'accepted').length;
+
+        const acceptedFundsLocale = acceptedFunds === 0
+            ? 'geen fondsen'
+            : acceptedFunds + (acceptedFunds === 1 ? ' fonds' : ' fondsen');
+
+        return {
+            ...providerOrganization,
+            ...{
                 uiViewParams: {
-                    fund_id: fund.id,
-                    organization_id: fund.organization_id,
-                    fund_provider_id: fund.fund_provider_id
+                    organization_id: $ctrl.organization.id,
+                    provider_organization_id: providerOrganization.id
                 },
-            }))
-        }
-    });
+                funds: (providerOrganization.funds || []).map((fund) => ({
+                    ...fund,
+                    uiViewParams: {
+                        fund_id: fund.id,
+                        organization_id: fund.organization_id,
+                        fund_provider_id: fund.fund_provider_id
+                    },
+                })),
+                accepted_funds_count: acceptedFunds,
+                accepted_funds_count_locale: acceptedFundsLocale,
+            }
+        };
+    };
 
     $ctrl.$onInit = function() {
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds]
