@@ -137,9 +137,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/organizations",
         controller: ['$rootScope', ($rootScope) => {
             if (!$rootScope.auth_user) {
-                $rootScope.loadAuthUser().then(() => $rootScope.autoSelectOrganization());
+                $rootScope.loadAuthUser().then((auth_user) => $rootScope.autoSelectOrganization(auth_user));
             } else {
-                $rootScope.autoSelectOrganization()
+                $rootScope.autoSelectOrganization($rootScope.auth_user)
             }
         }]
     });

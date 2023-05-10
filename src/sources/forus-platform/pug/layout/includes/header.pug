@@ -10,10 +10,9 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
         a(ui-sref="home" ng-if="!$root.activeOrganization").header-logo
             img(ng-src="./assets/img/logo.svg").header-logo-img
 
-        .form.form-organizations(ng-if="$root.activeOrganizationId")
+        .header-organization-switcher.form(ng-if="$root.activeOrganization")
             select-control(
-                prop="id"
-                ng-model="$root.activeOrganizationId"
+                ng-model="$root.activeOrganization"
                 template="select-control-organization"
                 ng-change="$root.changeOrganization()"
                 placeholder="{{ $root.activeOrganization.name }}"
