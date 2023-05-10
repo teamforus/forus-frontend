@@ -69,8 +69,9 @@
                                 ng-model="$ctrl.form.values.description"
                                 allow-alignment="true"
                                 block-alignment="$ctrl.form.values.description_alignment")
+                    
                     //- Select description default settings
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="$ctrl.page_type_config.description_position_configurable")
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="$ctrl.page_type_config.description_position_configurable && !$ctrl.page.external")
                         label.form-label Positie van de content
                         .form-offset
                             select-control(
