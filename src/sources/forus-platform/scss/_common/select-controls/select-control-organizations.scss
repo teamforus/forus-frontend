@@ -109,7 +109,7 @@
 
                 input {
                     border: none;
-                    font: 500 13px / var(--control-line-height) $bf;
+                    font: 500 13px / var(--control-line-height) var(--base-font);
                     padding: calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 0;
                     padding-right: 35px;
                     color: #151b26;
@@ -118,8 +118,8 @@
 
                     &::placeholder,
                     &::-webkit-input-placeholder {
-                        color: $ptc;
-                        font: 500 13px / var(--control-line-height) $bf;
+                        color: var(--placeholder-color);
+                        font: 500 13px / var(--control-line-height) var(--base-font);
                     }
 
                     &::-webkit-search-decoration,
@@ -143,7 +143,7 @@
             .select-control-search-placeholder {
                 display: block;
                 color: #151b26;
-                font: 500 13px / var(--control-line-height) $bf;
+                font: 500 13px / var(--control-line-height) var(--base-font);
                 padding: calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 0;
                 width: calc(100% - 75px);
                 @include ellipsis();
@@ -260,7 +260,7 @@
                     }
 
                     .select-control-switcher-setting-name {
-                        font: 500 12px/32px $bf;
+                        font: 500 12px/32px var(--base-font);
                     }
 
                     &:hover {
