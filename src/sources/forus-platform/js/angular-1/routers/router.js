@@ -1,3 +1,4 @@
+const { pick } = require("lodash");
 const targetHome = 'homeStart';
 const targetNewSignup = 'newSignup';
 
@@ -1248,20 +1249,25 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
      */
     $stateProvider.state({
         name: "transactions",
-        url: "/organizations/{organization_id}/transactions?{type:string}&{q:string}&{page:int}&{state:string}&{fund_id:int}&{fund_state:string}&{from:string}&{to:string}&{amount_min:int}&{amount_max:int}&{quantity_min:int}&{quantity_max:int}&{order_by:string}&{order_dir:string}",
+        url: [
+            "/organizations/{organization_id}/transactions?",
+            "{type:string}&{q:string}&{page:int}&{state:string}&{fund_id:int}&{fund_state:string}&",
+            "{from:string}&{to:string}&{amount_min:int}&{amount_max:int}&{quantity_min:int}&",
+            "{quantity_max:int}&{order_by:string}&{order_dir:string}",
+        ].join(''),
         params: {
-            type: { dynamic: true, value: null, squash: true },
             q: routeParam(""),
+            to: routeParam(),
+            from: routeParam(),
+            type: routeParam("transactions"),
             page: routeParam(1),
-            state: routeParam(null),
-            fund_id: routeParam(null),
-            fund_state: routeParam(null),
-            from: routeParam(null),
-            to: routeParam(null),
-            amount_min: routeParam(null),
-            amount_max: routeParam(null),
-            quantity_min: routeParam(null),
-            quantity_max: routeParam(null),
+            state: routeParam(),
+            fund_id: routeParam(),
+            fund_state: routeParam(),
+            amount_min: routeParam(),
+            amount_max: routeParam(),
+            quantity_min: routeParam(),
+            quantity_max: routeParam(),
             order_by: routeParam('created_at'),
             order_dir: routeParam('desc'),
         },
@@ -1281,35 +1287,21 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             transactions: ['$transition$', 'TransactionService', 'appConfigs', (
                 $transition$, TransactionService, appConfigs
             ) => repackPagination(TransactionService.list(appConfigs.panel_type, $transition$.params().organization_id, {
-                q: $transition$.params().q,
-                page: $transition$.params().page,
+                ...pick($transition$.params(), $transition$.params().type == 'transactions' ? [
+                    'q', 'page', 'state', 'fund_id', 'fund_state', 'from', 'to', 
+                    'amount_min', 'amount_max', 'quantity_min', 'quantity_max', 
+                    'order_by', 'order_by_dir',
+                ] : []),
                 per_page: 20,
-                state: $transition$.params().state,
-                fund_id: $transition$.params().fund_id,
-                fund_state: $transition$.params().fund_state,
-                from: $transition$.params().from,
-                to: $transition$.params().to,
-                amount_min: $transition$.params().amount_min,
-                amount_max: $transition$.params().amount_max,
-                quantity_min: $transition$.params().quantity_min,
-                quantity_max: $transition$.params().quantity_max,
-                order_by: $transition$.params().order_by,
-                order_by_dir: $transition$.params().order_by_dir,
             }))],
             transactionBulks: ['$transition$', 'TransactionBulkService', (
                 $transition$, TransactionBulkService
             ) => repackPagination(TransactionBulkService.list($transition$.params().organization_id, {
-                page: $transition$.params().page,
+                ...pick($transition$.params(), $transition$.params().type == 'bulks' ? [
+                    'page', 'state', 'from', 'to', 'amount_min', 'amount_max', 
+                    'quantity_min', 'quantity_max', 'order_by', 'order_by_dir'
+                ] : []),
                 per_page: 20,
-                state: $transition$.params().state,
-                from: $transition$.params().from,
-                to: $transition$.params().to,
-                amount_min: $transition$.params().amount_min,
-                amount_max: $transition$.params().amount_max,
-                quantity_min: $transition$.params().quantity_min,
-                quantity_max: $transition$.params().quantity_max,
-                order_by: $transition$.params().order_by,
-                order_by_dir: $transition$.params().order_by_dir,
             }))],
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')
