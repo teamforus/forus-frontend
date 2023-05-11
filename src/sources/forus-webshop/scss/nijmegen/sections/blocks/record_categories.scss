@@ -2,7 +2,7 @@
     &.block-record_categories {
         .record_category-item {
             border-radius: 2px;
-            box-shadow: $base_shadow;
+            box-shadow: var(--box-shadow);
 
             &:hover {
                 .category-title {

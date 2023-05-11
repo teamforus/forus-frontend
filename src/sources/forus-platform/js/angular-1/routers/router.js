@@ -137,9 +137,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/organizations",
         controller: ['$rootScope', ($rootScope) => {
             if (!$rootScope.auth_user) {
-                $rootScope.loadAuthUser().then(() => $rootScope.autoSelectOrganization());
+                $rootScope.loadAuthUser().then((auth_user) => $rootScope.autoSelectOrganization(auth_user));
             } else {
-                $rootScope.autoSelectOrganization()
+                $rootScope.autoSelectOrganization($rootScope.auth_user)
             }
         }]
     });
@@ -1120,6 +1120,36 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         name: "implementation-config",
         url: "/organizations/{organization_id}/implementation/{implementation_id}/config",
         component: "implementationCmsConfigEditComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('implementation-manage', ['manage_implementation', 'manage_implementation_cms'], false),
+            implementation: ['$transition$', '$timeout', '$state', 'ImplementationService', 'permission', (
+                $transition$, $timeout, $state, ImplementationService
+            ) => {
+                return repackResponse(ImplementationService.read(
+                    $transition$.params().organization_id,
+                    $transition$.params().implementation_id,
+                ), (res) => {
+                    if (res.status === 403) {
+                        $timeout(() => {
+                            $state.go('implementation-cms', {
+                                organization_id: $transition$.params().organization_id,
+                                id: $transition$.params().implementation_id,
+                            });
+                        }, 100);
+                    }
+                });
+            }],
+        }
+    });
+
+    /**
+     * Implementation edit social media (CMS)
+     */
+     $stateProvider.state({
+        name: "implementation-social-media",
+        url: "/organizations/{organization_id}/implementation/{implementation_id}/social-media",
+        component: "implementationCmsSocialMediaEditComponent",
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('implementation-manage', ['manage_implementation', 'manage_implementation_cms'], false),

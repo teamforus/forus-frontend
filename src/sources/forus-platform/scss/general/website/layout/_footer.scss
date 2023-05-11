@@ -26,7 +26,7 @@
     li {
         a {
             text-decoration: underline;
-            color: $forus-pink;
+            color: var(--forus-pink);
         }
     }
     .sm {
@@ -37,7 +37,7 @@
             }
             cursor: pointer;
             &:hover {
-                color: $forus-pink;
+                color: var(--forus-pink);
                 text-decoration: underline;
             }
         }

@@ -20,7 +20,7 @@
             }
 
             .header-how-it-works {
-                color: $tc-var;
+                color: var(--tc-var);
                 font-style: normal;
 
                 &:hover {
@@ -31,7 +31,7 @@
             .button {
                 &:hover {
                     background-color: #fff;
-                    color: $bc;
+                    color: var(--bc);
                 }
             }
         }

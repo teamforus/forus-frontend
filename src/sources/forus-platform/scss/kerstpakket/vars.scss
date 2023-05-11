@@ -1,44 +1,38 @@
-@import '../general/vars.scss';
+@import "../general/vars.scss";
 
-// border color
-$borderColor:       #ddd;
+:root {
+    // border color
+    --boarder-color: #ddd;
 
-/*==========  Style Sheet - Vars  ==========*/
+    /*==========  Style Sheet - Vars  ==========*/
 
-$bf: 'Montserrat',
-arial,
-sans-serif;
+    --base-font: "Montserrat", arial, sans-serif;
 
-// base font
-$bf-landing: 'Source Sans Pro',
-sans-serif;
+    // base font
+    --base-font-landing: "Source Sans Pro", sans-serif;
 
-// text color
-$tc: #353535;
+    // text color
+    --text-color: #353535;
 
-// base color
-$bc: #d13b3b;
-$bc-hover: #fff;
+    // base color
+    --base-color: #d13b3b;
+    --base-color-hover: #fff;
 
-// placeholder text color
-$ptc: #646f79;
+    // placeholder text color
+    --placeholder-color: #646f79;
 
-$border_color: #ececec;
+    --boarder-color: #ececec;
 
-$border_radius: 0px;
+    --boarder-radius: 0px;
 
-$color_primary: #134478;
-$color_primary_light: #2987fd;
+    --color-primary: #134478;
+    --color-primary-light: #2987fd;
 
-$color_default: #134478;
-$color_default_light: #2987fd;
+    --color-default: #134478;
+    --color-default-light: #2987fd;
 
-$box_shadow: 1px 1px 6px 0 rgba(0,0,0,.1);
+    --box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
 
-// base error color
-$bec: #e63b3b;
-$borderColor: $border_color;
-
-// wrapper size
-$wrapperWidth: 1400px;
-$wrapperPadding: 30px;
+    // base error color
+    --color-danger: #e63b3b;
+}

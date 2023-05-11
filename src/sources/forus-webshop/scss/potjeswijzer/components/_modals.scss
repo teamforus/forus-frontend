@@ -1,8 +1,8 @@
 .modal .modal-content {
     .description{
         padding: 10px 0;
-        font: 400 22px/34px $bf;
-        color: $ptc;
+        font: 400 22px/34px var(--base-font);
+        color: var(--placeholder_text_color);
     
         .popup-title-styled{
             color: #157c68;
@@ -12,7 +12,7 @@
     }
 
     .subdescription {
-        color: $ptc;
+        color: var(--placeholder_text_color);
 
         .popup-title-styled{
             color: #157c68;
@@ -25,7 +25,7 @@
             .auth_type-item-inner {
                 &:hover {
                     .auth_type-name {
-                        color: $bc;
+                        color: var(--bc);
                     }
                 }
             }

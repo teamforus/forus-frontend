@@ -35,7 +35,7 @@ main(id="main-content")
                         voucher-card(ng-repeat="voucher in $ctrl.vouchers.data" voucher="voucher")
 
                         //- Pagination
-                        .card(ng-if="$ctrl.vouchers"): .card-section(ng-show="$ctrl.vouchers.meta.last_page > 1")
+                        .card(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1"): .card-section
                             paginator(
                                 meta="$ctrl.vouchers.meta"
                                 filters="$ctrl.filters"

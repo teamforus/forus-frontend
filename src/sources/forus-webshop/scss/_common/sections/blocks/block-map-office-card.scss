@@ -1,5 +1,5 @@
 &.block-map-office-card {
-    border-radius: $border_radius;
+    border-radius: var(--border-radius);
     box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
     background: #fff;
     width: 580px;
@@ -16,8 +16,8 @@
         min-width: 120px;
         max-width: 120px;
         height: 120px;
-        border-top-left-radius: $border_radius;
-        border-bottom-left-radius: $border_radius;
+        border-top-left-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
         background-size: cover;
         background-position: 50% 50%;
     }
@@ -33,13 +33,13 @@
         padding: 15px;
 
         .map-office-title {
-            font: 700 14px/20px $bf;
+            font: 700 14px/20px var(--base-font);
             color: #282b39;
             margin: 0 0 5px;
         }
 
         .map-office-info {
-            font: 600 12px/22px $bf;
+            font: 600 12px/22px var(--base-font);
             display: flex;
 
             .mdi {

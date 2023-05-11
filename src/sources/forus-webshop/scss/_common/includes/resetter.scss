@@ -9,7 +9,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    color: $tc;
+    color: var(--tc);
 }
 
 body {
@@ -19,7 +19,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, p, b, i, li, td{
-    font-family: $hf;
+    font-family: var(--hf);
     font-weight: 300;
     color: inherit;
 }
@@ -40,12 +40,12 @@ ul {
     list-style: none;
 
     li {
-        font: 400 16/1.5em $bf;
+        font: 400 16px/1.5em var(--base-font);
     }
 }
 
 p {
-    font: 400 16px/1.5em $bf;
+    font: 400 16px/1.5em var(--base-font);
     margin: 0 0 16px;
 
     a {
@@ -56,7 +56,7 @@ p {
 
 a {
     text-decoration: none;
-    font: 400 16px/1.5em $bf;
+    font: 400 16px/1.5em var(--base-font);
     color: #222; 
 }
 

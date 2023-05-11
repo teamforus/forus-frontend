@@ -60,7 +60,7 @@
     "angularjs-datepicker": "^2.1.23",
     "angular-legacy-sortablejs": "^0.4.1",
     "sortablejs": "^1.10.1",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^3.4.1",
     "browserstack-local": "^1.5.1",
     "chart.js": "4.2.1",
     "chromedriver": "^112.0.0",

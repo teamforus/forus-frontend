@@ -3,7 +3,7 @@
         margin-bottom: 30px;
 
         .block-card {
-            box-shadow: $base_shadow;
+            box-shadow: var(--box-shadow);
             border-radius: 2px;
         }
 

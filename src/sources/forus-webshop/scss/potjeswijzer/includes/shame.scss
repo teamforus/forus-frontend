@@ -100,7 +100,7 @@
         .block-markdown {
             a:not(.button) {
                 text-decoration: underline;
-                color: $color_primary;
+                color: var(--color-primary);
 
                 &:hover {
                     text-decoration: none;
@@ -150,14 +150,14 @@
     
                 .label-tab-dropdown, 
                 .label-tab-dropdown .mdi {
-                    color: $tc;
+                    color: var(--tc);
                 }
             }
 
             &:hover:not(.active) {
                 color: #272525;
-                background-color: $color_primary_light;
-                border-color: $color_primary_light;
+                background-color: var(--color-primary-light);
+                border-color: var(--color-primary-light);
 
                 .mdi {
                     color: #272525;

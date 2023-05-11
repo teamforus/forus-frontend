@@ -1,0 +1,56 @@
+.app.app-container
+    menu
+    section.app.app-content
+        //- Breadcrumbs
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementations($ctrl.implementation)") Webshops 
+            .breadcrumb-item(ui-sref="implementation-view($ctrl.implementation)" ng-bind="$ctrl.implementation.name")
+            .breadcrumb-item(ui-sref="implementation-cms($ctrl.implementation)") Content Management System
+            .breadcrumb-item.active(translate="implementation_edit.labels.cms_media_links")
+
+        .card
+            //- Header
+            .card-header: .flex
+                .flex.flex-grow: .card-title(ng-bind="'Social media links (' + $ctrl.socialMedias.meta.total + ')'")
+                
+                .flex: .block.block-inline-filters
+                    a(ng-click="$ctrl.editSocialMedia()" id="add_social_media").button.button-primary.button-sm
+                        em.mdi.mdi-plus-circle.icon-start
+                        translate(translate="Toevoegen")
+
+            //- Content
+            .card-section.card-section-primary(ng-if="$ctrl.socialMedias.data.length")
+                .card-block.card-block-table: .table-wrapper: table.table
+                    tr
+                        th.th-narrow Icoon
+                        th Soort
+                        th URL
+                        th Titel
+                        th.th-narrow.text-right Opties
+
+                    tr(ng-repeat="socialMedia in $ctrl.socialMedias.data")
+                        td.td-narrow: .td-icon.text-dark.mdi(ng-class="'mdi-' + socialMedia.type")
+                        td(ng-bind="socialMedia.type_locale")
+                        td(ng-bind="socialMedia.url")
+                        td(ng-bind="socialMedia.title || '-'")
+
+                        td.td-narrow.text-right: .flex
+                            a(ng-click="$ctrl.editSocialMedia(socialMedia)").button.button-sm.button-default
+                                em.mdi.mdi-pen.icon-start
+                                translate(translate="Bewerken")
+
+                            button(ng-click="$ctrl.deleteSocialMedia(socialMedia)").button.button-danger.button-icon
+                                em.icon-start.mdi.mdi-delete
+            
+            //- Pagination
+            .card-section(ng-show="$ctrl.socialMedias.meta.total"): .table-pagination
+                paginator(
+                    ng-if="$ctrl.socialMedias.meta"
+                    meta="$ctrl.socialMedias.meta"
+                    filters="$ctrl.topUpTransactionFilters.values"
+                    on-page-change="$ctrl.onPageChange(query)")
+
+            //- Not found
+            block-empty(
+                ng-if="$ctrl.socialMedias.meta.total == 0"
+                text="Er zijn momenteel geen social media.")            
