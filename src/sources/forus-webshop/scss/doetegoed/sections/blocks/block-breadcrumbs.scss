@@ -1,6 +1,6 @@
 &.block-breadcrumbs .breadcrumb-item {
     font-size: 14px;
-    color: $color_primary;
+    color: var(--color-primary);
     font-weight: 500;
 
     &.active {

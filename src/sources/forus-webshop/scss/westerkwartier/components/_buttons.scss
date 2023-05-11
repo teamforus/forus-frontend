@@ -1,7 +1,7 @@
 .button {
     &.button-default {
-        background-color: $lb;
-        border: $color_primary_light;
+        background-color: var(--login-button-background);
+        border: var(--color-primary-light);
         color: #666;
 
         .mdi {
@@ -9,8 +9,8 @@
         }
 
         &:hover {
-            background-color: $color_default;
-            border-color: $color_default_light;
+            background-color: var(--color-default);
+            border-color: var(--color-default-light);
             color: #666;
 
             .mdi {
@@ -21,15 +21,15 @@
 
     &.button-primary {
         color: #666;
-        background: $color_primary;
-        border: $color_primary;
+        background: var(--color-primary);
+        border: var(--color-primary);
         box-shadow: 0 10px 15px -6px #969696;
         text-shadow: none;
         
         &:hover {
             color: #666;
-            background: $color_default;
-            background-color: $color_default_light;
+            background: var(--color-default);
+            background-color: var(--color-default-light);
         }
     }
     

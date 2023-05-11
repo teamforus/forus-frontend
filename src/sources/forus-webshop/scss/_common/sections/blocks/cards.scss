@@ -16,7 +16,7 @@
             .card-item-inner {
                 border-radius: 6px;
                 overflow: hidden;
-                box-shadow: 0 10px 50px rgba(#000, .2);
+                box-shadow: 0 10px 50px rgba(0, 0, 0, .2);
                 background-color: #ffffff;
                 position: relative;
                 height: 200px;
@@ -55,14 +55,14 @@
                 }
 
                 .card-title {
-                    font: 700 18px/24px $bf;
+                    font: 700 18px/24px var(--base-font);
                     color: #282b39;
                     margin-bottom: 5px;
 
                     .mdi {
                         font-size: 1em;
                         line-height: inherit;
-                        color: $color_default;
+                        color: var(--color-default);
                         vertical-align: baseline;
                         position: relative;
                         margin-left: 0;
@@ -71,7 +71,7 @@
                 }
 
                 .card-description {
-                    font: 600 14px/25px $bf;
+                    font: 600 14px/25px var(--base-font);
                     color: #646f79;
                 }
 
@@ -130,11 +130,11 @@
                         right: 30px;
 
                         .card-title {
-                            font: 700 14px/22px $bf;
+                            font: 700 14px/22px var(--base-font);
                         }
 
                         .card-description {
-                            font: 600 12px/20px $bf;
+                            font: 600 12px/20px var(--base-font);
                         }
                     }
                 }

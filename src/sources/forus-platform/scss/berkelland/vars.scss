@@ -1,43 +1,29 @@
-@import '../general/vars.scss';
+@import "../general/vars.scss";
 
-/*==========  Style Sheet - Vars  ==========*/
+:root {
+    --base-font: "Montserrat", arial, sans-serif;
+    --base-font-landing: "Lato", arial, sans-serif;
 
-// base font
-$bf: 'Montserrat',
-arial,
-sans-serif;
+    --text-color: #4e4d40;
 
-$bf-landing: 'Lato',
-arial,
-sans-serif;
+    --base-color: #004d93;
+    --base-color-hover: #fff;
 
-// text color
-$tc: #4e4d40;
+    --color-danger: #e63b3b;
 
-// base color
-$bc: #004d93;
-$bc-hover: #fff;
+    --placeholder-color: #c4c4c4;
 
-// placeholder text color
-$ptc: #c4c4c4;
+    --boarder-color: #dbdcdb;
 
-$border_color: #dbdcdb;
+    --boarder-radius: 0px;
 
-$border_radius: 0px;
+    --color-primary: #041c37;
+    --color-primary-light: 1px solid #004d93;
 
-$color_primary:         #041c37;
-$color_primary_light:   1px solid #004d93;
+    --color-default: #004d93;
+    --color-default-light: 1px solid #041c37;
 
-$color_default:         #004d93;
-$color_default_light:   1px solid #041c37;
+    --box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
 
-$box_shadow: 1px 1px 6px 0 rgba(0,0,0,.1);
-
-$borderColor: #dbdcdb;
-
-// base error color
-$bec: #e63b3b;
-
-// wrapper size
-$wrapperWidth: 1400px;
-$wrapperPadding: 30px;
+    --boarder-color: #dbdcdb;
+}

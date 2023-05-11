@@ -4,11 +4,11 @@
             .faq-item {
                 &:hover:not(.active) {
                     .faq-item-header {
-                        color: $color-default;
+                        color: var(--color-default);
 
                         .faq-item-chevron-up,
                         .faq-item-chevron-down {
-                            color: $color-default;
+                            color: var(--color-default);
                         }
                     }
                 }

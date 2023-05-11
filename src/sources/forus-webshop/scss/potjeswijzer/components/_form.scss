@@ -5,7 +5,7 @@
 
     .form-control-checked {
         .mdi {
-            color: $color_primary;
+            color: var(--color-primary);
         }
     }
 }

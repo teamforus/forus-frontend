@@ -3,6 +3,6 @@
     padding-top: 50px;
     
     .fund-item .fund-media img {
-        border-radius: $border_radius;
+        border-radius: var(--border-radius);
     }
 }

@@ -3,7 +3,7 @@
     flex-direction: row;
 
     .rate-item {
-        color: $color_primary;
+        color: var(--color-primary);
         font-size: 20px;
     }
 }

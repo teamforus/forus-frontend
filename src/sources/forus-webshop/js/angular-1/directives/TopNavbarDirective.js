@@ -64,8 +64,8 @@ module.exports = () => {
             '$scope',
             'ModalService',
             'ConfigService',
-            TopNavbarDirective
+            TopNavbarDirective,
         ],
-        templateUrl: 'assets/tpl/directives/top-navbar.html'
+        templateUrl: 'assets/tpl/directives/top-navbar.html',
     };
 };

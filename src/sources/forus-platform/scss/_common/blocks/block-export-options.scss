@@ -5,7 +5,7 @@
         flex-direction: column;
 
         .export-section-label {
-            font: 600 11px/13px $bf;
+            font: 600 11px/13px var(--base-font);
             margin-bottom: 10px;
 
             .form-label {
@@ -32,9 +32,9 @@
                     display: flex;
                     background: #fff;
                     border: 1px solid #d4d9dd;
-                    border-radius: $border_radius / 2;
+                    border-radius: calc(var(--boarder-radius) / 2);
                     padding: 10px 10px;
-                    font: 600 13px/16px $bf;
+                    font: 600 13px/16px var(--base-font);
                     position: relative;
                     width: 100%;
                     cursor: pointer;

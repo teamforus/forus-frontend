@@ -3,7 +3,7 @@
         .sign_up-pane-footer {
             .button {
                 &.button-text {
-                    color: $color_primary;
+                    color: var(--color-primary);
 
                     .mdi {
                         color: inherit;

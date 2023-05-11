@@ -1,7 +1,7 @@
 const AppFooterDirective = function(
     $sce,
     $scope,
-    $rootScope
+    $rootScope,
 ) {
     const $dir = $scope.$dir = {};
     const footerPageKeys = [

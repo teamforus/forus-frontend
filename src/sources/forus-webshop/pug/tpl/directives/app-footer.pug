@@ -2,8 +2,18 @@ footer.section.section-footer(id="footer")
     .wrapper
         .block.block-footer: .row
             h2.sr-only Site informatie
-            .col.col-md-4(ng-if="description_contact_details_html")
-                .block.block-markdown(ng-bind-html="description_contact_details_html")
+
+            .col.col-md-4
+                .block.block-markdown(ng-if="description_contact_details_html" ng-bind-html="description_contact_details_html")
+                .footer-social-medias(ng-if="$root.appConfigs.features.social_medias.length") 
+                    .footer-social-media-title Volg ons op: 
+                    
+                    .footer-social-media-icons.flex: a.footer-social-media-icon(
+                        ng-repeat="social_media in $root.appConfigs.features.social_medias"
+                        href="{{ social_media.url }}" 
+                        title="{{ social_media.title }}"
+                        target="_blank")
+                        em.mdi(ng-class="'mdi-' + social_media.type")
 
             .col.col-md-4(ng-if="description_opening_times_html")
                 .block.block-markdown(ng-bind-html="description_opening_times_html")

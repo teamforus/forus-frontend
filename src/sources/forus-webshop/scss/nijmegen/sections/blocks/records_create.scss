@@ -4,7 +4,7 @@
             .categories-item {
                 .categories-item-inner {
                     border-radius: 2px;
-                    box-shadow: $base_shadow;
+                    box-shadow: var(--box-shadow);
 
                     .categories-radio {
                         border: 2px solid #297c68;
@@ -15,7 +15,7 @@
 
         .record_types-list {
             .record_type-item {
-                box-shadow: $base_shadow;
+                box-shadow: var(--box-shadow);
                 border-radius: 2px;
 
                 .record_type-radio {
@@ -38,7 +38,7 @@
         }
 
         .record_types-form {
-            box-shadow: $base_shadow;
+            box-shadow: var(--box-shadow);
             border-radius: 2px;
         }
     }
