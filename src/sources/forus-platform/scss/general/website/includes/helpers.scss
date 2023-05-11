@@ -44,7 +44,7 @@
             position: relative;
             margin-bottom: 10px;
             &:before {
-                content: url($img_path + "/svg/check.svg");
+                content: url("../img/svg/check.svg");
                 position: absolute;
                 width: 26px;
                 height: 27px;
@@ -58,7 +58,7 @@
             li {
 
                 &:before {
-                    content: url($img_path + "/svg/check_m.svg");
+                    content: url("../img/svg/check_m.svg");
                     width: 19px;
                     height: 20px;
                 }

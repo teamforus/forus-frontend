@@ -14,13 +14,13 @@
     .tooltip {
         position: absolute;
         width: 300px;
-        border: 1px solid $border_color;
+        border: 1px solid var(--border-color);
         box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
         padding: 15px;
         background: #fff;
         z-index: 5;
         border-radius: 4px;
-        font: 500 14px/20px $bf;
+        font: 500 14px/20px var(--base-font);
         text-transform: none;
         color: #45535e;
         display: none;
@@ -80,7 +80,7 @@
 
             &:before {
                 top: -11.5px;
-                border-color: transparent transparent $border_color transparent;
+                border-color: transparent transparent var(--border-color) transparent;
             }
         }
     }

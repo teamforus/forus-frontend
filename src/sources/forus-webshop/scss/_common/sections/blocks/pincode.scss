@@ -38,7 +38,7 @@
                 width: 2px;
                 height: 30px;
                 border-radius: 6px;
-                background: $color_primary;
+                background: var(--color-primary);
                 position: absolute;
                 left: 50%;
                 top: 50%;
@@ -121,7 +121,7 @@
             margin-bottom: 10px;
     
             .pincode-number {
-                font: 600 22px/60px $bf
+                font: 600 22px/60px var(--base-font)
             }
         }
     
@@ -131,7 +131,7 @@
             .pincode-number {
                 height: 60px;
                 width: 60px;
-                font: 600 22px/70px $bf
+                font: 600 22px/70px var(--base-font)
             }
         }
     
@@ -142,7 +142,7 @@
             .pincode-number {
                 width: 50px;
                 height: 60px;
-                font: 600 26px/60px $bf;
+                font: 600 26px/60px var(--base-font);
             }
     
             &.block-pincode-mobile-collapse {

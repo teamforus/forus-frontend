@@ -43,8 +43,8 @@ body {
     &.block-profile .profile-aside .profile-menu .profile-menu-item,
     &.block-products .product-item .product-item-inner,
     &.block-subsidies .product-item .product-item-inner {
-        border-radius: $border_radius;
-        border: 1px solid $border_color;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--border-color);
     }
 
     &.block-office .office-content .block-organizations .organization-item,

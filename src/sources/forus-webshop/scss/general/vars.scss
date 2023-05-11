@@ -1,85 +1,95 @@
-/*==========  Style Sheet - Vars  ==========*/
+// do not use these scss variables outside this file
 $fonts: "https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700";
+$primaryColor: #305dfb;
+$primaryColorLight: #305dfb;
 
-// navbar
-$bg-nav:            #F5F5F5;
-$btn-nav:           #305dfb;
-$tc-nav-hov:        #305dfb;
-$tc-nav:            #282B39;
-$logo-padding:      20px 0px;
-$logo-height:       50px;
+:root {
+    // navbar
+    --bg-nav: #f5f5f5;
+    --btn-nav: #305dfb;
+    --tc-nav-hov: #305dfb;
+    --tc-nav: #282b39;
+    --logo-padding: 20px 0px;
+    --logo-height: 50px;
 
-// navbar (auth) (default button)
-$tc-auth-menu:      #305dfb; 
-$tc-auth-btn:       #305dfb; 
-$btn-auth-bg:       #fff; 
-$btn-auth-border:   #d2e6ff;
-$auth-avater-bg:    #305dfb;
-$auth-avater-svg:   #fff;
+    // navbar (auth) (default button)
+    --tc-auth-menu: #305dfb;
+    --tc-auth-btn: #305dfb;
+    --btn-auth-bg: #fff;
+    --btn-auth-border: #d2e6ff;
+    --auth-avater-bg: #305dfb;
+    --auth-avater-svg: #fff;
 
-// navbar (start modal primary)
-$tc-start-btn:       #fff; 
-$btn-start-bg:       #305dfb; 
-$btn-start-btn:      #305dfb;
-$btn-start-border:   transparent;
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #305dfb;
+    --btn-start-btn: #305dfb;
+    --btn-start-border: transparent;
 
-// sign up
-$sign_up_accent_color: #305dfb;
-$sign_up_accent_color_light: #bdcbff;
-$sign_up_link_color: #e60003;
-$sign_up_step_btns_color: #305dfb;
-$sign_up_digid_btn_bkg: #e1e7ff;
-$sign_up_digid_btn_text: #4b71ff;
-$sign_up_digid_btn_border: none;
-$sign_up_digid_btn_border_radius: 5px;
+    // header background
+    --bg-values: url("../img/splash-top-b.png") no-repeat 100% 0;
 
-// header background
-$bg-values:          url("../img/splash-top-b.png") no-repeat 100% 0;
+    // base font
+    --base-font: "Open Sans", arial, sans-serif;
 
-// base font
-$bf:                'Open Sans', arial, sans-serif;
+    // heading font
+    --hf: var(--base-font);
 
-// heading font
-$hf:                $bf;
+    // text color
+    --tc: #353535;
+    --htc: var(--tc);
+    --tc-var: inherit;
+    --tc-link: inherit;
 
-// text color
-$tc:                #353535;
-$htc:               $tc;
-$tc-var:            inherit;
-$tc-link:           inherit;
+    // base color
+    --bc: #d13b3b;
 
-// base color
-$bc:                #d13b3b;
+    // background color
+    --bg: #f3f8fe;
 
-// background color
-$bg:                #f3f8fe;
+    --bg_2: linear-gradient(to bottom, #f3f8fe 0%, #feffff 100%);
 
-$bg_2:              linear-gradient(to bottom, #f3f8fe 0%, #feffff 100%);
+    // text formatting
+    --text_format: inherit;
 
-// text formatting
-$tf:               inherit;
+    // footer color
+    --footer_background_color: #fff;
+    --footer_color: #353535;
+    --footer_color_link: #004d93;
+    --footer_color_link_hover: #004d93;
 
-// footer color
-$fbc:               #fff;
-$fc:                #353535;
-$fc-link:           #004D93;
-$fc-link-hover:     #004D93;
-// not displayed
-$fd:                none;
+    // not displayed
+    --footer_display: none;
 
-// product image
-$pi:                10px 0 0 10px;
+    // product image
+    --product-image-padding: 10px 0 0 10px;
 
-// placeholder text color
-$ptc:               #9b9b9b;
+    // placeholder text color
+    --placeholder_text_color: #9b9b9b;
 
-$border_color:      #ddd;
+    --border-color: #dddddd;
+    --border-color-form: #{#{desaturate(darken(#dddddd, 35%), 75%)}};
 
-$border_radius:         8px;
-$base_shadow:           2px 2px 10px rgba($color: #000000, $alpha: 0.05);
+    --border-radius: 8px;
+    --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
 
-$color_primary:         #305dfb;
-$color_primary_light:   #4c74ff;
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
 
-$color_default:         #305dfb;
-$color_default_light:   #4c74ff;
+    --color-default: #305dfb;
+    --color-default-light: #4c74ff;
+
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    // sign up
+    --sign_up_accent_color: #305dfb;
+    --sign_up_accent_color_light: #bdcbff;
+    --sign_up_link_color: #e60003;
+    --sign_up_step_btns_color: #305dfb;
+    --sign_up_digid_btn_bkg: #e1e7ff;
+    --sign_up_digid_btn_text: #4b71ff;
+    --sign_up_digid_btn_border: none;
+    --sign_up_digid_btn_border_radius: 5px;
+}

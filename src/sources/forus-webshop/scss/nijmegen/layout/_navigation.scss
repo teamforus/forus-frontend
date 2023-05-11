@@ -2,7 +2,7 @@
     @media screen and (max-width: 1000px) {
         &.block-navbar {
             position: sticky;
-            background-color: $bg-nav;
+            background-color: var(--bg-nav);
 
             .navbar-logo {
                 img {

@@ -8,7 +8,7 @@
         margin: 0px 0 60px 0;
 
         .block-title {
-            font: 700 22px/35px $bf;
+            font: 700 22px/35px var(--base-font);
         }
 
         .block-description {
@@ -22,7 +22,7 @@
 
             a {
                 text-decoration: underline;
-                font: 600 16px/1.5em $bf;
+                font: 600 16px/1.5em var(--base-font);
                 color: #03689b;
 
                 &:hover {
@@ -33,7 +33,7 @@
 
         a {
             text-decoration: underline;
-            font: 600 16px/1.5em $bf;
+            font: 600 16px/1.5em var(--base-font);
             color: #03689b;
 
             &:hover {

@@ -4,8 +4,8 @@
     padding: 25px;
     margin-bottom: 30px;
     position: relative;
-    border-radius: $border_radius;
-    box-shadow: $base_shadow;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
     cursor: default;
     flex-direction: row;
 
@@ -22,7 +22,7 @@
             padding: 25px;
 
             &:not(:first-child) {
-                border-top: 1px solid $border_color;
+                border-top: 1px solid var(--border-color);
             }
         }
     }
@@ -42,7 +42,7 @@
 
         svg {
             .fill-color-primary {
-                fill: $color_primary;
+                fill: var(--color-primary);
             }
         }
 
@@ -50,7 +50,7 @@
             width: 80px;
             height: 80px;
             display: flex;
-            background-color: rgba($color: $color_primary, $alpha: .075);
+            background-color: rgba($color: var(--color-primary), $alpha: .075);
 
             svg {
                 margin: auto;
@@ -65,28 +65,28 @@
         justify-content: center;
 
         .block-card-title {
-            font: 700 22px/25px $bf;
-            color: $tc;
+            font: 700 22px/25px var(--base-font);
+            color: var(--tc);
             margin: 0 0;
 
             &.block-card-title-sm {
-                font: 400 13px/20px $bf;
+                font: 400 13px/20px var(--base-font);
             }
 
             &.block-card-title-lg {
-                font: 400 18px/25px $bf;
+                font: 400 18px/25px var(--base-font);
             }
         }
 
         .block-card-description {
-            font: 700 14px/25px $bf;
-            color: rgba($color: $tc, $alpha: .8);
+            font: 700 14px/25px var(--base-font);
+            color: rgba($color: var(--tc), $alpha: .8);
             margin: 0 0;
         }
 
         .block-card-code {
-            font: 700 18px/21px $bf;
-            color: $tc;
+            font: 700 18px/21px var(--base-font);
+            color: var(--tc);
         }
     }
 
@@ -125,14 +125,14 @@
 
         .block-card-details {
             .block-card-title {
-                font: 700 18px/25px $bf;
+                font: 700 18px/25px var(--base-font);
 
                 &.block-card-title-sm {
-                    font: 400 13px/20px $bf;
+                    font: 400 13px/20px var(--base-font);
                 }
     
                 &.block-card-title-lg {
-                    font: 400 18px/25px $bf;
+                    font: 400 18px/25px var(--base-font);
                 }
             }
         }
@@ -166,7 +166,7 @@
 
         .block-card-details {
             .block-card-title {
-                font: 600 14px/20px $bf;
+                font: 600 14px/20px var(--base-font);
                 margin: 0 0 15px;
 
                 &.block-card-title-sm {
@@ -175,12 +175,12 @@
             }
 
             .block-card-description {
-                font: 600 11px/18px $bf;
+                font: 600 11px/18px var(--base-font);
                 margin: 0 0 20px;
             }
 
             .block-card-code {
-                font: 700 13px/19px $bf;
+                font: 700 13px/19px var(--base-font);
                 margin: 0 0 20px;
             }
         }

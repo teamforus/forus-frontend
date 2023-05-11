@@ -4,7 +4,7 @@
         width: 100%;
         transition: 0.2s ease-out;
         cursor: text;
-        font: 600 16px/26px $bf;
+        font: 600 16px/26px var(--base-font);
         z-index: 2;
     }
 
@@ -16,7 +16,7 @@
         border-bottom: 1px solid #ced4da;
         background-color: transparent;
         color: #212121;
-        font: 500 16px/20px $bf;
+        font: 500 16px/20px var(--base-font);
         padding: 15px 14px 15px 15px;
         display: block;
         z-index: 1;

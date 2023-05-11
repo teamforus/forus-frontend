@@ -19,28 +19,28 @@
 
         .map-card-title {
             color: #282b39;
-            font: 700 14px/16px $bf;
+            font: 700 14px/16px var(--base-font);
             margin: 0 0 5px;
         }
         
         .map-card-description {
             color: #131418;
-            font: 400 11px/14px $bf;
+            font: 400 11px/14px var(--base-font);
             margin: 0 0 5px;
     
             a {
                 font: inherit;
-                color: $bc;
+                color: var(--bc);
             }
         }
 
         .map-card-button {
-            font: 700 11px/15px $bf;
+            font: 700 11px/15px var(--base-font);
             display: inline-flex;
             flex-direction: row;
             justify-content: center;
             cursor: pointer;
-            color: $tc;
+            color: var(--tc);
             transition: color .4s;
 
             .mdi {
@@ -48,13 +48,13 @@
                 font-size: 14px;
                 vertical-align: middle;
                 margin-left: 2px;
-                color: $color_primary;
+                color: var(--color-primary);
                 transform: translate(0, 1px);
                 transition: transform .4s;
             }
 
             &:hover {
-                color: $color_primary;
+                color: var(--color-primary);
 
                 .mdi {
                     transform: translate(2px, 1px);

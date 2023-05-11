@@ -6,8 +6,8 @@
 
         .base-card {
             background-color: #fff;
-            border-radius: $border_radius;
-            box-shadow: $base_shadow;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             cursor: default;
             @include cf();
             position: relative;
@@ -43,7 +43,7 @@
                         flex-direction: column;
                         text-align: center;
                         display: inline-flex;
-                        color: $bc;
+                        color: var(--bc);
                         align-items: center;
 
                         .action-item-icon {
@@ -51,10 +51,10 @@
                             height: 40px;
                             line-height: 40px;
                             text-align: center;
-                            border: 1px solid $color_primary;
+                            border: 1px solid var(--color-primary);
                             background: transparent;
-                            text-transform: $tf;
-                            color: $color_primary;
+                            text-transform: var(--text_format);
+                            color: var(--color-primary);
                             font-size: 20px;
                             transition: 0.4s;
                             cursor: pointer;
@@ -69,8 +69,8 @@
                                 background: #fff;
                                 border: 1px solid #dbdcdb;
                                 padding: 4px 10px;
-                                font: 600 13px/20px $bf;
-                                color: $bc;
+                                font: 600 13px/20px var(--base-font);
+                                color: var(--bc);
                                 border-radius: 5px;
                                 white-space: nowrap;
                                 top: 100%;
@@ -95,7 +95,7 @@
 
                         .action-item-name {
                             color: #000;
-                            font: 600 12px $bf;
+                            font: 600 12px var(--base-font);
                             transition: color 0.4s;
                             margin: 0 3px;
                         }
@@ -106,8 +106,8 @@
 
                         &:hover {
                             .action-item-icon {
-                                background-color: $color_primary;
-                                border: 1px solid $color_primary;
+                                background-color: var(--color-primary);
+                                border: 1px solid var(--color-primary);
                                 color: #fff;
 
                                 .action-item-tooltip {
@@ -118,7 +118,7 @@
                             }
 
                             .action-item-name {
-                                color: $color_primary;
+                                color: var(--color-primary);
                             }
                         }
                     }
@@ -130,8 +130,8 @@
             }
 
             .card-label {
-                color: $tc;
-                font: 400 14px/16px $bf;
+                color: var(--tc);
+                font: 400 14px/16px var(--base-font);
 
                 a {
                     color: #646f79;
@@ -140,12 +140,12 @@
             }
 
             .block-link {
-                font: 600 13px/22px $bf;
-                color: $color_default;
+                font: 600 13px/22px var(--base-font);
+                color: var(--color-default);
                 display: inline-block;
 
                 .mdi {
-                    color: $color_default;
+                    color: var(--color-default);
                     font-size: 1.3em;
                     float: right;
                     margin-left: 5px;
@@ -162,8 +162,8 @@
             }
 
             .card-value {
-                font: 700 14px/16px $bf;
-                color: $tc;
+                font: 700 14px/16px var(--base-font);
+                color: var(--tc);
                 margin-top: 10px;
 
                 &.card-value-sm {
@@ -202,7 +202,7 @@
 
                 .card-qr_code-desc {
                     color: #272525;
-                    font: 500 12px $bf;
+                    font: 500 12px var(--base-font);
                     margin: 0 -10px 10px -10px;
                 }
             }
@@ -229,28 +229,28 @@
 
                 .card-title {
                     color: #272525;
-                    font: 700 16px $bf;
+                    font: 700 16px var(--base-font);
                     margin: 0 0 5px;
                 }
 
                 .card-subtitle {
                     color: #272525;
-                    font: 500 14px $bf;
+                    font: 500 14px var(--base-font);
                     margin: 0 0 5px;
                 }
 
                 .card-description {
-                    font: 400 13px/18px $bf;
+                    font: 400 13px/18px var(--base-font);
                     color: #272525;
                 }
 
                 .card-price {
                     color: #646f79;
-                    font: 400 16px $bf;
+                    font: 400 16px var(--base-font);
 
                     strong {
                         color: #083f49;
-                        font: 700 24px $bf;
+                        font: 700 24px var(--base-font);
                     }
                 }
             }
@@ -260,7 +260,7 @@
                 height: 100%;
                 background: #fcfcfc;
                 padding: 20px 25px;
-                border-top: 1px solid $border_color;
+                border-top: 1px solid var(--border-color);
                 position: relative;
                 display: flex;
                 flex-direction: column;
@@ -296,7 +296,7 @@
 
                 .card-body {
                     .card-title {
-                        font: 600 24px $bf;
+                        font: 600 24px var(--base-font);
                         color: #272525;
                         margin-bottom: 10px;
                     }
@@ -330,14 +330,14 @@
 
                             .card-title {
                                 margin: 0 0 10px;
-                                font: 600 15px/22px $bf;
+                                font: 600 15px/22px var(--base-font);
                             }
 
                             .card-description {
-                                font: 400 14px/20px $bf;
+                                font: 400 14px/20px var(--base-font);
 
                                 .card-description-link {
-                                    font: 400 14px/20px $bf;
+                                    font: 400 14px/20px var(--base-font);
                                     color: #0000CD;
                                     text-decoration: underline;
 
@@ -367,11 +367,11 @@
                 }
 
                 .card-label {
-                    font: 400 14px/16px $bf;
+                    font: 400 14px/16px var(--base-font);
                 }
 
                 .card-value {
-                    font: 700 16px $bf;
+                    font: 700 16px var(--base-font);
 
                     &.card-value-sm {
                         font-weight: 400;
@@ -386,7 +386,7 @@
                     }
 
                     .card-read_more {
-                        font: 600 12px/18px $bf;
+                        font: 600 12px/18px var(--base-font);
                     }
 
                     .card-description {
@@ -403,7 +403,7 @@
                 &.base-card-voucher {
                     .card-body {
                         .card-title {
-                            font: 700 24px $bf;
+                            font: 700 24px var(--base-font);
                         }
                     }
                 }
@@ -434,7 +434,7 @@
                 }
 
                 .card-label {
-                    font: 600 10px/16px $bf;
+                    font: 600 10px/16px var(--base-font);
                     margin: 0 0 5px;
                     color: #646f79;
                     text-transform: uppercase;
@@ -447,16 +447,16 @@
 
                 .card-value {
                     color: #282b39;
-                    font: 700 16px/24px $bf;
+                    font: 700 16px/24px var(--base-font);
                     margin: 0 0 15px;
 
                     &.card-value-sm {
-                        font: 400 12px $bf;
+                        font: 400 12px var(--base-font);
                         color: #134478;
 
                         strong {
                             display: block;
-                            font: 700 15px $bf;
+                            font: 700 15px var(--base-font);
                             color: #282b39;
                         }
                     }
@@ -518,12 +518,12 @@
                     }
 
                     .card-title {
-                        font: 700 17.5px $bf;
+                        font: 700 17.5px var(--base-font);
                         color: #00122a;
                     }
 
                     .card-description {
-                        font: 400 12px/18px $bf;
+                        font: 400 12px/18px var(--base-font);
                         color: #00122a;
                     }
                 }
@@ -557,7 +557,7 @@
                             background: linear-gradient(to right, #eff0ef, #fefefe);
 
                             .card-qr_code-desc {
-                                font: 400 12px/16px $bf;
+                                font: 400 12px/16px var(--base-font);
                             }
 
                             .qr_code {
@@ -584,7 +584,7 @@
 
                         .card-title {
                             margin: 0 0 5px;
-                            font: 700 14px $bf;
+                            font: 700 14px var(--base-font);
                         }
 
                         .card-section {
@@ -675,11 +675,11 @@
                             .card-section {
                                 .card-title {
                                     margin: 0 0 5px;
-                                    font: 600 12px/18px $bf;
+                                    font: 600 12px/18px var(--base-font);
                                 }
     
                                 .card-description {
-                                    font: 400 12px/16px $bf;
+                                    font: 400 12px/16px var(--base-font);
                                 }
                             }
                         }

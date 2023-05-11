@@ -4,20 +4,20 @@
             .profile-card {
                 .profile-details {
                     .profile-heading {
-                        color: $bc;
+                        color: var(--bc);
                     }
                 }
 
                 .profile-actions {
                     .profile-action {
-                        color: $tc-var;
+                        color: var(--tc-var);
 
                         .mdi {
-                            color: $color_primary;
+                            color: var(--color-primary);
                         }
 
                         &:hover {
-                            color: $color_primary;
+                            color: var(--color-primary);
                         }
                     }
                 }
@@ -25,14 +25,14 @@
 
             .profile-menu {
                 .profile-menu-item {
-                    color: $color_primary;
+                    color: var(--color-primary);
 
                     .mdi {
-                        color: $color_primary;
+                        color: var(--color-primary);
                     }
 
                     &.active {
-                        background-color: $color_primary;
+                        background-color: var(--color-primary);
                     }
                 }
             }

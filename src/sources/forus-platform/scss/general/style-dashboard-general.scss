@@ -15,8 +15,9 @@
             background: url(../img/landing/splash-top-b.png) no-repeat 100% 0;
             background-size: contain;
             background-position: center center;
+
             .header-content {
-                color: $tc;
+                color: var(--text-color);
             }
         }
     }

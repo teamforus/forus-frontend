@@ -2,11 +2,11 @@
     max-width: 800px;
     .block-text {
         margin-bottom: 40px;
-        font: 400 16px/22px $bf;
+        font: 400 16px/22px var(--base-font);
 
         a {
             color: blue;
-            font: 400 16px/22px $bf;
+            font: 400 16px/22px var(--base-font);
         }
 
         ul {
@@ -15,11 +15,11 @@
         }
 
         .title {
-            font: 600 18px/27px $bf;
+            font: 600 18px/27px var(--base-font);
         }
 
         .description {
-            font: 400 16px/22px $bf;
+            font: 400 16px/22px var(--base-font);
         }
     }
 }

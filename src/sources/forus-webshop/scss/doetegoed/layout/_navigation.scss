@@ -64,7 +64,7 @@
 
                         .search-result {
                             border-width: 0;
-                            border-radius: $border_radius;
+                            border-radius: var(--border-radius);
 
                             .search-result-sidebar {
                                 padding: 10px 10px;
@@ -78,22 +78,10 @@
                                     .search-result-sidebar-item-icon {
                                         display: flex;
                                         padding-right: 10px;
-    
-                                        .svg_fill_light {
-                                            fill: lighten(#81beb1, 20%);
-                                        }
-                    
-                                        .svg_fill_medium {
-                                            fill: #81beb1 !important;
-                                        }
-                    
-                                        .svg_fill_dark {
-                                            fill: darken(#81beb1, 40%) !important;
-                                        }
                                     }
 
                                     &.active {
-                                        color: $tc;
+                                        color: var(--tc);
                                     }
                                 }
                             }
@@ -103,18 +91,6 @@
                                     .search-result-group-header {
                                         .search-result-group-icon {
                                             padding-right: 10px;
-
-                                            .svg_fill_light {
-                                                fill: lighten(#81beb1, 20%);
-                                            }
-                        
-                                            .svg_fill_medium {
-                                                fill: #81beb1 !important;
-                                            }
-                        
-                                            .svg_fill_dark {
-                                                fill: darken(#81beb1, 40%) !important;
-                                            }
                                         }
                                     }
                                 }
@@ -140,11 +116,11 @@
             .navbar-list {
                 .navbar-item-wrapper {
                     .navbar-item {
-                        font: 500 14px/14px $bf;
+                        font: 500 14px/14px var(--base-font);
                     }
 
                     .navbar-user {
-                        font: 500 14px/14px $bf;
+                        font: 500 14px/14px var(--base-font);
                     }
 
                     &:after {

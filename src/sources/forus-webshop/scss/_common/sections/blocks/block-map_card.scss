@@ -1,6 +1,6 @@
 &.block-map_card {
-    box-shadow: $base_shadow;
-    border-radius: $border_radius;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
     background: #fff;
     margin-bottom: 30px;
     cursor: default;
@@ -8,11 +8,11 @@
     .map_card-header,
     .map_card-footer {
         padding: 15px 25px;
-        border-bottom: 1px solid $border_color;
+        border-bottom: 1px solid var(--border-color);
         background: #ffffff;
         padding: 20px 25px;
-        font: 700 22px/30px $hf;
-        color: $tc;
+        font: 700 22px/30px var(--hf);
+        color: var(--tc);
         margin: 0 0 0;
 
         .map_card-title {
@@ -26,7 +26,7 @@
 
         .map_card-subtitle {
             color: #646f79;
-            font: 400 16px $bf;
+            font: 400 16px var(--base-font);
             margin-bottom: 5px;
 
             &:last-child {
@@ -52,7 +52,7 @@
     .map_card-iframe {
         border-bottom-left-radius: inherit;
         border-bottom-right-radius: inherit;
-        border-bottom: 1px solid $border_color;
+        border-bottom: 1px solid var(--border-color);
         position: relative;
         height: 550px;
         overflow: hidden;

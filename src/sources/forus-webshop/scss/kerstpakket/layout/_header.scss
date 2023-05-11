@@ -1,6 +1,6 @@
 .section {
     &.section-header {
-        background: $bg-values;
+        background: var(--bg-values);
         background-size: contain;
         background-position: right top;
 
@@ -10,7 +10,7 @@
             justify-self: center;
 
             .header-title {
-                font-family: $bf_2;
+                font-family: var(--base-font)_2;
             }
         }
 

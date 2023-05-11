@@ -80,7 +80,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                 border-radius: 3px;
 
                 .sticky-footer-dropwdown-subitem {
-                    font: 700 13px/15px $bf;
+                    font: 700 13px/15px var(--base-font);
                     border-top: 1px solid #EBEDF0;
 
                     span {
@@ -92,7 +92,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                     }
 
                     &:hover, &.active {
-                        background-color: $color_primary;
+                        background-color: var(--color-primary);
                         color: #FFFFFF;
                     }
 
@@ -110,7 +110,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
 
                 .sticky-footer-dropwdown-info {
                     .sticky-footer-dropwdown-title {
-                        font: 700 18px/26px $bf;
+                        font: 700 18px/26px var(--base-font);
                     }
                 }
             }
@@ -121,14 +121,14 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
         }
 
         &.active, &:focus {
-            color: $color_default;
+            color: var(--color-default);
 
             a {
-                color: $color_default;
+                color: var(--color-default);
             }
 
             path {
-                fill: $color_default;
+                fill: var(--color-default);
             }
         }
     }

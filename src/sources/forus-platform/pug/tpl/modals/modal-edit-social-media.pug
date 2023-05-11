@@ -5,22 +5,22 @@
 
     form(ng-submit="$ctrl.form.submit()").modal-window.form
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
-        .modal-header Add social media
+        .modal-header Social media toevoegen
 
         .modal-body.modal-body-visible: .modal-section.form
             .form-group
-                label.form-label.form-label-required Social media source
+                label.form-label.form-label-required Kies soort
                 select-control(search="false" prop="key" ng-model="$ctrl.form.values.type" options="$ctrl.socialMediaTypes").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
 
             .form-group
-                label.form-label.form-label-required Link
-                input(ng-model="$ctrl.form.values.url" placeholder="Link").form-control
+                label.form-label.form-label-required URL
+                input(ng-model="$ctrl.form.values.url" placeholder="URL").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.url" ng-bind="error")
 
             .form-group
-                label.form-label Title
-                input(ng-model="$ctrl.form.values.title" placeholder="Title").form-control
+                label.form-label Titel
+                input(ng-model="$ctrl.form.values.title" placeholder="Titel").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
 
         //- form submit

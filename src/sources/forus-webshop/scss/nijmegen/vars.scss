@@ -1,86 +1,91 @@
-@import '../general/vars.scss';
+@import "../general/vars.scss";
 
 /*==========  Style Sheet - Vars  ==========*/
-$fonts: 
-    "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,700", 
+$fonts: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,700",
     "https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,400i,600,700";
 
-// navbar
-$bg-nav:            #a80a2d;
-$tc-nav:            #fff;
-$tc-nav-hov:        #fff;
-$logo-padding:      20px 0px;
-$logo-height:       50px;
+$primaryColor: #157c68;
+$primaryColorLight: #30a08b;
 
-// navbar (auth)
-$tc-auth-menu:      #fff; 
-$tc-auth-btn:       #157C68; 
-$btn-auth-bg:       #fff; 
-$btn-auth-border:   #30a08b;
+:root {
+    // navbar
+    --bg-nav: #a80a2d;
+    --tc-nav: #fff;
+    --tc-nav-hov: #fff;
+    --logo-padding: 20px 0px;
+    --logo-height: 50px;
 
-// navbar (start modal primary)
-$tc-start-btn:       #fff; 
-$btn-start-bg:       #157C68; 
-$btn-start-btn:      #157C68;
-$btn-start-border:   transparent;
+    // navbar (auth)
+    --tc-auth-menu: #fff;
+    --tc-auth-btn: #157c68;
+    --btn-auth-bg: #fff;
+    --btn-auth-border: #30a08b;
 
-// sign up
-$sign_up_accent_color: #197e6a;
-$sign_up_accent_color_light: #9bddd0;
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #157c68;
+    --btn-start-btn: #157c68;
+    --btn-start-border: transparent;
 
-// header background
-$bg-values:         url("../img/splash-top-b.png") no-repeat 100% 0;         
+    // sign up
+    --sign_up_accent_color: #197e6a;
+    --sign_up_accent_color_light: #9bddd0;
 
-// base font
-$bf:                'Source Sans Pro', sans-serif;
+    // header background
+    --bg-values: url("../img/splash-top-b.png") no-repeat 100% 0;
 
-// base font
-$hf:                'Oranda', 'Source Serif Pro', sans-serif;
+    // base font
+    --base-font: "Source Sans Pro", sans-serif;
 
-// text color
-$tc:                #353535;
-$htc:               #a80a2d;
-$tc-var:            inherit;
-$tc-link:           $bg-nav;
+    // base font
+    --hf: "Oranda", "Source Serif Pro", sans-serif;
 
-// base color
-$bc:                $bg-nav;
+    // text color
+    --tc: #353535;
+    --htc: #a80a2d;
+    --tc-var: inherit;
+    --tc-link: var(--bg-nav);
 
-// background color
-$bg:                #fff;
+    // base color
+    --bc: var(--bg-nav);
 
-$bg_2:              none;
+    // background color
+    --bg: #fff;
 
-// text formatting
-$tf:                uppercase;
+    --bg_2: none;
 
-// footer color
-$fbc:                #3a3a3a;
-$fc:                #fff;
+    // text formatting
+    --text_format: uppercase;
 
-$fc-link:           #fff;
+    // footer color
+    --footer_background_color: #3a3a3a;
+    --footer_color: #fff;
 
-// displayed or not
-$fd:                block;
+    --footer_color_link: #fff;
 
-// product image
-$pi:                0px;
+    // displayed or not
+    --footer_display: block;
 
-// placeholder text color
-$ptc:               #515152;
+    // product image
+    --product-image-padding: 0px;
 
-$border_color:      #ececec;
+    // placeholder text color
+    --placeholder_text_color: #515152;
 
-$border_radius:     2px;
-$base_shadow:       2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+    --border-color: #ececec;
 
-$color_primary:         #157c68;
-$color_primary_light:   #30a08b;
+    --border-radius: 2px;
+    --box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.05);
 
-$color_default:         #017f96;
-$color_default_light:   #017f96;
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
 
-$base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
-0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    --color-default: #017f96;
+    --color-default-light: #017f96;
 
-$navbar_transition: .5s ease-in-out;
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}

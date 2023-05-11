@@ -1,7 +1,7 @@
 &.block-empty {
     background: #fff;
-    border-radius: $border_radius;
-    box-shadow: 0 5px 30px rgba(#000, .05);
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .05);
     padding: 30px 30px;
     margin: 0 0 30px;
     text-align: center;
@@ -11,25 +11,34 @@
         width: 80px;
         height: 80px;
         display: flex;
-        background-color: rgba($color: $color_primary, $alpha: .075);
+        position: relative;
 
         svg {
             margin: auto;
+            z-index: 1;
 
             .fill-color-primary {
-                fill: $color_primary;
+                fill: var(--color-primary);
             }
+        }
+
+        &:before {
+            content: '';
+            z-index: 0;
+            background-color: var(--color-primary);
+            @include fill_parent();
+            opacity: 0.075;
         }
     }
 
     .block-title {
-        font: 700 22px/28px $bf;
+        font: 700 22px/28px var(--base-font);
         color: #282b39;
         margin: 0px 0px 10px;
     }
 
     .block-description {
-        font: 700 14px/20px $bf;
+        font: 700 14px/20px var(--base-font);
         color: #646f79;
         margin: 0px 0px 35px;
 
@@ -39,12 +48,12 @@
     }
 
     .block-link {
-        font: 600 13px/22px $bf;
-        color: $color_default;
+        font: 600 13px/22px var(--base-font);
+        color: var(--color-default);
         display: inline-block;
 
         .mdi {
-            color: $color_default;
+            color: var(--color-default);
             font-size: 1.3em;
             float: right;
             margin-left: 5px;
@@ -65,7 +74,7 @@
             padding: 20px;
 
             .block-title {
-                font: 700 20px/26px $bf;
+                font: 700 20px/26px var(--base-font);
             }
         }
     }
