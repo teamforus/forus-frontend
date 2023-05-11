@@ -174,10 +174,18 @@
                 font-size: 21px;
                 line-height: 34px;
                 text-align: center;
-                border: 1px solid rgba(var(--footer_color), .25);
                 border-radius: var(--border-radius);
                 margin-right: 10px;
                 color: var(--footer_color);
+                position: relative;
+
+                &:after {
+                    content: '';
+                    @include fill_parent();
+                    border-radius: inherit;
+                    border: 1px solid var(--footer_color);
+                    opacity: .25;
+                }
 
                 &:last-child {
                     margin-right: 0;
