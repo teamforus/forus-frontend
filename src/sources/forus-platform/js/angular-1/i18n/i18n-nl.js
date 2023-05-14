@@ -1426,6 +1426,18 @@ module.exports = {
         }
     },
 
+    validation_request_details: {
+        labels: {
+            clarification_requests: "Clarification requests",
+            history: "History",
+            files: "Files",
+            old_value: "Old value",
+            new_value: "New value",
+            employee: "Employee",
+            date_changed: "Date changed",
+        }
+    },
+
     // DIRECTIVES
 
     notes: {

@@ -129,6 +129,7 @@ app.component('modalFundUnsubscribeComponent', require('./components/Modals/Moda
 app.component('modalVoucherTransactionsUploadComponent', require('./components/Modals/ModalVoucherTransactionsUploadComponent'));
 app.component('modalVoucherRecordEditComponent', require('./components/Modals/ModalVoucherRecordEditComponent'));
 app.component('modalEditSocialMediaComponent', require('./components/Modals/ModalEditSocialMediaComponent'));
+app.component('modalEditRequestRecordComponent', require('./components/Modals/ModalEditRequestRecordComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -269,6 +270,10 @@ app.directive('providerFundsInvitationTable', require('./directives/ProviderFund
 app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoinDirective'));
 app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
+app.directive('fundRequestRecordDetails', require('./directives/FundRequestRecordDetailsDirective'));
+app.directive('fundRequestRecordAttachments', require('./directives/FundRequestRecordAttachmentsDirective'));
+app.directive('fundRequestRecordClarifications', require('./directives/FundRequestRecordClarificationsDirective'));
+app.directive('fundRequestRecordHistory', require('./directives/FundRequestRecordHistoryDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 

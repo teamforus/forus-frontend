@@ -1,7 +1,6 @@
 const FundRequestsShowComponent = function (
     $state,
     $timeout,
-    FileService,
     ModalService,
     PushNotificationsService,
     FundRequestValidatorService,
@@ -304,27 +303,16 @@ const FundRequestsShowComponent = function (
         });
     };
 
-    $ctrl.downloadFile = (file) => {
-        FileService.download(file).then(res => {
-            FileService.downloadFile(file.original_name, res.data);
-        }, console.error);
-    };
-
-    $ctrl.hasFilePreview = (file) => {
-        return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext);
-    }
-
-    $ctrl.previewFile = ($event, file) => {
-        $event.originalEvent.preventDefault();
-        $event.originalEvent.stopPropagation();
-
-        if (file.ext == 'pdf') {
-            FileService.download(file).then(res => {
-                ModalService.open('pdfPreview', { rawPdfFile: res.data });
-            }, console.error);
-        } else if (['png', 'jpeg', 'jpg'].includes(file.ext)) {
-            ModalService.open('imagePreview', { imageSrc: file.url });
-        }
+    $ctrl.editRecord = (fundRequestRecord) => {
+        ModalService.open('editRequestRecordComponent', {
+            fundRequest: $ctrl.validatorRequest,
+            organization: $ctrl.organization,
+            fundRequestRecord: fundRequestRecord,
+            onEdit: () => {
+                PushNotificationsService.success('Gelukt!', 'Eigenschap toegevoegd.');
+                $ctrl.reloadRequest();
+            }
+        });
     };
 
     $ctrl.fetchNotes = (query = {}) => {
@@ -368,7 +356,6 @@ module.exports = {
     controller: [
         '$state',
         '$timeout',
-        'FileService',
         'ModalService',
         'PushNotificationsService',
         'FundRequestValidatorService',

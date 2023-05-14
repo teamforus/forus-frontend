@@ -1,0 +1,23 @@
+.card
+    .card-header
+        .card-title.pull-left(translate="validation_request_details.labels.history")
+    
+    .card-section: .card-block.card-block-table.card-block-table-record-history: .table-wrapper
+        table.table.table-fixed
+            tr
+                th(translate='validation_request_details.labels.new_value')
+                th(translate='validation_request_details.labels.old_value')
+                th(translate='validation_request_details.labels.employee')
+                th.text-right(translate='validation_request_details.labels.date_changed')
+
+            tr(ng-repeat="log in $dir.fundRequestRecord.history")
+                td.text-strong(ng-bind="log.data.fund_request_record_value")
+
+                td(ng-bind="log.data.fund_request_record_old_value")
+                
+                td(ng-bind="log.data.employee_email")
+
+                td.text-right: strong(ng-bind="log.created_time_locale").text-primary
+
+    .card-section(ng-if="$dir.fundRequestRecord.history.length == 0")
+        .card-subtitle.text-center Geen historie.

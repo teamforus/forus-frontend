@@ -194,4 +194,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('editSocialMediaComponent', {
         component: 'modalEditSocialMediaComponent'
     });
+
+    ModalRouteProvider.modal('editRequestRecordComponent', {
+        component: 'modalEditRequestRecordComponent'
+    });
 }];

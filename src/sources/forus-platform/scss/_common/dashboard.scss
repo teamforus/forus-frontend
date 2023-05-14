@@ -2181,6 +2181,40 @@ body {
             }
         }
     }
+
+    &.card-block-request-record {
+        .card-header {
+            .card-title {
+                margin-bottom: 0;
+            }
+        }
+
+        .block-label-tabs {
+            margin-bottom: 20px;
+
+            .label-tab {
+                &:first-child {
+                    border-top-left-radius: 6px;
+                    border-bottom-left-radius: 6px;
+                }
+
+                &:last-child {
+                    border-top-right-radius: 6px;
+                    border-bottom-right-radius: 6px;
+                }
+            }
+        }
+
+        .card-block-table-record-history {
+            .table {
+                tr {
+                    td {
+                        background-color: #fff;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .block {
