@@ -27,6 +27,8 @@ module.exports = {
         to: "Tot en met",
         files: "Bon of factuur",
         employee: "Medewerker",
+        paid_on: "Uitbetaald op",
+        transaction: "Transactie",
     },
 
     buttons: {

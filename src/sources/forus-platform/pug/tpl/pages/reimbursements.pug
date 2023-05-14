@@ -135,6 +135,9 @@
                                 //- State
                                 th(translate="reimbursements.labels.state")
 
+                                //- Transaction
+                                th(translate="reimbursements.labels.transaction")
+
                                 //- Actions
                                 th(translate="reimbursements.labels.actions").nowrap.text-right
 
@@ -183,6 +186,11 @@
                                     ng-bind="reimbursement.state_locale"
                                     ng-class="{pending: 'label-default', approved: 'label-success', declined: 'label-danger'}[reimbursement.state]"
                                     dusk="{{ 'reimbursementState' + reimbursement.id }}")
+
+                                //- Transaction
+                                td: .label(
+                                    ng-bind="reimbursement.voucher_transaction.state_locale"
+                                    ng-class="{pending: 'label-default', success: 'label-success', canceled: 'label-danger'}[reimbursement.voucher_transaction.state]")
 
                                 //- Actions
                                 td: .button-group.flex-end
