@@ -10,7 +10,7 @@
                     .organization-logo: img(ng-src="{{ implementation.logo || './assets/img/placeholders/organization-thumbnail.png' }}")
                     .organization-name(ng-bind="implementation.name")
 
-        .card-heading: .flex.flex-horizontal
+        .card-heading(ng-if="$ctrl.implementations.meta.total > 0"): .flex.flex-horizontal
             .flex.flex-grow.flex-vertical.flex-center: div
                 | Systeemberichten 
                 tooltip(text="'system_notifications.header.tooltip' | translate")
@@ -64,3 +64,7 @@
                                         ui-sref="implementation-notifications-show(notification.srefData)")
                                         em.mdi.mdi-eye-outline.icon-start
                                         | Bekijken
+
+        block-empty( 
+            ng-if="$ctrl.implementations.meta.total == 0" 
+            text="There are no system notf. because no impl. connected")                                

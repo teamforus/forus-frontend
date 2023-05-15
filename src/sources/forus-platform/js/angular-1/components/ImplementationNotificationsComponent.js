@@ -12,7 +12,6 @@ const groupLabels = {
 };
 
 const ImplementationNotificationsComponent = function(
-    $state,
     $filter,
     ImplementationNotificationsService
 ) {
@@ -24,8 +23,6 @@ const ImplementationNotificationsComponent = function(
 
         if ($ctrl.implementations.meta.total > 0) {
             this.selectImplementation($ctrl.implementations.data[0]);
-        } else {
-            $state.go('organizations');
         }
     };
 
@@ -133,7 +130,6 @@ module.exports = {
         implementations: '<',
     },
     controller: [
-        '$state',
         '$filter',
         'ImplementationNotificationsService',
         ImplementationNotificationsComponent
