@@ -52,6 +52,7 @@ const FinancialDashboardComponent = function(
         $ctrl.optionsList.postcodes = $ctrl.options.postcodes;
         $ctrl.optionsList.providers = $ctrl.options.providers;
         $ctrl.optionsList.productCategories = $ctrl.options.product_categories;
+        $ctrl.optionsList.businessTypes = $ctrl.options.business_types;
 
         $ctrl.optionsList.postcodes.sort();
 
@@ -82,10 +83,17 @@ const FinancialDashboardComponent = function(
             checked: true
         });
 
+        $ctrl.optionsList.businessTypes.unshift({
+            id: null,
+            name: 'Alle organisatie type',
+            checked: true
+        });
+
         $ctrl.selectOption('funds', $ctrl.optionsList.funds[0], false);
         $ctrl.selectOption('postcodes', $ctrl.optionsList.postcodes[0], false);
         $ctrl.selectOption('providers', $ctrl.optionsList.providers[0], false);
         $ctrl.selectOption('productCategories', $ctrl.optionsList.productCategories[0], false);
+        $ctrl.selectOption('businessTypes', $ctrl.optionsList.businessTypes[0], false);
 
         $ctrl.searchOption();
     };
@@ -254,6 +262,7 @@ const FinancialDashboardComponent = function(
         providers: $ctrl.makeSelection('providers', 'Alle aanbieders', 'Alle aanbieders'),
         postcodes: $ctrl.makeSelection('postcodes', 'Alle postcodes', 'Alle postcodes'),
         productCategories: $ctrl.makeSelection('productCategories', 'Alle categorieën', 'Alle categorieën'),
+        businessTypes: $ctrl.makeSelection('businessTypes', 'Alle organisatie type', 'Alle organisatie type'),
     }
 
     $ctrl.onClickOutsideDropdown = () => {
@@ -273,6 +282,7 @@ const FinancialDashboardComponent = function(
             postcodes: $ctrl.selections.postcodes.items.map(item => item.name),
             provider_ids: $ctrl.selections.providers.ids,
             product_category_ids: $ctrl.selections.productCategories.ids,
+            business_type_ids: $ctrl.selections.businessTypes.ids,
         };
     }
 
