@@ -149,9 +149,8 @@
         }
 
         .navbar-list {
-            float: left;
             flex-grow: 1;
-            display: block;
+            display: flex;
             text-align: left;
 
             .navbar-item-wrapper {
@@ -258,11 +257,11 @@
                     top: 50%;
                     right: 25px;
                     bottom: 0;
-                    width: 5px;
-                    height: 5px;
-                    border-radius: 10px;
+                    width: 1px;
+                    height: 14px;
                     background-color: var(--tc-nav);
                     transform: translate(50%, -50%);
+                    opacity: .25;
                     display: block;
                 }
 
@@ -279,6 +278,8 @@
                 }
 
                 &_first-to-last {
+                    padding-right: 20px;
+
                     &:after {
                         display: none;
                     }
@@ -311,10 +312,10 @@
                             right: -10px;
                             bottom: 0;
                             width: 1px;
-                            height: 20px;
-                            border-radius: 10px;
-                            background-color: #646464;
+                            height: 14px;
+                            background-color: #282B39;
                             transform: translate(50%, -50%);
+                            opacity: .25;
                             display: block;
                         }
                     }
@@ -338,6 +339,38 @@
                                 content: none;
                             }
                         }
+                    }
+
+                    &:after {
+                        display: none;
+                    }
+                }
+
+                &_social_icons {
+                    flex-grow: 1;
+                    display: inline-flex;
+                    justify-content: flex-end;
+
+                    .navbar-social-media-icon {
+                        color: var(--tc-nav);
+                        font: 400 20px/1.3em var(--base-font);
+                        margin-right: 15px;
+                        display: inline-flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        .mdi {
+                            display: inline-block;
+                            text-align: center;
+                        }
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+
+                    &:last-child {
+                        padding-right: 0;
                     }
                 }
             }

@@ -184,9 +184,8 @@
                             strong.text-primary {{ providerOrganization.last_activity_locale }}
                         span.provider-activity(ng-if="providerOrganization.last_activity") 
                             | Geaccepteerd voor: 
-                            strong(ng-if="providerOrganization.funds_active === 0" ng-bind="'geen fondsen'").text-primary
-                            strong(ng-if="providerOrganization.funds_active === 1" ng-bind="providerOrganization.funds_active + ' fonds'").text-primary
-                            strong(ng-if="providerOrganization.funds_active > 1" ng-bind="providerOrganization.funds_active + ' fondsen'").text-primary
+                            strong(ng-bind="providerOrganization.accepted_funds_count_locale").text-primary
+
                 .provider-actions.form
                     .provider-action-item: a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-primary 
                         em.mdi.mdi-eye-outline.icon-start
@@ -200,7 +199,10 @@
                         th Opties
                     tr(ng-repeat="fund in providerOrganization.funds")
                         td(ng-bind="fund.name")
-                        td: .tag.tag-sm(ng-class="'tag-' + (fund.active ? 'success' : 'warning')"   ng-bind="fund.active ? 'Geaccepteerd' : 'Wachtend'")  
+                        td
+                            .label.label-success(ng-if="fund.fund_provider_state == 'accepted'" ng-bind="fund.fund_provider_state_locale")
+                            .label.label-default(ng-if="fund.fund_provider_state == 'pending'" ng-bind="fund.fund_provider_state_locale")
+                            .label.label-danger(ng-if="fund.fund_provider_state == 'rejected'" ng-bind="fund.fund_provider_state_locale")
                         td.td-narrow.text-right
                             a(ui-sref="fund-provider(fund.uiViewParams)").button.button-default.nowrap  
                                 em.mdi.mdi-eye-outline.icon-start

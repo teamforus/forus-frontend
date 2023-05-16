@@ -160,6 +160,39 @@
             color: var(--footer_color);
         }
 
+        .footer-social-medias {
+            .footer-social-media-title {
+                margin-top: 25px;
+                margin-bottom: 15px;
+                font: 600 16px/24px var(--base-font);
+                color: var(--footer_color);
+            }
+
+            .footer-social-media-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 21px;
+                line-height: 34px;
+                text-align: center;
+                border-radius: var(--border-radius);
+                margin-right: 10px;
+                color: var(--footer_color);
+                position: relative;
+
+                &:after {
+                    content: '';
+                    @include fill_parent();
+                    border-radius: inherit;
+                    border: 1px solid var(--footer_color);
+                    opacity: .25;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
         .footer-nav {
             .footer-nav-item {
                 display: block;
@@ -249,8 +282,12 @@
                 }
             }
 
-            .footer-sponsor-logo {
+            .footer-sponsor-logo, .footer-social-media-icons {
                 justify-content: center;
+            }
+
+            .footer-social-media-title {
+                text-align: center;
             }
         }
     }

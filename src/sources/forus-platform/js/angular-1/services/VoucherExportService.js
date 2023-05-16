@@ -5,6 +5,7 @@ const VoucherExportService = function(
     ModalService,
     VoucherService,
     PageLoadingBarService,
+    ImageConvertorService,
     PushNotificationsService
 ) {
     return new (function() {
@@ -92,7 +93,7 @@ const VoucherExportService = function(
                     const promises = data.map(async (voucherData, index) => {
                         console.info('- making qr file ' + (index + 1) + ' from ' + data.length + '.');
 
-                        const imageData = await document.imageConverter.makeQrImage(voucherData.value);
+                        const imageData = await ImageConvertorService.makeQrImage(voucherData.value);
                         const imageDataValue = imageData.slice('data:image/png;base64,'.length);
 
                         return { ...voucherData, data: imageDataValue };
@@ -126,6 +127,7 @@ module.exports = [
     'ModalService',
     'VoucherService',
     'PageLoadingBarService',
+    'ImageConvertorService',
     'PushNotificationsService',
     VoucherExportService
 ];

@@ -64,6 +64,7 @@ module.exports = {
         hartvanwestbrabant: "HvWB",
         participatiemunt: "Participatiemunt",
         eemsdelta: "Eemsdelta",
+        doetegoed: "Doe-tegoed",
     },
     languages: {
         en: 'English',
