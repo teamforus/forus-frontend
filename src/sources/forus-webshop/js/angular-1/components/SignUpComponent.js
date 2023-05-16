@@ -18,6 +18,8 @@ const SignUpStartComponent = function (
     $ctrl.authEmailRestoreSent = false;
     $ctrl.authEmailConfirmationSent = false;
 
+    $ctrl.hasPrivacy = false;
+
     $ctrl.onSignedIn = () => {
         const { redirect_scope } = $state.params;
 
@@ -38,6 +40,12 @@ const SignUpStartComponent = function (
             email: '',
             target: target,
         }, async (form) => {
+            if (!form.values.privacy && $ctrl.hasPrivacy) {
+                // prevent submit if policy exist and not checked
+                form.unlock();
+                return;
+            }
+
             const handleErrors = (res) => {
                 form.unlock();
                 form.errors = res.data.errors ? res.data.errors : { email: [res.data.message] };
@@ -84,6 +92,7 @@ const SignUpStartComponent = function (
     // Show qr code or email input
     $ctrl.setState = (state) => {
         $ctrl.state = state;
+        $ctrl.hasPrivacy = hasPrivacyCheck();
 
         if ($ctrl.state == 'qr') {
             $ctrl.requestAuthQrToken();
@@ -99,6 +108,12 @@ const SignUpStartComponent = function (
             authTokenSubscriber.checkAccessTokenStatus(res.data.access_token, $ctrl.onSignedIn);
         }, console.error);
     };
+
+    const hasPrivacyCheck = () => {
+        return $rootScope.appConfigs.flags.privacyPage && (
+            !$ctrl.appConfigs.flags.startPage.combineColumns || $ctrl.state === 'email'
+        );
+    }
 
     $ctrl.$onInit = () => {
         const { logout, restore_with_digid, restore_with_email, email_address, redirect_scope } = $state.params;
