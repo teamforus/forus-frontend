@@ -40,15 +40,23 @@ const TopNavbarDirective = function (
         $dir.prevOffsetY = currentOffsetY;
     };
 
+    const isMobileDevice = () => window.innerWidth >= 1000;
+
+    const onResize = () => {
+        $rootScope.showSearchBox = isMobileDevice();
+    };
+
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
+        window.addEventListener('resize', onResize);
+           
         $dir.logoExtension = ConfigService.getFlag('logoExtension');
-
-        $rootScope.showSearchBox = window.innerWidth >= 1000;
+        $rootScope.showSearchBox = isMobileDevice();
     };
 
     $dir.$onDestroy = () => {
         window.removeEventListener('scroll', updateScrolled);
+        window.removeEventListener('resize', onResize);
     };
 };
 
