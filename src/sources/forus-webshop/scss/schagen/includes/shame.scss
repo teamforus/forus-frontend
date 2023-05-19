@@ -85,6 +85,10 @@
         &.block-navbar {
             position: sticky;
             background-color: #0071B8;
+            
+            .navbar-inner {
+                background-color: var(--bg_2);
+            }
 
             .navbar-logo {
                 img {
@@ -92,16 +96,6 @@
 
                     &.hover {
                         display: block;
-                    }
-                }
-            }
-
-            .button {
-                color: #ffffff;
-
-                svg {
-                    path {
-                        fill: #fff;
                     }
                 }
             }

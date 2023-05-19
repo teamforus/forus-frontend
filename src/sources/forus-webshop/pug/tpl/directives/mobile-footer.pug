@@ -46,7 +46,9 @@
 
             a.sticky-footer-item-wrapper(ui-sref="vouchers" aria-current="{{ $dir.$state.current.name == 'vouchers' }}" tabindex="0" role="link")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
-                span(translate="topnavbar.buttons.mobile.voucher")
+                span(
+                    translate="topnavbar.buttons.mobile.{{ $root.client_key }}.voucher"
+                    translate-default="{{ 'topnavbar.buttons.mobile.voucher' | translate }}")
 
         //- Dropdown menu
         li(ng-if="$root.auth_user").sticky-footer-dropdown
@@ -70,7 +72,9 @@
                     role="link")
                     
                     em.mdi.mdi-ticket-percent-outline
-                    span(translate="topnavbar.buttons.mobile.dropdown.vouchers")
+                    span(
+                        translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.vouchers"
+                        translate-default="{{ 'topnavbar.buttons.mobile.dropdown.vouchers' | translate }}")                        )
 
                 //- Reimbursements
                 .sticky-footer-dropwdown-subitem(
@@ -95,7 +99,9 @@
                     role="link")
                     
                     em.mdi.mdi-alarm-plus
-                    span(translate="topnavbar.buttons.{{ $root.client_key }}.activate" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
+                    span(
+                        translate="topnavbar.buttons.{{ $root.client_key }}.activate" 
+                        translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
                 
                 //- Reservations
                 .sticky-footer-dropwdown-subitem(
@@ -156,7 +162,9 @@
                     role="link")
                     
                     em.mdi.mdi-cash-multiple
-                    span(translate="topnavbar.buttons.mobile.dropdown.funds")
+                    span(
+                        translate="topnavbar.buttons.mobile.dropdown.{{client_key}}.funds"
+                        translate-default="{{ 'topnavbar.buttons.mobile.dropdown.funds' | translate }}")
 
                 //- Sessions
                 .sticky-footer-dropwdown-subitem(

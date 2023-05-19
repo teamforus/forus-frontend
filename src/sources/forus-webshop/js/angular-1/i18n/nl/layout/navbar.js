@@ -18,6 +18,9 @@ module.exports = {
         waalwijk: {
             funds:"Aanvragen",
         },
+        heumen: {
+            funds: "Activeren",
+        },
         geertruidenberg: {
             funds:"Regelingen",
         },
@@ -55,11 +58,14 @@ module.exports = {
         waalwijk: {
             activate: "Aanvragen",
         },
+        heumen: {
+            activate: "Activeren",
+        },
         geertruidenberg: {
             activate: "Aanvragen",
         },
         potjeswijzer: {
-            activate: "Aanvragen",
+            activate: "Potjes",
         },
         nijmegen: {
             activate: "Aanvragen",
@@ -84,6 +90,9 @@ module.exports = {
 
         mobile: {
             voucher: "Mijn tegoeden",
+            groningen: {
+                voucher: "Mijn Stadjerspas"
+            },
             request: "Aanvragen",
             profile: "Profiel",
             more: "Meer",
@@ -96,7 +105,50 @@ module.exports = {
                 preferences_emails: "E-mailinstellingen",
                 records: "Profiel",
                 funds: "Alle tegoeden",
-                sessions: "Sessies"
+                sessions: "Sessies",
+                westerkwartier: {
+                    funds: "Aanvragen",
+                },
+                groningen: {    
+                    funds: "Aanvragen",
+                    vouchers: "Mijn Stadjerspas"
+                },
+                waalwijk: {
+                    funds: "Aanvragen",
+                },
+                heumen: {
+                    funds: "Activeren",
+                },
+                geertruidenberg: {
+                    funds: "Regelingen",
+                },
+                potjeswijzer: {
+                    funds: "Potjes",
+                },
+                berkelland: {
+                    funds: "Activeren",
+                },
+                oostgelre: {
+                    funds: "Activeren",
+                },
+                winterswijk: {
+                    funds: "Activeren",
+                },
+                nijmegen: {
+                    funds: "Aanvragen",
+                },
+                noordoostpolder: {
+                    funds: "Activeren",
+                },
+                vergoedingen: {
+                    funds: "Vergoedingen",
+                },
+                schagen: {
+                    funds: "Regelingen",
+                },
+                ede: {
+                    funds: "Regelingen",
+                },
             }
         }
     },
