@@ -1,3 +1,5 @@
+const { pick } = require("lodash");
+
 const VouchersComponent = function(
     $state,
     $stateParams,
@@ -53,10 +55,23 @@ const VouchersComponent = function(
             sort_by: 'created_at',
             sort_order: 'desc',
         },
-        values: {},
+        values: pick($stateParams, [
+            'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
+            'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
+            'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
+        ]),
         reset: function() {
             this.values = { ...this.defaultValues };
+            $ctrl.updateState(this.defaultValues);
         }
+    };
+
+    $ctrl.updateState = (query) => {
+        $state.go(
+            'vouchers',
+            { ...query, organization_id: $ctrl.organization.id, fund_id: $ctrl.fund.id },
+            { location: 'replace' },
+        );
     };
 
     $ctrl.resetFilters = () => {
@@ -127,7 +142,10 @@ const VouchersComponent = function(
         VoucherService.index(
             $ctrl.organization.id,
             $ctrl.getQueryParams(query),
-        ).then((res => $ctrl.vouchers = res.data));
+        ).then((res) => { 
+            $ctrl.vouchers = res.data;
+            $ctrl.updateState(query);
+        });
     };
 
     $ctrl.showTooltip = (e, target) => {
@@ -142,30 +160,30 @@ const VouchersComponent = function(
     };
 
     $ctrl.init = () => {
-        $ctrl.resetFilters();
-        $ctrl.onPageChange($ctrl.filters.values);
         $ctrl.fundClosed = $ctrl.fund.state == 'closed';
     };
 
     $ctrl.onFundSelect = (fund) => {
         $ctrl.fund = fund;
         $ctrl.init();
+
+        $ctrl.onPageChange($ctrl.filters.values);
     };
 
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
-        if (!$ctrl.fund) {
-            if ($ctrl.funds.length == 1) {
-                $state.go('vouchers', {
-                    organization_id: $state.params.organization_id,
-                    fund_id: $ctrl.funds[0].id,
-                });
-            } else if ($ctrl.funds.length == 0) {
-                // alert('Sorry, but no funds were found to add vouchers.');
-                // $state.go('funds');
-            }
-        } else {
+        if ($ctrl.funds.length == 0) {
+            // alert('Sorry, but no funds were found to add vouchers.');
+            // $state.go('funds');
+        } else if (!$stateParams.fund_id) {
+            $state.go('vouchers', {
+                ...$stateParams,
+                fund_id: $ctrl.fund ? $ctrl.fund.id : $ctrl.funds[0].id,
+            }, { location: 'replace' });
+        }
+
+        if ($ctrl.fund) {
             $ctrl.init();
         }
     };
@@ -175,6 +193,7 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
+        vouchers: '<',
         organization: '<',
     },
     controller: [
@@ -185,7 +204,7 @@ module.exports = {
         'ModalService',
         'VoucherService',
         'VoucherExportService',
-        VouchersComponent
+        VouchersComponent,
     ],
-    templateUrl: 'assets/tpl/pages/vouchers.html'
+    templateUrl: 'assets/tpl/pages/vouchers.html',
 };

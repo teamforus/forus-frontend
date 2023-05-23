@@ -1,3 +1,5 @@
+const { pick } = require("lodash");
+
 const ProductVouchersComponent = function(
     $state,
     $stateParams,
@@ -53,10 +55,23 @@ const ProductVouchersComponent = function(
             sort_by: 'created_at',
             sort_order: 'desc',
         },
-        values: {},
+        values: pick($stateParams, [
+            'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
+            'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
+            'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
+        ]),
         reset: function() {
             this.values = { ...this.defaultValues };
+            $ctrl.updateState(this.defaultValues);
         }
+    };
+
+    $ctrl.updateState = (query) => {
+        $state.go(
+            'product-vouchers',
+            { ...query, organization_id: $ctrl.organization.id, fund_id: $ctrl.fund.id },
+            { location: 'replace' },
+        );
     };
 
     $ctrl.resetFilters = () => {
@@ -127,7 +142,10 @@ const ProductVouchersComponent = function(
         VoucherService.index(
             $ctrl.organization.id,
             $ctrl.getQueryParams(query),
-        ).then((res => $ctrl.vouchers = res.data));
+        ).then((res => {
+            $ctrl.vouchers = res.data;
+            $ctrl.updateState(query);
+        }));
     };
 
     $ctrl.showTooltip = (e, target) => {
@@ -142,30 +160,30 @@ const ProductVouchersComponent = function(
     };
 
     $ctrl.init = () => {
-        $ctrl.resetFilters();
-        $ctrl.onPageChange($ctrl.filters.values);
         $ctrl.fundClosed = $ctrl.fund.state == 'closed';
     };
 
     $ctrl.onFundSelect = (fund) => {
         $ctrl.fund = fund;
         $ctrl.init();
+
+        $ctrl.onPageChange($ctrl.filters.values);
     };
 
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
-        if (!$ctrl.fund) {
-            if ($ctrl.funds.length == 1) {
-                $state.go('product-vouchers', {
-                    organization_id: $state.params.organization_id,
-                    fund_id: $ctrl.funds[0].id,
-                });
-            } else if ($ctrl.funds.length == 0) {
-                /* alert('Sorry, but no funds were found to add vouchers.');
-                $state.go('home'); */
-            }
-        } else {
+        if ($ctrl.funds.length == 0) {
+            // alert('Sorry, but no funds were found to add vouchers.');
+            // $state.go('funds');
+        } else if (!$stateParams.fund_id) {
+            $state.go('product-vouchers', {
+                ...$stateParams,
+                fund_id: $ctrl.fund ? $ctrl.fund.id : $ctrl.funds[0].id,
+            }, { location: 'replace' });
+        }
+
+        if ($ctrl.fund) {
             $ctrl.init();
         }
     };
@@ -175,6 +193,7 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
+        vouchers: '<',
         organization: '<',
     },
     controller: [
