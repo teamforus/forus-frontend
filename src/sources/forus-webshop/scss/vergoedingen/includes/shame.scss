@@ -29,14 +29,6 @@
 
         .navbar-list {
             .navbar-item-wrapper {
-                &:after {
-                    width: 6px;
-                    height: 6px;
-                    border-radius: 6px;
-                    background-color: #62686A;
-                    opacity: 1;
-                }
-
                 .navbar-item {
                     &:hover {
                         &:before {
@@ -265,7 +257,7 @@
     }
 
     @media screen and (min-width: 1000px) {
-        &.block-products {
+        &.block-products, &.block-subsidies {
             max-width: 1280px;
             margin: 0 auto;
         }
@@ -320,6 +312,18 @@
         margin-top: 0;
         padding-top: 30px;
         color: #fff;
+
+        .block.block-markdown {
+            color: #fff;
+
+            h1, h2, h3, h4, h5, h6 {
+                font: 400 22px/32px 'Oranda';
+            }
+
+            a:not(.button) {
+                color: #fff;
+            }
+        }
     }
 
     @media screen and (min-width: 1000px) { 
@@ -364,7 +368,7 @@
             .footer-nav-item {
                 a {
                     color: #efefef;
-                    font: 500 14px/24px var(--base-font);
+                    font: 500 16px/1.5em var(--base-font);
                 }
             }
         }
