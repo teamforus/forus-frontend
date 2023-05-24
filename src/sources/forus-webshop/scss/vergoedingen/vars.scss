@@ -3,7 +3,7 @@
 /*==========  Style Sheet - Vars  ==========*/
 $fonts: "https://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700,700italic,500italic,500,400italic,300,100italic,100,300italic&subset=latin,cyrillic,latin-ext";
 $primaryColor: #176B55;
-$primaryColorLight: #23a783;
+$primaryColorLight: #2F7F6B;
 
 @font-face { 
     font-family: Oranda; 
@@ -17,7 +17,7 @@ $primaryColorLight: #23a783;
 
 :root {
     // navbar
-    --bg-nav: #f4f5f7;
+    --bg-nav: #950022;
     --tc-nav: #000000;
     --tc-nav-hov: #000000;
     --logo-padding: 20px 0px;
@@ -57,7 +57,7 @@ $primaryColorLight: #23a783;
     --bg_2: #ffffff;
 
     // text formatting
-    --text_format: inherit;
+    --text_format: uppercase;
 
     // footer color
     --footer_background_color: #3a3a3a;

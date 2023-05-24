@@ -1,9 +1,11 @@
 .block {
     &.block-navbar {
+        background-color: #fff;
+
         .block-auth {
             .button {
-                font-family: "Open Sans";
                 font-weight: 600;
+                text-transform: initial;
                     
                 &:hover {
                     box-shadow: none;
@@ -22,7 +24,7 @@
         }
 
         .block-subnav {
-            background-color: #950022;
+            background-color: var(--bg-nav);
         }
 
         .navbar-list {
@@ -40,7 +42,7 @@
                         &:before {
                             top: auto;
                             bottom: 0;
-                            background: #01689B;
+                            background: var(--color-primary);
                         }
                     }
 
@@ -55,13 +57,13 @@
                 .navbar-item.active:before {
                     top: auto;
                     bottom: 0;
-                    background: #01689B;
+                    background: var(--color-primary);
                 }
 
                 .navbar-item.hover:before {
                     top: auto;
                     bottom: 0;
-                    background: #01689B;
+                    background: var(--color-primary);
                 }
             }
         }
@@ -90,14 +92,13 @@
         }
     }
 
-    .block-subnav {
-        background-color: #01689B;
-    }
-
     @media screen and (max-width: 1000px) {
         &.block-navbar {
             position: sticky;
-            background-color: #01689B;
+
+            .navbar-inner {
+                background-color: var(--bg-nav);
+            }
 
             .navbar-logo {
                 img {
@@ -224,7 +225,7 @@
 
         a:not(.button) {
             text-decoration: underline;
-            color: #01689B;
+            color: var(--color-primary);
 
             &:hover {
                 text-decoration: none;
