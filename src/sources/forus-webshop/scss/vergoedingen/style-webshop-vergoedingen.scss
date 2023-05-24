@@ -1,5 +1,6 @@
 @import './vars';
 @import '../_common/webshop'; 
+@import '../includes/fonts';
 
 // INCLUDES
 @import 'includes/shame.scss';
@@ -7,4 +8,6 @@
 // BLOCKS
 .block {
     @import 'sections/blocks/block-sign_up.scss';
+    @import 'sections/blocks/block-organization-info.scss';
+    @import 'sections/blocks/block-cms-funds.scss';
 }

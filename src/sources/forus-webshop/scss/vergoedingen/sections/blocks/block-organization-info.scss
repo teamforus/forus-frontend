@@ -1,0 +1,23 @@
+&.block-organization-info {
+    .info-block-panel {
+        a {
+            font: 400 18px/18px 'OrandaBT-Bold';
+            color: #950022;
+        }
+
+        .block-description {
+            font-size: 16px;
+        }
+
+        .block-list {
+            li {
+                margin-bottom: 16px;
+
+                a {
+                    font: 600 18px/18px "Open Sans";
+                    color: #0B352A;
+                }
+            }
+        }
+    }
+}

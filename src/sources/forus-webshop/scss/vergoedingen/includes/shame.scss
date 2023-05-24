@@ -2,6 +2,9 @@
     &.block-navbar {
         .block-auth {
             .button {
+                font-family: "Open Sans";
+                font-weight: 600;
+                    
                 &:hover {
                     box-shadow: none;
                 }
@@ -19,11 +22,19 @@
         }
 
         .block-subnav {
-            background-color: #01689B;
+            background-color: #950022;
         }
 
         .navbar-list {
             .navbar-item-wrapper {
+                &:after {
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 6px;
+                    background-color: #62686A;
+                    opacity: 1;
+                }
+
                 .navbar-item {
                     &:hover {
                         &:before {
@@ -160,10 +171,6 @@
         }
     }
 
-    &.block-cms-funds {
-        margin-top: 50px;
-    }
-
     &.block-organizations {
         .organization-item {
             .organization-pane {
@@ -213,6 +220,8 @@
     }
 
     &.block-markdown {
+        color: #454849;
+
         a:not(.button) {
             text-decoration: underline;
             color: #01689B;
@@ -282,6 +291,12 @@
 
             .header-description p {
                 text-align: center !important;
+            }
+
+            .header-how-it-works {
+                font: 400 20px/20px 'OrandaBT-Bold';
+                color: #950022;
+                text-decoration: none;
             }
         }
     }
