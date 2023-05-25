@@ -182,7 +182,7 @@ body {
             width: 260px;
             background: #FFFFFF;
             box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
-            border-radius: var(--boarder-radius) / 2;
+            border-radius: calc(var(--boarder-radius) / 2);
             position: absolute;
             transition: box-shadow .4s;
             overflow: hidden;
@@ -1294,6 +1294,10 @@ body {
     &.card-padded {
         margin-bottom: 0px;
     }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .card-block {
@@ -2190,26 +2194,20 @@ body {
         }
 
         .block-label-tabs {
-            margin-bottom: 20px;
-
-            .label-tab {
-                &:first-child {
-                    border-top-left-radius: 6px;
-                    border-bottom-left-radius: 6px;
-                }
-
-                &:last-child {
-                    border-top-right-radius: 6px;
-                    border-bottom-right-radius: 6px;
-                }
-            }
+            margin-bottom: 10px;
         }
 
-        .card-block-table-record-history {
-            .table {
-                tr {
-                    td {
-                        background-color: #fff;
+        .table {
+            tr {
+                td {
+                    &.collapse-content {
+                        padding: 15px 20px;
+                    }
+
+                    .card {
+                        border: 1px solid var(--boarder-color);
+                        overflow: hidden;
+                        box-shadow: none;
                     }
                 }
             }
@@ -3673,7 +3671,6 @@ body {
     }
 
     &.block-request-clarification {
-        padding: 10px 0;
         display: flex;
         flex-direction: column;
 
@@ -5548,10 +5545,10 @@ body {
     &.block-label-tabs {
         display: flex;
         margin-left: 10px;
-        border-top-left-radius: var(--boarder-radius) / 2;
-        border-top-right-radius: var(--boarder-radius) / 2;
-        border-bottom-left-radius: var(--boarder-radius) / 2;
-        border-bottom-right-radius: var(--boarder-radius) / 2;
+        border-top-left-radius: calc(var(--boarder-radius) / 2);
+        border-top-right-radius: calc(var(--boarder-radius) / 2);
+        border-bottom-left-radius: calc(var(--boarder-radius) / 2);
+        border-bottom-right-radius: calc(var(--boarder-radius) / 2);
     
         .label-tab {
             background: #fff;
@@ -5586,13 +5583,13 @@ body {
             }
 
             &:first-child {
-                border-top-left-radius: var(--boarder-radius) / 2;
-                border-bottom-left-radius: var(--boarder-radius) / 2;
+                border-top-left-radius: calc(var(--boarder-radius) / 2);
+                border-bottom-left-radius: calc(var(--boarder-radius) / 2);
             }
     
             &:last-child {
-                border-top-right-radius: var(--boarder-radius) / 2;
-                border-bottom-right-radius: var(--boarder-radius) / 2;
+                border-top-right-radius: calc(var(--boarder-radius) / 2);
+                border-bottom-right-radius: calc(var(--boarder-radius) / 2);
                 border-right: 1px solid var(--boarder-color);
             }
     
@@ -6666,7 +6663,7 @@ body {
 
             .toggle-item {
                 border: 1px dashed #bfbfbf;
-                border-radius: var(--boarder-radius) / 2;
+                border-radius: calc(var(--boarder-radius) / 2);
                 align-items: center;
                 background: #f6f9fc;
                 padding: 20px;
@@ -6745,7 +6742,7 @@ body {
         background: #f6f9fc;
         width: 1200px;
         max-width: 100%;
-        border-radius: var(--boarder-radius) / 2;
+        border-radius: calc(var(--boarder-radius) / 2);
         display: inline-block;
         min-height: 100px;
         margin: 0 auto;
@@ -7236,7 +7233,7 @@ body {
                         font: 500 14px var(--base-font);
                         color: #282b39;
                         border: 1px solid #d4d9dd;
-                        border-radius: var(--boarder-radius) / 2;
+                        border-radius: calc(var(--boarder-radius) / 2);
                         position: relative;
                         transition: .4s;
                         background: transparent;
@@ -7955,7 +7952,7 @@ body {
             line-height: 28px;
             font-size: 16px;
             font-weight: 500;
-            border-radius: var(--boarder-radius) / 2;
+            border-radius: calc(var(--boarder-radius) / 2);
 
             &.button-disabled, [disabled] {
                 background: #eff2f4;

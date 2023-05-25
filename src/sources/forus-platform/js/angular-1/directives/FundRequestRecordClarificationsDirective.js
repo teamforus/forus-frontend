@@ -9,7 +9,7 @@ const FundRequestRecordClarificationsDirective = function(
     };
 
     $dir.hasFilePreview = (file) => {
-        FundRequestValidatorService.hasFilePreview(file);
+        return FundRequestValidatorService.hasFilePreview(file);
     };
 
     $dir.previewFile = ($event, file) => {

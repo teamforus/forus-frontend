@@ -1,53 +1,43 @@
-let ModalEditRequestRecordComponent = function(
+const ModalEditRequestRecordComponent = function (
     FormBuilderService,
-    FundRequestValidatorService
+    FundRequestValidatorService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.fundRequest = $ctrl.modal.scope.fundRequest;
-        $ctrl.fundRequestRecord = $ctrl.modal.scope.fundRequestRecord;
-        $ctrl.organization = $ctrl.modal.scope.organization;
-        $ctrl.onEdit = $ctrl.modal.scope.onEdit;
+        const { onEdit, fundRequest, organization, fundRequestRecord } = $ctrl.modal.scope;
+
+        $ctrl.fundRequest = fundRequest;
+        $ctrl.fundRequestRecord = fundRequestRecord;
+        
+        $ctrl.recordNumeric = fundRequestRecord.record_type.type == 'number';
+        $ctrl.initialValue = $ctrl.recordNumeric ? parseFloat(fundRequestRecord.value) : fundRequestRecord.value;
 
         $ctrl.form = FormBuilderService.build({
-            record_type_key: $ctrl.fundRequestRecord.record_type_key,
-            value: $ctrl.fundRequestRecord.value,
+            value: $ctrl.initialValue,
         }, (form) => {
             FundRequestValidatorService.updateRecord(
-                $ctrl.organization.id,
-                $ctrl.fundRequest.id,
-                $ctrl.fundRequestRecord.id,
+                organization.id,
+                fundRequest.id,
+                fundRequestRecord.id,
                 form.values
-            ).then((res) => {
-                $ctrl.closeModal();
-                $ctrl.onEdit(res);
-            }, res => {
-                form.errors = res.data.errors;
-            });
+            ).then(
+                (res) => onEdit(res) & $ctrl.close(),
+                (res) => form.errors = res.data.errors,
+            );
         });
-    };
-
-    $ctrl.closeModal = () => {
-        $ctrl.close();
-    };
-
-    $ctrl.confirm = () => {
-        $ctrl.close();
     };
 };
 
 module.exports = {
     bindings: {
         close: '=',
-        modal: '='
+        modal: '=',
     },
     controller: [
         'FormBuilderService',
         'FundRequestValidatorService',
-        ModalEditRequestRecordComponent
+        ModalEditRequestRecordComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-edit-request-record.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-edit-request-record.html',
 };

@@ -189,7 +189,7 @@
                 tbody(ng-repeat='record in $ctrl.validatorRequest.records')
                     tr
                         td.cell-chevron(ng-if="$ctrl.validatorRequest.hasContent"): a.mdi.mdi-menu-down.td-menu-icon(
-                            ng-if="(record.files.length > 0) || (record.clarifications.length > 0)"
+                            ng-if="record.hasContent"
                             ng-class="{'mdi-menu-down': !record.shown, 'mdi-menu-up': record.shown}"
                             ng-click="record.shown = !record.shown")
                         td(ng-bind='record.record_type.name')
@@ -216,13 +216,8 @@
 
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
-                                .button.button-primary.button-icon(
-                                    ng-click='$ctrl.declineRecord(record)'
-                                    ng-if='$root.appConfigs.flags.singleRecordValidation')
-                                    em.mdi.mdi-close
-
                                 .button.button-default.button-icon(
-                                    ng-if="$ctrl.organization.validator_records_edit_enabled"
+                                    ng-if="$ctrl.organization.allow_fund_request_record_edit"
                                     ng-click='$ctrl.editRecord(record)')
                                     em.mdi.mdi-pencil
 
@@ -230,17 +225,20 @@
                                     ng-click='$ctrl.clarifyRecord(record)')
                                     em.mdi.mdi-message-text
 
-                                .button.button-default.button-icon(
+                                .button.button-danger.button-icon(
+                                    ng-click='$ctrl.declineRecord(record)'
+                                    ng-if='$root.appConfigs.flags.singleRecordValidation')
+                                    em.mdi.mdi-close
+
+                                .button.button-primary.button-icon(
                                     ng-click='$ctrl.approveRecord(record)'
                                     ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-check
                     
-                    tr.dim(ng-if='record.shown'): td(colspan='6')
-                        fund-request-record-details(
-                            ng-if="record.history.length"
-                            fund-request="$ctrl.validatorRequest"
-                            fund-request-record="record"
-                            organization="$ctrl.organization")                                
+                    tr.dim(ng-if='record.hasContent && record.shown'): td(colspan='6').collapse-content: fund-request-record(
+                        fund-request="$ctrl.validatorRequest"
+                        fund-request-record="record"
+                        organization="$ctrl.organization")                                
 
             //- Fund request person
             fund-request-person(

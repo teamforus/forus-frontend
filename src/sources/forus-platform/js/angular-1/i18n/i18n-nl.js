@@ -1428,9 +1428,9 @@ module.exports = {
 
     validation_request_details: {
         labels: {
-            clarification_requests: "Clarification requests",
-            history: "History",
-            files: "Files",
+            clarification_requests: "Clarification requests ({{ count }})",
+            history: "History ({{ count }})",
+            files: "Files ({{ count }})",
             old_value: "Old value",
             new_value: "New value",
             employee: "Employee",

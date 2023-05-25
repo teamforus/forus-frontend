@@ -4,7 +4,7 @@ const FundRequestsShowComponent = function (
     ModalService,
     PushNotificationsService,
     FundRequestValidatorService,
-    appConfigs
+    appConfigs,
 ) {
     const $ctrl = this;
 
@@ -39,9 +39,15 @@ const FundRequestsShowComponent = function (
             return record.employee?.organization_id === $ctrl.organization.id;
         }).length > 0;
 
-        $ctrl.validatorRequest.records = $ctrl.validatorRequest.records.map((record) => ({ ...record, shown: true }));
+        $ctrl.validatorRequest.records = $ctrl.validatorRequest.records.map((record) => ({ 
+            ...record, shown: true, hasContent: record.files.length > 0 || record.clarifications.length > 0 || record.history.length > 0,
+        }));
+
+        $ctrl.validatorRequest.hasContent = records.filter((record) => {
+            return record.files?.length || record.clarifications?.length || record.history?.length;
+        }).length > 0;
+
         $ctrl.validatorRequest.collapsed = $ctrl.extendedView;
-        $ctrl.validatorRequest.hasContent = records.filter((record) => record.files?.length || record.clarifications?.length).length > 0;
 
         $ctrl.validatorRequest.can_disregarded = isPending && isSponsorEmployee && assignedPendingRecords.length;
         $ctrl.validatorRequest.can_disregarded_undo = isSponsorEmployee && (assignedDisregardedRecords.length > 0) && !replaced;
