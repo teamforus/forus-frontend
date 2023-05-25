@@ -198,4 +198,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('editRequestRecordComponent', {
         component: 'modalEditRequestRecordComponent'
     });
+
+    ModalRouteProvider.modal('websiteContactForm', {
+        component: 'modalContactFormComponent'
+    });
 }];

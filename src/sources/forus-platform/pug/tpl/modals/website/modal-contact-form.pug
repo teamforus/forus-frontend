@@ -1,0 +1,3 @@
+#modalContact.modal.fade(ng-if="$ctrl.modal.ready" ng-class="[$ctrl.modal.loaded ? 'in' : '']" role="dialog")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-dialog: .modal-content: contact-form(type="modal" close="$ctrl.close")

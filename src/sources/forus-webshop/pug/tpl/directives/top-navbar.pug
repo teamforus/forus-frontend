@@ -84,7 +84,9 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     ui-sref-active="active"
                     ng-bind="'topnavbar.items.signup' | translate")
 
-            li.navbar-item-wrapper.navbar-item-wrapper_social_icons
+            li.navbar-item-wrapper.navbar-item-wrapper_social_icons(
+                ng-class="$root.appConfigs.features.social_medias.length ? '' : 'navbar-item-wrapper_first-to-last'")
+
                 a.navbar-social-media-icon(
                     ng-repeat="social_media in $root.appConfigs.features.social_medias"
                     href="{{ social_media.url }}" 

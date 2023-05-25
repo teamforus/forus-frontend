@@ -1,3 +1,4 @@
+const { pick } = require("lodash");
 const targetHome = 'homeStart';
 const targetNewSignup = 'newSignup';
 
@@ -137,9 +138,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/organizations",
         controller: ['$rootScope', ($rootScope) => {
             if (!$rootScope.auth_user) {
-                $rootScope.loadAuthUser().then(() => $rootScope.autoSelectOrganization());
+                $rootScope.loadAuthUser().then((auth_user) => $rootScope.autoSelectOrganization(auth_user));
             } else {
-                $rootScope.autoSelectOrganization()
+                $rootScope.autoSelectOrganization($rootScope.auth_user)
             }
         }]
     });
@@ -1278,9 +1279,27 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
      */
     $stateProvider.state({
         name: "transactions",
-        url: "/organizations/{organization_id}/transactions?{type:string}",
+        url: [
+            "/organizations/{organization_id}/transactions?",
+            "{type:string}&{q:string}&{page:int}&{state:string}&{fund_id:int}&{fund_state:string}&",
+            "{from:string}&{to:string}&{amount_min:int}&{amount_max:int}&{quantity_min:int}&",
+            "{quantity_max:int}&{order_by:string}&{order_dir:string}",
+        ].join(''),
         params: {
-            type: { dynamic: true, value: null, squash: true },
+            q: routeParam(""),
+            to: routeParam(),
+            from: routeParam(),
+            type: routeParam("transactions"),
+            page: routeParam(1),
+            state: routeParam(),
+            fund_id: routeParam(),
+            fund_state: routeParam(),
+            amount_min: routeParam(),
+            amount_max: routeParam(),
+            quantity_min: routeParam(),
+            quantity_max: routeParam(),
+            order_by: routeParam('created_at'),
+            order_dir: routeParam('desc'),
         },
         component: "transactionsComponent",
         resolve: {
@@ -1295,6 +1314,25 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
                 return repackResponse(FundService.list($transition$.params().organization_id));
             }],
+            transactions: ['$transition$', 'TransactionService', 'appConfigs', (
+                $transition$, TransactionService, appConfigs
+            ) => repackPagination(TransactionService.list(appConfigs.panel_type, $transition$.params().organization_id, {
+                ...pick($transition$.params(), $transition$.params().type == 'transactions' ? [
+                    'q', 'page', 'state', 'fund_id', 'fund_state', 'from', 'to', 
+                    'amount_min', 'amount_max', 'quantity_min', 'quantity_max', 
+                    'order_by', 'order_by_dir',
+                ] : []),
+                per_page: 20,
+            }))],
+            transactionBulks: ['$transition$', 'TransactionBulkService', (
+                $transition$, TransactionBulkService
+            ) => repackPagination(TransactionBulkService.list($transition$.params().organization_id, {
+                ...pick($transition$.params(), $transition$.params().type == 'bulks' ? [
+                    'page', 'state', 'from', 'to', 'amount_min', 'amount_max', 
+                    'quantity_min', 'quantity_max', 'order_by', 'order_by_dir'
+                ] : []),
+                per_page: 20,
+            }))],
             organization: organziationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')
         }

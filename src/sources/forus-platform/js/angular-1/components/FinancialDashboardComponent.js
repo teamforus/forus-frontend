@@ -3,10 +3,11 @@ const FinancialDashboardComponent = function(
     $filter,
     $stateParams,
     FundService,
+    FileService,
     TransactionService,
     OrganizationService,
-    FileService,
-    appConfigs
+    PageLoadingBarService,
+    appConfigs,
 ) {
     const $ctrl = this;
 
@@ -42,9 +43,11 @@ const FinancialDashboardComponent = function(
     };
 
     $ctrl.updateChartData = function() {
+        PageLoadingBarService.setProgress(0);
+
         FundService.readFinances($ctrl.organization.id, $ctrl.getFiltersQuery()).then((res) => {
             $ctrl.chartData = res.data;
-        });
+        }).finally(() => PageLoadingBarService.setProgress(100));
     };
 
     $ctrl.initOptions = () => {
@@ -381,11 +384,12 @@ module.exports = {
         '$filter',
         '$stateParams',
         'FundService',
+        'FileService',
         'TransactionService',
         'OrganizationService',
-        'FileService',
+        'PageLoadingBarService',
         'appConfigs',
-        FinancialDashboardComponent
+        FinancialDashboardComponent,
     ],
-    templateUrl: 'assets/tpl/pages/financial-dashboard.html'
+    templateUrl: 'assets/tpl/pages/financial-dashboard.html',
 };

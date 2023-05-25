@@ -95,6 +95,7 @@
         position: relative;
         width: 1200px;
         max-width: 100%;
+        max-height: 100%;
         background: #fefefe;
         min-height: 100px;
         overflow: hidden;
@@ -296,9 +297,11 @@
     &.modal-reimbursement-confirm {
         .modal-content {
             width: 820px;
+            padding: 0;
 
+            .modal-header,
             .modal-section {
-                padding: 20px 30px;
+                padding: 15px 20px;
             }
 
             .modal-warning {

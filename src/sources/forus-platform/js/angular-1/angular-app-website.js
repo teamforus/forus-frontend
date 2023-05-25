@@ -29,6 +29,7 @@ app.service('IdentityService', require('./services/IdentityService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
 app.service('ModalService', require('./services/ModalService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
+app.service('ContactService', require('./services/website/ContactService'));
 
 
 // Modal Components
@@ -39,6 +40,7 @@ app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEm
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
+app.component('modalContactFormComponent', require('./components/Modals/website/ModalContactFormComponent'));
 
 // Directives
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
@@ -52,6 +54,8 @@ app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
+app.directive('openModalContactForm', require('./directives/website/OpenModalContactFormDirective'));
+app.directive('contactForm', require('./directives/website/ContactFormDirective'));
 
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
