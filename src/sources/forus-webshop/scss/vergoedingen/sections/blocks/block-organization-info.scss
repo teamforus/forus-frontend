@@ -3,6 +3,10 @@
         a {
             font: 400 18px/18px 'OrandaBT-Bold';
             color: #950022;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
 
         .block-description {
@@ -15,7 +19,12 @@
 
                 a {
                     font-size: 18px;
-                    color: #0B352A;
+                    color: #212121;
+
+                    &:hover {
+                        text-decoration: underline;
+                        color: #184C41;
+                    }
                 }
             }
         }

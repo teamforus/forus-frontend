@@ -4,6 +4,7 @@ module.exports = {
     page_state_titles: {
         home: '{{implementation}} webshop',
         funds: 'Aanvragen',
+        fund: '{{fund_name}} van {{organization_name}}',
         platform: 'Forus Platform',
         me: 'Me',
         'me-app': 'Me-app',
