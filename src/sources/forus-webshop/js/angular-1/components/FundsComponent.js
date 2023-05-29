@@ -1,4 +1,5 @@
 const FundsComponent = function(
+    $rootScope,
     $q,
     $state,
     $stateParams,
@@ -87,6 +88,10 @@ const FundsComponent = function(
         });
 
         $ctrl.updateFiltersUsedCount();
+
+        if ($rootScope.client_key == 'vergoedingen') {
+            $rootScope.pageTitle = 'Vergoedingen';
+        }
     };
 };
 
@@ -99,6 +104,7 @@ module.exports = {
         organizations: '<',
     },
     controller: [
+        '$rootScope',
         '$q',
         '$state',
         '$stateParams',
