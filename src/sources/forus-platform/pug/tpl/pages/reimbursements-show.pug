@@ -221,6 +221,22 @@
                                         ng-click="$ctrl.previewFile($event, file)")
                                         .mdi.mdi-eye
 
+        .card(ng-if="$ctrl.reimbursement")
+            //- Header
+            .card-header: .card-title Editable data
+            
+            .card-section: .flex
+                .flex: .card-block.card-block-keyvalue
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.provider")
+                        .keyvalue-value(ng-if="$ctrl.reimbursement.provider_name" ng-bind="$ctrl.reimbursement.provider_name" dusk="reimbursementProvider")
+                        .keyvalue-value(ng-if="!$ctrl.reimbursement.provider_name" dusk="reimbursementProvider") -
+
+            .card-section: .flex
+                .button.button-primary(ng-click="$ctrl.editProviderName()")
+                    em.mdi.mdi-pencil.icon-start 
+                    | Bewerk            
+
         block-card-note(
             is-assigned="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"
             fetch-notes="$ctrl.fetchNotes(query)"

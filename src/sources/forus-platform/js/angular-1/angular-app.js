@@ -125,6 +125,7 @@ app.component('modalVoucherTransactionComponent', require('./components/Modals/M
 app.component('modalFundRequestAssignValidatorComponent', require('./components/Modals/ModalFundRequestAssignValidatorComponent'));
 app.component('modalAddNoteComponent', require('./components/Modals/ModalAddNoteComponent'));
 app.component('modalReimbursementResolveComponent', require('./components/Modals/Reimbursements/ModalReimbursementResolveComponent'));
+app.component('modalReimbursementDetailsEditComponent', require('./components/Modals/Reimbursements/ModalReimbursementDetailsEditComponent'));
 app.component('modalFundUnsubscribeComponent', require('./components/Modals/ModalFundUnsubscribeComponent'));
 app.component('modalVoucherTransactionsUploadComponent', require('./components/Modals/ModalVoucherTransactionsUploadComponent'));
 app.component('modalVoucherRecordEditComponent', require('./components/Modals/ModalVoucherRecordEditComponent'));
