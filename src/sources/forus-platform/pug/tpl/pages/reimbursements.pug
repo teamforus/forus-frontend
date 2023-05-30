@@ -98,6 +98,13 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
 
+                                .form-actions
+                                    button.button.button-primary.button-wide(
+                                        ng-click="$ctrl.exportReimbursements()"
+                                        ng-disabled="$ctrl.reimbursements.meta.total == 0")
+                                        em.mdi.mdi-download.icon-start  
+                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.reimbursements.meta.total }")
+
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
                     //- View type

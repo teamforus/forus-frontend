@@ -36,6 +36,21 @@ const ReimbursementService = function (ApiRequest) {
             return ApiRequest.post(`/platform/organizations/${organization_id}/reimbursements/${id}/notes`, data);
         };
 
+        this.export = (organization_id, filters = {}) => {
+            const callback = (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
+
+                return _cfg;
+            };
+
+            return ApiRequest.get(`/platform/organizations/${organization_id}/reimbursements/export`, filters, {}, true, callback);
+        };
+
+        this.exportFields = function(organization_id) {
+            return ApiRequest.get(`/platform/organizations/${organization_id}/reimbursements/export-fields`);
+        };
+
         this.getStateOptions = () => {
             return [{
                 value: null,

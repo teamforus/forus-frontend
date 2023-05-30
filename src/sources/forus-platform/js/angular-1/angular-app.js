@@ -203,6 +203,7 @@ app.service('FundUnsubscribeService', require('./services/FundUnsubscribeService
 app.service('AnnouncementService', require('./services/AnnouncementService'));
 app.service('ProductReservationsExportService', require('./services/ProductReservationsExportService'));
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
+app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 
 // Directives
 app.directive('menu', {
