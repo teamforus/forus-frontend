@@ -1,11 +1,14 @@
 const FundsComponent = function (
     $sce,
     $state,
+    $filter,
+    $rootScope,
     $stateParams,
+    FundService,
     appConfigs,
-    FundService
 ) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
 
     $ctrl.fundLogo = null;
     $ctrl.appConfigs = appConfigs;
@@ -75,6 +78,12 @@ const FundsComponent = function (
                 return { ...question, description_html: $sce.trustAsHtml(question.description_html) };
             });
         }
+
+        $rootScope.pageTitle = $i18n('page_state_titles.fund', {
+            fund_name: $ctrl.fund.name,
+            implementation: $i18n(`implementation_name.${appConfigs.client_key}`),
+            organization_name: $ctrl.fund.organization.name,
+        });
     };
 };
 
@@ -91,10 +100,12 @@ module.exports = {
     controller: [
         '$sce',
         '$state',
+        '$filter',
+        '$rootScope',
         '$stateParams',
-        'appConfigs',
         'FundService',
-        FundsComponent
+        'appConfigs',
+        FundsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/fund.html'
+    templateUrl: 'assets/tpl/pages/fund.html',
 };
