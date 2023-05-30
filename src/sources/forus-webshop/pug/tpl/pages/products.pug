@@ -28,7 +28,9 @@ block content
                                 .showcase-aside-tab(
                                     ng-class="{active: $ctrl.form.values && $ctrl.form.values.bookmarked}"
                                     ng-click="$ctrl.form.values.bookmarked = true"
-                                    role="button")
+                                    role="button"
+                                    aria-label="toevoegen aan verlanglijstje"
+                                    aria-pressed="{{ $ctrl.form.values.bookmarked }}")
                                     em.mdi.mdi-cards-heart-outline
                                     | Mijn verlanglijstje
 
