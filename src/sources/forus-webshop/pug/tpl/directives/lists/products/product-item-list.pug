@@ -7,7 +7,9 @@ a.product-item(dusk="productItem")
         .block.block-bookmark-toggle(
             ng-if="$root.auth_user"
             ng-click="$dir.toggleBookmark($event)"
-            ng-class="$dir.product.bookmarked ? 'active' : ''")
+            ng-class="$dir.product.bookmarked ? 'active' : ''"
+            aria-label="toevoegen aan verlanglijstje"
+            aria-pressed="{{ $dir.product.bookmarked }}")
                 .mdi.mdi-cards-heart
 
     //- Products

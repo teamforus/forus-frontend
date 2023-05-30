@@ -6,7 +6,9 @@ main(id="main-content")
             .block.block-bookmark-toggle(
                 ng-if="$root.auth_user"
                 ng-click="$ctrl.toggleBookmark($event, $ctrl.product)"
-                ng-class="$ctrl.product.bookmarked ? 'active' : ''")
+                ng-class="$ctrl.product.bookmarked ? 'active' : ''"
+                aria-label="toevoegen aan verlanglijstje"
+                aria-pressed="{{ $ctrl.product.bookmarked }}")
                     .mdi.mdi-cards-heart
 
         .block.block-breadcrumbs
