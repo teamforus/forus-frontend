@@ -425,8 +425,8 @@ module.exports = {
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
+            footer_app_info: "Footer download de Me-app content",
             cms_media_links: "Social media links",
-            footer_app_info: "Download Me app",
         },
         implementations_table: {
             title: "Webshop pagina's",
