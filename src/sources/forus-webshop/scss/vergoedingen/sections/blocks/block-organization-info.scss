@@ -1,7 +1,7 @@
 &.block-organization-info {
     .info-block-panel {
         a {
-            font: 400 18px/18px 'OrandaBT-Bold';
+            font: 600 18px/18px var(--base-font);
             color: #950022;
 
             &:hover {
@@ -19,12 +19,15 @@
 
                 a {
                     font-size: 18px;
-                    color: #212121;
+                    color: #176B55;
 
                     &:hover {
                         text-decoration: underline;
-                        color: #184C41;
                     }
+                }
+                
+                &::marker {
+                    color: #E5E5E5;
                 }
             }
         }

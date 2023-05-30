@@ -4,7 +4,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .block {
     &.block-navbar {
-        background-color: #fff;
+        background-color: #F8F8F8;
 
         .block-auth {
             .button {
@@ -304,7 +304,7 @@ h1, h2, h3, h4, h5, h6 {
             }
 
             .header-how-it-works {
-                font: 400 20px/20px 'OrandaBT-Bold';
+                font: 600 20px/20px var(--base-font);
                 color: #950022;
                 text-decoration: none;
             }
