@@ -158,7 +158,7 @@ const SignUpStartComponent = function (
         }
     };
 
-    const translationKey = 'signup.items.' + $rootScope.client_key + '.title';
+    const translationKey = `signup.items.${$rootScope.client_key}.title`;
     $rootScope.pageTitle = $i18n(translationKey) != translationKey ? $i18n(translationKey) : 'Inloggen';
 
     $ctrl.$onDestroy = () => authTokenSubscriber.stopCheckAccessTokenStatus();
@@ -176,7 +176,7 @@ module.exports = {
         'IdentityService',
         'FormBuilderService',
         'PageLoadingBarService',
-        SignUpStartComponent
+        SignUpStartComponent,
     ],
-    templateUrl: 'assets/tpl/pages/sign-up.html'
+    templateUrl: 'assets/tpl/pages/sign-up.html',
 };

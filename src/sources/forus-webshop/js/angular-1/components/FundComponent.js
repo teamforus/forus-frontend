@@ -1,11 +1,11 @@
 const FundsComponent = function (
-    $rootScope,
     $sce,
-    $filter,
     $state,
+    $filter,
+    $rootScope,
     $stateParams,
+    FundService,
     appConfigs,
-    FundService
 ) {
     const $ctrl = this;
     const $i18n = $filter('i18n');
@@ -98,14 +98,14 @@ module.exports = {
         searchData: '<',
     },
     controller: [
-        '$rootScope',
         '$sce',
-        '$filter',
         '$state',
+        '$filter',
+        '$rootScope',
         '$stateParams',
-        'appConfigs',
         'FundService',
-        FundsComponent
+        'appConfigs',
+        FundsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/fund.html'
+    templateUrl: 'assets/tpl/pages/fund.html',
 };

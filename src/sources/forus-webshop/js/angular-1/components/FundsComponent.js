@@ -1,11 +1,11 @@
 const FundsComponent = function(
-    $rootScope,
     $q,
     $state,
+    $rootScope,
     $stateParams,
     appConfigs,
     FundService,
-    FormBuilderService
+    FormBuilderService,
 ) {
     const $ctrl = this;
 
@@ -104,14 +104,14 @@ module.exports = {
         organizations: '<',
     },
     controller: [
-        '$rootScope',
         '$q',
         '$state',
+        '$rootScope',
         '$stateParams',
         'appConfigs',
         'FundService',
         'FormBuilderService',
-        FundsComponent
+        FundsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/funds.html'
+    templateUrl: 'assets/tpl/pages/funds.html',
 };

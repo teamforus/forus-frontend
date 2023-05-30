@@ -1,7 +1,7 @@
 const ReimbursementEditComponent = function (
-    $rootScope, 
     $state,
     $filter,
+    $rootScope, 
     ModalService,
     VoucherService,
     FormBuilderService,
@@ -126,9 +126,9 @@ module.exports = {
         reimbursement: '<',
     },
     controller: [
-        '$rootScope',
         '$state',
         '$filter',
+        '$rootScope',
         'ModalService',
         'VoucherService',
         'FormBuilderService',

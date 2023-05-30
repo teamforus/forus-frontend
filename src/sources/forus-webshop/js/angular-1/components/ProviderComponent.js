@@ -1,4 +1,9 @@
-const ProviderComponent = function($rootScope, $sce, $filter, $stateParams) {
+const ProviderComponent = function(
+    $sce, 
+    $filter, 
+    $rootScope, 
+    $stateParams,
+) {
     const $ctrl = this;
     const $i18n = $filter('i18n');
 
@@ -24,11 +29,11 @@ module.exports = {
         subsidies: '<',
     },
     controller: [
-        '$rootScope',
         '$sce',
         '$filter',
+        '$rootScope',
         '$stateParams',
-        ProviderComponent
+        ProviderComponent,
     ],
     templateUrl: 'assets/tpl/pages/provider.html',
 };

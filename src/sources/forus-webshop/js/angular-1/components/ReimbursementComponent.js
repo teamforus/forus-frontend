@@ -1,4 +1,9 @@
-const ReimbursementComponent = function ($rootScope, $state, $filter, ReimbursementService) {
+const ReimbursementComponent = function (
+    $state,
+    $filter,
+    $rootScope,
+    ReimbursementService,
+) {
     const $ctrl = this;
     const $i18n = $filter('i18n');
 
@@ -27,9 +32,9 @@ module.exports = {
         reimbursement: '<',
     },
     controller: [
-        '$rootScope',
         '$state',
         '$filter',
+        '$rootScope',
         'ReimbursementService',
         ReimbursementComponent,
     ],
