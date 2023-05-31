@@ -148,6 +148,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "homeComponent"
     });
 
+    $stateProvider.state({
+        name: "research",
+        url: "/research",
+        component: "researchComponent"
+    });
+
     if (appConfigs.html5ModeEnabled) {
         $locationProvider.html5Mode({
             enabled: true,

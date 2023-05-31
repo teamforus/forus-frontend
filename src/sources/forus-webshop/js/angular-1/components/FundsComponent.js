@@ -1,10 +1,11 @@
 const FundsComponent = function(
     $q,
     $state,
+    $rootScope,
     $stateParams,
     appConfigs,
     FundService,
-    FormBuilderService
+    FormBuilderService,
 ) {
     const $ctrl = this;
 
@@ -87,6 +88,10 @@ const FundsComponent = function(
         });
 
         $ctrl.updateFiltersUsedCount();
+
+        if ($rootScope.client_key == 'vergoedingen') {
+            $rootScope.pageTitle = 'Vergoedingen';
+        }
     };
 };
 
@@ -101,11 +106,12 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$rootScope',
         '$stateParams',
         'appConfigs',
         'FundService',
         'FormBuilderService',
-        FundsComponent
+        FundsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/funds.html'
+    templateUrl: 'assets/tpl/pages/funds.html',
 };

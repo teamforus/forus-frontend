@@ -1,5 +1,7 @@
 const ReimbursementEditComponent = function (
     $state,
+    $filter,
+    $rootScope, 
     ModalService,
     VoucherService,
     FormBuilderService,
@@ -7,6 +9,7 @@ const ReimbursementEditComponent = function (
     PushNotificationsService,
 ) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
 
     $ctrl.reimbursementToFormValues = (reimbursement = {}) => {
         const { title, description } = reimbursement;
@@ -108,6 +111,10 @@ const ReimbursementEditComponent = function (
         $ctrl.fileUploaderAccept = ['.pdf', '.png', '.jpg', '.jpeg'];
         $ctrl.vouchers = $ctrl.vouchers.map((voucher) => VoucherService.composeCardData(voucher));
         $ctrl.updateSelectedVoucher();
+
+        $rootScope.pageTitle = $i18n('page_state_titles.reimbursement-edit', {
+            code: '#' + $ctrl.reimbursement.code,
+        });
     };
 };
 
@@ -120,6 +127,8 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$filter',
+        '$rootScope',
         'ModalService',
         'VoucherService',
         'FormBuilderService',
