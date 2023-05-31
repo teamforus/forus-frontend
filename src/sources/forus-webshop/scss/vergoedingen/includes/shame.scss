@@ -4,16 +4,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .block {
     &.block-navbar {
-        background-color: #F8F8F8;
         border-bottom: none;
 
         .block-auth {
             .button {
                 font-weight: 600;
                 text-transform: initial;
+                color: var(--tc);
                     
                 &:hover {
                     box-shadow: none;
+                    color: #176B55;
                 }
             }
 
@@ -222,7 +223,7 @@ h1, h2, h3, h4, h5, h6 {
 
         a:not(.button) {
             text-decoration: underline;
-            color: #950022;
+            color: #176B55;
 
             &:hover {
                 text-decoration: underline;
