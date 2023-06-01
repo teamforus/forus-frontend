@@ -228,26 +228,12 @@ h1, h2, h3, h4, h5, h6 {
 
     &.block-markdown {
         color: #212121;
-
+        
         a:not(.button) {
-            text-decoration: underline;
-            color: #176B55;
+            color: #950022;
 
             &:hover {
-                text-decoration: underline;
-            }
-        }
-
-        ol, ul {
-            li {
-                a:not(.button) {
-                    color: #212121;
-
-                    &:hover {
-                        text-decoration: underline;
-                        color: #184C41;
-                    }
-                }
+                text-decoration: none;
             }
         }
     }
