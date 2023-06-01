@@ -12,6 +12,10 @@
             }
         }
 
+        .block-title {
+            font: 400 32px/48px 'Oranda';
+        }
+
         .block-description {
             font-size: 16px;
         }
@@ -26,6 +30,7 @@
 
                     &:hover {
                         text-decoration: underline;
+                        color: #17564a;
                     }
                 }
                 
