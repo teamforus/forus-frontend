@@ -38,6 +38,8 @@ module.exports = {
         "restore-email": 'Inloggen via e-mail',
         "notifications": 'Notificatie',
         "security-sessions": 'Security sessies',
+        "bookmarked-products": 'Mijn verlanglijstje for favorites pages',
+        "search-result": 'Zoekresultaten for search results',
         "preferences-notifications": 'Notificatievoorkeuren',
         "identity-emails": 'E-mail instellingen',
         "fund-request-clarification": 'Aanvulverzoek',
@@ -45,6 +47,7 @@ module.exports = {
         "confirmation-email": 'E-mail bevestigen',
         "provider-office": 'Aanbieder vestiging',
         "auth-link": "Inloggen",
+        "sitemap": "Sitemap",
         "sign-up": 'Aanmelden',
         "me-app": 'Me-app'
     },

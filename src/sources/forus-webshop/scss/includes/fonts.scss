@@ -78,3 +78,11 @@
     font-weight: 600;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'OrandaBT-Bold'; 
+    src: url("../fonts/Oranda-BT-Bold.woff2") format("woff2"),
+        url("../fonts/Oranda-BT-Bold.woff") format("woff"),
+        url("../fonts/Oranda-BT-Bold.ttf") format("truetype");
+    font-weight: 600;
+}

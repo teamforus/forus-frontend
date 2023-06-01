@@ -1,0 +1,38 @@
+&.block-organization-info {
+    margin: 60px 0;
+    border-bottom: 1px solid #E5E5E5;
+
+    .info-block-panel {
+        a {
+            font: 600 18px/18px var(--base-font);
+            color: #950022;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .block-description {
+            font-size: 16px;
+        }
+
+        .block-list {
+            li {
+                margin-bottom: 16px;
+
+                a {
+                    font-size: 18px;
+                    color: #176B55;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                
+                &::marker {
+                    color: #E5E5E5;
+                }
+            }
+        }
+    }
+}
