@@ -18,11 +18,11 @@
                 .card-header: .card-title(translate="notification_preferences.title_preferences")
                 .card-section
                     .card-heading
-                        | You currently have no email associated with your account
+                        | Er is nog geen e-mailadres toegevoegd
                         br
-                        | Please add en email address to receive email notifications.
+                        | Voeg een e-mailadres toe om berichten te ontvangen
 
-                    a(ui-sref="identity-emails").button.button-primary Add email
+                    a(ui-sref="identity-emails").button.button-primary E-mailadres toevoegen
 
         div(ng-if="$ctrl.email")
             .card(ng-if="!$ctrl.email_unsubscribed")
