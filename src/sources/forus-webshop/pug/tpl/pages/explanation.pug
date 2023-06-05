@@ -18,15 +18,7 @@ main(id="main-content")
 
                     .section-splash
                     h1.section-title(i18n="home.faq.title")
-                    //- .faq(collapse)
-                    //-     mixin faq_item(title, content, title_default, content_default, active)
-                    //-         .faq-item(class=active? 'active':'' collapse-item)
-                    //-             .faq-item-header(collapse-header)
-                    //-                 span(translate=title i18n-vars="{ fund: $ctrl.funds[0].name }" translate-default=title_default)
-                    //-                 .faq-item-chevron-down.mdi.mdi-chevron-down
-                    //-                 .faq-item-chevron-up.mdi.mdi-chevron-up
-                    //-             .faq-item-content(translate=content i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }" translate-default=content_default)
-
+                    
                     //- CMS FAQ
                     .faq(collapse ng-if="$ctrl.faq.length")
                         .faq-item(
