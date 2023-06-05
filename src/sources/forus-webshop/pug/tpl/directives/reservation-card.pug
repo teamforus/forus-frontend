@@ -4,8 +4,8 @@
         alt="")
 
     .reservation-details
-        .reservation-name(ui-sref="product($dir.product)" ng-bind="$dir.product.name" dusk="reservationProduct")
-        .reservation-organization(ui-sref="provider($dir.product.organization)" ng-bind="$dir.product.organization.name")
+        a.reservation-name(ui-sref="product($dir.product)" ng-bind="$dir.product.name" dusk="reservationProduct" role="link" tabindex="0")
+        a.reservation-organization(ui-sref="provider($dir.product.organization)" ng-bind="$dir.product.organization.name" role="link" tabindex="0")
         .reservation-value(ng-bind="$dir.reservation.price_locale")
 
     //- reservation pending

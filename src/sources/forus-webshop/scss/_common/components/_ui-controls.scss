@@ -277,4 +277,13 @@
             }
         }
     }
+
+    &.ui-control-search-input {
+        .ui-control-clear {
+            .mdi {
+                font-size: 18px;
+                height: 18px;
+            }
+        }
+    }
 }

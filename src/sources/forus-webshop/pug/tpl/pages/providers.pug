@@ -20,10 +20,9 @@ block content
                             .showcase-subtitle(ng-if="$ctrl.showMap") Selecteer een aanbieder voor meer informatie
 
                             .form-group
-                                input.form-control(
+                                ui-control-search-input(
                                     ng-model="$ctrl.form.values.q"
                                     placeholder="Zoek aanbieder" 
-                                    type="search"
                                     aria-label="Zoeken")
                                 .form-error(ng-repeat="error in $ctrl.form.errors.q" ng-bind="error")
 

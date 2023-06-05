@@ -1,6 +1,7 @@
 const TopNavbarDirective = function (
     $state,
     $scope,
+    $rootScope,
     ModalService,
     ConfigService
 ) {
@@ -12,6 +13,10 @@ const TopNavbarDirective = function (
 
     $dir.startFundRequest = (data = {}) => {
         $state.go('start', data, { reload: true, inherit: false });
+    };
+
+    $dir.goToState = (state_name) => {
+        $state.go(state_name, {}, { reload: true, inherit: false });
     };
 
     $dir.openPinCodePopup = () => {
@@ -62,6 +67,7 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
+            '$rootScope',
             'ModalService',
             'ConfigService',
             TopNavbarDirective,

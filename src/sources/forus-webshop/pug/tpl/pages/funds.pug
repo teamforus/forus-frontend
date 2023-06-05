@@ -20,10 +20,9 @@ block content
                     .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}")
                         .showcase-aside-block
                             .form-group
-                                input.form-control(
+                                ui-control-search-input(
                                     ng-model="$ctrl.form.values.q"
                                     placeholder="Zoeken..." 
-                                    type="search"
                                     aria-label="Zoeken")
 
                             .form-group

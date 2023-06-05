@@ -85,7 +85,7 @@ main(id="main-content")
                                 .action-item-name Ik ben mijn pas kwijt                      
 
                             //- Share voucher to provider by email
-                            .action-col(ng-if="$ctrl.voucherCard.product && $ctrl.appConfigs.flags.shareProducts"): .action-item(
+                            .action-col: .action-item(
                                 ng-click="$ctrl.shareVoucher($ctrl.voucher)")
                                 .action-item-icon: em.mdi.mdi-share-variant
                                 .action-item-name Delen

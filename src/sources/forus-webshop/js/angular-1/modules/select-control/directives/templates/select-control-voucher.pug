@@ -26,9 +26,8 @@
                         .voucher-value(ng-if="$dir.value.raw.fund.type === 'budget'" ng-bind="$dir.value.raw.amount | currency_format")
                         .voucher-date(ng-bind="$dir.value.raw.expire_at_locale")
 
-        input(
+        ui-control-search-input(
             id="{{ $dir.controlId }}"
-            type="search"
             placeholder="{{ $dir.placeholder }}"
             ng-click="$dir.onInputClick()"
             ng-keydown="$dir.searchKeydown($event)"
