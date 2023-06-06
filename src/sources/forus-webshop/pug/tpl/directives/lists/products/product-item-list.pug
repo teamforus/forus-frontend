@@ -1,7 +1,7 @@
 a.product-item(dusk="productItem")
     .product-photo: img(
         ng-src="{{ $dir.productImgSrc }}" 
-        alt="")
+        alt="{{ $dir.product.alternative_text }}")
 
     mixin bookmark_toggle()
         .block.block-bookmark-toggle(

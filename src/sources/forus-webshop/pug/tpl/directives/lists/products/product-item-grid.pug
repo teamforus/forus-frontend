@@ -15,7 +15,7 @@
         
         .product-image: img(
             ng-src="{{ $dir.productImgSrc }}" 
-            alt="")
+            alt="{{ $dir.product.alternative_text }}")
 
         .product-details
             .product-name.product-name-ellipsis(ng-bind="$dir.product.name" dusk="productName")
@@ -29,7 +29,7 @@
         .product-image
             img(
                 ng-src="{{ $dir.productImgSrc }}" 
-                alt="")
+                alt="{{ $dir.product.alternative_text }}")
 
             .product-price(ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min == 0") Gratis
             .product-price(

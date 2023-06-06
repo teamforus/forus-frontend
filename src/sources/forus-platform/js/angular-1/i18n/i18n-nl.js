@@ -694,7 +694,8 @@ module.exports = {
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
             available_offers: "Resterend aanbod",
-            unlimited: "Onbeperkt"
+            unlimited: "Onbeperkt",
+            alternative_text: "Alternative text",
         },
         tooltips: {
             product_type: ["Kies het soort aanbod. Voorbeelden:",

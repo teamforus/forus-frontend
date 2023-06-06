@@ -85,11 +85,22 @@ const ProductsComponent = function (
         $ctrl.loadProducts($ctrl.buildQuery(values));
     };
 
+    const transformProductAlternativeText = (product) => {
+        return ProductService.transformProductAlternativeText(product);
+    };
+
+    const transformProducts = () => {
+        $ctrl.products.data = $ctrl.products.data.map(
+            product => ({ ...product, ...{ alternative_text: transformProductAlternativeText(product) } })
+        );
+    };
+
     $ctrl.loadProducts = (query) => {
         PageLoadingBarService.setProgress(0);
 
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
             $ctrl.products = res.data;
+            transformProducts();
         }).finally(() => {
             $ctrl.updateState(query, true);
             $ctrl.updateFiltersUsedCount();
@@ -197,6 +208,7 @@ const ProductsComponent = function (
         });
 
         $ctrl.updateFiltersUsedCount();
+        transformProducts();
 
         if ($ctrl.productCategory) {
             $ctrl.product_category_id = $ctrl.productCategory.parent_id || $ctrl.productCategory.id;

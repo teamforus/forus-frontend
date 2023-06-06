@@ -165,6 +165,12 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                 }
             }];
         }
+
+        this.transformProductAlternativeText = (product) => {
+            const default_text = 'photo of product ' + product.name + ' of ' + product.organization.name;
+
+            return product.alternative_text || default_text;
+        }
     });
 };
 

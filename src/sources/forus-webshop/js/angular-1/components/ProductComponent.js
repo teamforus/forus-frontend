@@ -54,6 +54,10 @@ const ProductComponent = function (
         });
     };
 
+    const transformProductAlternativeText = (product) => {
+        return ProductService.transformProductAlternativeText(product);
+    };
+
     $ctrl.toggleBookmark = ($event, product) => {
         $event.preventDefault();
         $event.stopPropagation();
@@ -69,6 +73,7 @@ const ProductComponent = function (
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.productMeta = ProductService.checkEligibility($ctrl.product, $ctrl.vouchers);
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
+        $ctrl.product.alternative_text = transformProductAlternativeText($ctrl.product);
 
         $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
         $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;

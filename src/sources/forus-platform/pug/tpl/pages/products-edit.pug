@@ -44,6 +44,7 @@
                         label.form-label.form-label-required(translate="product_edit.labels.name")
                         input(ng-disabled="!$ctrl.isEditable" ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+                    
                     .form-group.form-group-inline.tooltipped
                         label.form-label.form-label-required(translate="product_edit.labels.description")
                         .form-offset: markdown(
@@ -52,6 +53,11 @@
                             disabled="{{!$ctrl.isEditable}}")
                         tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
+                    
+                    .form-group.form-group-inline
+                        label.form-label.form-label-required(translate="product_edit.labels.alternative_text")
+                        input(ng-disabled="!$ctrl.isEditable" ng-model="$ctrl.form.values.alternative_text" type="text" placeholder="Naam").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.alternative_textname" ng-bind="error")
 
             //- Product price
             .card-section.card-section-primary
