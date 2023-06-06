@@ -15,9 +15,11 @@ const ModalReimbursementDetailsEditComponent = function (
 
         $ctrl.form = FormBuilderService.build({
             provider_name: $ctrl.reimbursement.provider_name,
+            category_name: $ctrl.reimbursement.category_name,
         }, (form) => {
             ReimbursementService.update(organization.id, $ctrl.reimbursement.id, {
-                provider_name: form.values.provider_name
+                provider_name: form.values.provider_name,
+                category_name: form.values.category_name,
             }).then((res) => {
                 PushNotificationsService.success('Gelukt!', 'Declaration updated!');
 

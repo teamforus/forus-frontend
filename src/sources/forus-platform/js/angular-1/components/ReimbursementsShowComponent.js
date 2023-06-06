@@ -54,7 +54,7 @@ const ReimbursementsShowComponent = function (
         });
     };
 
-    $ctrl.editProviderName = () => {
+    $ctrl.editReimbursementDetails = () => {
         ModalService.open('reimbursementDetailsEditComponent', {
             description: null,
             organization: $ctrl.organization,

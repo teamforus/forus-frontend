@@ -16,6 +16,11 @@
                     input(ng-model="$ctrl.form.values.provider_name").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.provider_name" ng-bind="error")
 
+                .form-group
+                    label.form-label.form-label-required Categorie
+                    input(ng-model="$ctrl.form.values.category_name").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.category_name" ng-bind="error")
+
         .modal-footer.text-center
             button.button.button-dark(type="button" ng-click="$ctrl.close()") Annuleren
             

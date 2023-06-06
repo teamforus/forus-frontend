@@ -232,8 +232,13 @@
                         .keyvalue-value(ng-if="$ctrl.reimbursement.provider_name" ng-bind="$ctrl.reimbursement.provider_name" dusk="reimbursementProvider")
                         .keyvalue-value(ng-if="!$ctrl.reimbursement.provider_name" dusk="reimbursementProvider") -
 
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.category")
+                        .keyvalue-value(ng-if="$ctrl.reimbursement.category_name" ng-bind="$ctrl.reimbursement.category_name" dusk="reimbursementCategory")
+                        .keyvalue-value(ng-if="!$ctrl.reimbursement.category_name" dusk="reimbursementCategory") -
+
             .card-section: .flex
-                .button.button-primary(ng-click="$ctrl.editProviderName()")
+                .button.button-primary(ng-click="$ctrl.editReimbursementDetails()")
                     em.mdi.mdi-pencil.icon-start 
                     | Bewerk            
 
