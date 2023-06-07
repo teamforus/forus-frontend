@@ -8,6 +8,10 @@ const ReimbursementService = function (ApiRequest) {
             return ApiRequest.get(`/platform/organizations/${organization_id}/reimbursements/${id}`);
         };
 
+        this.update = function(organization_id, id, data) {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/reimbursements/${id}`, data);
+        };
+
         this.assign = (organization_id, id, data = {}) => {
             return ApiRequest.post(`/platform/organizations/${organization_id}/reimbursements/${id}/assign`, data);
         };

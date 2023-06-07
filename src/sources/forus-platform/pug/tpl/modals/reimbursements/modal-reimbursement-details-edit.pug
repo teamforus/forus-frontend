@@ -1,0 +1,27 @@
+.modal.modal-md.modal-animated.modal-loading(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+
+    //- Voucher form
+    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+        .modal-header Bewerk aanbieder
+        .modal-body            
+            .modal-section
+                .modal-text(ng-if="$ctrl.description" ng-bind="$ctrl.description")
+
+                .form-group
+                    label.form-label.form-label-required Aanbieder
+                    input(ng-model="$ctrl.form.values.provider_name").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.provider_name" ng-bind="error")
+
+                .form-group
+                    label.form-label.form-label-required Categorie
+                    input(ng-model="$ctrl.form.values.category_name").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.category_name" ng-bind="error")
+
+        .modal-footer.text-center
+            button.button.button-dark(type="button" ng-click="$ctrl.close()") Annuleren
+            
+            button.button.button-primary(type="submit") Bevestigen
