@@ -145,6 +145,7 @@ app.service('TransactionBulksExportService', require('./services/TransactionBulk
 app.service('VoucherService', require('./services/VoucherService'));
 app.service('VoucherRecordService', require('./services/VoucherRecordService'));
 app.service('ReimbursementService', require('./services/ReimbursementService'));
+app.service('ReimbursementCategoryService', require('./services/ReimbursementCategoryService'));
 app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
 app.service('FundIdentitiesExportService', require('./services/FundIdentitiesExportService'));

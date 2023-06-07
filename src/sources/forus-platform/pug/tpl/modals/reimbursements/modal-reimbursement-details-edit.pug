@@ -7,7 +7,7 @@
     .modal-window: form.form(ng-submit="$ctrl.form.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header Bewerk aanbieder
-        .modal-body            
+        .modal-body.modal-body-visible
             .modal-section
                 .modal-text(ng-if="$ctrl.description" ng-bind="$ctrl.description")
 
@@ -18,10 +18,13 @@
 
                 .form-group
                     label.form-label.form-label-required Categorie
-                    input(ng-model="$ctrl.form.values.category_name").form-control
+                    select-control(
+                        search="false" 
+                        prop="id" 
+                        ng-model="$ctrl.form.values.reimbursement_category_id" 
+                        options="$ctrl.reimbursement_categories").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.category_name" ng-bind="error")
 
         .modal-footer.text-center
-            button.button.button-dark(type="button" ng-click="$ctrl.close()") Annuleren
-            
+            button.button.button-default(type="button" ng-click="$ctrl.close()") Annuleren
             button.button.button-primary(type="submit") Bevestigen
