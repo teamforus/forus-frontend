@@ -1,10 +1,10 @@
-let ExplanationComponent = function(
+const ExplanationComponent = function(
     $sce,
     $filter,
     appConfigs,
-    FundService
+    FundService,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
     const $i18n = $filter('i18n');
 
     $ctrl.defaultFAQ = [];
@@ -62,7 +62,7 @@ module.exports = {
         '$filter',
         'appConfigs',
         'FundService',
-        ExplanationComponent
+        ExplanationComponent,
     ],
-    templateUrl: 'assets/tpl/pages/explanation.html'
+    templateUrl: 'assets/tpl/pages/explanation.html',
 };

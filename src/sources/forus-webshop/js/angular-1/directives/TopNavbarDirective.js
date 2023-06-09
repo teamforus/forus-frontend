@@ -1,7 +1,6 @@
 const TopNavbarDirective = function (
     $state,
     $scope,
-    $rootScope,
     ModalService,
     ConfigService
 ) {
@@ -67,7 +66,6 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
-            '$rootScope',
             'ModalService',
             'ConfigService',
             TopNavbarDirective,

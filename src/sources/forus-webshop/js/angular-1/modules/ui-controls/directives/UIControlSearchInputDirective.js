@@ -1,7 +1,5 @@
-let UIControlSearchInputDirective = function(
-    $scope
-) {
-    let $dir = {};
+const UIControlSearchInputDirective = function($scope) {
+    const $dir = {};
 
     $dir.clear = () => {
         $scope.ngModel = undefined;
@@ -20,10 +18,8 @@ let UIControlSearchInputDirective = function(
 
     $scope.$dir = $dir;
 
-    $dir.onChange = () => $scope.ngChange();
-
     $dir.onClick = () => $scope.ngClick();
-
+    $dir.onChange = () => $scope.ngChange();
     $dir.onKeyDown = () => $scope.ngKeyDown();
 };
 
@@ -46,8 +42,8 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
-            UIControlSearchInputDirective
+            UIControlSearchInputDirective,
         ],
-        template: require('./templates/ui-control-search-input.pug')
+        template: require('./templates/ui-control-search-input.pug'),
     };
 };

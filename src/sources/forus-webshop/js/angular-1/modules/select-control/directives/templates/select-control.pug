@@ -13,8 +13,9 @@
             .select-control-search-placeholder(ng-bind="$dir.value.raw[$dir.as] || $dir.placeholder")
             .select-control-icon: .mdi(ng-class="$dir.showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down'")
 
-        ui-control-search-input(
+        input(
             id="{{ $dir.controlId }}"
+            type="search"
             placeholder="{{ $dir.placeholder }}"
             ng-click="$dir.onInputClick()"
             ng-keydown="$dir.searchKeydown($event)"
