@@ -17,5 +17,5 @@ div: .select-control-options(scroll-end="$dir.onScrolledOption()")
                         span(ng-bind="option.raw.fund.organization.name")
 
                 .flex.flex-vertical.text-right
-                    .voucher-value(ng-if="option.raw.fund.type === 'budget'" ng-bind="option.raw.amount | currency_format")
+                    .voucher-value(ng-if="option.raw.fund.type === 'budget'" ng-bind="option.raw.amount_locale")
                     .voucher-date(ng-bind="option.raw.expire_at_locale")

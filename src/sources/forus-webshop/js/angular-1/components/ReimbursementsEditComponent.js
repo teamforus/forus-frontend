@@ -113,7 +113,7 @@ const ReimbursementEditComponent = function (
         $ctrl.updateSelectedVoucher();
 
         $rootScope.pageTitle = $i18n('page_state_titles.reimbursement-edit', {
-            code: '#' + $ctrl.reimbursement.code,
+            code: '#' + $ctrl.reimbursement?.code,
         });
     };
 };

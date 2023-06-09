@@ -28,7 +28,7 @@
                 .reimbursement-prop-label Bedrag
                 .reimbursement-prop-value(
                     dusk="reimbursementOverviewAmount"
-                    ng-bind="$dir.reimbursement.amount_locale")
+                    ng-bind="$dir.reimbursement.amount | currency_format")
 
             .reimbursement-prop
                 .reimbursement-prop-label Declareren bij

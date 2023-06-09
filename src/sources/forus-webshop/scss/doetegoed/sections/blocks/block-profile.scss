@@ -11,13 +11,15 @@
 
     .profile-content {
         .block-actions {
-            .button {
+            .button-light, .button-primary, .button-default, .button-primary-outline {
                 background-color: #492638;
+                color: #fff;
             }
         }
         
-        .button {
+        .button-light, .button-primary, .button-default, .button-primary-outline {
             background-color: #492638;
+            color: #fff;
         }
     }
 }
