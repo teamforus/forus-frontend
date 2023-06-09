@@ -696,6 +696,7 @@ module.exports = {
             available_offers: "Resterend aanbod",
             unlimited: "Onbeperkt",
             alternative_text: "Alternative text",
+            alternative_text_placeholder: "Alternative text",
         },
         tooltips: {
             product_type: ["Kies het soort aanbod. Voorbeelden:",

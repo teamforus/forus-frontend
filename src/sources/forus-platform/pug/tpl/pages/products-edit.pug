@@ -24,18 +24,27 @@
                 .card-title(ng-if="$ctrl.product" i18n="product_edit.header.title_edit")
 
             //- Product media
-            .card-section.card-section-primary
-                .row 
-                    .col.col-xs-12
-                        .form-group.form-group-inline
-                            label.form-label &nbsp;
-                            .form-offset
-                                photo-selector(
-                                    disabled="{{!$ctrl.isEditable}}"
-                                    type="product_photo"
-                                    thumbnail="$ctrl.media.sizes.thumbnail"
-                                    select-photo="$ctrl.selectPhoto(file)")
-                                .form-error(ng-repeat="error in $ctrl.mediaErrors" ng-bind="error")
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+                .form-group.form-group-inline
+                    label.form-label &nbsp;
+                    .form-offset
+                        photo-selector(
+                            disabled="{{!$ctrl.isEditable}}"
+                            type="product_photo"
+                            thumbnail="$ctrl.media.sizes.thumbnail"
+                            select-photo="$ctrl.selectPhoto(file)")
+                        .form-error(ng-repeat="error in $ctrl.mediaErrors" ng-bind="error")
+
+                .form-group.form-group-inline
+
+                .form-group.form-group-inline
+                    label.form-label(translate="product_edit.labels.alternative_text")
+                    input(
+                        ng-disabled="!$ctrl.isEditable" 
+                        ng-model="$ctrl.form.values.alternative_text" 
+                        type="text" 
+                        placeholder="{{ 'product_edit.labels.alternative_text_placeholder' | translate }}").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.alternative_textname" ng-bind="error")
 
             //- Product name/description
             .card-section.card-section-primary
@@ -53,11 +62,6 @@
                             disabled="{{!$ctrl.isEditable}}")
                         tooltip(text="'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'")
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
-                    
-                    .form-group.form-group-inline
-                        label.form-label.form-label-required(translate="product_edit.labels.alternative_text")
-                        input(ng-disabled="!$ctrl.isEditable" ng-model="$ctrl.form.values.alternative_text" type="text" placeholder="Naam").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.alternative_textname" ng-bind="error")
 
             //- Product price
             .card-section.card-section-primary
