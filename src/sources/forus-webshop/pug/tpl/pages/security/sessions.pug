@@ -7,12 +7,21 @@ section.section.section-voucher-details: .wrapper
     .block.block-profile
         .profile-aside.hide-sm: profile-menu
 
-        .profile-content
+        .profile-content(ng-if="$ctrl.auth2FAState.restrictions.sessions.restricted")
+            auth-2-f-a-restriction(
+                type="emails"
+                items="$ctrl.auth2FAState.restrictions.emails.funds"
+                item-name="name"
+                item-thumbnail="logo.sizes.thumbnail"
+                default-thumbnail="fund-thumbnail")
+
+        .profile-content(ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.sessions.restricted")
             .profile-content-header.clearfix
                 .profile-content-title
                     div.pull-left
                         .profile-content-title-count(ng-bind="$ctrl.sessions.length")
                         | Sessies
+
             .card(ng-repeat="session in $ctrl.sessions")
                 .card-section.card-section-padless
                     .block.block-sessions

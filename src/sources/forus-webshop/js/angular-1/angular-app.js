@@ -45,6 +45,7 @@ app.component('privacyComponent', require('./components/PrivacyComponent'));
 app.component('termsAndConditionsComponent', require('./components/TermsAndConditionsComponent'));
 app.component('errorComponent', require('./components/ErrorComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
+app.component('security2FAComponent', require('./components/Security2FAComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 app.component('notificationsComponent', require('./components/NotificationsComponent'));
 app.component('explanationComponent', require('./components/ExplanationComponent'));
@@ -52,10 +53,12 @@ app.component('errorPageComponent', require('./components/ErrorPageComponent'));
 app.component('searchResultComponent', require('./components/SearchResultComponent'));
 app.component('sitemapComponent', require('./components/SitemapComponent'));
 app.component('bookmarkedProductsComponent', require('./components/BookmarkedProductsComponent'));
+app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 
 // Services
 app.service('ArrService', require('./services/ArrService'));
 app.service('AuthService', require('./services/AuthService'));
+app.service('Identity2FAService', require('./services/Identity2FAService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('FundService', require('./services/FundService'));
 app.service('FundRequestService', require('./services/FundRequestService'));
@@ -163,6 +166,7 @@ app.directive('providerListItem', require('./directives/lists/ProviderItemDirect
 
 app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
+app.directive('auth2FARestriction', require('./directives/Auth2FARestriction'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
@@ -181,6 +185,8 @@ app.component('modalImagePreviewComponent', require('./components/Modals/FilePre
 app.component('modalPhotoCropperComponent', require('./components/Modals/FilePreviews/ModalPhotoCropperComponent'));
 app.component('modalReimbursementConfirmComponent', require('./components/Modals/ModalReimbursementConfirmComponent'));
 app.component('modalDeactivateVoucherComponent', require('./components/Modals/ModalDeactivateVoucherComponent'));
+app.component('modal2FASetupComponent', require('./components/Modals/Modal2FASetupComponent'));
+app.component('modal2FADeactivateComponent', require('./components/Modals/Modal2FADeactivateComponent'));
 
 // Printable Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));

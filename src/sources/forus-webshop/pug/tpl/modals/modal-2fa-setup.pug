@@ -1,0 +1,196 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.modal.modal-2fa-setup(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.cancel()")
+
+    .modal-content.form.form-compact
+        //- Select provider
+        .modal-window(ng-if="$ctrl.step == 'provider_select'")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Set up Authenticator
+
+            .modal-body: .modal-section
+                .modal-section-column.modal-section-column-4
+                    .modal-text
+                        strong.text-strong Please select the authentication app you want to use
+                        .form-group: select-control(
+                            search='false' 
+                            ng-model="$ctrl.provider" 
+                            options="$ctrl.providers")
+
+                    .modal-text
+                        strong.text-strong If you don’t have the {{ $ctrl.provider.name }} app, 
+                        | you can download it from the #[strong.text-strong Play Store] or #[strong.text-strong App Store].
+
+                    .modal-text(ng-if="$ctrl.provider"): .block.block-app_download: .app_download-row
+                        a.app_download-store_icon(href="{{ $ctrl.provider.url_ios }}" target="_blank")
+                            img(ng-src="./assets/img/icon-app/app-store-badge.svg")
+
+                        a.app_download-store_icon(href="{{ $ctrl.provider.url_android }}" target="_blank")
+                            img(ng-src="./assets/img/icon-app-android.svg")  
+
+                    .modal-section-separator
+
+                    .modal-text: strong.text-strong If you already have Google Authenticator app, please follow the steps below:
+                    .modal-text 
+                        | 1. In the App, select #[strong.text-strong Set up account]
+                        br
+                        | 2. Choose #[strong.text-strong Scan a QR code] or #[strong.text-strongEnter a setup key: {{ $ctrl.auth_2fa.secret }}]
+
+
+                .modal-section-column.modal-section-column-2
+                    qr-code.block-qr-code-fit(
+                        ng-if="$ctrl.auth_2fa.secret_url" 
+                        padding="15px"
+                        qr-raw="$ctrl.auth_2fa.secret_url" 
+                        qr-logo=src_prefix + "./assets/img/me-logo.png")
+
+            .modal-footer
+                .button-group
+                    //- Cancel
+                    .button.button-light.button-sm(ng-click="$ctrl.cancel()") Cancel
+                    //- Next
+                    .button.button-primary.button-sm(ng-click="$ctrl.submitAuthenticator()") Submit
+
+        //- Phone number
+        .modal-window(ng-if="$ctrl.step == 'phone_setup'")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Set up Authenticator
+
+            .modal-body.text-center: .modal-section: .row: .col.col-xs-10.col-xs-offset-1
+                .modal-heading Connect your phone number
+
+                .modal-text.text-center
+                    | To continue please enter the email verification code and 6-digit 2FA security code.
+                    .modal-separator
+                    .form-group: .form-label.text-strong Phone number
+                    .form-group
+                        pincode-control(
+                            ng-model="$ctrl.phoneNumber" 
+                            block-size="3" 
+                            block-count="4"
+                            cant-delete-Length="3"
+                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                        .form-error(ng-repeat="error in $ctrl.phoneNumberError" ng-bind="error")
+
+            .modal-footer
+                //- Cancel
+                .button.button-light.button-sm(ng-click="$ctrl.cancel()") Cancel
+
+                .flex.flex-grow &nbsp;
+
+                //- Next
+                .button.button-primary.button-sm(ng-click="$ctrl.submitPhoneNumber()") Submit
+
+        //- Auth 2FA provider code confirmation
+        .modal-window(ng-if="$ctrl.step == 'provider_confirmation'")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Set up Authenticator
+
+            .modal-body.text-center: .modal-section
+                .modal-heading To continue please enter the email verification code and 6-digit 2FA security code.
+
+                .modal-text.text-center
+                    .form-group
+                        .form-label(ng-if="$ctrl.type == 'phone'") Enter 6-digit SMS code 
+                        .form-label(ng-if="$ctrl.type == 'authenticator'") Enter 6-digit from the app
+
+                        pincode-control(
+                            ng-model="$ctrl.confirmationCode" 
+                            block-size="3" 
+                            block-count="2" 
+                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                        
+                        .form-error(ng-repeat="error in $ctrl.confirmationCodeError" ng-bind="error")
+                
+                .modal-text.text-center(ng-if="$ctrl.type == 'phone'")
+                    button.button.button-text.button-sm(ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingBlocked")
+                        .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
+                        | Resend Code
+
+
+            .modal-footer
+                //- Back
+                .button.button-light.button-sm(
+                    ng-click="$ctrl.setStep($ctrl.type == 'phone' ? 'phone_setup' : 'provider_select')") Back
+
+                .flex.flex-grow &nbsp;
+
+                //- Submit
+                .button.button-primary.button-sm(
+                    ng-disabled="$ctrl.confirmationCode.length !== 6"
+                    ng-click="$ctrl.activateProvider()") Verify
+
+        //- Auth 2FA provider code verification
+        .modal-window(ng-if="$ctrl.step == 'provider_verification'")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Confirm authentication
+
+            .modal-body.text-center: .modal-section.form
+                .modal-heading(ng-if="$ctrl.auth_2fa.provider_type.type == 'phone'") 
+                    | To continue please enter the 6-digit security code sent to your phone number.
+
+                .modal-heading(ng-if="$ctrl.auth_2fa.provider_type.type == 'authenticator'") 
+                    | To continue please enter the 6-digit security code from {{ $ctrl.auth_2fa.provider_type.name }}.
+
+                .modal-text.text-center
+                    .form-group
+                        .form-label(ng-if="$ctrl.auth_2fa.provider_type.type == 'phone'"): .text-strong Enter 6-digit SMS code 
+                        .form-label(ng-if="$ctrl.auth_2fa.provider_type.type == 'authenticator'"): .text-strong Enter 6-digit from the app
+
+                        pincode-control(
+                            ng-model="$ctrl.confirmationCode" 
+                            block-size="3" 
+                            block-count="2" 
+                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                        
+                        .form-error(ng-repeat="error in $ctrl.confirmationCodeError" ng-bind="error")
+                
+                .modal-text.text-center(ng-if="$ctrl.type == 'phone'")
+                    button.button.button-text.button-sm(ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingBlocked")
+                        .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
+                        | Resend Code
+
+            .modal-footer
+                //- Cancel
+                .button.button-light.button-sm(
+                    ng-click="$ctrl.cancel()") Cancel
+
+                .flex.flex-grow &nbsp;
+
+                //- Submit
+                .button.button-primary.button-sm(
+                    ng-click="$ctrl.verifyAuthProvider()" 
+                    ng-disabled="$ctrl.confirmationCode.length !== 6") Verify
+
+        //- Success (login)
+        .modal-window(ng-if="$ctrl.step == 'success' && $ctrl.auth")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm 2FA Confirmation
+
+            .modal-body.text-center: .modal-section.modal-section-pad
+                .modal-icon-mdi: .mdi.mdi-check
+                .modal-heading Two-factor successfully confirmed
+                .modal-text.modal-text: .row: .col.col-xs-12.col-md-10.col-md-offset-1
+                    | Elementum sed pulvinar faucibus tincidunt gravida ultrices. Senectus nisl enim dolor in vitae sem. 
+                    | Malesuada lacus arcu eleifend pharetra diam mauris vitae egestas.
+
+                .modal-text.modal-text
+                    .button-group.flex-grow.flex-center: .button.button-light.button-sm(ng-click="$ctrl.done()") Confirm
+
+        //- Success (setup)
+        .modal-window(ng-if="$ctrl.step == 'success' && !$ctrl.auth")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm 2FA Setup
+
+            .modal-body.text-center: .modal-section.modal-section-pad
+                .modal-icon-mdi: .mdi.mdi-check
+                .modal-heading Two-factor authentication successfully enabled
+                .modal-text.modal-text: .row: .col.col-xs-12.col-md-10.col-md-offset-1
+                    | Elementum sed pulvinar faucibus tincidunt gravida ultrices. Senectus nisl enim dolor in vitae sem. 
+                    | Malesuada lacus arcu eleifend pharetra diam mauris vitae egestas.
+
+                .modal-text.modal-text
+                    .button-group.flex-grow.flex-center: .button.button-light.button-sm(ng-click="$ctrl.done()") Confirm

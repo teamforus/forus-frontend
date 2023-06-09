@@ -1,0 +1,41 @@
+.app.app-container
+    menu
+    section.app.app-content
+        //- Breadcrumbs
+        .block.block-breadcrumbs(ng-if="$root.activeOrganization")
+            a.breadcrumb-item(ng-bind="$ctrl.organization.name" ui-sref="organizations-view($ctrl.organization)")
+            .breadcrumb-item.active Security
+
+        //- Fund edit form
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            //- Header
+            .card-header: .card-title 2FA for employees
+
+            //- Enable/Disable
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+                //- 2fa level
+                .form-group.form-group-inline   
+                    label.form-label 2FA Restriction
+
+                    .form-offset: select-control(
+                        prop="value"
+                        search="false"
+                        ng-model="$ctrl.form.values.auth_2fa_policy" 
+                        options="$ctrl.auth2FARequiredOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.auth_2fa_policy" ng-bind="error")
+
+                //- Remember IP
+                .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_policy == 'required'")
+                    label.form-label Remember IP
+
+                    .form-offset: select-control(
+                        prop="value"
+                        search="false"
+                        ng-model="$ctrl.form.values.auth_2fa_remember_ip" 
+                        options="$ctrl.auth2FARememberIpOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.auth_2fa_remember_ip" ng-bind="error")
+
+            //- Submit
+            .card-section.card-section-primary: .text-center
+                a(ui-sref="employees({organization_id: $ctrl.organization.id})").button.button-default Cancel
+                button(type="submit").button.button-primary Submit

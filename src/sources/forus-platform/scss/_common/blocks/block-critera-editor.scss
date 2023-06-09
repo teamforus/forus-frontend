@@ -6,9 +6,9 @@
         display: flex;
         margin: 0 0 10px;
         background: #FFFFFF;
-        border: 1px solid var(--boarder-color);
+        border: 1px solid var(--border-color);
         box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
-        border-radius: calc(var(--boarder-radius) / 2);
+        border-radius: calc(var(--border-radius) / 2);
         padding: 20px 25px;
         position: relative;
         flex-direction: column;
@@ -38,7 +38,7 @@
 
         .criterion-section {
             padding: 20px 0;
-            border-bottom: 1px solid var(--boarder-color);
+            border-bottom: 1px solid var(--border-color);
 
             .checkbox {
                 margin-bottom: -5px;
@@ -111,15 +111,15 @@
 
             .criterion-organizations {
                 box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
-                border-radius: calc(var(--boarder-radius) / 2);
-                border: 1px solid var(--boarder-color);
+                border-radius: calc(var(--border-radius) / 2);
+                border: 1px solid var(--border-color);
                 display: flex;
                 flex-direction: column;
                 overflow: hidden;
 
                 .criterion-organization {
                     background: #ffff;
-                    border-bottom: 1px solid var(--boarder-color);
+                    border-bottom: 1px solid var(--border-color);
                     padding: 5px 10px;
                     @include cf();
                     cursor: default;

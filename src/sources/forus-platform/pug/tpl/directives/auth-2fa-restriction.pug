@@ -1,0 +1,51 @@
+.block.block-2fa-restriction
+    .restriction-hero
+        .restriction-hero-media: img(ng-src="/assets/img/icon-2fa-restriction.svg")
+
+        //- Test for emails feature
+        .restriction-hero-details(ng-if="$dir.type == 'emails'")
+            .restriction-hero-title
+                | Two-Factor Authentication required for changing the email
+            .restriction-hero-description
+                | To ensure the safety and security of our organization's sensitive data, 
+                | we are implementing mandatory two-factor authentication for all employees. 
+                | This will require each user to provide two forms of identification before accessing any company systems or applications.
+
+            .button-group: a(ui-sref="security-2fa").button.button-primary.button-sm
+                .icon-start.mdi.mdi-lock-outline 
+                | Setup Two Factor Authentication
+
+        //- Test for sessions feature
+        .restriction-hero-details(ng-if="$dir.type == 'sessions'")
+            .restriction-hero-title
+                | Two-Factor Authentication required for managing sessions
+            .restriction-hero-description
+                | To ensure the safety and security of our organization's sensitive data, 
+                | we are implementing mandatory two-factor authentication for all employees. 
+                | This will require each user to provide two forms of identification before accessing any company systems or applications.
+
+            .button-group: a(ui-sref="security-2fa").button.button-primary.button-sm
+                .icon-start.mdi.mdi-lock-outline
+                | Setup Two Factor Authentication
+
+    .restriction-reasons
+        //- Test for emails feature
+        .restriction-details(ng-if="$dir.type == 'emails'")
+            .restriction-title 
+                | Two-Factor Authentication is required by following funds
+
+            .restriction-description 
+                | Dictum lectus purus pellentesque est sit purus tristique lectus integer. Felis ante nulla sit arcu neque commodo sagittis sed augue.
+
+        //- Test for sessions feature
+        .restriction-details(ng-if="$dir.type == 'sessions'")
+            .restriction-title 
+                | Two-Factor Authentication is required by following funds
+
+            .restriction-description 
+                | Dictum lectus purus pellentesque est sit purus tristique lectus integer. Felis ante nulla sit arcu neque commodo sagittis sed augue.
+
+        .restriction-item(ng-repeat="item in $dir.itemsList")
+            .restriction-item-media: img(ng-src="{{ item.thumbnail || ('./assets/img/placeholders/' + $dir.defaultThumbnail + '.png') }}")
+            .restriction-item-name(ng-bind="item.name")
+        

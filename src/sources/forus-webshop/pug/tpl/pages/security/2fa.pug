@@ -1,0 +1,58 @@
+top-navbar
+section.section.section-voucher-details: .wrapper
+    .block.block-breadcrumbs.hide-sm
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active Security
+
+    .block.block-profile
+        .profile-aside.hide-sm: profile-menu
+
+        .profile-content
+            .profile-content-header.clearfix: h2.profile-content-title Two-Factor Authentication 
+
+            .block.block-auth-2fa
+                .auth-2fa-description
+                    | Dictum lectus purus pellentesque est sit purus tristique lectus integer. 
+                    | Felis ante nulla sit arcu neque commodo sagittis sed augue. 
+                    | Tincidunt integer tortor ultricies gravida. Nibh amet nunc curabitur pharetra facilisis vestibulum lectus.
+
+                .auth-2fa-item(ng-repeat="provider_type in $ctrl.provider_types")
+                    .auth-2fa-item-icon
+                        .mdi.mdi-cellphone-key(ng-if="provider_type.type == 'authenticator'")
+                        .mdi.mdi-cellphone-message(ng-if="provider_type.type == 'phone'")
+                    
+                    .auth-2fa-item-title(ng-bind="provider_type.title")
+                    
+                    .auth-2fa-item-label: .label-group
+                        .label.label-light(ng-if="!$ctrl.active_provider_types.includes(provider_type.type)") Disabled
+                        .label.label-success(ng-if="$ctrl.active_provider_types.includes(provider_type.type)") Enabled
+                    
+                    .auth-2fa-item-space
+
+                    .auth-2fa-item-actions: .button-group
+                        .button.button-primary.button-sm(
+                            ng-if="!$ctrl.active_provider_types.includes(provider_type.type)"
+                            ng-click="$ctrl.setupAuth2FA(provider_type.type)") 
+                            em.mdi.mdi-shield-check-outline.icon-start
+                            | Enable
+
+                        .button.button-light.button-sm(
+                            ng-if="$ctrl.active_provider_types.includes(provider_type.type)"
+                            ng-click="$ctrl.deactivateAuth2FA(provider_type.type)") 
+                            em.mdi.mdi-lock-open-outline.icon-start
+                            | Disable
+
+            .profile-content-header.clearfix(ng-if="!$ctrl.auth2FAState.auth_2fa_forget_force")
+                h3.profile-content-title Settings
+
+            .block.block-auth-2fa(ng-if="!$ctrl.auth2FAState.auth_2fa_forget_force")
+                form(ng-submit="$ctrl.form.submit()").form.form-compact
+                    .form-group
+                        label.form-label(for="select_organization") Remember IP
+                        select-control(
+                            prop="value"
+                            search="false"
+                            ng-model="$ctrl.form.values.auth_2fa_remember_ip" 
+                            options="$ctrl.auth2FARememberIpOptions")
+
+                    .text-center: button.button.button-primary.button-sm(type="submit") Submit

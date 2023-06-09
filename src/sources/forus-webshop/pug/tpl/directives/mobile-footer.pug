@@ -158,6 +158,18 @@
                     em.mdi.mdi-cash-multiple
                     span(translate="topnavbar.buttons.mobile.dropdown.funds")
 
+                //- Security
+                .sticky-footer-dropwdown-subitem(
+                    ui-sref="security-2fa"
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'security-sessions'}"
+                    aria-current="{{ $dir.$state.current.name == 'security-sessions' }}" 
+                    tabindex="0"
+                    role="link")
+
+                    em.mdi.mdi-security
+                    span(translate="topnavbar.buttons.mobile.dropdown.security")
+
                 //- Sessions
                 .sticky-footer-dropwdown-subitem(
                     ng-if="$dir.appConfigs.sessions"

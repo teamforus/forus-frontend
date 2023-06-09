@@ -185,6 +185,25 @@
                     }
                 }
 
+
+                .td-state-2fa {
+                    display: inline-flex;
+
+                    .state-2fa-icon, .state-2fa-label {
+                        display: inline-flex;
+                        font-size: 20px;
+                        font: 500 12px/20px var(--base-font);
+
+                        .mdi {
+                            font-size: 20px;
+                        }
+                    }
+
+                    .state-2fa-label {
+                        padding: 0 6px 0 4px;
+                    }
+                }
+
                 .td-drawn {
                     margin: -5px 0;
                 }
@@ -192,7 +211,7 @@
                 .td-media {
                     display: block;
                     width: 70px;
-                    border-radius: var(--boarder-radius);
+                    border-radius: var(--border-radius);
                 }
 
                 .td-boolean {
