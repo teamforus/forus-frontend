@@ -22,7 +22,7 @@ main(id="main-content")
                             .card-subtitle(ng-if="!$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.fund.organization.name")
                             .card-subtitle(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.product.organization.name")
                             div(ng-if="!$ctrl.voucherCard.is_external && $ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product")
-                                .card-value.euro(ng-bind="$ctrl.voucherCard.amount | currency_format")
+                                .card-value.euro(ng-bind="$ctrl.voucherCard.amount_locale")
 
                         .card-qr_code.show-sm(ng-if="!$ctrl.voucherCard.is_external")
                             qr-code(ng-if="$ctrl.qrValue" qr-type="voucher" qr-value="$ctrl.qrValue" qr-alt="Voucher").card-qr_code-element
@@ -148,7 +148,7 @@ main(id="main-content")
                             .card-subtitle(ng-if="!$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.fund.organization.name")
                             .card-subtitle(ng-if="$ctrl.voucherCard.product" ng-bind="$ctrl.voucherCard.product.organization.name")
                             div(ng-if="$ctrl.voucherCard.fund.type == 'budget' && !$ctrl.voucherCard.product && $ctrl.voucherCard.fund.key == 'meedoenregeling_volwassenen_ww'")
-                                .card-value.euro(ng-bind="$ctrl.voucherCard.amount | currency_format")
+                                .card-value.euro(ng-bind="$ctrl.voucherCard.amount_locale")
 
                     .card-footer
                         .card-section
@@ -295,7 +295,7 @@ main(id="main-content")
                         .transactions-item-date {{ transaction.created_at_locale }}
 
                     .transactions-item-amount(ng-if="$ctrl.voucherCard.fund.type == 'budget'")
-                        .transactions-item-value {{ (transaction.incoming ? '' : '-') + ' ' + (transaction.amount | currency_format) }}
+                        .transactions-item-value {{ (transaction.incoming ? '' : '-') + ' ' + (transaction.amount_locale) }}
                         .transactions-item-type {{ transaction.incoming ? "voucher.labels.add" : "voucher.labels.subtract" | translate }}
 
         block-products(
