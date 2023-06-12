@@ -1,4 +1,4 @@
-const FundItemDirective = function($state, $scope, FundService, PushNotificationsService) {
+const FundItemDirective = function($state, $scope, appConfigs, FundService, ConfigService, PushNotificationsService) {
     const $dir = $scope.$dir = {};
     
     $dir.setShowMore = (e, showMore = false) => {
@@ -38,21 +38,13 @@ const FundItemDirective = function($state, $scope, FundService, PushNotification
         });
     };
 
-    $dir.addFundMeta = (fund, vouchers) => {
-        fund.vouchers        = vouchers.filter(voucher => voucher.fund_id == fund.id && !voucher.expired);
-        fund.isApplicable    = fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
-        fund.alreadyReceived = fund.vouchers.length !== 0;
+    ConfigService.get('webshop').then((res) => {
+        appConfigs.features = res.data;
+        
+        $dir.fund = FundService.mapFund($scope.fund, $scope.vouchers, appConfigs.features);
+        $dir.media = $dir.fund.logo || $dir.fund.organization.logo || null;
+    });
 
-        fund.canApply    = !fund.is_external && !fund.alreadyReceived && fund.isApplicable && !fund.has_pending_fund_requests;
-        fund.canActivate = !fund.is_external && !fund.alreadyReceived && (fund.has_approved_fund_requests || fund.isApplicable);
-        fund.isPending   = !fund.alreadyReceived && fund.has_pending_fund_requests;
-
-        fund.showActivateButton = !fund.alreadyReceived && fund.isApplicable;
-        return fund;
-    };
-
-    $dir.fund = $dir.addFundMeta($scope.fund, $scope.vouchers);
-    $dir.media = $dir.fund.logo || $dir.fund.organization.logo || null;
     $dir.applyingFund = false;
 };
 
@@ -68,7 +60,9 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
+            'appConfigs',
             'FundService',
+            'ConfigService',
             'PushNotificationsService',
             FundItemDirective
         ],

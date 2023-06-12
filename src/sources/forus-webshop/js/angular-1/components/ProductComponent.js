@@ -1,4 +1,5 @@
 const ProductComponent = function (
+    $q,
     $rootScope,
     $state,
     $stateParams,
@@ -8,6 +9,7 @@ const ProductComponent = function (
     AuthService,
     FundService,
     ModalService,
+    ConfigService,
     ProductService,
 ) {
     const $ctrl = this;
@@ -61,6 +63,14 @@ const ProductComponent = function (
         ProductService.toggleBookmark(product);
     };
 
+    $ctrl.transformFund = (fund) => {
+        return $q((resolve, reject) => {
+            FundService.readById(fund.id).then(res => {
+                resolve(FundService.mapFund(res.data.data, $ctrl.vouchers, appConfigs.features));
+            }, reject);
+        });
+    }
+
     $ctrl.$onInit = function () {
         $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.signedIn = AuthService.hasCredentials();
@@ -72,6 +82,17 @@ const ProductComponent = function (
 
         $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
         $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
+
+        ConfigService.get('webshop').then((res) => {
+            appConfigs.features = res.data;
+
+            let funds = $ctrl.productMeta.funds;
+            funds.forEach((fund, index) => {
+                $ctrl.transformFund(fund).then(fundData => {
+                    funds[index] = fundData;
+                });
+            });
+        });
 
         $rootScope.pageTitle = $i18n('page_state_titles.product', {
             product_name: $ctrl.product.name,
@@ -92,6 +113,7 @@ module.exports = {
         vouchers: '<',
     },
     controller: [
+        '$q',
         '$rootScope',
         '$state',
         '$stateParams',
@@ -101,6 +123,7 @@ module.exports = {
         'AuthService',
         'FundService',
         'ModalService',
+        'ConfigService',
         'ProductService',
         ProductComponent,
     ],
