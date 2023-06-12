@@ -24,6 +24,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
     .navbar-inner.wrapper
         .block.block-auth.show-sm(ng-if="!$root.showSearchBox")
             button.button.button-default(
+                ng-if="!$root.auth_user && $root.appConfigs.flags.showStartButton"
                 ng-click="$dir.startFundRequest({ restore_with_email: true })"
                 role="button").show-sm
 
