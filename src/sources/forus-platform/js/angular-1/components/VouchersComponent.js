@@ -41,6 +41,8 @@ const VouchersComponent = function(
             granted: null,
             amount_min: null,
             amount_max: null,
+            amount_available_min: null,
+            amount_available_max: null,
             date_type: 'created_at',
             from: null,
             to: null,
