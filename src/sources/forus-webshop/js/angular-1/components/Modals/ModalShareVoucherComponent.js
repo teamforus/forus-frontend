@@ -5,6 +5,12 @@ const ModalShareVoucherComponent = function(
 ) {
     const $ctrl = this;
 
+    $ctrl.toggleSendCopy = ($event, current_value = false) => {
+        if ($event?.key == 'Enter') {
+            $ctrl.shareVoucherForm.values.send_copy = !current_value;
+        }
+    };
+
     $ctrl.$onInit = () => {
         const voucher = $ctrl.modal.scope.voucher;
         const reason = '';

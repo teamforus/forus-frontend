@@ -93,9 +93,15 @@ main(id="main-content")
             h2.section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
 
             .faq.faq-fund
-                .faq-item(collapse ng-repeat="question in $ctrl.fund.faq" class=active ? 'active' : '' collapse-item)
+                .faq-item(
+                    collapse 
+                    ng-repeat="question in $ctrl.fund.faq"
+                    ng-class="{active: question.isActive}" 
+                    ng-click="question.isActive = !question.isActive" 
+                    collapse-item)
+                    
                     .faq-item-header(collapse-header)
-                        h2(ng-bind="question.title").faq-item-title
+                        h2(ng-bind="question.title" role="button" tabindex="0" aria-expanded="{{question.isActive}}" ).faq-item-title
                         .faq-item-chevron-down.mdi.mdi-chevron-down
                         .faq-item-chevron-up.mdi.mdi-chevron-up
                     .faq-item-content: .block.block-markdown(ng-bind-html="question.description_html")
