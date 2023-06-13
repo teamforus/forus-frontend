@@ -30,7 +30,7 @@
 
                     .voucher-details
                         .voucher-name(ng-bind="voucher.fund.name")
-                        .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount | currency_format")
+                        .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount_locale")
 
                         .voucher-organization
                             span(ng-if="voucher.records_title" ng-bind="voucher.records_title")

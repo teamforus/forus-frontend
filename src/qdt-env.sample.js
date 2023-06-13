@@ -458,8 +458,6 @@ module.exports = (core) => {
                 },
             }, */
             flags: {
-                showOnlyUsedCategories: true,
-
                 startPage: {
                     combineColumns: false,
                     // left column and combined column options
