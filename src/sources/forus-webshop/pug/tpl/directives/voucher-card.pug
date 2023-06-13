@@ -11,7 +11,7 @@ a(ui-sref="voucher(voucher)" dusk="voucherItem").voucher-item
 
         .voucher-value(
             ng-if="!voucherCard.is_external && (voucherCard.fund.type == 'budget') && (voucherCard.type == 'regular')" 
-            ng-bind="voucherCard.amount | currency_format")
+            ng-bind="voucherCard.amount_locale")
 
         .voucher-status-label(ng-if="!voucher.deactivated")
             .label.label-light(ng-if="voucher.expired" i18n="voucher.voucher_card.expired")

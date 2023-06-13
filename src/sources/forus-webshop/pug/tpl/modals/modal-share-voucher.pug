@@ -22,8 +22,14 @@
                 br
 
             .form-group
-                label(for="send_copy").checkbox
-                    input#send_copy(type="checkbox" checked ng-model="$ctrl.shareVoucherForm.values.send_copy")
+                label(
+                    for="send_copy" 
+                    role="checkbox" 
+                    tabindex="0" 
+                    aria-checked="{{ $ctrl.shareVoucherForm.values.send_copy }}" 
+                    ng-click="$ctrl.toggleSendCopy($event, $ctrl.shareVoucherForm.values.send_copy)").checkbox
+
+                    input#send_copy(type="checkbox" checked ng-model="$ctrl.shareVoucherForm.values.send_copy" tabindex="-1" aria-hidden="true")
                     .checkbox-label
                         .checkbox-box: .mdi.mdi-check
                         span(i18n="voucher.share_voucher.labels.send_copy")
