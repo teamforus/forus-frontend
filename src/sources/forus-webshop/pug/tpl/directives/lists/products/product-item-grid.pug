@@ -34,7 +34,7 @@
             .product-price(ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min == 0") Gratis
             .product-price(
                 ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min != 0" 
-                ng-bind="$dir.product.price_min | currency_format")
+                ng-bind="$dir.product.price_min_locale")
             
             .product-price(
                 ng-if="$dir.product.price_type !== 'regular'"
