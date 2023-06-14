@@ -48,8 +48,24 @@ h1, h2, h3, h4, h5, h6 {
                 margin-left: 0;
 
                 .auth-user {
-                    .auth-user-caret {
-                        color: #ffffff;
+                    .auth-user-avatar {
+                        width: 30px;
+
+                        &:after {
+                            background-position: 10px 18px;
+                        }
+                    }
+
+                    &:hover {
+                        .auth-user-avatar {
+                            &:after {
+                                background: url(../img/identity-avatar-hover.svg) 10px 18px no-repeat;
+                            }
+                        }
+
+                        .auth-user-caret {
+                            color: #176B55;
+                        }
                     }
                 }
             }
