@@ -167,9 +167,10 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
         }
 
         this.transformProductAlternativeText = (product) => {
-            const default_text = 'photo of product ' + product.name + ' of ' + product.organization.name;
+            const default_text = 'Photo of product ' + product.name + ' of provider ' + product.organization.name;
+            const provider_text = '.Provider describes it like: ' + product.alternative_text;
 
-            return product.alternative_text || default_text;
+            return default_text + (product.alternative_text ? provider_text : '');
         }
     });
 };
