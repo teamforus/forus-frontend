@@ -1,0 +1,14 @@
+.modal.modal-md.modal-animated.modal-reimbursement-categories(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.closeModal()")
+
+    .modal-window
+        a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
+        .modal-header Add reimbursement categories
+
+        reimbursement-categories(organization="$ctrl.organization")
+
+        //- form submit
+        .modal-footer.text-center
+            button.button.button-default(type="button" ng-click="$ctrl.closeModal()" id="close") Sluiten

@@ -7412,6 +7412,13 @@ body {
         }
     }
 
+    &.modal-reimbursement-categories {
+        .card {
+            box-shadow: none;
+            border-bottom: 1px solid var(--boarder-color);
+        }
+    }
+
     @media screen and (max-width: 1800px) {
         .modal-footer {
             padding: 25px;

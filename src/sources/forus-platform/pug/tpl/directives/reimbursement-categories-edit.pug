@@ -1,0 +1,42 @@
+.card
+    //- Header
+    .card-header: .flex
+        .flex.flex-grow: .card-title(ng-bind="'Reimbursement categories (' + $dir.reimbursementCategories.meta.total + ')'")
+        
+        .flex: .block.block-inline-filters
+            a(ng-click="$dir.editReimbursementCategory()" id="add_reimbursement_category").button.button-primary.button-sm
+                em.mdi.mdi-plus-circle.icon-start
+                translate(translate="Toevoegen")
+
+    //- Content
+    .card-section.card-section-primary(ng-if="$dir.reimbursementCategories.data.length")
+        .card-block.card-block-table: .table-wrapper: table.table
+            tr
+                th Organisatie
+                th Categorie naam
+                th.th-narrow.text-right Opties
+
+            tr(ng-repeat="reimbursementCategory in $dir.reimbursementCategories.data")
+                td(ng-bind="$dir.organization.name")
+                td(ng-bind="reimbursementCategory.name")
+
+                td.td-narrow.text-right: .flex
+                    a(ng-click="$dir.editReimbursementCategory(reimbursementCategory)").button.button-sm.button-default
+                        em.mdi.mdi-pen.icon-start
+                        translate(translate="Bewerken")
+
+                    button(ng-click="$dir.deleteReimbursementCategory(reimbursementCategory)").button.button-danger.button-icon
+                        em.icon-start.mdi.mdi-delete
+    
+    //- Pagination
+    .card-section(ng-show="$dir.reimbursementCategories.meta.total"): .table-pagination
+        paginator(
+            ng-if="$dir.reimbursementCategories.meta"
+            meta="$dir.reimbursementCategories.meta"
+            filters="$dir.filters.values"
+            on-page-change="$dir.onPageChange(query)")
+
+    //- Not found
+    block-empty(
+        ng-if="$dir.reimbursementCategories.meta.total == 0"
+        text="Er zijn momenteel geen reimbursement categories.")

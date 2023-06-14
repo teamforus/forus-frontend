@@ -199,6 +199,14 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalEditSocialMediaComponent'
     });
 
+    ModalRouteProvider.modal('editReimbursementCategories', {
+        component: 'modalEditReimbursementCategoriesComponent'
+    });
+
+    ModalRouteProvider.modal('editReimbursementCategory', {
+        component: 'modalEditReimbursementCategoryComponent'
+    });
+
     ModalRouteProvider.modal('websiteContactForm', {
         component: 'modalContactFormComponent'
     });

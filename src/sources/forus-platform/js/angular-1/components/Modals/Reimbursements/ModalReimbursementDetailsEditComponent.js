@@ -1,4 +1,5 @@
 const ModalReimbursementDetailsEditComponent = function (
+    ModalService,
     FormBuilderService,
     ReimbursementService,
     PageLoadingBarService,
@@ -28,6 +29,26 @@ const ModalReimbursementDetailsEditComponent = function (
         }, true)
     }
 
+    $ctrl.fetchCategories = () => {
+        return ReimbursementCategoryService.index($ctrl.organization.id, {
+            per_page: 100,
+        }).then((res) => {
+            $ctrl.reimbursement_categories = res.data.data;
+
+            $ctrl.reimbursement_categories.unshift({
+                id: null,
+                name: 'Alle categorieën',
+            });
+        });
+    };
+
+    $ctrl.manageCategories = () => {
+        ModalService.open('editReimbursementCategories', {
+            organization: $ctrl.organization,
+            onClose: () => $ctrl.fetchCategories(),
+        });
+    };
+
     $ctrl.$onInit = () => {
         const { onSubmitted, reimbursement, organization, description } = $ctrl.modal.scope;
 
@@ -36,12 +57,7 @@ const ModalReimbursementDetailsEditComponent = function (
         $ctrl.onSubmitted = onSubmitted;
         $ctrl.description = description;
 
-        ReimbursementCategoryService.index({
-            per_page: 100,
-        }).then((res) => {
-            $ctrl.reimbursement_categories = res.data.data;
-            $ctrl.buildForm();
-        });
+        $ctrl.fetchCategories().then(() => $ctrl.buildForm());
     };
 };
 
@@ -51,6 +67,7 @@ module.exports = {
         modal: '='
     },
     controller: [
+        'ModalService',
         'FormBuilderService',
         'ReimbursementService',
         'PageLoadingBarService',

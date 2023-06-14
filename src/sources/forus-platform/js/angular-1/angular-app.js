@@ -78,6 +78,7 @@ app.component('implementationCmsConfigEditComponent', require('./components/Impl
 app.component('emailConfirmedComponent', require('./components/EmailConfirmedComponent'));
 app.component('reservationsSettingsComponent', require('./components/ReservationsSettingsComponent'));
 app.component('implementationCmsSocialMediaEditComponent', require('./components/ImplementationCmsSocialMediaEditComponent'));
+app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -130,6 +131,8 @@ app.component('modalFundUnsubscribeComponent', require('./components/Modals/Moda
 app.component('modalVoucherTransactionsUploadComponent', require('./components/Modals/ModalVoucherTransactionsUploadComponent'));
 app.component('modalVoucherRecordEditComponent', require('./components/Modals/ModalVoucherRecordEditComponent'));
 app.component('modalEditSocialMediaComponent', require('./components/Modals/ModalEditSocialMediaComponent'));
+app.component('modalEditReimbursementCategoryComponent', require('./components/Modals/ModalEditReimbursementCategoryComponent'));
+app.component('modalEditReimbursementCategoriesComponent', require('./components/Modals/ModalEditReimbursementCategoriesComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -272,6 +275,7 @@ app.directive('providerFundsInvitationTable', require('./directives/ProviderFund
 app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoinDirective'));
 app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
+app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 
