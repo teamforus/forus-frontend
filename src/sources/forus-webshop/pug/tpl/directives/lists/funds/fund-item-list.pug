@@ -1,7 +1,7 @@
 a.fund-item
     .fund-photo: img(
         ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
-        alt="an image of fund {{ $dir.fund.name }}")
+        alt="Dit is de afbeelding van {{ $dir.fund.name }}")
 
     .fund-content: .fund-details
         .fund-name(ng-bind="$dir.fund.name")
