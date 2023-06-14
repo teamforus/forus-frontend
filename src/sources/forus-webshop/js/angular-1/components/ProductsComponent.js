@@ -119,7 +119,7 @@ const ProductsComponent = function (
                 ProductCategoryService.list({
                     parent_id: $ctrl.product_category_id, 
                     per_page: 1000, 
-                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                    used: 1,
                     used_type: $ctrl.fund_type,
                 }).then(res => {
                     $ctrl.productSubCategories = res.data.meta.total ? [{

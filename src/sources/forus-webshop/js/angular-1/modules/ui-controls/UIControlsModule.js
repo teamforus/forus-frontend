@@ -9,3 +9,4 @@ _module.directive('uiControlDate', require('./directives/UIControlDateDirective'
 _module.directive('uiControlNumber', require('./directives/UIControlNumberDirective'));
 _module.directive('uiControlCurrency', require('./directives/UIControlCurrencyDirective'));
 _module.directive('uiControlCheckbox', require('./directives/UIControlCheckboxDirective'));
+_module.directive('uiControlSearchInput', require('./directives/UIControlSearchInputDirective'));

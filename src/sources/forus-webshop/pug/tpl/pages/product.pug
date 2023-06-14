@@ -96,7 +96,7 @@ main(id="main-content")
 
                             .fund-item-section-value(
                                 ng-if="fund.type == 'subsidies' && ($ctrl.product.price_type === 'regular' && fund.price != 0)" 
-                                ng-bind="fund.price | currency_format")
+                                ng-bind="fund.price_locale")
                             
                             //- budget price
                             .fund-item-section-value(

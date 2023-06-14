@@ -6,4 +6,4 @@
 
         .product-details
             .product-name(ng-bind="$dir.product.name")
-            .product-price: .product-price-new(ng-bind="$dir.product.price | currency_format")
+            .product-price: .product-price-new(ng-bind="$dir.product.price_locale")

@@ -1,6 +1,6 @@
 const sprintf = require('sprintf-js').sprintf;
 
-const FundRequestValidatorService = function(ApiRequest) {
+const FundRequestValidatorService = function(ApiRequest, FileService, ModalService) {
     const uriPrefixAll = '/platform/organizations/%s/fund-requests';
 
     const FundRequestValidatorService = function() {
@@ -117,6 +117,15 @@ const FundRequestValidatorService = function(ApiRequest) {
             });
         };
 
+        this.updateRecord = function(organization_id, request_id, record_id, data) {
+            return ApiRequest.patch(sprintf(
+                uriPrefixAll + '/%s/records/%s',
+                organization_id,
+                request_id,
+                record_id
+            ), data);
+        };
+
         this.requestRecordClarification = function(organization_id, request_id, record_id, question) {
             return ApiRequest.post(sprintf(
                 uriPrefixAll + '/%s/clarifications',
@@ -157,6 +166,29 @@ const FundRequestValidatorService = function(ApiRequest) {
         this.storeNote = (organization_id, id, data = {}) => {
             return ApiRequest.post(`/platform/organizations/${organization_id}/fund-requests/${id}/notes`, data);
         };
+
+        this.downloadFile = (file) => {
+            FileService.download(file).then(res => {
+                FileService.downloadFile(file.original_name, res.data);
+            }, console.error);
+        };
+
+        this.hasFilePreview = (file) => {
+            return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext);
+        };
+
+        this.previewFile = ($event, file) => {
+            $event.originalEvent.preventDefault();
+            $event.originalEvent.stopPropagation();
+    
+            if (file.ext == 'pdf') {
+                FileService.download(file).then(res => {
+                    ModalService.open('pdfPreview', { rawPdfFile: res.data });
+                }, console.error);
+            } else if (['png', 'jpeg', 'jpg'].includes(file.ext)) {
+                ModalService.open('imagePreview', { imageSrc: file.url });
+            }
+        };
     };
 
     return new FundRequestValidatorService();
@@ -164,5 +196,7 @@ const FundRequestValidatorService = function(ApiRequest) {
 
 module.exports = [
     'ApiRequest',
+    'FileService',
+    'ModalService',
     FundRequestValidatorService
 ];
