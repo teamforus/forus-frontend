@@ -81,6 +81,28 @@ module.exports = {
     email_service_switch: {
         confirm: 'Breng me naar mijn e-mail'
     },
+    logo_alt_text: {
+        general: "Forus",
+        berkelland: "Gemeente Berkelland",
+        doetegoed: "Doe-tegoed",
+        ede: "Ede",
+        eemsdelta: "Gemeente Eemsdelta",
+        geertruidenberg: "Gemeente Geertruidenberg",
+        groningen: "Gemeente Groningen",
+        kerstpakket: "Kerstpakket",
+        heumen: "Gemeente Heumen",
+        hartvanwestbrabant: "Werkplein",
+        noordoostpolder: "Gemeente Noordoostpolder",
+        nijmegen: "Nijmegen",
+        potjeswijzer: "Potjeswijzer",
+        participatiemunt: "Participatiemunt",
+        oostgelre: "Gemeente Oost Gelre",
+        winterswijk: "Gemeente Winterswijk",
+        westerkwartier: "Gemeente Westerkwartier",
+        waalwijk: "Pas Wijzer",
+        vergoedingen: "Nijmegen",
+        schagen: "Gemeente Schagen"
+    },
 
     // COMPONENTS
     buttons: require("./nl/components/buttons"),

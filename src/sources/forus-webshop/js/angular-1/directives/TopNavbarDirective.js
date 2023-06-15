@@ -1,10 +1,14 @@
 const TopNavbarDirective = function (
     $state,
     $scope,
+    $filter,
+    appConfigs,
     ModalService,
     ConfigService
 ) {
     const $dir = $scope.$dir;
+
+    let $translate = $filter('translate');
 
     $dir.visible = false;
     $dir.prevOffsetY = false;
@@ -46,6 +50,14 @@ const TopNavbarDirective = function (
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
         $dir.logoExtension = ConfigService.getFlag('logoExtension');
+
+        // Organization logo alternative text
+        const trans_key = 'logo_alt_text.' + appConfigs.client_key;
+        $dir.orgLogoAltText = $translate(trans_key);
+
+        if ($dir.orgLogoAltText == trans_key) {
+            $dir.orgLogoAltText = appConfigs.client_key;
+        }
     };
 
     $dir.$onDestroy = () => {
@@ -66,6 +78,8 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
+            '$filter',
+            'appConfigs',
             'ModalService',
             'ConfigService',
             TopNavbarDirective,
