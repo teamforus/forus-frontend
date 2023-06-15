@@ -82,6 +82,9 @@ const ProductsEditComponent = function (
         ) : {
             reservation_enabled: true,
             reservation_policy: 'global',
+            reservation_phone: 'global',
+            reservation_address: 'global',
+            reservation_birth_date: 'global',
             product_category_id: null,
             price_type: 'regular',
         };

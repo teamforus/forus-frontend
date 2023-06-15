@@ -25,7 +25,7 @@ main(id="main-content")
             .product-card
                 .product-photo: img(
                     ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" 
-                    alt="")
+                    alt="{{ $ctrl.product.alternative_text }}")
                 
                 .product-details
                     .product-name
