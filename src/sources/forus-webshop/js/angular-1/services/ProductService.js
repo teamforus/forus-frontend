@@ -50,7 +50,6 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                     imageSrc: productImgSrc,
                     message: `Er staan ${res.data.meta.total} aanbiedingen in het verlanglijstje`,
                     group: 'bookmarks',
-                    timeout: 4000,
                     btnText: 'Ga naar mijn verlanglijstje',
                     btnSref: 'bookmarked-products',
                     btnIcon: 'cards-heart-outline',
