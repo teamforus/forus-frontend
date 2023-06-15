@@ -167,8 +167,8 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
         }
 
         this.transformProductAlternativeText = (product) => {
-            const default_text = 'Photo of product ' + product.name + ' of provider ' + product.organization.name;
-            const provider_text = '.Provider describes it like: ' + product.alternative_text;
+            const default_text = 'Dit is een afbeelding van het aanbod ' + product.name + ' van aanbieder ' + product.organization.name;
+            const provider_text = '.De aanbieder omschrijft het aanbod als volgt: ' + product.alternative_text;
 
             return default_text + (product.alternative_text ? provider_text : '');
         }
