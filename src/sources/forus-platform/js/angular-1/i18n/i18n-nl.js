@@ -694,7 +694,9 @@ module.exports = {
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
             available_offers: "Resterend aanbod",
-            unlimited: "Onbeperkt"
+            unlimited: "Onbeperkt",
+            alternative_text: "Alt-tekst",
+            alternative_text_placeholder: "Omschrijving van de afbeelding",
         },
         tooltips: {
             product_type: ["Kies het soort aanbod. Voorbeelden:",
@@ -1423,6 +1425,18 @@ module.exports = {
         buttons: {
             cancel: "Annuleren",
             confirm: "Bevestigen",
+        }
+    },
+
+    validation_request_details: {
+        labels: {
+            clarification_requests: "Clarification requests ({{ count }})",
+            history: "History ({{ count }})",
+            files: "Files ({{ count }})",
+            old_value: "Old value",
+            new_value: "New value",
+            employee: "Employee",
+            date_changed: "Date changed",
         }
     },
 

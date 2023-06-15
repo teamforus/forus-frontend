@@ -1,0 +1,13 @@
+.block.block-attachments-list: .block-attachments-inner
+    a.attachment-item(ng-repeat='file in $dir.fundRequestRecord.files' ng-click='$dir.downloadFile(file)')
+        .attachment-icon
+            .mdi.mdi-file
+            .attachment-size(ng-bind='file.size')
+
+        .attachment-name(ng-bind='file.original_name')
+        .attachment-date(ng-bind='$dir.fundRequestRecord.created_at_locale')
+        .attachment-preview(
+            title="file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'"
+            ng-if="$dir.hasFilePreview(file)" 
+            ng-click="$dir.previewFile($event, file)")
+            .mdi.mdi-eye
