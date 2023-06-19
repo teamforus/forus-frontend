@@ -25,7 +25,7 @@ main(id="main-content")
             .product-card
                 .product-photo: img(
                     ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" 
-                    alt="")
+                    alt="{{ $ctrl.product.alternative_text }}")
                 
                 .product-details
                     .product-name
@@ -119,23 +119,23 @@ main(id="main-content")
                         .fund-item-section(ng-if="!fund.meta.applicableVouchers.length && $ctrl.signedIn && !fund.meta.isReservationAvailable")
                             .button.button-light.button-flat(ng-click="$ctrl.requestFund(fund)")
                                 span(translate="product.buttons.{{ $root.client_key }}.request" translate-default="{{ 'product.buttons.request' | translate }}")
-                                em.mdi.mdi-arrow-right.icon-right
+                                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                         .fund-item-section(ng-if="fund.meta.applicableVouchers.length && !fund.meta.isReservationAvailable")
                             .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)")
                                 span(i18n="product.buttons.open_voucher")
-                                em.mdi.mdi-arrow-right.icon-right
+                                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
             //- user not logged or no reservable funds
             .block.block-action-card.block-action-card-compact(ng-if="!$root.auth_user || ($ctrl.onlyAvailableFunds && !$ctrl.productMeta.hasReservableFunds)")
-                .block-card-logo: include ../../../resources/_webshop-common/assets/img/icon-funds-overview.svg
+                .block-card-logo(aria-hidden="true"): include ../../../resources/_webshop-common/assets/img/icon-funds-overview.svg
                 .block-card-details
                     h3.block-card-title(i18n="product.labels.funds_card_title")
                     .block-card-description(i18n="product.labels.funds_card_description")
                 .block-card-actions
                     a(ui-sref="funds").button.button-primary
                         span(i18n="product.labels.funds_card_btn_text")
-                        em.mdi.mdi-arrow-right.icon-right                    
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")                    
 
             .block.block-organizations: provider-list-item(provider="$ctrl.provider")
 

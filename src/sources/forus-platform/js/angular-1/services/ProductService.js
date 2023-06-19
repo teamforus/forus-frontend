@@ -70,6 +70,7 @@ let ProductService = function(ApiRequest) {
                 name: apiResource.name,
                 description: apiResource.description,
                 description_html: apiResource.description_html,
+                alternative_text: apiResource.alternative_text,
 
                 price: parseFloat(apiResource.price),
                 price_type: apiResource.price_type,

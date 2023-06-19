@@ -1,10 +1,13 @@
 const TopNavbarDirective = function (
     $state,
     $scope,
+    $filter,
+    appConfigs,
     ModalService,
     ConfigService
 ) {
     const $dir = $scope.$dir;
+    const $i18n = $filter('i18n');
 
     $dir.visible = false;
     $dir.prevOffsetY = false;
@@ -46,6 +49,9 @@ const TopNavbarDirective = function (
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
         $dir.logoExtension = ConfigService.getFlag('logoExtension');
+
+        // Organization logo alternative text
+        $dir.orgLogoAltText = $i18n(`logo_alt_text.${appConfigs.client_key}`, {}, appConfigs.client_key);
     };
 
     $dir.$onDestroy = () => {
@@ -66,6 +72,8 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
+            '$filter',
+            'appConfigs',
             'ModalService',
             'ConfigService',
             TopNavbarDirective,

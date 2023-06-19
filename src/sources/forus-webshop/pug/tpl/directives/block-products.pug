@@ -20,4 +20,4 @@ section.section.section-products#products
     .block.block-show-more(ng-if="$dir.showLoadMore"): a.button.button-primary.button-wide(
         ui-sref="{{ $dir.type == 'budget' ? 'products($dir.filters)' : 'actions($dir.filters)' }}")
         translate(translate="block_products.buttons.more")
-        em.mdi.mdi-arrow-right.icon-right
+        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")

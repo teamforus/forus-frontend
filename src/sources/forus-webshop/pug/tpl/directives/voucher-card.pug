@@ -1,5 +1,7 @@
 a(ui-sref="voucher(voucher)" dusk="voucherItem").voucher-item
-    .voucher-image: img(ng-src='{{ voucherCard.thumbnail }}' alt="{{ voucherCard.title }}")
+    .voucher-image: img(
+        ng-src='{{ voucherCard.thumbnail }}' 
+        alt="Dit is de afbeelding van {{ voucherCard.type == 'product' ? 'product ' + voucherCard.product.name : 'fund ' + voucherCard.fund.name }}")
 
     .voucher-details
         .voucher-name(ng-bind="voucherCard.title" dusk="voucherName")

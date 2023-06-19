@@ -333,7 +333,8 @@ main(id="main-content")
             .pane-head 
                 h2.pane-head-title(translate="voucher.labels.productdetail")
                 a(ng-if="$ctrl.voucherCard.returnable" ui-sref="product($ctrl.voucherCard.product)").pane-head-more
-                    | Bekijk details #[em.mdi.mdi-arrow-right] 
+                    | Bekijk details 
+                    em.mdi.mdi-arrow-right(aria-hidden="true") 
 
             .pane-section: .block.block-markdown
                 div(ng-bind-html="$ctrl.voucherCard.description")
