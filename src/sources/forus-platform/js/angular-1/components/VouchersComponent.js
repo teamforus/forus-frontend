@@ -1,13 +1,13 @@
 const { pick } = require("lodash");
 
-const VouchersComponent = function(
+const VouchersComponent = function (
     $state,
     $stateParams,
     $timeout,
     DateService,
     ModalService,
     VoucherService,
-    VoucherExportService
+    VoucherExportService,
 ) {
     const $ctrl = this;
 
@@ -62,7 +62,7 @@ const VouchersComponent = function(
             'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
             'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
         ]),
-        reset: function() {
+        reset: function () {
             this.values = { ...this.defaultValues };
             $ctrl.updateState(this.defaultValues);
         }
@@ -144,7 +144,7 @@ const VouchersComponent = function(
         VoucherService.index(
             $ctrl.organization.id,
             $ctrl.getQueryParams(query),
-        ).then((res) => { 
+        ).then((res) => {
             $ctrl.vouchers = res.data;
             $ctrl.updateState(query);
         });
@@ -175,14 +175,11 @@ const VouchersComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
-        if ($ctrl.funds.length == 0) {
-            // alert('Sorry, but no funds were found to add vouchers.');
-            // $state.go('funds');
-        } else if (!$stateParams.fund_id) {
-            $state.go('vouchers', {
-                ...$stateParams,
-                fund_id: $ctrl.fund ? $ctrl.fund.id : $ctrl.funds[0].id,
-            }, { location: 'replace' });
+        if (!$ctrl.fund && $ctrl.funds.length > 0) {
+            return $state.go('vouchers', {
+                organization_id: $state.params.organization_id,
+                fund_id: $ctrl.funds[0].id,
+            });
         }
 
         if ($ctrl.fund) {

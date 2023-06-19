@@ -173,14 +173,11 @@ const ProductVouchersComponent = function(
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
-        if ($ctrl.funds.length == 0) {
-            // alert('Sorry, but no funds were found to add vouchers.');
-            // $state.go('funds');
-        } else if (!$stateParams.fund_id) {
-            $state.go('product-vouchers', {
-                ...$stateParams,
-                fund_id: $ctrl.fund ? $ctrl.fund.id : $ctrl.funds[0].id,
-            }, { location: 'replace' });
+        if (!$ctrl.fund && $ctrl.funds.length > 0) {
+            return $state.go('product-vouchers', {
+                organization_id: $state.params.organization_id,
+                fund_id: $ctrl.funds[0].id,
+            });
         }
 
         if ($ctrl.fund) {
