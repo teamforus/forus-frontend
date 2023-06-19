@@ -7,8 +7,7 @@ const TopNavbarDirective = function (
     ConfigService
 ) {
     const $dir = $scope.$dir;
-
-    let $translate = $filter('translate');
+    const $i18n = $filter('i18n');
 
     $dir.visible = false;
     $dir.prevOffsetY = false;
@@ -52,12 +51,7 @@ const TopNavbarDirective = function (
         $dir.logoExtension = ConfigService.getFlag('logoExtension');
 
         // Organization logo alternative text
-        const trans_key = 'logo_alt_text.' + appConfigs.client_key;
-        $dir.orgLogoAltText = $translate(trans_key);
-
-        if ($dir.orgLogoAltText == trans_key) {
-            $dir.orgLogoAltText = appConfigs.client_key;
-        }
+        $dir.orgLogoAltText = $i18n(`logo_alt_text.${appConfigs.client_key}`, {}, appConfigs.client_key);
     };
 
     $dir.$onDestroy = () => {
