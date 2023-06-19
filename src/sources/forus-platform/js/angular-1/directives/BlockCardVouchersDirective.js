@@ -1,4 +1,4 @@
-const VouchersDirective = function (
+const BlockCardVouchersDirective = function (
     $scope,
     VoucherService,
     PushNotificationsService
@@ -70,7 +70,7 @@ const VouchersDirective = function (
         $dir.fundClosed = $dir.fund.state === 'closed';
 
         $scope.$watch('$dir.filterValues', $dir.onExternalFilterUpdated, true);
-        $scope.$watch('$root.auth_user', $dir.onAuthUserUpdated, true);
+        $scope.$watch('$root.auth_user', $dir.onAuthUserUpdated);
     };
 };
 
@@ -93,8 +93,8 @@ module.exports = () => {
             '$scope',
             'VoucherService',
             'PushNotificationsService',
-            VouchersDirective
+            BlockCardVouchersDirective
         ],
-        templateUrl: 'assets/tpl/directives/vouchers.html'
+        templateUrl: 'assets/tpl/directives/block-card-vouchers.html'
     };
 };

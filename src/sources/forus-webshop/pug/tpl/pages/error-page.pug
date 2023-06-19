@@ -8,4 +8,4 @@ block content
             .page-not-found-subtitle(ng-bind="('error_page.' + $ctrl.error + '.title') | translate")
             div: button.button.button-primary(ui-sref="home")
                 span(ng-bind="('error_page.' + $ctrl.error + '.button') | translate")
-                em.mdi.mdi-arrow-right.icon-right
+                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
