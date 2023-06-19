@@ -27,7 +27,7 @@ main(id="main-content")
                         ng-if="$ctrl.options.includes('code')"
                         ng-click="$ctrl.setState('code')")
 
-                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="icon me-app").sign_up-option-media-img
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
                         .sign_up-option-details
                             .sign_up-option-title Ik heb een activatiecode
                             .sign_up-option-description Ga verder met het activeren van je tegoed door gebruik te maken van een activatiecode
@@ -37,7 +37,7 @@ main(id="main-content")
                         ng-if="$ctrl.options.includes('digid')"
                         ng-click="$ctrl.selectDigiDOption('digid')")
 
-                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg").sign_up-option-media-img
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="").sign_up-option-media-img
                         .sign_up-option-details
                             .sign_up-option-title(ng-if="$ctrl.showFundRequestOption" alt="icon digid") DigiD
                             .sign_up-option-description(ng-if="$ctrl.showFundRequestOption")
@@ -52,7 +52,7 @@ main(id="main-content")
                         ng-if="$ctrl.options.includes('request')"
                         ui-sref="fund-request($ctrl.fund)")
 
-                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg").sign_up-option-media-img
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
                         .sign_up-option-details
                             .sign_up-option-title Ik wil een tegoed aanvragen
                             .sign_up-option-description Doorloop het aanvraagformulier om een tegoed aan te vragen

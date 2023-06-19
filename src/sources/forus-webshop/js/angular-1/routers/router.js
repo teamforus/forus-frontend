@@ -993,9 +993,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 CredentialsService.set(res.data.access_token);
                 $rootScope.loadAuthUser().then(() => !handleAuthTarget(target) && onAuthRedirect());
             }, (res) => {
-                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
-                    timeout: 8000,
-                });
+                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close');
 
                 $state.go('home');
             });
