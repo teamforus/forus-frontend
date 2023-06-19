@@ -1,5 +1,6 @@
 const SignUpStartComponent = function (
     $state,
+    $filter,
     $timeout,
     $rootScope,
     appConfigs,
@@ -10,6 +11,7 @@ const SignUpStartComponent = function (
     PageLoadingBarService,
 ) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
     const authTokenSubscriber = AuthService.accessTokenSubscriber();
 
     $ctrl.state = null;
@@ -156,12 +158,16 @@ const SignUpStartComponent = function (
         }
     };
 
+    const translationKey = `signup.items.${$rootScope.client_key}.title`;
+    $rootScope.pageTitle = $i18n(translationKey) != translationKey ? $i18n(translationKey) : 'Inloggen';
+
     $ctrl.$onDestroy = () => authTokenSubscriber.stopCheckAccessTokenStatus();
 };
 
 module.exports = {
     controller: [
         '$state',
+        '$filter',
         '$timeout',
         '$rootScope',
         'appConfigs',
@@ -170,7 +176,7 @@ module.exports = {
         'IdentityService',
         'FormBuilderService',
         'PageLoadingBarService',
-        SignUpStartComponent
+        SignUpStartComponent,
     ],
-    templateUrl: 'assets/tpl/pages/sign-up.html'
+    templateUrl: 'assets/tpl/pages/sign-up.html',
 };

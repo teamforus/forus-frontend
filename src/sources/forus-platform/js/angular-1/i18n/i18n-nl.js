@@ -426,8 +426,8 @@ module.exports = {
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
+            footer_app_info: "Footer download de Me-app content",
             cms_media_links: "Social media links",
-            footer_app_info: "",
         },
         implementations_table: {
             title: "Webshop pagina's",
@@ -695,7 +695,9 @@ module.exports = {
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
             available_offers: "Resterend aanbod",
-            unlimited: "Onbeperkt"
+            unlimited: "Onbeperkt",
+            alternative_text: "Alt-tekst",
+            alternative_text_placeholder: "Omschrijving van de afbeelding",
         },
         tooltips: {
             product_type: ["Kies het soort aanbod. Voorbeelden:",
@@ -1424,6 +1426,18 @@ module.exports = {
         buttons: {
             cancel: "Annuleren",
             confirm: "Bevestigen",
+        }
+    },
+
+    validation_request_details: {
+        labels: {
+            clarification_requests: "Clarification requests ({{ count }})",
+            history: "History ({{ count }})",
+            files: "Files ({{ count }})",
+            old_value: "Old value",
+            new_value: "New value",
+            employee: "Employee",
+            date_changed: "Date changed",
         }
     },
 

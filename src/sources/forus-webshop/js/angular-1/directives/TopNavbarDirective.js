@@ -14,6 +14,10 @@ const TopNavbarDirective = function (
         $state.go('start', data, { reload: true, inherit: false });
     };
 
+    $dir.goToState = (state_name) => {
+        $state.go(state_name, {}, { reload: true, inherit: false });
+    };
+
     $dir.openPinCodePopup = () => {
         $dir.userMenuOpened = false;
         ModalService.open('modalPinCode');

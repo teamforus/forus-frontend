@@ -1,4 +1,4 @@
-.block.block-sticky-footer.show-sm(ng-class='{ "scrolled" : !$dir.visible }' tabindex="0")
+.block.block-sticky-footer.show-sm(tabindex="0")
     ul.sticky-footer-list
         //- Products
         li(
@@ -50,17 +50,17 @@
 
         //- Dropdown menu
         li(ng-if="$root.auth_user").sticky-footer-dropdown
-            a.sticky-footer-item-wrapper(ng-click="$dir.openProfileMenu($event)" role="button" tabindex="0")
+            .sticky-footer-item-wrapper(ng-click="$dir.openProfileMenu($event)" role="button" tabindex="0")
                 em.mdi.mdi-dots-horizontal
                 span(translate="topnavbar.buttons.mobile.more")
 
-            .sticky-footer-dropwdown-subitems(ng-if="$dir.profileMenuOpened && $dir.visible" click-outside="$dir.hideProfileMenu()")
+            .sticky-footer-dropwdown-subitems(ng-if="$dir.profileMenuOpened" click-outside="$dir.hideProfileMenu()")
                 //- Dropdown title
                 .sticky-footer-dropwdown-info
                     .sticky-footer-dropwdown-title Meer
 
                 //- Vouchers
-                .sticky-footer-dropwdown-subitem(
+                a.sticky-footer-dropwdown-subitem(
                     ng-if="$dir.vouchers.length"
                     ui-sref="vouchers"
                     ng-click="$dir.hideProfileMenu()"
@@ -73,7 +73,7 @@
                     span(translate="topnavbar.buttons.mobile.dropdown.vouchers")
 
                 //- Reimbursements
-                .sticky-footer-dropwdown-subitem(
+                a.sticky-footer-dropwdown-subitem(
                     ng-if="$dir.appConfigs.features.has_reimbursements"
                     ui-sref="reimbursements"
                     ng-click="$dir.hideProfileMenu()"
@@ -92,13 +92,13 @@
                     ng-class="{active: $dir.$state.current.name == 'start'}"
                     aria-current="{{ $dir.$state.current.name == 'start' }}" 
                     tabindex="0"
-                    role="link")
+                    role="button")
                     
                     em.mdi.mdi-alarm-plus
                     span(translate="topnavbar.buttons.{{ $root.client_key }}.activate" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
                 
                 //- Reservations
-                .sticky-footer-dropwdown-subitem(
+                a.sticky-footer-dropwdown-subitem(
                     ui-sref="reservations"
                     ng-click="$dir.hideProfileMenu()"
                     ng-class="{active: $dir.$state.current.name == 'reservations'}"
@@ -110,7 +110,7 @@
                     span(translate="topnavbar.buttons.mobile.dropdown.reservations")
                 
                 //- Notifications
-                .sticky-footer-dropwdown-subitem(
+                a.sticky-footer-dropwdown-subitem(
                     ui-sref="notifications"
                     ng-click="$dir.hideProfileMenu()"
                     ng-class="{active: $dir.$state.current.name == 'notifications'}"
@@ -122,7 +122,7 @@
                     span(translate="topnavbar.buttons.mobile.dropdown.notifications")
 
                 //- Notification preferences
-                .sticky-footer-dropwdown-subitem(
+                a.sticky-footer-dropwdown-subitem(
                     ui-sref="preferences-notifications"
                     ng-click="$dir.hideProfileMenu()"
                     ng-class="{active: $dir.$state.current.name == 'preferences-notifications' }"
@@ -134,7 +134,7 @@
                     span(translate="topnavbar.buttons.mobile.dropdown.preferences_notifications")
                 
                 //- Identity emails
-                .sticky-footer-dropwdown-subitem(
+                a.sticky-footer-dropwdown-subitem(
                     ui-sref="identity-emails"
                     ng-click="$dir.hideProfileMenu()"
                     ng-class="{active: $dir.$state.current.name == 'identity-emails'}"
@@ -146,7 +146,7 @@
                     span(translate="topnavbar.buttons.mobile.dropdown.preferences_emails")
 
                 //- Funds
-                .sticky-footer-dropwdown-subitem(
+                a.sticky-footer-dropwdown-subitem(
                     ng-if="$dir.appConfigs.flags.fundsMenu"
                     ui-sref="funds"
                     ng-click="$dir.hideProfileMenu()"
@@ -159,7 +159,7 @@
                     span(translate="topnavbar.buttons.mobile.dropdown.funds")
 
                 //- Sessions
-                .sticky-footer-dropwdown-subitem(
+                a.sticky-footer-dropwdown-subitem(
                     ng-if="$dir.appConfigs.sessions"
                     ui-sref="security-sessions"
                     ng-click="$dir.hideProfileMenu()"
@@ -172,7 +172,7 @@
                     span(translate="topnavbar.buttons.mobile.dropdown.sessions")
 
                 //- Records
-                .sticky-footer-dropwdown-subitem(
+                a.sticky-footer-dropwdown-subitem(
                     ng-if="$dir.appConfigs.features.records.list"
                     ui-sref="records"
                     ng-click="$dir.hideProfileMenu()"

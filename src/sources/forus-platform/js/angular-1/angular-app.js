@@ -133,6 +133,7 @@ app.component('modalVoucherRecordEditComponent', require('./components/Modals/Mo
 app.component('modalEditSocialMediaComponent', require('./components/Modals/ModalEditSocialMediaComponent'));
 app.component('modalEditReimbursementCategoryComponent', require('./components/Modals/ModalEditReimbursementCategoryComponent'));
 app.component('modalEditReimbursementCategoriesComponent', require('./components/Modals/ModalEditReimbursementCategoriesComponent'));
+app.component('modalEditRequestRecordComponent', require('./components/Modals/ModalEditRequestRecordComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -261,7 +262,6 @@ app.directive('controlToggle', require('./directives/controls/ControlToggleDirec
 app.directive('controlNumeric', require('./directives/controls/ControlNumericDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('faqEditor', require('./directives/FaqEditorDirective'));
-app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 app.directive('eventLogs', require('./directives/EventLogsDirective'));
@@ -276,6 +276,12 @@ app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoin
 app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
 app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
+
+app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
+app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirective'));
+app.directive('fundRequestRecordAttachments', require('./directives/FundRequestRecordAttachmentsDirective'));
+app.directive('fundRequestRecordClarifications', require('./directives/FundRequestRecordClarificationsDirective'));
+app.directive('fundRequestRecordHistory', require('./directives/FundRequestRecordHistoryDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 

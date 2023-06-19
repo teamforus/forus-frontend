@@ -207,6 +207,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalEditReimbursementCategoryComponent'
     });
 
+    ModalRouteProvider.modal('editRequestRecordComponent', {
+        component: 'modalEditRequestRecordComponent'
+    });
+
     ModalRouteProvider.modal('websiteContactForm', {
         component: 'modalContactFormComponent'
     });

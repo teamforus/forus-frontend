@@ -3,7 +3,9 @@
         .block.block-bookmark-toggle(
             ng-if="$root.auth_user"
             ng-click="$dir.toggleBookmark($event)"
-            ng-class="$dir.product.bookmarked ? 'active' : ''")
+            ng-class="$dir.product.bookmarked ? 'active' : ''"
+            aria-label="toevoegen aan verlanglijstje"
+            aria-pressed="{{ $dir.product.bookmarked }}")
                 .mdi.mdi-cards-heart(ng-if="$dir.product.bookmarked")
                 .mdi.mdi-cards-heart-outline(ng-if="!$dir.product.bookmarked")
 
@@ -13,7 +15,7 @@
         
         .product-image: img(
             ng-src="{{ $dir.productImgSrc }}" 
-            alt="")
+            alt="{{ $dir.product.alternative_text }}")
 
         .product-details
             .product-name.product-name-ellipsis(ng-bind="$dir.product.name" dusk="productName")
@@ -27,12 +29,12 @@
         .product-image
             img(
                 ng-src="{{ $dir.productImgSrc }}" 
-                alt="")
+                alt="{{ $dir.product.alternative_text }}")
 
             .product-price(ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min == 0") Gratis
             .product-price(
                 ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min != 0" 
-                ng-bind="$dir.product.price_min | currency_format")
+                ng-bind="$dir.product.price_min_locale")
             
             .product-price(
                 ng-if="$dir.product.price_type !== 'regular'"
