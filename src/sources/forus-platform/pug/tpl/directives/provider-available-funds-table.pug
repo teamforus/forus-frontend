@@ -59,10 +59,11 @@
                             checked="$dir.selected.length == $dir.funds.data.length"
                             ng-click="$dir.toggleAll($event, $dir.funds.data)")
 
-                        th(translate="provider_funds.labels.fund")
-                        th(translate="provider_funds.labels.organization")
-                        th(translate="provider_funds.labels.start_date")
-                        th(translate="provider_funds.labels.end_date")
+                        th(th-sortable filters="$dir.filters.values" label="provider_funds.labels.fund" value="name")
+                        th(th-sortable filters="$dir.filters.values" label="provider_funds.labels.organization" value="organization_name")
+                        th(th-sortable filters="$dir.filters.values" label="provider_funds.labels.start_date" value="start_date")
+                        th(th-sortable filters="$dir.filters.values" label="provider_funds.labels.end_date" value="end_date")
+
                         th(translate="provider_funds.labels.actions").nowrap.text-right
 
                     tr(ng-repeat="fund in $dir.funds.data" ng-class="$dir.selected.includes(fund.id) ? 'selected' : ''")

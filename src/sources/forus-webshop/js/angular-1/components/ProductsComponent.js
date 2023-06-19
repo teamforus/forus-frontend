@@ -85,11 +85,22 @@ const ProductsComponent = function (
         $ctrl.loadProducts($ctrl.buildQuery(values));
     };
 
+    const transformProductAlternativeText = (product) => {
+        return ProductService.transformProductAlternativeText(product);
+    };
+
+    const transformProducts = () => {
+        $ctrl.products.data = $ctrl.products.data.map(
+            product => ({ ...product, ...{ alternative_text: transformProductAlternativeText(product) } })
+        );
+    };
+
     $ctrl.loadProducts = (query) => {
         PageLoadingBarService.setProgress(0);
 
         ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
             $ctrl.products = res.data;
+            transformProducts();
         }).finally(() => {
             $ctrl.updateState(query, true);
             $ctrl.updateFiltersUsedCount();
@@ -119,7 +130,7 @@ const ProductsComponent = function (
                 ProductCategoryService.list({
                     parent_id: $ctrl.product_category_id, 
                     per_page: 1000, 
-                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                    used: 1,
                     used_type: $ctrl.fund_type,
                 }).then(res => {
                     $ctrl.productSubCategories = res.data.meta.total ? [{
@@ -197,6 +208,7 @@ const ProductsComponent = function (
         });
 
         $ctrl.updateFiltersUsedCount();
+        transformProducts();
 
         if ($ctrl.productCategory) {
             $ctrl.product_category_id = $ctrl.productCategory.parent_id || $ctrl.productCategory.id;

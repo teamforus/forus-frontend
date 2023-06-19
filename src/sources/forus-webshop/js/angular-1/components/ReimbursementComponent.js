@@ -1,5 +1,11 @@
-const ReimbursementComponent = function ($state, ReimbursementService) {
+const ReimbursementComponent = function (
+    $state,
+    $filter,
+    $rootScope,
+    ReimbursementService,
+) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
 
     $ctrl.cancelReimbursement = ($event) => {
         $event.preventDefault();
@@ -14,6 +20,10 @@ const ReimbursementComponent = function ($state, ReimbursementService) {
 
     $ctrl.$onInit = () => {
         $ctrl.previewIndex = 0;
+
+        $rootScope.pageTitle = $i18n('page_state_titles.reimbursement', {
+            code: '#' + $ctrl.reimbursement.code,
+        });
     }
 };
 
@@ -23,6 +33,8 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$filter',
+        '$rootScope',
         'ReimbursementService',
         ReimbursementComponent,
     ],
