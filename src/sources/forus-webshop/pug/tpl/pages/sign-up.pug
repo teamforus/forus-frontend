@@ -4,7 +4,7 @@ top-navbar
 
 mixin qr_option(ngIf)
     .sign_up-option(ng-click="$ctrl.setState('qr')" ng-if=ngIf role="button")
-        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="icon me app").sign_up-option-media-img
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title Me app
             .sign_up-option-description
@@ -14,14 +14,14 @@ mixin qr_option(ngIf)
 
 mixin digid_option(ngIf, title, description)
     .sign_up-option(ng-if=ngIf role="button" ng-click="$ctrl.startDigId()")
-        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="icon digid").sign_up-option-media-img
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title=title
             .sign_up-option-description=description
 
 mixin email_option(ngIf, dusk, title, description)
     .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf role="button" dusk=dusk)
-        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg" alt="icon auth mail").sign_up-option-media-img
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title=title
             .sign_up-option-description=description
@@ -32,7 +32,7 @@ mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Account herst
         .sign_up-restore-link(
             ng-click="$ctrl.setState('restore')"
             role="button"
-            tabindex="0" 
+            tabindex="0"
             ng-show=ngShow dusk=dusk)=link
         .sign_up-restore-chevron: .mdi.mdi-chevron-right
 
