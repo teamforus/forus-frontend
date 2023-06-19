@@ -37,15 +37,21 @@ const ModalReimbursementDetailsEditComponent = function (
 
             $ctrl.reimbursement_categories.unshift({
                 id: null,
-                name: 'Alle categorieën',
+                name: 'Geen categorie',
             });
         });
     };
 
     $ctrl.manageCategories = () => {
+        $ctrl.modal.loaded = false;
+
         ModalService.open('editReimbursementCategories', {
             organization: $ctrl.organization,
-            onClose: () => $ctrl.fetchCategories(),
+        }, {
+            onClose: () => {
+                $ctrl.fetchCategories();
+                $ctrl.modal.loaded = true;
+            }
         });
     };
 

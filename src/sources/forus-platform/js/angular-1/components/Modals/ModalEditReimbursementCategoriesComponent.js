@@ -1,9 +1,8 @@
 const ModalEditReimbursementCategoriesComponent = function () {
     const $ctrl = this;
 
-    $ctrl.closeModal = () => {
-        $ctrl.close();
-        $ctrl.modal.scope.onClose();
+    $ctrl.register = ($dir) => {
+        $ctrl.addCategory = () => $dir.editReimbursementCategory();
     };
 
     $ctrl.$onInit = () => {

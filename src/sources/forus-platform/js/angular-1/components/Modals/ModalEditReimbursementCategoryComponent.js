@@ -30,12 +30,13 @@ const ModalEditReimbursementCategoryComponent = function (
     }
 
     $ctrl.$onInit = () => {
-        const { organization, reimbursementCategory } = $ctrl.modal.scope;
+        const { organization, reimbursementCategory, onChange, onClose } = $ctrl.modal.scope;
 
+        $ctrl.onClose = onClose;
         $ctrl.organization = organization;
         $ctrl.reimbursementCategory = reimbursementCategory;
 
-        $ctrl.form = $ctrl.buildForm($ctrl.modal.scope.onChange);
+        $ctrl.form = $ctrl.buildForm(onChange);
     };
 };
 

@@ -13,20 +13,24 @@
 
                 .form-group
                     label.form-label.form-label-required Aanbieder
-                    input(ng-model="$ctrl.form.values.provider_name").form-control
+                    input(ng-model="$ctrl.form.values.provider_name" placeholder="Aanbieder").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.provider_name" ng-bind="error")
 
                 .form-group
                     label.form-label.form-label-required Categorie
-                    select-control(
-                        search="false" 
-                        prop="id" 
-                        ng-model="$ctrl.form.values.reimbursement_category_id" 
-                        options="$ctrl.reimbursement_categories").form-control
+                    .form-group-offset: .row 
+                        .col.col-xs-9: select-control(
+                            search="false" 
+                            prop="id" 
+                            ng-model="$ctrl.form.values.reimbursement_category_id" 
+                            placeholder="Categorie"
+                            options="$ctrl.reimbursement_categories").form-control
+
+                        .col.col-xs-3: button.button.button-primary.button-fill(
+                            type="button" 
+                            ng-click="$ctrl.manageCategories()") Edit categories
+
                     .form-error(ng-repeat="error in $ctrl.form.errors.category_name" ng-bind="error")
-                
-                .form-group
-                    button.button.button-primary(type="button" ng-click="$ctrl.manageCategories()") Edit categories
 
         .modal-footer.text-center
             button.button.button-default(type="button" ng-click="$ctrl.close()") Annuleren

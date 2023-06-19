@@ -229,10 +229,12 @@
 
                 //- Edit
                 .flex: .block.block-inline-filters
-                    .button.button-primary(ng-click="$ctrl.editReimbursementDetails()")
+                    .button.button-primary(
+                        ng-if="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"
+                        ng-click="$ctrl.editReimbursementDetails()")
                         em.mdi.mdi-pencil.icon-start 
                         | Bewerk
-            
+
             .card-section: .flex
                 .flex: .card-block.card-block-keyvalue
                     .keyvalue-item

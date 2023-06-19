@@ -1,14 +1,26 @@
-.modal.modal-md.modal-animated.modal-reimbursement-categories(
+.modal.modal-lg.modal-animated.modal-reimbursement-categories(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
-    .modal-backdrop(ng-click="$ctrl.closeModal()")
+    .modal-backdrop(ng-click="$ctrl.close()")
 
     .modal-window
-        a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header Add reimbursement categories
 
-        reimbursement-categories(organization="$ctrl.organization")
+        .modal-body
+            reimbursement-categories(
+                compact="true"
+                organization="$ctrl.organization"
+                register="$ctrl.register($dir)"
+                on-edit='$ctrl.modal.loaded = false'
+                on-edit-done='$ctrl.modal.loaded = true')
 
         //- form submit
         .modal-footer.text-center
-            button.button.button-default(type="button" ng-click="$ctrl.closeModal()" id="close") Sluiten
+            button.button.button-default(
+                type="button" 
+                ng-click="$ctrl.close()") Sluiten
+
+            button.button.button-primary(
+                type="button" 
+                ng-click="$ctrl.addCategory()") Add category

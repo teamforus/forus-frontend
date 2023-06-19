@@ -1,17 +1,17 @@
-let ReimbursementCategoriesDirective = function(
+const ReimbursementCategoriesDirective = function (
     $scope,
     $filter,
     ModalService,
     PushNotificationsService,
     ReimbursementCategoryService
 ) {
-    let $dir = $scope.$dir = {};
+    const $dir = $scope.$dir = {};
 
     const $translate = $filter('translate');
     const $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_reimbursement_category.${key}`);
 
     $dir.filters = {
-        per_page: 15,
+        per_page: $scope.compact ? 10 : 15,
     };
 
     $dir.onPageChange = (query = {}) => {
@@ -22,10 +22,16 @@ let ReimbursementCategoriesDirective = function(
     };
 
     $dir.editReimbursementCategory = (reimbursementCategory = null) => {
+        if (typeof $dir.onEdit == 'function') {
+            $dir.onEdit();
+        }
+
         ModalService.open('editReimbursementCategory', {
             organization: $dir.organization,
             reimbursementCategory: reimbursementCategory,
             onChange: () => $dir.onPageChange($dir.filters),
+        }, {
+            onClose: () => $dir.onEditDone ? $dir.onEditDone() : null
         });
     };
 
@@ -49,9 +55,18 @@ let ReimbursementCategoriesDirective = function(
     };
 
     $scope.init = () => {
+        $dir.compact = $scope.compact;
         $dir.organization = $scope.organization;
 
+        $dir.onEdit = $scope.onEdit;
+        $dir.register = $scope.register;
+        $dir.onEditDone = $scope.onEditDone;
+
         $dir.onPageChange($dir.filters);
+
+        if ($dir.register) {
+            $dir.register({ '$dir': $dir });
+        }
     };
 
     $scope.init();
@@ -60,7 +75,11 @@ let ReimbursementCategoriesDirective = function(
 module.exports = () => {
     return {
         scope: {
+            compact: '=',
             organization: '=',
+            onEdit: '&',
+            register: '&',
+            onEditDone: '&',
         },
         restrict: "EA",
         replace: true,
@@ -70,8 +89,8 @@ module.exports = () => {
             'ModalService',
             'PushNotificationsService',
             'ReimbursementCategoryService',
-            ReimbursementCategoriesDirective
+            ReimbursementCategoriesDirective,
         ],
-        templateUrl: 'assets/tpl/directives/reimbursement-categories-edit.html'
+        templateUrl: 'assets/tpl/directives/reimbursement-categories.html',
     };
 };

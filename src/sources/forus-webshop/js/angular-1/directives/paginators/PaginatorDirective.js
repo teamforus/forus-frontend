@@ -90,6 +90,7 @@ module.exports = () => {
             onPageChange: '&',
             filtersFromState: '=',
             countButtons: '=',
+            buttonClass: '@',
         },
         restrict: "EA",
         replace: true,
