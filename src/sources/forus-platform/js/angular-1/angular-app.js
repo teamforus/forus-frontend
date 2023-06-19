@@ -260,7 +260,6 @@ app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
 app.directive('eventLogs', require('./directives/EventLogsDirective'));
 app.directive('voucherRecords', require('./directives/VoucherRecordsDirective'));
-app.directive('vouchers', require('./directives/VouchersDirective'));
 app.directive('voucherTransactions', require('./directives/VoucherTransactionsDirective'));
 app.directive('voucherTransactionDetails', require('./directives/TransactionDetailsDirective'));
 app.directive('providerFundsTable', require('./directives/ProviderFundsTableDirective'));
@@ -268,6 +267,7 @@ app.directive('providerAvailableFundsTable', require('./directives/ProviderAvail
 app.directive('providerFundsInvitationTable', require('./directives/ProviderFundsInvitationTableDirective'));
 app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoinDirective'));
 app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
+app.directive('blockCardVouchers', require('./directives/BlockCardVouchersDirective'));
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
 
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));

@@ -4,7 +4,9 @@
         //-.card-heading(ng-if="$ctrl.funds.length > 1" ng-bind="'csv_validation.header.title' | translate")
         fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
 
-        .card(ng-if="$ctrl.vouchers" dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
+        .card(
+            ng-if="$ctrl.vouchers && $ctrl.funds.length > 0" 
+            dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
             .card-header: .flex
                 .flex.flex-grow: .card-title(dusk="vouchersTitle")
                     span(translate="vouchers.header.title") 
