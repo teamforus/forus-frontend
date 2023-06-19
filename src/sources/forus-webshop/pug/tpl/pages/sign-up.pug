@@ -3,8 +3,8 @@
 top-navbar
 
 mixin qr_option(ngIf)
-    .sign_up-option(ng-click="$ctrl.setState('qr')" ng-if=ngIf)
-        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="icon me app").sign_up-option-media-img
+    .sign_up-option(ng-click="$ctrl.setState('qr')" ng-if=ngIf role="button")
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title Me app
             .sign_up-option-description
@@ -13,15 +13,15 @@ mixin qr_option(ngIf)
                 | &nbsp;
 
 mixin digid_option(ngIf, title, description)
-    .sign_up-option(ng-if=ngIf ng-click="$ctrl.startDigId()")
-        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="icon digid").sign_up-option-media-img
+    .sign_up-option(ng-if=ngIf role="button" ng-click="$ctrl.startDigId()")
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title=title
             .sign_up-option-description=description
 
 mixin email_option(ngIf, dusk, title, description)
-    .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf dusk=dusk)
-        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg" alt="icon auth mail").sign_up-option-media-img
+    .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf role="button" dusk=dusk)
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title=title
             .sign_up-option-description=description
@@ -29,8 +29,10 @@ mixin email_option(ngIf, dusk, title, description)
 mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Account herstellen met DigiD")
     .sign_up-restore(ng-if=ngIf)
         .sign_up-restore-label=label
-        a.sign_up-restore-link(
-            ng-click="$ctrl.setState('restore')" 
+        .sign_up-restore-link(
+            ng-click="$ctrl.setState('restore')"
+            role="button"
+            tabindex="0"
             ng-show=ngShow dusk=dusk)=link
         .sign_up-restore-chevron: .mdi.mdi-chevron-right
 

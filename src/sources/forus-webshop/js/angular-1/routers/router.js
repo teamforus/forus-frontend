@@ -191,7 +191,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 return repackResponse(ProductCategoryService.list({ 
                     parent_id: 'null', 
                     per_page: 1000, 
-                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                    used: 1,
                     used_type: 'budget'
                 }))
             }],
@@ -200,7 +200,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                     parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
                     ...{ 
                         per_page: 1000, 
-                        used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                        used: 1,
                         used_type: 'budget' 
                     },
                 })) : null;
@@ -254,7 +254,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 return repackResponse(ProductCategoryService.list({ 
                     parent_id: 'null', 
                     per_page: 1000, 
-                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                    used: 1,
                     used_type: 'subsidies'
                 }))
             }],
@@ -263,7 +263,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                     parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
                     ...{ 
                         per_page: 1000,
-                        used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                        used: 1,
                         used_type: 'subsidies',
                     },
                 })) : null;
@@ -336,14 +336,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             productCategories: ['ProductCategoryService', (ProductCategoryService) => {
                 return repackResponse(ProductCategoryService.list({ 
                     parent_id: 'null', 
-                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null,
+                    used: 1,
                     per_page: 1000, 
                 }))
             }],
             productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
                 return productCategory ? repackResponse(ProductCategoryService.list({
                     parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
-                    used: appConfigs.flags.showOnlyUsedCategories ? 1 : null,
+                    used: 1,
                     per_page: 1000, 
                 })) : null;
             }],
@@ -421,7 +421,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 ProductCategoryService
             ) => repackResponse(ProductCategoryService.list({ 
                 parent_id: 'null', 
-                used: appConfigs.flags.showOnlyUsedCategories ? 1 : null, 
+                used: 1,
                 per_page: 1000,
             }))],
             vouchers: ['AuthService', 'VoucherService', (
@@ -993,9 +993,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 CredentialsService.set(res.data.access_token);
                 $rootScope.loadAuthUser().then(() => !handleAuthTarget(target) && onAuthRedirect());
             }, (res) => {
-                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
-                    timeout: 8000,
-                });
+                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close');
 
                 $state.go('home');
             });

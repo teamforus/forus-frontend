@@ -1,7 +1,7 @@
 a.fund-item
     .fund-photo: img(
         ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
-        alt="")
+        alt="Dit is de afbeelding van {{ $dir.fund.name }}")
 
     .fund-content: .fund-details
         .fund-name(ng-bind="$dir.fund.name")
@@ -50,4 +50,4 @@ a.fund-item
             type="button"
             ng-click="$dir.applyFund($event,$dir.fund)")
             translate(translate="funds.buttons.is_applicable")
-            em.mdi.mdi-arrow-right.icon-right
+            em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")

@@ -13,10 +13,6 @@ const ProductItemDirective = function (
     $dir.productType = $scope.productType;
     $dir.productImgSrc = $dir.media?.sizes?.small || $dir.media?.sizes?.thumbnail || './assets/img/placeholders/product-small.png';
 
-    $dir.lowestPrice = $scope.product.price_type === 'regular' ? Math.min(
-        parseFloat($scope.product.price), parseFloat($scope.product.price_min)
-    ) : null;
-
     $dir.toggleBookmark = ($event) => {
         $event.preventDefault();
         $event.stopPropagation();

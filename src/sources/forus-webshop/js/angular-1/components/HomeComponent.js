@@ -4,7 +4,8 @@ const HomeComponent = function (
     appConfigs,
     ModalService,
     AuthService,
-    VoucherService
+    VoucherService,
+    ProductService
 ) {
     const $ctrl = this;
 
@@ -20,6 +21,16 @@ const HomeComponent = function (
         $ctrl.vouchers = [];
     }
 
+    const transformProductAlternativeText = (product) => {
+        return ProductService.transformProductAlternativeText(product);
+    };
+
+    const transformProducts = (products) => {
+        products.data = products.data.map(
+            product => ({ ...product, ...{ alternative_text: transformProductAlternativeText(product) } })
+        );
+    };
+
     $ctrl.$onInit = () => {
         const { digid_error, session_expired } = $state.params;
 
@@ -32,6 +43,9 @@ const HomeComponent = function (
                 'background-image': 'url("' + appConfigs.features.banner.sizes.large + '")',
             };
         };
+
+        transformProducts($ctrl.products);
+        transformProducts($ctrl.subsidies);
 
         $ctrl.overlayStyles = { opacity: $ctrl.appConfigs.features.settings.overlay_opacity };
 
@@ -69,6 +83,7 @@ module.exports = {
         'ModalService',
         'AuthService',
         'VoucherService',
+        'ProductService',
         HomeComponent,
     ],
     templateUrl: 'assets/tpl/pages/home.html'

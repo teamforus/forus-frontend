@@ -70,7 +70,7 @@ const VouchersDirective = function (
         $dir.fundClosed = $dir.fund.state === 'closed';
 
         $scope.$watch('$dir.filterValues', $dir.onExternalFilterUpdated, true);
-        $scope.$watch('$root.auth_user', $dir.onAuthUserUpdated, true);
+        $scope.$watch('$root.auth_user', $dir.onAuthUserUpdated);
     };
 };
 

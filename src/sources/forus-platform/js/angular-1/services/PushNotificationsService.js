@@ -8,7 +8,7 @@ let PushNotificationsService = function() {
             title: '',
             message: '',
             icon: 'check',
-            timeout: 4000,
+            timeout: 5000,
         }, notification);
 
         notifications.push(note);

@@ -195,6 +195,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalEditSocialMediaComponent'
     });
 
+    ModalRouteProvider.modal('editRequestRecordComponent', {
+        component: 'modalEditRequestRecordComponent'
+    });
+
     ModalRouteProvider.modal('websiteContactForm', {
         component: 'modalContactFormComponent'
     });

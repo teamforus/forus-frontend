@@ -22,13 +22,13 @@ main(id="main-content")
                         ng-if="$ctrl.fund.external_link_text && $ctrl.fund.external_link_url"
                         ng-href="{{ $ctrl.fund.external_link_url }}")
                         span(ng-bind="$ctrl.fund.external_link_text")
-                        em.mdi.mdi-arrow-right.icon-right
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                     a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.showRequestButton"
                         ui-sref="fund-activate({fund_id: $ctrl.fund.id})")
                         span(ng-bind="$ctrl.fund.request_btn_text")
-                        em.mdi.mdi-arrow-right.icon-right
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                     a.button.button-primary.button-wide.button-disabled(
                         ng-if="$ctrl.fund.showPendingButton"
@@ -39,7 +39,7 @@ main(id="main-content")
                         ng-if="$ctrl.fund.showActivateButton" 
                         ng-click="$ctrl.applyFund($event, $ctrl.fund)")
                         translate(translate="funds.buttons.is_applicable")
-                        em.mdi.mdi-arrow-right.icon-right
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                     a.button.button-primary.button-wide(
                         ng-if="$ctrl.fund.alreadyReceived" 
@@ -47,7 +47,7 @@ main(id="main-content")
                         translate(
                             translate="funds.buttons.{{ $ctrl.fund.key }}.already_received"
                             translate-default="{{'funds.buttons.already_received' | translate }}")
-                        em.mdi.mdi-arrow-right.icon-right
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
             .fund-content
                 .fund-card: .fund-details
@@ -60,7 +60,7 @@ main(id="main-content")
 
                         .fund-details-item(ng-repeat="formula in $ctrl.formulaList.multiply" ng-if="$ctrl.fund.type == 'budget'")
                             .fund-details-item-label(translate="fund.criterias.multiplied_amount")
-                            .fund-details-item-value(ng-bind="formula.amount | currency_format")                                 
+                            .fund-details-item-value(ng-bind="formula.amount_locale")                                 
 
                         .fund-details-item(ng-hide="$ctrl.fund.key == 'IIT'")
                             .fund-details-item-label Startdatum:
@@ -93,9 +93,15 @@ main(id="main-content")
             h2.section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
 
             .faq.faq-fund
-                .faq-item(collapse ng-repeat="question in $ctrl.fund.faq" class=active ? 'active' : '' collapse-item)
+                .faq-item(
+                    collapse 
+                    ng-repeat="question in $ctrl.fund.faq"
+                    ng-class="{active: question.isActive}" 
+                    ng-click="question.isActive = !question.isActive" 
+                    collapse-item)
+                    
                     .faq-item-header(collapse-header)
-                        h2(ng-bind="question.title").faq-item-title
+                        h2(ng-bind="question.title" role="button" tabindex="0" aria-expanded="{{question.isActive}}" ).faq-item-title
                         .faq-item-chevron-down.mdi.mdi-chevron-down
                         .faq-item-chevron-up.mdi.mdi-chevron-up
                     .faq-item-content: .block.block-markdown(ng-bind-html="question.description_html")
