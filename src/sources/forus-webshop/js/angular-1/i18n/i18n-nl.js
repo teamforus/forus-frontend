@@ -88,7 +88,7 @@ module.exports = {
         ede: "Ede",
         eemsdelta: "Gemeente Eemsdelta",
         geertruidenberg: "Gemeente Geertruidenberg",
-        groningen: "Gemeente Groningen",
+        groningen: "Stadjerspas",
         kerstpakket: "Kerstpakket",
         heumen: "Gemeente Heumen",
         hartvanwestbrabant: "Werkplein",
