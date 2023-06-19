@@ -10,8 +10,13 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             ui-sref-active="active").show-sm
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-info.svg
                 div(
+                    ng-if="$root.client_key != 'groningen'"
                     translate="topnavbar.items.{{ $root.appConfigs.client_key }}.explanation"
                     translate-default="{{ 'topnavbar.items.explanation' | translate }}")
+
+                div(
+                    ng-if="$root.client_key == 'groningen'"
+                    translate="topnavbar.items.explanation")
 
         a(ui-sref="home").navbar-logo.show-sm
             img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="Terug naar hoofdpagina")
@@ -140,7 +145,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
                     a(ng-if="$root.auth_user" ui-sref="vouchers" id="vouchers" dusk="userVouchers").button.button-primary
                         em.mdi.mdi-ticket-confirmation
-                        span(translate="topnavbar.buttons.voucher")
+                        span(translate="topnavbar.buttons.{{ $root.client_key }}.voucher" translate-default="{{ 'topnavbar.buttons.voucher' | translate }}")
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
                         .auth-user(

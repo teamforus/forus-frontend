@@ -25,7 +25,7 @@ footer.section.section-footer(id="footer")
                         .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
 
             .col.col-md-3: .flex.flex-vertical(ng-class="description_footer_app_info_position == 'after' ? 'flex-vertical-reverse' : ''")
-                .block.block-markdown(ng-bind-html="description_footer_app_info_html")
+                .block.block-markdown(ng-if="description_footer_app_info_html" ng-bind-html="description_footer_app_info_html")
 
                 div(ng-if="!description_footer_app_info_html || description_footer_app_info_position !== 'replace'")
                     .block.block-markdown
