@@ -13,15 +13,17 @@
             .select-control-search-placeholder(ng-bind="$dir.value.raw[$dir.as] || $dir.placeholder")
             .select-control-icon: .mdi(ng-class="$dir.showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down'")
 
-        input(
-            id="{{ $dir.controlId }}"
-            type="search"
-            placeholder="{{ $dir.placeholder }}"
-            ng-click="$dir.onInputClick()"
-            ng-keydown="$dir.searchKeydown($event)"
-            ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
-            ng-change="$dir.searchInputChanged()"
-            ng-model="$dir.filter.q").select-control-search.form-control 
+        .ui-control.ui-control-search-input
+            input(
+                id="{{ $dir.controlId }}"
+                placeholder="{{ $dir.placeholder }}"
+                ng-click="$dir.onInputClick()"
+                ng-keydown="$dir.searchKeydown($event)"
+                ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
+                ng-change="$dir.searchInputChanged()"
+                ng-model="$dir.filter.q").select-control-search.form-control
+            
+            .ui-control-clear(ng-if="$dir.filter.q && $dir.showOptions" ng-click="$dir.clear()" aria-label="cancel"): .mdi.mdi-close-circle 
         
         select-control-options(
             ng-if="$dir.showOptions" 
