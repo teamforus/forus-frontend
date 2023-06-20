@@ -24,7 +24,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
         .block.block-auth.show-sm
             .auth-in(ng-if="$root.auth_user").show-sm
-                button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
+                button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="Uitloggen")
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
                     div(translate="topnavbar.buttons.logout")
 
@@ -133,8 +133,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                         ng-if="!$root.auth_user"
                         ng-click="$dir.startFundRequest()"
                         role="button"
-                        dusk="btnStart"
-                        aria-label="{{ 'home.header.' + $root.client_key + '.button' | translate }}")
+                        dusk="btnStart")
 
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
 

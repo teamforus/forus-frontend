@@ -3,7 +3,8 @@
         //- Products
         li(
             ng-if="$dir.appConfigs.features.has_budget_funds && ($dir.appConfigs.flags.productsMenu || $root.auth_user)"
-            ui-sref="products" ui-sref-active="active")
+            ui-sref="products" ui-sref-active="active"
+            role="none")
             a.sticky-footer-item(ui-sref="products" aria-current="{{ $dir.$state.current.name == 'products' }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
                 span(translate="topnavbar.buttons.products")
@@ -12,7 +13,8 @@
         li(
             ng-if="$dir.appConfigs.features.has_subsidy_funds && ($dir.appConfigs.flags.productsMenu || $root.auth_user)" 
             ui-sref="actions" 
-            ui-sref-active="active")
+            ui-sref-active="active"
+            role="none")
             a.sticky-footer-item(ui-sref="actions" aria-current="{{ $dir.$state.current.name == 'actions' }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-products2.svg
                 span(translate="topnavbar.buttons.subsidies")
@@ -20,7 +22,8 @@
         //- Providers
         li(
             ui-sref="providers"
-            ui-sref-active="active")
+            ui-sref-active="active"
+            role="none")
             a.sticky-footer-item(ui-sref="providers" aria-current="{{ $dir.$state.current.name == 'providers' }}" role="link" tabindex="0")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-providers.svg
                 span(translate="topnavbar.buttons.providers")
@@ -29,7 +32,8 @@
         li(
             ng-if="!$dir.vouchers.length || !$root.auth_user" 
             ng-click="$dir.startFundRequest()" 
-            ui-sref-active="active")
+            ui-sref-active="active"
+            role="none")
             a.sticky-footer-item(ng-click="$dir.startFundRequest()" aria-current="{{ $dir.$state.current.name == 'start' }}" tabindex="0" role="link")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start-request.svg
                 span(
@@ -42,11 +46,12 @@
         li(
             ng-if="$dir.vouchers.length && $root.auth_user"
             ui-sref="vouchers"
-            ui-sref-active="active")
+            ui-sref-active="active"
+            role="none")
 
             a.sticky-footer-item-wrapper(ui-sref="vouchers" aria-current="{{ $dir.$state.current.name == 'vouchers' }}" tabindex="0" role="link")
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-vouchers2.svg
-                span(translate="topnavbar.buttons.mobile.voucher")
+                span(translate="topnavbar.labels.mobile.voucher")
 
         //- Dropdown menu
         li(ng-if="$root.auth_user").sticky-footer-dropdown
