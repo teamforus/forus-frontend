@@ -86,6 +86,7 @@ module.exports = {
         providers: "Aanbieders",
 
         mobile: {
+            voucher: "Tegoeden",
             request: "Aanvragen",
             profile: "Profiel",
             more: "Meer",
