@@ -102,9 +102,4 @@ module.exports = {
             }
         }
     },
-    labels: {
-        mobile: {
-            voucher: "Tegoeden",
-        }
-    }
 }
