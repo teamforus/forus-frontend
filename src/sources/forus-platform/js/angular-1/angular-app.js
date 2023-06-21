@@ -78,6 +78,7 @@ app.component('implementationCmsConfigEditComponent', require('./components/Impl
 app.component('emailConfirmedComponent', require('./components/EmailConfirmedComponent'));
 app.component('reservationsSettingsComponent', require('./components/ReservationsSettingsComponent'));
 app.component('implementationCmsSocialMediaEditComponent', require('./components/ImplementationCmsSocialMediaEditComponent'));
+app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -125,10 +126,13 @@ app.component('modalVoucherTransactionComponent', require('./components/Modals/M
 app.component('modalFundRequestAssignValidatorComponent', require('./components/Modals/ModalFundRequestAssignValidatorComponent'));
 app.component('modalAddNoteComponent', require('./components/Modals/ModalAddNoteComponent'));
 app.component('modalReimbursementResolveComponent', require('./components/Modals/Reimbursements/ModalReimbursementResolveComponent'));
+app.component('modalReimbursementDetailsEditComponent', require('./components/Modals/Reimbursements/ModalReimbursementDetailsEditComponent'));
 app.component('modalFundUnsubscribeComponent', require('./components/Modals/ModalFundUnsubscribeComponent'));
 app.component('modalVoucherTransactionsUploadComponent', require('./components/Modals/ModalVoucherTransactionsUploadComponent'));
 app.component('modalVoucherRecordEditComponent', require('./components/Modals/ModalVoucherRecordEditComponent'));
 app.component('modalEditSocialMediaComponent', require('./components/Modals/ModalEditSocialMediaComponent'));
+app.component('modalEditReimbursementCategoryComponent', require('./components/Modals/ModalEditReimbursementCategoryComponent'));
+app.component('modalEditReimbursementCategoriesComponent', require('./components/Modals/ModalEditReimbursementCategoriesComponent'));
 app.component('modalEditRequestRecordComponent', require('./components/Modals/ModalEditRequestRecordComponent'));
 
 // Modal Components
@@ -145,6 +149,7 @@ app.service('TransactionBulksExportService', require('./services/TransactionBulk
 app.service('VoucherService', require('./services/VoucherService'));
 app.service('VoucherRecordService', require('./services/VoucherRecordService'));
 app.service('ReimbursementService', require('./services/ReimbursementService'));
+app.service('ReimbursementCategoryService', require('./services/ReimbursementCategoryService'));
 app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
 app.service('FundIdentitiesExportService', require('./services/FundIdentitiesExportService'));
@@ -204,6 +209,7 @@ app.service('FundUnsubscribeService', require('./services/FundUnsubscribeService
 app.service('AnnouncementService', require('./services/AnnouncementService'));
 app.service('ProductReservationsExportService', require('./services/ProductReservationsExportService'));
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
+app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 
 // Directives
 app.directive('menu', {
@@ -269,6 +275,7 @@ app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoin
 app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
 app.directive('blockCardVouchers', require('./directives/BlockCardVouchersDirective'));
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
+app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
 
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirective'));

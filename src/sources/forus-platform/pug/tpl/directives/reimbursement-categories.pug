@@ -1,0 +1,49 @@
+.card.card-last
+    //- Header
+    .card-header(ng-if="!$dir.compact"): .flex
+        .flex.flex-grow: .card-title(ng-bind="'Reimbursement categories (' + $dir.reimbursementCategories.meta.total + ')'")
+        
+        .flex: .block.block-inline-filters
+            a(ng-click="$dir.editReimbursementCategory()" id="add_reimbursement_category").button.button-primary.button-sm
+                em.mdi.mdi-plus-circle.icon-start
+                translate(translate="Toevoegen")
+
+    //- Content
+    .card-section.card-section-primary(ng-if="$dir.reimbursementCategories.data.length")
+        .card-block.card-block-table: .table-wrapper: table.table
+            tr
+                th Categorie naam
+                th Organisatie
+                th Totaal gebruikt
+                th.th-narrow.text-right Opties
+
+            tr(ng-repeat="reimbursementCategory in $dir.reimbursementCategories.data")
+                td(ng-bind="reimbursementCategory.name")
+                td(ng-bind="reimbursementCategory.organization.name")
+                td(ng-bind="reimbursementCategory.reimbursements_count")
+
+                td.td-narrow.text-right: .flex
+                    a(ng-click="$dir.editReimbursementCategory(reimbursementCategory)").button.button-sm.button-default
+                        em.mdi.mdi-pen.icon-start
+                        translate(translate="Bewerken")
+
+                    button(
+                        ng-disabled="reimbursementCategory.reimbursements_count > 0"
+                        ng-click="$dir.deleteReimbursementCategory(reimbursementCategory)").button.button-danger.button-icon
+                        em.icon-start.mdi.mdi-delete
+    
+    //- Pagination
+    .card-section(
+        ng-class="$dir.compact ? 'card-section-narrow' : ''"
+        ng-show="$dir.reimbursementCategories.meta.total"): .table-pagination
+        paginator(
+            ng-if="$dir.reimbursementCategories.meta"
+            meta="$dir.reimbursementCategories.meta"
+            filters="$dir.filters"
+            button-class="{{ $dir.compact ? 'button-sm' : '' }}"
+            on-page-change="$dir.onPageChange(query)")
+
+    //- Not found
+    block-empty(
+        ng-if="$dir.reimbursementCategories.meta.total == 0"
+        text="Er zijn momenteel geen reimbursement categories.")
