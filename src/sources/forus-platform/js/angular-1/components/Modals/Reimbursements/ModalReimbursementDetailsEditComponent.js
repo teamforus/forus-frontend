@@ -17,7 +17,7 @@ const ModalReimbursementDetailsEditComponent = function (
                 provider_name: form.values.provider_name,
                 reimbursement_category_id: form.values.reimbursement_category_id,
             }).then((res) => {
-                PushNotificationsService.success('Gelukt!', 'Declaration updated!');
+                PushNotificationsService.success('Gelukt!', 'Declaratie is bijgewerkt!');
 
                 $ctrl.onSubmitted(res);
                 $ctrl.close();

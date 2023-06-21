@@ -1,7 +1,7 @@
 .card.card-last
     //- Header
     .card-header(ng-if="!$dir.compact"): .flex
-        .flex.flex-grow: .card-title(ng-bind="'Reimbursement categories (' + $dir.reimbursementCategories.meta.total + ')'")
+        .flex.flex-grow: .card-title(ng-bind="'Declaratie categorieën (' + $dir.reimbursementCategories.meta.total + ')'")
         
         .flex: .block.block-inline-filters
             a(ng-click="$dir.editReimbursementCategory()" id="add_reimbursement_category").button.button-primary.button-sm
@@ -46,4 +46,4 @@
     //- Not found
     block-empty(
         ng-if="$dir.reimbursementCategories.meta.total == 0"
-        text="Er zijn momenteel geen reimbursement categories.")
+        text="Er zijn momenteel geen declaratie categorieën.")
