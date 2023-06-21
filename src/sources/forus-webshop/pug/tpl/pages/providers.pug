@@ -150,7 +150,7 @@ block content
                             svg-icon="reimbursements"
                             description="{{ 'block_providers.empty.subtitle' | translate }}"
                             hide-link="true"
-                            ng-if="$ctrl.providers.data.length == 0")
+                            ng-if="$ctrl.providers.data.length == 0 && !$ctrl.showMap")
 
                         paginator(
                             ng-if="$ctrl.showMap"

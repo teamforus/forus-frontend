@@ -922,6 +922,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     /**
+     * Reimbursement categories
+     */
+    $stateProvider.state({
+        name: "reimbursement-categories-edit",
+        url: "/organizations/{organization_id}/reimbursement-categories-edit",
+        component: "reimbursementCategoriesEditComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
+        }
+    });
+
+    /**
      * Voucher details
      */
     $stateProvider.state({

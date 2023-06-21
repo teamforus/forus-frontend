@@ -183,6 +183,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalReimbursementResolveComponent'
     });
 
+    ModalRouteProvider.modal('reimbursementDetailsEditComponent', {
+        component: 'modalReimbursementDetailsEditComponent'
+    });
+
     ModalRouteProvider.modal('fundUnsubscribe', {
         component: 'modalFundUnsubscribeComponent'
     });
@@ -193,6 +197,14 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('editSocialMediaComponent', {
         component: 'modalEditSocialMediaComponent'
+    });
+
+    ModalRouteProvider.modal('editReimbursementCategories', {
+        component: 'modalEditReimbursementCategoriesComponent'
+    });
+
+    ModalRouteProvider.modal('editReimbursementCategory', {
+        component: 'modalEditReimbursementCategoryComponent'
     });
 
     ModalRouteProvider.modal('editRequestRecordComponent', {
