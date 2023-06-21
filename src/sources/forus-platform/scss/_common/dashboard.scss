@@ -7443,6 +7443,18 @@ body {
         }
     }
 
+    &.modal-reimbursement-categories {
+        .card {
+            box-shadow: none;
+            border-bottom: 0;
+            margin-bottom: 0;
+
+            .table-pagination .table-pagination-counter {
+                line-height: 30px;
+            }
+        }
+    }
+
     @media screen and (max-width: 1800px) {
         .modal-footer {
             padding: 25px;

@@ -1,4 +1,5 @@
 const ReimbursementsComponent = function (
+    ReimbursementsExportService,
     ReimbursementService,
     PageLoadingBarService,
 ) {
@@ -57,6 +58,14 @@ const ReimbursementsComponent = function (
         $ctrl.filters.values.deactivated = null;
     };
 
+    $ctrl.exportReimbursements = () => {
+        $ctrl.hideFilters()
+
+        ReimbursementsExportService.export($ctrl.organization.id, {
+            ...$ctrl.filters.values, per_page: undefined,
+        });
+    };
+
     $ctrl.onPageChange = (query) => {
         PageLoadingBarService.setProgress(0);
 
@@ -77,6 +86,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        'ReimbursementsExportService',
         'ReimbursementService',
         'PageLoadingBarService',
         ReimbursementsComponent,

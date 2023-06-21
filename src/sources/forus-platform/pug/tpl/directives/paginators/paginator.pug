@@ -5,12 +5,12 @@
         span(ng-bind="meta.total")
     .table-pagination-navigation
         button(
-            ng-class="meta.current_page == 1 ? 'disabled' : ''" 
+            ng-class="[meta.current_page == 1 ? 'disabled' : '', buttonClass]" 
             ng-click="setPage(1)").button.button-default {{ "paginator.buttons.first" | translate }} 
         button(
             ng-repeat="page in pages" ng-bind="page"
             ng-click="setPage(page)"
-            ng-class="page == meta.current_page ? 'button-primary' : 'button-default'").button
+            ng-class="[page == meta.current_page ? 'button-primary' : 'button-default', buttonClass]").button
         button(
-            ng-class="meta.current_page == meta.last_page ? 'disabled' : ''" 
+            ng-class="[meta.current_page == meta.last_page ? 'disabled' : '', buttonClass]" 
             ng-click="setPage(meta.last_page)").button.button-default {{ "paginator.buttons.last" | translate }} 

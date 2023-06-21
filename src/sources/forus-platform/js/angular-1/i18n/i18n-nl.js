@@ -77,6 +77,7 @@ module.exports = {
             cancel_provider_unsubscription: require('./nl/modals/danger-zone/cancel-provider-unsubscription'),
             remove_voucher_record: require('./nl/modals/danger-zone/remove-voucher-record'),
             remove_implementation_social_media: require('./nl/modals/danger-zone/remove-implementation-social-media'),
+            remove_reimbursement_category: require('./nl/modals/danger-zone/remove_reimbursement_category'),
         },
     },
     // PAGES
