@@ -14,6 +14,7 @@
                     input.form-control(ng-model="$ctrl.form.values.value" ng-if="!$ctrl.recordNumeric")
                     input.form-control(ng-model="$ctrl.form.values.value" ng-if="$ctrl.recordNumeric" type="number" step="1")
                     .form-error(ng-repeat="error in $ctrl.form.errors.value" ng-bind="error")
+                    .form-hint(ng-if="$ctrl.criterion.description" ng-bind="'Criterion: ' + $ctrl.criterion.description")
         //- form submit
         .modal-footer.text-center
             button.button.button-default(type="button" ng-click="$ctrl.close()" id="close") Sluiten

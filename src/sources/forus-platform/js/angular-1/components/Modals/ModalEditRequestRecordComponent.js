@@ -9,6 +9,10 @@ const ModalEditRequestRecordComponent = function (
 
         $ctrl.fundRequest = fundRequest;
         $ctrl.fundRequestRecord = fundRequestRecord;
+
+        $ctrl.criterion = $ctrl.fundRequest?.fund?.criteria?.find((criterion) => {
+            return criterion.id == $ctrl.fundRequestRecord.fund_criterion_id;
+        });
         
         $ctrl.recordNumeric = fundRequestRecord.record_type.type == 'number';
         $ctrl.initialValue = $ctrl.recordNumeric ? parseFloat(fundRequestRecord.value) : fundRequestRecord.value;
