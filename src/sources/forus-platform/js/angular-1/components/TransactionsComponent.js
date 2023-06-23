@@ -1,10 +1,12 @@
-const TransactionsComponent = function(
+const { pick } = require("lodash");
+
+const TransactionsComponent = function (
     $q,
     $state,
     $filter,
     appConfigs,
-    ModalService,
     $stateParams,
+    ModalService,
     TransactionService,
     TransactionsExportService,
     TransactionBulkService,
@@ -75,7 +77,10 @@ const TransactionsComponent = function(
 
     $ctrl.filters = {
         show: false,
-        values: {},
+        values: pick($stateParams, $stateParams.type == 'transactions' ? [
+            'q', 'state', 'fund_id', 'fund_state', 'from', 'to', 'amount_min', 'amount_max',
+            'order_by', 'order_dir', 'page', 'per_page',
+        ] : []),
         valuesDefault: {
             q: '',
             state: $ctrl.states[0].key,
@@ -89,11 +94,17 @@ const TransactionsComponent = function(
             order_by: 'created_at',
             order_dir: 'desc',
         },
-        reset: () => $ctrl.filters.values = { ...$ctrl.filters.valuesDefault }
+        reset: () => {
+            $ctrl.filters.values = { ...$ctrl.filters.valuesDefault };
+            $ctrl.updateState($ctrl.filters.valuesDefault);
+        }
     };
 
     $ctrl.bulkFilters = {
-        values: {},
+        values: pick($stateParams, $stateParams.type == 'bulks' ? [
+            'from', 'to', 'amount_min', 'amount_max', 'quantity_min', 'quantity_max', 'state',
+            'per_page', 'page', 'order_by', 'order_dir',
+        ] : []),
         valuesDefault: {
             from: null,
             to: null,
@@ -106,7 +117,10 @@ const TransactionsComponent = function(
             order_by: 'created_at',
             order_dir: 'desc',
         },
-        reset: () => $ctrl.bulkFilters.values = { ...$ctrl.bulkFilters.valuesDefault }
+        reset: () => {
+            $ctrl.bulkFilters.values = { ...$ctrl.bulkFilters.valuesDefault };
+            $ctrl.updateState($ctrl.bulkFilters.valuesDefault);
+        }
     };
 
     $ctrl.resetFilters = () => {
@@ -216,44 +230,70 @@ const TransactionsComponent = function(
         });
     };
 
+    $ctrl.mapTransactionBulks = (bulkTransactions) => {
+        const data = bulkTransactions.data.map((transactionBulk) => {
+            const ui_sref = {
+                organization_id: $ctrl.organization.id,
+                id: transactionBulk.id
+            };
+
+            return { ...transactionBulk, ui_sref };
+        });
+
+        $ctrl.transactionBulks = { ...bulkTransactions, data };
+    };
+
     $ctrl.onBulkPageChange = (query) => {
+        if ($ctrl.viewType?.key != 'bulks') {
+            return;
+        }
+
         $ctrl.fetchBulks(query).then(((res) => {
-            const data = res.data.data.map((transactionBulk) => {
-                const ui_sref = {
-                    organization_id: $ctrl.organization.id,
-                    id: transactionBulk.id
-                };
-
-                return { ...transactionBulk, ui_sref };
-            });
-
-            $ctrl.transactionBulks = { ...res.data, data };
+            $ctrl.mapTransactionBulks(res.data);
+            $ctrl.updateState(query);
         }));
     };
 
-    $ctrl.onPageChange = (query) => {
-        $ctrl.fetchTransactions(query).then((res => {
-            const data = res.data.data.map((transaction) => {
-                const ui_sref = ({
-                    address: transaction.address,
-                    organization_id: $ctrl.organization.id,
-                });
-
-                const ui_sref_bulk = {
-                    organization_id: $ctrl.organization.id,
-                    id: transaction.voucher_transaction_bulk_id
-                };
-
-                return { ...transaction, ui_sref, ui_sref_bulk };
+    $ctrl.mapTransactions = (transactions) => {
+        const data = transactions.data.map((transaction) => {
+            const ui_sref = ({
+                address: transaction.address,
+                organization_id: $ctrl.organization.id,
             });
 
-            $ctrl.transactions = { ...res.data, data };
-            $ctrl.transactionsTotal = res.data.meta.total_amount;
+            const ui_sref_bulk = {
+                organization_id: $ctrl.organization.id,
+                id: transaction.voucher_transaction_bulk_id
+            };
 
-            if ($ctrl.isSponsor && $ctrl.organization.has_bank_connection) {
-                $ctrl.updateHasPendingBulking();
-            }
+            return { ...transaction, ui_sref, ui_sref_bulk };
+        });
+
+        $ctrl.transactions = { ...transactions, data };
+        $ctrl.transactionsTotal = transactions.meta.total_amount;
+
+        if ($ctrl.isSponsor && $ctrl.organization.has_bank_connection) {
+            $ctrl.updateHasPendingBulking();
+        }
+    };
+
+    $ctrl.onPageChange = (query) => {
+        if ($ctrl.viewType?.key != 'transactions') {
+            return;
+        }
+
+        $ctrl.fetchTransactions(query).then((res => {
+            $ctrl.mapTransactions(res.data);
+            $ctrl.updateState(query);
         }));
+    };
+
+    $ctrl.updateState = (query) => {
+        $state.go(
+            'transactions',
+            { ...query, type: $ctrl.viewType.key, organization_id: $ctrl.organization.id },
+            { location: 'replace' },
+        );
     };
 
     $ctrl.exportTransactions = () => {
@@ -297,12 +337,10 @@ const TransactionsComponent = function(
             name: 'Selecteer fond'
         });
 
-        $ctrl.filters.reset();
-        $ctrl.onPageChange($ctrl.filters.values);
+        $ctrl.mapTransactions($ctrl.transactions);
 
         if ($ctrl.isSponsor) {
-            $ctrl.bulkFilters.reset();
-            $ctrl.onBulkPageChange($ctrl.bulkFilters.values);
+            $ctrl.mapTransactionBulks($ctrl.transactionBulks);
 
             if ($ctrl.organization.has_bank_connection) {
                 $ctrl.updateHasPendingBulking();
@@ -313,23 +351,25 @@ const TransactionsComponent = function(
 
 module.exports = {
     bindings: {
-        organization: '<',
         funds: '<',
+        organization: '<',
+        transactions: '<',
+        transactionBulks: '<',
     },
     controller: [
         '$q',
         '$state',
         '$filter',
         'appConfigs',
-        'ModalService',
         '$stateParams',
+        'ModalService',
         'TransactionService',
         'TransactionsExportService',
         'TransactionBulkService',
         'TransactionBulksExportService',
         'PageLoadingBarService',
         'PushNotificationsService',
-        TransactionsComponent
+        TransactionsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/transactions.html'
+    templateUrl: 'assets/tpl/pages/transactions.html',
 };

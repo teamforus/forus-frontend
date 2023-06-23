@@ -308,6 +308,7 @@
             border-radius: 0;
             display: flex;
             flex-direction: column;
+            height: 100vh;
 
             .search-result-sidebar {
                 display: flex;
@@ -348,8 +349,6 @@
             }
 
             .search-result-content {
-                min-height: 100vh;
-
                 .search-result-section {
                     margin-bottom: 10px;
 
@@ -398,9 +397,9 @@
                 .search-result-actions {
                     position: absolute;
                     margin-top: 0;
-                    padding: 10px 20px;
+                    padding: 20px;
                     width: 100%;
-                    bottom: 120px;
+                    bottom: 50px;
 
                     .button {
                         padding: 8px 15px;

@@ -28,13 +28,13 @@ mixin progress()
 mixin go_back()
     //- Back to fund-activate page
     .flex-col.text-left(ng-if="$ctrl.step == 0")
-        .button.button-text.button-text-padless(ui-sref="fund-activate({fund_id: $ctrl.fund.id})" role="button")
+        a.button.button-text.button-text-padless(ui-sref="fund-activate({fund_id: $ctrl.fund.id})" role="link" tabindex="0")
             .mdi.mdi-chevron-left.icon-left
             | Terug
 
     //- Back to prev step
     .flex-col.text-left(ng-if="$ctrl.step > 0")
-        .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
+        .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button" tabindex="0")
             .mdi.mdi-chevron-left.icon-left
             | Terug
 
@@ -245,7 +245,7 @@ main(id="main-content")
                     //- Actions footer
                     .sign_up-pane-footer: .row
                         .col.col-lg-6.col-xs-6.text-left
-                            button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
+                            button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button" tabindex="0")
                                 .mdi.mdi-chevron-left.icon-left
                                 translate(translate='fund_request.sign_up.pane.footer.prev')
 
@@ -350,7 +350,7 @@ main(id="main-content")
                     .sign_up-pane-footer: .row
                         //- Back
                         .col.col-lg-6.col-xs-6.text-left
-                            button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button")
+                            button.button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button" tabindex="0")
                                 .mdi.mdi-chevron-left.icon-left
                                 translate(translate='fund_request.sign_up.pane.footer.prev')
 
@@ -457,7 +457,7 @@ main(id="main-content")
                             .sign_up-pane-separator
 
                         .sign_up-options: .sign_up-option(ng-click="$ctrl.startDigId()")
-                            .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="icon digid").sign_up-option-media-img
+                            .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="").sign_up-option-media-img
                             .sign_up-option-details
                                 .sign_up-option-title DigiD
                                 .sign_up-option-description Log opnieuw in met DigiD om opnieuw te beginnen.

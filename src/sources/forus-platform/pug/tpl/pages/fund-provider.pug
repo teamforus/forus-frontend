@@ -44,7 +44,7 @@
                     td(ng-if="product.unlimited_stock") Ongelimiteerd
                     td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
                     td(ng-bind="product.active_deal ? (product.active_deal.amount | currency_format) : '-'")
-                    td(ng-bind="product.price_locale")
+                    td(ng-bind="product.price_locale").nowrap
                     td.td-narrow.text-right: .button-group.flex-end
                         .flex.flex-center(ng-if="product.is_available && product.allowed"): .flex-self-center
                             .tag.tag-success.nowrap.flex
@@ -112,7 +112,7 @@
                     td(ng-bind="product.name")
                     td(ng-if="product.unlimited_stock") Ongelimiteerd
                     td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
-                    td(ng-bind="product.price_locale")
+                    td(ng-bind="product.price_locale").nowrap
 
                     td.td-narrow: .form.pull-right: label(
                         for=("product_{{ product.id }}_enabled") 
@@ -173,7 +173,7 @@
                     td(ng-bind="product.name")
                     td(ng-if="product.unlimited_stock") Ongelimiteerd
                     td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
-                    td(ng-bind="product.price_locale")
+                    td(ng-bind="product.price_locale").nowrap
 
                     td.td-narrow: .form.pull-right: label(
                         for=("product_{{ product.id }}_enabled") 
@@ -224,7 +224,7 @@
                     td(ng-if="product.unlimited_stock") Ongelimiteerd
                     td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
                     td(ng-bind="product.active_deal ? (product.active_deal.amount | currency_format) : '-'")
-                    td(ng-bind="product.price_locale")
+                    td(ng-bind="product.price_locale").nowrap
                     td.td-narrow.text-right: .button-group.flex-end
                         a.button.button-primary.button-sm.nowrap(
                             ng-if="product.is_available && !product.allowed" 

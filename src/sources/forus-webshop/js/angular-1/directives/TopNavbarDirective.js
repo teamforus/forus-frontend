@@ -1,11 +1,14 @@
 const TopNavbarDirective = function (
     $state,
     $scope,
+    $filter,
+    appConfigs,
     $rootScope,
     ModalService,
     ConfigService
 ) {
     const $dir = $scope.$dir;
+    const $i18n = $filter('i18n');
 
     $dir.visible = false;
     $dir.prevOffsetY = false;
@@ -13,6 +16,10 @@ const TopNavbarDirective = function (
 
     $dir.startFundRequest = (data = {}) => {
         $state.go('start', data, { reload: true, inherit: false });
+    };
+
+    $dir.goToState = (state_name) => {
+        $state.go(state_name, {}, { reload: true, inherit: false });
     };
 
     $dir.openPinCodePopup = () => {
@@ -49,8 +56,11 @@ const TopNavbarDirective = function (
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
         window.addEventListener('resize', onResize);
-           
+
         $dir.logoExtension = ConfigService.getFlag('logoExtension');
+
+        // Organization logo alternative text
+        $dir.orgLogoAltText = $i18n(`logo_alt_text.${appConfigs.client_key}`, {}, appConfigs.client_key);
         $rootScope.showSearchBox = isMobileDevice();
     };
 
@@ -73,6 +83,8 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
+            '$filter',
+            'appConfigs',
             '$rootScope',
             'ModalService',
             'ConfigService',
