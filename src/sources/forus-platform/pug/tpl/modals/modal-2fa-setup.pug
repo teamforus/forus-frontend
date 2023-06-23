@@ -1,6 +1,6 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-lg(
+.modal.modal-lg.modal-animated(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
@@ -14,7 +14,6 @@
 
             .modal-section
                 .modal-section-column.modal-section-column-4: .form
-                     
                     .modal-text
                         strong.text-strong Please select the authentication app you want to use
                         .form-group: select-control(
@@ -41,7 +40,6 @@
                         br
                         | 2. Choose #[strong.text-strong Scan a QR code] or #[strong.text-strongEnter a setup key: {{ $ctrl.auth_2fa.secret }}]
 
-
                 .modal-section-column.modal-section-column-2
                     qr-code.block-qr-code-fit(
                         ng-if="$ctrl.auth_2fa.secret_url" 
@@ -52,12 +50,12 @@
             .modal-footer
                 .button-group
                     //- Cancel
-                    .button.button-default(ng-click="$ctrl.cancel()") Cancel
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default Cancel
                     //- Next
-                    .button.button-primary(ng-click="$ctrl.submitAuthenticator()") Submit
+                    button(type="submit" ng-click="$ctrl.submitAuthenticator()").button.button-primary Submit
 
         //- Phone number
-        .modal-body(ng-if="$ctrl.step == 'phone_setup'")
+        .modal-body(ng-if="$ctrl.step == 'phone_setup'"): form(ng-submit="$ctrl.submitPhoneNumber()")
             .modal-header
                 .modal-heading Set up Authenticator
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
@@ -76,17 +74,19 @@
                             block-count="4"
                             cant-delete-Length="3"
                             block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+
                         .form-error(ng-repeat="error in $ctrl.phoneNumberError" ng-bind="error")
 
             .modal-footer
                 .button-group
                     //- Cancel
-                    .button.button-default(ng-click="$ctrl.cancel()") Cancel
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-default Cancel
                     //- Next
-                    .button.button-primary(ng-click="$ctrl.submitPhoneNumber()") Submit
+                    button(type="submit").button.button-primary Submit
 
         //- Auth 2FA provider code confirmation
-        .modal-body(ng-if="$ctrl.step == 'provider_confirmation'")
+        .modal-body(ng-if="$ctrl.step == 'provider_confirmation'"): form(
+            ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.activateProvider()")
             .modal-header
                 .modal-heading Set up Authenticator
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
@@ -105,25 +105,30 @@
                             block-size="3" 
                             block-count="2" 
                             block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                        
+                        .form-error(ng-repeat="error in $ctrl.activateAuthErrors" ng-bind="error")
                 
                 .modal-text.text-center(ng-if="$ctrl.type == 'phone'")
-                    .button.button-default.button-sm(ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingBlocked")
+                    button.button.button-text.button-text-primary.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
                         .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
                         | Resend Code
+                        span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} second(s))
 
             .modal-footer
                 .button-group
                     //- Back
-                    .button.button-default(
+                    button.button.button-default(
+                        type="button"
                         ng-click="$ctrl.setStep($ctrl.type == 'phone' ? 'phone_setup' : 'provider_select')") Back
 
                     //- Submit
-                    .button.button-primary(
-                        ng-disabled="$ctrl.confirmationCode.length !== 6"
-                        ng-click="$ctrl.activateProvider()") Verify
+                    button.button.button-primary(
+                        type="submit"
+                        ng-disabled="$ctrl.confirmationCode.length !== 6") Verify
 
         //- Auth 2FA provider code verification
-        .modal-body(ng-if="$ctrl.step == 'provider_verification'")
+        .modal-body(ng-if="$ctrl.step == 'provider_verification'"): form(
+            ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.verifyAuthProvider()")
             .modal-header
                 .modal-heading Confirm authentication
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
@@ -146,22 +151,26 @@
                             block-size="3" 
                             block-count="2" 
                             block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                        
+                        .form-error(ng-repeat="error in $ctrl.verifyAuthErrors" ng-bind="error")
                 
                 .modal-text.text-center(ng-if="$ctrl.type == 'phone'")
-                    .button.button-default.button-sm(ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingBlocked")
+                    button.button.button-text.button-text-primary.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
                         .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
                         | Resend Code
+                        span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} second(s))
 
             .modal-footer
                 .button-group
                     //- Cancel
-                    .button.button-default(
+                    button.button.button-default(
+                        type="button"
                         ng-click="$ctrl.cancel()") Cancel
 
                     //- Submit
-                    .button.button-primary(
-                        ng-disabled="$ctrl.confirmationCode.length !== 6"
-                        ng-click="$ctrl.verifyAuthProvider()") Verify
+                    button.button.button-primary(
+                        type="submit"
+                        ng-disabled="$ctrl.confirmationCode.length !== 6") Verify
 
         //- Auth 2FA provider code confirmation
         .modal-body(ng-if="$ctrl.step == 'success'")
@@ -176,4 +185,4 @@
                     | Elementum sed pulvinar faucibus tincidunt gravida ultrices. Senectus nisl enim dolor in vitae sem. 
                     | Malesuada lacus arcu eleifend pharetra diam mauris vitae egestas.
 
-            .modal-footer: .button-group: .button.button-primary(ng-click="$ctrl.done()") Confirm
+            .modal-footer: .button-group: button(ng-click="$ctrl.done()").button.button-primary Confirm

@@ -6,8 +6,8 @@ const Modal2FASetupComponent = function (
     const $ctrl = this;
 
     $ctrl.resending = false;
-    $ctrl.resendingBlocked = false;
-    $ctrl.resendingInterval = 10000;
+    $ctrl.resendingTime = 0;
+    $ctrl.resendingInterval = 10;
 
     $ctrl.makePhone2FA = () => {
         return Identity2FAService.store({
@@ -29,14 +29,19 @@ const Modal2FASetupComponent = function (
         }).then((res) => {
             $ctrl.setStep('provider_select');
             $ctrl.auth_2fa = res.data?.data;
-        }, (res) => PushNotificationsService.danger(res.data?.message || 'Unknown error.'));
+        }, (res) => {
+            PushNotificationsService.danger(res.data?.message || 'Unknown error.');
+
+            if (res.status == '429') {
+                $ctrl.cancel();
+            }
+        });
     }
 
     $ctrl.setStep = (step) => {
-        if (step == 'phone_setup') {
-            $ctrl.resetPhoneNumber();
-        }
-
+        $ctrl.phoneNumber = '+31';
+        $ctrl.phoneNumberError = null;
+        $ctrl.confirmationCode = '';
         $ctrl.step = step;
     };
 
@@ -48,18 +53,19 @@ const Modal2FASetupComponent = function (
         $ctrl.setStep('provider_confirmation');
     }
 
-    $ctrl.resetPhoneNumber = () => {
-        $ctrl.phoneNumber = '+31';
-        $ctrl.phoneNumberError = null;
-    };
-
     $ctrl.activateProvider = () => {
         Identity2FAService.activate($ctrl.auth_2fa.uuid, {
             key: $ctrl.provider.key,
             code: $ctrl.confirmationCode,
         }).then(
-            () => $ctrl.setStep('success'),
-            (res) => PushNotificationsService.danger(res.data?.message || 'Unknown error.'),
+            () => {
+                $ctrl.activateAuthErrors = null;
+                $ctrl.setStep('success');
+            },
+            (res) => {
+                $ctrl.activateAuthErrors = res.data?.errors.code;
+                PushNotificationsService.danger(res.data?.message || 'Unknown error.');
+            },
         );
     };
 
@@ -67,8 +73,14 @@ const Modal2FASetupComponent = function (
         Identity2FAService.authenticate($ctrl.auth_2fa.uuid, {
             code: $ctrl.confirmationCode,
         }).then(
-            () => $ctrl.setStep('success'),
-            (res) => $ctrl.confirmationCodeError = res.data?.errors.code,
+            () => {
+                $ctrl.verifyAuthErrors = null;
+                $ctrl.setStep('success');
+            },
+            (res) => {
+                $ctrl.verifyAuthErrors = res.data?.errors.code;
+                PushNotificationsService.danger(res.data?.message || 'Unknown error.');
+            },
         );
     };
 
@@ -85,11 +97,17 @@ const Modal2FASetupComponent = function (
     };
 
     $ctrl.blockResend = () => {
-        $ctrl.resendingBlocked = true;
+        $ctrl.resendingTime = $ctrl.resendingInterval;
 
-        $timeout(() => {
-            $ctrl.resendingBlocked = false;
-        }, $ctrl.resendingInterval)
+        const callback = () => {
+            $ctrl.resendingTime--;
+
+            if ($ctrl.resendingTime > 0) {
+                $timeout(callback, 1000);
+            }
+        }
+
+        $timeout(callback, 1000);
     };
 
     $ctrl.cancel = () => {
@@ -102,21 +120,41 @@ const Modal2FASetupComponent = function (
         $ctrl.close();
     };
 
+    $ctrl.onKeyDown = (e) => {
+        if (e.key === 'Enter' && $ctrl.step == 'provider_select') {
+            return $ctrl.submitAuthenticator();
+        }
+
+        if (e.key === 'Enter' && $ctrl.step == 'success') {
+            return $ctrl.done();
+        }
+    };
+
+    $ctrl.bindEvents = () => {
+        document.body.addEventListener("keydown", $ctrl.onKeyDown);
+    };
+
+    $ctrl.unbindEvents = () => {
+        document.body.removeEventListener("keydown", $ctrl.onKeyDown);
+    };
+
     $ctrl.$onInit = () => {
         const { type, onReady, onCancel, auth, auth2FAState } = $ctrl.modal.scope;
         const { active_providers, providers } = auth2FAState;
 
         $ctrl.providers = providers.filter((provider) => provider.type == type);
         $ctrl.provider = $ctrl.providers.find((provider) => provider);
-        
+
         $ctrl.active_providers = active_providers.filter((auth_2fa) => auth_2fa.provider_type.type == type);
         $ctrl.auth_2fa = $ctrl.active_providers.find((auth_2fa) => auth_2fa);
-        
+
         $ctrl.auth = auth;
         $ctrl.type = type;
 
         $ctrl.onReady = onReady;
         $ctrl.onCancel = onCancel;
+
+        $ctrl.bindEvents();
 
         // should authenticate
         if ($ctrl.auth) {
@@ -134,8 +172,11 @@ const Modal2FASetupComponent = function (
 
         if (type === 'phone') {
             $ctrl.setStep('phone_setup');
-            $ctrl.resetPhoneNumber();
         }
+    };
+
+    $ctrl.$onDestroy = () => {
+        $ctrl.unbindEvents();
     };
 };
 

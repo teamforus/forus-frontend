@@ -1,11 +1,13 @@
-.modal.modal-2fa-setup(
+.modal.modal-2fa-setup.modal-animated(
     ng-if="$ctrl.modal.ready"
-    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
 
     .modal-content
         //- Deactivation confirmation
-        .modal-window(ng-if="$ctrl.step == 'confirmation'")
+        .modal-window(ng-if="$ctrl.step == 'confirmation'"): form(
+            ng-submit="$ctrl.deactivateProvider()")
+
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Reset 2FA provider
 
@@ -17,30 +19,35 @@
                         .form-label(ng-if="$ctrl.type == 'phone'") Enter 6-digit SMS code 
                         .form-label(ng-if="$ctrl.type == 'authenticator'") Enter 6-digit from the app
 
-                        pincode-control(
-                            ng-model="$ctrl.confirmationCode" 
-                            block-size="3" 
-                            block-count="2" 
-                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
-                
+                        .form-group-offset
+                            pincode-control(
+                                ng-model="$ctrl.confirmationCode" 
+                                block-size="3" 
+                                block-count="2" 
+                                block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                                
+                            .form-error(ng-repeat="error in $ctrl.errorCode" ng-bind="error")
+                    
                     .text-center(ng-if="$ctrl.type == 'phone'")
-                        button.button.button-text.button-sm(ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingBlocked")
+                        button.button.button-text.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
                             .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
                             | Resend Code
+                            span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} second(s))
 
             .modal-footer
                 .button-group
                     //- Back
-                    .button.button-light.button-sm(
+                    button.button.button-default(
+                        type="button"
                         ng-click="$ctrl.cancel()") Cancel
 
                     //- Submit
-                    .button.button-primary.button-sm(
-                        ng-disabled="$ctrl.confirmationCode.length !== 6"
-                        ng-click="$ctrl.deactivateProvider()") Verify
+                    button.button.button-primary(
+                        type="submit"
+                        ng-disabled="$ctrl.confirmationCode.length !== 6") Verify
 
         //- Success
-        .modal-window(ng-if="$ctrl.step == 'success'")
+        .modal-window(ng-if="$ctrl.step == 'success'"): form(ng-submit="$ctrl.done()")
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Reset 2FA success
 

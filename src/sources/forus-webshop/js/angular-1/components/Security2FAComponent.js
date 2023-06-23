@@ -55,7 +55,7 @@ const Security2FAComponent = function (
             auth_2fa_remember_ip: $ctrl.auth2FAState.auth_2fa_remember_ip ? 1 : 0,
         }, (form) => {
             Identity2FAService.update(form.values).then((res) => {
-                $ctrl.auth2FAState = res.data;
+                $ctrl.auth2FAState = res.data.data;
                 PushNotificationsService.success('Updated!');
             }, (res) => {
                 form.unlock();

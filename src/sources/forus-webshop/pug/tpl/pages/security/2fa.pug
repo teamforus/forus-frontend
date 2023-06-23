@@ -42,10 +42,10 @@ section.section.section-voucher-details: .wrapper
                             em.mdi.mdi-lock-open-outline.icon-start
                             | Disable
 
-            .profile-content-header.clearfix(ng-if="!$ctrl.auth2FAState.auth_2fa_forget_force")
+            .profile-content-header.clearfix
                 h3.profile-content-title Settings
 
-            .block.block-auth-2fa(ng-if="!$ctrl.auth2FAState.auth_2fa_forget_force")
+            .block.block-auth-2fa
                 form(ng-submit="$ctrl.form.submit()").form.form-compact
                     .form-group
                         label.form-label(for="select_organization") Remember IP
@@ -53,6 +53,17 @@ section.section.section-voucher-details: .wrapper
                             prop="value"
                             search="false"
                             ng-model="$ctrl.form.values.auth_2fa_remember_ip" 
-                            options="$ctrl.auth2FARememberIpOptions")
+                            options="$ctrl.auth2FARememberIpOptions"
+                            ng-if="!$ctrl.auth2FAState.auth_2fa_forget_force.voucher && !$ctrl.auth2FAState.auth_2fa_forget_force.organization")
+
+                        input(
+                            disabled
+                            ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.voucher || $ctrl.auth2FAState.auth_2fa_forget_force.organization"
+                            ng-model="$ctrl.auth2FARememberIpOptions[0].name").form-control
+
+                        .form-hint(ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.voucher")
+                            | You have one or multiple vouchers from a fund which restricts this setting.
+                        .form-hint(ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.organization")
+                            | You are part of an organization which restricts this setting.
 
                     .text-center: button.button.button-primary.button-sm(type="submit") Submit

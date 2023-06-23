@@ -161,7 +161,6 @@ const BaseController = function (
     });
 
     $rootScope.signOut = (deleteToken = true) => {
-        console.log({ deleteToken });
         AuthService.signOut(deleteToken);
         $state.go('home');
         $rootScope.activeOrganization = null;
