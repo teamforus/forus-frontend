@@ -79,6 +79,7 @@ app.component('emailConfirmedComponent', require('./components/EmailConfirmedCom
 app.component('reservationsSettingsComponent', require('./components/ReservationsSettingsComponent'));
 app.component('implementationCmsSocialMediaEditComponent', require('./components/ImplementationCmsSocialMediaEditComponent'));
 app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
+app.component('bIConnectionComponent', require('./components/BIConnectionComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -210,6 +211,7 @@ app.service('AnnouncementService', require('./services/AnnouncementService'));
 app.service('ProductReservationsExportService', require('./services/ProductReservationsExportService'));
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
+app.service('BIConnectionService', require('./services/BIConnectionService'));
 
 // Directives
 app.directive('menu', {

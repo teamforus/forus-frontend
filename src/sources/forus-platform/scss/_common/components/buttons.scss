@@ -251,6 +251,29 @@
         }
     }
 
+    &.button-icon-svg {
+        padding: 7px;
+    }
+
+    &.form-control-button {
+        margin-left: -21px;
+        padding: 7px 15px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        &.active {
+            &>.mdi {
+                color: #009EF4;
+            }
+        }
+
+        &:hover {
+            &>.mdi {
+                color: #009EF4;
+            }
+        }
+    }
+
     &.button-lg {
         padding: 10px 65px;
 

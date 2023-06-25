@@ -238,6 +238,10 @@
             border: none;
         }
 
+        &.dashed {
+            border-style: dashed;
+        }
+
         &:focus {
             outline: none;
             background-color: #fbfbfb;
@@ -484,6 +488,13 @@
                 &>.form-error {
                     margin-left: 80px;
                     width: calc(100% - 80px);
+                }
+            }
+
+            &.has-button-inline {
+                .form-control {
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
                 }
             }
         }

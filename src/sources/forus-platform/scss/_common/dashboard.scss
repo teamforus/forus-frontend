@@ -1087,6 +1087,56 @@ body {
             margin: 0 -25px 25px;
         }
 
+        .info-block {
+            padding: 15px 13px;
+            border: 1px dashed #D4D9DD;
+            margin-top: 20px;
+            border-radius: 3px;
+
+            p {
+                font: 500 13px/18px var(--base-font);
+                color: #646F79;
+                margin-bottom: 0;
+            }
+
+            ul {
+                padding-left: 13px;
+
+                li {
+                    font: 500 13px/18px var(--base-font);
+                    color: #646F79;
+                    list-style-type: "•";
+                    list-style-position: outside;
+                    padding-left: 8px;
+                }
+            }
+
+            .icon {
+                flex-grow: 0;
+                font-size: 16px;
+                color: #004195;
+                padding: 10px 5px 10px 13px;
+            }
+
+            .title {
+                font: 500 14px/20px var(--base-font);
+                color: #151B26;
+            }
+
+            &.info-block-primary {
+                padding: 12px;
+                margin-top: 6px;
+                background-color: #F3F8FE;
+                border-style: solid;
+
+                .icon {
+                    color: #009EF4;
+                    display: block;
+                    padding: 0 0 10px 10px;
+                }
+            }
+        }
+
         &.card-section-warning {
             background: #fcfaf6;
         }
@@ -1122,6 +1172,37 @@ body {
                 font: 600 14px/20px var(--base-font);
                 margin: 0 0 15px;
                 color: #282B39;
+            }
+        }
+
+        &.info-section {
+            p {
+                font: 400 14px/20px var(--base-font);
+                margin-bottom: 8px;
+                color: #282B39;
+            }
+
+            ul {
+                padding-left: 13px;
+
+                li {
+                    font: 400 14px/20px var(--base-font);
+                    color: #282B39;
+                    list-style-type: "•";
+                    list-style-position: outside;
+                    padding-left: 8px;
+                }
+            }
+
+            .icon {
+                flex-grow: 0;
+                margin-left: -5px;
+            }
+
+            .title {
+                font: 500 16px/28px var(--base-font);
+                color: #151B26;
+                margin-bottom: 8px;
             }
         }
     }
