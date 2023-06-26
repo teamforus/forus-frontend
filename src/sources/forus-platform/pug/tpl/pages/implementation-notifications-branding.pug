@@ -47,9 +47,10 @@
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label Handtekening
                     .form-offset
-                        textarea(
-                            ng-model="$ctrl.form.values.email_signature"
-                            placeholder="{{ $ctrl.defaultSignature ? $ctrl.defaultSignature : 'Handtekening' }}").form-control
+                        markdown(
+                            extended-options="true"
+                            value="$ctrl.form.values.email_signature_html"
+                            ng-model="$ctrl.form.values.email_signature")
 
                         .form-hint(
                             translate="system_notifications.hints.maxlen" 
