@@ -34,7 +34,7 @@
     p {
         margin-bottom: 15px;
         text-align: justify;
-        /*font: inherit*/
+        font: 400 16px/1.5em var(--base-font);
     }
 
     ul, ol {
@@ -42,7 +42,7 @@
         padding-left: 18px;
 
         li {
-            /*font: inherit*/
+            font: 400 16px/1.5em var(--base-font);
         }
     }
 
