@@ -216,21 +216,25 @@
 
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
-                                .button.button-default.button-icon(
+                                //- Edit record
+                                button.button.button-default.button-icon(
                                     ng-if="$ctrl.organization.allow_fund_request_record_edit"
                                     ng-click='$ctrl.editRecord(record)')
                                     em.mdi.mdi-pencil
 
-                                .button.button-primary-light.button-icon(
+                                //- Request clarification
+                                button.button.button-primary-light.button-icon(
                                     ng-click='$ctrl.clarifyRecord(record)')
                                     em.mdi.mdi-message-text
 
-                                .button.button-danger.button-icon(
+                                //- Decline Record
+                                button.button.button-danger.button-icon(
                                     ng-click='$ctrl.declineRecord(record)'
                                     ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-close
 
-                                .button.button-primary.button-icon(
+                                //- Approve Record
+                                button.button.button-primary.button-icon(
                                     ng-click='$ctrl.approveRecord(record)'
                                     ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-check
