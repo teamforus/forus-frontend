@@ -104,8 +104,8 @@ module.exports = () => {
             '$scope',
             'ModalService',
             'ModalRoute',
-            ModalsRootDirective
+            ModalsRootDirective,
         ],
-        templateUrl: 'assets/tpl/directives/modals-root.html'
+        template: require('./tpl/modals-root.pug'),
     };
 };

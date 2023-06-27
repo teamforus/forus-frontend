@@ -18,6 +18,43 @@
 @import 'components/flex-grid';
 @import 'components/buttons';
 @import 'components/button-groups';
+@import '../../forus-platform/scss/_common/dashboard.scss';
+
+.modal .modal-window {
+    height: 100vh;
+    max-height: 100vh;
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        &>form {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+    }
+}
+
+.modal .modal-window .modal-body .modal-section {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    flex-grow: 1;
+
+    .modal-section-column {
+        width: 100% !important;
+        padding: 20px 0 !important;
+        border: none !important;
+        border-bottom: 1px solid var(--border-color) !important;
+        margin: 0 !important;
+
+        &:last-child {
+            border-bottom: 0 !important;
+        }
+    };
+}
 
 .block {
     @import "blocks/block-missing-app.scss";

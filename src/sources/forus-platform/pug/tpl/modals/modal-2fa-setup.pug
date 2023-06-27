@@ -1,4 +1,4 @@
-- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+- var src_prefix = (qdt_c ? (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'') : '/');
 
 .modal.modal-lg.modal-animated(
     ng-if="$ctrl.modal.ready"
@@ -27,10 +27,10 @@
 
                     .modal-text(ng-if="$ctrl.provider"): .block.block-app_download.form: .app_download-row
                         a.app_download-store_icon(href="{{ $ctrl.provider.url_ios }}" target="_blank")
-                            img(ng-src="./assets/img/icon-app/app-store-badge.svg")
+                            img(ng-src=src_prefix + "./assets/img/icon-app-ios.svg")
 
                         a.app_download-store_icon(href="{{ $ctrl.provider.url_android }}" target="_blank")
-                            img(ng-src="./assets/img/icon-app-android.svg")  
+                            img(ng-src=src_prefix + "./assets/img/icon-app-android.svg")  
 
                     .modal-section-separator
 
@@ -60,7 +60,7 @@
                 .modal-heading Set up Authenticator
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
 
-            .modal-section.form: .row: .col.col-xs-10.col-xs-offset-1
+            .modal-section.form: .row: .col.col-sm-10.col-sm-offset-1.col-xs-12.col-xs-offset-0
                 .modal-heading.text-center Connect your phone number
 
                 .modal-text.text-center
