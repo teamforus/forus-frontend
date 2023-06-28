@@ -432,7 +432,7 @@ ui-view {
     &.button-primary {
         color: #fff;
         background: var(--base-color);
-        border: 1px solid var(--boarder-color);
+        border: 1px solid var(--border-color);
         box-shadow: none;
 
         &:hover {
@@ -1191,7 +1191,7 @@ ui-view {
         padding: 0 30px;
 
         .navbar-inner {
-            border-radius: var(--boarder-radius);
+            border-radius: var(--border-radius);
             background-color: #ffffff;
             box-shadow: 0 10px 20px rgba(#000, .075);
             @include cf();
@@ -1203,7 +1203,7 @@ ui-view {
         .navbar-logo {
             justify-self: flex-start;
             padding: 30px 40px;
-            border-right: 1px solid var(--boarder-color);
+            border-right: 1px solid var(--border-color);
             min-width: 200px;
 
             @media screen and (min-width: 1024px) {
@@ -1410,7 +1410,7 @@ ui-view {
                         width: 40px;
                         height: 40px;
                         border-radius: 40px;
-                        border: 1px solid var(--boarder-color);
+                        border: 1px solid var(--border-color);
                         position: absolute;
                         right: 0;
                         top: 20px;
