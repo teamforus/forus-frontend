@@ -17,10 +17,10 @@ const OrganizationSecurityComponent = function (
 
     const auth2FARememberIpOptions = [{
         value: 0,
-        name: 'Always require confirmation',
+        name: 'Altijd bevestiging vereisen met tweefactorauthenticatie',
     }, {
         value: 1,
-        name: 'Do not require confirmation when IP was already used with 2FA in last 48 hours.',
+        name: 'Geen tweefactorauthenticatie-bevestiging vereisen wanneer IP adres binnen de laatste 48 uur is gebruikt.',
     }];
 
     $ctrl.$onInit = () => {
@@ -34,10 +34,10 @@ const OrganizationSecurityComponent = function (
             PageLoadingBarService.setProgress(0);
 
             OrganizationService.update($ctrl.organization.id, form.values).then((e) => {
-                PushNotificationsService.success('Updated!');
+                PushNotificationsService.success('Opgeslagen!');
                 $rootScope.$broadcast('auth:update')
             }, (e) => {
-                PushNotificationsService.danger('Error!', e.data?.message || 'Unknown error.');
+                PushNotificationsService.danger('Error!', e.data?.message || 'Onbekende foutmelding.');
                 form.errors = e.data.errors;
             }).finally(() => form.unlock() & PageLoadingBarService.setProgress(100));
         }, true);

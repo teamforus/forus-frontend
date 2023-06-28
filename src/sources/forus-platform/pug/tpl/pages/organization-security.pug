@@ -4,18 +4,18 @@
         //- Breadcrumbs
         .block.block-breadcrumbs(ng-if="$root.activeOrganization")
             a.breadcrumb-item(ng-bind="$ctrl.organization.name" ui-sref="organizations-view($ctrl.organization)")
-            .breadcrumb-item.active Security
+            .breadcrumb-item.active Beveiliging
 
         //- Fund edit form
         .card: form(ng-submit="$ctrl.form.submit()").form
             //- Header
-            .card-header: .card-title 2FA for employees
+            .card-header: .card-title Tweefactorauthenticatie voor medewerkers
 
             //- Enable/Disable
             .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
                 //- 2fa level
                 .form-group.form-group-inline   
-                    label.form-label 2FA Restriction
+                    label.form-label Tweefactorauthenticatie beperkingen
 
                     .form-offset: select-control(
                         prop="value"
@@ -26,7 +26,7 @@
 
                 //- Remember IP
                 .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_policy == 'required'")
-                    label.form-label Remember IP
+                    label.form-label Onthoud IP-adres
 
                     .form-offset: select-control(
                         prop="value"
@@ -37,5 +37,5 @@
 
             //- Submit
             .card-section.card-section-primary: .text-center
-                a(ui-sref="employees({organization_id: $ctrl.organization.id})").button.button-default Cancel
-                button(type="submit").button.button-primary Submit
+                a(ui-sref="employees({organization_id: $ctrl.organization.id})").button.button-default Annuleer
+                button(type="submit").button.button-primary Bevestig

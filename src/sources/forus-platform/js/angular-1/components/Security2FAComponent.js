@@ -9,10 +9,10 @@ const Security2FAComponent = function (
 
     const auth2FARememberIpOptions = [{
         value: 0,
-        name: 'Always require confirmation',
+        name: 'Altijd bevestiging vereisen met tweefactorauthenticatie',
     }, {
         value: 1,
-        name: 'Do not require 2FA confirmation when IP was used within last 48 hours.',
+        name: 'Geen tweefactorauthenticatie-bevestiging vereisen wanneer IP adres binnen de laatste 48 uur is gebruikt',
     }];
 
     $ctrl.updateState = () => {
@@ -56,11 +56,11 @@ const Security2FAComponent = function (
         }, (form) => {
             Identity2FAService.update(form.values).then((res) => {
                 $ctrl.auth2FAState = res.data.data;
-                PushNotificationsService.success('Updated!');
+                PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
                 form.unlock();
                 form.errors = res.data.errors;
-                PushNotificationsService.danger('Error', res.data?.message || 'Unknown error.');
+                PushNotificationsService.danger('Error', res.data?.message || 'Onbekende foutmelding.');
             }, true);
         });
     };

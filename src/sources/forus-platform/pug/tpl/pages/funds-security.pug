@@ -10,13 +10,13 @@
         //- Fund edit form
         .card: form(ng-submit="$ctrl.form.submit()").form
             //- Header
-            .card-header: .card-title 2FA for requesters
+            .card-header: .card-title Tweefactorauthenticatie voor aanvragers
 
             //- Enable/Disable
             .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
                 //- 2fa level
                 .form-group.form-group-inline   
-                    label.form-label 2FA Restriction
+                    label.form-label Tweefactorauthenticatie beperkingen
 
                     .form-offset: select-control(
                         prop="value"
@@ -27,7 +27,7 @@
 
                 //- Remember IP
                 .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_policy == 'required'")
-                    label.form-label Remember IP
+                    label.form-label Onthoud IP-adres
 
                     .form-offset: select-control(
                         prop="value"
@@ -58,5 +58,5 @@
 
             //- Submit
             .card-section.card-section-primary: .text-center
-                a(ui-sref="organization-funds($ctrl.fund)").button.button-default Cancel
-                button(type="submit").button.button-primary Submit
+                a(ui-sref="organization-funds($ctrl.fund)").button.button-default Annuleer
+                button(type="submit").button.button-primary Bevestig
