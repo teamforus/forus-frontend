@@ -11,7 +11,7 @@ const ModalsRootDirective = function($scope, ModalService, ModalRoute) {
             modal.ready = true;
             modal.onkeyDown = [];
             modal.component = routeModals[modal.key].component;
-            modal.componentType = kebabCase(routeModals[modal.key].component);
+            modal.componentType = kebabCase(modal.component.split(/(?=[A-Z])/).join('-'));
 
             modal.close = function() {
                 if (typeof modal.events.onClose === 'function') {
@@ -104,8 +104,8 @@ module.exports = () => {
             '$scope',
             'ModalService',
             'ModalRoute',
-            ModalsRootDirective
+            ModalsRootDirective,
         ],
-        templateUrl: 'assets/tpl/directives/modals-root.html'
+        template: require('./tpl/modals-root.pug'),
     };
 };

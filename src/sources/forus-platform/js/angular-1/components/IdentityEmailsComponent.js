@@ -1,11 +1,11 @@
-let IdentityEmailsComponent = function(
+const IdentityEmailsComponent = function(
     $timeout,
     FormBuilderService,
     IdentityEmailsService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
-    let timeout = false;
+    const $ctrl = this;
+    const timeout = false;
     
     $ctrl.formSuccess = false;
 
@@ -52,7 +52,6 @@ let IdentityEmailsComponent = function(
     $ctrl.loadIdentityEmails = () => {
         IdentityEmailsService.list().then(res => {
             $ctrl.emails = res.data.data;
-            $ctrl.loaded = true;
         });
     };
 
@@ -82,7 +81,9 @@ let IdentityEmailsComponent = function(
     };
 
     $ctrl.$onInit = () => {
-        $ctrl.loadIdentityEmails();
+        if (!$ctrl.auth2FAState?.restrictions?.emails?.restricted) {
+            $ctrl.loadIdentityEmails()
+        }
     };
 
     $ctrl.$onDestroy = () => {
@@ -91,12 +92,15 @@ let IdentityEmailsComponent = function(
 }
 
 module.exports = {
+    bindings: {
+        auth2FAState: '<',
+    },
     controller: [
         '$timeout',
         'FormBuilderService',
         'IdentityEmailsService',
         'PushNotificationsService',
-        IdentityEmailsComponent
+        IdentityEmailsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/preferences/emails.html'
+    templateUrl: 'assets/tpl/pages/preferences/emails.html',
 };

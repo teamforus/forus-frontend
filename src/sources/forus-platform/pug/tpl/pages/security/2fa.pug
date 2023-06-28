@@ -1,0 +1,56 @@
+.app.app-container(ng-if="$ctrl.loaded")
+    menu
+
+    section.app.app-content
+        .block.block-auth-2fa
+            .auth-2fa-item(ng-repeat="provider_type in $ctrl.provider_types")
+                .auth-2fa-item-icon
+                    .mdi.mdi-cellphone-key(ng-if="provider_type.type == 'authenticator'")
+                    .mdi.mdi-cellphone-message(ng-if="provider_type.type == 'phone'")
+                
+                .auth-2fa-item-title(ng-bind="provider_type.title")
+                
+                .auth-2fa-item-label: .label-group
+                    .label.label-default(ng-if="!$ctrl.active_provider_types.includes(provider_type.type)") Disabled
+                    .label.label-success(ng-if="$ctrl.active_provider_types.includes(provider_type.type)") Enabled
+                
+                .auth-2fa-item-space
+
+                .auth-2fa-item-actions: .button-group
+                    .button.button-primary(
+                        ng-if="!$ctrl.active_provider_types.includes(provider_type.type)"
+                        ng-click="$ctrl.setupAuth2FA(provider_type.type)") 
+                        em.mdi.mdi-shield-check-outline.icon-start
+                        | Enable
+
+                    .button.button-default(
+                        ng-if="$ctrl.active_provider_types.includes(provider_type.type)"
+                        ng-click="$ctrl.deactivateAuth2FA(provider_type.type)") 
+                        em.mdi.mdi-lock-open-outline.icon-start
+                        | Disable
+
+            .card: form(ng-submit="$ctrl.form.submit()").form.form-compact
+                .card-header: .card-title 2FA config
+                .card-section.card-section-primary
+                    .form-group
+                        label.form-label(for="select_organization") Onthoud IP-adres
+
+                        select-control(
+                            prop="value"
+                            search="false"
+                            ng-model="$ctrl.form.values.auth_2fa_remember_ip" 
+                            options="$ctrl.auth2FARememberIpOptions"
+                            ng-if="!$ctrl.auth2FAState.auth_2fa_forget_force.voucher && !$ctrl.auth2FAState.auth_2fa_forget_force.organization")
+
+                        input(
+                            disabled
+                            ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.voucher || $ctrl.auth2FAState.auth_2fa_forget_force.organization"
+                            ng-model="$ctrl.auth2FARememberIpOptions[0].name").form-control
+
+                        .form-hint(ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.voucher")
+                            | You have one or multiple vouchers from a fund which restricts this setting.
+                        .form-hint(ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.organization")
+                            | You are part of an organization which restricts this setting.
+
+                .card-section.card-section-primary.text-center
+                    button.button.button-primary(type="submit") Submit
