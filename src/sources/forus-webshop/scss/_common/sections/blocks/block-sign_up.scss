@@ -822,19 +822,6 @@
         }
     }
 
-    &.block-sign_up-fixed {
-        flex-direction: column;
-        justify-content: center;
-        display: flex;
-        top: 0px;
-        right: 0px;
-        bottom: 0px;
-        left: 0px;
-        position: fixed;
-        padding-bottom: 60px;
-        cursor: default;
-    }
-
     @media (max-width: 1199px) {
         .sign_up-header {
             margin: 0 -90px 25px;

@@ -3,9 +3,9 @@ const BaseController = function (
     $state,
     $rootScope,
     $scope,
+    $window,
     $translate,
     IdentityService,
-    Identity2FAService,
     AuthService,
     RecordService,
     ConfigService,
@@ -20,18 +20,14 @@ const BaseController = function (
             AuthService.identity().then((res) => {
                 const auth_user = res.data;
 
-                $q.all([
-                    RecordService.list().then((res) => auth_user.records = res.data),
-                    Identity2FAService.status().then((res) => $rootScope.auth_2fa = res.data.data),
-                ]).then(() => {
-                    $rootScope.auth_user = auth_user;
-                    $rootScope.$broadcast('identity:update', auth_user);
-                    resolve($rootScope.auth_user);
-                }, reject)
-            }, (res) => {
-                Identity2FAService.status().then((res) => $rootScope.auth_2fa = res.data.data),
-                    reject(res);
-            });
+                RecordService.list().then((res) => {
+                    auth_user.records = res.data;
+                    resolve();
+                }, reject);
+
+                $rootScope.auth_user = auth_user;
+                $rootScope.$broadcast('identity:update', auth_user);
+            }, reject);
         });
     };
 
@@ -62,7 +58,6 @@ const BaseController = function (
         }
 
         AuthService.signOut();
-        $rootScope.auth_2fa = false;
         $rootScope.auth_user = false;
         $rootScope.$broadcast('identity:update', null);
 
@@ -87,19 +82,10 @@ const BaseController = function (
         appConfigs.features = res.data;
     });
 
-    $rootScope.handleApi401 = ((data) => {
-        if (data?.error == '2fa') {
-            if ($rootScope.auth_user) {
-                $rootScope.auth_user = false;
-            }
-
-            Identity2FAService.status().then((res) => $rootScope.auth_2fa = res.data.data);
-            $state.go('auth-2fa');
-
-            return true;
+    $scope.$watch(() => $state.$current.name, () => {
+        if ($state.current.name == 'fund-request') {
+            $rootScope.viewLayout = 'signup';
         }
-
-        return false;
     });
 
     $rootScope.appConfigs = appConfigs;
@@ -114,9 +100,9 @@ module.exports = [
     '$state',
     '$rootScope',
     '$scope',
+    '$window',
     '$translate',
     'IdentityService',
-    'Identity2FAService',
     'AuthService',
     'RecordService',
     'ConfigService',

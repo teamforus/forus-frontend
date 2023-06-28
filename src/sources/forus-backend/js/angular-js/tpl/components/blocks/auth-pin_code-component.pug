@@ -1,0 +1,57 @@
+form.block.block-auth-pin_code(ng-submit="$ctrl.submit($ctrl.pinCode)")
+    //- PinCode
+    .pin_code-content(ng-if='$ctrl.state == $ctrl.STATE_PIN_CODE')
+        .pin_code-title Aanmelden
+        .pin_code-subtitle 
+            | 1. Kies in de app voor “Koppelen”
+            br
+            | 2. Vul de koppelcode hieronder in
+        pin-code-control(block-size="6" block-count="1" block-input-type="num" ng-model='$ctrl.pinCode')
+        .pin_code-input-error(ng-if='$ctrl.pinCodeError' ng-bind='$ctrl.pinCodeError')
+        button.button.button-primary.button-wide.flex-start(
+            type="submit"
+            ng-click='$ctrl.submit($ctrl.pinCode)' 
+            ng-disabled="$ctrl.pinCode.length < 6") Koppel
+    
+    //- Success
+    .pin_code-content.text-center(ng-if='$ctrl.state == $ctrl.STATE_SUCCESS')
+        .pin_code-title Succes!
+        .pin_code-subtitle Uw e-mailadres is bevestigd
+        .pin_code-media: img.pin_code-media-img(src='/assets/img/sign_in-pin_code-success.svg' alt='')
+        .pin_code-link(ng-click="$ctrl.goToDetailsPage()") Hoe nu verder?
+    
+    //- Details
+    .pin_code-content.text-center(ng-if='$ctrl.state == $ctrl.STATE_DETAILS')
+        .pin_code-title Succes!
+        .pin_code-subtitle Uw e-mailadres is bevestigd
+        .pin_code-media.pin_code-media-small: img.pin_code-media-img(src='/assets/img/sign_in-pin_code-success.svg' alt='')
+        .pin_code-details-block
+            .pin_code-details-title Ingelogd op de Me-app?
+            .pin_code-details-info
+                | Ga verder in de app.
+                br
+                | U mag dit scherm sluiten.
+        .pin_code-details-block
+            .pin_code-details-title Was u bezig met een aanmelding?
+            .pin_code-details-info
+                | Ga terug naar het aanmeldformulier om uw
+                br
+                | aanmelding af te ronden.
+    
+    //- Error
+    .pin_code-content.text-center(ng-if='$ctrl.state == $ctrl.STATE_ERROR')
+        .pin_code-title Toegang verlopen
+        .pin_code-subtitle
+            | Ga in de app terug naar het vorige scherm, en vul opnieuw uw
+            br
+            | e-mailadres in om een nieuwe inlog e-mail te verzenden.
+        .pin_code-media: img.pin_code-media-img(src='/assets/img/sign_in-pin_code-error.svg' alt='')
+    
+    //- Instruction
+    .pin_code-instruction(ng-if='$ctrl.state == $ctrl.STATE_PIN_CODE')
+        img.pin_code-instruction-image(src='/assets/img/sign_in-pin_code-instruction.png' alt='')
+        //- .pin_code-instruction-desc
+            img.pin_code-instruction-icon(src='/assets/img/icon-info.svg' alt='')
+            | Kies in de app voor
+            br
+            | Koppelen

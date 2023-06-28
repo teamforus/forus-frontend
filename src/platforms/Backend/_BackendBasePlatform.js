@@ -11,7 +11,6 @@ platform.setLibs([
     "babel_polyfill",
     "jquery",
     "angular",
-    "mdi",
 ]);
 
 // tweaking output and cleaned paths config

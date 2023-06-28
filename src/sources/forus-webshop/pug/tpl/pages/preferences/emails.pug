@@ -8,17 +8,12 @@ section.section.section-voucher-details: .wrapper
         .block.block-profile
             .profile-aside.hide-sm: profile-menu
 
-            .profile-content(ng-if="$ctrl.auth2FAState.restrictions.emails.restricted")
-                auth-2-f-a-restriction(
-                    type="emails"
-                    items="$ctrl.auth2FAState.restrictions.emails.funds"
-                    item-name="name"
-                    item-thumbnail="logo.sizes.thumbnail"
-                    default-thumbnail="fund-thumbnail")
+            .profile-content
+                .profile-content-header.clearfix
+                    .profile-content-title
+                        div.pull-left
+                            h1.profile-content-header {{ 'email_preferences.title_email_preferences' | translate }}
 
-            .profile-content(ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.emails.restricted")
-                .profile-content-header.clearfix: .profile-content-title: .pull-left: h1.profile-content-header 
-                    | {{ 'email_preferences.title_email_preferences' | translate }}
                 p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
                 
                 .card(ng-repeat="email in $ctrl.emails" id="email_{{ email.id }}")
@@ -73,13 +68,13 @@ section.section.section-voucher-details: .wrapper
                                             dusk="btnDeleteIdentityEmail").button.button-primary-outline.button-icon: em.mdi.mdi-trash-can-outline
 
                 .card
-                    .card-section(ng-if="!$ctrl.form && !$ctrl.formSuccess")
+                    .card-section.card-section-primary(ng-if="!$ctrl.form && !$ctrl.formSuccess")
                         h2.card-heading.card-heading-lg Voeg een e-mailadres toe
                         .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button" dusk="btnIdentityNewEmail")
                             em.mdi.mdi-plus-circle.icon-start
                             | E-mail toevoegen
                     
-                    .card-section(ng-if="$ctrl.form && !$ctrl.formSuccess")
+                    .card-section.card-section-primary(ng-if="$ctrl.form && !$ctrl.formSuccess")
                         h2.card-heading.card-heading-lg Voeg een e-mailadres toe
                         form(ng-submit="$ctrl.form.submit()" dusk="identityNewEmailForm").form.row: .col.col-lg-6.form-group
                             .form-label E-mailadres
@@ -93,7 +88,7 @@ section.section.section-voucher-details: .wrapper
                                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
                                 .flex-col: button(type="submit" dusk="identityNewEmailFormSubmit").button.button-primary Toevoegen
                 
-                    .card-section(ng-if="!$ctrl.form && $ctrl.formSuccess" dusk="identityNewEmailSuccess")
+                    .card-section.card-section-primary(ng-if="!$ctrl.form && $ctrl.formSuccess" dusk="identityNewEmailSuccess")
                         h2.card-heading.card-heading-lg.card-heading-padless(translate="{{ 'email_preferences.email_added.title_' +  $root.appConfigs.features.communication_type }}") Bevestig e-mailadres
                         .card-text(translate="{{ 'email_preferences.email_added.description_' +  $root.appConfigs.features.communication_type }}")
                         .button.button-primary(ng-click="$ctrl.createNewEmailForm()" role="button") Voeg nog een e-mailadres toe

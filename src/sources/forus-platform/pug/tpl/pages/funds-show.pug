@@ -37,12 +37,6 @@
 
                     .description-header-action
                         .button.button-default(
-                            ng-if="($ctrl.organization | hasPerm:'manage_funds') && $ctrl.organization.allow_2fa_restrictions"
-                            ui-sref="funds-security($ctrl.fund)")
-                            em.mdi.mdi-security.icon-start
-                            translate(translate="fund_card_sponsor.buttons.security")
-
-                        .button.button-default(
                             ng-if="($ctrl.fund.organization | hasPerm:'manage_funds') && $ctrl.fund.state == 'waiting'"
                             ng-click="$ctrl.deleteFund($ctrl.fund)")
                             em.mdi.mdi-trash-can-outline.icon-start

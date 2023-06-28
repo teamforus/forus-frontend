@@ -10,8 +10,8 @@ $mailFont: Verdana, Arial, sans-serif;
         position: relative;
         background-repeat: no-repeat;
         background-position: 100% 0;
-        border: 1px solid var(--border-color-light);
-        border-radius: calc(var(--border-radius) / 2);
+        border: 1px solid var(--boarder-color-light);
+        border-radius: calc(var(--boarder-radius) / 2);
     }
 
     .mail_preview-inner {

@@ -122,10 +122,6 @@
     @import 'sections/blocks/block-bookmark-toggle.scss';
     @import 'sections/blocks/block-organization-info.scss';
     @import 'sections/blocks/block-cms.scss';
-    @import 'sections/blocks/block-auth-2fa.scss';
-    @import 'sections/blocks/block-2fa-restriction.scss';
-    @import 'sections/blocks/block-app_download.scss';
-    @import 'sections/blocks/block-info-box.scss';
 }
 
 .modal {
@@ -133,5 +129,4 @@
     @import 'modals/modal-photo-cropper.scss';
     @import 'modals/modal-physical-cards.scss';
     @import 'modals/modal-product-reserve.scss';
-    @import 'modals/modal-2fa-setup.scss';
 }

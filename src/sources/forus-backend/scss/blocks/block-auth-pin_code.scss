@@ -183,30 +183,4 @@
             }
         }
     }
-
-    @media screen and (max-width: 1000px) {
-        .pin_code-content {
-            padding: 0;
-            width: 100%;
-
-            .pin_code-title {
-                font: 600 28px/36px $bf;
-                margin: 0 0 15px;
-            }
-
-            .pin_code-subtitle {
-                font: 400 16px/26px $bf;
-                margin: 0 0 15px;
-            }
-
-            .pin_code-media {
-                width: 100%;
-
-                .pin_code-media-img {
-                    width: 100%;
-                    display: block;
-                }
-            }
-        }   
-    }
 }

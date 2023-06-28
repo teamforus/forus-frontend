@@ -7,7 +7,6 @@ const BaseController = function (
     $translate,
     AuthService,
     IdentityService,
-    Identity2FAService,
     RecordService,
     OrganizationService,
     ConfigService,
@@ -119,30 +118,33 @@ const BaseController = function (
     };
 
     $rootScope.loadAuthUser = function () {
-        return $q((resolve, reject) => {
-            IdentityService.identity().then((res) => {
-                const auth_user = res.data;
+        const deferred = $q.defer();
 
-                $q.all([
-                    RecordService.list().then((res) => auth_user.records = res.data),
-                    Identity2FAService.status().then((res) => auth_user.auth_2fa = res.data.data),
-                    loadOrganizations().then((organizations) => auth_user.organizations = organizations)
-                ]).then(() => {
-                    const { organizations } = auth_user;
+        IdentityService.identity().then((res) => {
+            const auth_user = res.data;
 
-                    auth_user.organizationsIds = organizations.map((item) => item.id);
-                    auth_user.organizationsMap = organizations.reduce((list, item) => ({ ...list, [item.id]: item }), {});
-
+            RecordService.list().then(() => {
+                loadOrganizations().then((organizations) => {
+                    auth_user.records = res.data;
+                    auth_user.organizations = organizations;
+                    auth_user.organizationsMap = {};
+                    auth_user.organizationsIds = Object.values(organizations).map(function (organization) {
+                        auth_user.organizationsMap[organization.id] = organization;
+                        return organization.id;
+                    });
+    
                     auth_user.dashboards = auth_user.organizations.reduce((arr, item) => [...arr, ...[
                         item.is_sponsor ? 'sponsor' : null,
                         item.is_provider ? 'provider' : null,
                         item.is_validator ? 'validator' : null,
                     ]], []).filter((dashboard) => dashboard).filter((v, i, a) => a.indexOf(v) === i);
+    
+                    deferred.resolve($rootScope.auth_user = auth_user);
+                })
+            });
+        }, deferred.reject);
 
-                    resolve($rootScope.auth_user = auth_user);
-                }, reject);
-            }, reject);
-        });
+        return deferred.promise;
     };
 
     $rootScope.$on('organization-changed', (e, id) => {
@@ -184,7 +186,7 @@ const BaseController = function (
         if ($state.current.name == 'home') {
             $rootScope.viewLayout = 'landing';
         } else if ([
-            'sign-up', 'sign-up-provider', 'sign-up-sponsor', 'sign-up-validator', 'provider-invitation-link',
+            'sign-up', 'sign-up-provider', 'sign-up-sponsor', 'sign-up-validator', 'provider-invitation-link'
         ].indexOf($state.current.name) != -1) {
             $rootScope.viewLayout = 'signup';
 
@@ -207,21 +209,6 @@ const BaseController = function (
 
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     };
-
-    $rootScope.handleApi401 = ((data) => {
-        if (data?.error == '2fa') {
-            if ($rootScope.auth_user) {
-                $rootScope.auth_user = false;
-                $rootScope.activeOrganization = null;
-            }
-
-            $state.go('auth-2fa');
-
-            return true;
-        }
-
-        return false;
-    });
 
     $translate.use('nl');
 
@@ -253,7 +240,6 @@ module.exports = [
     '$translate',
     'AuthService',
     'IdentityService',
-    'Identity2FAService',
     'RecordService',
     'OrganizationService',
     'ConfigService',

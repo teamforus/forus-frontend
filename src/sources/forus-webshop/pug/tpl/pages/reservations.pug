@@ -8,7 +8,7 @@ section.section.section-profile: .wrapper
         .profile-aside
             profile-menu.hide-sm
 
-            .form.form-compact
+            .form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
                 .profile-aside-block
                     //- Search
                     .form-group

@@ -1,4 +1,4 @@
-const IdentityService = function(
+let IdentityService = function(
     appConfigs,
     ApiRequest
 ) {

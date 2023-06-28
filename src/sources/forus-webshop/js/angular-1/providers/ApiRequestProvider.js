@@ -104,13 +104,9 @@ module.exports = function () {
                             (res) => done(res),
                             (res) => {
                                 if (res.status == 401) {
-                                    if ($rootScope.handleApi401(res.data)) {
-                                        return;
-                                    } else {
-                                        $rootScope.signOut(false, false, false, ($state) => $state.go('home', {
-                                            session_expired: res.data.message == 'session_expired',
-                                        }));
-                                    }
+                                    $rootScope.signOut(false, false, false, ($state) => $state.go('home', {
+                                        session_expired: res.data.message == 'session_expired',
+                                    }));
                                 }
 
                                 reject(res);
@@ -119,10 +115,18 @@ module.exports = function () {
                     });
                 };
 
+                const endpointToUrl = function (endpoint) {
+                    return resolveUrl(host + (endpoint || ''));
+                };
+
                 return {
-                    ...{ get, put, post, patch, ajax },
+                    get: get,
+                    post: post,
+                    patch: patch,
+                    put: put,
                     delete: _delete,
-                    endpointToUrl: (endpoint) => resolveUrl(host + (endpoint || '')),
+                    ajax: ajax,
+                    endpointToUrl: endpointToUrl
                 }
             }
         ];

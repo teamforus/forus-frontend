@@ -1,9 +1,11 @@
-const AwesomeQR = require('../../../../forus-platform/js/angular-1/libs/AwesomeQrCode');
+let AwesomeQR = require('../../../../forus-platform/js/angular-1/libs/AwesomeQrCode');
 
-const QrCodeDirective = function(scope, element, $q) {
-    const buildQrCode = () => {
-        const qrCodeEl = element.find('img').attr('id', "").empty()[0];
-        const value = scope.qrRaw ? scope.qrRaw : JSON.stringify({
+let QrCodeDirective = function(
+    scope, element, $q
+) {
+    let buildQrCode = () => {
+        let qrCodeEl = element.find('img').attr('id', "").empty()[0];
+        let value = JSON.stringify({
             type: scope.qrType,
             value: scope.qrValue
         });
@@ -59,12 +61,6 @@ const QrCodeDirective = function(scope, element, $q) {
         }
     });
 
-    scope.$watch('qrRaw', function(value, old) {
-        if (value != old) {
-            buildQrCode();
-        }
-    });
-
     scope.$watch('qrBackground', function(value, old) {
         if (value != old) {
             buildQrCode();
@@ -84,11 +80,9 @@ module.exports = ['$q', ($q) => {
     return {
         scope: {
             qrDescription: '@',
-            qrRaw: '=',
             qrAlt: '@',
             qrValue: '=',
             qrBackground: '@',
-            padding: '@',
             qrLogo: '@',
             qrType: '@'
         },

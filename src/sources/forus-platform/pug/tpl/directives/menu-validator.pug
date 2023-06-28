@@ -42,8 +42,3 @@ aside.app.app-sidebar
             '{organization_id: $root.activeOrganization.id}',
             'true',
             'requesters')
-
-        +nav_item(
-            "Security", "organization-security", 'organization-security', 
-            '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization.allow_2fa_restrictions && $root.activeOrganization | hasPerm:["manage_organization"]')

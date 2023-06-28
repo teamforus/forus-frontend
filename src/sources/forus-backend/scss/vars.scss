@@ -33,37 +33,3 @@ $borderColor: #ddd;
 // wrapper size
 $wrapperWidth: 1400px;
 $wrapperPadding: 30px;
-
-:root {
-    // base font
-    --base-font: #{$bf};
-    --base-font-landing: #{$bf};
-
-    --text-color: #{$tc};
-
-    --base-color: #{$bc};
-    --base-color-hover: #{$bc-hover};
-
-    --placeholder-color: #{$ptc};
-
-    --border-color: #{$border_color};
-    --border-color-light: #{$border_color};
-    --border-radius: #{$border_radius};
-
-    --color-primary: #{$color_primary};
-    --color-primary-light: #{$color_primary_light};
-
-    --color-danger: #{$bec};
-
-    --box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
-
-    // sign up
-    --sign_up_accent_color: #305dfb;
-    --sign_up_accent_color_light: #bdcbff;
-    --sign_up_link_color: #e60003;
-    --sign_up_step_btns_color: #305dfb;
-    --sign_up_digid_btn_bkg: #e1e7ff;
-    --sign_up_digid_btn_text: #4b71ff;
-    --sign_up_digid_btn_border: none;
-    --sign_up_digid_btn_border_radius: 5px;
-}

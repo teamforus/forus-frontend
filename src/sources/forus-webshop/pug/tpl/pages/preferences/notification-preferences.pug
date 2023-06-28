@@ -9,7 +9,11 @@ section.section.section-voucher-details: .wrapper
             .profile-aside.hide-sm: profile-menu
 
             .profile-content
-                .profile-content-header.clearfix: .profile-content-title: .pull-left: h1.profile-content-header Notificatievoorkeuren
+                .profile-content-header.clearfix
+                    .profile-content-title
+                        div.pull-left
+                            h1.profile-content-header Notificatievoorkeuren
+
                 p(ng-if="$ctrl.message" ng-bind="$ctrl.message | translate").form-error
 
                 //- User has no email, suggest adding one
