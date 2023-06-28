@@ -5,6 +5,10 @@
 
     .modal-section {
         padding: 25px;
+
+        &.modal-section-collapsed {
+            border-top: 1px solid var(--border-color);
+        }
     }
 
     .modal-body {

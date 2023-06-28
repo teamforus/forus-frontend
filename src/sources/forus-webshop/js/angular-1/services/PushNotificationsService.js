@@ -9,7 +9,7 @@ let PushNotificationsService = function () {
             message: '',
             icon: 'check',
             isBookmark: false,
-            timeout: 4000,
+            timeout: 10000,
         }, notification);
 
         notifications.push(note);

@@ -4,7 +4,9 @@
         //-.card-heading(ng-if="$ctrl.funds.length > 1" ng-bind="'csv_validation.header.title' | translate")
         fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
 
-        .card(ng-if="$ctrl.vouchers" dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
+        .card(
+            ng-if="$ctrl.vouchers && $ctrl.funds.length > 0" 
+            dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
             .card-header: .flex
                 .flex.flex-grow: .card-title(dusk="vouchersTitle")
                     span(translate="vouchers.header.title") 
@@ -110,6 +112,19 @@
                                             type="number" 
                                             ng-model="$ctrl.filters.values.amount_max" 
                                             placeholder="{{ 'transactions.labels.amount_max' | translate }}").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'vouchers.labels.amount_available' | translate }}")
+                                    .row
+                                        .col.col-sm-6: input(
+                                            type="number" 
+                                            ng-model="$ctrl.filters.values.amount_available_min" 
+                                            placeholder="{{ 'vouchers.labels.amount_available_min' | translate }}").form-control
+
+                                        .col.col-sm-6: input(
+                                            type="number" 
+                                            ng-model="$ctrl.filters.values.amount_available_max" 
+                                            placeholder="{{ 'vouchers.labels.amount_available_max' | translate }}").form-control
 
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'vouchers.labels.date_type' | translate }}")

@@ -1,0 +1,19 @@
+.modal.modal-md.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+
+    form(ng-submit="$ctrl.form.submit()").modal-window.form
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        .modal-header Declaratie categorie toevoegen
+
+        .modal-body.modal-body-visible: .modal-section.form
+            .form-group
+                label.form-label Categorie naam
+                input(ng-model="$ctrl.form.values.name" placeholder="Categorie naam").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+
+        //- form submit
+        .modal-footer.text-center
+            button.button.button-default(type="button" ng-click="$ctrl.close()" id="close") Sluiten
+            button.button.button-primary(type="submit") Bevestigen

@@ -20,7 +20,7 @@ main(id="main-content")
                 .voucher-details
                     .voucher-name(ng-bind="voucher.fund.name")
                     .voucher-organization(ng-bind="voucher.fund.organization.name")
-                    .voucher-value(ng-bind="voucher.amount | currency_format")
+                    .voucher-value(ng-bind="voucher.amount_locale")
 
                 .voucher-overview:  button.button.button-primary(
                     ng-click="$ctrl.applyForProduct(voucher)"

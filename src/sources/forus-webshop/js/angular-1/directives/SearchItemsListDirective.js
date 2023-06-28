@@ -1,5 +1,9 @@
-const SearchItemsListDirective = function($scope) {
+const SearchItemsListDirective = function($scope, ProductService) {
     const $dir = $scope.$dir = {};
+
+    const transformProductAlternativeText = (product) => {
+        return ProductService.transformProductAlternativeText(product);
+    };
 
     const init = () => {
         $dir.type = $scope.type || 'budget';
@@ -18,6 +22,10 @@ const SearchItemsListDirective = function($scope) {
                 }
 
                 item.resource.description = item.description;
+            }
+
+            if (item.item_type == 'product') {
+                item.resource.alternative_text = transformProductAlternativeText(item.resource);
             }
 
             return item;
@@ -44,6 +52,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            'ProductService',
             SearchItemsListDirective
         ],
         templateUrl: 'assets/tpl/directives/search-items-list.html'

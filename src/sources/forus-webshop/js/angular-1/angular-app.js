@@ -2,7 +2,12 @@ require('./modules/select-control/SelectControlModule');
 require('./modules/ui-controls/UIControlsModule');
 require('./modules/page-loading-bar/PageLoadingBarModule');
 
-const appConfigs = { bsn_confirmation_offset: 300, showStartButton: false, ...env_data };
+const appConfigs = { 
+    bsn_confirmation_offset: 300,
+    showStartButton: false,
+    show2FAMenu: false,
+    ...env_data,
+};
 
 const app = angular.module('forusApp', [
     'pascalprecht.translate', 'ui.router', 'ngCookies', 'ngAria', 'uiCropper', '720kb.datepicker',
@@ -144,6 +149,7 @@ app.directive('searchItemsList', require('./directives/SearchItemsListDirective'
 app.directive('inputRadioControl', require('./directives/InputRadioControlDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
+app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 
@@ -154,7 +160,7 @@ app.directive('appLinks', require('./directives/elements/AppLinksDirective'));
 
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
-app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
+app.directive('modalScrollBreaker', require('./directives/modals/ModalScrollBreakerDirective'));
 
 // Map pointers
 app.directive('mapPointerProvidersOffice', require('./directives/map-pointers/MapPointerProvidersOfficeDirective'));
