@@ -149,7 +149,6 @@ module.exports = (core) => {
                 },
             }, */
             flags: {
-                show2FAMenu: true,
                 startPage: {
                     combineColumns: false,
                     // left column and combined column options

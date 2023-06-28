@@ -5,6 +5,8 @@ const SecuritySessionsComponent = function (
 ) {
     const $ctrl = this;
 
+    $ctrl.loaded = true;
+
     $ctrl.loadSessions = () => {
         SessionService.list({ per_page: 100 }).then(res => {
             $ctrl.sessions = res.data.data.map(session => {
@@ -14,7 +16,7 @@ const SecuritySessionsComponent = function (
                     session.type_class = "shield-outline";
                 } else if (device && device.device.type == 'desktop') {
                     if (device.device.manufacturer == 'Apple') {
-                        session.type_class = 'monitor';
+                        session.type_class = 'desktop-mac';
                     } else {
                         session.type_class = 'monitor';
                     }
@@ -57,21 +59,16 @@ const SecuritySessionsComponent = function (
     };
 
     $ctrl.$onInit = () => {
-        if (!$ctrl.auth2FAState?.restrictions?.sessions?.restricted) {
-            $ctrl.loadSessions()
-        }
+        $ctrl.loadSessions();
     };
 }
 
 module.exports = {
-    bindings: {
-        auth2FAState: '<',
-    },
     controller: [
         '$state',
         'ModalService',
         'SessionService',
-        SecuritySessionsComponent,
+        SecuritySessionsComponent
     ],
-    templateUrl: 'assets/tpl/pages/security/sessions.html',
+    templateUrl: 'assets/tpl/pages/security/sessions.html'
 };

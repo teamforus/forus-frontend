@@ -23,7 +23,7 @@ module.exports = ['$transitions', '$rootScope', 'OrganizationService', 'PageLoad
             'restore-email', 'email-unsubscribe',
             'preferences-notifications', 'security-sessions',
             'provider-invitation-link', 'auth-link', 'identity-emails',
-            'confirmation-email', 'organizations', 'auth-2fa',
+            'confirmation-email', 'organizations',
         ].includes(transition.to().name)) {
             if (!OrganizationService.active()) {
                 transition.router.stateService.transitionTo('organizations');

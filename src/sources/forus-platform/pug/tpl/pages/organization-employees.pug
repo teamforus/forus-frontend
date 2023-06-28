@@ -6,12 +6,6 @@
                 .flex.flex-grow: .card-title(ng-bind="'Medewerkers (' + $ctrl.employees.meta.total + ')'")
 
                 .flex: .block.block-inline-filters
-                    a(
-                        ng-if="$ctrl.organization.allow_2fa_restrictions && ($ctrl.organization | hasPerm:['manage_organization'])"
-                        ui-sref="organization-security({organization_id: $ctrl.organization.id})").button.button-default.button-sm
-                        em.mdi.mdi-security.icon-start
-                        translate(translate="organization_employees.buttons.security")
-
                     button.button.button-primary.button-sm(ng-click="$ctrl.export()")
                         .mdi.mdi-download.icon-start
                         translate(translate="organization_employees.buttons.export")
@@ -26,7 +20,6 @@
                 tr
                     th(translate="organization_employees.labels.email")
                     th(translate="organization_employees.labels.roles")
-                    th(translate="organization_employees.labels.auth_2fa")
                     th(translate="organization_employees.labels.actions").text-right
 
                 tr(ng-repeat="employee in $ctrl.employees.data" dusk="{{ 'employeeRow' + employee.id }}")
@@ -43,16 +36,6 @@
                         strong(
                             ng-if="$ctrl.organization.identity_address == employee.identity_address" 
                             translate="organization_employees.labels.owner").text-primary
-                    
-                    //- 2FA configures
-                    td(ng-if="employee.is_2fa_configured"): .td-state-2fa
-                        .state-2fa-icon: .mdi.mdi-shield-check-outline.text-primary
-                        .state-2fa-label Actief
-
-                    //- 2FA not configures
-                    td(ng-if="!employee.is_2fa_configured"): .td-state-2fa
-                        .state-2fa-icon: .mdi.mdi-shield-off-outline.text-muted
-                        .state-2fa-label Nee
 
                     //- employee
                     td.text-right(ng-if="$ctrl.organization.identity_address != employee.identity_address")

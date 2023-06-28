@@ -52,15 +52,10 @@ let IdentityService = function(
             });
         };
 
-        this.authorizeAuthCode = (code, share2FA = false) => {
+        this.authorizeAuthCode = (code) => {
             return ApiRequest.post('/identity/proxy/authorize/code', {
-                auth_code: code,
-                share_2fa: share2FA,
+                auth_code: code
             });
-        };
-
-        this.storeShared2FA = () => {
-            return ApiRequest.post('/identity/proxy/shared-2fa');
         };
 
         this.authorizeAuthEmailToken = (email_token) => {

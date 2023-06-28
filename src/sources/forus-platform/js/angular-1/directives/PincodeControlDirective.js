@@ -217,7 +217,6 @@ module.exports = () => {
             '$element',
             PincodeControlDirective
         ],
-        template: require('../../../pug/tpl/directives/pincode-control.pug'),
-        // templateUrl: 'assets/tpl/directives/pincode-control.html',
+        templateUrl: 'assets/tpl/directives/pincode-control.html'
     };
 };

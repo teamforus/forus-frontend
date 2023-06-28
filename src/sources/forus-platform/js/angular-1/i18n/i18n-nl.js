@@ -1247,14 +1247,12 @@ module.exports = {
             email: "E-mailadres",
             roles: "Rollen",
             actions: "Actie",
-            auth_2fa: "2FA",
             owner: "Eigenaar"
         },
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
             add: "Toevoegen",
-            security: "Beveiliging",
             transfer_ownership: "Overdragen",
             export: "Exporteren",
         }
@@ -1496,10 +1494,6 @@ module.exports = {
         buttons: {
             close: "Sluit",
             pause: "Pauze",
-            delete: "Verwijderen",
-            edit: "Bewerken",
-            view: "Bekijken",
-            security: "Beveiliging",
         },
         status: {
             active: "Actief",

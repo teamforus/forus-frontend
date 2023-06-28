@@ -3,7 +3,7 @@
         width: 800px;
 
         .modal-section {
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--boarder-color);
 
             &:last-child {
                 border-bottom: none;
@@ -117,7 +117,7 @@
                 width: 100px;
                 height: 100px;
                 background-color: transparent;
-                border-radius: var(--border-radius);
+                border-radius: var(--boarder-radius);
                 margin: 0 auto 10px;
                 border: 1px dashed #767676;
                 transition: 0.4s;
@@ -233,7 +233,7 @@
                     margin: 0 0 20px;
                     width: 100%;
                     border: 2px solid #767676;
-                    border-radius: var(--border-radius);
+                    border-radius: var(--boarder-radius);
                     flex-direction: row;
                     padding: 0;
                     text-align: left;
