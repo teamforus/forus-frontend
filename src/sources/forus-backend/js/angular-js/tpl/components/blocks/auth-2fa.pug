@@ -76,7 +76,7 @@ div
                     .sign_up-pane-text Two Factor Authentication is required for your account, please select 2fa provider to continue.
                 
                 .sign_up-pane-body
-                    .sign_up-pane-text: .sign_up-pane-heading Please select an option
+                    .sign_up-pane-text: .sign_up-pane-heading Kies een optie
                     .sign_up-options
                         .sign_up-option(
                             ng-repeat="provider_type in $ctrl.provider_types" 
@@ -93,10 +93,9 @@ div
             .sign_up-pane(ng-if="$ctrl.step == 'auth'" ng-show="!$ctrl.hidePane")
                 .sign_up-pane-body
                     .sign_up-pane-heading.text-strong Two Factor Authentication
-                    .sign_up-pane-text Please confirm your account using previously configured method
                 
                 .sign_up-pane-body
-                    .sign_up-pane-text: .sign_up-pane-heading Please select an option
+                    .sign_up-pane-text: .sign_up-pane-heading Kies een optie
                     .sign_up-options
                         .sign_up-option(
                             ng-repeat="provider_type in $ctrl.provider_types" 

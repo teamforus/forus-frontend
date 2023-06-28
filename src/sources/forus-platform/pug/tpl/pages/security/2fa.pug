@@ -11,8 +11,8 @@
                 .auth-2fa-item-title(ng-bind="provider_type.title")
                 
                 .auth-2fa-item-label: .label-group
-                    .label.label-default(ng-if="!$ctrl.active_provider_types.includes(provider_type.type)") Disabled
-                    .label.label-success(ng-if="$ctrl.active_provider_types.includes(provider_type.type)") Enabled
+                    .label.label-default(ng-if="!$ctrl.active_provider_types.includes(provider_type.type)") Uitgeschakeld
+                    .label.label-success(ng-if="$ctrl.active_provider_types.includes(provider_type.type)") Ingeschakeld
                 
                 .auth-2fa-item-space
 
@@ -21,16 +21,16 @@
                         ng-if="!$ctrl.active_provider_types.includes(provider_type.type)"
                         ng-click="$ctrl.setupAuth2FA(provider_type.type)") 
                         em.mdi.mdi-shield-check-outline.icon-start
-                        | Enable
+                        | Inschakelen
 
                     .button.button-default(
                         ng-if="$ctrl.active_provider_types.includes(provider_type.type)"
                         ng-click="$ctrl.deactivateAuth2FA(provider_type.type)") 
                         em.mdi.mdi-lock-open-outline.icon-start
-                        | Disable
+                        | Uitschakelen
 
             .card: form(ng-submit="$ctrl.form.submit()").form.form-compact
-                .card-header: .card-title 2FA config
+                .card-header: .card-title Instellingen
                 .card-section.card-section-primary
                     .form-group
                         label.form-label(for="select_organization") Onthoud IP-adres
@@ -48,9 +48,9 @@
                             ng-model="$ctrl.auth2FARememberIpOptions[0].name").form-control
 
                         .form-hint(ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.voucher")
-                            | You have one or multiple vouchers from a fund which restricts this setting.
+                            | Je hebt een voucher die tweefactorauthenticatie verplicht stelt
                         .form-hint(ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.organization")
-                            | You are part of an organization which restricts this setting.
+                            | Deze instellingen kunnen niet worden aangepast vanwege de voorwaarden die door de organisatie zijn gesteld
 
                 .card-section.card-section-primary.text-center
-                    button.button.button-primary(type="submit") Submit
+                    button.button.button-primary(type="submit") Bevestig
