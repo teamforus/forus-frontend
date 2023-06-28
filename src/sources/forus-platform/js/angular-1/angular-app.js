@@ -288,7 +288,7 @@ app.directive('appLinks', require('./directives/elements/AppLinksDirective'));
 // Modals
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
-app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
+app.directive('modalScrollBreaker', require('./directives/modals/ModalScrollBreakerDirective'));
 
 // Printable
 app.directive('printablesRoot', require('./directives/printables/PrintableRootDirective'));

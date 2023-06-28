@@ -93,6 +93,6 @@ module.exports = ['$q', ($q) => {
         restrict: "EA",
         replace: true,
         link: (scope, element) => QrCodeDirective(scope, element, $q),
-        templateUrl: 'assets/tpl/directives/qr-code.html'
+        template: require('../../../pug/tpl/directives/qr-code.pug'), //'assets/tpl/directives/qr-code.html'
     };
 }];
