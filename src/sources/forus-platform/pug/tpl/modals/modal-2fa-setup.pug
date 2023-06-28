@@ -9,13 +9,13 @@
         //- Select provider
         .modal-body(ng-if="$ctrl.step == 'provider_select'")
             .modal-header
-                .modal-heading Set up Authenticator
+                .modal-heading Tweefactorauthenticatie instellen
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
 
             .modal-section
                 .modal-section-column.modal-section-column-4: .form
                     .modal-text
-                        strong.text-strong Please select the authentication app you want to use
+                        strong.text-strong Selecteer de authenticatie-app die u wilt gebruiken.
                         .form-group: select-control(
                             search='false' 
                             ng-model="$ctrl.provider" 
@@ -57,7 +57,7 @@
         //- Phone number
         .modal-body(ng-if="$ctrl.step == 'phone_setup'"): form(ng-submit="$ctrl.submitPhoneNumber()")
             .modal-header
-                .modal-heading Set up Authenticator
+                .modal-heading Tweefactorauthenticatie instellen
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
 
             .modal-section.form: .row: .col.col-xs-10.col-xs-offset-1
@@ -88,7 +88,7 @@
         .modal-body(ng-if="$ctrl.step == 'provider_confirmation'"): form(
             ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.activateProvider()")
             .modal-header
-                .modal-heading Set up Authenticator
+                .modal-heading Tweefactorauthenticatie instellen
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
 
             .modal-section.form
@@ -175,7 +175,7 @@
         //- Auth 2FA provider code confirmation
         .modal-body(ng-if="$ctrl.step == 'success'")
             .modal-header
-                .modal-heading Set up Authenticator
+                .modal-heading Tweefactorauthenticatie instellen
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
 
             .modal-section.modal-section-pad.form.text-center

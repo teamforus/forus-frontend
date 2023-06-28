@@ -19,6 +19,6 @@ module.exports = {
         notification_preferences: "Notification preferences",
         sessions: "Sessions",
         email_settings: "Email settings",
-        security: "Security",
+        security: "Beveiliging",
     },
 }

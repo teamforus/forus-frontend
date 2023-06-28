@@ -5,7 +5,7 @@
         //- Test for emails feature
         .restriction-hero-details(ng-if="$dir.type == 'emails'")
             .restriction-hero-title
-                | Two-Factor Authentication required for changing the email
+                | Tweefactorauthenticatie is vereist voor het wijzigingen van een e-mailadres
             .restriction-hero-description
                 | To ensure the safety and security of our organization's sensitive data, 
                 | we are implementing mandatory two-factor authentication for all employees. 
@@ -13,12 +13,12 @@
 
             .button-group: a(ui-sref="security-2fa").button.button-primary.button-sm
                 .icon-start.mdi.mdi-lock-outline 
-                | Setup Two Factor Authentication
+                | Tweefactorauthenticatie instellen
 
         //- Test for sessions feature
         .restriction-hero-details(ng-if="$dir.type == 'sessions'")
             .restriction-hero-title
-                | Two-Factor Authentication required for managing sessions
+                | Tweefactorauthenticatie is vereist voor het beheren van sessies
             .restriction-hero-description
                 | To ensure the safety and security of our organization's sensitive data, 
                 | we are implementing mandatory two-factor authentication for all employees. 
@@ -26,7 +26,7 @@
 
             .button-group: a(ui-sref="security-2fa").button.button-primary.button-sm
                 .icon-start.mdi.mdi-lock-outline
-                | Setup Two Factor Authentication
+                | Tweefactorauthenticatie instellen
 
     .restriction-reasons
         //- Test for emails feature

@@ -1251,7 +1251,7 @@ module.exports = {
             adjust: "Aanpassen",
             delete: "Verwijderen",
             add: "Toevoegen",
-            security: "Security",
+            security: "Beveiliging",
             transfer_ownership: "Overdragen",
             export: "Exporteren",
         }
@@ -1484,7 +1484,7 @@ module.exports = {
             delete: "Verwijderen",
             edit: "Bewerken",
             view: "Bekijken",
-            security: "Security",
+            security: "Beveiliging",
         },
         status: {
             active: "Actief",

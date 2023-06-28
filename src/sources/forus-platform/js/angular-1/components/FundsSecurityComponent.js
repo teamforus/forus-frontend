@@ -8,21 +8,21 @@ const FundsSecurityComponent = function (
 
     const auth2FARequiredOptions = [{
         value: 'optional',
-        name: 'Optional',
+        name: 'Optioneel',
     }, {
         value: 'restrict_features',
-        name: 'Require 2FA for selected features',
+        name: 'tweefactorauthenticatie vereisen voor geselecteerde functies',
     }, {
         value: 'required',
-        name: 'Require 2FA for sign-in',
+        name: 'tweefactorauthenticatie vereisen om in te loggen',
     }];
 
     const auth2FARememberIpOptions = [{
         value: false,
-        name: 'Always require confirmation',
+        name: 'Altijd bevestiging vereisen met tweefactorauthenticatie',
     }, {
         value: true,
-        name: 'Do not require confirmation when IP was already used with 2FA in last 48 hours.',
+        name: 'Geen tweefactorauthenticatie-bevestiging vereisen wanneer IP adres binnen de laatste 48 uur is gebruikt.',
     }];
 
     $ctrl.$onInit = () => {
@@ -41,9 +41,9 @@ const FundsSecurityComponent = function (
             PageLoadingBarService.setProgress(0);
 
             FundService.update($ctrl.organization.id, $ctrl.fund.id, values).then(() => {
-                PushNotificationsService.success('Updated!');
+                PushNotificationsService.success('Opgeslagen!');
             }, (e) => {
-                PushNotificationsService.danger('Error!', e.data?.message || 'Unknown error.');
+                PushNotificationsService.danger('Error!', e.data?.message || 'Onbekende foutmelding.');
                 form.errors = e.data.errors;
             }).finally(() => form.unlock() & PageLoadingBarService.setProgress(100));
         }, true);
