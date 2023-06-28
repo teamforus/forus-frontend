@@ -77,6 +77,7 @@ module.exports = {
             cancel_provider_unsubscription: require('./nl/modals/danger-zone/cancel-provider-unsubscription'),
             remove_voucher_record: require('./nl/modals/danger-zone/remove-voucher-record'),
             remove_implementation_social_media: require('./nl/modals/danger-zone/remove-implementation-social-media'),
+            remove_reimbursement_category: require('./nl/modals/danger-zone/remove_reimbursement_category'),
         },
     },
     // PAGES
@@ -694,7 +695,9 @@ module.exports = {
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
             available_offers: "Resterend aanbod",
-            unlimited: "Onbeperkt"
+            unlimited: "Onbeperkt",
+            alternative_text: "Alt-tekst",
+            alternative_text_placeholder: "Omschrijving van de afbeelding",
         },
         tooltips: {
             product_type: ["Kies het soort aanbod. Voorbeelden:",
@@ -1425,6 +1428,18 @@ module.exports = {
         buttons: {
             cancel: "Annuleren",
             confirm: "Bevestigen",
+        }
+    },
+
+    validation_request_details: {
+        labels: {
+            clarification_requests: "Aanvullingsverzoeken ({{ count }})",
+            history: "Geschiedenis ({{ count }})",
+            files: "Bestanden ({{ count }})",
+            old_value: "Oude waarde",
+            new_value: "Nieuwe waarde",
+            employee: "Medewerker",
+            date_changed: "Datum gewijzigd",
         }
     },
 

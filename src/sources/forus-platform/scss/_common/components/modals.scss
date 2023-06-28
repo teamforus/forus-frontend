@@ -42,13 +42,17 @@
         background: #f6f9fc;
         width: 1200px;
         max-width: 100%;
-        border-radius: var(--border-radius) / 2;
+        border-radius: calc(var(--boarder-radius) / 2);
         display: inline-block;
         min-height: 100px;
         margin: 0 auto;
         max-height: 90vh;
         display: flex;
         flex-direction: column;
+
+        .modal-section {
+            padding: 30px;
+        }
 
         .modal-close {
             position: absolute;
@@ -328,7 +332,7 @@
                 font: 500 13px/16px var(--base-font);
                 color: #292B39;
                 border: 1px solid var(--border-color);
-                border-radius: var(--border-radius);
+                border-radius: var(--boarder-radius);
 
                 em {
                     font-size: 22px;
@@ -362,7 +366,7 @@
         width: 1200px;
         max-width: 100%;
         background: #f7f9fc;
-        border-radius: var(--border-radius);
+        border-radius: var(--boarder-radius);
         min-height: 100px;
         overflow: hidden;
         margin: 0 auto;
@@ -613,7 +617,7 @@
                         font: 500 14px var(--base-font);
                         color: #282b39;
                         border: 1px solid #d4d9dd;
-                        border-radius: var(--border-radius) / 2;
+                        border-radius: calc(var(--boarder-radius) / 2);
                         position: relative;
                         transition: .4s;
                         background: transparent;
@@ -700,7 +704,7 @@
 
     &.modal-lg {
         .modal-window {
-            width: 760px;
+            width: 1000px;
         }
 
         .modal-footer {
@@ -957,6 +961,18 @@
                         font: 600 13px/18px var(--base-font);
                     }
                 }
+            }
+        }
+    }
+
+    &.modal-reimbursement-categories {
+        .card {
+            box-shadow: none;
+            border-bottom: 0;
+            margin-bottom: 0;
+
+            .table-pagination .table-pagination-counter {
+                line-height: 30px;
             }
         }
     }

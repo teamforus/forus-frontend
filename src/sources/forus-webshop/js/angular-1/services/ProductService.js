@@ -50,7 +50,6 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                     imageSrc: productImgSrc,
                     message: `Er staan ${res.data.meta.total} aanbiedingen in het verlanglijstje`,
                     group: 'bookmarks',
-                    timeout: 4000,
                     btnText: 'Ga naar mijn verlanglijstje',
                     btnSref: 'bookmarked-products',
                     btnIcon: 'cards-heart-outline',
@@ -164,6 +163,13 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                     order_by_dir: 'desc',
                 }
             }];
+        }
+
+        this.transformProductAlternativeText = (product) => {
+            const default_text = 'Dit is een afbeelding van het aanbod ' + product.name + ' van aanbieder ' + product.organization.name;
+            const provider_text = '.De aanbieder omschrijft het aanbod als volgt: ' + product.alternative_text;
+
+            return default_text + (product.alternative_text ? provider_text : '');
         }
     });
 };

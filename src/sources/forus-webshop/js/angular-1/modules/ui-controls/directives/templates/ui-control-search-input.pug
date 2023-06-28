@@ -1,0 +1,14 @@
+.ui-control.ui-control-search-input(ng-class="$dir.class")
+    input(
+        type="text"
+        id="{{ $dir.id }}" 
+        name="{{ $dir.name }}" 
+        dusk="{{ $dir.inputDusk }}" 
+        ng-change="$dir.onChange()"
+        ng-click="$dir.onClick()"
+        ng-keydown="$dir.onKeyDown()"
+        ng-attr-tabindex="{{ $dir.tabindex }}"
+        placeholder="{{ $dir.placeholder }}" 
+        aria-label="{{ $dir.ariaLabel }}"
+        ng-model="ngModel").form-control
+    .ui-control-clear(for="{{ $dir.id }}" ng-click="$dir.clear()" aria-label="cancel"): .mdi.mdi-close-circle

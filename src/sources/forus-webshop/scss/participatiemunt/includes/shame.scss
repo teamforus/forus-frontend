@@ -55,13 +55,6 @@ cms-blocks {
                     color: #0D2864;
                     font-weight: 700;
 
-                    &:hover {
-                        &:before {
-                            top: auto;
-                            bottom: 11px;
-                        }
-                    }
-
                     &.active {
                         color: #0D2864;
 

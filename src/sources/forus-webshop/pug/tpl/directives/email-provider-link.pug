@@ -4,4 +4,4 @@ a(
     ng-class="$dir.type == 'button' ? 'button-primary' : 'button-text button-text-primary'").button
     em.mdi.icon-start(ng-if="$dir.icon" ng-class="'mdi-' + $dir.icon")
     translate(translate="email_service_switch.confirm")
-    em.mdi.mdi-arrow-right.icon-right
+    em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")

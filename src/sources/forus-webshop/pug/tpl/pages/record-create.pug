@@ -24,7 +24,7 @@ main(id="main-content")
                         .text-left
                             button(ui-sref="records").button.button-dark 
                                 translate(translate="records.header.buttons.cancel")
-                                em.mdi.mdi-arrow-right.icon-right
+                                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
                             button(
                                 ng-if="$ctrl.form.values.type"
                                 ng-click="$ctrl.gotToStep(2)"

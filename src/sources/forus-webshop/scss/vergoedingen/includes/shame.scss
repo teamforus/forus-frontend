@@ -6,6 +6,20 @@ h1, h2, h3, h4, h5, h6 {
     &.block-navbar {
         border-bottom: none;
 
+        .navbar-inner {
+            svg {
+                path {
+                    fill: var(--tc);
+                }
+    
+                &:hover {
+                    path {
+                        fill: #176B55;
+                    }
+                }
+            }
+        }
+
         .block-auth {
             .button {
                 font-weight: 600;
@@ -13,15 +27,19 @@ h1, h2, h3, h4, h5, h6 {
                 color: var(--tc);
 
                 svg {
-                    filter: invert(7%) sepia(6%) saturate(20%) hue-rotate(314deg) brightness(0%) contrast(85%);
+                    path {
+                        fill: var(--tc);
+                    }
                 }
-                    
+
                 &:hover {
                     box-shadow: none;
                     color: #176B55;
 
                     svg {
-                        filter: invert(29%) sepia(96%) saturate(352%) hue-rotate(114deg) brightness(42%) contrast(90%);
+                        path {
+                            fill: #176B55;
+                        }
                     }
                 }
             }
@@ -30,8 +48,24 @@ h1, h2, h3, h4, h5, h6 {
                 margin-left: 0;
 
                 .auth-user {
-                    .auth-user-caret {
-                        color: #ffffff;
+                    .auth-user-avatar {
+                        width: 30px;
+
+                        &:after {
+                            background-position: 10px 18px;
+                        }
+                    }
+
+                    &:hover {
+                        .auth-user-avatar {
+                            &:after {
+                                background: url(../img/identity-avatar-hover.svg) 10px 18px no-repeat;
+                            }
+                        }
+
+                        .auth-user-caret {
+                            color: #176B55;
+                        }
                     }
                 }
             }
@@ -46,8 +80,6 @@ h1, h2, h3, h4, h5, h6 {
                 .navbar-item {
                     &:hover {
                         &:before {
-                            top: auto;
-                            bottom: 0;
                             background: var(--color-primary);
                         }
                     }
@@ -117,13 +149,8 @@ h1, h2, h3, h4, h5, h6 {
             }
 
             .button {
-                color:#ffffff;
-
-                svg {
-                    path {
-                        fill: #fff;
-                    }
-                }
+                font-weight: 600;
+                color: var(--tc);
             }
         }
     }

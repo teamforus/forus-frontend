@@ -1,7 +1,7 @@
 a.product-item(dusk="productItem")
     .product-photo: img(
         ng-src="{{ $dir.productImgSrc }}" 
-        alt="")
+        alt="{{ $dir.product.alternative_text }}")
 
     mixin bookmark_toggle()
         .block.block-bookmark-toggle(
@@ -35,7 +35,7 @@ a.product-item(dusk="productItem")
 
             .product-price(
                 ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min != 0" 
-                ng-bind="$dir.product.price_min | currency_format")
+                ng-bind="$dir.product.price_min_locale")
             
             .product-price(ng-if="$dir.product.price_type !== 'regular'" ng-bind="$dir.product.price_locale")
 
