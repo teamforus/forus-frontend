@@ -1,0 +1,66 @@
+.modal.modal-lg.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.cancel()")
+
+    .modal-window
+        //- Deactivation confirmation
+        .modal-body(ng-if="$ctrl.step == 'confirmation'"): form(
+            ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.deactivateProvider()")
+
+            .modal-header
+                .modal-heading Disable Authenticator
+                .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+
+            .modal-section.form
+                .modal-text.text-center
+                    strong.text-strong To continue please enter the email verification code and 6-digit 2FA security code.
+
+                .modal-text.text-center
+                    .form-group
+                        .form-label(ng-if="$ctrl.type == 'phone'") Enter 6-digit SMS code 
+                        .form-label(ng-if="$ctrl.type == 'authenticator'") Enter 6-digit from the app
+
+                        .form-group-offset
+                            pincode-control(
+                                ng-model="$ctrl.confirmationCode" 
+                                block-size="3" 
+                                block-count="2" 
+                                block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                            
+                            .form-error(ng-repeat="error in $ctrl.errorCode" ng-bind="error")
+                
+                .modal-text.text-center(ng-if="$ctrl.type == 'phone'")
+                    button.button.button-text.button-text-primary.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
+                        .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
+                        | Resend Code
+                        span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} second(s))
+            
+                auth-2-f-a-info-box.flex-center
+
+            .modal-footer
+                .button-group
+                    //- Back
+                    button.button.button-default(
+                        type="button"
+                        ng-click="$ctrl.cancel()") Cancel
+
+                    //- Submit
+                    button.button.button-primary(
+                        type="submit"
+                        ng-disabled="$ctrl.confirmationCode.length !== 6") Verify
+
+        //- Success
+        .modal-body(ng-if="$ctrl.step == 'success'")
+            .modal-header
+                .modal-heading Tweefactorauthenticatie instellen
+                .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+
+            .modal-section.modal-section-pad.form.text-center
+                .modal-icon-mdi: .mdi.mdi-check
+                .modal-heading: strong Two-factor authentication successfully enabled
+                .modal-text: small 
+                    | Elementum sed pulvinar faucibus tincidunt gravida ultrices. Senectus nisl enim dolor in vitae sem. 
+                    | Malesuada lacus arcu eleifend pharetra diam mauris vitae egestas.
+
+            .modal-footer: .button-group: .button.button-primary(type="submit" ng-click="$ctrl.done()") Confirm
