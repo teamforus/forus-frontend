@@ -47,6 +47,6 @@
         translate(translate="profile_menu.buttons.email_settings")
         em.mdi.mdi-arrow-right
 
-    a(ui-sref="security-2fa" ui-sref-active="active" role="button").profile-menu-item 
+    a(ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required" ui-sref="security-2fa" ui-sref-active="active" role="button").profile-menu-item 
         translate(translate="profile_menu.buttons.security")
         em.mdi.mdi-arrow-right

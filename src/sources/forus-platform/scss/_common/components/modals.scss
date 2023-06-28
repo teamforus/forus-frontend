@@ -169,6 +169,10 @@
                         float: left;
                     }
                 }
+
+                &.modal-section-collapse {
+                    padding: 0;
+                }
             }
 
             .modal-info {

@@ -277,6 +277,7 @@ app.directive('providerFundsInvitationTable', require('./directives/ProviderFund
 app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoinDirective'));
 app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
+app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 

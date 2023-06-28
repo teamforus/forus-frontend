@@ -47,6 +47,9 @@
                         qr-raw="$ctrl.auth_2fa.secret_url" 
                         qr-logo=src_prefix + "./assets/img/me-logo.png")
 
+            .modal-section.modal-section-collapse
+                auth-2-f-a-info-box.flex-center.block-info-box-borderless
+
             .modal-footer
                 .button-group
                     //- Cancel
@@ -76,6 +79,8 @@
                             block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
 
                         .form-error(ng-repeat="error in $ctrl.phoneNumberError" ng-bind="error")
+
+                auth-2-f-a-info-box.flex-center
 
             .modal-footer
                 .button-group
@@ -113,6 +118,8 @@
                         .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
                         | Resend Code
                         span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} second(s))
+
+                auth-2-f-a-info-box.flex-center
 
             .modal-footer
                 .button-group
@@ -159,6 +166,8 @@
                         .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
                         | Resend Code
                         span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} second(s))
+
+                auth-2-f-a-info-box.flex-center
 
             .modal-footer
                 .button-group

@@ -184,6 +184,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                                         span(translate="topnavbar.buttons.authorize")
                                         
                                     a.auth-user-menu-item(
+                                        ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required"
                                         ui-sref="security-2fa"
                                         role="link")
                                         em.mdi.mdi-security

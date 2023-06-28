@@ -107,6 +107,10 @@
                     float: left;
                 }
             }
+
+            &.modal-section-collapsed {
+                padding: 0;
+            }
         }
 
         .modal-close {

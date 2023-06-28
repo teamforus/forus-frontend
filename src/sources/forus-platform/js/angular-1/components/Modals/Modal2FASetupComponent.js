@@ -8,6 +8,20 @@ const Modal2FASetupComponent = function (
     $ctrl.resending = false;
     $ctrl.resendingTime = 0;
     $ctrl.resendingInterval = 10;
+    $ctrl.isLocked = false;
+
+    $ctrl.lock = () => {
+        if ($ctrl.isLocked) {
+            return true;
+        }
+
+        $ctrl.isLocked = true;
+    };
+
+    $ctrl.unlock = (time = 1000) => {
+        $timeout.cancel($ctrl.unlockEvent);
+        $ctrl.unlockEvent = $timeout(() => $ctrl.isLocked = false, time);
+    };
 
     $ctrl.makePhone2FA = () => {
         return Identity2FAService.store({
@@ -54,6 +68,10 @@ const Modal2FASetupComponent = function (
     }
 
     $ctrl.activateProvider = () => {
+        if ($ctrl.lock()) {
+            return;
+        }
+
         Identity2FAService.activate($ctrl.auth_2fa.uuid, {
             key: $ctrl.provider.key,
             code: $ctrl.confirmationCode,
@@ -63,13 +81,17 @@ const Modal2FASetupComponent = function (
                 $ctrl.setStep('success');
             },
             (res) => {
-                $ctrl.activateAuthErrors = res.data?.errors.code;
+                $ctrl.activateAuthErrors = res.data?.errors?.code;
                 PushNotificationsService.danger(res.data?.message || 'Unknown error.');
             },
-        );
+        ).finally(() => $ctrl.unlock());
     };
 
     $ctrl.verifyAuthProvider = () => {
+        if ($ctrl.lock()) {
+            return;
+        }
+
         Identity2FAService.authenticate($ctrl.auth_2fa.uuid, {
             code: $ctrl.confirmationCode,
         }).then(
@@ -78,10 +100,10 @@ const Modal2FASetupComponent = function (
                 $ctrl.setStep('success');
             },
             (res) => {
-                $ctrl.verifyAuthErrors = res.data?.errors.code;
+                $ctrl.verifyAuthErrors = res.data?.errors?.code;
                 PushNotificationsService.danger(res.data?.message || 'Unknown error.');
             },
-        );
+        ).finally(() => $ctrl.unlock());
     };
 
     $ctrl.resendCode = (notify = true) => {

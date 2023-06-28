@@ -35,16 +35,18 @@
                         .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
                         | Resend Code
                         span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} second(s))
+            
+                auth-2-f-a-info-box.flex-center
 
             .modal-footer
                 .button-group
                     //- Back
-                    .button.button-default(
+                    button.button.button-default(
                         type="button"
                         ng-click="$ctrl.cancel()") Cancel
 
                     //- Submit
-                    .button.button-primary(
+                    button.button.button-primary(
                         type="submit"
                         ng-disabled="$ctrl.confirmationCode.length !== 6") Verify
 
