@@ -3,7 +3,8 @@ a(
     ui-sref="reimbursement($dir.reimbursement)").reimbursement-item
     .reimbursement-image(
         ng-if="!$dir.reimbursement.files[0].preview"
-        ng-class="'reimbursement-image-' + $dir.reimbursement.state")
+        ng-class="'reimbursement-image-' + $dir.reimbursement.state"
+        role="img" aria-label="")
         include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
 
     .reimbursement-image(

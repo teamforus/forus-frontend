@@ -2,8 +2,8 @@
     .product-card
         .product-photo: img(
             src="{{ $dir.product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" 
-            alt="")
+            alt="{{ $dir.product.alternative_text }}")
 
         .product-details
             .product-name(ng-bind="$dir.product.name")
-            .product-price: .product-price-new(ng-bind="$dir.product.price | currency_format")
+            .product-price: .product-price-new(ng-bind="$dir.product.price_locale")

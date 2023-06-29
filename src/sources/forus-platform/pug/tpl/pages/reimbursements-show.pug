@@ -220,6 +220,32 @@
                                         ng-if="$ctrl.hasFilePreview(file)" 
                                         ng-click="$ctrl.previewFile($event, file)")
                                         .mdi.mdi-eye
+        //- Reimbursement details (editable)
+        .card(ng-if="$ctrl.reimbursement")
+            //- Header
+            .card-header: .flex-row
+                //- Title
+                .flex.flex-grow: .card-title Extra informatie
+
+                //- Edit
+                .flex: .block.block-inline-filters
+                    .button.button-primary(
+                        ng-if="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"
+                        ng-click="$ctrl.editReimbursementDetails()")
+                        em.mdi.mdi-pencil.icon-start 
+                        | Bewerk
+
+            .card-section: .flex
+                .flex: .card-block.card-block-keyvalue
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.provider")
+                        .keyvalue-value(ng-if="$ctrl.reimbursement.provider_name" ng-bind="$ctrl.reimbursement.provider_name")
+                        .keyvalue-value.text-muted(ng-if="!$ctrl.reimbursement.provider_name") Geen aanbieder
+
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.category")
+                        .keyvalue-value(ng-if="$ctrl.reimbursement.reimbursement_category.name" ng-bind="$ctrl.reimbursement.reimbursement_category.name")
+                        .keyvalue-value.text-muted(ng-if="!$ctrl.reimbursement.reimbursement_category.name") Geen categorie
 
                     //- Transaction state
                     .keyvalue-item

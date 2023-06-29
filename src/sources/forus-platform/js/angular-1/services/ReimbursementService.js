@@ -8,6 +8,10 @@ const ReimbursementService = function (ApiRequest) {
             return ApiRequest.get(`/platform/organizations/${organization_id}/reimbursements/${id}`);
         };
 
+        this.update = function(organization_id, id, data) {
+            return ApiRequest.patch(`/platform/organizations/${organization_id}/reimbursements/${id}`, data);
+        };
+
         this.assign = (organization_id, id, data = {}) => {
             return ApiRequest.post(`/platform/organizations/${organization_id}/reimbursements/${id}/assign`, data);
         };
@@ -34,6 +38,21 @@ const ReimbursementService = function (ApiRequest) {
 
         this.storeNote = (organization_id, id, data = {}) => {
             return ApiRequest.post(`/platform/organizations/${organization_id}/reimbursements/${id}/notes`, data);
+        };
+
+        this.export = (organization_id, filters = {}) => {
+            const callback = (_cfg) => {
+                _cfg.responseType = 'arraybuffer';
+                _cfg.cache = false;
+
+                return _cfg;
+            };
+
+            return ApiRequest.get(`/platform/organizations/${organization_id}/reimbursements/export`, filters, {}, true, callback);
+        };
+
+        this.exportFields = function(organization_id) {
+            return ApiRequest.get(`/platform/organizations/${organization_id}/reimbursements/export-fields`);
         };
 
         this.getStateOptions = () => {

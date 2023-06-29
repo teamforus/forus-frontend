@@ -77,6 +77,7 @@ module.exports = {
             cancel_provider_unsubscription: require('./nl/modals/danger-zone/cancel-provider-unsubscription'),
             remove_voucher_record: require('./nl/modals/danger-zone/remove-voucher-record'),
             remove_implementation_social_media: require('./nl/modals/danger-zone/remove-implementation-social-media'),
+            remove_reimbursement_category: require('./nl/modals/danger-zone/remove_reimbursement_category'),
         },
     },
     // PAGES
@@ -425,8 +426,8 @@ module.exports = {
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
+            footer_app_info: "Footer download de Me-app content",
             cms_media_links: "Social media links",
-            footer_app_info: "",
         },
         implementations_table: {
             title: "Webshop pagina's",
@@ -694,7 +695,9 @@ module.exports = {
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
             available_offers: "Resterend aanbod",
-            unlimited: "Onbeperkt"
+            unlimited: "Onbeperkt",
+            alternative_text: "Alt-tekst",
+            alternative_text_placeholder: "Omschrijving van de afbeelding",
         },
         tooltips: {
             product_type: ["Kies het soort aanbod. Voorbeelden:",
@@ -1244,12 +1247,14 @@ module.exports = {
             email: "E-mailadres",
             roles: "Rollen",
             actions: "Actie",
+            auth_2fa: "2FA",
             owner: "Eigenaar"
         },
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
             add: "Toevoegen",
+            security: "Beveiliging",
             transfer_ownership: "Overdragen",
             export: "Exporteren",
         }
@@ -1426,6 +1431,18 @@ module.exports = {
         }
     },
 
+    validation_request_details: {
+        labels: {
+            clarification_requests: "Aanvullingsverzoeken ({{ count }})",
+            history: "Geschiedenis ({{ count }})",
+            files: "Bestanden ({{ count }})",
+            old_value: "Oude waarde",
+            new_value: "Nieuwe waarde",
+            employee: "Medewerker",
+            date_changed: "Datum gewijzigd",
+        }
+    },
+
     // DIRECTIVES
 
     notes: {
@@ -1479,6 +1496,10 @@ module.exports = {
         buttons: {
             close: "Sluit",
             pause: "Pauze",
+            delete: "Verwijderen",
+            edit: "Bewerken",
+            view: "Bekijken",
+            security: "Beveiliging",
         },
         status: {
             active: "Actief",

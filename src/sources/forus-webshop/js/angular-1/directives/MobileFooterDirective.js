@@ -10,7 +10,6 @@ const MobileFooterDirective = function(
     $dir.visible = true;
     $dir.vouchers = null;
     $dir.funds = null;
-    $dir.prevOffsetY = window.pageYOffset;
     $dir.profileMenuOpened = false;
     $dir.appConfigs = appConfigs;
 
@@ -35,14 +34,6 @@ const MobileFooterDirective = function(
         }
     };
 
-    $dir.updateScrolled = () => {
-        const currentOffsetY = window.pageYOffset;
-
-        $dir.visible = ($dir.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
-        $dir.prevOffsetY = currentOffsetY;
-        $dir.profileMenuOpened = false;
-    };
-
     const getFundList = () => {
         FundService.list(null, {check_criteria: 1}).then((res) => $dir.funds = res.data.data);
     }
@@ -60,12 +51,7 @@ const MobileFooterDirective = function(
         getFundList();
         $dir.$state = $state;
 
-        window.addEventListener('scroll', $dir.updateScrolled);
         $scope.$on('identity:update', (e, auth_user) => $dir.onAuthUserChange(auth_user));
-    };
-
-    $dir.$onDestroy = () => {
-        window.removeEventListener('scroll', $dir.updateScrolled);
     };
 };
 

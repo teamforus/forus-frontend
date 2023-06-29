@@ -19,6 +19,8 @@ const ProviderAvailableFundsTableDirective = function (
         page: 1,
         per_page: 10,
         organization_id: null,
+        order_by: 'organization_name',
+        order_dir: 'asc',
     };
 
     $dir.filters = {
@@ -127,7 +129,7 @@ const ProviderAvailableFundsTableDirective = function (
     $dir.$onInit = () => {
         $dir.loading = true;
 
-        $dir.onPageChange().finally(() => {
+        $dir.onPageChange($dir.filters.values).finally(() => {
             $dir.loading = false;
             $scope.$watch('$dir.selected', () => $dir.updateActions(), true);
             $scope.$watch('$dir.funds', () => $dir.updateActions(), true);

@@ -11,6 +11,8 @@ module.exports = {
         email: "E-mail",
         amount: "Bedrag",
         title: "Titel",
+        provider: "Aanbieder",
+        category: "Categorie",
         description: "Toelichting",
         fund: "Fonds",
         state: "Status",

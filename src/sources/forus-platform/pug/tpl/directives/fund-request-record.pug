@@ -1,0 +1,40 @@
+.block
+    .block.block-label-tabs(ng-if="$dir.hasMultiple")
+        .label-tab(
+            ng-if="$dir.fundRequestRecord.files.length > 0"
+            ng-click="$dir.shownType = 'files'"
+            ng-class="{active: $dir.shownType == 'files'}"
+            translate="validation_request_details.labels.files"
+            translate-values="{count: $dir.fundRequestRecord.files.length}")
+
+        .label-tab(
+            ng-if="$dir.fundRequestRecord.clarifications.length > 0"
+            ng-click="$dir.shownType = 'clarifications'"
+            ng-class="{active: $dir.shownType == 'clarifications'}"
+            translate="validation_request_details.labels.clarification_requests"
+            translate-values="{count: $dir.fundRequestRecord.clarifications.length}")
+
+        .label-tab(
+            ng-if="$dir.fundRequestRecord.history.length > 0"
+            ng-click="$dir.shownType = 'history'"
+            ng-class="{active: $dir.shownType == 'history'}"
+            translate="validation_request_details.labels.history"
+            translate-values="{count: $dir.fundRequestRecord.history.length}")
+
+    fund-request-record-history(
+        ng-if="$dir.shownType == 'history' && $dir.fundRequestRecord.history.length > 0"
+        fund-request="$dir.fundRequest"
+        fund-request-record="$dir.fundRequestRecord"
+        organization="$dir.organization")
+
+    fund-request-record-attachments(
+        ng-if="$dir.shownType == 'files' && $dir.fundRequestRecord.files.length > 0"
+        fund-request="$dir.fundRequest"
+        fund-request-record="$dir.fundRequestRecord"
+        organization="$dir.organization")
+
+    fund-request-record-clarifications(
+        ng-if="$dir.shownType == 'clarifications' && $dir.fundRequestRecord.clarifications.length > 0"
+        fund-request="$dir.fundRequest"
+        fund-request-record="$dir.fundRequestRecord"
+        organization="$dir.organization")

@@ -18,8 +18,144 @@
 @import 'components/flex-grid';
 @import 'components/buttons';
 @import 'components/button-groups';
+@import '../../forus-platform/scss/_common/dashboard.scss';
+
+.modal .modal-window {
+    max-height: 75vh;
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        &>form {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+    }
+}
+
+.modal .modal-window .modal-body .modal-section {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    flex-grow: 1;
+
+    .modal-section-column {
+        width: 100% !important;
+        padding: 0 0 !important;
+        border: none !important;
+        border-bottom: 1px solid var(--border-color) !important;
+        margin: 0 !important;
+
+        &:last-child {
+            border-bottom: 0 !important;
+        }
+    };
+}
 
 .block {
     @import "blocks/block-missing-app.scss";
     @import "blocks/block-auth-pin_code.scss";
+}
+
+@media screen and (max-width: 991px) {
+    .block.block-sign_up {
+        margin: 0 -10px;
+        padding: 20px;
+
+        .sign_up-pane .sign_up-pane-body {
+            padding: 20px;
+
+            .sign_up-pane-heading {
+                font: 500 17px/25px var(--base-font);
+            }
+    
+            .sign_up-pane-text {
+                font: 400 14px/20px var(--base-font)
+            }
+    
+            .sign_up-options .sign_up-option {
+                padding: 10px;
+            }
+        }
+    }
+}
+
+.block.block-pincode {
+    @media screen and (max-width: 1000px) {
+        width: calc(60px * 6 + 10px * 5);
+        
+        .pincode-number {
+            height: 60px;
+            width: 60px;
+            font: 600 22px/70px var(--base-font)
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        margin: 30px auto 30px;
+        width: calc(50px * 6 + 10px * 5);
+
+        .pincode-number {
+            width: 50px;
+            height: 60px;
+            font: 600 26px/60px var(--base-font);
+        }
+
+        &.block-pincode-mobile-collapse {
+            width: auto;
+
+            .pincode-number {
+                margin-right: -1px;
+                border-radius: 0;
+                width: auto;
+                padding: 0 2px;
+                font-size: 18px;
+
+                &:before {
+                    height: 20px;
+                }
+
+                &.pincode-number-divider {
+                    display: none;
+                }
+
+                &.pincode-number-block-start {
+                    border-top-left-radius: 4px;
+                    border-bottom-left-radius: 4px;
+                    padding-left: 12px;
+
+                    &:before {
+                        margin-left: 7.5px;
+                    }
+                }
+
+                &.pincode-number-block-end {
+                    margin-right: 10px;
+                    border-top-right-radius: 4px;
+                    border-bottom-right-radius: 4px;
+                    padding-right: 12px;
+
+                    &:before {
+                        margin-left: -7.5px;
+                    }
+                }
+
+                &:not(.pincode-number-block-start) {
+                    border-left: 0;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        &.block-pincode-compact .pincode-number {
+            min-width: 24px;
+            font-size: 16px;
+        }
+    }
 }

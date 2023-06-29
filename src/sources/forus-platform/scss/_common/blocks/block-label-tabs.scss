@@ -1,14 +1,14 @@
 &.block-label-tabs {
     display: flex;
     margin-left: 10px;
-    border-top-left-radius: var(--boarder-radius);
-    border-top-right-radius: var(--boarder-radius);
-    border-bottom-left-radius: var(--boarder-radius);
-    border-bottom-right-radius: var(--boarder-radius);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
 
     .label-tab {
         background: #fff;
-        border: 1px solid var(--boarder-color);
+        border: 1px solid var(--border-color);
         border-right: none;
         font: 500 13px/20px var(--base-font);
         color: #2f2e43;
@@ -62,14 +62,14 @@
         }
 
         &:first-child {
-            border-top-left-radius: var(--boarder-radius);
-            border-bottom-left-radius: var(--boarder-radius);
+            border-top-left-radius: var(--border-radius);
+            border-bottom-left-radius: var(--border-radius);
         }
 
         &:last-child {
-            border-top-right-radius: var(--boarder-radius);
-            border-bottom-right-radius: var(--boarder-radius);
-            border-right: 1px solid var(--boarder-color);
+            border-top-right-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+            border-right: 1px solid var(--border-color);
         }
 
         &:hover:not(.active) {
@@ -171,10 +171,10 @@
     &.block-label-tabs-variant {
         .label-tab-group {
             box-shadow: 2px 2px 3px rgba(#000000, .1);
-            border-color: var(--boarder-color);
+            border-color: var(--border-color);
 
             .label-tab {
-                border-color: var(--boarder-color);
+                border-color: var(--border-color);
                 color: #45535e;
                 font-weight: 600;
 

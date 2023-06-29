@@ -100,6 +100,18 @@
                 transform: translate(0, -50%);
             }
         }
+
+        &.ui-control-search-input {
+            padding: 0;
+            border: none;
+
+            .ui-control-clear {
+                .mdi {
+                    font-size: 16px;
+                    height: 24px;
+                }
+            }
+        }
     }
 
     .form-control-checked + .form-control {
@@ -782,6 +794,18 @@
             /* height: 50px; */
             padding: 8px 15px;
             font: 400 13px/24px var(--base-font);
+
+            &.ui-control-search-input {
+                padding: 0;
+                border: none;
+
+                .ui-control-clear {
+                    .mdi {
+                        font-size: 16px;
+                        height: 24px;
+                    }
+                }
+            }
         }
 
         ::-webkit-input-placeholder {
