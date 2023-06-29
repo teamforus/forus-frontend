@@ -9,10 +9,10 @@ const Security2FAComponent = function (
 
     const auth2FARememberIpOptions = [{
         value: 0,
-        name: 'Altijd bevestiging vereisen met tweefactorauthenticatie',
+        name: 'Altijd bevestiging vereisen met 2FA',
     }, {
         value: 1,
-        name: 'Geen tweefactorauthenticatie-bevestiging vereisen wanneer IP adres binnen de laatste 48 uur is gebruikt',
+        name: 'Als IP-adres in de afgelopen 48 uur gebruikt, geen 2FA vereisen.',
     }];
 
     $ctrl.updateState = () => {
