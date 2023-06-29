@@ -47,14 +47,20 @@
 
                         .fund-actions
                             a(
+                                ng-if="(fund.organization | hasPerm:'manage_funds') && fund.organization.allow_2fa_restrictions"
+                                ui-sref="funds-security(fund)").button.button-default
+                                em.mdi.mdi-security.icon-start
+                                translate(translate="fund_card_sponsor.buttons.security")
+
+                            a(
                                 ng-if="fund.organization | hasPerm:['manage_funds','manage_fund_texts']:false"
                                 ui-sref="funds-edit(fund)").button.button-default
                                 em.mdi.mdi-pencil.icon-start
-                                translate(translate="product_card.buttons.edit")
+                                translate(translate="fund_card_sponsor.buttons.edit")
 
                             a(ui-sref="funds-show(fund)").button.button-primary
                                 em.mdi.mdi-eye-outline.icon-start
-                                translate(translate="product_card.buttons.view")
+                                translate(translate="fund_card_sponsor.buttons.view")
 
                     //- Fund remaining amount (internal funds only)
                     .flex-row.flex-end(ng-if="!fund.is_external"): .fund-remaining

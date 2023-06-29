@@ -1,20 +1,18 @@
-let AwesomeQR = require('../libs/AwesomeQrCode');
+const AwesomeQR = require('../libs/AwesomeQrCode');
 
-let QrCodeDirective = function(
-    scope, element, $q
-) {
-    let buildQrCode = () => {
-        let qrCodeEl = element.find('.qr_code img').attr('id', "").empty()[0];
-        let value = JSON.stringify({
+const QrCodeDirective = function(scope, element, $q) {
+    const images = {};
+
+    const buildQrCode = () => {
+        const qrCodeEl = element.find('.qr_code img').attr('id', "").empty()[0];
+        const value = scope.qrRaw ? scope.qrRaw : JSON.stringify({
             type: scope.qrType,
             value: scope.qrValue
         });
 
-        let promises = [];
-        let backgroundImage = null;
-        let logoImage = null;
+        const promises = [];
 
-        let loadImage = (url, callback) => {
+        const loadImage = (url, callback) => {
             return $q((resolve, reject) => {
                 let img = document.createElement('img');
                 img.crossOrigin = "Anonymous";
@@ -24,16 +22,15 @@ let QrCodeDirective = function(
             });
         };
 
-        if (scope.qrBackground) {
-            promises.push(loadImage(scope.qrBackground, (img) => {
-                backgroundImage = img;
-            }));
-        }
+        delete images.img;
+        delete images.backgroundImage;
 
         if (scope.qrLogo) {
-            promises.push(loadImage(scope.qrLogo, (img) => {
-                logoImage = img;
-            }));
+            promises.push(loadImage(scope.qrLogo, (img) => images.logoImage = img));
+        }
+
+        if (scope.qrBackground) {
+            promises.push(loadImage(scope.qrBackground, (img) => images.backgroundImage = img));
         }
 
         $q.all(promises).then(function() {
@@ -43,8 +40,8 @@ let QrCodeDirective = function(
                 margin: 0,
                 dotScale: 0.8,
                 bindElement: qrCodeEl,
-                logoImage: logoImage || undefined,
-                backgroundImage: backgroundImage || undefined,
+                logoImage: images.logoImage || undefined,
+                backgroundImage: images.backgroundImage || undefined,
             });
         });
     };
@@ -56,6 +53,12 @@ let QrCodeDirective = function(
     });
 
     scope.$watch('qrType', function(value, old) {
+        if (value != old) {
+            buildQrCode();
+        }
+    });
+
+    scope.$watch('qrRaw', function(value, old) {
         if (value != old) {
             buildQrCode();
         }
@@ -80,14 +83,16 @@ module.exports = ['$q', ($q) => {
     return {
         scope: {
             qrDescription: '@',
+            qrRaw: '=',
             qrValue: '=',
             qrBackground: '@',
+            padding: '@',
             qrLogo: '@',
             qrType: '@'
         },
         restrict: "EA",
         replace: true,
         link: (scope, element) => QrCodeDirective(scope, element, $q),
-        templateUrl: 'assets/tpl/directives/qr-code.html'
+        template: require('../../../pug/tpl/directives/qr-code.pug'), //'assets/tpl/directives/qr-code.html'
     };
 }];

@@ -66,7 +66,7 @@ const FundRequestsShowComponent = function (
             const operator = { '>': 'moet meer dan', '<': 'moet minder dan' }[criterion.operator] || 'moet';
             const value = `${criterion.record_type_key === 'net_worth' ? '€' : ''}${criterion.value}`;
 
-            return { ...criterion, description: `${criterion.record_type_name} ${operator} ${value}.` };
+            return { ...criterion, description: `${criterion.record_type_name} ${operator} ${value} zijn.` };
         });
     };
 
