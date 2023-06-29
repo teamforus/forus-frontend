@@ -32,7 +32,7 @@ const Modal2FADeactivateComponent = function (
         $ctrl.blockResend();
 
         Identity2FAService.send($ctrl.auth2fa.uuid).then(
-            () => notify ? PushNotificationsService.success('Sent!', 'Your confirmation code was resent.') : null,
+            () => notify ? PushNotificationsService.success('Gelukt!', 'We hebben de code opnieuw verstuurd.') : null,
             (res) => PushNotificationsService.danger('Error!', res?.data?.message),
         ).finally(() => $timeout(() => $ctrl.sendingCode = false, 1000));
     };

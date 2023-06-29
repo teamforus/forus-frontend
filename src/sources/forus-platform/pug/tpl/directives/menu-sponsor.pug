@@ -74,7 +74,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             '$root.activeOrganization | hasPerm:["manage_bank_connections"]')
 
         +nav_item(
-            "Security", "organization-security", 'organization-security', 
+            "Beveiliging", "organization-security", 'organization-security', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization.allow_2fa_restrictions && $root.activeOrganization | hasPerm:["manage_organization"]')
         

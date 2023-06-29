@@ -72,11 +72,11 @@ div
             //- Setup 2FA
             .sign_up-pane(ng-if="$ctrl.step == 'setup'" ng-show="!$ctrl.hidePane")
                 .sign_up-pane-body
-                    .sign_up-pane-heading.text-strong Setup Two Factor Authentication
-                    .sign_up-pane-text Two Factor Authentication is required for your account, please select 2fa provider to continue.
+                    .sign_up-pane-heading.text-strong Tweefactorauthenticatie instellen
+                    .sign_up-pane-text Tweefactorauthenticatie is vereist om in te kunnen loggen, kies één van onderstaande opties om verder te gaan.
                 
                 .sign_up-pane-body
-                    .sign_up-pane-text: .sign_up-pane-heading Please select an option
+                    .sign_up-pane-text: .sign_up-pane-heading Kies een optie
                     .sign_up-options
                         .sign_up-option(
                             ng-repeat="provider_type in $ctrl.provider_types" 
@@ -92,11 +92,10 @@ div
             //- 2FA confirmation
             .sign_up-pane(ng-if="$ctrl.step == 'auth'" ng-show="!$ctrl.hidePane")
                 .sign_up-pane-body
-                    .sign_up-pane-heading.text-strong Two Factor Authentication
-                    .sign_up-pane-text Please confirm your account using previously configured method
-                
+                    .sign_up-pane-heading.text-strong Tweefactorauthenticatie
+
                 .sign_up-pane-body
-                    .sign_up-pane-text: .sign_up-pane-heading Please select an option
+                    .sign_up-pane-text: .sign_up-pane-heading Kies een optie
                     .sign_up-options
                         .sign_up-option(
                             ng-repeat="provider_type in $ctrl.provider_types" 

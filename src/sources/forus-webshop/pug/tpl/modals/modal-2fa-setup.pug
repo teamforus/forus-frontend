@@ -138,11 +138,11 @@
             ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.verifyAuthProvider()")
 
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
-            .modal-header: .modal-title.modal-title-sm Bevestig authenticatie
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie
 
             .modal-body.text-center: .modal-section.form
                 .modal-heading(ng-if="$ctrl.auth_2fa.provider_type.type == 'phone'") 
-                    | Om door te gaan, voer alstublieft de 6-cijferige SMS-code in die naar je telefoonnummer is verzonden..
+                    | Om door te gaan, voer alstublieft de 6-cijferige SMS-code in die naar je telefoonnummer is verzonden.
 
                 .modal-heading(ng-if="$ctrl.auth_2fa.provider_type.type == 'authenticator'") 
                     | Om door te gaan, voer de 6-cijferige beveiligingscode in van {{ $ctrl.auth_2fa.provider_type.name }}.
@@ -184,14 +184,14 @@
         //- Success (login)
         .modal-window(ng-if="$ctrl.step == 'success' && $ctrl.auth")
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
-            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie bevestigen
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie
 
             .modal-body.text-center: .modal-section.modal-section-pad
                 .modal-icon-mdi: .mdi.mdi-check
-                .modal-heading Tweefactorauthenticatie succesvol bevestigd
+                .modal-heading Het is gelukt!
                 .modal-text.modal-text: .row: .col.col-xs-12.col-md-10.col-md-offset-1
-                    | Elementum sed pulvinar faucibus tincidunt gravida ultrices. Senectus nisl enim dolor in vitae sem. 
-                    | Malesuada lacus arcu eleifend pharetra diam mauris vitae egestas.
+                    | Je bent succesvol ingelogd met tweefactorauthenticatie.
+                    | Welkom terug!
 
                 .modal-text.modal-text
                     .button-group.flex-grow.flex-center: button(ng-click="$ctrl.done()").button.button-light.button-sm Bevestig
@@ -199,14 +199,14 @@
         //- Success (setup)
         .modal-window(ng-if="$ctrl.step == 'success' && !$ctrl.auth")
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
-            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellingen
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
 
             .modal-body.text-center: .modal-section.modal-section-pad
                 .modal-icon-mdi: .mdi.mdi-check
                 .modal-heading Tweefactorauthenticatie succesvol ingesteld
                 .modal-text.modal-text: .row: .col.col-xs-12.col-md-10.col-md-offset-1
-                    | Elementum sed pulvinar faucibus tincidunt gravida ultrices. Senectus nisl enim dolor in vitae sem. 
-                    | Malesuada lacus arcu eleifend pharetra diam mauris vitae egestas.
+                    | Je tweefactorauthenticatie is succesvol ingesteld.
+                    | Je account is nu extra beveiligd.
 
                 .modal-text.modal-text
                     .button-group.flex-grow.flex-center: button(ng-click="$ctrl.done()").button.button-light.button-sm Bevestig
