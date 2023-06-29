@@ -11,18 +11,18 @@ const FundsSecurityComponent = function (
         name: 'Optioneel',
     }, {
         value: 'restrict_features',
-        name: 'tweefactorauthenticatie vereisen voor geselecteerde functies',
+        name: '2FA vereisen voor geselecteerde functies',
     }, {
         value: 'required',
-        name: 'tweefactorauthenticatie vereisen om in te loggen',
+        name: '2FA vereisen om in te loggen',
     }];
 
     const auth2FARememberIpOptions = [{
         value: false,
-        name: 'Altijd bevestiging vereisen met tweefactorauthenticatie',
+        name: 'Altijd bevestiging vereisen met 2FA',
     }, {
         value: true,
-        name: 'Geen tweefactorauthenticatie-bevestiging vereisen wanneer IP adres binnen de laatste 48 uur is gebruikt.',
+        name: 'Als IP-adres in de afgelopen 48 uur gebruikt, geen 2FA vereisen.',
     }];
 
     $ctrl.$onInit = () => {

@@ -45,9 +45,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                         .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-notifications.svg
                         | Notificatievoorkeuren
 
-                    a(
-                        ng-if="$root.activeOrganization.allow_2fa_restrictions || $root.auth_user.auth_2fa.required"
-                        ui-sref="security-2fa").auth-user-menu-item
+                    a(ui-sref="security-2fa").auth-user-menu-item
                         .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-security.svg
                         | Beveiliging
 

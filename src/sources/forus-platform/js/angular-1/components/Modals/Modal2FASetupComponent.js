@@ -112,7 +112,7 @@ const Modal2FASetupComponent = function (
             $ctrl.blockResend();
 
             Identity2FAService.send($ctrl.auth_2fa.uuid).then(
-                () => notify ? PushNotificationsService.success('Sent!', 'Your confirmation code was resent.') : false,
+                () => notify ? PushNotificationsService.success('Gelukt!', 'We hebben de code opnieuw verstuurd.') : false,
                 (res) => PushNotificationsService.danger('Error!', res?.data?.message),
             ).then(() => $ctrl.sendingCode = false);
         }
