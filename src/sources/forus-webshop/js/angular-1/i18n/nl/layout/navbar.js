@@ -99,6 +99,7 @@ module.exports = {
                 preferences_emails: "E-mailinstellingen",
                 records: "Profiel",
                 funds: "Fondsen",
+                security: "Beveiliging",
                 sessions: "Sessies"
             }
         }

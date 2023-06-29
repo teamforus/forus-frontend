@@ -8,7 +8,7 @@ section.section.section-profile: .wrapper
         .profile-aside
             profile-menu.hide-sm
 
-            .form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
+            .form.form-compact
                 .profile-aside-block
                     //- Fund
                     .form-group
@@ -21,8 +21,17 @@ section.section.section-profile: .wrapper
                             options="$ctrl.funds"
                             placeholder="{{ $ctrl.funds[0].name }}")
 
+        //- 2fa required
+        .profile-content(ng-if="$ctrl.auth2FAState.restrictions.reimbursements.restricted")
+            auth-2-f-a-restriction(
+                type="reimbursements"
+                items="$ctrl.auth2FAState.restrictions.reimbursements.funds"
+                item-name="name"
+                item-thumbnail="logo.sizes.thumbnail"
+                default-thumbnail="fund-thumbnail")
+
         //- At least one reimbursement request exists
-        .profile-content
+        .profile-content(ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.reimbursements.restricted")
             .profile-content-header.clearfix
                 .profile-content-title
                     div.pull-left
