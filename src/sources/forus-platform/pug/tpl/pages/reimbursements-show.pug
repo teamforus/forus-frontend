@@ -220,6 +220,7 @@
                                         ng-if="$ctrl.hasFilePreview(file)" 
                                         ng-click="$ctrl.previewFile($event, file)")
                                         .mdi.mdi-eye
+
         //- Reimbursement details (editable)
         .card(ng-if="$ctrl.reimbursement")
             //- Header
@@ -247,20 +248,11 @@
                         .keyvalue-value(ng-if="$ctrl.reimbursement.reimbursement_category.name" ng-bind="$ctrl.reimbursement.reimbursement_category.name")
                         .keyvalue-value.text-muted(ng-if="!$ctrl.reimbursement.reimbursement_category.name") Geen categorie
 
-                    //- Transaction state
-                    .keyvalue-item
-                        .keyvalue-key(translate="reimbursements.labels.paid_on")
-                        .keyvalue-value
-                            .label(
-                                ng-class="{pending: 'label-default', success: 'label-success', canceled: 'label-danger'}[$ctrl.reimbursement.voucher_transaction.state]"
-                                ng-bind="$ctrl.reimbursement.voucher_transaction.state_locale")
-                    
-                    //- Transaction link
-                    .keyvalue-item
-                        .keyvalue-key(translate="reimbursements.labels.transaction")
-                        .keyvalue-value(
-                            ui-sref="transaction({organization_id:$ctrl.organization.id, address:$ctrl.reimbursement.voucher_transaction.address})"
-                            ng-bind="'#' + $ctrl.reimbursement.voucher_transaction.id")    
+        //- Voucher transaction details
+        voucher-transaction-details(
+            ng-if="$ctrl.reimbursement.voucher_transaction"
+            organization="$ctrl.organization"
+            transaction="$ctrl.reimbursement.voucher_transaction")
 
         block-card-note(
             is-assigned="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"

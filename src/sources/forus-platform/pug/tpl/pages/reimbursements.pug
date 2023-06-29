@@ -202,9 +202,12 @@
                                     dusk="{{ 'reimbursementState' + reimbursement.id }}")
 
                                 //- Transaction
-                                td: .label(
+                                td(ng-if="reimbursement.voucher_transaction"): .label(
                                     ng-bind="reimbursement.voucher_transaction.state_locale"
                                     ng-class="{pending: 'label-default', success: 'label-success', canceled: 'label-danger'}[reimbursement.voucher_transaction.state]")
+
+                                //- No transaction
+                                td(ng-if="!reimbursement.voucher_transaction").text-muted -
 
                                 //- Actions
                                 td: .button-group.flex-end
