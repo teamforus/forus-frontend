@@ -1,6 +1,5 @@
 &.modal-product-reserve {
     cursor: default;
-    overflow: scroll;
 
     .modal-window {
         width: 1000px;
@@ -9,7 +8,7 @@
 
     .modal-content {
         background-color: #fff;
-        overflow: initial;
+        overflow: visible;
 
         .title {
             font-size: 28px;
@@ -134,6 +133,7 @@
             flex-grow: 1;
             padding: 0;
             flex-direction: column;
+            overflow: auto;
 
             .modal-section {
                 min-height: 100%;
