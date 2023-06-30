@@ -498,7 +498,7 @@ module.exports = {
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens €",
+            notification_amount: "Herinnering aanvullen budget €",
             application_method: "Aanvraagmethode",
             request_btn_text: "Knoptekst aanvragen",
             external_link_text: "Externe linktekst",
