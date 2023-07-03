@@ -65,6 +65,7 @@ const ModalVoucherTransactionComponent = function (
     $ctrl.buildForm = () => {
         return FormBuilderService.build({
             note: '',
+            note_shared: false,
             amount: '',
             target: $ctrl.target,
             voucher_id: $ctrl.voucher.id,
@@ -73,7 +74,7 @@ const ModalVoucherTransactionComponent = function (
             reimbursement_id: null,
         }, (form) => {
             const values = (
-                ({ note, amount, target, voucher_id }) => ({ note, amount, target, voucher_id })
+                ({ note, note_shared, amount, target, voucher_id }) => ({ note, note_shared, amount, target, voucher_id })
             )(form.values);
 
             if (form.values.target === 'provider') {
