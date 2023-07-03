@@ -1,12 +1,11 @@
 .app.app-container
     menu
     section.app.app-content
-        .card: .card-section.info-section: .flex-row
-            .flex-col.icon
-                include ../../../resources/platform-general/assets/img/svg/bi-connection-icon.svg
+        .card: .card-section: .block.block-bi-info
+            .bi-info-icon: include ../../../resources/platform-general/assets/img/svg/bi-connection-icon.svg
 
-            .flex-col
-                .title BI-Integratie
+            .bi-info-content: .block.block-markdown
+                h4 BI-Integratie
                 p Lorem ipsum dolor sit amet consectetur. Ultrices phasellus enim interdum feugiat vel.
                     | Pellentesque fames nec sit at. Nulla bibendum nulla nisl arcu blandit auctor tortor.
                     | Libero tristique gravida lorem ac tempor condimentum sem. Morbi egestas nisl ac quisque sapien.
@@ -19,108 +18,113 @@
                     li Nec elementum ut ut enim consectetur nullam nunc sem lectus.
                     li Sit feugiat augue facilisi arcu lorem sapien suspendisse.
 
-
         .card: form(ng-submit="$ctrl.form.submit()").form
             .card-header: .card-title(translate="bi_connection.title")
 
             .card-section.card-section-primary
-                .form-group.form-group-inline(ng-class="{'has-button-inline': !$ctrl.connection}")
+                //- Auth type
+                .form-group.form-group-inline
                     label(translate="bi_connection.labels.auth_type").form-label
-                    .form-offset
-                        .flex-row
-                            .flex-col.flex-grow
-                                .flex-row
-                                    .flex-col.flex-grow
-                                        select-control(
-                                            prop="key"
-                                            search="false"
-                                            ng-model="$ctrl.form.values.auth_type"
-                                            ng-change="$ctrl.buildUrl()"
-                                            options="$ctrl.authTypes").form-control
 
-                                    .flex-col(ng-if="!$ctrl.connection")
-                                        .button.button-default.button-icon.pull-left.form-control-button(
-                                            ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
-                                            ng-class="{active: $ctrl.showInfoBlock}")
-                                            em.mdi.mdi-information
+                    .form-offset: .flex-row
+                        .flex-col.flex-grow
+                            .form-group-info
+                                .form-group-info-control: select-control(
+                                    prop="key"
+                                    search="false"
+                                    ng-model="$ctrl.form.values.bi_connection_auth_type"
+                                    ng-change="$ctrl.updateUrl()"
+                                    options="$ctrl.authTypes").form-control
 
-                                .info-block.info-block-primary(ng-if="!$ctrl.connection && $ctrl.showInfoBlock"): .flex-row
-                                    .flex-col.icon: em.mdi.mdi-information
+                                .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                    ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
+                                    ng-class="{active: $ctrl.showInfoBlock}")
+                                    em.mdi.mdi-information
 
-                                    .flex-col
-                                        p Lorem ipsum dolor sit amet consectetur. Ultrices phasellus enim interdum feugiat vel.
-                                            | Pellentesque fames nec sit at. Nulla bibendum nulla nisl arcu blandit auctor tortor.
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
+                                .info-box-icon.mdi.mdi-information
 
-                                        ul
-                                            li Diam habitant tristique sed laoreet nullam blandit tincidunt lorem rutrum.
-                                            li Enim sit quam nisl sit interdum urna neque quam.
+                                .info-box-content: .block.block-markdown
+                                    p 
+                                        | Lorem ipsum dolor sit amet consectetur. In viverra dolor molestie ut donec.
+                                        | Sed dui a fermentum rhoncus.
 
-                            .flex-col
-                                .button.button-default.button-icon-svg.pull-left.invisible
-                                    include ../../../resources/platform-general/assets/img/svg/copy.svg
+                                    ul
+                                        li Quis in elementum hac lorem. Ullamcorper sit aenean pellentesque nunc cras leo nisi justo.
+                                        li Tortor sodales amet nisl purus phasellus diam et. Malesuada eget integer.  
 
-                div(ng-if="$ctrl.connection")
+                        .flex-col: .button.button-default.invisible: em.mdi.mdi-content-copy
+
+                //- Details
+                div(
+                    ng-if="($ctrl.organization.bi_connection_auth_type !== 'disabled' || $ctrl.organization.bi_connection_token)"
+                    ng-show="$ctrl.form.values.bi_connection_auth_type !== 'disabled'")
+
+                    //- Api url
                     .form-group.form-group-inline
                         label(translate="bi_connection.labels.url").form-label
-                        .form-offset
-                            .flex-row
-                                .flex-col.flex-grow
-                                    input(ng-value="$ctrl.apiUrl" type="text" readonly).form-control.dashed
-                                    .separator
-                                .flex-col
-                                    .button.button-default.pull-left.button-icon-svg(ng-click="$ctrl.copyToClipboard($ctrl.apiUrl)")
-                                        include ../../../resources/platform-general/assets/img/svg/copy.svg
+                        .form-offset: .flex-row
+                            .flex-col.flex-grow: input(ng-value="$ctrl.apiUrl" type="text" readonly).form-control.form-control-dashed
+                            .flex-col: .button.button-default(ng-click="$ctrl.copyToClipboard($ctrl.apiUrl)"): em.mdi.mdi-content-copy
 
-                    .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_type === 'header'")
+                    //- Header
+                    .form-group.form-group-inline(ng-if="$ctrl.form.values.bi_connection_auth_type === 'header'")
                         label(translate="bi_connection.labels.header_name").form-label
-                        .form-offset
-                            .flex-row
-                                .flex-col.flex-grow
-                                    input(ng-value="$ctrl.headerKey" type="text" readonly).form-control.dashed
+                        .form-offset: .flex-row
+                            .flex-col.flex-grow: input(ng-value="$ctrl.headerKey" type="text" readonly).form-control.form-control-dashed
+                            .flex-col: .button.button-default(ng-click="$ctrl.copyToClipboard($ctrl.headerKey)"): em.mdi.mdi-content-copy
 
-                                .flex-col
-                                    .button.button-default.pull-left.button-icon-svg(ng-click="$ctrl.copyToClipboard($ctrl.headerKey)")
-                                        include ../../../resources/platform-general/assets/img/svg/copy.svg
-
+                    //- Token
                     .form-group.form-group-inline
-                        label(translate="bi_connection.labels.{{ $ctrl.form.values.auth_type }}_key").form-label
-                        .form-offset
-                            .flex-row
-                                .flex-col.flex-grow
-                                    input(ng-value="$ctrl.connection.token" type="text" readonly).form-control.dashed
+                        label(translate="bi_connection.labels.{{ $ctrl.form.values.bi_connection_auth_type }}_key").form-label
+                        .form-offset: .flex-row
+                            .flex-col.flex-grow: input(ng-value="$ctrl.organization.bi_connection_token" type="text" readonly).form-control.form-control-dashed
+                            .flex-col: .button.button-default(ng-click="$ctrl.copyToClipboard($ctrl.organization.bi_connection_token)"): em.mdi.mdi-content-copy
 
-                                .flex-col
-                                    .button.button-default.pull-left.button-icon-svg(ng-click="$ctrl.copyToClipboard($ctrl.connection.token)")
-                                        include ../../../resources/platform-general/assets/img/svg/copy.svg
-
+                    //- Reset token
                     .form-group.form-group-inline
                         label.form-label
-                        .form-offset
-                            button(type="button" ng-click="$ctrl.recreateToken()").button.button-default.button-sm
-                                .mdi.mdi-refresh.icon-start
-                                translate(translate="bi_connection.buttons.generate_new_key")
+                        .form-offset: button(type="button" ng-click="$ctrl.resetToken()").button.button-default.button-sm
+                            .mdi.mdi-refresh.icon-start
+                            translate(translate="bi_connection.buttons.generate_new_key")
 
-                    .info-block: .flex-row
-                        .flex-col.icon: em.mdi.mdi-information
+                    //- Info box (header/parameter)
+                    .form-group.form-group-inline
+                        label.form-label &nbsp;
 
-                        .flex-col
-                            .title Header for information
+                        .form-offset: .block.block-info-box.block-info-box-default.block-info-box-dashed
+                            .info-box-icon.mdi.mdi-information
 
-                            p(ng-if="$ctrl.form.values.auth_type === 'header'")
-                                | Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum
-                                | turpis integer in semper elit aenean pharetra ullamcorper.
+                            .info-box-content(ng-if="$ctrl.form.values.bi_connection_auth_type === 'header'"): .block.block-markdown
+                                h4 Title for header
+                                p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
 
-                            p(ng-if="$ctrl.form.values.auth_type === 'parameter'")
-                                | Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum
-                                | turpis integer in semper elit aenean pharetra ullamcorper.
+                            .info-box-content(ng-if="$ctrl.form.values.bi_connection_auth_type === 'parameter'"): .block.block-markdown
+                                h4 Title for parameter
+                                p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
 
-            .card-section: .text-center
+                div(ng-show="$ctrl.form.values.bi_connection_auth_type == 'disabled'")
+                    //- Info box (disabled)
+                    .form-group.form-group-inline
+                        label.form-label &nbsp;
+
+                        .form-offset: .block.block-info-box.block-info-box-default.block-info-box-dashed
+                            .info-box-icon.mdi.mdi-information
+
+                            .info-box-content: .block.block-markdown
+                                h4 Title for disabled
+                                p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
+
+            .card-section: .button-group.flex-center
+                //- Cancel
                 button(
                     type="button"
                     ui-sref="organizations"
-                    i18n="bi_connection.buttons.cancel" id="cancel").button.button-default
+                    i18n="bi_connection.buttons.cancel" 
+                    id="cancel").button.button-default
 
+                //- Submit
                 button(
-                    ng-disabled="$ctrl.form.values.auth_type === $ctrl.connection.auth_type"
+                    ng-disabled="$ctrl.form.values.bi_connection_auth_type === $ctrl.organization.bi_connection_auth_type"
                     type="submit"
                     i18n="bi_connection.buttons.submit").button.button-primary

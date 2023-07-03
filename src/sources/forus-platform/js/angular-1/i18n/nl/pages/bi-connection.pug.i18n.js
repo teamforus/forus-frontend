@@ -3,6 +3,7 @@ module.exports = {
     labels: {
         url: "URL",
         header: "Header",
+        disabled: "Disabled",
         parameter: "URL parameter",
         auth_type: "Authentication type",
         header_key: "Header key",

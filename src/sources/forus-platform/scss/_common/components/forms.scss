@@ -238,7 +238,7 @@
             border: none;
         }
 
-        &.dashed {
+        &.form-control-dashed {
             border-style: dashed;
         }
 
@@ -257,6 +257,41 @@
         &::-webkit-color-swatch-wrapper {
             padding: 0;
             border-radius: inherit;
+        }
+    }
+
+    .form-group-info {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+
+        .form-group-info-control {
+            display: flex;
+            flex-grow: 1;
+
+            .form-control {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        .form-group-info-button {
+            .button {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                border-left: none;
+                box-shadow: none;
+
+                &:hover, &.active {
+                    .mdi {
+                        color: var(--color-default-light);
+                    }
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 
@@ -488,13 +523,6 @@
                 &>.form-error {
                     margin-left: 80px;
                     width: calc(100% - 80px);
-                }
-            }
-
-            &.has-button-inline {
-                .form-control {
-                    border-top-right-radius: 0;
-                    border-bottom-right-radius: 0;
                 }
             }
         }

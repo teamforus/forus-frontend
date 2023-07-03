@@ -1635,13 +1635,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "bi-connection",
         url: "/organizations/{organization_id}/bi-connection",
-        component: "bIConnectionComponent",
+        component: "biConnectionComponent",
         resolve: {
             organization: organziationResolver(),
-            permission: permissionMiddleware('export-api-connections', 'manage_export_api_connections'),
-            connections: ['$transition$', 'BIConnectionService', (
-                $transition$, BIConnectionService
-            ) => repackResponse(BIConnectionService.list($transition$.params().organization_id))],
+            permission: permissionMiddleware('export-api-connections', 'manage_bi_connection'),
         }
     });
 

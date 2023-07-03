@@ -1,26 +1,26 @@
 const BIConnectionComponent = function (
-    $scope,
     $filter,
     ModalService,
+    ClipboardService,
     FormBuilderService,
-    BIConnectionService,
+    OrganizationService,
     PushNotificationsService
 ) {
-    let $translate = $filter('translate');
 
     const $ctrl = this;
+    const $translate = $filter('translate');
+    const $translateDangerZone = (key) => $translate(`modals.danger_zone.recreate_bi_connection.${key}`);
+
+    $ctrl.apiUrl = '';
     $ctrl.showInfoBlock = false;
     $ctrl.headerKey = 'X-API-KEY';
     $ctrl.parameterKey = 'api_key';
-    $ctrl.apiUrl = '';
-    $ctrl.authTypes = [
-        {key: 'header', name: $translate('bi_connection.labels.header')},
-        {key: 'parameter', name: $translate('bi_connection.labels.parameter')},
-    ];
 
-    let $translateDangerZone = (key) => $translate(
-        'modals.danger_zone.recreate_bi_connection.' + key
-    );
+    $ctrl.authTypes = [
+        { key: 'disabled', name: $translate('bi_connection.labels.disabled') },
+        { key: 'header', name: $translate('bi_connection.labels.header') },
+        { key: 'parameter', name: $translate('bi_connection.labels.parameter') },
+    ];
 
     $ctrl.askConfirmation = (onConfirm) => {
         ModalService.open("dangerZone", {
@@ -32,89 +32,77 @@ const BIConnectionComponent = function (
         });
     };
 
-    $ctrl.recreateToken = () => {
-        $ctrl.askConfirmation(() => {
-            BIConnectionService.recreate($ctrl.organization.id, $ctrl.form.values).then((res) => {
-                $ctrl.connection = res.data.data;
-                PushNotificationsService.success('Opgeslagen!');
-            }, (res) => PushNotificationsService.danger('Error!'));
-        });
+    $ctrl.copyToClipboard = (str) => {
+        ClipboardService.copy(str).then(() => PushNotificationsService.success("Copied to clipboard."));
     };
 
-    $ctrl.initForm = () => {
-        let values = BIConnectionService.apiResourceToForm($ctrl.connection || {});
+    $ctrl.updateUrl = () => {
+        const { bi_connection_auth_type } = $ctrl.form.values;
+        const { bi_connection_token, bi_connection_url } = $ctrl.organization;
 
-        $ctrl.form = FormBuilderService.build(values, async (form) => {
-            form.lock();
+        if (bi_connection_auth_type == 'header') {
+            return $ctrl.apiUrl = bi_connection_url;
+        }
 
-            let promise;
 
-            if ($ctrl.connection) {
-                promise = BIConnectionService.update(
-                    $ctrl.organization.id,
-                    $ctrl.connection.id,
-                    form.values
-                )
-            } else {
-                promise = BIConnectionService.store(
-                    $ctrl.organization.id,
-                    form.values
-                )
-            }
+        if (bi_connection_auth_type == 'parameter') {
+            return $ctrl.apiUrl = `${bi_connection_url}?${$ctrl.parameterKey}=${bi_connection_token}`;
+        }
+    }
 
-            promise.then((res) => {
-                $ctrl.connection = res.data.data;
+    $ctrl.resetToken = () => {
+        $ctrl.askConfirmation(() => {
+            OrganizationService.updateBIConnection($ctrl.organization.id, {
+                bi_connection_token_reset: true,
+            }).then((res) => {
+                $ctrl.organization = res.data.data;
                 PushNotificationsService.success('Opgeslagen!');
-                form.unlock();
+                $ctrl.updateUrl();
             }, (res) => {
-                form.errors = res.data.errors;
-                form.unlock();
+                PushNotificationsService.danger(res.data?.message || 'Error!');
             });
         });
     };
 
-    $ctrl.buildUrl = () => {
-        if ($ctrl.connection) {
-            $ctrl.apiUrl = $ctrl.form.values.auth_type === 'header'
-                ? $ctrl.connection.url
-                : $ctrl.connection.url + '?' + $ctrl.parameterKey + '=' + $ctrl.connection.token;
-        }
-    }
+    $ctrl.initForm = () => {
+        const { bi_connection_auth_type } = $ctrl.organization;
 
-    $ctrl.copyToClipboard = (str) => {
-        const el = document.createElement('textarea');
-        el.value = str;
-        el.setAttribute('readonly', '');
-        el.style.position = 'absolute';
-        el.style.left = '-9999px';
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-        PushNotificationsService.success("Copied to clipboard.");
+        $ctrl.form = FormBuilderService.build({
+            bi_connection_auth_type,
+        }, (form) => {
+            OrganizationService.updateBIConnection(
+                $ctrl.organization.id,
+                form.values,
+            ).then((res) => {
+                $ctrl.organization = res.data.data;
+                $ctrl.initForm();
+                $ctrl.updateUrl();
+                PushNotificationsService.success('Opgeslagen!');
+            }, (res) => {
+                form.errors = res.data.errors;
+                PushNotificationsService.danger(res.data?.message || 'Unknown error!');
+            }).finally(() => form.unlock());
+        }, true);
     };
 
-    $scope.$watch('$ctrl.connection', $ctrl.buildUrl);
-
     $ctrl.$onInit = function () {
-        $ctrl.connection = $ctrl.connections[0];
         $ctrl.initForm();
+        $ctrl.updateUrl();
     };
 };
 
 module.exports = {
     bindings: {
         organization: '<',
-        connections: '<'
     },
     controller: [
-        '$scope',
         '$filter',
         'ModalService',
+        'ClipboardService',
         'FormBuilderService',
-        'BIConnectionService',
+        'OrganizationService',
         'PushNotificationsService',
-        BIConnectionComponent
+        BIConnectionComponent,
     ],
     templateUrl: 'assets/tpl/pages/bi-connection.html',
 };

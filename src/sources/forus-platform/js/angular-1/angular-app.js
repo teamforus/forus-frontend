@@ -83,7 +83,7 @@ app.component('reservationsSettingsComponent', require('./components/Reservation
 app.component('implementationCmsSocialMediaEditComponent', require('./components/ImplementationCmsSocialMediaEditComponent'));
 app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
-app.component('bIConnectionComponent', require('./components/BIConnectionComponent'));
+app.component('biConnectionComponent', require('./components/BIConnectionComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -218,7 +218,7 @@ app.service('AnnouncementService', require('./services/AnnouncementService'));
 app.service('ProductReservationsExportService', require('./services/ProductReservationsExportService'));
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
-app.service('BIConnectionService', require('./services/BIConnectionService'));
+app.service('ClipboardService', require('./services/ClipboardService'));
 
 // Directives
 app.directive('menu', {
@@ -321,7 +321,7 @@ app.directive('blockProviderOrganizationOverview', require('./directives/blocks/
 // Table
 app.directive('thSortable', require('./directives/table/ThSortable'));
 
-// System nitification editor 
+// System notification editor 
 app.directive('systemNotificationEditor', require('./directives/elements/SystemNotificationEditorDirective'));
 app.directive('systemNotificationTemplateEditor', require('./directives/elements/SystemNotificationTemplateEditorDirective'));
 
