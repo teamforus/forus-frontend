@@ -9,17 +9,17 @@
             ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.deactivateProvider()")
 
             .modal-header
-                .modal-heading Disable Authenticator
+                .modal-heading Tweefactorauthenticatie uischakelen
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
 
             .modal-section.form
                 .modal-text.text-center
-                    strong.text-strong To continue please enter the email verification code and 6-digit 2FA security code.
+                    strong.text-strong Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in.
 
                 .modal-text.text-center
                     .form-group
-                        .form-label(ng-if="$ctrl.type == 'phone'") Enter 6-digit SMS code 
-                        .form-label(ng-if="$ctrl.type == 'authenticator'") Enter 6-digit from the app
+                        .form-label(ng-if="$ctrl.type == 'phone'") Voer de 6-cijferige SMS-code in
+                        .form-label(ng-if="$ctrl.type == 'authenticator'") Voer de 6-cijferige code in vanuit de app
 
                         .form-group-offset
                             pincode-control(
@@ -33,8 +33,8 @@
                 .modal-text.text-center(ng-if="$ctrl.type == 'phone'")
                     button.button.button-text.button-text-primary.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
                         .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
-                        | Resend Code
-                        span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} second(s))
+                        | Code opnieuw verzenden
+                        span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} seconde(n))
             
                 auth-2-f-a-info-box.flex-center
 
@@ -43,24 +43,23 @@
                     //- Back
                     button.button.button-default(
                         type="button"
-                        ng-click="$ctrl.cancel()") Cancel
+                        ng-click="$ctrl.cancel()") Annuleer
 
                     //- Submit
                     button.button.button-primary(
                         type="submit"
-                        ng-disabled="$ctrl.confirmationCode.length !== 6") Verify
+                        ng-disabled="$ctrl.confirmationCode.length !== 6") Verifieer
 
         //- Success
         .modal-body(ng-if="$ctrl.step == 'success'")
             .modal-header
-                .modal-heading Tweefactorauthenticatie instellen
+                .modal-heading Tweefactorauthenticatie uitschakelen
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
 
             .modal-section.modal-section-pad.form.text-center
                 .modal-icon-mdi: .mdi.mdi-check
-                .modal-heading: strong Two-factor authentication successfully enabled
+                .modal-heading: strong Tweefactorauthenticatie is succesvol uitgeschakeld
                 .modal-text: small 
-                    | Elementum sed pulvinar faucibus tincidunt gravida ultrices. Senectus nisl enim dolor in vitae sem. 
-                    | Malesuada lacus arcu eleifend pharetra diam mauris vitae egestas.
+                    | Je tweefactorauthenticatie is succesvol uitgeschakeld
 
-            .modal-footer: .button-group: .button.button-primary(type="submit" ng-click="$ctrl.done()") Confirm
+            .modal-footer: .button-group: .button.button-primary(type="submit" ng-click="$ctrl.done()") Bevestig

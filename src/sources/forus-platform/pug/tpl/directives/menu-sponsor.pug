@@ -79,7 +79,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             '$root.activeOrganization.allow_bi_connection && ($root.activeOrganization | hasPerm:["manage_bi_connection"])')
 
         +nav_item(
-            "Security", "organization-security", 'organization-security', 
+            "Beveiliging", "organization-security", 'organization-security', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization.allow_2fa_restrictions && $root.activeOrganization | hasPerm:["manage_organization"]')
 
