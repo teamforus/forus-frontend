@@ -39,6 +39,7 @@ const TransactionDetailsDirective = function (
 
     $dir.$onInit = () => {
         $dir.appConfigs = appConfigs;
+        $dir.showVoucherDetailsPage = $dir.transaction.voucher && appConfigs.panel_type == 'sponsor';
     };
 };
 
@@ -49,6 +50,7 @@ module.exports = () => {
             organization: '=',
             transaction: '=',
             showAmount: '=',
+            showDetailsPageBtn: '=',
             onUpdate: '&',
         },
         controllerAs: '$dir',
