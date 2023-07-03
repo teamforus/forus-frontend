@@ -137,6 +137,18 @@
                         .form-hint(ng-if="!$ctrl.form.errors.note") Max. 255 tekens
                         .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
 
+                //- Share note
+                .form-group.form-group-inline.form-group-inline-md
+                    label.form-label
+                    .form-offset
+                        label.checkbox
+                            input(type='checkbox' ng-model='$ctrl.form.values.note_shared') 
+                            .checkbox-label
+                                .checkbox-box: .mdi.mdi-check
+                                | {{ "modals.modal_voucher_transaction.labels.note_shared" | translate }}
+
+                    .form-error(ng-repeat="error in $ctrl.form.errors.note_shared" ng-bind="error")
+
         //- Submit
         .modal-footer.text-center
             //- Cancel
