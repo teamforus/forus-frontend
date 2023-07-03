@@ -493,6 +493,7 @@ module.exports = {
         labels: {
             name: "Naam",
             description_short: "Korte omschrijving",
+            description_position: "Positie van de content",
             description: "Omschrijving",
             products: "Aanbod",
             status: "Status",
