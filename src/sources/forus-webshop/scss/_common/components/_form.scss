@@ -467,6 +467,15 @@
                     background: #fff;
                     border-bottom: 1px solid #e9ecee;
                 }
+
+                &:not(.ng-hide):nth-child(2) {
+                    margin-bottom: -10px;
+
+                    &~._720kb-datepicker-calendar-body,
+                    &~._720kb-datepicker-calendar-days-header {
+                        display: none;
+                    }
+                }
             }
 
             &-month {

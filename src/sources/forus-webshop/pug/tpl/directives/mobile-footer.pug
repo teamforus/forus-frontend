@@ -171,6 +171,19 @@
                         translate="topnavbar.buttons.mobile.dropdown.{{client_key}}.funds"
                         translate-default="{{ 'topnavbar.buttons.mobile.dropdown.funds' | translate }}")
 
+                //- Security
+                .sticky-footer-dropwdown-subitem(
+                    ui-sref="security-2fa"
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required" 
+                    ng-class="{active: $dir.$state.current.name == 'security-sessions'}"
+                    aria-current="{{ $dir.$state.current.name == 'security-sessions' }}" 
+                    tabindex="0"
+                    role="link")
+
+                    em.mdi.mdi-security
+                    span(translate="topnavbar.buttons.mobile.dropdown.security")
+
                 //- Sessions
                 a.sticky-footer-dropwdown-subitem(
                     ng-if="$dir.appConfigs.sessions"

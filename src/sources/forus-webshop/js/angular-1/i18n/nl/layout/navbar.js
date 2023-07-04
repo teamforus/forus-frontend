@@ -109,6 +109,7 @@ module.exports = {
                 preferences_emails: "E-mailinstellingen",
                 records: "Profiel",
                 funds: "Alle tegoeden",
+                security: "Beveiliging",
                 sessions: "Sessies",
                 westerkwartier: {
                     funds: "Aanvragen",

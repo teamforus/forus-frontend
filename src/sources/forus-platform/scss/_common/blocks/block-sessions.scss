@@ -7,7 +7,7 @@
         display: flex;
         padding: 20px;
         flex-direction: row;
-        border-bottom: 1px solid var(--boarder-color);
+        border-bottom: 1px solid var(--border-color);
         position: relative;
 
         .session-icon {
@@ -103,8 +103,8 @@
             }
 
             .session-locations {
-                border: 1px solid var(--boarder-color);
-                border-radius: (calc(var(--boarder-radius) / 2));
+                border: 1px solid var(--border-color);
+                border-radius: (calc(var(--border-radius) / 2));
                 background: #f6f9fc;
                 padding: 10px 15px;
                 font: 500 13px/30px var(--base-font);

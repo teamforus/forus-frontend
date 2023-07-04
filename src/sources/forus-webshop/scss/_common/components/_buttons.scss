@@ -61,7 +61,6 @@
         .icon-me {
             mask: url("../img/icon-me.svg");
             background: var(--color-default);
-            transition: background-color 0.5s ease;
             display: inline-block;
             mask-size: cover;
             height: 30px;

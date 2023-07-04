@@ -59,12 +59,12 @@
 
             .search-result-sidebar-item {
                 display: flex;
-                width: 240px;
+                width: 190px;
                 padding: 14px 15px;
                 margin-left: 0;
                 align-items: center;
                 border-radius: calc(var(--border-radius) / 2);
-                font: 700 16px/24px var(--base-font);
+                font: 700 14px/24px var(--base-font);
                 margin-bottom: 5px;
                 transition: color 0.4s, background-color 0.4s;
 
@@ -110,6 +110,8 @@
 
         .search-result-content {
             width: 100%;
+            overflow: auto;
+            word-wrap: break-word;
         }
 
         .search-result-section {
@@ -259,6 +261,14 @@
         .search-result {
             border-top-left-radius: 0;
             border-top-right-radius: 0;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .search-result {
+            .search-result-sidebar {
+                display: none;
+            }
         }
     }
 
