@@ -75,13 +75,17 @@
     }
 
     .app_download-store_icon {
-        margin-right: 24px;
+        margin-right: 15px;
         display: flex;
         width: 130px;
 
         img {
             display: block;
             width: 100%;
+        }
+
+        &:last-child {
+            margin-right: 0;
         }
     }
 

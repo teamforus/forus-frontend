@@ -25,11 +25,11 @@
                         | Kun je deze downloaden vanuit de #[strong.text-strong Play Store] of de #[strong.text-strong App Store].
 
                     .modal-text(ng-if="$ctrl.provider"): .block.block-app_download: .app_download-row
-                        a.app_download-store_icon(href="{{ $ctrl.provider.url_ios }}" target="_blank")
-                            img(ng-src="./assets/img/icon-app/app-store-badge.svg")
-
                         a.app_download-store_icon(href="{{ $ctrl.provider.url_android }}" target="_blank")
-                            img(ng-src="./assets/img/icon-app-android.svg")  
+                            img(ng-src="./assets/img/icon-app/app-store-android.svg" alt="Ontdek het op Google Play")
+
+                        a.app_download-store_icon(href="{{ $ctrl.provider.url_ios }}" target="_blank")
+                            img(ng-src="./assets/img/icon-app/app-store-ios.svg" alt="Download in de App Store")
 
                     .modal-section-separator
 
