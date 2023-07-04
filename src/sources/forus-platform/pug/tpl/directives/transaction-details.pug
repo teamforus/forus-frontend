@@ -1,5 +1,5 @@
 .block.block-transaction-details 
-    .card(ng-if="$dir.showAmount")
+    .card.card-wrapped(ng-if="$dir.showAmount")
         .card-section: .card-title
             strong(ng-bind="$dir.transaction.amount | currency_format")
             | &nbsp;&nbsp;
@@ -12,7 +12,7 @@
                     .note-item-text(ng-bind="note.message")
                     .note-item-sign(ng-bind="note.created_at_locale")
 
-    .card
+    .card.card-wrapped
         .card-header: .card-title(translate="financial_dashboard_transaction.labels.details")
 
         .card-section: .flex
