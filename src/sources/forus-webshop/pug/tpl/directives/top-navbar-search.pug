@@ -1,7 +1,10 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 .block.block-navbar-search(ng-class="{'block-navbar-search-results': $dir.dropdown}")
-    form(ng-submit="$dir.doSearch()" click-outside="$dir.hideDropDown()").search-form.form
+    form(
+        ng-submit="$dir.doSearch()" 
+        click-outside="$dir.hideDropDown()"
+        ng-class="$dir.resultsAll.length > 0 ? 'search-form-found' : ''").search-form.form
         .search-area
             //- Search icon
             .navbar-search-icon(ng-class="{'focused': $dir.searchFocused || $dir.dropdown}"): .mdi.mdi-magnify
@@ -87,7 +90,7 @@
                             ng-bind="$dir.results[groupKey].count + ' resultaten gevonden...'").show-sm
 
                 //- Actions
-                .search-result-actions(
+                .search-result-footer: .search-result-actions(
                     ng-if="$dir.groupKey == 'all' && $dir.resultsAll.length")
 
                     button.button.button-primary(ui-sref="search-result({q: $dir.query})")
@@ -95,12 +98,12 @@
                         .mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                 //- No results
-                .search-noresult(
+                .search-no-result(
                     ng-if="($dir.groupKey == 'all' && !$dir.resultsAll.length) || ($dir.groupKey != 'all' && !$dir.results[$dir.groupKey].items.length)")
 
-                    .search-noresult-icon
+                    .search-no-result-icon
                         include ../../../resources/_webshop-common/assets/img/icon-search/empty-search.svg
 
-                    .search-noresult-description(
+                    .search-no-result-description(
                         translate="top_navbar_search.noresult.subtitle"
                         translate-values="{ query: $dir.lastQuery }")
