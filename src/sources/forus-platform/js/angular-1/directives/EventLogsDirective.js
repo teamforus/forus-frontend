@@ -105,7 +105,7 @@ const EventLogsDirective = function (
         $dir.permissionsMap = appConfigs.features.event_permissions;
 
         $scope.$watch('$dir.filterValues', $dir.onExternalFilterUpdated, true);
-        $scope.$watch('$root.auth_user', $dir.onAuthUserUpdated, true);
+        $scope.$watch('$root.auth_user', $dir.onAuthUserUpdated);
     };
 };
 

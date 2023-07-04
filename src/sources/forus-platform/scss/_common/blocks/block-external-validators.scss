@@ -6,7 +6,7 @@
     .validator-item {
         background: #ffffff;
         box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
-        border-radius: calc(var(--boarder-radius) / 2);
+        border-radius: calc(var(--border-radius) / 2);
         margin-bottom: 20px;
         padding: 15px 20px;
         display: flex;
@@ -18,7 +18,7 @@
                 width: 60px;
                 height: 60px;
                 border-radius: 60px;
-                border: 1px solid var(--boarder-color);
+                border: 1px solid var(--border-color);
             }
         }
 

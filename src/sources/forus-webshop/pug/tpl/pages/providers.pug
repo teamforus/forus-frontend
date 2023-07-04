@@ -95,9 +95,9 @@ block content
                             ng-if="$root.appConfigs.features.pages.provider" 
                             ui-sref="sign-up" 
                             ng-show="!$ctrl.showMap")
-                            em.mdi.mdi-store-outline
+                            em.mdi.mdi-store-outline(aria-hidden="true")
                             | Aanmelden als aanbieder
-                            em.mdi.mdi-arrow-right.icon-right
+                            em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                     .showcase-content
                         .showcase-content-header.showcase-content-header-compact
@@ -150,7 +150,7 @@ block content
                             svg-icon="reimbursements"
                             description="{{ 'block_providers.empty.subtitle' | translate }}"
                             hide-link="true"
-                            ng-if="$ctrl.providers.data.length == 0")
+                            ng-if="$ctrl.providers.data.length == 0 && !$ctrl.showMap")
 
                         paginator(
                             ng-if="$ctrl.showMap"

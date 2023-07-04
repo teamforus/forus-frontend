@@ -19,4 +19,4 @@
                     .fund-button(ng-if="block.button_enabled")
                         a.button.button-primary(target="_{{ block.button_target_blank ? 'blank' : 'self' }}" ng-href="{{ block.button_link }}")
                             span(ng-bind="block.button_text")
-                            .mdi.mdi-arrow-right.icon-right
+                            .mdi.mdi-arrow-right.icon-right(aria-hidden="true")

@@ -117,6 +117,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     });
 
     $stateProvider.state({
+        name: "auth-2fa",
+        url: "/auth-2fa",
+        component: "auth2FAComponent",
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        },
+    });
+
+    $stateProvider.state({
         name: "privacy",
         url: "/privacy",
         component: "privacyComponent",
@@ -580,14 +591,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         component: "reimbursementsComponent",
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
-            reimbursements: ['ReimbursementService', (ReimbursementService) => repackPagination(ReimbursementService.list({
-                archived: 0,
-            }))],
             vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({
                 allow_reimbursements: 1,
                 implementation_key: appConfigs.client_key,
                 per_page: 100,
             }))],
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
         }
     });
 
@@ -993,9 +1004,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 CredentialsService.set(res.data.access_token);
                 $rootScope.loadAuthUser().then(() => !handleAuthTarget(target) && onAuthRedirect());
             }, (res) => {
-                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
-                    timeout: 8000,
-                });
+                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close');
 
                 $state.go('home');
             });
@@ -1018,6 +1027,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         name: 'identity-emails',
         url: '/preferences/emails',
         component: 'identityEmailsComponent',
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        }
     });
 
     i18n_state($stateProvider, {
@@ -1027,6 +1041,25 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             nl: '/beveiliging/sessies',
         },
         component: 'securitySessionsComponent',
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: 'security-2fa',
+        url: {
+            en: '/security/2fa',
+            nl: '/beveiliging/2fa',
+        },
+        component: 'security2FAComponent',
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        },
     });
 
     $stateProvider.state({

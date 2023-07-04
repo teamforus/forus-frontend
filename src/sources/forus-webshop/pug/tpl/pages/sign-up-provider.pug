@@ -16,7 +16,7 @@ main(id="main-content")
                     p Lees de instructie in elke stap goed door.
                     p: a(href="{{ $ctrl.signUpUrl + 'sign-up' + $ctrl.signUpUrlParams }}" target="_self").button.button-primary-outline 
                         | Aanmelden
-                        em.mdi.mdi-arrow-right.icon-right
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
                     p Heeft u al een account? #[a(href="{{ $ctrl.signUpUrl }}" target="_self") Log dan in]
 
                 .sign_up-images: .sign_up-image: img(src="assets/img/provider-sign_up-preview.svg" alt="")

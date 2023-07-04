@@ -7,7 +7,7 @@
 
     a(ui-sref="start" ng-if="!$dir.hideLink").block-link
         ng-bind(ng-bind="$dir.text")
-        em.mdi.mdi-arrow-right
+        em.mdi.mdi-arrow-right(aria-hidden="true")
 
     .block-actions(ng-if="$dir.buttonText && ($dir.buttonSref || $dir.buttonCallback)"): button.button(
         ng-click="$dir.buttonHandler($event)"

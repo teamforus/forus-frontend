@@ -3,17 +3,17 @@
     flex-direction: column;
     margin: 0 0 20px;
     background: #fff;
-    border-radius: calc(var(--boarder-radius) / 2);
+    border-radius: calc(var(--border-radius) / 2);
     box-shadow: var(--box-shadow);
 
     .fund-overview {
-        border-bottom: 1px solid var(--boarder-color);
+        border-bottom: 1px solid var(--border-color);
         display: flex;
         flex-direction: row;
         
         .fund-media {
             display: flex;
-            border-top-left-radius: calc(var(--boarder-radius) / 2);
+            border-top-left-radius: calc(var(--border-radius) / 2);
             overflow: hidden;
             width: 190px;
 
@@ -47,7 +47,7 @@
     .fund-description {
         .description-header {
             background-color: #f6f9fc;
-            border-bottom: 1px solid var(--boarder-color);
+            border-bottom: 1px solid var(--border-color);
             padding: 25px;
             font: 600 16px/28px var(--base-font);
             color: #282B39;

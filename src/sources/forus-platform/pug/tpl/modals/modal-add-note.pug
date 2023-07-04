@@ -18,7 +18,7 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
         .modal-footer.text-center
-            button.button.button-dark(ng-disabled="$ctrl.submitting" type="button" ng-click="$ctrl.close()") 
+            button.button.button-default(ng-disabled="$ctrl.submitting" type="button" ng-click="$ctrl.close()") 
                 | Annuleren
             
             button.button.button-primary(ng-disabled="$ctrl.submitting" type="submit") 

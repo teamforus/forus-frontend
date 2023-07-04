@@ -65,12 +65,12 @@ block content
                     .organization-item
                         .organization-offices: .block.block-offices
                             a(ng-repeat="office in $ctrl.provider.offices" ui-sref="provider-office(office)").office-item
-                                .office-item-map-icon: .mdi.mdi-map-marker
+                                .office-item-map-icon: .mdi.mdi-map-marker(role="img" aria-label="")
                                 .office-pane
                                     .office-pane-block
                                         .office-logo: img(
                                             ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
-                                            alt="Vestiging {{ office.organization.name }}").office-logo-img
+                                            alt="").office-logo-img
 
                                         .office-details
                                             .office-title(ng-bind="office.address")
