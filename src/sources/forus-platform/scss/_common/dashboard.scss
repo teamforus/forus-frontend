@@ -778,10 +778,11 @@ body {
 }
 
 .card {
+    --card-margin: 20px;
     background: #ffffff;
     border-radius: 5px;
     box-shadow: 0 2px 8px rgba(#000, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: var(--card-margin);
     cursor: default;
 
     @mixin bgDanger() {
@@ -1147,6 +1148,10 @@ body {
         }
     }
 
+    &:last-child {
+        margin-bottom: 0;
+    }
+
     &.card-outline {
         border: 1px solid #8ca3a6;
     }
@@ -1166,12 +1171,12 @@ body {
         }
     }
 
-    &.card-padded {
-        margin-bottom: 0px;
+    &.card-wrapped {
+        margin-bottom: var(--card-margin);
     }
 
-    &:last-child {
-        margin-bottom: 0;
+    &.card-padded {
+        margin-bottom: 0px;
     }
 }
 
