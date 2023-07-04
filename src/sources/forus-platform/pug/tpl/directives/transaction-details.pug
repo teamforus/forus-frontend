@@ -5,18 +5,6 @@
             | &nbsp;&nbsp;
             strong.text-primary.pull-right(translate="financial_dashboard_transaction.labels.payment")
             .flex.flex-grow
-            a(
-                ng-if="$dir.transaction.reservation" 
-                ui-sref="reservations-show({organization_id: $dir.organization.id, id: $dir.transaction.reservation.id})"
-                ).button.button-default.pull-right
-                em.mdi.mdi-eye-outline.icon-start
-                | Reservation
-            a(
-                ng-if="$dir.showVoucherDetailsPage" 
-                ui-sref="vouchers-show({organization_id: $dir.organization.id, voucher_id: $dir.transaction.voucher.id})"
-                ).button.button-default.pull-right
-                em.mdi.mdi-eye-outline.icon-start
-                | Voucher
 
         .card-section(ng-if="$dir.transaction.notes.length != 0")
             .card-block.card-block-notes
@@ -26,15 +14,21 @@
                     .note-item-sign(ng-bind="note.created_at_locale")
 
     .card
-        .card-header
-            .card-title.pull-left(translate="financial_dashboard_transaction.labels.details")
-            .flex.flex-grow
-            a(
-                ng-if="$dir.showDetailsPageBtn" 
-                ui-sref="transaction({organization_id: $dir.organization.id, address: $dir.transaction.address})"
-                ).button.button-default.pull-right
-                em.mdi.mdi-eye-outline.icon-start
-                | Transaction details
+        .card-header: .flex
+            .flex.flex-grow: .card-title.pull-left(translate="financial_dashboard_transaction.labels.details")
+
+            .flex: .block.block-inline-filters
+                a(
+                    ng-if="$dir.showDetailsPageButton"
+                    ui-sref="transaction({organization_id: $dir.organization.id, address: $dir.transaction.address})").button.button-primary
+                    em.mdi.mdi-eye-outline.icon-start
+                    | Transaction details
+
+                a(
+                    ng-if="$dir.transaction.voucher_id && $dir.appConfigs.panel_type == 'sponsor'"
+                    ui-sref="vouchers-show({organization_id: $dir.organization.id, voucher_id: $dir.transaction.voucher_id})").button.button-primary
+                    em.mdi.mdi-eye-outline.icon-start
+                    | Voucher
 
         .card-section: .flex
             .flex: .card-block.card-block-keyvalue
@@ -116,6 +110,14 @@
                         tooltip(
                             text="'financial_dashboard_transaction.tooltips.pending_iban_to' | translate" 
                             ng-if="!$dir.transaction.iban_final && $dir.transaction.target != 'iban'")
+
+                //- Reservation
+                .keyvalue-item(ng-if="$dir.transaction.reservation && $dir.appConfigs.panel_type == 'provider' && $dir.showReservationPageButton")
+                    .keyvalue-key Reservation
+
+                    a.text-primary.text-strong.keyvalue-value(
+                        ui-sref="reservations-show({organization_id: $dir.organization.id, id: $dir.transaction.reservation.id})"
+                        ng-bind="'#' + $dir.transaction.reservation.code")
 
             .flex.flex-column.flex-end(ng-if="$dir.transaction.cancelable && $dir.transaction.reservation")
                 button(ng-click="$dir.cancelTransaction($dir.transaction.reservation)").button.button-default.button-sm

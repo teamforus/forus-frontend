@@ -50,7 +50,8 @@ module.exports = () => {
             organization: '=',
             transaction: '=',
             showAmount: '=',
-            showDetailsPageBtn: '=',
+            showDetailsPageButton: '=',
+            showReservationPageButton: '=',
             onUpdate: '&',
         },
         controllerAs: '$dir',
@@ -63,8 +64,8 @@ module.exports = () => {
             'TransactionService',
             'PushNotificationsService',
             'ProductReservationService',
-            TransactionDetailsDirective
+            TransactionDetailsDirective,
         ],
-        templateUrl: 'assets/tpl/directives/transaction-details.html'
+        templateUrl: 'assets/tpl/directives/transaction-details.html',
     };
 };
