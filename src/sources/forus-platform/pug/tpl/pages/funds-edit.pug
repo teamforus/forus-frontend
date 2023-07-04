@@ -41,17 +41,6 @@
                             ng-model="$ctrl.form.values.description_short").form-control.r-n
                         .form-hint Max. 500 tekens
                         .form-error(ng-repeat="error in $ctrl.form.errors.description_short" ng-bind="error")
-                
-                //- Fund description replace
-                .form-group.form-group-inline
-                    label(translate="funds_edit.labels.description_position").form-label
-                    .form-offset
-                        select-control(
-                            prop="value"
-                            search="false"
-                            options="$ctrl.descriptionPositions"
-                            ng-model="$ctrl.form.values.description_position").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.description_position" ng-bind="error")
             
             .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
                 //- Fund type
@@ -135,6 +124,18 @@
                         value="$ctrl.form.values.description_html"
                         ng-model="$ctrl.form.values.description")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
+
+                //- Fund description position
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline
+                    label(translate="funds_edit.labels.description_position").form-label
+                    .form-offset
+                        select-control(
+                            prop="value"
+                            search="false"
+                            options="$ctrl.descriptionPositions"
+                            ng-model="$ctrl.form.values.description_position").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.description_position" ng-bind="error")
             
             //- Fund start date and end date
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
