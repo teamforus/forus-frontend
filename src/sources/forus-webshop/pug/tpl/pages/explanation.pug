@@ -31,7 +31,7 @@ main(id="main-content")
                                 span(ng-bind="faq.title" aria-expanded="{{faq.isActive}}" role="button")
                                 .faq-item-chevron-down.mdi.mdi-chevron-down(aria-hidden="true")
                                 .faq-item-chevron-up.mdi.mdi-chevron-up(aria-hidden="true")
-                            .faq-item-content: .block.block-markdown: p(ng-bind-html="faq.description_html" role="region" aria-labelledby="{{faq.title}}")
+                            .faq-item-content: .block.block-markdown(ng-bind-html="faq.description_html" role="region" aria-labelledby="{{faq.title}}")
 
 
                     //- Default FAQ
