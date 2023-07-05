@@ -3,7 +3,7 @@
     section.app.app-content
         fund-selector(funds="$ctrl.funds" on-fund-select="$ctrl.onFundSelect")
 
-        .card(ng-if="$ctrl.vouchers")
+        .card(ng-if="$ctrl.vouchers && $ctrl.funds.length > 0")
             .card-header: .flex
                 .flex.flex-grow: .card-title
                     span(translate="product_vouchers.header.title") 

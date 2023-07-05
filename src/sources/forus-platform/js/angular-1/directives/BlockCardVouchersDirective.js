@@ -1,4 +1,4 @@
-const VouchersDirective = function (
+const BlockCardVouchersDirective = function (
     $scope,
     VoucherService,
     PushNotificationsService
@@ -93,8 +93,8 @@ module.exports = () => {
             '$scope',
             'VoucherService',
             'PushNotificationsService',
-            VouchersDirective
+            BlockCardVouchersDirective
         ],
-        templateUrl: 'assets/tpl/directives/vouchers.html'
+        templateUrl: 'assets/tpl/directives/block-card-vouchers.html'
     };
 };

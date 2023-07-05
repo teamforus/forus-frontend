@@ -160,6 +160,7 @@ module.exports = () => {
             mode: '@',
             placeholder: "@",
             multiple: "=",
+            id: "@",
             prop: "@",
             as: "@",
             search: "=",

@@ -169,7 +169,8 @@
 
                     &:before {
                         content: "";
-                        top: 0;
+                        top: var(--nav-line-top);
+                        bottom: var(--nav-line-bottom);
                         height: 3px;
                         display: block;
                         position: absolute;
