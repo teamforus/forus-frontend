@@ -24,7 +24,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
         .block.block-auth.show-sm
             .auth-in(ng-if="$root.auth_user").show-sm
-                button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
+                button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="{{ 'topnavbar.buttons.logout' | translate }}")
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
                     div(translate="topnavbar.buttons.logout")
 
@@ -133,8 +133,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                         ng-if="!$root.auth_user"
                         ng-click="$dir.startFundRequest()"
                         role="button"
-                        dusk="btnStart"
-                        aria-label="{{ 'home.header.' + $root.client_key + '.button' | translate }}")
+                        dusk="btnStart")
 
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
 
@@ -188,6 +187,14 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                                         em.mdi.mdi-cellphone
                                         span(translate="topnavbar.buttons.authorize")
                                         
+                                    .auth-user-menu-item(
+                                        ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required"
+                                        ui-sref="security-2fa"
+                                        ng-click="$dir.goToState('security-2fa')"
+                                        role="link")
+                                        em.mdi.mdi-security
+                                        | Beveiliging
+
                                     .auth-user-menu-item(
                                         ng-if="$root.appConfigs.sessions"
                                         ui-sref="security-sessions"

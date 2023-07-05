@@ -38,6 +38,17 @@ const OrganizationEmployeesComponent = function (
         };
     };
 
+    $ctrl.showTooltip = (e, target) => {
+        e.originalEvent.stopPropagation();
+        $ctrl.employees.data.forEach((employee) => employee.showTooltip = employee == target);
+    };
+
+    $ctrl.hideTooltip = (e, target) => {
+        e.stopPropagation();
+        e.preventDefault();
+        $timeout(() => target.showTooltip = false, 0);
+    };
+
     $scope.onPageChange = (query) => {
         const filters = { ...$ctrl.filters.values, ...query };
 

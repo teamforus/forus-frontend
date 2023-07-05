@@ -1,0 +1,68 @@
+top-navbar
+section.section.section-voucher-details: .wrapper
+    .block.block-breadcrumbs.hide-sm
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active Beveiliging
+
+    .block.block-profile
+        .profile-aside.hide-sm: profile-menu
+
+        .profile-content
+            .profile-content-header.clearfix: h2.profile-content-title Tweefactorauthenticatie
+
+            .block.block-auth-2fa
+                .auth-2fa-description
+                    | Voeg een extra beveiligingslaag toe aan uw account door tweefactorauthenticatie in te schakelen.
+                    | U kunt kiezen uit de volgende verificatiemethoden: Authenticator app en SMS-verificatie.
+
+                .auth-2fa-item(ng-repeat="provider_type in $ctrl.provider_types")
+                    .auth-2fa-item-icon
+                        .mdi.mdi-cellphone-key(ng-if="provider_type.type == 'authenticator'")
+                        .mdi.mdi-cellphone-message(ng-if="provider_type.type == 'phone'")
+                    
+                    .auth-2fa-item-title(ng-bind="provider_type.title")
+                    
+                    .auth-2fa-item-label: .label-group
+                        .label.label-light(ng-if="!$ctrl.active_provider_types.includes(provider_type.type)") Uitgeschakeld
+                        .label.label-success(ng-if="$ctrl.active_provider_types.includes(provider_type.type)") Ingeschakeld
+                    
+                    .auth-2fa-item-space
+
+                    .auth-2fa-item-actions: .button-group
+                        .button.button-primary.button-sm(
+                            ng-if="!$ctrl.active_provider_types.includes(provider_type.type)"
+                            ng-click="$ctrl.setupAuth2FA(provider_type.type)") 
+                            em.mdi.mdi-shield-check-outline.icon-start
+                            | Inschakelen
+
+                        .button.button-light.button-sm(
+                            ng-if="$ctrl.active_provider_types.includes(provider_type.type)"
+                            ng-click="$ctrl.deactivateAuth2FA(provider_type.type)") 
+                            em.mdi.mdi-lock-open-outline.icon-start
+                            | Uitschakelen
+
+            .profile-content-header.clearfix
+                h3.profile-content-title Instellingen
+
+            .block.block-auth-2fa
+                form(ng-submit="$ctrl.form.submit()").form.form-compact
+                    .form-group
+                        label.form-label(for="select_organization") Onthoud IP-adres
+                        select-control(
+                            prop="value"
+                            search="false"
+                            ng-model="$ctrl.form.values.auth_2fa_remember_ip" 
+                            options="$ctrl.auth2FARememberIpOptions"
+                            ng-if="!$ctrl.auth2FAState.auth_2fa_forget_force.voucher && !$ctrl.auth2FAState.auth_2fa_forget_force.organization")
+
+                        input(
+                            disabled
+                            ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.voucher || $ctrl.auth2FAState.auth_2fa_forget_force.organization"
+                            ng-model="$ctrl.auth2FARememberIpOptions[0].name").form-control
+
+                        .form-hint(ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.voucher")
+                            | Er zijn één of meerdere vouchers van een fonds die deze instelling beperken
+                        .form-hint(ng-if="$ctrl.auth2FAState.auth_2fa_forget_force.organization")
+                            | Deze instellingen kunnen niet worden aangepast vanwege de voorwaarden die door de gemeente zijn gesteld
+
+                    .text-center: button.button.button-primary.button-sm(type="submit") Bevestig
