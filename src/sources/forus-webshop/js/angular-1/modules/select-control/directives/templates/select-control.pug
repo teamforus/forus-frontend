@@ -16,7 +16,7 @@
             .select-control-search-placeholder(ng-bind="$dir.value.raw[$dir.as] || $dir.placeholder")
             .select-control-icon: .mdi(ng-class="$dir.showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down'")
 
-        .ui-control.ui-control-search-input
+        .select-control-search-container
             input(
                 id="{{ $dir.controlId }}"
                 placeholder="{{ $dir.placeholder }}"
@@ -25,8 +25,11 @@
                 ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
                 ng-change="$dir.searchInputChanged()"
                 ng-model="$dir.filter.q").select-control-search.form-control
-            
-            .ui-control-clear(ng-if="$dir.filter.q && $dir.showOptions" ng-click="$dir.clear()" aria-label="cancel"): .mdi.mdi-close-circle 
+
+            .select-control-search-clear(
+                ng-if="$dir.filter.q && $dir.showOptions" 
+                ng-click="$dir.clear()" 
+                aria-label="cancel"): .mdi.mdi-close-circle 
         
         select-control-options(
             ng-if="$dir.showOptions" 

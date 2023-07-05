@@ -29,7 +29,7 @@
                         .voucher-value(ng-if="$dir.value.raw.fund.type === 'budget'" ng-bind="$dir.value.raw.amount_locale")
                         .voucher-date(ng-bind="$dir.value.raw.expire_at_locale")
 
-        .ui-control.ui-control-search-input
+        .select-control-search-container
             input(
                 id="{{ $dir.controlId }}"
                 type="search"
@@ -40,7 +40,10 @@
                 ng-change="$dir.searchInputChanged()"
                 ng-model="$dir.filter.q").select-control-search.form-control
             
-            .ui-control-clear(ng-if="$dir.filter.q && $dir.showOptions" ng-click="$dir.clear()" aria-label="cancel"): .mdi.mdi-close-circle
+            .select-control-search-clear(
+                ng-if="$dir.filter.q && $dir.showOptions" 
+                ng-click="$dir.clear()" 
+                aria-label="cancel"): .mdi.mdi-close-circle 
 
         select-control-options(
             dusk="voucherSelectorOptions"

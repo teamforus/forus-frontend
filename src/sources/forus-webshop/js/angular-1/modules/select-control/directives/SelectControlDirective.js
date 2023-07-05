@@ -8,7 +8,8 @@ const SelectControlDirective = function ($scope, $timeout) {
     };
 
     $dir.clear = () => {
-        $scope.$dir.filter.q = undefined;
+        $scope.$dir.filter.q = '';
+        $dir.searchInputChanged();
     };
 
     $dir.prepareOptions = (search) => {
