@@ -36,15 +36,15 @@
                                 .info-box-icon.mdi.mdi-information
 
                                 .info-box-content: .block.block-markdown
-                                    h4 Kiezen van de Authentificatie Token Instelling
+                                    h4 Kies de juiste instelling
                                     p 
-                                        | Bij het instellen van de authentificatie token voor toegang tot de
-                                        | statistische gegevens van ons platform, heeft u twee opties: URL-parameter of header.
+                                        | Vul bij de header bovenstaande naam en sleutelcode in
+                                        | Voor het instellen van de token  zijn er twee opties:
 
                                     ul
                                     ul
-                                        li URL-parameter: Kies deze optie als uw BI-tool tokens ondersteunt als URL-parameters. Voeg de token toe als een parameter in de URL.
-                                        li Header: Kies deze optie als uw BI-tool tokens via headers ondersteunt. Voeg de token toe als een header in uw verzoeken.
+                                        li URL-parameter: Kies deze optie als uw BI-tool token ondersteunt. Voeg de token toe als een parameter in de URL
+                                        li Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg de token toe in de header
 
                         .flex-col: .button.button-default.invisible: em.mdi.mdi-content-copy
 
@@ -89,19 +89,19 @@
                             .info-box-icon.mdi.mdi-information
 
                             .info-box-content(ng-if="$ctrl.form.values.bi_connection_auth_type === 'header'"): .block.block-markdown
-                                h4 Hoe te verbinden
+                                h4 Hoe het werkt
                                 ul
-                                    li Open uw voorkeurs-BI-tool en zoek de instellingen of configuratie van de gegevensbron.
+                                    li Open de BI-tool  en ga naar instellingen.
                                     li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
                                     li Voer de bovenstaande URL in.
-                                    li Voeg de authentificatietoken toe als een header in uw verzoeken om te authenticeren met een header.
+                                    li Vul bij de header bovenstaande naam en sleutelcode in.
 
                             .info-box-content(ng-if="$ctrl.form.values.bi_connection_auth_type === 'parameter'"): .block.block-markdown
-                                h4 Hoe te verbinden
+                                h4 Hoe het werkt
                                 ul
-                                    li Open uw voorkeurs-BI-tool en zoek de instellingen of configuratie van de gegevensbron.
+                                    li Open de BI-tool  en ga naar instellingen.
                                     li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
-                                    li Voer de hierboven verstrekte URL in.
+                                    li Vul de bovenstaande URL in.
 
             .card-section: .button-group.flex-center
                 //- Cancel
