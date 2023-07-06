@@ -1,13 +1,13 @@
 .block.block-auth-widget {
     .auth-title {
-        font: 600 18px/20px $bf;
+        font: 600 18px/20px var(--base-font);
         color: #333;
         margin: 0 0 5px;
     }
 
     .auth-subtitle {
         cursor: pointer;
-        font: 400 14px/20px $bf;
+        font: 400 14px/20px var(--base-font);
         color: #333;
         margin-bottom: 10px;
     }
@@ -42,7 +42,7 @@
 
         .auth-digid-link {
             color: #3661ff;
-            font: 600 14px/20px $bf;
+            font: 600 14px/20px var(--base-font);
             display: inline-flex;
             flex-direction: row;
 
@@ -107,13 +107,13 @@
 
         .digid-title {
             color: #282b39;
-            font: 600 21px/20px $bf;
+            font: 600 21px/20px var(--base-font);
             margin: 0 0 20px;
         }
 
         .digid-message {
             color: #646f79;
-            font: 500 14px/20px $bf;
+            font: 500 14px/20px var(--base-font);
         }
     }
 
@@ -124,7 +124,7 @@
         .qr_code-container {
             display: flex;
             flex-direction: row;
-            font: 400 14px/20px $bf;
+            font: 400 14px/20px var(--base-font);
 
             .qr_code-description { 
                 flex-grow: 1;
@@ -132,7 +132,7 @@
                 a {
                     color: #3661ff;
                     text-decoration: underline;
-                    font: 600 14px $bf;
+                    font: 600 14px var(--base-font);
                 }
             }
 

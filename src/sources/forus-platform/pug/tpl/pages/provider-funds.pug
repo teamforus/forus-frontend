@@ -2,75 +2,100 @@
     menu
     section.app.app-content
         .card-heading.flex-row
-            .flex-col
-                span(translate="fund_card_provider.title.{{ $ctrl.shownFundsType }}")
-                span(ng-bind="' (' + ($ctrl.getActiveFundsCount($ctrl.shownFundsType)) + ')'")
+            .flex-col.flex-grow: span(translate="provider_funds.title.main")
 
-            .flex-col: .block.block-label-tabs.nowrap.pull-right: .label-tab-set
+            //- Funds
+            .flex-col: .block.block-label-tabs.nowrap: .label-tab-set
+                //- Active funds
                 .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'active'}" 
-                    ng-click="$ctrl.filterByFundStatus('active')")
-                    | {{ "fund_card_provider.tabs.active" | translate }} ({{ $ctrl.funds.length }})
-                .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'available'}" 
-                    ng-click="$ctrl.filterByFundStatus('available')")
-                    | {{ "fund_card_provider.tabs.available" | translate }} ({{ $ctrl.fundsAvailable.meta.total }}) 
-                .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'pending_rejected'}"
-                    ng-click="$ctrl.filterByFundStatus('pending_rejected')")
-                    | {{ "fund_card_provider.tabs.pending_rejected" | translate }} ({{ $ctrl.pendingRejectedFunds.length }})
-                .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'invitations'}"
-                    ng-click="$ctrl.filterByFundStatus('invitations')") 
-                    | {{ "fund_card_provider.tabs.invitations" | translate }} ({{ $ctrl.fundAvailableInvitations.length }})
-                .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'expired_closed'}"
-                    ng-click="$ctrl.filterByFundStatus('expired_closed')")
-                    | {{ "fund_card_provider.tabs.expired" | translate }} ({{ $ctrl.archiveFunds.length }})
+                    ng-class="{'active' : $ctrl.tab == 'active'}" 
+                    ng-click="$ctrl.setTab('active')")
+                    | {{ "provider_funds.tabs.active" | translate }} ({{ $ctrl.fundsAvailable.meta.totals.active }})
 
-        provider-fund-filters(
-            ng-if="$ctrl.shownFundsType == 'available'"
-            funds-available="$ctrl.fundsAvailable"
-            organization="$ctrl.organization")
+                //- Pending and rejected funds
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.tab == 'pending_rejected'}"
+                    ng-click="$ctrl.setTab('pending_rejected')")
+                    | {{ "provider_funds.tabs.pending_rejected" | translate }} ({{ $ctrl.fundsAvailable.meta.totals.pending }})
 
-        fund-card-available-provider(
-            ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.meta.total > 0" 
-            ng-repeat="fund in $ctrl.fundsAvailable.data"  
-            fund="fund" 
-            organization="$ctrl.organization")
-        
-        fund-card-provider( 
-            ng-if="$ctrl.shownFundsType == 'active' && $ctrl.funds.length > 0" 
-            ng-repeat="fund in $ctrl.funds" 
-            provider-fund="fund" 
+                //- Available funds
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.tab == 'available'}"
+                    ng-click="$ctrl.setTab('available')")
+                    | {{ "provider_funds.tabs.available" | translate }} ({{ $ctrl.fundsAvailable.meta.totals.available }})
+
+                //- Archived funds
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.tab == 'archived'}" 
+                    ng-click="$ctrl.setTab('archived')")
+                    | {{ "provider_funds.tabs.archived" | translate }} ({{ $ctrl.fundsAvailable.meta.totals.archived }})
+
+            //- Fund invitations
+            .flex-col: .block.block-label-tabs.nowrap: .label-tab-set
+                //- Fund invitations
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.tab == 'invitations'}"
+                    ng-click="$ctrl.setTab('invitations')")
+                    | {{ "provider_funds.tabs.invitations" | translate }} ({{ $ctrl.fundsAvailable.meta.totals.invitations }})
+
+                //- Expired and close funds (archive)
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.tab == 'invitations_archived'}"
+                    ng-click="$ctrl.setTab('invitations_archived')")
+                    | {{ "provider_funds.tabs.invitations_archived" | translate }} ({{ $ctrl.fundsAvailable.meta.totals.invitations_archived }})
+
+            //- Fund unsubscriptions
+            .flex-col: .block.block-label-tabs.nowrap: .label-tab-set
+                //- Fund unsubscription requests
+                .label-tab.label-tab-sm(
+                    ng-class="{'active' : $ctrl.tab == 'unsubscriptions'}" 
+                    ng-click="$ctrl.setTab('unsubscriptions')")
+                    em.mdi.mdi-close-circle-outline.label-tab-icon-start
+                    | {{ "provider_funds.tabs.unsubscriptions" | translate }} ({{ $ctrl.fundsAvailable.meta.totals.unsubscriptions }})
+
+        //- Active funds
+        provider-funds-table(
+            ng-if="$ctrl.tab == 'active'"
             organization="$ctrl.organization"
-            on-removed="$ctrl.onPageChange($ctrl.filters.values)")
+            on-change="$ctrl.onChange()"
+            type="active")
 
-        fund-card-provider(
-            ng-if="$ctrl.shownFundsType == 'pending_rejected' && $ctrl.pendingRejectedFunds.length > 0"
-            ng-repeat="fund in $ctrl.pendingRejectedFunds"
-            provider-fund="fund"
-            provider-funds="$ctrl.pendingRejectedFunds"
-            show-empty-block="$ctrl.showEmptyBlock"
+        //- Pending and rejected funds
+        provider-funds-table(
+            ng-if="$ctrl.tab == 'pending_rejected'"
             organization="$ctrl.organization"
-            on-removed="$ctrl.onPageChange($ctrl.filters.values)")
+            on-change="$ctrl.onChange()"
+            type="pending_rejected")
 
-        fund-card-invitation-provider( 
-            ng-if="$ctrl.shownFundsType == 'invitations' && $ctrl.fundAvailableInvitations.length > 0" 
-            ng-repeat="fundInvitation in $ctrl.fundAvailableInvitations" 
-            provider-invitation="fundInvitation"  
-            organization="$ctrl.organization")
-        
-        fund-card-invitation-provider( 
-            ng-if="$ctrl.shownFundsType == 'expired_closed' && $ctrl.archiveFunds.length > 0"
-            ng-repeat="fundInvitation in $ctrl.archiveFunds"
-            provider-invitation="fundInvitation"  
-            organization="$ctrl.organization")
-        
-        .card
-            .card-section(ng-if="$ctrl.shownFundsType == 'available' && $ctrl.fundsAvailable.meta.total > 0" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
-                paginator(meta="$ctrl.fundsAvailable.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)") 
-        
-        block-empty(
-            ng-if="$ctrl.showEmptyBlock"
-            text="{{ $ctrl.emptyBlockMsg }}")
+        //- Available funds
+        provider-available-funds-table(
+            ng-if="$ctrl.tab == 'available'"
+            organization="$ctrl.organization"
+            on-change="$ctrl.onChangeAvailable()")
+
+        //- Active funds
+        provider-funds-table(
+            ng-if="$ctrl.tab == 'archived'"
+            organization="$ctrl.organization"
+            on-change="$ctrl.onChange()"
+            type="archived")
+
+        //- Fund invitations
+        provider-funds-invitation-table(
+            ng-if="$ctrl.tab == 'invitations'"
+            organization="$ctrl.organization"
+            on-change="$ctrl.onChange()"
+            type="invitations")
+
+        //- Expired and close funds (archive)
+        provider-funds-invitation-table(
+            ng-if="$ctrl.tab == 'invitations_archived'"
+            organization="$ctrl.organization"
+            on-change="$ctrl.onChange()"
+            type="invitations_archived")
+
+        //- Fund unsubscription requests
+        provider-fund-unsubscriptions-table(
+            ng-if="$ctrl.tab == 'unsubscriptions'"
+            organization="$ctrl.organization"
+            on-change="$ctrl.onChange()")

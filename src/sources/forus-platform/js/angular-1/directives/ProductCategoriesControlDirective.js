@@ -7,7 +7,6 @@ let ProductCategoriesControlDirective = function(
 
     $scope.$ctrl = $ctrl;
 
-    $ctrl.productType = 'product';
     $ctrl.categoriesValues = [];
     $ctrl.categoriesHierarchy = [];
 
@@ -24,7 +23,7 @@ let ProductCategoriesControlDirective = function(
 
             return ProductCategoryService.list({
                 parent_id: parent_id,
-                service: $ctrl.productType == "service" ? 1 : 0,
+                per_page: 1000,
             }).then(res => {
                 let categories = res.data.data;
 
@@ -63,18 +62,6 @@ let ProductCategoriesControlDirective = function(
         return categories[categories.length - 1];
     };
 
-    $ctrl.changeType = (type) => {
-        let changed = $ctrl.productType != type;
-
-        $ctrl.productType = type;
-        $ctrl.changeCategory(-1).then(() => {
-            if (changed && !!$ctrl.initialValue && ($ctrl.productType == $scope.productType)) {
-                $scope.ngModel = $ctrl.initialValue;
-                $ctrl.loadProductCategories();
-            }
-        });
-    };
-
     $ctrl.loadProductCategoriesParent = (ids, category_id) => {
         return $q((resolve, reject) => {
             if (category_id == null || category_id == 'null') {
@@ -89,7 +76,7 @@ let ProductCategoriesControlDirective = function(
         });
     };
 
-    $ctrl.loadProductCategories = () => {;
+    $ctrl.loadProductCategories = () => {
         $ctrl.loadProductCategoriesParent([], $scope.ngModel).then(values => {
             values.unshift("null");
             
@@ -104,7 +91,6 @@ let ProductCategoriesControlDirective = function(
 
     $ctrl.onInit = () => {
         $ctrl.initialValue = $scope.ngModel;
-        $ctrl.productType = $scope.productType;
 
         if ($scope.ngModel) {
             $ctrl.loadProductCategories();
@@ -120,8 +106,7 @@ module.exports = () => {
     return {
         scope: {
             ngModel: '=',
-            disabled: "@",
-            productType: "=",
+            disabled: "=",
             errors: "="
         },
         restrict: "EA",

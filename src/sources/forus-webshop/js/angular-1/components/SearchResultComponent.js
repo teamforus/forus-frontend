@@ -41,13 +41,6 @@ const SearchResultComponent = function(
         checked: ($stateParams.search_item_types || []).includes('providers')
     }];
 
-    $ctrl.setOrderDropdown = ($event, show) => {
-        $event.stopPropagation();
-        $event.preventDefault();
-
-        $ctrl.showOrderDropdown = show;
-    };
-
     $ctrl.setMobileMenu = ($event, show) => {
         $event.stopPropagation();
         $event.preventDefault();
@@ -74,14 +67,8 @@ const SearchResultComponent = function(
         $ctrl.updateState($ctrl.buildQuery($ctrl.filters));
     };
 
-    $ctrl.setSortBy = ($event, sortBy) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $ctrl.sortBy = sortBy;
-        $ctrl.filters = { ...$ctrl.filters, ...sortBy.value };
-        $ctrl.showOrderDropdown = false;
-
+    $ctrl.updateSortBy = () => {
+        $ctrl.filters = { ...$ctrl.filters, ...$ctrl.sortBy.value };
         $ctrl.updateState({ ...$ctrl.filters });
     };
 
@@ -89,9 +76,9 @@ const SearchResultComponent = function(
         return {
             q: values.q,
             order_by: values.order_by,
+            fund_id: values.fund_id,
             order_by_dir: values.order_by_dir,
             organization_id: values.organization_id,
-            fund_id: values.fund ? values.fund.id : null,
             product_category_id: values.product_category_id,
             overview: 0,
             page: values.page,
@@ -145,7 +132,6 @@ const SearchResultComponent = function(
         const search_item_types = ($stateParams.search_item_types || '').split(',').filter((i) => i);
         const stateParams = { q, overview, fund_id, organization_id, product_category_id, search_item_types, page, order_by, order_by_dir };
 
-        $ctrl.showOrderDropdown = false;
         $ctrl.display_type = $stateParams.display_type;
 
         $ctrl.funds.unshift({
@@ -165,7 +151,8 @@ const SearchResultComponent = function(
 
         $ctrl.filters = {
             ...stateParams,
-            ...{ fund: $ctrl.funds.filter(fund => fund.id === fund_id)[0] || $ctrl.funds[0] }
+            with_external: 1,
+            fund: $ctrl.funds.filter(fund => fund.id === fund_id)[0] || $ctrl.funds[0],
         };
 
         $ctrl.sortBy = $ctrl.sortByOptions.filter((option) => {

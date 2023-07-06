@@ -9,18 +9,52 @@
 
         .card
             .card-header: .flex-row
-            
                 .flex.flex-grow: .card-title(translate="financial_dashboard_transaction.labels.details")
-                
-                //- Resend draft payment
-                .flex(ng-if="$ctrl.transactionBulk.state == 'rejected' && ($ctrl.organization | hasPerm:'manage_transaction_bulks')")
-                    button(
-                        ng-click="$ctrl.resetPaymentRequest($ctrl.transactionBulk)" 
-                        ng-disabled="$ctrl.resettingBulk").button.button-danger.button-sm
+                .flex: .button-group
 
-                        em.mdi.mdi-reload.icon-start(ng-if="!$ctrl.resettingBulk")
-                        em.mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.resettingBulk")
+                    //- Export SEPA file
+                    button(
+                        ng-if="$ctrl.showExportButton"
+                        ng-click="$ctrl.exportSepa($ctrl.transactionBulk)").button.button-default.button-sm
+
+                        .mdi.mdi-download.icon-start
+                        | Export SEPA file
+
+                    //- BNG: Auth url button
+                    a(
+                        ng-if="$ctrl.showAuthLink"
+                        href="{{ $ctrl.transactionBulk.auth_url }}"
+                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-default.button-sm
+
+                        .mdi.mdi-link.icon-start
+                        | Autoriseer
+
+                    //- BNG: Submit bulk to BNG
+                    button(
+                        ng-if="$ctrl.showSubmitToBNG"
+                        ng-click="$ctrl.submitPaymentRequestToBNG($ctrl.transactionBulk)" 
+                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-primary.button-sm
+
+                        .mdi.mdi-circle-multiple-outline.icon-start(ng-if="!$ctrl.submittingBulk")
+                        .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.submittingBulk")
+                        | Verstuur de bulk naar BNG
+                
+                    //- Resend draft payment
+                    button(
+                        ng-if="$ctrl.showResetBulkButton"
+                        ng-click="$ctrl.resetPaymentRequest($ctrl.transactionBulk)" 
+                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-danger.button-sm
+
+                        .mdi.mdi-reload.icon-start(ng-if="!$ctrl.resettingBulk")
+                        .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.resettingBulk")
                         | Verstuur bulktransactie opnieuw
+
+                    //- Set paid
+                    button(
+                        ng-if="$ctrl.showSetPaidButton"
+                        ng-click="$ctrl.acceptManually($ctrl.transactionBulk)").button.button-danger.button-sm
+                        .mdi.mdi-alert-outline.icon-start
+                        | Markeer de bulk lijst en de transacties als betaald.
 
             .card-section: .flex
                 .flex: .card-block.card-block-keyvalue
@@ -31,8 +65,9 @@
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.id")
                         .keyvalue-value(ng-bind="$ctrl.transactionBulk.id")
 
-                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
-                        .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq_id")
+                    .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor' && $ctrl.transactionBulk.payment_id")
+                        .keyvalue-key(ng-if="$ctrl.transactionBulk.bank.key === 'bunq'" translate="financial_dashboard_transaction.labels.bunq_id")
+                        .keyvalue-key(ng-if="$ctrl.transactionBulk.bank.key === 'bng'" translate="financial_dashboard_transaction.labels.bng_id")
                         .keyvalue-value(ng-bind="$ctrl.transactionBulk.payment_id")
 
                     .keyvalue-item(ng-if="$ctrl.appConfigs.panel_type == 'sponsor'")
@@ -42,6 +77,10 @@
                     .keyvalue-item
                         .keyvalue-key(translate="financial_dashboard_transaction.labels.date")
                         .keyvalue-value(ng-bind="$ctrl.transactionBulk.created_at_locale")
+
+                    .keyvalue-item(ng-if="$ctrl.transactionBulk.execution_date !== null")
+                        .keyvalue-key Datum van uitbetaling
+                        .keyvalue-value(ng-bind="$ctrl.transactionBulk.execution_date_locale")
 
                     .keyvalue-item
                         .keyvalue-key Status
@@ -75,6 +114,10 @@
                                 text="'De status van bulkbetaling wordt om het uur gecontroleerd.'" 
                                 ng-if="$ctrl.transactionBulk.state == 'pending'")
 
+                    .keyvalue-item(ng-if="$ctrl.showAcceptType")
+                        .keyvalue-key Accepted
+                        .keyvalue-value {{ $ctrl.transactionBulk.accepted_manually ? 'Handmatig' : 'Verstuurd naar de BNG'}}
+                
         //- Lit bulk transactions
         .card(ng-if="$ctrl.transactions")
             .card-header: .flex-row
@@ -83,38 +126,51 @@
                     span(i18n="transactions.header.title") 
                     span(ng-bind="$ctrl.transactions.meta.total").span-count
 
+                .flex
+                    button(
+                        ng-click="$ctrl.exportTransactions()").button.button-primary.button-sm
+                        em.mdi.mdi-download.icon-start
+                        span.ng-scope Exporteren
+
             //- Transactions
             .card-section
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
-                                th(i18n="financial_dashboard_transaction.labels.id")
-                                th(i18n="transactions.labels.price")
-                                th(i18n="transactions.labels.date")
-                                th(i18n="transactions.labels.fund")
-                                th(i18n="transactions.labels.provider")
-                                th(i18n="transactions.labels.status")
-                                th
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.id" value="id")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.uid" value="uid")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.price" value="amount")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.product_name" value="product_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
                             tr(ng-repeat="transaction in $ctrl.transactions.data")
                                 td(ng-bind="transaction.id")
+                                td(ng-bind="(transaction.uid || '-') | str_limit:25" title="{{ transaction.uid || '-' }}")
+
                                 td: a.text-primary-light(
                                     ng-bind="transaction.amount | currency_format" 
                                     ui-sref="transaction(transaction.ui_sref)")
 
-                                td(ng-bind="transaction.created_at_locale")
-                                td(ng-bind="transaction.fund.name")
-                                td(ng-bind="transaction.organization.name")
+                                td
+                                    strong(ng-bind="transaction.created_at_locale.split(' - ')[0]").text-primary
+                                    br
+                                    strong(ng-bind="transaction.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+                                td(ng-bind="transaction.fund.name | str_limit:25")
+                                td(ng-bind="(transaction.organization.name | str_limit:25) || '-'" ng-class="transaction.organization ? '' : 'text-muted'")
+                                td(ng-bind="(transaction.product.name || '-') | str_limit:25")
 
                                 td
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
                                     .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
 
-                                td: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.pull-right
+                                td: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.button-icon.pull-right
                                     em.mdi.mdi-eye-outline.icon-start
-                                    translate(translate="transactions.buttons.view")
 
             //- Transactions pagination
             .card-section(ng-if="$ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
-                paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters" on-page-change="$ctrl.onPageChange(query)")
+                paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")

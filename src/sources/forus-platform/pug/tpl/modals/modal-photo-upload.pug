@@ -1,55 +1,57 @@
-.modal.modal-photo-upload.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-photo-upload.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
-        .modal-body: .modal-section
-            .modal-title Verplaats en wijzig grootte
-            .modal-description.hidden-xs
-                | U kunt de afbeelding naar uw voorkeur instellen, links ziet u de originele afbeelding en rechts 
-                br
-                | een voorbeeld van hoe het op de webshop eruit komt te 
-            
-            .photo-crop
-                .photo-crop-image
-                    .photo-crop-control.full-width-xs
-                        img(ng-src="{{ $ctrl.originalPhoto }}").crop-control-ratio
-                        ui-cropper(
-                            ng-if="$ctrl.originalPhoto"
-                            cropject="$ctrl.cropjectObj" 
-                            image="$ctrl.originalPhoto" 
-                            result-image="$ctrl.cropedPhoto"
-                            result-image-size="$ctrl.mediaConfig.large_size"
-                            area-type="rectangle"
-                            aspect-ratio="$ctrl.mediaConfig.aspect_ratio"
-                            init-max-area="true"
-                            on-change="$ctrl.onChange($ctrl.cropjectObj)"
-                            on-load-begin="$ctrl.onChange($ctrl.cropjectObj)"
-                            on-load-done="$ctrl.onChange($ctrl.cropjectObj)")
-                    
-                    .photo-crop-preview.hidden-xs
-                        .crop-control-orignal: img(ng-src="{{ $ctrl.previewUri }}") 
-                        .crop-control-thumbnails
-                            .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")
-                            .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")
+        .modal-body
+            .modal-section
+                .modal-title Verplaats en wijzig grootte
+                .modal-description.hidden-xs
+                    | U kunt de afbeelding naar uw voorkeur instellen, links ziet u de originele afbeelding en rechts 
+                    br
+                    | een voorbeeld van hoe het op de webshop eruit komt te 
+                
+                .photo-crop
+                    .photo-crop-image
+                        .photo-crop-control.full-width-xs
+                            img(ng-src="{{ $ctrl.originalPhoto }}").crop-control-ratio
+                            ui-cropper(
+                                ng-if="$ctrl.originalPhoto"
+                                cropject="$ctrl.cropjectObj" 
+                                image="$ctrl.originalPhoto" 
+                                result-image="$ctrl.croppedPhoto"
+                                result-image-size="$ctrl.mediaConfig.large_size"
+                                area-type="rectangle"
+                                aspect-ratio="$ctrl.mediaConfig.aspect_ratio"
+                                init-max-area="true"
+                                on-change="$ctrl.onChange($ctrl.cropjectObj)"
+                                on-load-begin="$ctrl.onChange($ctrl.cropjectObj)"
+                                on-load-done="$ctrl.onChange($ctrl.cropjectObj)")
                         
-                .photo-crop-info 
-                    span De afmeting van de afbeelding dient bijvoorbeeld {{ $ctrl.mediaConfig.size.large[0] }}x{{ $ctrl.mediaConfig.size.large[1] }}px te zijn. (breedte keer hoogte)
-                    br
-                    span Toegestaande formaten: .JPG, .PNG
-                    br
-                .form.text-center: label.checkbox
-                    input(type='checkbox' ng-model='$ctrl.confirmed')
-                    .checkbox-label
-                        .checkbox-box: .mdi.mdi-check
-                        | Ik beschik over #[a(href="https://www.rijksoverheid.nl/onderwerpen/intellectueel-eigendom/vraag-en-antwoord/mag-ik-teksten-muziek-of-foto-s-van-anderen-gebruiken" target="_blank") de rechten] van de afbeelding.
+                        .photo-crop-preview.hidden-xs
+                            .crop-control-original: img(ng-src="{{ $ctrl.previewUri }}") 
+                            .crop-control-thumbnails
+                                .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")
+                                .crop-control-thumbnail(ng-if="$ctrl.thumbnailUri"): img(ng-src="{{ $ctrl.thumbnailUri }}")
+                            
+                    .photo-crop-info 
+                        span De afmeting van de afbeelding dient bijvoorbeeld {{ $ctrl.mediaConfig.size.large[0] }}x{{ $ctrl.mediaConfig.size.large[1] }}px te zijn. (breedte keer hoogte)
+                        br
+                        span Toegestaande formaten: .JPG, .PNG
+                        br
+                    .form.text-center: label.checkbox
+                        input(type='checkbox' ng-model='$ctrl.confirmed')
+                        .checkbox-label
+                            .checkbox-box: .mdi.mdi-check
+                            | Ik beschik over #[a(href="https://www.rijksoverheid.nl/onderwerpen/intellectueel-eigendom/vraag-en-antwoord/mag-ik-teksten-muziek-of-foto-s-van-anderen-gebruiken" target="_blank") de rechten] van de afbeelding.
 
-
-        .modal-footer
-            .flex-row
-                .flex-col: button(
-                    ng-click="$ctrl.cancel()" translate="Annuleren").button.button-text.button-text-primary.button-wide
-                .flex-col: button(
-                    ng-click="$ctrl.changePhoto()" translate="Kies andere afbeelding").button.button-primary-outline.button-wide.nowrap.hidden-xs
-                .flex-col: button(
-                    ng-disabled="!$ctrl.confirmed"
-                    ng-click="$ctrl.apply()" translate="Bevestigen").button.button-primary.button-wide
+            .modal-footer
+                .flex-row
+                    .flex-col: button(
+                        ng-click="$ctrl.cancel()" translate="Annuleren").button.button-text.button-text-primary.button-wide
+                    .flex-col: button(
+                        ng-click="$ctrl.changePhoto()" translate="Kies andere afbeelding").button.button-primary-outline.button-wide.nowrap.hidden-xs
+                    .flex-col: button(
+                        ng-disabled="!$ctrl.confirmed"
+                        ng-click="$ctrl.apply()" translate="Bevestigen").button.button-primary.button-wide

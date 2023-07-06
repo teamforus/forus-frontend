@@ -22,7 +22,7 @@ let FundCriteriaEditorDirective = function(
             is_editing: true,
             show_attachment: false,
             external_validators: [],
-            record_type_key: 0,
+            record_type_key: null,
             operator: "=",
             value: "",
         });
@@ -87,7 +87,7 @@ let FundCriteriaEditorDirective = function(
         );
 
         $dir.recordTypes.unshift({
-            key: 0,
+            key: null,
             name: "Select"
         });
 
@@ -119,8 +119,8 @@ module.exports = () => {
             '$scope',
             '$timeout',
             '$element',
-            FundCriteriaEditorDirective
+            FundCriteriaEditorDirective,
         ],
-        templateUrl: 'assets/tpl/directives/fund-criteria-editor.html'
+        templateUrl: 'assets/tpl/directives/fund-criteria-editor.html',
     };
 };

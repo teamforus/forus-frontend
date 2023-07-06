@@ -2,6 +2,14 @@ top-navbar
 
 main(id="main-content")
     section.section.section-product: .wrapper
+        mixin bookmark_toggle()
+            .block.block-bookmark-toggle(
+                ng-if="$root.auth_user"
+                ng-click="$ctrl.toggleBookmark($event, $ctrl.product)"
+                ng-class="$ctrl.product.bookmarked ? 'active' : ''"
+                aria-label="toevoegen aan verlanglijstje"
+                aria-pressed="{{ $ctrl.product.bookmarked }}")
+                    .mdi.mdi-cards-heart
 
         .block.block-breadcrumbs
             a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
@@ -17,11 +25,11 @@ main(id="main-content")
             .product-card
                 .product-photo: img(
                     ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" 
-                    alt="")
+                    alt="{{ $ctrl.product.alternative_text }}")
                 
                 .product-details
                     .product-name
-                        span(ng-bind="$ctrl.product.name")
+                        span(ng-bind="$ctrl.product.name" dusk="productName")
                         span.label.label-danger(
                             ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" 
                             i18n="product.status.out_of_stock")
@@ -37,25 +45,31 @@ main(id="main-content")
                         .product-property.product-property-full
                             .product-property-label(i18n="product.labels.description")
                             .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
+                
+                +bookmark_toggle()
 
-            .block.block-info-card(ng-if="$ctrl.productMeta.funds.length > 0")
-                h2(i18n="product.headers.funds" ui-sref="vouchers").block-header
-                .block-products-content
-                    .product-funds-list: .fund-item(ng-repeat="fund in $ctrl.productMeta.funds")
+            .block.block-pane(ng-if="$ctrl.productMeta.funds.length > 0 && (!$ctrl.onlyAvailableFunds || $ctrl.productMeta.hasReservableFunds)")
+                .pane-head: h2(i18n="product.headers.funds" ui-sref="vouchers").pane-head-title
+                .pane-section.pane-section-collapsed
+                    .product-funds-list: .fund-item(
+                        ng-if="!$ctrl.onlyAvailableFunds || fund.meta.isReservationAvailable" 
+                        ng-repeat="fund in $ctrl.productMeta.funds" 
+                        dusk="fundItem")
                         .fund-item-section.fund-item-section-details.text-left
                             .fund-item-media: img.fund-item-media-img(
                                 ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
 
                             .fund-item-content
                                 .fund-item-section-label.flex-start Tegoed:
-                                .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name")
+                                .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name" dusk="fundName")
                         
                         .fund-item-section
                             .fund-item-section-label(i18n="product.labels.expire")
                             .fund-item-section-value.fund-item-section-value-sm 
                                 | {{ "product.labels.expire_prefix" | translate }} {{ fund.meta.shownExpireDate.locale }}
                         
-                        .fund-item-section.text-right(ng-if="fund.type == 'subsidies'")
+                        .fund-item-section.text-right(
+                            ng-if="(fund.meta.applicableVouchers.length ? fund.limit_available : fund.limit_per_identity) != null")
                             .fund-item-section-label.tooltip-block(ng-if="$root.auth_user")
                                 | #[span(translate="product.labels.limit")]
                                 | #[tooltip(text="'product.tooltip'" ng-if="$root.auth_user")]
@@ -82,7 +96,7 @@ main(id="main-content")
 
                             .fund-item-section-value(
                                 ng-if="fund.type == 'subsidies' && ($ctrl.product.price_type === 'regular' && fund.price != 0)" 
-                                ng-bind="fund.price | currency_format")
+                                ng-bind="fund.price_locale")
                             
                             //- budget price
                             .fund-item-section-value(
@@ -98,55 +112,34 @@ main(id="main-content")
                         .fund-item-section(ng-if="fund.meta.isReservationAvailable")
                             .button.button-dark.button-flat(
                                 i18n="product.buttons.buy" 
-                                ng-click="$ctrl.reserveProduct(fund)")
+                                ng-click="$ctrl.reserveProduct(fund)"
+                                dusk="reserveProduct")
 
                         //- request fund
                         .fund-item-section(ng-if="!fund.meta.applicableVouchers.length && $ctrl.signedIn && !fund.meta.isReservationAvailable")
-                            .button.button-light.button-flat(
-                                translate="product.buttons.{{ $root.client_key }}.request" 
-                                translate-default="{{ 'product.buttons.request' | translate }}" 
-                                ng-click="$ctrl.requestFund(fund)")
+                            .button.button-light.button-flat(ng-click="$ctrl.requestFund(fund)")
+                                span(translate="product.buttons.{{ $root.client_key }}.request" translate-default="{{ 'product.buttons.request' | translate }}")
+                                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                         .fund-item-section(ng-if="fund.meta.applicableVouchers.length && !fund.meta.isReservationAvailable")
-                            .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)" i18n="product.buttons.open_voucher")
+                            .button.button-dark.button-flat(ng-click="$ctrl.goToVoucher(fund)")
+                                span(i18n="product.buttons.open_voucher")
+                                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
-            .block.block-pane(ng-class="{'last-child': $ctrl.product.organization.showOffices}")
-                h2(ui-sref="provider($ctrl.product.organization)" i18n="product.headers.provider").pane-head
-                .pane-body: .block.block-organizations: .organization-item
-                    a(ui-sref="provider($ctrl.product.organization)" ).organization-pane
-                        .organization-logo
-                            img(ng-src="{{ $ctrl.product.organization.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png'  }}" alt="").organization-logo-img
-                        .organization-title
-                            .organization-title-value(ng-bind="$ctrl.product.organization.name")
-                            .organization-title-count(ng-bind="$ctrl.product.offices.length")
-                        .organization-chevron(ng-click="$ctrl.toggleOffices($event, $ctrl.product.organization)")
-                            .mdi(ng-class="'mdi-chevron-' + ($ctrl.product.organization.showOffices ? 'up' : 'right')" role = "link" aria-label="Klik voor meer informatie over de aanbieder")           
-        
-            .block.block-organizations(ng-if="$ctrl.product.organization.showOffices"): .organization-item
-                .organization-offices: .block.block-offices
-                    a(ng-repeat="office in $ctrl.product.offices" ui-sref="provider-office(office)" role="heading").office-item
-                        .office-item-map-icon: .mdi.mdi-map-marker
-                        .office-pane
-                            .office-pane-block
-                                .office-logo: img(
-                                    ng-src="{{ office.organization.logo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
-                                    alt="{{ $ctrl.product.organization.name }}"
-                                    ).office-logo-img
-                                .office-details
-                                    .office-title(ng-bind="office.address")
-                                    .office-labels
-                                        .label.label-default(ng-bind="$ctrl.product.organization.business_type.name || 'Geen organisatie type'")
-                                    
-                                    div(ng-if="office.phone || provider.phone || provider.email")
-                                        .office-info.office-info-inline(ng-if="office.phone || provider.phone")
-                                            .mdi.mdi-phone-outline
-                                            | {{ office.phone ? office.phone : provider.phone }}
-                                        
-                                        .office-info.office-info-inline(ng-if="provider.email")
-                                            .mdi.mdi-email-outline
-                                            | {{ provider.email }}
+            //- user not logged or no reservable funds
+            .block.block-action-card.block-action-card-compact(ng-if="!$root.auth_user || ($ctrl.onlyAvailableFunds && !$ctrl.productMeta.hasReservableFunds)")
+                .block-card-logo(aria-hidden="true"): include ../../../resources/_webshop-common/assets/img/icon-funds-overview.svg
+                .block-card-details
+                    h3.block-card-title(i18n="product.labels.funds_card_title")
+                    .block-card-description(i18n="product.labels.funds_card_description")
+                .block-card-actions
+                    a(ui-sref="funds").button.button-primary
+                        span(i18n="product.labels.funds_card_btn_text")
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")                    
 
-            .block.block-map_card
+            .block.block-organizations: provider-list-item(provider="$ctrl.provider")
+
+            .block.block-map_card(ng-if="$root.appConfigs.features.show_product_map")
                 .map_card-header
                     h2.map_card-title(i18n="product.headers.map")
 

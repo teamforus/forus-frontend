@@ -20,6 +20,7 @@ platform.setLibs([
     "mdi",
     "moment",
     "qrcodejs",
+    "ui_cropper",
     "ui_router",
     "ui_select",
     "file_saver",
@@ -36,16 +37,15 @@ platform.setCleanPath([
 
 // add js task
 platform.addTask('js', {
-    src: [
-        "app.js"
-    ],
+    src: "app.js",
     watch: [
         "angular-1/**/**.js",
+        "angular-1/**/**.pug",
     ],
     dest: "/",
     name: "app.min.js",
     minify: true,
-    sourcemap: true,
+    sourcemap: false,
     browserify: true
 }, 'js');
 
@@ -64,21 +64,15 @@ platform.addTask('scss', {
 // add pug task
 platform.addTask('pug', {
     path: "/webshop-panel",
-    src: [
-        "webshop-panel/index.pug"
-    ],
-    watch: [
-        "layout/**/*.pug"
-    ],
+    src: "webshop-panel/index.pug",
+    watch: "layout/**/*.pug",
     minify: true
 }, 'pug');
 
 // add pug task
 platform.addTask('pug', {
     path: "/tpl",
-    src: [
-        "tpl/**/*.pug"
-    ],
+    src: "tpl/**/*.pug",
     dest: "/assets/tpl",
     minify: true
 }, 'pug_raw');

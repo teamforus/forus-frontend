@@ -1,7 +1,5 @@
 const repackResponse = (promise) => new Promise((resolve, reject) => {
-    promise.then((res) => resolve(
-        res.data.data ? res.data.data : res.data
-    ), reject);
+    promise.then((res) => resolve(res.data.data ? res.data.data : res.data), reject);
 });
 
 const resolveConfigs = () => {
@@ -18,34 +16,23 @@ const promiseResolve = (res) => {
     return new Promise(resolve => resolve(res));
 };
 
-const handleAuthTarget = ($state, target) => {
-    if (target[0] == 'homeStart') {
-        return !!$state.go('home', {
-            confirmed: true
-        });
-    }
+const routeParam = (value = null, dynamic = true, squash = true) => {
+    return {
+        ...{ value },
+        ...(squash !== null ? { squash } : {}),
+        ...(dynamic !== null ? { dynamic } : {}),
+    };
+};
 
-    if (target[0] == 'fundRequest') {
-        return target[1] ? !!$state.go('fund-request', {
-            fund_id: target[1]
-        }) : !!$state.go('start', {});
-    }
+const i18n_state = ($stateProvider, args, defaultLocale = 'nl') => {
+    const url = typeof args.url == 'string' ? { [defaultLocale]: args.url } : args.url;
+    const locales = Object.keys(url).filter((locale) => locale != defaultLocale);
 
-    if (target[0] == 'voucher') {
-        return !!$state.go('voucher', {
-            address: target[1]
-        });
-    }
+    $stateProvider.state({ ...args, url: url[defaultLocale] });
 
-    if (target[0] == 'requestClarification') {
-        return target[1] ? !!$state.go('fund-request-clarification', {
-            fund_id: target[1],
-            request_id: target[2],
-            clarification_id: target[3]
-        }) : !!$state.go('start', {});
-    }
-
-    return false;
+    locales.forEach((locale) => {
+        $stateProvider.state({ ...args, name: `${args.name}-${locale}`, url: args.url[locale] });
+    });
 };
 
 const resolveCmsPage = (pageSlug) => {
@@ -69,16 +56,17 @@ const resolveCmsPage = (pageSlug) => {
     };
 }
 
-module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
+module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function (
     $stateProvider, $locationProvider, appConfigs
 ) {
     $stateProvider.state({
         name: "home",
-        url: "/?digid_error",
+        url: "/?digid_error&target",
         component: "homeComponent",
         params: {
-            confirmed: null,
-            digid_error: null
+            target: null,
+            digid_error: null,
+            session_expired: null,
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
@@ -121,13 +109,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         params: {
             logout: null,
             restore_with_digid: null,
-            confirmed: null,
+            restore_with_email: null,
             digid_error: null,
             email_address: null,
+            redirect_scope: false,
         },
+    });
+
+    $stateProvider.state({
+        name: "auth-2fa",
+        url: "/auth-2fa",
+        component: "auth2FAComponent",
         resolve: {
-            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
-        }
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        },
     });
 
     $stateProvider.state({
@@ -144,9 +141,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: resolveCmsPage('accessibility'),
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "terms_and_conditions",
-        url: "/terms-and-conditions",
+        url: {
+            en: "/terms-and-conditions",
+            nl: "/algemene-voorwaarden",
+        },
         component: "termsAndConditionsComponent",
         resolve: resolveCmsPage('terms_and_conditions'),
     });
@@ -155,56 +155,32 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "me-app",
         url: "/me",
         component: "meComponent",
-        params: {
-            confirmed: null
-        }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "products",
-        url: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
+        url: {
+            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
+            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
+        },
         component: "productsComponent",
         params: {
-            q: {
-                dynamic: true,
-                value: "",
-                squash: true,
-            },
-            page: {
-                dynamic: true,
-                value: 1,
-                squash: true,
-            },
-            fund_id: {
-                value: null,
-                squash: true
-            },
-            organization_id: {
-                value: null,
-                squash: true
-            },
-            product_category_id: {
-                value: null,
-                squash: true
-            },
-            display_type: {
-                dynamic: true,
-                value: 'list',
-                squash: true
-            },
-            fund_type: {
-                dynamic: true,
-                value: 'budget',
-                squash: true
-            },
-            show_menu: {
-                dynamic: true,
-                value: false,
-                squash: true
-            },
+            q: routeParam(""),
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            organization_id: routeParam(null),
+            product_category_id: routeParam(null),
+            display_type: routeParam('list'),
+            bookmarked: routeParam(false),
+            fund_type: routeParam('budget'),
+            show_menu: routeParam(false),
+            distance: routeParam(null),
+            postcode: routeParam(''),
+            order_by: routeParam('created_at'),
+            order_by_dir: routeParam('desc'),
         },
         resolve: {
-            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_products: 1 }))],
             products: ['$transition$', 'ProductService', (
                 $transition$, ProductService
             ) => repackPagination(ProductService.list({
@@ -213,88 +189,96 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 fund_id: $transition$.params().fund_id,
                 fund_type: $transition$.params().fund_type,
                 organization_id: $transition$.params().organization_id,
-                product_category_id: $transition$.params().product_category_id
+                product_category_id: $transition$.params().product_category_id,
+                bookmarked: $transition$.params().bookmarked ? 1 : 0,
+                order_by: $transition$.params().order_by,
+                order_by_dir: $transition$.params().order_by_dir,
             }))],
-            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
-                return repackResponse(ProductCategoryService.list({ parent_id: 'null', used: 1 }))
+            productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
+                return $transition$.params().product_category_id ?
+                    repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
             }],
-            organizations: ['OrganizationService', 'HelperService', (
-                OrganizationService, HelperService
-            ) => HelperService.recursiveLeacher((page) => {
-                return OrganizationService.list({
-                    is_employee: 0,
-                    has_products: 1,
-                    per_page: 100,
-                    page: page,
-                    fund_type: 'budget'
-                });
-            }, 4)],
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({ 
+                    parent_id: 'null', 
+                    per_page: 1000, 
+                    used: 1,
+                    used_type: 'budget'
+                }))
+            }],
+            productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
+                return productCategory ? repackResponse(ProductCategoryService.list({
+                    parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
+                    ...{ 
+                        per_page: 1000, 
+                        used: 1,
+                        used_type: 'budget' 
+                    },
+                })) : null;
+            }],
+            organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
+                is_employee: 0,
+                has_products: 1,
+                per_page: 300,
+                fund_type: 'budget'
+            })],
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "actions",
-        url: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}",
+        url: {
+            en: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_by_dir:string}",
+            nl: "/acties?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_by_dir:string}",
+        },
         component: "productsComponent",
         params: {
-            q: {
-                dynamic: true,
-                value: "",
-                squash: true,
-            },
-            page: {
-                dynamic: true,
-                value: 1,
-                squash: true,
-            },
-            fund_id: {
-                value: null,
-                squash: true
-            },
-            organization_id: {
-                value: null,
-                squash: true
-            },
-            product_category_id: {
-                value: null,
-                squash: true
-            },
-            display_type: {
-                dynamic: true,
-                value: 'list',
-                squash: true
-            },
-            fund_type: {
-                dynamic: true,
-                value: 'subsidies',
-                squash: true
-            },
-            show_menu: {
-                dynamic: true,
-                value: false,
-                squash: true
-            },
+            q: routeParam(""),
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            organization_id: routeParam(null),
+            product_category_id: routeParam(null),
+            display_type: routeParam('list'),
+            bookmarked: routeParam(false),
+            fund_type: routeParam('subsidies'),
+            show_menu: routeParam(false),
+            distance: routeParam(null),
+            postcode: routeParam(''),
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
-            products: ['$transition$', 'ProductService', (
-                $transition$, ProductService
-            ) => repackPagination(ProductService.list({
+            funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_subsidies: 1 }))],
+            products: ['$transition$', 'ProductService', ($transition$, ProductService) => repackPagination(ProductService.list({
                 q: $transition$.params().q,
                 page: $transition$.params().page,
                 fund_id: $transition$.params().fund_id,
                 fund_type: $transition$.params().fund_type,
                 organization_id: $transition$.params().organization_id,
-                product_category_id: $transition$.params().product_category_id
+                product_category_id: $transition$.params().product_category_id,
+                order_by: $transition$.params().order_by,
+                order_by_dir: $transition$.params().order_by_dir,
             }))],
-            productCategories: ['ProductCategoryService', (
-                ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({
-                parent_id: 'null',
-                used: 1,
-            }))],
+            productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
+                return $transition$.params().product_category_id ?
+                    repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
+            }],
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({ 
+                    parent_id: 'null', 
+                    per_page: 1000, 
+                    used: 1,
+                    used_type: 'subsidies'
+                }))
+            }],
+            productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
+                return productCategory ? repackResponse(ProductCategoryService.list({
+                    parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
+                    ...{ 
+                        per_page: 1000,
+                        used: 1,
+                        used_type: 'subsidies',
+                    },
+                })) : null;
+            }],
             organizations: ['OrganizationService', 'HelperService', (
                 OrganizationService, HelperService
             ) => HelperService.recursiveLeacher((page) => {
@@ -309,9 +293,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "product",
-        url: "/products/{id}",
+        url: {
+            en: "/products/{id}",
+            nl: "/aanbod/{id}",
+        },
         component: "productComponent",
         params: { searchData: null },
         resolve: {
@@ -322,54 +309,59 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 type: 'regular',
                 state: 'active',
             })) : new Promise(resolve => resolve([]))],
-            product: ['$transition$', 'ProductService', (
-                $transition$, ProductService
-            ) => repackResponse(ProductService.read(
-                $transition$.params().id
-            ))],
+            product: ['$transition$', 'ProductService', ($transition$, ProductService) => {
+                return repackResponse(ProductService.read($transition$.params().id));
+            }],
+            provider: ['product', 'ProvidersService', (product, ProvidersService) => {
+                return repackResponse(ProvidersService.read(product.organization_id));
+            }],
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "providers",
-        url: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{show_map:bool}&{show_menu:bool}",
+        url: {
+            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
+            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
+        },
         component: "providersComponent",
         params: {
-            q: {
-                dynamic: true,
-                value: "",
-                squash: true,
-            },
-            page: {
-                dynamic: true,
-                value: 1,
-                squash: true,
-            },
-            fund_id: {
-                value: null,
-                squash: true
-            },
-            business_type_id: {
-                value: null,
-                squash: true
-            },
-            show_map: {
-                value: false,
-                squash: true
-            },
-            show_menu: {
-                dynamic: true,
-                value: false,
-                squash: true
-            },
+            q: routeParam(''),
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            show_map: routeParam(false),
+            distance: routeParam(null),
+            postcode: routeParam(''),
+            show_menu: routeParam(false),
+            business_type_id: routeParam(null),
+            product_category_id: routeParam(null),
+            order_by: routeParam('name'),
+            order_by_dir: routeParam('asc'),
         },
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_providers: 1 }))],
+            productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
+                return $transition$.params().product_category_id ?
+                    repackResponse(ProductCategoryService.show($transition$.params().product_category_id)) : null;
+            }],
+            productCategories: ['ProductCategoryService', (ProductCategoryService) => {
+                return repackResponse(ProductCategoryService.list({ 
+                    parent_id: 'null', 
+                    used: 1,
+                    per_page: 1000, 
+                }))
+            }],
+            productSubCategories: ['productCategory', 'ProductCategoryService', (productCategory, ProductCategoryService) => {
+                return productCategory ? repackResponse(ProductCategoryService.list({
+                    parent_id: productCategory.parent_id ? productCategory.parent_id : productCategory.id,
+                    used: 1,
+                    per_page: 1000, 
+                })) : null;
+            }],
             businessTypes: ['BusinessTypeService', (
                 BusinessTypeService
             ) => repackResponse(BusinessTypeService.list({
+                parent_id: 'null',
                 per_page: 9999,
                 used: 1,
             }))],
@@ -379,14 +371,22 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                 q: $transition$.params().q,
                 page: $transition$.params().page,
                 fund_id: $transition$.params().fund_id,
+                distance: $transition$.params().distance,
+                postcode: $transition$.params().postcode,
                 business_type_id: $transition$.params().business_type_id,
+                product_category_id: $transition$.params().product_category_id,
+                order_by: $transition$.params().order_by,
+                order_by_dir: $transition$.params().order_by_dir,
             }))]
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "explanation",
-        url: "/explanation",
+        url: {
+            en: "/explanation",
+            nl: "/uitleg",
+        },
         component: "explanationComponent",
         resolve: resolveCmsPage('explanation')
     });
@@ -395,48 +395,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         name: "search-result",
         url: "/search?{q:string}&{page:int}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&search_item_types&order_by&order_by_dir",
         params: {
-            q: {
-                dynamic: true,
-                value: "",
-                squash: true,
-            },
-            page: {
-                dynamic: true,
-                value: 1,
-                squash: true,
-            },
-            fund_id: {
-                dynamic: true,
-                value: null,
-                squash: true
-            },
-            organization_id: {
-                dynamic: true,
-                value: null,
-                squash: true
-            },
-            product_category_id: {
-                dynamic: true,
-                value: null,
-                squash: true
-            },
-            display_type: {
-                dynamic: true,
-                value: 'list',
-                squash: true
-            },
-            search_item_types: {
-                dynamic: true,
-                value: 'funds,providers,products',
-                squash: true
-            },
-            fund_type: {
-                dynamic: true,
-                value: 'budget',
-                squash: true
-            },
-            order_by: { dynamic: true, value: 'created_at' },
-            order_by_dir: { dynamic: true, value: 'desc' },
+            q: routeParam(""),
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            organization_id: routeParam(null),
+            product_category_id: routeParam(null),
+            display_type: routeParam('list'),
+            search_item_types: routeParam('funds,providers,products'),
+            fund_type: routeParam('budget'),
+            order_by: routeParam('created_at'),
+            order_by_dir: routeParam('desc'),
         },
         component: "searchResultComponent",
         resolve: {
@@ -445,6 +413,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
                     ...{
                         q: $transition$.params().q,
                         overview: 0,
+                        with_external: 1,
                         page: $transition$.params().page,
                         order_by: $transition$.params().order_by,
                         order_by_dir: $transition$.params().order_by_dir,
@@ -456,12 +425,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             }],
             funds: ['FundService', (
                 FundService
-            ) => repackResponse(FundService.list())],
+            ) => repackResponse(FundService.list(null, {
+                with_external: 1,
+            }))],
             productCategories: ['ProductCategoryService', (
                 ProductCategoryService
-            ) => repackResponse(ProductCategoryService.list({
-                parent_id: 'null',
+            ) => repackResponse(ProductCategoryService.list({ 
+                parent_id: 'null', 
                 used: 1,
+                per_page: 1000,
             }))],
             vouchers: ['AuthService', 'VoucherService', (
                 AuthService, VoucherService
@@ -470,15 +442,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
             ) : promiseResolve([])],
             organizations: ['OrganizationService', 'HelperService', (
                 OrganizationService, HelperService
-            ) => HelperService.recursiveLeacher((page) => {
-                return OrganizationService.list({
-                    is_employee: 0,
-                    has_products: 1,
-                    per_page: 100,
-                    page: page,
-                    fund_type: 'budget'
-                });
-            }, 4)],
+            ) => HelperService.recursiveLeacher((page) => OrganizationService.list({
+                is_employee: 0,
+                has_products: 1,
+                per_page: 100,
+                page: page,
+                fund_type: 'budget'
+            }), 4)],
         }
     });
 
@@ -516,9 +486,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "provider",
-        url: "/providers/{id}",
+        url: {
+            en: "/providers/{id}",
+            nl: "/aanbieders/{id}",
+        },
         component: "providerComponent",
         params: { searchData: null },
         resolve: {
@@ -546,45 +519,154 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "vouchers",
-        url: "/vouchers",
+        url: {
+            en: "/vouchers",
+            nl: "/tegoeden",
+        },
         component: "vouchersComponent",
         resolve: {
-            vouchers: ['VoucherService', (
-                VoucherService
-            ) => repackResponse(VoucherService.list())],
+            vouchers: ['VoucherService', (VoucherService) => repackPagination(VoucherService.list({
+                archived: 0,
+                per_page: 15,
+                order_by: 'voucher_type',
+                order_dir: 'desc',
+            }))],
+            reimbursementVouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({ 
+                archived: 0,
+                per_page: 1,
+                implementation_key: appConfigs.client_key,
+                allow_reimbursements: 1,
+            }))],
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
+        name: "bookmarked-products",
+        url: {
+            en: "/bookmarks?{page:int}&{display_type:string}",
+            nl: "/bladwijzers?{page:int}&{display_type:string}",
+        },
+        params: {
+            display_type: {
+                dynamic: true,
+                value: 'list',
+                squash: true
+            },
+        },
+        component: "bookmarkedProductsComponent",
+        resolve: {
+            products: ['ProductService', (ProductService) => repackPagination(ProductService.list({
+                bookmarked: 1
+            }))],
+        }
+    });
+
+    i18n_state($stateProvider, {
         name: "reservations",
-        url: "/reservations",
+        url: {
+            en: "/reservations",
+            nl: "/reserveringen",
+        },
         component: "reservationsComponent",
         resolve: {
-            funds: ['FundService', (
-                FundService
-            ) => repackResponse(FundService.list())],
-            reservations: ['ProductReservationService', (
-                ProductReservationService
-            ) => repackPagination(ProductReservationService.list({ per_page: 15 }))],
-            organizations: ['OrganizationService', 'HelperService', (
-                OrganizationService, HelperService
-            ) => HelperService.recursiveLeacher((page) => {
-                return OrganizationService.list({
-                    is_employee: 0,
-                    has_reservations: 1,
-                    per_page: 100,
-                    page: page,
-                    fund_type: 'budget'
-                });
-            }, 4)],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            reservations: ['ProductReservationService', (ProductReservationService) => repackPagination(ProductReservationService.list({ archived: 0 }))],
+            organizations: ['OrganizationService', (OrganizationService) => OrganizationService.listRecursive({
+                is_employee: 0,
+                has_reservations: 1,
+                per_page: 300,
+                fund_type: 'budget'
+            })],
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
+        name: "reimbursements",
+        url: {
+            en: "/reimbursements",
+            nl: "/declaraties",
+        },
+        component: "reimbursementsComponent",
+        resolve: {
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({
+                allow_reimbursements: 1,
+                implementation_key: appConfigs.client_key,
+                per_page: 100,
+            }))],
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "reimbursements-create",
+        url: {
+            en: "/reimbursements/create?voucher_address=null",
+            nl: "/declaraties/maken?voucher_address=null",
+        },
+        params: { voucher_address: null },
+        component: "reimbursementsEditComponent",
+        resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({
+                allow_reimbursements: 1,
+                implementation_key: appConfigs.client_key,
+                per_page: 100,
+            }))],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "reimbursements-edit",
+        url: {
+            en: "/reimbursements/{id}/edit",
+            nl: "/declaraties/{id}/bewerk",
+        },
+        component: "reimbursementsEditComponent",
+        resolve: {
+            vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({
+                allow_reimbursements: 1,
+                implementation_key: appConfigs.client_key,
+                per_page: 100,
+            }))],
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            voucher: ['VoucherService', '$transition$', (VoucherService, $transition$) => {
+                return $transition$.params().voucher_address ? repackResponse(VoucherService.get($transition$.params().voucher_address)) : null;
+            }],
+            reimbursement: ['ReimbursementService', '$transition$', (ReimbursementService, $transition$) => {
+                return repackResponse(ReimbursementService.read($transition$.params().id));
+            }],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "reimbursement",
+        url: {
+            en: "/reimbursements/{id}",
+            nl: "/declaraties/{id}",
+        },
+    component: "reimbursementComponent",
+        resolve: {
+            reimbursement: ['ReimbursementService', '$transition$', (ReimbursementService, $transition$) => {
+                return repackResponse(ReimbursementService.read($transition$.params().id));
+            }],
+        }
+    });
+
+    i18n_state($stateProvider, {
         name: 'voucher',
-        url: '/voucher/{address}',
+        url: {
+            en: '/voucher/{address}',
+            nl: '/tegoeden/{address}',
+        },
         component: 'voucherComponent',
         data: { address: null },
         resolve: {
@@ -686,68 +768,56 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "funds",
-        url: "/funds?{page:int}&{q:string}&{display_type:string}&{organization_id:int}&{show_menu:bool}",
+        url: {
+            en: "/funds?{page:int}&{q:string}&{display_type:string}&{organization_id:int}&{tag_id:int}&{show_menu:bool}",
+            nl: "/fondsen?{page:int}&{q:string}&{display_type:string}&{organization_id:int}&{tag_id:int}&{show_menu:bool}",
+        },
         component: "fundsComponent",
         params: {
-            q: {
-                dynamic: true,
-                value: "",
-                squash: true,
-            },
-            page: {
-                dynamic: true,
-                value: 1,
-                squash: true,
-            },
-            organization_id: {
-                value: null,
-                squash: true
-            },
-            display_type: {
-                dynamic: true,
-                value: 'list',
-                squash: true
-            },
-            show_menu: {
-                dynamic: true,
-                value: false,
-                squash: true
-            },
+            q: routeParam(""),
+            page: routeParam(1),
+            tag_id: routeParam(null),
+            show_menu: routeParam(false),
+            display_type: routeParam('list'),
+            organization_id: routeParam(null),
         },
         resolve: {
-            funds: ['$transition$', 'FundService', (
-                $transition$, FundService
-            ) => repackPagination(FundService.list(null, {
-                q: $transition$.params().q,
-                page: $transition$.params().page,
-                organization_id: $transition$.params().organization_id,
-                per_page: 10,
-                with_external: 1
-            }))],
-            records: ['AuthService', 'RecordService', (
-                AuthService, RecordService
-            ) => AuthService.hasCredentials() ? repackResponse(
-                RecordService.list()
-            ) : promiseResolve(null)],
-            vouchers: ['AuthService', 'VoucherService', (
-                AuthService, VoucherService
-            ) => AuthService.hasCredentials() ? repackResponse(
-                VoucherService.list()
-            ) : promiseResolve([])],
-            organizations: ['OrganizationService', (
-                OrganizationService
-            ) => repackResponse(OrganizationService.list({
-                implementation: 1,
-                is_employee: 0
-            }))],
+            credentials: ['AuthService', (AuthService) => {
+                return AuthService.hasCredentials();
+            }],
+            tags: ['TagService', (TagService) => {
+                return repackResponse(TagService.list({ type: 'funds', per_page: 1000 }));
+            }],
+            records: ['credentials', 'RecordService', (credentials, RecordService) => {
+                return credentials ? repackResponse(RecordService.list()) : promiseResolve(null);
+            }],
+            vouchers: ['credentials', 'VoucherService', (credentials, VoucherService) => {
+                return credentials ? repackResponse(VoucherService.list()) : promiseResolve([]);
+            }],
+            organizations: ['OrganizationService', (OrganizationService) => {
+                return repackResponse(OrganizationService.list({ implementation: 1, is_employee: 0 }));
+            }],
+            funds: ['$transition$', 'FundService', ($transition$, FundService) => {
+                return repackPagination(FundService.list(null, {
+                    q: $transition$.params().q,
+                    page: $transition$.params().page,
+                    tag_id: $transition$.params().tag_id,
+                    organization_id: $transition$.params().organization_id,
+                    per_page: 10,
+                    with_external: 1,
+                }));
+            }],
         }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "fund",
-        url: "/funds/{id}",
+        url: {
+            en: "/funds/{id:int}",
+            nl: "/fondsen/{id:int}",
+        },
         component: "fundComponent",
         data: { id: null, searchData: null },
         params: { searchData: null },
@@ -788,21 +858,24 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     // Activate fund
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "fund-activate",
-        url: "/funds/{fund_id}/activate?digid_success&digid_error&backoffice_error&backoffice_fallback&backoffice_voucher",
+        url: {
+            en: "/funds/{fund_id}/activate?{digid_success:string}&{digid_error:string}&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+            nl: "/fondsen/{fund_id}/activeer?{digid_success:string}&{digid_error:string}&backoffice_error&backoffice_fallback&backoffice_error_key&backoffice_voucher",
+        },
         component: "fundActivateComponent",
         params: {
+            fund_id: null,
             backoffice_error: null,
+            backoffice_error_key: null,
             backoffice_fallback: null,
             backoffice_voucher: null,
-        },
-        data: {
-            fund_id: null,
-            digid_success: false,
-            digid_error: false,
+            digid_success: routeParam(null, true),
+            digid_error: routeParam(null, true),
         },
         resolve: {
+            configs: resolveConfigs(),
             identity: ['AuthService', (
                 AuthService
             ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
@@ -823,28 +896,30 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     // Apply to fund by submitting fund request
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: "fund-request",
-        url: "/fund/{fund_id}/request?digid_success&digid_error",
-        component: "fundRequestComponent",
-        data: {
-            fund_id: null,
-            digid_success: false,
-            digid_error: false,
+        url: {
+            en: "/funds/{id}/request",
+            en_fallback: "/fund/{id}/request",
+            nl: "/fondsen/{id}/aanvraag",
         },
+        component: "fundRequestComponent",
+        params: { from: null },
+        data: { id: null },
         resolve: {
+            configs: resolveConfigs(),
             identity: ['AuthService', (
                 AuthService
             ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
             fund: ['$transition$', 'FundService', (
                 $transition$, FundService
             ) => repackResponse(FundService.readById(
-                $transition$.params().fund_id
+                $transition$.params().id
             ))],
             fundRequests: ['$transition$', 'FundRequestService', 'AuthService', (
                 $transition$, FundRequestService, AuthService
             ) => AuthService.hasCredentials() ? repackPagination(
-                FundRequestService.index($transition$.params().fund_id)
+                FundRequestService.index($transition$.params().id)
             ) : new Promise((resolve) => resolve(null))],
             recordTypes: ['RecordTypeService', (
                 RecordTypeService
@@ -891,22 +966,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', 'appConfigs', (
-            $rootScope, $state, IdentityService, CredentialsService, ModalService, AuthService, appConfigs
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', (
+            $rootScope, $state, IdentityService, CredentialsService, ModalService, AuthService
         ) => {
-            let target = $state.params.target || '';
+            const { token, target } = $state.params;
+            const { handleAuthTarget, onAuthRedirect } = AuthService;
 
-            IdentityService.authorizeAuthEmailToken(
-                $state.params.token
-            ).then(function(res) {
+            IdentityService.authorizeAuthEmailToken(token).then((res) => {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-
-                if (typeof target == 'string') {
-                    if (!handleAuthTarget($state, target.split('-'))) {
-                        $state.go('vouchers');
-                    }
-                }
+                $rootScope.loadAuthUser().then(() => !handleAuthTarget(target) && onAuthRedirect());
             }, () => {
                 $state.go('home');
 
@@ -926,26 +994,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
-            $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', 'AuthService', (
+            $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService, AuthService
         ) => {
-            const target = $state.params.target || '';
+            const { token, target } = $state.params;
+            const { handleAuthTarget, onAuthRedirect } = AuthService;
 
-            IdentityService.exchangeConfirmationToken($state.params.token).then(function(res) {
+            IdentityService.exchangeConfirmationToken(token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
-                $rootScope.loadAuthUser();
-
-                if (typeof target == 'string') {
-                    if (!handleAuthTarget($state, target.split('-'))) {
-                        $state.go('home', {
-                            confirmed: 1
-                        });
-                    }
-                }
+                $rootScope.loadAuthUser().then(() => !handleAuthTarget(target) && onAuthRedirect());
             }, (res) => {
-                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close', {
-                    timeout: 8000,
-                });
+                PushNotificationsService.danger(res.data.message, "Deze link is reeds gebruikt of ongeldig.", 'close');
 
                 $state.go('home');
             });
@@ -961,19 +1020,46 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: 'preferences-notifications',
         url: '/preferences/notifications',
-        component: 'emailPreferencesComponent'
+        component: 'notificationPreferencesComponent',
     });
 
     $stateProvider.state({
         name: 'identity-emails',
         url: '/preferences/emails',
-        component: 'identityEmailsComponent'
+        component: 'identityEmailsComponent',
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        }
     });
 
-    $stateProvider.state({
+    i18n_state($stateProvider, {
         name: 'security-sessions',
-        url: '/security/sessions',
-        component: 'securitySessionsComponent'
+        url: {
+            en: '/security/sessions',
+            nl: '/beveiliging/sessies',
+        },
+        component: 'securitySessionsComponent',
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: 'security-2fa',
+        url: {
+            en: '/security/2fa',
+            nl: '/beveiliging/2fa',
+        },
+        component: 'security2FAComponent',
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        },
     });
 
     $stateProvider.state({
@@ -981,7 +1067,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         url: '/error/{errorCode}',
         component: 'errorComponent',
         data: { errorCode: 'unknown_error' },
-        params: { hideHomeLinkButton: false },
+        params: { hideHomeLinkButton: false, customLink: null },
     });
 
     $stateProvider.state({
@@ -990,21 +1076,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         data: {
             token: null
         },
-        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
-            $state, $rootScope, IdentityService, CredentialsService, PushNotificationsService
+        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'AuthService', 'PushNotificationsService', (
+            $state, $rootScope, IdentityService, CredentialsService, AuthService, PushNotificationsService
         ) => {
-            let target = $state.params.target || '';
+            const { token, target } = $state.params;
+            const { handleAuthTarget, onAuthRedirect } = AuthService;
 
-            IdentityService.exchangeShortToken($state.params.token).then(res => {
+            IdentityService.exchangeShortToken(token).then((res) => {
                 CredentialsService.set(res.data.access_token);
-
-                $rootScope.loadAuthUser().then(() => {
-                    if (typeof target == 'string') {
-                        if (!handleAuthTarget($state, target.split('-'))) {
-                            $state.go('home');
-                        }
-                    }
-                });
+                $rootScope.loadAuthUser().then(() => !handleAuthTarget(target) && onAuthRedirect());
             }, () => {
                 PushNotificationsService.danger("Deze link is reeds gebruikt of ongeldig.");
                 $state.go('home');
@@ -1025,6 +1105,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         resolve: {
             error: () => 404,
         }
+    });
+
+    $stateProvider.state({
+        name: "redirect",
+        url: "/redirect?target",
+        controller: ['$state', 'AuthService', ($state, AuthService) => {
+            if (!$state.params.target || !AuthService.handleAuthTarget($state.params.target)) {
+                $state.go('home');
+            }
+        }]
     });
 
     if (appConfigs.html5ModeEnabled) {

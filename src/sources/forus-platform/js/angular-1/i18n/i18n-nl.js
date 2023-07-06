@@ -56,16 +56,28 @@ module.exports = {
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
         modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
+        modal_export_data: require('./nl/modals/modal-export-data-select.pug.i18n'),
         modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
         modal_fund_criteria_description: require('./nl/modals/modal-fund-criteria-description.i18n'),
         modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
         modal_markdown_custom_link: require("./nl/modals/modal-markdown-custom-link.pug.i18n"),
+        modal_voucher_transaction: require('./nl/modals/modal-voucher-transaction.pug.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
+            remove_organization_employees: require('./nl/modals/danger-zone/remove-organization-employee'),
+            remove_note: require('./nl/modals/danger-zone/remove-note'),
+            increase_limit_multiplier: require('./nl/modals/danger-zone/increase-limit-multiplier'),
+            sponsor_provider_organization_state: require('./nl/modals/danger-zone/update-provider-organization-state'),
             archive_fund: require('./nl/modals/danger-zone/archive-fund'),
             restore_fund: require('./nl/modals/danger-zone/restore-fund'),
-            remove_faq: require('./nl/modals/danger-zone/remove-faq')
+            remove_faq: require('./nl/modals/danger-zone/remove-faq'),
+            remove_implementation_block: require('./nl/modals/danger-zone/remove-implementation-block'),
+            confirm_custom_sponsor_email_notification: require('./nl/modals/danger-zone/confirm-custom-sponsor-email-notification'),
+            cancel_provider_unsubscription: require('./nl/modals/danger-zone/cancel-provider-unsubscription'),
+            remove_voucher_record: require('./nl/modals/danger-zone/remove-voucher-record'),
+            remove_implementation_social_media: require('./nl/modals/danger-zone/remove-implementation-social-media'),
+            remove_reimbursement_category: require('./nl/modals/danger-zone/remove_reimbursement_category'),
         },
     },
     // PAGES
@@ -73,6 +85,14 @@ module.exports = {
     product_vouchers: require('./nl/pages/product-vouchers.pug.i18n'),
     voucher_printable: require('./nl/pages/voucher-printable.pug.i18n'),
     system_notifications: require('./nl/pages/system-notifications.pug.i18n'),
+    event_logs: require('./nl/pages/event-logs.pug.i18n'),
+    reimbursements: require('./nl/pages/reimbursements.pug.i18n'),
+    identities: require('./nl/pages/identities.pug.i18n'),
+    transactions: require('./nl/pages/transactions.pug.i18n'),
+    voucher_records: require('./nl/pages/voucher-records.pug.i18n'),
+    financial_dashboard_transaction: require('./nl/pages/transaction.pug.i18n'),
+    provider_funds: require('./nl/pages/provider-funds.pug.i18n'),
+    fund_unsubscriptions: require('./nl/pages/fund-unsubscriptions.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -340,23 +360,6 @@ module.exports = {
             next: "Volgende",
         }
     },
-    // FINANCIAL DASHBOARDS TRANSACTIONS = financial-dashboard-transactions.pug
-    financial_dashboard_transaction: {
-        labels: {
-            payment: "Transactie",
-            details: "Transactie details",
-            id: "ID",
-            bunq_id: "ID bunq",
-            statement: "Naam begunstigde",
-            bunq: "Transactiekosten",
-            fee: "€ 0.10",
-            date: "Datum",
-        },
-        tooltips: {
-            pending_iban_from: "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
-            pending_iban_to: "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends.",
-        }
-    },
 
     financial_dashboard_overview: {
         header: {
@@ -372,10 +375,12 @@ module.exports = {
             total: "Totaal",
             active: "Actief",
             inactive: "Inactief",
+            deactivated: "Gedeactiveerd",
             used: "Uitgaven",
             left: "Restant",
             total_percentage: "Totaal percentage",
-            total_count: "Totaalaantal"
+            total_count: "Totaalaantal",
+            product_vouchers: "Aanbiedingsvouchers"
         },
         buttons: {
             export: "Exporteren"
@@ -394,21 +399,47 @@ module.exports = {
             description: "Uitlegpagina content",
             communication: "Aanspreekvorm",
 
+            announcement_show: "Aankondiging aanzetten",
+            announcement_type: "Aankondiging type",
+            announcement_title: "Aankondiging titel",
+            announcement_description: "Aankondiging beschrijving",
+            announcement_expire: "Vervaldatum instellen",
+            announcement_expire_at: "Vervaldatum",
+            announcement_replace: "Vervang",
+
+            home: "Startpagina content",
             provider: "Aanbiederpagina content",
             privacy: "Privacy content",
-            explanation: "Uitleg pagina content",
+            products: "Aanbod content",
+            providers: "Aanbieders content",
+            funds: "Fondsen content",
+            explanation: "Uitleg pagina",
             accessibility: "Toegankelijkheidsverklaring",
             terms_and_conditions: "Algemene voorwaarden",
 
-            provider_url: "Aanbiederpagina content",
-            privacy_url: "Privacy content",
+            home_url: "Startpagina content",
+            provider_url: "Aanbiederpagina",
+            privacy_url: "Privacy",
             explanation_url: "Externe uitleg URL",
             accessibility_url: "Toegankelijkheidsverklaring",
             terms_and_conditions_url: "Algemene voorwaarden",
 
             footer_contact_details: "Footer contact content",
             footer_opening_times: "Footer openingstijden content",
-
+            footer_app_info: "Footer download de Me-app content",
+            cms_media_links: "Social media links",
+        },
+        implementations_table: {
+            title: "Webshop pagina's",
+            columns: {
+                name: "Naam",
+                options: "Opties"
+            },
+            labels: {
+                view: "Bekijk",
+                edit: "Bewerken",
+                no_pages: "Geen webshop pagina's",
+            },
         },
         placeholders: {
             provider: "Aanbiederpagina content",
@@ -431,6 +462,26 @@ module.exports = {
             cancel: "Annuleren",
             confirm: "Bevestigen",
         }
+    },
+
+    implementation_config: {
+        pages: {
+            home: "Homepagina instellingen",
+            providers: "Aanbieders instellingen",
+            provider: "Aanbieder instellingen",
+            office: "Vestiging instellingen",
+            voucher: "Tegoeden instellingen",
+            product: "Aanbod instellingen",
+        },
+        blocks: {
+            show_home_map: "Tonen van de map (Homepagina)",
+            show_home_products: "Tonen van het aanbod (Homepagina)",
+            show_providers_map: "Tonen van de map (Aanbieders pagina)",
+            show_provider_map: "Tonen van de map (Aanbieder pagina)",
+            show_office_map: "Tonen van de map (Aanbieder vestiging pagina)",
+            show_voucher_map: "Tonen van de map (Tegoeden pagina)",
+            show_product_map: "Tonen van de map (Aanbod pagina)",
+        },
     },
 
     // EDIT FUNDS = funds-edit.pug
@@ -596,7 +647,7 @@ module.exports = {
             end: "EIND",
             break: "Pauze",
             not_specified: "Niet ingevuld",
-            description: "Omschrijving"
+            description: "Omschrijving",
         },
         buttons: {
             cancel: "Annuleren",
@@ -644,7 +695,9 @@ module.exports = {
             category: "Categorie",
             expire: "Vervaldatum van aanbod",
             available_offers: "Resterend aanbod",
-            unlimited: "Onbeperkt"
+            unlimited: "Onbeperkt",
+            alternative_text: "Alt-tekst",
+            alternative_text_placeholder: "Omschrijving van de afbeelding",
         },
         tooltips: {
             product_type: ["Kies het soort aanbod. Voorbeelden:",
@@ -710,24 +763,6 @@ module.exports = {
             title: 'Weet u zeker dat u dit aanbod wilt verwijderen?',
             description: 'Als u het aanbod verwijderd, wordt het aanbod uit de webshop gehaald. Ook verdwijnt het aanbod uit uw dashboard. U kunt uw gereserveerd aanbod dan niet meer inzien. Reeds gemaakte reserveringen blijven actief en kunnen nog opgehaald worden.'
         }
-    },
-
-    // FUNDS AVAILABLE FOR PROVIDERS = provider-funds-available.pug
-    provider_funds_available: {
-        title: "Fondsen",
-        applied_for_fund: {
-            title: "Uw aanvraag is ontvangen.",
-            description: "De gemeente zal uw verzoek behandelen, dit kan maximaal twee weken duren. Zodra de gemeente uw aanvraag heeft behandeld wordt er een e-mail toegestuurd. Daarnaast kunt u de status ook volgen op het dashboard."
-        },
-        error_apply: {
-            title: 'U heeft nog geen vestigingen aangemaakt!',
-            description: 'U heeft tenminste één vestiging nodig om uw organisatie aan te melden voor {{fund_name}}'
-        }
-    },
-
-    // PROVIDER FUNDS = provider-funds.pug
-    provider_funds: {
-        title: "Fondsen",
     },
 
     // PROVIDER IDENTITIES = provider-identities.pug
@@ -796,13 +831,13 @@ module.exports = {
             title_step_8: "Meld u aan voor de regelingen",
             subtitle_step_8: "Meld u aan voor de regelingen. Uw aanvraag wordt zo spoedig mogelijk behandeld. U ontvangt hierover per e-mail een bevestiging.",
 
-            title_step_9: "Aanvraag ontvangen",
-            top_title_step_9: "Uw aanmelding is ontvangen",
-            subtitle_step_9: "Uw aanmelding is in behandeling. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
+            title_step_9: "Organisatie aangemaakt",
+            top_title_step_9: "Uw organisatie is aangemaakt",
+            subtitle_step_9: "Heeft u zich aangemeld voor een fonds? Dan ontvangt u hier een e-mail van zodra uw aanmelding is behandeld. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.",
 
-            title_step_9_mobile: "Aanmelding voltooid",
-            top_title_step_9_mobile: "Uw aanmelding is ontvangen",
-            subtitle_step_9_mobile: "Uw aanmelding is in behandeling. Dit kan maximaal twee weken duren. Zodra uw aanvraag is behandeld ontvangt u een e-mail. U kunt de status van uw aanmelding ook op het dashboard volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw e-mailadres:\n",
+            title_step_9_mobile: "Organisatie aangemaakt",
+            top_title_step_9_mobile: "Uw organisatie is aangemaakt",
+            subtitle_step_9_mobile: "Heeft u zich aangemeld voor een fonds? Dan ontvangt u hier een e-mail van zodra uw aanmelding is behandeld. U kunt de status van uw aanmelding ook op uw aanbieders webomgeving volgen.<br><br>Om betalingen te verichten heeft u de Me-app nodig. Download de app en meld u aan met uw e-mailadres:\n",
             download_step_9_mobile: "Applicatie downloaden",
 
             title_step_10: "Test betaling",
@@ -856,6 +891,9 @@ module.exports = {
             organization_add: 'Organisatie toevoegen',
             go_test_screen: "Doe een test betaling!",
             go_to_dashboard: "Ga naar uw dashboard",
+            join: "Aanmelden",
+            select_all: "Selecteer alles",
+            deselect_all: "Deselecteer alles",
         },
         step: {
             step_1: 'Stap 1',
@@ -946,7 +984,10 @@ module.exports = {
                 accept: "Bevestig",
                 cancel: "Annuleer"
             }
-        }
+        },
+        funds: {
+            title: "Fondsen",
+        },
     },
     // SIGN UP FORM FOR SPONSORS = sponsor-sign-up.pug
     sign_up_sponsor: {
@@ -1206,75 +1247,19 @@ module.exports = {
             email: "E-mailadres",
             roles: "Rollen",
             actions: "Actie",
+            auth_2fa: "2FA",
             owner: "Eigenaar"
         },
         buttons: {
             adjust: "Aanpassen",
             delete: "Verwijderen",
             add: "Toevoegen",
+            security: "Beveiliging",
             transfer_ownership: "Overdragen",
+            export: "Exporteren",
         }
     },
 
-    // TRANSACTIONS = transaction.pug
-    transactions: {
-        header: {
-            title: "Individuele transacties",
-            titleBulks: "Bulktransacties",
-        },
-        labels: {
-            price: "BEDRAG",
-            description: "BESCHRIJVING",
-            customer: "KLANT",
-            date: "DATUM",
-            action: "ACTIE",
-            refund: "Terugbetalen",
-            chargeid: "Kopieer het transactienummer",
-            connections: "CONNECTIE",
-            details: "Bekijk transactiedetails",
-            results: "x resultaten",
-            payment: "Betaling -",
-            fund: "FONDS",
-            status: "STATUS",
-            provider: "AANBIEDER",
-            search: "Zoeken",
-            from: "Vanaf",
-            bulk: "BULK",
-            to: "Tot en met",
-            state: "Status",
-            fund_state: "Status fonds",
-            amount: "Bedrag",
-            amount_min: "0",
-            amount_max: "Alles",
-            total_amount: "Som van transacties <strong>{{ total_amount }}</strong>",
-            bulk_total_amount: [
-                "Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie ter waarde van <strong>{{ total_amount }}</strong>.",
-                "Gebeurt automatisch dagelijks om 09:00."
-            ].join("</br>"),
-        },
-        buttons: {
-            previous: "Vorige",
-            next: "Volgende",
-            view: "Bekijk",
-            export_csv: "Exporteer als .CSV",
-            export_xls: "Exporteer als .XLS",
-        },
-        paginator: {
-            one: "1",
-            two: "2",
-            three: "3",
-        },
-        export: {
-            labels: {
-                date: 'Datum',
-                amount: 'Bedrag',
-                fund: 'Fonds',
-                provider: 'Aanbieder',
-                payment_id: 'Betalingskenmerk',
-                state: 'Status'
-            }
-        }
-    },
     // RESERVATION = modals/modal-reservation-create.pug
     reservation_create: {
         tooltips: {
@@ -1308,7 +1293,38 @@ module.exports = {
             fund: "Fonds",
             status: "Status",
             actions: "Opties",
+            email: "E-mailadres",
+            expired_at: "Verlopen op",
+            first_name: "Naam",
+            last_name: "Voornamen",
+            price: "Bedrag",
+            sponsor_organization: "Sponsor",
+            product: "Aanbod",
+            rejected_at: "Geweigerd op",
+            accepted_at: "Geaccepteerd op",
+            created_at: "Aangemaakt op",
+            expire_at: "Verloopdatum",
+            phone: "Telefoonnummer",
+            address: "Adres",
+            birth_date: "Geboortedatum",
+            user_note: "Notitie",
         },
+    },
+
+    // RESERVATION SETTINGS - reservations-settings.pug
+    reservation_settings: {
+        header: {
+            title: "Reservering instellingen",
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        },
+        labels: {
+            phone: "Telefoonnummer instellingen",
+            address: "Adres instellingen",
+            birth_date: "Geboortedatum instellingen",
+        }
     },
 
     // VALIDATION REQUEST - validation-request.pug
@@ -1330,9 +1346,11 @@ module.exports = {
     // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
     validation_requests: {
         labels: {
+            id: "ID",
             requests: "Openstaande aanvragen ({{ count }})",
             bsn: "BSN: ",
             type: "Type",
+            requester: "Aanvrager",
             value: "Eigenschap",
             date: "Datum, tijd",
             results: "{{ count }} resultaten",
@@ -1340,29 +1358,65 @@ module.exports = {
             records: "Eigenschappen",
             actions: "Acties",
             search: "Zoeken",
-            assigned_to: "Toegewezen",
+            assigned_to: "Toegewezen aan",
             from: "Vanaf",
             to: "Tot",
             pending_since: "In behandeling sinds",
             lead_time: "Doorlooptijd",
             accepted_at: "Geaccepteerd op",
-            declined_at: "Geweigerd op"
+            declined_at: "Geweigerd op",
+            api_value: "API Eigenschap",
+            first_name: "Naam",
+            last_name: "Voornamen",
+            gender: "Geslachtsaanduiding",
+            nationality: "Nationaliteit",
+            age: "Leeftijd",
+            birth_date: "Geboortedatum",
+            birth_place: "Geboorteplaats",
+            address: "Verblijfsplaats",
+            disregarded_at: "Buiten behandeling gesteld op",
+            created_date: "Aangemaakt op",
+            fund: "Fonds",
+            email: "E-mailadres",
+            empty_table: "Geen aanvragen",
+            note_title: "Reden van weigeren",
+            assignee: "Toegewezen aan",
+            assignee_state: "Toegewezen staat",
+        },
+        person: {
+            relations: {
+                parents: "Ouder {{ index }}",
+                partners: "Partner",
+                children: "Kinderen {{ index }}",
+            }
         },
         status: {
             hold: "Wachten",
             pending: 'Wachtend',
             declined: 'Geweigerd',
-            approved: 'Geaccepteerd'
+            approved: 'Geaccepteerd',
+            disregarded: 'Niet beoordeeld',
         },
         buttons: {
             show: "Bekijk eigenschappen",
-            allaccept: "Accepteren",
-            alldecline: "Weigeren",
+            accept_all: "Accepteren",
+            decline_all: "Weigeren",
             accept: "Valideren",
             decline: "Weigeren",
+            disregard: "Niet behandelen",
+            disregard_undo: "Opnieuw beoordelen",
+            disregard_undo_disabled_replaced: "Request already replaced",
             clear_filter: "Wis filter",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
+            view: "Bekijk",
+            add_partner_bsn: "Voeg partner bsn toe",
+            assign_to_me: "Toewijzen aan mij",
+            assign: "Toewijzen",
+            resign: "Meld af",
+        },
+        header: {
+            title: "Aanvragen",
         },
     },
 
@@ -1377,7 +1431,37 @@ module.exports = {
         }
     },
 
+    validation_request_details: {
+        labels: {
+            clarification_requests: "Aanvullingsverzoeken ({{ count }})",
+            history: "Geschiedenis ({{ count }})",
+            files: "Bestanden ({{ count }})",
+            old_value: "Oude waarde",
+            new_value: "Nieuwe waarde",
+            employee: "Medewerker",
+            date_changed: "Datum gewijzigd",
+        }
+    },
+
     // DIRECTIVES
+
+    notes: {
+        header: {
+            title: "Notities",
+        },
+
+        labels: {
+            id: "ID",
+            created_at: "Aangemaakt op",
+            created_by: "Aangemaakt door",
+            note: "Notite",
+            actions: "Acties",
+        },
+    
+        buttons: {
+            add_new: 'Nieuwe aanmaken',
+        },
+    },
 
     // CSV UPLOADER
     csv_upload: {
@@ -1394,16 +1478,6 @@ module.exports = {
     // EMPTY BLOCK = empty-block.pug
     // No translations needed
 
-    // FUNDS FOR PROVIDERS = fund-card-available.pug
-    fund_card_available_provider: {
-        buttons: {
-            join: "Aanmelden",
-        },
-        labels: {
-            categories: "Categorieën",
-            nocategories: "Geen Categorieën",
-        },
-    },
     // FUND CARD FOR PROVIDERS = fund-card-provider.pug
     fund_card_provider_finances: {
         status: {
@@ -1411,57 +1485,10 @@ module.exports = {
         },
         labels: {
             price: "Bedrag",
+            product_name: "Aanbod naam",
             date: "Datum",
             status: "Status",
         },
-    },
-    // FUND CARD FOR PROVIDERS = fund-card-provider.pug
-    fund_card_provider: {
-        status: {
-            hold: "Wachten",
-            accepted: "Geaccepteerd",
-            reject: "Geweigerd",
-            stopped: "Gestopt",
-            accepted_only_products: "Geaccepteerd: alleen uw aanbod",
-            accepted_only_specific_products: "Geaccepteerd: specifiek aanbod",
-            pending: "Uitgenodigd",
-            expired: "Verlopen",
-            rejected: "Geweigerd"
-        },
-        labels: {
-            categories: "Categorieën",
-            nocategories: "Geen categorieën",
-            date: "Begindatum / Einddatum",
-            max_amount: "Maximaal tegoed per voucher",
-            closed: "Gesloten",
-            accept_invitation: "Accepteren",
-            allow_budget: "Scan tegoed op voucher",
-            allow_products: "Scan geplaatst aanbod",
-            allow_some_products: "Scan specifiek aanbod",
-            view_products: "Bekijk aanbod",
-            cancel_application: "Annuleren"
-        },
-        empty_block: {
-            available: "Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.",
-            active: "Er zijn geen fondsen waar u actief voor bent.",
-            invitations: "Er zijn geen openstaande uitnodigingen die u kunt accepteren.",
-            expired_closed: "Er zijn geen verlopen uitnodigingen of gesloten fondsen waar u zich voor hebt aangemeld.",
-            pending_rejected: "Er zijn geen fondsen waar u aanmeldingen voor bent.",
-        },
-        tabs: {
-            active: 'Actief',
-            invitations: 'Uitnodigingen',
-            pending_rejected: "Aanmeldingen",
-            available: 'Beschikbaar',
-            expired: 'Archief',
-        },
-        title: {
-            available: "Beschikbare fondsen",
-            pending_rejected: "Aanmeldingen fondsen",
-            active: "Actieve fondsen",
-            invitations: "Uitnodigingen",
-            expired_closed: "Archief",
-        }
     },
 
     // FUND INFO SPONSOR = fund-show/implementation-view/organization-funds
@@ -1469,6 +1496,10 @@ module.exports = {
         buttons: {
             close: "Sluit",
             pause: "Pauze",
+            delete: "Verwijderen",
+            edit: "Bewerken",
+            view: "Bekijken",
+            security: "Beveiliging",
         },
         status: {
             active: "Actief",
@@ -1510,6 +1541,18 @@ module.exports = {
         }
     },
 
+    modal_fund_request_assign: {
+        header: {
+            title: "Toewijzen"
+        },
+        buttons: {
+            close: "Sluiten",
+        },
+        label: {
+            employees: "Kies een medewerker"
+        }
+    },
+
     modal_pdf_preview: {
         header: {
             title: "PDF-voorbeeld"
@@ -1520,11 +1563,6 @@ module.exports = {
         header: {
             title: "Afbeelding-voorbeeld"
         }
-    },
-
-    // SELECT MULTIPLE CATEGORIES = multi-select.pug
-    multi_select: {
-        title: "Categorieën",
     },
 
     // SELECT PHOTO = photo-selector.pug
@@ -1797,6 +1835,12 @@ module.exports = {
                     description: 'Ontvang een notificatie wanneer een aanbieder voor een fonds is afgewezen.'
                 },
             },
+            funds_requests: {
+                assigned_by_supervisor: {
+                    title: 'De beheerder heeft een aanvraag aan u toegewezen',
+                    description: 'Ontvang een e-mail wanneer er een aanvraag voor een fonds aan u is toegewezen.'
+                }
+            },
             validations: {
                 new_validation_request: {
                     title: 'Nieuw aanvraag',
@@ -1838,6 +1882,5 @@ module.exports = {
                 }
             }
         }
-
     }
 }

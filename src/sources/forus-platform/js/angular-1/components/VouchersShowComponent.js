@@ -1,20 +1,24 @@
-const VouchersShowComponent = function(
+const VouchersShowComponent = function (
     $filter,
-    $timeout,
     ModalService,
     VoucherService,
+    PermissionsService,
     PhysicalCardsService,
     PageLoadingBarService,
-    PushNotificationsService,
+    PushNotificationsService
 ) {
     const $ctrl = this;
-    const $str_limit = $filter('str_limit');
     const $translate = $filter('translate');
 
-    const onStateChanged = function(promise, action = 'deactivation') {
+    const $translateDangerZone = (key) => $translate(
+        `modals.danger_zone.increase_limit_multiplier.${key}`
+    );
+
+    const onStateChanged = function (promise, action = 'deactivation') {
         promise.then((res) => {
             $ctrl.voucher = res.data.data;
-            $ctrl.parseHistory($ctrl.voucher.history);
+            $ctrl.logsDirective?.onPageChange();
+            $ctrl.transactionsDirective?.onPageChange();
             $ctrl.updateFlags();
 
             switch (action) {
@@ -71,22 +75,6 @@ const VouchersShowComponent = function(
         });
     };
 
-    $ctrl.showTooltip = (e, target) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        $ctrl.history.forEach((history) => {
-            history.showTooltip = history === target;
-        });
-    };
-
-    $ctrl.hideTooltip = (e, target) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        $timeout(() => target.showTooltip = false, 0);
-    };
-
     $ctrl.orderPhysicalCard = () => {
         ModalService.open('physicalCardOrder', {
             voucher: $ctrl.voucher,
@@ -112,33 +100,11 @@ const VouchersShowComponent = function(
         });
     };
 
-    $ctrl.dateLocaleFormat = (dateLocale) => {
-        return dateLocale ? dateLocale.split('-')[1] || dateLocale : dateLocale;
-    }
-
-    $ctrl.parseHistoryNote = (item) => {
-        return item.employee_id ? item.note : {
-            other: 'Anders',
-            moved: 'Verhuizing',
-            income_change: 'Verandering in inkomen',
-            not_interested: 'Aanbod is niet aantrekkelijk',
-        }[item.note || ''] || item.note;
-    };
-
-    $ctrl.parseHistory = (history) => {
-        $ctrl.history = history.map((item) => {
-            const date = $ctrl.dateLocaleFormat(item.created_at_locale);
-            const note = $ctrl.parseHistoryNote(item);
-            const note_substr = note ? $str_limit(note, 40) : null;
-
-            return { ...item, date, note, note_substr };
-        });
-    };
-
     $ctrl.fetchVoucher = () => {
         VoucherService.show($ctrl.organization.id, $ctrl.voucher.id).then(((res) => {
             $ctrl.voucher = res.data.data;
-            $ctrl.parseHistory($ctrl.voucher.history);
+            $ctrl.logsDirective?.onPageChange();
+            $ctrl.transactionsDirective?.onPageChange();
             $ctrl.updateFlags();
         }));
     };
@@ -146,30 +112,102 @@ const VouchersShowComponent = function(
     $ctrl.updateFlags = () => {
         $ctrl.physicalCardsAvailable =
             $ctrl.voucher.fund.allow_physical_cards &&
-            $ctrl.voucher.fund.type == 'subsidies' &&
-            $ctrl.voucher.state !== 'deactivated';
+            $ctrl.voucher.fund.type === 'subsidies' &&
+            $ctrl.voucher.state !== 'deactivated' &&
+            !$ctrl.voucher.is_external;
+
+        $ctrl.showMakeTransactionButton =
+            PermissionsService.hasPermission($ctrl.organization, 'make_direct_payments') &&
+            $ctrl.voucher.fund.type === 'budget' &&
+            $ctrl.voucher.state === 'active' &&
+            !$ctrl.fundClosed &&
+            !$ctrl.voucher.product &&
+            !$ctrl.voucher.expired;
     }
 
-    $ctrl.$onInit = function() {
-        $ctrl.parseHistory($ctrl.voucher.history);
+    $ctrl.submitLimitMultiplier = (value, prevValue) => {
+        ModalService.open("dangerZone", {
+            title: $translateDangerZone('title'),
+            description: $translateDangerZone('description'),
+            cancelButton: $translateDangerZone('buttons.cancel'),
+            confirmButton: $translateDangerZone('buttons.confirm'),
+            onConfirm: () => {
+                PageLoadingBarService.setProgress(0);
+
+                VoucherService.update($ctrl.organization.id, $ctrl.voucher.id, {
+                    limit_multiplier: value
+                }).then(() => {
+                    PushNotificationsService.success('Opgeslagen!');
+                }, (err) => {
+                    PushNotificationsService.danger('Error!');
+                    console.error(err);
+                }).finally(() => PageLoadingBarService.setProgress(100));
+            },
+            onCancel: () => {
+                $ctrl.voucher.limit_multiplier = prevValue
+            }
+        });
+    }
+
+    $ctrl.makeTopUpTransaction = () => {
+        ModalService.open("voucherTransaction", {
+            voucher: $ctrl.voucher,
+            organization: $ctrl.organization,
+            target: 'top_up',
+            onCreated: () => $ctrl.fetchVoucher(),
+        });
+    }
+
+    $ctrl.makeTransaction = () => {
+        ModalService.open("voucherTransaction", {
+            voucher: $ctrl.voucher,
+            organization: $ctrl.organization,
+            onCreated: () => $ctrl.fetchVoucher(),
+        });
+    }
+
+    $ctrl.registerLogsDirective = (directive) => {
+        $ctrl.logsDirective = directive;
+    };
+
+    $ctrl.registerTransactionsDirective = (directive) => {
+        $ctrl.transactionsDirective = directive;
+    };
+
+    $ctrl.$onInit = function () {
         $ctrl.updateFlags();
+
+        $ctrl.eventFilters = {
+            q: "",
+            per_page: 15,
+            loggable: ['voucher'],
+            loggable_id: $ctrl.voucher.id
+        };
+
+        $ctrl.transactionsFilters = {
+            per_page: 20,
+            order_by: 'created_at',
+            order_dir: 'desc',
+            voucher_id: $ctrl.voucher.id,
+        };
     }
 };
 
 module.exports = {
     bindings: {
+        fund: '<',
         voucher: '<',
         organization: '<',
     },
     controller: [
         '$filter',
-        '$timeout',
         'ModalService',
         'VoucherService',
+        'PermissionsService',
         'PhysicalCardsService',
         'PageLoadingBarService',
         'PushNotificationsService',
-        VouchersShowComponent
+        VouchersShowComponent,
     ],
-    templateUrl: 'assets/tpl/pages/vouchers-show.html'
+    templateUrl: 'assets/tpl/pages/vouchers-show.html',
 };

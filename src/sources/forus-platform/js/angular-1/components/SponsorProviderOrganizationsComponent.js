@@ -10,10 +10,10 @@ const SponsorProviderOrganizationsComponent = function(
 
     $ctrl.orderByOptions = [{
         value: 'application_date',
-        name: 'Sorteer op: Nieuwste eerst'
+        name: 'Nieuwste eerst'
     }, {
         value: 'name',
-        name: 'Sorteer op: Naam aflopend'
+        name: 'Naam aflopend'
     }];
 
     $ctrl.filters = {
@@ -25,6 +25,7 @@ const SponsorProviderOrganizationsComponent = function(
             fund_id: null,
             allow_budget: '',
             allow_products: '',
+            has_products: '',
         },
         reset: function() {
             this.values = { ...this.defaultValues };
@@ -67,28 +68,43 @@ const SponsorProviderOrganizationsComponent = function(
     $ctrl.hideFilters = () => $ctrl.filters.show = false;
     $ctrl.transformList = (providers) => providers.map(provider => $ctrl.transformItem(provider));
 
-    $ctrl.transformItem = (providerOrganization) => ({
-        ...providerOrganization,
-        ...{
-            uiViewParams: {
-                organization_id: $ctrl.organization.id,
-                provider_organization_id: providerOrganization.id
-            },
-            funds: (providerOrganization.funds || []).map((fund) => ({
-                ...fund,
+    $ctrl.transformItem = (providerOrganization) => {
+        const acceptedFunds = (providerOrganization.funds || [])
+            .filter((fund) => fund.fund_provider_state === 'accepted').length;
+
+        const acceptedFundsLocale = acceptedFunds === 0
+            ? 'geen fondsen'
+            : acceptedFunds + (acceptedFunds === 1 ? ' fonds' : ' fondsen');
+
+        return {
+            ...providerOrganization,
+            ...{
                 uiViewParams: {
-                    fund_id: fund.id,
-                    organization_id: fund.organization_id,
-                    fund_provider_id: fund.fund_provider_id
+                    organization_id: $ctrl.organization.id,
+                    provider_organization_id: providerOrganization.id
                 },
-            }))
-        }
-    });
+                funds: (providerOrganization.funds || []).map((fund) => ({
+                    ...fund,
+                    uiViewParams: {
+                        fund_id: fund.id,
+                        organization_id: fund.organization_id,
+                        fund_provider_id: fund.fund_provider_id
+                    },
+                })),
+                accepted_funds_count: acceptedFunds,
+                accepted_funds_count_locale: acceptedFundsLocale,
+            }
+        };
+    };
 
     $ctrl.$onInit = function() {
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds]
         $ctrl.filters.reset();
         $ctrl.onPageChange($ctrl.filters.values);
+
+        $ctrl.requests = $ctrl.fundUnsubscribes.length;
+        $ctrl.requestsExpired = $ctrl.fundUnsubscribes.filter((item) => item.state == 'overdue').length;
+        $ctrl.requestsPending = $ctrl.fundUnsubscribes.filter((item) => item.state == 'pending').length;
     };
 };
 
@@ -96,6 +112,7 @@ module.exports = {
     bindings: {
         funds: '<',
         organization: '<',
+        fundUnsubscribes: '<',
     },
     controller: [
         'FileService',

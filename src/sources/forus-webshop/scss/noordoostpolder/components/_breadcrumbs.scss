@@ -2,10 +2,10 @@
     &.block-breadcrumbs {
         margin: 1vw 4vw 2vw 0;
         .breadcrumb-item {
-            color: $color_default;
+            color: var(--color-default);
 
             &:hover {
-                color: $color_default;
+                color: var(--color-default);
             }
 
             &.active {
@@ -21,7 +21,7 @@
         &.block-breadcrumbs {
             .breadcrumb-item {
                 &.active {
-                    color: $tc-var;
+                    color: var(--tc-var);
                 }
             }
         }

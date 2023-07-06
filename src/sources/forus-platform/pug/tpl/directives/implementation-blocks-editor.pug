@@ -1,0 +1,102 @@
+.block.block-implementation-blocks-editor
+    //- Blocks list
+    .block-item(ng-repeat="block in $dir.blocks")
+        .block-header
+            //- Block title
+            .block-title(ng-bind="block.title || (!block.id ? 'Nieuwe blok' : 'Blok aanpassen')")
+
+            //- Block actions
+            .block-actions
+                //- Expand
+                .button.button-default.button-sm(
+                    ng-if="block.collapsed" 
+                    ng-click="block.collapsed = false")
+                    em.mdi.mdi-arrow-collapse-vertical.icon-start
+                    translate(translate="Inklappen")
+
+                //- Collapse 
+                .button.button-primary.button-sm(
+                    ng-if="!block.collapsed" 
+                    ng-click="block.collapsed = true")
+                    em.mdi.mdi-arrow-expand-vertical.icon-start
+                    translate(translate="Uitklappen")
+
+                //- Remove
+                .button.button-danger.button-sm(
+                    ng-click="$dir.removeBlock($index)")
+                    em.mdi.mdi-trash-can-outline.icon-start
+                    translate(translate="Blok verwijderen")
+
+        //- Block form
+        .block-body(ng-if="block.collapsed"): .form
+            //- Block image
+            .form-group
+                photo-selector(
+                    fill-style="false"
+                    type="implementation_block_media"
+                    thumbnail="block.media.sizes.thumbnail"
+                    thumbnail-size="{x: 100, y: 100}"
+                    select-photo="$dir.selectBlockImage(file, $index)"
+                    reset-photo="$dir.resetBlockImage()")
+
+            //- Block label
+            .form-group
+                label.form-label Label
+                input(type="text" ng-model="block.label" placeholder="Label...").form-control
+                .form-hint Max. 200 tekens
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.label']" ng-bind="error")
+
+            //- Block title
+            .form-group
+                label.form-label.form-label-required Title
+                input(type="text" ng-model="block.title" placeholder="Title...").form-control
+                .form-hint Max. 200 tekens
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.title']" ng-bind="error")
+
+            //- Block description
+            .form-group
+                label.form-label.form-label-required Omschrijving
+                markdown(value="block.description_html" ng-model="block.description" placeholder="Omschrijving...")
+                .form-hint Max. 5000 tekens
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.description']" ng-bind="error")
+
+            //- Block button enable
+            .form-group: .flex
+                label.form-label(for="button_enabled_{{$parent.$index}}") Button
+
+                .flex-col: label.form-toggle(for="button_enabled_{{$parent.$index}}")
+                    input(
+                        type="checkbox" 
+                        id="button_enabled_{{$parent.$index}}" 
+                        ng-model="block.button_enabled" 
+                        ng-checked="block.button_enabled" )
+
+                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+                    .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_enabled']" ng-bind="error")
+
+            //- Block button text
+            .form-group(ng-if="block.button_enabled")
+                label.form-label.form-label-required Button Text
+                input(type="text" ng-model="block.button_text" placeholder="Button Text").form-control
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_text']" ng-bind="error")
+
+            //- Block button link
+            .form-group(ng-if="block.button_enabled")
+                label.form-label.form-label-required Button Link
+                input(type="text" ng-model="block.button_link" placeholder="Button Link").form-control
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_link']" ng-bind="error")
+
+            //- Block button target
+            .form-group(ng-if="block.button_enabled")
+                label.form-label.form-label-required Open knop koppeling in
+                .form-offset: select-control(
+                    prop="value"
+                    search="false"
+                    ng-model="block.button_target_blank"
+                    options="$dir.buttonTargets").form-control
+
+    //- Actions
+    .block-editor-actions
+        .button.button-primary(ng-click="$dir.addBlock()")
+            em.mdi.mdi-plus-circle.icon-start
+            translate(translate="Blok toevoegen")

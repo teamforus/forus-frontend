@@ -1,7 +1,7 @@
 doctype
 html(lang="nl" ng-controller="BaseController" ng-csp ng-cloak)
     include ../layout/includes/head
-    body(ng-class="{ 'signup-layout': $root.viewLayout == 'signup' }" modal-scroll-braker printable-enabler)
+    body(ng-class="{ 'signup-layout': $root.viewLayout == 'signup' }" modal-scroll-breaker printable-enabler)
         skip-links
         
         page-loading-bar
@@ -15,7 +15,8 @@ html(lang="nl" ng-controller="BaseController" ng-csp ng-cloak)
             forus-support(ng-if="appConfigs.support_id" support-id="{{ appConfigs.support_id }}")
 
         printables-root
-        push-notifications
+        push-notifications(group="default")
+        push-notifications(group="bookmarks" class="block-push-notifications-bookmarks" max-count="1")
         
         include ../layout/includes/scripts
 

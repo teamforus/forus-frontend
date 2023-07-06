@@ -18,8 +18,8 @@ body {
 
 pre.code {
     background-color: #fff;
-    border: 1px solid $border_color;
-    border-radius: $border_radius;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     padding: 10px 15px;
     margin: 0 0 15px;
     font-weight: 600;
@@ -69,8 +69,20 @@ img {
     text-align: left;
 }
 
-.text-strike {
+.text-line-through {
     text-decoration: line-through;
+}
+
+.text-pre {
+    white-space: pre;
+}
+
+.text-pre-line {
+    white-space: pre-line;
+}
+
+.text-inherit {
+    font: inherit;
 }
 
 .text-sm,
@@ -124,7 +136,7 @@ img {
 }
 
 .text-primary-mid {
-    color: $bc !important;
+    color: --base-color !important;
 }
 
 .text-primary-light {
@@ -176,11 +188,12 @@ img {
 }
 
 .text-strong {
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
+.text-medium,
 .text-strong-half {
-    font-weight: 600;
+    font-weight: 600 !important;
 }
 
 .text-wrap {
@@ -197,6 +210,11 @@ img {
     @include cf();
 }
 
+.flex-start {
+    justify-content: flex-start;
+    justify-items: flex-start;
+}
+
 .flex-end {
     justify-content: flex-end;
     justify-items: flex-end;
@@ -205,6 +223,11 @@ img {
 .flex-center {
     justify-content: center;
     justify-items: center;
+}
+
+.flex-self-start {
+    align-self: flex-start;
+    justify-self: flex-start;
 }
 
 .flex-self-end {
@@ -235,6 +258,10 @@ img {
 
 .flex {
     display: flex;
+}
+
+.flex-inline {
+    display: inline-flex;
 }
 
 .flex-pad {
@@ -1421,4 +1448,8 @@ img {
     .hidden-lg {
         display: none !important;
     }
+}
+
+.relative {
+    position: relative;
 }

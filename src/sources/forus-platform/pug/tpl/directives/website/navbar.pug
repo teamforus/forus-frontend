@@ -25,17 +25,23 @@ nav.navbar.navbar-inverse
 				li
 					a(ui-sref="current") Over ons
 				li
-					a(ui-sref="contact") Contact
-			ul.nav.navbar-nav.navbar-right
+					a(ui-sref="research") Onderzoek
 				li
-					a.login_btn(ng-click="openAuthPopup()" ng-if="!$root.auth_user")
+					a(ui-sref="contact") Contact
+				li
+					a(href="https://vacatures.forus.io/jobs/Careers" target="_blank") Vacatures
+			
+			ul.nav.navbar-nav.navbar-right(ng-if="!$root.auth_user")
+				li
+					a.login_btn(ng-click="openAuthPopup()")
 						span.glyphicon.glyphicon-log-in
 						|  Inloggen
+
 			ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
-				.header-auth(ng-if="$root.auth_user")
+				.header-auth
 					.auth-user(ng-click="$ctrl.openUserMenu($event)")
 						.auth-user-details
-							.auth-user-name {{ $root.auth_user.email }}
+							.auth-user-name {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
 							.auth-user-role Uw profiel
 
 						img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img

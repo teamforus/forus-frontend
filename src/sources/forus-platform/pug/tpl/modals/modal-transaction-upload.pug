@@ -1,0 +1,71 @@
+.modal.modal-animated.modal-loading(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, ($ctrl.modal.loaded && !$ctrl.hideModal) ? '' : 'modal-loading']"
+    dusk="modalTransactionUpload")
+
+    .modal-backdrop(ng-click="$ctrl.closeModal()")
+    .modal-window
+        a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
+        .modal-header Upload bulkbestand
+        .modal-body.form: .modal-section.form
+            //- Step 1: select or drop file
+            .block.block-csv.condensed(ng-show="$ctrl.csvParser.step <= 1"): .csv-inner
+                //- Details
+                .csv-upload-btn(ng-click="$ctrl.csvParser.selectFile()")
+                    .csv-upload-icon: .mdi.mdi-upload
+                    .csv-upload-text
+                        | Upload .csv bestand
+                        br
+                        span Sleep hier het *.CSV of *.TXT bestand
+
+                //- Select or Download buttons
+                .button-group.flex-center
+                    button(ng-click="$ctrl.downloadExampleCsv()").button.button-default
+                        em.mdi.mdi-file-table-outline.icon-start 
+                        | Download voorbeeld bulkbestand
+
+                    button(
+                        ng-click="$ctrl.csvParser.selectFile()"
+                        dusk="selectFileButton").button.button-primary
+                        em.mdi.mdi-upload.icon-start 
+                        | Upload bulkbestand
+
+                .csv-upload-actions(ng-if="$ctrl.csvParser.csvFile")
+                    .csv-file
+                        .block.block-file
+                            .file-error.mdi.mdi-close-circle
+                            .file-name(ng-bind="$ctrl.csvParser.csvFile.name")
+                            .file-size(ng-bind="$ctrl.csvParser.csvFile.size | file_size")
+                            .file-remove.mdi.mdi-close(ng-click="$ctrl.reset()")
+
+                        .text-center: .form-error(
+                            ng-if="$ctrl.csvParser.error"
+                            ng-bind="$ctrl.csvParser.error")
+
+                    .text-center(ng-if="$ctrl.csvParser.step == 1 && !$ctrl.csvParser.error")
+                        button(
+                            ng-if="!$ctrl.loading"
+                            ng-click="$ctrl.csvParser.uploadToServer()"
+                            translate="csv_upload.buttons.upload"
+                            dusk="uploadFileButton").button.button-primary
+            
+            //- Step 2 and 3: Uploading
+            .block.block-csv.condensed(ng-show="$ctrl.csvParser.step >= 2"): .csv-inner
+                //- Progress bar
+                .csv-upload-progress(ng-class="{done: $ctrl.csvParser.step == 3}")
+                    .csv-upload-icon(ng-class="{'csv-upload-icon-warning' : $ctrl.uploadedPartly}")
+                        .mdi.mdi-loading(ng-if="$ctrl.csvParser.step == 2")
+                        .mdi.mdi-check(
+                            ng-if="$ctrl.csvParser.step == 3 && !$ctrl.uploadedPartly"
+                            dusk="successUploadIcon")
+                        .mdi.mdi-alert-outline(ng-if="$ctrl.csvParser.step == 3 && $ctrl.uploadedPartly")
+
+                    progress-bar(progress="$ctrl.progressBar" status="$ctrl.progressStatus")
+
+        .modal-footer.text-center
+            button.button.button-primary(
+                ng-disabled="$ctrl.csvParser.uploading"
+                ng-click="$ctrl.closeModal()" 
+                translate="modal_funds_add.buttons.close" 
+                id="close"
+                dusk="closeModalButton")

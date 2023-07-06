@@ -1,11 +1,11 @@
-let SponsorProviderOrganizationComponent = function(
+const SponsorProviderOrganizationComponent = function (
     $q,
-    $timeout,
     FundService,
     OrganizationService,
     PushNotificationsService
 ) {
     const $ctrl = this;
+
     const filters = { values: { q: "", per_page: 2 } };
     const providerFilters = { values: { q: "", per_page: 10 } };
 
@@ -16,25 +16,47 @@ let SponsorProviderOrganizationComponent = function(
         ).then((res) => resolve(res.data), reject));
     };
 
-    $ctrl.onProviderFundsPageChange = (query = {}) => {
-        fetchFundProviders($ctrl.providerOrganization, query).then((fundProviders) => {
-            $ctrl.fundProviders = fundProviders;
+    const transformFundProvider = (fundProvider) => {
+        const srefParams = {
+            organization_id: $ctrl.organization.id,
+            fund_id: fundProvider.fund_id,
+            fund_provider_id: fundProvider.id,
+        };
+
+        return { ...fundProvider, srefParams };
+    };
+
+    $ctrl.updateFundProviderState = (fundProvider, accepted) => {
+        const state = accepted ? 'accepted' : 'rejected';
+
+        FundService.confirmFundProviderStateUpdate(fundProvider, state).then((data) => {
+            fundProvider.submittingState = state;
+
+            $ctrl.updateProvider(fundProvider, data).finally(() => {
+                fundProvider.submittingState = false;
+            });
         });
     };
 
-    $ctrl.updateFundProviderAllow = function(fundProvider, allowType) {
-        FundService.updateProvider(
+    $ctrl.updateProvider = (fundProvider, query) => {
+        return FundService.updateProvider(
             fundProvider.fund.organization_id,
             fundProvider.fund.id,
             fundProvider.id,
-            { [allowType]: fundProvider[allowType] }
-        ).then((res) => $timeout(() => {
+            query
+        ).then((res) => {
             PushNotificationsService.success('Opgeslagen!');
-            $ctrl.fundProviders.data[$ctrl.fundProviders.data.indexOf(fundProvider)] = res.data.data;
-        }, 500), console.error);
+            $ctrl.fundProviders.data[$ctrl.fundProviders.data.indexOf(fundProvider)] = transformFundProvider(res.data.data);
+        }, console.error);
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.onProviderFundsPageChange = (query = {}) => {
+        fetchFundProviders($ctrl.providerOrganization, query).then((fundProviders) => {
+            $ctrl.fundProviders = { ...fundProviders, data: fundProviders.data.map(transformFundProvider) };
+        });
+    };
+
+    $ctrl.$onInit = () => {
         $ctrl.tab = "employees";
         $ctrl.filters = filters;
         $ctrl.providerFilters = providerFilters;
@@ -50,7 +72,6 @@ module.exports = {
     },
     controller: [
         '$q',
-        '$timeout',
         'FundService',
         'OrganizationService',
         'PushNotificationsService',

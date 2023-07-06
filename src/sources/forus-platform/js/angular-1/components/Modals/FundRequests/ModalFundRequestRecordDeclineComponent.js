@@ -1,20 +1,17 @@
-let ModalFundRequestRecordDeclineComponent = function(
+const ModalFundRequestRecordDeclineComponent = function (
+    FormBuilderService,
     FundRequestValidatorService,
-    FormBuilderService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        let submit = $ctrl.modal.scope.submit;
-        let organization = $ctrl.modal.scope.organization;
-        let requestRecord = $ctrl.modal.scope.requestRecord;
+        const { submit, organization, fundRequest, requestRecord } = $ctrl.modal.scope;
+        $ctrl.fundRequest = fundRequest;
 
-        $ctrl.form = FormBuilderService.build({
-            note: ''
-        }, (form) => {
+        $ctrl.form = FormBuilderService.build({ note: '' }, (form) => {
             FundRequestValidatorService.declineRecord(
                 organization.id,
-                requestRecord.fund_request_id,
+                fundRequest.id,
                 requestRecord.id,
                 form.values.note
             ).then(() => {
@@ -32,7 +29,6 @@ let ModalFundRequestRecordDeclineComponent = function(
             });
         }, true);
     };
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
@@ -41,11 +37,9 @@ module.exports = {
         modal: '='
     },
     controller: [
-        'FundRequestValidatorService',
         'FormBuilderService',
+        'FundRequestValidatorService',
         ModalFundRequestRecordDeclineComponent
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/fund-requests/modal-fund-request-decline.html';
-    }
+    templateUrl: 'assets/tpl/modals/fund-requests/modal-fund-request-record-decline.html',
 };

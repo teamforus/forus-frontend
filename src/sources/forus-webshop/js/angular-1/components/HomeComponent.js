@@ -1,37 +1,19 @@
-let HomeComponent = function (
-    $state,
-    $stateParams,
-    $interval,
+const HomeComponent = function (
     $sce,
+    $state,
     appConfigs,
     ModalService,
     AuthService,
-    VoucherService
+    VoucherService,
+    ProductService
 ) {
-    let $ctrl = this;
-    let val = 0;
+    const $ctrl = this;
 
     $ctrl.appConfigs = appConfigs;
     $ctrl.implementation_name = appConfigs.features.implementation_name;
 
     $ctrl.digidAvailable = appConfigs.features.digid;
-
-    if ($stateParams.confirmed) {
-        return $state.go('start');
-    }
-
-    $ctrl.startFundRequest = () => {
-        if ($ctrl.funds.length > 0) {
-            $state.go('fund-request', {
-                fund_id: $ctrl.funds[0].id
-            });
-        }
-    };
-
     $ctrl.openInMeModal = () => ModalService.open('modalOpenInMe');
-    $ctrl.showPopupOffices = () => ModalService.open('modalOffices');
-    $ctrl.openAuthCodePopup = () => ModalService.open('modalAuthCode');
-    $ctrl.openActivateCodePopup = () => $state.go('start');
 
     if (AuthService.hasCredentials()) {
         VoucherService.list().then(res => $ctrl.vouchers = res.data.data);
@@ -39,25 +21,31 @@ let HomeComponent = function (
         $ctrl.vouchers = [];
     }
 
-    $ctrl.cleanReload = () => {
-        $state.go($state.current.name, {
-            digid_success: null,
-            digid_error: null,
-        });
+    const transformProductAlternativeText = (product) => {
+        return ProductService.transformProductAlternativeText(product);
+    };
+
+    const transformProducts = (products) => {
+        products.data = products.data.map(
+            product => ({ ...product, ...{ alternative_text: transformProductAlternativeText(product) } })
+        );
     };
 
     $ctrl.$onInit = () => {
-        if ($stateParams.digid_error != null) {
-            $state.go('error', {
-                errorCode: 'digid_' + $stateParams.digid_error
-            });
+        const { digid_error, session_expired } = $state.params;
+
+        if (digid_error) {
+            return $state.go('error', { errorCode: 'digid_' + digid_error });
         }
 
         if (appConfigs.features.banner) {
             $ctrl.headerStyle = {
                 'background-image': 'url("' + appConfigs.features.banner.sizes.large + '")',
-            }
-        }
+            };
+        };
+
+        transformProducts($ctrl.products);
+        transformProducts($ctrl.subsidies);
 
         $ctrl.overlayStyles = { opacity: $ctrl.appConfigs.features.settings.overlay_opacity };
 
@@ -66,6 +54,15 @@ let HomeComponent = function (
         }
 
         $ctrl.description_html = $sce.trustAsHtml(appConfigs.features.settings.description_html);
+
+        if (session_expired) {
+            ModalService.open('modalNotification', {
+                type: 'confirm',
+                description: 'modal.logout.description',
+                confirmBtnText: 'Inloggen',
+                confirm: () => $state.go('start', {}, { reload: true }),
+            });
+        }
     };
 };
 
@@ -80,14 +77,13 @@ module.exports = {
         button: '=',
     },
     controller: [
-        '$state',
-        '$stateParams',
-        '$interval',
         '$sce',
+        '$state',
         'appConfigs',
         'ModalService',
         'AuthService',
         'VoucherService',
+        'ProductService',
         HomeComponent,
     ],
     templateUrl: 'assets/tpl/pages/home.html'

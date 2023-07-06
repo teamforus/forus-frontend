@@ -1,48 +1,38 @@
-let ProductVouchersComponent = function(
-    $q,
+const { pick } = require("lodash");
+
+const ProductVouchersComponent = function(
     $state,
     $stateParams,
     $timeout,
     DateService,
-    FileService,
     ModalService,
     VoucherService,
-    PageLoadingBarService
+    VoucherExportService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
-    $ctrl.states = [{
-        value: null,
-        name: 'Selecteer...'
-    }, {
-        value: 1,
-        name: 'Ja'
-    }, {
-        value: 0,
-        name: 'Nee...'
-    }];
+    $ctrl.states = [
+        { value: null, name: 'Selecteer...' },
+        { value: 1, name: 'Ja' },
+        { value: 0, name: 'Nee' },
+    ];
 
-    $ctrl.sources = [{
-        value: 'all',
-        name: 'Alle'
-    }, {
-        value: 'user',
-        name: 'Gebruiker'
-    }, {
-        value: 'employee',
-        name: 'Medewerker'
-    }];
+    $ctrl.sources = [
+        { value: 'all', name: 'Alle' },
+        { value: 'user', name: 'Gebruiker' },
+        { value: 'employee', name: 'Medewerker' },
+    ];
 
-    $ctrl.in_use = [{
-        value: null,
-        name: 'Selecteer...'
-    }, {
-        value: 1,
-        name: 'Ja'
-    }, {
-        value: 0,
-        name: 'Nee'
-    }];
+    $ctrl.in_use = [
+        { value: null, name: 'Selecteer...' },
+        { value: 1, name: 'Ja' },
+        { value: 0, name: 'Nee' },
+    ];
+
+    $ctrl.date_types = [
+        { value: 'created_at', name: 'Aanmaakdatum' },
+        { value: 'used_at', name: 'Transactiedatum' },
+    ];
 
     $ctrl.voucher_states = VoucherService.getStates();
 
@@ -53,6 +43,7 @@ let ProductVouchersComponent = function(
             granted: null,
             amount_min: null,
             amount_max: null,
+            date_type: 'created_at',
             from: null,
             to: null,
             state: null,
@@ -64,10 +55,23 @@ let ProductVouchersComponent = function(
             sort_by: 'created_at',
             sort_order: 'desc',
         },
-        values: {},
+        values: pick($stateParams, [
+            'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
+            'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
+            'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
+        ]),
         reset: function() {
             this.values = { ...this.defaultValues };
+            $ctrl.updateState(this.defaultValues);
         }
+    };
+
+    $ctrl.updateState = (query) => {
+        $state.go(
+            'product-vouchers',
+            { ...query, organization_id: $ctrl.organization.id, fund_id: $ctrl.fund.id },
+            { location: 'replace' },
+        );
     };
 
     $ctrl.resetFilters = () => {
@@ -96,175 +100,57 @@ let ProductVouchersComponent = function(
             fund: $ctrl.fund,
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange($ctrl.filters.values)
-        }, { max_load_time: 1000 });
+        }, { maxLoadTime: 1000 });
     };
 
     $ctrl.uploadProductVouchersCsv = () => {
         ModalService.open('vouchersUpload', {
             fund: $ctrl.fund,
-            organization: $ctrl.organization,
             type: $ctrl.filters.values.type,
+            organization: $ctrl.organization,
             organizationFunds: $ctrl.funds,
-            done: () => $state.reload()
+            done: () => $state.reload(),
         });
     };
 
-    $ctrl.getQueryParams = (query) => {
-        let _query = JSON.parse(JSON.stringify(query));
+    $ctrl.getQueryParams = (query = {}) => {
+        const data = angular.copy(query);
+        const from = data.from ? DateService._frontToBack(data.from) : null;
+        const to = data.to ? DateService._frontToBack(data.to) : null;
 
         return {
-            ..._query, ...{
-                from: _query.from ? DateService._frontToBack(_query.from) : null,
-                to: _query.to ? DateService._frontToBack(_query.to) : null,
-                fund_id: $ctrl.fund.id,
+            ...{ ...data, fund_id: $ctrl.fund.id, date_type: null },
+            ...{
+                from: query.date_type === 'created_at' ? from : null,
+                to: query.date_type === 'created_at' ? to : null,
+                in_use_from: query.date_type === 'used_at' ? from : null,
+                in_use_to: query.date_type === 'used_at' ? to : null,
             }
         };
     };
 
-    $ctrl.exportPdf = () => {
-        VoucherService.downloadQRCodes($ctrl.organization.id, {
-            ...$ctrl.getQueryParams($ctrl.filters.values),
-            ...{ export_type: 'pdf' }
-        }).then(res => {
-            FileService.downloadFile(
-                'vouchers_' + moment().format(
-                    'YYYY-MM-DD HH:mm:ss'
-                ) + '.zip',
-                res.data,
-                res.headers('Content-Type') + ';charset=utf-8;'
-            );
-        }, res => {
-            res.data.text().then((data) => {
-                data = JSON.parse(data);
+    $ctrl.exportVouchers = () => {
+        $ctrl.filters.show = false;
+        
+        const type = 'product';
+        const filters = $ctrl.getQueryParams($ctrl.filters.values);
 
-                if (data.message) {
-                    PushNotificationsService.danger(data.message);
-                }
-            });
-        });
-    };
-
-    $ctrl.exportQRCodesXls = () => {
-        return $q((resolve, reject) => {
-            VoucherService.downloadQRCodesXls($ctrl.organization.id, {
-                ...$ctrl.getQueryParams($ctrl.filters.values)
-            }).then(res => resolve(
-                $ctrl.xlsData = res.data
-            ), reject);
-        });
-    };
-
-    $ctrl.exportQRCodesData = (type) => {
-        return $q((resolve, reject) => {
-            VoucherService.downloadQRCodesData($ctrl.organization.id, {
-                ...$ctrl.getQueryParams($ctrl.filters.values), ...{
-                    export_type: 'png',
-                    export_only_data: type === 'xls' || type === 'csv' ? 1 : 0,
-                }
-            }).then(res => resolve(
-                $ctrl.qrCodesData = res.data
-            ), reject);
-        });
-    };
-
-    $ctrl.exportImages = (type) => {
-        const promisses = [];
-
-        if (type == 'xls' || type == 'png') {
-            promisses.push($ctrl.exportQRCodesXls());
-        };
-
-        if (type == 'csv' || type == 'png') {
-            promisses.push($ctrl.exportQRCodesData(type));
-        };
-
-        PageLoadingBarService.setProgress(0);
-
-        $q.all(promisses).then(() => {
-            const zip = new JSZip();
-            const csvName = 'qr_codes.csv';
-
-            const qrCodesData = $ctrl.qrCodesData;
-            const vouchersData = type == 'png' ? qrCodesData.vouchersData : [];
-            const imgDirectory = vouchersData.length > 0 ? zip.folder("images") : null;
-            const promises = [];
-
-            PageLoadingBarService.setProgress(10);
-            console.info('- data loaded from the api.');
-
-            if (type == 'png' || type == 'csv') {
-                zip.file(csvName, qrCodesData.rawCsv);
-            }
-
-            if (type == 'png' || type == 'xls') {
-                zip.file('qr_codes.xls', $ctrl.xlsData);
-            }
-
-            PageLoadingBarService.setProgress(20);
-            vouchersData.forEach((voucherData, index) => {
-                promises.push(new Promise((resolve) => {
-                    console.info('- making qr file ' + (index + 1) + ' from ' + vouchersData.length + '.');
-                    document.imageConverter.makeQrImage(voucherData.value).then((data) => {
-                        resolve({
-                            ...voucherData,
-                            ...{ imageData: data.slice('data:image/png;base64,'.length) }
-                        });
-                    })
-                }));
-            });
-
-            Promise.all(promises).then((data) => {
-                console.info('- inserting images into .zip archive.');
-                data.forEach((imgData) => imgDirectory.file(imgData.name + ".png", imgData.imageData, { base64: true }));
-
-                PageLoadingBarService.setProgress(80);
-
-                console.info('- building .zip file.');
-                zip.generateAsync({ type: "blob" }).then(function(content) {
-                    PageLoadingBarService.setProgress(95);
-                    console.info('- downloading .zip file.');
-                    saveAs(content, 'vouchers_' + moment().format(
-                        'YYYY-MM-DD HH:mm:ss'
-                    ) + '.zip');
-                    PageLoadingBarService.setProgress(100);
-                });
-            }, console.error);
-        }, res => {
-            res.data.text().then((data) => {
-                data = JSON.parse(data);
-
-                if (data.message) {
-                    PushNotificationsService.danger(data.message);
-                }
-            });
-        });
-    };
-
-    $ctrl.exportQRCodes = () => {
-        ModalService.open('voucherExportType', {
-            success: (data) => {
-                if (data.exportType === 'pdf') {
-                    $ctrl.exportPdf();
-                } else {
-                    $ctrl.exportImages(data.exportType);
-                }
-            }
-        });
+        VoucherExportService.exportVouchers($ctrl.organization.id, filters, type);
     };
 
     $ctrl.onPageChange = (query) => {
         VoucherService.index(
             $ctrl.organization.id,
             $ctrl.getQueryParams(query),
-        ).then((res => $ctrl.vouchers = res.data));
+        ).then((res => {
+            $ctrl.vouchers = res.data;
+            $ctrl.updateState(query);
+        }));
     };
 
     $ctrl.showTooltip = (e, target) => {
         e.originalEvent.stopPropagation();
-        $ctrl.vouchers.data.forEach(voucher => {
-            voucher.showTooltip = false;
-        });
-        target.showTooltip = true;
+        $ctrl.vouchers.data.forEach((voucher) => voucher.showTooltip = voucher == target);
     };
 
     $ctrl.hideTooltip = (e, target) => {
@@ -274,30 +160,27 @@ let ProductVouchersComponent = function(
     };
 
     $ctrl.init = () => {
-        $ctrl.resetFilters();
-        $ctrl.onPageChange($ctrl.filters.values);
         $ctrl.fundClosed = $ctrl.fund.state == 'closed';
     };
 
     $ctrl.onFundSelect = (fund) => {
         $ctrl.fund = fund;
         $ctrl.init();
+
+        $ctrl.onPageChange($ctrl.filters.values);
     };
 
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
-        if (!$ctrl.fund) {
-            if ($ctrl.funds.length == 1) {
-                $state.go('product-vouchers', {
-                    organization_id: $state.params.organization_id,
-                    fund_id: $ctrl.funds[0].id,
-                });
-            } else if ($ctrl.funds.length == 0) {
-                /* alert('Sorry, but no funds were found to add vouchers.');
-                $state.go('home'); */
-            }
-        } else {
+        if (!$ctrl.fund && $ctrl.funds.length > 0) {
+            return $state.go('product-vouchers', {
+                organization_id: $state.params.organization_id,
+                fund_id: $ctrl.funds[0].id,
+            });
+        }
+
+        if ($ctrl.fund) {
             $ctrl.init();
         }
     };
@@ -307,18 +190,17 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
+        vouchers: '<',
         organization: '<',
     },
     controller: [
-        '$q',
         '$state',
         '$stateParams',
         '$timeout',
         'DateService',
-        'FileService',
         'ModalService',
         'VoucherService',
-        'PageLoadingBarService',
+        'VoucherExportService',
         ProductVouchersComponent
     ],
     templateUrl: 'assets/tpl/pages/product-vouchers.html'

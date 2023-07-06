@@ -4,9 +4,9 @@
         margin: 0 0 40px;
 
         .section-title {
-            margin: 0 0 20px;
+            margin: 30px 0 30px;
             display: block;
-            font-family: $hf;
+            font-family: var(--hf);
         }
 
         .section-filters {
@@ -21,15 +21,28 @@
         }
     }
 
+    &.section-faq {
+        .section-title {
+            font: 500 2em var(--base-font);
+            text-align: left;
+        }
+    }
+
     @media screen and (max-width: 1700px) {
-        &.section-faq,
-        &.section-products {
+        /*&.section-faq {
+            .section-title {
+                font: 500 2em var(--base-font);
+                text-align: left;
+            }
+        }*/
+
+       /*  &.section-products {
             position: relative;
 
             .section-title {
-                font: 700 32px/1.5em $bf;
+                font: 500 2em var(--base-font);
             }
-        }
+        } */
 
         &.section-products {
             .section-filters {
@@ -39,19 +52,13 @@
     }
 
     @media screen and (max-width: 1000px) {
-        &.section-products,
-        &.section-faq {
-            .section-title {
-                text-align: center;
-            }
-        }
 
         &.section-products {
             margin: 0 0 30px;
 
             .section-filters {
                 margin: 0 0 30px;
-                box-shadow: 5px 5px 20px rgba(#000, .1);
+                box-shadow: 5px 5px 20px rgba(0, 0, 0, .1);
                 border-radius: 6px;
 
                 .row {

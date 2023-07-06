@@ -1,27 +1,27 @@
 &.block-markdown {
     text-align: justify;
-    font: 400 14px/24px $bf !important;
+    font: 400 14px/24px var(--base-font) !important;
 
     h1 {
-        font: 500 2.5em $bf;
+        font: 500 2.5em var(--base-font);
         margin: 0 0 0.6em;
         text-align: left;
     }
 
     h2 {
-        font: 500 2em $bf;
+        font: 500 2em var(--base-font);
         margin: 0 0 0.7em;
         text-align: left;
     }
 
     h3 {
-        font: 500 1.5em $bf;
+        font: 500 1.5em var(--base-font);
         margin: 0 0 0.9em;
         text-align: left;
     }
 
     h4 {
-        font: 500 1.25em $bf;
+        font: 500 1.25em var(--base-font);
         margin: 0 0 0.9em;
         text-align: left;
     }
@@ -47,14 +47,14 @@
     }
 
     a:not(.button) {
-        color: $bc;
+        color: var(--base-color);
         font-weight: 500;
         transition: 0.4s;
         font: inherit;
         text-decoration: underline;
 
         &:hover {
-            color: $bc;
+            color: var(--base-color);
         }
     }
 
@@ -108,7 +108,7 @@
                 color: #646f79;
                 padding-top: 6px;
                 padding-bottom: 6px;
-                font: 500 12px/18px $bf;
+                font: 500 12px/18px var(--base-font);
 
                 &:first-child {
                     padding-left: 25px;
@@ -121,7 +121,7 @@
 
             td {
                 color: #444a4f;
-                font: 500 13px/20px $bf;
+                font: 500 13px/20px var(--base-font);
                 border-right: 1px solid #d4d9dd;
             }
 
@@ -130,7 +130,7 @@
                     color: #646f79;
                     padding-top: 10px;
                     padding-bottom: 10px;
-                    font: 700 12px/20px $bf;
+                    font: 700 12px/20px var(--base-font);
 
                     * {
                         color: inherit !important;
@@ -166,6 +166,10 @@
         }
     }
 
+    .markdown-wrapper {
+        margin-bottom: -15px;
+    }
+
     &.block-markdown-left {
         text-align: left !important;
 
@@ -191,25 +195,25 @@
     }
 
     @media screen and (max-width: 1000px) {
-        font: 400 14px/22px $bf !important;
+        font: 400 14px/22px var(--base-font) !important;
     
         h1 {
-            font: 500 1.8em $bf;
+            font: 500 1.8em var(--base-font);
             margin-bottom: 1em;
         }
     
         h2 {
-            font: 500 1.6em $bf;
+            font: 500 1.6em var(--base-font);
             margin-bottom: 1em;
         }
     
         h3 {
-            font: 500 1.3em $bf;
+            font: 500 1.3em var(--base-font);
             margin-bottom: 1em;
         }
     
         &.block-markdown-lg {
-            font: 400 14px/22px $bf !important;
+            font: 400 14px/22px var(--base-font) !important;
         }
     }
 }

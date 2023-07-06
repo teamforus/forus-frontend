@@ -1,0 +1,16 @@
+.modal.modal-md.modal-animated.modal-fund-request-disregard(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        .modal-icon.modal-icon-primary: .mdi.mdi-message-text-outline
+        .modal-body.form: .modal-section.modal-section-pad
+            .text-center
+                .modal-heading Opnieuw in behandeling nemen
+
+                .modal-warning
+                    em.mdi.mdi-alert-circle.text-warning &nbsp
+                    span Let op: de aanvrager kan niet hierna een nieuwe aanvraag starten.
+        
+        .modal-footer.text-center
+            button.button.button-default(ng-click="$ctrl.close()") Annuleer
+            button.button.button-primary(ng-click="$ctrl.form.submit()") Bevestig

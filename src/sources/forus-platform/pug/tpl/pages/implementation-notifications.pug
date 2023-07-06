@@ -10,14 +10,21 @@
                     .organization-logo: img(ng-src="{{ implementation.logo || './assets/img/placeholders/organization-thumbnail.png' }}")
                     .organization-name(ng-bind="implementation.name")
 
-        .card-heading: .flex.flex-horizontal
+        .card-heading(ng-if="$ctrl.implementations.meta.total > 0"): .flex.flex-horizontal
             .flex.flex-grow.flex-vertical.flex-center: div
                 | Systeemberichten 
                 tooltip(text="'system_notifications.header.tooltip' | translate")
 
-            .flex: .button-group: a(ui-sref="implementation-notifications-branding($ctrl.brandingParams)").button.button-primary
-                em.mdi.mdi-pencil.icon-start
-                | Handtekening en huisstijl
+            .flex: .button-group
+                a.button.button-default(
+                    ng-if="$ctrl.organization.allow_custom_fund_notifications"
+                    ui-sref="implementation-notifications-send($ctrl.brandingParams)")
+                    em.mdi.mdi-email-outline.icon-start
+                    | Verstuur een aangepast bericht
+
+                a(ui-sref="implementation-notifications-branding($ctrl.brandingParams)").button.button-primary
+                    em.mdi.mdi-cog-outline.icon-start
+                    | Handtekening en huisstijl
 
         //- Motifications list
         .card.card-collapsed(ng-repeat="notificationGroup in $ctrl.notificationGroups")
@@ -33,7 +40,7 @@
                                 th.nowrap.text-right Bekijken
 
                             tr(ng-repeat="notification in notificationGroup.notifications")
-                                td
+                                td.td-grow
                                     
                                     div
                                         em.mdi.mdi-lock-outline.text-muted-dark(ng-if="!notification.editable")  
@@ -57,3 +64,7 @@
                                         ui-sref="implementation-notifications-show(notification.srefData)")
                                         em.mdi.mdi-eye-outline.icon-start
                                         | Bekijken
+
+        block-empty( 
+            ng-if="$ctrl.implementations.meta.total == 0" 
+            text="De systeemberichten zijn niet beschikbaar, omdat er geen webshop configuratie is voor deze organisatie.")                                

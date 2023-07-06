@@ -64,7 +64,7 @@ html {
             textarea,
             [contenteditable] {
                 color: #666;
-                caret-color: $forus-demi-blue;
+                caret-color: var(--forus-demi-blue);
             }
             .info{
                 text-align: right;
@@ -132,7 +132,7 @@ html {
                         left: 0 !important;
                         &:focus{
                             box-shadow: none;
-                            border-color: $forus-demi-blue!important;
+                            border-color: var(--forus-demi-blue)!important;
                             &[val=""] + .clear_field{
                                 display: none;
                             }
@@ -142,11 +142,11 @@ html {
 
                 &:focus{
                     label{
-                        color: $forus-demi-blue!important;
+                        color: var(--forus-demi-blue)!important;
                     }
                     .input-group{
                         .form-control{
-                            border-color: $forus-demi-blue!important;
+                            border-color: var(--forus-demi-blue)!important;
                             &:focus{
                                 outline: none;
                                 box-shadow: none;

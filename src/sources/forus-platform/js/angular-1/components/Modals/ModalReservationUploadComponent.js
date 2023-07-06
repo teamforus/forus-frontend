@@ -68,7 +68,7 @@ const ModalReservationUploadComponent = function(
                 return $translate('reservations.csv.default_note', {
                     ...row,
                     upload_date: moment().format('YYYY-MM-DD'),
-                    uploader_email: $rootScope.auth_user.email,
+                    uploader_email: $rootScope.auth_user?.email || $rootScope.auth_user?.address,
                 });
             }
 

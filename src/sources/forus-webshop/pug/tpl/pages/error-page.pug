@@ -3,8 +3,9 @@ block content
     .block.block-error-page
         top-navbar
 
-        main(id="main-content")
-            .wrapper
-                .page-not-found-title(ng-bind="$ctrl.error")
-                .page-not-found-subtitle(ng-bind="('error_page.' + $ctrl.error + '.title') | translate")
-                div: button.button.button-primary(ui-sref="home" ng-bind="('error_page.' + $ctrl.error + '.button') | translate")
+        .wrapper: main(id="main-content")
+            .page-not-found-title(ng-bind="$ctrl.error")
+            .page-not-found-subtitle(ng-bind="('error_page.' + $ctrl.error + '.title') | translate")
+            div: button.button.button-primary(ui-sref="home")
+                span(ng-bind="('error_page.' + $ctrl.error + '.button') | translate")
+                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")

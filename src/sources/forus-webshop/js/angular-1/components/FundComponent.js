@@ -1,39 +1,27 @@
-const FundsComponent = function(
+const FundsComponent = function (
     $sce,
     $state,
-    $stateParams,
     $filter,
+    $rootScope,
+    $stateParams,
+    FundService,
     appConfigs,
-    FundService
 ) {
     const $ctrl = this;
-
-    let $translate = $filter('translate');
-
-    let trans = (key) => {
-        let transKey = 'funds.buttons.' + appConfigs.client_key + '.' + key;
-
-        if ($translate(transKey) && $translate(transKey) != transKey) {
-            return $translate(transKey);
-        }
-
-        return $translate('funds.buttons.' + key);
-    }
+    const $i18n = $filter('i18n');
 
     $ctrl.fundLogo = null;
     $ctrl.appConfigs = appConfigs;
     $ctrl.recordsByTypesKey = {};
 
-    $ctrl.applyFund = function($e, fund) {
+    $ctrl.applyFund = function ($e, fund) {
         $e.preventDefault();
 
         if ($ctrl.fund.taken_by_partner) {
             return FundService.showTakenByPartnerModal();
         }
 
-        FundService.apply(fund.id).then(function(res) {
-            $state.go('voucher', res.data.data);
-        }, console.error);
+        $state.go('fund-activate', { fund_id: fund.id });
     };
 
     $ctrl.updateFundsMeta = () => {
@@ -42,11 +30,11 @@ const FundsComponent = function(
         $ctrl.fund.alreadyReceived = $ctrl.fund.vouchers.length !== 0;
         $ctrl.fund.voucherStateName = 'vouchers';
 
-        $ctrl.fund.showRequestButton = 
+        $ctrl.fund.showRequestButton =
             !$ctrl.fund.alreadyReceived &&
             !$ctrl.fund.has_pending_fund_requests &&
             !$ctrl.fund.isApplicable &&
-            $ctrl.fund.allow_direct_requests && 
+            $ctrl.fund.allow_direct_requests &&
             $ctrl.configs.funds.fund_requests;
 
         $ctrl.fund.showExternalLink = $ctrl.fund.external_link_text && $ctrl.fund.external_link_url;
@@ -63,7 +51,7 @@ const FundsComponent = function(
         ].filter((flag) => flag).length === 0;
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.updateFundsMeta();
 
@@ -71,7 +59,7 @@ const FundsComponent = function(
         $ctrl.criteriaList = $ctrl.fund.criteria;
         $ctrl.fund.description_html = $sce.trustAsHtml($ctrl.fund.description_html);
 
-        $ctrl.recordTypes.forEach(function(recordType) {
+        $ctrl.recordTypes.forEach(function (recordType) {
             $ctrl.recordsByTypesKey[recordType.key] = recordType;
         });
 
@@ -90,6 +78,12 @@ const FundsComponent = function(
                 return { ...question, description_html: $sce.trustAsHtml(question.description_html) };
             });
         }
+
+        $rootScope.pageTitle = $i18n('page_state_titles.fund', {
+            fund_name: $ctrl.fund.name,
+            implementation: $i18n(`implementation_name.${appConfigs.client_key}`),
+            organization_name: $ctrl.fund.organization.name,
+        });
     };
 };
 
@@ -106,11 +100,12 @@ module.exports = {
     controller: [
         '$sce',
         '$state',
-        '$stateParams',
         '$filter',
-        'appConfigs',
+        '$rootScope',
+        '$stateParams',
         'FundService',
-        FundsComponent
+        'appConfigs',
+        FundsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/fund.html'
+    templateUrl: 'assets/tpl/pages/fund.html',
 };

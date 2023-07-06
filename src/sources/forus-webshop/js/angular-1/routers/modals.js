@@ -5,14 +5,6 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalNotificationComponent'
     });
 
-    ModalRouteProvider.modal('modalOffices', {
-        component: 'modalOfficesComponent'
-    });
-
-    ModalRouteProvider.modal('modalAuth', {
-        component: 'modalAuthComponent'
-    });
-
     ModalRouteProvider.modal('modalPinCode', {
         component: 'modalPinCodeComponent'
     });
@@ -57,11 +49,27 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalImagePreviewComponent'
     });
 
+    ModalRouteProvider.modal('photoCropper', {
+        component: 'modalPhotoCropperComponent'
+    });
+
+    ModalRouteProvider.modal('modalReimbursementConfirm', {
+        component: 'modalReimbursementConfirmComponent'
+    });
+
     ModalRouteProvider.modal('deactivateVoucher', {
         component: 'modalDeactivateVoucherComponent'
     });
 
     ModalRouteProvider.modal('modalProductReserveDetails', {
         component: 'modalProductReserveDetailsComponent'
+    });
+
+    ModalRouteProvider.modal('2FASetup', {
+        component: 'modal2FASetupComponent'
+    });
+
+    ModalRouteProvider.modal('2FADeactivate', {
+        component: 'modal2FADeactivateComponent'
     });
 }];

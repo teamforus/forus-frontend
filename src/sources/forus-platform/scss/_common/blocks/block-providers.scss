@@ -10,8 +10,8 @@
         position: relative;
         background: #fff;
         margin: 0 0 20px;
-        border-radius: $border_radius / 2;
-        box-shadow: $box_shadow;
+        border-radius: calc(var(--border-radius) / 2);
+        box-shadow: var(--box-shadow);
         cursor: default;
 
         .provider-overview {
@@ -30,7 +30,7 @@
                 height: 50px;
                 display: block;
                 border-radius: 50px;
-                border: 1px solid $border_color;
+                border: 1px solid var(--border-color);
             }
         }
 
@@ -42,12 +42,12 @@
 
             .provider-title {
                 color: #151B26;
-                font: 500 16px/24px $bf;
+                font: 500 16px/24px var(--base-font);
                 @include ellipsis();
             }
 
             .provider-subtitle {
-                font: 600 11px/16px $bf;   
+                font: 600 11px/16px var(--base-font);   
                 color: #134478;
                 @include ellipsis();
                 margin: 0 0 10px;
@@ -57,7 +57,7 @@
                 }
 
                 .provider-activity {
-                    font: 500 11px/13px $bf;
+                    font: 500 11px/13px var(--base-font);
                     color: #151B26;
 
                     &:before {
@@ -78,7 +78,7 @@
                     margin: 0 0 5px;
                     position: relative;
                     padding-left: 10px;
-                    font: 600 13px/16px $bf;
+                    font: 600 13px/16px var(--base-font);
                     color: #666;
 
                     &:before {
@@ -97,10 +97,10 @@
                     }
 
                     &.active {
-                        color: $color_primary;
+                        color: var(--color-primary);
                         
                         &:before {
-                            background-color: $color_primary;
+                            background-color: var(--color-primary);
                         }
                     }
                 }
@@ -127,7 +127,7 @@
                     width: 1px;
                     top: 15px;
                     bottom: 15px;
-                    background: $border_color;
+                    background: var(--border-color);
                 }
 
                 &:last-child {

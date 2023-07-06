@@ -5,9 +5,6 @@ block content
 
         main(id="main-content")
             .showcase-wrapper
-                mixin search_results(total, show = "false")
-                    .showcase-title: span(ng-if=show)= "Er zijn " + "{{" + total + "}}" + " aanbieders gevonden"
-
                 .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                     .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
                     .mobile-filters-title Zoek op categorieen en tegoeden
@@ -23,35 +20,84 @@ block content
                             .showcase-subtitle(ng-if="$ctrl.showMap") Selecteer een aanbieder voor meer informatie
 
                             .form-group
-                                input.form-control(
+                                ui-control-search-input(
                                     ng-model="$ctrl.form.values.q"
                                     placeholder="Zoek aanbieder" 
-                                    type="search"
                                     aria-label="Zoeken")
+                                .form-error(ng-repeat="error in $ctrl.form.errors.q" ng-bind="error")
 
                             .form-group
-                                label.form-label(for="select_provider_type") Type aanbieder
+                                label.form-label(for="business_type_id") Type aanbieder
                                 select-control(
-                                    autoclear="true"
-                                    ng-model="$ctrl.form.values.businessType"
+                                    prop="id"
+                                    ng-model="$ctrl.form.values.business_type_id"
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer type..."
-                                    id="select_provider_type")                        
+                                    id="business_type_id")
+                                .form-error(ng-repeat="error in $ctrl.form.errors.business_type_id" ng-bind="error")
 
                             .form-group
-                                label.form-label(for="select_fund") Tegoeden
+                                label.form-label(for="product_category_id") Categorie
                                 select-control(
-                                    autoclear="true"
-                                    ng-model="$ctrl.form.values.fund"
+                                    prop="id"
+                                    ng-model="$ctrl.product_category_id"
+                                    ng-change="$ctrl.changeProductCategory('category')"
+                                    options="$ctrl.productCategories"
+                                    placeholder="{{ $ctrl.productCategories[0].name }}"
+                                    id="product_category_id")
+                                .form-error(ng-repeat="error in $ctrl.form.errors.product_category_id" ng-bind="error")
+
+                            .form-group(ng-if="$ctrl.productSubCategories.length > 1")
+                                label.form-label(for="select_sub_type") Subcategorie
+                                select-control(
+                                    id="select_sub_type"
+                                    prop="id"
+                                    name="sub_type"
+                                    ng-model="$ctrl.product_sub_category_id"
+                                    ng-change="$ctrl.changeProductCategory('subcategory')"
+                                    options="$ctrl.productSubCategories"
+                                    placeholder="{{ $ctrl.productSubCategories[0].name }}")
+
+                            .form-group
+                                label.form-label(for="fund_id") Tegoeden
+                                select-control(
+                                    prop="id"
+                                    ng-model="$ctrl.form.values.fund_id"
                                     options="$ctrl.funds"
                                     placeholder="Selecteer tegoed..."
-                                    id="select_fund")
+                                    id="fund_id")
+                                .form-error(ng-repeat="error in $ctrl.form.errors.fund_id" ng-bind="error")
 
-                            +search_results('$ctrl.providers.meta.total', '$ctrl.showMap')
+                            .row
+                                .col.col-md-6: .form-group
+                                    label.form-label(for="postcode") Postcode
+                                    input.form-control(
+                                        ng-model="$ctrl.form.values.postcode"
+                                        placeholder="Postcode"
+                                        type="text"
+                                        aria-label="Postcode...")
+                                    .form-error(ng-repeat="error in $ctrl.form.errors.postcode" ng-bind="error")
 
-                        a(ui-sref="sign-up" ng-show="!$ctrl.showMap").button.button-primary-outline.button-fill.button-flat.hide-sm
-                            em.mdi.mdi-store-outline
+                                .col.col-md-6: .form-group
+                                    label.form-label(for="distance") Afstand
+                                    select-control(
+                                        prop="id"
+                                        ng-model="$ctrl.form.values.distance"
+                                        options="$ctrl.distances"
+                                        placeholder="Afstand..."
+                                        id="distance")
+                                    .form-error(ng-repeat="error in $ctrl.form.errors.distance" ng-bind="error")
+
+                            .showcase-result(ng-if="$ctrl.showMap")
+                                | Er zijn #[.showcase-result-count(ng-bind="$ctrl.providers.meta.total")] aanbieders gevonden
+
+                        a.button.button-primary-outline.button-fill.button-flat.hide-sm(
+                            ng-if="$root.appConfigs.features.pages.provider" 
+                            ui-sref="sign-up" 
+                            ng-show="!$ctrl.showMap")
+                            em.mdi.mdi-store-outline(aria-hidden="true")
                             | Aanmelden als aanbieder
+                            em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                     .showcase-content
                         .showcase-content-header.showcase-content-header-compact
@@ -59,8 +105,19 @@ block content
                                 span Aanbieders
                                 .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
 
-                            .showcase-filters-block
-                                .block.block-label-tabs.pull-right
+                            .showcase-filters-block: .block.block-label-tabs.form
+                                .showcase-filters-item
+                                    label.form-label Sorteer
+                                    select-control(
+                                        id="sort_by"
+                                        as="label"
+                                        search="false"
+                                        ng-model="$ctrl.sortBy"
+                                        ng-change="$ctrl.updateSortBy()"
+                                        options="$ctrl.sortByOptions"
+                                        placeholder="Sorteer")
+
+                                .block.block-label-tabs.pull-right(ng-if="$root.appConfigs.features.show_providers_map")
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: !$ctrl.showMap}"
                                         ng-click="$ctrl.showAsList()")
@@ -72,12 +129,17 @@ block content
                                         em.mdi.mdi-map-marker-radius.icon-start
                                         | Kaart
 
-                        .block.block-organizations(ng-if="!$ctrl.showMap" id="providers_list")
+                        //- Funds CMS blocks
+                        cms-blocks(
+                            ng-if="$root.appConfigs.features.pages.providers"
+                            page="$root.appConfigs.features.pages.providers")
+
+                        .block.block-organizations(ng-if="!$ctrl.showMap" ng-show="$ctrl.providers.data.length > 0" id="providers_list")
                             provider-list-item(
                                 ng-repeat="provider in $ctrl.providers.data"
                                 provider="provider")
 
-                            .card(ng-if="$ctrl.providers"): .card-section(ng-show="$ctrl.providers.meta.last_page > 1"): paginator(
+                            .card(ng-if="$ctrl.providers" ng-show="$ctrl.providers.meta.last_page > 1"): .card-section: paginator(
                                 meta="$ctrl.providers.meta"
                                 filters="$ctrl.form.values"
                                 count-buttons="5"
@@ -85,15 +147,17 @@ block content
 
                         empty-block(
                             title= "{{ 'block_providers.empty.title' | translate }}"
+                            svg-icon="reimbursements"
                             description="{{ 'block_providers.empty.subtitle' | translate }}"
                             hide-link="true"
-                            ng-if="$ctrl.providers.data.length == 0")
+                            ng-if="$ctrl.providers.data.length == 0 && !$ctrl.showMap")
 
                         paginator(
                             ng-if="$ctrl.showMap"
                             ng-show="false"
                             meta="$ctrl.providers.meta"
                             filters="$ctrl.form.values"
+                            delayed-filters="['q', 'postcode']"
                             count-buttons="3"
                             on-page-change="$ctrl.onPageChange(query)")
 

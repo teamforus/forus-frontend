@@ -18,13 +18,16 @@
 
     .block.block-sign_up: .block-wrapper        
         .sign_up-header
-            .sign_up-header-item.flex-grow: a(ui-sref="home").sign_up-header-item-back
+            .sign_up-header-item.flex-grow: a(ui-sref="home").sign_up-header-item-button
                 em.mdi.mdi-chevron-left
                 | Verlaat het formulier
 
             .sign_up-header-item
-                a.button.button-light(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthPopup()") Inloggen
-                a.button.button-light(ng-if="$root.auth_user" href="{{ $root.appConfigs.features.fronts.url_provider }}") Open beheeromgeving
+                a(ng-if="!$root.auth_user" ng-click="$ctrl.openAuthPopup()").sign_up-header-item-button
+                    | Inloggen
+                    em.mdi.mdi-login.icon-end
+
+                a(ng-if="$root.auth_user" href="{{ $root.appConfigs.features.fronts.url_provider }}").sign_up-header-item-button Open beheeromgeving
 
         h2.block-title(translate="sign_up_provider.header.main_header")
 
@@ -251,11 +254,11 @@
                     form.sign-up-form(ng-submit="$ctrl.signUpForm.submit()").form: .row
                         .col.col-md-7.col-xs-12
                             .form-group
-                                label.form-label(translate="E-MAILadres")
+                                label.form-label(translate="E-mailadres")
                                 ui-control-text(
                                     data-id="employee"
                                     ng-model="$ctrl.signUpForm.values.email"
-                                    data-placeholder="Bijv. info@info.nl").large
+                                    data-placeholder="e-mail@e-mail.nl").large
                                 .form-error(ng-repeat="error in ($ctrl.signUpForm.errors.email || $ctrl.signUpForm.errors['records.primary_email'])" ng-bind="error")
 
                         .col.col-md-5.col-xs-12
@@ -413,11 +416,13 @@
                                     .col.col-md-8.col-xs-12: ui-control-text(
                                         ng-model="$ctrl.organizationForm.values.website"
                                         placeholder="Voorbeeld: https://bedrijfsnaam.nl")
+
                                     .col.col-md-4.col-xs-12: ui-control-checkbox.make-public(
                                         name="website_public"
                                         data-id="website_public_input"
                                         data-label="{{ 'organization_edit.labels.make_public' | translate }}"
                                         ng-model="$ctrl.organizationForm.values.website_public")
+
                                 .form-error(ng-repeat="error in $ctrl.organizationForm.errors.website" ng-bind="error")
 
                     .sign_up-pane-body.sign_up-pane-body-padless: .sign_up-pane-section(style="padding-right: 30px;")
@@ -426,8 +431,8 @@
                                 label(translate="organization_edit.labels.business_type").form-label
 
                                 .form-offset: select-control(
-                                    ng-model="$ctrl.businessType"
-                                    ng-change="$ctrl.chageBusinessType(value)"
+                                    prop="id"
+                                    ng-model="$ctrl.organizationForm.values.business_type_id"
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer organisatie type...")
 
@@ -539,18 +544,20 @@
                 .sign_up-pane-body: .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_7")
                 .sign_up-pane-body
                     .sign_up-employees: .sign_up-employee(ng-repeat="employee in $ctrl.employees")
-                        span(ng-bind="employee.email")
+                        span(ng-if="employee.email" ng-bind="employee.email")
+                        span(ng-if="!employee.email" ng-bind="employee.identity_address | str_limit:32")
+
                         .sign_up-employee-actions
                             a(ng-click="$ctrl.deleteEmployee(employee)").mdi.mdi-trash-can-outline
 
                     form(ng-submit="$ctrl.saveEmployee()").form: .row
                         .col.col-md-8.col-xs-12
                             .form-group
-                                label.form-label(translate="E-MAILadres")
+                                label.form-label(translate="E-mailadres")
                                 ui-control-text(
                                     data-id="employee"
                                     ng-model="$ctrl.employeeForm.values.email"
-                                    data-placeholder="Voorbeeld: info@info.io").large
+                                    data-placeholder="Voorbeeld: e-mail@e-mail.nl").large
                                 .form-error(ng-repeat="error in $ctrl.employeeForm.errors.email" ng-bind="error")
 
                         .col.col-md-4.col-xs-12
@@ -582,32 +589,25 @@
 
                 .sign_up-pane-body: .sign_up-pane-text(translate="sign_up_provider.header.subtitle_step_8")
                 .sign_up-pane-body
-                    provider-fund-filters(
-                        ng-if="$ctrl.showFilters"
-                        funds-available="$ctrl.fundsAvailable" 
-                        organization="$ctrl.organization")
-
-                    fund-card-provider-can-join(
-                        ng-if="$ctrl.fundsAvailable.meta.total > 0"
-                        ng-repeat="fund in $ctrl.fundsAvailable.data"
-                        template="provider-signup-fund-card"
-                        fund="fund"
+                    provider-funds-can-join(
                         organization="$ctrl.organization"
-                        hide-modal="true")    
+                        show-filters="$ctrl.showFilters"
+                        external-filters="$ctrl.filters.values"
+                        on-apply="$ctrl.applyFund()")
 
-                    block-empty(
-                        ng-if="$ctrl.fundsAvailable.meta.total == 0" 
-                        text="Er zijn momenteel geen actieve fondsen.")
-
-                    .card-section(ng-if="$ctrl.fundsAvailable.meta" ng-show="$ctrl.fundsAvailable.meta.last_page > 1")
-                        paginator(meta="$ctrl.fundsAvailable.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onFundsAvailablePageChange(query)")                    
+                    ui-control-checkbox(
+                        ng-if="!$ctrl.hasFundApplications"
+                        name="confirm_no_application"
+                        data-id="no_fund_application"
+                        data-label="Ik wil me nu niet aanmelden voor een regeling en doe dit later."
+                        ng-model="$ctrl.skipFundApplications")
 
                 .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left
                         .button.button-text.button-text-padless(ng-click="$ctrl.back()")
                             em.mdi.mdi-chevron-left.icon-lefts
                             | {{ 'sign_up_provider.buttons.back' | translate }}
-                    .col.col-lg-6.text-right
+                    .col.col-lg-6.text-right(ng-if="$ctrl.skipFundApplications || $ctrl.hasFundApplications")
                         .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                             | {{ 'sign_up_provider.buttons.next' | translate }}
                             em.mdi.mdi-chevron-right.icon-right

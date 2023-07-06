@@ -46,7 +46,7 @@
         }
 
         &>.block-map-office-card {
-            box-shadow: $base_shadow;
+            box-shadow: var(--box-shadow);
         }
     }
 
@@ -63,8 +63,8 @@
             flex-direction: column;
 
             .provider-description {
-                font: 400 13px/20px $bf;
-                border-bottom: 1px dashed $border_color;
+                font: 400 13px/20px var(--base-font);
+                border-bottom: 1px dashed var(--border-color);
                 margin-bottom: 15px;
                 padding-bottom: 15px;
                 display: flex;
@@ -80,7 +80,7 @@
                 }
 
                 .provider-title {
-                    font: 700 14px/20px $bf;
+                    font: 700 14px/20px var(--base-font);
                     padding: 15px 0
                 }
 
@@ -95,12 +95,20 @@
         .block-pane:first-child {
             margin-top: -70px;
         }
+
+        &.provider-content-top {
+            margin-top: 95px;
+        }
     }
 
     @media screen and (max-width: 1000px) {
         .provider-content {
             .block-pane:first-child {
                 margin-top: -15px;
+            }
+
+            &.provider-content-top {
+                margin-top: 35px;
             }
         }
     }

@@ -1,6 +1,9 @@
 .modal.modal-notification.modal-animated(
-    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']" 
-    role="dialog" aria-labelledby="shareVoucherDialogTitle" aria-describedby="shareVoucherDialogSubtitle")
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']" 
+    aria-describedby="shareVoucherDialogSubtitle"
+    aria-labelledby="shareVoucherDialogTitle" 
+    role="dialog" )
 
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-content: .modal-section
@@ -19,8 +22,14 @@
                 br
 
             .form-group
-                label(for="send_copy").checkbox
-                    input#send_copy(type="checkbox" checked ng-model="$ctrl.shareVoucherForm.values.send_copy")
+                label(
+                    for="send_copy" 
+                    role="checkbox" 
+                    tabindex="0" 
+                    aria-checked="{{ $ctrl.shareVoucherForm.values.send_copy }}" 
+                    ng-click="$ctrl.toggleSendCopy($event, $ctrl.shareVoucherForm.values.send_copy)").checkbox
+
+                    input#send_copy(type="checkbox" checked ng-model="$ctrl.shareVoucherForm.values.send_copy" tabindex="-1" aria-hidden="true")
                     .checkbox-label
                         .checkbox-box: .mdi.mdi-check
                         span(i18n="voucher.share_voucher.labels.send_copy")

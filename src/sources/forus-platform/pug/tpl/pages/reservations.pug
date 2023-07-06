@@ -5,7 +5,8 @@
             .card-header: .flex
                 .flex.flex-grow.card-title(
                     translate="reservations.header.title" 
-                    translate-values="$ctrl.reservations.meta")
+                    translate-values="$ctrl.reservations.meta"
+                    dusk="reservationsTitle")
 
                 .flex.block.block-inline-filters
                     .button.button-primary.button-sm(
@@ -13,6 +14,13 @@
                         ng-click="$ctrl.makeReservation()")
                         em.mdi.mdi-plus-circle.icon-start
                         | Aanmaken
+
+                    .button.button-primary.button-sm(
+                        ng-if="$ctrl.reservationEnabled && ($ctrl.organization | hasPerm:'manage_organization')"
+                        ui-sref="reservations-settings({organization_id: $ctrl.organization.id})")
+                        em.mdi.mdi-cog.icon-start
+                        | Instellingen
+
 
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.organization.allow_batch_reservations && $ctrl.reservationEnabled" 
@@ -46,9 +54,10 @@
 
                                 .form-group
                                     form-label-toggle(label="{{ 'reservations.filters.product' | i18n }}")
-                                    select(
-                                        ng-options="product.id as product.name for product in $ctrl.products" 
-                                        ng-model="$ctrl.filters.values.product_id").form-control
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        ng-model="$ctrl.filters.values.product_id"
+                                        options="$ctrl.products").form-control
 
                                 .form-group
                                     form-label-toggle(label="{{ 'reservations.filters.from' | i18n }}")
@@ -68,9 +77,17 @@
                                 
                                 .form-group
                                     form-label-toggle(label="{{ 'reservations.filters.state' | i18n }}")
-                                    select(
-                                        ng-options="state.key as state.name for state in $ctrl.states" 
-                                        ng-model="$ctrl.filters.values.state").form-control
+                                    .form-offset: select-control(
+                                        prop="key"
+                                        ng-model="$ctrl.filters.values.state"
+                                        options="$ctrl.states").form-control
+
+                                .form-actions
+                                    button.button.button-primary.button-wide(
+                                        ng-click="$ctrl.exportReservations()" 
+                                        ng-disabled="$ctrl.reservations.meta.total == 0")
+                                        em.mdi.mdi-download.icon-start  
+                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.reservations.meta.total }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
@@ -85,12 +102,29 @@
                         th(translate='reservations.labels.status')
                         th.text-right(translate='reservations.labels.actions')
 
-                    tr(ng-repeat="reservation in $ctrl.reservations.data")
-                        td: .text-strong.text-primary(ng-bind="'#' + reservation.code")
+                    tr(ng-repeat="reservation in $ctrl.reservations.data" dusk="{{ 'reservationRow' + reservation.id }}")
+                        td: a.text-strong(
+                            ng-bind="'#' + reservation.code" 
+                            ui-sref="reservations-show({organization_id: $ctrl.organization.id, id: reservation.id})")
+
                         td
-                            .text-strong(ng-bind="reservation.product.name" ng-class="{'text-strike' : reservation.product.deleted}")
-                            .text-strong.text-small.text-muted-dark(ng-bind="reservation.price_locale")
-                        td.text-primary: .text-strong(ng-bind="reservation.amount | currency_format")
+                            mixin product_info(type)
+                                .text-strong(
+                                    class=type
+                                    title="{{ reservation.product.name }}"
+                                    ng-bind="reservation.product.name | str_limit:45" 
+                                    ng-class="{'text-strike' : reservation.product.deleted}")
+
+                                .text-strong.text-small.text-muted-dark(
+                                    ng-bind="reservation.price_locale")
+
+                            a(ng-if="$ctrl.organization | hasPerm:['manage_products']" ui-sref="products-show(reservation.product)") 
+                                +product_info('text-primary')
+
+                            div(ng-if="!($ctrl.organization | hasPerm:['manage_products'])") 
+                                +product_info()
+
+                        td.text-strong(ng-bind="reservation.amount | currency_format")
 
                         td
                             strong(
@@ -104,8 +138,8 @@
                                 .text-strong.text-primary(ng-bind="reservation.identity_email")
 
                         td: strong(ng-bind="reservation.created_at_locale").text-primary
+                        td(dusk="reservationState"): strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
 
-                        td: strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
                         td: .flex-group.flex.flex-end
                             button.button.button-sm.button-primary-light.button-icon(
                                 ng-if="reservation.state === 'pending' && !reservation.expired && !reservation.product.deleted" 
@@ -118,13 +152,8 @@
                                 em.mdi.mdi-close
 
                             button.button.button-sm.button-default.button-icon(
-                                ng-if='reservation.voucher_transaction && ($ctrl.organization | hasPerm:["view_finances"])'
-                                ui-sref="transaction({organization_id: $ctrl.organization.id, address: reservation.voucher_transaction.address})")
-                                em.mdi.mdi-eye-outline
-
-                            button.button.button-sm.button-default.button-icon(
-                                ng-click="$ctrl.viewNotes(reservation)")
-                                em.mdi.mdi-message-text
+                                ui-sref="reservations-show({organization_id: $ctrl.organization.id, id: reservation.id})")
+                                em.mdi.mdi-eye
 
             .card-section(ng-if="$ctrl.reservations.meta.total == 0")
                 .card-subtitle.text-center Geen reserveringen.
@@ -135,8 +164,8 @@
                         input(
                             type="checkbox" 
                             id="accepted_by_default"
-                            ng-change="$ctrl.toggleAcceptByDefault($ctrl.acceptedBydefault)" 
-                            ng-model="$ctrl.acceptedBydefault")
+                            ng-change="$ctrl.toggleAcceptByDefault($ctrl.acceptedByDefault)" 
+                            ng-model="$ctrl.acceptedByDefault")
 
                         .form-toggle-inner
                             em.mdi.mdi-information-outline.flex

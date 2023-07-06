@@ -24,14 +24,11 @@ html {
 }
 
 .section-product {
-    .section-title {
-        text-align: left !important;
-    }
 
     .back {
         padding-bottom: 15px;
         margin: 0px 50px;
-        font: 500 18px/22px $bf;
+        font: 500 18px/22px var(--base-font);
         color: #9E9E9E;
 
         span {
@@ -43,7 +40,7 @@ html {
     }
 
     .heading {
-        font: 500 36px/36px $bf;
+        font: 500 36px/36px var(--base-font);
         color: #191A1C;
         text-align: center;
     }
@@ -63,8 +60,8 @@ html {
 }
 
 body {
-    background-color: $bg;
-    background: $bg_2;
+    background-color: var(--bg);
+    background: var(--bg_2);
     background-size: cover;
     display: flex;
     min-height: 100vh;
@@ -102,7 +99,7 @@ body {
     .section-voucher-details {
         .section-title {
             text-align: center !important;
-            font: 500 21px/30px $bf !important;
+            font: 500 21px/30px var(--base-font) !important;
             color: #222530;
         }
     }
@@ -140,16 +137,16 @@ ui-view {
         display: inline-block;
 
         .step-title {
-            font: 700 24px/30px $bf;
+            font: 700 24px/30px var(--base-font);
             margin: 0 0 0;
         }
 
         .step-description {
-            font: 500 15px/24px $bf;
+            font: 500 15px/24px var(--base-font);
             margin: 0 0 10px;
 
             a {
-                font: 400 16px/22px $bf;
+                font: 400 16px/22px var(--base-font);
                 text-decoration: underline;
                 color: #2B2BFF;
             }
@@ -177,7 +174,7 @@ ui-view {
         }
 
         .app-title {
-            font: 500 14px/24px $bf;
+            font: 500 14px/24px var(--base-font);
             padding: 5px 0 15px 0;
             text-align: center;
         }

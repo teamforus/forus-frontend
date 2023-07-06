@@ -1,9 +1,9 @@
-let ModalPhotoUploaderComponent = function(
+const ModalPhotoUploaderComponent = function(
     $element,
     MediaService,
     ImageConvertorService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.targetFile = false;
     $ctrl.confirmed = false;
@@ -45,10 +45,10 @@ let ModalPhotoUploaderComponent = function(
 
     $ctrl.onChange = () => {
         setTimeout(() => {
-            if (!$ctrl.cropedPhoto) return;
+            if (!$ctrl.croppedPhoto) return;
 
             ImageConvertorService.instance(
-                ImageConvertorService.dataURItoBlob($ctrl.cropedPhoto)
+                ImageConvertorService.dataURItoBlob($ctrl.croppedPhoto)
             ).then((convertorPreview) => {
                 $ctrl.thumbnailUri = ImageConvertorService.createObjectURL(
                     convertorPreview.resizeToBlob(
@@ -59,7 +59,7 @@ let ModalPhotoUploaderComponent = function(
             });
 
             $ctrl.previewUri = ImageConvertorService.createObjectURL(
-                ImageConvertorService.dataURItoBlob($ctrl.cropedPhoto)
+                ImageConvertorService.dataURItoBlob($ctrl.croppedPhoto)
             );
         }, 0);
     };
@@ -69,7 +69,7 @@ let ModalPhotoUploaderComponent = function(
     };
 
     $ctrl.apply = () => {
-        let file = ImageConvertorService.dataURItoBlob($ctrl.cropedPhoto);
+        let file = ImageConvertorService.dataURItoBlob($ctrl.croppedPhoto);
 
         file.name = $ctrl.targetFile.name;
         file.lastModified = $ctrl.targetFile.lastModified;
@@ -78,8 +78,6 @@ let ModalPhotoUploaderComponent = function(
         $ctrl.modal.scope.submit(file);
         $ctrl.close();
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
@@ -93,7 +91,5 @@ module.exports = {
         'ImageConvertorService',
         ModalPhotoUploaderComponent
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-photo-upload.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-photo-upload.html',
 };

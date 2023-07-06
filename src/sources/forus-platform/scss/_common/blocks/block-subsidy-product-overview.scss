@@ -10,14 +10,14 @@
     .subsidy-title {
         color: #000;
         margin: 0 0 10px;
-        font: 600 16px/24px $bf;    
+        font: 600 16px/24px var(--base-font);    
     }
 
     .subsidy-product-media {
         .subsidy-media {
             width: 220px;
             height: 100%;
-            border-right: 1px solid $border_color;
+            border-right: 1px solid var(--border-color);
             background-position: 50%;
             background-size: cover;
         }
@@ -42,8 +42,8 @@
         }
 
         .subsidy-provider {
-            color: $color_primary;
-            font: 600 14px/20px $bf;
+            color: var(--color-primary);
+            font: 600 14px/20px var(--base-font);
             margin: 0 0;
         }
 
@@ -58,13 +58,13 @@
 
             .subsidy-property-label {
                 color: #646F79;
-                font: 500 13px/22px $bf;
+                font: 500 13px/22px var(--base-font);
                 padding-right: 15px;
             }
 
             .subsidy-property-value {
                 color: #000;
-                font: 500 13px/22px $bf;
+                font: 500 13px/22px var(--base-font);
 
                 &.subsidy-property-value-muted {
                     text-decoration: line-through;
@@ -85,7 +85,7 @@
 
                 .subsidy-property-value {
                     color: #000;
-                    font: 500 18px/20px $bf;
+                    font: 500 18px/20px var(--base-font);
                     width: 20%;
 
                     &.subsidy-property-value-muted {

@@ -1,5 +1,6 @@
-let FundBackofficeEditComponent = function(
+const FundBackofficeEditComponent = function(
     $q,
+    $state,
     $element,
     FundService,
     FormBuilderService,
@@ -12,14 +13,6 @@ let FundBackofficeEditComponent = function(
     $ctrl.isDirty = false;
     $ctrl.isConfigured = false;
 
-    $ctrl.updateIsConfigured = (fund) => {
-        $ctrl.isConfigured = fund.backoffice && (
-            fund.backoffice.backoffice_url &&
-            fund.backoffice.backoffice_key &&
-            fund.backoffice.backoffice_certificate
-        );
-    };
-
     $ctrl.fallbackOptions = [{
         value: '1',
         label: 'Geen foutmelding',
@@ -27,6 +20,22 @@ let FundBackofficeEditComponent = function(
         value: '0',
         label: 'Foutmelding bij API downtime',
     }];
+
+    $ctrl.ineligiblePolicyOptions = [{
+        value: 'fund_request',
+        label: 'Make fund request through platform',
+    }, {
+        value: 'redirect',
+        label: 'Redirect to URL',
+    }];
+
+    $ctrl.updateIsConfigured = (fund) => {
+        $ctrl.isConfigured = fund.backoffice && (
+            fund.backoffice.backoffice_url &&
+            fund.backoffice.backoffice_key &&
+            fund.backoffice.backoffice_certificate
+        );
+    };
 
     $ctrl.selectCertificateFile = (e) => {
         if (e) {
@@ -68,6 +77,8 @@ let FundBackofficeEditComponent = function(
                 backoffice_key: '',
                 backoffice_certificate: '',
                 backoffice_fallback: true,
+                backoffice_ineligible_policy: 'fund_request',
+                backoffice_ineligible_redirect_url: '',
             }, ...fund.backoffice
         };
 
@@ -97,6 +108,10 @@ let FundBackofficeEditComponent = function(
 
     $ctrl.onChange = () => {
         $ctrl.isDirty = true;
+    };
+
+    $ctrl.cancel = () => {
+        $state.go('implementation-view', $ctrl.fund.implementation);
     };
 
     $ctrl.$onInit = () => {
@@ -132,11 +147,12 @@ module.exports = {
     },
     controller: [
         '$q',
+        '$state',
         '$element',
         'FundService',
         'FormBuilderService',
         'PushNotificationsService',
-        FundBackofficeEditComponent
+        FundBackofficeEditComponent,
     ],
-    templateUrl: 'assets/tpl/pages/fund-backoffice-edit.html'
+    templateUrl: 'assets/tpl/pages/fund-backoffice-edit.html',
 };

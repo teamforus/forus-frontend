@@ -1,10 +1,12 @@
-.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.closeModal()")
-    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+    form(ng-submit="$ctrl.form.submit()").modal-window.form
         a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="!$ctrl.verificationRequested") Activatiecode aanmaken
         .modal-header(ng-if="$ctrl.verificationRequested") Gegevens controleren
-        .modal-body
+        .modal-body.modal-body-visible
             .modal-section(ng-if="$ctrl.verificationRequested && !$ctrl.prevalidation")
                 .modal-text.text-center Controleer of u de juiste gegevens hebt ingevuld voordat u deze bevestigd.
                 .row: .col.col-lg-8.col-lg-offset-2
@@ -33,9 +35,11 @@
                 .form-group(ng-if="$ctrl.formNewRecord")
                     label.form-label Selecteer eigenschap
                     .flex-row 
-                        .flex-col.flex-grow: select(
-                            ng-options="recordType.key as recordType.name for recordType in $ctrl.recordTypesAvailable" 
-                            ng-model="$ctrl.formNewRecord.values.record_type_key").form-control
+                        .flex-col.flex-grow 
+                            .form-offset: select-control(
+                                prop="key"
+                                ng-model="$ctrl.formNewRecord.values.record_type_key"
+                                options="$ctrl.recordTypesAvailable").form-control
                         .flex-col: button(
                             type="button" 
                             ng-click="$ctrl.submitNewRecord()").button.button-primary Toevoegen        

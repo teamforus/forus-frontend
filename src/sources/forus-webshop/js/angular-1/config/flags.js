@@ -10,8 +10,6 @@ module.exports = {
     aboutSiteMenu: true,
 
     // home settings
-    homeProducts: true,
-    homeMap: true,
     homeSteps: true,
     homeFaq: true,
     homeButton: true,

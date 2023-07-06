@@ -1,8 +1,9 @@
 .modal.modal-voucher_qr.modal-animated(
+    ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.success ? 'modal-sm' : '', $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     
-    .modal-window(ng-show="!$ctrl.assigning && !$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
+    form(ng-show="!$ctrl.assigning && !$ctrl.success" ng-submit="$ctrl.form.submit()").modal-window
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-body: .modal-section
             .voucher_qr-block
@@ -23,7 +24,7 @@
 
         .modal-body: .modal-section: .form
             .form-group
-                .row: .col.col-lg-12: label.form-label(translate="modals.modal_voucher_qr_code.labels.sent_to_email")
+                .row: .col.col-lg-12: label.form-label.form-label-required(translate="modals.modal_voucher_qr_code.labels.sent_to_email")
                 .row
                     .col.col-lg-9
                         input(
@@ -43,21 +44,21 @@
                 translate="modals.modal_voucher_qr_code.buttons.close")
 
     //- assign voucher to user
-    .modal-window(ng-show="$ctrl.assigning && !$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
+    form(ng-show="$ctrl.assigning && !$ctrl.success" ng-submit="$ctrl.form.submit()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header: .voucher_qr-title(translate="modals.modal_voucher_qr_code.title_assign")
         .modal-body: .modal-section: .form
             .form-group
                 label.form-label(translate="{{ 'modals.modal_voucher_create.labels.assign_by_type' + ($ctrl.voucherActive ? '' : '_or_activate') }}")
                 select(
-                    ng-change="$ctrl.onAsignTypeChange($ctrl.assignType)"
+                    ng-change="$ctrl.onAssignTypeChange($ctrl.assignType)"
                     ng-options="assignType as assignType.label for assignType in $ctrl.assignTypes"
                     ng-model="$ctrl.assignType").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
             
             .form-group(ng-if="$ctrl.assignType.key === 'email' || $ctrl.assignType.key === 'bsn'")
                 //- Verstuur naar e-mail adres:
-                label.form-label(translate="modals.modal_voucher_qr_code.labels.assign_to_identity")
+                label.form-label.form-label-required(translate="modals.modal_voucher_qr_code.labels.assign_to_identity")
                 input(
                     placeholder="{{ ('modals.modal_voucher_qr_code.placeholders.' + $ctrl.assignType.key) | translate }}"
                     ng-model="$ctrl.form.values[$ctrl.assignType.key]" ).form-control
@@ -81,7 +82,7 @@
                 ng-if="$ctrl.assignType.key !== 'activate'"
                 translate="modals.modal_voucher_create.buttons.submit")
     
-    .modal-window(ng-show="$ctrl.success"): form(ng-submit="$ctrl.form.submit()")
+    form(ng-show="$ctrl.success" ng-submit="$ctrl.form.submit()").modal-window
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-body: .modal-section
             .block.block-message(ng-if="$ctrl.assigning && ($ctrl.assignType.key === 'email' || $ctrl.assignType.key === 'bsn')")

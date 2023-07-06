@@ -1,0 +1,261 @@
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user")
+    menu
+    section.app.app-content
+        //- Navigation
+        .block.block-breadcrumbs(ng-if="$root.activeOrganization")
+            .breadcrumb-item(
+                ui-sref="reimbursements({organization_id: $root.activeOrganization.id})" 
+                ng-bind="'Reimbursements'")
+
+            .breadcrumb-item.active(ng-bind="'#' + $ctrl.reimbursement.code")
+
+        //- Base reimbursement details
+        .card(ng-if="$ctrl.reimbursement")
+            //- Expired
+            .card-header.card-header-warning.card-header-sm(ng-if="$ctrl.reimbursement.expired")
+                .card-title: .text-small 
+                    strong Waarschuwing!&nbsp;
+                    | Het fonds of tegoed van deze declaratie is verlopen of het saldo is niet meer toereikend. De decalartie kan niet meer worden behandeld.
+
+            //- Voucher deactivated
+            .card-header.card-header-warning.card-header-sm(ng-if="$ctrl.reimbursement.deactivated")
+                .card-title: .text-small 
+                    strong Waarschuwing!&nbsp;
+                    | Het tegoed is gedeactiveerd. Om de declaratie te behandelen moet het tegoed opnieuw worden geactiveerd.
+
+            //- Title and actions
+            .card-header: .flex
+                //- Title and subtitle
+                .flex.flex-grow: .flex.flex-vertical
+                    //- Title
+                    .card-title: .flex
+                        //- Code
+                        .flex.flex-vertical: .flex
+                            span.text-muted NR:&nbsp;
+                            | {{ $ctrl.reimbursement.code }} &nbsp;
+
+                        //- Label
+                        .flex.flex-vertical.flex-center: .flex.flex-horizontal
+                            //- State label
+                            label.label(
+                                ng-if="!$ctrl.reimbursement.expired"
+                                ng-class="{pending: 'label-default', approved: 'label-success', declined: 'label-danger'}[$ctrl.reimbursement.state]"
+                                ng-bind="$ctrl.reimbursement.state_locale")
+
+                            //- Expired label
+                            label.label.label-danger-light(
+                                ng-if="$ctrl.reimbursement.expired"
+                                ng-bind="'Expired'")
+
+                    //- Subtitle
+                    .card-subtitle: .flex
+                        .mdi.mdi-clock-outline
+                        | {{ $ctrl.reimbursement.created_at_locale }}
+
+                .flex.flex-self-start(ng-if="$ctrl.reimbursement.state === 'pending'"): .flex-row
+                    //- not assigned actions
+                    .button-group(
+                        ng-if="!$ctrl.reimbursement.employee && !$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated"
+                        dusk="reimbursementAssign")
+                        //- Self assign
+                        .button.button-primary.button-sm(ng-click="$ctrl.assign()")
+                            em.mdi.mdi-account-plus-outline.icon-start 
+                            | Toewijzen aan mij
+
+                    //- reimbursement assigned actions
+                    .button-group(ng-if="$ctrl.reimbursement.employee && $ctrl.reimbursement.employee.identity_address == $root.auth_user.address")
+                        //- Approve
+                        .button.button-primary.button-sm(
+                            ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated"
+                            ng-click="$ctrl.approve()"
+                            dusk="reimbursementApprove")
+                            em.mdi.mdi-check-circle.icon-start
+                            | Accepteren
+
+                        //- Decline
+                        .button.button-default.button-sm(
+                            ng-if="!$ctrl.reimbursement.expired && !$ctrl.reimbursement.deactivated"
+                            ng-click="$ctrl.decline()"
+                            dusk="reimbursementDecline")
+                            em.mdi.mdi-close-circle.icon-start
+                            | Weigeren
+
+                        //- Resign
+                        .button.button-primary-light.button-sm(
+                            ng-click="$ctrl.resign()"
+                            dusk="reimbursementResign")
+                            em.mdi.mdi-account-minus.icon-start 
+                            | Meld af
+
+                    //- reimbursement assigned to someone else
+                    .card-title(ng-if="$ctrl.reimbursement.employee && $ctrl.reimbursement.employee.identity_address != $root.auth_user.address"): .text-small
+                        | Assigned to:&nbsp;
+                        span(ng-bind="$ctrl.reimbursement.employee.email").text-primary.text-strong
+
+            //- Base overview
+            .card-section: .card-block.card-block-table: .table-wrapper
+                table.table.table-fixed
+                    tr
+                        //- Email
+                        td
+                            strong(translate="reimbursements.labels.email").text-strong.text-md.text-primary
+                            br
+                            strong(
+                                ng-class="$ctrl.reimbursement.identity_email ? 'text-black' : 'text-muted'"
+                                ng-bind="$ctrl.reimbursement.identity_email || 'Geen E-mail'")
+
+                        //- BSN
+                        td
+                            strong(translate="reimbursements.labels.bsn").text-strong.text-md.text-primary
+                            br
+
+                            strong(
+                                ng-if="$ctrl.organization.bsn_enabled"
+                                ng-class="$ctrl.reimbursement.identity_bsn ? 'text-black' : 'text-muted'"
+                                ng-bind="$ctrl.reimbursement.identity_bsn || 'Geen BSN'")
+
+                            strong(
+                                ng-if="!$ctrl.organization.bsn_enabled"
+                                ng-bind="'Not available'").text-muted                                
+
+                        //- Fund
+                        td
+                            strong(translate="reimbursements.labels.fund").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reimbursement.fund.name")
+
+                    tr
+                        //- Email
+                        td
+                            strong.text-strong.text-md.text-primary(translate="reimbursements.labels.employee ")
+                            br
+                            strong(
+                                ng-class="$ctrl.reimbursement.employee_id ? 'text-black' : 'text-muted'"
+                                ng-bind="$ctrl.reimbursement.employee.email || 'Niet toegewezen'")
+
+                        //- Lead time
+                        td
+                            strong(translate="reimbursements.labels.lead_time").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reimbursement.lead_time_locale")
+
+                        //- Expire at
+                        td(ng-if="!$ctrl.reimbursement.resolved")
+                            strong(
+                                ng-if="!$ctrl.reimbursement.expired" 
+                                translate="reimbursements.labels.expired_at").text-strong.text-md.text-primary
+
+                            strong(
+                                ng-if="$ctrl.reimbursement.expired"
+                                translate="reimbursements.labels.expire_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reimbursement.expire_at_locale")
+
+                        //- Resolved at
+                        td(ng-if="$ctrl.reimbursement.resolved")
+                            strong(translate="reimbursements.labels.resolved_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reimbursement.resolved_at_locale")
+
+        //- Reimbursement details
+        .card(ng-if="$ctrl.reimbursement" dusk="reimbursementDetails")
+            //- Header
+            .card-header: .card-title Gegevens
+
+            //- Reimbursement details
+            .card-section: .flex
+                .flex: .card-block.card-block-keyvalue
+                    //- IBAN
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.iban")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.iban" dusk="reimbursementIBAN")
+
+                    //- IBAN Name
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.iban_name")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.iban_name" dusk="reimbursementIBANName")
+
+                    //- Amount
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.amount")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.amount_locale" dusk="reimbursementAmount").text-primary.text-medium
+
+                    //- State
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.state")
+                        .keyvalue-value: .label(
+                            ng-class="{pending: 'label-default', approved: 'label-success', declined: 'label-danger'}[$ctrl.reimbursement.state]"
+                            ng-bind="$ctrl.reimbursement.state_locale"
+                            dusk="reimbursementState")
+
+                    //- Title
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.title")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.title" dusk="reimbursementTitle")
+
+                    //- Description
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.description")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.description" dusk="reimbursementDescription")
+
+                    //- Creation date
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.created_at")
+                        .keyvalue-value(ng-bind="$ctrl.reimbursement.created_at_locale")
+
+                    //- Attached files
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.files")
+                        .keyvalue-value
+                            .block.block-attachments-list(ng-if='$ctrl.reimbursement.files.length > 0'): .block-attachments-inner
+                                a.attachment-item(ng-repeat='file in $ctrl.reimbursement.files' ng-click='$ctrl.downloadFile(file)')
+                                    .attachment-icon
+                                        .mdi.mdi-file
+                                        .attachment-size(ng-bind='file.size')
+
+                                    .attachment-name(ng-bind='file.original_name')
+                                    .attachment-date(ng-bind='$ctrl.reimbursement.created_at_locale')
+                                    .attachment-preview(
+                                        title="file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'"
+                                        ng-if="$ctrl.hasFilePreview(file)" 
+                                        ng-click="$ctrl.previewFile($event, file)")
+                                        .mdi.mdi-eye
+
+        //- Reimbursement details (editable)
+        .card(ng-if="$ctrl.reimbursement")
+            //- Header
+            .card-header: .flex-row
+                //- Title
+                .flex.flex-grow: .card-title Extra informatie
+
+                //- Edit
+                .flex: .block.block-inline-filters
+                    .button.button-primary(
+                        ng-if="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"
+                        ng-click="$ctrl.editReimbursementDetails()")
+                        em.mdi.mdi-pencil.icon-start 
+                        | Bewerk
+
+            .card-section: .flex
+                .flex: .card-block.card-block-keyvalue
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.provider")
+                        .keyvalue-value(ng-if="$ctrl.reimbursement.provider_name" ng-bind="$ctrl.reimbursement.provider_name")
+                        .keyvalue-value.text-muted(ng-if="!$ctrl.reimbursement.provider_name") Geen aanbieder
+
+                    .keyvalue-item
+                        .keyvalue-key(translate="reimbursements.labels.category")
+                        .keyvalue-value(ng-if="$ctrl.reimbursement.reimbursement_category.name" ng-bind="$ctrl.reimbursement.reimbursement_category.name")
+                        .keyvalue-value.text-muted(ng-if="!$ctrl.reimbursement.reimbursement_category.name") Geen categorie
+
+        //- Voucher transaction details
+        voucher-transaction-details(
+            ng-if="$ctrl.reimbursement.voucher_transaction"
+            organization="$ctrl.organization"
+            transaction="$ctrl.reimbursement.voucher_transaction")
+
+        block-card-note(
+            is-assigned="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"
+            fetch-notes="$ctrl.fetchNotes(query)"
+            delete-note="$ctrl.deleteNote(note)"
+            store-note="$ctrl.storeNote(data)")

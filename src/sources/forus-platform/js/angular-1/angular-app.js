@@ -5,10 +5,10 @@ require('../../../forus-webshop/js/angular-1/modules/ui-controls/UIControlsModul
 const app = angular.module('forusApp', [
     'ui.router', 'pascalprecht.translate', 'ngCookies', 'uiCropper',
     'ngLocale', '720kb.datepicker', 'forus.selectControl', 'ngSanitize',
-    'forus.uiControls', 'forus.pageLoadingBarModule',
+    'forus.uiControls', 'forus.pageLoadingBarModule', 'ng-sortable', 
 ]);
 
-app.constant('appConfigs', env_data);
+app.constant('appConfigs', {...env_data, ...require('./config/configs')});
 
 // Controllers
 app.controller('BaseController', require('./controllers/BaseController'));
@@ -16,15 +16,20 @@ app.controller('BaseController', require('./controllers/BaseController'));
 // Components
 app.component('homeComponent', require('./components/HomeComponent'));
 app.component('organizationsEditComponent', require('./components/OrganizationsEditComponent'));
+app.component('organizationSecurityComponent', require('./components/OrganizationSecurityComponent'));
 app.component('organizationFundsComponent', require('./components/OrganizationFundsComponent'));
 app.component('providerFundsComponent', require('./components/ProviderFundsComponent'));
 app.component('fundsEditComponent', require('./components/FundsEditComponent'));
 app.component('fundsShowComponent', require('./components/FundsShowComponent'));
+app.component('fundsSecurityComponent', require('./components/FundsSecurityComponent'));
 app.component('fundBackofficeEdit', require('./components/FundBackofficeEditComponent'));
 app.component('transactionsComponent', require('./components/TransactionsComponent'));
 app.component('reservationsComponent', require('./components/ReservationsComponent'));
+app.component('reservationShowComponent', require('./components/ReservationShowComponent'));
 app.component('vouchersComponent', require('./components/VouchersComponent'));
 app.component('vouchersShowComponent', require('./components/VouchersShowComponent'));
+app.component('reimbursementsComponent', require('./components/ReimbursementsComponent'));
+app.component('reimbursementsShowComponent', require('./components/ReimbursementsShowComponent'));
 app.component('productVouchersComponent', require('./components/ProductVouchersComponent'));
 app.component('officesComponent', require('./components/OfficesComponent'));
 app.component('officesEditComponent', require('./components/OfficesEditComponent'));
@@ -33,10 +38,11 @@ app.component('productsEditComponent', require('./components/ProductsEditCompone
 app.component('productsShowComponent', require('./components/ProductsShowComponent'));
 app.component('sponsorProviderOrganizationsComponent', require('./components/SponsorProviderOrganizationsComponent'));
 app.component('sponsorProviderOrganizationComponent', require('./components/SponsorProviderOrganizationComponent'));
+app.component('sponsorFundUnsubscriptionsComponent', require('./components/SponsorFundUnsubscriptionsComponent'));
 app.component('organizationEmployeesComponent', require('./components/OrganizationEmployeesComponent'));
 app.component('csvValidationComponent', require('./components/CsvValidationComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
-app.component('validationRequestComponent', require('./components/ValidationRequestComponent'));
+app.component('fundRequestsShowComponent', require('./components/FundRequestsShowComponent'));
 app.component('providerSignUpComponent', require('./components/ProviderSignUpComponent'));
 app.component('sponsorSignUpComponent', require('./components/SponsorSignUpComponent'));
 app.component('validatorSignUpComponent', require('./components/ValidatorSignUpComponent'));
@@ -49,6 +55,7 @@ app.component('fundProviderProductSubsidyEditComponent', require('./components/F
 app.component('noPermissionComponent', require('./components/NoPermissionComponent'));
 app.component('emailPreferencesComponent', require('./components/EmailPreferencesComponent'));
 app.component('securitySessionsComponent', require('./components/SecuritySessionsComponent'));
+app.component('security2FAComponent', require('./components/Security2FAComponent'));
 app.component('fundProviderInviteComponent', require('./components/FundProviderInviteComponent'));
 app.component('identityEmailsComponent', require('./components/IdentityEmailsComponent'));
 app.component('externalValidatorsComponent', require('./components/ExternalValidatorsComponent'));
@@ -57,14 +64,25 @@ app.component('organizationNotificationsComponent', require('./components/Organi
 app.component('implementationsComponent', require('./components/ImplementationsComponent'));
 app.component('implementationViewComponent', require('./components/ImplementationViewComponent'));
 app.component('implementationCmsEditComponent', require('./components/ImplementationCmsEditComponent'));
+app.component('implementationCmsPageEditComponent', require('./components/ImplementationCmsPageEditComponent'));
 app.component('implementationEmailEditComponent', require('./components/ImplementationEmailEditComponent'));
 app.component('implementationDigidEditComponent', require('./components/ImplementationDigidEditComponent'));
 app.component('implementationNotificationsComponent', require('./components/ImplementationNotificationsComponent'));
 app.component('implementationNotificationsBrandingComponent', require('./components/ImplementationNotificationsBrandingComponent'));
 app.component('implementationNotificationsShowComponent', require('./components/ImplementationNotificationsShowComponent'));
+app.component('implementationNotificationsSendComponent', require('./components/ImplementationNotificationsSendComponent'));
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
+app.component('productBoardComponent', require('./components/ProductBoardComponent'));
+app.component('eventLogsComponent', require('./components/EventLogsComponent'));
+app.component('identitiesShowComponent', require('./components/IdentitiesShowComponent'));
+app.component('implementationCmsConfigEditComponent', require('./components/ImplementationCmsConfigEditComponent'));
+app.component('emailConfirmedComponent', require('./components/EmailConfirmedComponent'));
+app.component('reservationsSettingsComponent', require('./components/ReservationsSettingsComponent'));
+app.component('implementationCmsSocialMediaEditComponent', require('./components/ImplementationCmsSocialMediaEditComponent'));
+app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
+app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -85,13 +103,14 @@ app.component('modalImagePreviewComponent', require('./components/Modals/FilePre
 app.component('modalFundRequestRecordClarifyComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordClarifyComponent'));
 app.component('modalFundRequestRecordDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordDeclineComponent'));
 app.component('modalFundRequestRecordsDeclineComponent', require('./components/Modals/FundRequests/ModalFundRequestRecordsDeclineComponent'));
+app.component('modalFundRequestDisregardComponent', require('./components/Modals/FundRequests/ModalFundRequestDisregardComponent'));
+app.component('modalFundRequestDisregardUndoComponent', require('./components/Modals/FundRequests/ModalFundRequestDisregardUndoComponent'));
 app.component('modalFundCriteriaDescriptionEditComponent', require('./components/Modals/ModalFundCriteriaDescriptionEditComponent'));
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
 app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
 app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
-app.component('modalVoucherExportTypeComponent', require('./components/Modals/ModalVoucherExportTypeComponent'));
 app.component('modalDangerZoneComponent', require('./components/Modals/ModalDangerZoneComponent'));
 app.component('modalFundProviderChatSponsorComponent', require('./components/Modals/ModalFundProviderChatSponsorComponent'));
 app.component('modalFundProviderChatProviderComponent', require('./components/Modals/ModalFundProviderChatProviderComponent'));
@@ -105,19 +124,42 @@ app.component('modalVoucherDeactivationComponent', require('./components/Modals/
 app.component('modalVoucherActivationComponent', require('./components/Modals/ModalVoucherActivationComponent'));
 app.component('modalMailPreviewComponent', require('./components/Modals/ModalMailPreviewComponent'));
 app.component('modalPhysicalCardOrderComponent', require('./components/Modals/ModalPhysicalCardOrderComponent'));
-app.component('modalReservationNotesComponent', require('./components/Modals/ModalReservationNotesComponent'));
 app.component('modalSwitchBankConnectionAccountComponent', require('./components/Modals/ModalSwitchBankConnectionAccountComponent'));
+app.component('modalExportDataSelectComponent', require('./components/Modals/ModalExportDataSelectComponent'));
+app.component('modalVoucherTransactionComponent', require('./components/Modals/ModalVoucherTransactionComponent'));
+app.component('modalFundRequestAssignValidatorComponent', require('./components/Modals/ModalFundRequestAssignValidatorComponent'));
+app.component('modalAddNoteComponent', require('./components/Modals/ModalAddNoteComponent'));
+app.component('modalReimbursementResolveComponent', require('./components/Modals/Reimbursements/ModalReimbursementResolveComponent'));
+app.component('modalReimbursementDetailsEditComponent', require('./components/Modals/Reimbursements/ModalReimbursementDetailsEditComponent'));
+app.component('modalFundUnsubscribeComponent', require('./components/Modals/ModalFundUnsubscribeComponent'));
+app.component('modalVoucherTransactionsUploadComponent', require('./components/Modals/ModalVoucherTransactionsUploadComponent'));
+app.component('modalVoucherRecordEditComponent', require('./components/Modals/ModalVoucherRecordEditComponent'));
+app.component('modalEditSocialMediaComponent', require('./components/Modals/ModalEditSocialMediaComponent'));
+app.component('modal2FASetupComponent', require('./components/Modals/Modal2FASetupComponent'));
+app.component('modal2FADeactivateComponent', require('./components/Modals/Modal2FADeactivateComponent'));
+app.component('modalEditReimbursementCategoryComponent', require('./components/Modals/ModalEditReimbursementCategoryComponent'));
+app.component('modalEditReimbursementCategoriesComponent', require('./components/Modals/ModalEditReimbursementCategoriesComponent'));
+app.component('modalEditRequestRecordComponent', require('./components/Modals/ModalEditRequestRecordComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
 
 // Services
 app.service('AuthService', require('./services/AuthService'));
+app.service('Identity2FAService', require('./services/Identity2FAService'));
 app.service('DateService', require('./services/DateService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
 app.service('TransactionService', require('./services/TransactionService'));
+app.service('TransactionsExportService', require('./services/TransactionsExportService'));
+app.service('TransactionBulkService', require('./services/TransactionBulkService'));
+app.service('TransactionBulksExportService', require('./services/TransactionBulksExportService'));
 app.service('VoucherService', require('./services/VoucherService'));
+app.service('VoucherRecordService', require('./services/VoucherRecordService'));
+app.service('ReimbursementService', require('./services/ReimbursementService'));
+app.service('ReimbursementCategoryService', require('./services/ReimbursementCategoryService'));
+app.service('VoucherExportService', require('./services/VoucherExportService'));
 app.service('FundService', require('./services/FundService'));
+app.service('FundIdentitiesExportService', require('./services/FundIdentitiesExportService'));
 app.service('CredentialsService', require('./services/CredentialsService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
 app.service('IdentityService', require('./services/IdentityService'));
@@ -133,7 +175,6 @@ app.service('ProviderFundService', require('./services/ProviderFundService'));
 app.service('OrganizationEmployeesService', require('./services/OrganizationEmployeesService'));
 app.service('PrevalidationService', require('./services/PrevalidationService'));
 app.service('ProgressFakerService', require('./services/ProgressFakerService'));
-app.service('ValidatorRequestService', require('./services/ValidatorRequestService'));
 app.service('MediaService', require('./services/MediaService'));
 app.service('ProviderIdentityService', require('./services/ProviderIdentityService'));
 app.service('ConfigService', require('./services/ConfigService'));
@@ -158,6 +199,7 @@ app.service('ProductChatService', require('./services/ProductChatService'));
 app.service('FundProviderChatService', require('./services/FundProviderChatService'));
 app.service('NotificationsService', require('./services/NotificationsService'));
 app.service('ImplementationService', require('./services/ImplementationService'));
+app.service('ImplementationPageService', require('./services/ImplementationPageService'));
 app.service('ImplementationNotificationsService', require('./services/ImplementationNotificationsService'));
 app.service('HelperService', require('./services/HelperService'));
 app.service('PhysicalCardsService', require('./services/PhysicalCardsService'));
@@ -165,6 +207,16 @@ app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequ
 app.service('ProductReservationService', require('./services/ProductReservationService'));
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
+app.service('TagService', require('./services/TagService'));
+app.service('ProductBoardService', require('./services/ProductBoardService'));
+app.service('EventLogService', require('./services/EventLogService'));
+app.service('MarkdownService', require('./services/MarkdownService'));
+app.service('FaqService', require('./services/FaqService'));
+app.service('FundUnsubscribeService', require('./services/FundUnsubscribeService'));
+app.service('AnnouncementService', require('./services/AnnouncementService'));
+app.service('ProductReservationsExportService', require('./services/ProductReservationsExportService'));
+app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
+app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 
 // Directives
 app.directive('menu', {
@@ -173,12 +225,7 @@ app.directive('menu', {
     validator: require('./directives/MenuValidatorDirective'),
 } [env_data.panel_type]);
 
-app.directive('appFooter', require('./directives/AppFooterDirective'));
-app.directive('dashboardSwitcher', require('./directives/DashboardSwitcherDirective'));
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
-app.directive('fundCardProvider', require('./directives/FundCardProviderDirective'));
-app.directive('fundCardAvailableProvider', require('./directives/FundCardAvailableProviderDirective'));
-app.directive('fundCardProviderCanJoin', require('./directives/FundCardProviderCanJoinDirective'));
 app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
@@ -191,7 +238,7 @@ app.directive('barChart', require('./directives/BarChartDirective'));
 app.directive('collapse', require('./directives/CollpaseDirective'));
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
 app.directive('landingContactForm', require('./directives/landing/ContactFormDirective'));
-app.directive('landingAuth', require('./directives/landing/AuthDirective'));
+app.directive('landingAuth', require('./directives/landing/LandingAuthDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
@@ -205,23 +252,47 @@ app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
+app.directive('tableCheckboxControl', require('./directives/TableCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
 app.directive('scrollEnd', require('./directives/ScrollEndDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 app.directive('pushNotifications', require('./directives/PushNotificationsDirective'));
-app.directive('fundCardInvitationProvider', require('./directives/FundCardInvitationProviderDirective'));
 app.directive('googleMap', require('./directives/GoogleMapDirective'));
 app.directive('fundCriteriaEditor', require('./directives/FundCriteriaEditorDirective'));
 app.directive('fundCriteriaEditorItem', require('./directives/FundCriteriaEditorItemDirective'));
+app.directive('fundConfigContactInfoEditor', require('./directives/FundConfigContactInfoEditorDirective'));
 app.directive('headerNotifications', require('./directives/HeaderNotificationsDirective'));
 app.directive('providerFundFilters', require('./directives/ProviderFundFiltersDirective'));
 app.directive('controlToggle', require('./directives/controls/ControlToggleDirective'));
+app.directive('controlNumeric', require('./directives/controls/ControlNumericDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
-app.directive('fundFaqEditor', require('./directives/FundFaqEditorDirective'));
-
+app.directive('faqEditor', require('./directives/FaqEditorDirective'));
+app.directive('announcements', require('./directives/AnnouncementsDirective'));
+app.directive('auth2FARestriction', require('./directives/Auth2FARestriction'));
 app.directive('signUpOfficeEdit', require('./directives/sign_up/SignUpOfficeEditDirective'));
+app.directive('eventLogs', require('./directives/EventLogsDirective'));
+app.directive('voucherRecords', require('./directives/VoucherRecordsDirective'));
+app.directive('voucherTransactions', require('./directives/VoucherTransactionsDirective'));
+app.directive('voucherTransactionDetails', require('./directives/TransactionDetailsDirective'));
+app.directive('providerFundsTable', require('./directives/ProviderFundsTableDirective'));
+app.directive('providerAvailableFundsTable', require('./directives/ProviderAvailableFundsTableDirective'));
+app.directive('providerFundsInvitationTable', require('./directives/ProviderFundsInvitationTableDirective'));
+app.directive('providerFundsCanJoin', require('./directives/ProviderFundsCanJoinDirective'));
+app.directive('providerFundUnsubscriptionsTable', require('./directives/ProviderFundUnsubscriptionsTableDirective'));
+app.directive('blockCardVouchers', require('./directives/BlockCardVouchersDirective'));
+app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
+app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
+app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
+
+app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
+app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirective'));
+app.directive('fundRequestRecordAttachments', require('./directives/FundRequestRecordAttachmentsDirective'));
+app.directive('fundRequestRecordClarifications', require('./directives/FundRequestRecordClarificationsDirective'));
+app.directive('fundRequestRecordHistory', require('./directives/FundRequestRecordHistoryDirective'));
+
+app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
@@ -231,7 +302,7 @@ app.directive('appLinks', require('./directives/elements/AppLinksDirective'));
 // Modals
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
-app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
+app.directive('modalScrollBreaker', require('./directives/modals/ModalScrollBreakerDirective'));
 
 // Printable
 app.directive('printablesRoot', require('./directives/printables/PrintableRootDirective'));
@@ -240,9 +311,13 @@ app.directive('printableEnabler', require('./directives/printables/PrintableEnab
 
 app.directive('blockEmpty', require('./directives/blocks/BlockEmptyDirective'));
 app.directive('blockNoPermission', require('./directives/blocks/BlockNoPermissionDirective'));
+app.directive('fundProviderProductEditor', require('./directives/blocks/FundProviderProductEditorDirective'));
 app.directive('blockProviderOrganizationOffices', require('./directives/blocks/sponsor/BlockProviderOrganizationOfficesDirective'));
 app.directive('blockProviderOrganizationEmployees', require('./directives/blocks/sponsor/BlockProviderOrganizationEmployeesDirective'));
 app.directive('blockProviderOrganizationOverview', require('./directives/blocks/sponsor/BlockProviderOrganizationOverviewDirective'));
+
+// Table
+app.directive('thSortable', require('./directives/table/ThSortable'));
 
 // System nitification editor 
 app.directive('systemNotificationEditor', require('./directives/elements/SystemNotificationEditorDirective'));

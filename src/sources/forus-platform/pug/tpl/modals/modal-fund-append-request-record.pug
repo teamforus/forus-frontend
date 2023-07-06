@@ -1,14 +1,16 @@
-.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.closeModal()")
-    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+    form(ng-submit="$ctrl.form.submit()").modal-window.form
         a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="!$ctrl.verificationRequested") Relatie toevoegen
         .modal-header(ng-if="$ctrl.verificationRequested") Gegevens controleren
         .modal-body
             .modal-section(ng-if="!$ctrl.verificationRequested").form: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
                 .form-group
-                    label.form-label Partner
-                    input.form-control(type="number" ng-model="$ctrl.form.values.value")
+                    label.form-label.form-label-required Partner
+                    input.form-control(type="number" ng-model="$ctrl.form.values.value" placeholder="Partner BSN")
                     .form-error(ng-repeat="error in $ctrl.form.errors.value" ng-bind="error")
             
             .modal-section(ng-if="!$ctrl.verificationRequested")

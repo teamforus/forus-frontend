@@ -26,14 +26,18 @@
     li {
         a {
             text-decoration: underline;
-            color: $forus-pink;
+            color: var(--forus-pink);
         }
     }
     .sm {
         li {
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
             cursor: pointer;
             &:hover {
-                color: $forus-pink;
+                color: var(--forus-pink);
                 text-decoration: underline;
             }
         }

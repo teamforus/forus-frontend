@@ -1,10 +1,10 @@
-let ModalVoucherQrCodeComponent = function(
+const ModalVoucherQrCodeComponent = function(
     PushNotificationsService,
     FormBuilderService,
     PrintableService,
     VoucherService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.assigning = $ctrl.assigning || false;
     $ctrl.success = false;
@@ -12,14 +12,11 @@ let ModalVoucherQrCodeComponent = function(
     $ctrl.assignTypes = [{
         key: 'email',
         label: 'E-mailadres',
-    }, {
-        key: 'bsn',
-        label: 'BSN',
     }];
 
     $ctrl.assignType = $ctrl.assignTypes[0];
 
-    $ctrl.onAsignTypeChange = (assignType) => {
+    $ctrl.onAssignTypeChange = (assignType) => {
         if (assignType.key !== 'bsn') {
             delete $ctrl.form.values.bsn;
         }
@@ -79,6 +76,13 @@ let ModalVoucherQrCodeComponent = function(
         $ctrl.assigning = !$ctrl.voucherActive;
         $ctrl.qrCodeValue = $ctrl.voucher.address;
 
+        if ($ctrl.organization.bsn_enabled) {
+            $ctrl.assignTypes.push({
+                key: 'bsn',
+                label: 'BSN'
+            });
+        }
+
         if (!$ctrl.voucherActive && !$ctrl.voucher.activation_code) {
             $ctrl.assignTypes.unshift({ key: 'activation_code', label: 'Create an activation code' });
         }
@@ -107,8 +111,6 @@ let ModalVoucherQrCodeComponent = function(
             });
         });
     };
-
-    $ctrl.$onDestroy = function() { };
 };
 
 module.exports = {

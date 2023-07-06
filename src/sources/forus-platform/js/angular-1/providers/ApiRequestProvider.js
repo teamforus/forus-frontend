@@ -82,7 +82,7 @@ module.exports = function() {
                         auth_redirect = true;
                     }
 
-                    if (method == 'GET') {
+                    if (method.toLowerCase() === 'get') {
                         params.params = data || {};
 
                         for (var prop in params.params) {
@@ -96,32 +96,31 @@ module.exports = function() {
                     }
 
                     params.headers = Object.assign(makeHeaders(), headers);
-                    params.url = resolveUrl(host + endpoint);
                     params.method = method;
+                    params.url = resolveUrl(host + endpoint);
 
                     return $q((done, reject) => {
-                        $http(cfg(params)).then((res) => done(res), function(response) {
-                            if (response.status == 401) {
-                                $rootScope.signOut(false);
-                            }
+                        $http(typeof cfg === 'function' ? cfg(params) : { ...params, ...cfg }).then(
+                            (res) => done(res),
+                            (res) => {
+                                if (res.status == 401) {
+                                    if ($rootScope.handleApi401(res.data)) {
+                                        return;
+                                    } else {
+                                        $rootScope.signOut(false);
+                                    }
+                                }
 
-                            reject(response);
-                        });
+                                reject(res);
+                            }
+                        );
                     });
                 };
 
-                const endpointToUrl = function(endpoint) {
-                    return resolveUrl(host + (endpoint || ''));
-                };
-
                 return {
-                    get: get,
-                    post: post,
-                    patch: patch,
-                    put: put,
+                    ...{ get, put, post, patch, ajax },
                     delete: _delete,
-                    ajax: ajax,
-                    endpointToUrl: endpointToUrl
+                    endpointToUrl: (endpoint) => resolveUrl(host + (endpoint || '')),
                 }
             }
         ];

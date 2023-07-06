@@ -10,6 +10,7 @@ module.exports = {
         labels: {
             transactions: "Uitgaven",
             subtract: "Af",
+            add: "Bij",
             fund: "Fonds",
             expire: "Geldig tot en met:",
             requirements: "Voor voorwaarden van dit aanbod neem contact op met de aanbieder.",
@@ -26,7 +27,8 @@ module.exports = {
                 title: "Hoe werkt het?",
             },
             labels: {
-                description: "Neem de QR-code mee naar de aanbieder. De aanbieder scant de QR-code en levert het aanbod.",  
+                description: "1. Klik op Aanbod en kies en reserveer een activiteit.<br/>OF<br/>" + 
+                    "2. Neem de QR-code mee naar de aanbieder. Deze scant de QR-code en reserveert uw activiteit.",  
                 contact_sponsor: "Vragen? Neem contact met ons op.",
                 contact_provider: "Heeft u vragen over dit aanbod? Neem dan contact met ons op.",
             },
@@ -52,6 +54,25 @@ module.exports = {
             expire: "Geldig tot en met:",
             delete: "Annuleer reservering",
             expired: "Verlopen"
+        },
+        voucher_card_combined: {
+            header: {
+                title: "Hoe werkt het?",
+            },
+            labels: {
+                how_it_works: "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag.",  
+                contact_sponsor: "Heeft u vragen?",
+                contact_sponsor_details: "Neem dan contact met ons op.",
+                redirect_to: "Wilt u nog een vergoeding aanvragen?",
+                IIT: {
+                    how_it_works: "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag.",  
+                    redirect_to: "Wilt u nog een vergoeding aanvragen?",
+                },
+                meedoenregeling_volwassenen_ww: {
+                    how_it_works: "Heeft u kosten gemaakt die binnen deze regeling vallen? Vraag uw kosten terug door een bon in te sturen. Na goedkeuring ontvangt u het bedrag op uw persoonlijke bankrekening.",  
+                    redirect_to: "Kosten terugvragen?",
+                },
+            },
         },
         physical_card: {
             title: 'Activeer mijn pas',

@@ -1,0 +1,26 @@
+.modal.modal-md.modal-animated.modal-loading(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+
+    //- Voucher form
+    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+        .modal-header Notitie toevoegen
+        .modal-body            
+            .modal-section 
+                .modal-heading(ng-if="$ctrl.title" ng-bind="$ctrl.title")
+                .modal-text(ng-if="$ctrl.description" ng-bind="$ctrl.description")
+
+                .form-group
+                    label.form-label.form-label-required Notitie
+                    textarea(ng-model="$ctrl.form.values.description").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
+
+        .modal-footer.text-center
+            button.button.button-default(ng-disabled="$ctrl.submitting" type="button" ng-click="$ctrl.close()") 
+                | Annuleren
+            
+            button.button.button-primary(ng-disabled="$ctrl.submitting" type="submit") 
+                em.mdi.mdi-loading.mdi-spin.icon-start(ng-if="$ctrl.submitting")
+                | Bevestigen

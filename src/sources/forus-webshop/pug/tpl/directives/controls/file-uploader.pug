@@ -1,23 +1,87 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.block.block-file-uploader
+//- File uploader
+.block.block-file-uploader(dusk="fileUploader")
+    //- Drop zone
     .uploader-droparea(ng-if="!$dir.readOnly")
-        .droparea-icon: .mdi.mdi-file-upload-outline
+        //- Drop zone icon
+        .droparea-icon: .mdi.mdi-tray-arrow-up
+
+        //- Drop title and description
         .droparea-title 
-            | Document slepen &amp; neer zetten
+            strong {{ $dir.title || 'Document slepen &amp; neer zetten' }}
             br
             small of
-        .droparea-button: .button.button-primary-outline(ng-click="$dir.selectFile()" role="button") Upload een document
+
+        //- Select file button
+        .droparea-button: button.button.button-primary(
+            dusk="fileUploaderBtn"
+            type="button"
+            role="button"
+            ng-disabled="$dir.multipleSize && $dir.multipleSize <= $dir.files.length"
+            ng-click="$dir.selectFile()")
+            .mdi.mdi-upload
+            | Upload een document 
+
+        //- File requirements
         .droparea-size max. grootte 8Mb
-    
-    .uploader-files(ng-if="files.length > 0")
-        .file-item(ng-repeat="fileItem in files" ng-class="{'file-item-uploading': fileItem.uploading}")
-            .file-item-container
-                .file-item-icon: img(ng-src=src_prefix + "assets/img/file-icon-{{ (fileItem.file.name.split('.')[fileItem.file.name.split('.').length - 1]) }}.svg" alt="")
+
+        //- Input for dusk auto tests
+        input(
+            multiple 
+            type="file"
+            ng-model="$dir.tmpFile" 
+            class="droparea-hidden-input"
+            name="file_uploader_input_hidden"
+            tab-index="1000"
+            onchange="angular.element(this).scope().$dir.addFilesHidden(this)")
+
+    //- Files list
+    .uploader-files(ng-if="$dir.files.length > 0")
+        //- File item
+        .file-item(
+            ng-repeat="fileItem in $dir.files" 
+            ng-class="{'file-item-uploading': fileItem.uploading}")
+
+            //- File item container
+            .file-item-container(ng-class="$dir.fileListCompact != 'false' ? 'file-item-container-compact' : ''")
+                //- File name
+                .file-item-icon: img(
+                    ng-src=src_prefix + "assets/img/file-icon-{{ (fileItem.file.name.split('.')[fileItem.file.name.split('.').length - 1]) }}.svg" 
+                    alt="")
+
+                //- File name
                 .file-item-name(ng-bind="fileItem.file.name")
+
+                //- Progress bar
                 .file-item-progress: .file-item-progress-container: progress(max="100" value="{{ fileItem.progress }}")
-                
-                .file-item-action(ng-if="fileItem.has_preview"): button(ng-click="$dir.previewFile($event, fileItem)" title="Bestand bekijken" role="button" tabindex="0").mdi.mdi-eye
-                .file-item-action(ng-if="!fileItem.uploading"): button(ng-click="$dir.downloadFile($event, fileItem)" title="Bestand downloaden" role="button" tabindex="0").mdi.mdi-download
-                .file-item-action(ng-if="!$dir.readOnly"): button(ng-click="$dir.removeFile(fileItem)" title="Bestand verwijderen" role="button" tabindex="0").mdi.mdi-close
-            .file-item-error: .text-danger(ng-repeat="fileItemError in fileItem.error" ng-bind="fileItemError")
+
+                //- Preview
+                .file-item-action(ng-if="fileItem.has_preview")
+                    button(
+                        ng-click="$dir.previewFile($event, fileItem)"
+                        title="Bestand bekijken"
+                        role="button"
+                        tabindex="0"
+                        type="button").mdi.mdi-eye-outline
+
+                //- Download
+                .file-item-action(ng-if="!fileItem.uploading")
+                    button(
+                        ng-click="$dir.downloadFile($event, fileItem)"
+                        title="Bestand downloaden"
+                        role="button"
+                        tabindex="0"
+                        type="button").mdi.mdi-tray-arrow-down
+
+                //- Delete
+                .file-item-action(ng-if="!$dir.readOnly")
+                    button(
+                        ng-click="$dir.removeFile(fileItem)"
+                        title="Bestand verwijderen"
+                        role="button"
+                        tabindex="0"
+                        type="button").mdi.mdi-close
+
+            //- Validation errors
+            .file-item-error: .text-danger(ng-repeat="error in fileItem.error" ng-bind="error")

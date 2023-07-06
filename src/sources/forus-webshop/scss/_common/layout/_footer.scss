@@ -7,9 +7,9 @@
 
     &.section-footer {
         padding: 30px 0 0;
-        background-color: $fbc;
+        background-color: var(--footer_background_color);
         margin-top: 0;
-        color: $fc;
+        color: var(--footer_color);
     }
 
     @media screen and (max-width: 1000px) {
@@ -25,7 +25,7 @@
         border-top: 1px solid #d7e9ed;
         padding: 40px 0;
         text-align: center;
-        font: 400 14px/30px $bf;
+        font: 400 14px/30px var(--base-font);
 
         .wrapper {
             @include cf();
@@ -51,7 +51,7 @@
                 &::after {
                     content: "";
                     height: 30px;
-                    border-left: 1px solid $border_color;
+                    border-left: 1px solid var(--border-color);
                     display: block;
                     position: absolute;
                     right: 0;
@@ -77,7 +77,7 @@
             a {
                 float: left;
                 font: inherit;
-                color: $fc-link;
+                color: var(--footer_color_link);
                 display: block;
                 transition: 0.4s;
                 text-decoration: underline;
@@ -95,11 +95,11 @@
 
             a {
                 font: inherit;
-                color: $fc-link;
+                color: var(--footer_color_link);
                 transition: 0.4s;
 
                 &:hover {
-                    color: $fc-link-hover;
+                    color: var(--footer_color_link_hover);
                 }
             }
         }
@@ -151,18 +151,46 @@
 
         .footer-label {
             color: #282b39;
-            font: 700 18px $bf;
+            font: 700 18px var(--base-font);
             margin-bottom: 25px;
         }
 
         .block.block-markdown h3 {
             margin: 0.9em 0 0.9em 0;
-            color: $fc;
+            color: var(--footer_color);
         }
-        
-        .block.block-markdown img {
-            width: auto !important;
-            height: auto !important;
+
+        .footer-social-medias {
+            .footer-social-media-title {
+                margin-top: 25px;
+                margin-bottom: 15px;
+                font: 600 16px/24px var(--base-font);
+                color: var(--footer_color);
+            }
+
+            .footer-social-media-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 21px;
+                line-height: 34px;
+                text-align: center;
+                border-radius: var(--border-radius);
+                margin-right: 10px;
+                color: var(--footer_color);
+                position: relative;
+
+                &:after {
+                    content: '';
+                    @include fill_parent();
+                    border-radius: inherit;
+                    border: 1px solid var(--footer_color);
+                    opacity: .25;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
         }
 
         .footer-nav {
@@ -177,19 +205,28 @@
                     margin-bottom: -3px;
                     
                     path {
-                        fill: $fc-link;
+                        fill: var(--footer_color_link);
                     }
                 }
 
                 a {
-                    color: $fc-link;
-                    font: 400 14px/24px $bf;
+                    color: var(--footer_color_link);
+                    font: 400 16px/1.5em var(--base-font);
                     transition: color 0.4s;
                 }
 
                 &:last-child {
                     margin-bottom: 0;
                 }
+            }
+        }
+
+        .footer-sponsor-logo {
+            display: flex;
+
+            .footer-sponsor-logo-mg {
+                width: 180px;
+                display: block;
             }
         }
 
@@ -200,20 +237,20 @@
 
             .schedule-title {
                 color: #00122a;
-                font: 700 14px/24px $bf;
+                font: 700 14px/24px var(--base-font);
                 margin-top: 10px;
             }
 
             .schedule-label {
                 color: #646f79;
-                font: 400 13px/24px $bf;
+                font: 400 13px/24px var(--base-font);
                 float: left;
                 width: 35%;
             }
 
             .schedule-value {
                 color: #00122a;
-                font: 700 13px/24px $bf;
+                font: 700 13px/24px var(--base-font);
                 float: left;
                 width: 65%;
             }
@@ -244,29 +281,37 @@
                     text-align: inherit;
                 }
             }
+
+            .footer-sponsor-logo, .footer-social-media-icons {
+                justify-content: center;
+            }
+
+            .footer-social-media-title {
+                text-align: center;
+            }
         }
     }
 
     @media screen and (max-width: 1700px) {
         &.block-footer {
             .footer-label {
-                font: 400 16px $bf;
+                font: 400 16px var(--base-font);
             }
 
             .footer-schedule {
                 .schedule-label {
-                    font: 400 16px/24px $bf;
+                    font: 400 16px/24px var(--base-font);
                 }
 
                 .schedule-value {
-                    font: 400 16px/24px $bf;
+                    font: 400 16px/24px var(--base-font);
                 }
             }
 
             .footer-nav {
                 .footer-nav-item {
                     a {
-                        font: 400 16px/24px $bf;
+                        font: 400 16px/24px var(--base-font);
                     }
                 }
             }
@@ -315,14 +360,14 @@
                 text-align: center;
                 padding: 0;
                 margin: 0 0 5px;
-                font: 700 16px/30px $bf;
+                font: 700 16px/30px var(--base-font);
             }
 
             .footer-schedule {
                 text-align: center;
 
                 .schedule-label {
-                    font: 400 10px/16px $bf;
+                    font: 400 10px/16px var(--base-font);
                     color: #646f79;
                     width: 100%;
                 }
@@ -330,7 +375,7 @@
                 .schedule-value {
                     width: 100%;
                     color: #00122a;
-                    font: 700 12px/18px $bf;
+                    font: 700 12px/18px var(--base-font);
                     margin: 0 0 0px;
                 }
 
@@ -343,7 +388,7 @@
                 text-align: center;
 
                 .footer-nav-item {
-                    font: 400 13px/20px $bf;
+                    font: 400 13px/20px var(--base-font);
                 }
             }
 

@@ -10,12 +10,12 @@ block content
                     a(ui-sref="provider($ctrl.provider)" ng-bind="$ctrl.provider.name").breadcrumb-item
                     .breadcrumb-item.active(ng-bind="$ctrl.office.address" aria-current="location")
 
-            .office-map: .block.block-google-map: google-map(
+            .office-map(ng-if="$root.appConfigs.features.show_office_map"): .block.block-google-map: google-map(
                 map-pointers="[$ctrl.office]" 
                 map-pointer-template="providers-office-view" 
                 map-gesture-handling="'none'")
 
-            .office-content
+            .office-content(ng-class="{'office-content-top': !$root.appConfigs.features.show_office_map}")
                 .block.block-pane
                     .pane-head
                         h1.sr-only(ng-bind="$ctrl.office.address")
@@ -39,11 +39,6 @@ block content
                                 .data-list-key Type aanbieder:
                                 .data-list-value
                                     .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen type geselecteerd' }}
-
-                .block.block-pane(ng-if="$ctrl.provider.description_html")
-                    .pane-head: h2.pane-head-title Omschrijving
-                    .pane-section: .block.block-markdown
-                        div(ng-bind-html="$ctrl.provider.description_html")
                         
                 .block.block-pane
                     .pane-head: h2.pane-head-title Openingstijden
@@ -66,17 +61,18 @@ block content
                                 .organization-title-value(ng-bind="$ctrl.provider.name")
                                 .organization-title-count(ng-bind="$ctrl.provider.offices.length")
                             
-                            .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')" role = "link" aria-label="Klik voor meer informatie over de aanbieder")
+                            .organization-chevron: .mdi(ng-class="'mdi-chevron-' + ($ctrl.provider.showOffices ? 'up' : 'right')" role="button" aria-expanded="{{$ctrl.provider.showOffices}}" aria-label="Toon/verberg informatie over aanbieder")
                 
                 .block.block-organizations
                     .organization-item
                         .organization-offices(ng-if="$ctrl.provider.showOffices"): .block.block-offices
-                            a(ng-repeat="office in $ctrl.provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
+                            a(ng-repeat="office in $ctrl.provider.offices" ui-sref="provider-office(office)" ui-sref-opts="{reload: true, notify: true}").office-item
                                 .office-item-map-icon: .mdi.mdi-map-marker
                                 .office-pane
                                     .office-pane-block
                                         .office-logo: img(
                                             ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
+                                            alt="office thumbnail"
                                             ).office-logo-img
                                         .office-details
                                             .office-title(ng-bind="office.address")

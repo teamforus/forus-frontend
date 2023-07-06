@@ -6,20 +6,19 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
                 img(src="./assets/img/menu/icon-" + icon + "-hover.svg").hover
                 img(src="./assets/img/menu/icon-" + icon + "-active.svg").active
 
-        mixin nav_item(name, icon, sref, srefParams, ngif, id)
+        mixin nav_item(name, icon, sref, srefParams, ngif, id, dusk)
             a(  
                 ui-sref=(sref + (srefParams ? ("(" + srefParams + ")") : '')) 
                 ui-sref-active="active"
                 ng-if=ngif
-                id=id
-                ).sidebar-nav-item
+                dusk=dusk
+                id=id).sidebar-nav-item
                 .sidebar-nav-item-arrow: .mdi.mdi-menu-right
                 +nav_item_icon(icon)
                 | #{name} 
 
         .sidebar-section-title(translate="menu.organizational")
 
-        //- +nav_item("Fondsen", "clock", 'funds', false)
         +nav_item(
             "Fondsen", "my_funds", 'organization-funds', 
             '{organization_id: $root.activeOrganization.id}', 
@@ -31,19 +30,27 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
                 "Vouchers", "vouchers", 'vouchers', 
                 '{organization_id: $root.activeOrganization.id}',
                 '$root.activeOrganization | hasPerm:["manage_vouchers"]',
-                'vouchers')
+                'vouchers', 'vouchersPage')
 
             +nav_item(
-                "Aanbiedingsvouchers", "productvoucher", 'product-vouchers', 
+                "Aanbiedingsvouchers", "product_voucher", 'product-vouchers', 
                 '{organization_id: $root.activeOrganization.id}',
                 '$root.activeOrganization | hasPerm:["manage_vouchers"]',
                 'product_vouchers')
 
         +nav_item(
+            "Declaraties", "reimbursements", 'reimbursements', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_employees"]',
+            'reimbursements', 'reimbursementsPage')
+        
+        //- '$root.activeOrganization | hasPerm:["manage_reimbursements"]',
+
+        +nav_item(
             "Medewerkers", "list", 'employees', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_employees"]',
-            'employees')
+            'employees', 'employeesPage')
 
         +nav_item(
             "Aanbieders", "people", 'sponsor-provider-organizations', 
@@ -62,9 +69,14 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             '$root.activeOrganization | hasPerm:["manage_organization"]')
 
         +nav_item(
-            "Bank integraties", "connections", 'bank-connections', 
+            "Bank integraties", "bank-connections", 'bank-connections', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization | hasPerm:["manage_bank_connections"]')
+
+        +nav_item(
+            "Beveiliging", "organization-security", 'organization-security', 
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization.allow_2fa_restrictions && $root.activeOrganization | hasPerm:["manage_organization"]')
         
         .sidebar-section-title(
             ng-if="$root.activeOrganization | hasPerm:['view_finances']:false" 
@@ -86,7 +98,13 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             "Transacties", "transactions", 'transactions', 
             '{organization_id: $root.activeOrganization.id}', 
             '$root.activeOrganization | hasPerm:["view_finances"]',
-            'transactions')
+            'transactions', 'transactionsPage')
+
+        +nav_item(
+            'Activiteitenlogboek', 'organization-logs', 'organization-logs',
+            '{organization_id: $root.activeOrganization.id}',
+            'true',
+            'organization-logs')
 
         .sidebar-section-title(
             ng-if="$root.activeOrganization | hasPerm:['manage_implementation', 'manage_implementation_cms']:false" 
@@ -104,6 +122,4 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
 
         .sidebar-section-title(ng-if="$root.activeOrganization" translate="menu.personal")
 
-        +nav_item('E-mail instellingen', 'emails', 'identity-emails', null, '$root.appConfigs.sessions')
-        +nav_item('Sessies', 'sessions', 'security-sessions', '{}', '$root.appConfigs.sessions')
-        +nav_item('Notificatievoorkeuren', 'notifications', 'preferences-notifications')
+        +nav_item('Feedback', 'productboard', 'productboard')

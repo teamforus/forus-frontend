@@ -1,84 +1,72 @@
-let MobileFooterDirective = function(
+const MobileFooterDirective = function(
     $scope,
     $state,
-    $location,
-    $translate,
-    ModalService,
-    FundService
+    VoucherService,
+    FundService,
+    appConfigs
 ) {
-    let $ctrl = this;
-    let prevOffsetY = window.pageYOffset;
+    const { $dir } = $scope;
 
-    $scope.visible = true;
-    $scope.i18nLangs = $translate.getAvailableLanguageKeys();
-    $scope.i18nActive = $translate.use();
+    $dir.visible = true;
+    $dir.vouchers = null;
+    $dir.funds = null;
+    $dir.profileMenuOpened = false;
+    $dir.appConfigs = appConfigs;
 
-    $scope.isActive = function(destination) {
-        if (destination === $location.path()) {
-            return 'page'
-        } else {
-            return false;
+    $dir.hideProfileMenu = () => {
+        $dir.profileMenuOpened = false;
+    }
+
+    $dir.openProfileMenu = ($e) => {
+        if ($e?.target?.tagName != 'A') {
+            $e.stopPropagation();
+            $e.preventDefault();
         }
-    } 
-    
-    $scope.startFundRequest = () => {
-        if ($ctrl.funds.length > 0) {
+
+        $dir.profileMenuOpened = !$dir.profileMenuOpened;
+    }
+
+    $dir.startFundRequest = () => {
+        $dir.hideProfileMenu();
+
+        if ($dir.funds && $dir.funds.length > 0) {
             $state.go('start');
         }
     };
 
-    $scope.openAuthPopup = function() {
-        ModalService.open('modalAuth', {});
+    const getFundList = () => {
+        FundService.list(null, {check_criteria: 1}).then((res) => $dir.funds = res.data.data);
+    }
+
+    $dir.onAuthUserChange = (auth_user) => {
+        if (!auth_user) {
+            return $dir.vouchers = null;
+        }
+
+        getFundList();
+        VoucherService.list().then((res) => $dir.vouchers = res.data.data);
     };
 
-    $scope.openPinCodePopup = function() {
-        ModalService.open('modalPinCode', {});
+    $dir.$onInit = () => {
+        getFundList();
+        $dir.$state = $state;
+
+        $scope.$on('identity:update', (e, auth_user) => $dir.onAuthUserChange(auth_user));
     };
-
-    $scope.openActivateCodePopup = function() {
-        $state.go('start');
-    };
-
-    $scope.openAuthCodePopup = function() {
-        ModalService.open('modalAuthCode', {});
-    };
-
-    $scope.showPopupOffices = function() {
-        ModalService.open('modalOffices', {});
-    };
-
-    $scope.setLang = (lang) => {
-        $translate.use(lang);
-        $scope.i18nActive = $translate.use();
-    };
-
-    $scope.updateScrolled = function() {
-        let currentOffsetY = window.pageYOffset;
-
-        $scope.visible = (prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
-        prevOffsetY = currentOffsetY;
-    };
-    
-    FundService.list().then(res => $ctrl.funds = res.data.data);
-    window.addEventListener('scroll', $scope.updateScrolled);
-
-    $scope.$on('$destroy', function() {
-        window.removeEventListener('scroll', $scope.updateScrolled);
-    });
 };
 
 module.exports = () => {
     return {
-        scope: {},
         restrict: "EA",
         replace: true,
+        bindToController: true,
+        controllerAs: '$dir',
         controller: [
             '$scope',
             '$state',
-            '$location',
-            '$translate',
-            'ModalService',
+            'VoucherService',
             'FundService',
+            'appConfigs',
             MobileFooterDirective
         ],
         templateUrl: 'assets/tpl/directives/mobile-footer.html'

@@ -1,0 +1,101 @@
+.block.block-transaction-details 
+    .card.card-wrapped(ng-if="$dir.showAmount")
+        .card-section: .card-title
+            strong(ng-bind="$dir.transaction.amount | currency_format")
+            | &nbsp;&nbsp;
+            strong.text-primary.pull-right(translate="financial_dashboard_transaction.labels.payment")
+
+        .card-section(ng-if="$dir.transaction.notes.length != 0")
+            .card-block.card-block-notes
+                .note-item(ng-repeat='note in $dir.transaction.notes')
+                    img(ng-src="/assets/img/note-icons/note-icon-{{ note.icon }}.jpg").note-item-icon
+                    .note-item-text(ng-bind="note.message")
+                    .note-item-sign(ng-bind="note.created_at_locale")
+
+    .card.card-wrapped
+        .card-header: .card-title(translate="financial_dashboard_transaction.labels.details")
+
+        .card-section: .flex
+            .flex: .card-block.card-block-keyvalue
+                .keyvalue-item
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.id")
+                    .keyvalue-value(ng-bind="$dir.transaction.id")
+
+                .keyvalue-item(ng-if="!$dir.showAmount")
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.amount")
+                    .keyvalue-value(ng-bind="$dir.transaction.amount | currency_format")
+
+                .keyvalue-item(ng-if="$dir.appConfigs.panel_type == 'sponsor' &&  $dir.transaction.payment_id")
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq_id")
+                    .keyvalue-value(ng-bind="$dir.transaction.payment_id")
+
+                .keyvalue-item(ng-if="$dir.appConfigs.panel_type == 'sponsor'")
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.statement")
+                    .keyvalue-value(
+                        ng-if="['provider', 'iban'].includes($dir.transaction.target)"
+                        ng-bind="$dir.transaction.organization.name || 'Aanvrager'")
+                    .keyvalue-value(ng-if="$dir.transaction.target === 'top_up'") Top up
+
+                .keyvalue-item(ng-if="$dir.transaction.product")
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.product_id")
+                    .keyvalue-value(ng-bind="$dir.transaction.product.id")
+
+                .keyvalue-item(ng-if="$dir.transaction.product")
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.product_name")
+                    .keyvalue-value(ng-bind="$dir.transaction.product.name")    
+
+                .keyvalue-item(ng-if="$dir.appConfigs.panel_type == 'sponsor' && $dir.transaction.target !== 'top_up' && $dir.transaction.state == 'success'")
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.bunq")
+                    .keyvalue-value(ng-bind="$dir.transaction.transaction_cost | currency_format")
+
+                .keyvalue-item
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.date")
+                    .keyvalue-value(ng-bind="$dir.transaction.created_at_locale")
+
+                .keyvalue-item
+                    .keyvalue-key Status
+                    .keyvalue-value
+                        | {{ {pending: 'In afwachting', success: 'Succes', canceled: 'Geannuleerd'}[$dir.transaction.state] }}
+                        div(ng-if="$dir.transaction.transaction_in > 0 && $dir.transaction.state == 'pending'").text-sm.text-muted-dark
+                            em.mdi.mdi-clock-outline 
+                            | {{ $dir.transaction.transaction_in }} dagen resterend
+
+                //- Sponsor IBAN
+                .keyvalue-item(ng-if="$dir.transaction.iban_from")
+                    .keyvalue-key IBAN (van)
+                    .keyvalue-value
+                        span(
+                            ng-bind="$dir.transaction.iban_from" 
+                            ng-class="{'text-muted-dark' : !$dir.transaction.iban_final}")
+
+                        tooltip(
+                            text="'financial_dashboard_transaction.tooltips.pending_iban_from' | translate" 
+                            ng-if="!$dir.transaction.iban_final")
+
+                //- Target iban
+                .keyvalue-item(ng-if="$dir.transaction.iban_to")
+                    .keyvalue-key IBAN (naar)
+                    .keyvalue-value
+                        span(
+                            ng-bind="$dir.transaction.iban_to" 
+                            ng-class="{'text-muted-dark' : !$dir.transaction.iban_final && $dir.transaction.target != 'iban'}")
+
+                        tooltip(
+                            text="'financial_dashboard_transaction.tooltips.pending_iban_to' | translate" 
+                            ng-if="!$dir.transaction.iban_final && $dir.transaction.target != 'iban'")
+
+                //- Target iban name
+                .keyvalue-item(ng-if="$dir.transaction.iban_to_name")
+                    .keyvalue-key IBAN naam (naar)
+                    .keyvalue-value
+                        span(
+                            ng-bind="$dir.transaction.iban_to_name" 
+                            ng-class="{'text-muted-dark' : !$dir.transaction.iban_final && $dir.transaction.target != 'iban'}")
+
+                        tooltip(
+                            text="'financial_dashboard_transaction.tooltips.pending_iban_to' | translate" 
+                            ng-if="!$dir.transaction.iban_final && $dir.transaction.target != 'iban'")
+
+            .flex.flex-column.flex-end(ng-if="$dir.transaction.cancelable && $dir.transaction.reservation")
+                button(ng-click="$dir.cancelTransaction($dir.transaction.reservation)").button.button-default.button-sm
+                    strong.nowrap Betaling annuleren

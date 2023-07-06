@@ -96,7 +96,7 @@
             &.active{
                 &:after{
                     @include transition();
-                    border-bottom: 3px solid $tc;
+                    border-bottom: 3px solid var(--border-color);
                     width: 100%;
                 }
                 @include transition();

@@ -2,17 +2,26 @@ top-navbar
 section.section.section-voucher-details: .wrapper
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
-        .breadcrumb-item.active Security
+        .breadcrumb-item.active Beveiliging
 
     .block.block-profile
-        .profile-aside: profile-menu
+        .profile-aside.hide-sm: profile-menu
 
-        .profile-content
+        .profile-content(ng-if="$ctrl.auth2FAState.restrictions.sessions.restricted")
+            auth-2-f-a-restriction(
+                type="sessions"
+                items="$ctrl.auth2FAState.restrictions.sessions.funds"
+                item-name="name"
+                item-thumbnail="logo.sizes.thumbnail"
+                default-thumbnail="fund-thumbnail")
+
+        .profile-content(ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.sessions.restricted")
             .profile-content-header.clearfix
                 .profile-content-title
                     div.pull-left
                         .profile-content-title-count(ng-bind="$ctrl.sessions.length")
                         | Sessies
+
             .card(ng-repeat="session in $ctrl.sessions")
                 .card-section.card-section-padless
                     .block.block-sessions
@@ -29,6 +38,8 @@ section.section.section-voucher-details: .wrapper
                                     span(ng-if="session.last_request.client_type == 'app-me_app'") Me-app
                                     span(ng-if="session.last_request.client_type == 'app-me_app-android'") Me-app
                                     span(ng-if="session.last_request.client_type == 'app-me_app-ios'") Me-app
+                                    span(ng-if="session.last_request.client_type == 'me_app-android'") Me-app 
+                                    span(ng-if="session.last_request.client_type == 'me_app-ios'") Me-app 
                                     span(ng-if="session.last_request.device_string").text-primary • 
                                     span(ng-if="session.last_request.device_string" ng-bind="session.last_request.device_string")
                                 
@@ -40,7 +51,7 @@ section.section.section-voucher-details: .wrapper
                                             span(ng-if="session.last_request.location").session-property-sep.text-primary • 
                                             span(
                                                 ng-if="session.last_request.location" 
-                                                ng-bind="session.last_request.location.ip + ' • ' +  session.last_request.location.string ")
+                                                ng-bind="'127.0.0.1' + ' • ' +  session.last_request.location.string ")
                                     
                                     .session-property
                                         .session-property-label Sessie gestart

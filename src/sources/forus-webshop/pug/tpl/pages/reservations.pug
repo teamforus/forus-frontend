@@ -8,63 +8,87 @@ section.section.section-profile: .wrapper
         .profile-aside
             profile-menu.hide-sm
 
-            .form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
+            .form.form-compact
                 .profile-aside-block
+                    //- Search
                     .form-group
-                        input.form-control(
+                        ui-control-search-input(
                             ng-model="$ctrl.filters.q"
-                            placeholder="Zoek reservering" 
-                            type="search"
+                            placeholder="Zoek reservering"
                             aria-label="search"
                             id="products_search")
 
+                    //- Fund
                     .form-group
                         label.form-label(for="select_fund") Tegoeden
                         select-control(
-                            autoclear="true"
+                            id="select_fund"
+                            name="fund"
+                            prop="id"
                             ng-model="$ctrl.filters.fund_id"
                             options="$ctrl.funds"
-                            placeholder="Selecteer tegoed..."
-                            name="fund"
-                            id="select_fund")
+                            placeholder="{{ $ctrl.funds[0].name }}")
 
+                    //- Provider
                     .form-group
                         label.form-label(for="select_provider") Aanbieders
-                        select(
-                            ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
-                            ng-model="$ctrl.filters.organization_id"
+                        select-control(
+                            id="select_provider"
                             name="provider"
-                            id="select_provider").form-control
+                            prop="id"
+                            ng-model="$ctrl.filters.organization_id"
+                            options="$ctrl.organizations"
+                            placeholder="{{ $ctrl.organizations[0].name }}")
 
+                    //- state
                     .form-group
-                        label.form-label(for="select_filters") Status
-                        select(
-                            ng-options="state.value as state.name for state in $ctrl.states" 
+                        label.form-label(for="select_provider") Status
+                        select-control(
+                            id="select_filters"
+                            name="state"
+                            prop="value"
                             ng-model="$ctrl.filters.state"
-                            name="filters"
-                            id="select_filters").form-control
+                            options="$ctrl.states"
+                            placeholder="{{ $ctrl.filters.state[0].name }}")
 
         .profile-content
-            .profile-content-header
-                .profile-content-title.flex.flex-start
-                    h1.profile-content-header(translate="reservations.header.title")
-                    .profile-content-title-count(ng-bind="$ctrl.reservations.meta.total")
-                .profile-content-subtitle(translate="reservations.header.subtitle")
+            .profile-content-header.clearfix
+                .profile-content-title
+                    .pull-left
+                        .profile-content-title-count(ng-bind="$ctrl.reservations.meta.total")
+                        h1.profile-content-header(translate="reservations.header.title" dusk="reservationsTitle")
+
+                .block.block-label-tabs.form.pull-right
+                    .label-tab-set
+                        .label-tab.label-tab-sm(
+                            ng-class="{active: !$ctrl.filters.archived}"
+                            ng-click="$ctrl.filters.archived = 0"
+                            role="button")
+                            | Actief
+
+                        .label-tab.label-tab-sm(
+                            ng-class="{active: $ctrl.filters.archived}"
+                            ng-click="$ctrl.filters.archived = 1"
+                            role="button")
+                            | Archief
+
+            .profile-content-header: .profile-content-subtitle(translate="reservations.header.subtitle")
 
             .block.block-reservations(ng-if="$ctrl.reservations.data.length > 0")
                 reservation-card(
                     ng-repeat="reservation in $ctrl.reservations.data"
-                    on-delete="$ctrl.onDelete()"
+                    on-delete="$ctrl.onPageChange()"
                     reservation="reservation")
 
             empty-block(
                 ng-if="$ctrl.reservations.meta.total == 0"
+                svg-icon="reimbursements"
                 title="{{ 'reservations.empty_block.title' | translate }}"
                 description="{{ 'reservations.empty_block.subtitle' | translate }}"
                 text="{{ 'reservations.empty_block.cta' | translate }}"
                 hide-link="true")
 
-            .card(ng-if="$ctrl.reservations"): .card-section(ng-show="$ctrl.reservations.meta.last_page > 1")
+            .card(ng-if="$ctrl.reservations" ng-show="$ctrl.reservations.meta.last_page > 1"): .card-section
                 paginator(
                     meta="$ctrl.reservations.meta" 
                     filters="$ctrl.filters" 

@@ -30,34 +30,30 @@ block content
 
                             .form-group
                                 label.form-label(for="category_id") Categorie
-                                select(
-                                    ng-options="category.id as category.name for category in $ctrl.productCategories"
-                                    ng-model="$ctrl.filters.product_category_id"
-                                    id="category_id").form-control
-
-                            .form-group
-                                label.form-label Tegoeden
                                 select-control(
-                                    autoclear="true"
-                                    ng-model="$ctrl.filters.fund"
-                                    options="$ctrl.funds"
-                                    placeholder="Selecteer tegoeden...")
+                                    id="category_id"
+                                    prop="id"
+                                    ng-model="$ctrl.filters.product_category_id"
+                                    options="$ctrl.productCategories"
+                                    placeholder="{{ $ctrl.productCategories[0].name }}")
 
                             .form-group
                                 label.form-label(for="fund_id") Tegoeden
                                 select-control(
-                                    autoclear="true"
-                                    ng-model="$ctrl.filters.fund"
+                                    id="fund_id"
+                                    prop="id"
+                                    ng-model="$ctrl.filters.fund_id"
                                     options="$ctrl.funds"
-                                    placeholder="Selecteer tegoeden..."
-                                    id="fund_id")
+                                    placeholder="{{ $ctrl.funds[0].name }}")
 
                             .form-group
                                 label.form-label(for="organizatie_id") Aanbieders
-                                select(
-                                    ng-options="organization.id as organization.name for organization in $ctrl.organizations"
+                                select-control(
+                                    id="organization_id"
+                                    prop="id"
                                     ng-model="$ctrl.filters.organization_id"
-                                    id="organizatie_id").form-control
+                                    options="$ctrl.organizations"
+                                    placeholder="{{ $ctrl.organizations[0].name }}")
 
                     .showcase-content
                         .showcase-content-header
@@ -67,22 +63,17 @@ block content
                                     div.ellipsis(ng-if="$ctrl.filters.q") Zoekresultaten gevonden voor "{{ $ctrl.filters.q }}"
                                     div.ellipsis(ng-if="!$ctrl.filters.q") Zoekresultaten
 
-                            .showcase-filters-block: .block.block-label-tabs
-                                .label-tab-set
-                                    .label-tab.label-tab-sm.label-tab-primary-light(
-                                        ng-class="{active: $ctrl.showOrderDropdown}"
-                                        ng-click="$ctrl.setOrderDropdown($event, !$ctrl.showOrderDropdown)")
-                                        em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.showOrderDropdown ? 'up' : 'down')")
-                                        | Sorteer
-                                        .label-tab-menu(ng-if="$ctrl.showOrderDropdown" click-outside="$ctrl.setOrderDropdown($event, false)")
-                                            .label-tab-menu-item(
-                                                ng-repeat="sortByOption in $ctrl.sortByOptions track by $index"
-                                                ng-class="{active: $ctrl.sortBy.label === sortByOption.label}"
-                                                ng-click="$ctrl.setSortBy($event, sortByOption)")
-                                                translate(translate="{{ sortByOption.label }}")
-                                                em.mdi.mdi-check(ng-if="$ctrl.sortBy.label === sortByOption.label")
-
-                                    .label-tab.label-tab-sm.label-tab-disabled(ng-bind="$ctrl.sortBy.label")
+                            .showcase-filters-block: .block.block-label-tabs.form
+                                .showcase-filters-item
+                                    label.form-label Sorteer
+                                    select-control(
+                                        id="sort_by"
+                                        as="label"
+                                        search="false"
+                                        ng-model="$ctrl.sortBy"
+                                        ng-change="$ctrl.updateSortBy()"
+                                        options="$ctrl.sortByOptions"
+                                        placeholder="Sorteer")
 
                                 .label-tab-set
                                     .label-tab.label-tab-sm(
@@ -105,11 +96,12 @@ block content
 
                         empty-block(
                             title= "{{ 'block_products.labels.title' | translate }}"
+                            svg-icon="reimbursements"
                             description="{{ 'block_products.labels.subtitle' | translate }}"
                             hide-link="true"
                             ng-if="$ctrl.searchItems.data.length == 0")
 
-                        .card(ng-if="$ctrl.searchItems"): .card-section(ng-show="$ctrl.searchItems.meta.last_page > 1")
+                        .card(ng-if="$ctrl.searchItems" ng-show="$ctrl.searchItems.meta.last_page > 1"): .card-section
                             paginator(
                                 ng-show="$ctrl.searchItems.meta.total > 0"
                                 ng-if="$ctrl.searchItems.meta"

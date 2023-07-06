@@ -33,6 +33,8 @@ platform.setLibs([
     "ui_select",
     "file_saver",
     "pdfjs",
+    "sortablejs",
+    "angular-legacy-sortablejs",
 ]);
 
 // tweaking output and cleaned paths config
@@ -56,7 +58,7 @@ platform.addTask('js', {
     dest: "/",
     name: "app.min.js",
     minify: false,
-    sourcemap: true,
+    sourcemap: false,
     browserify: true
 }, 'js');
 

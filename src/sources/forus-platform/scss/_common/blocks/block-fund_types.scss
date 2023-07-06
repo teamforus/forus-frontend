@@ -19,8 +19,8 @@
         .fund_type-item-inner {
             padding: 20px 20px;
             background-color: #f6f9fc;
-            border: 1px solid $borderColor;
-            border-radius: $border_radius / 2;
+            border: 1px solid var(--border-color);
+            border-radius: calc(var(--border-radius) / 2);
             transition: .4s;
             position: relative;
             box-shadow: 0 0 0 transparent;
@@ -36,7 +36,7 @@
             }
     
             .fund_type-name {
-                font: 500 14px $bf;
+                font: 500 14px var(--base-font);
                 margin: 0 0 -5px;
             }
     
@@ -69,7 +69,7 @@
                 flex-direction: row;
                 padding: 10px;
                 background-color: #fff;
-                border: 1px dashed $borderColor;
+                border: 1px dashed var(--border-color);
                 cursor: default;
 
                 .fund_type-media {
@@ -79,7 +79,7 @@
 
                 &:hover {
                     background-color: #fff;
-                    border: 1px dashed $borderColor;
+                    border: 1px dashed var(--border-color);
                     box-shadow: none;
                 }
             }

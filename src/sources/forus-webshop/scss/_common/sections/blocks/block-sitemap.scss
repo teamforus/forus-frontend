@@ -1,12 +1,12 @@
 .block {
     &.block-sitemap {
-        font: 400 16px/28px $bf;
+        font: 400 16px/28px var(--base-font);
         color: #191A1C;
         margin: 0 0 30px;
 
         h1 {
-            font: 600 28px/34px $hf;
-            color: $tc;
+            font: 600 28px/34px var(--hf);
+            color: var(--tc);
         }
 
         a {

@@ -48,7 +48,13 @@ module.exports = () => {
             '$timeout',
             SelectControlOptions
         ],
-        template: require('./templates/select-control-options.pug'),
-        //templateUrl: 'assets/tpl/modules/select-control/select-control-options.html'
+        template: ($el, $attr) => {
+            const templateName = $attr.template || 'select-control-options';
+
+            return $el ? {
+                'select-control-options': require('./templates/select-control-options.pug')(),
+                'select-control-options-voucher': require('./templates/select-control-options-voucher.pug')(),
+            }[templateName] || `<div>Template: ${templateName} not found</div>` : '<div></div>';
+        }
     };
 };

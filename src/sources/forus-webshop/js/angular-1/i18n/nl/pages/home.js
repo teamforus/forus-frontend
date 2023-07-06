@@ -13,25 +13,21 @@ module.exports = {
         auth_cta: "Bekijk uw tegoeden en neem ze mee door de Me-app te gebruiken.",
         auth_button: "Download Me",
         signup_cta: "Lees meer >",
-        button: 'Start', 
+        button: 'Inloggen', 
         potjeswijzer: {
             button: 'Start aanvraag', 
         },
         westerkwartier: {
-            button: 'Start aanvraag', 
-        },
-        groningen: {
-            button: 'Start aanvraag', 
-        },
-        nijmegen: {
-            button: 'Start aanvraag', 
+            subtitle_av: "Er bestaan veel verschillende potjes binnen het Westerkwartier, vaak meer dan je denkt. Met deze website kan je potjes aanvragen, beheren en uitgeven.",
+            cta_av: "",
+            button_av: 'Start',  
         },
         button_av: 'Aanvragen', 
         
         potjeswijzer: {
             subtitle_av: "Er bestaan veel verschillende potjes binnen het Westerkwartier, vaak meer dan je denkt. Met deze website kan je potjes aanvragen, beheren en uitgeven.",
             cta_av: "",
-            button_av: 'Start', 
+            button_av: 'Start',
         },
         berkelland: {
             title_multi: "Kindregeling gemeente Berkelland",
@@ -42,13 +38,13 @@ module.exports = {
             title: "Kindregeling gemeente Oost Gelre",
             title_multi: "Kindregeling gemeente Oost Gelre",
             subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Oost Gelre. Heeft u via Fijnder een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
-            cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen."
+            cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
         },
         winterswijk: {
             title_multi: "Kindregeling gemeente Winterswijk",
             subtitle_multi: "Welkom op de website van de Kindregeling van de gemeente Winterswijk. Heeft u via Fijnder een toekenning voor de Kindregeling gekregen? Dan kunt u hier het aanbod zien en het geld dat u kunt besteden.",
             cta: "Klik op ‘Start’ en vul uw activatiecode in. Deze code staat in de brief over de Kindregeling die u heeft ontvangen.",
-            header_note: "Fotograaf: H. van Ommen"
+            header_note: "Fotograaf: H. van Ommen",
         },
         noordoostpolder: {
             title: "Meedoenpakket",
@@ -58,6 +54,9 @@ module.exports = {
         nijmegen: {
             cta_av: "",
         },
+        vergoedingen: {
+            button: "Inloggen / registreren"
+        }
     },
     blog: {
         title: "Onze blog",

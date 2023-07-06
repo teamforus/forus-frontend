@@ -5,7 +5,7 @@ const sortBy = require('lodash/sortBy');
 const uniq = require('lodash/uniq');
 const map = require('lodash/map');
 
-let ModalVouchersUploadComponent = function(
+const ModalVouchersUploadComponent = function(
     $q,
     $rootScope,
     $timeout,
@@ -18,7 +18,7 @@ let ModalVouchersUploadComponent = function(
     ProductService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.progress = 1;
 
@@ -26,6 +26,7 @@ let ModalVouchersUploadComponent = function(
     $ctrl.progressBar = 0;
     $ctrl.progressStatus = "";
     $ctrl.productsIds = [];
+    $ctrl.hideModal = false;
 
     let $translate = $filter('translate')
     let input;
@@ -66,6 +67,7 @@ let ModalVouchersUploadComponent = function(
                 }
 
                 input = document.createElement('input');
+                input.setAttribute("dusk", "inputUpload");
                 input.setAttribute("type", "file");
                 input.setAttribute("accept", ".csv");
                 input.style.display = 'none';
@@ -80,7 +82,7 @@ let ModalVouchersUploadComponent = function(
             this.defaultNote = function(row) {
                 return $translate('vouchers.csv.default_note' + (row.email ? '' : '_no_email'), {
                     upload_date: moment().format('YYYY-MM-DD'),
-                    uploader_email: $rootScope.auth_user.email,
+                    uploader_email: $rootScope.auth_user?.email || $rootScope.auth_user?.address,
                     target_email: row.email || null,
                 });
             }
@@ -98,6 +100,11 @@ let ModalVouchersUploadComponent = function(
                     return false;
                 }
 
+                if (!$ctrl.organization.bsn_enabled && data.filter((row) => row.bsn).length > 0) {
+                    this.errors.csvHasBsnWhileNotAllowed = true;
+                    return false;
+                }
+
                 if ($ctrl.type == 'fund_voucher') {
                     return this.validateCsvDataBudget(data);
                 } else if ($ctrl.type == 'product_voucher') {
@@ -111,19 +118,21 @@ let ModalVouchersUploadComponent = function(
                 const fundBudget = $ctrl.fund.limit_sum_vouchers;
                 const csvTotalAmount = data.reduce((sum, row) => sum + parseFloat(row.amount || 0), 0);
 
-                this.errors.csvAmountMissing = data.filter(row => !row.amount).length > 0;
+                if ($ctrl.fund.type === 'budget') {
+                    this.errors.csvAmountMissing = data.filter(row => !row.amount).length > 0;
 
-                // csv total amount should be withing fund budget
-                this.errors.invalidAmountField = csvTotalAmount > fundBudget;
+                    // csv total amount should be withing fund budget
+                    this.errors.invalidAmountField = csvTotalAmount > fundBudget;
+
+                    // some vouchers exceed the limit per voucher
+                    this.errors.invalidPerVoucherAmount = data.filter(
+                        row => row.amount > $ctrl.fund.limit_per_voucher
+                    ).length > 0;
+                }
 
                 // fund vouchers csv shouldn't have product_id field
                 this.errors.csvProductIdPresent = data.filter(
                     row => row.product_id != undefined
-                ).length > 0;
-
-                // some vouchers exceed the limit per voucher
-                this.errors.invalidPerVoucherAmount = data.filter(
-                    row => row.amount > $ctrl.fund.limit_per_voucher
                 ).length > 0;
 
                 return !this.errors.invalidAmountField &&
@@ -159,8 +168,9 @@ let ModalVouchersUploadComponent = function(
                 }
 
                 new $q((resolve) => Papa.parse(file, { complete: resolve })).then((res) => {
-                    let body = res.data;
-                    let header = res.data.shift();
+                    let csvData = this.transformCsvData(res.data);
+                    let body = csvData;
+                    let header = csvData.shift();
 
                     let data = body.filter(row => {
                         return row.filter(col => !isEmpty(col)).length > 0;
@@ -169,11 +179,13 @@ let ModalVouchersUploadComponent = function(
 
                         header.forEach((hVal, hKey) => {
                             if (val[hKey] && val[hKey] != '') {
-                                row[hVal.trim()] = val[hKey].trim();
+                                row[hVal.trim()] = typeof val[hKey] === 'object' ? val[hKey] : val[hKey].trim();
                             }
                         });
 
                         row.note = row.note || this.defaultNote(row);
+                        row.client_uid = row.client_uid || row.activation_code_uid || null;
+                        delete row.activation_code_uid;
 
                         return isEmpty(row) ? false : row;
                     }).filter(row => !!row);
@@ -183,6 +195,30 @@ let ModalVouchersUploadComponent = function(
                     this.csvFile = file;
                     this.progress = 1;
                 }, console.error);
+            };
+
+            this.transformCsvData = (rawData) => {
+                const header = rawData[0];
+
+                const recordIndexes = header.reduce((list, row, index) => {
+                    return row.startsWith('record.') ? [...list, index] : list;
+                }, []);
+
+                const body = rawData.slice(1).filter((row) => {
+                    return row.filter(col => !isEmpty(col)).length > 0;
+                }).map((row) => {
+                    const records = recordIndexes.reduce((list, index) => {
+                        return { ...list, [header[index].slice('record.'.length)]: row[index] };
+                    }, {});
+
+                    const values = row.reduce((list, item, key) => {
+                        return recordIndexes.includes(key) ? list : [...list, item];
+                    }, []);
+
+                    return [...values, records];
+                });
+
+                return [[...header.filter((value, index) => value && !recordIndexes.includes(index)), 'records'], ...body];
             };
 
             this.validateProductId = function(data = []) {
@@ -299,30 +335,30 @@ let ModalVouchersUploadComponent = function(
                         'timer-sand'
                     );
 
-                    let emails = data.map(voucher => voucher.identity_email);
-                    let bsns = [
+                    const emails = data.map(voucher => voucher.identity_email);
+                    const bsnList = [
                         ...data.map(voucher => voucher.relation_bsn),
                         ...data.map(voucher => voucher.identity_bsn)
                     ];
 
-                    let existingEmails = this.data.filter(csvRow => {
+                    const existingEmails = this.data.filter((csvRow) => {
                         return emails.indexOf(csvRow.email) != -1;
-                    }).map(csvRow => csvRow.email);
+                    }).map((csvRow) => csvRow.email);
 
-                    let existingBsn = this.data.filter(csvRow => {
-                        return bsns.indexOf(csvRow.bsn) != -1;
-                    }).map(csvRow => csvRow.bsn);
+                    const existingBsn = this.data.filter((csvRow) => {
+                        return bsnList.indexOf(csvRow.bsn) != -1;
+                    }).map((csvRow) => csvRow.bsn);
 
                     $ctrl.loading = false;
 
                     if (existingEmails.length === 0 && existingBsn.length === 0) {
-                        return this.startUploading();
+                        return this.startUploading(true).then(() => this.startUploading());
                     }
 
                     this.confirmEmailSkip(existingEmails, () => {
                         this.confirmBsnSkip(existingBsn, () => {
                             if (this.data.length > 0) {
-                                return this.startUploading();
+                                return this.startUploading(true).then(() => this.startUploading());
                             }
 
                             $ctrl.close();
@@ -331,8 +367,8 @@ let ModalVouchersUploadComponent = function(
                 }, () => $ctrl.loading = false);
             }
 
-            this.startUploading = function() {
-                $q(async (resolve) => {
+            this.startUploading = function(validation = false) {
+                return $q(async (resolve) => {
                     let totalRows = this.data.length;
                     let uploadedRows = 0;
                     let data = JSON.parse(JSON.stringify(this.data)).map(row => {
@@ -354,20 +390,115 @@ let ModalVouchersUploadComponent = function(
                             return row;
                         });
 
-                        await this.startUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
-                            uploadedRows += chunkData.length;
-                            setProgress((uploadedRows / totalRows) * 100);
-
-                            if (uploadedRows === totalRows) {
-                                $timeout(() => {
-                                    setProgress(100);
-                                    this.progress = 3;
-                                    $rootScope.$broadcast('vouchers_csv:uploaded', true);
-                                }, 0);
+                        if (validation) {
+                            await this.startValidationUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
+                                uploadedRows += chunkData.length;
+                                setProgress((uploadedRows / totalRows) * 100);
+                            }).then(() => {
+                                $timeout(() => setProgress(100));
                                 resolve();
-                            }
-                        });
+                            }, (errors) => {
+                                this.progress = 1;
+                                this.showInvalidRows(errors, dataGrouped[fund_id]);
+                            });
+                        } else {
+                            await this.startUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
+                                uploadedRows += chunkData.length;
+                                setProgress((uploadedRows / totalRows) * 100);
+
+                                if (uploadedRows === totalRows) {
+                                    $timeout(() => {
+                                        setProgress(100);
+                                        this.progress = 3;
+                                        $rootScope.$broadcast('vouchers_csv:uploaded', true);
+                                    }, 0);
+                                    resolve();
+                                }
+                            });
+                        }
                     }
+                });
+            };
+
+            this.startValidationUploadingData = function(fund_id, groupData, onChunk = () => { }) {
+                return new Promise((resolve, reject) => {
+                    const submitData = chunk(groupData, dataChunkSize);
+                    const chunksCount = submitData.length;
+
+                    let errors = {};
+                    let currentChunkNth = 0;
+
+                    const uploadChunk = (data) => {
+                        VoucherService.storeCollectionValidate($ctrl.organization.id, fund_id, data).then(() => {
+                            currentChunkNth++;
+                            onChunk(data);
+                            resolveIfFinished();
+                        }, (res) => {
+                            if (res.status == 422 && res.data.errors) {
+                                Object.keys(res.data.errors).forEach(function(key) {
+                                    const keyData = key.split('.');
+                                    keyData[1] = parseInt(keyData[1], 10) + currentChunkNth * dataChunkSize;
+                                    errors[keyData.join('.')] = res.data.errors[key];
+                                });
+                            } else {
+                                alert('Onbekende error.');
+                            }
+
+                            currentChunkNth++;
+                            onChunk(data);
+
+                            resolveIfFinished();
+                        });
+                    };
+
+                    const resolveIfFinished = () => {
+                        if (currentChunkNth == chunksCount) {
+                            if (Object.keys(errors).length) {
+                                return reject(errors);
+                            }
+
+                            resolve(true);
+                        } else if (currentChunkNth < chunksCount) {
+                            uploadChunk(submitData[currentChunkNth]);
+                        }
+                    }
+
+                    uploadChunk(submitData[currentChunkNth]);
+                });
+            };
+
+            this.showInvalidRows = function(errors = {}, vouchers = []) {
+                const items = Object.keys(errors).map(function(key) {
+                    const keyData = key.split('.');
+                    const keyDataId = keyData[1];
+                    const index = parseInt(keyDataId, 10) + 1;
+
+                    return [index, errors[key], vouchers[keyDataId]];
+                }).sort((a, b) => a[0] - b[0]);
+
+                const uniqueRows = items.reduce((arr, item) => {
+                    return arr.includes(item[0]) ? arr : [...arr, item[0]];
+                }, []);
+
+                const message = [
+                    `${uniqueRows.length} van ${vouchers.length}`,
+                    `rij(en) uit het bulkbestand zijn niet geimporteerd,`,
+                    `bekijk het bestand bij welke rij(en) het mis gaat.`,
+                ].join(" ");
+
+                PushNotificationsService.danger('Waarschuwing', message);
+
+                $ctrl.hideModal = true;
+
+                ModalService.open('duplicatesPicker', {
+                    hero_title: "Voucher import has errors",
+                    hero_subtitle: message,
+                    enableToggles: false,
+                    items: items.map((item) => ({ value: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}` })),
+                    onConfirm: () => $timeout(() => $ctrl.hideModal = false, 300),
+                    onCancel: () => $timeout(() => $ctrl.hideModal = false, 300),
+                }, {
+                    onClose: () => $timeout(() => $ctrl.hideModal = false, 300),
                 });
             };
 
@@ -377,7 +508,7 @@ let ModalVouchersUploadComponent = function(
                     var chunksCount = submitData.length;
                     var currentChunkNth = 0;
 
-                    let uploadChunk = (data) => {
+                    const uploadChunk = (data) => {
                         $ctrl.changed = true;
 
                         VoucherService.storeCollection($ctrl.organization.id, fund_id, data).then(() => {
@@ -417,7 +548,9 @@ let ModalVouchersUploadComponent = function(
         if ($ctrl.type == 'fund_voucher') {
             FileService.downloadFile(
                 'budget_voucher_upload_sample.csv',
-                VoucherService.sampleCSVBudgetVoucher($ctrl.fund.end_date)
+                $ctrl.fund.type === 'budget'
+                    ? VoucherService.sampleCSVBudgetVoucher($ctrl.fund.end_date)
+                    : VoucherService.sampleCSVSubsidiesVoucher($ctrl.fund.end_date)
             );
         } else {
             FileService.downloadFile(
@@ -492,7 +625,7 @@ let ModalVouchersUploadComponent = function(
 module.exports = {
     bindings: {
         close: '=',
-        modal: '='
+        modal: '=',
     },
     controller: [
         '$q',
@@ -506,9 +639,7 @@ module.exports = {
         'VoucherService',
         'ProductService',
         'PushNotificationsService',
-        ModalVouchersUploadComponent
+        ModalVouchersUploadComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-vouchers-upload.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-vouchers-upload.html',
 };

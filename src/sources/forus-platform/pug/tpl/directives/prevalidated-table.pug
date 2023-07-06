@@ -21,16 +21,18 @@ div
                             .form-group
                                 form-label-toggle(label="{{ 'prevalidated_table.labels.search' | i18n }}" is-active)
                                 input(ng-model="filters.values.q" type="text" placeholder="{{ 'prevalidated_table.labels.search' | i18n }}").form-control
-                            .form-group
+                            .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="{{ 'prevalidated_table.status.active' | i18n }}")
-                                select(
-                                    ng-options="state.key as state.name for state in states" 
-                                    ng-model="filters.values.state").form-control
-                            .form-group
+                                .form-offset: select-control(
+                                    prop="key"
+                                    ng-model="filters.values.state"
+                                    options="states").form-control
+                            .form-group(ng-click="$event.stopPropagation()")
                                 form-label-toggle(label="{{ 'prevalidated_table.labels.exported' | i18n }}")
-                                select(
-                                    ng-options="state.key as state.name for state in statesExported" 
-                                    ng-model="filters.values.exported").form-control
+                                .form-offset: select-control(
+                                    prop="key"
+                                    ng-model="filters.values.exported"
+                                    options="statesExported").form-control
                             .form-group
                                 form-label-toggle(label="{{ 'prevalidated_table.labels.from' | i18n }}")
                                 datepicker(
@@ -52,7 +54,7 @@ div
                     
                     .button.button-default.button-icon(ng-click="filters.show = !filters.show"): em.mdi.mdi-filter-outline
 
-        .card-section: .card-block.card-block-table: .table-wrapper
+        .card-section: .card-block.card-block-table: .table-wrapper.table-wrapper-scroll
             table.table
                 tr
                     th(translate="prevalidated_table.labels.code")

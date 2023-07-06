@@ -7,29 +7,75 @@ module.exports = {
         providers:"Aanbieders",
         explanation:"Uitleg",
         identity:"Profiel",
-        potjeswijzer: {
+        signup:"Uitleg aanbieders",
+        westerkwartier: {
             funds:"Potjes",
         },
         groningen: {
             funds:"Aanvragen",
         },
+        waalwijk: {
+            funds:"Aanvragen",
+        },
+        geertruidenberg: {
+            funds:"Regelingen",
+        },
+        potjeswijzer: {
+            funds:"Potjes",
+        },
         nijmegen: {
             funds:"Aanvragen",
+        },
+        vergoedingen: {
+            funds: "Vergoedingen",
+        },
+        ede: {
+            funds: "Uitleg inwoners",
+            explanation:"Veelgestelde vragen",
+        },
+        hartvanwestbrabant: {
+            funds: "Regelingen"
+        },
+        schagen: {
+            funds: "Regelingen",
+        },
+        eemsdelta: {
+            funds: "Regelingen"
+        },
+        groningen: {
+            explanation: "Hoe werkt het?",
         }
     },
     buttons: {
-        activate: "Activeren",
-        potjeswijzer: {
+        activate: "Regelingen",
+        westerkwartier: {
             activate: "Aanvragen",
         },
         groningen: {
             activate: "Aanvragen",
+            voucher: "Mijn Stadjerspas",
+        },
+        waalwijk: {
+            activate: "Aanvragen",
+        },
+        geertruidenberg: {
+            activate: "Aanvragen",
+        },
+        potjeswijzer: {
+            activate: "Aanvragen",
         },
         nijmegen: {
             activate: "Aanvragen",
         },
+        vergoedingen: {
+            activate: "Vergoedingen"
+        },
+        ede: {
+            activate: "Regelingen",
+        },
         login:"Inloggen",
         voucher:"Mijn tegoeden",
+        reimbursements:"Kosten terugvragen",
         profile:"Profiel >",
         records: "Mijn eigenschappen",
         authorize:"Log in op de app",
@@ -42,7 +88,20 @@ module.exports = {
         mobile: {
             voucher: "Tegoeden",
             request: "Aanvragen",
-            profile: "Profiel"
+            profile: "Profiel",
+            more: "Meer",
+            dropdown: {
+                vouchers: "Tegoeden",
+                reservations: "Reserveringen",
+                reimbursements:"Kosten terugvragen",
+                notifications: "Notificaties",
+                preferences_notifications: "Notificatievoorkeuren",
+                preferences_emails: "E-mailinstellingen",
+                records: "Profiel",
+                funds: "Fondsen",
+                security: "Beveiliging",
+                sessions: "Sessies"
+            }
         }
     },
 }

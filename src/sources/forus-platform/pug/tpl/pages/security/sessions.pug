@@ -1,7 +1,15 @@
-.app.app-container(ng-if="$ctrl.loaded")
+.app.app-container
     menu
 
-    section.app.app-content: .card
+    section.app.app-content(ng-if="$ctrl.auth2FAState && $ctrl.auth2FAState.restrictions.sessions.restricted")
+        auth-2-f-a-restriction(
+            type="sessions"
+            items="$ctrl.auth2FAState.restrictions.sessions.funds"
+            item-name="name"
+            item-thumbnail="logo.sizes.thumbnail"
+            default-thumbnail="fund-thumbnail")
+
+    section.app.app-content(ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.sessions.restricted"): .card
         .card-header: .card-title Huidige sessies
         .card-section.card-section-padless
             .block.block-sessions
@@ -18,6 +26,8 @@
                             span(ng-if="session.last_request.client_type == 'app-me_app'") Me-app 
                             span(ng-if="session.last_request.client_type == 'app-me_app-android'") Me-app
                             span(ng-if="session.last_request.client_type == 'app-me_app-ios'") Me-app 
+                            span(ng-if="session.last_request.client_type == 'me_app-android'") Me-app 
+                            span(ng-if="session.last_request.client_type == 'me_app-ios'") Me-app 
                             span(ng-if="session.last_request.device_string").text-primary • 
                             span(ng-if="session.last_request.device_string" ng-bind="session.last_request.device_string")
                         

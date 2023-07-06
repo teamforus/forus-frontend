@@ -34,7 +34,7 @@
         @media screen and (max-width: 1000px) {
             &.section-products {
                 .section-title {
-                    color: $tc;
+                    color: var(--tc);
                 }
             }
         }

@@ -1,40 +1,37 @@
-let OrganizationEmployeesService = function(ApiRequest) {
-    let uriPrefix = '/platform/organizations/';
+const OrganizationEmployeesService = function (ApiRequest) {
+    const uriPrefix = '/platform/organizations';
 
-    return new(function() {
-        this.list = function(organization_id, query = {}) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/employees', query
-            );
+    return new (function () {
+        this.list = function (organization_id, query = {}) {
+            return ApiRequest.get(`${uriPrefix}/${organization_id}/employees`, query);
         };
 
-        this.store = function(organization_id, values) {
-            return ApiRequest.post(
-                uriPrefix + organization_id + '/employees', values
-            );
+        this.store = function (organization_id, values = {}) {
+            return ApiRequest.post(`${uriPrefix}/${organization_id}/employees`, values);
         };
 
-        this.update = function(organization_id, id, values) {
-            return ApiRequest.patch(
-                uriPrefix + organization_id + '/employees/' + id, values
-            );
+        this.update = function (organization_id, id, values = {}) {
+            return ApiRequest.patch(`${uriPrefix}/${organization_id}/employees/${id}`, values);
         };
 
-        this.read = function(organization_id, id) {
-            return ApiRequest.get(
-                uriPrefix + organization_id + '/employees/' + id
-            );
+        this.read = function (organization_id, id) {
+            return ApiRequest.get(`${uriPrefix}/${organization_id}/employees/${id}`);
         }
 
-        this.destroy = function(organization_id, id) {
-            return ApiRequest.delete(
-                uriPrefix + organization_id + '/employees/' + id
-            );
+        this.destroy = function (organization_id, id) {
+            return ApiRequest.delete(`${uriPrefix}/${organization_id}/employees/${id}`);
         }
 
-        this.apiResourceToForm = function(apiResource) {
+        this.export = function (organization_id, query = {}) {
+            return ApiRequest.get(`${uriPrefix}/${organization_id}/employees/export`, query, {}, true, {
+                responseType: 'arraybuffer',
+                cache: false,
+            });
+        };
+
+        this.apiResourceToForm = function (apiResource) {
             return {
-                'roles': Array.isArray(apiResource.roles) ? apiResource.roles.map(role => role.id) : []
+                roles: Array.isArray(apiResource.roles) ? apiResource.roles.map(role => role.id) : [],
             };
         };
     });
@@ -42,5 +39,5 @@ let OrganizationEmployeesService = function(ApiRequest) {
 
 module.exports = [
     'ApiRequest',
-    OrganizationEmployeesService
+    OrganizationEmployeesService,
 ];

@@ -1,0 +1,118 @@
+div
+    div(ng-if="$dir.key == 'bus_2020'")
+        p.sign_up-pane-text U staat op het punt om een Busvoordeelabonnement aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
+
+        ul.sign_up-pane-list
+            li U bent 18 jaar of ouder
+            li U kunt geen gebruik maken van de OV-chipkaart voor studenten (het studentenreisproduct van de DUO)
+            li U woont in Nijmegen
+            li U bent geen inwoner van het AZC
+            li In de tabel hieronder vindt u wat uw maximale inkomen mag zijn. Gebruik ter controle uw inkomen van de maand vóór de maand waarin u het abonnement aanvraagt. Voorbeeld: u vraagt op 3 december 2020 het abonnement aan. Dan vergelijkt u uw inkomen van november 2020 met het maximale inkomen dat voor u geldt
+
+        table.table.collapse-sides
+            tr
+                th Situatie
+                th Vanaf 18 jaar tot uw pensioenleeftijd
+                th Vanaf uw pensioenleeftijd
+                th Indicatie met verblijf (in zorginstelling of verpleeghuis tot pensioenleeftijd)
+                th Indicatie met verblijf (in zorginstelling of verpleeghuis vanaf pensioenleeftijd)
+            tr
+                td Alleenstaand
+                td € 1.560,-
+                td € 1.740,-
+                td € 500,-
+                td € 540,-
+            tr
+                td Alleenstaande ouder
+                td € 2.005,-
+                td € 2.160,-
+                td € 755,-
+                td € 835,-
+            tr
+                td Getrouwd/samenwonend
+                td € 2.225,-
+                td € 2.335,-
+                td € 835,-
+                td € 925,-
+
+        p.sign_up-pane-text
+            | #[strong Wat hoort bij het inkomen?]
+            | #[br]
+            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld. #[br]
+            | #[br]
+            | #[strong Wat hoort niet bij het inkomen?] #[br]
+            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen). #[br]
+            | #[br]
+            | Wilt u weten op welke toeslagen of heffingskortingen u recht heeft? Kijk dan op de Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. Heeft u hulp hierbij nodig. De #[a(href="https://www.nijmegen.nl/diensten/zorg-hulp-en-advies/sociaal-raadslieden-voor-juridische-hulp/") sociaal raadslieden] van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 14 024. #[br]
+
+        p.sign_up-pane-text
+            | Door te verklaren dat u aan de voorwaarden voldoet,
+            | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat er een bedrag kan
+            | worden teruggevorderd indien u achteraf niet blijkt te voldoen.
+
+    div(ng-if="$dir.key == 'meedoen'")
+        p.sign_up-pane-text U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet:
+
+        ul.sign_up-pane-list
+            li U bent 18 jaar of ouder
+            li U bent geen student
+            li U woont in Nijmegen
+            li U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2023:
+
+        table.table.collapse-sides
+            tr
+                th Situatie
+                th Vanaf 18 jaar tot uw pensioenleeftijd
+                th Vanaf uw pensioenleeftijd
+                th Wonend in zorginstelling (van 18 tot pensioenleeftijd)
+                th Wonend in zorginstelling  vanaf uw pensioenleeftijd 
+            tr
+                td Alleenstaand
+                td € 1.680,-
+                td € 1.870,-
+                td € 540,-
+                td € 490,-
+            tr
+                td Alleenstaande ouder
+                td € 2.160,-
+                td € 2.285,-
+                td € 815,-
+                td € 700,-
+            tr
+                td Getrouwd/samenwonend
+                td € 2.395,-
+                td € 2.535,-
+                td € 900,-
+                td € 775,-
+
+        p.sign_up-pane-text
+            | #[strong Wat hoort bij het inkomen?]
+            | #[br]
+            | Alle inkomsten uit werk, uitkering, pensioen, alimentatie, kamerhuur, kostgeld. #[br]
+            | #[br]
+            | #[strong Wat hoort niet bij het inkomen?] #[br]
+            | Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen). #[br]
+            | #[br]
+            | Wilt u weten op welke toeslagen of heffingskortingen u recht heeft? Kijk dan op de Kijk dan op de website van de Belastingdienst: #[a(href="http://www.belastingdienst.nl/") www.belastingdienst.nl]. Heeft u hulp hierbij nodig. De #[a(href="https://www.nijmegen.nl/diensten/zorg-hulp-en-advies/sociaal-raadslieden-voor-juridische-hulp/") sociaal raadslieden] van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 14 024. #[br]
+            
+        p.sign_up-pane-text
+            | Door te verklaren dat u aan de voorwaarden voldoet,
+            | gaat u er mee akkoord dat uw aanvraag gecontroleerd zal worden, en dat het bedrag van €150,-
+            | zal worden teruggevorderd indien u achteraf niet blijkt te voldoen.
+
+    div(ng-if="$dir.key == 'IIT'")
+        h3 U (en uw partner) willen de Individuele Inkomenstoeslag aanvragen. Daarvoor moet u aan onderstaande voorwaarden voldoen:
+
+        ul.sign_up-pane-list
+            li U heeft de afgelopen 12 maanden geen Individuele Inkomenstoeslag ontvangen
+            li U woont in Nijmegen
+            li Uw partner (als u die heeft) is akkoord met het aanvragen van deze regeling
+            li U bent 21 jaar of ouder, maar nog niet met pensioen. Heeft u een partner en ontvangt één van u een pensioen (AOW) dan heeft u allebei geen recht op de individuele inkomenstoeslag
+            li U bent Nederlander of u heeft een geldige verblijfsvergunning
+            li U bent geen student en u heeft de afgelopen 3 jaar (36 maanden) geen studie gevolgd
+            li Uw vermogen is niet hoger dan € 7.605,- (alleenstaande) of € 15.210,- (voor alleenstaande ouders of gehuwden/samenwonenden)
+            li U heeft minstens 3 jaar een laag inkomen. Uw gemiddeld inkomen mag niet hoger zijn dan de inkomensgrens die voor u geldt
+            li Houdt een deurwaarder een bedrag in op uw inkomen? Of heeft de belastingdienst beslag gelegd op uw inkomen? Ook dan mag uw inkomen (zonder inhoudingen) niet hoger zijn dan de inkomensgrens
+            li Heeft u een regeling met bureau Schuldhulpverlening van de gemeente Nijmegen? Of heeft de rechter beslist dat u mag meedoen aan een schuldsanering-traject? Ook dan mag uw inkomen (zonder inhoudingen) niet hoger zijn dan de inkomensgrens
+            li U heeft geen of heel weinig kans op een baan of op hogere inkomsten
+            br

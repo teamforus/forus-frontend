@@ -1,6 +1,6 @@
 .map-card
     .map-card-img
-        img(src="{{ imageUrl }}")
+        img(src="{{ imageUrl }}" alt="")
     .map-card-content
         .map-card-title(ng-bind="office.organization.name")
         .map-card-description
@@ -19,4 +19,4 @@
         
         a(ui-sref="provider-office(office)").map-card-button
             | Bekijk details
-            em.mdi.mdi-arrow-right
+            em.mdi.mdi-arrow-right(aria-hidden="true")

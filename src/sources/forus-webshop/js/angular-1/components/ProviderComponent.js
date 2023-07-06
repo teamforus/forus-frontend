@@ -1,5 +1,11 @@
-const ProviderComponent = function($state, $stateParams) {
+const ProviderComponent = function(
+    $sce, 
+    $filter, 
+    $rootScope, 
+    $stateParams,
+) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
 
     $ctrl.mapOptions = {
         zoom: 11,
@@ -8,6 +14,11 @@ const ProviderComponent = function($state, $stateParams) {
 
     $ctrl.$onInit = () => {
         $ctrl.searchData = $stateParams.searchData || null;
+        $ctrl.provider.description_html = $sce.trustAsHtml($ctrl.provider.description_html);
+
+        $rootScope.pageTitle = $i18n('page_state_titles.provider', {
+            provider_name: $ctrl.provider.name,
+        });
     };
 };
 
@@ -18,9 +29,11 @@ module.exports = {
         subsidies: '<',
     },
     controller: [
-        '$state',
+        '$sce',
+        '$filter',
+        '$rootScope',
         '$stateParams',
-        ProviderComponent
+        ProviderComponent,
     ],
-    templateUrl: 'assets/tpl/pages/provider.html'
+    templateUrl: 'assets/tpl/pages/provider.html',
 };

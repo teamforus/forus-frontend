@@ -24,28 +24,38 @@
                 .card-title(ng-if="$ctrl.product" i18n="product_edit.header.title_edit")
 
             //- Product media
-            .card-section.card-section-primary
-                .row 
-                    .col.col-xs-12
-                        .form-group.form-group-inline
-                            label.form-label &nbsp;
-                            .form-offset
-                                photo-selector(
-                                    disabled="{{!$ctrl.isEditable}}"
-                                    type="product_photo"
-                                    thumbnail="$ctrl.media.sizes.thumbnail"
-                                    select-photo="$ctrl.selectPhoto(file)")
-                                .form-error(ng-repeat="error in $ctrl.mediaErrors" ng-bind="error")
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+                .form-group.form-group-inline
+                    label.form-label &nbsp;
+                    .form-offset
+                        photo-selector(
+                            disabled="{{!$ctrl.isEditable}}"
+                            type="product_photo"
+                            thumbnail="$ctrl.media.sizes.thumbnail"
+                            select-photo="$ctrl.selectPhoto(file)")
+                        .form-error(ng-repeat="error in $ctrl.mediaErrors" ng-bind="error")
+
+                .form-group.form-group-inline
+
+                .form-group.form-group-inline
+                    label.form-label(translate="product_edit.labels.alternative_text")
+                    input(
+                        ng-disabled="!$ctrl.isEditable" 
+                        ng-model="$ctrl.form.values.alternative_text" 
+                        type="text" 
+                        placeholder="{{ 'product_edit.labels.alternative_text_placeholder' | translate }}").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.alternative_textname" ng-bind="error")
 
             //- Product name/description
             .card-section.card-section-primary
                 .row: .col.col-lg-9
                     .form-group.form-group-inline
-                        label.form-label(translate="product_edit.labels.name")
+                        label.form-label.form-label-required(translate="product_edit.labels.name")
                         input(ng-disabled="!$ctrl.isEditable" ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+                    
                     .form-group.form-group-inline.tooltipped
-                        label.form-label(translate="product_edit.labels.description")
+                        label.form-label.form-label-required(translate="product_edit.labels.description")
                         .form-offset: markdown(
                             ng-model="$ctrl.form.values.description" 
                             value="$ctrl.form.values.description_html" 
@@ -80,7 +90,7 @@
 
                     //- Regular price
                     .form-group.form-group-inline(ng-if="$ctrl.form.values.price_type === 'regular'")
-                        label.form-label Bedrag
+                        label.form-label.form-label-required Bedrag
                         .form-offset
                             input(
                                 ng-disabled="!$ctrl.isEditable"
@@ -120,7 +130,7 @@
                         input(ng-model="$ctrl.form.values.sold_amount" type="number" placeholder="Verkocht" disabled).form-control
 
                     .form-group.form-group-inline.tooltipped
-                        label.form-label(translate="product_edit.labels.total")
+                        label.form-label.form-label-required(translate="product_edit.labels.total")
 
                         .form-offset(ng-if="$ctrl.product && $ctrl.product.unlimited_stock")
                             .form-value.text-muted(translate="product_edit.labels.stock_unlimited")
@@ -159,7 +169,8 @@
                                     ng-if="!$ctrl.nonExpiring"
                                     date-format="dd-MM-yyyy" 
                                     datepicker-mobile="" 
-                                    date-week-start-day="1").form-control
+                                    date-week-start-day="1"
+                                    input-visible="true").form-control
                                     input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="dd-MM-jjjj" ng-disabled="!$ctrl.isEditable").form-control
                                 input(value="{{ 'product_edit.labels.unlimited' | translate }}" disabled ng-if="$ctrl.nonExpiring").form-control
 
@@ -203,13 +214,36 @@
                             ng-options="policy.value as policy.label for policy in $ctrl.reservationPolicies").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.reservation_policy" ng-bind="error")
                         tooltip(text="'Standaard instelling kunt u bij uw reserveringen aanpassen. Geef hier optioneel aan of u de reservering handmatig of automatisch wilt accepteren.'")
+                
+                    //- Product reservation phone
+                    .form-group.form-group-inline
+                        label(for="reservation_phone").form-label Telefoonnummer klant
+                        select(
+                            ng-model="$ctrl.form.values.reservation_phone" 
+                            ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_phone" ng-bind="error")
+
+                    //- Product reservation address
+                    .form-group.form-group-inline
+                        label(for="reservation_address").form-label Adres klant
+                        select(
+                            ng-model="$ctrl.form.values.reservation_address" 
+                            ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_address" ng-bind="error")
+                            
+                    //- Product reservation birth date
+                    .form-group.form-group-inline
+                        label(for="reservation_birth_date").form-label Geboortedatum klant
+                        select(
+                            ng-model="$ctrl.form.values.reservation_birth_date" 
+                            ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_birth_date" ng-bind="error")
 
             //- Product category
             .card-section.card-section-primary: .row
                 product-categories-control(
-                    disabled="{{!$ctrl.isEditable}}"
+                    disabled="!$ctrl.isEditable"
                     ng-model="$ctrl.form.values.product_category_id"
-                    product-type="($ctrl.product || $ctrl.sourceProduct).product_category.service ? 'service' : 'product'"
                     errors="$ctrl.form.errors.product_category_id")
 
             //- Actions

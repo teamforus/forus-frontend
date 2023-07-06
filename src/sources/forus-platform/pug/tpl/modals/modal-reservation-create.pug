@@ -1,8 +1,10 @@
-.modal.modal-md.modal-animated.modal-loading(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated.modal-loading(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
 
     //- Voucher form
-    .modal-window(ng-if="!$ctrl.formProducts && !$ctrl.reservation"): form.form(ng-submit="$ctrl.form.submit()")
+    form(ng-if="!$ctrl.formProducts && !$ctrl.reservation" ng-submit="$ctrl.form.submit()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header Reservering aanmaken
         .modal-body.modal-body-visible: .modal-section
@@ -21,16 +23,16 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.number" ng-bind="error")
 
         .modal-footer.text-center
-            button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_create.buttons.cancel")
+            button.button.button-default(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_create.buttons.cancel")
             button.button.button-primary(type="submit" i18n="modals.modal_voucher_create.buttons.submit")
 
     //- Voucher form
-    .modal-window(ng-if="$ctrl.formProducts && !$ctrl.reservation"): form.form(ng-submit="$ctrl.formProducts.submit()")
+    form(ng-if="$ctrl.formProducts && !$ctrl.reservation" ng-submit="$ctrl.formProducts.submit()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header Aanbieding selecteren
         .modal-body.modal-body-visible
             //- Products form
-            .modal-section(ng-if="!$ctrl.showOverview")
+            .modal-section(ng-show="!$ctrl.showOverview")
                 .modal-text.text-center 
                     | Kies het aanbod waarvoor u de reservering wilt aanmaken. 
                     br
@@ -39,9 +41,8 @@
                 .row: .col.col-sm-9.col-sm-offset-1.col-sm-12.col-xs-offset-0
                     .form-group.form-group-inline.form-group-inline-md.tooltipped
                         label.form-label Aanbod
-                        select(
-                            ng-options="product as product.name for product in $ctrl.products" 
-                            ng-change="$ctrl.productChanged($ctrl.form.values.product_id)"
+                        .form-offset: select-control(
+                            options="$ctrl.products"
                             ng-model="$ctrl.formProducts.product").form-control
                         .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
                         tooltip(text="'reservation_create.tooltips.product' | translate | lines_to_array")
@@ -54,7 +55,7 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
 
             //- Submit overview
-            .modal-section(ng-if="$ctrl.showOverview")
+            .modal-section(ng-show="$ctrl.showOverview")
                 .modal-text.text-center 
                     | Controleer of u de juiste gegevens heeft ingevuld. Na bevestiging wordt de reservering aangemaakt.
 
@@ -70,11 +71,11 @@
                         .datalist-value.text-primary.text-right: strong(ng-bind="$ctrl.formProducts.product.price_locale")
 
         .modal-footer.text-center(ng-if="!$ctrl.showOverview")
-            button.button.button-dark(type="button" ng-click="$ctrl.showVoucherForm($ctrl.form.values.number)") Annuleren
+            button.button.button-default(type="button" ng-click="$ctrl.showVoucherForm($ctrl.form.values.number)") Annuleren
             button.button.button-primary(type="button" ng-click="$ctrl.showOverview = true") Bevestigen
 
         .modal-footer.text-center(ng-if="$ctrl.showOverview")
-            button.button.button-dark(type="$ctrl.showOverview" ng-click="$ctrl.showOverview = false") Annuleren
+            button.button.button-default(type="$ctrl.showOverview" ng-click="$ctrl.showOverview = false") Annuleren
             button.button.button-primary(ng-if="$ctrl.showOverview" type="submit") Bevestigen
 
     .modal-window(ng-if="$ctrl.reservation")

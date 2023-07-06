@@ -1,13 +1,8 @@
 @import './vars';
 @import '../_common/webshop';
 
-@import url('https://fonts.googleapis.com/css?family=Cherry+Swash&display=swap');
-
 // COMPONENTS
 @import 'components/_buttons.scss';
-
-// SHAME
-@import 'includes/shame.scss';
 
 // LAYOUTS
 @import 'layout/_header.scss',

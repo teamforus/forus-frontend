@@ -1,6 +1,8 @@
 .modal.modal-product-reserve.modal-animated(
-    role="dialog" 
-    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
+    role="dialog"
+    dusk="modalProductReserveCancel")
 
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten")
     .modal-window: .modal-content
@@ -28,4 +30,4 @@
 
             .button-group.flex-center
                 button.button.button-dark(ng-click="$ctrl.close()") Annuleren
-                button.button.button-primary(ng-click="$ctrl.onConfirm()") Bevestigen
+                button.button.button-primary(ng-click="$ctrl.onConfirm()" dusk="btnSubmit") Bevestigen

@@ -1,0 +1,116 @@
+.app.app-container
+    menu
+    section.app.app-content
+        //- Breadcrumbs
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="implementations($ctrl.implementation)") Webshops 
+            .breadcrumb-item(ui-sref="implementation-view($ctrl.implementation)" ng-bind="$ctrl.implementation.name")
+            .breadcrumb-item(ui-sref="implementation-cms($ctrl.implementation)") Content Management System
+            .breadcrumb-item.active(translate="implementation_edit.labels.{{ $ctrl.page_type || $ctrl.page_type }}")
+
+        //- Page edit
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            //- Header
+            .card-header.flex-row
+                .card-title(translate="implementation_edit.labels.{{ $ctrl.page_type || $ctrl.page_type }}")
+                .flex.flex-grow.flex-end
+                    a.button.button-text.button-sm(
+                        ng-if="($ctrl.page.state == 'public') || $ctrl.page_type_config.type === 'static'" 
+                        href="{{ $ctrl.page_type_config.webshop_url }}" 
+                        target="_blank")
+                        | Bekijk pagina
+                        .mdi.mdi-open-in-new.icon-end 
+
+                    button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary.button-sm
+
+            //- Content
+            .card-section.card-section-primary
+                .row: .col.col-lg-9
+                    //- Select type (internal or external)
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                        label.form-label Status
+                        .form-offset
+                            select-control(
+                                prop="value"
+                                search="false"
+                                options="$ctrl.states"
+                                ng-model="$ctrl.form.values.state").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.external" ng-bind="error")
+
+                    //- Select type (internal or external)
+                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.allow_external").tooltipped
+                        label.form-label Pagina type
+                        .form-offset
+                            select-control(
+                                prop="value"
+                                search="false"
+                                options="$ctrl.types"
+                                ng-model="$ctrl.form.values.external").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.external" ng-bind="error")
+
+                        tooltip(text="'Internal pages are hosted on our webshop domain and you can edit the content of the page below. Or you can select external, to provider a custom url for the page.'")
+
+                    //- External page url
+                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.external")
+                        label.form-label Externe url
+                        //- enabled field
+                        input.form-control(
+                            ng-model="$ctrl.form.values.external_url" 
+                            placeholder="{{ 'implementation_edit.placeholders.' + $ctrl.page_type | translate }}")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.external_url" ng-bind="error")
+
+                    //- Page content
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="!$ctrl.form.values.external")
+                        label.form-label(translate="implementation_edit.labels.{{ $ctrl.page_type }}")
+                        .form-offset
+                            markdown(
+                                extended-options="true"
+                                value="$ctrl.form.values.description_html" 
+                                ng-model="$ctrl.form.values.description"
+                                allow-alignment="true"
+                                block-alignment="$ctrl.form.values.description_alignment")
+                    //- Select description default settings
+                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="$ctrl.page_type_config.description_position_configurable")
+                        label.form-label Positie van de content
+                        .form-offset
+                            select-control(
+                                prop="value"
+                                search="false"
+                                options="$ctrl.descriptionPositions"
+                                ng-model="$ctrl.form.values.description_position").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.description_position" ng-bind="error")
+
+                        tooltip(text="'implementation_edit.tooltips.' + $ctrl.page_type | translate")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.content" ng-bind="error")
+
+            //- Blocks
+            .card-section.card-section-primary(ng-if="$ctrl.page_type_config.blocks")
+                .form-group.form-group-inline.form-group-inline-lg
+                    label.form-label Blokken
+
+                    implementation-blocks-editor(
+                        ng-if="$ctrl.implementation"
+                        blocks="$ctrl.form.values.blocks"
+                        implementation="$ctrl.implementation"
+                        register-parent="$ctrl.registerImplementationBlocksEditor(childRef)")
+
+            //- FAQ
+            .card-section.card-section-primary(ng-if="$ctrl.page_type_config.faq")    
+                //- FAQ Editor
+                .form-group.form-group-inline.form-group-inline-lg
+                    label.form-label Veel gestelde vragen
+                    .form-offset: faq-editor(
+                        faq="$ctrl.form.values.faq"
+                        organization="$ctrl.organization" 
+                        register-parent="$ctrl.registerFaqEditor(childRef)")
+
+            //- Submit or Cancel
+            .card-section.card-section-primary: .text-center
+                button(
+                    type="button" 
+                    ui-sref="implementation-cms({organization_id: $ctrl.organization.id, id: $ctrl.implementation.id})" 
+                    translate="funds_edit.buttons.cancel").button.button-default
+
+                button(
+                    type="submit" 
+                    translate="funds_edit.buttons.confirm").button.button-primary

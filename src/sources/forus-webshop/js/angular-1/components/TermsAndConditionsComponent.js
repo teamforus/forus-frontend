@@ -2,7 +2,7 @@ let TermsAndConditionsComponent = function($sce) {
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        $ctrl.description_html = $sce.trustAsHtml($ctrl.page.content_html);
+        $ctrl.description_html = $sce.trustAsHtml($ctrl.page.description_html);
     };
 }
 

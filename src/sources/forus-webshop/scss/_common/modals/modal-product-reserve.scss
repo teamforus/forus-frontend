@@ -8,6 +8,7 @@
 
     .modal-content {
         background-color: #fff;
+        overflow: visible;
 
         .title {
             font-size: 28px;
@@ -15,43 +16,98 @@
         }
 
         .description {
-            font-size: 17px;
-            line-height: 22px;
+            font-size: 15px;
+            line-height: 21px;
+            color: #595959;
 
             a {
-                color: $color_primary;
+                color: var(--color-primary);
                 text-decoration: underline;
             }
         }
 
-        .block.block-vouchers {
-            padding: 15px;
-            border: 1px solid $border_color;
-            border-radius: $border_radius;
-            background-color: lighten($color: whitesmoke, $amount: 1.5%);
-            max-height: 360px;
-            overflow: auto;
-            @include webkit_scrollbar();
-
-            &.block-vouchers-compact {
-                padding: 0 80px;
-                border: none;
-                background: none;
-                overflow: visible;
-
-                .voucher-item {
-                    box-shadow: $base_shadow;
-
-                    .voucher-details {
-                        .voucher-name {
-                            font: 700 24px/32px $bf;
-                        }
-
-                        .voucher-organization {
-                            font: 500 14px/22px $bf;
+        .block {
+            &.block-vouchers {
+                padding: 15px;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                background-color: rgb(250, 250, 250);
+                max-height: 360px;
+                overflow: auto;
+                @include webkit_scrollbar();
+    
+                &.block-vouchers-compact {
+                    padding: 0 80px;
+                    border: none;
+                    background: none;
+                    overflow: visible;
+    
+                    .voucher-item {
+                        box-shadow: var(--box-shadow);
+    
+                        .voucher-details {
+                            .voucher-name {
+                                font: 700 24px/32px var(--base-font);
+                            }
+    
+                            .voucher-organization {
+                                font: 500 14px/22px var(--base-font);
+                            }
                         }
                     }
                 }
+            }
+
+            &.block-email-setup {
+                background: #FFFFFF;
+                border: 1px solid #e3e3e3;
+                border-radius: var(--border-radius);
+                margin-bottom: 20px;
+
+                .block-email-setup-details {
+                    display: flex;
+                    align-items: center;
+                    border-bottom: 1px solid #e3e3e3;
+                    padding: 20px;
+                    font: 700 17px/24px var(--base-font);
+                    color: #222222;
+
+                    .block-email-setup-details-logo {
+                        width: 48px;
+                        height: 48px;
+                        margin: 0 20px 0 0;
+                    }
+
+                    .block-email-setup-details-description {
+                        font: inherit;
+                    }
+
+                    .form {
+                        margin-right: 10px;
+                    }
+
+                    .button {
+                        padding: 10px 13px;
+                        min-width: 150px;
+                    }
+                }
+
+                .block-email-setup-description {
+                    font: 400 15px/21px var(--base-font);
+                    color: #595959;
+                    padding: 20px;
+                }
+            }
+        }
+
+        .form {
+            .form-control {
+                border: 1px solid #e3e3e3;
+            }
+
+            .form-label {
+                color: #595959;
+                font: 600 13px/18px var(--base-font);
             }
         }
     }
@@ -77,6 +133,7 @@
             flex-grow: 1;
             padding: 0;
             flex-direction: column;
+            overflow: auto;
 
             .modal-section {
                 min-height: 100%;
@@ -86,19 +143,34 @@
 
                 .title {
                     padding: 0;
-                    font: 700 22px/28px $bf;
+                    font: 700 22px/28px var(--base-font);
                     margin: 0 0 20px;
                 }
 
                 .description {
                     padding: 0;
-                    font: 400 15px/22px $bf;
+                    font: 400 15px/22px var(--base-font);
                     margin: 0 0 20px;
                 }
 
                 .block-vouchers {
                     margin: 0 -20px 20px;
                     border-radius: 0;
+                }
+            }
+
+            .block {
+                &.block-email-setup {
+                    text-align: center;
+
+                    .block-email-setup-details {
+                        flex-direction: column;
+
+                        .block-email-setup-details-logo,
+                        .block-email-setup-details-description {
+                            margin: 0 0 20px 0;
+                        }
+                    }
                 }
             }
         }

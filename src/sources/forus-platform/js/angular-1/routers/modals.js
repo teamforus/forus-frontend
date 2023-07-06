@@ -27,10 +27,6 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalAuthComponent'
     });
 
-    ModalRouteProvider.modal('modalAuth2', {
-        component: 'modalAuth2Component'
-    });
-
     ModalRouteProvider.modal('voucherCreate', {
         component: 'modalVoucherCreateComponent'
     });
@@ -55,6 +51,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalReservationUploadComponent'
     });
 
+    ModalRouteProvider.modal('voucherTransactionsUpload', {
+        component: 'modalVoucherTransactionsUploadComponent'
+    });
+
     ModalRouteProvider.modal('fundRequestRecordClarify', {
         component: 'modalFundRequestRecordClarifyComponent'
     });
@@ -65,6 +65,14 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('fundRequestRecordsDecline', {
         component: 'modalFundRequestRecordsDeclineComponent'
+    });
+
+    ModalRouteProvider.modal('fundRequestDisregard', {
+        component: 'modalFundRequestDisregardComponent'
+    });
+
+    ModalRouteProvider.modal('fundRequestDisregardUndo', {
+        component: 'modalFundRequestDisregardUndoComponent'
     });
 
     ModalRouteProvider.modal('fundCriteriaDescriptionEdit', {
@@ -99,12 +107,12 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalCreatePrevalidationComponent'
     });
 
-    ModalRouteProvider.modal('voucherExportType', {
-        component: 'modalVoucherExportTypeComponent'
-    });
-
     ModalRouteProvider.modal('exportType', {
         component: 'modalExportTypeComponent'
+    });
+
+    ModalRouteProvider.modal('exportDataSelect', {
+        component: 'modalExportDataSelectComponent'
     });
 
     ModalRouteProvider.modal('dangerZone', {
@@ -154,12 +162,64 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('physicalCardOrder', {
         component: 'modalPhysicalCardOrderComponent'
     });
-    
-    ModalRouteProvider.modal('reservationNotes', {
-        component: 'modalReservationNotesComponent'
-    });
   
     ModalRouteProvider.modal('switchBankConnectionAccount', {
         component: 'modalSwitchBankConnectionAccountComponent'
+    });
+
+    ModalRouteProvider.modal('voucherTransaction', {
+        component: 'modalVoucherTransactionComponent'
+    });
+
+    ModalRouteProvider.modal('fundRequestAssignValidator', {
+        component: 'modalFundRequestAssignValidatorComponent'
+    });
+
+    ModalRouteProvider.modal('addNoteComponent', {
+        component: 'modalAddNoteComponent'
+    });
+
+    ModalRouteProvider.modal('reimbursementResolveComponent', {
+        component: 'modalReimbursementResolveComponent'
+    });
+
+    ModalRouteProvider.modal('reimbursementDetailsEditComponent', {
+        component: 'modalReimbursementDetailsEditComponent'
+    });
+
+    ModalRouteProvider.modal('fundUnsubscribe', {
+        component: 'modalFundUnsubscribeComponent'
+    });
+
+    ModalRouteProvider.modal('voucherRecordEditComponent', {
+        component: 'modalVoucherRecordEditComponent'
+    });
+
+    ModalRouteProvider.modal('editSocialMediaComponent', {
+        component: 'modalEditSocialMediaComponent'
+    });
+
+    ModalRouteProvider.modal('editReimbursementCategories', {
+        component: 'modalEditReimbursementCategoriesComponent'
+    });
+
+    ModalRouteProvider.modal('editReimbursementCategory', {
+        component: 'modalEditReimbursementCategoryComponent'
+    });
+
+    ModalRouteProvider.modal('editRequestRecordComponent', {
+        component: 'modalEditRequestRecordComponent'
+    });
+
+    ModalRouteProvider.modal('websiteContactForm', {
+        component: 'modalContactFormComponent'
+    });
+
+    ModalRouteProvider.modal('2FASetup', {
+        component: 'modal2FASetupComponent'
+    });
+
+    ModalRouteProvider.modal('2FADeactivate', {
+        component: 'modal2FADeactivateComponent'
     });
 }];

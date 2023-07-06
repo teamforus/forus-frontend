@@ -13,9 +13,11 @@ section.section.section-products#products
     empty-block(
         title= "{{ 'block_products.labels.title' | translate }}"
         description="{{ 'block_products.labels.subtitle' | translate }}"
+        svg-icon="reimbursements"
         hide-link="true" 
         ng-if="products.length == 0 && !sample")
 
     .block.block-show-more(ng-if="$dir.showLoadMore"): a.button.button-primary.button-wide(
-        ui-sref="{{ $dir.type == 'budget' ? 'products($dir.filters)' : 'actions($dir.filters)' }}" 
-        translate="block_products.buttons.more")
+        ui-sref="{{ $dir.type == 'budget' ? 'products($dir.filters)' : 'actions($dir.filters)' }}")
+        translate(translate="block_products.buttons.more")
+        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")

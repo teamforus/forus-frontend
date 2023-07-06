@@ -1,67 +1,62 @@
-let TopNavbarDirective = function(
+const TopNavbarDirective = function (
     $state,
     $scope,
-    $translate,
+    $filter,
+    appConfigs,
     ModalService,
-    ConfigService,
-    FundService
+    ConfigService
 ) {
-    $scope.mobileMenu = false;
-    $scope.$ctrl = {
-        userMenuOpened: false,
-        prevOffsetY: null,
-        visible: true,
-        hideOnScroll: !!$scope.hideOnScroll,
+    const $dir = $scope.$dir;
+    const $i18n = $filter('i18n');
+
+    $dir.visible = false;
+    $dir.prevOffsetY = false;
+    $dir.userMenuOpened = false;
+
+    $dir.startFundRequest = (data = {}) => {
+        $state.go('start', data, { reload: true, inherit: false });
     };
 
-    let $ctrl = this;
-    
-    FundService.list().then(res => $ctrl.funds = res.data.data);
-
-    $scope.startFundRequest = () => $state.go('start');
-    $scope.openAuthPopup = () => ModalService.open('modalAuth', {});
-    $scope.openPinCodePopup = () => ModalService.open('modalPinCode', {});
-    $scope.openAuthCodePopup = () => ModalService.open('modalAuthCode', {});
-    $scope.showPopupOffices = () => ModalService.open('modalOffices', {});
-    $scope.openActivateCodePopup = () => $state.go('start');
-
-    $scope.cfg = {
-        logoExtension: ConfigService.getFlag('logoExtension'),
-    };
-    
-    $scope.i18nActive = $translate.use();
-    $scope.i18nLangs = $translate.getAvailableLanguageKeys();
-
-    $scope.setLang = (lang) => {
-        $translate.use(lang);
-        $scope.i18nActive = $translate.use();
+    $dir.goToState = (state_name) => {
+        $state.go(state_name, {}, { reload: true, inherit: false });
     };
 
-    $scope.$ctrl.openUserMenu = ($e) => {
+    $dir.openPinCodePopup = () => {
+        $dir.userMenuOpened = false;
+        ModalService.open('modalPinCode');
+    };
+
+    $dir.openUserMenu = ($e) => {
         if ($e?.target?.tagName != 'A') {
             $e.stopPropagation();
             $e.preventDefault();
         }
-        
-        $scope.$ctrl.userMenuOpened = !$scope.$ctrl.userMenuOpened;
+
+        $dir.userMenuOpened = !$dir.userMenuOpened;
     }
 
-    $scope.$ctrl.hideUserMenu = () => {
-        $scope.$apply(() => $scope.$ctrl.userMenuOpened = false);
+    $dir.hideUserMenu = () => {
+        $dir.userMenuOpened = false;
     }
 
-    $scope.updateScrolled = function() {
-        let currentOffsetY = window.pageYOffset;
+    const updateScrolled = function () {
+        const currentOffsetY = window.pageYOffset;
 
-        $scope.$ctrl.visible = ($scope.$ctrl.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
-        $scope.$ctrl.prevOffsetY = currentOffsetY;
+        $dir.visible = ($dir.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
+        $dir.prevOffsetY = currentOffsetY;
     };
 
-    window.addEventListener('scroll', $scope.updateScrolled);
+    $dir.$onInit = () => {
+        window.addEventListener('scroll', updateScrolled);
+        $dir.logoExtension = ConfigService.getFlag('logoExtension');
 
-    $scope.$on('$destroy', function() {
-        window.removeEventListener('scroll', $scope.updateScrolled);
-    });
+        // Organization logo alternative text
+        $dir.orgLogoAltText = $i18n(`logo_alt_text.${appConfigs.client_key}`, {}, appConfigs.client_key);
+    };
+
+    $dir.$onDestroy = () => {
+        window.removeEventListener('scroll', updateScrolled);
+    };
 };
 
 module.exports = () => {
@@ -73,15 +68,16 @@ module.exports = () => {
         },
         restrict: "EA",
         replace: true,
+        controllerAs: '$dir',
         controller: [
             '$state',
             '$scope',
-            '$translate',
+            '$filter',
+            'appConfigs',
             'ModalService',
             'ConfigService',
-            'FundService',
-            TopNavbarDirective
+            TopNavbarDirective,
         ],
-        templateUrl: 'assets/tpl/directives/top-navbar.html' 
+        templateUrl: 'assets/tpl/directives/top-navbar.html',
     };
 };

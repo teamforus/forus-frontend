@@ -1,0 +1,113 @@
+.card: form(ng-submit="$dir.form.submit()").form
+    .card-header: .flex.flex-horizontal
+        .flex.flex-grow: .card-title Subsidie starten
+        
+        .flex(ng-if="$dir.deal.active && $dir.onReset"): .block.block-inline-filters
+            button.button.button-text(type="button" ng-click="$dir.onReset({deal: $dir.deal})")
+                .mdi.mdi-trash-can-outline.icon-start
+                | Remove restriction
+
+    .card-section.card-section-primary.form: .row: .col.col-lg-8.col-md-12
+        .form-group.form-group-inline.tooltipped
+            tooltip(text="'Totaal aantal aanbiedingen dat vanuit ' + $dir.fund.name + ' gebruikt mag worden'")
+            .form-label.form-label-required Totaal aantal
+            .form-offset: .row
+                .col.col-lg-6.col-xs-12
+                    input(
+                        required
+                        ng-if="!($dir.product.unlimited_stock && $dir.form.values.limit_total_unlimited)"
+                        ng-model="$dir.form.values.limit_total" 
+                        type="number" 
+                        placeholder="Totaal aanbod" 
+                        min="1" 
+                        max="{{ $dir.product.unlimited_stock ? '' : $dir.product.stock_amount }}").form-control
+                    input(
+                        disabled
+                        ng-if="$dir.product.unlimited_stock && $dir.form.values.limit_total_unlimited"
+                        value='Ongelimiteerd').form-control
+                    .form-error(ng-repeat="error in $dir.form.errors['enable_products.0.limit_total']" ng-bind="error")
+                    .form-limit(ng-if="!$dir.product.unlimited_stock") Limiet 1/{{ $dir.product.stock_amount }}
+                    .form-limit(ng-if="$dir.product.unlimited_stock") Ongelimiteerd
+                
+                .col.col-lg-6.col-xs-12
+                    label(ng-if="$dir.product.unlimited_stock" for='unlimited_stock_subsidy').checkbox
+                        input(type="checkbox" value="1" ng-model="$dir.form.values.limit_total_unlimited" id='unlimited_stock_subsidy')
+                        .checkbox-label 
+                            .checkbox-box: .mdi.mdi-check
+                            | Onbeperkt
+
+        .form-group.form-group-inline.tooltipped
+            tooltip(text="'Hoevaak mag er per inwoner gebruik gemaakt worden van deze aanbieding?'")
+            .form-label.form-label-required Aantal per aanvrager
+            .form-offset: .row
+                .col.col-lg-6.col-xs-12
+                    input(
+                        required
+                        ng-model="$dir.form.values.limit_per_identity" 
+                        type="number" 
+                        placeholder="Limiet per aanvrager" 
+                        min="1" 
+                        max="{{ $dir.product.unlimited_stock ? '' : $dir.product.stock_amount }}").form-control
+                    .form-error(ng-repeat="error in $dir.form.errors['enable_products.0.limit_per_identity']" ng-bind="error")
+                    .form-limit(ng-if="!$dir.product.unlimited_stock") Limiet 1/{{ $dir.product.stock_amount }}
+                    .form-limit(ng-if="$dir.product.unlimited_stock") Ongelimiteerd
+                .col.col-lg-6.col-xs-12
+
+        .form-group.form-group-inline.tooltipped(ng-if="$dir.fund.type == 'subsidies'")
+            tooltip(text="'Volledige bijdrage vanuit de sponsor (voor de inwoner is het gratis)'")
+            .form-label.form-label-required Bijdrage
+            .form-offset: .row
+                .col.col-lg-6.col-xs-12
+                    input(
+                        ng-if="!$dir.form.values.gratis"
+                        ng-disabled="$dir.form.values.gratis"
+                        ng-model="$dir.form.values.amount" 
+                        type="number" 
+                        placeholder="Bijdrage" 
+                        step=".05"
+                        min="0" 
+                        ng-change="$dir.amountChange()").form-control
+                    input(
+                        disabled
+                        ng-if="$dir.form.values.gratis"
+                        ng-model="$dir.product.price").form-control
+                    .form-error(ng-repeat="error in $dir.form.errors['enable_products.0.amount']" ng-bind="error")
+
+                .col.col-lg-6.col-xs-12
+                    label(
+                        ng-if="$dir.product.price_type === 'free' || $dir.product.price_type === 'regular'" for='subsidie').checkbox
+                        input(type="checkbox" ng-model="$dir.form.values.gratis" id='subsidie')
+                        .checkbox-label 
+                            .checkbox-box: .mdi.mdi-check
+                            | Volledige bijdrage
+
+        .form-group.form-group-inline.tooltipped
+            tooltip(text="'Tot wanneer de subsidie geldig is. Kies de gewenste datum of de einddatum van het fonds.'")
+            .form-label Verloopdatum
+            .form-offset: .row
+                .col.col-lg-6.col-xs-12(ng-if="$dir.form.values.expires_with_fund")
+                    input(ng-model="$dir.fund.end_date" disabled).form-control
+                    .form-error(ng-repeat="error in $dir.form.errors['enable_products.0.expire_at']" ng-bind="error")
+
+                .col.col-lg-6.col-xs-12(ng-if="!$dir.form.values.expires_with_fund")
+                    datepicker(
+                        input-visible="true"
+                        date-format="yyyy-MM-dd" 
+                        datepicker-mobile=""
+                        date-week-start-day="1").form-control
+                        input(ng-model="$dir.form.values.expire_at" type="text" placeholder="jjjj-MM-dd").form-control
+                    .form-error(ng-repeat="error in $dir.form.errors['enable_products.0.expire_at']" ng-bind="error")
+
+                .col.col-lg-6.col-xs-12: label(for='expires_with_fund').checkbox
+                    input(type="checkbox" ng-model="$dir.form.values.expires_with_fund" id='expires_with_fund')
+                    .checkbox-label 
+                        .checkbox-box: .mdi.mdi-check
+                        | Verloopt met het fonds
+
+        .form-group.form-group-inline(ng-if="$dir.form.errors['enable_products.0']")
+            .form-label &nbsp;
+            .form-offset: .form-error(ng-repeat="error in $dir.form.errors['enable_products.0']" ng-bind="error")
+
+    .card-section.card-section-primary: .text-center
+        a(ng-click="$dir.onCancel()" translate="product_edit.buttons.cancel").button.button-default
+        button(type="submit" translate="product_edit.buttons.confirm").button.button-primary

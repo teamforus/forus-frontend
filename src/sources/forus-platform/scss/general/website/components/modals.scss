@@ -196,6 +196,7 @@ html {
 
                 .modal-content {
                     padding: 45px 10px;
+                    width: 100%;
 
                     @media screen and (min-width: 992px) {
                         padding: 45px 80px;
@@ -218,7 +219,7 @@ html {
                             font-stretch: normal;
                             line-height: 1.23;
                             letter-spacing: normal;
-                            color: $forus-demi-blue;
+                            color: var(--forus-demi-blue);
                         }
                     }
                 }

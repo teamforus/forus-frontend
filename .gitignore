@@ -4,6 +4,7 @@
 /phonegap/www
 /php/public/assets/*
 /src/qdt-env.js
+/src/qdt-env.js.tmp
 /.vscode
 /src/test/e2e/*-env.js
 

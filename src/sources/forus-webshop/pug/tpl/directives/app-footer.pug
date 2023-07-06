@@ -1,28 +1,46 @@
-footer.section.section-footer
+footer.section.section-footer(id="footer")
     .wrapper
         .block.block-footer: .row
             h2.sr-only Site informatie
-            .col.col-md-4(ng-if="description_contact_details_html")
-                .block.block-markdown(ng-bind-html="description_contact_details_html")
+
+            .col.col-md-4
+                .block.block-markdown(ng-if="description_contact_details_html" ng-bind-html="description_contact_details_html")
+                .footer-social-medias(ng-if="$root.appConfigs.features.social_medias.length") 
+                    .footer-social-media-title Volg ons op: 
+                    
+                    .footer-social-media-icons.flex: a.footer-social-media-icon(
+                        ng-repeat="social_media in $root.appConfigs.features.social_medias"
+                        href="{{ social_media.url }}" 
+                        title="{{ social_media.title }}"
+                        target="_blank")
+                        em.mdi(ng-class="'mdi-' + social_media.type")
 
             .col.col-md-4(ng-if="description_opening_times_html")
                 .block.block-markdown(ng-bind-html="description_opening_times_html")
 
             .col(ng-class="description_opening_times_html?'col-md-3':'col-md-4'")
-                .block.block-markdown
-                    h3 Navigatie
+                .block.block-markdown(ng-if="$root.appConfigs.features.pages.provider")
+                    h3 Links
                     nav.footer-nav
                         .footer-nav-item: a(ui-sref="sign-up" target="_self") Aanmelden als aanbieder
-            .col.col-md-3
-                .block.block-markdown
-                    h3 Download Me-app
-                    app-links
-                    
-                    nav.footer-nav
-                        .footer-nav-item
-                            include ../../../resources/_webshop-common/assets/img/me-logo.svg
-                            a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
-            
+
+            .col.col-md-3: .flex.flex-vertical(ng-class="description_footer_app_info_position == 'after' ? 'flex-vertical-reverse' : ''")
+                .block.block-markdown(ng-if="description_footer_app_info_html" ng-bind-html="description_footer_app_info_html")
+
+                div(ng-if="!description_footer_app_info_html || description_footer_app_info_position !== 'replace'")
+                    .block.block-markdown
+                        h3 Download de Me-app
+                        app-links
+                        
+                        nav.footer-nav
+                            .footer-nav-item: .flex
+                                span(aria-hidden="true"): include ../../../resources/_webshop-common/assets/img/me-logo.svg
+                                a(ui-sref="me-app" target="_blank") Meer informatie over de Me-app
+
+                    .footer-sponsor-logo: img.footer-sponsor-logo-img(
+                        ng-if="$root.appConfigs.flags.showFooterSponsorLogo" 
+                        ng-src="./assets/img/logo-footer.png")    
+
     .block.block-copyrights: .wrapper
         .copyrights 
         .links

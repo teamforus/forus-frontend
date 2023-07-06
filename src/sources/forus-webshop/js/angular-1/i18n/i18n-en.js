@@ -26,7 +26,7 @@ module.exports = {
         general: 'General',
         zuidhorn: 'Zuidhorn',
         nijmegen: 'Nijmegen',
-        westerkwartier: 'Westerkwartier',
+        westerkwartier: 'Potjeswijzer',
         forus: 'Forus platform & ',
         kerstpakket: 'Kerstpakket',
         berkelland: 'Berkelland',
@@ -59,7 +59,8 @@ module.exports = {
     records: require("./en/pages/records"),
     voucher: require("./en/pages/voucher"),
     vouchers: require("./en/pages/vouchers"),
-    reservations: require("./nl/pages/reservations"),
+    reservations: require("./en/pages/reservations"),
+    reimbursements: require("./en/pages/reimbursements"),
     notification_preferences: require("./en/pages/notification-preferences"),
     error_page: require("./en/pages/error-page"),
 
@@ -78,4 +79,5 @@ module.exports = {
     maps: require("./en/directives/google-map"),
     profile_menu: require("./en/directives/profile-menu"),
     top_navbar_search: require('./en/directives/top-navbar-search'),
+    reservation: require("./nl/directives/reservation-card"),
 };

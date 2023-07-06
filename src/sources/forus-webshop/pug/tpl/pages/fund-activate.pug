@@ -3,105 +3,120 @@
 top-navbar
 
 main(id="main-content")
-    section: .wrapper 
-        .block.block-sign_up: .block-wrapper
-            h1.block-title(ng-if="$ctrl.state && $ctrl.state != 'digid_login' && $ctrl.state != 'pincode_activate'" i18n="fund_request.sign_up.header.main" i18n-vars="{fundname: ($ctrl.fund.name | capitalize)}")
-
-            //- No funds received after signing-up through DigiD, fund requests are disabled
-            div(ng-if="$ctrl.state == 'error_digid_no_funds'")
-                .sign_up-pane
-                    h2.sign_up-pane-header Aanvraag mislukt
-                    .sign_up-pane-body
-                        p.sign_up-pane-text.text-center 
-                            | U kunt zich niet aanmelden voor {{ $ctrl.fund.name }}.
-                        .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
-                        p.sign_up-pane-text.text-center 
-                            | Neem contact op met {{ $ctrl.fund.organization.name }}.
-                        .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
-                        .form-group.col.col-lg-12.hidden-xs: br
+    .wrapper: .block.block-sign_up: .block-wrapper
+        //- Page title
+        h1.block-title(
+            ng-if="$ctrl.state && $ctrl.state != 'select' && $ctrl.state != 'digid' && $ctrl.state != 'code'"
+            i18n="fund_request.sign_up.header.main"
+            i18n-vars="{fund_name: ($ctrl.fund.name | capitalize)}")
             
-            //- Fund already taken by partner
-            div(ng-if="$ctrl.state == 'taken_by_partner'")
-                .sign_up-pane    
-                    .sign_up-pane-header Dit tegoed is al geactiveerd
+        //- Select activation method
+        .sign_up-pane(ng-if="$ctrl.state == 'select'")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title(
+                    i18n="fund_request.sign_up.header.main"
+                    i18n-vars="{fund_name: ($ctrl.fund.name | capitalize)}")
 
-                    .sign_up-pane-body.text-center
-                        p.sign_up-pane-heading.sign_up-pane-heading-lg Aanvraag mislukt
-                        p.sign_up-pane-text
-                            | U krijgt deze melding omdat het tegoed is geactiveerd door een 
-                            br
-                            | familielid of voogd. 
-                            br
-                            br
-                            | De tegoeden zijn beschikbaar in het account van de persoon die 
-                            br
-                            | deze als eerste heeft geactiveerd.
-                        .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
-                        p.sign_up-pane-text.text-center 
-                            | Neem voor vragen contact op met {{ $ctrl.fund.organization.name }}.
+            .sign_up-pane-body
+                h3.sign_up-pane-text: .sign_up-pane-heading(
+                    translate="signup.items.{{ $root.client_key }}.signup_option"
+                    translate-default="{{ 'signup.items.signup_option' | translate }}")
+                .sign_up-options
+                    //- Use activation code
+                    .sign_up-option(
+                        ng-if="$ctrl.options.includes('code')"
+                        ng-click="$ctrl.setState('code')")
 
-                        .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
-                        .form-group.col.col-lg-12.hidden-xs: br
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
+                        .sign_up-option-details
+                            .sign_up-option-title Ik heb een activatiecode
+                            .sign_up-option-description Ga verder met het activeren van je tegoed door gebruik te maken van een activatiecode
 
-            div(ng-if="$ctrl.state == 'backoffice_error'")
-                .sign_up-pane    
-                    h2.sign_up-pane-header Status
-                    .sign_up-pane-body.text-center
-                        p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
-                        p.sign_up-pane-text 
-                            | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
-                        .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg")
-                        p.sign_up-pane-text.text-center 
-                            | Neem voor meer informatie contact op met {{ $ctrl.fund.organization.name }}.
+                    //- Use digid
+                    .sign_up-option(
+                        ng-if="$ctrl.options.includes('digid')"
+                        ng-click="$ctrl.selectDigiDOption('digid')")
 
-                        .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
-                        .form-group.col.col-lg-12.hidden-xs: br
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="").sign_up-option-media-img
+                        .sign_up-option-details
+                            .sign_up-option-title(ng-if="$ctrl.showFundRequestOption" alt="icon digid") DigiD
+                            .sign_up-option-description(ng-if="$ctrl.showFundRequestOption")
+                                | Open het DigiD inlogscherm
 
-            //- Fund request in progress
-            div(ng-if="$ctrl.state == 'fund_already_applied'")
-                .sign_up-pane    
-                    h2.sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
+                            .sign_up-option-title(ng-if="!$ctrl.showFundRequestOption") DigiD
+                            .sign_up-option-description(ng-if="!$ctrl.showFundRequestOption")
+                                | Open het DigiD inlogscherm
 
-                    .sign_up-pane-body
-                        .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="")
-                        p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
+                    //- Make fund request
+                    .sign_up-option(
+                        ng-if="$ctrl.options.includes('request')"
+                        ui-sref="fund-request($ctrl.fund)")
 
-                        ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.fund.criteria" 
-                            ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
-                            .item-icon: em.mdi(
-                                ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[critera.request_state]")
-                            span(ng-if="critera.title" ng-bind="critera.title")
-                            span(
-                                ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
-                                i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
-                        span(translate="fund_request.sign_up.pane.fund_already_applied")    
-    
+                        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
+                        .sign_up-option-details
+                            .sign_up-option-title Ik wil een tegoed aanvragen
+                            .sign_up-option-description Doorloop het aanvraagformulier om een tegoed aan te vragen
 
-            //- DigiD login
-            div(ng-if="$ctrl.state == 'digid_login'")
-                .sign_up-pane
-                    h1.sr-only Start aanvraag
-                    h2.sign_up-pane-header(i18n="fund_request.sign_up.header.title_log_digid") 
-                    .sign_up-pane-body(ng-class="{'sign_up-pane-body-padless-bottom': $ctrl.fundRequestAvailable}")
-                        
-                        .sign_up-pane-digid
-                            button.digid-button(type="button" ng-click="$ctrl.startDigId()") Log in met DigiD
-                            img.digid-image(src=src_prefix + "./assets/img/icon-digid.svg" alt="DigiD")
+        //- Activation code
+        .sign_up-pane(ng-if="$ctrl.state == 'code'")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title Vul uw activatiecode in
 
-                        .sign_up-pane-link(
-                            ng-if="$ctrl.fund.allow_prevalidations"
-                            ng-click="$ctrl.state = 'pincode_activate'") Ik heb een activatiecode
+            .sign_up-pane-body.sign_up-pane-body-padless-bottom
+                form.form(ng-submit="$ctrl.activateCodeForm.submit()")
+                    .form-group.text-center
+                        .form-label(i18n="popup_auth.input.code")
+                        pincode-control(
+                            ng-model="$ctrl.activateCodeForm.values.code" 
+                            block-size="4" 
+                            block-count="2" 
+                            block-input-type="alphanum").block-pincode-compact
+                        .form-error(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
+                    .form-group
+                    .form-group.text-center: button(
+                        type="submit" 
+                        i18n="popup_auth.buttons.submit" 
+                        ng-class="($ctrl.activateCodeForm.values.code.length != 8 || !$ctrl.activateCodeForm.enabled) ? 'button-disabled' : ''").button.button-primary
 
-                    .sign_up-pane-footer(ng-if="$ctrl.fundRequestAvailable"): .row
-                        .col.col-lg-6.col-xs-6.text-left &nbsp;
-                        .col.col-lg-6.col-xs-6.text-right(ng-if="!$ctrl.appConfigs.fund_request_allways_bsn_confirmation")
-                            .button.button-text.button-text-padless(ui-sref="fund-request({fund_id: $ctrl.fund.id})")
-                                em.mdi.mdi-chevron-right.icon-right
-                                | Overslaan
+                .text-center: .sign_up-pane-link(
+                    ng-if="$ctrl.showDigiDOption"
+                    ng-click="$ctrl.setState('digid')") Log in met DigiD
 
-            //- Prevalidation pincode
+            .sign_up-pane-footer
+                .button.button-text.button-text-padless(ng-if="$ctrl.options.length > 1" ng-click="$ctrl.setState('select')")
+                    em.mdi.mdi-chevron-left.icon-lefts
+                    | Terug
+
+        //- DigiD confirmation (custom criteria)
+        .sign_up-pane(ng-if="$ctrl.state == 'digid' && !$ctrl.fetchingData")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title(
+                    translate="fund_activate.header.{{ $root.client_key }}.title"
+                    translate-default="{{ 'fund_activate.header.title' | translate }}")
+
+            .sign_up-pane-body: .form
+                fund-criteria-custom-overview(key="$ctrl.fund.key")
+
+                p.sign_up-pane-text: ui-control-checkbox(
+                    ng-model="$ctrl.confirm_criteria"
+                    data-id="confirm_criteria"
+                    data-label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden")
+
+                p.sign_up-pane-text(ng-if="$ctrl.fund.key == 'IIT'"): ui-control-checkbox(
+                    ng-model="$ctrl.confirm_criteria_warning"
+                    data-id="confirm_criteria_warning"
+                    data-label="Ik weet dat het verstrekken van onjuiste informatie strafbaar is, dat ik een onterecht of een teveel ontvangen vergoeding terug moet betalen en dat ik een boete kan krijgen.")
+
+            .sign_up-pane-footer: .row
+                .col.col-lg-6.text-left &nbsp;
+                .col.col-lg-6.text-right: .button.button-text.button-text-padless(
+                    ng-if="$ctrl.confirm_criteria && ($ctrl.fund.key != 'IIT' || $ctrl.confirm_criteria_warning)"
+                    ng-click="$ctrl.confirmCriteria()"
+                    role="button")
+                    span(i18n="fund_request.sign_up.pane.footer.next")
+                    em.mdi.mdi-chevron-right.icon-right
+
+            //- Prevalidation pin code
             div(ng-if="$ctrl.state == 'pincode_activate'")
                 .sign_up-pane
                     h2.sign_up-pane-header Vul uw activatiecode in
@@ -121,13 +136,140 @@ main(id="main-content")
                                 i18n="popup_auth.buttons.submit" 
                                 ng-class="($ctrl.activateCodeForm.values.code.length != 8 || !$ctrl.activateCodeForm.enabled) ? 'button-disabled' : ''").button.button-primary
 
-                        .text-center: .sign_up-pane-link(
-                            ng-if="$ctrl.digidAvailable"
-                            ng-click="$ctrl.state = 'digid_login'") Log in met DigiD
+        //- DigiD confirmation (custom criteria)
+        .sign_up-pane(ng-if="$ctrl.state == 'digid' && $ctrl.fetchingData")
+            .sign_up-pane-body
+                br
+                .sign_up-pane-loading: .mdi.mdi-loading.mdi-spin
+                .sign_up-pane-text.text-center.text-muted Een moment geduld, het verzoek wordt verwerkt.
+                br
+
+        //- Error: No funds received after signing-up through DigiD, fund requests are disabled
+        .sign_up-pane(ng-if="$ctrl.state == 'error_not_available'")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title Aanvraag mislukt
+
+            .sign_up-pane-body
+                p.sign_up-pane-text.text-center 
+                    | U kunt zich niet aanmelden voor {{ $ctrl.fund.name }}.
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
+                p.sign_up-pane-text.text-center 
+                    | Neem contact op met {{ $ctrl.fund.organization.name }}.
+
+                .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
+                .form-group.col.col-lg-12.hidden-xs: br
+
+        //- Error: Fund already taken by partner
+        .sign_up-pane(ng-if="$ctrl.state == 'taken_by_partner'")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title Dit tegoed is al geactiveerd
+
+            .sign_up-pane-body.text-center
+                p.sign_up-pane-heading.sign_up-pane-heading-lg Aanvraag mislukt
+                p.sign_up-pane-text
+                    | U krijgt deze melding omdat het tegoed is geactiveerd door een 
+                    br
+                    | familielid of voogd. 
+                    br
+                    br
+                    | De tegoeden zijn beschikbaar in het account van de persoon die 
+                    br
+                    | deze als eerste heeft geactiveerd.
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
+                p.sign_up-pane-text.text-center 
+                    | Neem voor vragen contact op met {{ $ctrl.fund.organization.name }}.
+
+                .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
+                .form-group.col.col-lg-12.hidden-xs: br
+
+        //- Error: Requester is not a resident
+        .sign_up-pane(ng-if="$ctrl.state == 'backoffice_error_not_resident'")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title Aanvraag mislukt
+
+            .sign_up-pane-body.text-center
+                p.sign_up-pane-text 
+                    | Volgens onze gegevens bent u geen inwoner van de gemeente Nijmegen. De {{ $ctrl.fund.name }} geldt alleen voor inwoners van de gemeente Nijmegen. 
+                    br
+                    br
+                    | Mogelijk heeft uw eigen gemeente wel regelingen waarvoor u in aanmerking komt. Neem hiervoor contact op met de gemeente waar u woonachtig bent. 
                     
-                    .sign_up-pane-footer(ng-if="$ctrl.fundRequestAvailable"): .row
-                        .col.col-lg-6.col-xs-6.text-left &nbsp;
-                        .col.col-lg-6.col-xs-6.text-right(ng-if="!$ctrl.appConfigs.fund_request_allways_bsn_confirmation")
-                            .button.button-text.button-text-padless(ui-sref="fund-request({fund_id: $ctrl.fund.id})")
-                                em.mdi.mdi-chevron-right.icon-right
-                                | Overslaan
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
+                p.sign_up-pane-text.text-center 
+                    | Voor meer informatie of vragen kunt u contact opnemen met gemeente Nijmegen.
+                    br
+                    | E-mailadres: #[a(href="mailto:inkomensondersteuning@nijmegen.nl").txt_link.var inkomensondersteuning@nijmegen.nl]
+                    br
+                    | Telefoonnumer: 14 024
+
+                .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
+                .form-group.col.col-lg-12.hidden-xs: br
+
+        //- Error: Requester is not eligible
+        .sign_up-pane(ng-if="$ctrl.state == 'backoffice_error_not_eligible'")
+            .sign_up-pane-header: h2.sign_up-pane-header-title Aanvraag mislukt. U voldoet niet aan de voorwaarden.
+            .sign_up-pane-body.text-center
+                p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
+                p.sign_up-pane-text 
+                    | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
+                p.sign_up-pane-text.text-center 
+                    | Neem voor meer informatie contact op met gemeente Nijmegen.
+
+                .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
+                .form-group.col.col-lg-12.hidden-xs: br
+
+        //- Error: Backoffice taken by partner
+        .sign_up-pane(ng-if="$ctrl.state == 'backoffice_error_taken_by_partner'")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title Aanvraag mislukt
+
+            .sign_up-pane-body.text-center
+                p.sign_up-pane-text
+                    | Volgens onze informatie hebben wij al een aanvraag van uw partner ontvangen. Het is daarom niet mogelijk om een aanvraag te doen.
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
+                p.sign_up-pane-text.text-center 
+                    | Wilt u hiervoor een bezwaar indienen of heeft u vragen, neem dan contact met ons op.
+                    br
+                    | E-mailadres: #[a(href="mailto:inkomensondersteuning@nijmegen.nl") inkomensondersteuning@nijmegen.nl]
+                    br
+                    | Telefoonnumer: 14 024
+
+                .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
+                .form-group.col.col-lg-12.hidden-xs: br
+
+        //- Error: Backoffice not responding
+        .sign_up-pane(ng-if="$ctrl.state == 'backoffice_error_no_response'")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title Er is een technische fout opgetreden, probeer het later opnieuw.
+
+            .sign_up-pane-body.text-center
+                p.sign_up-pane-heading.sign_up-pane-heading-lg Het is niet gelukt
+                p.sign_up-pane-text 
+                    | Sorry, uw aanvraag voor {{ $ctrl.fund.name }} is helaas niet gelukt. 
+                .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-error.svg" alt="icon sign-up error")
+                p.sign_up-pane-text.text-center 
+                    | Neem voor meer informatie contact op met gemeente Nijmegen.
+
+                .text-center: .button.button-text.button-text-primary.button-text-padless(ui-sref="funds") Terug
+                .form-group.col.col-lg-12.hidden-xs: br
+
+        //- Error: Fund request already in progress
+        .sign_up-pane(ng-if="$ctrl.state == 'fund_already_applied'")
+            .sign_up-pane-header
+                h2.sign_up-pane-header-title(translate="fund_request.sign_up.header.title_fund_already_applied")
+
+            .sign_up-pane-body
+                .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="icon fund request error")
+                p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
+
+                ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
+                    ng-repeat="critera in $ctrl.fund.criteria" 
+                    ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
+                    .item-icon: em.mdi(ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[critera.request_state]")
+                    span(ng-if="critera.title" ng-bind="critera.title")
+                    span(
+                        ng-if="!critera.title"
+                        i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
+                        i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
+                span(translate="fund_request.sign_up.pane.fund_already_applied")

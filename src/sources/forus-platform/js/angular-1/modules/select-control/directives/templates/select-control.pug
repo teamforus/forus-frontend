@@ -1,20 +1,30 @@
 .select-control
-    .select-control-input(click-outside="$dir.onClickOutside()" ng-class="{options : $dir.showOptions}")
+    .select-control-input(
+        ng-class="{options : $dir.showOptions}"
+        ng-disabled="$dir.disabled || $dir.ngDisabled"
+        click-outside="$dir.onClickOutside()")
+
         label.select-control-search.form-control(
             for="{{ $dir.controlId }}"
-            ng-show="!$dir.showOptions" 
-            ng-bind="ngModel ? ngModel.name : placeholder"
-            ng-click="$dir.searchOption()")
-        
+            title="{{ $dir.value.raw[$dir.as] || $dir.placeholder }}"
+            ng-show="($dir.mode == 'strict' && !$dir.showOptions) || !$dir.searchEnabled" 
+            ng-click="$dir.searchOption()"
+            ng-disabled="$dir.disabled || $dir.ngDisabled")
+            .select-control-search-placeholder(ng-bind="$dir.value.raw[$dir.as] || $dir.placeholder")
+            .select-control-icon: .mdi(ng-class="$dir.showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down'")
+
         input(
             id="{{ $dir.controlId }}"
             type="search"
-            ng-show="$dir.showOptions"
+            placeholder="{{ $dir.placeholder }}"
+            ng-click="$dir.onInputClick()"
+            ng-keydown="$dir.searchKeydown($event)"
+            ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
             ng-change="$dir.searchInputChanged()"
-            ng-model="$dir.filter.name").select-control-search.form-control
+            ng-model="$dir.filter.q").select-control-search.form-control
         
         select-control-options(
             ng-if="$dir.showOptions" 
             change="$dir.selectOption(option)" 
-            options="$dir.options"
+            options="$dir.optionsFiltered"
             options-preload-size="{{ optionsPreloadSize }}")

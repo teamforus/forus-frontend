@@ -1,13 +1,16 @@
 const VoucherComponent = function(
-    $sce,
+    $sce, 
     $state,
+    $filter,
     $rootScope,
     VoucherService,
     PrintableService,
     ModalService,
-    HelperService
+    HelperService,
+    appConfigs,
 ) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
 
     $ctrl.qrValue = null;
 
@@ -51,7 +54,7 @@ const VoucherComponent = function(
             description: "Stuur de QR-code naar mijn e-mailadres",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
-                    const emailServiceUrl = HelperService.getEmailServiceProviderUrl($rootScope.auth_user.email);
+                    const emailServiceUrl = HelperService.getEmailServiceProviderUrl($rootScope.auth_user?.email);
 
                     ModalService.open('modalNotification', {
                         type: 'action-result',
@@ -125,6 +128,7 @@ const VoucherComponent = function(
 
     $ctrl.$onInit = function() {
         $ctrl.qrValue = $ctrl.voucher.address;
+        $ctrl.appConfigs = appConfigs;
         $ctrl.voucherCard = VoucherService.composeCardData($ctrl.voucher);
         $ctrl.voucherCard.description = $sce.trustAsHtml($ctrl.voucherCard.description);
         $ctrl.qrCodeValue = $ctrl.voucher.address;
@@ -140,6 +144,10 @@ const VoucherComponent = function(
             !$ctrl.voucher.physical_card &&
             !$ctrl.isPhysicalCardDismissed() &&
             $ctrl.voucherCanUse;
+
+        $rootScope.pageTitle = $i18n('page_state_titles.voucher', {
+            address: $ctrl.voucher.address,
+        });
     };
 };
 
@@ -152,11 +160,13 @@ module.exports = {
     controller: [
         '$sce',
         '$state',
+        '$filter',
         '$rootScope',
         'VoucherService',
         'PrintableService',
         'ModalService',
         'HelperService',
+        'appConfigs',
         VoucherComponent
     ],
     templateUrl: 'assets/tpl/pages/voucher.html'

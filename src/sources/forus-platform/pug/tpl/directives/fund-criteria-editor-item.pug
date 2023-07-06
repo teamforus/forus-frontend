@@ -25,41 +25,53 @@
         .flex-row(ng-if="$dir.criterion.is_editing")
             .flex-col.flex-col-2.form-group
                 label.form-label Eigenschap
-                select(
-                    ng-disabled="!$dir.isEditable"
+                .form-offset: select-control(
+                    prop="key"
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
                     ng-model="$dir.criterion.record_type_key" 
-                    ng-options="operator.key as operator.name for operator in $dir.recordTypes").form-control
+                    options="$dir.recordTypes").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.record_type_key']" ng-bind="error")
             
             .flex-col.flex-col-2.form-group
                 label.form-label Verhouding
-                select(
-                    ng-disabled="!$dir.isEditable"
+                .form-offset: select-control(
+                    prop="key"
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
                     ng-model="$dir.criterion.operator" 
-                    ng-options="operator.key as operator.name for operator in $dir.operators").form-control
+                    options="$dir.operators").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.operator']" ng-bind="error")
             
             .flex-col.flex-col-2.form-group
                 label.form-label Waarde
-                input(type="text" ng-model="$dir.criterion.value" ng-disabled="!$dir.isEditable").form-control
+                input(
+                    type="text" 
+                    ng-model="$dir.criterion.value" 
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')").form-control
                 .form-error(ng-repeat="error in $dir.errors['criteria.0.value']" ng-bind="error")
             
             .flex-col.form-group
                 label.form-label &nbsp;
                 
                 .button.button-primary.button-icon.pull-left(
-                    ng-click="$dir.editDescription($dir.criterion)"
-                    ): em.mdi.mdi-comment-text.icon-start
+                    ng-click="$dir.editDescription($dir.criterion)")
+                    em.mdi.mdi-comment-text.icon-start
                 
                 .button.button-default.button-icon.pull-left(
-                    ng-if="$dir.isEditable"
+                    ng-if="$dir.isEditable" 
                     ng-click="$dir.removeCriterion()"
-                    ): em.mdi.mdi-close.icon-start
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')")
+                    em.mdi.mdi-close.icon-start
 
         .flex-row(ng-if="$dir.criterion.is_editing")
             .flex-col.flex-col-2.form-group
-                label(for='criterion_{{ $dir.criterion.id }}').checkbox.checkbox-narrow
-                    input(type="checkbox" ng-model="$dir.criterion.show_attachment" id='criterion_{{ $dir.criterion.id }}')
+                label(
+                    for='criterion_{{ $dir.criterion.id }}'
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')").checkbox.checkbox-narrow
+                    input(
+                        type="checkbox" 
+                        ng-model="$dir.criterion.show_attachment" 
+                        id='criterion_{{ $dir.criterion.id }}'
+                        ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')")
                     .checkbox-label 
                         .checkbox-box: .mdi.mdi-check
                         translate(translate="components.fund_criteria_editor_item.buttons.allow_attachments")

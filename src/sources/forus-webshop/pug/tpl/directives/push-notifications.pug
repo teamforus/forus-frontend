@@ -1,10 +1,24 @@
-.block.block-push-notifications: .inner
+.block.block-push-notifications(ng-class="{{ class }}"): .inner(role="alert")
     .notification(
         ng-repeat="notification in notifications" 
         ng-class="[notification.shown ? 'shown' : '', 'notification-' + notification.type]"
-        role="status")
+        role="status"
+        dusk="{{ notification.type }}Notification")
+        
         .notification-close.mdi.mdi-close(ng-click="deleteNotification(notification)")
-        .notification-icon(ng-class="'mdi mdi-' + notification.icon")
+        .notification-icon(ng-if="notification.icon" ng-class="'mdi mdi-' + notification.icon")
+        
+        .notification-image(ng-if="notification.imageSrc")
+            img(ng-src="{{ notification.imageSrc }}" alt="notification")
+        
         .notification-details
-            strong(ng-if="notification.title" ng-bind="notification.title")
-            span(ng-if="notification.message" ng-bind="notification.message")
+            strong.notification-title(ng-if="notification.title" ng-bind="notification.title")
+            span.notification-description(ng-if="notification.message" ng-bind="notification.message")
+
+        .notification-button(ng-if="notification.btnText")
+            .button.button-primary(
+                ui-sref="{{ notification.btnSref }}" 
+                ui-sref-opts="{reload: true}" ng-click="deleteNotification(notification)")
+
+                .mdi(ng-if="notification.btnIcon" ng-class="'mdi-' + notification.btnIcon")
+                span(ng-bind="notification.btnText")

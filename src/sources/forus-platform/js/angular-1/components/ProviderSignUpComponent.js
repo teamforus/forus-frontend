@@ -13,7 +13,6 @@ const ProviderSignUpComponent = function(
     MediaService,
     ShareService,
     DemoTransactionService,
-    ProviderFundService,
     AuthService,
     ModalService,
     SignUpService
@@ -69,12 +68,14 @@ const ProviderSignUpComponent = function(
     $ctrl.employees = [];
     $ctrl.shareSmsSent = false;
     $ctrl.shareEmailSent = false;
-    $ctrl.fundsAvailable = [];
 
     $ctrl.showAddOfficeBtn = true;
     $ctrl.isAddingNewOffice = false;
 
     $ctrl.loggedWithApp = progressStorage.has('logged-with-app');
+
+    $ctrl.skipFundApplications = false;
+    $ctrl.hasFundApplications = false;
 
     $ctrl.calcSteps = () => {
         $ctrl.STEP_INFO_GENERAL = 1;
@@ -130,17 +131,17 @@ const ProviderSignUpComponent = function(
             $ctrl.STEP_DEMO_TRANSACTION,
             $ctrl.STEP_SIGNUP_FINISHED,
         ] : [
-                $ctrl.STEP_INFO_ME_APP,
-                $ctrl.STEP_SCAN_QR,
-                $ctrl.STEP_SELECT_ORGANIZATION,
-                $ctrl.STEP_ORGANIZATION_ADD,
-                $ctrl.STEP_OFFICES,
-                $ctrl.STEP_EMPLOYEES,
-                $ctrl.STEP_FUND_APPLY,
-                $ctrl.STEP_PROCESS_NOTICE,
-                $ctrl.STEP_DEMO_TRANSACTION,
-                $ctrl.STEP_SIGNUP_FINISHED,
-            ];
+            $ctrl.STEP_INFO_ME_APP,
+            $ctrl.STEP_SCAN_QR,
+            $ctrl.STEP_SELECT_ORGANIZATION,
+            $ctrl.STEP_ORGANIZATION_ADD,
+            $ctrl.STEP_OFFICES,
+            $ctrl.STEP_EMPLOYEES,
+            $ctrl.STEP_FUND_APPLY,
+            $ctrl.STEP_PROCESS_NOTICE,
+            $ctrl.STEP_DEMO_TRANSACTION,
+            $ctrl.STEP_SIGNUP_FINISHED,
+        ];
 
         if (stepsAvailable.indexOf(step) === -1) {
             return $ctrl.setStep($ctrl.STEP_INFO_GENERAL);
@@ -157,10 +158,6 @@ const ProviderSignUpComponent = function(
         }
 
         progressStorage.set('hasApp', $ctrl.hasApp);
-    };
-
-    $ctrl.chageBusinessType = (businessType) => {
-        $ctrl.organizationForm.values.business_type_id = businessType.id;
     };
 
     $ctrl.makeSignUpForm = () => {
@@ -302,9 +299,15 @@ const ProviderSignUpComponent = function(
             return ShareService.sendEmail(form.values);
         }, true);
 
-        $ctrl.businessType = $ctrl.businessTypes.filter(
-            option => option.id == $ctrl.organizationForm.values.business_type_id
-        )[0] || null;
+        $ctrl.filters = {
+            values: {
+                q: "",
+                per_page: 10,
+                tag: $stateParams.tag || null,
+                fund_id: $stateParams.fund_id ||null,
+                organization_id: $stateParams.organization_id || null,
+            },
+        };
     };
 
     $ctrl.deleteOffice = (office) => {
@@ -422,60 +425,6 @@ const ProviderSignUpComponent = function(
         });
     };
 
-    $ctrl.filters = {
-        values: {
-            q: "",
-            per_page: 10
-        },
-    };
-
-    $ctrl.onFundsAvailablePageChange = (query) => {
-        getAvailableFunds($ctrl.organization, query);
-    };
-
-    let getAvailableFunds = (organization, query) => {
-        ProviderFundService.listAvailableFunds(organization.id, query).then(res => {
-            let fundsAvailable = $ctrl.fundsAvailable = {
-                meta: res.data.meta,
-                data: res.data.data
-            };
-
-            if ($stateParams.fundId && fundsAvailable.meta.total > 0) {
-                let targetFund = fundsAvailable.data.filter(
-                    fund => fund.id == $stateParams.fundId
-                )[0] || null;
-
-                if (targetFund) {
-                    return ProviderFundService.applyForFund(
-                        organization.id,
-                        targetFund.id
-                    ).then($ctrl.next);
-                }
-            }
-        });
-    };
-
-    const loadAvailableFunds = (organization) => {
-        $ctrl.showFilters = !$stateParams.organization_id && !$stateParams.tag && !$stateParams.fund_id;
-        const search_params = $ctrl.filters.values;
-
-        if (!$ctrl.showFilters) {
-            if ($stateParams.organization_id) {
-                search_params.organization_id = $stateParams.organization_id;
-            }
-
-            if ($stateParams.tag) {
-                search_params.tag = $stateParams.tag;
-            }
-
-            if ($stateParams.fund_id) {
-                search_params.fund_id = $stateParams.fund_id;
-            }
-        }
-
-        getAvailableFunds(organization, search_params);
-    };
-
     $ctrl.setStep = (step) => {
         let movingForward = step >= $ctrl.step;
 
@@ -517,10 +466,6 @@ const ProviderSignUpComponent = function(
                 loadEmployees($ctrl.organization);
             }
 
-            if ((step == $ctrl.STEP_FUND_APPLY) && $ctrl.organization) {
-                loadAvailableFunds($ctrl.organization);
-            }
-
             if (step == $ctrl.STEP_DEMO_TRANSACTION) {
                 DemoTransactionService.store().then(res => {
                     $ctrl.demoToken = res.data.data.token;
@@ -551,6 +496,10 @@ const ProviderSignUpComponent = function(
             progressStorage.clear();
         }
     };
+
+    $ctrl.applyFund = () => {
+        $ctrl.hasFundApplications = true;
+    }
 
     $ctrl.setOrganization = (organization) => {
         $ctrl.organization = organization;
@@ -716,11 +665,10 @@ module.exports = {
         'MediaService',
         'ShareService',
         'DemoTransactionService',
-        'ProviderFundService',
         'AuthService',
         'ModalService',
         'SignUpService',
-        ProviderSignUpComponent
+        ProviderSignUpComponent,
     ],
-    templateUrl: 'assets/tpl/pages/provider-sign-up.html'
+    templateUrl: 'assets/tpl/pages/provider-sign-up.html',
 };

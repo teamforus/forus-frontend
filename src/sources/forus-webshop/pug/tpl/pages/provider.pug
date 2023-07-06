@@ -12,7 +12,7 @@ block content
                     a(ui-sref="providers").breadcrumb-item Aanbieders
                     .breadcrumb-item.active(ng-bind="$ctrl.provider.name" aria-current="location")
             
-            .provider-map: .block.block-google-map: google-map(
+            .provider-map(ng-if="$root.appConfigs.features.show_provider_map"): .block.block-google-map: google-map(
                 ng-if="$ctrl.mapOptions"
                 map-pointers="$ctrl.provider.offices" 
                 map-pointer-template="providers-office-view"
@@ -20,10 +20,12 @@ block content
                 map-gesture-handling="'none'"
                 open-first-pointer="true")
 
-            .provider-content
+            .provider-content(ng-class="{'provider-content-top': !$root.appConfigs.features.show_provider_map}")
                 .block.block-pane
-                    h1.sr-only(ng-bind="$ctrl.provider.name") 
-                    h2.pane-head Aanbieder informatie
+                    .pane-head
+                        h1.sr-only(ng-bind="$ctrl.provider.name") 
+                        h2.pane-head-title Aanbieder informatie
+
                     .pane-section: .provider-details
                         .provider-description
                             img(ng-src="{{ $ctrl.provider.logo.sizes.thumbnail || '/assets/img/placeholders/organization-thumbnail.png' }}" alt="").provider-logo
@@ -47,22 +49,29 @@ block content
                                 .data-list-key Type aanbieder:
                                 .data-list-value
                                     .label.label-default.label-sm {{ $ctrl.provider.business_type.name || 'Geen aanbieder type' }}
-                
+
+                //- Provider description
+                .block.block-pane(ng-if="$ctrl.provider.description_html")
+                    .pane-head: h2.pane-head-title Omschrijving
+                    .pane-section: .block.block-markdown: .markdown-wrapper(ng-bind-html="$ctrl.provider.description_html")
+
+                //- Provider offices header
                 .block.block-pane.last-child: h2.pane-head
                     .flex-grow Vestigingen
                     .pane-head-count(ng-bind="$ctrl.provider.offices.length")
                 
+                //- Provider offices list
                 .block.block-organizations
                     .organization-item
                         .organization-offices: .block.block-offices
-                            a(ng-repeat="office in $ctrl.provider.offices" ng-click="$ctrl.goToOffice(office)").office-item
-                                .office-item-map-icon: .mdi.mdi-map-marker
+                            a(ng-repeat="office in $ctrl.provider.offices" ui-sref="provider-office(office)").office-item
+                                .office-item-map-icon: .mdi.mdi-map-marker(role="img" aria-label="")
                                 .office-pane
                                     .office-pane-block
                                         .office-logo: img(
                                             ng-src="{{ office.photo.sizes.thumbnail || '/assets/img/placeholders/office-thumbnail.png' }}"
-                                            alt="Vestiging {{ office.organization.name }}"
-                                            ).office-logo-img
+                                            alt="").office-logo-img
+
                                         .office-details
                                             .office-title(ng-bind="office.address")
                                             .office-labels

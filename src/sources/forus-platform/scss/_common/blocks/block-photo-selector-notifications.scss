@@ -13,14 +13,14 @@
             max-width: 100px;
             width: 100px;
             height: 100px;
-            border-radius: $border_radius;
-            border: 1px solid $border_color;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
         }
     }
 
     .photo-selector-notifications-hint  {
         display: flex;
-        font: 400 12px/20px $bf;
+        font: 400 12px/20px var(--base-font);
         margin-bottom: 10px;
     }
 }

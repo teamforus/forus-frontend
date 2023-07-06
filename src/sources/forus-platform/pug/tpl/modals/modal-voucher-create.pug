@@ -1,10 +1,12 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-md.modal-animated.modal-loading(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated.modal-loading(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
 
     //- Voucher form
-    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+    form(ng-submit="$ctrl.form.submit()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header(i18n="modals.modal_voucher_create.title")
         .modal-body
@@ -12,27 +14,44 @@
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label.form-label-required(i18n="modals.modal_voucher_create.labels.assign_by_type")
                     select(
-                        ng-change="$ctrl.onAsignTypeChange($ctrl.assignType)"
+                        ng-change="$ctrl.onAssignTypeChange($ctrl.assignType)"
                         ng-options="assignType as assignType.label for assignType in $ctrl.assignTypes"
                         ng-model="$ctrl.assignType").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
 
-                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.assignType.key")
-                    label.form-label(ng-bind="$ctrl.assignType.inputLabel")
+                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.assignType.hasInput")
+                    label.form-label(
+                        ng-bind="$ctrl.assignType.inputLabel"
+                        ng-class="['email', 'bsn'].includes($ctrl.assignType.key) ? 'form-label-required' : ''")
                     input(ng-model="$ctrl.form.values[$ctrl.assignType.key]" placeholder="{{ $ctrl.assignType.inputLabel }}").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
 
+                .form-group.form-group-inline.form-group-inline-md
+                    label.form-label(i18n="modals.modal_voucher_create.labels.client_uid")
+                    input(
+                        ng-model="$ctrl.form.values.client_uid"
+                        placeholder="{{ 'modals.modal_voucher_create.labels.client_uid' | i18n }}").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.client_uid" ng-bind="error")
+
                 .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.fund.type === 'budget'")
                     label.form-label.form-label-required(i18n="modals.modal_voucher_create.labels.amount")
-                    input(  
-                        type="number" 
-                        placeholder="{{ 'modals.modal_voucher_create.labels.amount' | i18n }}"
-                        ng-model="$ctrl.form.values.amount" step=".01" min="0.01").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
+
+                    .form-offset
+                        input(  
+                            type="number" 
+                            placeholder="{{ 'modals.modal_voucher_create.labels.amount' | i18n }}"
+                            ng-model="$ctrl.form.values.amount" 
+                            step=".01" 
+                            min="0.01" 
+                            max="$ctrl.fund.limit_per_voucher").form-control
+
+                        .form-hint(ng-if="!$ctrl.form.errors.amount") Limiet {{ $ctrl.fund.limit_per_voucher | currency_format }}
+                        .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
                 
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
                     datepicker(
+                        input-visible="true"
                         date-format="yyyy-MM-dd" 
                         datepicker-mobile="" 
                         date-min-limit="{{ $ctrl.dateMinLimit + '' }}"
@@ -65,5 +84,5 @@
                             translate(translate="modals.modal_voucher_create.info")
 
         .modal-footer.text-center
-            button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_create.buttons.cancel")
+            button.button.button-default(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_create.buttons.cancel")
             button.button.button-primary(type="submit" i18n="modals.modal_voucher_create.buttons.submit")

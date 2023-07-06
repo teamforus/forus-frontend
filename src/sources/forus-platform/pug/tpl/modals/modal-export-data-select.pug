@@ -1,0 +1,58 @@
+.modal.modal-md.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    
+    form.modal-window.form
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-header(ng-if="$ctrl.title" ng-bind="$ctrl.title")
+        .modal-header(ng-if="!$ctrl.title" i18n="modals.modal_export_data.title")
+
+        .modal-body: .modal-section: .block.block-export-options
+            .modal-heading(ng-if="$ctrl.description" ng-bind="$ctrl.description")
+
+            .export-section(ng-repeat="section in $ctrl.sections")
+                .export-section-label.flex
+                    .flex.flex-grow.flex-vertical.flex-center: .form-label(ng-bind="section.title")
+                    .flex(ng-if="section.type === 'checkbox'"): label(for="checkbox_{{ section.key }}_check_all").form-toggle
+                        input(type="checkbox" id="checkbox_{{ section.key }}_check_all" ng-model="section.selectAll" ng-click="$ctrl.toggleAllFields(section)")
+                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+                //- Checkboxes
+                .export-options(ng-if="section.type === 'checkbox'"): table
+                    tr(ng-repeat="row in section.fieldsView")
+                        td(ng-repeat="field in row")
+                            input-checkbox-control(
+                                narrow="true"
+                                name="checkbox_{{ section.key }}_{{ field.key }}"
+                                label="{{ field.name }}"
+                                ng-model="field.selected"
+                                ng-change="$ctrl.updateSelectedFields(section)")
+
+                //- Radio
+                .export-options(ng-if="section.type === 'radio'")
+                    label.export-option(
+                        ng-repeat="field in section.fields" 
+                        for="radio_{{ section.key }}_{{ field.value }}")
+                        input(
+                            type="radio"
+                            id="radio_{{ section.key }}_{{ field.value }}"
+                            value="{{ field.value }}"
+                            ng-model="section.value")
+
+                        .export-option-label
+                            .export-option-icon.mdi(ng-class="'mdi-' + field.icon")
+                            span(ng-bind="field.label")
+                            .export-option-circle
+
+        .modal-footer.text-center
+            button.button.button-default(
+                type="button" 
+                ng-click="$ctrl.close()" 
+                i18n="modals.modal_voucher_create.buttons.cancel")
+
+            button.button.button-primary(
+                ng-disabled="!$ctrl.isValid"
+                type="button" 
+                ng-click="$ctrl.onSubmit()" 
+                i18n="modals.modal_export_data.buttons.submit")

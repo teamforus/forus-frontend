@@ -1,10 +1,11 @@
 const FundsComponent = function(
     $q,
     $state,
+    $rootScope,
     $stateParams,
     appConfigs,
     FundService,
-    FormBuilderService
+    FormBuilderService,
 ) {
     const $ctrl = this;
 
@@ -30,6 +31,7 @@ const FundsComponent = function(
         $state.go('funds', {
             q: query.q || '',
             page: query.page,
+            tag_id: query.tag_id,
             organization_id: query.organization_id,
             show_menu: $ctrl.showModalFilters,
             with_external: 1,
@@ -40,6 +42,7 @@ const FundsComponent = function(
         let count = 0;
 
         $ctrl.form.values.q && count++;
+        $ctrl.form.values.tag_id && count++;
         $ctrl.form.values.organization_id && count++;
         $ctrl.countFiltersApplied = count;
     };
@@ -66,6 +69,11 @@ const FundsComponent = function(
 
         $ctrl.showModalFilters = $stateParams.show_menu;
 
+        $ctrl.tags.unshift({
+            id: null,
+            name: 'Alle categorieën',
+        });
+
         $ctrl.organizations.unshift({
             id: null,
             name: 'Alle organisaties',
@@ -73,17 +81,23 @@ const FundsComponent = function(
 
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
+            tag_id: $stateParams.tag_id || null,
             organization_id: $stateParams.organization_id || null,
             per_page: $stateParams.per_page || 10,
             with_external: 1,
         });
 
         $ctrl.updateFiltersUsedCount();
+
+        if ($rootScope.client_key == 'vergoedingen') {
+            $rootScope.pageTitle = 'Vergoedingen';
+        }
     };
 };
 
 module.exports = {
     bindings: {
+        tags: '<',
         funds: '<',
         records: '<',
         vouchers: '<',
@@ -92,11 +106,12 @@ module.exports = {
     controller: [
         '$q',
         '$state',
+        '$rootScope',
         '$stateParams',
         'appConfigs',
         'FundService',
         'FormBuilderService',
-        FundsComponent
+        FundsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/funds.html'
+    templateUrl: 'assets/tpl/pages/funds.html',
 };

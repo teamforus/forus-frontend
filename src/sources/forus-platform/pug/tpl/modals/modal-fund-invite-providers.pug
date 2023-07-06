@@ -1,18 +1,20 @@
-.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-md.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+    form(ng-submit="$ctrl.form.submit()").modal-window.form
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Aanbieders uitnodigen")
         .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Aanbieders uitnodigen")
 
         .modal-body.form
             .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .form-group
-                label.form-label Nodig aanbieders uit van:
-                select(
-                    ng-options="fund.id as fund.name for fund in $ctrl.funds" 
-                    ng-model="$ctrl.form.values.fund_id").form-control
-                .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
-                .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
+                label.form-label.form-label-required Nodig aanbieders uit van:
+                .form-offset: select-control(
+                    prop="id"
+                    ng-model="$ctrl.form.values.fund_id"
+                    options="$ctrl.funds").form-control
+                .form-error(ng-repeat="error in $ctrl.form.errors.fund_id" ng-bind="error")
 
             .modal-section: .row: .col.col-lg-10.col.col-lg-offset-1: .block.block-info
                 em.mdi.mdi-information.block-info-icon
@@ -20,5 +22,5 @@
                 | Uitnodigingen worden gelijk verstuurd na bevestiging.
 
         .modal-footer.text-center
-            button.button.button-default(type="button" translate="modal_funds_add.buttons.close" ng-click="$ctrl.closeAnimated()")
+            button.button.button-default(type="button" translate="modal_funds_add.buttons.close" ng-click="$ctrl.close()")
             button.button.button-primary(type="submit" translate="Bevestig")

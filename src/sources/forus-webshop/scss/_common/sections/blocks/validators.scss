@@ -5,8 +5,8 @@
 
         .block-card {
             background: #fff;
-            box-shadow: 0 5px 20px rgba(#000000, 0.1);
-            border-radius: $border_radius;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
             overflow: hidden;
             margin-bottom: 15px;
         }
@@ -14,8 +14,8 @@
         .block-header {
             border-bottom: 1px solid #d4d9dd;
             padding: 20px 25px;
-            font: 700 22px $hf;
-            color: $tc;
+            font: 700 22px var(--hf);
+            color: var(--tc);
             position: relative;
         }
 
@@ -51,7 +51,7 @@
 
             .validator-name {
                 padding: 10px 0;
-                font: 700 18px/30px $bf;
+                font: 700 18px/30px var(--base-font);
                 color: #282b39;
                 float: left;
             }
@@ -61,8 +61,8 @@
                 padding: 13px 0;
 
                 .validator-send {
-                    font: 600 13px/24px $bf;;
-                    color: $color_default;
+                    font: 600 13px/24px var(--base-font);
+                    color: var(--color-default);
                     display: block;
                     cursor: pointer;
 
@@ -93,7 +93,7 @@
     @media screen and (max-width: 1000px) {
         &.block-validators {
             .block-header {
-                font: 700 16px $hf;
+                font: 700 16px var(--hf);
                 padding: 15px 20px;
             }
 
@@ -106,7 +106,7 @@
                     border-bottom: 1px solid #eee;
 
                     .validator-name {
-                        font: 700 16px/30px $bf;
+                        font: 700 16px/30px var(--base-font);
                         @include ellipsis();
                     }
 

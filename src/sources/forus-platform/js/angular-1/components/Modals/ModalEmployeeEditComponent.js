@@ -1,74 +1,42 @@
-let ModalEmployeeEditComponent = function(
+const ModalEmployeeEditComponent = function (
     FormBuilderService,
     OrganizationEmployeesService
 ) {
-    let $ctrl = this;
-
-    $ctrl.isChecked = (id) => $ctrl.form.values.roles.indexOf(id) != -1;
-    $ctrl.toggleOption = (id) => {
-        if ($ctrl.isChecked(id)) {
-            $ctrl.form.values.roles = $ctrl.form.values.roles.filter(
-                option => option != id
-            );
-        } else {
-            $ctrl.form.values.roles.push(id);
-        }
-    };
+    const $ctrl = this;
 
     $ctrl.$onInit = () => {
-        let values = OrganizationEmployeesService.apiResourceToForm(
-            $ctrl.modal.scope.employee
-        );
+        const { employee, organization } = $ctrl.modal.scope;
+        const formValues = OrganizationEmployeesService.apiResourceToForm(employee);
 
-        $ctrl.form = FormBuilderService.build(values, (form) => {
-            form.lock();
+        $ctrl.roles = formValues.roles.reduce((roles, role) => ({ ...roles, [role]: true }), {});
 
-            let promise;
+        $ctrl.form = FormBuilderService.build(formValues, (form) => {
+            const roles = Object.keys($ctrl.roles).filter((key) => $ctrl.roles[key]);
+            const values = { ...form.values, roles: roles };
 
-            if (!$ctrl.modal.scope.employee) {
-                promise = OrganizationEmployeesService.store(
-                    $ctrl.modal.scope.organization.id,
-                    form.values
-                );
-            } else {
-                promise = OrganizationEmployeesService.update(
-                    $ctrl.modal.scope.organization.id,
-                    $ctrl.modal.scope.employee.id,
-                    form.values
-                );
-            }
+            const promise = employee ?
+                OrganizationEmployeesService.update(organization.id, employee.id, values) :
+                OrganizationEmployeesService.store(organization.id, values);
 
             promise.then(() => {
                 $ctrl.modal.scope.submit();
                 $ctrl.close();
             }, (res) => {
-                if (res.status == '429') {
-                    form.errors = {
-                        email: new Array(res.data.message)
-                    };
-                } else {
-                    form.errors = res.data.errors;
-                }
-
-                form.unlock();
-            })
-        })
+                form.errors = res.status == '429' ? { email: [res.data.message] } : res.data.errors;
+            }).finally(() => form.unlock());
+        }, true)
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {
     bindings: {
         close: '=',
-        modal: '='
+        modal: '=',
     },
     controller: [
         'FormBuilderService',
         'OrganizationEmployeesService',
-        ModalEmployeeEditComponent
+        ModalEmployeeEditComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-employee-edit.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-employee-edit.html',
 };

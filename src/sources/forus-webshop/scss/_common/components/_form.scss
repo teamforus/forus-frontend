@@ -1,25 +1,44 @@
-$formFont: 500 16px/24px $bf;
-$formPadding: 14px 15px;
+:root {
+    --form-font: 500 16px/24px var(--base-font);
+    --form-padding: 14px 15px;
+}
 
 .form {
+    datepicker,
+    .datepicker {
+        height: 50px;
+        border: none;
+        outline: none;
+        position: relative;
+
+        .form-control {
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            right: -1px;
+            bottom: -1px;
+            width: calc(100% + 2px) !important;
+        }
+    }
+
     .form-error {
-        font: 400 13px/20px $bf;
-        color: #AD0003;
+        font: 400 13px/20px var(--base-font);
+        color: #ad0003;
         margin: 0;
     }
 
     .form-label {
         display: block;
         cursor: default;
-        font: 500 12px/20px $bf;
+        font: 500 12px/20px var(--base-font);
         margin-bottom: 4px;
-        color: $tc;
+        color: var(--tc);
         padding: 0;
-        color: $tc;
+        color: var(--tc);
 
         &.form-label-required {
             &:after {
-                content: '*';
+                content: "*";
                 color: #ff5548;
                 font: inherit;
                 margin-left: 2px;
@@ -31,14 +50,14 @@ $formPadding: 14px 15px;
         width: 100%;
         border: 1px solid transparent;
         background-color: #fbfbfb;
-        padding: $formPadding;
-        color: $tc;
-        font: $formFont;
+        padding: var(--form-padding);
+        color: var(--tc);
+        font: var(--form-font);
         line-height: 20px;
-        transition: background-color .4s ease, border .4s ease;
-        border-radius: 6px;
+        transition: background-color 0.4s ease, border 0.4s ease;
+        border-radius: calc(var(--border-radius) / 2);
         appearance: none;
-        border: 1px solid desaturate($color: darken($color: $border_color, $amount: 35%), $amount: 75%);;
+        border: 1px solid var(--border-color-form);
 
         &[disabled] {
             background-color: #e1e1e1;
@@ -52,20 +71,21 @@ $formPadding: 14px 15px;
             outline: 5px auto -webkit-focus-ring-color !important;
             outline-offset: -2px;
             background-color: #ffffff;
-            border: 1px solid desaturate($color: darken($color: $border_color, $amount: 75%), $amount: 85%);
+            border: 1px solid var(--border-color);
         }
 
         &.form-control-fancy {
-            box-shadow: 0 10px 20px rgba(#000, .075);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.075);
             border: 1px solid transparent;
-            transition: .4s;
+            transition: 0.4s;
             padding: 14px 25px;
             color: #00122a;
             height: 60px;
             background-color: #fff;
 
-            &:hover, &:focus  {
-                box-shadow: 0 10px 30px rgba(#000, .15);
+            &:hover,
+            &:focus {
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             }
         }
 
@@ -80,9 +100,21 @@ $formPadding: 14px 15px;
                 transform: translate(0, -50%);
             }
         }
+
+        &.ui-control-search-input {
+            padding: 0;
+            border: none;
+
+            .ui-control-clear {
+                .mdi {
+                    font-size: 16px;
+                    height: 24px;
+                }
+            }
+        }
     }
 
-    .form-control-checked+.form-control {
+    .form-control-checked + .form-control {
         padding-left: 50px !important;
     }
 
@@ -94,7 +126,7 @@ $formPadding: 14px 15px;
             line-height: 50px;
             padding: 0 15px;
             font-size: 25px;
-            color: $color_primary;
+            color: var(--color-primary);
         }
     }
 
@@ -102,16 +134,21 @@ $formPadding: 14px 15px;
         padding: 6px 10px;
         line-height: initial;
         height: 80px;
+        min-height: 42px;
 
-        &.r-n {
+        &.r-n,
+        &[resize="no"],
+        &[resize="none"] {
             resize: none;
         }
 
-        &.r-v {
+        &.r-v,
+        &[resize="vertical"] {
             resize: vertical;
         }
 
-        &.r-h {
+        &.r-h,
+        &[resize="horizontal"] {
             resize: horizontal;
         }
 
@@ -122,20 +159,20 @@ $formPadding: 14px 15px;
 
     select.form-control {
         background-color: #fbfbfb;
-        background-image: url('../img/select-bg.png');
+        background-image: url("../img/select-bg.png");
         background-position: 99%;
         background-repeat: no-repeat;
         background-size: 25px;
         appearance: none;
         text-indent: 1px;
-        text-overflow: '';
+        text-overflow: "";
         padding-right: 30px;
         appearance: none;
 
         &:focus {
             outline: none;
             background-color: #ffffff;
-            border: 1px solid desaturate($color: darken($color: $border_color, $amount: 15%), $amount: 90%);
+            border: 1px solid var(--border-color);
         }
 
         &::-ms-expand {
@@ -150,30 +187,42 @@ $formPadding: 14px 15px;
 
         .form-control {
             display: block;
-            
+
             &:focus {
                 border: 1px solid black;
-                box-shadow: 0 3px 5px rgba(#000000, 0.3);
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             }
         }
 
-        label.form-control:not([type='radio']):not([type='checkbox']) {
-            line-height: 26px;
-        }
-            
         .select-control-search {
             cursor: pointer;
-            background-image: url('../img/select-bg.png');
-            background-position: 99%;
-            background-repeat: no-repeat;
-            background-size: 25px;
 
             &:focus {
                 border: 1px solid black;
-                box-shadow: 0 3px 5px rgba(#000000, 0.3);
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             }
         }
-        
+
+        .select-control-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            line-height: inherit;
+            padding-top: inherit;
+            padding-bottom: inherit;
+            padding-right: 5px;
+            display: flex;
+            flex-direction: column;
+
+            .mdi {
+                display: flex;
+                font-size: 20px;
+                margin-top: 2px;
+                color: #646464;
+            }
+        }
+
         .select-control-options {
             z-index: 100;
             position: absolute;
@@ -183,28 +232,30 @@ $formPadding: 14px 15px;
             background: #fff;
             border: 1px solid #d4d9dd;
             border-top: none;
-            border-bottom-right-radius: 3px;
-            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: var(--border-radius);
+            border-bottom-left-radius: var(--border-radius);
             overflow: auto;
             max-height: $optionHeight * 5;
             margin-bottom: 30px;
 
             .select-control-option {
                 padding: 5px 15px 4px;
-                font: 500 13px/30px $bf;
-                color: rgba($tc, .75);
+                font: 500 13px/30px var(--base-font);
+                color: rgba(var(--tc), 0.75);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
-                transition: .4s;
+                transition: 0.4s;
                 height: $optionHeight;
                 @include ellipsis();
 
-                strong, b {
-                    color: $tc;
+                strong,
+                b {
+                    color: var(--tc);
                     font-weight: 700;
                 }
 
-                &:hover, &:focus {
+                &:hover,
+                &:focus {
                     background: whitesmoke;
                     border-color: whitesmoke;
                 }
@@ -216,22 +267,33 @@ $formPadding: 14px 15px;
         }
 
         &.options {
-            .form-control:not([type='radio']):not([type='checkbox']) {
+            .form-control:not([type="radio"]):not([type="checkbox"]) {
                 border-bottom-right-radius: 0;
                 border-bottom-left-radius: 0;
             }
         }
     }
-    
+
     .form-group {
         margin-bottom: 10px;
         @include cf();
-        
+
+        .checkbox-label {
+            display: inline-block;
+            font: 400 13px/13px "Open Sans", arial, sans-serif;
+            margin-left: 10px;
+            margin-bottom: 3px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
         &.form-group-inline {
             margin-bottom: 10px;
             flex-wrap: wrap;
 
-            &>.form-label {
+            & > .form-label {
                 width: 200px;
                 padding-top: 8px;
                 padding-bottom: 8px;
@@ -241,42 +303,57 @@ $formPadding: 14px 15px;
                 float: left;
             }
 
-            &>.form-offset,
-            &>.form-control {
+            & > .form-offset,
+            & > .form-control {
                 width: calc(100% - 200px);
                 float: left;
             }
 
-            &>.form-error {
+            & > .form-error {
                 margin-left: 200px;
                 width: calc(100% - 200px);
                 float: left;
             }
 
-            &:last-child, &:last-of-type {
+            &:last-child,
+            &:last-of-type {
                 margin-bottom: 0;
             }
-        }
 
-        &:last-child {
-            margin-bottom: 0;
-        }
+            @media screen and (max-width: 1000px) {
+                display: flex;
+                flex-direction: column;
 
-        .checkbox-label {
-            display: inline-block;
-            font: 400 13px/13px "Open Sans",arial,sans-serif;
-            margin-left: 10px;
-            margin-bottom: 3px;
+                & > .form-label {
+                    float: none;
+                    width: auto;
+                    float: none;
+                    text-align: left;
+                    padding: 0 0 0;
+                }
+
+                & > .form-offset,
+                & > .form-control {
+                    width: auto;
+                    float: none;
+                }
+
+                & > .form-error {
+                    margin-left: 0;
+                    width: auto;
+                    float: none;
+                }
+            }
         }
     }
 
     .form-hint {
         color: #222530;
-        font: 500 12px/18px $bf;
+        font: 500 12px/18px var(--base-font);
 
         &:before {
             color: #ff2100;
-            content: '*';
+            content: "*";
             margin-right: 2px;
             vertical-align: text-top;
         }
@@ -300,8 +377,8 @@ $formPadding: 14px 15px;
         ._720kb-datepicker-calendar {
             max-width: 340px;
             border: 1px solid #e9ecee;
-            border-radius: $border_radius;
-            box-shadow: 5px 5px 20px rgba(0, 0, 0, .1);
+            border-radius: var(--border-radius);
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
             top: calc(100% + 5px);
             left: 0;
             width: 100%;
@@ -340,10 +417,10 @@ $formPadding: 14px 15px;
                 line-height: 38px;
                 position: relative;
                 z-index: 1;
-                transition: color .4s;
+                transition: color 0.4s;
 
                 &:before {
-                    content: '';
+                    content: "";
                     display: block;
                     width: 28px;
                     height: 28px;
@@ -354,14 +431,14 @@ $formPadding: 14px 15px;
                     transform: translate(-50%, -50%);
                     z-index: -1;
                     border-radius: 20px;
-                    transition: background .4s;
+                    transition: background 0.4s;
                 }
 
                 &:hover {
                     background: transparent;
 
                     &:before {
-                        background: rgba(0,0,0,.03);
+                        background: rgba(0, 0, 0, 0.03);
                     }
                 }
 
@@ -370,12 +447,12 @@ $formPadding: 14px 15px;
                     background: transparent;
 
                     &:before {
-                        background: $color_primary;
+                        background: var(--color-primary);
                     }
                 }
 
                 &._720kb-datepicker-disabled {
-                    color: rgba(0,0,0,.2);
+                    color: rgba(0, 0, 0, 0.2);
                     background: transparent;
 
                     &:before {
@@ -385,21 +462,30 @@ $formPadding: 14px 15px;
             }
 
             &-header {
-                &:nth-child(odd), 
+                &:nth-child(odd),
                 &:nth-child(even) {
                     background: #fff;
                     border-bottom: 1px solid #e9ecee;
+                }
+
+                &:not(.ng-hide):nth-child(2) {
+                    margin-bottom: -10px;
+
+                    &~._720kb-datepicker-calendar-body,
+                    &~._720kb-datepicker-calendar-days-header {
+                        display: none;
+                    }
                 }
             }
 
             &-month {
                 color: #282b39;
-                font: 500 13px/40px $bf;
+                font: 500 13px/40px var(--base-font);
 
                 a {
-                    &>span {
+                    & > span {
                         color: #282b39;
-                        font: 500 13px/40px $bf;
+                        font: 500 13px/40px var(--base-font);
                     }
                 }
             }
@@ -430,24 +516,24 @@ $formPadding: 14px 15px;
                 top: 50%;
                 transform: translate3d(-50%, -50%, 0);
                 font-size: 18px;
-                transition: .4s;
+                transition: 0.4s;
                 opacity: 0;
             }
         }
 
         .checkbox-label {
-            font: 400 13px/20px $bf;
+            font: 400 13px/20px var(--base-font);
             color: #45535e;
             display: inline-block;
             vertical-align: middle;
             cursor: pointer;
         }
 
-        input[type='checkbox'] {
+        input[type="checkbox"] {
             display: none;
         }
 
-        input[type=checkbox]:checked+.checkbox-label {
+        input[type="checkbox"]:checked + .checkbox-label {
             .checkbox-box {
                 .mdi {
                     opacity: 1;
@@ -484,8 +570,8 @@ $formPadding: 14px 15px;
             margin-left: -30px;
 
             &:after {
-                content: '';
-                background: $bc;
+                content: "";
+                background: var(--bc);
                 position: absolute;
                 display: block;
                 left: 50%;
@@ -495,24 +581,24 @@ $formPadding: 14px 15px;
                 border-radius: 10px;
                 transform: translate3d(-50%, -50%, 0);
                 font-size: 18px;
-                transition: .4s;
+                transition: 0.4s;
                 opacity: 0;
             }
         }
 
         .radio-label {
-            font: 400 13px/20px $bf;
+            font: 400 13px/20px var(--base-font);
             color: #45535e;
             display: inline-block;
             vertical-align: middle;
             cursor: pointer;
         }
 
-        input[type=radio] {
+        input[type="radio"] {
             display: none;
         }
 
-        input[type=radio]:checked+.radio-label {
+        input[type="radio"]:checked + .radio-label {
             .radio-circle {
                 &:after {
                     opacity: 1;
@@ -547,9 +633,9 @@ $formPadding: 14px 15px;
     label.radio {
         cursor: pointer;
         margin-right: 8px;
-        color: $tc;
+        color: var(--tc);
         text-transform: inherit;
-        font: 400 12px/30px $bf;
+        font: 400 12px/30px var(--base-font);
 
         .dot {
             display: inline-block;
@@ -563,17 +649,17 @@ $formPadding: 14px 15px;
             border-radius: 20px;
 
             &:before {
-                content: '';
+                content: "";
                 position: absolute;
                 left: 3px;
                 top: 3px;
                 width: 10px;
                 height: 10px;
                 display: block;
-                background-color: $bc;
+                background-color: var(--bc);
                 border-radius: 20px;
                 opacity: 0;
-                transition: all .3s ease-out;
+                transition: all 0.3s ease-out;
             }
         }
 
@@ -584,12 +670,13 @@ $formPadding: 14px 15px;
         &:hover {
             .dot {
                 &:before {
-                    opacity: .25;
+                    opacity: 0.25;
                 }
             }
         }
 
-        &[checked], &.checked {
+        &[checked],
+        &.checked {
             .dot {
                 &:before {
                     opacity: 1;
@@ -600,11 +687,11 @@ $formPadding: 14px 15px;
 
     .form-toggle {
         width: 100%;
-        $borderColor: #ddd;
-        $colorPrimary: $color_primary;
+        $colorPrimary: #ddd;
         $borderRadius: 4px;
 
-        &>input[type=radio], &>input[type=checkbox] {
+        & > input[type="radio"],
+        & > input[type="checkbox"] {
             opacity: 0;
         }
 
@@ -613,22 +700,22 @@ $formPadding: 14px 15px;
             cursor: pointer;
 
             .toggle-input {
-                background-color: #8B969C;
+                background-color: #8b969c;
                 margin-right: 10px;
                 border-radius: 10px;
                 width: 45px;
-                border: 1px solid $borderColor;
+                border: 1px solid #ddd;
                 height: 20px;
                 position: relative;
-                transition: all .4s ease-in-out;
-    
+                transition: all 0.4s ease-in-out;
+
                 .toggle-input-dot {
                     width: 24px;
                     height: 24px;
                     border: 1px solid #fff;
                     border-radius: 24px;
                     background: #fff;
-                    box-shadow: 1px 2px 6px rgba(0, 0, 0, .25);
+                    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.25);
                     left: -2px;
                     top: 50%;
                     text-align: center;
@@ -636,7 +723,7 @@ $formPadding: 14px 15px;
                     font-size: 18px;
                     transform: translate(0, -50%);
                     color: #fefefe;
-                    transition: all .4s ease-in-out;
+                    transition: all 0.4s ease-in-out;
                     position: relative;
 
                     .icon-disabled {
@@ -644,9 +731,9 @@ $formPadding: 14px 15px;
 
                         &:before,
                         &:after {
-                            content: '';
+                            content: "";
                             display: block;
-                            background-color: #646F79;
+                            background-color: #646f79;
                             height: 15px;
                             width: 3px;
                             position: absolute;
@@ -654,49 +741,49 @@ $formPadding: 14px 15px;
                             top: 50%;
                             border-radius: 3px;
                         }
-    
+
                         &:before {
                             transform: translate(-50%, -50%) rotate(45deg);
                         }
-    
+
                         &:after {
                             transform: translate(-50%, -50%) rotate(-45deg);
                         }
                     }
                 }
             }
-    
+
             .toggle-label {
-                font: 700 12px/20px $bf;
+                font: 700 12px/20px var(--base-font);
                 color: #262626;
-    
+
                 span {
                     color: #bcc1d3;
                 }
-    
+
                 a {
                     font: inherit;
                     color: $colorPrimary;
-                    transition: color .4s;
+                    transition: color 0.4s;
 
                     &:hover {
-                        color: $bc;
+                        color: var(--bc);
                     }
                 }
             }
         }
 
-        &.active .form-toggle-inner, 
-        &.checked .form-toggle-inner, 
-        &>input[type=radio]:checked+.form-toggle-inner, 
-        &>input[type=checkbox]:checked+.form-toggle-inner {
+        &.active .form-toggle-inner,
+        &.checked .form-toggle-inner,
+        & > input[type="radio"]:checked + .form-toggle-inner,
+        & > input[type="checkbox"]:checked + .form-toggle-inner {
             .toggle-input {
-                background: lighten($colorPrimary, 25);
-                border-color: desaturate(lighten($colorPrimary, 25), 5);
+                background: var(--color-primary);
+                border-color: var(--color-primary);
 
                 .toggle-input-dot {
-                    background: desaturate($color: lighten($colorPrimary, 2), $amount: 10);
-                    border-color: desaturate($color: lighten($colorPrimary, 2), $amount: 10);
+                    background: var(--color-primary);
+                    border-color: var(--color-primary);
                     left: 100%;
                     transform: translate(-100%, -50%);
                     margin-right: -1px;
@@ -707,35 +794,53 @@ $formPadding: 14px 15px;
 
     &.form-compact {
         .form-label {
-            font: 700 11px/25px $bf;
+            font: 700 11px/26px var(--base-font);
             margin: 0 0 0;
         }
 
         .form-control:not([type="radio"]):not([type="checkbox"]),
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
             /* height: 50px; */
-            padding: 9px 15px;
-            font: 400 13px/24px $bf;
+            padding: 8px 15px;
+            font: 400 13px/24px var(--base-font);
+
+            &.ui-control-search-input {
+                padding: 0;
+                border: none;
+
+                .ui-control-clear {
+                    .mdi {
+                        font-size: 16px;
+                        height: 24px;
+                    }
+                }
+            }
         }
 
-        ::-webkit-input-placeholder{
-            color: $ptc;
-            font: 400 13px $bf;
+        ::-webkit-input-placeholder {
+            color: var(--placeholder_text_color);
+            font: 400 13px var(--base-font);
         }
 
-        ::-moz-placeholder{
-            color: $ptc;
-            font: 400 13px $bf;
+        ::-moz-placeholder {
+            color: var(--placeholder_text_color);
+            font: 400 13px var(--base-font);
         }
 
-        :-moz-placeholder{
-            color: $ptc;
-            font: 400 13px $bf;
+        :-moz-placeholder {
+            color: var(--placeholder_text_color);
+            font: 400 13px var(--base-font);
         }
 
         :-ms-input-placeholder {
-            color: $ptc;
-            font: 400 13px $bf;
+            color: var(--placeholder_text_color);
+            font: 400 13px var(--base-font);
+        }
+
+        &.form-compact-flat {
+            .form-control {
+                border-color: var(--border-color);
+            }
         }
     }
 }
@@ -746,7 +851,7 @@ $formPadding: 14px 15px;
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
             /* height: 50px; */
             padding: 10px 15px;
-            font: 400 14px/24px $bf;
+            font: 400 14px/24px var(--base-font);
         }
     }
 }

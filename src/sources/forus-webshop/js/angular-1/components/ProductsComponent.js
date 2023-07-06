@@ -1,53 +1,36 @@
-const ProductsComponent = function(
+const ProductsComponent = function (
     $scope,
     $state,
     $stateParams,
     appConfigs,
+    ProductService,
     FormBuilderService,
-    ProductService
+    PageLoadingBarService,
+    ProductCategoryService,
 ) {
     const $ctrl = this;
 
-    $ctrl.sortByOptions = [{
-        label: 'Prijs (oplopend)',
-        value: {
-            order_by: 'price',
-            order_by_dir: 'asc',
-        }
-    }, {
-        label: 'Prijs (aflopend)',
-        value: {
-            order_by: 'price',
-            order_by_dir: 'desc',
-        }
-    }, {
-        label: 'Oudste eerst',
-        value: {
-            order_by: 'created_at',
-            order_by_dir: 'asc',
-        }
-    }, {
-        label: 'Nieuwe eerst',
-        value: {
-            order_by: 'created_at',
-            order_by_dir: 'desc',
-        }
-    }];
+    $ctrl.sortByOptions = ProductService.getSortOptions();
+
+    $ctrl.distances = [
+        { id: null, name: 'Overal' },
+        { id: 3, name: '< 3 km' },
+        { id: 5, name: '< 5 km' },
+        { id: 10, name: '< 10 km' },
+        { id: 15, name: '< 15 km' },
+        { id: 25, name: '< 25 km' },
+        { id: 50, name: '< 50 km' },
+        { id: 75, name: '< 75 km' }
+    ];
 
     $ctrl.filtersList = [
         'q', 'product_category_id', 'fund', 'sortBy',
     ];
 
-    $ctrl.sort_by = $ctrl.sortByOptions[$ctrl.sortByOptions.length - 1];
-
-    $ctrl.toggleOrderDropdown = ($event) => {
-        $event ? $event.stopPropagation() : '';
-        $ctrl.show_order_dropdown = !$ctrl.show_order_dropdown;
-    };
-
-    $ctrl.hideOrderDropdown = ($event) => {
-        $event ? $event.stopPropagation() : '';
-        $ctrl.show_order_dropdown = false;
+    $ctrl.onToggleBookmark = () => {
+        if ($ctrl.form.values.bookmarked) {
+            $ctrl.onPageChange($ctrl.form.values);
+        }
     };
 
     $ctrl.toggleMobileMenu = () => {
@@ -69,17 +52,11 @@ const ProductsComponent = function(
         $ctrl.updateState($ctrl.buildQuery($ctrl.form.values));
     };
 
-    $ctrl.sortBy = ($event, sort_by) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $ctrl.sort_by = sort_by;
-        $ctrl.show_order_dropdown = false;
-
+    $ctrl.updateSortBy = () => {
         $ctrl.onPageChange({ ...$ctrl.form.values });
     };
 
-    $ctrl.buildQuery = (values) => {
+    $ctrl.buildQuery = (values = {}) => {
         const orderByValue = {
             ...$ctrl.sort_by.value,
             ...{
@@ -91,12 +68,15 @@ const ProductsComponent = function(
 
         return {
             q: values.q,
-            organization_id: values.organization_id,
             page: values.page,
+            fund_id: values.fund_id,
+            organization_id: values.organization_id,
             product_category_id: values.product_category_id,
-            fund_id: values.fund ? values.fund.id : null,
             display_type: $ctrl.display_type,
             fund_type: $ctrl.fund_type,
+            postcode: values.postcode || '',
+            distance: values.distance || null,
+            bookmarked: values.bookmarked ? 1 : 0,
             ...orderByValue
         };
     };
@@ -105,13 +85,26 @@ const ProductsComponent = function(
         $ctrl.loadProducts($ctrl.buildQuery(values));
     };
 
-    $ctrl.loadProducts = (query, location = 'replace') => {
-        ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
-            return $ctrl.products = res.data;
-        });
+    const transformProductAlternativeText = (product) => {
+        return ProductService.transformProductAlternativeText(product);
+    };
 
-        $ctrl.updateState(query, location);
-        $ctrl.updateFiltersUsedCount();
+    const transformProducts = () => {
+        $ctrl.products.data = $ctrl.products.data.map(
+            product => ({ ...product, ...{ alternative_text: transformProductAlternativeText(product) } })
+        );
+    };
+
+    $ctrl.loadProducts = (query) => {
+        PageLoadingBarService.setProgress(0);
+
+        ProductService.list({ ...{ fund_type: $ctrl.type }, ...query }).then((res) => {
+            $ctrl.products = res.data;
+            transformProducts();
+        }).finally(() => {
+            $ctrl.updateState(query, true);
+            $ctrl.updateFiltersUsedCount();
+        });
     };
 
     $ctrl.updateState = (query, location = 'replace') => {
@@ -123,7 +116,38 @@ const ProductsComponent = function(
             organization_id: query.organization_id,
             product_category_id: query.product_category_id,
             show_menu: $ctrl.showModalFilters,
+            postcode: query.postcode,
+            distance: query.distance,
+            bookmarked: query.bookmarked,
+            order_by: query.order_by,
+            order_by_dir: query.order_by_dir,
         }, { location });
+    };
+
+    $ctrl.changeCategory = (type) => {
+        if (type === 'category') {
+            if ($ctrl.product_category_id) {
+                ProductCategoryService.list({
+                    parent_id: $ctrl.product_category_id, 
+                    per_page: 1000, 
+                    used: 1,
+                    used_type: $ctrl.fund_type,
+                }).then(res => {
+                    $ctrl.productSubCategories = res.data.meta.total ? [{
+                        name: 'Selecteer subcategorie...',
+                        id: null
+                    }, ...res.data.data] : null;
+                });
+            } else {
+                $ctrl.productSubCategories = null;
+            }
+
+            return $ctrl.form.values.product_category_id = $ctrl.product_category_id;
+        }
+
+        if (type == 'subcategory') {
+            $ctrl.form.values.product_category_id = $ctrl.product_sub_category_id;
+        }
     };
 
     $ctrl.updateFiltersUsedCount = () => {
@@ -138,16 +162,20 @@ const ProductsComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.showModalFilters = $stateParams.show_menu;
-        $ctrl.display_type = $stateParams.display_type;
-        $ctrl.fund_type = $stateParams.fund_type;
-        $ctrl.show_order_dropdown = false;
+        $ctrl.appConfigs = appConfigs;
 
-        $scope.appConfigs = appConfigs;
-        $scope.$watch('appConfigs', (_appConfigs) => {
-            if (_appConfigs.features && !_appConfigs.features.products.list) {
-                $state.go('home');
-            }
-        }, true);
+        if ($stateParams.order_by && $stateParams.order_by_dir) {
+            $ctrl.sort_by = $ctrl.sortByOptions.find(sortOption =>
+                sortOption.value.order_by == $stateParams.order_by &&
+                sortOption.value.order_by_dir == $stateParams.order_by_dir
+            );
+        } else {
+            $ctrl.sort_by = $ctrl.sortByOptions[0];
+        }
+
+        $ctrl.fund_type = $stateParams.fund_type;
+        $ctrl.display_type = $stateParams.display_type;
+        $ctrl.product_category_id = $stateParams.product_category_id;
 
         $ctrl.funds.unshift({
             id: null,
@@ -159,23 +187,39 @@ const ProductsComponent = function(
             id: null
         });
 
+        $ctrl.productSubCategories?.unshift({
+            name: 'Selecteer subcategorie...',
+            id: null
+        });
+
         $ctrl.organizations.unshift({
             name: 'Selecteer aanbieder...',
             id: null
         });
 
-        const fund = $ctrl.funds.filter(fund => {
-            return fund.id == $stateParams.fund_id;
-        })[0] || $ctrl.funds[0];
-
         $ctrl.form = FormBuilderService.build({
             q: $stateParams.q || '',
+            fund_id: $stateParams.fund_id || null,
             organization_id: $stateParams.organization_id || null,
             product_category_id: $stateParams.product_category_id || null,
-            fund: fund,
+            postcode: $stateParams.postcode,
+            distance: $stateParams.distance,
+            bookmarked: $stateParams.bookmarked,
         });
 
         $ctrl.updateFiltersUsedCount();
+        transformProducts();
+
+        if ($ctrl.productCategory) {
+            $ctrl.product_category_id = $ctrl.productCategory.parent_id || $ctrl.productCategory.id;
+            $ctrl.product_sub_category_id = $ctrl.productCategory.parent_id ? $ctrl.productCategory.id : null;
+        }
+
+        $scope.$watch('$ctrl.appConfigs', (_appConfigs) => {
+            if (_appConfigs.features && !_appConfigs.features.products.list) {
+                $state.go('home');
+            }
+        }, true);
     };
 };
 
@@ -184,7 +228,9 @@ module.exports = {
         fund_type: '<',
         funds: '<',
         products: '<',
+        productCategory: '<',
         productCategories: '<',
+        productSubCategories: '<',
         organizations: '<',
     },
     controller: [
@@ -192,9 +238,11 @@ module.exports = {
         '$state',
         '$stateParams',
         'appConfigs',
-        'FormBuilderService',
         'ProductService',
-        ProductsComponent
+        'FormBuilderService',
+        'PageLoadingBarService',
+        'ProductCategoryService',
+        ProductsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/products.html'
+    templateUrl: 'assets/tpl/pages/products.html',
 };

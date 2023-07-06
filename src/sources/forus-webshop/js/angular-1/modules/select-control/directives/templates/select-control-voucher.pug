@@ -1,0 +1,45 @@
+.select-control
+    .select-control-input(
+        ng-class="{options : $dir.showOptions}"
+        ng-disabled="$dir.disabled || $dir.ngDisabled"
+        click-outside="$dir.onClickOutside()")
+
+        .block.block-vouchers.block-vouchers-select(
+            ng-click="$dir.searchOption()"
+            ng-disabled="$dir.disabled || $dir.ngDisabled"
+            ng-class="$dir.showOptions ? 'block-vouchers-select-open' : ''"
+            ng-show="($dir.mode == 'strict' && !$dir.showOptions) || !$dir.searchEnabled")
+
+            .voucher-item.voucher-item-select.voucher-item-select-placeholder
+                .voucher-image
+                    img(ng-src="{{ $dir.value.raw.fund.logo.sizes.thumbnail || $dir.value.raw.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+
+                .voucher-details: .flex.flex-horizontal
+                    .flex.flex-vertical.flex-grow
+                        .voucher-name(ng-bind="$dir.value.raw.fund.name")
+                        .voucher-organization
+                            span(ng-if="$dir.value.raw.records_title" ng-bind='$dir.value.raw.records_title')
+                            .text-separator(ng-if="$dir.value.raw.records_title")
+                            span(ng-bind="$dir.value.raw.fund.organization.name")
+
+                    .flex.flex-vertical.text-right
+                        .voucher-value(ng-if="$dir.value.raw.fund.type === 'budget'" ng-bind="$dir.value.raw.amount_locale")
+                        .voucher-date(ng-bind="$dir.value.raw.expire_at_locale")
+
+        input(
+            id="{{ $dir.controlId }}"
+            type="search"
+            placeholder="{{ $dir.placeholder }}"
+            ng-click="$dir.onInputClick()"
+            ng-keydown="$dir.searchKeydown($event)"
+            ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
+            ng-change="$dir.searchInputChanged()"
+            ng-model="$dir.filter.q").select-control-search.form-control
+
+        select-control-options(
+            dusk="voucherSelectorOptions"
+            ng-if="$dir.showOptions" 
+            change="$dir.selectOption(option)" 
+            options="$dir.optionsFiltered"
+            options-preload-size="{{ optionsPreloadSize }}"
+            template="select-control-options-voucher")

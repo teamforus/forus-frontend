@@ -1,0 +1,62 @@
+top-navbar
+
+main(id="main-content")
+    section.section.section-profile: .wrapper
+        .block.block-breadcrumbs
+            a(ui-sref="home").breadcrumb-item Home
+            .breadcrumb-item.active Mijn verlanglijstje
+
+        .block.block-profile.block-showcase: .showcase-layout
+            .bookmarked-products.f-w
+                .profile-aside.hide-sm: profile-menu
+
+                .profile-content
+                    .showcase-content
+                        .showcase-content-header
+                            h1.showcase-filters-title.showcase-filters-title-lg
+                                | Mijn verlanglijstje
+                                .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
+
+                            .showcase-filters-block: .block.block-label-tabs.form
+                                .showcase-filters-item
+                                    label.form-label Sorteer
+                                    select-control(
+                                        id="sort_by"
+                                        as="label"
+                                        search="false"
+                                        ng-model="$ctrl.sort_by"
+                                        ng-change="$ctrl.updateSortBy()"
+                                        options="$ctrl.sortByOptions"
+                                        placeholder="Sorteer")
+
+                                .label-tab-set
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: $ctrl.display_type == 'list'}"
+                                        ng-click="$ctrl.showAs('list')"
+                                        role="button")
+                                        em.mdi.mdi-format-list-text.icon-start
+                                        | Lijst
+
+                                    .label-tab.label-tab-sm(
+                                        ng-class="{active: $ctrl.display_type == 'grid'}"
+                                        ng-click="$ctrl.showAs('grid')"
+                                        role="button")
+                                        em.mdi.mdi-view-grid-outline.icon-start
+                                        | Foto's            
+                    
+                        products-list(
+                            display="$ctrl.display_type"
+                            products="$ctrl.products.data")
+
+                        empty-block(
+                            ng-if="$ctrl.products.meta.total == 0"
+                            title="Er staat nog niks in het verlanglijstje."
+                            description="Er staat nog niks in het verlanglijstje."
+                            svg-icon="reimbursements"
+                            hide-link='true')
+
+                        .card(ng-if="$ctrl.products" ng-show="$ctrl.products.meta.last_page > 1"): .card-section: paginator(
+                            meta="$ctrl.products.meta" 
+                            filters="$ctrl.form.values"
+                            count-buttons="5" 
+                            on-page-change="$ctrl.onPageChange(query)")

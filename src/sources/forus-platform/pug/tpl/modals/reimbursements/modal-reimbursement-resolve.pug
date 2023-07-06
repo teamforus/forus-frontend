@@ -1,0 +1,69 @@
+.modal.modal-md.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    .modal-backdrop(ng-click="$ctrl.close()")
+    .modal-window: form(ng-submit="$ctrl.form.submit()").form
+        a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
+        //- Icon
+        .modal-icon.modal-icon-primary
+            //- Decline
+            .mdi.mdi-close(ng-if="$ctrl.form.values.state == 'declined'")
+            //- Approve
+            .mdi.mdi-check(ng-if="$ctrl.form.values.state == 'approved'")
+
+        //- Overview
+        .modal-body.modal-body-visible
+            //- Decline
+            .modal-section.modal-section-pad(ng-if="$ctrl.form.values.state == 'declined'")
+                //- Title
+                .modal-heading.text-center Declaratie geweigerd
+
+                //- Description
+                .modal-text.text-center
+                    | Weiger de aanvraag. Indien gewenst kunt u de deelnemer hierover informeren door een bericht te verzenden.
+                    br
+
+                //- Sponsor private mote 
+                .form-group
+                    label.form-label Notitie
+                    textarea.form-control.r-n(
+                        rows="3"
+                        ng-model="$ctrl.form.values.note"
+                        placeholder="Voeg een persoonlijke notitie toe")
+
+                //- Show reason
+                .form-group(ng-if="$ctrl.form.values.state == 'declined' && $ctrl.reimbursement.identity_email").tooltipped.tooltipped-inner
+                    input-checkbox-control(
+                        name="show_attachment_{{ $index }}" 
+                        ng-model="$ctrl.showReason" 
+                        label="Verstuur een bericht naar de deelnemer")
+                    tooltip(text="'U kunt alleen een bericht naar de deelnemer versturen als er een e-mailadres is opgegeven.'")
+
+                //- Decline reason
+                .form-group(ng-if="$ctrl.form.values.state == 'declined' && $ctrl.reimbursement.identity_email")
+                    textarea.form-control.r-n(
+                        ng-if="$ctrl.showReason"
+                        rows="3" 
+                        ng-model="$ctrl.form.values.reason"
+                        placeholder="Bericht naar deelnemer")
+                
+            //- Approve
+            .modal-section.modal-section-pad(ng-if="$ctrl.form.values.state == 'approved'")
+                //- Title
+                .modal-heading.text-center Declaratie goedkeuren
+
+                //- Description
+                .modal-text.text-center
+                    | Bevestig de declaratie om het bedrag uit te betalen. Voeg indien gewenst een notitie toe.
+                    br
+
+                //- Sponsor private mote 
+                .form-group
+                    label.form-label Notitie
+                    textarea.form-control.r-n(
+                        rows="3"
+                        ng-model="$ctrl.form.values.note"
+                        placeholder="Voeg een persoonlijke notitie toe")
+    
+        //- Footer
+        .modal-footer.text-center
+            button.button.button-default(type="button" ng-click="$ctrl.close()") Annuleer
+            button.button.button-primary(ng-click="$ctrl.form.submit()" dusk="reimbursementResolveSubmit") Bevestig

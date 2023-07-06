@@ -4,6 +4,7 @@ let HeaderNotificationsDirective = function(
     $scope,
     $timeout,
     $interval,
+    appConfigs,
     NotificationsService
 ) {
     let $dir = $scope.$dir = {};
@@ -11,6 +12,7 @@ let HeaderNotificationsDirective = function(
     let fetchInterval, fetchIntervalDelay = 1000 * 60 * 5;
 
     $dir.shown = false;
+    $dir.helpLink = appConfigs.help_link;
 
     $dir.show = function() {
         $timeout.cancel(setReadTimeout);
@@ -120,6 +122,7 @@ module.exports = () => {
             '$scope',
             '$timeout',
             '$interval',
+            'appConfigs',
             'NotificationsService',
             HeaderNotificationsDirective
         ],

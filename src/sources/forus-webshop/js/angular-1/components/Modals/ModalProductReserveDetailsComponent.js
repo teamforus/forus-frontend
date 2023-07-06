@@ -1,17 +1,42 @@
 const ModalProductReserveDetailsComponent = function(
     $state,
-    ProductReservationService,
+    AuthService,
+    FormBuilderService,
+    IdentityEmailsService,
     PushNotificationsService,
-    FormBuilderService
+    ProductReservationService,
 ) {
     const $ctrl = this;
+    
+    $ctrl.dateMinLimit = new Date();
+
+    // Initialize authorization form
+    $ctrl.makeEmailForm = () => {
+        return FormBuilderService.build({
+            email: ``,
+        }, (form) => {
+            IdentityEmailsService.store(form.values.email, {
+                target: `productReservation-${$ctrl.product.id}`,
+            }).then(() => {
+                $ctrl.emailSubmitted = true;
+                PushNotificationsService.success('Success!', 'An email was sent!.');
+            }, (res) => {
+                form.errors = res.status === 429 ? {
+                    email: [res.data.message],
+                } : res.data.errors;
+            }).finally(() => form.unlock());
+        }, true);
+    };
 
     $ctrl.$onInit = () => {
         $ctrl.state = 'fill_notes';
+        $ctrl.emailSetupShow = false;
+        $ctrl.emailSubmitted = false;
+        $ctrl.emailShowForm = false;
 
         $ctrl.product = $ctrl.modal.scope.product;
         $ctrl.voucher = $ctrl.modal.scope.voucher;
-        $ctrl.provider = $ctrl.voucher.fund.organization;
+        $ctrl.provider = $ctrl.product.organization;
 
         $ctrl.form = FormBuilderService.build({}, (form) => {
             ProductReservationService.reserve({
@@ -20,6 +45,17 @@ const ModalProductReserveDetailsComponent = function(
                 product_id: $ctrl.product.id
             }).then($ctrl.onReserved, $ctrl.onError);
         });
+
+        AuthService.identity().then((res) => {
+            if (!res.data.email) {
+                $ctrl.emailSetupShow = true;
+                $ctrl.emailForm = $ctrl.makeEmailForm();
+            }
+        });
+    };
+
+    $ctrl.addEmail = () => {
+        $ctrl.emailShowForm = true;
     };
 
     $ctrl.onReserved = () => {
@@ -64,12 +100,12 @@ module.exports = {
     },
     controller: [
         '$state',
-        'ProductReservationService',
-        'PushNotificationsService',
+        'AuthService',
         'FormBuilderService',
-        ModalProductReserveDetailsComponent
+        'IdentityEmailsService',
+        'PushNotificationsService',
+        'ProductReservationService',
+        ModalProductReserveDetailsComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-product-reserve-details.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-product-reserve-details.html',
 };

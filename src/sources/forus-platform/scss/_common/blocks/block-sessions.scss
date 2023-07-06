@@ -7,14 +7,14 @@
         display: flex;
         padding: 20px;
         flex-direction: row;
-        border-bottom: 1px solid $borderColor;
+        border-bottom: 1px solid var(--border-color);
         position: relative;
 
         .session-icon {
             padding-right: 20px;
 
             .mdi {
-                color: $color_primary;
+                color: var(--color-primary);
                 font-size: 26px;
                 width: 30px;
                 text-align: center;
@@ -33,7 +33,7 @@
             flex-grow: 1;
 
             .session-title {
-                font: 600 14px/20px $bf;
+                font: 600 14px/20px var(--base-font);
                 color: #282b39;
                 margin: 0 0 5px;
             }
@@ -42,7 +42,7 @@
                 margin: 0 0 5px;
 
                 .session-property {
-                    font: 500 13px/20px $bf;
+                    font: 500 13px/20px var(--base-font);
                     color: #646f79;
                     display: flex;
     
@@ -60,7 +60,7 @@
                     }
 
                     .session-property-sep {
-                        color: $color_primary;
+                        color: var(--color-primary);
                         padding: 0 5px;
                     }
                 }
@@ -72,8 +72,8 @@
                 @include cf();
 
                 .session-action {
-                    font: 500 13px/20px $bf;
-                    color: $color_primary;
+                    font: 500 13px/20px var(--base-font);
+                    color: var(--color-primary);
                     transition: .4s;
                     margin-right: 10px;
                     float: left;
@@ -93,7 +93,7 @@
                     }
 
                     &:hover {
-                        color: $color_primary_light;
+                        color: var(--color-primary-light);
                     }
                 }
 
@@ -103,11 +103,11 @@
             }
 
             .session-locations {
-                border: 1px solid $border_color;
-                border-radius: ($border_radius / 2);
+                border: 1px solid var(--border-color);
+                border-radius: (calc(var(--border-radius) / 2));
                 background: #f6f9fc;
                 padding: 10px 15px;
-                font: 500 13px/30px $bf;
+                font: 500 13px/30px var(--base-font);
                 color: #151b26;
                 cursor: default;
 
@@ -127,7 +127,7 @@
                         left: 0;
                         top: 50%;
                         transform: translate(0, -50%);
-                        background: $color_primary_light;
+                        background: var(--color-primary-light);
                     }
                 }
 

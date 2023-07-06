@@ -1,6 +1,8 @@
-.modal.modal-business-update.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-business-update.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop
-    .modal-window: form.form(ng-submit="$ctrl.form.submit()")
+    form(ng-submit="$ctrl.form.submit()").modal-window.form
         .modal-header(
             translate="modals.modal_business_add.title" 
             translate-values='{organization_name: $ctrl.organization.name}')
@@ -11,7 +13,7 @@
                     .form-label(translate="modals.modal_business_add.labels.business_type")
                     .form-offset: select-control(
                         ng-model="$ctrl.businessType" 
-                        ng-change="$ctrl.changeBusinessType(value)"
+                        ng-change="$ctrl.changeBusinessType($ctrl.businessType)"
                         options="$ctrl.businessTypes"
                         placeholder="Selecteer organisatie type...")
                     .form-error(

@@ -6,7 +6,6 @@
         .office-pane {
             background: #ffffff;
             box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
-            border-radius: $border_radius;
             display: flex;
             flex-direction: column;
 
@@ -14,7 +13,7 @@
                 display: flex;
                 flex-direction: row;
                 padding: 15px 15px;
-                border-bottom: 1px solid $border_color;
+                border-bottom: 1px solid var(--border-color);
 
                 .office-logo-offset,
                 .office-logo {
@@ -24,13 +23,13 @@
                     .office-logo-img {
                         display: block;
                         width: 100%;
-                        border-radius: $border_radius;
+                        border-radius: var(--border-radius);
                     }
                 }
 
                 .office-details {
                     .office-title {
-                        font: 700 14px/20px $bf;
+                        font: 700 14px/20px var(--base-font);
                         color: #272525;
                         margin: 0 0 5px;
                     }
@@ -48,7 +47,7 @@
                 }
 
                 .office-info {
-                    font: 600 12px/20px $bf;
+                    font: 600 12px/20px var(--base-font);
                     display: flex;
 
                     .mdi {
@@ -69,6 +68,20 @@
                 &:last-child {
                     border-bottom: none;
                 }
+            }
+        }
+
+        &:first-child {
+            .office-pane {
+                border-top-left-radius: var(--border-radius);
+                border-top-right-radius: var(--border-radius);
+            }
+        }
+
+        &:last-child {
+            .office-pane {
+                border-bottom-left-radius: var(--border-radius);
+                border-bottom-right-radius: var(--border-radius);
             }
         }
     }

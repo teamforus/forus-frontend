@@ -70,6 +70,7 @@ let ProductService = function(ApiRequest) {
                 name: apiResource.name,
                 description: apiResource.description,
                 description_html: apiResource.description_html,
+                alternative_text: apiResource.alternative_text,
 
                 price: parseFloat(apiResource.price),
                 price_type: apiResource.price_type,
@@ -86,6 +87,10 @@ let ProductService = function(ApiRequest) {
 
                 reservation_enabled: apiResource.reservation_enabled,
                 reservation_policy: apiResource.reservation_policy,
+
+                reservation_phone: apiResource.reservation_phone,
+                reservation_address: apiResource.reservation_address,
+                reservation_birth_date: apiResource.reservation_birth_date,
             };
         };
     });

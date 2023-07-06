@@ -5,17 +5,17 @@ const groupLabels = {
     requester_vouchers: "Deelnemers tegoeden",
     requester_transactions: "Deelnemers reserveringen en transacties",
     provider_fund_requests: "Aanbieder aanvraag en beoordeling",
+    requester_reimbursements: "Declaraties",
     provider_voucher_and_transactions: "Aanbieder reserveringen en transacties",
     sponsor: "Sponsor",
     other: "Overig"
 };
 
 const ImplementationNotificationsComponent = function(
-    $state,
     $filter,
     ImplementationNotificationsService
 ) {
-    const $ctrl = this;;
+    const $ctrl = this;
     const $translate = $filter('translate');
 
     $ctrl.$onInit = () => {
@@ -23,8 +23,6 @@ const ImplementationNotificationsComponent = function(
 
         if ($ctrl.implementations.meta.total > 0) {
             this.selectImplementation($ctrl.implementations.data[0]);
-        } else {
-            $state.go('organizations');
         }
     };
 
@@ -132,7 +130,6 @@ module.exports = {
         implementations: '<',
     },
     controller: [
-        '$state',
         '$filter',
         'ImplementationNotificationsService',
         ImplementationNotificationsComponent

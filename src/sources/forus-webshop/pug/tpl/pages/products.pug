@@ -17,64 +17,110 @@ block content
                 .showcase-layout
                     .showcase-aside.form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
                         .showcase-aside-block
+                            .showcase-aside-tabs(ng-if="$root.auth_user")
+                                .showcase-aside-tab(
+                                    ng-class="{active: $ctrl.form.values && !$ctrl.form.values.bookmarked}"
+                                    ng-click="$ctrl.form.values.bookmarked = false"
+                                    role="button")
+                                    em.mdi.mdi-tag-multiple-outline
+                                    | Volledig aanbod
+
+                                .showcase-aside-tab(
+                                    ng-class="{active: $ctrl.form.values && $ctrl.form.values.bookmarked}"
+                                    ng-click="$ctrl.form.values.bookmarked = true"
+                                    role="button"
+                                    aria-label="toevoegen aan verlanglijstje"
+                                    aria-pressed="{{ $ctrl.form.values.bookmarked }}")
+                                    em.mdi.mdi-cards-heart-outline
+                                    | Mijn verlanglijstje
+
                             .form-group
-                                input.form-control(
+                                label.form-label(for="select_provider") Zoek aanbod
+                                ui-control-search-input(
                                     ng-model="$ctrl.form.values.q"
                                     placeholder="Zoek aanbod" 
-                                    type="search"
                                     aria-label="search"
                                     id="products_search")
 
                             .form-group
                                 label.form-label(for="select_provider") Aanbieders
-                                select(
-                                    ng-options="organization.id as organization.name for organization in $ctrl.organizations" 
+                                select-control(
+                                    id="select_provider"
+                                    prop="id"
                                     ng-model="$ctrl.form.values.organization_id"
-                                    name="provider"
-                                    id="select_provider").form-control
+                                    options="$ctrl.organizations"
+                                    placeholder="{{ $ctrl.organizations[0].name }}")
 
                             .form-group
                                 label.form-label(for="select_category") Categorie
-                                select(
-                                    ng-options="category.id as category.name for category in $ctrl.productCategories" 
-                                    ng-model="$ctrl.form.values.product_category_id"
+                                select-control(
+                                    id="select_category"
+                                    prop="id"
                                     name="category"
-                                    id="select_category").form-control
+                                    ng-model="$ctrl.product_category_id"
+                                    ng-change="$ctrl.changeCategory('category')"
+                                    options="$ctrl.productCategories"
+                                    placeholder="{{ $ctrl.productCategories[0].name }}")
+
+                            .form-group(ng-if="$ctrl.productSubCategories.length > 1")
+                                label.form-label(for="select_sub_category") Subcategorie
+                                select-control(
+                                    id="select_sub_category"
+                                    prop="id"
+                                    name="sub_category"
+                                    ng-model="$ctrl.product_sub_category_id"
+                                    ng-change="$ctrl.changeCategory('subcategory')"
+                                    options="$ctrl.productSubCategories"
+                                    placeholder="{{ $ctrl.productSubCategories[0].name }}")
 
                             .form-group
                                 label.form-label(for="select_fund") Tegoeden
                                 select-control(
-                                    autoclear="true"
-                                    ng-model="$ctrl.form.values.fund" 
-                                    options="$ctrl.funds"
-                                    placeholder="Selecteer tegoed..."
+                                    id="select_fund"
+                                    prop="id"
                                     name="fund"
-                                    id="select_fund")
+                                    ng-model="$ctrl.form.values.fund_id" 
+                                    options="$ctrl.funds"
+                                    placeholder="{{ $ctrl.funds[0].name }}")
+
+                            .row
+                                .col.col-md-6: .form-group
+                                    label.form-label(for="postcode") Postcode
+                                    input.form-control(
+                                        ng-model="$ctrl.form.values.postcode"
+                                        placeholder="Postcode"
+                                        type="text"
+                                        aria-label="Postcode...")
+                                    .form-error(ng-repeat="error in $ctrl.form.errors.postcode" ng-bind="error")
+
+                                .col.col-md-6: .form-group
+                                    label.form-label(for="distance") Afstand
+                                    select-control(
+                                        prop="id"
+                                        ng-model="$ctrl.form.values.distance"
+                                        options="$ctrl.distances"
+                                        placeholder="Afstand..."
+                                        id="distance")
+                                    .form-error(ng-repeat="error in $ctrl.form.errors.distance" ng-bind="error")
 
                     .showcase-content
                         .showcase-content-header
                             h1.showcase-filters-title
-                                span Aanbod
+                                span(ng-if="!$ctrl.form.values.bookmarked") Aanbod
+                                span(ng-if="$ctrl.form.values.bookmarked") Mijn verlanglijstje
                                 .showcase-filters-title-count(ng-bind="$ctrl.products.meta.total")
 
-                            .showcase-filters-block: .block.block-label-tabs
-                                .label-tab-set
-                                    .label-tab.label-tab-sm.label-tab-primary-light(
-                                        ng-class="{active: $ctrl.show_order_dropdown}" 
-                                        ng-click="$ctrl.toggleOrderDropdown($event)"
-                                        role="button")
-                                        em.mdi.icon-start(ng-class="'mdi-chevron-' + ($ctrl.show_order_dropdown ? 'up' : 'down')")
-                                        | Sorteer
-                                        .label-tab-menu(ng-show="$ctrl.show_order_dropdown" click-outside="$ctrl.hideOrderDropdown($event)")
-                                            .label-tab-menu-item(
-                                                ng-repeat="sortByOption in $ctrl.sortByOptions track by $index" 
-                                                ng-class="{active: $ctrl.sort_by.label === sortByOption.label}"
-                                                ng-click="$ctrl.sortBy($event, sortByOption)"
-                                                aria-selected="{{ $ctrl.sort_by.label === sortByOption.label }}")
-                                                translate(translate="{{ sortByOption.label }}")
-                                                em.mdi.mdi-check(ng-if="$ctrl.sort_by.label === sortByOption.label")
-
-                                    .label-tab.label-tab-sm.label-tab-disabled(translate="{{ $ctrl.sort_by.label }}")
+                            .showcase-filters-block: .block.block-label-tabs.form
+                                .showcase-filters-item
+                                    label.form-label Sorteer
+                                    select-control(
+                                        id="sort_by"
+                                        as="label"
+                                        search="false"
+                                        ng-model="$ctrl.sort_by"
+                                        ng-change="$ctrl.updateSortBy()"
+                                        options="$ctrl.sortByOptions"
+                                        placeholder="Sorteer")
 
                                 .label-tab-set
                                     .label-tab.label-tab-sm(
@@ -83,6 +129,7 @@ block content
                                         role="button")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
+
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'grid'}"
                                         ng-click="$ctrl.showAs('grid')"
@@ -90,16 +137,28 @@ block content
                                         em.mdi.mdi-view-grid-outline.icon-start
                                         | Foto's
 
-                        products-list(display="$ctrl.display_type" type="$ctrl.fund_type" products="$ctrl.products.data")
+                        //- Funds CMS blocks
+                        cms-blocks(
+                            ng-if="$root.appConfigs.features.pages.products"
+                            page="$root.appConfigs.features.pages.products")
+
+                        products-list(
+                            ng-if="$ctrl.products.meta.total > 0"
+                            display="$ctrl.display_type" 
+                            type="$ctrl.fund_type" 
+                            products="$ctrl.products.data"
+                            on-toggle-bookmark="$ctrl.onToggleBookmark()")
 
                         empty-block(
                             title= "{{ 'block_products.labels.title' | translate }}"
                             description="{{ 'block_products.labels.subtitle' | translate }}"
                             hide-link="true" 
-                            ng-if="$ctrl.products.data.length == 0")
+                            svg-icon="reimbursements"
+                            ng-if="$ctrl.products.meta.total == 0")
 
-                        .card(ng-if="$ctrl.products"): .card-section(ng-show="$ctrl.products.meta.last_page > 1"): paginator(
+                        .card(ng-if="$ctrl.products" ng-show="$ctrl.products.meta.last_page > 1"): .card-section: paginator(
                             meta="$ctrl.products.meta" 
-                            filters="$ctrl.form.values" 
+                            filters="$ctrl.form.values"
+                            delayed-filters="['q', 'postcode']"
                             count-buttons="5" 
                             on-page-change="$ctrl.onPageChange(query)")

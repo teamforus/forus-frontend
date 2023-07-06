@@ -1,0 +1,31 @@
+.block.block-request-clarification
+    .block-title Aanvullingen
+    .clarification-item(ng-repeat="clarification in $dir.fundRequestRecord.clarifications")
+        .clarification-item-nth(ng-bind="$index + 1")
+        .clarification-item-details
+            .clarification-item-question
+                .clarification-item-icon.mdi.mdi-message-text.text-primary
+                span(ng-bind="clarification.question")
+
+            .clarification-item-answer
+                .clarification-item-icon.mdi.mdi-message-text.text-primary-light
+                span(
+                    ng-class="clarification.answered_at ? '' : 'text-muted'"
+                    ng-bind="clarification.answered_at ? clarification.answer : 'Geen antwoord...'")
+
+            .clarification-item-attachments(ng-if="clarification.files.length > 0")
+                .block.block-attachments-list
+                    .block-attachments-inner
+                        a.attachment-item(
+                            ng-repeat='file in clarification.files' 
+                            ng-click='$dir.downloadFile(file)')
+                            .attachment-icon
+                                .mdi.mdi-file
+                                .attachment-size(ng-bind='file.size')
+                            .attachment-name(ng-bind='file.original_name')
+                            .attachment-date(ng-bind='clarification.answered_at_locale')
+                            .attachment-preview(
+                                title="Bekijk file"
+                                ng-if="$dir.hasFilePreview(file)" 
+                                ng-click="$dir.previewFile($event, file)")
+                                .mdi.mdi-eye

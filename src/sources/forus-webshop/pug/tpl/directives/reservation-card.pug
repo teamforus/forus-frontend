@@ -1,70 +1,103 @@
-.reservation-item
+.reservation-item(dusk="reservationItem{{ $dir.reservation.id }}")
     .reservation-image: img(
         ng-src="{{ $dir.media.sizes.small || $dir.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}" 
         alt="")
 
     .reservation-details
-        .reservation-name(ui-sref="product($dir.product)" ng-bind="$dir.product.name") 
-        .reservation-organization(ui-sref="provider($dir.product.organization)" ng-bind="$dir.product.organization.name")
+        a.reservation-name(
+            ui-sref="product($dir.product)" 
+            ng-bind="$dir.product.name" 
+            dusk="reservationProduct" 
+            role="link" 
+            tabindex="0")
+
+        a.reservation-organization(
+            ui-sref="provider($dir.product.organization)" 
+            ng-bind="$dir.product.organization.name" 
+            role="link" 
+            tabindex="0")
+
         .reservation-value(ng-bind="$dir.reservation.price_locale")
 
     //- reservation pending
     .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'pending'")
-        .reservation-overview-status: .label.label-warning.label-round In afwachting
+        .reservation-overview-status: .label.label-warning.label-round(
+            dusk="labelPending"
+            translate="reservation.labels.status.pending")
 
         .reservation-overview-item
-            .reservation-overview-label Reserveringsnummer:
-            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code")
+            .reservation-overview-label(translate="reservation.labels.code")
+            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
 
-        .reservation-overview-item: .reservation-overview-link(
-            ng-click="$dir.cancelReservation($dir.reservation)") Reservering annuleren
+        .reservation-overview-item
+            button.button.button-light.button-xs(
+                dusk="btnCancelReservation" 
+                ng-click="$dir.cancelReservation($dir.reservation)")
+                em.mdi.mdi-trash-can-outline
+                | {{ "reservation.labels.cancel" | translate }}
 
     //- reservation accepted
     .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'accepted'")
-        .reservation-overview-status: .label.label-success.label-round Geaccepteerd
+        .reservation-overview-status: .label.label-success.label-round(
+            dusk="labelAccepted"
+            translate="reservation.labels.status.accepted")
 
         .reservation-overview-item
-            .reservation-overview-label Reserveringsnummer:
-            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code")
+            .reservation-overview-label(translate="reservation.labels.code")
+            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
 
-        .reservation-overview-item: .reservation-overview-link(
-            ng-click="$dir.cancelReservation($dir.reservation)") Reservering annuleren
+        .reservation-overview-item 
+            button.button.button-light.button-xs(
+                dusk="btnCancelReservation" 
+                ng-click="$dir.cancelReservation($dir.reservation)")
+                em.mdi.mdi-trash-can-outline
+                | {{ "reservation.labels.cancel" | translate }}
 
     //- reservation rejected
     .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'rejected'")
-        .reservation-overview-status: .label.label-default.label-round Geweigerd
+        .reservation-overview-status: .label.label-default.label-round(
+            dusk="labelRejected"
+            translate="reservation.labels.status.rejected")
 
         .reservation-overview-item
-            .reservation-overview-label Reserveringsnummer:
-            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code")
+            .reservation-overview-label(translate="reservation.labels.code")
+            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
 
         .reservation-overview-item
-            .reservation-overview-label Geweigerd op:
+            .reservation-overview-label(translate="reservation.labels.rejected_at")
             .reservation-overview-value(ng-bind="$dir.reservation.rejected_at_locale")
 
     //- reservation refunded
-    .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'canceled'")
-        .reservation-overview-status: .label.label-default.label-round Geannuleerd
+    .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.canceled")
+        .reservation-overview-status: .label.label-default.label-round(
+            dusk="labelCanceled" 
+            translate="reservation.labels.status.{{ $dir.reservation.state }}")
 
         .reservation-overview-item
-            .reservation-overview-label Reserveringsnummer:
-            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code")
+            .reservation-overview-label(translate="reservation.labels.code")
+            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
 
         .reservation-overview-item
-            .reservation-overview-label Geannuleerd op:
+            .reservation-overview-label(translate="reservation.labels.canceled_at")
             .reservation-overview-value(ng-bind="$dir.reservation.canceled_at_locale")
 
     //- reservation expired
     .reservation-overview(ng-if="$dir.reservation.expired")
-        .reservation-overview-status: .label.label-danger.label-round Verlopen
+        .reservation-overview-status: .label.label-danger.label-round(
+            dusk="labelExpired" 
+            translate="reservation.labels.status.expired")
 
         .reservation-overview-item
-            .reservation-overview-label Reserveringsnummer:
-            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code")
+            .reservation-overview-label(translate="reservation.labels.code")
+            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
 
         .reservation-overview-item
-            .reservation-overview-label Verlopen op:
+            .reservation-overview-label(translate="reservation.labels.expired_at")
             .reservation-overview-value(ng-bind="$dir.reservation.expire_at_locale")
 
-        .reservation-overview-item: .reservation-overview-link(
-            ng-click="$dir.cancelReservation($dir.reservation)") Reservering annuleren
+        .reservation-overview-item
+            button.button.button-light.button-xs(
+                dusk="btnCancelReservation" 
+                ng-click="$dir.cancelReservation($dir.reservation)")
+                em.mdi.mdi-trash-can-outline
+                | {{ "reservation.labels.cancel" | translate }}

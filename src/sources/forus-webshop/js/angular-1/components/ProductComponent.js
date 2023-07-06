@@ -1,5 +1,4 @@
-const ProductComponent = function(
-    $scope,
+const ProductComponent = function (
     $rootScope,
     $state,
     $stateParams,
@@ -9,7 +8,7 @@ const ProductComponent = function(
     AuthService,
     FundService,
     ModalService,
-    ProductService
+    ProductService,
 ) {
     const $ctrl = this;
     const $i18n = $filter('i18n');
@@ -30,10 +29,6 @@ const ProductComponent = function(
         $event.stopPropagation();
 
         provider.showOffices = !provider.showOffices;
-    };
-
-    $scope.openAuthPopup = function() {
-        ModalService.open('modalAuth', {});
     };
 
     $ctrl.requestFund = (fund) => {
@@ -59,19 +54,35 @@ const ProductComponent = function(
         });
     };
 
-    $ctrl.$onInit = function() {
+    const transformProductAlternativeText = (product) => {
+        return ProductService.transformProductAlternativeText(product);
+    };
+
+    $ctrl.toggleBookmark = ($event, product) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        ProductService.toggleBookmark(product);
+    };
+
+    $ctrl.$onInit = function () {
         $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.signedIn = AuthService.hasCredentials();
+        $ctrl.onlyAvailableFunds = appConfigs.flags.productDetailsOnlyAvailableFunds;
 
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.productMeta = ProductService.checkEligibility($ctrl.product, $ctrl.vouchers);
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
+        $ctrl.product.alternative_text = transformProductAlternativeText($ctrl.product);
 
         $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
         $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
 
-        const implementation = $i18n('implementation_name.' + appConfigs.client_key);
-        $rootScope.pageTitle = $i18n('page_state_titles.product', { implementation, product_name: $ctrl.product.name, organization_name: $ctrl.product.organization.name,});
+        $rootScope.pageTitle = $i18n('page_state_titles.product', {
+            product_name: $ctrl.product.name,
+            implementation: $i18n(`implementation_name.${appConfigs.client_key}`),
+            organization_name: $ctrl.product.organization.name,
+        });
     };
 };
 
@@ -82,10 +93,10 @@ module.exports = {
     },
     bindings: {
         product: '<',
+        provider: '<',
         vouchers: '<',
     },
     controller: [
-        '$scope',
         '$rootScope',
         '$state',
         '$stateParams',
@@ -96,7 +107,7 @@ module.exports = {
         'FundService',
         'ModalService',
         'ProductService',
-        ProductComponent
+        ProductComponent,
     ],
-    templateUrl: 'assets/tpl/pages/product.html'
+    templateUrl: 'assets/tpl/pages/product.html',
 };

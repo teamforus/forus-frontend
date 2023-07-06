@@ -7,7 +7,7 @@ main(id="main-content")
             .breadcrumb-item.active(aria-current="location") Eigenschappen
 
         .block.block-profile
-            .profile-aside: profile-menu
+            .profile-aside.hide-sm: profile-menu
 
             .profile-content
                 .profile-content-header.clearfix
@@ -36,6 +36,7 @@ main(id="main-content")
                         button(ng-if="$root.appConfigs.features.records.create" type="buttons" ui-sref="record-create").button.button-primary 
                             em.mdi.mdi-plus
                             | {{ "records.buttons.create" | translate }}
+                            em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                 empty-block(
                     title="Geen eigenschappen"

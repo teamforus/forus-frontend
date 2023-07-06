@@ -1,16 +1,15 @@
 const ReservationsComponent = function(
-    $filter,
     $timeout,
     ModalService,
     OrganizationService,
     PushNotificationsService,
-    ProductReservationService
+    ProductReservationService,
+    ProductReservationsExportService,
 ) {
     const $ctrl = this;
-    const $currencyFormat = $filter('currency_format');
 
     $ctrl.empty = null;
-    $ctrl.acceptedBydefault = false;
+    $ctrl.acceptedByDefault = false;
 
     $ctrl.states = [{
         key: null,
@@ -24,6 +23,12 @@ const ReservationsComponent = function(
     }, {
         key: 'rejected',
         name: 'Geweigerd' // Rejected
+    }, {
+        key: 'canceled',
+        name: 'Geannuleerd' // Canceled by provider
+    }, {
+        key: 'canceled_by_client',
+        name: 'Geannuleerd door aanvrager' // Canceled by client
     }];
 
     $ctrl.filters = {
@@ -54,43 +59,26 @@ const ReservationsComponent = function(
     };
 
     $ctrl.acceptReservation = (reservation) => {
-        ModalService.open("dangerZone", {
-            description_title: "Weet u zeker dat u de reservering wilt accepteren?",
-            description_text: [
-                "U staat op het punt om een reservering te accepteren voor het aanbod ",
-                reservation.product.name + " voor " + $currencyFormat(reservation.amount) + "\n",
-                `U kunt de transactie annuleren tot en met ${reservation.expire_at_locale}, daarna volgt de uitbetaling.`,
-            ].join("\n"),
-            text_align: 'center',
-            cancelButton: "Annuleren",
-            confirmButton: "Bevestigen",
-            onConfirm: () => {
-                ProductReservationService.accept($ctrl.organization.id, reservation.id).then(() => {
-                    PushNotificationsService.success('Opgeslagen!');
-                    $ctrl.onPageChange();
-                }, (res) => PushNotificationsService.danger(res.data.message));
-            },
+        ProductReservationService.confirmApproval(reservation, () => {
+            ProductReservationService.accept($ctrl.organization.id, reservation.id).then((res) => {
+                PushNotificationsService.success('Opgeslagen!');
+                $ctrl.onPageChange();
+            }, (res) => PushNotificationsService.danger(res.data.message));
         });
     }
 
     $ctrl.rejectReservation = (reservation) => {
-        ModalService.open("dangerZone", {
-            title: "Weet u zeker dat u de betaling wilt annuleren?",
-            description_text: "Wanneer u de betaling annuleert wordt u niet meer uitbetaald.",
-            cancelButton: "Annuleren",
-            confirmButton: "Bevestigen",
-            onConfirm: () => {
-                ProductReservationService.reject($ctrl.organization.id, reservation.id).then(() => {
-                    PushNotificationsService.success('Opgeslagen!');
-                    $ctrl.onPageChange();
-                }, (res) => PushNotificationsService.danger(res.data.message));
-            },
+        ProductReservationService.confirmRejection(() => {
+            ProductReservationService.reject($ctrl.organization.id, reservation.id).then((res) => {
+                PushNotificationsService.success('Opgeslagen!');
+                $ctrl.onPageChange();
+            }, (res) => PushNotificationsService.danger(res.data.message));
         });
     }
 
     $ctrl.setOrganization = (organization) => {
         $ctrl.organization = organization;
-        $ctrl.acceptedBydefault = $ctrl.organization.reservations_auto_accept;
+        $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
     }
 
     $ctrl.toggleAcceptByDefault = (value) => {
@@ -148,8 +136,8 @@ const ReservationsComponent = function(
         });
     };
 
-    $ctrl.viewNotes = (reservation) => {
-        ModalService.open('reservationNotes', { reservation });
+    $ctrl.exportReservations = () => {
+        ProductReservationsExportService.export($ctrl.organization.id, $ctrl.filters.values);
     };
 
     $ctrl.$onInit = () => {
@@ -158,7 +146,7 @@ const ReservationsComponent = function(
         $ctrl.filters.reset();
         $ctrl.onPageChange($ctrl.filters.values);
 
-        $ctrl.acceptedBydefault = $ctrl.organization.reservations_auto_accept;
+        $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
         $ctrl.reservationEnabled = reservations_budget_enabled || reservations_subsidy_enabled;
 
         $ctrl.funds.unshift({
@@ -182,13 +170,13 @@ module.exports = {
         organization: '<',
     },
     controller: [
-        '$filter',
         '$timeout',
         'ModalService',
         'OrganizationService',
         'PushNotificationsService',
         'ProductReservationService',
-        ReservationsComponent
+        'ProductReservationsExportService',
+        ReservationsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/reservations.html'
+    templateUrl: 'assets/tpl/pages/reservations.html',
 };

@@ -1,0 +1,24 @@
+name: Build Frontend
+
+on:
+  pull_request:
+    branches:
+    - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Compile frontends
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.16
+    - name: Install gulp
+      run: npm install gulp
+    - name: Install dependencies
+      run: cd src && npm install
+    - name: Init
+      run: cd src && gulp init
+    - name: Build
+      run: cd src && gulp compile

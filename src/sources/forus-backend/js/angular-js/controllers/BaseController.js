@@ -1,5 +1,5 @@
-let BaseController = function() {};
+const BaseController = function() {};
 
 module.exports = [
-    BaseController
+    BaseController,
 ];

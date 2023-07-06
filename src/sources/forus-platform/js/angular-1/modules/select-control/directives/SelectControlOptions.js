@@ -40,6 +40,7 @@ module.exports = () => {
             change: "&",
             options: "=",
             optionsPreloadSize: "@",
+            hideOptions: "&",
         },
         restrict: "EA",
         replace: true,
@@ -48,7 +49,13 @@ module.exports = () => {
             '$timeout',
             SelectControlOptions
         ],
-        template: require('./templates/select-control-options.pug'),
-        //templateUrl: 'assets/tpl/modules/select-control/select-control-options.html'
+        template: ($el, $attr) => {
+            const templateName = $attr.template || 'select-control-options';
+
+            return $el ? {
+                'select-control-options': require('./templates/select-control-options.pug')(),
+                'select-control-options-organization': require('./templates/select-control-options-organization.pug')(),
+            }[templateName] || `<div>Template: ${templateName} not found</div>` : '<div></div>';
+        }
     };
 };

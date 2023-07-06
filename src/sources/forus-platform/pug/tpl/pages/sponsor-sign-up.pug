@@ -18,12 +18,14 @@
 
     .block.block-sign_up: .block-wrapper
         .sign_up-header
-            .sign_up-header-item.flex-grow: a(ui-sref="home").sign_up-header-item-back
+            .sign_up-header-item.flex-grow: a(ui-sref="home").sign_up-header-item-button
                 em.mdi.mdi-chevron-left
                 | Verlaat het formulier
 
             .sign_up-header-item(ng-if="!$root.auth_user")
-                a.button.button-light(ng-click="$ctrl.openAuthPopup()") Inloggen
+                a(ng-click="$ctrl.openAuthPopup()").sign_up-header-item-button
+                    | Inloggen
+                    em.mdi.mdi-login.icon-end
 
         h2.block-title(translate="sign_up_sponsor.header.main_header")
         
@@ -56,11 +58,11 @@
                     .sign_up-pane-text(translate="sign_up_sponsor.labels.terms")
                     form(ng-submit="$ctrl.signUpForm.submit()").form: .row
                         .form-group.col.col-md-7.col-xs-12
-                                label.form-label(translate="E-MAILadres")
+                                label.form-label(translate="E-mailadres")
                                 ui-control-text(
                                     data-id="employee"
                                     ng-model="$ctrl.signUpForm.values.email"
-                                    data-placeholder="ex. info@info.io").large
+                                    data-placeholder="e-mail@e-mail.nl").large
                                 .form-error(ng-repeat="error in ($ctrl.signUpForm.errors.email || $ctrl.signUpForm.errors['records.primary_email'])" ng-bind="error")
                         
                         .form-group.col.col-md-5.col-xs-12
@@ -244,8 +246,8 @@
                                 label(translate="organization_edit.labels.business_type").form-label
 
                                 .form-offset: select-control(
-                                    ng-model="$ctrl.businessType"
-                                    ng-change="$ctrl.chageBusinessType(value)"
+                                    prop="id"
+                                    ng-model="$ctrl.organizationForm.values.business_type_id"
                                     options="$ctrl.businessTypes"
                                     placeholder="Selecteer organisatie type...")
 

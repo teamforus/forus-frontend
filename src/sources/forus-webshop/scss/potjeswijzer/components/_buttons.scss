@@ -1,7 +1,9 @@
 .button {
+    border-radius: 5px;
+
     &.button-default {
-        background-color: $lb;
-        border-color: $color_default;
+        background-color: var(--login-button-background);
+        border-color: var(--color-default);
         color: #666;
 
         .mdi {
@@ -9,8 +11,8 @@
         }
 
         &:hover {
-            background-color: $color_default_light;
-            border-color: $color_default_light;
+            background-color: var(--color-default-light);
+            border-color: var(--color-default-light);
             color: #666;
 
             .mdi {
@@ -21,15 +23,25 @@
 
     &.button-primary {
         color: #666;
-        background: $color_primary;
-        border: $color_primary;
-        box-shadow: 0 10px 15px -6px #969696;
+        background: var(--color-primary);
+        border: var(--color-primary);
         text-shadow: none;
         
         &:hover {
             color: #666;
-            background: $color_primary_light;
-            background-color: $color_primary_light;
+            background: var(--color-primary-light);
+            background-color: var(--color-primary-light);
+        }
+    }
+
+    &.button-primary-outline {
+        color: #fff;
+        border: 1px solid #498fb4;
+        background: #498fb4;
+
+        &:hover {
+            background: transparent;
+            color: #498fb4;
         }
     }
     

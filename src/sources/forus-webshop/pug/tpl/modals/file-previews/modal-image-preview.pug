@@ -1,6 +1,9 @@
-.modal.modal-file-preview.modal-animated(ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+.modal.modal-file-preview.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']")
+
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-window
         .modal-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button"): .mdi.mdi-close
         .modal-header: h2.modal-title(translate="image_preview.header.title")
-        .modal-content: .file-image: img(ng-src="{{ $ctrl.imageSrc }}")
+        .modal-content: .file-image: img(ng-src="{{ $ctrl.imageSrc }}" alt="")

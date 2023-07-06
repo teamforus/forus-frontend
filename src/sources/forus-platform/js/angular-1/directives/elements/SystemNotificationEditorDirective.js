@@ -17,8 +17,6 @@ const NotificationEditor = function(
         enabled_partial: 'Aangezet, sommige kanalen staan afzonderlijk uit.',
     };
 
-    const notificationStateLabel = ImplementationNotificationsService.notificationStateLabel();
-
     $dir.resetTemplate = (type) => {
         $dir.notification.templates = $dir.notification.templates.filter((item) => item.type != type);
         $dir.notification.templates_default = $dir.notification.templates_default.map((item) => ({ ...item }))
@@ -54,33 +52,44 @@ const NotificationEditor = function(
         $dir.$onInit();
     };
 
-    $dir.$onInit = () => {
+    $dir.onFundChanged = (fund) => {
+        $dir.updateTemplates(fund);
+    };
+
+    $dir.updateTemplates = (fund) => {
         const notification = $dir.notification;
         const templatesToFront = ImplementationNotificationsService.templatesToFront;
 
-        const title = $translate('system_notifications.notifications.' + notification.key + '.title');
-        const description = $translate('system_notifications.notifications.' + notification.key + '.description');
-
         const channels = notification.channels.reduce((obj, channel) => ({ ...obj, [channel]: true }), {});
-        const templatesLocal = keyBy(templatesToFront(notification.templates, $dir.implementation), 'type');
         const templatesDefault = keyBy(templatesToFront(notification.templates_default, $dir.implementation), 'type');
 
+        const templatesImplementation = keyBy(templatesToFront(notification.templates.filter((template) => {
+            return !template.fund_id;
+        }), $dir.implementation, fund), 'type');
+
+        const templatesFund = fund ? keyBy(templatesToFront(notification.templates.filter((template) => {
+            return template.fund_id == fund?.id;
+        }), $dir.implementation, fund), 'type') : null;
+
         const templates = {
-            mail: channels.mail ? templatesLocal.mail || templatesDefault.mail : null,
-            push: channels.push ? templatesLocal.push || templatesDefault.push : null,
-            database: channels.database ? templatesLocal.database || templatesDefault.database : null,
+            mail: channels.mail ? templatesFund?.mail || templatesImplementation?.mail || templatesDefault.mail : null,
+            push: channels.push ? templatesFund?.push || templatesImplementation?.push || templatesDefault.push : null,
+            database: channels.database ? templatesFund?.database || templatesImplementation.database || templatesDefault.database : null,
         };
 
-        notification.title = title;
-        notification.description = description;
-
         $dir.templates = templates;
-        $dir.templatesLocal = templatesLocal;
-        $dir.templatesDefault = templatesDefault;
-        $dir.notificationStateLabel = notificationStateLabel;
         $dir.notificationToggleLabel = notificationToggleLabel;
-
+        
         $dir.updateStateLabel();
+    };
+
+    $dir.$onInit = () => {
+        if ($dir.funds && $dir.funds[0]?.id !== null) {
+            $dir.funds = [{ id: null, name: 'Alle fondsen' }, ...$dir.funds];
+            $dir.fund = $dir.funds[0];
+        }
+
+        $dir.updateTemplates($dir.fund || null);
     };
 };
 
@@ -88,6 +97,7 @@ module.exports = () => {
     return {
         scope: {},
         bindToController: {
+            funds: '<',
             notification: '<',
             organization: '<',
             implementation: '<',
@@ -100,8 +110,8 @@ module.exports = () => {
             '$filter',
             'PushNotificationsService',
             'ImplementationNotificationsService',
-            NotificationEditor
+            NotificationEditor,
         ],
-        templateUrl: 'assets/tpl/directives/elements/system-notification-editor.html'
+        templateUrl: 'assets/tpl/directives/elements/system-notification-editor.html',
     };
 };

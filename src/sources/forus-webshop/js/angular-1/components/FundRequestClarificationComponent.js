@@ -9,10 +9,8 @@ let FundRequestClarificationComponent = function(
     let $ctrl = this;
 
     $ctrl.state = 'clarification_form';
-    $ctrl.totalSteps = 1;
     $ctrl.invalidCriteria = [];
     $ctrl.authToken = false;
-    $ctrl.signedIn = false;
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
     $ctrl.recordsSubmitting = false;
@@ -22,8 +20,8 @@ let FundRequestClarificationComponent = function(
 
     $ctrl.onFileInfo = (files) => {
         $ctrl.form.values.files = files.filter(
-            (item) => item.uploaded && item.file_uid
-        ).map(file => file.file_uid);
+            (item) => item.uploaded && item.file_data?.uid
+        ).map(file => file.file_data?.uid);
 
         $ctrl.isUploadingFiles = files.filter(
             (item) => item.uploading

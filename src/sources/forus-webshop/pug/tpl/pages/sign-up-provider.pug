@@ -1,19 +1,22 @@
 top-navbar
 
 main(id="main-content")
-    section.section.section-details: .wrapper
-        .block.block-sign_up-provider
-            .sign_up-overview: .block.block-steps: .block.block-markdown
-                h1.sr-only Aanmelden
-                h1 Aanmelden als aanbieder
-                p Door het online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 15 minuten.
-                p Lees de instructie in elke stap goed door.
-                p: a(href="{{ $ctrl.signUpUrl + 'sign-up' + $ctrl.signUpUrlParams }}" target="_self").button.button-primary-outline Aanmelden
-                p Heeft u al een account? #[a(href="{{ $ctrl.signUpUrl }}" target="_self") Log dan in]
+    section.section.section-details: .wrapper.flex.flex-vertical
+        .flex.flex-vertical(ng-class="$ctrl.page.description_position == 'after' ? 'flex-vertical-reverse' : ''")
+            .block.block-steps(ng-if="$ctrl.description_html"): .wrapper
+                .block-steps-description: .block.block-markdown(
+                    ng-class="'block-markdown-' + $ctrl.page.description_alignment"
+                    ng-bind-html="$ctrl.description_html")    
 
-            .sign_up-images: .sign_up-image: img(src="assets/img/provider-sign_up-preview.svg" alt="")
+            .block.block-sign_up-provider(ng-if="!$ctrl.description_html || $ctrl.page.description_position !== 'replace'")
+                .sign_up-overview: .block.block-steps: .block.block-markdown
+                    h1.sr-only Aanmelden
+                    h1 Aanmelden als aanbieder
+                    p Door het online formulier in te vullen meldt u uw organisatie aan als aanbieder. Het invullen duurt ongeveer 15 minuten.
+                    p Lees de instructie in elke stap goed door.
+                    p: a(href="{{ $ctrl.signUpUrl + 'sign-up' + $ctrl.signUpUrlParams }}" target="_self").button.button-primary-outline 
+                        | Aanmelden
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+                    p Heeft u al een account? #[a(href="{{ $ctrl.signUpUrl }}" target="_self") Log dan in]
 
-        .block.block-steps(ng-if="$ctrl.description_html"): .wrapper
-            .block-steps-description: .block.block-markdown(
-                ng-class="'block-markdown-' + $ctrl.page.content_alignment"
-                ng-bind-html="$ctrl.description_html")    
+                .sign_up-images: .sign_up-image: img(src="assets/img/provider-sign_up-preview.svg" alt="")

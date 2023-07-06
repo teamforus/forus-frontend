@@ -9,28 +9,9 @@
         padding-right: 50px;
         flex-basis: 55%;
         z-index: 2;
-        
-        h1 {
-            font: 600 40px/54px $hf;
-            color: #000000;
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            font: 600 28px/34px $hf;
-            color: #000000;
-        }
-    
+   
         .block-description {
-            font: 400 20px/30px $bf;
-            color: #000000;
             margin-bottom: 30px;
-
-            a {
-                color: #3661ff;
-                text-decoration: underline;
-                font: 400 20px/30px $bf;
-            }
         }
     }
 
@@ -94,26 +75,14 @@
         .me_app-overview {
             padding: 0 0;
 
-            h1 {
-                font: 600 28px/36px $bf;
-                margin-bottom: 20px;
-                text-align: center;
-            }
-
-            h2 {
-                font: 600 21px/34px $bf;
+            h1, h2 {
                 margin-bottom: 20px;
                 text-align: center;
             }
         
             .block-description {
-                font: 400 16px/24px $bf;
                 margin-bottom: 5px;
                 text-align: center;
-
-                a {
-                    font: 400 16px/24px $bf;
-                }
             }
         }
 

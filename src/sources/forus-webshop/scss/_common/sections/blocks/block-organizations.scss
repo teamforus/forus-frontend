@@ -6,73 +6,129 @@
 
         .organization-pane {
             background: #ffffff;
-            border-radius: $border_radius;
+            border-radius: var(--border-radius);
             display: flex;
             flex-direction: row;
-            padding: 25px 15px;
-            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+            box-shadow: var(--box-shadow);
             transition: box-shadow .4s;
+            border: 1px solid transparent;
 
-            .organization-logo {
-                margin: -10px 15px -10px 0;
-
-                .organization-logo-img {
-                    display: block;
-                    width: 50px;
-                    border-radius: $border_radius;
-                }
-            }
-            
-            .organization-title {
+            .organization-pane-info {
+                padding: 20px 15px;
+                align-items: center;
                 display: flex;
-                flex-direction: row;
-                flex-grow: 1;
-                font: 600 16px/20px $hf;
-                text-align: left;
+                flex: 1;
 
-                .organization-title-value {
-                    vertical-align: middle;
+                .organization-logo {
+                    margin: -10px 15px -10px 0;
+    
+                    .organization-logo-img {
+                        display: block;
+                        width: 50px;
+                        border-radius: var(--border-radius);
+                    }
+                }
+                
+                .organization-title {
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
-                    font: inherit;
-                }
+                    flex-grow: 1;
+                    font: 600 16px/20px var(--hf);
+                    text-align: left;
+    
+                    .organization-title-value {
+                        vertical-align: middle;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        font: inherit;
+                        margin-bottom: 5px;
+                    }
+    
+                    .organization-title-count {
+                        min-width: 30px;
+                        text-align: center;
+                        padding: 0 5px;
+                        height: 30px;
+                        text-align: center;
+                        font: inherit;
+                        line-height: 30px;
+                        color: #fff;
+                        background: var(--color-primary);
+                        border-radius: calc(var(--border-radius) / 2);
+                        margin-left: 10px;
+                    }
 
-                .organization-title-count {
-                    min-width: 30px;
-                    text-align: center;
-                    padding: 0 5px;
-                    height: 30px;
-                    text-align: center;
-                    font: inherit;
-                    line-height: 30px;
-                    color: #fff;
-                    background: $color_primary;
-                    border-radius: $border_radius / 2;
-                    margin-left: 10px;
+                    .organization-page-link {
+                        display: flex;
+                        font: 600 12px/14px var(--base-font);
+                        color: #595959;
+
+                        .mdi {
+                            font-size: 18px;
+                            line-height: 14px;
+                        }
+                    }
                 }
             }
 
-            .organization-chevron {
-                line-height: 30px;
-                height: 30px;
-                font-size: 30px;
-                color: #646f79;
-                cursor: pointer;
-                transform: .4s;
+            .organization-pane-collapse {
+                align-items: center;
+                border-left: 1px solid #d7d7d7;
+                padding: 25px;
+                margin: 0;
+                display: flex;
 
-                .mdi {
-                    font-size: inherit;
-                    color: inherit;
+                .organization-total-offices, 
+                .organization-total-offices-count {
+                    font: 600 14px/20px var(--base-font);
+                    color: #595959;
                 }
 
-                &:hover {
-                    color: $color_primary;
+                .organization-total-offices-count {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 15px;
+                    min-width: 20px;
+                    line-height: 20px;
+                    border-radius: 50%;
+                    font-size: 13px;
+                    text-align: center;
+                    background: #E5E5E5;
+                    color: #303030;
+
+                    &.active {
+                        color: #fff;
+                        background: #000;
+                    }
                 }
+
+                .organization-chevron {
+                    line-height: 20px;
+                    height: 20px;
+                    font-size: 20px;
+                    color: #595959;
+                    cursor: pointer;
+                    transition: .4s;
+                    margin-right: 10px;
+    
+                    .mdi {
+                        font-size: inherit;
+                        color: inherit;
+                    }
+    
+                    &:hover {
+                        color: var(--color-primary);
+                    }
+                }
+            }
+
+            &.active {
+                border: 1px solid #b1b1b1;
             }
 
             &:hover {
-                box-shadow: $base_shadow;
+                box-shadow: var(--box-shadow);
             }
         }
 
@@ -82,7 +138,7 @@
             .block-offices {
                 margin-top: 15px;
                 background: #fff;
-                border-radius: $border_radius;
+                border-radius: var(--border-radius);
                 box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
                 transition: box-shadow .4s;
                 
@@ -91,7 +147,7 @@
                     position: relative;
 
                     .office-item-map-icon {
-                        background: $color_primary;
+                        background: var(--color-primary);
                         position: absolute;
                         left: -40px;
                         width: 26px;
@@ -100,14 +156,22 @@
                         color: #fff;
                         line-height: 26px;
                         font-size: 18px;
-                        border-radius: $border_radius / 2;
+                        border-radius: calc(var(--border-radius) / 2);
                         top: 20px;
                     }
     
                     .office-pane {
                         background: #fff;
                         box-shadow: none;
-                        border-bottom: 1px solid $border_color;
+                        border-bottom: 1px solid var(--border-color);
+
+                        .office-chevron {
+                            font-size: 30px;
+                            margin-top: auto;
+                            margin-bottom: auto;
+                            margin-left: auto;
+                            color: #646F79;
+                        }
                     }
 
                     &:before {
@@ -136,7 +200,7 @@
                 }
 
                 &:hover {
-                    box-shadow: $base_shadow;
+                    box-shadow: var(--box-shadow);
                 }
             }
         }
@@ -148,5 +212,31 @@
 
     &:last-child {
         margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .organization-item {
+            .organization-pane {
+                .organization-pane-info {
+                    padding: 15px 10px;
+                }
+
+                .organization-pane-collapse {
+                    padding: 15px 10px;
+
+                    .organization-chevron {
+                        margin-right: 0;
+                    }
+
+                    .organization-total-offices {
+                        display: none;
+                    }
+
+                    .organization-total-offices-count {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
 }

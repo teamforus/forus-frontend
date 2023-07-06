@@ -1,23 +1,28 @@
-const VouchersComponent = function() {
+const VouchersComponent = function (
+    VoucherService
+) {
     const $ctrl = this;
 
-    $ctrl.$onInit = function() {
-        $ctrl.regularVouchers = $ctrl.vouchers.filter(function(voucher) {
-            return voucher.type == 'regular';
-        });
+    $ctrl.filters = {
+        per_page: 15,
+        archived: 0,
+        order_by: 'voucher_type',
+        order_dir: 'desc',
+    };
 
-        $ctrl.productVouchers = $ctrl.vouchers.filter(function(voucher) {
-            return voucher.type == 'product';
-        });
+    $ctrl.onPageChange = (query = {}) => {
+        VoucherService.list({ ...$ctrl.filters, ...query }).then((res) => $ctrl.vouchers = res.data);
     };
 };
 
 module.exports = {
     bindings: {
-        vouchers: '<'
+        vouchers: '<',
+        reimbursementVouchers: '<',
     },
     controller: [
-        VouchersComponent
+        'VoucherService',
+        VouchersComponent,
     ],
-    templateUrl: 'assets/tpl/pages/vouchers.html'
+    templateUrl: 'assets/tpl/pages/vouchers.html',
 };

@@ -3,16 +3,16 @@ top-navbar
 main(id="main-content")
     section.section.section-details: .wrapper
         .block.block-about-me_app
-            .me_app-overview
-                h1 Over de Me-app
-                .block-description
+            .me_app-overview: .block.block-markdown
+                h2 Over de Me-app
+                .block-description: p
                     | De Me-app is een digitale portemonnee en kassa in één. 
                     | Gemeenten gebruiken de Me-app voor het uitgeven van tegoeden. 
                     | Met de app kunnen inwoners gemakkelijk hun tegoeden beheren. 
                     | Aanbieders gebruiken de app om QR-codes te scannen.
                 br
                 h2 Download Me op je telefoon of tablet
-                .block-description
+                .block-description: p
                     | Download de Me-app via onderstaande app stores. #[a(href="{{ $root.appConfigs.me_app_link }}") Klik hier om direct de juiste app store] te openen op je telefoon of tablet.
             
                 app-links(type="lg").hide-sm

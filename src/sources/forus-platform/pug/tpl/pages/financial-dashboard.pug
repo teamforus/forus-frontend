@@ -48,6 +48,7 @@
                             +dropdown('providers', 'Aanbieders', 'Selecteer aanbieders', '$ctrl.selections.providers')
                             +dropdown('postcodes', 'Postcodes', 'Selecteer postcodes', '$ctrl.selections.postcodes')
                             +dropdown('productCategories', 'Categorie', 'Zook voor een categorie', '$ctrl.selections.productCategories')
+                            +dropdown('businessTypes', 'Organisatie type', 'Zook voor een organisatie type', '$ctrl.selections.businessTypes')
 
                         //- Periods list
                         .block.block-label-tabs
@@ -65,7 +66,7 @@
 
                 //- Filters overview
                 .card-section
-                    .card-heading Selecteer filters:
+                    .card-heading Actieve filters:
                     .label-group
                         .label.label-primary-light.label-round.label-lg(
                             ng-repeat="selection in $ctrl.selections" 
@@ -135,7 +136,8 @@
                 .card-section: bar-chart(
                     data="$ctrl.chartData.dates" 
                     field="$ctrl.field"
-                    field-format="$ctrl.field === 'amount' ? $ctrl.currencyFormat : null")
+                    field-format="$ctrl.field === 'amount' ? $ctrl.currencyFormat : null"
+                    step-size="$ctrl.field === 'amount' ? null : 1")
 
             //- Statistics columns
             .financial-totals
@@ -153,7 +155,12 @@
                         .financial-totals-label.financial-totals-label-sm Bij aanbieder
                     .financial-totals-content(ng-if="$ctrl.chartData.highest_transaction")
                         .financial-totals-value(ng-bind="$ctrl.chartData.highest_transaction.amount | currency_format")
-                        .financial-totals-value.financial-totals-value-sm(ng-bind="$ctrl.chartData.highest_transaction.provider")
+                        .financial-totals-value.financial-totals-value-sm(
+                            ng-if="$ctrl.chartData.highest_transaction.provider"
+                            ng-bind="$ctrl.chartData.highest_transaction.provider")
+                        .financial-totals-value.financial-totals-value-sm.text-muted(ng-if="!$ctrl.chartData.highest_transaction.provider")
+                            | Geen provider
+
                     .financial-totals-content(ng-if="!$ctrl.chartData.highest_transaction")
                         .financial-totals-value: small.text-strong.text-muted Geen transactie
                         .financial-totals-value &nbsp;
@@ -214,13 +221,18 @@
                                     tr
                                         th Aanbieder
                                         th(i18n="fund_card_provider_finances.labels.price")
+                                        th(i18n="fund_card_provider_finances.labels.product_name")
                                         th(i18n="fund_card_provider_finances.labels.date")
                                         th(i18n="fund_card_provider_finances.labels.status").text-right
 
                                     tr(ng-repeat="transaction in provider.transactions.data" ng-click="$ctrl.showTransaction(transaction)")
-                                        td(ng-bind="transaction.organization.name")
+                                        td(ng-bind="transaction.organization.name | str_limit:50" title="{{ transaction.organization.name }}")
                                         td: a(ng-bind="transaction.amount | currency_format").text-primary-light
-                                        td(ng-bind="transaction.created_at_locale")
+                                        td(ng-bind="(transaction.product.name || '-') | str_limit:50" title="{{ transaction.product.name }}")
+                                        td
+                                            strong(ng-bind="transaction.created_at_locale.split(' - ')[0]").text-primary
+                                            br
+                                            strong(ng-bind="transaction.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
                                         td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]").text-right
                                     
                                     tr: td(colspan="4")

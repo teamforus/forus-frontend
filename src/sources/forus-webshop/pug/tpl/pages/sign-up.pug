@@ -2,137 +2,243 @@
 
 top-navbar
 
+mixin qr_option(ngIf)
+    .sign_up-option(ng-click="$ctrl.setState('qr')" ng-if=ngIf role="button")
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
+        .sign_up-option-details
+            .sign_up-option-title Me app
+            .sign_up-option-description
+                | Scan een QR-code met de&nbsp;
+                u Me app
+                | &nbsp;
+
+mixin digid_option(ngIf, title, description)
+    .sign_up-option(ng-if=ngIf role="button" ng-click="$ctrl.startDigId()")
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="").sign_up-option-media-img
+        .sign_up-option-details
+            .sign_up-option-title=title
+            .sign_up-option-description=description
+
+mixin email_option(ngIf, dusk, title, description)
+    .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf role="button" dusk=dusk)
+        .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg" alt="").sign_up-option-media-img
+        .sign_up-option-details
+            .sign_up-option-title=title
+            .sign_up-option-description=description
+
+mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Account herstellen met DigiD")
+    .sign_up-restore(ng-if=ngIf)
+        .sign_up-restore-label=label
+        .sign_up-restore-link(
+            ng-click="$ctrl.setState('restore')"
+            role="button"
+            tabindex="0"
+            ng-show=ngShow dusk=dusk)=link
+        .sign_up-restore-chevron: .mdi.mdi-chevron-right
+
+mixin inline_email_form(showPolicy=true)
+    form(ng-submit="$ctrl.authForm.submit()" dusk="authEmailForm").form
+        .row
+            .form-group.col.col-lg-9
+                label.form-label(i18n="popup_auth.input.mail" for="email")
+                ui-control-email(
+                    ng-model="$ctrl.authForm.values.email"
+                    ng-change="$ctrl.onChange()"
+                    data-placeholder="e-mail@e-mail.nl" 
+                    data-id="email" 
+                    tabindex="1" 
+                    auto-focus="true"
+                    input-dusk="authEmailFormEmail"
+                    name="email")
+                .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
+
+            .form-group.col.col-lg-3
+                .form-label.hide-sm(for="submit") &nbsp;
+                button(
+                    ng-class=(showPolicy ? "{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}" : "")
+                    translate="popup_auth.buttons.submit"
+                    type="submit"
+                    dusk="authEmailFormSubmit"
+                    tabindex="3").button.button-primary.button-fill
+        if (showPolicy)
+            .row(ng-if="$root.appConfigs.flags.privacyPage"): .col.col-lg-12
+                br.hidden-lg
+                label(for='privacy' tabindex="2").sign_up-pane-text
+                    input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
+                    | Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
+
 main(id="main-content")
-    header.section.section-sign-up-choose
-        .wrapper: .block.block-sign_up: .block-wrapper
-            div(ng-if="$ctrl.state == 'fund_already_applied'")
-                .sign_up-pane    
-                    h1.sr-only Aanmelden
-                    h2.sign_up-pane-header(translate="fund_request.sign_up.header.title_fund_already_applied")
+    header.section.section-sign-up-choose: .wrapper
+        .block.block-sign_up(ng-if="$ctrl.state == 'start'"): .block-wrapper(
+            ng-class="!$ctrl.appConfigs.flags.startPage.combineColumns ? 'block-wrapper-lg' : ''")
 
-                    .sign_up-pane-body
-                        .sign_up-pane-media: img(src="./assets/img/fund-request-error.png" alt="")
-                        p.sign_up-pane-text(translate="fund_request.sign_up.subtitles.fund_already_applied")
-                        
-                        ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="critera in $ctrl.fund.criteria" 
-                            ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
-                            .item-icon: em.mdi(
-                                ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[critera.request_state]")
-                            span(ng-if="critera.title" ng-bind="critera.title")
-                            span(
-                                ng-if="!critera.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
-                                i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
-                        span(translate="fund_request.sign_up.pane.fund_already_applied")    
+            h1.block-title(
+                translate="signup.items.{{ $root.client_key }}.title"
+                translate-default="{{ 'signup.items.title' | translate }}")
 
-            div(ng-if="$ctrl.state == 'digid'")
-                .sign_up-pane
-                    h1.sr-only Inloggen met DigiD
-                    h2.sign_up-pane-header(i18n="fund_request.sign_up.digid.title" role="heading")                   
-                    .sign_up-pane-body
-                        .sign_up-pane-auth
-                            .sign_up-pane-auth-content
-                                span(i18n="fund_request.sign_up.digid.description")
-                                br
-                                br
-                                .button.button-digid &nbsp;
-                                .button.button-primary(ng-click="$ctrl.startDigId()" i18n="fund_request.sign_up.digid.button")
-                        .sign_up-pane-link(ng-click="$ctrl.setStep(1)") < Ga terug 
+            .sign_up-pane
+                .sign_up-pane-body
+                    //- Combined columns
+                    .sign_up-row(ng-if="$ctrl.appConfigs.flags.startPage.combineColumns")
+                        //- Registration - shown when columns are combined
+                        .sign_up-col
+                            .sign_up-options(ng-class="{disabled: $ctrl.loading}")
+                                //- Email inline form
+                                +inline_email_form(false)
 
-            //- Fund request information
-            div(ng-if="$ctrl.state == 'auth'")
-                .sign_up-pane(ng-show="!$ctrl.authForm.autofill")
-                    h1.sr-only Start aanmelden
-                    h2.sign_up-pane-header(translate="fund_request.sign_up.header.title")
+                                //- Sign in by Me App
+                                +qr_option("!$ctrl.appConfigs.flags.startPage.hideSignUpQrCodeOption")
 
-                    .sign_up-pane-body(ng-if="!$ctrl.hasApp")
-                        form(ng-submit="$ctrl.authForm.submit()").form
-                            .row
-                                .form-group.col.col-lg-9
-                                    label.form-label(i18n="popup_auth.input.mail" for="email")
-                                    ui-control-email(ng-model="$ctrl.authForm.values.email" data-placeholder="bijv. info@info.nl" data-id="email")
-                                    .form-error(ng-repeat="error in $ctrl.authForm.errors.email" ng-bind="error")
-                                .form-group.col.col-lg-3
-                                    .form-label.hide-sm(for="submit") &nbsp;
-                                    button(
-                                        ng-class="{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}"
-                                        translate="popup_auth.buttons.submit"
-                                        type="submit").button.button-primary.button-fill
-                            .row(ng-if="$root.appConfigs.flags.privacyPage"): .col.col-lg-12
-                                br.hidden-lg
-                                label(for='privacy').sign_up-pane-text
-                                    input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
-                                    |  Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
-
-                        .sign_up-pane-link(
-                            ng-if="$ctrl.digidAvailable && !$root.appConfigs.flags.disableDigidRestoreOption" 
-                            ng-click="$ctrl.setRestoreWithDigiD()" 
-                            translate="{{ 'fund_request.sign_up.labels.restore_with_digid_' + $root.appConfigs.features.communication_type }}")
-
-                        br(ng-if="$ctrl.digidAvailable && !$root.appConfigs.flags.disableDigidRestoreOption")
-
-                        .sign_up-pane-link(
-                            ng-click="$ctrl.setHasAppProp(true)" 
-                            translate="fund_request.sign_up.labels.has_app").hide-sm
-
-                    .sign_up-pane-body(ng-if="$ctrl.hasApp")
-                        .sign_up-pane-heading(translate='fund_request.sign_up.app.title')
-
-                        .sign_up-pane-auth
-                            .sign_up-pane-auth-content
-                                .sign_up-pane-text(
-                                    ng-repeat="line in ('fund_request.sign_up.app.description_top' | translate | lines_to_array)"
-                                    ng-bind="line")
-                                
-                                .sign_up-pane-auth-qr_code.show-sm
-                                    qr-code(
-                                        ng-if="$ctrl.authToken" 
-                                        qr-value="$ctrl.authToken" 
-                                        qr-type="auth_token" 
-                                        qr-logo=src_prefix + "./assets/img/me-logo.png") 
-                                
-                                .sign_up-pane-text(
-                                    ng-repeat="line in ('fund_request.sign_up.app.description_bottom' | translate | lines_to_array)"
-                                    ng-bind="line")
-
-                                .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app").show-sm
-
-                                app-links
+                            //- Restore by DigiD link
+                            +restore_link("$ctrl.appConfigs.features.digid")
+                
+                    //- Separated columns
+                    .sign_up-row(ng-if="!$ctrl.appConfigs.flags.startPage.combineColumns")
+                        //- Registration - hidden when columns are combined
+                        .sign_up-col
+                            //- Sign Up title
+                            h3.sign_up-pane-text: .sign_up-pane-heading 
+                                | Account aanmaken of een aanvraag starten?
                             
-                            .sign_up-pane-auth-qr_code.hide-sm
+                            //- Sign Up options
+                            .sign_up-options(ng-class="{disabled: $ctrl.loading}")
+                                //- Sign up by DigiD
+                                +digid_option(
+                                    "$ctrl.appConfigs.features.digid && !$ctrl.appConfigs.flags.startPage.hideSignUpDigidOption",
+                                    "DigiD",
+                                    "Open DigiD inlogscherm")
+                            
+                                //- Sign up by Email
+                                +email_option(
+                                    "!$ctrl.appConfigs.flags.startPage.hideSignUpEmailOption",
+                                    "authOptionEmailRegister",
+                                    "E-mailadres",
+                                    "Ontvang een inloglink per e-mail")
+                                
+                        //- Authorization - hidden when columns are combined
+                        .sign_up-col
+                            //- Sign In title
+                            h3.sign_up-pane-text: .sign_up-pane-heading(
+                                translate="signup.items.{{ $root.client_key }}.pane_text"
+                                translate-default="{{ 'signup.items.pane_text' | translate }}")
+                            
+                            //- Sign In options
+                            .sign_up-options(ng-class="{disabled: $ctrl.loading}")
+                                //- Sign in by DigiD
+                                +digid_option(
+                                    "$ctrl.appConfigs.features.digid && $ctrl.appConfigs.flags.startPage.hideSignInDigidOption",
+                                    "DigiD",
+                                    "Open DigiD inlogscherm")
+
+                                //- Sign in by Email
+                                +email_option(
+                                    "!$ctrl.appConfigs.flags.startPage.hideSignInEmailOption", 
+                                    "authOptionEmailRestore",
+                                    "E-mailadres",
+                                    "Ontvang een inloglink per e-mail",)
+
+                                //- Sign in by Me App
+                                +qr_option("!$ctrl.appConfigs.flags.startPage.hideSignInQrCodeOption")
+
+                                //- Restore by DigiD link
+                                +restore_link("$ctrl.appConfigs.features.digid")
+
+        //- Restore page
+        .block.block-sign_up(ng-if="$ctrl.state == 'restore'"): .block-wrapper
+            h1.block-title Account herstellen
+
+            //- Email form
+            .sign_up-pane(ng-if="!$ctrl.authEmailRestoreSent && !$ctrl.authEmailConfirmationSent")
+                .sign_up-pane-body.sign_up-pane-body-padless-bottom
+                    .sign_up-options
+                        //- Sign in by DigiD
+                        +digid_option(
+                            "$ctrl.appConfigs.features.digid", 
+                            "DigiD",
+                            "Open DigiD inlogscherm")
+
+                .sign_up-pane-footer
+                    .button.button-text.button-text-padless(ng-click="$ctrl.setState('start')")
+                        em.mdi.mdi-chevron-left.icon-lefts
+                        | Terug naar inloggen
+
+
+        //- Sign In/Sign Up by E-mail
+        .block.block-sign_up(ng-if="$ctrl.state == 'email'"): .block-wrapper
+            h1.block-title(
+                translate="signup.items.{{ $root.client_key }}.start_email"
+                translate-default="{{ 'signup.items.start_email' | translate }}")
+
+            //- Email form
+            .sign_up-pane(ng-if="!$ctrl.authEmailRestoreSent && !$ctrl.authEmailConfirmationSent")
+                .sign_up-pane-body.sign_up-pane-body-padless-bottom
+                    +inline_email_form()
+
+                .sign_up-pane-footer
+                    .button.button-text.button-text-padless(ng-click="$ctrl.setState('start')")
+                        em.mdi.mdi-chevron-left.icon-lefts
+                        | Terug
+
+            //- For existing users
+            .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
+                h1.sr-only Start aanmelden
+                h2.sign_up-pane-header(i18n="popup_auth.header.title") 
+
+                .sign_up-pane-body(dusk="authEmailSentConfirmation")
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon: img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
+                        .sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_succes_' + $root.appConfigs.features.communication_type }}")
+                        .sign_up-email_sent-text(translate="{{ 'popup_auth.header.subtitle_we_succes_' + $root.appConfigs.features.communication_type }}" translate-values="{email: $ctrl.authForm.values.email}")
+                        
+                        email-provider-link(email="$ctrl.authForm.values.email")
+
+            //- For new users
+            .sign_up-pane(ng-if="$ctrl.authEmailConfirmationSent")
+                h1.sr-only(role="heading") Start aanmelden
+                h2.sign_up-pane-header(role="heading") Aanmelding bevestigen
+
+                .sign_up-pane-body(dusk="authEmailSentConfirmation")
+                    .sign_up-email_sent
+                        .sign_up-email_sent-icon: img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
+                        h3.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")
+                        .sign_up-email_sent-text(translate="{{ 'popup_auth.notifications.link_' + $root.appConfigs.features.communication_type }}" translate-values="{{ $ctrl.authForm.values }}")
+
+                        email-provider-link(email="$ctrl.authForm.values.email")
+
+        //- Sign In/Sign Up by QR
+        .block.block-sign_up(ng-if="$ctrl.state == 'qr'"): .block-wrapper
+            h1.block-title Inloggen
+            .sign_up-pane
+                .sign_up-pane-body.sign_up-pane-body-padless-bottom
+                    .sign_up-pane-heading(translate='fund_request.sign_up.app.title')
+
+                    .sign_up-pane-auth
+                        .sign_up-pane-auth-content
+                            .sign_up-pane-text(
+                                ng-repeat="line in ('fund_request.sign_up.app.description_top' | translate | lines_to_array)"
+                                ng-bind="line")
+                            
+                            .sign_up-pane-auth-qr_code.show-sm
                                 qr-code(
                                     ng-if="$ctrl.authToken" 
                                     qr-value="$ctrl.authToken" 
                                     qr-type="auth_token" 
                                     qr-logo=src_prefix + "./assets/img/me-logo.png") 
-
-                        .sign_up-pane-link.hide-sm(ng-click="$ctrl.setHasAppProp(false)" translate="fund_request.sign_up.labels.no_app")
-        
-            //- Log in email sent
-            div(ng-if="$ctrl.state == 'auth_email_sent'")
-                //- For new users
-                .sign_up-pane(ng-if="$ctrl.authEmailRestoreSent")
-                    h1.sr-only(role="heading") Start aanmelden
-                    h2.sign_up-pane-header(role="heading") Aanmelding bevestigen
-                    .sign_up-pane-body 
-                        .sign_up-email_sent
-                            .sign_up-email_sent-icon
-                                img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
-                            h2.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")
-                            .sign_up-email_sent-text(translate="{{ 'popup_auth.notifications.link_' + $root.appConfigs.features.communication_type }}" translate-values="{{ $ctrl.authForm.values }}")
-
-                            email-provider-link(email="$ctrl.authForm.values.email")
-
-                //- For existing users
-                .sign_up-pane(ng-if="$ctrl.authEmailSent")
-                    h1.sr-only Start aanmelden
-                    h2.sign_up-pane-header(i18n="popup_auth.header.title") 
-                    .sign_up-pane-body
-                        .sign_up-email_sent
-                            .sign_up-email_sent-icon
-                                img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
-                            .sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_succes_' + $root.appConfigs.features.communication_type }}")
-                            .sign_up-email_sent-text(translate="{{ 'popup_auth.header.subtitle_we_succes_' + $root.appConfigs.features.communication_type }}" translate-values="{email: $ctrl.authForm.values.email}")
                             
-                            email-provider-link(email="$ctrl.authForm.values.email")
+                            .sign_up-pane-text(
+                                ng-repeat="line in ('fund_request.sign_up.app.description_bottom' | translate | lines_to_array)"
+                                ng-bind="line")
+
+                            app-links
+                        
+                        .sign_up-pane-auth-qr_code.hide-sm
+                            qr-code(
+                                ng-if="$ctrl.authToken" 
+                                qr-value="$ctrl.authToken" 
+                                qr-type="auth_token" 
+                                qr-logo=src_prefix + "./assets/img/me-logo.png") 
+
+                .sign_up-pane-footer
+                    .button.button-text.button-text-padless(ng-click="$ctrl.setState('start')")
+                        em.mdi.mdi-chevron-left.icon-lefts
+                        | Terug

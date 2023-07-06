@@ -1,77 +1,68 @@
-let sprintf = require('sprintf-js').sprintf;
-
-let ModalCreatePrevalidationComponent = function(
+const ModalCreatePrevalidationComponent = function (
     FormBuilderService,
     PrevalidationService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
 
     $ctrl.recordTypesAvailable = [];
-    $ctrl.fundRecordKey = false;
-    $ctrl.fundRecordKeyValue = false;
+    $ctrl.eligibleKey = false;
+    $ctrl.eligibleKeyValue = false;
 
     $ctrl.$onInit = () => {
-        let values = {};
+        const values = {};
+        const { fund, recordTypes } = $ctrl.modal.scope;
+        const { criteria } = fund;
 
-        $ctrl.recordTypes = $ctrl.modal.scope.recordTypes.filter(
-            recordType => recordType.key != 'primary_email'
-        );
+        const eligibleKey = fund.csv_required_keys.find((key) => {
+            return key.endsWith('_eligible');
+        });
 
-        $ctrl.recordTypesByKey = {};
+        const eligibleKeyValue = criteria.find((criterion) => {
+            return criterion.record_type_key == eligibleKey && criterion.operator == '=';
+        })?.value;
+
+        $ctrl.fund = fund;
+        $ctrl.recordTypes = recordTypes.filter((type) => type.key != 'primary_email');
+        $ctrl.recordTypesByKey = recordTypes.reduce((obj, type) => ({ ...obj, [type.key]: type }), {});;
         $ctrl.criteriaRuleByKey = {};
 
-        $ctrl.fund = $ctrl.modal.scope.fund;
-
-        let fundRecordKey = $ctrl.fund.csv_required_keys.filter(key => {
-            return key.indexOf('_eligible') === key.length - 9;
-        })[0] || false;
-
-        let fundRecordKeyValue = ($ctrl.fund.criteria.filter(
-            criteria => criteria.record_type_key == fundRecordKey && criteria.operator == '='
-        )[0] || false).value || false;
-
-        $ctrl.fundRecordKey = fundRecordKey;
-        $ctrl.fundRecordKeyValue = fundRecordKeyValue;
-        $ctrl.prevalidationRecords = $ctrl.fund.csv_required_keys.slice();
+        $ctrl.eligibleKey = eligibleKey;
+        $ctrl.eligibleKeyValue = eligibleKeyValue;
+        $ctrl.prevalidationRecords = [...fund.csv_required_keys]
 
         $ctrl.updateRecordTypesAvailable();
 
-        $ctrl.recordTypes.forEach((recordType) => {
-            $ctrl.recordTypesByKey[recordType.key] = recordType;
-        });
+        fund.criteria.forEach((criteria) => {
+            const operatorLocale = {
+                '<': 'minder dan',
+                '>': 'meer dan',
+                '=': 'is',
+            }[criteria.operator];
 
-        $ctrl.fund.criteria.forEach((criteria) => {
-            $ctrl.criteriaRuleByKey[criteria.record_type_key] = sprintf(
-                "%s %s", {
-                    '>': 'meer dan',
-                    '<': 'minder dan',
-                    '=': 'is'
-                } [criteria.operator],
-                criteria.value
-            )
+            $ctrl.criteriaRuleByKey[criteria.record_type_key] = `${operatorLocale} ${criteria.value}`;
 
             if (criteria.operator == '=') {
                 values[criteria.record_type_key] = criteria.value;
             }
         });
 
-        $ctrl.form = FormBuilderService.build(values, function(form) {
+        $ctrl.form = FormBuilderService.build(values, function (form) {
             if (!$ctrl.verificationRequested) {
                 return $ctrl.requestVerification() & form.unlock();
             }
 
-            let values = JSON.parse(JSON.stringify(form.values));
+            const values = {...form.values};
 
-            if (fundRecordKey && fundRecordKeyValue) {
-                values[fundRecordKey] = fundRecordKeyValue;
+            if (eligibleKey && eligibleKeyValue) {
+                values[eligibleKey] = eligibleKeyValue;
             }
 
-            PrevalidationService.submit(values, $ctrl.fund.id).then((res) => {
+            PrevalidationService.submit(values, fund.id).then((res) => {
                 $ctrl.backToForm();
                 $ctrl.prevalidation = res.data.data;
-                $ctrl.prevalidationPrimaryKey = $ctrl.prevalidation.records.filter(
-                    record => record.key == $ctrl.fund.csv_primary_key
-                )[0] || false;
+                $ctrl.prevalidationPrimaryKey = $ctrl.prevalidation.records.filter((record) => {
+                    return record.key == fund.csv_primary_key;
+                })[0] || false;
             }, (res) => {
                 $ctrl.form.errors = res.data.errors;
 
@@ -90,25 +81,20 @@ let ModalCreatePrevalidationComponent = function(
     };
 
     $ctrl.updateRecordTypesAvailable = () => {
-        $ctrl.recordTypesAvailable = $ctrl.recordTypes.filter(
-            recordType => $ctrl.prevalidationRecords.indexOf(recordType.key) === -1
-        );
+        $ctrl.recordTypesAvailable = $ctrl.recordTypes.filter((recordType) => {
+            return !$ctrl.prevalidationRecords.includes(recordType.key);
+        });
 
-        if ($ctrl.fundRecordKey && $ctrl.fundRecordKeyValue) {
-            $ctrl.recordTypesAvailable = $ctrl.recordTypesAvailable.filter(
-                prevalidationRecord => prevalidationRecord !== $ctrl.fundRecordKey
-            );
-
-            $ctrl.prevalidationRecords = $ctrl.prevalidationRecords.filter(
-                prevalidationRecord => prevalidationRecord !== $ctrl.fundRecordKey
-            );
+        if ($ctrl.eligibleKey && $ctrl.eligibleKeyValue) {
+            $ctrl.recordTypesAvailable = $ctrl.recordTypesAvailable.filter((record) => record !== $ctrl.eligibleKey);
+            $ctrl.prevalidationRecords = $ctrl.prevalidationRecords.filter((record) => record !== $ctrl.eligibleKey);
         }
     };
 
     $ctrl.addNewRecord = () => {
         $ctrl.formNewRecord = FormBuilderService.build({
             record_type_key: $ctrl.recordTypesAvailable[0].key,
-        }, () => {})
+        }, () => { })
     };
 
     $ctrl.submitNewRecord = () => {
@@ -118,13 +104,11 @@ let ModalCreatePrevalidationComponent = function(
     };
 
     $ctrl.removeExtraRecord = (recordKey) => {
-        let index = $ctrl.prevalidationRecords.indexOf(recordKey);
-
-        if (index !== -1) {
-            $ctrl.prevalidationRecords.splice(index, 1);
+        if ($ctrl.prevalidationRecords.includes(recordKey)) {
+            $ctrl.prevalidationRecords.splice($ctrl.prevalidationRecords.indexOf(recordKey), 1);
             delete $ctrl.form.values[recordKey]
         }
-        
+
         $ctrl.updateRecordTypesAvailable();
     };
 
@@ -135,8 +119,6 @@ let ModalCreatePrevalidationComponent = function(
 
         $ctrl.close();
     };
-
-    $ctrl.$onDestroy = function() {};
 };
 
 module.exports = {

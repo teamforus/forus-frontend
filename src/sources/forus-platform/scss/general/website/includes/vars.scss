@@ -1,58 +1,40 @@
 /*==========  Style Sheet - Vars  ==========*/
 
-// Primary colors
-$forus-blue:        #3561ff;
+:root {
 
-$forus-black:       #000000;
+    // Primary colors
+    --forus-blue: #3561ff;
+    
+    --forus-black: #000000;
+    
+    --forus-grey: #f6f8f9;
+    
+    --forus-pink: #3561ff;
+    
+    --forus-white: #ffffff;
+    
+    // button like text
+    --forus-sky-blue: #0c66ff;
+    
+    // button bg
+    --forus-demi-blue: #3561ff;
+    
+    // Gradient colors
+    --forus-gradient: linear-gradient(to top left, #3578ff 0%, #35d7ff 100%);
+    
+    // base font
+    --base-font: "Montserrat", sans-serif;
+    
+    // text color
+    --text-color: #191a1c;
 
-$forus-grey:        #F6F8F9;
+    // base color
+    --base-color: #315efd;
 
-$forus-pink:        #3561ff;
+    // placeholder text color
+    --placeholder-color: #736666;
 
-$forus-white:       #FFFFFF;
-
-// Secondary colors
-$forus-light-blue:  rgba(53, 145, 255, 0.2);
-
-$forus-light-pink:  rgba(255, 75, 153, 0.3);
-
-// Gradient colors
-$forus-gradient:    linear-gradient(to top left, #3578ff 0%, #35d7ff 100%);
-
-// base font
-$bf:                'Montserrat', sans-serif;
-
-// text color
-$tc:                #191a1c;
-
-// button like text
-$forus-sky-blue: #0c66ff;
-
-// button bg
-$forus-demi-blue: #3561ff;
-
-$forus-dark-blue: rgba(12,102,255,0.1);
-
-// base color
-$bc:                #315efd;
-
-// placeholder text color
-$ptc:               #736666;
-
-//images path
-$img_path: '../img';
-
-
-$border_radius: 8px;
-$color_primary: #134478;
-$color_primary_light: #305dfb;
-
-// sign up
-$sign_up_accent_color: #305dfb;
-$sign_up_accent_color_light: #bdcbff;
-$sign_up_link_color: #e60003;
-$sign_up_step_btns_color: #305dfb;
-$sign_up_digid_btn_bkg: #e1e7ff;
-$sign_up_digid_btn_text: #4b71ff;
-$sign_up_digid_btn_border: none;
-$sign_up_digid_btn_border_radius: 5px;
+    --border-radius: 8px;
+    --color-primary: #134478;
+    --color-primary-light: #305dfb;
+}

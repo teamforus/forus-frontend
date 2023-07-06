@@ -25,44 +25,6 @@ let OfficeService = function(ApiRequest) {
             }];
         };
 
-        this.apiResourceToForm = function(apiResource) {
-            let schedule = {};
-            let weekDays = this.scheduleWeekDays();
-
-            apiResource.schedule = apiResource.schedule || [];
-
-            apiResource.schedule.forEach((schedule_item) => {
-                schedule[schedule_item.week_day] = {
-                    start_time: schedule_item.start_time,
-                    end_time: schedule_item.end_time,
-                };
-            });
-
-            for (let prop in weekDays) {
-                if (!schedule[prop]) {
-                    schedule[prop] = {
-                        'start_time': 'null',
-                        'end_time': 'null',
-                    };
-                } else {
-                    if (!schedule[prop].start_time) {
-                        schedule[prop].start_time = 'null';
-                    }
-
-                    if (!schedule[prop].end_time) {
-                        schedule[prop].end_time = 'null';
-                    }
-                }
-            }
-
-            return {
-                'address': apiResource.address,
-                'email': apiResource.email,
-                'phone': apiResource.phone,
-                'schedule': schedule,
-            };
-        };
-
         this.scheduleWeekDays = () => {
             return {
                 0: "Ma",

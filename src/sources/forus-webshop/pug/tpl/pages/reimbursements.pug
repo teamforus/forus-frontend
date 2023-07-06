@@ -1,0 +1,119 @@
+top-navbar
+section.section.section-profile: .wrapper
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        .breadcrumb-item.active(translate="reimbursements.header.title" aria-current="location")
+
+    .block.block-profile
+        .profile-aside
+            profile-menu.hide-sm
+
+            .form.form-compact
+                .profile-aside-block
+                    //- Fund
+                    .form-group
+                        label.form-label(for="select_fund") Tegoeden
+                        select-control(
+                            id="select_fund"
+                            name="fund"
+                            prop="id"
+                            ng-model="$ctrl.filters.fund_id"
+                            options="$ctrl.funds"
+                            placeholder="{{ $ctrl.funds[0].name }}")
+
+        //- 2fa required
+        .profile-content(ng-if="$ctrl.auth2FAState.restrictions.reimbursements.restricted")
+            auth-2-f-a-restriction(
+                type="reimbursements"
+                items="$ctrl.auth2FAState.restrictions.reimbursements.funds"
+                item-name="name"
+                item-thumbnail="logo.sizes.thumbnail"
+                default-thumbnail="fund-thumbnail")
+
+        //- At least one reimbursement request exists
+        .profile-content(ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.reimbursements.restricted")
+            .profile-content-header.clearfix
+                .profile-content-title
+                    div.pull-left
+                        .profile-content-title-count(ng-bind="$ctrl.reimbursements.meta.total")
+                        h1.profile-content-header(translate="reimbursements.header.title")
+
+                .block.block-label-tabs.form.pull-right
+                    .label-tab-set(ng-if="!$ctrl.filters.archived")
+                        .label-tab.label-tab-sm(
+                            role="button" 
+                            ng-click="$ctrl.filters.state = null" 
+                            ng-class="$ctrl.filters.state == null ? 'active' : ''")
+                            | Alle
+
+                        .label-tab.label-tab-sm(
+                            role="button" 
+                            ng-click="$ctrl.filters.state = 'pending'" 
+                            ng-class="$ctrl.filters.state == 'pending' ? 'active' : ''")
+                            | In afwachting
+
+                        .label-tab.label-tab-sm(
+                            role="button" 
+                            ng-click="$ctrl.filters.state = 'approved'" 
+                            ng-class="$ctrl.filters.state == 'approved' ? 'active' : ''")
+                            | Uitbetaald
+
+                        .label-tab.label-tab-sm(
+                            role="button" 
+                            ng-click="$ctrl.filters.state = 'declined'" 
+                            ng-class="$ctrl.filters.state == 'declined' ? 'active' : ''")
+                            | Afgewezen
+
+                        .label-tab.label-tab-sm(
+                            role="button" 
+                            ng-click="$ctrl.filters.state = 'draft'" 
+                            ng-class="$ctrl.filters.state == 'draft' ? 'active' : ''")
+                            | Nog niet ingediend
+
+                    .label-tab-set
+                        .label-tab.label-tab-sm(
+                            role="button" 
+                            dusk="reimbursementsFilterActive"
+                            ng-click="$ctrl.filters.archived = 0" 
+                            ng-class="!$ctrl.filters.archived ? 'active' : ''")
+                            | Actief
+
+                        .label-tab.label-tab-sm(
+                            role="button" 
+                            dusk="reimbursementsFilterArchived"
+                            ng-click="$ctrl.filters.archived = 1" 
+                            ng-class="$ctrl.filters.archived ? 'active' : ''")
+                            | Archief
+
+            //- At least on reimbursement request
+            .block.block-reimbursements(ng-if="$ctrl.reimbursements.data.length > 0" dusk="reimbursementsList")
+                reimbursement-card(
+                    ng-repeat="reimbursement in $ctrl.reimbursements.data"
+                    on-delete="$ctrl.onDelete()"
+                    reimbursement="reimbursement")
+
+            //- Add reimbursement request card
+            .block.block-action-card.block-action-card-compact(ng-if="$ctrl.reimbursements.data.length > 0 && $ctrl.vouchers.length > 0")
+                .block-card-logo(role="img" aria-label=""): include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
+                .block-card-details: h3.block-card-title Kosten terugvragen
+                .block-card-actions: a(ui-sref="reimbursements-create"): .button.button-primary-outline Bon insturen
+
+            //- No reimbursement requests 
+            empty-block(
+                dusk="reimbursementsEmptyBlock"
+                ng-if="$ctrl.reimbursements.data.length == 0"
+                title="{{ 'reimbursements.empty_block.title' | translate }}"
+                description="{{ 'reimbursements.empty_block.subtitle' | translate }}"
+                svg-icon="reimbursements"
+                button-sref="reimbursements-create"
+                button-text="{{ $ctrl.vouchers.length > 0 ? 'Bon insturen' : '' }}"
+                button-type="primary"
+                button-icon="plus"
+                hide-link="true")
+
+            //- Pagination
+            .card(ng-if="$ctrl.reimbursements" ng-show="$ctrl.reimbursements.meta.last_page > 1"): .card-section
+                paginator(
+                    meta="$ctrl.reimbursements.meta" 
+                    filters="$ctrl.filters" 
+                    on-page-change="$ctrl.onPageChange(query)")

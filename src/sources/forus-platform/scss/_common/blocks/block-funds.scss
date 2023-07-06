@@ -6,13 +6,17 @@
     .fund-item {
         background: #ffffff;
         box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
-        border-radius: $border_radius / 2;
+        border-radius: calc(var(--border-radius) / 2);
         margin-bottom: 20px;
-        font: 400 14px/24px $bf;
+        font: 400 14px/24px var(--base-font);
         display: flex;
         flex-direction: column;
-        overflow: hidden;
         cursor: default;
+
+        .card {
+            box-shadow: none;
+            margin-bottom: 0;
+        }
 
         .fund-logo {
             .fund-logo-img {
@@ -20,18 +24,17 @@
                 width: 60px;
                 height: 60px;
                 border-radius: 60px;
-                border: 1px solid $borderColor;
+                border: 1px solid var(--border-color);
             }
         }
 
         .fund-details {
             @include ellipsis();
-            padding: 15px;
+            padding: 5px 15px;
             flex-grow: 1;
 
             .fund-title {
-                font: 600 16px/30px $bf;
-                margin: 0 0 15px;
+                font: 600 16px/25px var(--base-font);
 
                 .tag {
                     margin-left: 10px;
@@ -41,6 +44,11 @@
                 &:last-child {
                     margin-bottom: 0;
                 }
+            }
+
+            .fund-subtitle {
+                font: 600 13px/20px var(--base-font);
+                color: #646F79;
             }
         }
 
@@ -54,20 +62,20 @@
             margin: 0 0 15px;
 
             .fund-remaining-label {
-                font: 500 13px/20px $bf;
+                font: 500 13px/20px var(--base-font);
                 color: #646F79;
                 margin-right: 5px;
             }
 
             .fund-remaining-value {
-                font: 500 16px/20px $bf;
+                font: 500 16px/20px var(--base-font);
                 color: #151B26;
             }
         }
 
         .fund-item-section {
             padding: 20px 20px;
-            border-bottom: 1px solid $borderColor;
+            border-bottom: 1px solid var(--border-color);
             position: relative;
 
             .block-criteria-editor {
@@ -98,7 +106,7 @@
 
                 &:before {
                     border-width: 0 11px 11px 11px;
-                    border-color: transparent transparent $borderColor transparent;
+                    border-color: transparent transparent --border-color transparent;
                     // transform: translate(-1px, 0px);
                     transform: translate(-50%, -1px);
                 }

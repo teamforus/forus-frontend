@@ -9,6 +9,7 @@ const ProductsListDirective = function($scope) {
     };
 
     const init = () => {
+        $dir.onToggleBookmark = $scope.onToggleBookmark;
         $dir.type = $scope.type || 'budget';
         $dir.display = $scope.display || 'grid';
         $dir.products = $scope.products || [];
@@ -25,6 +26,7 @@ const ProductsListDirective = function($scope) {
 module.exports = () => {
     return {
         scope: {
+            onToggleBookmark: '&',
             type: '=',
             display: '=',
             products: '=',

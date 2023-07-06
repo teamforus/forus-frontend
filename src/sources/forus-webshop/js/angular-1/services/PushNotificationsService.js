@@ -1,4 +1,4 @@
-let PushNotificationsService = function() {
+let PushNotificationsService = function () {
     let notifications = [];
     let listeners = [];
 
@@ -8,24 +8,26 @@ let PushNotificationsService = function() {
             title: '',
             message: '',
             icon: 'check',
-            timeout: 4000,
+            isBookmark: false,
+            timeout: 10000,
         }, notification);
 
         notifications.push(note);
         listeners.forEach(listener => listener(note));
     };
 
-    return new (function() {
+    return new (function () {
         this.push = (note) => {
             pushNotifications(note);
         }
-        
+
         this.success = (title, message, icon = 'check', other = {}) => {
             this.push(Object.assign(other, {
                 icon: icon,
                 title: title,
                 message: message,
                 type: 'success',
+                group: 'default',
             }));
         };
 
@@ -35,6 +37,7 @@ let PushNotificationsService = function() {
                 title: title,
                 message: message,
                 type: 'info',
+                group: 'default',
             }));
         };
 
@@ -44,10 +47,15 @@ let PushNotificationsService = function() {
                 title: title,
                 message: message,
                 type: 'danger',
+                group: 'default',
             }));
         };
 
-        this.onNotification = function(listener) {
+        this.raw = (options = {}) => {
+            this.push({ group: 'default', ...options });
+        };
+
+        this.onNotification = function (listener) {
             listeners.push(listener);
         };
     });

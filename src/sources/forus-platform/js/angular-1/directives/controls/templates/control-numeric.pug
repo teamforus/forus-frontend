@@ -1,0 +1,11 @@
+.form-numeric
+    .form-numeric-btn(ng-disabled="$dir.ngModel <= $dir.minValue")
+        em.mdi.mdi-minus.icon-start(ng-click="$dir.decrease()")
+
+    .form-numeric-value(ng-bind="$dir.ngModel")
+
+    .form-numeric-btn(ng-disabled="$dir.maxValue && ($dir.ngModel >= $dir.maxValue)")
+        em.mdi.mdi-plus.icon-end(ng-click="$dir.increase()")
+    
+    .form-numeric-actions(ng-if="$dir.apply && ($dir.ngModelCtrl.$viewValue != $dir.ngModel)")
+        .button.button-default.button-sm(ng-click="$dir.submit()" ng-bind="$dir.applyText")

@@ -24,6 +24,10 @@
             "title": "Aanbieder geaccepteerd voor het aanbieden van alle aanbiedingen",
             "description": "Aanbieders ontvangen dit bericht wanneer ze door de sponsor zijn goedgekeurd voor het aanbieden van al hun aanbod."
         },
+        "notifications_products.reservation_canceled": {
+            "title": "Reservering geannuleerd door aanvrager",
+            "description": "Aanbieders ontvangen dit bericht wanneer hun reservering door de aanvrager is geannuleerd."
+        },
         "notifications_fund_providers.revoked_budget": {
             "title": "Aanbieder geweigerd voor het scannen van een financieel-tegoed",
             "description": "Aanbieders ontvangen dit bericht wanneer de sponsor ze weigert voor het scannen van een financieel-tegoed."
@@ -49,8 +53,16 @@
             "description": "Aanbieders ontvangen dit bericht wanneer een fonds binnenkort verloopt waar zij aangemeld voor staan."
         },        
         "notifications_identities.requester_provider_approved_budget": {
-            "title": "Aanbieder goedgekeurd voor het scannen van financiële tegoeden.",
+            "title": "Aanbieder goedgekeurd voor het scannen van financiële tegoeden",
             "description": "Deelnemers ontvangen dit bericht wanneer een aanbieder wordt goedgekeurd om hun financiële tegoeden te mogen scannen."
+        },
+        "notifications_fund_providers.state_accepted": {
+            "title": "Aanbieder aanvraag is goedgekeurd",
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanmelding voor een fonds is geaccepteerd door de sponsor."
+        },
+        "notifications_fund_providers.state_rejected": {
+            "title": "Aanbieder aanvraag is geweigerd",
+            "description": "Aanbieders ontvangen dit bericht wanneer hun aanmelding voor een fonds is geweigerd door de sponsor."
         },
         "notifications_identities.requester_provider_approved_products": {
             "title": "Aanbieder goedgekeurd voor aanbiedingen",
@@ -88,6 +100,10 @@
             "title": "Aanvraag is goedgekeurd",
             "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is goedgekeurd door de beoordelaar."
         },
+        "notifications_identities.fund_request_disregarded": {
+            "title": "Aanvraag is niet beoordeeld",
+            "description": "Aanvragers ontvangen dit bericht wanneer hun aanvraag voor een fonds is niet beoordeeld door de beoordelaar."
+        },
         "notifications_identities.fund_request_record_declined": {
             "title": "Een onderdeel van de aanvraag is geweigerd",
             "description": "Aanvragers ontvangen dit bericht wanneer een onderdeel van hun aanvraag voor een fonds is geweigerd door de beoordelaar."
@@ -96,9 +112,21 @@
             "title": "Aanvulverzoek op aanvraag",
             "description": "Aanvragers ontvangen dit bericht wanneer een aanvulling op de aanvraag voor een fonds is verzocht door de beoordelaar."
         },
+        "notifications_identities.reimbursement_submitted": {
+            "title": "Declaratie verstuurd",
+            "description": "Declaratie verstuurd door deelnemer."
+        },
+        "notifications_identities.reimbursement_approved": {
+            "title": "Declaratie goedgekeurd",
+            "description": "Declaratie goedgekeurd door de sponsor."
+        },
+        "notifications_identities.reimbursement_declined": {
+            "title": "Declaratie afgekeurd",
+            "description": "Declaratie afgekeurd door de sponsor."
+        },
         "notifications_funds.created": {
-            "title": "Fonds is aangemaakt",
-            "description": "Sponsors ontvangen dit bericht wanneer ze een fonds aanmaken."
+            "title": "Declaratie afgekeurd",
+            "description": "Declaratie afgekeurd door de sponsor."
         },
         "notifications_funds.started": {
             "title": "Fonds is gestart",
