@@ -371,8 +371,8 @@
                     }
 
                     &.active {
-                        background-color: #315efd;
-                        color: #fff;
+                        background-color: var(--btn-start-bg);
+                        color: var(--tc-start-btn);
                     }
                 }
             }
