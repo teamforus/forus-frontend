@@ -9,10 +9,22 @@
         //- Fund edit form
         .card: form(ng-submit="$ctrl.form.submit()").form
             //- Header
-            .card-header: .card-title Tweefactorauthenticatie voor medewerkers
+            .card-header: .flex-row
+                .flex.flex-grow
+                    .card-title(ng-if="$ctrl.viewType == 'employees'") Tweefactorauthenticatie voor medewerkers
+                    .card-title(ng-if="$ctrl.viewType == 'funds'") Tweefactorauthenticatie voor fondsen
 
-            //- Enable/Disable
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+                .flex: .block.block-label-tabs.pull-right: .label-tab-set
+                    .label-tab.label-tab-sm(
+                        ng-class="{active: $ctrl.viewType == 'employees'}"
+                        ng-click="$ctrl.viewType = 'employees'") Medewerkers
+
+                    .label-tab.label-tab-sm(
+                        ng-class="{active: $ctrl.viewType == 'funds'}"
+                        ng-click="$ctrl.viewType = 'funds'") Fondsen
+
+            //- 2FA employees
+            .card-section.card-section-primary(ng-if="$ctrl.viewType == 'employees'"): .row: .col.col-lg-9.col-xs-12
                 //- 2fa level
                 .form-group.form-group-inline   
                     label.form-label 2FA beperkingen
@@ -34,6 +46,50 @@
                         ng-model="$ctrl.form.values.auth_2fa_remember_ip" 
                         options="$ctrl.auth2FARememberIpOptions").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.auth_2fa_remember_ip" ng-bind="error")
+            
+            //- 2FA employees funds
+            .card-section.card-section-primary(ng-if="$ctrl.viewType == 'funds'"): .row: .col.col-lg-9.col-xs-12
+                //- 2fa level
+                .form-group.form-group-inline   
+                    label.form-label 2FA beperkingen
+
+                    .form-offset: select-control(
+                        prop="value"
+                        search="false"
+                        ng-model="$ctrl.form.values.auth_2fa_funds_policy" 
+                        options="$ctrl.auth2FAFundsRequiredOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.auth_2fa_funds_policy" ng-bind="error")
+
+                //- Remember IP
+                .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_funds_policy == 'required'")
+                    label.form-label Onthoud IP-adres
+
+                    .form-offset: select-control(
+                        prop="value"
+                        search="false"
+                        ng-model="$ctrl.form.values.auth_2fa_funds_remember_ip" 
+                        options="$ctrl.auth2FARememberIpOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.auth_2fa_funds_remember_ip" ng-bind="error")
+                
+                //- Restrict some features
+                .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_funds_policy == 'restrict_features'")
+                    label.form-label 
+
+                    .form-offset
+                        div: input-checkbox-control(
+                            name="auth_2fa_funds_restrict_emails" 
+                            ng-model="$ctrl.form.values.auth_2fa_funds_restrict_emails" 
+                            label="Aanpassen van e-mailadres")
+
+                        div: input-checkbox-control(
+                            name="auth_2fa_funds_restrict_auth_sessions" 
+                            ng-model="$ctrl.form.values.auth_2fa_funds_restrict_auth_sessions" 
+                            label="Aanpassen van inlog sessies")
+
+                        div: input-checkbox-control(
+                            name="auth_2fa_funds_restrict_reimbursements" 
+                            ng-model="$ctrl.form.values.auth_2fa_funds_restrict_reimbursements" 
+                            label="Indienen van declaraties")
 
             //- Submit
             .card-section.card-section-primary: .text-center

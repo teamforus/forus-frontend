@@ -7,6 +7,9 @@ const FundsSecurityComponent = function (
     const $ctrl = this;
 
     const auth2FARequiredOptions = [{
+        value: 'global',
+        name: 'Gebruik standaard instelling',
+    }, {
         value: 'optional',
         name: 'Optioneel',
     }, {
@@ -28,6 +31,10 @@ const FundsSecurityComponent = function (
     $ctrl.$onInit = () => {
         $ctrl.auth2FARequiredOptions = auth2FARequiredOptions;
         $ctrl.auth2FARememberIpOptions = auth2FARememberIpOptions;
+        $ctrl.organization_2fa_funds = $ctrl.fund.organization_2fa;
+        $ctrl.organization_2fa_funds_restricted = $ctrl.organization_2fa_funds.auth_2fa_funds_policy == 'restrict_features';
+        $ctrl.global_and_restricted_2fa = $ctrl.fund.auth_2fa_policy == 'global' && $ctrl.organization_2fa_funds_restricted;
+        $ctrl.organization_2fa_policy_name = auth2FARequiredOptions.find((option) => option.value == $ctrl.organization_2fa_funds.auth_2fa_funds_policy).name;
 
         $ctrl.form = FormBuilderService.build({
             auth_2fa_policy: $ctrl.fund.auth_2fa_policy,
