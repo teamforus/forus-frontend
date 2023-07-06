@@ -5,18 +5,16 @@
             .bi-info-icon: include ../../../resources/platform-general/assets/img/svg/bi-connection-icon.svg
 
             .bi-info-content: .block.block-markdown
-                h4 BI-Integratie
-                p Lorem ipsum dolor sit amet consectetur. Ultrices phasellus enim interdum feugiat vel.
-                    | Pellentesque fames nec sit at. Nulla bibendum nulla nisl arcu blandit auctor tortor.
-                    | Libero tristique gravida lorem ac tempor condimentum sem. Morbi egestas nisl ac quisque sapien.
-                    | Magna nulla vestibulum dignissim quis. Enim vel tempus lobortis accumsan morbi arcu pulvinar.
-                    | Nibh mattis amet vitae iaculis arcu. Purus tempor neque molestie id. Senectus sit cum ac arcu venenatis urna aliquet mattis id.
-
-                ul
-                    li Diam habitant tristique sed laoreet nullam blandit tincidunt lorem rutrum.
-                    li Enim sit quam nisl sit interdum urna neque quam.
-                    li Nec elementum ut ut enim consectetur nullam nunc sem lectus.
-                    li Sit feugiat augue facilisi arcu lorem sapien suspendisse.
+                h4 Verbind uw BI-tools om toegang te krijgen tot uitgebreide statistische gegevens
+                p Met ons krachtige platform kunt u naadloos uw favoriete Business Intelligence (BI) tools
+                    | integreren en toegang krijgen tot een schat aan waardevolle statistische gegevens. Door een
+                    | verbinding tot stand te brengen tussen uw BI-tool en ons platform, kunt u moeiteloos de
+                    | benodigde informatie ophalen en analyseren om op basis van data gedreven beslissingen te
+                    | nemen.
+                h5 Wat u krijgt
+                p Door de opgegeven URL als uw gegevensbron in te stellen, ontgrendelt u een uitgebreid
+                    | scala aan statistische gegevens van ons platform. Ons systeem zal reageren op uw vragen
+                    | met actuele en nauwkeurige informatie die is afgestemd op uw specifieke vereisten.
 
         .card: form(ng-submit="$ctrl.form.submit()").form
             .card-header: .card-title(translate="bi_connection.title")
@@ -45,13 +43,14 @@
                                 .info-box-icon.mdi.mdi-information
 
                                 .info-box-content: .block.block-markdown
+                                    h5 Kiezen van de Authentificatie Token Instelling
                                     p 
-                                        | Lorem ipsum dolor sit amet consectetur. In viverra dolor molestie ut donec.
-                                        | Sed dui a fermentum rhoncus.
+                                        | Bij het instellen van de authentificatie token voor toegang tot de
+                                        | statistische gegevens van ons platform, heeft u twee opties: URL-parameter of header.
 
                                     ul
-                                        li Quis in elementum hac lorem. Ullamcorper sit aenean pellentesque nunc cras leo nisi justo.
-                                        li Tortor sodales amet nisl purus phasellus diam et. Malesuada eget integer.  
+                                        li URL-parameter: Kies deze optie als uw BI-tool tokens ondersteunt als URL-parameters. Voeg de token toe als een parameter in de URL.
+                                        li Header: Kies deze optie als uw BI-tool tokens via headers ondersteunt. Voeg de token toe als een header in uw verzoeken.
 
                         .flex-col: .button.button-default.invisible: em.mdi.mdi-content-copy
 
@@ -96,24 +95,19 @@
                             .info-box-icon.mdi.mdi-information
 
                             .info-box-content(ng-if="$ctrl.form.values.bi_connection_auth_type === 'header'"): .block.block-markdown
-                                h4 Title for header
-                                p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
+                                h4 Hoe te verbinden
+                                ul
+                                    li Open uw voorkeurs-BI-tool en zoek de instellingen of configuratie van de gegevensbron.
+                                    li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
+                                    li Voer de bovenstaande URL in.
+                                    li Voeg de authentificatietoken toe als een header in uw verzoeken om te authenticeren met een header.
 
                             .info-box-content(ng-if="$ctrl.form.values.bi_connection_auth_type === 'parameter'"): .block.block-markdown
-                                h4 Title for parameter
-                                p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
-
-                div(ng-show="$ctrl.form.values.bi_connection_auth_type == 'disabled'")
-                    //- Info box (disabled)
-                    .form-group.form-group-inline
-                        label.form-label &nbsp;
-
-                        .form-offset: .block.block-info-box.block-info-box-default.block-info-box-dashed
-                            .info-box-icon.mdi.mdi-information
-
-                            .info-box-content: .block.block-markdown
-                                h4 Title for disabled
-                                p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
+                                h4 Hoe te verbinden
+                                ul
+                                    li Open uw voorkeurs-BI-tool en zoek de instellingen of configuratie van de gegevensbron.
+                                    li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
+                                    li Voer de hierboven verstrekte URL in.
 
             .card-section: .button-group.flex-center
                 //- Cancel

@@ -1,6 +1,6 @@
 module.exports = {
-    title: "Warning!",
-    description: "Recreation of API Key will provide lorem ipsum dolor sit amet, consectetur adipiscing",
+    title: "Voorzichtig!",
+    description: "Het opnieuw aanmaken van de API-sleutel zal alle verbindingen met de huidige sleutel verbreken",
     buttons: {
         cancel: 'Annuleren',
         confirm: 'Bevestigen',

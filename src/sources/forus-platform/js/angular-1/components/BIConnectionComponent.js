@@ -33,7 +33,7 @@ const BIConnectionComponent = function (
     };
 
     $ctrl.copyToClipboard = (str) => {
-        ClipboardService.copy(str).then(() => PushNotificationsService.success("Copied to clipboard."));
+        ClipboardService.copy(str).then(() => PushNotificationsService.success("Gekopieerd naar het klembord."));
     };
 
     $ctrl.updateUrl = () => {
@@ -59,7 +59,7 @@ const BIConnectionComponent = function (
                 PushNotificationsService.success('Opgeslagen!');
                 $ctrl.updateUrl();
             }, (res) => {
-                PushNotificationsService.danger(res.data?.message || 'Error!');
+                PushNotificationsService.danger(res.data?.message || 'Foutmelding!');
             });
         });
     };
@@ -80,7 +80,7 @@ const BIConnectionComponent = function (
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
                 form.errors = res.data.errors;
-                PushNotificationsService.danger(res.data?.message || 'Unknown error!');
+                PushNotificationsService.danger(res.data?.message || 'Onbekende foutmelding!');
             }).finally(() => form.unlock());
         }, true);
     };

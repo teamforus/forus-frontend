@@ -3,11 +3,11 @@ module.exports = {
     labels: {
         url: "URL",
         header: "Header",
-        disabled: "Disabled",
-        parameter: "URL parameter",
-        auth_type: "Authentication type",
-        header_key: "Header key",
-        header_name: "Header name",
+        disabled: "Uitgeschakeld",
+        parameter: "URL-parameter",
+        auth_type: "Authentificatietype",
+        header_key: "Hoofdertag",
+        header_name: "Naam van de header",
         parameter_key: "API sleutel",
     },
     buttons: {
