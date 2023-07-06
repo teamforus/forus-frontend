@@ -6,15 +6,8 @@
 
             .bi-info-content: .block.block-markdown
                 h4 Verbind uw BI-tools om toegang te krijgen tot uitgebreide statistische gegevens
-                p Met ons krachtige platform kunt u naadloos uw favoriete Business Intelligence (BI) tools
-                    | integreren en toegang krijgen tot een schat aan waardevolle statistische gegevens. Door een
-                    | verbinding tot stand te brengen tussen uw BI-tool en ons platform, kunt u moeiteloos de
-                    | benodigde informatie ophalen en analyseren om op basis van data gedreven beslissingen te
-                    | nemen.
-                h4 Wat u krijgt
-                p Door de opgegeven URL als uw gegevensbron in te stellen, ontgrendelt u een uitgebreid
-                    | scala aan statistische gegevens van ons platform. Ons systeem zal reageren op uw vragen
-                    | met actuele en nauwkeurige informatie die is afgestemd op uw specifieke vereisten.
+                p Configureer onderstaande URL in de BI-tool. Hiermee krijgt u toegang tot de gegevens uit het platform.
+                    | Stuur een verzoek en de gevraagde gegevens worden verstuurd.
 
         .card: form(ng-submit="$ctrl.form.submit()").form
             .card-header: .card-title(translate="bi_connection.title")
@@ -48,6 +41,7 @@
                                         | Bij het instellen van de authentificatie token voor toegang tot de
                                         | statistische gegevens van ons platform, heeft u twee opties: URL-parameter of header.
 
+                                    ul
                                     ul
                                         li URL-parameter: Kies deze optie als uw BI-tool tokens ondersteunt als URL-parameters. Voeg de token toe als een parameter in de URL.
                                         li Header: Kies deze optie als uw BI-tool tokens via headers ondersteunt. Voeg de token toe als een header in uw verzoeken.
