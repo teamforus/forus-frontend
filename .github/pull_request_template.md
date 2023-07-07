@@ -5,13 +5,19 @@
 -->
 
 ## Developers checklist
-- [ ] *Design is consistent* - this change is same as other similar features in a platform
-- [ ] *No regress in implementations custom css* - changes are not breaking other implementations designes
-- [ ] *Mobile version of changes is develop* - if its a webshop feature, mobile version for this feature is developed
-- [ ] *Translations are prepared* - translations are placed in a separate file if it is possible
+- [ ] *Check that dusk tests are working locally on compatible branch*
+- [ ] *Mobile version of changes is developed* - if its a webshop feature, mobile version for this feature is developed
+
+
+## Developer suggestions
+- [ ] *Needs Translations*
+- [ ] *Checkmark if it could affect implementations custom css*
+- [ ] *Need mobile design help/work*
+- [ ] *Design is inconsistent*
 
 ## QA checklist
 - [ ] Tag @ sashoa if design review needed
+- [ ] *No regress in implementations custom css* - changes are not breaking other implementations designes
 - [ ] Feature is tested in different screen sizes - desktop, mobile
 - [ ] WCAG requirements are met - new feature is accessible by keyboard, there are an alt texts
 - [ ] Translations are done
