@@ -1,6 +1,6 @@
 ## Changes description
 <!--- Describe shortly changes here if:
-       - your solution differs from issue desrciption
+       - your solution differs from issue description
        - there are advices from development side for QA or other stakeholders
 -->
 
@@ -8,12 +8,12 @@
 - [ ] *Check that dusk tests are working locally on compatible branch*
 - [ ] *Mobile version of changes is developed* - if its a webshop feature, mobile version for this feature is developed
 
-
 ## Developer suggestions
+Checkmark if PR:
 - [ ] *Needs Translations*
-- [ ] *Checkmark if it could affect implementations custom css*
+- [ ] *Could affect implementations custom css*
 - [ ] *Need mobile design help/work*
-- [ ] *Design is inconsistent*
+- [ ] *Design include inconsistent*
 
 ## QA checklist
 - [ ] Tag @ sashoa if design review needed
