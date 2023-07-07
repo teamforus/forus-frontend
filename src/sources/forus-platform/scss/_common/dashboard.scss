@@ -64,6 +64,7 @@
     @import 'blocks/block-auth-2fa.scss';
     @import 'blocks/block-2fa-restriction.scss';
     @import 'blocks/block-info-box.scss';
+    @import 'blocks/block-bi-info.scss';
 }
 
 // Select controls
@@ -778,10 +779,11 @@ body {
 }
 
 .card {
+    --card-margin: 20px;
     background: #ffffff;
     border-radius: 5px;
     box-shadow: 0 2px 8px rgba(#000, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: var(--card-margin);
     cursor: default;
 
     @mixin bgDanger() {
@@ -976,27 +978,27 @@ body {
             border-right: 1px solid #d4d9dd;
 
             &.card-col-1 {
-                width: (100% / 6) * 1;
+                width: calc(100% / 6) * 1;
             }
 
             &.card-col-2 {
-                width: (100% / 6) * 2;
+                width: calc(100% / 6) * 2;
             }
 
             &.card-col-3 {
-                width: (100% / 6) * 3;
+                width: calc(100% / 6) * 3;
             }
 
             &.card-col-4 {
-                width: (100% / 6) * 4;
+                width: calc(100% / 6) * 4;
             }
 
             &.card-col-5 {
-                width: (100% / 6) * 5;
+                width: calc(100% / 6) * 5;
             }
 
             &.card-col-6 {
-                width: (100% / 6) * 6;
+                width: calc(100% / 6) * 6;
             }
 
             &:last-child {
@@ -1147,6 +1149,10 @@ body {
         }
     }
 
+    &:last-child {
+        margin-bottom: 0;
+    }
+
     &.card-outline {
         border: 1px solid #8ca3a6;
     }
@@ -1166,12 +1172,12 @@ body {
         }
     }
 
-    &.card-padded {
-        margin-bottom: 0px;
+    &.card-wrapped {
+        margin-bottom: var(--card-margin);
     }
 
-    &:last-child {
-        margin-bottom: 0;
+    &.card-padded {
+        margin-bottom: 0px;
     }
 }
 

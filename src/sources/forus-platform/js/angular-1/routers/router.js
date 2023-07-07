@@ -817,7 +817,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 granted: routeParam(),
                 amount_min: routeParam(),
                 amount_max: routeParam(),
-                date_type: routeParam(),
+                date_type: routeParam('created_at'),
                 from: routeParam(),
                 to: routeParam(),
                 state: routeParam(),
@@ -889,7 +889,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 granted: routeParam(),
                 amount_min: routeParam(),
                 amount_max: routeParam(),
-                date_type: routeParam(),
+                date_type: routeParam('created_at'),
                 from: routeParam(),
                 to: routeParam(),
                 state: routeParam(),
@@ -1628,6 +1628,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "eventLogsComponent",
         resolve: {
             organization: organizationResolver(),
+        }
+    });
+
+    // BI connection
+    $stateProvider.state({
+        name: "bi-connection",
+        url: "/organizations/{organization_id}/bi-connection",
+        component: "biConnectionComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('export-api-connections', 'manage_bi_connection'),
         }
     });
 

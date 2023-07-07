@@ -107,8 +107,14 @@ a(
 
             .reimbursement-value(
                 dusk="reimbursementsItemDateResolved"
-                ng-if="$dir.reimbursement.state === 'approved' && $dir.reimbursement.resolved_at")
+                ng-if="$dir.reimbursement.state === 'approved' && $dir.reimbursement.resolved_at && $dir.reimbursement.voucher_transaction.state == 'success'")
                 | Uitbetaald op: 
+                strong(ng-bind="$dir.reimbursement.voucher_transaction.created_at_locale")
+
+            .reimbursement-value(
+                dusk="reimbursementsItemDateResolved"
+                ng-if="$dir.reimbursement.state === 'approved' && $dir.reimbursement.resolved_at && $dir.reimbursement.voucher_transaction.state != 'success'")
+                | Geaccepteerd op: 
                 strong(ng-bind="$dir.reimbursement.resolved_at_locale")
 
             .reimbursement-value(
