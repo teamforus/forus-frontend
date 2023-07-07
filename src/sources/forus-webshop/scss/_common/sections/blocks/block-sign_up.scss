@@ -286,11 +286,11 @@
                     width: 100%;
 
                     &.sign_up-pane-col-1 {
-                        width: (100%/3) * 1;
+                        width: calc(100%/3) * 1;
                     }
 
                     &.sign_up-pane-col-2 {
-                        width: (100%/3) * 2;
+                        width: calc(100%/3) * 2;
                     }
 
                     &:last-child {
@@ -820,6 +820,19 @@
         &:last-child {
             margin-bottom: 0px;
         }
+    }
+
+    &.block-sign_up-fixed {
+        flex-direction: column;
+        justify-content: center;
+        display: flex;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        position: fixed;
+        padding-bottom: 60px;
+        cursor: default;
     }
 
     @media (max-width: 1199px) {

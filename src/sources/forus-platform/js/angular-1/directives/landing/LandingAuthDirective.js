@@ -1,4 +1,4 @@
-let AuthDirective = function(
+const LandingAuthDirective = function(
     $scope,
     $state,
     $timeout,
@@ -106,8 +106,8 @@ module.exports = () => {
             'FormBuilderService',
             'CredentialsService',
             'ModalService',
-            AuthDirective
+            LandingAuthDirective,
         ],
-        templateUrl: 'assets/tpl/directives/landing/auth.html'
+        templateUrl: 'assets/tpl/directives/landing/landing-auth.html'
     };
 };

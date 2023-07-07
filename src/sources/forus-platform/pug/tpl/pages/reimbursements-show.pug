@@ -220,6 +220,7 @@
                                         ng-if="$ctrl.hasFilePreview(file)" 
                                         ng-click="$ctrl.previewFile($event, file)")
                                         .mdi.mdi-eye
+
         //- Reimbursement details (editable)
         .card(ng-if="$ctrl.reimbursement")
             //- Header
@@ -246,6 +247,12 @@
                         .keyvalue-key(translate="reimbursements.labels.category")
                         .keyvalue-value(ng-if="$ctrl.reimbursement.reimbursement_category.name" ng-bind="$ctrl.reimbursement.reimbursement_category.name")
                         .keyvalue-value.text-muted(ng-if="!$ctrl.reimbursement.reimbursement_category.name") Geen categorie
+
+        //- Voucher transaction details
+        voucher-transaction-details(
+            ng-if="$ctrl.reimbursement.voucher_transaction"
+            organization="$ctrl.organization"
+            transaction="$ctrl.reimbursement.voucher_transaction")
 
         block-card-note(
             is-assigned="$ctrl.reimbursement.employee.identity_address === $root.auth_user.address"

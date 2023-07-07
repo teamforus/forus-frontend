@@ -4,6 +4,8 @@ const ReimbursementsComponent = function (
 ) {
     const $ctrl = this;
 
+    $ctrl.loaded = false;
+
     $ctrl.filters = {
         page: 1,
         archived: 0,
@@ -34,6 +36,10 @@ const ReimbursementsComponent = function (
             name: 'Alle tegoeden',
             id: null,
         });
+
+        if (!$ctrl.auth2FAState?.restrictions?.reimbursements?.restricted) {
+            $ctrl.onPageChange()
+        }
     };
 };
 
@@ -41,7 +47,7 @@ module.exports = {
     bindings: {
         funds: '<',
         vouchers: '<',
-        reimbursements: '<',
+        auth2FAState: '<',
     },
     controller: [
         'ReimbursementService',
