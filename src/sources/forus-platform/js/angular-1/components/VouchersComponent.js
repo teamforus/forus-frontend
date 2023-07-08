@@ -184,6 +184,7 @@ const VouchersComponent = function (
 
         if ($ctrl.fund) {
             $ctrl.init();
+            $ctrl.onPageChange($ctrl.filters.values);
         }
     };
 };
@@ -192,7 +193,6 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
-        vouchers: '<',
         organization: '<',
     },
     controller: [
