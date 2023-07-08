@@ -141,12 +141,15 @@ const VouchersComponent = function (
     };
 
     $ctrl.onPageChange = (query) => {
+        $ctrl.loading = true;
+
         VoucherService.index(
             $ctrl.organization.id,
             $ctrl.getQueryParams(query),
         ).then((res) => {
             $ctrl.vouchers = res.data;
             $ctrl.updateState(query);
+            $ctrl.loading = false;
         });
     };
 

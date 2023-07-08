@@ -7,7 +7,7 @@
         .card: .card-section(ng-if="$ctrl.loading"): .card-loading: .mdi.mdi-loading.mdi-spin
 
         .card(
-            ng-if="$ctrl.vouchers && $ctrl.funds.length > 0" 
+            ng-if="!$ctrl.loading && $ctrl.vouchers && $ctrl.funds.length > 0"
             dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
             .card-header: .flex
                 .flex.flex-grow: .card-title(dusk="vouchersTitle")
