@@ -24,12 +24,15 @@
                     th Status
                     th Budget scannen
                     th Aanbod scannen
+                    th Excluded
                     th.text-right Opties
 
                 tr(ng-repeat="fundProvider in $ctrl.fundProviders.data")
                     td.td-narrow: img(ng-src="{{ fundProvider.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}").td-media
                     td
-                        .td-title(ng-bind="fundProvider.fund.name")
+                        .td-title
+                            | {{ fundProvider.fund.name }}
+                            em.mdi.mdi-eye-off-outline.title-icon(ng-if="fundProvider.excluded")
                         div(ng-bind="fundProvider.fund.type_locale")
 
                     //- Budget status
@@ -75,6 +78,20 @@
                                     ng-class="fundProvider.state == 'rejected' ? 'text-line-through text-small text-muted' : 'text-strong'"
                                     ng-if="fundProvider.state != 'pending' && !fundProvider.allow_products" 
                                     ng-bind="fundProvider.products_count_approved + ' van ' + fundProvider.products_count_available")
+
+                    td
+                        .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                            label(
+                                ng-disabled="fundProvider.submittingExcluded"
+                                ng-class="fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
+                                for="provider_excluded_{{ fundProvider.id }}").form-toggle
+                                input(
+                                    type="checkbox"
+                                    id="provider_excluded_{{ fundProvider.id }}"
+                                    ng-disable="$dir.fundProvider.state != 'accepted'"
+                                    ng-change="$ctrl.updateFundProviderExcluded(fundProvider)"
+                                    ng-model="fundProvider.excluded")
+                                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
 
                     td.text-right
                         //- Reject
