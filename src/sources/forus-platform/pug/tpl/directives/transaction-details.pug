@@ -22,13 +22,13 @@
                     ng-if="$dir.showDetailsPageButton"
                     ui-sref="transaction({organization_id: $dir.organization.id, address: $dir.transaction.address})").button.button-primary
                     em.mdi.mdi-eye-outline.icon-start
-                    | Transaction details
+                    | Transactie details
 
                 a(
                     ng-if="$dir.transaction.voucher_id && $dir.appConfigs.panel_type == 'sponsor'"
                     ui-sref="vouchers-show({organization_id: $dir.organization.id, voucher_id: $dir.transaction.voucher_id})").button.button-primary
                     em.mdi.mdi-eye-outline.icon-start
-                    | Voucher
+                    | Voucher details
 
         .card-section: .flex
             .flex: .card-block.card-block-keyvalue
@@ -113,7 +113,7 @@
 
                 //- Reservation
                 .keyvalue-item(ng-if="$dir.transaction.reservation && $dir.appConfigs.panel_type == 'provider' && $dir.showReservationPageButton")
-                    .keyvalue-key Reservation
+                    .keyvalue-key Reservering
 
                     a.text-primary.text-strong.keyvalue-value(
                         ui-sref="reservations-show({organization_id: $dir.organization.id, id: $dir.transaction.reservation.id})"
