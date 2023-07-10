@@ -111,6 +111,8 @@ module.exports = {
                 funds: "Alle tegoeden",
                 security: "Beveiliging",
                 sessions: "Sessies",
+                bookmarked_products: "Mijn verlanglijstje",
+                authorize: "Log in op de app",
                 westerkwartier: {
                     funds: "Aanvragen",
                 },

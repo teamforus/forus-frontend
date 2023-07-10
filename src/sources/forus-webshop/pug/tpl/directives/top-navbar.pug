@@ -206,6 +206,37 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                                         role="link")
                                         em.mdi.mdi-security
                                         | Beveiliging
+                                        
+                                    .auth-user-menu-item(
+                                        ui-sref="bookmarked-products"
+                                        ui-sref-active="active"
+                                        id="bookmarked_products"
+                                        ng-click="$dir.goToState('bookmarked-products')"
+                                        role="link"
+                                        tabindex="0")
+                                        em.mdi.mdi-cards-heart-outline
+                                        | Mijn verlanglijstje
+
+                                    .auth-user-menu-item(
+                                        ui-sref="reservations"
+                                        ui-sref-active="active"
+                                        id="reservations"
+                                        ng-click="$dir.goToState('reservations')"
+                                        role="link"
+                                        tabindex="0")
+                                        em.mdi.mdi-calendar-outline
+                                        | Reserveringen
+
+                                    .auth-user-menu-item(
+                                        ng-if="$root.appConfigs.features.has_reimbursements"
+                                        ui-sref="reimbursements"
+                                        ui-sref-active="active"
+                                        id="reimbursements"
+                                        ng-click="$dir.goToState('reimbursements')"
+                                        role="link"
+                                        tabindex="0")
+                                        em.mdi.mdi-receipt-outline
+                                        | Kosten terugvragen
 
                                     .auth-user-menu-item(
                                         ng-if="$root.appConfigs.sessions"

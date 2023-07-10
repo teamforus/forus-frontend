@@ -79,7 +79,32 @@
                     em.mdi.mdi-ticket-percent-outline
                     span(
                         translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.vouchers"
-                        translate-default="{{ 'topnavbar.buttons.mobile.dropdown.vouchers' | translate }}")                        )
+                        translate-default="{{ 'topnavbar.buttons.mobile.dropdown.vouchers' | translate }}")
+
+                //- Favourite products
+                a.sticky-footer-dropwdown-subitem(
+                    ui-sref="bookmarked-products"
+                    ng-click="$dir.hideProfileMenu()"
+                    ng-class="{active: $dir.$state.current.name == 'bookmarked-products'}"
+                    aria-current="{{ $dir.$state.current.name == 'bookmarked-products' }}" 
+                    tabindex="0"
+                    role="link")
+                    
+                    em.mdi.mdi-cards-heart-outline
+                    span(
+                        translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.bookmarked_products"
+                        translate-default="{{ 'topnavbar.buttons.mobile.dropdown.bookmarked_products' | translate }}")
+
+                //- Log in Me-App
+                .sticky-footer-dropwdown-subitem(
+                    ng-click="$dir.openPinCodePopup()"
+                    tabindex="0"
+                    role="button")
+                    
+                    em.mdi.mdi-cellphone
+                    span(
+                        translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.authorize"
+                        translate-default="{{ 'topnavbar.buttons.mobile.dropdown.authorize' | translate }}")
 
                 //- Reimbursements
                 a.sticky-footer-dropwdown-subitem(

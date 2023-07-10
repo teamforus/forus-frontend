@@ -91,7 +91,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                         font-size: 23px;
                     }
 
-                    &:hover, &.active {
+                    &.active {
                         background-color: var(--color-primary);
                         color: #FFFFFF;
                     }
