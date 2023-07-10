@@ -23,12 +23,9 @@
             }
 
             .fund-description {
-                .block {
+                .block-markdown {
+                    font: 400 16px/1.5em var(--base-font);
                     color: #292F2E;
-
-                    p {
-                        font: 300 16px/28px var(--base-font);
-                    }
                 }
             }
 

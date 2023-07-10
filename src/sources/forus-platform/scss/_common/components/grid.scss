@@ -12,14 +12,14 @@ $media_xs: 1000px;
 }
 
 @mixin make-col($i, $columns) {
-    width: (100% / $columns) * $i;
+    width: calc(100% / $columns) * $i;
     float: left;
     padding-left: $pad;
     padding-right: $pad;
 }
 
 @mixin make-col-offset($i, $columns) {
-    margin-left: (100% / $columns) * $i;
+    margin-left: calc(100% / $columns) * $i;
 }
 
 @mixin col($media) {
