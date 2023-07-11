@@ -41,7 +41,7 @@
     #{$item}, #{$item} * {
         opacity: 0;
         visibility: hidden;
-        transition: opacity $timeout / 3, visibility $timeout / 3 linear;
+        transition: opacity calc($timeout / 3), visibility calc($timeout / 3) linear;
     }
 
     &:hover {
@@ -57,7 +57,7 @@
     #{$item}, #{$item} {
         opacity: 0;
         visibility: hidden;
-        transition: opacity $timeout / 3, visibility $timeout / 3 linear;
+        transition: opacity calc($timeout / 3), visibility calc($timeout / 3) linear;
     }
 
     &#{$class} {
