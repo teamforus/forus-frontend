@@ -77,7 +77,7 @@
             }
 
             &-day {
-                width: (100%/7);
+                width: calc(100% / 7);
                 padding: 0;
                 font-size: 13px;
                 font-weight: 500;
