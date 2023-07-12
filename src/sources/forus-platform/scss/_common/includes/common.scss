@@ -18,8 +18,8 @@ body {
 
 pre.code {
     background-color: #fff;
-    border: 1px solid var(--boarder-color);
-    border-radius: var(--boarder-radius);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     padding: 10px 15px;
     margin: 0 0 15px;
     font-weight: 600;
@@ -1452,4 +1452,8 @@ img {
 
 .relative {
     position: relative;
+}
+
+.invisible {
+    visibility: hidden;
 }

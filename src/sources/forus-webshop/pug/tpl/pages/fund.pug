@@ -52,7 +52,7 @@ main(id="main-content")
             .fund-content
                 .fund-card: .fund-details
                     h1.fund-name(ng-bind="$ctrl.fund.name") 
-                    .fund-description(ng-if="$ctrl.fund.description_short" ng-bind="$ctrl.fund.description_short")
+                    .fund-description: .block.block-markdown: p(ng-if="$ctrl.fund.description_short" ng-bind="$ctrl.fund.description_short")
                     .fund-details-items                                 
                         .fund-details-item
                             .fund-details-item-label Uitgifte door:

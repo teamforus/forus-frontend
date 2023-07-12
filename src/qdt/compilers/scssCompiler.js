@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const sass = require('gulp-sass')(require('node-sass'));
+const sass = require('gulp-sass')(require('sass'));
 const { assetsSuffix, reloadBrowserSync, makeNotifier } = require('../Library');
 const { composeDestPath } = require('../Helpers');
 const plugins = require('gulp-load-plugins')();

@@ -1,0 +1,55 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+top-navbar
+
+main(id="main-content")
+    header.section.section-sign-up-choose: .wrapper
+        .block.block-sign_up: .block-wrapper
+            //- Setup 2FA
+            .sign_up-pane(ng-if="$ctrl.step == 'setup'" ng-show="!$ctrl.hidePane")
+                .sign_up-pane-header
+                    .sign_up-pane-header-title Tweefactorauthenticatie instellen
+
+                .sign_up-pane-body
+                    .sign_up-pane-text: .sign_up-pane-heading Kies een optie
+                    .sign_up-options
+                        .sign_up-option(
+                            ng-repeat="provider_type in $ctrl.provider_types" 
+                            ng-click="$ctrl.auth2FA(provider_type.type)")
+
+                            .sign_up-option-media: img(
+                                ng-src="{{ '" + src_prefix + "./assets/img/icon-2fa-' + provider_type.type + '.svg' }}").sign_up-option-media-img
+
+                            .sign_up-option-details
+                                .sign_up-option-title(ng-bind="provider_type.title")
+                                .sign_up-option-description(ng-bind="provider_type.subtitle")
+
+                    auth-2-f-a-info-box
+
+                .sign_up-pane-body.text-center
+                    .button.button-sm.button-primary(ng-click="$root.signOut()") Uitloggen
+
+            //- 2FA confirmation
+            .sign_up-pane(ng-if="$ctrl.step == 'auth'" ng-show="!$ctrl.hidePane")
+                .sign_up-pane-header
+                    .sign_up-pane-header-title Tweefactorauthenticatie
+
+                .sign_up-pane-body
+                    .sign_up-pane-text: .sign_up-pane-heading Kies een optie
+
+                    .sign_up-options
+                        .sign_up-option(
+                            ng-repeat="provider_type in $ctrl.provider_types" 
+                            ng-click="$ctrl.auth2FA(provider_type.type, true)")
+
+                            .sign_up-option-media: img(
+                                ng-src="{{ '" + src_prefix + "./assets/img/icon-2fa-' + provider_type.type + '.svg' }}").sign_up-option-media-img
+
+                            .sign_up-option-details
+                                .sign_up-option-title(ng-bind="provider_type.title")
+                                .sign_up-option-description(ng-bind="provider_type.subtitle")
+
+                    auth-2-f-a-info-box
+
+                .sign_up-pane-body.text-center
+                    .button.button-sm.button-primary(ng-click="$root.signOut()") Uitloggen

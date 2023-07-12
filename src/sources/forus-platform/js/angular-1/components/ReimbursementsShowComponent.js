@@ -54,6 +54,15 @@ const ReimbursementsShowComponent = function (
         });
     };
 
+    $ctrl.editReimbursementDetails = () => {
+        ModalService.open('reimbursementDetailsEditComponent', {
+            description: null,
+            organization: $ctrl.organization,
+            reimbursement: $ctrl.reimbursement,
+            onSubmitted: (res) => $ctrl.updateReimbursement(res),
+        });
+    };
+
     $ctrl.hasFilePreview = (file) => {
         return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext);
     }

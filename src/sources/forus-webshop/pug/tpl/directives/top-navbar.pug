@@ -10,8 +10,13 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             ui-sref-active="active").show-sm
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-info.svg
                 div(
+                    ng-if="$root.client_key != 'groningen'"
                     translate="topnavbar.items.{{ $root.appConfigs.client_key }}.explanation"
                     translate-default="{{ 'topnavbar.items.explanation' | translate }}")
+
+                div(
+                    ng-if="$root.client_key == 'groningen'"
+                    translate="topnavbar.items.explanation")
 
         a(ui-sref="home").navbar-logo.show-sm
             img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="Terug naar hoofdpagina")
@@ -19,7 +24,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
         .block.block-auth.show-sm
             .auth-in(ng-if="$root.auth_user").show-sm
-                button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="sign_out")
+                button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="{{ 'topnavbar.buttons.logout' | translate }}")
                     include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
                     div(translate="topnavbar.buttons.logout")
 
@@ -128,8 +133,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                         ng-if="!$root.auth_user"
                         ng-click="$dir.startFundRequest()"
                         role="button"
-                        dusk="btnStart"
-                        aria-label="{{ 'home.header.' + $root.client_key + '.button' | translate }}")
+                        dusk="btnStart")
 
                         include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
 
@@ -140,7 +144,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
                     a(ng-if="$root.auth_user" ui-sref="vouchers" id="vouchers" dusk="userVouchers").button.button-primary
                         em.mdi.mdi-ticket-confirmation
-                        span(translate="topnavbar.buttons.voucher")
+                        span(translate="topnavbar.buttons.{{ $root.client_key }}.voucher" translate-default="{{ 'topnavbar.buttons.voucher' | translate }}")
 
                     .auth-in(ng-if="$root.auth_user").hide-sm
                         .auth-user(
@@ -183,6 +187,14 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                                         em.mdi.mdi-cellphone
                                         span(translate="topnavbar.buttons.authorize")
                                         
+                                    .auth-user-menu-item(
+                                        ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required"
+                                        ui-sref="security-2fa"
+                                        ng-click="$dir.goToState('security-2fa')"
+                                        role="link")
+                                        em.mdi.mdi-security
+                                        | Beveiliging
+
                                     .auth-user-menu-item(
                                         ng-if="$root.appConfigs.sessions"
                                         ui-sref="security-sessions"
