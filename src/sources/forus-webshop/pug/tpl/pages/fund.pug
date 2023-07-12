@@ -18,7 +18,7 @@ main(id="main-content")
                 .fund-actions: .button-group
                     a.button.button.button-wide(
                         target="_blank"
-                        ng-class="$ctrl.fund.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'"
+                        ng-class="$ctrl.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'"
                         ng-if="$ctrl.fund.external_link_text && $ctrl.fund.external_link_url"
                         ng-href="{{ $ctrl.fund.external_link_url }}")
                         span(ng-bind="$ctrl.fund.external_link_text")
