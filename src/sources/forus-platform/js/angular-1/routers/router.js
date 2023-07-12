@@ -1631,6 +1631,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // BI connection
+    $stateProvider.state({
+        name: "bi-connection",
+        url: "/organizations/{organization_id}/bi-connection",
+        component: "biConnectionComponent",
+        resolve: {
+            organization: organziationResolver(),
+            permission: permissionMiddleware('export-api-connections', 'manage_bi_connection'),
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',
