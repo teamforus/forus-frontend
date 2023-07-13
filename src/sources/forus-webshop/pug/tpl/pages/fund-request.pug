@@ -54,7 +54,7 @@ main(id="main-content")
             h1.block-title(ng-if="$ctrl.state" i18n="fund_request.sign_up.header.main" i18n-vars="{fund_name: ($ctrl.fund.name | capitalize)}")
 
             //- Email setup
-            div
+            div(ng-if="$ctrl.steps[$ctrl.step] == 'email_setup'")
                 +progress()
 
                 .sign_up-pane(ng-if="!$ctrl.emailSubmitted")
