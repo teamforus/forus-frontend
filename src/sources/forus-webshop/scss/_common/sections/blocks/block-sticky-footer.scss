@@ -68,6 +68,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
             }
 
             .sticky-footer-dropwdown-subitems {
+                overflow: scroll;
                 position: absolute;
                 bottom: 70px;
                 width: 90%;

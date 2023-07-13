@@ -22,7 +22,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="Terug naar hoofdpagina")
             img(ng-src="{{ './assets/img/logo-hover' + $dir.logoExtension }}" alt="Terug naar hoofdpagina").hover
 
-        a.button(ng-if="$root.appConfigs.flags.genericSearch" ng-click="$root.showSearchBox = true").navbar-search-button.show-sm
+        .button(ng-if="$root.appConfigs.flags.genericSearch" ng-click="$root.showSearchBox = true" role="button").navbar-search-button.show-sm
             em.mdi.mdi-magnify
             translate(translate="topnavbar.items.search")
 
