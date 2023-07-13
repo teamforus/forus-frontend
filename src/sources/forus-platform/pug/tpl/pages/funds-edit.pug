@@ -125,6 +125,23 @@
                         ng-model="$ctrl.form.values.description")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
 
+            //- FAQ
+            .card-section.card-section-primary
+                //- FAQ Title
+                .form-group.form-group-inline
+                    label.form-label Titel van blok
+                    input(type="text" ng-model="$ctrl.form.values.faq_title" placeholder="Veel gestelde vragen").form-control
+                    
+                    .form-error(ng-repeat="error in $ctrl.form.errors.faq_title" ng-bind="error")
+
+                //- FAQ Editor
+                .form-group.form-group-inline
+                    label.form-label Veel gestelde vragen
+                    .form-offset: faq-editor(
+                        faq="$ctrl.form.values.faq"
+                        organization="$ctrl.organization" 
+                        register-parent="$ctrl.registerFaqEditor(childRef)")
+
                 //- Fund description position
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
@@ -246,23 +263,6 @@
                         fund="$ctrl.form.values" 
                         inline="false"
                         disabled="!($ctrl.organization | hasPerm:'manage_funds')")
-
-            //- FAQ
-            .card-section.card-section-primary
-                //- FAQ Title
-                .form-group.form-group-inline
-                    label.form-label Titel van blok
-                    input(type="text" ng-model="$ctrl.form.values.faq_title" placeholder="Veel gestelde vragen").form-control
-                    
-                    .form-error(ng-repeat="error in $ctrl.form.errors.faq_title" ng-bind="error")
-
-                //- FAQ Editor
-                .form-group.form-group-inline
-                    label.form-label Veel gestelde vragen
-                    .form-offset: faq-editor(
-                        faq="$ctrl.form.values.faq"
-                        organization="$ctrl.organization" 
-                        register-parent="$ctrl.registerFaqEditor(childRef)")
         
             //- Notification amount
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
