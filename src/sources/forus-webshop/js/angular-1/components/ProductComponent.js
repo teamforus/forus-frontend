@@ -8,6 +8,7 @@ const ProductComponent = function (
     AuthService,
     FundService,
     ModalService,
+    ConfigService,
     ProductService,
 ) {
     const $ctrl = this;
@@ -65,6 +66,20 @@ const ProductComponent = function (
         ProductService.toggleBookmark(product);
     };
 
+    $ctrl.transformProductFunds = () => {
+        ConfigService.get('webshop').then((res) => {
+            appConfigs.features = res.data;
+
+            FundService.list(null, {check_criteria: 1}).then((res) => {
+                $ctrl.productMeta.funds = $ctrl.productMeta.funds.map((productFund) => {
+                    const fund = res.data.data.find(fund => fund.id == productFund.id);
+
+                    return FundService.mapFund({...fund, ...productFund}, $ctrl.vouchers, appConfigs.features)
+                });
+            });
+        });
+    }
+
     $ctrl.$onInit = function () {
         $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.signedIn = AuthService.hasCredentials();
@@ -77,6 +92,8 @@ const ProductComponent = function (
 
         $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
         $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
+
+        $ctrl.transformProductFunds();
 
         $rootScope.pageTitle = $i18n('page_state_titles.product', {
             product_name: $ctrl.product.name,
@@ -106,6 +123,7 @@ module.exports = {
         'AuthService',
         'FundService',
         'ModalService',
+        'ConfigService',
         'ProductService',
         ProductComponent,
     ],
