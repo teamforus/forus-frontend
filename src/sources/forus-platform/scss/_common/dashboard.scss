@@ -1092,11 +1092,6 @@ body {
             margin: 0 -25px 25px;
         }
 
-        .title-icon {
-            color: #8FA2A5;
-            margin-left: 6px;
-        }
-
         &.card-section-warning {
             background: #fcfaf6;
         }
@@ -5412,6 +5407,12 @@ body {
 
         .entity-title {
             font: 600 14px/20px var(--base-font);
+
+            .entity-title-icon-suffix {
+                display: inline-block;
+                color: #a1a1a1;
+                margin-left: 5px;
+            }
         }
 
         .entity-photo {
@@ -5432,9 +5433,7 @@ body {
             min-height: 100%;
             justify-content: center;
             justify-items: center;
-        }
-    
-        
+        }        
     }
 
     &.block-label-tabs {

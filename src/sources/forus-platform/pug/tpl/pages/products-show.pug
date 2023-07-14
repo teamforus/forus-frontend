@@ -76,8 +76,10 @@
                                     ng-src="{{ fund.logo ? fund.logo.sizes.thumbnail : './assets/img/placeholders/product-thumbnail.png' }}"
                                     ).td-media
                                 td
-                                    | {{ fund.name }}
-                                    em.mdi.mdi-eye-off-outline.title-icon(ng-if="fund.provider_excluded")
+                                    .td-title
+                                        | {{ fund.name }}
+                                        .td-title-icon.td-title-icon-suffix: em.mdi.mdi-eye-off-outline(ng-if="fund.provider_excluded")
+                                    div(ng-bind="fund.organization.name")
                                 td
                                     .label.label-success(ng-if="fund.approved") Geaccepteerd
                                     .label.label-default(ng-if="!fund.approved") Wachtend

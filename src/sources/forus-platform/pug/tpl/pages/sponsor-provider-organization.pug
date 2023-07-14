@@ -24,7 +24,7 @@
                     th Status
                     th Budget scannen
                     th Aanbod scannen
-                    th Excluded
+                    th On hold
                     th.text-right Opties
 
                 tr(ng-repeat="fundProvider in $ctrl.fundProviders.data")
@@ -32,7 +32,7 @@
                     td
                         .td-title
                             | {{ fundProvider.fund.name }}
-                            em.mdi.mdi-eye-off-outline.title-icon(ng-if="fundProvider.excluded")
+                            .td-title-icon.td-title-icon-suffix: em.mdi.mdi-eye-off-outline(ng-if="fundProvider.excluded")
                         div(ng-bind="fundProvider.fund.type_locale")
 
                     //- Budget status

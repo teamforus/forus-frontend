@@ -6,7 +6,7 @@
                 .entity-details
                     .entity-title
                         | {{ $dir.organization.name }}
-                        em.mdi.mdi-eye-off-outline.title-icon(ng-if="$dir.fundProvider.excluded")
+                        .entity-title-icon-suffix: em.mdi.mdi-eye-off-outline(ng-if="$dir.fundProvider.excluded")
 
             .flex.flex-vertical(ng-if="$dir.fundProvider"): .button-group
                 button.button.button-default(
@@ -31,7 +31,6 @@
                 .card-block-listing-label(ng-bind="property.label")
                 .card-block-listing-value(ng-bind="property.value" ng-class="property.primary ? 'text-primary-light' : ''")
 
-    //- budget fund only
     .card-section.card-section-primary.card-section-narrow.form(
         ng-if="$dir.fundProvider"): .row: .col: .flex-row
         .flex-col(ng-if="$dir.fundProvider.fund.type == 'budget'")
@@ -64,7 +63,7 @@
                     .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
 
         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-            .card-block-listing-label Excluded
+            .card-block-listing-label On hold
             label(
                 ng-disabled="$dir.fundProvider.submittingExcluded"
                 ng-class="$dir.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
