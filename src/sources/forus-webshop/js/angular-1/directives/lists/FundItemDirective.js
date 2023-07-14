@@ -1,5 +1,13 @@
-const FundItemDirective = function($state, $scope, appConfigs, FundService, ConfigService, PushNotificationsService) {
+const FundItemDirective = function(
+    $state, 
+    $scope, 
+    $rootScope, 
+    FundService, 
+    PushNotificationsService,
+) {
     const $dir = $scope.$dir = {};
+    
+    $dir.applyingFund = false;
     
     $dir.setShowMore = (e, showMore = false) => {
         e?.preventDefault();
@@ -38,14 +46,15 @@ const FundItemDirective = function($state, $scope, appConfigs, FundService, Conf
         });
     };
 
-    ConfigService.get('webshop').then((res) => {
-        appConfigs.features = res.data;
+    $dir.unwatch = $rootScope.$watch('appConfigs.features', (features) => {
+        if (!features) {
+            return;
+        }
 
-        $dir.fund = FundService.mapFund($scope.fund, $scope.vouchers, appConfigs.features);
+        $dir.unwatch();
+        $dir.fund = FundService.mapFund($scope.fund, $scope.vouchers, features);
         $dir.media = $dir.fund.logo || $dir.fund.organization.logo || null;
     });
-    
-    $dir.applyingFund = false;
 };
 
 module.exports = () => {
@@ -60,11 +69,10 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
-            'appConfigs',
+            '$rootScope',
             'FundService',
-            'ConfigService',
             'PushNotificationsService',
-            FundItemDirective
+            FundItemDirective,
         ],
         templateUrl: ($el, $attr) => {
             return 'assets/tpl/directives/lists/funds/' + ($attr.template || 'fund-item-list') + '.html'

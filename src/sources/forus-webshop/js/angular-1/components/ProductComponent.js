@@ -8,7 +8,6 @@ const ProductComponent = function (
     AuthService,
     FundService,
     ModalService,
-    ConfigService,
     ProductService,
 ) {
     const $ctrl = this;
@@ -66,16 +65,17 @@ const ProductComponent = function (
         ProductService.toggleBookmark(product);
     };
 
-    $ctrl.transformProductFunds = () => {
-        ConfigService.get('webshop').then((res) => {
-            appConfigs.features = res.data;
-
-            FundService.list(null, {check_criteria: 1}).then((res) => {
-                $ctrl.productMeta.funds = $ctrl.productMeta.funds.map((productFund) => {
-                    const fund = res.data.data.find(fund => fund.id == productFund.id);
-
-                    return FundService.mapFund({...fund, ...productFund}, $ctrl.vouchers, appConfigs.features)
-                });
+    $ctrl.transformProductFunds = (features) => {
+        FundService.list(null, {
+            per_page: 100,
+            check_criteria: 1,
+            fund_ids: $ctrl.productMeta.funds.map((fund) => fund.id),
+        }).then((res) => {
+            $ctrl.productMeta.funds = $ctrl.productMeta.funds.map((productFund) => {
+                return FundService.mapFund({ 
+                    ...res.data.data.find((fund) => fund.id == productFund.id), 
+                    ...productFund,
+                }, $ctrl.vouchers, features)
             });
         });
     }
@@ -93,7 +93,14 @@ const ProductComponent = function (
         $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
         $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
 
-        $ctrl.transformProductFunds();
+        $ctrl.unwatch = $rootScope.$watch('appConfigs.features', (features) => {
+            if (!features) {
+                return;
+            }
+
+            $ctrl.unwatch();
+            $ctrl.transformProductFunds(features);
+        });
 
         $rootScope.pageTitle = $i18n('page_state_titles.product', {
             product_name: $ctrl.product.name,
@@ -123,7 +130,6 @@ module.exports = {
         'AuthService',
         'FundService',
         'ModalService',
-        'ConfigService',
         'ProductService',
         ProductComponent,
     ],
