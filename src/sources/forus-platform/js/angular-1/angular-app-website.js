@@ -18,6 +18,7 @@ app.component('loginComponent', require('./components/website/LoginComponent'));
 app.component('signUpComponent', require('./components/website/SignUpComponent'));
 app.component('dlMeAppComponent', require('./components/landing/DlMeAppComponent'));
 app.component('researchComponent', require('./components/website/ResearchComponent'));
+app.component('privacyComponent', require('./components/website/PrivacyComponent'));
 
 // Services
 app.service('CredentialsService', require('./services/CredentialsService'));
