@@ -19,6 +19,7 @@ const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const ios_iphone_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const android_link = 'https://media.forus.io/static/me-0.0.5-staging-7-release.apk';
 const help_link = 'https://helpcentrum.forus.io';
+const icon_app_color = 'black';
 
 module.exports = (core) => {
     // Config markups
@@ -165,6 +166,7 @@ module.exports = (core) => {
                         // hideSignInQrCodeOption: true,
                     }
                 },
+                icon_app_color: icon_app_color,
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -192,7 +194,8 @@ module.exports = (core) => {
             flags: {
                 logoExtension: '.png',
                 fundsMenu: true,    
-                fundsMenuIfLoggedOut: true,   
+                fundsMenuIfLoggedOut: true,
+                icon_app_color: icon_app_color,    
                 // menu settings
                 meAppMenu: false,
                 forusPlatformMenu: false,
@@ -219,6 +222,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                icon_app_color: 'white',
                 
                 // menu settings
                 meAppMenu: false,
@@ -244,7 +248,9 @@ module.exports = (core) => {
             client_key: 'kerstpakket',
             client_type: 'webshop',
             matomo_site_id: false,
-            flags: {},
+            flags: {
+                icon_app_color: icon_app_color,
+            },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
         });
@@ -263,6 +269,7 @@ module.exports = (core) => {
                 logoExtension: '.svg',
                 showAccountSidebar: false,
                 accessibilityPage: true,
+                icon_app_color: icon_app_color,
 
                 // menu settings
                 meAppMenu: false,
@@ -290,6 +297,7 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 accessibilityPage: true,
+                icon_app_color: icon_app_color,
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -309,6 +317,7 @@ module.exports = (core) => {
             flags: {
                 accessibilityPage: true,
                 showAccountSidebar: false,
+                icon_app_color: icon_app_color,
 
                 // menu settings
                 meAppMenu: false,
@@ -334,6 +343,7 @@ module.exports = (core) => {
             flags: {
                 accessibilityPage: true,
                 showAccountSidebar: false,
+                icon_app_color: icon_app_color,
 
                 // menu settings
                 meAppMenu: false,
@@ -357,6 +367,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             flags: {
                 accessibilityPage: false,
+                icon_app_color: icon_app_color,
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -378,6 +389,7 @@ module.exports = (core) => {
                 showStartButtonText: 'Start aanvraag',
                 accessibilityPage: false,
                 showFooterSponsorLogo: true,
+                icon_app_color: 'white',
             },
             sessions: sessions,
         });
@@ -394,6 +406,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             flags: {
                 accessibilityPage: false,
+                icon_app_color: icon_app_color,
             },
             sessions: sessions,
         });
@@ -411,6 +424,7 @@ module.exports = (core) => {
             flags: {
                 logoExtension: '.png',
                 accessibilityPage: false,
+                icon_app_color: icon_app_color,
             },
             sessions: sessions,
         });
@@ -428,6 +442,7 @@ module.exports = (core) => {
             flags: {
                 logoExtension: '.png',
                 accessibilityPage: false,
+                icon_app_color: 'white',
             },
             sessions: sessions,
         });
@@ -448,6 +463,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                icon_app_color: 'white',
                 
                 // menu settings
                 meAppMenu: false,
@@ -479,6 +495,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                icon_app_color: icon_app_color,
                 
                 // menu settings
                 meAppMenu: false,
@@ -508,6 +525,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                icon_app_color: icon_app_color,
                 
                 // menu settings
                 meAppMenu: false,
@@ -538,6 +556,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                icon_app_color: icon_app_color,
                 
                 // menu settings
                 meAppMenu: false,
@@ -570,6 +589,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                icon_app_color: 'white',
                 
                 // menu settings
                 meAppMenu: false,
@@ -602,6 +622,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                icon_app_color: 'white',
                 
                 // menu settings
                 meAppMenu: false,
