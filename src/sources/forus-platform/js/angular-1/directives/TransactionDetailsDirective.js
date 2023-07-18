@@ -39,6 +39,7 @@ const TransactionDetailsDirective = function (
 
     $dir.$onInit = () => {
         $dir.appConfigs = appConfigs;
+        $dir.showVoucherDetailsPage = $dir.transaction.voucher && appConfigs.panel_type == 'sponsor';
     };
 };
 
@@ -49,6 +50,8 @@ module.exports = () => {
             organization: '=',
             transaction: '=',
             showAmount: '=',
+            showDetailsPageButton: '=',
+            showReservationPageButton: '=',
             onUpdate: '&',
         },
         controllerAs: '$dir',
@@ -61,8 +64,8 @@ module.exports = () => {
             'TransactionService',
             'PushNotificationsService',
             'ProductReservationService',
-            TransactionDetailsDirective
+            TransactionDetailsDirective,
         ],
-        templateUrl: 'assets/tpl/directives/transaction-details.html'
+        templateUrl: 'assets/tpl/directives/transaction-details.html',
     };
 };
