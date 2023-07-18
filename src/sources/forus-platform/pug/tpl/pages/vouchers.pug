@@ -4,7 +4,11 @@
         //-.card-heading(ng-if="$ctrl.funds.length > 1" ng-bind="'csv_validation.header.title' | translate")
         fund-selector(funds="$ctrl.funds" fund="$ctrl.fund" on-fund-select="$ctrl.onFundSelect")
 
-        .card: .card-section(ng-if="$ctrl.loading"): .card-loading: .mdi.mdi-loading.mdi-spin
+        .card(ng-if="$ctrl.loading")
+            .card-header: .card-title
+                span(translate="vouchers.header.title") 
+                span(ng-bind="$ctrl.vouchers.meta.total").span-count
+            .card-section: .card-loading: .mdi.mdi-loading.mdi-spin
 
         .card(
             ng-if="!$ctrl.loading && $ctrl.vouchers && $ctrl.funds.length > 0"
