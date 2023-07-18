@@ -1,4 +1,5 @@
 const FundsSecurityComponent = function (
+    $scope,
     FundService,
     FormBuilderService,
     PageLoadingBarService,
@@ -28,13 +29,18 @@ const FundsSecurityComponent = function (
         name: 'Als IP-adres in de afgelopen 48 uur gebruikt, geen 2FA vereisen.',
     }];
 
+    $ctrl.tranformGlobal2FASettings = (auth_2fa_policy) => {
+        $ctrl.global_and_required_2fa = auth_2fa_policy == 'global' && $ctrl.organization_2fa_funds.auth_2fa_funds_policy == 'required';
+        $ctrl.global_and_restricted_2fa = auth_2fa_policy == 'global' && $ctrl.organization_2fa_funds_restricted;
+    };
+
+    $scope.$watch('$ctrl.form.values.auth_2fa_policy', (auth_2fa_policy) => {
+        $ctrl.tranformGlobal2FASettings(auth_2fa_policy);
+    }, true);
+
     $ctrl.$onInit = () => {
         $ctrl.auth2FARequiredOptions = auth2FARequiredOptions;
         $ctrl.auth2FARememberIpOptions = auth2FARememberIpOptions;
-        $ctrl.organization_2fa_funds = $ctrl.fund.organization_2fa;
-        $ctrl.organization_2fa_funds_restricted = $ctrl.organization_2fa_funds.auth_2fa_funds_policy == 'restrict_features';
-        $ctrl.global_and_restricted_2fa = $ctrl.fund.auth_2fa_policy == 'global' && $ctrl.organization_2fa_funds_restricted;
-        $ctrl.organization_2fa_policy_name = auth2FARequiredOptions.find((option) => option.value == $ctrl.organization_2fa_funds.auth_2fa_funds_policy).name;
 
         $ctrl.form = FormBuilderService.build({
             auth_2fa_policy: $ctrl.fund.auth_2fa_policy,
@@ -54,6 +60,11 @@ const FundsSecurityComponent = function (
                 form.errors = e.data.errors;
             }).finally(() => form.unlock() & PageLoadingBarService.setProgress(100));
         }, true);
+
+        $ctrl.organization_2fa_funds = $ctrl.fund.organization_2fa;
+        $ctrl.organization_2fa_funds_restricted = $ctrl.organization_2fa_funds.auth_2fa_funds_policy == 'restrict_features';
+        $ctrl.tranformGlobal2FASettings($ctrl.form.values.auth_2fa_policy);
+        $ctrl.organization_2fa_policy_name = auth2FARequiredOptions.find((option) => option.value == $ctrl.organization_2fa_funds.auth_2fa_funds_policy).name;
     }
 };
 
@@ -63,6 +74,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$scope',
         'FundService',
         'FormBuilderService',
         'PageLoadingBarService',

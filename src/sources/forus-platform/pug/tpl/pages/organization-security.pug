@@ -14,7 +14,7 @@
                     .card-title(ng-if="$ctrl.viewType == 'employees'") Tweefactorauthenticatie voor medewerkers
                     .card-title(ng-if="$ctrl.viewType == 'funds'") Tweefactorauthenticatie voor fondsen
 
-                .flex: .block.block-label-tabs.pull-right: .label-tab-set
+                .flex: .block.block-inline-filters: .flex: div: .block.block-label-tabs.pull-right: .label-tab-set
                     .label-tab.label-tab-sm(
                         ng-class="{active: $ctrl.viewType == 'employees'}"
                         ng-click="$ctrl.viewType = 'employees'") Medewerkers
