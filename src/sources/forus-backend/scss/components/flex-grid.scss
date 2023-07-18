@@ -1,4 +1,4 @@
-$pad: $wrapperPadding / 4;
+$pad: calc($wrapperPadding / 4);
 $columns: 12;
 $media_md: 1600px;
 $media_sm: 1300px;

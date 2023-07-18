@@ -100,6 +100,18 @@
                 transform: translate(0, -50%);
             }
         }
+
+        &.ui-control-search-input {
+            padding: 0;
+            border: none;
+
+            .ui-control-clear {
+                .mdi {
+                    font-size: 16px;
+                    height: 24px;
+                }
+            }
+        }
     }
 
     .form-control-checked + .form-control {
@@ -394,7 +406,7 @@
             }
 
             &-day {
-                width: (100%/7);
+                width: calc(100% / 7);
                 padding: 0;
                 font-size: 13px;
                 font-weight: 500;
@@ -454,6 +466,15 @@
                 &:nth-child(even) {
                     background: #fff;
                     border-bottom: 1px solid #e9ecee;
+                }
+
+                &:not(.ng-hide):nth-child(2) {
+                    margin-bottom: -10px;
+
+                    &~._720kb-datepicker-calendar-body,
+                    &~._720kb-datepicker-calendar-days-header {
+                        display: none;
+                    }
                 }
             }
 
@@ -782,6 +803,18 @@
             /* height: 50px; */
             padding: 8px 15px;
             font: 400 13px/24px var(--base-font);
+
+            &.ui-control-search-input {
+                padding: 0;
+                border: none;
+
+                .ui-control-clear {
+                    .mdi {
+                        font-size: 16px;
+                        height: 24px;
+                    }
+                }
+            }
         }
 
         ::-webkit-input-placeholder {

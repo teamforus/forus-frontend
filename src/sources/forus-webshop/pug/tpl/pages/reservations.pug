@@ -8,14 +8,13 @@ section.section.section-profile: .wrapper
         .profile-aside
             profile-menu.hide-sm
 
-            .form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
+            .form.form-compact
                 .profile-aside-block
                     //- Search
                     .form-group
-                        input.form-control(
+                        ui-control-search-input(
                             ng-model="$ctrl.filters.q"
-                            placeholder="Zoek reservering" 
-                            type="search"
+                            placeholder="Zoek reservering"
                             aria-label="search"
                             id="products_search")
 

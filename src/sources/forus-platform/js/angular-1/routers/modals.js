@@ -183,6 +183,10 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalReimbursementResolveComponent'
     });
 
+    ModalRouteProvider.modal('reimbursementDetailsEditComponent', {
+        component: 'modalReimbursementDetailsEditComponent'
+    });
+
     ModalRouteProvider.modal('fundUnsubscribe', {
         component: 'modalFundUnsubscribeComponent'
     });
@@ -193,5 +197,29 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('editSocialMediaComponent', {
         component: 'modalEditSocialMediaComponent'
+    });
+
+    ModalRouteProvider.modal('editReimbursementCategories', {
+        component: 'modalEditReimbursementCategoriesComponent'
+    });
+
+    ModalRouteProvider.modal('editReimbursementCategory', {
+        component: 'modalEditReimbursementCategoryComponent'
+    });
+
+    ModalRouteProvider.modal('editRequestRecordComponent', {
+        component: 'modalEditRequestRecordComponent'
+    });
+
+    ModalRouteProvider.modal('websiteContactForm', {
+        component: 'modalContactFormComponent'
+    });
+
+    ModalRouteProvider.modal('2FASetup', {
+        component: 'modal2FASetupComponent'
+    });
+
+    ModalRouteProvider.modal('2FADeactivate', {
+        component: 'modal2FADeactivateComponent'
     });
 }];

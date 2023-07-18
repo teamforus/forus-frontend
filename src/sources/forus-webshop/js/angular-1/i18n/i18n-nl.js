@@ -3,7 +3,12 @@ module.exports = {
     page_title: 'Forus platform',
     page_state_titles: {
         home: '{{implementation}} webshop',
+        fund: '{{fund_name}} van {{organization_name}}',
         funds: 'Aanvragen',
+        reimbursements: 'Declaraties',
+        reimbursement: 'Declaratie - {{code}}',
+        "reimbursements-create": 'Nieuwe kosten terugvragen',
+        "reimbursement-edit": 'Kosten terugvragen bewerk - {{code}}',
         platform: 'Forus Platform',
         me: 'Me',
         'me-app': 'Me-app',
@@ -16,9 +21,9 @@ module.exports = {
         "products-show": 'Aanbieding',
         "products-apply": "Aanbieding kopen",
         vouchers: 'Mijn tegoed',
-        voucher: 'Uw tegoed',
+        voucher: 'Uw tegoed - {{address}}',
         "reservations": 'Reserveringen',
-        provider: 'Aanbieder',
+        provider: 'Aanbieder - {{provider_name}}',
         records: 'Eigenschappen',
         explanation: 'Uitleg',
         start: 'Start aanmelden',
@@ -33,6 +38,8 @@ module.exports = {
         "restore-email": 'Inloggen via e-mail',
         "notifications": 'Notificatie',
         "security-sessions": 'Security sessies',
+        "bookmarked-products": 'Mijn verlanglijstje for favorites pages',
+        "search-result": 'Zoekresultaten for search results',
         "preferences-notifications": 'Notificatievoorkeuren',
         "identity-emails": 'E-mail instellingen',
         "fund-request-clarification": 'Aanvulverzoek',
@@ -40,6 +47,7 @@ module.exports = {
         "confirmation-email": 'E-mail bevestigen',
         "provider-office": 'Aanbieder vestiging',
         "auth-link": "Inloggen",
+        "sitemap": "Sitemap",
         "sign-up": 'Aanmelden',
         "me-app": 'Me-app'
     },
@@ -64,6 +72,7 @@ module.exports = {
         hartvanwestbrabant: "HvWB",
         participatiemunt: "Participatiemunt",
         eemsdelta: "Eemsdelta",
+        doetegoed: "Doe-tegoed",
     },
     languages: {
         en: 'English',
@@ -71,6 +80,28 @@ module.exports = {
     },
     email_service_switch: {
         confirm: 'Breng me naar mijn e-mail'
+    },
+    logo_alt_text: {
+        general: "Forus",
+        berkelland: "Gemeente Berkelland",
+        doetegoed: "Doe-tegoed",
+        ede: "Ede",
+        eemsdelta: "Gemeente Eemsdelta",
+        geertruidenberg: "Gemeente Geertruidenberg",
+        groningen: "Stadjerspas",
+        kerstpakket: "Kerstpakket",
+        heumen: "Gemeente Heumen",
+        hartvanwestbrabant: "Werkplein",
+        noordoostpolder: "Gemeente Noordoostpolder",
+        nijmegen: "Nijmegen",
+        potjeswijzer: "Potjeswijzer",
+        participatiemunt: "Participatiemunt",
+        oostgelre: "Gemeente Oost Gelre",
+        winterswijk: "Gemeente Winterswijk",
+        westerkwartier: "Gemeente Westerkwartier",
+        waalwijk: "Pas Wijzer",
+        vergoedingen: "Nijmegen",
+        schagen: "Gemeente Schagen"
     },
 
     // COMPONENTS

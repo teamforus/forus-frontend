@@ -11,6 +11,8 @@ module.exports = {
         email: "E-mail",
         amount: "Bedrag",
         title: "Titel",
+        provider: "Aanbieder",
+        category: "Categorie",
         description: "Toelichting",
         fund: "Fonds",
         state: "Status",
@@ -27,6 +29,8 @@ module.exports = {
         to: "Tot en met",
         files: "Bon of factuur",
         employee: "Medewerker",
+        paid_on: "Uitbetaald op",
+        transaction: "Transactie",
     },
 
     buttons: {

@@ -41,6 +41,9 @@ module.exports = {
         },
         eemsdelta: {
             funds: "Regelingen"
+        },
+        groningen: {
+            explanation: "Hoe werkt het?",
         }
     },
     buttons: {
@@ -50,6 +53,7 @@ module.exports = {
         },
         groningen: {
             activate: "Aanvragen",
+            voucher: "Mijn Stadjerspas",
         },
         waalwijk: {
             activate: "Aanvragen",
@@ -95,6 +99,7 @@ module.exports = {
                 preferences_emails: "E-mailinstellingen",
                 records: "Profiel",
                 funds: "Fondsen",
+                security: "Beveiliging",
                 sessions: "Sessies"
             }
         }

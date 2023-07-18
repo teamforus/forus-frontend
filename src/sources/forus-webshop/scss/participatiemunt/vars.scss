@@ -1,7 +1,7 @@
 @import "../general/vars.scss";
 
 /*==========  Style Sheet - Vars  ==========*/
-$fonts: null;
+$fonts: [];
 $primaryColor: #08193e;
 $primaryColorLight: #08193e;
 
@@ -77,4 +77,8 @@ $primaryColorLight: #08193e;
 
     // Login button
     --login-button-background: #fff;
+
+    // Nav item line position
+    --nav-line-top: auto;
+    --nav-line-bottom: 11px;
 }

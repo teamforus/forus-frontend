@@ -177,7 +177,7 @@
                         em.mdi.mdi-plus.icon-start
                         span(translate="validation_requests.buttons.add_partner_bsn")
 
-            .card-section: .card-block.card-block-table: .table-wrapper: table.table
+            .card-section: .card-block.card-block-table.card-block-request-record: .table-wrapper: table.table
                 thead: tr
                     th.cell-chevron(ng-if="$ctrl.validatorRequest.hasContent")
                     th(translate='validation_requests.labels.type' width="20%")
@@ -189,7 +189,7 @@
                 tbody(ng-repeat='record in $ctrl.validatorRequest.records')
                     tr
                         td.cell-chevron(ng-if="$ctrl.validatorRequest.hasContent"): a.mdi.mdi-menu-down.td-menu-icon(
-                            ng-if="(record.files.length > 0) || (record.clarifications.length > 0)"
+                            ng-if="record.hasContent"
                             ng-class="{'mdi-menu-down': !record.shown, 'mdi-menu-up': record.shown}"
                             ng-click="record.shown = !record.shown")
                         td(ng-bind='record.record_type.name')
@@ -216,66 +216,33 @@
 
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
-                                .button.button-primary.button-icon(
+                                //- Edit record
+                                button.button.button-default.button-icon(
+                                    ng-if="$ctrl.organization.allow_fund_request_record_edit"
+                                    ng-click='$ctrl.editRecord(record)')
+                                    em.mdi.mdi-pencil
+
+                                //- Request clarification
+                                button.button.button-primary-light.button-icon(
+                                    ng-click='$ctrl.clarifyRecord(record)')
+                                    em.mdi.mdi-message-text
+
+                                //- Decline Record
+                                button.button.button-danger.button-icon(
                                     ng-click='$ctrl.declineRecord(record)'
                                     ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-close
 
-                                .button.button-primary-light.button-icon(
-                                    ng-click='$ctrl.clarifyRecord(record)')
-                                    em.mdi.mdi-message-text
-
-                                .button.button-default.button-icon(
+                                //- Approve Record
+                                button.button.button-primary.button-icon(
                                     ng-click='$ctrl.approveRecord(record)'
                                     ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-check
                     
-                    tr.dim(ng-if='(record.shown) && ((record.files.length > 0) || (record.clarifications.length > 0))'): td(colspan='6')
-                        .block.block-attachments-list(ng-if='record.files.length > 0'): .block-attachments-inner
-                            a.attachment-item(ng-repeat='file in record.files' ng-click='$ctrl.downloadFile(file)')
-                                .attachment-icon
-                                    .mdi.mdi-file
-                                    .attachment-size(ng-bind='file.size')
-
-                                .attachment-name(ng-bind='file.original_name')
-                                .attachment-date(ng-bind='record.created_at_locale')
-                                .attachment-preview(
-                                    title="file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'"
-                                    ng-if="$ctrl.hasFilePreview(file)" 
-                                    ng-click="$ctrl.previewFile($event, file)")
-                                    .mdi.mdi-eye
-                        
-                        .block.block-request-clarification(ng-if='record.clarifications.length > 0')
-                            .block-title Aanvullingen
-                            .clarification-item(ng-repeat="clarification in record.clarifications")
-                                .clarification-item-nth(ng-bind="$index + 1")
-                                .clarification-item-details
-                                    .clarification-item-question
-                                        .clarification-item-icon.mdi.mdi-message-text.text-primary
-                                        span(ng-bind="clarification.question")
-
-                                    .clarification-item-answer
-                                        .clarification-item-icon.mdi.mdi-message-text.text-primary-light
-                                        span(
-                                            ng-class="clarification.answered_at ? '' : 'text-muted'"
-                                            ng-bind="clarification.answered_at ? clarification.answer : 'Geen antwoord...'")
-
-                                    .clarification-item-attachments(ng-if="clarification.files.length > 0")
-                                        .block.block-attachments-list
-                                            .block-attachments-inner
-                                                a.attachment-item(
-                                                    ng-repeat='file in clarification.files' 
-                                                    ng-click='$ctrl.downloadFile(file)')
-                                                    .attachment-icon
-                                                        .mdi.mdi-file
-                                                        .attachment-size(ng-bind='file.size')
-                                                    .attachment-name(ng-bind='file.original_name')
-                                                    .attachment-date(ng-bind='clarification.answered_at_locale')
-                                                    .attachment-preview(
-                                                        title="Bekijk file"
-                                                        ng-if="$ctrl.hasFilePreview(file)" 
-                                                        ng-click="$ctrl.previewFile($event, file)")
-                                                        .mdi.mdi-eye
+                    tr.dim(ng-if='record.hasContent && record.shown'): td(colspan='6').collapse-content: fund-request-record(
+                        fund-request="$ctrl.validatorRequest"
+                        fund-request-record="record"
+                        organization="$ctrl.organization")                                
 
             //- Fund request person
             fund-request-person(

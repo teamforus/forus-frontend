@@ -1,5 +1,4 @@
 &.block-cms {
-    background-color: #f5f5f5;
     padding: 70px 0;
 
     .fund-item {
@@ -24,12 +23,9 @@
             }
 
             .fund-description {
-                .block {
+                .block-markdown {
+                    font: 400 16px/1.5em var(--base-font);
                     color: #292F2E;
-
-                    p {
-                        font: 300 16px/28px var(--base-font);
-                    }
                 }
             }
 
@@ -52,6 +48,7 @@
     }
 
     &.block-cms-with-items {
+        background-color: #f5f5f5;
         background-image: url(../img/wave-cms.svg);
         background-repeat: no-repeat, repeat;
         background-size: contain;
