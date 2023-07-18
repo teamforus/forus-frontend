@@ -42,57 +42,5 @@ section.mr-tp
     .container.text-center
         h2 Contactformulier
         p Benieuwd wat Forus voor jou kan betekenen? Of heb je ideeën voor het platform of de app?<br> Vul onderstaand contactformulier in en we nemen zo snel mogelijk contact met je op.     
-        form#formContact(action="https://xlak8w5706.execute-api.eu-west-1.amazonaws.com/Prod" method="POST" style="width: 80%; margin: 0 auto;")
-            .row
-                .col-xs-12.col-lg-6
-                    .form-group.required
-                        label.control-label NAAM
-                        .input-group
-                            input#nameInput.form-control(placeholder="Naam" name="name"  value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.col-lg-6
-                    .form-group.required
-                        label.control-label EMAIL
-                        .input-group
-                            input#emailInput.form-control(placeholder="Email" name="email" value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.col-lg-6
-                    .form-group
-                        label.control-label ORGANISATIE
-                        .input-group
-                            input#companyInput.form-control(placeholder="Organisatie" name="organization" value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.col-lg-6
-                    .form-group
-                        label.control-label TELEFOONNUMMER
-                        .input-group
-                            input#telInput.form-control(placeholder="Telefoonnummer" name="phone" value="" onkeyup="this.setAttribute('value', this.value);" )
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12
-                    .form-group.required
-                        label.control-label BERICHT
-                        .input-group
-                            textarea#messageInput.form-control(placeholder="Bericht" name="message")
 
-                            a(href="#").clear_field
-                                include ../../../../resources/platform-general/assets/img/svg/clear-field.svg
-                            span.help-block
-                .col-xs-12.info
-                    span(style="color: red") *
-                    | velden zijn verplicht
-                .col-xs-12
-                    .form-group.center-block
-                        p.thanks Bedankt! Er wordt zo snel mogelijk contact met u opgenomen.
-                        button#formSubmitHome.button-center.btn.main_button.g-recaptcha(
-                            data-sitekey="6LfA-JcUAAAAAC9SpgAr2ZmL4rFwjb83_U2MDcfQ" 
-                            data-callback="onSubmitCFHome" 
-                            data-badge="inline" 
-                            type="button") Versturen
+        contact-form

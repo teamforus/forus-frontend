@@ -7,6 +7,11 @@ const SelectControlDirective = function ($scope, $timeout) {
         q: "",
     };
 
+    $dir.clear = () => {
+        $scope.$dir.filter.q = '';
+        $dir.searchInputChanged();
+    };
+
     $dir.prepareOptions = (search) => {
         const options = $dir.optionsPrepared.map((option) => {
             return { ...option, _index: option._name.indexOf(search) };
@@ -156,6 +161,7 @@ module.exports = () => {
             mode: '@',
             placeholder: "@",
             multiple: "=",
+            id: "@",
             prop: "@",
             as: "@",
             search: "=",
@@ -181,6 +187,13 @@ module.exports = () => {
             '$timeout',
             SelectControlDirective
         ],
-        template: require('./templates/select-control.pug'),
+        template: ($el, $attr) => {
+            const templateName = $attr.template || 'select-control';
+
+            return $el ? {
+                'select-control': require('./templates/select-control.pug')(),
+                'select-control-organization': require('./templates/select-control-organization.pug')(),
+            }[templateName] || `<div>Template: ${templateName} not found</div>` : '<div></div>';
+        },
     };
 };

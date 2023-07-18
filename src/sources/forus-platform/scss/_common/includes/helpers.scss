@@ -41,7 +41,7 @@
     #{$item}, #{$item} * {
         opacity: 0;
         visibility: hidden;
-        transition: opacity $timeout / 3, visibility $timeout / 3 linear;
+        transition: opacity calc($timeout / 3), visibility calc($timeout / 3) linear;
     }
 
     &:hover {
@@ -57,7 +57,7 @@
     #{$item}, #{$item} {
         opacity: 0;
         visibility: hidden;
-        transition: opacity $timeout / 3, visibility $timeout / 3 linear;
+        transition: opacity calc($timeout / 3), visibility calc($timeout / 3) linear;
     }
 
     &#{$class} {
@@ -68,7 +68,7 @@
     }
 }
 
-@mixin webkit_scrollbar($color: var(--color-primary-light)) {
+@mixin webkit_scrollbar($color: var(--color-primary-light), $trak-border: 1px solid transparent) {
     &::-webkit-scrollbar {
         width: 8px;
         height: 8px;
@@ -76,7 +76,7 @@
 
     &::-webkit-scrollbar-track {
         background: #f3f4f5;
-        border: 1px solid transparent;
+        border: $trak-border;
     }
 
     &::-webkit-scrollbar-thumb {

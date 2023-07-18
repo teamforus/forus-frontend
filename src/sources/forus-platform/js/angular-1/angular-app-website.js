@@ -17,6 +17,8 @@ app.component('currentComponent', require('./components/website/CurrentComponent
 app.component('loginComponent', require('./components/website/LoginComponent'));
 app.component('signUpComponent', require('./components/website/SignUpComponent'));
 app.component('dlMeAppComponent', require('./components/landing/DlMeAppComponent'));
+app.component('researchComponent', require('./components/website/ResearchComponent'));
+app.component('privacyComponent', require('./components/website/PrivacyComponent'));
 
 // Services
 app.service('CredentialsService', require('./services/CredentialsService'));
@@ -29,6 +31,7 @@ app.service('IdentityService', require('./services/IdentityService'));
 app.service('FormBuilderService', require('./services/FormBuilderService'));
 app.service('ModalService', require('./services/ModalService'));
 app.service('OrganizationService', require('./services/OrganizationService'));
+app.service('ContactService', require('./services/website/ContactService'));
 
 
 // Modal Components
@@ -39,6 +42,7 @@ app.component('modalEmployeeEditComponent', require('./components/Modals/ModalEm
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalMarkdownCustomLinkComponent', require('./components/Modals/ModalMarkdownCustomLinkComponent'));
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
+app.component('modalContactFormComponent', require('./components/Modals/website/ModalContactFormComponent'));
 
 // Directives
 app.directive('landingNavbar', require('./directives/landing/NavbarDirective'));
@@ -52,10 +56,12 @@ app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
+app.directive('openModalContactForm', require('./directives/website/OpenModalContactFormDirective'));
+app.directive('contactForm', require('./directives/website/ContactFormDirective'));
 
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
 app.directive('modalItem', require('./directives/modals/ModalItemDirective'));
-app.directive('modalScrollBraker', require('./directives/modals/ModalScrollBrakerDirective'));
+app.directive('modalScrollBreaker', require('./directives/modals/ModalScrollBreakerDirective'));
 
 // Providers
 app.provider('ApiRequest', require('./providers/ApiRequestProvider'));

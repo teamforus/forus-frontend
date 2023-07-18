@@ -18,7 +18,7 @@ main(id="main-content")
                     a(ng-if="$ctrl.errorCode != 'digid_uid_used'" ui-sref="home" translate="error.home_button").sign_up-pane-link
                     a(ng-if="$ctrl.errorCode == 'digid_uid_used'" ui-sref="start({ logout: 1, restore_with_digid: 1 })").button.button-primary
                         span(translate="error.start_button")
-                        em.mdi.mdi-arrow-right.icon-right
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                 p.sign_up-pane-text(ng-if="$ctrl.customLink")
                     a(

@@ -1,7 +1,7 @@
 a.fund-item
     .fund-photo: img(
         ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
-        alt="")
+        alt="Dit is de afbeelding van {{ $dir.fund.name }}")
 
     .fund-content: .fund-details
         .fund-name(ng-bind="$dir.fund.name")
@@ -25,11 +25,11 @@ a.fund-item
 
         .fund-status-label
             .label.label-light(
-                ng-if="$dir.fund.canApply && !$dir.fund.canActivate"
+                ng-if="$dir.fund.canApply && !$dir.fund.showActivateButton"
                 translate="funds.status.is_applicable")
 
             .label.label-success(
-                ng-if="$dir.fund.canActivate"
+                ng-if="$dir.fund.showActivateButton"
                 translate="funds.status.activateable")
 
             .label.label-primary(
@@ -37,11 +37,11 @@ a.fund-item
                 translate="funds.status.active")
 
             .label.label-warning(
-                ng-if="$dir.fund.isPending"
+                ng-if="$dir.fund.showPendingButton"
                 translate="funds.status.is_pending")
 
             .label.label-light(
-                ng-if="!$dir.fund.canActivate && !$dir.fund.canApply && !$dir.fund.isPending && !$dir.fund.isApplicable && !$dir.fund.alreadyReceived"
+                ng-if="$dir.fund.showRequestButton"
                 translate="funds.status.is_applicable")
                 
     .fund-actions(ng-if="$dir.fund.canActivate")
@@ -49,4 +49,4 @@ a.fund-item
             type="button"
             ng-click="$dir.applyFund($event,$dir.fund)")
             translate(translate="funds.buttons.is_applicable")
-            em.mdi.mdi-arrow-right.icon-right
+            em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")

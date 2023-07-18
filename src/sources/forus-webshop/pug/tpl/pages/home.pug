@@ -52,8 +52,8 @@ main(id="main-content")
                     p(ng-if="!$root.auth_user" translate="home.header.{{ $root.client_key }}.cta_av" translate-default="{{ 'home.header.cta_av' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}")
                     
                     p(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" i18n="home.header.auth_cta" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
-                        
-                a(ng-if="$root.auth_user && $ctrl.vouchers.length > 0" translate="Meer informatie over de Me-app" ui-sref="me-app" target="_blank").header-how-it-works
+   
+                a(ng-if="$ctrl.appConfigs.features.pages.explanation" translate="Hoe werkt het?" ui-sref="explanation" target="_blank").header-how-it-works
     
     if (qdt_c.platform.env_data.client_key == 'vergoedingen')
         .wrapper: .block.block-organization-info
@@ -95,4 +95,4 @@ main(id="main-content")
                     .block-description(i18n="home.map.subtitle")
                     button(ui-sref="providers({show_map:true})" id="show_map").button.button-primary.button-wide
                         translate(translate="buttons.show_map")
-                        em.mdi.mdi-arrow-right.icon-right
+                        em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")

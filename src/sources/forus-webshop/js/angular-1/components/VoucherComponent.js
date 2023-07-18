@@ -1,6 +1,7 @@
 const VoucherComponent = function(
-    $sce,
+    $sce, 
     $state,
+    $filter,
     $rootScope,
     VoucherService,
     PrintableService,
@@ -9,6 +10,7 @@ const VoucherComponent = function(
     appConfigs,
 ) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
 
     $ctrl.qrValue = null;
 
@@ -142,6 +144,10 @@ const VoucherComponent = function(
             !$ctrl.voucher.physical_card &&
             !$ctrl.isPhysicalCardDismissed() &&
             $ctrl.voucherCanUse;
+
+        $rootScope.pageTitle = $i18n('page_state_titles.voucher', {
+            address: $ctrl.voucher.address,
+        });
     };
 };
 
@@ -154,6 +160,7 @@ module.exports = {
     controller: [
         '$sce',
         '$state',
+        '$filter',
         '$rootScope',
         'VoucherService',
         'PrintableService',

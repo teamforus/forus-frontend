@@ -1,5 +1,13 @@
-const FundItemDirective = function($state, $scope, FundService, PushNotificationsService) {
+const FundItemDirective = function(
+    $state, 
+    $scope, 
+    $rootScope, 
+    FundService, 
+    PushNotificationsService,
+) {
     const $dir = $scope.$dir = {};
+    
+    $dir.applyingFund = false;
     
     $dir.setShowMore = (e, showMore = false) => {
         e?.preventDefault();
@@ -38,22 +46,15 @@ const FundItemDirective = function($state, $scope, FundService, PushNotification
         });
     };
 
-    $dir.addFundMeta = (fund, vouchers) => {
-        fund.vouchers        = vouchers.filter(voucher => voucher.fund_id == fund.id && !voucher.expired);
-        fund.isApplicable    = fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
-        fund.alreadyReceived = fund.vouchers.length !== 0;
+    $dir.unwatch = $rootScope.$watch('appConfigs.features', (features) => {
+        if (!features) {
+            return;
+        }
 
-        fund.canApply    = !fund.is_external && !fund.alreadyReceived && fund.isApplicable && !fund.has_pending_fund_requests;
-        fund.canActivate = !fund.is_external && !fund.alreadyReceived && (fund.has_approved_fund_requests || fund.isApplicable);
-        fund.isPending   = !fund.alreadyReceived && fund.has_pending_fund_requests;
-
-        fund.showActivateButton = !fund.alreadyReceived && fund.isApplicable;
-        return fund;
-    };
-
-    $dir.fund = $dir.addFundMeta($scope.fund, $scope.vouchers);
-    $dir.media = $dir.fund.logo || $dir.fund.organization.logo || null;
-    $dir.applyingFund = false;
+        $dir.unwatch();
+        $dir.fund = FundService.mapFund($scope.fund, $scope.vouchers, features);
+        $dir.media = $dir.fund.logo || $dir.fund.organization.logo || null;
+    });
 };
 
 module.exports = () => {
@@ -68,9 +69,10 @@ module.exports = () => {
         controller: [
             '$state',
             '$scope',
+            '$rootScope',
             'FundService',
             'PushNotificationsService',
-            FundItemDirective
+            FundItemDirective,
         ],
         templateUrl: ($el, $attr) => {
             return 'assets/tpl/directives/lists/funds/' + ($attr.template || 'fund-item-list') + '.html'

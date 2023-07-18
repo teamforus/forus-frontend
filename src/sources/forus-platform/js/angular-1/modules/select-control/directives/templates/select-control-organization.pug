@@ -1,0 +1,40 @@
+.select-control.select-control-organizations(dusk="headerOrganizationSwitcher")
+    .select-control-input(
+        ng-class="{options : $dir.showOptions}"
+        ng-disabled="$dir.disabled || $dir.ngDisabled"
+        click-outside="$dir.onClickOutside()")
+
+        label.select-control-search.form-control(
+            for="{{ $dir.controlId }}"
+            title="{{ $dir.value.raw[$dir.as] || $dir.placeholder }}"
+            ng-show="($dir.mode == 'strict' && !$dir.showOptions) || !$dir.searchEnabled" 
+            ng-click="$dir.searchOption()"
+            ng-disabled="$dir.disabled || $dir.ngDisabled")
+            .select-control-logo: img(ng-src="{{ $dir.ngModel.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+            .select-control-search-placeholder(ng-bind="$dir.value.raw[$dir.as] || $dir.placeholder")
+            .select-control-icon(ng-class="$dir.showOptions ? 'select-control-icon-up' : 'select-control-icon-down'")
+
+        .select-control-search.form-control
+            .select-control-search-icon: .mdi.mdi-magnify
+
+            .select-control-search-input: input(
+                id="{{ $dir.controlId }}"
+                type="search"
+                placeholder="{{ $dir.placeholder }}"
+                ng-click="$dir.onInputClick()"
+                ng-keydown="$dir.searchKeydown($event)"
+                ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
+                ng-change="$dir.searchInputChanged()"
+                ng-model="$dir.filter.q")
+
+            .select-control-search-clear(
+                ng-disabled="!$dir.filter.q"
+                ng-click="$dir.clear();"): em.mdi.mdi-close
+        
+        select-control-options(
+            ng-if="$dir.showOptions"
+            change="$dir.selectOption(option)" 
+            options="$dir.optionsFiltered"
+            template="select-control-options-organization"
+            hide-options="$dir.onClickOutside()"
+            options-preload-size="{{ optionsPreloadSize }}")

@@ -54,12 +54,31 @@ const ProductComponent = function (
         });
     };
 
+    const transformProductAlternativeText = (product) => {
+        return ProductService.transformProductAlternativeText(product);
+    };
+
     $ctrl.toggleBookmark = ($event, product) => {
         $event.preventDefault();
         $event.stopPropagation();
 
         ProductService.toggleBookmark(product);
     };
+
+    $ctrl.transformProductFunds = (features) => {
+        FundService.list(null, {
+            per_page: 100,
+            check_criteria: 1,
+            fund_ids: $ctrl.productMeta.funds.map((fund) => fund.id),
+        }).then((res) => {
+            $ctrl.productMeta.funds = $ctrl.productMeta.funds.map((productFund) => {
+                return FundService.mapFund({ 
+                    ...res.data.data.find((fund) => fund.id == productFund.id), 
+                    ...productFund,
+                }, $ctrl.vouchers, features)
+            });
+        });
+    }
 
     $ctrl.$onInit = function () {
         $ctrl.searchData = $stateParams.searchData || null;
@@ -69,9 +88,19 @@ const ProductComponent = function (
         $ctrl.fundNames = $ctrl.product.funds.map(fund => fund.name).join(', ');
         $ctrl.productMeta = ProductService.checkEligibility($ctrl.product, $ctrl.vouchers);
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
+        $ctrl.product.alternative_text = transformProductAlternativeText($ctrl.product);
 
         $ctrl.useSubsidies = $ctrl.productMeta.funds.filter(fund => fund.type === 'subsidies').length > 0;
         $ctrl.useBudget = $ctrl.productMeta.funds.filter(fund => fund.type === 'budget').length > 0;
+
+        $ctrl.unwatch = $rootScope.$watch('appConfigs.features', (features) => {
+            if (!features) {
+                return;
+            }
+
+            $ctrl.unwatch();
+            $ctrl.transformProductFunds(features);
+        });
 
         $rootScope.pageTitle = $i18n('page_state_titles.product', {
             product_name: $ctrl.product.name,

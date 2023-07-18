@@ -100,6 +100,18 @@
                 transform: translate(0, -50%);
             }
         }
+
+        &.ui-control-search-input {
+            padding: 0;
+            border: none;
+
+            .ui-control-clear {
+                .mdi {
+                    font-size: 16px;
+                    height: 24px;
+                }
+            }
+        }
     }
 
     .form-control-checked + .form-control {
@@ -170,7 +182,6 @@
 
     .select-control-input {
         $optionHeight: 40px;
-
         position: relative;
 
         .form-control {
@@ -188,6 +199,30 @@
             &:focus {
                 border: 1px solid black;
                 box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .select-control-search-container {
+            position: relative;
+
+            .select-control-search-clear {
+                position: absolute;
+                right: 0;
+                width: 25px;
+                top: 50%;
+                text-align: left;
+                transform: translate(0, -50%);
+                opacity: 1;
+                pointer-events: none;
+                transition: opacity .4s;
+
+                .mdi {
+                    color: #CCD0E0;
+                    font-size: 18px;
+                    height: 18px;
+                    vertical-align: bottom;
+                    cursor: pointer;
+                }
             }
         }
 
@@ -394,7 +429,7 @@
             }
 
             &-day {
-                width: (100%/7);
+                width: calc(100% / 7);
                 padding: 0;
                 font-size: 13px;
                 font-weight: 500;
@@ -454,6 +489,15 @@
                 &:nth-child(even) {
                     background: #fff;
                     border-bottom: 1px solid #e9ecee;
+                }
+
+                &:not(.ng-hide):nth-child(2) {
+                    margin-bottom: -10px;
+
+                    &~._720kb-datepicker-calendar-body,
+                    &~._720kb-datepicker-calendar-days-header {
+                        display: none;
+                    }
                 }
             }
 
@@ -782,6 +826,18 @@
             /* height: 50px; */
             padding: 8px 15px;
             font: 400 13px/24px var(--base-font);
+
+            &.ui-control-search-input {
+                padding: 0;
+                border: none;
+
+                .ui-control-clear {
+                    .mdi {
+                        font-size: 16px;
+                        height: 24px;
+                    }
+                }
+            }
         }
 
         ::-webkit-input-placeholder {

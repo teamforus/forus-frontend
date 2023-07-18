@@ -5,7 +5,11 @@ module.exports = ['$transitions', '$filter', '$rootScope', 'appConfigs', 'PageLo
     const $translate = $filter('translate');
     const defaultPageTitle = $translate('page_title');
 
-    $transitions.onStart({}, function() {
+    $transitions.onStart({}, function(transition) {
+        if ($rootScope.auth_2fa?.required && !$rootScope.auth_2fa?.confirmed) {
+            return transition.from().name == 'auth-2fa' ? false : transition.router.stateService.target('auth-2fa');
+        }
+
         PageLoadingBarService.setProgress(0);
     });
 
@@ -24,6 +28,7 @@ module.exports = ['$transitions', '$filter', '$rootScope', 'appConfigs', 'PageLo
         const pageTitleText = $i18n(pageTitleKey, { implementation });
 
         $rootScope.pageTitle = pageTitleKey == pageTitleText ? defaultPageTitle : pageTitleText;
+        $rootScope.viewLayout = transition.to().name == 'fund-request' ? 'signup' : null;
 
         if (optionsCustom.moveTop !== false) {
             document.body.scrollTop = document.documentElement.scrollTop = 0;
