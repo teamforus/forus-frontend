@@ -68,11 +68,18 @@ const ModalProductReserveDetailsComponent = function(
     };
 
     $ctrl.onError = (res) => {
-        const { errors, message } = res.data;
-        const firstError = typeof errors === 'object' ? Object.values(errors)[0] : null
+        const { errors = {}, message } = res.data;
 
-        PushNotificationsService.danger(firstError ? firstError[0] || message : message);
+        $ctrl.form.errors = errors;
         $ctrl.form.unlock();
+
+        if (errors.product_id) {
+            errors.product_id?.forEach((error) => PushNotificationsService.danger(error));
+        }
+        
+        if (!errors.product_id && message) {
+            PushNotificationsService.danger(message);
+        }
     };
 
     $ctrl.productReserve = () => {
@@ -83,10 +90,7 @@ const ModalProductReserveDetailsComponent = function(
         }).then(() => {
             $ctrl.form.errors = {};
             $ctrl.state = 'confirm_notes';
-        }, res => {
-            $ctrl.form.unlock();
-            $ctrl.form.errors = res.data.errors;
-        });
+        }, $ctrl.onError);
     };
 
     $ctrl.confirmSubmit = () => {

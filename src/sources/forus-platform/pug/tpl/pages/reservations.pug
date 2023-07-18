@@ -163,15 +163,15 @@
                                 ng-click="$ctrl.rejectReservation(reservation)")
                                 em.mdi.mdi-close
 
-                            button.button.button-sm.button-default.button-icon(
+                            button.button.button-sm.button-primary.button-icon(
                                 ng-if="reservation.archivable"
                                 ng-click="$ctrl.archiveReservation(reservation)")
-                                em.mdi.mdi-download-box-outline
+                                em.mdi.mdi-archive-outline
 
                             button.button.button-sm.button-primary.button-icon(
-                                ng-if="!reservation.archivable && reservation.archived"
+                                ng-if="reservation.archived"
                                 ng-click="$ctrl.unarchiveReservation(reservation)")
-                                em.mdi.mdi-lock-reset    
+                                em.mdi.mdi-archive-arrow-up-outline
 
                             button.button.button-sm.button-default.button-icon(
                                 ui-sref="reservations-show({organization_id: $ctrl.organization.id, id: reservation.id})")

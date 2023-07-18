@@ -90,7 +90,7 @@ const ProductReservationService = function (
             });
         };
 
-        this.confirmArchiving = (reservation, onConfirm) => {
+        this.confirmArchive = (reservation, onConfirm) => {
             ModalService.open("dangerZone", {
                 description_title: "Do you confirm reservation archiving?",
                 description_text: `The reservation for ${reservation.product.name} will be archived`,
@@ -101,7 +101,7 @@ const ProductReservationService = function (
             });
         };
 
-        this.confirmUnarchiving = (reservation, onConfirm) => {
+        this.confirmUnarchive = (reservation, onConfirm) => {
             ModalService.open("dangerZone", {
                 description_title: "Do you confirm reservation unarchiving?",
                 description_text: `The reservation for ${reservation.product.name} will be unarchived`,
