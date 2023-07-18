@@ -3,7 +3,8 @@ div: .select-control-options(scroll-end="$dir.onScrolledOption()")
         .voucher-item.voucher-item-select.voucher-item-select(
             ng-repeat="option in $dir.options track by $index"
             ng-click="$dir.select(option)"
-            dusk="voucherSelectorOption{{ option.raw.id }}")
+            dusk="voucherSelectorOption{{ option.raw.id }}"
+            role="option")
 
             .voucher-image
                 img(ng-src="{{ option.raw.fund.logo.sizes.thumbnail || option.raw.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png'}} ")
