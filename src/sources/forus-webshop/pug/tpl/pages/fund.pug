@@ -73,7 +73,7 @@ main(id="main-content")
                 +fund_actions
 
         .flex.flex-vertical(ng-class="$ctrl.fund.description_position == 'before' ? 'flex-vertical-reverse' : ''")
-            div(ng-if="!$ctrl.fund.description_html || $ctrl.fund.description_position !== 'replace'")
+            div
                 section.section.section-faq(ng-if="$ctrl.fund.faq")
                     .section-splash
                     h2.section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
@@ -94,13 +94,13 @@ main(id="main-content")
 
                 block-products(
                     type="budget"
-                    ng-if="$ctrl.products"
+                    ng-if="$ctrl.products && (!$ctrl.fund.description_html || $ctrl.fund.description_position !== 'replace')"
                     products="$ctrl.products.data"
                     filters="{fund_id: $ctrl.fund.id}")
 
                 block-products(
                     type="subsidies"
-                    ng-if="$ctrl.subsidies"
+                    ng-if="$ctrl.subsidies && (!$ctrl.fund.description_html || $ctrl.fund.description_position !== 'replace')"
                     products="$ctrl.subsidies.data"
                     filters="{fund_id: $ctrl.fund.id}")
 
