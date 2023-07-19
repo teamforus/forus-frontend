@@ -23,80 +23,60 @@
                         search="false"
                         ng-model="$ctrl.form.values.auth_2fa_policy" 
                         options="$ctrl.auth2FARequiredOptions").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
+                    .form-offset: .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
 
-                //- Global policy type 
                 .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_policy == 'global'")
-                    label.form-label 2FA beperkingen
-
-                    .form-offset: input(
-                        type="text"
-                        ng-disabled="true"
-                        ng-model="$ctrl.organization_2fa_policy_name").form-control
-
-                //- Remember IP
-                .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_policy == 'required' || $ctrl.global_and_required_2fa")
-                    label.form-label Onthoud IP-adres
-
+                    label.form-label &nbsp;
                     .form-offset: select-control(
-                        ng-if="$ctrl.form.values.auth_2fa_policy == 'required'"
                         prop="value"
                         search="false"
-                        ng-model="$ctrl.form.values.auth_2fa_remember_ip" 
-                        options="$ctrl.auth2FARememberIpOptions").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
-
-                    .form-offset: input(
-                        ng-if="$ctrl.global_and_required_2fa"
-                        type="text"
                         ng-disabled="true"
-                        ng-model="$ctrl.organization_2fa_funds.auth_2fa_funds_remember_ip").form-control
+                        ng-model="$ctrl.fund.organization_funds_2fa.auth_2fa_funds_policy" 
+                        options="$ctrl.auth2FARequiredOptions").form-control
                 
-                //- Restrict some features
-                .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_policy == 'restrict_features' || $ctrl.global_and_restricted_2fa")
-                    label.form-label 
+                mixin auth_2fa_form(formName, disabled, show)
+                    //- Remember IP
+                    .form-group.form-group-inline(ng-if=show + ' && ' + formName + ".auth_2fa_policy == 'required'")
+                        label.form-label Onthoud IP-adres
 
-                    .form-offset
-                        div: input-checkbox-control(
-                            ng-if="$ctrl.form.values.auth_2fa_policy == 'restrict_features'"
-                            name="auth_2fa_restrict_emails" 
-                            ng-model="$ctrl.form.values.auth_2fa_restrict_emails" 
-                            label="Aanpassen van e-mailadres")
+                        .form-offset: select-control(
+                            prop="value"
+                            search="false"
+                            ng-model=formName + ".auth_2fa_remember_ip" 
+                            ng-disabled=(disabled ? 'true' : 'false')
+                            options="$ctrl.auth2FARememberIpOptions").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
+                    
+                    //- Restrict some features
+                    .form-group.form-group-inline(ng-if=show)
+                        label.form-label 
 
-                        div: input-checkbox-control(
-                            ng-if="$ctrl.global_and_restricted_2fa"
-                            ng-disabled="true"
-                            name="auth_2fa_restrict_emails" 
-                            ng-model="$ctrl.organization_2fa_funds.auth_2fa_funds_restrict_emails" 
-                            label="Aanpassen van e-mailadres")
+                        .form-offset
+                            div: input-checkbox-control(
+                                ng-if=formName + ".auth_2fa_policy == 'restrict_features'"
+                                name="auth_2fa_restrict_emails" 
+                                ng-model=formName + ".auth_2fa_restrict_emails"
+                                ng-disabled=(disabled ? 'true' : 'false')
+                                label="Aanpassen van e-mailadres")
 
-                        div: input-checkbox-control(
-                            ng-if="$ctrl.form.values.auth_2fa_policy == 'restrict_features'"
-                            name="auth_2fa_restrict_auth_sessions" 
-                            ng-model="$ctrl.form.values.auth_2fa_restrict_auth_sessions" 
-                            label="Aanpassen van inlog sessies")
+                            div: input-checkbox-control(
+                                ng-if=formName + ".auth_2fa_policy == 'restrict_features'"
+                                name="auth_2fa_restrict_auth_sessions" 
+                                ng-model=formName + ".auth_2fa_restrict_auth_sessions" 
+                                ng-disabled=(disabled ? 'true' : 'false')
+                                label="Aanpassen van inlog sessies")
 
-                        div: input-checkbox-control(
-                            ng-if="$ctrl.global_and_restricted_2fa"
-                            ng-disabled="true"
-                            name="auth_2fa_restrict_auth_sessions" 
-                            ng-model="$ctrl.organization_2fa_funds.auth_2fa_funds_restrict_auth_sessions" 
-                            label="Aanpassen van inlog sessies")
+                            div: input-checkbox-control(
+                                ng-if=formName + ".auth_2fa_policy == 'restrict_features'"
+                                name="auth_2fa_restrict_reimbursements" 
+                                ng-model=formName + ".auth_2fa_restrict_reimbursements" 
+                                ng-disabled=(disabled ? 'true' : 'false')
+                                label="Indienen van declaraties")
 
-                        div: input-checkbox-control(
-                            ng-if="$ctrl.form.values.auth_2fa_policy == 'restrict_features'"
-                            name="auth_2fa_restrict_reimbursements" 
-                            ng-model="$ctrl.form.values.auth_2fa_restrict_reimbursements" 
-                            label="Indienen van declaraties")
+                +auth_2fa_form("$ctrl.form.values", false, "$ctrl.form.values.auth_2fa_policy != 'global'")
+                +auth_2fa_form("$ctrl.global_2fa", true, " $ctrl.form.values.auth_2fa_policy == 'global'")
 
-                        div: input-checkbox-control(
-                            ng-if="$ctrl.global_and_restricted_2fa"
-                            ng-disabled="true"
-                            name="auth_2fa_restrict_reimbursements" 
-                            ng-model="$ctrl.organization_2fa_funds.auth_2fa_funds_restrict_reimbursements" 
-                            label="Indienen van declaraties")
-
-            //- Submit
-            .card-section.card-section-primary: .text-center
-                a(ui-sref="organization-funds($ctrl.fund)").button.button-default Annuleer
-                button(type="submit").button.button-primary Bevestig
+                //- Submit
+                .card-section.card-section-primary: .text-center
+                    a(ui-sref="organization-funds($ctrl.fund)").button.button-default Annuleer
+                    button(type="submit").button.button-primary Bevestig
