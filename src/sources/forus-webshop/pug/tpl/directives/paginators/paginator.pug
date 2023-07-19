@@ -7,7 +7,9 @@
     .table-pagination-navigation
         button(
             ng-class="[meta.current_page == 1 ? 'disabled' : '', buttonClass]" 
-            ng-click="setPage(1)").button.button-default Eerste
+            ng-click="setPage(1)").button.button-default 
+            span Eerste
+            em.mdi.mdi-page-first
         
         button(
             ng-repeat="page in pages" ng-bind="page"
@@ -17,4 +19,6 @@
         
         button(
             ng-class="[meta.current_page == meta.last_page ? 'disabled' : '', buttonClass]" 
-            ng-click="setPage(meta.last_page)").button.button-default Laatste
+            ng-click="setPage(meta.last_page)").button.button-default 
+            span Laatste
+            em.mdi.mdi-page-last

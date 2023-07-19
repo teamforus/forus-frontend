@@ -166,4 +166,20 @@
             }
         }
     }
+
+    @media screen and (max-width: 360px) {
+        .fund-item {
+            .fund-content {
+                .fund-details {
+                    .fund-name {
+                        font: 700 12px/20px var(--base-font);
+                    }
+
+                    .fund-description {
+                        font: 400 12px/20px var(--base-font);
+                    }
+                }
+            }
+        }
+    }
 }
