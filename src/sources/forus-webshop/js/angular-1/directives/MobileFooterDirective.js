@@ -2,6 +2,7 @@ const MobileFooterDirective = function(
     $scope,
     $state,
     VoucherService,
+    ModalService,
     FundService,
     appConfigs
 ) {
@@ -32,6 +33,10 @@ const MobileFooterDirective = function(
         if ($dir.funds && $dir.funds.length > 0) {
             $state.go('start');
         }
+    };
+
+    $dir.openPinCodePopup = () => {
+        ModalService.open('modalPinCode');
     };
 
     const getFundList = () => {
@@ -65,6 +70,7 @@ module.exports = () => {
             '$scope',
             '$state',
             'VoucherService',
+            'ModalService',
             'FundService',
             'appConfigs',
             MobileFooterDirective
