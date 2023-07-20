@@ -95,6 +95,7 @@ module.exports = {
     provider_funds: require('./nl/pages/provider-funds.pug.i18n'),
     fund_unsubscriptions: require('./nl/pages/fund-unsubscriptions.pug.i18n'),
     bi_connection: require('./nl/pages/bi-connection.pug.i18n'),
+    organization_contacts: require('./nl/pages/organization-contacts.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -673,6 +674,7 @@ module.exports = {
         buttons: {
             add: "Organisatie toevoegen",
             edit: "Organisatie instellingen",
+            contacts: "Contacts",
             notifications_preferences: "Notificatievoorkeuren",
         }
     },

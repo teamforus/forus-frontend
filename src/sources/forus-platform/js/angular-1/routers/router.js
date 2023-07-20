@@ -1634,6 +1634,44 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Organization contacts
+    $stateProvider.state({
+        name: "contacts",
+        url: "/organizations/{organization_id}/contacts",
+        component: "organizationContactsComponent",
+        resolve: {
+            organization: organizationResolver(),
+            authUser: authUserResolver(),
+            permission: [
+                'organization',
+                'authUser',
+                '$state', (
+                    organization,
+                    authUser,
+                    $state
+                ) => {
+                    if (!(organization.is_sponsor && organization.identity_address === authUser.address)) {
+                        return setTimeout(() => $state.go('no-permission', { error: 'contacts' }), 0);
+                    }
+
+                    return true;
+                }
+            ],
+            contacts: [
+                '$transition$', 'OrganizationContactService', 'permission',
+                ($transition$, OrganizationContactService) => repackResponse(
+                    OrganizationContactService.list($transition$.params().organization_id)
+                )
+            ],
+            available: [
+                '$transition$', 'OrganizationContactService', 'permission',
+                ($transition$, OrganizationContactService) => repackResponse(
+                    OrganizationContactService.available($transition$.params().organization_id)
+                )
+            ],
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',

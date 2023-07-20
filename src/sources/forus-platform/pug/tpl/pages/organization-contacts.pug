@@ -1,0 +1,51 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            .card-header 
+                .card-title(translate="organization_contacts.title")
+
+            .card-section.card-section-primary
+                .row: .col.col-lg-9.col-lg-12
+                    .form-group.form-group-inline(
+                        ng-repeat="contact in $ctrl.form.values.contacts")
+                        label.form-label(translate="organization_contacts.labels.{{ contact.contact_key }}")
+
+                        .form-offset: .flex-row
+                            .flex-col.flex-grow
+                                .form-group-info
+                                    .form-group-info-control
+                                        input(
+                                            ng-model="contact.value"
+                                            type="{{ contact.type === 'email' ? 'email' : 'text' }}"
+                                            placeholder="{{ 'organization_contacts.labels.' + contact.contact_key | translate }}").form-control
+                                        .form-error(ng-repeat="error in $ctrl.form.errors['contacts.' + $index + '.value']" ng-bind="error")
+
+                                    .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                        ng-click="contact.showInfoBlock = !contact.showInfoBlock"
+                                        ng-class="{active: contact.showInfoBlock}")
+                                        em.mdi.mdi-information
+
+                                .block.block-info-box.block-info-box-primary(ng-if="contact.showInfoBlock")
+                                    .info-box-icon.mdi.mdi-information
+
+                                    .info-box-content: .block.block-markdown
+                                        h4 Kies de juiste instelling
+                                        p
+                                            | Vul bij de header bovenstaande naam en sleutelcode in
+                                            | Voor het instellen van de token  zijn er twee opties:
+
+                                        ul
+                                        ul
+                                            li URL-parameter: Kies deze optie als uw BI-tool token ondersteunt. Voeg de token toe als een parameter in de URL
+                                            li Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg de token toe in de header
+
+            .card-section.card-section-primary: .text-center
+                button(
+                    type="button"
+                    ui-sref="organizations" 
+                    i18n="organization_contacts.buttons.cancel" id="cancel").button.button-default
+
+                button(
+                    type="submit" 
+                    i18n="organization_contacts.buttons.submit").button.button-primary

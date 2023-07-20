@@ -16,6 +16,13 @@
 
     .select-control-options-actions
         .select-control-switcher-setting(
+            ng-if="$root.appConfigs.panel_type == 'sponsor' && $root.activeOrganization.identity_address === $root.auth_user.address"
+            ui-sref="contacts({organization_id: $root.activeOrganization.id})"
+            ng-click="hideOptions()")
+            .select-control-switcher-setting-icon: em.mdi.mdi-email-edit-outline
+            .select-control-switcher-setting-name(translate="organizations.buttons.contacts")
+
+        .select-control-switcher-setting(
             ng-if="$root.activeOrganization | hasPerm:'manage_organization'"
             ui-sref="organizations-edit({organization_id: $root.activeOrganization.id})"
             ng-click="hideOptions()")

@@ -84,6 +84,7 @@ app.component('implementationCmsSocialMediaEditComponent', require('./components
 app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
 app.component('biConnectionComponent', require('./components/BIConnectionComponent'));
+app.component('organizationContactsComponent', require('./components/OrganizationContactsComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -219,6 +220,7 @@ app.service('ProductReservationsExportService', require('./services/ProductReser
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 app.service('ClipboardService', require('./services/ClipboardService'));
+app.service('OrganizationContactService', require('./services/OrganizationContactService'));
 
 // Directives
 app.directive('menu', {
