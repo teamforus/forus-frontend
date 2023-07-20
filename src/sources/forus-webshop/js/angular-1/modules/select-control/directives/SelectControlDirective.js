@@ -7,6 +7,11 @@ const SelectControlDirective = function ($scope, $timeout) {
         q: "",
     };
 
+    $dir.clear = () => {
+        $scope.$dir.filter.q = '';
+        $dir.searchInputChanged();
+    };
+
     $dir.prepareOptions = (search) => {
         const options = $dir.optionsPrepared.map((option) => {
             return { ...option, _index: option._name.indexOf(search) };
@@ -156,6 +161,7 @@ module.exports = () => {
             mode: '@',
             placeholder: "@",
             multiple: "=",
+            id: "@",
             prop: "@",
             as: "@",
             search: "=",

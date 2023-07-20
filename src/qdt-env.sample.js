@@ -164,7 +164,7 @@ module.exports = (core) => {
                         // hideSignInEmailOption: true,
                         // hideSignInQrCodeOption: true,
                     }
-                },
+                }
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -192,7 +192,7 @@ module.exports = (core) => {
             flags: {
                 logoExtension: '.png',
                 fundsMenu: true,    
-                fundsMenuIfLoggedOut: true,   
+                fundsMenuIfLoggedOut: true,
                 // menu settings
                 meAppMenu: false,
                 forusPlatformMenu: false,
@@ -219,6 +219,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                useLightAppIcons: true,
                 
                 // menu settings
                 meAppMenu: false,
@@ -244,7 +245,6 @@ module.exports = (core) => {
             client_key: 'kerstpakket',
             client_type: 'webshop',
             matomo_site_id: false,
-            flags: {},
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
         });
@@ -289,7 +289,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             matomo_site_id: false,
             flags: {
-                accessibilityPage: true,
+                accessibilityPage: true
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -356,7 +356,7 @@ module.exports = (core) => {
             client_key: 'noordoostpolder',
             client_type: 'webshop',
             flags: {
-                accessibilityPage: false,
+                accessibilityPage: false
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -378,6 +378,7 @@ module.exports = (core) => {
                 showStartButtonText: 'Start aanvraag',
                 accessibilityPage: false,
                 showFooterSponsorLogo: true,
+                useLightAppIcons: true,
             },
             sessions: sessions,
         });
@@ -393,7 +394,7 @@ module.exports = (core) => {
             client_key: 'geertruidenberg',
             client_type: 'webshop',
             flags: {
-                accessibilityPage: false,
+                accessibilityPage: false
             },
             sessions: sessions,
         });
@@ -410,7 +411,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             flags: {
                 logoExtension: '.png',
-                accessibilityPage: false,
+                accessibilityPage: false
             },
             sessions: sessions,
         });
@@ -428,6 +429,7 @@ module.exports = (core) => {
             flags: {
                 logoExtension: '.png',
                 accessibilityPage: false,
+                useLightAppIcons: true,
             },
             sessions: sessions,
         });
@@ -448,6 +450,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                useLightAppIcons: true,
                 
                 // menu settings
                 meAppMenu: false,
@@ -570,6 +573,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                useLightAppIcons: true,
                 
                 // menu settings
                 meAppMenu: false,
@@ -602,6 +606,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                useLightAppIcons: true,
                 
                 // menu settings
                 meAppMenu: false,

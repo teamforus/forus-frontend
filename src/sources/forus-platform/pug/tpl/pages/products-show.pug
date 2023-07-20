@@ -75,7 +75,11 @@
                                     src='./assets/img/placeholders/product-thumbnail.png'
                                     ng-src="{{ fund.logo ? fund.logo.sizes.thumbnail : './assets/img/placeholders/product-thumbnail.png' }}"
                                     ).td-media
-                                td(ng-bind="fund.name")
+                                td
+                                    .td-title
+                                        | {{ fund.name }}
+                                        .td-title-icon.td-title-icon-suffix: em.mdi.mdi-eye-off-outline(ng-if="fund.provider_excluded")
+                                    div(ng-bind="fund.organization.name")
                                 td
                                     .label.label-success(ng-if="fund.approved") Geaccepteerd
                                     .label.label-default(ng-if="!fund.approved") Wachtend
@@ -102,10 +106,10 @@
                                         | {{ fund.chat.provider_unseen_messages }} nieuwe
                                 td.nowrap
                                     a.button.button-default(
-                                        ng-disabled="!fund.approved"
+                                        ng-disabled="!fund.approved || fund.provider_excluded"
                                         href="{{ fund.implementation.url_webshop + 'products/' + $ctrl.product.id }}" target="_blank")
                                         em.mdi.mdi-eye-outline.icon-start 
-                                        | Bekijk op webshop
+                                        | {{ fund.provider_excluded ? 'Verborgen op webshop' : 'Bekijk op webshop' }}
 
             .card-section(ng-if="$ctrl.funds.meta" ng-show="$ctrl.funds.meta.last_page > 1")
                 paginator(meta="$ctrl.funds.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
