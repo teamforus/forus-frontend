@@ -3,7 +3,10 @@
         .block.block-entity-overview.flex
             .flex.flex-grow
                 .entity-photo: img(ng-src="{{ $dir.organization.logo.sizes.thumbnail || $root.placeholders.organizationThumbnail }}").entity-photo-img
-                .entity-details: .entity-title(ng-bind="$dir.organization.name")
+                .entity-details
+                    .entity-title
+                        | {{ $dir.organization.name }}
+                        .entity-title-icon-suffix: em.mdi.mdi-eye-off-outline(ng-if="$dir.fundProvider.excluded")
 
             .flex.flex-vertical(ng-if="$dir.fundProvider"): .button-group
                 button.button.button-default(
@@ -28,32 +31,47 @@
                 .card-block-listing-label(ng-bind="property.label")
                 .card-block-listing-value(ng-bind="property.value" ng-class="property.primary ? 'text-primary-light' : ''")
 
-    //- budget fund only
     .card-section.card-section-primary.card-section-narrow.form(
-        ng-if="$dir.fundProvider && $dir.fundProvider.fund.type == 'budget'"): .row: .col.col-lg-8: .flex-row
-        .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-            .card-block-listing-label Accepteer budget
-            label(
-                ng-disabled="$dir.fundProvider.submittingAllow"
-                ng-class="$dir.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
-                for="provider_allow_budget").form-toggle
-                input(
-                    type="checkbox" 
-                    id="provider_allow_budget"
-                    ng-change="$dir.updateFundProviderAllow($dir.fundProvider, 'allow_budget')"
-                    ng-model="$dir.fundProvider.allow_budget")
-                .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+        ng-if="$dir.fundProvider"): .row: .col: .flex-row
+        .flex-col(ng-if="$dir.fundProvider.fund.type == 'budget'")
+            .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                .card-block-listing-label Accepteer budget
+                label(
+                    ng-disabled="$dir.fundProvider.submittingAllow"
+                    ng-class="$dir.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
+                    for="provider_allow_budget").form-toggle
+                    input(
+                        type="checkbox"
+                        id="provider_allow_budget"
+                        ng-change="$dir.updateFundProviderAllow($dir.fundProvider, 'allow_budget')"
+                        ng-model="$dir.fundProvider.allow_budget")
+                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
             
+        .flex-col(ng-if="$dir.fundProvider.fund.type == 'budget'")
+            .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
+                .card-block-listing-label Accepteer aanbiedingen
+                label(
+                    ng-disabled="$dir.fundProvider.submittingAllow"
+                    ng-class="$dir.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
+                    for="provider_allow_products").form-toggle
+                    input(
+                        type="checkbox"
+                        id="provider_allow_products"
+                        ng-disable="$dir.fundProvider.state != 'accepted'"
+                        ng-change="$dir.updateFundProviderAllow($dir.fundProvider, 'allow_products')"
+                        ng-model="$dir.fundProvider.allow_products")
+                    .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
         .flex-col: .card-block.card-block-listing.card-block-listing-inline.card-block-listing-variant
-            .card-block-listing-label Accepteer aanbiedingen
+            .card-block-listing-label On hold
             label(
-                ng-disabled="$dir.fundProvider.submittingAllow"
+                ng-disabled="$dir.fundProvider.submittingExcluded"
                 ng-class="$dir.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
-                for="provider_allow_products").form-toggle
+                for="provider_excluded").form-toggle
                 input(
-                    type="checkbox" 
-                    id="provider_allow_products"
+                    type="checkbox"
+                    id="provider_excluded"
                     ng-disable="$dir.fundProvider.state != 'accepted'"
-                    ng-change="$dir.updateFundProviderAllow($dir.fundProvider, 'allow_products')"
-                    ng-model="$dir.fundProvider.allow_products")
+                    ng-change="$dir.updateFundProviderExcluded($dir.fundProvider)"
+                    ng-model="$dir.fundProvider.excluded")
                 .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
