@@ -25,11 +25,11 @@ a.fund-item
 
         .fund-status-label
             .label.label-light(
-                ng-if="$dir.fund.canApply && !$dir.fund.canActivate"
+                ng-if="$dir.fund.canApply && !$dir.fund.showActivateButton"
                 translate="funds.status.is_applicable")
 
             .label.label-success(
-                ng-if="$dir.fund.canActivate"
+                ng-if="$dir.fund.showActivateButton"
                 translate="funds.status.activateable")
 
             .label.label-primary(
@@ -37,11 +37,11 @@ a.fund-item
                 translate="funds.status.active")
 
             .label.label-warning(
-                ng-if="$dir.fund.isPending"
+                ng-if="$dir.fund.showPendingButton"
                 translate="funds.status.is_pending")
 
             .label.label-light(
-                ng-if="!$dir.fund.canActivate && !$dir.fund.canApply && !$dir.fund.isPending && !$dir.fund.isApplicable && !$dir.fund.alreadyReceived"
+                ng-if="$dir.fund.showRequestButton"
                 translate="funds.status.is_applicable")
                 
     .fund-actions(ng-if="$dir.fund.canActivate")

@@ -29,7 +29,7 @@
 
             .select-control-search-clear(
                 ng-disabled="!$dir.filter.q"
-                ng-click="$dir.filter.q = ''; $dir.searchInputChanged();"): em.mdi.mdi-close
+                ng-click="$dir.clear();"): em.mdi.mdi-close
         
         select-control-options(
             ng-if="$dir.showOptions"

@@ -280,6 +280,9 @@
 
     &.ui-control-search-input {
         .ui-control-clear {
+            opacity: 1;
+            pointer-events: initial;
+
             .mdi {
                 font-size: 18px;
                 height: 18px;

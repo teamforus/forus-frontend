@@ -64,6 +64,14 @@ const FundProviderComponent = function (
         });
     };
 
+    $ctrl.updateFundProviderExcluded = (fundProvider) => {
+        fundProvider.submittingExcluded = true;
+
+        $ctrl.updateProvider(fundProvider, { excluded: fundProvider.excluded }).finally(() => {
+            fundProvider.submittingExcluded = false;
+        });
+    };
+
     $ctrl.updateFundProviderState = (fundProvider, accepted) => {
         const state = accepted ? 'accepted' : 'rejected';
 

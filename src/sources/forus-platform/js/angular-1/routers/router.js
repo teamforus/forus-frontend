@@ -840,14 +840,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                     return repackResponse(FundService.list($transition$.params().organization_id, { per_page: 100, configured: 1 }));
                 }],
-                vouchers: ['$transition$', 'VoucherService', ($transition$, VoucherService) => {
-                    return repackPagination(VoucherService.index($transition$.params().organization_id, {
-                    ...pick($transition$.params(), [
-                        'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
-                        'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
-                        'type', 'source', 'sort_by', 'sort_order', 'fund_id', 'page',
-                    ]), per_page: 20 }))
-                }],
             }
         });
 
