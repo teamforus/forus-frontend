@@ -1298,7 +1298,7 @@ module.exports = {
             email: "E-mailadres",
             expired_at: "Verlopen op",
             first_name: "Voornaam",
-            last_name: "Naam",
+            last_name: "Achternaam",
             price: "Bedrag",
             sponsor_organization: "Sponsor",
             product: "Aanbod",
