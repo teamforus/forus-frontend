@@ -2211,7 +2211,7 @@ body {
     
                 &:before {
                     top: -11.5px;
-                    border-color: transparent transparent --border-color transparent;
+                    border-color: transparent transparent var(--border-color) transparent;
                 }
             }
         }
@@ -3408,7 +3408,7 @@ body {
             &:before {
                 transform: translate(0, -50%);
                 border-width: 8.5px 12px 8.5px 0;
-                border-color: transparent --border-color transparent transparent;
+                border-color: transparent var(--border-color) transparent transparent;
             }
 
             &.tooltip-content-left {
@@ -5746,7 +5746,7 @@ body {
         }
 
         .invite-fund {
-            border: 1px solid --border-color-light;
+            border: 1px solid var(--border-color-light);
             background: #fff;
             border-radius: var(--border-radius);
             padding: 30px 40px 36px;
@@ -5759,7 +5759,7 @@ body {
                 .invite-fund-photo-img {
                     display: block;
                     width: 100px;
-                    border: 1px solid --border-color-light;
+                    border: 1px solid var(--border-color-light);
                     border-radius: var(--border-radius);
                 }
             }
@@ -5812,7 +5812,7 @@ body {
                 left: 0;
                 bottom: 0;
                 background: #fbfbfb;
-                border-top: 1px solid --border-color-light;
+                border-top: 1px solid var(--border-color-light);
                 border-bottom-left-radius: var(--border-radius);
                 border-bottom-right-radius: var(--border-radius);
             }
@@ -5820,7 +5820,7 @@ body {
 
         .block-auth-widget {
             background: #fff;
-            border: 1px solid --border-color-light;
+            border: 1px solid var(--border-color-light);
             border-radius: var(--border-radius);
             padding: 40px;
             max-width: 100%;
