@@ -120,9 +120,15 @@
                                 span(ng-bind="validatorRequest.id")
 
                             //- Identity
-                            td
+                            td: .block.block-tooltip-details.block-tooltip-hover
                                 //- Email
-                                strong(ng-bind="(validatorRequest.email | str_limit:64) || 'Geen E-mail'").text-primary
+                                strong(ng-bind="(validatorRequest.email | str_limit:40) || 'Geen E-mail'").text-primary
+
+                                .tooltip-content.tooltip-content-fit.tooltip-content-bottom(
+                                    ng-if="validatorRequest.email.length > 40"
+                                    ng-click="$event.stopPropagation()")
+                                    .triangle
+                                    .nowrap(ng-bind="validatorRequest.email || 'Geen E-mail'")
 
                                 //- BSN
                                 div(ng-bind="validatorRequest.bsn ? ('BSN: ' + validatorRequest.bsn) : 'Geen BSN'").text-strong.text-md.text-muted-dark
