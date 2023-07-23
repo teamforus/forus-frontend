@@ -619,6 +619,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 implementation_key: appConfigs.client_key,
                 per_page: 100,
             }))],
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
         }
     });
 
@@ -644,6 +647,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             reimbursement: ['ReimbursementService', '$transition$', (ReimbursementService, $transition$) => {
                 return repackResponse(ReimbursementService.read($transition$.params().id));
             }],
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
         }
     });
 
@@ -653,7 +659,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             en: "/reimbursements/{id}",
             nl: "/declaraties/{id}",
         },
-    component: "reimbursementComponent",
+        component: "reimbursementComponent",
         resolve: {
             reimbursement: ['ReimbursementService', '$transition$', (ReimbursementService, $transition$) => {
                 return repackResponse(ReimbursementService.read($transition$.params().id));

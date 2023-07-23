@@ -106,6 +106,10 @@ const ReimbursementEditComponent = function (
     }
 
     $ctrl.$onInit = () => {
+        if ($ctrl.auth2FAState?.restrictions?.reimbursements?.restricted) {
+            return $state.go('reimbursements');
+        }
+
         $ctrl.form = $ctrl.makeForm($ctrl.reimbursement);
         $ctrl.files = $ctrl.reimbursement?.files || [];
         $ctrl.fileUploaderAccept = ['.pdf', '.png', '.jpg', '.jpeg'];
@@ -113,7 +117,7 @@ const ReimbursementEditComponent = function (
         $ctrl.updateSelectedVoucher();
 
         $rootScope.pageTitle = $i18n('page_state_titles.reimbursement-edit', {
-            code: '#' + $ctrl.reimbursement?.code,
+            code: '#' + ($ctrl.reimbursement?.code || ''),
         });
     };
 };
@@ -124,6 +128,7 @@ module.exports = {
         vouchers: '<',
         identity: '<',
         reimbursement: '<',
+        auth2FAState: '<',
     },
     controller: [
         '$state',
