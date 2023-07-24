@@ -541,6 +541,10 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+
+                // search settings
+                allowDesktopSearchToggle: true,
+                alwaysShowSearchReset: true,
                 
                 // menu settings
                 meAppMenu: false,
