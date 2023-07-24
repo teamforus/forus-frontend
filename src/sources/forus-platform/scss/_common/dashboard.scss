@@ -3473,6 +3473,10 @@ body {
                 width: fit-content
             }
 
+            &.tooltip-content-compact {
+                padding: 10px 15px;
+            }
+
             &.tooltip-content-ghost {
                 pointer-events: none;
             }
