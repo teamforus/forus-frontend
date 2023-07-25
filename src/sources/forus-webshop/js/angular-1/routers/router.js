@@ -546,7 +546,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         name: "bookmarked-products",
         url: {
             en: "/bookmarks?{page:int}&{display_type:string}",
-            nl: "/bladwijzers?{page:int}&{display_type:string}",
+            nl: "/verlanglijst?{page:int}&{display_type:string}",
         },
         params: {
             display_type: {
