@@ -138,6 +138,95 @@
         }
     }
 
+    &.block-action-card-expandable {
+        flex-wrap: wrap;
+        padding: 0;
+        border: 1px solid #ebedf0;
+
+        .block-action-card-main, .block-action-card-details {
+            width: 100%;
+        }
+
+        .block-action-card-main {
+            flex-wrap: wrap;
+            padding: 16px;
+        }
+
+        .block-card-logo {
+            background-color: #F5F5F5;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            margin: 0 16px 0 0;
+
+            .mdi {
+                color: #315EFD;
+                font-size: 20px;
+            }
+        }
+
+        .block-card-actions {
+            .button {
+                display: flex;
+                align-items: center;
+
+                span {
+                    font: 600 13px/13px var(--base-font);
+                    color:  #004D93;
+                }
+            }
+
+            &.bottom {
+                width: 100%;
+                padding: 8px 65px 0;
+
+                .button {
+                    padding: 0;
+                }
+            }
+        }
+
+        .block-action-card-main {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .block-action-card-details {
+            .block-action-card-details-item {
+                display: flex;
+                padding: 8px 20px;
+
+                .block-card-logo {
+                    background: none;
+        
+                    .mdi {
+                        color: var(--tc)
+                    }
+                }
+            }
+        }
+
+        &.block-action-card-2fa-fund {
+            .block-card-details {
+                .block-card-title {
+                    font: 700 18px/27px var(--base-font);
+                }
+    
+                .block-card-description {
+                    font: 400 13px/18px var(--base-font);
+                }
+            }
+
+            .block-action-card-details {
+                .block-action-card-details-item {
+                    .block-card-title {
+                        font: 700 16px/24px var(--base-font);
+                    }
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         display: flex;
         flex-direction: column;

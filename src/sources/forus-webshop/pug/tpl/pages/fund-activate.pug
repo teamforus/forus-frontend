@@ -55,8 +55,7 @@ main(id="main-content")
                         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
                         .sign_up-option-details
                             .sign_up-option-title Ik wil een tegoed aanvragen
-                            .sign_up-option-description Doorloop het aanvraagformulier om een tegoed aan te vragen
-
+                            .sign_up-option-description Doorloop het aanvraagformulier om een tegoed aan te vragen        
         //- Activation code
         .sign_up-pane(ng-if="$ctrl.state == 'code'")
             .sign_up-pane-header
@@ -273,3 +272,8 @@ main(id="main-content")
                         i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
                         i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
                 span(translate="fund_request.sign_up.pane.fund_already_applied")
+
+        //- 2FA warning block
+        div(ng-if="$ctrl.state == 'select'")
+            br
+            block-card-2-f-a-warning(fund="$ctrl.fund" expand-button-pos="bottom")            
