@@ -1,5 +1,5 @@
 .organization-item
-    .organization-pane(aria-expanded="{{ $dir.provider.showOffices }}" ng-class="$dir.provider.showOffices ? 'active' : ''")
+    .organization-pane(ng-class="$dir.provider.showOffices ? 'active' : ''")
         .organization-pane-info(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()" role="link")
             .organization-logo(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()")
                 img(
@@ -13,7 +13,7 @@
                     span Open aanbieder
                     em.mdi.mdi-chevron-right         
 
-        .organization-pane-collapse(ng-click="$dir.toggleOffices($event)" role="button")
+        .organization-pane-collapse(aria-expanded="{{ $dir.provider.showOffices }}" ng-click="$dir.toggleOffices($event)" role="button")
             .organization-chevron
                 .mdi(ng-class="'mdi-chevron-' + ($dir.provider.showOffices ? 'up' : 'down')")
             .organization-total-offices Toon locaties
