@@ -3,11 +3,23 @@ const TopNavbarDirective = function (
     $scope,
     $filter,
     appConfigs,
+    $rootScope,
     ModalService,
     ConfigService
 ) {
     const $dir = $scope.$dir;
     const $i18n = $filter('i18n');
+
+    const updateScrolled = function () {
+        const currentOffsetY = window.pageYOffset;
+
+        $dir.visible = ($dir.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
+        $dir.prevOffsetY = currentOffsetY;
+    };
+
+    const onResize = () => {
+        $rootScope.showSearchBox = window.innerWidth >= 1000;
+    };
 
     $dir.visible = false;
     $dir.prevOffsetY = false;
@@ -39,23 +51,20 @@ const TopNavbarDirective = function (
         $dir.userMenuOpened = false;
     }
 
-    const updateScrolled = function () {
-        const currentOffsetY = window.pageYOffset;
-
-        $dir.visible = ($dir.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
-        $dir.prevOffsetY = currentOffsetY;
-    };
-
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
+        window.addEventListener('resize', onResize);
+
         $dir.logoExtension = ConfigService.getFlag('logoExtension');
 
         // Organization logo alternative text
         $dir.orgLogoAltText = $i18n(`logo_alt_text.${appConfigs.client_key}`, {}, appConfigs.client_key);
+        onResize();
     };
 
     $dir.$onDestroy = () => {
         window.removeEventListener('scroll', updateScrolled);
+        window.removeEventListener('resize', onResize);
     };
 };
 
@@ -74,6 +83,7 @@ module.exports = () => {
             '$scope',
             '$filter',
             'appConfigs',
+            '$rootScope',
             'ModalService',
             'ConfigService',
             TopNavbarDirective,

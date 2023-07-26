@@ -131,8 +131,26 @@
         }
 
         @media screen and (max-width: 1000px) {
-            .block-subnav .subnav-inner .block-navbar-search {
-                margin: 0 10px !important;
+            .block-subnav {
+                .subnav-inner {
+                    .block-navbar-search {
+                        margin: 0 !important;
+
+                        .search-form {
+                            .search-result {
+                                .search-result-sidebar {
+                                    background-color: #fff;
+
+                                    .search-result-sidebar-item {
+                                        &.active {
+                                            color: #fff;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
