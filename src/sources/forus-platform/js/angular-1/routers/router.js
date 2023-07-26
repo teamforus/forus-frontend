@@ -309,7 +309,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     // Organization providers
     $stateProvider.state({
         name: "sponsor-provider-organizations",
-        url: "/organizations/{organization_id}/providers",
+        url: [
+            "/organizations/{organization_id}/providers?",
+            "{q:string}&{order_by:string}&{fund_id:int}&{allow_budget:string}&",
+            "{allow_products:string}&{has_products:string}",
+        ].join(''),
+        params: {
+            q: routeParam(''),
+            order_by: routeParam('application_date'),
+            fund_id: routeParam(null),
+            allow_budget: routeParam(''),
+            allow_products: routeParam(''),
+            has_products: routeParam(''),
+        },
         component: "sponsorProviderOrganizationsComponent",
         resolve: {
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
@@ -323,6 +335,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$, FundUnsubscribeService,
             ) => repackResponse(FundUnsubscribeService.listSponsor($transition$.params().organization_id, {
                 per_page: 1000
+            }))],
+            providerOrganizations: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService,
+            ) => repackPagination(OrganizationService.providerOrganizations($transition$.params().organization_id, {
+                ...pick($transition$.params(), [
+                    'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products',
+                ]),
             }))],
         }
     });
