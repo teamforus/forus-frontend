@@ -146,4 +146,31 @@
             border-bottom: none;
         }
     }
+
+    @media screen and (max-width: 1000px) {
+        .session-item {
+            .session-details {
+                .session-title {
+                    @media screen and (max-width: 1000px) {
+                        font: 600 13px/20px var(--base-font);
+                        
+                        span {
+                            display: block;
+                        }
+    
+                        .text-separator {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .session-label {
+                .label {
+                    font-size: 11px;
+                    padding: 2px 5px;
+                }
+            }
+        }
+    }
 }

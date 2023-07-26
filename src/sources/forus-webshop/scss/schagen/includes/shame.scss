@@ -98,6 +98,18 @@
                 }
             }
         }
+
+        &.block-showcase {
+            .showcase-wrapper {
+                .showcase-layout {
+                    .showcase-aside {
+                        .showcase-aside-block {
+                            padding-left: 20px;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     &.block-products {

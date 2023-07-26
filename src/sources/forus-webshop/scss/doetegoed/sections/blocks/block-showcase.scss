@@ -85,4 +85,18 @@
             }
         }
     }
+
+    @media screen and (max-width: 1000px) {
+        &.block-showcase:not(.block-showcase-fullscreen) {
+            .showcase-wrapper {
+                .showcase-layout {
+                    .showcase-aside {
+                        .showcase-aside-block {
+                            padding: 10px 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

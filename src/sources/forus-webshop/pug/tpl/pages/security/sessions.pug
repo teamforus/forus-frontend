@@ -40,7 +40,7 @@ section.section.section-voucher-details: .wrapper
                                     span(ng-if="session.last_request.client_type == 'app-me_app-ios'") Me-app
                                     span(ng-if="session.last_request.client_type == 'me_app-android'") Me-app 
                                     span(ng-if="session.last_request.client_type == 'me_app-ios'") Me-app 
-                                    span(ng-if="session.last_request.device_string").text-primary • 
+                                    span(ng-if="session.last_request.device_string").text-primary.text-separator • 
                                     span(ng-if="session.last_request.device_string" ng-bind="session.last_request.device_string")
                                 
                                 .session-properties

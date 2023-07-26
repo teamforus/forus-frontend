@@ -452,7 +452,6 @@
             margin: 0 -20px;
             display: flex;
             flex-direction: row;
-            border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 5px;
             z-index: 3;
@@ -478,7 +477,10 @@
                 font: 700 14px/30px var(--base-font);
                 color: #2b333b;
                 flex-grow: 1;
-                padding: 10px 0;
+                padding: 10px 5px 10px 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
 
             .mobile-filters-icon {
@@ -564,8 +566,18 @@
                             .label-tab {
                                 flex-grow: 1;
                             }
+
+                            &.block-label-tabs-sm {
+                                width: auto;
+                                margin-right: 0;
+                                margin-left: auto;
+                            }
                         }
                     }
+                }
+
+                .block.block.block-google-map {
+                    margin-bottom: 40px;
                 }
             }
         }
