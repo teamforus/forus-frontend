@@ -72,7 +72,7 @@ const BaseController = function (
 
             $state.go($state.current.name, {
                 organization_id: $rootScope.activeOrganization.id
-            });
+            }, {inherit: false});
         }
     };
 
