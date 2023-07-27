@@ -24,6 +24,9 @@ head
 
     if (qdt_c.platform.env_data.matomo_site_id)
         include matomo
+
+    if (qdt_c.platform.env_data.analytics_id)
+        include analytics
     
     if (qdt_c.platform.env_data.html5ModeEnabled)
         base(href=qdt_c.platform.env_data.html5Mode.basePath)
