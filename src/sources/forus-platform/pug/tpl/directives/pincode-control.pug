@@ -1,16 +1,21 @@
 .block.block-pincode
-    input(
-        type="{{ type }}" 
-        autocorrect="disabled" 
-        autocomplete="off" 
-        autocapitalize="off" 
-        spellcheck="false").hidden-input
-
-    .pincode-number(
-        ng-repeat="code in chars track by $index" 
-        ng-class=`{
-            'pincode-number-divider': code=='split', 
-            'pincode-number-block-end': (chars.length - 1 == $index) || chars[$index + 1] == 'split', 
-            'pincode-number-block-start': ($index == 0) || chars[$index - 1] == 'split',
-            'active': code=='active'}`
-        ng-bind="code != 'split' ? (code != 'active' ? code : '_') : ''" )
+    //- (ng-click="$dir.getInputs()[$dir.cursor].focus()")
+    div(ng-repeat="charChunk in $dir.charChunks track by $index").flex
+        div: input(
+            id="char_{{ $dir.chars.indexOf(char) }}"
+            ng-repeat="char in charChunk track by $index"
+            type="{{ $dir.type }}" 
+            placeholder='_'
+            autocorrect="disabled" 
+            autocomplete="off" 
+            autocapitalize="off" 
+            ng-disabled="$dir.chars.indexOf(char) < $dir.immutableSize"
+            ng-focus="$dir.onFocus($event)"
+            ng-blur="$dir.onBlur($event)"
+            ng-change="$dir.onChange(char)"
+            ng-click="$dir.onClick($event, char)"
+            ng-keydown="$dir.onKeyDown($event, char)"
+            ng-model="char.val"
+            spellcheck="false").pincode-number
+        
+        .pincode-number.pincode-number-divider(ng-if="$index < ($dir.charChunks.length - 1)")
