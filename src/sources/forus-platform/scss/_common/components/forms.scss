@@ -281,6 +281,8 @@
                 border-bottom-left-radius: 0;
                 border-left: none;
                 box-shadow: none;
+                height: 100%;
+                align-items: center;
 
                 &:hover, &.active {
                     .mdi {

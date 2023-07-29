@@ -36,9 +36,11 @@
         width: 1200px;
         max-width: 100%;
         border-radius: var(--border-radius);
-        display: inline-block;
         min-height: 100px;
         margin: 0 auto;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
 
         .modal-section {
             padding: 30px;@include cf();
@@ -171,12 +173,15 @@
         max-height: 100%;
         background: #fefefe;
         min-height: 100px;
-        overflow: hidden;
         margin: 0 auto;
         border-radius: var(--border-radius);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        overflow: auto;
+
+        @include webkit_scrollbar();
 
         .modal-section {
+            overflow: hidden;
             padding: 30px;
 
             .modal-footer {

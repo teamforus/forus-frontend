@@ -219,6 +219,7 @@ app.service('ProductReservationsExportService', require('./services/ProductReser
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 app.service('ClipboardService', require('./services/ClipboardService'));
+app.service('OrganizationReservationFieldService', require('./services/OrganizationReservationFieldService'));
 
 // Directives
 app.directive('menu', {
@@ -293,6 +294,7 @@ app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirect
 app.directive('fundRequestRecordAttachments', require('./directives/FundRequestRecordAttachmentsDirective'));
 app.directive('fundRequestRecordClarifications', require('./directives/FundRequestRecordClarificationsDirective'));
 app.directive('fundRequestRecordHistory', require('./directives/FundRequestRecordHistoryDirective'));
+app.directive('reservationFieldsEditor', require('./directives/ReservationFieldsEditorDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 
