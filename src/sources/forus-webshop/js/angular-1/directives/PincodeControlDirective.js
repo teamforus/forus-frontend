@@ -1,6 +1,5 @@
 const { chunk } = require('lodash');
 
-
 const PincodeControl2Directive = function (
     $scope,
     $element,
@@ -110,7 +109,7 @@ const PincodeControl2Directive = function (
         const targetValue = $dir.getInput(index).value;
 
         const text = targetValue.substring(0).split('').map((item) => {
-            return isValid(item, $dir.valueType) ? item : '';
+            return isValid(item, $dir.blockInputType) ? item : '';
         }).join('');
 
         const newText =
@@ -143,8 +142,8 @@ const PincodeControl2Directive = function (
 
     $dir.$onInit = () => {
         $dir.ngModel = ($dir.ngModel || '').toString();
-        $dir.valueType = $dir.valueType || 'num';
-        $dir.type = $dir.valueType === 'num' ? 'tel' : 'text';
+        $dir.blockInputType = $dir.blockInputType || 'num';
+        $dir.type = $dir.blockInputType === 'num' ? 'tel' : 'text';
         $dir.blockSize = $dir.blockSize || 6;
         $dir.blockCount = $dir.blockCount || 1;
         $dir.totalSize = $dir.blockSize * $dir.blockCount;
@@ -168,7 +167,6 @@ module.exports = () => {
     return {
         scope: {
             ngModel: '=',
-            valueType: '@',
             blockSize: '@',
             blockCount: '@',
             blockInputType: '@',
