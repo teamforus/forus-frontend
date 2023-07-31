@@ -10,7 +10,7 @@ const minify = true;
 const sourcemap = true;
 const baseImplementationKey = 'general';
 const chatId = false;
-const analyticsId = false;
+const siteImproveAnalyticsId = false;
 const supportSupportId = false;
 const sessions = false;
 const google_maps_api_key = '';
@@ -135,7 +135,7 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             client_type: 'webshop',
             support_id: supportSupportId,
-            analytics_id: analyticsId,
+            site_improve_analytics_id: siteImproveAnalyticsId,
             matomo_site_id: false,
             provider_sign_up_filters: {},
             /* aws_rum: {
