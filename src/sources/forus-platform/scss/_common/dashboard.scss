@@ -64,6 +64,7 @@
     @import 'blocks/block-auth-2fa.scss';
     @import 'blocks/block-2fa-restriction.scss';
     @import 'blocks/block-info-box.scss';
+    @import 'blocks/block-bi-info.scss';
 }
 
 // Select controls
@@ -977,27 +978,27 @@ body {
             border-right: 1px solid #d4d9dd;
 
             &.card-col-1 {
-                width: (100% / 6) * 1;
+                width: calc(100% / 6) * 1;
             }
 
             &.card-col-2 {
-                width: (100% / 6) * 2;
+                width: calc(100% / 6) * 2;
             }
 
             &.card-col-3 {
-                width: (100% / 6) * 3;
+                width: calc(100% / 6) * 3;
             }
 
             &.card-col-4 {
-                width: (100% / 6) * 4;
+                width: calc(100% / 6) * 4;
             }
 
             &.card-col-5 {
-                width: (100% / 6) * 5;
+                width: calc(100% / 6) * 5;
             }
 
             &.card-col-6 {
-                width: (100% / 6) * 6;
+                width: calc(100% / 6) * 6;
             }
 
             &:last-child {
@@ -2210,7 +2211,7 @@ body {
     
                 &:before {
                     top: -11.5px;
-                    border-color: transparent transparent --border-color transparent;
+                    border-color: transparent transparent var(--border-color) transparent;
                 }
             }
         }
@@ -3407,7 +3408,7 @@ body {
             &:before {
                 transform: translate(0, -50%);
                 border-width: 8.5px 12px 8.5px 0;
-                border-color: transparent --border-color transparent transparent;
+                border-color: transparent var(--border-color) transparent transparent;
             }
 
             &.tooltip-content-left {
@@ -3455,7 +3456,7 @@ body {
                         height: 0px;
                         border-style: solid;
                         border-width: 0 10px 10px 10px;
-                        border-color: transparent transparent --border-color transparent;
+                        border-color: transparent transparent var(--border-color) transparent;
                         transform: rotate(0deg) translate(-50%);
                         z-index: 1;
                     }
@@ -3470,6 +3471,10 @@ body {
 
             &.tooltip-content-fit {
                 width: fit-content
+            }
+
+            &.tooltip-content-compact {
+                padding: 10px 15px;
             }
 
             &.tooltip-content-ghost {
@@ -5406,6 +5411,12 @@ body {
 
         .entity-title {
             font: 600 14px/20px var(--base-font);
+
+            .entity-title-icon-suffix {
+                display: inline-block;
+                color: #a1a1a1;
+                margin-left: 5px;
+            }
         }
 
         .entity-photo {
@@ -5426,9 +5437,7 @@ body {
             min-height: 100%;
             justify-content: center;
             justify-items: center;
-        }
-    
-        
+        }        
     }
 
     &.block-label-tabs {
@@ -5741,7 +5750,7 @@ body {
         }
 
         .invite-fund {
-            border: 1px solid --border-color-light;
+            border: 1px solid var(--border-color-light);
             background: #fff;
             border-radius: var(--border-radius);
             padding: 30px 40px 36px;
@@ -5754,7 +5763,7 @@ body {
                 .invite-fund-photo-img {
                     display: block;
                     width: 100px;
-                    border: 1px solid --border-color-light;
+                    border: 1px solid var(--border-color-light);
                     border-radius: var(--border-radius);
                 }
             }
@@ -5807,7 +5816,7 @@ body {
                 left: 0;
                 bottom: 0;
                 background: #fbfbfb;
-                border-top: 1px solid --border-color-light;
+                border-top: 1px solid var(--border-color-light);
                 border-bottom-left-radius: var(--border-radius);
                 border-bottom-right-radius: var(--border-radius);
             }
@@ -5815,7 +5824,7 @@ body {
 
         .block-auth-widget {
             background: #fff;
-            border: 1px solid --border-color-light;
+            border: 1px solid var(--border-color-light);
             border-radius: var(--border-radius);
             padding: 40px;
             max-width: 100%;

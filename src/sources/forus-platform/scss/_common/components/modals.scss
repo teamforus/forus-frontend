@@ -134,11 +134,11 @@
                     }
     
                     &.modal-section-column-2 {
-                        width: (100% / 3);
+                        width: calc(100% / 3);
                     }
     
                     &.modal-section-column-4 {
-                        width: ((100% / 3) * 2);
+                        width: (calc(100% / 3) * 2);
                     }
     
                     &.modal-section-column-6 {
@@ -434,7 +434,7 @@
         &.modal-description-pad {
             .description {
                 padding: 50px 0;
-                color: --color-primary !important;
+                color: var(--color-primary) !important;
             }
         }
     }

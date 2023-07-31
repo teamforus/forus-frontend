@@ -49,6 +49,14 @@ const ProductReservationService = function (
 
             return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/export`, data, {}, true, callback);
         };
+        
+        this.archive = function(organization_id, id) {
+            return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/${id}/archive`);
+        }
+
+        this.unarchive = function(organization_id, id) {
+            return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/${id}/unarchive`);
+        }
 
         this.sampleCsvProductReservations = (product_id = '') => {
             const headers = ['number', 'product_id'];
@@ -76,6 +84,28 @@ const ProductReservationService = function (
             ModalService.open("dangerZone", {
                 title: "Weet u zeker dat u de betaling wilt annuleren?",
                 description_text: "Wanneer u de betaling annuleert wordt u niet meer uitbetaald.",
+                cancelButton: "Annuleren",
+                confirmButton: "Bevestigen",
+                onConfirm,
+            });
+        };
+
+        this.confirmArchive = (reservation, onConfirm) => {
+            ModalService.open("dangerZone", {
+                description_title: "Reservering archiveren",
+                description_text: `De reservering voor het aanbod ${reservation.product.name} wordt gearchiveerd.`,
+                text_align: 'center',
+                cancelButton: "Annuleren",
+                confirmButton: "Bevestigen",
+                onConfirm,
+            });
+        };
+
+        this.confirmUnarchive = (reservation, onConfirm) => {
+            ModalService.open("dangerZone", {
+                description_title: "Reservering uit het archief halen",
+                description_text: `De reservering voor het aanbod ${reservation.product.name} wordt uit het archief gehaald`,
+                text_align: 'center',
                 cancelButton: "Annuleren",
                 confirmButton: "Bevestigen",
                 onConfirm,

@@ -78,6 +78,7 @@ module.exports = {
             remove_voucher_record: require('./nl/modals/danger-zone/remove-voucher-record'),
             remove_implementation_social_media: require('./nl/modals/danger-zone/remove-implementation-social-media'),
             remove_reimbursement_category: require('./nl/modals/danger-zone/remove_reimbursement_category'),
+            recreate_bi_connection: require('./nl/modals/danger-zone/recreate-bi-connection'),
         },
     },
     // PAGES
@@ -93,6 +94,7 @@ module.exports = {
     financial_dashboard_transaction: require('./nl/pages/transaction.pug.i18n'),
     provider_funds: require('./nl/pages/provider-funds.pug.i18n'),
     fund_unsubscriptions: require('./nl/pages/fund-unsubscriptions.pug.i18n'),
+    bi_connection: require('./nl/pages/bi-connection.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -493,12 +495,13 @@ module.exports = {
         labels: {
             name: "Naam",
             description_short: "Korte omschrijving",
+            description_position: "Positie van de content",
             description: "Omschrijving",
             products: "Aanbod",
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens €",
+            notification_amount: "Herinnering aanvullen budget €",
             application_method: "Aanvraagmethode",
             request_btn_text: "Knoptekst aanvragen",
             external_link_text: "Externe linktekst",
@@ -1295,8 +1298,8 @@ module.exports = {
             actions: "Opties",
             email: "E-mailadres",
             expired_at: "Verlopen op",
-            first_name: "Naam",
-            last_name: "Voornamen",
+            first_name: "Voornaam",
+            last_name: "Achternaam",
             price: "Bedrag",
             sponsor_organization: "Sponsor",
             product: "Aanbod",

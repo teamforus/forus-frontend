@@ -22,6 +22,12 @@ const SignUpStartComponent = function (
 
     $ctrl.hasPrivacy = false;
 
+    $ctrl.togglePrivacy = ($event) => {
+        if ($event?.key == 'Enter') {
+            $ctrl.authForm.values.privacy = !$ctrl.authForm.values.privacy;
+        }
+    }
+
     $ctrl.onSignedIn = () => {
         const { redirect_scope } = $state.params;
 

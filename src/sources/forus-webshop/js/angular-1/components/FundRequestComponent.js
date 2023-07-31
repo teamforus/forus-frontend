@@ -312,6 +312,12 @@ const FundRequestComponent = function (
         }, timeBeforeReConfirmation * 1000);
     };
 
+    $ctrl.togglePrivacy = ($event) => {
+        if ($event?.key == 'Enter') {
+            $ctrl.emailForm.values.privacy = !$ctrl.emailForm.values.privacy;
+        }
+    }
+
     $ctrl.$onInit = function () {
         // The user has to sign-in first
         if (!$ctrl.identity) {

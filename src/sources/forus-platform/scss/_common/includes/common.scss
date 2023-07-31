@@ -136,7 +136,7 @@ img {
 }
 
 .text-primary-mid {
-    color: --base-color !important;
+    color: var(--base-color) !important;
 }
 
 .text-primary-light {
@@ -1452,4 +1452,8 @@ img {
 
 .relative {
     position: relative;
+}
+
+.invisible {
+    visibility: hidden;
 }

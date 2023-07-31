@@ -14,8 +14,9 @@
         block-provider-organization-overview(
             organization="$ctrl.fundProvider.organization" 
             fund-provider="$ctrl.fundProvider" 
-            update-fund-provider-state="$ctrl.updateFundProviderState" 
-            update-fund-provider-allow="$ctrl.updateFundProviderAllow")
+            update-fund-provider-state="$ctrl.updateFundProviderState"
+            update-fund-provider-allow="$ctrl.updateFundProviderAllow"
+            update-fund-provider-excluded="$ctrl.updateFundProviderExcluded")
 
         //- Products for subsidy fund (managed by sponsor)
         .card(ng-if="$ctrl.organization.manage_provider_products && $ctrl.fundProvider.fund.type == 'subsidies'")
