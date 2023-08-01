@@ -594,9 +594,12 @@
     }
 
     @media screen and (max-width: 767px) {
+        .modal-window {
+            max-height: 100vh;
+        }
+
         .modal-content {
             .button{
-
                 &:last-child{
                     margin-bottom: 0;
                 }

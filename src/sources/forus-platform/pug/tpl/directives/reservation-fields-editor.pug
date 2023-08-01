@@ -1,5 +1,7 @@
 .block.block-faq-editor
-    .question-wrapper(ng-sortable="$dir.sortable"): .question-item(ng-repeat="field in $dir.fields")
+    div(ng-if="$dir.fields.length > 0"): .question-wrapper(
+        ng-sortable="$dir.sortable"): .question-item(ng-repeat="field in $dir.fields")
+
         .question-header
             em.mdi.mdi-dots-vertical.question-drag
 
@@ -38,6 +40,7 @@
 
         //- Form
         .question-body(ng-if="field.collapsed"): .form
+            //- Label
             .form-group
                 label.form-label.form-label-required(translate="reservation_settings.labels.label")
 
@@ -49,11 +52,11 @@
                             placeholder="{{ 'reservation_settings.labels.label' | translate }}").form-control
 
                     .form-group-info-button: .button.button-default.button-icon.pull-left(
-                        ng-click="$dir.infoBlocks[$index].label = !$dir.infoBlocks[$index].label"
-                        ng-class="{active: $dir.infoBlocks[$index].label}")
+                        ng-click="$dir.infoBlocks[$index + '_label'] = !$dir.infoBlocks[$index + '_label']"
+                        ng-class="{active: $dir.infoBlocks[$index + '_label']}")
                         em.mdi.mdi-information
 
-                .block.block-info-box.block-info-box-primary(ng-if="$dir.infoBlocks[$index].label")
+                .block.block-info-box.block-info-box-primary(ng-if="$dir.infoBlocks[$index + '_label']")
                     .info-box-icon.mdi.mdi-information
 
                     .info-box-content: .block.block-markdown
@@ -65,6 +68,34 @@
                 .form-hint Max. 200 tekens
                 .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.label']" ng-bind="error")
 
+            //- Description
+            .form-group
+                label.form-label(translate="reservation_settings.labels.description")
+
+                .form-group-info
+                    .form-group-info-control
+                        textarea(
+                            ng-model="field.description"
+                            placeholder="{{ 'reservation_settings.labels.description' | translate }}").form-control.r-n
+
+                    .form-group-info-button: .button.button-default.button-icon.pull-left(
+                        ng-click="$dir.infoBlocks[$index + '_description'] = !$dir.infoBlocks[$index + '_description']"
+                        ng-class="{active: $dir.infoBlocks[$index + '_description']}")
+                        em.mdi.mdi-information
+
+                .block.block-info-box.block-info-box-primary(ng-if="$dir.infoBlocks[$index + '_description']")
+                    .info-box-icon.mdi.mdi-information
+
+                    .info-box-content: .block.block-markdown
+                        h4 Kies de juiste instelling
+                        p
+                            | Vul bij de header bovenstaande naam en sleutelcode in
+                            | Voor het instellen van de token  zijn er twee opties:
+
+                .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.description']" ng-bind="error")
+                .form-hint Max. 1000 tekens
+
+            //- Type
             .form-group
                 label.form-label.form-label-required(translate="reservation_settings.labels.type")
 
@@ -77,11 +108,11 @@
                             options="$dir.types").form-control
 
                     .form-group-info-button: .button.button-default.button-icon.pull-left(
-                        ng-click="$dir.infoBlocks[$index].type = !$dir.infoBlocks[$index].type"
-                        ng-class="{active: $dir.infoBlocks[$index].type}")
+                        ng-click="$dir.infoBlocks[$index + '_type'] = !$dir.infoBlocks[$index + '_type']"
+                        ng-class="{active: $dir.infoBlocks[$index + '_type']}")
                         em.mdi.mdi-information
 
-                .block.block-info-box.block-info-box-primary(ng-if="$dir.infoBlocks[$index].type")
+                .block.block-info-box.block-info-box-primary(ng-if="$dir.infoBlocks[$index + '_type']")
                     .info-box-icon.mdi.mdi-information
 
                     .info-box-content: .block.block-markdown
@@ -92,30 +123,7 @@
 
                 .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.type']" ng-bind="error")
 
-            .form-group
-                label.form-label(translate="reservation_settings.labels.description")
-
-                .form-group-info
-                    .form-group-info-control
-                        textarea(ng-model="field.description").form-control.r-n
-
-                    .form-group-info-button: .button.button-default.button-icon.pull-left(
-                        ng-click="$dir.infoBlocks[$index].description = !$dir.infoBlocks[$index].description"
-                        ng-class="{active: $dir.infoBlocks[$index].description}")
-                        em.mdi.mdi-information
-
-                .block.block-info-box.block-info-box-primary(ng-if="$dir.infoBlocks[$index].description")
-                    .info-box-icon.mdi.mdi-information
-
-                    .info-box-content: .block.block-markdown
-                        h4 Kies de juiste instelling
-                        p
-                            | Vul bij de header bovenstaande naam en sleutelcode in
-                            | Voor het instellen van de token  zijn er twee opties:
-
-                .form-hint Max. 1000 tekens
-                .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.description']" ng-bind="error")
-
+            //- Required
             .form-group
                 label(for='required_{{ $index }}').checkbox.checkbox-narrow
                     input(
@@ -128,6 +136,8 @@
 
     //- Actions
     .faq-editor-actions
-        .button.button-primary(ng-click="$dir.addField()")
+        button(type="button" ng-disabled="$dir.fields.length >= 10" ng-click="$dir.addField()").button.button-primary
             em.mdi.mdi-plus-circle.icon-start
             translate(translate="reservation_settings.buttons.add_field")
+
+    .form-error(ng-repeat="error in $dir.errors['fields']" ng-bind="error")

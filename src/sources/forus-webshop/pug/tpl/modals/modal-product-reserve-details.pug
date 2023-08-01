@@ -54,7 +54,7 @@
                 //- Full name
                 .row
                     //- First name
-                    .col.col-lg-6.form-group
+                    .col.col-lg-6.form-group.form-group-margin
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.first_name")
                         input(
                             type="text"
@@ -64,7 +64,7 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.first_name" ng-bind="error")
 
                     //- Last name
-                    .col.col-lg-6.form-group
+                    .col.col-lg-6.form-group.form-group-margin
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.last_name")
                         input(
                             type="text"
@@ -75,34 +75,31 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
 
                 .row
-                    .form-group.col(
+                    .form-group.form-group-margin(
                         ng-repeat="field in $ctrl.fields"
-                        ng-class="field.class + ' col-lg-' + (($ctrl.lastField === field.key && $ctrl.haveFullWidth) ? '12' : '6')")
+                        ng-class="'col col-lg-' + (field.fullWidth ? '12' : '6')")
                         .form-label(ng-bind="field.label")
 
-                        .form-group-info(ng-if="field.custom && field.description")
-                            .form-group-info-control
-                                input.form-control(
-                                    ng-if="field.custom && ['text', 'number'].includes(field.type)"
-                                    type="{{ field.type }}"
-                                    ng-model="$ctrl.form.values.custom_fields[field.key]"
-                                    placeholder="{{ field.placeholder }}")
+                        //- custom field
+                        .form-group-info(ng-if="field.custom" ng-class="field.showInfo ? 'active' : ''")
+                            .form-group-info-control: input.form-control(
+                                ng-if="['text', 'number'].includes(field.type)"
+                                type="{{ field.type }}"
+                                ng-model="$ctrl.form.values.custom_fields[field.key]"
+                                placeholder="{{ field.placeholder }}"
+                                dusk="{{ field.dusk }}")
 
-                            .form-group-info-button: .button.button-icon.pull-left
-                                em.mdi.mdi-information
+                            .form-group-info-button(
+                                ng-click="field.showInfo = !field.showInfo; $event.stopPropagation()"
+                                ng-if="field.description"): em.mdi.mdi-information
 
-                            .block.block-info-box.block-info-box-primary(ng-if="field.custom")
+                            .block.block-info-box.block-info-box-primary(
+                                ng-if="field.description" 
+                                click-outside="field.showInfo = false")
                                 .info-box-icon.mdi.mdi-information-outline
+                                .info-box-content: .block.block-markdown: p(ng-bind="field.description")
 
-                                .info-box-content: .block.block-markdown
-                                    p(ng-bind="field.description")
-
-                        input.form-control(
-                            ng-if="field.custom && !field.description && ['text', 'number'].includes(field.type)"
-                            type="{{ field.type }}"
-                            ng-model="$ctrl.form.values.custom_fields[field.key]"
-                            placeholder="{{ field.placeholder }}")
-
+                        //- default field
                         input.form-control(
                             ng-if="!field.custom && ['text', 'number'].includes(field.type)"
                             type="{{ field.type }}"
@@ -110,6 +107,7 @@
                             placeholder="{{ field.placeholder }}"
                             dusk="{{ field.dusk }}")
 
+                        //- default field (datepicker)
                         datepicker(
                             ng-if="!field.custom && field.type === 'date'"
                             date-format="yyyy-MM-dd"

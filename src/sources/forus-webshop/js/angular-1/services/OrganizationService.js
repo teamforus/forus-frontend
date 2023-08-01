@@ -11,6 +11,10 @@ const OrganizationService = function (ApiRequest, HelperService) {
         this.read = function (id) {
             return ApiRequest.get(`/platform/organizations/${id}`);
         }
+
+        this.reservationFields = function(id, query = {}) {
+            return ApiRequest.get(`/platform/organizations/${id}/reservation-fields`, query);
+        };
     });
 };
 

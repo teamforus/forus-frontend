@@ -263,7 +263,6 @@
     .form-group-info {
         display: flex;
         flex-direction: row;
-        margin-bottom: 10px;
 
         .form-group-info-control {
             display: flex;
@@ -294,6 +293,10 @@
 
         &:last-child {
             margin-bottom: 0;
+        }
+
+        &+.block-info-box {
+            margin-top: 10px;
         }
     }
 

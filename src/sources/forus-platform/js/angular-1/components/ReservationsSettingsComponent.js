@@ -1,13 +1,12 @@
 const ReservationsSettingsComponent = function (
-    $state,
     FormBuilderService,
     OrganizationService,
     PushNotificationsService,
-    OrganizationReservationFieldService,
 ) {
     const $ctrl = this;
-    $ctrl.fieldsErrors = null;
+
     $ctrl.fields = [];
+    $ctrl.fieldsErrors = null;
 
     $ctrl.reservationFieldOptions = [{
         value: "no",
@@ -20,33 +19,30 @@ const ReservationsSettingsComponent = function (
         label: "Verplicht",
     }];
 
-    const buildForm = () => {
+    const buildForm = (fields = []) => {
         $ctrl.form = FormBuilderService.build({
+            fields,
             reservation_phone: $ctrl.organization.reservation_phone,
             reservation_address: $ctrl.organization.reservation_address,
             reservation_birth_date: $ctrl.organization.reservation_birth_date,
-            fields: $ctrl.fields
         }, (form) => {
             OrganizationService.updateReservationFields($ctrl.organization.id, form.values).then(() => {
                 PushNotificationsService.success('Opgeslagen!');
                 loadFieldsAndForm();
-                $ctrl.fieldsErrors = null;
+                form.errors = null;
             }, (res) => {
                 form.errors = res.data.errors;
-                $ctrl.fieldsErrors = res.data.errors;
-
-                form.unlock();
                 PushNotificationsService.danger('Error!', res.data.message);
-            });
-        });
+            }).finally(() => form.unlock());
+        }, true);
     }
 
     const loadFieldsAndForm = () => {
         if ($ctrl.organization.allow_reservation_custom_fields) {
-            OrganizationReservationFieldService.list($ctrl.organization.id).then((res) => {
-                $ctrl.fields = res.data.data;
-                buildForm();
-            });
+            OrganizationService.reservationFields($ctrl.organization.id).then(
+                (res) => buildForm(res.data.data),
+                (res) => PushNotificationsService.danger('Error!', res.data.message)
+            );
         } else {
             buildForm();
         }
@@ -62,11 +58,9 @@ module.exports = {
         organization: '<',
     },
     controller: [
-        '$state',
         'FormBuilderService',
         'OrganizationService',
         'PushNotificationsService',
-        'OrganizationReservationFieldService',
         ReservationsSettingsComponent,
     ],
     templateUrl: 'assets/tpl/pages/reservations-settings.html',

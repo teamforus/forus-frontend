@@ -96,7 +96,7 @@ module.exports = {
     provider_funds: require('./nl/pages/provider-funds.pug.i18n'),
     fund_unsubscriptions: require('./nl/pages/fund-unsubscriptions.pug.i18n'),
     bi_connection: require('./nl/pages/bi-connection.pug.i18n'),
-    reservation_settings: require('./nl/pages/reservation-settings.pug.i18n'),
+    reservation_settings: require('./nl/pages/reservations-settings.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 

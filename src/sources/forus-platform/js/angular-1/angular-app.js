@@ -219,7 +219,6 @@ app.service('ProductReservationsExportService', require('./services/ProductReser
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 app.service('ClipboardService', require('./services/ClipboardService'));
-app.service('OrganizationReservationFieldService', require('./services/OrganizationReservationFieldService'));
 
 // Directives
 app.directive('menu', {

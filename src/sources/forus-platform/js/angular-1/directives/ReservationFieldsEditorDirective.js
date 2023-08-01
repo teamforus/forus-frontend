@@ -1,17 +1,14 @@
 const uniq = require('lodash/uniq');
 
 const ReservationFieldsEditorDirective = function(
-    $q,
     $scope,
     $filter,
-    FaqService,
     ModalService,
 ) {
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
     const $translateDangerZone = (key) => $translate('modals.danger_zone.remove_reservation_field.' + key);
 
-    $dir.infoBlocks = [];
     $dir.types = [{
         key: 'text',
         name: 'Text'
@@ -21,6 +18,7 @@ const ReservationFieldsEditorDirective = function(
     }];
 
     $dir.collapsed = false;
+    $dir.infoBlocks = {};
     
     $dir.sortable = {
         sort: true,
@@ -47,19 +45,10 @@ const ReservationFieldsEditorDirective = function(
             collapsed: true,
             description: '',
         });
-
-        $dir.infoBlocks[$dir.fields.length - 1] = {
-            label: false,
-            type: false,
-            description: false,
-        };
     };
 
     $dir.removeField = (index) => {
-        $dir.askConfirmation(() => {
-            $dir.fields.splice(index, 1);
-            $dir.infoBlocks.splice(index, 1);
-        });
+        $dir.askConfirmation(() => $dir.fields.splice(index, 1));
     };
 
     $dir.expandById = (index) => {
@@ -78,18 +67,7 @@ const ReservationFieldsEditorDirective = function(
         }
     }
 
-    const fillInfoFlags = () => {
-        $dir.fields.forEach((el, index) => {
-            $dir.infoBlocks[index] = {
-                label: false,
-                type: false,
-                description: false,
-            };
-        })
-    }
-
     $dir.$onInit = function() {
-        fillInfoFlags();
         $scope.$watch('$dir.errors', expandErrors);
     };
 };
@@ -106,10 +84,8 @@ module.exports = () => {
         restrict: "EA",
         replace: true,
         controller: [
-            '$q',
             '$scope',
             '$filter',
-            'FaqService',
             'ModalService',
             ReservationFieldsEditorDirective
         ],
