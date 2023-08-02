@@ -11,10 +11,10 @@ const ReservationFieldsEditorDirective = function(
 
     $dir.types = [{
         key: 'text',
-        name: 'Text'
+        name: 'Tekst'
     }, {
         key: 'number',
-        name: 'Number'
+        name: 'Nummer'
     }];
 
     $dir.collapsed = false;

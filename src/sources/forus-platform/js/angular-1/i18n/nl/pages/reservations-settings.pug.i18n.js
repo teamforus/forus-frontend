@@ -3,11 +3,11 @@ module.exports = {
         title: "Reservering instellingen",
     },
     labels: {
-        fields: "Custom fields",
+        fields: "Aangepast veld",
         label: "Label",
         type: "Type",
-        description: "Description",
-        required: "Required",
+        description: "Beschrijving",
+        required: "Verplicht",
         phone: "Telefoonnummer instellingen",
         address: "Adres instellingen",
         birth_date: "Geboortedatum instellingen",
@@ -18,6 +18,6 @@ module.exports = {
         expand: "Uitklappen",
         collapse: "Inklappen",
         delete: "Verwijderen",
-        add_field: "Add field"
+        add_field: "Veld toevoegen"
     },
 };

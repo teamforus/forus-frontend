@@ -9,12 +9,12 @@
                 //- Expanded title
                 span(
                     ng-if="field.collapsed"
-                    ng-bind="!field.id ? 'New field' : 'Edit field'")
+                    ng-bind="!field.id ? 'Nieuw veld' : 'Edit field'")
 
                 //- Collapsed title
                 span(
                     ng-if="!field.collapsed"
-                    ng-bind="field.label || 'No label'")
+                    ng-bind="field.label || 'Geen label'")
 
             //- Actions
             .question-actions
@@ -60,10 +60,10 @@
                     .info-box-icon.mdi.mdi-information
 
                     .info-box-content: .block.block-markdown
-                        h4 Kies de juiste instelling
+                        h4 Voeg een juist label toe
                         p
-                            | Vul bij de header bovenstaande naam en sleutelcode in
-                            | Voor het instellen van de token  zijn er twee opties:
+                            | Vul voor het label een passende tekst toe.
+                            | Het label geeft aan om wat voor een reservering het gaat.
 
                 .form-hint Max. 200 tekens
                 .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.label']" ng-bind="error")
@@ -87,10 +87,10 @@
                     .info-box-icon.mdi.mdi-information
 
                     .info-box-content: .block.block-markdown
-                        h4 Kies de juiste instelling
+                        h4 Voeg een beschrijving toe
                         p
-                            | Vul bij de header bovenstaande naam en sleutelcode in
-                            | Voor het instellen van de token  zijn er twee opties:
+                            | Geef in de beschrijving aan wat dient te worden 
+                            | ingevuld tijdens het maken van een reservering.
 
                 .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.description']" ng-bind="error")
                 .form-hint Max. 1000 tekens
@@ -118,8 +118,8 @@
                     .info-box-content: .block.block-markdown
                         h4 Kies de juiste instelling
                         p
-                            | Vul bij de header bovenstaande naam en sleutelcode in
-                            | Voor het instellen van de token  zijn er twee opties:
+                            | Geef aan of het om een tekstveld gaat of
+                            | dat er een nummer dient te worden ingevuld.
 
                 .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.type']" ng-bind="error")
 
