@@ -56,7 +56,6 @@
 'sections/blocks/funds.scss',
 'sections/blocks/map.scss',
 'sections/blocks/phone-number.scss',
-'sections/blocks/pincode.scss',
 'sections/blocks/product.scss',
 'sections/blocks/products.scss',
 'sections/blocks/profile.scss',
@@ -126,6 +125,7 @@
     @import 'sections/blocks/block-2fa-restriction.scss';
     @import 'sections/blocks/block-app_download.scss';
     @import 'sections/blocks/block-info-box.scss';
+    @import 'sections/blocks/block-pincode.scss';
 }
 
 .modal {

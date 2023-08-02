@@ -1,6 +1,6 @@
 .block.block-pincode(ng-click="$dir.getInputs()[$dir.cursor].focus()")
     div(ng-repeat="charChunk in $dir.charChunks track by $index").flex
-        div: input(
+        div.pincode-group: input(
             ng-repeat="char in charChunk track by $index"
             type="{{ $dir.type }}" 
             placeholder='_'
@@ -10,6 +10,7 @@
             ng-disabled="$dir.chars.indexOf(char) < $dir.immutableSize"
             ng-focus="$dir.onFocus($event)"
             ng-blur="$dir.onBlur($event)"
+            ng-paste="$dir.onPaste($event, char)"
             ng-change="$dir.onChange(char)"
             ng-click="$dir.onClick($event, char)"
             ng-keydown="$dir.onKeyDown($event, char)"

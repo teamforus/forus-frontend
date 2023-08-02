@@ -63,6 +63,10 @@ const PincodeControl2Directive = function (
         return $element.find('input')[index];
     };
 
+    $dir.clearString = (str, type) => {
+        return str.substring(0).split('').map((i) => isValid(i, type) ? i : '').join('');
+    };
+
     $dir.onFocus = (e) => {
         e.target.placeholder = '';
     };
@@ -74,15 +78,19 @@ const PincodeControl2Directive = function (
     $dir.onKeyDown = (e, char) => {
         const index = $dir.chars.indexOf(char);
         const arr = $dir.ngModel.split('');
-        const hasText = $dir.getInputs()[index].value.length > 0;
+        const input =  $dir.getInputs()[index];
+        const value = input.value;
+        const hasText = value.trim().length > 0;
 
-        if (e.key == 'Backspace') {
+        if (value == ' ') {
+            input.value = '';
+            return;
+        }
+
+        if ((e.key == 'Backspace' || e.key == 'Delete') && !hasText) {
             e.preventDefault();
             arr[index] = ' ';
-
-            if (!hasText) {
-                arr[index - 1] = ' ';
-            }
+            arr[index - 1] = ' ';
 
             setText(arr.join(''));
             setCursor(Math.max($dir.immutableSize, hasText ? index : index - 1));
@@ -98,27 +106,43 @@ const PincodeControl2Directive = function (
             setCursor(Math.min($dir.chars.length - 1, index + 1));
         }
 
-        if (e.currentTarget.value == e.key) {
+        if (e.currentTarget.value == e.key && hasText) {
             e.preventDefault();
             setCursor(Math.min($dir.chars.length - 1, index + 1));
         }
     }
 
-    $dir.onChange = (char) => {
-        const index = $dir.chars.indexOf(char);
-        const targetValue = $dir.getInput(index).value;
+    $dir.updateModel = (index, text) => {
+        const realIndex = text == '' ? Math.max(index - 1, 0) : index;
 
-        const text = targetValue.substring(0).split('').map((item) => {
-            return isValid(item, $dir.blockInputType) ? item : '';
-        }).join('');
-
-        const newText =
-            $dir.ngModel.substring(0, index).padEnd(index, ' ') +
-            text +
-            $dir.ngModel.substring(index + text.length, $dir.ngModel.length);
+        const newText = [
+            $dir.ngModel.substring(0, realIndex).padEnd(realIndex, ' '),
+            text,
+            $dir.ngModel.substring(realIndex + text.length, $dir.ngModel.length),
+        ].join('');
 
         setText(newText);
         setCursor(Math.min($dir.totalSize - 1, index + text.length));
+    };
+
+    $dir.onPaste = (e, char) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        const index = $dir.chars.indexOf(char);
+        const text = $dir.clearString(e?.clipboardData?.getData('text') || '', $dir.blockInputType);
+
+        $dir.updateModel(index, text)
+    }
+
+    $dir.onChange = (char) => {
+        const index = $dir.chars.indexOf(char);
+        const value = $dir.getInput(index).value;
+        const text = $dir.clearString(value.trim(), $dir.blockInputType);
+
+        if (value.trim()) {
+            return $dir.updateModel(index, text)
+        }
     };
 
     $dir.onClick = (e, char) => {
