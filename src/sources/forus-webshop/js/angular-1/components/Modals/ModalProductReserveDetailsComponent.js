@@ -1,14 +1,18 @@
-const ModalProductReserveDetailsComponent = function(
+const ModalProductReserveDetailsComponent = function (
     $state,
+    $filter,
     AuthService,
     FormBuilderService,
+    OrganizationService,
     IdentityEmailsService,
     PushNotificationsService,
     ProductReservationService,
 ) {
     const $ctrl = this;
-    
+    const $trans = (key) => $filter('translate')(`modal_product_reserve_notes.${key}`);
+
     $ctrl.dateMinLimit = new Date();
+    $ctrl.fields = [];
 
     // Initialize authorization form
     $ctrl.makeEmailForm = () => {
@@ -26,34 +30,6 @@ const ModalProductReserveDetailsComponent = function(
                 } : res.data.errors;
             }).finally(() => form.unlock());
         }, true);
-    };
-
-    $ctrl.$onInit = () => {
-        $ctrl.state = 'fill_notes';
-        $ctrl.emailSetupShow = false;
-        $ctrl.emailSubmitted = false;
-        $ctrl.emailShowForm = false;
-
-        $ctrl.product = $ctrl.modal.scope.product;
-        $ctrl.voucher = $ctrl.modal.scope.voucher;
-        $ctrl.provider = $ctrl.product.organization;
-
-        $ctrl.form = FormBuilderService.build({}, (form) => {
-            form.lock();
-
-            ProductReservationService.reserve({
-                ...form.values,
-                voucher_address: $ctrl.voucher.address,
-                product_id: $ctrl.product.id
-            }).then($ctrl.onReserved, $ctrl.onError);
-        });
-
-        AuthService.identity().then((res) => {
-            if (!res.data.email) {
-                $ctrl.emailSetupShow = true;
-                $ctrl.emailForm = $ctrl.makeEmailForm();
-            }
-        });
     };
 
     $ctrl.addEmail = () => {
@@ -76,7 +52,7 @@ const ModalProductReserveDetailsComponent = function(
         if (errors.product_id) {
             errors.product_id?.forEach((error) => PushNotificationsService.danger(error));
         }
-        
+
         if (!errors.product_id && message) {
             PushNotificationsService.danger(message);
         }
@@ -96,6 +72,71 @@ const ModalProductReserveDetailsComponent = function(
     $ctrl.confirmSubmit = () => {
         $ctrl.form.submit();
     };
+
+    $ctrl.makeReservationField = (key, type, dusk = null) => {
+        const required = $ctrl.product.reservation[key] === 'required';
+
+        const label = $trans(`fill_notes.labels.${key}${required ? '' : '_optional'}`);
+        const placeholder = $trans(`fill_notes.placeholders.${key}`);
+
+        return { label, placeholder, required, key, dusk, type, custom: false }
+    }
+
+    $ctrl.mapFields = (customFields = []) => {
+        if ($ctrl.product.reservation.phone !== 'no') {
+            $ctrl.fields.push($ctrl.makeReservationField('phone', 'text', 'productReserveFormPhone'));
+        }
+
+        if ($ctrl.product.reservation.address !== 'no') {
+            $ctrl.fields.push($ctrl.makeReservationField('address', 'text', 'productReserveFormAddress'));
+        }
+
+        if ($ctrl.product.reservation.birth_date !== 'no') {
+            $ctrl.fields.push($ctrl.makeReservationField('birth_date', 'date'));
+        }
+
+        $ctrl.fields = [...$ctrl.fields, ...customFields];
+        $ctrl.fields[$ctrl.fields.length - 1].fullWidth = $ctrl.fields.length % 2 !== 0;
+    };
+
+    $ctrl.$onInit = () => {
+        $ctrl.state = 'fill_notes';
+        $ctrl.emailSetupShow = false;
+        $ctrl.emailSubmitted = false;
+        $ctrl.emailShowForm = false;
+
+        $ctrl.product = $ctrl.modal.scope.product;
+        $ctrl.voucher = $ctrl.modal.scope.voucher;
+        $ctrl.provider = $ctrl.product.organization;
+
+        $ctrl.form = FormBuilderService.build({}, (form) => {
+            ProductReservationService.reserve({
+                ...form.values,
+                voucher_address: $ctrl.voucher.address,
+                product_id: $ctrl.product.id,
+            }).then($ctrl.onReserved, $ctrl.onError);
+        }, true);
+
+        AuthService.identity().then((res) => {
+            if (!res.data.email) {
+                $ctrl.emailSetupShow = true;
+                $ctrl.emailForm = $ctrl.makeEmailForm();
+            }
+        });
+
+        OrganizationService.reservationFields($ctrl.product.organization_id).then((res) => {
+            $ctrl.mapFields(res.data.data.map((field) => ({
+                label: field.label,
+                placeholder: field.label,
+                description: field.description,
+                custom: true,
+                required: field.required,
+                key: field.id,
+                dusk: `customField${field.id}`,
+                type: field.type,
+            })))
+        });
+    };
 };
 
 module.exports = {
@@ -107,8 +148,10 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$filter',
         'AuthService',
         'FormBuilderService',
+        'OrganizationService',
         'IdentityEmailsService',
         'PushNotificationsService',
         'ProductReservationService',
