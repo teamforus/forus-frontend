@@ -121,14 +121,14 @@
                             .app_download-row(ng-if="$ctrl.selectedOption == 'android-phone'"): h4.app_download-heading Download uit play store
                             .app_download-row
                                 a.app_download-store_icon(
-                                    ng-if="$ctrl.selectedOption == 'iphone'"
-                                    href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
-                                    img(ng-src="./assets/img/icon-app/app-store-badge.svg")
-
-                                a.app_download-store_icon(
                                     ng-if="$ctrl.selectedOption == 'android-phone'"
                                     href="{{ $root.appConfigs.android_link }}" target="_blank")
-                                    img(ng-src="./assets/img/icon-app-android.svg")  
+                                    img(ng-src="./assets/img/icon-app/app-store-android.svg")
+
+                                a.app_download-store_icon(
+                                    ng-if="$ctrl.selectedOption == 'iphone'"
+                                    href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
+                                    img(ng-src="./assets/img/icon-app/app-store-ios.svg")
 
                                 .app_download-col.flex-center
                                     span.app_download-link.text-muted(ng-click="$ctrl.appDownloadSkip = true") Ga verder >
@@ -151,13 +151,15 @@
                             .app_download-row(ng-if="$ctrl.selectedOption == 'android-tablet'"): h4.app_download-heading Download uit play store
                             .app_download-row
                                 a.app_download-store_icon(
-                                    ng-if="$ctrl.selectedOption == 'ipad'"
-                                    href="{{ $root.appConfigs.ios_ipad_link }}" target="_blank")
-                                    img(ng-src="./assets/img/icon-app/app-store-badge.svg")
-                                a.app_download-store_icon(
                                     ng-if="$ctrl.selectedOption == 'android-tablet'"
                                     href="{{ $root.appConfigs.android_link }}" target="_blank")
-                                    img(ng-src="./assets/img/icon-app-android.svg")  
+                                    img(ng-src="./assets/img/icon-app/app-store-android.svg")
+
+                                a.app_download-store_icon(
+                                    ng-if="$ctrl.selectedOption == 'ipad'"
+                                    href="{{ $root.appConfigs.ios_ipad_link }}" target="_blank")
+                                    img(ng-src="./assets/img/icon-app/app-store-ios.svg")
+
                                 .app_download-col.flex-center
                                     span.app_download-link.text-muted(ng-click="$ctrl.appDownloadSkip = true") Ga verder >
                             

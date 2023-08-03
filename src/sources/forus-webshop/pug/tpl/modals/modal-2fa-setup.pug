@@ -25,11 +25,11 @@
                         | Kun je deze downloaden vanuit de #[strong.text-strong Play Store] of de #[strong.text-strong App Store].
 
                     .modal-text(ng-if="$ctrl.provider"): .block.block-app_download: .app_download-row
-                        a.app_download-store_icon(href="{{ $ctrl.provider.url_ios }}" target="_blank")
-                            img(ng-src="./assets/img/icon-app/app-store-badge.svg")
-
                         a.app_download-store_icon(href="{{ $ctrl.provider.url_android }}" target="_blank")
-                            img(ng-src="./assets/img/icon-app-android.svg")  
+                            img(ng-src="./assets/img/icon-app/app-store-android-dark.svg" alt="Ontdek het op Google Play")
+
+                        a.app_download-store_icon(href="{{ $ctrl.provider.url_ios }}" target="_blank")
+                            img(ng-src="./assets/img/icon-app/app-store-ios-dark.svg" alt="Download in de App Store")
 
                     .modal-section-separator
 
@@ -61,7 +61,7 @@
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
 
-            .modal-body.text-center: .modal-section: .row: .col.col-xs-10.col-xs-offset-1
+            .modal-body.text-center: .modal-section: .row: .col.col-sm-10.col-sm-offset-1.col-xs-12.col-xs-offset-0
                 .modal-heading Koppel je telefoonnummer
 
                 .modal-text.text-center
@@ -74,7 +74,7 @@
                             block-size="3" 
                             block-count="4"
                             cant-delete-Length="3"
-                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                            block-input-type="num").block-pincode-phone
 
                         .form-error(ng-repeat="error in $ctrl.phoneNumberError" ng-bind="error")
 
@@ -108,7 +108,7 @@
                             ng-model="$ctrl.confirmationCode" 
                             block-size="3" 
                             block-count="2" 
-                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                            block-input-type="num")
                         
                         .form-error(ng-repeat="error in $ctrl.confirmationCodeError" ng-bind="error")
                 
@@ -156,7 +156,7 @@
                             ng-model="$ctrl.confirmationCode" 
                             block-size="3" 
                             block-count="2" 
-                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                            block-input-type="num")
                         
                         .form-error(ng-repeat="error in $ctrl.confirmationCodeError" ng-bind="error")
                 

@@ -134,6 +134,33 @@ h1, h2, h3, h4, h5, h6 {
         &.block-navbar {
             position: sticky;
 
+            .block-auth {
+                .button {
+                    background-color: var(--tc-auth-menu);
+                    color:  var(--tc-var);
+                    text-transform: var(--text_format);
+    
+                    svg {
+                        path {
+                            fill: var(--tc-var);
+                        }
+                    }
+    
+                    &:hover {
+                        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+                        color:  var(--tc-var);
+                        text-transform: var(--text_format);
+                        background-color: var(--color-primary-light);
+    
+                        svg {
+                            path {
+                                fill: var(--tc-var);
+                            }
+                        }
+                    }
+                }
+            }
+
             .navbar-inner {
                 background-color: var(--bg-nav);
             }

@@ -4,11 +4,11 @@
     flex-direction: row;
 
     .download-link {
-        margin-right: 10px;
+        margin-right: 15px;
         display: flex;
 
         img {
-            height: 40px;
+            height: 42px !important;
             display: block;
         }
 
@@ -24,7 +24,7 @@
     &.block-app_links-lg {
         .download-link {
             img {
-                height: 50px;
+                height: 50px !important;
             }
         }
     }

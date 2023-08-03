@@ -3,7 +3,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
         ng-if="$root.appConfigs.features.announcements" 
         list="$root.appConfigs.features.announcements")
 
-    .navbar-inner.wrapper   
+    .navbar-inner.wrapper(ng-if="!$root.showSearchBox")
         a.button(
             ui-sref="explanation"
             target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
@@ -22,17 +22,29 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="Terug naar hoofdpagina")
             img(ng-src="{{ './assets/img/logo-hover' + $dir.logoExtension }}" alt="Terug naar hoofdpagina").hover
 
-        .block.block-auth.show-sm
-            .auth-in(ng-if="$root.auth_user").show-sm
-                button.button.button-mobile(ng-click="$root.signOut()" role="button" aria-label="{{ 'topnavbar.buttons.logout' | translate }}")
-                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-sign-out.svg
-                    div(translate="topnavbar.buttons.logout")
+        .button(ng-if="$root.appConfigs.flags.genericSearch" ng-click="$root.showSearchBox = true" role="button").navbar-search-button.show-sm
+            em.mdi.mdi-magnify
+            translate(translate="topnavbar.items.search")
 
-            .auth-out(ng-if="!$root.auth_user" id="login_mobile")                
-                button.button.button-mobile(ng-click="$dir.startFundRequest()" role="button" aria-label="login").show-sm
-                    include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-my-profile2.svg
-                    div(translate="topnavbar.buttons.login")
-        
+    .navbar-inner.wrapper
+        .block.block-auth.show-sm(ng-if="!$root.showSearchBox")
+            button.button.button-default(
+                ng-if="!$root.auth_user && $root.appConfigs.flags.showStartButton"
+                ng-click="$dir.startFundRequest({ restore_with_email: true })"
+                role="button").show-sm
+
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start.svg
+
+                span(ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'")
+
+            button.button.button-primary(ng-click="$root.signOut()" role="button" aria-label="{{ 'topnavbar.buttons.logout' | translate }}" ng-if="$root.auth_user").show-sm
+                em.mdi.mdi-logout
+                translate(translate="topnavbar.buttons.logout")
+
+            button.button.button-primary(ng-click="$dir.startFundRequest()" role="button" aria-label="login" ng-if="!$root.auth_user" id="login_mobile").show-sm
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
+                translate(translate="topnavbar.buttons.login")
+
         ul.navbar-list#primary-menu.hide-sm
             li.navbar-item-wrapper
                 a.navbar-item(
@@ -109,7 +121,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     span.navbar-item(translate="topnavbar.buttons.logout")
                     em.mdi.mdi-logout
 
-    .block.block-subnav
+    .block.block-subnav(ng-if="$root.showSearchBox")
         .subnav-inner.wrapper   
             a(ui-sref="home").navbar-logo.hide-sm
                 img(
@@ -194,6 +206,37 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                                         role="link")
                                         em.mdi.mdi-security
                                         | Beveiliging
+                                        
+                                    .auth-user-menu-item(
+                                        ui-sref="bookmarked-products"
+                                        ui-sref-active="active"
+                                        id="bookmarked_products"
+                                        ng-click="$dir.goToState('bookmarked-products')"
+                                        role="link"
+                                        tabindex="0")
+                                        em.mdi.mdi-cards-heart-outline
+                                        | Mijn verlanglijstje
+
+                                    .auth-user-menu-item(
+                                        ui-sref="reservations"
+                                        ui-sref-active="active"
+                                        id="reservations"
+                                        ng-click="$dir.goToState('reservations')"
+                                        role="link"
+                                        tabindex="0")
+                                        em.mdi.mdi-calendar-outline
+                                        | Reserveringen
+
+                                    .auth-user-menu-item(
+                                        ng-if="$root.appConfigs.features.has_reimbursements"
+                                        ui-sref="reimbursements"
+                                        ui-sref-active="active"
+                                        id="reimbursements"
+                                        ng-click="$dir.goToState('reimbursements')"
+                                        role="link"
+                                        tabindex="0")
+                                        em.mdi.mdi-receipt-outline
+                                        | Kosten terugvragen
 
                                     .auth-user-menu-item(
                                         ng-if="$root.appConfigs.sessions"

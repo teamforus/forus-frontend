@@ -145,7 +145,7 @@
                     .pincode-title(translate="sign_up.app_header.title")
                     .pincode-subtitle(translate="sign_up.app_header.subtitle")
 
-                    pincode-control(ng-model="authorizePincodeForm.values.auth_code")
+                    pincode-control(ng-model="authorizePincodeForm.values.auth_code" block-input-type="num")
 
                     .pincode-errors: .form-error(ng-repeat="error in authorizePincodeForm.errors.auth_code" ng-bind="error")
 

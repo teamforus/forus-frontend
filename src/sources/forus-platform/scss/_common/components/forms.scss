@@ -263,7 +263,6 @@
     .form-group-info {
         display: flex;
         flex-direction: row;
-        margin-bottom: 10px;
 
         .form-group-info-control {
             display: flex;
@@ -281,6 +280,8 @@
                 border-bottom-left-radius: 0;
                 border-left: none;
                 box-shadow: none;
+                height: 100%;
+                align-items: center;
 
                 &:hover, &.active {
                     .mdi {
@@ -292,6 +293,10 @@
 
         &:last-child {
             margin-bottom: 0;
+        }
+
+        &+.block-info-box {
+            margin-top: 10px;
         }
     }
 

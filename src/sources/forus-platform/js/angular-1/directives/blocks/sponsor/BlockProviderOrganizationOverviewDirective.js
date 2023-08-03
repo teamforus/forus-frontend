@@ -30,6 +30,7 @@ module.exports = () => {
             organization: "=",
             updateFundProviderAllow: "=",
             updateFundProviderState: "=",
+            updateFundProviderExcluded: "=",
         },
         bindToController: true,
         controllerAs: '$dir',
