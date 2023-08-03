@@ -1,45 +1,52 @@
 .block.block-action-card.block-action-card-compact.block-action-card-expandable(
-    ng-if="$dir.policy != 'optional'").block-action-card-2fa-fund
+    ng-if="$dir.settings.auth_2fa_policy != 'optional'")
 
     .flex.block-action-card-main
-        .block-card-logo(aria-hidden="true")
-            em.mdi.mdi-alert
+        .block-card-logo(aria-hidden="true"): em.mdi.mdi-alert
         
-        .block-card-details
-            h3.block-card-title This fund requires you to use TFA to be confirmed because lorem ipsum
+        //- Restricted sign-in
+        .block-card-details(ng-if="$dir.settings.auth_2fa_policy == 'required'")
+            h3.block-card-title This fund requires you to use TFA to sign in
+            .block-card-description Vitae sed vitae mauris mauris fermentum faucibus. Auctor laoreet ante elit sagittis bibendum quam.
+
+        //- Restricts only some features
+        .block-card-details(ng-if="$dir.settings.auth_2fa_policy == 'restrict_features'")
+            h3.block-card-title This fund requires you to use TFA for some features
             .block-card-description Vitae sed vitae mauris mauris fermentum faucibus. Auctor laoreet ante elit sagittis bibendum quam.
         
-        .block-card-actions(ng-if="$dir.policy == 'restrict_features' && $dir.hasRestrictions" ng-class="$dir.expandButtonPos")
+        //- Restricted features toggle
+        .block-card-actions(ng-if="$dir.hasRestrictions" ng-class="$dir.buttonPosition || 'top'")
             .button.button-text(
                 ng-if="!$dir.showMore2FADetails" 
-                ng-click="$dir.setShowMore2FADetails($event, true)") 
-                span Toon meer
-                em.mdi.mdi-chevron-down.icon-right
+                ng-click="$dir.showMore2FADetails = true") 
+                | Toon meer
+                em.mdi.mdi-chevron-right.icon-right
 
-            .button.button-text(    
+            .button.button-text(
                 ng-if="$dir.showMore2FADetails" 
-                ng-click="$dir.setShowMore2FADetails($event, false)") 
-                span Toon minder
+                ng-click="$dir.showMore2FADetails = false") 
+                | Toon minder
                 em.mdi.mdi-chevron-up.icon-right
 
-    .block-action-card-details(ng-if="$dir.policy == 'restrict_features' && $dir.showMore2FADetails").flex.flex-vertical
-        .block-action-card-details-item.flex(ng-if="$dir.restrictEmails")
-            .block-card-logo(aria-hidden="true")
-                em.mdi.mdi-account-outline
-            .block-card-details     
+    //- List of features
+    .block-action-card-details(ng-if="$dir.hasRestrictions && $dir.showMore2FADetails").flex.flex-vertical
+        .block-action-card-details-item.flex(ng-if="$dir.settings.auth_2fa_restrict_emails")
+            .block-card-logo(aria-hidden="true"): em.mdi.mdi-account-outline
+
+            .block-card-details
                 h3.block-card-title Signup restrictions
                 .block-card-description Placerat a nisi blandit facilisis a. At praesent viverra egestas purus odio et sagittis. Curabitur lobortis laoreet urna egestas massa diam neque porttitor.
 
-        .block-action-card-details-item.flex(ng-if="$dir.restrictSessions")
-            .block-card-logo(aria-hidden="true")
-                em.mdi.mdi-shield-account
-            .block-card-details     
+        .block-action-card-details-item.flex(ng-if="$dir.settings.auth_2fa_restrict_auth_sessions")
+            .block-card-logo(aria-hidden="true"): em.mdi.mdi-shield-account
+
+            .block-card-details
                 h3.block-card-title Session restrictions
                 .block-card-description Placerat a nisi blandit facilisis a. At praesent viverra egestas purus odio et sagittis. Curabitur lobortis laoreet urna egestas massa diam neque porttitor.
 
-        .block-action-card-details-item.flex(ng-if="$dir.restrictReimbursements")
-            .block-card-logo(aria-hidden="true")
-                em.mdi.mdi-view-list-outline
-            .block-card-details     
+        .block-action-card-details-item.flex(ng-if="$dir.settings.auth_2fa_restrict_reimbursements")
+            .block-card-logo(aria-hidden="true"): em.mdi.mdi-list-box-outline
+
+            .block-card-details
                 h3.block-card-title Reimbursement restrictions
                 .block-card-description Placerat a nisi blandit facilisis a. At praesent viverra egestas purus odio et sagittis. Curabitur lobortis laoreet urna egestas massa diam neque porttitor.
