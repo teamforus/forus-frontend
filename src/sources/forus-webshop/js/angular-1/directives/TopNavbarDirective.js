@@ -54,13 +54,11 @@ const TopNavbarDirective = function (
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
 
-        $dir.logoExtension = ConfigService.getFlag('logoExtension');
-
         // Organization logo alternative text
+        $dir.logoExtension = ConfigService.getFlag('logoExtension');
         $dir.orgLogoAltText = $i18n(`logo_alt_text.${appConfigs.client_key}`, {}, appConfigs.client_key);
 
-        if (appConfigs.flags.allowDesktopSearchToggle) {
-            $dir.allowDesktopSearchToggle = true;
+        if (appConfigs.flags.genericSearchUseToggle) {
             $rootScope.showSearchBox = false;
         } else {
             window.addEventListener('resize', onResize);

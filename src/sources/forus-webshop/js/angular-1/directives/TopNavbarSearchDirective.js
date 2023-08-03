@@ -20,7 +20,6 @@ const TopNavbarSearchDirective = function (
     $dir.isSearchResultPage = $state.current.name === 'search-result';
     $dir.groupKey = 'all';
     $dir.groupKeyList = ['all', 'products', 'funds', 'providers'];
-    $dir.alwaysShowResetButton = appConfigs.flags.alwaysShowSearchReset;
 
     $dir.clearSearch = () => {
         $dir.query = null;

@@ -21,7 +21,7 @@
                 ng-focus="$dir.searchFocused=true"
                 ng-blur="$dir.searchFocused=false")
 
-            .search-reset(ng-class="{'show-sm': !$dir.alwaysShowResetButton}")
+            .search-reset(ng-class="{'show-sm': !$dir.appConfigs.flags.genericSearchUseToggle}")
                 .mdi.mdi-close(ng-click="$root.showSearchBox = false")
 
         .search-result(ng-if="$dir.dropdown")

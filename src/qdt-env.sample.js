@@ -540,11 +540,10 @@ module.exports = (core) => {
                 logoExtension: '.svg',
                 showAccountSidebar: false,
                 accessibilityPage: true,
-                genericSearch: true,
-
+                
                 // search settings
-                allowDesktopSearchToggle: true,
-                alwaysShowSearchReset: true,
+                genericSearch: true,
+                genericSearchUseToggle: true,
                 
                 // menu settings
                 meAppMenu: false,
