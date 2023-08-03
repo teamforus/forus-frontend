@@ -1,32 +1,30 @@
 const OrganizationContactsComponent = function (
     FormBuilderService,
+    OrganizationService,
     PushNotificationsService,
-    OrganizationContactService
 ) {
     const $ctrl = this;
 
+    const available = [{
+        key: 'fund_balance_low',
+        type: 'email',
+    }, {
+        key: 'bank_connections_expiring',
+        type: 'email',
+    }, {
+        key: 'provider_applied',
+        type: 'email',
+    }];
+
     $ctrl.initForm = () => {
-        let list = [];
+        const contacts = available.map((type) => ({
+            ...type, 
+            ...$ctrl.organization.contacts.find((contact) => contact.key === type.key),
+        }));
 
-        for (const key in $ctrl.available) {
-            const contact = $ctrl.contacts.filter((contact) => contact.contact_key === key)[0];
-            if (contact) {
-                list.push(contact);
-            } else {
-                list.push({
-                    contact_key: key,
-                    type: $ctrl.available[key],
-                    value: null
-                });
-            }
-        }
-
-        $ctrl.form = FormBuilderService.build({contacts: list}, (form) => {
-            OrganizationContactService.store(
-                $ctrl.organization.id,
-                form.values,
-            ).then((res) => {
-                $ctrl.contacts = res.data.data;
+        $ctrl.form = FormBuilderService.build({ contacts }, (form) => {
+            OrganizationService.update($ctrl.organization.id, form.values).then((res) => {
+                $ctrl.organization = res.data.data;
                 $ctrl.initForm();
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
@@ -44,13 +42,11 @@ const OrganizationContactsComponent = function (
 module.exports = {
     bindings: {
         organization: '<',
-        contacts: '<',
-        available: '<',
     },
     controller: [
         'FormBuilderService',
+        'OrganizationService',
         'PushNotificationsService',
-        'OrganizationContactService',
         OrganizationContactsComponent,
     ],
     templateUrl: 'assets/tpl/pages/organization-contacts.html',
