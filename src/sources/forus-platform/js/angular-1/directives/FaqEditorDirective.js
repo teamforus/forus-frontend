@@ -44,7 +44,7 @@ const FaqEditorDirective = function(
         $dir.askConfirmation(() => $dir.faq.splice(questionIndex, 1));
     };
 
-    $dir.expendById = (index) => {
+    $dir.expandById = (index) => {
         const list = Array.isArray(index) ? index : [index];
 
         for (let i = 0; i < list.length; i++) {
@@ -63,7 +63,7 @@ const FaqEditorDirective = function(
                     if (errors && typeof errors == 'object') {
                         $dir.errors = errors;
 
-                        $dir.expendById(uniq(Object.keys($dir.errors).map((error) => {
+                        $dir.expandById(uniq(Object.keys($dir.errors).map((error) => {
                             return error.split('.')[1] || null;
                         })).filter((rowIndex) => !isNaN(parseInt(rowIndex))));
                     }
