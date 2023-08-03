@@ -19,8 +19,13 @@ block content
                         .showcase-aside-block
                             .form-label Uitgelicht
                             .form-group(ng-repeat="searchItemType in $ctrl.searchItemTypes track by $index")
-                                .checkbox(ng-click="$ctrl.toggleType($event, searchItemType.key)")
+                                .checkbox(
+                                    ng-click="$ctrl.toggleType($event, searchItemType.key)" 
+                                    role="checkbox" 
+                                    aria-checked="{{ $ctrl.filters.search_item_types.indexOf(searchItemType.key) != -1 }}")
+                                    
                                     input(
+                                        aria-hidden="true"
                                         type="checkbox"
                                         id="{{ 'type_' + $index }}"
                                         ng-checked="$ctrl.filters.search_item_types.indexOf(searchItemType.key) != -1")

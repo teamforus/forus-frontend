@@ -166,7 +166,7 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
         this.apiResourceToForm = function (apiResource) {
             const { name, state, type, criteria, tags } = apiResource;
             const { faq, faq_title, formula_products } = apiResource;
-            const { description, description_html, description_short } = apiResource;
+            const { description, description_html, description_position, description_short } = apiResource;
             const { notification_amount, default_validator_employee_id, auto_requests_validation } = apiResource;
             const { request_btn_text, external_link_text, external_link_url, allow_direct_requests } = apiResource;
 
@@ -176,7 +176,7 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
             return {
                 ...{ name, state, type, criteria },
                 ...{ faq: faq || [], faq_title: faq_title || '', formula_products: formula_products || [] },
-                ...{ description, description_html, description_short },
+                ...{ description, description_html, description_position, description_short },
                 ...{ notification_amount, default_validator_employee_id, auto_requests_validation },
                 ...{ request_btn_text, external_link_text, external_link_url, allow_direct_requests },
 

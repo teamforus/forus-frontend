@@ -72,39 +72,40 @@ main(id="main-content")
 
                 +fund_actions
 
-        block-card-2-f-a-warning(fund="$ctrl.fund")
+        .flex.flex-vertical(ng-class="$ctrl.fund.description_position == 'before' ? 'flex-vertical-reverse' : ''")
+            block-card-2-f-a-warning(fund="$ctrl.fund")
+            
+            block-products(
+                type="budget"
+                ng-if="$ctrl.products && (!$ctrl.fund.description_html || $ctrl.fund.description_position !== 'replace')"
+                products="$ctrl.products.data"
+                filters="{fund_id: $ctrl.fund.id}")
 
-        block-products(
-            type="budget"
-            ng-if="!$ctrl.fund.description_html && $ctrl.products"
-            products="$ctrl.products.data"
-            filters="{fund_id: $ctrl.fund.id}")
+            block-products(
+                type="subsidies"
+                ng-if="$ctrl.subsidies && (!$ctrl.fund.description_html || $ctrl.fund.description_position !== 'replace')"
+                products="$ctrl.subsidies.data"
+                filters="{fund_id: $ctrl.fund.id}")
 
-        block-products(
-            type="subsidies"
-            ng-if="!$ctrl.fund.description_html && $ctrl.subsidies"
-            products="$ctrl.subsidies.data"
-            filters="{fund_id: $ctrl.fund.id}")
+            div
+                .block.block-markdown(
+                    ng-if="$ctrl.fund.description_html"
+                    ng-bind-html="$ctrl.fund.description_html")
+                
+                section.section.section-faq(ng-if="$ctrl.fund.faq")
+                    .section-splash
+                    h2.section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
 
-        .block.block-markdown(
-            ng-if="$ctrl.fund.description_html"
-            ng-bind-html="$ctrl.fund.description_html")
-
-        section.section.section-faq(ng-if="$ctrl.fund.faq")
-            .section-splash
-            h2.section-title(ng-if="$ctrl.fund.faq_title" ng-bind="$ctrl.fund.faq_title")
-
-            .faq.faq-fund
-                .faq-item(
-                    collapse 
-                    ng-repeat="question in $ctrl.fund.faq"
-                    ng-class="{active: question.isActive}" 
-                    ng-click="question.isActive = !question.isActive" 
-                    collapse-item)
-                    
-                    .faq-item-header(collapse-header)
-                        h2(ng-bind="question.title" role="button" tabindex="0" aria-expanded="{{question.isActive}}" ).faq-item-title
-                        .faq-item-chevron-down.mdi.mdi-chevron-down
-                        .faq-item-chevron-up.mdi.mdi-chevron-up
-                    .faq-item-content: .block.block-markdown(ng-bind-html="question.description_html")
-        div
+                    .faq.faq-fund
+                        .faq-item(
+                            collapse 
+                            ng-repeat="question in $ctrl.fund.faq"
+                            ng-class="{active: question.isActive}" 
+                            ng-click="question.isActive = !question.isActive" 
+                            collapse-item)
+                            
+                            .faq-item-header(collapse-header)
+                                h2(ng-bind="question.title" role="button" tabindex="0" aria-expanded="{{question.isActive}}" ).faq-item-title
+                                .faq-item-chevron-down.mdi.mdi-chevron-down
+                                .faq-item-chevron-up.mdi.mdi-chevron-up
+                            .faq-item-content: .block.block-markdown(ng-bind-html="question.description_html")    
