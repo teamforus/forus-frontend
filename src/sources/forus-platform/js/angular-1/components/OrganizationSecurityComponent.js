@@ -1,5 +1,6 @@
 const OrganizationSecurityComponent = function (
     $rootScope,
+    $stateParams,
     FormBuilderService,
     OrganizationService,
     PageLoadingBarService,
@@ -23,13 +24,32 @@ const OrganizationSecurityComponent = function (
         name: 'Als IP-adres in de afgelopen 48 uur gebruikt, geen 2FA vereisen.',
     }];
 
+    const auth2FAFundsRequiredOptions = [{
+        value: 'optional',
+        name: 'Optioneel',
+    }, {
+        value: 'restrict_features',
+        name: '2FA vereisen voor geselecteerde functies',
+    }, {
+        value: 'required',
+        name: '2FA vereisen om in te loggen',
+    }];
+
+    $ctrl.viewType = $stateParams.view_type || 'employees';
+
     $ctrl.$onInit = () => {
         $ctrl.auth2FARequiredOptions = auth2FARequiredOptions;
+        $ctrl.auth2FAFundsRequiredOptions = auth2FAFundsRequiredOptions;
         $ctrl.auth2FARememberIpOptions = auth2FARememberIpOptions;
 
         $ctrl.form = FormBuilderService.build({
             auth_2fa_policy: $ctrl.organization.auth_2fa_policy,
             auth_2fa_remember_ip: $ctrl.organization.auth_2fa_remember_ip ? 1 : 0,
+            auth_2fa_funds_policy: $ctrl.organization.auth_2fa_funds_policy,
+            auth_2fa_funds_remember_ip: $ctrl.organization.auth_2fa_funds_remember_ip ? 1 : 0,
+            auth_2fa_funds_restrict_emails: $ctrl.organization.auth_2fa_funds_restrict_emails,
+            auth_2fa_funds_restrict_auth_sessions: $ctrl.organization.auth_2fa_funds_restrict_auth_sessions,
+            auth_2fa_funds_restrict_reimbursements: $ctrl.organization.auth_2fa_funds_restrict_reimbursements,
         }, (form) => {
             PageLoadingBarService.setProgress(0);
 
@@ -50,6 +70,7 @@ module.exports = {
     },
     controller: [
         '$rootScope',
+        '$stateParams',
         'FormBuilderService',
         'OrganizationService',
         'PageLoadingBarService',

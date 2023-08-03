@@ -23,7 +23,10 @@
 
         form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
             .form-group
-                pincode-control(ng-if="$ctrl.authorizePincodeForm" ng-model="$ctrl.authorizePincodeForm.values.auth_code")
+                pincode-control(
+                    ng-if="$ctrl.authorizePincodeForm" 
+                    ng-model="$ctrl.authorizePincodeForm.values.auth_code" 
+                    block-input-type="num")
                 .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
 
             .form-group.text-center

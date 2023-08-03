@@ -219,8 +219,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "organization-security",
-        url: "/organizations/{organization_id}/security",
+        url: "/organizations/{organization_id}/security?view_type",
         component: "organizationSecurityComponent",
+        params: {
+            view_type: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
             organization: organizationResolver(),
             permission: permissionMiddleware('funds-show', ['view_funds', 'manage_funds', 'view_finances'], false),
@@ -1484,8 +1490,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "reservations",
-        url: "/organizations/{organization_id}/reservations",
+        url: "/organizations/{organization_id}/reservations?reservations_type",
         component: "reservationsComponent",
+        params: {
+            reservations_type: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
             organization: organizationResolver(),
             permission: permissionMiddleware('reservations-list', 'scan_vouchers'),
@@ -1496,6 +1508,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$, ProductService
             ) => repackResponse(ProductService.list($transition$.params().organization_id, {
                 per_page: 100,
+            }))],
+            activeReservations: ['$transition$', 'ProductReservationService', (
+                $transition$, ProductReservationService
+            ) => repackPagination(ProductReservationService.list($transition$.params().organization_id, {
+                archived: 0,
+            }))],
+            archivedReservations: ['$transition$', 'ProductReservationService', (
+                $transition$, ProductReservationService
+            ) => repackPagination(ProductReservationService.list($transition$.params().organization_id, {
+                archived: 1,
             }))]
         }
     });

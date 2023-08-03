@@ -294,6 +294,7 @@ app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirect
 app.directive('fundRequestRecordAttachments', require('./directives/FundRequestRecordAttachmentsDirective'));
 app.directive('fundRequestRecordClarifications', require('./directives/FundRequestRecordClarificationsDirective'));
 app.directive('fundRequestRecordHistory', require('./directives/FundRequestRecordHistoryDirective'));
+app.directive('reservationFieldsEditor', require('./directives/ReservationFieldsEditorDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 
