@@ -6,7 +6,7 @@ section.section.section-voucher-details: .wrapper
 
     section(ng-class="!!$root.activeOrganization ? 'app app-content' : ''")
         .block.block-profile
-            .profile-aside.hide-sm: profile-menu
+            .profile-aside: profile-menu
 
             .profile-content(ng-if="$ctrl.auth2FAState.restrictions.emails.restricted")
                 auth-2-f-a-restriction(
