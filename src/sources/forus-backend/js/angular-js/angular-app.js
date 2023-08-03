@@ -34,7 +34,6 @@ app.component('modal2FADeactivateComponent', {
 });
 
 // directives
-app.directive('pinCodeControl', require('./directives/PinCodeControlDirective'));
 app.directive('pincodeControl', require('../../../forus-platform/js/angular-1/directives/PincodeControlDirective'));
 app.directive('qrCode', require('../../../forus-platform/js/angular-1/directives/QrCodeDirective'));
 

@@ -2110,58 +2110,6 @@ ui-view {
         }
     }
 
-    &.block-pincode {
-        margin: 30px auto 60px;
-        padding: 0;
-        text-align: center;
-        width: calc(60px * 6 + 10px * 5);
-        position: relative;
-        @include cf();
-
-        .hidden-input {
-            opacity: 0;
-            height: 40px;
-            width: 100%;
-            position: absolute;
-            top: 0px;
-            border: none;
-            background: none;
-        }
-
-        @media screen and (max-width: 767px) {
-            &.block {
-                &.block-pincode {
-                    margin: 30px auto 30px;
-                    width: calc(40px * 6 + 10px * 5);
-
-                    .pincode-number {
-                        width: 40px;
-                        height: 60px;
-                        font: 600 26px/60px var(--base-font-landing);
-                    }
-                }
-            }
-        }
-
-        .pincode-number {
-            display: block;
-            height: 75px;
-            float: left;
-            width: 60px;
-            border: 1px solid #dfe4ec;
-            background: #fff;
-            border-radius: 4px;
-            margin-right: 10px;
-            font: 600 28px/75px var(--base-font-landing);
-            text-align: center;
-            cursor: default;
-
-            &:last-of-type {
-                margin-right: 0;
-            }
-        }
-    }
-
     @media screen and (max-width: 1700px) {
         &.block-navbar {
             .navbar-logo {
