@@ -54,7 +54,7 @@
                 //- Full name
                 .row
                     //- First name
-                    .col.col-lg-6.form-group
+                    .col.col-lg-6.form-group.form-group-margin
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.first_name")
                         input(
                             type="text"
@@ -64,7 +64,7 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.first_name" ng-bind="error")
 
                     //- Last name
-                    .col.col-lg-6.form-group
+                    .col.col-lg-6.form-group.form-group-margin
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.last_name")
                         input(
                             type="text"
@@ -74,61 +74,53 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.last_name" ng-bind="error")
                     .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
 
-                //- Phone number and address
-                .row(ng-if="$ctrl.product.reservation.phone !== 'no' || $ctrl.product.reservation.address  !== 'no'")
-                    //- Phone number
-                    .form-group.col.col-lg-6(ng-if="$ctrl.product.reservation.phone !== 'no'")
-                        .form-label(
-                            ng-if="$ctrl.product.reservation.phone == 'required'" 
-                            translate="modal_product_reserve_notes.fill_notes.labels.phone")
+                .row
+                    .form-group.form-group-margin(
+                        ng-repeat="field in $ctrl.fields"
+                        ng-class="'col col-lg-' + (field.fullWidth ? '12' : '6')")
+                        .form-label(ng-bind="field.label")
 
-                        .form-label(
-                            ng-if="$ctrl.product.reservation.phone == 'optional'" 
-                            translate="modal_product_reserve_notes.fill_notes.labels.phone_optional")
+                        //- custom field
+                        .form-group-info(ng-if="field.custom" ng-class="field.showInfo ? 'active' : ''")
+                            .form-group-info-control: input.form-control(
+                                ng-if="['text', 'number'].includes(field.type)"
+                                type="{{ field.type }}"
+                                ng-model="$ctrl.form.values.custom_fields[field.key]"
+                                placeholder="{{ field.placeholder }}"
+                                dusk="{{ field.dusk }}")
 
+                            .form-group-info-button(
+                                ng-click="field.showInfo = !field.showInfo; $event.stopPropagation()"
+                                ng-if="field.description"): em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(
+                                ng-if="field.description" 
+                                click-outside="field.showInfo = false")
+                                .info-box-icon.mdi.mdi-information-outline
+                                .info-box-content: .block.block-markdown: p(ng-bind="field.description")
+
+                        //- default field
                         input.form-control(
-                            ng-model="$ctrl.form.values.phone" 
-                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.phone' | i18n }}"
-                            dusk="productReserveFormPhone")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
+                            ng-if="!field.custom && ['text', 'number'].includes(field.type)"
+                            type="{{ field.type }}"
+                            ng-model="$ctrl.form.values[field.key]"
+                            placeholder="{{ field.placeholder }}"
+                            dusk="{{ field.dusk }}")
 
-                    //- Address
-                    .form-group.col.col-lg-6(ng-if="$ctrl.product.reservation.address !== 'no'")
-                        .form-label(
-                            ng-if="$ctrl.product.reservation.address == 'required'" 
-                            translate="modal_product_reserve_notes.fill_notes.labels.address")
-
-                        .form-label(
-                            ng-if="$ctrl.product.reservation.address == 'optional'" 
-                            translate="modal_product_reserve_notes.fill_notes.labels.address_optional")
-
-                        input.form-control(
-                            ng-model="$ctrl.form.values.address" 
-                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.address' | i18n }}"
-                            dusk="productReserveFormAddress")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.address" ng-bind="error")
-
-                    .form-group.col.col-lg-6(ng-if="!$ctrl.product.reservation.phone !== 'no' || !$ctrl.product.reservation.address !== 'no'")
-
-                //- Birth date
-                .row(ng-if="$ctrl.product.reservation.birth_date !== 'no'")
-                    .col.col-lg-6.form-group
-                        .form-label(
-                            ng-if="$ctrl.product.reservation.birth_date == 'required'" 
-                            translate="modal_product_reserve_notes.fill_notes.labels.birth_date")
-
-                        .form-label(
-                            ng-if="$ctrl.product.reservation.birth_date == 'optional'" 
-                            translate="modal_product_reserve_notes.fill_notes.labels.birth_date_optional")
-
+                        //- default field (datepicker)
                         datepicker(
+                            ng-if="!field.custom && field.type === 'date'"
                             date-format="yyyy-MM-dd"
                             datepicker-mobile=""
                             date-max-limit="{{ $ctrl.dateMinLimit + '' }}"
                             date-week-start-day="1").form-control
-                            input(ng-model="$ctrl.form.values.birth_date" type="text" placeholder="jjjj-MM-dd").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.birth_date" ng-bind="error")
-                    .col.col-lg-6.form-group
+                            input(
+                                ng-model="$ctrl.form.values[field.key]"
+                                type="text"
+                                placeholder="jjjj-MM-dd").form-control
+
+                        .form-error(ng-if="field.custom" ng-repeat="error in $ctrl.form.errors['custom_fields.' + field.key]" ng-bind="error")
+                        .form-error(ng-if="!field.custom" ng-repeat="error in $ctrl.form.errors[field.key]" ng-bind="error")
 
                 //- User note
                 .form-group
@@ -138,7 +130,7 @@
                         placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.notes' | i18n }}"
                         dusk="productReserveFormNote")
                     .form-error(ng-repeat="error in $ctrl.form.errors.user_note" ng-bind="error")
-                
+
                 //- Submit
                 .form-group.text-center
                     button(
@@ -173,27 +165,15 @@
                 br
                 br
 
-                //- Phone number
-                div(ng-if="$ctrl.product.reservation.phone != 'no'")
-                    strong(translate="modal_product_reserve_notes.confirm_notes.labels.phone")
+                //- Other fields
+                div(ng-repeat="field in $ctrl.fields")
+                    strong(
+                        ng-if="!field.custom"
+                        translate="modal_product_reserve_notes.confirm_notes.labels.{{ field.key }}")
+                    strong(ng-if="field.custom" ng-bind="field.label")
                     br
-                    span(ng-bind="$ctrl.form.values.phone")
-                    br
-                    br
-
-                //- Address
-                div(ng-if="$ctrl.product.reservation.address !== 'no'")
-                    strong(translate="modal_product_reserve_notes.confirm_notes.labels.address")
-                    br
-                    span(ng-bind="$ctrl.form.values.address")
-                    br
-                    br
-
-                //- Birth date
-                div(ng-if="$ctrl.product.reservation.birth_date !== 'no'")
-                    strong(translate="modal_product_reserve_notes.confirm_notes.labels.requester_birth_date")
-                    br
-                    span(ng-bind="$ctrl.form.values.birth_date")
+                    span(ng-if="!field.custom" ng-bind="$ctrl.form.values[field.key]")
+                    span(ng-if="field.custom" ng-bind="$ctrl.form.values.custom_fields[field.key]")
                     br
                     br
     

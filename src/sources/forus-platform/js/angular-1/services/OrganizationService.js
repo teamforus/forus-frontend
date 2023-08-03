@@ -97,6 +97,10 @@ module.exports = [
                 ), query);
             };
 
+            this.reservationFields = function(id, query = {}) {
+                return ApiRequest.get(`/platform/organizations/${id}/reservation-fields`, query);
+            };
+
             this.financeProviders = function(organization_id, query = {}) {
                 return ApiRequest.get(sprintf(
                     '/platform/organizations/%s/sponsor/providers/finances',
