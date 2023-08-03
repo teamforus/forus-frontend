@@ -127,8 +127,8 @@ module.exports = {
         voucher: '<',
         vouchers: '<',
         identity: '<',
-        reimbursement: '<',
         auth2FAState: '<',
+        reimbursement: '<',
     },
     controller: [
         '$state',

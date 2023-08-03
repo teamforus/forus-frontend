@@ -14,8 +14,8 @@ section.section.section-profile: .wrapper
         //- Page content
         .profile-content(
             ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.reimbursements.restricted"
-            dusk="reimbursementEditContent"
-        )
+            dusk="reimbursementEditContent")
+
             //- Header
             .profile-content-header
                 .profile-content-title(ng-if="!$ctrl.reimbursement") Nieuwe kosten terugvragen
