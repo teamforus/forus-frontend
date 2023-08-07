@@ -1656,6 +1656,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Organization contacts
+    $stateProvider.state({
+        name: "organizations-contacts",
+        url: "/organizations/{organization_id}/contacts",
+        component: "organizationContactsComponent",
+        resolve: {
+            organization: organizationResolver(),
+            permission: permissionMiddleware('fund-requests', ['manage_organization']),
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',
