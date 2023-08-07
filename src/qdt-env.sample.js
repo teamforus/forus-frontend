@@ -542,7 +542,10 @@ module.exports = (core) => {
                 logoExtension: '.svg',
                 showAccountSidebar: false,
                 accessibilityPage: true,
+                
+                // search settings
                 genericSearch: true,
+                genericSearchUseToggle: true,
                 
                 // menu settings
                 meAppMenu: false,
