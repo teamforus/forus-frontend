@@ -677,7 +677,7 @@ module.exports = {
         buttons: {
             add: "Organisatie toevoegen",
             edit: "Organisatie instellingen",
-            contacts: "Contacts",
+            contacts: "Organisatie berichten",
             notifications_preferences: "Notificatievoorkeuren",
         }
     },
