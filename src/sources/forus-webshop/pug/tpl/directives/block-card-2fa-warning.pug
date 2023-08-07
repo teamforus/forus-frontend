@@ -6,13 +6,13 @@
         
         //- Restricted sign-in
         .block-card-details(ng-if="$dir.settings.auth_2fa_policy == 'required'")
-            h3.block-card-title This fund requires you to use TFA to sign in
-            .block-card-description Vitae sed vitae mauris mauris fermentum faucibus. Auctor laoreet ante elit sagittis bibendum quam.
+            h3.block-card-title Deze regeling verplicht het gebruik van tweefactorauthenticatie
+            .block-card-description Om gebruik te kunnen maken van deze regeling dient de gebruiker na aanvraag een tweede verificatiemethode te gebruiken.
 
         //- Restricts only some features
         .block-card-details(ng-if="$dir.settings.auth_2fa_policy == 'restrict_features'")
-            h3.block-card-title This fund requires you to use TFA for some features
-            .block-card-description Vitae sed vitae mauris mauris fermentum faucibus. Auctor laoreet ante elit sagittis bibendum quam.
+            h3.block-card-title Deze regeling verplicht het gebruik van tweefactorauthenticatie voor bepaalde functionaliteiten
+            .block-card-description Om bepaalde opties en functionaliteit te gebruiken die gekoppeld zijn aan deze regeling, dient de gebruiker een tweede verificatiemethode te gebruiken.
         
         //- Restricted features toggle
         .block-card-actions(ng-if="$dir.hasRestrictions" ng-class="$dir.buttonPosition || 'top'")
@@ -34,19 +34,19 @@
             .block-card-logo(aria-hidden="true"): em.mdi.mdi-account-outline
 
             .block-card-details
-                h3.block-card-title Signup restrictions
-                .block-card-description Placerat a nisi blandit facilisis a. At praesent viverra egestas purus odio et sagittis. Curabitur lobortis laoreet urna egestas massa diam neque porttitor.
+                h3.block-card-title E-mail restricties
+                .block-card-description Tweefactorauthenticatie is vereist voor het beheren van e-mailadressen.
 
         .block-action-card-details-item.flex(ng-if="$dir.settings.auth_2fa_restrict_auth_sessions")
             .block-card-logo(aria-hidden="true"): em.mdi.mdi-shield-account
 
             .block-card-details
-                h3.block-card-title Session restrictions
-                .block-card-description Placerat a nisi blandit facilisis a. At praesent viverra egestas purus odio et sagittis. Curabitur lobortis laoreet urna egestas massa diam neque porttitor.
+                h3.block-card-title Sessies restricties
+                .block-card-description Tweefactorauthenticatie is vereist voor het beheren van inlog sessies.
 
         .block-action-card-details-item.flex(ng-if="$dir.settings.auth_2fa_restrict_reimbursements")
             .block-card-logo(aria-hidden="true"): em.mdi.mdi-list-box-outline
 
             .block-card-details
-                h3.block-card-title Reimbursement restrictions
-                .block-card-description Placerat a nisi blandit facilisis a. At praesent viverra egestas purus odio et sagittis. Curabitur lobortis laoreet urna egestas massa diam neque porttitor.
+                h3.block-card-title Declaraties restricties
+                .block-card-description Tweefactorauthenticatie is vereist voor het indienden van declaraties.
