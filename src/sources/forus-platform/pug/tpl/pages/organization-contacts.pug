@@ -27,36 +27,27 @@
 
                             //- Fund balance is low
                             .info-box-content(ng-if="contact.key == 'fund_balance_low'"): .block.block-markdown
-                                h4 Fund balance is low
+                                h4 Laag saldo op het fonds
                                 p
-                                    | Vul bij de header bovenstaande naam en sleutelcode in
-                                    | Voor het instellen van de token  zijn er twee opties:
-
-                                ul
-                                    li URL-parameter: Kies deze optie als uw BI-tool token ondersteunt. Voeg de token toe als een parameter in de URL
-                                    li Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg de token toe in de header
+                                    | Vul hier een e-mailadres in dat een notificatie krijgt wanneer
+                                    | het saldo op het fonds te laag is.
+                                    | Dit kan ook een e-mailadres zijn dat geen medewerker is van de organisatie.
 
                             //- Bank connection is expiring
                             .info-box-content(ng-if="contact.key == 'bank_connections_expiring'"): .block.block-markdown
-                                h4 Bank connection is expiring
+                                h4 Bank integratie verloopt
                                 p
-                                    | Vul bij de header bovenstaande naam en sleutelcode in
-                                    | Voor het instellen van de token  zijn er twee opties:
-
-                                ul
-                                    li URL-parameter: Kies deze optie als uw BI-tool token ondersteunt. Voeg de token toe als een parameter in de URL
-                                    li Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg de token toe in de header
+                                    | Vul hier een e-mailadres in dat een notificatie krijgt wanneer
+                                    | de huidige bank integratie verloopt.
+                                    | Dit kan ook een e-mailadres zijn dat geen medewerker is van de organisatie.
 
                             //- Provider applied
                             .info-box-content(ng-if="contact.key == 'provider_applied'"): .block.block-markdown
-                                h4 Provider applied
+                                h4 Aanbieder heeft zich aangemeld
                                 p
-                                    | Vul bij de header bovenstaande naam en sleutelcode in
-                                    | Voor het instellen van de token  zijn er twee opties:
-
-                                ul
-                                    li URL-parameter: Kies deze optie als uw BI-tool token ondersteunt. Voeg de token toe als een parameter in de URL
-                                    li Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg de token toe in de header
+                                    | Vul hier een e-mailadres in dat een notificatie krijgt wanneer
+                                    | een aanbieder zich heeft aangemeld voor een fonds.
+                                    | Dit kan ook een e-mailadres zijn dat geen medewerker is van de organisatie.
 
             .card-section.card-section-primary: .text-center
                 button(
