@@ -52,9 +52,7 @@ const FundsSecurityComponent = function (
             }).finally(() => form.unlock() & PageLoadingBarService.setProgress(100));
         }, true);
 
-        $ctrl.global_2fa = Object.keys($ctrl.fund.organization_funds_2fa).reduce((obj, key) => {
-            return { ...obj, [key.replace('auth_2fa_funds_', 'auth_2fa_')]: $ctrl.fund.organization_funds_2fa[key] }
-        }, {});
+        $ctrl.global_2fa = $ctrl.fund.organization_funds_2fa;
     }
 };
 
