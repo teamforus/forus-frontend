@@ -12,7 +12,10 @@ section.section.section-profile: .wrapper
         .profile-aside: profile-menu.hide-sm
 
         //- Page content
-        .profile-content(dusk="reimbursementEditContent")
+        .profile-content(
+            ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.reimbursements.restricted"
+            dusk="reimbursementEditContent")
+
             //- Header
             .profile-content-header
                 .profile-content-title(ng-if="!$ctrl.reimbursement") Nieuwe kosten terugvragen
