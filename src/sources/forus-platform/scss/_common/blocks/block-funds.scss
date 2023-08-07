@@ -106,7 +106,7 @@
 
                 &:before {
                     border-width: 0 11px 11px 11px;
-                    border-color: transparent transparent --border-color transparent;
+                    border-color: transparent transparent var(--border-color) transparent;
                     // transform: translate(-1px, 0px);
                     transform: translate(-50%, -1px);
                 }

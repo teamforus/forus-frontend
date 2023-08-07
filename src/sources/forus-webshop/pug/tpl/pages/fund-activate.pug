@@ -70,7 +70,7 @@ main(id="main-content")
                             ng-model="$ctrl.activateCodeForm.values.code" 
                             block-size="4" 
                             block-count="2" 
-                            block-input-type="alphanum").block-pincode-compact
+                            block-input-type="alphaNum")
                         .form-error(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
                     .form-group
                     .form-group.text-center: button(
@@ -128,7 +128,7 @@ main(id="main-content")
                                     ng-model="$ctrl.activateCodeForm.values.code" 
                                     block-size="4" 
                                     block-count="2" 
-                                    block-input-type="alphanum").block-pincode-compact
+                                    block-input-type="alphaNum")
                                 .form-error(ng-repeat="error in $ctrl.activateCodeForm.errors.code" ng-bind="error")
                             .form-group
                             .form-group.text-center: button(
