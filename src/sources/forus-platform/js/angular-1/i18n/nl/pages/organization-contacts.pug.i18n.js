@@ -1,9 +1,9 @@
 module.exports = {
-    title: "Contacts",
+    title: "Organisatie berichten",
     labels: {
-        fund_balance_low: "Balance low",
-        bank_connections_expiring: "Expiring bank connection",
-        provider_applied: "Provider applied",
+        fund_balance_low: "Laag saldo op het fonds",
+        bank_connections_expiring: "Bank integratie verloopt",
+        provider_applied: "Aanbieder heeft zich aangemeld",
     },
     buttons: {
         cancel: "Annuleren",
