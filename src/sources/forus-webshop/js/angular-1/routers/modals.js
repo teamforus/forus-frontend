@@ -61,10 +61,6 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalDeactivateVoucherComponent'
     });
 
-    ModalRouteProvider.modal('modalProductReserveDetails', {
-        component: 'modalProductReserveDetailsComponent'
-    });
-
     ModalRouteProvider.modal('2FASetup', {
         component: 'modal2FASetupComponent'
     });
