@@ -96,7 +96,10 @@ const ModalProductReserveDetailsComponent = function (
         }
 
         $ctrl.fields = [...$ctrl.fields, ...customFields];
-        $ctrl.fields[$ctrl.fields.length - 1].fullWidth = $ctrl.fields.length % 2 !== 0;
+
+        if ($ctrl.fields.length > 0) {
+            $ctrl.fields[$ctrl.fields.length - 1].fullWidth = $ctrl.fields.length % 2 !== 0;
+        }
     };
 
     $ctrl.$onInit = () => {
@@ -134,8 +137,8 @@ const ModalProductReserveDetailsComponent = function (
                 key: field.id,
                 dusk: `customField${field.id}`,
                 type: field.type,
-            })))
-        });
+            })));
+        }, () => $ctrl.mapFields());
     };
 };
 
