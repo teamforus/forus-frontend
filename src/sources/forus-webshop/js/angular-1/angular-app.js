@@ -173,6 +173,7 @@ app.directive('providerListItem', require('./directives/lists/ProviderItemDirect
 app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('auth2FARestriction', require('./directives/Auth2FARestriction'));
+app.directive('blockCard2FAWarning', require('./directives/BlockCard2FAWarning'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
