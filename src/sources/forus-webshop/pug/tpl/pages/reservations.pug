@@ -1,12 +1,13 @@
 top-navbar
-section.section.section-profile: .wrapper
+
+main(id="main-content"): section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active(translate="reservations.header.title" aria-current="location")
 
     .block.block-profile
         .profile-aside
-            profile-menu.hide-sm
+            profile-menu
 
             .form.form-compact
                 .profile-aside-block

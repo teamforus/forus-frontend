@@ -84,6 +84,7 @@ app.component('implementationCmsSocialMediaEditComponent', require('./components
 app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
 app.component('biConnectionComponent', require('./components/BIConnectionComponent'));
+app.component('organizationContactsComponent', require('./components/OrganizationContactsComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -293,6 +294,7 @@ app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirect
 app.directive('fundRequestRecordAttachments', require('./directives/FundRequestRecordAttachmentsDirective'));
 app.directive('fundRequestRecordClarifications', require('./directives/FundRequestRecordClarificationsDirective'));
 app.directive('fundRequestRecordHistory', require('./directives/FundRequestRecordHistoryDirective'));
+app.directive('reservationFieldsEditor', require('./directives/ReservationFieldsEditorDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 
