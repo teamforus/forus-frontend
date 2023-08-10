@@ -54,6 +54,16 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             | Beveiliging
                             
                         .auth-user-menu-item(
+                            ui-sref="vouchers"
+                            ui-sref-active="active"
+                            id="vouchers"
+                            ng-click="$dir.goToState('vouchers')"
+                            role="link"
+                            tabindex="0")
+                            em.mdi.mdi-ticket-percent-outline
+                            | Mijn tegoeden
+                            
+                        .auth-user-menu-item(
                             ui-sref="bookmarked-products"
                             ui-sref-active="active"
                             id="bookmarked_products"
