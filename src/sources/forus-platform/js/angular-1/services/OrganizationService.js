@@ -1,4 +1,4 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
 module.exports = [
     'ApiRequest',
@@ -95,6 +95,10 @@ module.exports = [
                     '/platform/organizations/%s/sponsor/providers',
                     organization_id
                 ), query);
+            };
+
+            this.reservationFields = function(id, query = {}) {
+                return ApiRequest.get(`/platform/organizations/${id}/reservation-fields`, query);
             };
 
             this.financeProviders = function(organization_id, query = {}) {
@@ -230,6 +234,10 @@ module.exports = [
                     '/platform/organizations/' + id + '/update-business', {
                     business_type_id: business_type_id
                 });
+            };
+
+            this.updateBIConnection = function(id, values = {}) {
+                return ApiRequest.patch(`/platform/organizations/${id}/update-bi-connection`, values);
             };
 
             this.transferOwnership = function(id, query = {}) {

@@ -8,6 +8,7 @@ const VouchersComponent = function (
     ModalService,
     VoucherService,
     VoucherExportService,
+    PageLoadingBarService,
 ) {
     const $ctrl = this;
 
@@ -141,13 +142,17 @@ const VouchersComponent = function (
     };
 
     $ctrl.onPageChange = (query) => {
+        $ctrl.loading = true;
+        PageLoadingBarService.setProgress(0);
+
         VoucherService.index(
             $ctrl.organization.id,
             $ctrl.getQueryParams(query),
         ).then((res) => {
             $ctrl.vouchers = res.data;
             $ctrl.updateState(query);
-        });
+            $ctrl.loading = false;
+        }).finally(() => PageLoadingBarService.setProgress(100));
     };
 
     $ctrl.showTooltip = (e, target) => {
@@ -184,6 +189,7 @@ const VouchersComponent = function (
 
         if ($ctrl.fund) {
             $ctrl.init();
+            $ctrl.onPageChange($ctrl.filters.values);
         }
     };
 };
@@ -192,7 +198,6 @@ module.exports = {
     bindings: {
         fund: '<',
         funds: '<',
-        vouchers: '<',
         organization: '<',
     },
     controller: [
@@ -203,6 +208,7 @@ module.exports = {
         'ModalService',
         'VoucherService',
         'VoucherExportService',
+        'PageLoadingBarService',
         VouchersComponent,
     ],
     templateUrl: 'assets/tpl/pages/vouchers.html',

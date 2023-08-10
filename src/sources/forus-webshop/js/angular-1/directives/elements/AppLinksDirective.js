@@ -2,6 +2,7 @@ let AppLinksDirective = function($scope) {
     $scope.showDlButton = typeof $scope.showDl === 'undefined' ? true : $scope.showDl;
     $scope.showIosButton = typeof $scope.showIos === 'undefined' ? true : $scope.showIos;
     $scope.showAndroidButton = typeof $scope.showAndroid === 'undefined' ? true : $scope.showAndroid;
+    $scope.theme = typeof $scope.theme === 'undefined' ? 'dark' : null;
     
     $scope.dlId = typeof $scope.dlId === 'undefined' ? 'dl_button' : $scope.dlId;
     $scope.iosId = typeof $scope.iosId === 'undefined' ? 'ios_button' : $scope.iosId;
@@ -18,6 +19,7 @@ module.exports = () => {
             dlId: '@',
             iosId: '@',
             androidId: '@',
+            theme: '@',
         },
         restrict: "EA",
         replace: true,

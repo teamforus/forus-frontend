@@ -17,7 +17,7 @@
             }
 
             .dropdown-style {
-                @extend .block.block-markdown;
+                @extend .block, .block-markdown;
 
                 .note-dropdown-item {
                     * {
@@ -137,7 +137,7 @@
         }
 
         .note-editable {
-            @extend .block.block-markdown;
+            @extend .block, .block-markdown;
             @include webkit_scrollbar_gray();
 
             table {

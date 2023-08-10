@@ -162,6 +162,7 @@
         border: 1px solid #ebedf0;
         box-sizing: border-box;
         border-radius: calc(var(--border-radius) / 2);
+        box-shadow: var(--box-shadow);
 
         .sign_up-pane-header {
             border-bottom: 1px solid #ebedf0;
@@ -286,11 +287,11 @@
                     width: 100%;
 
                     &.sign_up-pane-col-1 {
-                        width: (100%/3) * 1;
+                        width: calc(100%/3) * 1;
                     }
 
                     &.sign_up-pane-col-2 {
-                        width: (100%/3) * 2;
+                        width: calc(100%/3) * 2;
                     }
 
                     &:last-child {

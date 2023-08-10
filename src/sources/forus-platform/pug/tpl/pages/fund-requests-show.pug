@@ -26,9 +26,15 @@
                         .flex.flex-vertical.flex-center: .flex.flex-horizontal
                             //- State label
                             .label.label-tag.label-round(
+                                ng-if="!($ctrl.validatorRequest.state == 'pending' && $ctrl.validatorRequest.is_assigned)"
                                 ng-class="$ctrl.stateLabels[$ctrl.validatorRequest.state]")
                                 span(ng-class="'mdi mdi-' + $ctrl.stateLabelIcons[$ctrl.validatorRequest.state] + ' icon-start'")
                                 span(ng-bind="$ctrl.validatorRequest.state_locale")
+
+                            .label.label-tag.label-round.label-warning(
+                                ng-if="$ctrl.validatorRequest.state == 'pending' && $ctrl.validatorRequest.is_assigned")
+                                span.mdi.mdi-circle-outline.icon-start
+                                span In behandeling
 
                     //- Subtitle
                     .card-subtitle: .flex.text-muted-dark

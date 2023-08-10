@@ -11,7 +11,8 @@ module.exports = {
             restore: "Herstellen",
             criteria: "Voorwaarden",
             statistics: "Statistieken",
-            top_up_history: "Bekijk aanvullingen"
+            top_up_history: "Bekijk aanvullingen",
+            security: "Beveiliging",
         },
         states: {
             active: "Actief",

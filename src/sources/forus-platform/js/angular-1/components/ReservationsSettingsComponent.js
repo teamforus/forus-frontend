@@ -1,10 +1,12 @@
 const ReservationsSettingsComponent = function (
-    $state,
     FormBuilderService,
     OrganizationService,
     PushNotificationsService,
 ) {
     const $ctrl = this;
+
+    $ctrl.fields = [];
+    $ctrl.fieldsErrors = null;
 
     $ctrl.reservationFieldOptions = [{
         value: "no",
@@ -17,25 +19,37 @@ const ReservationsSettingsComponent = function (
         label: "Verplicht",
     }];
 
-    const buildForm = () => {
+    const buildForm = (fields = []) => {
         $ctrl.form = FormBuilderService.build({
+            fields,
             reservation_phone: $ctrl.organization.reservation_phone,
             reservation_address: $ctrl.organization.reservation_address,
             reservation_birth_date: $ctrl.organization.reservation_birth_date,
         }, (form) => {
             OrganizationService.updateReservationFields($ctrl.organization.id, form.values).then(() => {
                 PushNotificationsService.success('Opgeslagen!');
-                $state.go('reservations', { organization_id: $ctrl.organization.id });
+                loadFieldsAndForm();
+                form.errors = null;
             }, (res) => {
                 form.errors = res.data.errors;
-                form.unlock();
                 PushNotificationsService.danger('Error!', res.data.message);
-            });
-        });
+            }).finally(() => form.unlock());
+        }, true);
+    }
+
+    const loadFieldsAndForm = () => {
+        if ($ctrl.organization.allow_reservation_custom_fields) {
+            OrganizationService.reservationFields($ctrl.organization.id).then(
+                (res) => buildForm(res.data.data),
+                (res) => PushNotificationsService.danger('Error!', res.data.message)
+            );
+        } else {
+            buildForm();
+        }
     }
 
     $ctrl.$onInit = function () {
-        buildForm();
+        loadFieldsAndForm();
     }
 };
 
@@ -44,7 +58,6 @@ module.exports = {
         organization: '<',
     },
     controller: [
-        '$state',
         'FormBuilderService',
         'OrganizationService',
         'PushNotificationsService',

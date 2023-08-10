@@ -94,7 +94,7 @@ main(id="main-content")
                         //- Terms and conditions
                         .row(ng-if="$ctrl.appConfigs.flags.privacyPage"): .col.col-lg-12
                             br.hidden-lg
-                            label(for='privacy' tabindex="2").sign_up-pane-text
+                            label(for='privacy' tabindex="2" ng-click="$ctrl.togglePrivacy($event)").sign_up-pane-text
                                 input(type="checkbox" ng-model="$ctrl.emailForm.values.privacy" id='privacy')
                                 |  Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
 
