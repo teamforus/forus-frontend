@@ -149,10 +149,17 @@
                                     strong(ng-bind="email" ng-if="validatorRequest.assigned_employees.length").text-primary
 
                             //- Status label
-                            td: .label.label-tag.label-round(
-                                ng-class="$ctrl.stateLabels[validatorRequest.state]")
-                                span(ng-class="'mdi mdi-' + $ctrl.stateLabelIcons[validatorRequest.state] + ' icon-start'")
-                                span(ng-bind="validatorRequest.state_locale")
+                            td
+                                .label.label-tag.label-round(
+                                    ng-if="!(validatorRequest.state == 'pending' && validatorRequest.assigned_employees.length)"
+                                    ng-class="$ctrl.stateLabels[validatorRequest.state]")
+                                    span(ng-class="'mdi mdi-' + $ctrl.stateLabelIcons[validatorRequest.state] + ' icon-start'")
+                                    span(ng-bind="validatorRequest.state_locale")
+
+                                .label.label-tag.label-round.label-warning(
+                                    ng-if="validatorRequest.state == 'pending' && validatorRequest.assigned_employees.length")
+                                    span.mdi.mdi-circle-outline.icon-start
+                                    span In behandeling
 
                             //- Actions
                             td.td-narrow.text-right: a(ui-sref="fund-requests-show(validatorRequest.ui_sref)").button.button-sm.button-primary.pull-right

@@ -3,7 +3,7 @@
 .block.block-navbar-search(ng-class="{'block-navbar-search-results': $dir.dropdown}")
     form(
         ng-submit="$dir.doSearch()" 
-        click-outside="$dir.hideDropDown()"
+        click-outside="$dir.hideSearchBox()"
         ng-class="$dir.resultsAll.length > 0 ? 'search-form-found' : ''").search-form.form
         .search-area
             //- Search icon
@@ -21,8 +21,8 @@
                 ng-focus="$dir.searchFocused=true"
                 ng-blur="$dir.searchFocused=false")
 
-            .search-reset.show-sm
-                .mdi.mdi-close(ng-click="$root.showSearchBox = false")
+            .search-reset(ng-class="{'show-sm': !$dir.appConfigs.flags.genericSearchUseToggle}")
+                .mdi.mdi-close(ng-click="$dir.hideSearchBox()")
 
         .search-result(ng-if="$dir.dropdown")
             //- Sidebar
