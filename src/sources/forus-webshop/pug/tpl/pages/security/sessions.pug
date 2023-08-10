@@ -49,7 +49,7 @@ main(id="main-content"): section.section.section-voucher-details: .wrapper
                                         .session-property-label Laatste activiteit
                                         .session-property-value
                                             | {{ session.last_request.time_passed | duration_last_time }}  
-                                            span(ng-if="session.last_request.location").session-property-sep.text-primary • 
+                                            span(ng-if="session.last_request.location").session-property-sep.text-primary.hide-sm • 
                                             span(
                                                 ng-if="session.last_request.location" 
                                                 ng-bind="'127.0.0.1' + ' • ' +  session.last_request.location.string ")

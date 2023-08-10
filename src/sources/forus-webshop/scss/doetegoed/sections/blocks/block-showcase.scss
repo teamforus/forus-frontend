@@ -75,12 +75,20 @@
         }
     }
 
-    &.block-showcase:not(.block-showcase-fullscreen) {
+    .showcase-layout {
+        .showcase-aside {
+            .showcase-aside-block {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    }
+
+    &.block-showcase-fullscreen {
         .showcase-layout {
             .showcase-aside {
                 .showcase-aside-block {
-                    padding: 0;
-                    box-shadow: none;
+                    padding: 20px;
                 }
             }
         }
@@ -92,7 +100,7 @@
                 .showcase-layout {
                     .showcase-aside {
                         .showcase-aside-block {
-                            padding: 10px 20px;
+                            padding: 20px;
                         }
                     }
                 }

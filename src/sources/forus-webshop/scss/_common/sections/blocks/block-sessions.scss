@@ -151,24 +151,29 @@
         .session-item {
             .session-details {
                 .session-title {
-                    @media screen and (max-width: 1000px) {
-                        font: 600 13px/20px var(--base-font);
-                        
-                        span {
-                            display: block;
-                        }
-    
-                        .text-separator {
-                            display: none;
-                        }
+                    font: 700 14px/20px var(--base-font);
+                    padding: 2px 0;
+                    margin: 0 0 10px;
+                    
+                    span {
+                        display: block;
+                    }
+
+                    .text-separator {
+                        display: none;
                     }
                 }
-            }
 
-            .session-label {
-                .label {
-                    font-size: 11px;
-                    padding: 2px 5px;
+                .session-properties {
+                    .session-property {
+                        flex-direction: column;
+
+                        .session-property-value {
+                            font-weight: 700;
+                            flex-direction: column;
+                            margin: 0 0 10px;
+                        }
+                    }
                 }
             }
         }

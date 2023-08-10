@@ -212,6 +212,12 @@
                     margin-bottom: 0;
                 }
             }
+
+            .button.button-primary-outline {
+                .mdi:not(.icon-right) {
+                    margin-right: 5px;
+                }
+            }
         }
 
         .showcase-content {
@@ -419,6 +425,10 @@
                             }
                         }
                     }
+                }
+
+                .button.button-primary-outline {
+                    font-size: 13px;
                 }
             }
 
