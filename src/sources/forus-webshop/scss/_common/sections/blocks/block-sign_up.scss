@@ -162,6 +162,7 @@
         border: 1px solid #ebedf0;
         box-sizing: border-box;
         border-radius: calc(var(--border-radius) / 2);
+        box-shadow: var(--box-shadow);
 
         .sign_up-pane-header {
             border-bottom: 1px solid #ebedf0;

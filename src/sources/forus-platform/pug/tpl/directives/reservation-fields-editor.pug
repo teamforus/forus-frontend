@@ -1,0 +1,143 @@
+.block.block-faq-editor
+    div(ng-if="$dir.fields.length > 0"): .question-wrapper(
+        ng-sortable="$dir.sortable"): .question-item(ng-repeat="field in $dir.fields")
+
+        .question-header
+            em.mdi.mdi-dots-vertical.question-drag
+
+            .question-title
+                //- Expanded title
+                span(
+                    ng-if="field.collapsed"
+                    ng-bind="!field.id ? 'Nieuw veld' : 'Veld aanpassen'")
+
+                //- Collapsed title
+                span(
+                    ng-if="!field.collapsed"
+                    ng-bind="field.label || 'Geen label'")
+
+            //- Actions
+            .question-actions
+                //- Expand
+                .button.button-default.button-sm(
+                    ng-if="field.collapsed"
+                    ng-click="field.collapsed = false")
+                    em.mdi.mdi-arrow-collapse-vertical.icon-start
+                    translate(translate="reservation_settings.buttons.collapse")
+
+                //- Collapse 
+                .button.button-primary.button-sm(
+                    ng-if="!field.collapsed"
+                    ng-click="field.collapsed = true")
+                    em.mdi.mdi-arrow-expand-vertical.icon-start
+                    translate(translate="reservation_settings.buttons.expand")
+                    
+                //- Remove
+                .button.button-danger.button-sm(
+                    ng-click="$dir.removeField($index)")
+                    em.mdi.mdi-trash-can-outline.icon-start
+                    translate(translate="reservation_settings.buttons.delete")
+
+        //- Form
+        .question-body(ng-if="field.collapsed"): .form
+            //- Label
+            .form-group
+                label.form-label.form-label-required(translate="reservation_settings.labels.label")
+
+                .form-group-info
+                    .form-group-info-control
+                        input(
+                            type="text"
+                            ng-model="field.label"
+                            placeholder="{{ 'reservation_settings.labels.label' | translate }}").form-control
+
+                    .form-group-info-button: .button.button-default.button-icon.pull-left(
+                        ng-click="$dir.infoBlocks[$index + '_label'] = !$dir.infoBlocks[$index + '_label']"
+                        ng-class="{active: $dir.infoBlocks[$index + '_label']}")
+                        em.mdi.mdi-information
+
+                .block.block-info-box.block-info-box-primary(ng-if="$dir.infoBlocks[$index + '_label']")
+                    .info-box-icon.mdi.mdi-information
+
+                    .info-box-content: .block.block-markdown
+                        h4 Voeg een juist label toe
+                        p
+                            | Vul voor het label een passende tekst toe.
+                            | Het label geeft aan om wat voor een reservering het gaat.
+
+                .form-hint Max. 200 tekens
+                .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.label']" ng-bind="error")
+
+            //- Description
+            .form-group
+                label.form-label(translate="reservation_settings.labels.description")
+
+                .form-group-info
+                    .form-group-info-control
+                        textarea(
+                            ng-model="field.description"
+                            placeholder="{{ 'reservation_settings.labels.description' | translate }}").form-control.r-n
+
+                    .form-group-info-button: .button.button-default.button-icon.pull-left(
+                        ng-click="$dir.infoBlocks[$index + '_description'] = !$dir.infoBlocks[$index + '_description']"
+                        ng-class="{active: $dir.infoBlocks[$index + '_description']}")
+                        em.mdi.mdi-information
+
+                .block.block-info-box.block-info-box-primary(ng-if="$dir.infoBlocks[$index + '_description']")
+                    .info-box-icon.mdi.mdi-information
+
+                    .info-box-content: .block.block-markdown
+                        h4 Voeg een beschrijving toe
+                        p
+                            | Geef in de beschrijving aan wat dient te worden 
+                            | ingevuld tijdens het maken van een reservering.
+
+                .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.description']" ng-bind="error")
+                .form-hint Max. 1000 tekens
+
+            //- Type
+            .form-group
+                label.form-label.form-label-required(translate="reservation_settings.labels.type")
+
+                .form-group-info
+                    .form-group-info-control
+                        select-control(
+                            prop="key"
+                            search="false"
+                            ng-model="field.type"
+                            options="$dir.types").form-control
+
+                    .form-group-info-button: .button.button-default.button-icon.pull-left(
+                        ng-click="$dir.infoBlocks[$index + '_type'] = !$dir.infoBlocks[$index + '_type']"
+                        ng-class="{active: $dir.infoBlocks[$index + '_type']}")
+                        em.mdi.mdi-information
+
+                .block.block-info-box.block-info-box-primary(ng-if="$dir.infoBlocks[$index + '_type']")
+                    .info-box-icon.mdi.mdi-information
+
+                    .info-box-content: .block.block-markdown
+                        h4 Kies de juiste instelling
+                        p
+                            | Geef aan of het om een tekstveld gaat of
+                            | dat er een nummer dient te worden ingevuld.
+
+                .form-error(ng-repeat="error in $dir.errors['fields.' + $index + '.type']" ng-bind="error")
+
+            //- Required
+            .form-group
+                label(for='required_{{ $index }}').checkbox.checkbox-narrow
+                    input(
+                        type="checkbox"
+                        ng-model="field.required"
+                        id='required_{{ $index }}')
+                    .checkbox-label
+                        .checkbox-box: .mdi.mdi-check
+                        translate(translate="reservation_settings.labels.required")
+
+    //- Actions
+    .faq-editor-actions
+        button(type="button" ng-disabled="$dir.fields.length >= 10" ng-click="$dir.addField()").button.button-primary
+            em.mdi.mdi-plus-circle.icon-start
+            translate(translate="reservation_settings.buttons.add_field")
+
+    .form-error(ng-repeat="error in $dir.errors['fields']" ng-bind="error")

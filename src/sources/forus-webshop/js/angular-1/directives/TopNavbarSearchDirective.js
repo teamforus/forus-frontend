@@ -83,6 +83,15 @@ const TopNavbarSearchDirective = function (
         $dir.resultsAll = listItems;
         $dir.showDropDown();
     };
+    
+    $dir.hideSearchBox = () => {
+        if (!appConfigs.flags.genericSearchUseToggle) {
+            return;
+        }
+
+        $rootScope.showSearchBox = false;
+        $dir.hideDropDown();
+    }
 
     $dir.doSearch = () => {
         $timeout.cancel($dir.timeout);
