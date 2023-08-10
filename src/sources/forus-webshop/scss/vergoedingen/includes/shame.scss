@@ -322,7 +322,7 @@ h1, h2, h3, h4, h5, h6 {
             .showcase-layout {
                 .showcase-aside {
                     .showcase-aside-block {
-                        padding-left: 20px;
+                        padding: 20px;
                     }
                 }
             }
@@ -332,7 +332,7 @@ h1, h2, h3, h4, h5, h6 {
             .showcase-aside {
                 .showcase-aside-block {
                     box-shadow: none;
-                    padding-left: 0;
+                    padding: 0;
                 }
             }
         }

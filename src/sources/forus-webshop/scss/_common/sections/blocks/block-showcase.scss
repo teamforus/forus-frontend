@@ -212,6 +212,12 @@
                     margin-bottom: 0;
                 }
             }
+
+            .button.button-primary-outline {
+                .mdi:not(.icon-right) {
+                    margin-right: 5px;
+                }
+            }
         }
 
         .showcase-content {
@@ -424,6 +430,16 @@
 
             .showcase-content {
                 max-width: calc(100% - 280px);
+            }
+        }
+    }
+
+    @media screen and (min-width: 1000px) and (max-width: 1300px) {
+        .showcase-layout {
+            .showcase-aside {
+                .button.button-primary-outline {
+                    font-size: 14px;
+                }
             }
         }
     }

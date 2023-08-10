@@ -1,0 +1,13 @@
+@media screen and (min-width: 1000px) and (max-width: 1300px) {
+    .block {
+        &.block-showcase {
+            .showcase-layout {
+                .showcase-aside {
+                    .button.button-primary-outline {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+}
