@@ -1,3 +1,5 @@
+const pick = require('lodash/pick');
+
 const ModalVoucherTransactionComponent = function (
     $q,
     $filter,
@@ -73,9 +75,7 @@ const ModalVoucherTransactionComponent = function (
             iban_source: 'manual',
             reimbursement_id: null,
         }, (form) => {
-            const values = (
-                ({ note, note_shared, amount, target, voucher_id }) => ({ note, note_shared, amount, target, voucher_id })
-            )(form.values);
+            const values = pick(form.values, ['note', 'note_shared', 'amount', 'target', 'voucher_id']);
 
             if (form.values.target === 'provider') {
                 values.organization_id = form.values.organization_id;
