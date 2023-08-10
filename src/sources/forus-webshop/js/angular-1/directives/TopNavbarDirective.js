@@ -51,6 +51,13 @@ const TopNavbarDirective = function (
         $dir.userMenuOpened = false;
     }
 
+    $dir.toggleSearchBox = ($e) => {
+        $e.stopPropagation();
+        $e.preventDefault();
+
+        $rootScope.showSearchBox = !$rootScope.showSearchBox;
+    }
+
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
 

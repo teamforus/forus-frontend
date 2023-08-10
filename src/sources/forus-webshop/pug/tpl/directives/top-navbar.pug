@@ -180,7 +180,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
     mixin subnav_search_button()
         .button(
             ng-if="$root.appConfigs.flags.genericSearchUseToggle && $root.appConfigs.flags.genericSearch" 
-            ng-click="$root.showSearchBox = !$root.showSearchBox"
+            ng-click="$dir.toggleSearchBox($event)"
             ng-class="{active: $root.showSearchBox}" 
             role="button").subnav-search-button.hide-sm
             em.mdi.mdi-magnify
@@ -330,7 +330,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
         .subnav-inner.wrapper
             //- Logo
-            a(ui-sref="home" ng-class="$dir.prevOffsetY > 100 ? 'navbar-logo-scroll' : ''").navbar-logo.hide-sm
+            a(ui-sref="home").navbar-logo.hide-sm
                 img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="{{ $dir.orgLogoAltText }}")
 
             //- Search bar or nav menu
