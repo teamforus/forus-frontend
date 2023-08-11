@@ -229,7 +229,6 @@ app.directive('menu', {
 } [env_data.panel_type]);
 
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
-app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
 app.directive('csvUpload', require('./directives/CsvUploadDirective'));
