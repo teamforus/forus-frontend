@@ -334,6 +334,23 @@
                 vertical-align: top;
             }
         }
+
+        &.table-products {
+            .product-media-block {
+                display: flex;
+                align-items: center;
+
+                .product-media {
+                    width: 35px;
+                    height: 35px;
+                    margin-right: 10px;
+                    float: left;
+                    display: block;
+                    border: 1px solid var(--border-color);
+                    border-radius: var(--border-radius);
+                }
+            }
+        }
     }
 
     &.table-wrapper-scroll {

@@ -1,53 +1,106 @@
 .app.app-container
     menu
     section.app.app-content(ng-if="$ctrl.products.meta")
-        //- information-block(text="'products.cannot_delete'" type="'danger'")
-        .card-heading: .flex-row
-            .flex-col: .flex.nowrap
-                translate(translate="products.offers")
-                a(ng-if="$ctrl.products.meta.total_provider < $ctrl.maxProductCount" ng-click="$ctrl.addProduct()" id="add_product").link
-                    em.mdi.mdi-plus-circle 
-                    | {{ "products.add" | translate }}
-                    span(ng-if="$ctrl.maxProductCount > 0 && $ctrl.products.meta.total_provider >= $ctrl.maxProductSoftLimit") 
-                        | ({{ $ctrl.products.meta.total_provider }}/{{ $ctrl.maxProductCount }})
+        .card
+            .card-header: .flex
+                .flex.flex-grow: .card-title
+                    span(translate="products.offers") 
+                    span(ng-bind="$ctrl.products.meta.total").span-count
 
-            .flex-col: .block.block-label-tabs.nowrap.pull-right: .label-tab-set
-                .label-tab.label-tab-sm(
-                    ng-class="{active : $ctrl.filters.values.source == 'provider'}" 
-                    ui-sref="products($ctrl.srefData.provider)")
-                    | In uw beheer ({{ $ctrl.products.meta.total_provider }})
+                .block-inline-filters
+                    .block.block-label-tabs.nowrap.pull-right
+                        .button.button-primary(
+                            ng-if="$ctrl.products.meta.total_provider < $ctrl.maxProductCount"
+                            ng-click="$ctrl.addProduct()"
+                            id="add_product"
+                            ng-disabled="$ctrl.maxProductCount > 0 && $ctrl.products.meta.total_provider >= $ctrl.maxProductSoftLimit")
+                            
+                            em.mdi.mdi-plus-circle.icon-start
+                            span(translate="products.add")
+                            span(ng-if="$ctrl.maxProductCount > 0 && $ctrl.products.meta.total_provider >= $ctrl.maxProductSoftLimit")
+                                |  &nbsp;{{ $ctrl.products.meta.total_provider }} / {{ $ctrl.maxProductSoftLimit }}
 
-                .label-tab.label-tab-sm(
-                    ng-class="{active : $ctrl.filters.values.source == 'sponsor'}" 
-                    ui-sref="products($ctrl.srefData.sponsor)")
-                    | In beheer van sponsor ({{ $ctrl.products.meta.total_sponsor }})
+                        .label-tab-set
+                            .label-tab.label-tab-sm(
+                                ng-class="{active : $ctrl.filters.values.source == 'provider'}"
+                                ui-sref="products($ctrl.srefData.provider)")
+                                | In uw beheer ({{ $ctrl.products.meta.total_provider }})
 
-                .label-tab.label-tab-sm(
-                    ng-class="{active : $ctrl.filters.values.source == 'archive'}" 
-                    ui-sref="products($ctrl.srefData.archive)")
-                    | Archief ({{ $ctrl.products.meta.total_archived }})
+                            .label-tab.label-tab-sm(
+                                ng-class="{active : $ctrl.filters.values.source == 'sponsor'}" 
+                                ui-sref="products($ctrl.srefData.sponsor)")
+                                | In beheer van sponsor ({{ $ctrl.products.meta.total_sponsor }})
+                            
+                            .label-tab.label-tab-sm(
+                                ng-class="{active : $ctrl.filters.values.source == 'archive'}" 
+                                ui-sref="products($ctrl.srefData.archive)")
+                                | Archief ({{ $ctrl.products.meta.total_archived }})
 
-        .block.block-products: product-card(
-            ng-if="$ctrl.products.meta.total > 0" 
-            ng-repeat="product in $ctrl.products.data" 
-            product="product" 
-            level="list")
+            .card-section.card-section-padless(ng-if="$ctrl.products.meta.total > 0")
+                .table-wrapper: table.table.table-products
+                    tr
+                        th(th-sortable filters="$ctrl.filters.values" label="products.labels.id" value="id")
+                        th(th-sortable filters="$ctrl.filters.values" label="products.labels.name" value="name")
+                        th(th-sortable filters="$ctrl.filters.values" label="products.labels.stock_amount" value="stock_amount")
+                        th(th-sortable filters="$ctrl.filters.values" label="products.labels.price" value="price")
+                        th(th-sortable filters="$ctrl.filters.values" label="products.labels.expire_at" value="expire_at")
+                        th(th-sortable filters="$ctrl.filters.values" label="products.labels.expired" value="expired")
+                        th.text-right(translate='products.labels.actions')
 
-        .card-section(ng-if="$ctrl.products.meta" ng-show="$ctrl.products.meta.last_page > 1")
-            paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+                    tr(ng-repeat="product in $ctrl.products.data")
+                        td: a.text-strong(
+                            ng-bind="product.id" 
+                            ui-sref="products-show(product)")
 
-        //- No provider offers
-        block-empty(
-            ng-if="$ctrl.filters.values.source == 'provider' && $ctrl.products.meta.total == 0" 
-            text="Er zijn momenteel geen aanbiedingen." 
-            button="{text: 'Aanbieding toevoegen', href: $ctrl.emptyBlockLink}")
+                        td: .product-media-block
+                            img(ng-src="{{ product.photo.sizes.thumbnail || './assets/img/placeholders/product-thumbnail.png' }}").product-media
+                            span(ng-bind="product.name | str_limit:35")
 
-        //- No sponsor offers
-        block-empty(
-            ng-if="$ctrl.filters.values.source == 'sponsor' && $ctrl.products.meta.total == 0" 
-            text="Er zijn momenteel geen aanbiedingen.")
+                        td
+                            span(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
+                            span(ng-if="product.unlimited_stock" translate="product_edit.labels.unlimited")
 
-        //- No archived/deleted offers
-        block-empty(
-            ng-if="$ctrl.filters.values.source == 'archive' && $ctrl.products.meta.total == 0" 
-            text="Er zijn momenteel geen aanbiedingen." )
+                        td: strong(ng-bind="product.price_locale")
+
+                        td: strong(ng-bind="product.expire_at_locale")
+
+                        td: span(ng-bind="product.expired ? 'Ja' : 'Nee'")
+                        
+                        td: .flex-grow.pull-right
+                            a.button.button-primary.button-icon(
+                                ng-if="!product.sponsor_organization"
+                                ui-sref="products-show(product)")
+                                .mdi.mdi-eye-outline.icon-start
+
+                            .button.button-primary(ng-if="product.sponsor_organization" ng-click="$ctrl.deleteProduct(product)") 
+                                em.mdi.mdi-close.icon-start
+                                | Stop
+
+                            .button.button-primary-light.button-icon(
+                                ng-if="!product.sponsor_organization"
+                                ui-sref="products-show(product)"
+                                ng-disabled="!(product.unseen_messages > 0)")
+                                em.mdi.mdi-message-text
+
+            .card-section(ng-if="$ctrl.transactionBulks" ng-show="($ctrl.viewType.key == 'bulks') && ($ctrl.transactionBulks.meta.last_page > 1)")
+                paginator(
+                    meta="$ctrl.transactionBulks.meta" 
+                    filters="$ctrl.bulkFilters.values" 
+                    delayed-filters="['amount_min', 'amount_max', 'quantity_min', 'quantity_max']" 
+                    on-page-change="$ctrl.onBulkPageChange(query)")
+
+            .card-section(ng-if="$ctrl.filters.values.source == 'provider' && $ctrl.products.meta.total == 0").text-center
+                .card-subtitle Er zijn momenteel geen aanbiedingen.
+                br
+                a.button.button-primary(href="{{ $ctrl.emptyBlockLink }}") 
+                    em.mdi.mdi-plus-circle.icon-start
+                    | Aanbieding toevoegen
+
+            .card-section(ng-if="$ctrl.filters.values.source == 'sponsor' && $ctrl.products.meta.total == 0")
+                .card-subtitle.text-center Er zijn momenteel geen aanbiedingen.
+
+            .card-section(ng-if="$ctrl.filters.values.source == 'archive' && $ctrl.products.meta.total == 0")
+                .card-subtitle.text-center Er zijn momenteel geen aanbiedingen.
+
+            .card-section(ng-if="$ctrl.products" ng-show="$ctrl.products.meta.last_page > 1")
+                paginator(meta="$ctrl.products.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")

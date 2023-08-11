@@ -3,13 +3,13 @@ const ProductsComponent = function(
     $state,
     $stateParams,
     appConfigs,
-    ProductService
+    ProductService,
+    ModalService
 ) {
     const $ctrl = this;
 
     $ctrl.filters = {
         values: {
-            source: $stateParams.source || 'provider',
         },
     };
 
@@ -40,6 +40,23 @@ const ProductsComponent = function(
         }
     };
 
+    $ctrl.deleteProduct = function(product) {
+        ModalService.open('modalNotification', {
+            type: 'confirm',
+            title: 'products.confirm_delete.title',
+            description: 'products.confirm_delete.description',
+            icon: 'product-create',
+            confirm: () => {
+                ProductService.destroy(
+                    product.organization_id,
+                    product.id
+                ).then(() => {
+                    $state.reload();
+                });
+            }
+        });
+    };
+
     $ctrl.srefData = {
         provider: { ...$stateParams, ...{ source: 'provider' } },
         sponsor: { ...$stateParams, ...{ source: 'sponsor' } },
@@ -58,6 +75,7 @@ module.exports = {
         '$stateParams',
         'appConfigs',
         'ProductService',
+        'ModalService',
         ProductsComponent
     ],
     templateUrl: 'assets/tpl/pages/products.html'
