@@ -219,8 +219,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "organization-security",
-        url: "/organizations/{organization_id}/security",
+        url: "/organizations/{organization_id}/security?view_type",
         component: "organizationSecurityComponent",
+        params: {
+            view_type: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
             organization: organizationResolver(),
             permission: permissionMiddleware('funds-show', ['view_funds', 'manage_funds', 'view_finances'], false),
@@ -1647,6 +1653,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         resolve: {
             organization: organziationResolver(),
             permission: permissionMiddleware('export-api-connections', 'manage_bi_connection'),
+        }
+    });
+
+    // Organization contacts
+    $stateProvider.state({
+        name: "organizations-contacts",
+        url: "/organizations/{organization_id}/contacts",
+        component: "organizationContactsComponent",
+        resolve: {
+            organization: organizationResolver(),
+            permission: permissionMiddleware('fund-requests', ['manage_organization']),
         }
     });
 

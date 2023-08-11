@@ -1,4 +1,5 @@
 const FundsSecurityComponent = function (
+    $scope,
     FundService,
     FormBuilderService,
     PageLoadingBarService,
@@ -7,6 +8,9 @@ const FundsSecurityComponent = function (
     const $ctrl = this;
 
     const auth2FARequiredOptions = [{
+        value: 'global',
+        name: 'Gebruik standaard instelling',
+    }, {
         value: 'optional',
         name: 'Optioneel',
     }, {
@@ -47,6 +51,8 @@ const FundsSecurityComponent = function (
                 form.errors = e.data.errors;
             }).finally(() => form.unlock() & PageLoadingBarService.setProgress(100));
         }, true);
+
+        $ctrl.global_2fa = $ctrl.fund.organization_funds_2fa;
     }
 };
 
@@ -56,6 +62,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$scope',
         'FundService',
         'FormBuilderService',
         'PageLoadingBarService',
