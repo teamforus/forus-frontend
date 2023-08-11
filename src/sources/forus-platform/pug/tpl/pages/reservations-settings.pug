@@ -36,6 +36,15 @@
                         ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.reservation_birth_date" ng-bind="error")           
 
+            //- Custom fields
+            .card-section.card-section-primary(ng-if="$ctrl.organization.allow_reservation_custom_fields && $ctrl.form")
+                .form-group.form-group-inline
+                    label.form-label(translate="reservation_settings.labels.fields")
+                    .form-offset: reservation-fields-editor(
+                        fields="$ctrl.form.values.fields"
+                        organization="$ctrl.organization"
+                        errors="$ctrl.form.errors")
+
             //- Cancel or Submit
             .card-section.card-section-primary: .button-group.flex-center
                 button(

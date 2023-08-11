@@ -15,16 +15,24 @@
                     span(ng-bind="' (' + $ctrl.funds.length + ')'")    
 
             //- Filters active/archived
-            .flex-col: .block.block-label-tabs.nowrap.pull-right: .label-tab-set
-                .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'active'}"
-                    ui-sref="organization-funds({funds_type: 'active'})")
-                    | Lopend ({{ $ctrl.activeFunds.length }})
+            .flex-col
+                .block.block-label-tabs.nowrap.pull-right: .label-tab-set
+                    .label-tab.label-tab-sm(
+                        ng-class="{'active' : $ctrl.shownFundsType == 'active'}"
+                        ui-sref="organization-funds({funds_type: 'active'})")
+                        | Lopend ({{ $ctrl.activeFunds.length }})
 
-                .label-tab.label-tab-sm(
-                    ng-class="{'active' : $ctrl.shownFundsType == 'archived'}"
-                    ui-sref="organization-funds({funds_type: 'archived'})")
-                    | Archief ({{ $ctrl.archivedFunds.length }})
+                    .label-tab.label-tab-sm(
+                        ng-class="{'active' : $ctrl.shownFundsType == 'archived'}"
+                        ui-sref="organization-funds({funds_type: 'archived'})")
+                        | Archief ({{ $ctrl.archivedFunds.length }})
+
+                .block.block-inline-filters.flex-col.pull-right
+                    a(
+                        ng-if="$ctrl.organization.allow_2fa_restrictions && ($ctrl.organization | hasPerm:['manage_organization'])"
+                        ui-sref="organization-security({organization_id: $ctrl.organization.id, view_type: 'funds'})").button.button-default.button-sm
+                        em.mdi.mdi-security.icon-start
+                        translate(translate="components.organization_funds.buttons.security")
 
         //- Funds list
         .block.block-funds(ng-if="$ctrl.shownFundsType == 'active' && $ctrl.activeFunds.length > 0")

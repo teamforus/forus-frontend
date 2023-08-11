@@ -33,16 +33,21 @@ const isInit = () => {
 if (fs.existsSync(envFile)) {
     // environment
     var qdt_e = require(envFile);
+    var core = qdt_e(require('./Core'));
+
+    if (typeof params?.only == 'string') {
+        core.enableOnly(params?.only.split(','));
+    }
+
+    if (typeof params?.except == 'string') {
+        core.disableOnly(params?.except.split(','));
+    }
 
     // configurations
-    var qdt_c = qdt_core.compileConfig({
-        platforms: qdt_e(require('./Core')).getConfig()
-    });
-
-    // group platform by source
+    var qdt_c = qdt_core.compileConfig({ platforms: core.getConfig()});
     var grouped_platforms = qdt_core.groupPlatforms(qdt_c.platforms);
 
-    // browser syncronization
+    // browser synchronization
     var browserSync = {};
     var browserSyncReload = {};
 

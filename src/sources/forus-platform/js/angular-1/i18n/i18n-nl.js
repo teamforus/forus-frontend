@@ -79,6 +79,7 @@ module.exports = {
             remove_implementation_social_media: require('./nl/modals/danger-zone/remove-implementation-social-media'),
             remove_reimbursement_category: require('./nl/modals/danger-zone/remove_reimbursement_category'),
             recreate_bi_connection: require('./nl/modals/danger-zone/recreate-bi-connection'),
+            remove_reservation_field: require('./nl/modals/danger-zone/remove-reservation-field'),
         },
     },
     // PAGES
@@ -95,6 +96,8 @@ module.exports = {
     provider_funds: require('./nl/pages/provider-funds.pug.i18n'),
     fund_unsubscriptions: require('./nl/pages/fund-unsubscriptions.pug.i18n'),
     bi_connection: require('./nl/pages/bi-connection.pug.i18n'),
+    organization_contacts: require('./nl/pages/organization-contacts.pug.i18n'),
+    reservation_settings: require('./nl/pages/reservations-settings.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -495,6 +498,7 @@ module.exports = {
         labels: {
             name: "Naam",
             description_short: "Korte omschrijving",
+            description_position: "Positie van de content",
             description: "Omschrijving",
             products: "Aanbod",
             status: "Status",
@@ -673,6 +677,7 @@ module.exports = {
         buttons: {
             add: "Organisatie toevoegen",
             edit: "Organisatie instellingen",
+            contacts: "Organisatie berichten",
             notifications_preferences: "Notificatievoorkeuren",
         }
     },
@@ -1311,22 +1316,6 @@ module.exports = {
             birth_date: "Geboortedatum",
             user_note: "Notitie",
         },
-    },
-
-    // RESERVATION SETTINGS - reservations-settings.pug
-    reservation_settings: {
-        header: {
-            title: "Reservering instellingen",
-        },
-        buttons: {
-            cancel: "Annuleren",
-            confirm: "Bevestigen",
-        },
-        labels: {
-            phone: "Telefoonnummer instellingen",
-            address: "Adres instellingen",
-            birth_date: "Geboortedatum instellingen",
-        }
     },
 
     // VALIDATION REQUEST - validation-request.pug
