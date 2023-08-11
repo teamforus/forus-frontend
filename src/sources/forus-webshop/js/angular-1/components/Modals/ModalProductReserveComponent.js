@@ -5,7 +5,6 @@ const ModalProductReserveComponent = function (
     AuthService,
     VoucherService,
     FormBuilderService,
-    OrganizationService,
     PushNotificationsService,
     ProductReservationService,
 ) {
@@ -30,18 +29,9 @@ const ModalProductReserveComponent = function (
     $ctrl.fields = [];
     $ctrl.step = $ctrl.STEP_SELECT_VOUCHER;
 
-    let progressStorage = ProductReservationService.makeProgressStorage('product-reservation-progress');
-
-    $ctrl.restoreProgress = () => {
-        let step = parseInt(progressStorage.get('step')) || $ctrl.STEP_SELECT_VOUCHER;
-        $ctrl.setStep(step);
-    };
-
     $ctrl.finish = () => {
         $ctrl.close();
-
         $state.go('reservations');
-        progressStorage.clear();
     };
 
     $ctrl.onError = (res) => {
@@ -66,7 +56,6 @@ const ModalProductReserveComponent = function (
             product_id: $ctrl.product.id,
         }).then(() => {
             $ctrl.form.errors = {};
-            progressStorage.set('reservationForm', JSON.stringify($ctrl.form.values));
             $ctrl.setStep($ctrl.step + 1);
         }, $ctrl.onError);
     };
@@ -98,7 +87,10 @@ const ModalProductReserveComponent = function (
         }
 
         $ctrl.fields = [...$ctrl.fields, ...customFields];
-        $ctrl.fields[$ctrl.fields.length - 1].fullWidth = $ctrl.fields.length % 2 !== 0;
+
+        if ($ctrl.fields.length > 0) {
+            $ctrl.fields[$ctrl.fields.length - 1].fullWidth = $ctrl.fields.length % 2 !== 0;
+        }
     };
 
     $ctrl.addEmail = () => {
@@ -108,22 +100,9 @@ const ModalProductReserveComponent = function (
 
     $ctrl.setStep = (step) => {
         $ctrl.step = step;
-        progressStorage.set('step', step);
-
-        if ($ctrl.step >= $ctrl.STEP_FILL_DATA) {
-            $ctrl.voucher = JSON.parse(progressStorage.get('voucher'));
-
-            if (progressStorage.has('reservationForm')) {
-                $ctrl.form.values = JSON.parse(progressStorage.get('reservationForm'));
-            }
-        }
     };
 
     $ctrl.back = () => {
-        if ($ctrl.step == $ctrl.STEP_FILL_DATA) {
-            progressStorage.delete('reservationForm');
-        }
-
         $ctrl.setStep($ctrl.step - 1);
     };
 
@@ -137,7 +116,6 @@ const ModalProductReserveComponent = function (
 
     $ctrl.selectVoucher = (voucher) => {
         $ctrl.voucher = voucher;
-        progressStorage.set('voucher', JSON.stringify($ctrl.voucher));
         $ctrl.next();
     };
 
@@ -171,8 +149,6 @@ const ModalProductReserveComponent = function (
             }).then($ctrl.next(), $ctrl.onError);
         }, true);
 
-        $ctrl.restoreProgress();
-
         if ($ctrl.step <= $ctrl.STEP_SELECT_VOUCHER) {
             AuthService.identity().then((res) => {
                 if (!res.data.email) {
@@ -181,22 +157,16 @@ const ModalProductReserveComponent = function (
             });
         }
 
-        OrganizationService.reservationFields($ctrl.product.organization_id).then((res) => {
-            $ctrl.mapFields(res.data.data.map((field) => ({
-                label: field.label,
-                placeholder: field.label,
-                description: field.description,
-                custom: true,
-                required: field.required,
-                key: field.id,
-                dusk: `customField${field.id}`,
-                type: field.type,
-            })))
-        });
-    };
-
-    $ctrl.$onDestroy = function() {
-        progressStorage.clear();
+        $ctrl.mapFields($ctrl.product.reservation.fields?.map((field) => ({
+            label: field.label,
+            placeholder: field.label,
+            description: field.description,
+            custom: true,
+            required: field.required,
+            key: field.id,
+            dusk: `customField${field.id}`,
+            type: field.type,
+        })) || [])
     };
 };
 
@@ -214,7 +184,6 @@ module.exports = {
         'AuthService',
         'VoucherService',
         'FormBuilderService',
-        'OrganizationService',
         'PushNotificationsService',
         'ProductReservationService',
         ModalProductReserveComponent,
