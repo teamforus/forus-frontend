@@ -1,4 +1,8 @@
+const { pick } = require("lodash");
+
 const SponsorProviderOrganizationsComponent = function(
+    $state,
+    $stateParams,
     FileService,
     ModalService,
     OrganizationService
@@ -18,7 +22,9 @@ const SponsorProviderOrganizationsComponent = function(
 
     $ctrl.filters = {
         show: false,
-        values: {},
+        values: pick($stateParams, [
+            'q', 'order_by', 'fund_id', 'allow_budget', 'allow_products', 'has_products',
+        ]),
         defaultValues: {
             q: '',
             order_by: $ctrl.orderByOptions[0].value,
@@ -29,7 +35,16 @@ const SponsorProviderOrganizationsComponent = function(
         },
         reset: function() {
             this.values = { ...this.defaultValues };
+            $ctrl.updateState(this.defaultValues);
         }
+    };
+
+    $ctrl.updateState = (query) => {
+        $state.go(
+            'sponsor-provider-organizations',
+            { ...query, organization_id: $ctrl.organization.id },
+            { location: 'replace' },
+        );
     };
 
     $ctrl.setExtendedView = function(extendedView) {
@@ -45,6 +60,7 @@ const SponsorProviderOrganizationsComponent = function(
                 meta: res.data.meta,
                 data: $ctrl.transformList(res.data.data),
             };
+            $ctrl.updateState(query);
         }));
     };
 
@@ -98,9 +114,8 @@ const SponsorProviderOrganizationsComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds]
-        $ctrl.filters.reset();
-        $ctrl.onPageChange($ctrl.filters.values);
+        $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds];
+        $ctrl.providerOrganizations.data = $ctrl.transformList($ctrl.providerOrganizations.data);
 
         $ctrl.requests = $ctrl.fundUnsubscribes.length;
         $ctrl.requestsExpired = $ctrl.fundUnsubscribes.filter((item) => item.state == 'overdue').length;
@@ -113,8 +128,11 @@ module.exports = {
         funds: '<',
         organization: '<',
         fundUnsubscribes: '<',
+        providerOrganizations: '<',
     },
     controller: [
+        '$state',
+        '$stateParams',
         'FileService',
         'ModalService',
         'OrganizationService',

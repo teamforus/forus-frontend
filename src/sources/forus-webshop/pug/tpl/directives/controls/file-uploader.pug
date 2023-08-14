@@ -63,7 +63,8 @@
                         title="Bestand bekijken"
                         role="button"
                         tabindex="0"
-                        type="button").mdi.mdi-eye-outline
+                        type="button"
+                        name="Bestand bekijken").mdi.mdi-eye-outline
 
                 //- Download
                 .file-item-action(ng-if="!fileItem.uploading")
@@ -72,7 +73,8 @@
                         title="Bestand downloaden"
                         role="button"
                         tabindex="0"
-                        type="button").mdi.mdi-tray-arrow-down
+                        type="button"
+                        name="Bestand downloaden").mdi.mdi-tray-arrow-down
 
                 //- Delete
                 .file-item-action(ng-if="!$dir.readOnly")
@@ -81,7 +83,8 @@
                         title="Bestand verwijderen"
                         role="button"
                         tabindex="0"
-                        type="button").mdi.mdi-close
+                        type="button"
+                        name="Bestand verwijderen").mdi.mdi-close
 
             //- Validation errors
             .file-item-error: .text-danger(ng-repeat="error in fileItem.error" ng-bind="error")
