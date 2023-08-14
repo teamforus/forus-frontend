@@ -1,5 +1,6 @@
 &.modal-product-reserve {
     cursor: default;
+    z-index: 99;
 
     .modal-title {
         font: 700 22px/30px var(--base-font);

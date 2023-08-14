@@ -133,9 +133,9 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
 
                 .flex-row
-                    .form-group.form-group-margin(
+                    .col.col-lg-6.col-xs-12.form-group.form-group-margin(
                         ng-repeat="field in $ctrl.fields"
-                        ng-class="'col col-lg-' + (field.fullWidth ? '12' : '6')")
+                        ng-class="'col-lg-' + (field.fullWidth ? '12' : '6')")
                         .form-label(ng-bind="field.label")
 
                         //- custom field
