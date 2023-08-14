@@ -11,6 +11,8 @@ const CmsFundsDirective = function(
         $dir.blocks = $dir.page.blocks.map((block) => ({
             ...block, description_html: $sce.trustAsHtml(block.description_html || ''),
         })) || [];
+
+        $dir.blocks_per_row = $dir.page.blocks_per_row || 1;
     };
 };
 

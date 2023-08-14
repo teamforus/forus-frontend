@@ -70,6 +70,101 @@
         }
     }
 
+    &.block-cms-funds-compact {
+        display: flex;
+        flex-wrap: wrap;
+
+        .fund-item {
+            display: flex;
+            flex-direction: column;
+            width: calc(33% - 40px);
+            border-radius: 3px;
+            border: 1px solid #E5E5E5;
+            background: #FFF;
+            box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.06);
+            margin: 0 40px 48px 0;
+            position: relative;
+
+            .fund-media {
+                width: 100%;
+            }
+
+            .fund-information {
+                width: 100%;
+                padding: 25px;
+
+                .fund-label {
+                    margin: 0 0 15px;
+
+                    .label {
+                        padding: 7px;
+                        font: 700 12px/12px var(--base-font);
+                    }
+                }
+
+                .fund-title {
+                    font: 400 32px/48px var(--base-font);
+                }
+
+                .fund-button {
+                    position: absolute;
+                    bottom: 25px;
+                    right: 25px;
+
+                    .button {
+                        padding: 0;
+                        background: none;
+                        border: none;
+                        color: var(--color-primary);
+                        text-decoration: underline;
+                        font: 600 18px/20px var(--base-font);
+
+                        .mdi {
+                            display: none;
+                        }
+
+                        &:hover {
+                            background: none;
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
+    
+            &:nth-of-type(2n) {
+                .fund-media {
+                    order: 1;
+                }
+        
+                .fund-information {
+                    order: 2;
+                }
+            }
+    
+            &:nth-of-type(3n) {
+                margin-right: 0;
+            }
+
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+
+        &.block-cms-funds-2-in-row {
+            .fund-item {
+                width: calc(50% - 40px);
+    
+                &:nth-of-type(2n) {
+                    margin-right: 0;
+                }
+        
+                &:nth-of-type(3n) {
+                    margin-right: 40px;
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         .fund-item {
             padding: 0 0 30px;
