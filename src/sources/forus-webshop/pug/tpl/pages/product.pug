@@ -21,14 +21,13 @@ main(id="main-content")
             .breadcrumb-item.active(ng-bind="$ctrl.product.name" aria-current="location")
 
         .block.block-product
-            h1.sr-only Informatie over het aanbod
             .product-card
                 .product-photo: img(
                     ng-src="{{ $ctrl.product.photo.sizes.large || './assets/img/placeholders/product-large.png' }}" 
                     alt="{{ $ctrl.product.alternative_text }}")
                 
                 .product-details
-                    .product-name
+                    h1.product-name
                         span(ng-bind="$ctrl.product.name" dusk="productName")
                         span.label.label-danger(
                             ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" 
