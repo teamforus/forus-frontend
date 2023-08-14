@@ -39,21 +39,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             span(translate="topnavbar.buttons.activate_{{ $root.client_key }}" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
 
                         .auth-user-menu-item(
-                            ng-click="$dir.openPinCodePopup()" 
-                            id="open_pincode_popup"
-                            role="link")
-                            em.mdi.mdi-cellphone
-                            span(translate="topnavbar.buttons.authorize")
-                            
-                        .auth-user-menu-item(
-                            ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required"
-                            ui-sref="security-2fa"
-                            ng-click="$dir.goToState('security-2fa')"
-                            role="link")
-                            em.mdi.mdi-security
-                            | Beveiliging
-                            
-                        .auth-user-menu-item(
                             ui-sref="vouchers"
                             ui-sref-active="active"
                             id="vouchers"
@@ -62,6 +47,13 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             tabindex="0")
                             em.mdi.mdi-ticket-percent-outline
                             | Mijn tegoeden
+
+                        .auth-user-menu-item(
+                            ng-click="$dir.openPinCodePopup()" 
+                            id="open_pincode_popup"
+                            role="link")
+                            em.mdi.mdi-cellphone
+                            span(translate="topnavbar.buttons.authorize")
                             
                         .auth-user-menu-item(
                             ui-sref="bookmarked-products"
@@ -93,15 +85,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             tabindex="0")
                             em.mdi.mdi-receipt-outline
                             | Kosten terugvragen
-
-                        .auth-user-menu-item(
-                            ng-if="$root.appConfigs.sessions"
-                            ui-sref="security-sessions"
-                            ng-click="$dir.goToState('security-sessions')"
-                            role="link"
-                            tabindex="0")
-                            em.mdi.mdi-shield-account
-                            | Sessies
                         
                         .auth-user-menu-item(
                             ui-sref="notifications"
@@ -123,6 +106,15 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             translate(translate="notification_preferences.title_preferences")
 
                         .auth-user-menu-item(
+                            ng-if="$root.appConfigs.sessions"
+                            ui-sref="security-sessions"
+                            ng-click="$dir.goToState('security-sessions')"
+                            role="link"
+                            tabindex="0")
+                            em.mdi.mdi-shield-account
+                            | Sessies
+
+                        .auth-user-menu-item(
                             ui-sref="identity-emails"
                             ui-sref-active="active"
                             id="identity_emails"
@@ -132,6 +124,14 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             tabindex="0")
                             em.mdi.mdi-at 
                             translate(translate="email_preferences.title_preferences")
+                            
+                        .auth-user-menu-item(
+                            ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required"
+                            ui-sref="security-2fa"
+                            ng-click="$dir.goToState('security-2fa')"
+                            role="link")
+                            em.mdi.mdi-security
+                            | Beveiliging
 
                         .auth-user-menu-separator.show-sm
                         
