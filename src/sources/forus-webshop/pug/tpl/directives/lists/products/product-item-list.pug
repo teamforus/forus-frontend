@@ -15,7 +15,7 @@ a.product-item(dusk="productItem")
     //- Products
     .product-content(ng-if="$dir.productType == 'budget'")
         .product-details
-            .product-name(ng-bind="$dir.product.name" dusk="productName")
+            h2.product-name(ng-bind="$dir.product.name" dusk="productName")
             .product-organization(ng-bind="$dir.product.organization.name")
 
         .product-actions
@@ -26,7 +26,7 @@ a.product-item(dusk="productItem")
     //- Subsidies
     .product-content(ng-if="$dir.productType == 'subsidies'")
         .product-details
-            .product-name(ng-bind="$dir.product.name" dusk="productName")
+            h2.product-name(ng-bind="$dir.product.name" dusk="productName")
             .product-provider(ng-bind="$dir.product.organization.name")
 
         .product-actions

@@ -25,6 +25,10 @@
             vertical-align: bottom;
             cursor: pointer;
         }
+
+        @media screen and (max-width: 1000px) {
+            right: 5px;
+        }
     }
 
     .form-control:not([type="radio"]):not([type="checkbox"]) {
