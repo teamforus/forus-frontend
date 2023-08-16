@@ -629,7 +629,7 @@ module.exports = {
     organization_edit: {
         header: {
             title_add: "Organisatie aanmaken",
-            title_edit: "Organisatie aanpassen",
+            title_edit: "Organisatie instellingen",
         },
         labels: {
             name: "Bedrijfsnaam",
