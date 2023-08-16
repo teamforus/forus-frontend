@@ -146,4 +146,36 @@
             border-bottom: none;
         }
     }
+
+    @media screen and (max-width: 1000px) {
+        .session-item {
+            .session-details {
+                .session-title {
+                    font: 700 14px/20px var(--base-font);
+                    padding: 2px 0;
+                    margin: 0 0 10px;
+                    
+                    span {
+                        display: block;
+                    }
+
+                    .text-separator {
+                        display: none;
+                    }
+                }
+
+                .session-properties {
+                    .session-property {
+                        flex-direction: column;
+
+                        .session-property-value {
+                            font-weight: 700;
+                            flex-direction: column;
+                            margin: 0 0 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

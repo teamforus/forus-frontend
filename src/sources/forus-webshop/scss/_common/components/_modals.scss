@@ -316,6 +316,29 @@
         }
     }
 
+    .modal-notice {
+        padding: 15px;
+        align-items: center;
+        align-content: center;
+        background-color: #e6ecff;
+        border-radius: var(--border-radius);
+        text-align: left;
+
+        .mdi {
+            padding-right: 15px;
+            font-size: 18px;
+        }
+
+        .modal-notice-title {
+            font: 600 14px/22px var(--base-font);
+            margin-bottom: 10px;
+        }
+
+        .modal-notice-description {
+            font: 400 13px/18px var(--base-font);
+        }
+    }
+
     &.modal-auth {
         .me-logo {
             height: 115px;
