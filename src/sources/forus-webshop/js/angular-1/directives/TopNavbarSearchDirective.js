@@ -85,7 +85,7 @@ const TopNavbarSearchDirective = function (
     };
     
     $dir.hideSearchBox = () => {
-        if (!appConfigs.flags.genericSearchUseToggle) {
+        if (!appConfigs.flags.genericSearchUseToggle && window.innerWidth >= 1000) {
             return;
         }
 
