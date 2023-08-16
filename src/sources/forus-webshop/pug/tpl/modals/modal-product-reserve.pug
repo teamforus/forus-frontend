@@ -166,6 +166,7 @@
                         datepicker(
                             ng-if="!field.custom && field.type === 'date'"
                             date-format="yyyy-MM-dd"
+                            date-refocus="true"
                             datepicker-mobile=""
                             date-max-limit="{{ $ctrl.dateMinLimit + '' }}"
                             date-week-start-day="1").form-control
