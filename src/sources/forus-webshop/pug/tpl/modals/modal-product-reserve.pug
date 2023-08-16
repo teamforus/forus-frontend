@@ -22,30 +22,27 @@
 
         .modal-body: .modal-section.flex.flex-center.flex-grow.flex-vertical.text-center
             .media: include ../../../resources/_webshop-common/assets/img/icon-email-add.svg
-            .modal-title Add email
+            .modal-title E-mailadres toevoegen
             .modal-subtitle
-                | Phasellus neque morbi eu leo congue gravida in. 
-                | Vitae consequat varius mollis dolor sed blandit mattis aliquam enim. 
-                | Dui consequat nam augue feugiat nisl integer. 
-                | Ultrices viverra orci dictum eu arcu ut eleifend magna amet.
+                | Voeg uw e-mailadres toe om berichten te kunnen ontvangen.
             
             .button-group.flex-center
                 button(ng-click="$ctrl.addEmail()" role="link").button.button-primary.button-wide
                     em.mdi.mdi-open-in-new.icon-start
-                    | Add new email address
+                    | Toevoegen
 
         //- Actions
         .modal-footer
             //- Back to form
             .flex.flex-grow: button.button.button-light.button-sm(
                 type="button" 
-                ng-click="$ctrl.close()") Cancel
+                ng-click="$ctrl.close()") Annuleren
 
             //- Submit 
             .flex: button.button.button-primary-outline.button-sm(
                 dusk="reserveSkipEmailStep"
                 type="button"
-                ng-click="$ctrl.step = $ctrl.STEP_SELECT_VOUCHER") Skip
+                ng-click="$ctrl.step = $ctrl.STEP_SELECT_VOUCHER") Overslaan
 
     //- Select reservation voucher
     .modal-window(ng-if="$ctrl.step == $ctrl.STEP_SELECT_VOUCHER")
@@ -192,12 +189,12 @@
             .flex.flex-grow
                 button.button.button-light.button-sm(
                     type="button" 
-                    ng-click="$ctrl.close()") Cancel
+                    ng-click="$ctrl.close()") Annuleren
 
             //- Submit 
             .flex
                 button(
-                    type="button" ng-click="$ctrl.back()").button.button-light.button-sm Previous step
+                    type="button" ng-click="$ctrl.back()").button.button-light.button-sm Terug
 
                 button(
                     type="submit" 
@@ -234,29 +231,28 @@
                     .modal-notice.flex
                         em.mdi.mdi-information-outline
                         .flex-grow
-                            .modal-notice-title One more step and we are almost there!   
+                            .modal-notice-title Voeg uw e-mailadres toe!
                             .modal-notice-description 
-                                | Dat betekent dat de aanbieder geen informatie heeft om contact met je op te nemen en je te informeren over de reservering. 
-                                | Voeg een e-mailadres toe aan uw account of gebruik het.
+                                | Voeg uw e-mailadres toe om berichten te kunnen ontvangen van de aanbieder over de reservering.
 
         //- Actions
         .modal-footer
             //- Back to form
             .flex.flex-grow: button.button.button-light.button-sm(
                 type="button" 
-                ng-click="$ctrl.close()") Cancel
+                ng-click="$ctrl.close()") Annuleren
 
             //- Submit 
             .flex
                 button(
                     type="button" 
-                    ng-click="$ctrl.back()").button.button-light.button-sm Previous step
+                    ng-click="$ctrl.back()").button.button-light.button-sm Terug
 
                 button(
                     type="button" 
                     dusk="btnSubmit"
                     ng-click="$ctrl.next()"
-                    translate="popup_auth.buttons.submit").button.button-primary.button-sm Proceed     
+                    translate="popup_auth.buttons.submit").button.button-primary.button-sm Bevestig
 
     //- Reservation confirmation
     .modal-window(ng-if="$ctrl.step == $ctrl.STEP_CONFIRM_DATA")
@@ -304,7 +300,7 @@
             .flex
                 button(
                     type="button" 
-                    ng-click="$ctrl.back()").button.button-light.button-sm Previous step
+                    ng-click="$ctrl.back()").button.button-light.button-sm Terug
 
                 button(
                     type="button" 
@@ -319,12 +315,12 @@
         .modal-body: .modal-section.flex.flex-center.flex-grow.flex-vertical.text-center
             .reservation-success
                 .reservation-success-media: include ../../../resources/_webshop-common/assets/img/reservation-finish.svg
-                .reservation-success-title You've successfully completed your request!
-                .reservation-success-subtitle Thank you for your request! We will contact you very soon.
+                .reservation-success-title Het is gelukt!
+                .reservation-success-subtitle Uw reservering is gemaakt.
 
                 .button-group.flex-center: button(
                     ng-click="$ctrl.finish()" 
                     role="button" 
                     dusk="btnReservationFinish").button.button-light.button-wide
-                    | Close
+                    | Sluiten
     
