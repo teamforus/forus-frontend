@@ -26,9 +26,10 @@ const ReservationsSettingsComponent = function (
             reservation_address: $ctrl.organization.reservation_address,
             reservation_birth_date: $ctrl.organization.reservation_birth_date,
         }, (form) => {
-            OrganizationService.updateReservationFields($ctrl.organization.id, form.values).then(() => {
+            OrganizationService.updateReservationFields($ctrl.organization.id, form.values).then((res) => {
                 PushNotificationsService.success('Opgeslagen!');
-                loadFieldsAndForm();
+                $ctrl.organization = res.data.data;
+                buildForm($ctrl.organization.reservation_fields);
                 form.errors = null;
             }, (res) => {
                 form.errors = res.data.errors;
@@ -37,19 +38,8 @@ const ReservationsSettingsComponent = function (
         }, true);
     }
 
-    const loadFieldsAndForm = () => {
-        if ($ctrl.organization.allow_reservation_custom_fields) {
-            OrganizationService.reservationFields($ctrl.organization.id).then(
-                (res) => buildForm(res.data.data),
-                (res) => PushNotificationsService.danger('Error!', res.data.message)
-            );
-        } else {
-            buildForm();
-        }
-    }
-
     $ctrl.$onInit = function () {
-        loadFieldsAndForm();
+        buildForm($ctrl.organization.reservation_fields);
     }
 };
 
