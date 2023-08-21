@@ -7,6 +7,11 @@
 ## Developers checklist
 - [ ] *Check that dusk tests are working locally on compatible branch*
 - [ ] *Mobile version of changes is developed* - if its a webshop feature, mobile version for this feature is developed
+- [ ] *Webshop feature is WCAG compliant* - if its a webshop feature:
+  - [ ] buttons and links are accessible by keyboard
+  - [ ] alt. texts added to icons, buttons and links
+  - [ ] heading are set as headers in HTML with h1/h2/h3
+  - [ ] it's visible after zooming in on 200%
 
 ## Developer suggestions
 Checkmark if PR:
