@@ -130,6 +130,59 @@
         }
     }
 
+    .phone-control {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+
+        input {
+            &.form-control {
+                &:not([type=radio]):not([type=checkbox]) {
+                    border-left: none;
+                    border-top-left-radius: 0px;
+                    border-bottom-left-radius: 0px;
+                }
+            }
+        }
+
+        .form-control {
+            &:focus {
+                outline: none !important;
+                border-color: inherit !important;
+                box-shadow: none !important;
+            }
+        }
+
+        .select-control {
+            width: 200px;
+
+            .select-control-input {
+                .select-control-options {
+                    width: 300px;
+                    max-width: 70vw;
+                    text-align: left;
+                }    
+
+                .select-control-search {
+                    border-right: none;
+                    border-top-right-radius: 0px;
+                    border-bottom-right-radius: 0px;
+
+                    &:after {
+                        display: block;
+                        content: "";
+                        width: 1px;
+                        height: 24px;
+                        background-color: #cfcfcf;
+                        position: absolute;
+                        top: 8px;
+                        right: 0;
+                    }
+                }
+            }
+        }
+    }
+
     textarea.form-control:not([type="radio"]):not([type="checkbox"]) {
         padding: 6px 10px;
         line-height: initial;
@@ -260,6 +313,7 @@
             overflow: auto;
             max-height: $optionHeight * 5;
             margin-bottom: 30px;
+            @include webkit_scrollbar_gray();
 
             .select-control-option {
                 padding: 5px 15px 4px;

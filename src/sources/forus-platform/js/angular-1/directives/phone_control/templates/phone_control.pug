@@ -1,0 +1,10 @@
+.phone-control
+    select-control(
+        id="country_code"
+        prop="dialCode"
+        search="true"
+        ng-model="$dir.dialCode"
+        ng-change="$dir.selectCountry()"
+        options="$dir.countryOptions")
+
+    input(ng-model="$dir.phoneNumber" ng-change="$dir.editPhoneNumber()").form-control

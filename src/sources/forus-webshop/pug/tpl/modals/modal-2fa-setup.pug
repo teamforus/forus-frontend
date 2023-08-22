@@ -57,7 +57,7 @@
                     button(type="submit" ng-click="$ctrl.submitAuthenticator()").button.button-primary.button-sm Bevestig
 
         //- Phone number
-        .modal-window(ng-if="$ctrl.step == 'phone_setup'"): form(ng-submit="$ctrl.submitPhoneNumber()")
+        form.modal-window.form(ng-if="$ctrl.step == 'phone_setup'" ng-submit="$ctrl.submitPhoneNumber()")
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
 
@@ -68,13 +68,8 @@
                     | Om door te gaan, voer je telefoonnummer in
                     .modal-separator
                     .form-group: .form-label.text-strong Telefoonnummer
-                    .form-group
-                        pincode-control(
-                            ng-model="$ctrl.phoneNumber" 
-                            block-size="3" 
-                            block-count="4"
-                            cant-delete-Length="3"
-                            block-input-type="num").block-pincode-phone
+                    .form-group: .flex
+                        phone-control(ng-model="$ctrl.phoneNumber")
 
                         .form-error(ng-repeat="error in $ctrl.phoneNumberError" ng-bind="error")
 
