@@ -328,7 +328,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                 include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
                 translate(translate="topnavbar.buttons.login")
 
-        if (!qdt_c.platform.env_data.flags.genericSearchUseToggle)
+        if (!qdt_c.platform.env_data.flags || !qdt_c.platform.env_data.flags.genericSearchUseToggle)
             +navbar_list()
         else
             top-navbar-search(ng-if="$root.appConfigs.flags.genericSearch && $root.showSearchBox")    
@@ -344,7 +344,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                 img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="{{ $dir.orgLogoAltText }}")
 
             //- Search bar or nav menu
-            if (!qdt_c.platform.env_data.flags.genericSearchUseToggle)
+            if (!qdt_c.platform.env_data.flags || !qdt_c.platform.env_data.flags.genericSearchUseToggle)
                 top-navbar-search(ng-if="$root.appConfigs.flags.genericSearch")
             else
                 +navbar_list()

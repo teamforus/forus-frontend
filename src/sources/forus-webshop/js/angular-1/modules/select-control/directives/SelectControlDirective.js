@@ -25,7 +25,7 @@ const SelectControlDirective = function ($scope, $timeout) {
     };
 
     $dir.buildSearchedOptions = () => {
-        const search = $dir.filter.q.toLowerCase();
+        const search = $dir.filter.q?.toString().toLowerCase();
         const search_len = search.length;
         const options = $dir.searchEnabled ? $dir.prepareOptions(search) : $dir.optionsPrepared;
 

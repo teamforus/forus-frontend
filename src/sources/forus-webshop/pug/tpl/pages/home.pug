@@ -81,7 +81,8 @@ main(id="main-content")
     //- Home CMS blocks
     cms-blocks(
         ng-if="$root.appConfigs.features.pages.home"
-        page="$root.appConfigs.features.pages.home")
+        page="$root.appConfigs.features.pages.home"
+        no-wrapper="true")
 
     .page.page-home(ng-if="$root.appConfigs.features.show_home_products || $root.appConfigs.features.show_home_map")
         div(ng-if="$root.appConfigs.features.show_home_products")
