@@ -768,6 +768,7 @@ module.exports = {
         labels: {
             id: "ID",
             name: "Naam",
+            photo: "Afbeelding",
             stock_amount: "Resterend aanbod",
             price: "Bedrag",
             expired: "Verlopen",

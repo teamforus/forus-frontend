@@ -1,66 +1,58 @@
-const ProductsComponent = function(
-    $q,
+const { pick } = require("lodash");
+
+const ProductsComponent = function (
     $state,
     $stateParams,
     appConfigs,
+    ModalService,
     ProductService,
-    ModalService
+    PageLoadingBarService,
 ) {
     const $ctrl = this;
 
-    $ctrl.filters = {
-        values: {
-        },
-    };
+    $ctrl.filters = pick($stateParams, [
+        'q', 'source', 'per_page',
+    ]);
 
     $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
     $ctrl.maxProductSoftLimit = parseInt(appConfigs.features.products_soft_limit);
 
     $ctrl.onPageChange = async (query) => {
-        return $q((resolve, reject) => {
-            const data = { ...query, ...$ctrl.filters.values };
+        const data = { ...query, ...$ctrl.filters };
+        $ctrl.loading = true;
+        PageLoadingBarService.setProgress(0);
 
-            ProductService.list($ctrl.organization.id, data).then((res => {
-                $ctrl.products = { meta: res.data.meta, data: res.data.data };
-                resolve($ctrl.products);
-            }), reject);
+        ProductService.list($ctrl.organization.id, data).then((res) => {
+            $ctrl.products = res.data;
+            $ctrl.updateState(data);
+        }).finally(() => {
+            $ctrl.loading = false;
+            PageLoadingBarService.setProgress(100);
         });
     };
 
-    $ctrl.$onInit = function() {
-        $ctrl.onPageChange().then(() => {
-            $ctrl.emptyBlockLink = $state.href('products-create', $stateParams);
-            $ctrl.cardLevel = "list";
-        });
+    $ctrl.updateState = (query) => {
+        $state.go('products', { ...query }, { location: 'replace' });
     };
 
-    $ctrl.addProduct = function() {
+    $ctrl.addProduct = function () {
         if (!$ctrl.maxProductCount || $ctrl.products.meta.total < $ctrl.maxProductCount) {
-            $state.go('products-create', { organization_id: $stateParams.organization_id });
+            $state.go('products-create', pick($stateParams, 'organization_id'));
         }
     };
 
-    $ctrl.deleteProduct = function(product) {
+    $ctrl.deleteProduct = function (product) {
         ModalService.open('modalNotification', {
             type: 'confirm',
             title: 'products.confirm_delete.title',
             description: 'products.confirm_delete.description',
             icon: 'product-create',
-            confirm: () => {
-                ProductService.destroy(
-                    product.organization_id,
-                    product.id
-                ).then(() => {
-                    $state.reload();
-                });
-            }
+            confirm: () => ProductService.destroy(product.organization_id, product.id).then(() => $state.reload()),
         });
     };
 
-    $ctrl.srefData = {
-        provider: { ...$stateParams, ...{ source: 'provider' } },
-        sponsor: { ...$stateParams, ...{ source: 'sponsor' } },
-        archive: { ...$stateParams, ...{ source: 'archive' } },
+    $ctrl.$onInit = function () {
+        $ctrl.emptyBlockLink = $state.href('products-create', pick($stateParams, 'organization_id'));
     };
 };
 
@@ -70,12 +62,12 @@ module.exports = {
         organization: '<',
     },
     controller: [
-        '$q',
         '$state',
         '$stateParams',
         'appConfigs',
-        'ProductService',
         'ModalService',
+        'ProductService',
+        'PageLoadingBarService',
         ProductsComponent
     ],
     templateUrl: 'assets/tpl/pages/products.html'
