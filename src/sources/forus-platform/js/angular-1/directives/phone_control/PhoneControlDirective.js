@@ -2,7 +2,6 @@ const phones = require('libphonenumber-js');
 const countries = require('i18n-iso-countries');
 
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
-countries.registerLocale(require("i18n-iso-countries/langs/nl.json"));
 
 const PhoneControlDirective = function (
     $scope,
@@ -12,7 +11,7 @@ const PhoneControlDirective = function (
     const getCountryOptions = () => {
         return phones.getCountries().map((code) => ({
             code: code,
-            name: countries.getName(code, "nl"),
+            name: countries.getName(code, "en"),
             dialCode: phones.getPhoneCode(code),
         })).map((option) => option.name ? {
             ...option, name: `${option.name} (+${option.dialCode})`
@@ -20,14 +19,14 @@ const PhoneControlDirective = function (
     };
 
     $dir.getFullPhoneNumber = () => {
-        return `+#{$dir.dialCode}#{$dir.phoneNumber}`;
+        return `+${$dir.dialCode}${$dir.phoneNumber}`;
     };
 
-    $dir.selectCountry = () => {
+    $dir.onChangeCountry = () => {
         $dir.ngModel = $dir.getFullPhoneNumber();
     };
 
-    $dir.editPhoneNumber = () => {
+    $dir.onChangeNumber = () => {
         $dir.ngModel = $dir.getFullPhoneNumber();
     };
 

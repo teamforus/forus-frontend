@@ -68,9 +68,8 @@
                     | Om door te gaan, voer je telefoonnummer in
                     .modal-separator
                     .form-group: .form-label.text-strong Telefoonnummer
-                    .form-group: .flex
+                    .form-group
                         phone-control(ng-model="$ctrl.phoneNumber")
-
                         .form-error(ng-repeat="error in $ctrl.phoneNumberError" ng-bind="error")
 
                 auth-2-f-a-info-box.flex-center

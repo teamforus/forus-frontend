@@ -4,7 +4,13 @@
         prop="dialCode"
         search="true"
         ng-model="$dir.dialCode"
-        ng-change="$dir.selectCountry()"
+        ng-change="$dir.onChangeCountry()"
+        template='select-control-country-codes'
         options="$dir.countryOptions")
 
-    input(ng-model="$dir.phoneNumber" ng-change="$dir.editPhoneNumber()").form-control
+    input(
+        type="tel" 
+        max-len="20"
+        ng-model="$dir.phoneNumber" 
+        ng-change="$dir.onChangeNumber()"
+        placeholder='Enter phone number').form-control.phone-control-input
