@@ -71,10 +71,6 @@
         }
     }
 
-    &:last-child {
-        margin-bottom: 0;
-    }
-
     @media screen and (max-width: 1000px) {
         .auth-2fa-item {
             flex-direction: column;

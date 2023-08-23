@@ -5,8 +5,11 @@ countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 const PhoneControlDirective = function (
     $scope,
+    $timeout,
 ) {
     const $dir = $scope.$dir;
+    const regEx = /[^- +()0-9]+/g;
+    const regExSpace = /  +/g;
 
     const getCountryOptions = () => {
         return phones.getCountries().map((code) => ({
@@ -18,17 +21,25 @@ const PhoneControlDirective = function (
         } : null).filter((option) => option);
     };
 
+    $dir.clear = (value) => {
+        return value.replace(regEx, '').replace(regExSpace, '')
+    }
+
     $dir.getFullPhoneNumber = () => {
-        return `+${$dir.dialCode}${$dir.phoneNumber}`;
+        return `+${$dir.dialCode}${$dir.clear($dir.phoneNumber)}`;
     };
 
-    $dir.onChangeCountry = () => {
+    $dir.onChangeCountry = (e) => {
         $dir.ngModel = $dir.getFullPhoneNumber();
     };
 
     $dir.onChangeNumber = () => {
         $dir.ngModel = $dir.getFullPhoneNumber();
     };
+
+    $dir.onKeyDown = (e) => {
+        $timeout(() => e.target.value = $dir.clear($dir.phoneNumber), 0);
+    }
 
     $dir.$onInit = () => {
         $dir.ngModel = ($dir.ngModel || '').toString();
@@ -54,6 +65,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$timeout',
             PhoneControlDirective,
         ],
         template: require('./templates/phone_control.pug'),

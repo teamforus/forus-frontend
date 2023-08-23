@@ -12,5 +12,6 @@
         type="tel" 
         max-len="20"
         ng-model="$dir.phoneNumber" 
+        ng-keydown="$dir.onKeyDown($event)"
         ng-change="$dir.onChangeNumber()"
         placeholder='Enter phone number').form-control.phone-control-input
