@@ -250,7 +250,8 @@ app.directive('officeEditInline', require('./directives/OfficeEditInlineDirectiv
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
-app.directive('phoneControl', require('./directives/PhoneControlDirective'));
+app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'));
+app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('markdown', require('./directives/MarkdownDirective'));

@@ -26,7 +26,7 @@ const Modal2FASetupComponent = function (
     $ctrl.makePhone2FA = () => {
         return Identity2FAService.store({
             type: 'phone',
-            phone: $ctrl.phoneNumber,
+            phone: parseInt($ctrl.phoneNumber?.toString().replace(/\D/g,'') || 0),
         }).then((res) => {
             $ctrl.setStep('provider_confirmation');
             $ctrl.auth_2fa = res.data?.data;

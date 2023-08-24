@@ -1,0 +1,17 @@
+.phone-control
+    select-control(
+        id="country_code"
+        prop="dialCode"
+        search="true"
+        ng-model="$dir.dialCode"
+        ng-change="$dir.onChangeCountry()"
+        template='select-control-country-codes'
+        options="$dir.countryOptions")
+
+    input(
+        type="tel" 
+        max-len="20"
+        ng-model="$dir.phoneNumber" 
+        ng-keydown="$dir.onKeyDown($event)"
+        ng-change="$dir.onChangeNumber()"
+        placeholder='Enter phone number').form-control.phone-control-input
