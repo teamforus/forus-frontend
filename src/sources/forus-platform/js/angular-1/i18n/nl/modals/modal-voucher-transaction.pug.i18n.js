@@ -13,7 +13,7 @@ module.exports = {
     },
     labels: {
         note: 'Notitie',
-        note_shared: 'Share note with the provider',
+        note_shared: 'Deel de notitie met de aanbieder',
         amount: 'Bedrag',
         provider: 'Aanbieder',
         organization: 'Betaal vanuit',
