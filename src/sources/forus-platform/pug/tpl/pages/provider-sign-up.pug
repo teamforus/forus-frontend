@@ -136,7 +136,7 @@
                             .app_download-row: h4.app_download-heading Of stuur een downloadlink direct naar uw telefoon
                             .app_download-row: .app_download-col
                                 label.form-label Mobiele telefoonnummer
-                                phone-control(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
+                                phone-control-legacy(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
                                 .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
 
                                 .app_download-row: button.button.button-primary-outline(

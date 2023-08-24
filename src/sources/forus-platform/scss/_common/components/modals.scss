@@ -977,6 +977,20 @@
         }
     }
 
+    &.modal-2fa-setup {
+        .modal-section {
+            overflow: visible;
+        }
+
+        .modal-body {
+            overflow: visible;
+
+            .phone-control {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
     @media screen and (max-width: 1800px) {
         .modal-footer {
             padding: 25px;
