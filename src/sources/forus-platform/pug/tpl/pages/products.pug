@@ -59,7 +59,14 @@
                     tr(ng-repeat="product in $ctrl.products.data")
                         td(ng-bind="product.id")
                         td: img(ng-src="{{ product.photo.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}").td-media
-                        td(ng-bind="product.name | str_limit:100")
+                        td: .relative: .block.block-tooltip-details.block-tooltip-hover.flex.flex-inline
+                            span.text-word-break(ng-bind="product.name | str_limit:100")
+
+                            .tooltip-content.tooltip-content-fit.tooltip-content-bottom.tooltip-content-compact(
+                                ng-if="product.name.length > 100"
+                                ng-click="$event.stopPropagation()")
+                                .triangle
+                                .nowrap(ng-bind="product.name")
 
                         td(ng-if="!product.unlimited_stock" ng-bind="product.stock_amount")
                         td(ng-if="product.unlimited_stock" translate="product_edit.labels.unlimited")

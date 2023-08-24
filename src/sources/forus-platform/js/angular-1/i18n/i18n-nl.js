@@ -769,7 +769,7 @@ module.exports = {
             id: "ID",
             name: "Naam",
             photo: "Afbeelding",
-            stock_amount: "Resterend aanbod",
+            stock_amount: "Resterend",
             price: "Bedrag",
             expired: "Verlopen",
             expire_at: "Verloopdatum",
