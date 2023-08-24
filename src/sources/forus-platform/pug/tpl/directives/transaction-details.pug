@@ -11,7 +11,11 @@
                 .note-item(ng-repeat='note in $dir.transaction.notes')
                     img(ng-src="/assets/img/note-icons/note-icon-{{ note.icon }}.jpg").note-item-icon
                     .note-item-text(ng-bind="note.message")
-                    .note-item-sign(ng-bind="note.created_at_locale")
+                    .note-item-sign.flex
+                        span(
+                            ng-bind="'By ' + (note.group == 'sponsor' ? $dir.transaction.fund.organization_name : $dir.transaction.organization.name)")
+                        em.mdi.mdi-circle
+                        span(ng-bind="note.created_at_locale")
 
     .card.card-wrapped
         .card-header: .flex

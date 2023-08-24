@@ -1,11 +1,17 @@
-.block.block-cms(ng-class="{'block-cms-with-items': $dir.blocks.length}"): .wrapper(ng-if="$dir.description_html || $dir.blocks.length > 0")
+.block.block-cms(ng-class="{'block-cms-with-items': $dir.blocks.length}"): div(
+    ng-if="$dir.description_html || $dir.blocks.length > 0" 
+    ng-class="$dir.noWrapper ? '' : 'wrapper'")
+
     .block.block-markdown(
         ng-class="'block-markdown-' + $dir.description_alignment"
         ng-if="$dir.description_html"
         ng-bind-html="$dir.description_html")
 
     .wrapper(ng-if="$dir.blocks.length > 0"): .section
-        .block.block-cms-funds(ng-if="$dir.blocks.length")
+        .block.block-cms-funds(
+            ng-if="$dir.blocks.length" 
+            ng-class="{'block-cms-funds-compact': $dir.page.blocks_per_row > 1, 'block-cms-funds-2-in-row': $dir.page.blocks_per_row == 2}")
+            
             .fund-item(ng-repeat="block in $dir.blocks")
                 .fund-media: img(ng-src="{{ block.media.sizes.public || './assets/img/placeholders/product-small.png' }}" alt="")
 
@@ -17,6 +23,14 @@
                     .fund-description: .block.block-markdown: p(ng-bind-html="block.description_html")
 
                     .fund-button(ng-if="block.button_enabled")
-                        a.button.button-primary(target="_{{ block.button_target_blank ? 'blank' : 'self' }}" ng-href="{{ block.button_link }}")
+                        a.button.button-primary.fund-button-button(
+                            target="_{{ block.button_target_blank ? 'blank' : 'self' }}" 
+                            ng-href="{{ block.button_link }}")
                             span(ng-bind="block.button_text")
                             .mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+
+                        a.button.button-text.button-text-primary.fund-button-link(
+                            ng-if="$dir.page.blocks_per_row > 1"
+                            target="_{{ block.button_target_blank ? 'blank' : 'self' }}" 
+                            ng-href="{{ block.button_link }}")
+                            span(ng-bind="block.button_text")

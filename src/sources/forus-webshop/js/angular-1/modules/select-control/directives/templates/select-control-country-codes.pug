@@ -1,0 +1,41 @@
+.select-control.select-control-country-codes
+    .select-control-input(
+        ng-class="{options : $dir.showOptions}"
+        ng-disabled="$dir.disabled || $dir.ngDisabled"
+        click-outside="$dir.onClickOutside()"
+        aria-haspopup="listbox"
+        aria-expanded="{{ $dir.showOptions }}"
+        aria-labelledby="{{ $dir.id }}")
+
+        label.select-control-search.form-control(
+            for="{{ $dir.controlId }}"
+            title="{{ $dir.value.raw[$dir.as] || $dir.placeholder }}"
+            ng-click="$dir.searchOption()"
+            ng-disabled="$dir.disabled || $dir.ngDisabled")
+            .select-control-search-placeholder(ng-bind="$dir.value.raw.code + ' +' + $dir.value.raw.dialCode")
+            .select-control-icon: .mdi(ng-class="$dir.showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down'")
+
+        .select-control-container(ng-if="$dir.showOptions")
+            .select-control-search-container
+                input(
+                    id="{{ $dir.controlId }}"
+                    placeholder="Zoeken"
+                    autocomplete='off'
+                    ng-click="$dir.onInputClick()"
+                    ng-keydown="$dir.searchKeydown($event)"
+                    ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
+                    ng-change="$dir.searchInputChanged()"
+                    ng-model="$dir.filter.q").select-control-search.form-control
+
+                .select-control-search-icon(
+                    ng-if="!$dir.filter.q"): .mdi.mdi-magnify
+
+                .select-control-search-clear(
+                    ng-if="$dir.filter.q" 
+                    ng-click="$dir.clear()" 
+                    aria-label="cancel"): .mdi.mdi-close-circle 
+            
+            select-control-options(
+                change="$dir.selectOption(option)" 
+                options="$dir.optionsFiltered"
+                options-preload-size="{{ optionsPreloadSize }}")

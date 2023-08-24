@@ -19,6 +19,7 @@
         .select-control-search-container
             input(
                 id="{{ $dir.controlId }}"
+                autocomplete='off'
                 placeholder="{{ $dir.placeholder }}"
                 ng-click="$dir.onInputClick()"
                 ng-keydown="$dir.searchKeydown($event)"

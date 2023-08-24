@@ -18,7 +18,7 @@
         div: app-links(dl-id="me_download_button_lg" show-ios="false" show-android='false').flex.flex-center.hide-sm
 
         form.hide-sm.form.f-w(ng-submit="$ctrl.phoneForm.submit()")
-            phone-control(ng-model="$ctrl.phoneForm.values.phone" cant-delete-length="2")
+            phone-control-legacy(ng-model="$ctrl.phoneForm.values.phone" cant-delete-length="2")
             .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
             .text-center
                 .description-small(translate="open_in_me.sms.subdescription_{{ $root.appConfigs.features.communication_type }}")

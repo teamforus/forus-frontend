@@ -554,7 +554,7 @@
     }
 
     .select-control-input {
-        $optionHeight: 40px;
+        --option-height: 40px;
         position: relative;
 
         .form-control {
@@ -634,17 +634,17 @@
             border-bottom-right-radius: 3px;
             border-bottom-left-radius: 3px;
             overflow: auto;
-            max-height: $optionHeight * 5;
+            max-height: calc(var(--option-height) * 5);
             margin-bottom: 30px;
 
             .select-control-option {
-                padding: 5px 15px 4px;
-                font: 500 13px/30px var(--base-font);
+                padding: calc(calc(var(--option-height) - 20px) / 2) 15px calc(calc(calc(var(--option-height) - 20px) / 2) - 1px);
+                font: 500 13px/20px var(--base-font);
                 color: rgba(var(--text-color), .75);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
                 transition: .4s;
-                height: $optionHeight;
+                height: var(--option-height);
                 @include ellipsis();
 
                 strong,
@@ -673,6 +673,160 @@
 
         &[disabled] {
             pointer-events: none;
+        }
+    }
+
+    .select-control.select-control-country-codes {
+        .select-control-input {
+            --option-height: 30px;
+
+            .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
+                font: 600 16px/24px var(--base-font);
+                border: none;
+                text-align: left;
+                box-shadow: none;
+                padding-right: 30px;
+            }
+
+            .select-control-icon {
+                .mdi {
+                    font-size: 24px;
+                }
+            }
+        }
+
+        .select-control-container {
+            background: #fff;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 300px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            margin-top: 2px;
+            text-align: left;
+
+            .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
+                padding: 6px 15px;
+                text-align: left;
+                font-weight: 600;
+                border-bottom: 1px solid var(--border-color);
+                letter-spacing: -.5px;
+                cursor: text;
+            }
+
+            .select-control-search-icon {
+                transform: translate(0, -50%);
+                font-size: 18px;
+                position: absolute;
+                color: #848484;
+                right: 10px;
+                top: 50%;
+                pointer-events: none;
+            }
+
+            .select-control-options {
+                position: initial;
+                margin: 0 0 0;
+                border: none;
+                width: 100%;
+
+                .select-control-option {
+                    font-weight: 600;
+                }
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .select-control-input {
+                --option-height: 40px;
+    
+                .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
+                    font-size: 14px;
+                }
+
+                .select-control-icon {
+                    .mdi {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            .select-control-container {
+                width: 400%;
+                max-width: 85vw;
+
+                .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
+                    padding: 8px 15px;
+                }
+            }
+        }
+    }
+
+    .phone-control {
+        --selector-width: 115px;
+        --input-padding: 12px 15px;
+
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        position: relative;
+
+        .form-control:not([type="radio"]):not([type="checkbox"]).phone-control-input {
+            padding: var(--input-padding);
+            padding-left: calc(var(--selector-width) + 10px);
+            font: 600 16px/24px var(--base-font);
+            letter-spacing: 1px;
+            height: auto;
+            
+            &::placeholder {
+                font: 400 16px/24px var(--base-font);
+            }
+        }
+
+        .select-control {
+            width: var(--selector-width);
+            position: absolute;
+
+            .select-control-input {
+                .form-control:not([type="radio"]):not([type="checkbox"]) {
+                    background: none;
+                    outline: none;
+                    padding: var(--input-padding);
+                    white-space: nowrap;    
+                    height: auto;
+                }
+
+                .select-control-search {
+                    border-right: none;
+                    border-top-right-radius: 0px;
+                    border-bottom-right-radius: 0px;
+
+                    &:after {
+                        display: block;
+                        content: "";
+                        width: 1px;
+                        background-color: #cfcfcf;
+                        position: absolute;
+                        top: 13px;
+                        bottom: 13px;
+                        right: 0;
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            --selector-width: 105px;
+            --input-padding: 12px 12px;
+
+            .form-control:not([type="radio"]):not([type="checkbox"]).phone-control-input {
+                font-size: 14px;
+            
+                &::placeholder {
+                    font-size: 14px;
+                }
+            }
         }
     }
 
