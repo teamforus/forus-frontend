@@ -8,7 +8,7 @@ const PhoneControlDirective = function (
     $timeout,
 ) {
     const $dir = $scope.$dir;
-    const regEx = /[^- +()0-9]+/g;
+    const regEx = /[^- ()0-9]+/g;
     const regExSpace = /  +/g;
 
     const getCountryOptions = () => {
