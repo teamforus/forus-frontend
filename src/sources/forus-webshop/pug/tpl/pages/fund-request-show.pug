@@ -27,7 +27,8 @@ section.section.section-profile: .wrapper
                         .fund-request-props
                             .fund-request-prop
                                 .fund-request-prop-label Fund name:
-                                .fund-request-prop-value {{ $ctrl.fundRequest.fund.name }}
+                                .fund-request-prop-value(
+                                    dusk="fundRequestFund") {{ $ctrl.fundRequest.fund.name }}
 
                             .fund-request-prop
                                 .fund-request-prop-label ID:
