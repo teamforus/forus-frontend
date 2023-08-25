@@ -1,0 +1,35 @@
+a(
+    dusk="fundRequestsItem{{ $dir.fundRequest.id }}"
+    ui-sref="fund-request-show($dir.fundRequest)").fund-request-item
+
+    .fund-request-image
+        img(
+            ng-src="{{ $dir.fundRequest.fund.logo.sizes.thumbnail || $dir.fundRequest.fund.logo.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
+            alt="fund image")
+    
+    .fund-request-container
+        .fund-request-section
+            .fund-request-details
+                .fund-request-name(ui-sref="fund-request-show($dir.fundRequest)" ng-bind="$dir.fundRequest.fund.name")
+
+                .fund-request-subtitle
+                    | ID
+                    span {{ ' #' + $dir.fundRequest.id }}
+
+            .fund-request-overview
+                .fund-request-overview-status
+                    .label.label-warning(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'pending'")
+                    .label.label-success(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'approved_partly'")
+                    .label.label-success(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'approved'")
+                    .label.label-default(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'declined'")
+                    .label.label-danger(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'disregarded'")
+
+        .fund-request-values.flex
+            .flex-grow
+                .label.info-action-label(ng-if="$dir.fundRequest.notAnsweredCount > 0")
+                    span.info-action-label-blink •
+                    | {{ $dir.fundRequest.notAnsweredCount }} nieuwe actualisering
+
+            .flex-end
+                .fund-request-value-title Ingediend op:
+                .fund-request-value(ng-bind="$dir.fundRequest.created_at_locale")

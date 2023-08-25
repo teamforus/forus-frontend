@@ -222,11 +222,37 @@
     }
 
     &.card-collapsable {
-        cursor: pointer;
-        transition: background .4s;
+        margin-bottom: 16px;
+        border: 1px solid #d4d9dd;
+        border-radius: 7px;
 
-        &:hover {
-            background: #f3f4f5;
+        .card-header {
+            padding: 16px;
+
+            .card-header-wrapper {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 12px;
+
+                .card-header-arrow {
+                    font-size: 24px;
+                    color: #848484;
+                    transform: rotate(-90deg);
+                    transition: all 0.3s;
+                }
+            }
+        }
+
+        &.open {
+            .card-header {
+                .card-header-wrapper {
+                    .card-header-arrow {
+                        transform: rotate(0deg);
+                    }
+                }
+            }
         }
     }
 
