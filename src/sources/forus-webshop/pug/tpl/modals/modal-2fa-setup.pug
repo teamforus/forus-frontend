@@ -11,8 +11,8 @@
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
 
-            .modal-body: .modal-section
-                .modal-section-column.modal-section-column-4
+            .modal-body: .modal-section: .flex.flex-row
+                .modal-section-column.modal-section-column-4.modal-section-column-main
                     .modal-text
                         strong.text-strong Selecteer de authenticatie-app die u wilt gebruiken.
                         .form-group: select-control(
@@ -39,29 +39,34 @@
                         br
                         | 2. Kies #[strong.text-strong Scan een QR-code] of #[strong.text-strongEnter Voer een installatiesleutel in: {{ $ctrl.auth_2fa.secret }}]
 
-                .modal-section-column.modal-section-column-2
+                .modal-section-column.modal-section-column-2.modal-section-column-qr
                     qr-code.block-qr-code-fit(
                         ng-if="$ctrl.auth_2fa.secret_url" 
                         padding="15px"
                         qr-raw="$ctrl.auth_2fa.secret_url" 
                         qr-logo=src_prefix + "./assets/img/me-logo.png")
 
-            .modal-body: .modal-section.modal-section-collapsed
+            .modal-body: .modal-section.modal-section-collapsed.hide-sm
                 auth-2-f-a-info-box.flex-center.block-info-box-borderless
 
+            .modal-body: .modal-section.modal-section-last.show-sm: .flex-row
+                auth-2-f-a-info-box.flex-center
+
             .modal-footer
-                .button-group
+                .button-group.flex-grow
                     //- Cancel
-                    button(type="button" ng-click="$ctrl.cancel()").button.button-light.button-sm Annuleer
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-primary-outline.button-sm.flex-grow.flex-center Annuleer
                     //- Next
-                    button(type="submit" ng-click="$ctrl.submitAuthenticator()").button.button-primary.button-sm Bevestig
+                    button(type="submit" ng-click="$ctrl.submitAuthenticator()").button.button-primary.button-sm.flex-grow.flex-center Bevestig
 
         //- Phone number
-        form.modal-window.form(ng-if="$ctrl.step == 'phone_setup'" ng-submit="$ctrl.submitPhoneNumber()")
+        .modal-window(ng-if="$ctrl.step == 'phone_setup'"): form(ng-submit="$ctrl.submitPhoneNumber()").form
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
 
             .modal-body.text-center: .modal-section: .row: .col.col-sm-10.col-sm-offset-1.col-xs-12.col-xs-offset-0
+                .modal-section-icon
+                    include ../../../resources/_webshop-common/assets/img/icon-2fa-phone-connect.svg
                 .modal-heading Koppel je telefoonnummer
 
                 .modal-text.text-center
@@ -74,18 +79,18 @@
 
                 auth-2-f-a-info-box.flex-center
 
-            .modal-footer
+            .modal-footer: .button-group.flex-grow
                 //- Cancel
-                button(type="button" ng-click="$ctrl.cancel()").button.button-light.button-sm Annuleer
+                button(type="button" ng-click="$ctrl.cancel()").button.button-primary-outline.button-sm.flex-grow.flex-center Annuleer
 
-                .flex.flex-grow &nbsp;
+                .flex.flex-grow.hide-sm &nbsp;
 
                 //- Next
-                button(type="submit").button.button-primary.button-sm Bevestig
+                button(type="submit").button.button-primary.button-sm.flex-grow.flex-center Bevestig
 
         //- Auth 2FA provider code confirmation
         .modal-window(ng-if="$ctrl.step == 'provider_confirmation'"): form(
-            ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.activateProvider()")
+            ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.activateProvider()").form
 
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
@@ -114,22 +119,22 @@
 
                 auth-2-f-a-info-box.flex-center
 
-            .modal-footer
+            .modal-footer: .button-group.flex-grow
                 //- Back
-                button.button.button-light.button-sm(
+                button.button.button-primary-outline.button-sm(
                     type="button"
-                    ng-click="$ctrl.setStep($ctrl.type == 'phone' ? 'phone_setup' : 'provider_select')") Terug
+                    ng-click="$ctrl.setStep($ctrl.type == 'phone' ? 'phone_setup' : 'provider_select')").flex-grow.flex-center Terug
 
-                .flex.flex-grow &nbsp;
+                .flex.flex-grow.hide-sm &nbsp;
 
                 //- Submit
                 button.button.button-primary.button-sm(
                     type="submit"
-                    ng-disabled="$ctrl.confirmationCode.length !== 6") Verifieer
+                    ng-disabled="$ctrl.confirmationCode.length !== 6").flex-grow.flex-center Verifieer
 
         //- Auth 2FA provider code verification
         .modal-window(ng-if="$ctrl.step == 'provider_verification'"): form(
-            ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.verifyAuthProvider()")
+            ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.verifyAuthProvider()").form
 
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie
@@ -155,25 +160,25 @@
                         .form-error(ng-repeat="error in $ctrl.confirmationCodeError" ng-bind="error")
                 
                 .modal-text.text-center(ng-if="$ctrl.type == 'phone'")
-                    button.button.button-text.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
+                    button.button.button-text.button-sm.button-text-primary(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
                         .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
                         | Code opnieuw verzenden
                         span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} seconde(n))
 
                 auth-2-f-a-info-box.flex-center
 
-            .modal-footer
+            .modal-footer: .button-group.flex-grow
                 //- Cancel
                 button.button.button-light.button-sm(
                     type="button"
-                    ng-click="$ctrl.cancel()") Annuleer
+                    ng-click="$ctrl.cancel()").flex-grow.flex-center Annuleer
 
-                .flex.flex-grow &nbsp;
+                .flex.flex-grow.hide-sm &nbsp;
 
                 //- Submit
                 button.button.button-primary.button-sm(
                     type="submit"
-                    ng-disabled="$ctrl.confirmationCode.length !== 6") Verifieer
+                    ng-disabled="$ctrl.confirmationCode.length !== 6").flex-grow.flex-center Verifieer
 
         //- Success (login)
         .modal-window(ng-if="$ctrl.step == 'success' && $ctrl.auth")
@@ -191,7 +196,7 @@
                     .button-group.flex-grow.flex-center: button(ng-click="$ctrl.done()").button.button-light.button-sm Bevestig
 
         //- Success (setup)
-        .modal-window(ng-if="$ctrl.step == 'success' && !$ctrl.auth")
+        .modal-window(ng-if="$ctrl.step == 'success' && !$ctrl.auth"): .form
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
 
@@ -203,4 +208,4 @@
                     | Je account is nu extra beveiligd.
 
                 .modal-text.modal-text
-                    .button-group.flex-grow.flex-center: button(ng-click="$ctrl.done()").button.button-light.button-sm Bevestig
+                    .button-group.flex-grow.flex-center: button(ng-click="$ctrl.done()").button.button-primary.button-sm Bevestig

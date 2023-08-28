@@ -34,7 +34,7 @@ const Security2FAComponent = function (
 
     $ctrl.deactivateAuth2FA = (type) => {
         ModalService.open('2FADeactivate', {
-            auth2fa: $ctrl.active_providers.find((auth_2fa) => auth_2fa.provider_type.type == type),
+            auth2fa: $ctrl.active_providers[type],
             onReady: () => $ctrl.updateState(),
         });
     };
@@ -47,7 +47,12 @@ const Security2FAComponent = function (
         $ctrl.active_providers = active_providers;
         $ctrl.providers = providers;
         $ctrl.provider_types = provider_types;
-        $ctrl.active_provider_types = active_providers.map((auth_2fa) => auth_2fa.provider_type.type)
+
+        $ctrl.active_providers = $ctrl.provider_types.reduce((a, v) => ({ ...a, [v.type]: null}), {});
+        active_providers.forEach(auth_2fa => {
+            $ctrl.active_providers[auth_2fa.provider_type.type] = auth_2fa;
+        });
+        console.log('active_providers: ', $ctrl.active_providers);
 
         $ctrl.auth2FARememberIpOptions = auth2FARememberIpOptions;
 

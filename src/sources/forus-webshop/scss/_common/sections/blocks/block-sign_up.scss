@@ -3,10 +3,9 @@
     cursor: default;
 
     .block-title {
-        font: 500 32px/36px var(--base-font);
-        text-align: center;
-        color: #191a1c;
-        margin: 0 0 20px;
+        font: 600 18px/18px var(--base-font);
+        text-align: left;
+        margin: 20px 0;
     }
 
     .block-icon {
@@ -846,10 +845,6 @@
         margin: 0px -10px;
         padding: 10px 0 50px;
 
-        .block-title {
-            margin: 0 0 20px;
-        }
-
         .sign_up-header {
             margin: 0 -10px 25px;
             padding: 5px 0;
@@ -1017,6 +1012,35 @@
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+            }
+        }
+
+        .sign_up-options {
+            .sign_up-option {
+                padding: 12px;
+
+                .sign_up-option-media {
+                    .sign_up-option-media-img {
+                        width: 20px;
+                    }
+                }
+
+                .sign_up-option-details {
+                    .sign_up-option-title {
+                        font: 700 14px/24px var(--base-font);
+                    }
+
+                    .sign_up-option-details {
+                        font: 700 14px/24px var(--base-font);
+                    }
+                }
+
+                .sign_up-option-button {
+                    .button {
+                        padding: 10px;
+                        font: 600 11px/11px var(--base-font);
+                    }
                 }
             }
         }
