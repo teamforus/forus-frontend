@@ -44,7 +44,6 @@ const Security2FAComponent = function (
 
         $ctrl.loaded = true;
         $ctrl.restrictions = restrictions;
-        $ctrl.active_providers = active_providers;
         $ctrl.providers = providers;
         $ctrl.provider_types = provider_types;
 
@@ -52,7 +51,6 @@ const Security2FAComponent = function (
         active_providers.forEach(auth_2fa => {
             $ctrl.active_providers[auth_2fa.provider_type.type] = auth_2fa;
         });
-        console.log('active_providers: ', $ctrl.active_providers);
 
         $ctrl.auth2FARememberIpOptions = auth2FARememberIpOptions;
 
