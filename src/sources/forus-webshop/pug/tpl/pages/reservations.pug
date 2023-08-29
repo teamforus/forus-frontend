@@ -64,12 +64,14 @@ main(id="main-content"): section.section.section-profile: .wrapper
                         .label-tab.label-tab-sm(
                             ng-class="{active: !$ctrl.filters.archived}"
                             ng-click="$ctrl.filters.archived = 0"
+                            aria-pressed="{{ !$ctrl.filters.archived }}"
                             role="button")
                             | Actief
 
                         .label-tab.label-tab-sm(
                             ng-class="{active: $ctrl.filters.archived}"
                             ng-click="$ctrl.filters.archived = 1"
+                            aria-pressed="{{ $ctrl.filters.archived ? true : false }}"
                             role="button")
                             | Archief
 

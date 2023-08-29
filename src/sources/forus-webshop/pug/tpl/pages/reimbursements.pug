@@ -75,14 +75,16 @@ main(id="main-content"): section.section.section-profile: .wrapper
                         .label-tab.label-tab-sm(
                             role="button" 
                             dusk="reimbursementsFilterActive"
-                            ng-click="$ctrl.filters.archived = 0" 
+                            ng-click="$ctrl.filters.archived = 0"
+                            aria-pressed="{{ !$ctrl.filters.archived }}" 
                             ng-class="!$ctrl.filters.archived ? 'active' : ''")
                             | Actief
 
                         .label-tab.label-tab-sm(
                             role="button" 
                             dusk="reimbursementsFilterArchived"
-                            ng-click="$ctrl.filters.archived = 1" 
+                            ng-click="$ctrl.filters.archived = 1"
+                            aria-pressed="{{ $ctrl.filters.archived ? true : false }}" 
                             ng-class="$ctrl.filters.archived ? 'active' : ''")
                             | Archief
 
