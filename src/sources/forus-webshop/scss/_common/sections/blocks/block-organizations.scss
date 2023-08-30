@@ -219,6 +219,15 @@
             .organization-pane {
                 .organization-pane-info {
                     padding: 15px 10px;
+                    width: calc(100% - 50px);
+
+                    .organization-title {
+                        overflow: hidden;
+
+                        .organization-title-value {
+                            word-wrap: break-word;
+                        }
+                    }
                 }
 
                 .organization-pane-collapse {
