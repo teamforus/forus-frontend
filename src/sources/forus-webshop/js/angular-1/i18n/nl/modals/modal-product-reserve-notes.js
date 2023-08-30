@@ -37,7 +37,8 @@ module.exports = {
             notes: 'Opmerking: ',
             phone: 'Telefoonnummer: ',
             address: 'Adres: ',
-            birth_date: 'Geboortedatum: '
+            birth_date: 'Geboortedatum: ',
+            empty: 'Empty',
         },
         buttons: {
             adjust: 'Terug',

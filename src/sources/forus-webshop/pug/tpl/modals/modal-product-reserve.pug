@@ -130,19 +130,29 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
 
                 .flex-row
-                    .col.col-lg-6.col-xs-12.form-group.form-group-margin(
+                    .col.col-xs-12.form-group.form-group-margin(
                         ng-repeat="field in $ctrl.fields"
                         ng-class="'col-lg-' + (field.fullWidth ? '12' : '6')")
                         .form-label(ng-bind="field.label")
 
                         //- custom field
                         .form-group-info(ng-if="field.custom" ng-class="field.showInfo ? 'active' : ''")
-                            .form-group-info-control: input.form-control(
-                                ng-if="['text', 'number'].includes(field.type)"
-                                type="{{ field.type }}"
-                                ng-model="$ctrl.form.values.custom_fields[field.key]"
-                                placeholder="{{ field.placeholder }}"
-                                dusk="{{ field.dusk }}")
+                            .form-group-info-control(ng-class="field.description ? 'has-info-btn' : ''")
+                                input.form-control(
+                                    ng-if="field.type === 'text'"
+                                    type="{{ field.type }}"
+                                    ng-model="$ctrl.form.values.custom_fields[field.key]"
+                                    placeholder="{{ field.placeholder }}"
+                                    dusk="{{ field.dusk }}")
+
+                                input.form-control(
+                                    ng-if="field.type === 'number'"
+                                    type="{{ field.type }}"
+                                    pattern="[0-9]+"
+                                    max="9999999999999999"
+                                    ng-model="$ctrl.form.values.custom_fields[field.key]"
+                                    placeholder="{{ field.placeholder }}"
+                                    dusk="{{ field.dusk }}")
 
                             .form-group-info-button(
                                 ng-click="field.showInfo = !field.showInfo; $event.stopPropagation()"
@@ -272,10 +282,16 @@
                 //- Other fields
                 .overview-item(ng-repeat="field in $ctrl.fields")
                     .overview-item-label(ng-if="!field.custom" translate="modal_product_reserve_notes.confirm_notes.labels.{{ field.key }}")
-                    .overview-item-value(ng-if="!field.custom" ng-bind="$ctrl.form.values[field.key]")
+                    .overview-item-value(
+                        ng-if="!field.custom"
+                        ng-class="{empty: !$ctrl.form.values[field.key]}"
+                        ng-bind="$ctrl.form.values[field.key] || $ctrl.emptyText")
 
                     .overview-item-label(ng-if="field.custom" ng-bind="field.label")
-                    .overview-item-value(ng-if="field.custom" ng-bind="$ctrl.form.values.custom_fields[field.key]")
+                    .overview-item-value(
+                        ng-if="field.custom"
+                        ng-class="{empty: !$ctrl.form.values.custom_fields[field.key]}"
+                        ng-bind="$ctrl.form.values.custom_fields[field.key] || $ctrl.emptyText")
     
                 //- User note
                 .overview-item(ng-if="$ctrl.form.values.user_note")
