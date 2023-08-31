@@ -96,7 +96,7 @@
                     font-size: 20px;
                 }
 
-                &[disabled] {
+                &[disabled], &.disabled {
                     color: #ccc;
                     pointer-events: none;
                 }
@@ -203,6 +203,7 @@
                     height: var(--control-option-height);
                     border: 0;
                     overflow: initial;
+                    position: relative;
                     @include cf();
 
                     .select-control-logo {
@@ -227,10 +228,17 @@
                     &.selected {
                         color: #134478;
                         font-weight: 600;
-                        background-image: url("../img/icon-select/select-selected.svg");
-                        background-size: 10px 10px;
-                        background-repeat: no-repeat;
-                        background-position: calc(100% - 6px) calc(100% / 2);
+
+                        .select-control-option-value {
+                            &:after {
+                                right: 5px;
+                                top: 50%;
+                                position: absolute;
+                                transform: translate(0, -50%);
+                                content: "\F012C";
+                                font: normal normal normal 16px/1 "Material Design Icons";
+                            }
+                        }
                     }
                 }
             }

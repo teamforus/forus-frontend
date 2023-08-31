@@ -39,11 +39,12 @@
                                 em.mdi.mdi-reload.icon-start
                                 | Bevestiging e-mail opnieuw versturen
                         
-                            .text-danger(ng-in="email.error" ng-bind="email.error")
+                            .text-danger(ng-if="email.error" ng-bind="email.error")
                         .user_email-actions
                             label(
                                 ng-if="email.primary"
                                 dusk="identityEmailListItemPrimary").label.label-success.label-round.label-lg.pull-left Hoofd e-mailadres
+
                             label(
                                 ng-if="!email.verified && !email.primary"
                                 dusk="identityEmailListItemNotVerified").label.label-default.label-round.label-lg.pull-left Niet bevestigd

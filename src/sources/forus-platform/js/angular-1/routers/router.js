@@ -1833,11 +1833,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', (
             $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, PushNotificationsService
         ) => {
-            IdentityService.authorizeAuthEmailToken(
-                $state.params.token
-            ).then(function (res) {
-                let target = $state.params.target || '';
+            let target = $state.params.target || '';
 
+            IdentityService.authorizeAuthEmailToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
 
                 $rootScope.loadAuthUser().then(auth_user => {
@@ -1884,10 +1882,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         ) => {
             let target = $state.params.target || '';
 
-            IdentityService.exchangeConfirmationToken(
-                $state.params.token
-            ).then(function (res) {
+            IdentityService.exchangeConfirmationToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
+
                 $rootScope.loadAuthUser().then(() => {
                     if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
                         $state.go('home', {

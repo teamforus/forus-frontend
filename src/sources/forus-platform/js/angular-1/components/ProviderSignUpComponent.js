@@ -182,7 +182,6 @@ const ProviderSignUpComponent = function(
                 if (!res.data.email.used) {
                     IdentityService.make(form.values).then(res => {
                         $ctrl.authEmailSent = true;
-                        $ctrl.confirmationEmail = form.values.email;
                     }, resolveErrors);
                 } else {
                     IdentityService.makeAuthEmailToken(
