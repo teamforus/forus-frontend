@@ -17,7 +17,7 @@ block content
                 map-pointers="$ctrl.provider.offices" 
                 map-pointer-template="providers-office-view"
                 map-options="$ctrl.mapOptions"
-                map-gesture-handling="'none'"
+                map-gesture-handling="'greedy'"
                 open-first-pointer="true")
 
             .provider-content(ng-class="{'provider-content-top': !$root.appConfigs.features.show_provider_map}")
