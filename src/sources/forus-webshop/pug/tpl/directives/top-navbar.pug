@@ -197,82 +197,40 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
     mixin navbar_list()
         ul.navbar-list#primary-menu.hide-sm(ng-class="{'navbar-list-auth-in': $root.auth_user}")
-            li.navbar-item-wrapper
-                a.navbar-item(
-                    ui-sref="home"
-                    ui-sref-active="active"
-                    translate="topnavbar.items.home")
-
-            li.navbar-item-wrapper(ng-if="$root.appConfigs.flags.fundsMenu && ($root.auth_user || $root.appConfigs.flags.fundsMenuIfLoggedOut)")
-                a.navbar-item(
-                    ui-sref="funds" 
-                    target="_self"
-                    ui-sref-active="active"
-                    translate="topnavbar.items.{{ $root.appConfigs.client_key }}.funds"
-                    translate-default="{{ 'topnavbar.items.funds' | translate }}")
-
             li.navbar-item-wrapper(
-                ng-if="$root.appConfigs.features.has_budget_funds && $root.appConfigs.features.products.list && ($root.appConfigs.flags.productsMenu || $root.auth_user)")
-                a.navbar-item(
-                    ui-sref="products" 
-                    ui-sref-active="active"
-                    ng-bind="'topnavbar.items.products' | translate"
-                    id="products_page")
-            
-            li.navbar-item-wrapper(
-                ng-if="$root.appConfigs.features.has_subsidy_funds && $root.appConfigs.features.products.list && ($root.appConfigs.flags.productsMenu || $root.auth_user)")
-                a.navbar-item(
-                    ui-sref="actions" 
-                    ui-sref-active="active"
-                    ng-bind="'topnavbar.items.subsidies' | translate"
-                    id="actions_page")
-            
-            li.navbar-item-wrapper(ng-if="$root.appConfigs.flags.providersMenu")
-                a.navbar-item(
-                    id="providers_page"
-                    ui-sref="providers"
-                    ui-sref-active="active"
-                    ng-bind="'topnavbar.items.providers' | translate")
+                ng-repeat="menuItem in $dir.menuItems" 
+                ng-if="menuItem.enabled"
+                ng-class="menuItem.class")
 
-            li.navbar-item-wrapper(
-                ng-class="{'navbar-item-wrapper_first-to-last' : !$root.appConfigs.flags.providersSignUpMenu}")
                 a.navbar-item(
-                    ui-sref="explanation"
+                    ng-if="['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1"
+                    ui-sref="{{ menuItem.sref }}"
                     ui-sref-active="active"
-                    target="{{ $root.appConfigs.features.pages.explanation.external ? '_blank' : '_self' }}"
-                    translate="topnavbar.items.{{ $root.appConfigs.client_key }}.explanation"
-                    translate-default="{{ 'topnavbar.items.explanation' | translate }}")
+                    translate="{{ menuItem.nameKey }}"
+                    translate-default="{{ menuItem.nameDefault }}"
+                    target="{{ menuItem.target || '_blank' }}")
 
-            li.navbar-item-wrapper(
-                ng-class="{'navbar-item-wrapper_first-to-last' : $root.appConfigs.flags.providersSignUpMenu}"
-                ng-if="$root.appConfigs.flags.providersSignUpMenu")
-                a.navbar-item(
-                    id="providers_page"
-                    ui-sref="sign-up"
-                    ui-sref-active="active"
-                    ng-bind="'topnavbar.items.signup' | translate")
-
-            li.navbar-item-wrapper.navbar-item-wrapper_social_icons(
-                ng-class="$root.appConfigs.features.social_medias.length ? '' : 'navbar-item-wrapper_first-to-last'")
-
+                //- Social media items
                 a.navbar-social-media-icon(
+                    ng-if="menuItem.id == 'social_media_items'"
                     ng-repeat="social_media in $root.appConfigs.features.social_medias"
-                    href="{{ social_media.url }}" 
+                    href="{{ social_media.url }}"
                     title="{{ social_media.title }}"
                     target="_blank")
                     em.mdi(ng-class="'mdi-' + social_media.type")
 
-            li.navbar-item-wrapper.navbar-item-wrapper_sign-out(ng-if="$root.auth_user")
-                +subnav_search_button()
-                
-                span.navbar-user(
-                    dusk="identityEmail"
-                    ng-if="$root.auth_user.email"
-                    ng-bind="$root.auth_user.email | str_limit:27")
+                //- Logout item
+                .flex(ng-if="menuItem.id == 'logout_item'")
+                    +subnav_search_button()
+                    
+                    span.navbar-user(
+                        dusk="identityEmail"
+                        ng-if="$root.auth_user.email"
+                        ng-bind="$root.auth_user.email | str_limit:27")
 
-                a(role="button" tabindex="0" href="" ng-click="$root.signOut($event, true)")
-                    span.navbar-item(translate="topnavbar.buttons.logout")
-                    em.mdi.mdi-logout    
+                    a(role="button" tabindex="0" href="" ng-click="$root.signOut($event, true)")
+                        span.navbar-item(translate="topnavbar.buttons.logout")
+                        em.mdi.mdi-logout 
 
     //- Mobile header
     .navbar-inner.wrapper(ng-if="!$root.showSearchBox")

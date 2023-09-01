@@ -134,16 +134,13 @@ h1, h2, h3, h4, h5, h6 {
                     display: none;
                 }
 
-                &:last-child {
-                    padding-right: 0;
-                }
-
                 &.navbar-item-wrapper_social_icons {
                     display: none;
                 }
 
                 &.navbar-item-wrapper_sign-out {
                     padding-left: 100px;
+                    padding-right: 0;
 
                     a {
                         display: none;
