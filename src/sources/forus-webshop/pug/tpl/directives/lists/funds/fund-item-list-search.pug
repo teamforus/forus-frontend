@@ -5,7 +5,7 @@ a.search-item.search-item-fund
 
     .search-content
         .search-details
-            .search-title(ng-bind="$dir.fund.name")
+            h2.search-title(ng-bind="$dir.fund.name")
             .search-subtitle(ng-bind="$dir.fund.organization.name")
             .search-status-label
                 .label.label-default(ng-if="$dir.fund.showPendingButton" translate="funds.buttons.is_pending")
