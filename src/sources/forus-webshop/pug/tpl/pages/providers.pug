@@ -123,12 +123,14 @@ block content
                                     
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: !$ctrl.showMap}"
-                                        ng-click="$ctrl.showAsList()")
+                                        ng-click="$ctrl.showAsList()"
+                                        aria-pressed="{{ !$ctrl.showMap }}")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.showMap}"
-                                        ng-click="$ctrl.showAsMap()")
+                                        ng-click="$ctrl.showAsMap()"
+                                        aria-pressed="{{ $ctrl.showMap }}")
                                         em.mdi.mdi-map-marker-radius.icon-start
                                         | Kaart
 
