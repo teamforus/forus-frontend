@@ -35,7 +35,7 @@
                             .session-property
                                 .session-property-label Laatste activiteit 
                                 .session-property-value
-                                    | {{ session.last_request.time_passed | duration_last_time }}  
+                                    | {{ session.last_request.time_passed_locale }}  
                                     span(ng-if="session.last_request.location").session-property-sep.text-primary • 
                                     span(
                                         ng-if="session.last_request.location" 
@@ -59,9 +59,7 @@
                         .session-locations(ng-if="session.locations.length > 1 && session.showLocations")
                             .session-location(ng-repeat="location in session.locations" ng-bind="location.ip + ' • ' + location.string")
 
-
-                    .session-label(ng-if="session.current"): .label.label-round.label-primary-light Huidig
-                    
+                    .session-label(ng-if="session.current"): .label.label-round.label-primary-light Huidig                    
                     .session-label(ng-if="session.active && !session.current"): .label.label-round.label-success Online
     
         .card-section.text-right: .button.button-primary(ng-click="$ctrl.terminateAllSessions()") 

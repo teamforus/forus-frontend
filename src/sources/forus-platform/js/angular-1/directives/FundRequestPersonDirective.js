@@ -1,7 +1,8 @@
 const FundRequestPersonDirective = function(
     $scope,
     PageLoadingBarService,
-    FundRequestValidatorService
+    PushNotificationsService,
+    FundRequestValidatorService,
 ) {
     const { $dir } = $scope;
 
@@ -64,9 +65,10 @@ module.exports = () => {
         controller: [
             '$scope',
             'PageLoadingBarService',
+            'PushNotificationsService',
             'FundRequestValidatorService',
-            FundRequestPersonDirective
+            FundRequestPersonDirective,
         ],
-        templateUrl: 'assets/tpl/directives/fund-request-person.html'
+        templateUrl: 'assets/tpl/directives/fund-request-person.html',
     };
 };

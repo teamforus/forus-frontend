@@ -1,5 +1,5 @@
 const SignUpService = function(OrganizationService) {
-    class ProgressStorrage {
+    class ProgressStorage {
         constructor(namespace, storage = localStorage) {
             this.namespace = namespace;
             this.storage = storage ? storage : this.storage;
@@ -44,7 +44,7 @@ const SignUpService = function(OrganizationService) {
 
     return new(function() {
         this.makeProgressStorage = function(namespace) {
-            return new ProgressStorrage(namespace)
+            return new ProgressStorage(namespace)
         };
 
         this.organizations = (query = {}) => {

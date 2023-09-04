@@ -1,4 +1,4 @@
-let ValidatorSignUpComponent = function(
+const ValidatorSignUpComponent = function(
     $q,
     $state,
     $rootScope,
@@ -9,9 +9,9 @@ let ValidatorSignUpComponent = function(
     AuthService,
     SignUpService,
     OrganizationService,
-    ModalService
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
+
     let orgMediaFile = false;
     let authTokenSubscriber = AuthService.accessTokenSubscriber();
     let progressStorage = SignUpService.makeProgressStorage('validator-sign_up');
@@ -112,7 +112,6 @@ let ValidatorSignUpComponent = function(
                 if (!res.data.email.used) {
                     IdentityService.make(form.values).then(res => {
                         $ctrl.authEmailSent = true;
-                        $ctrl.confirmationEmail = form.values.email;
                     }, resolveErrors);
                 } else {
                     IdentityService.makeAuthEmailToken(
@@ -290,10 +289,6 @@ let ValidatorSignUpComponent = function(
         orgMediaFile = file;
     };
 
-    $ctrl.selectOfficePhoto = (file) => {
-        officeMediaFile = file;
-    };
-
     $ctrl.openAuthPopup = () => $state.go('home');
 
     $ctrl.$onDestroy = function() {
@@ -317,8 +312,7 @@ module.exports = {
         'AuthService',
         'SignUpService',
         'OrganizationService',
-        'ModalService',
-        ValidatorSignUpComponent
+        ValidatorSignUpComponent,
     ],
-    templateUrl: 'assets/tpl/pages/validator-sign-up.html'
+    templateUrl: 'assets/tpl/pages/validator-sign-up.html',
 };

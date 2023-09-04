@@ -129,8 +129,9 @@ const PincodeControl2Directive = function (
         e.stopPropagation();
         e.preventDefault();
 
+        const clipboardData = e?.clipboardData || e?.originalEvent?.clipboardData;
         const index = $dir.chars.indexOf(char);
-        const text = $dir.clearString(e?.clipboardData?.getData('text') || '', $dir.blockInputType);
+        const text = $dir.clearString(clipboardData?.getData('text') || '', $dir.blockInputType);
 
         $dir.updateModel(index, text)
     }

@@ -765,11 +765,21 @@ module.exports = {
     products: {
         offers: "Aanbod",
         add: "Voeg aanbod toe",
+        labels: {
+            id: "ID",
+            name: "Naam",
+            photo: "Afbeelding",
+            stock_amount: "Resterend",
+            price: "Bedrag",
+            expired: "Verlopen",
+            expire_at: "Verloopdatum",
+            actions: "Actie",
+        },
         cannot_delete: 'Let op! Wanneer uw product of dienst geplaatst is moet u dit aanbod kunnen leveren. Bedenk dus goed hoeveel aanbod en daarmee reserveringen u wilt uitgeven. U kunt uw aanbod altijd ophogen maar niet meer verlagen.',
         confirm_delete: {
             title: 'Weet u zeker dat u dit aanbod wilt verwijderen?',
             description: 'Als u het aanbod verwijderd, wordt het aanbod uit de webshop gehaald. Ook verdwijnt het aanbod uit uw dashboard. U kunt uw gereserveerd aanbod dan niet meer inzien. Reeds gemaakte reserveringen blijven actief en kunnen nog opgehaald worden.'
-        }
+        },
     },
 
     // PROVIDER IDENTITIES = provider-identities.pug
