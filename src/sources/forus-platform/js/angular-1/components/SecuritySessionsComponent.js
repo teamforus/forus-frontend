@@ -13,11 +13,7 @@ const SecuritySessionsComponent = function (
                 if (!session.last_request.device_available) {
                     session.type_class = "shield-outline";
                 } else if (device && device.device.type == 'desktop') {
-                    if (device.device.manufacturer == 'Apple') {
-                        session.type_class = 'desktop-mac';
-                    } else {
-                        session.type_class = 'monitor';
-                    }
+                    session.type_class = 'monitor';
                 } else if (device && device.device.type == 'mobile') {
                     session.type_class = 'cellphone';
                 } else if (device && device.device.type == 'tablet') {
