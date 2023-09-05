@@ -58,11 +58,10 @@ const Security2FAComponent = function (
                 $ctrl.auth2FAState = res.data.data;
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
-                form.unlock();
                 form.errors = res.data.errors;
                 PushNotificationsService.danger('Error', res.data?.message || 'Onbekende foutmelding.');
-            }, true);
-        });
+            }).finally(() => form.unlock());
+        }, true);
     };
 }
 
