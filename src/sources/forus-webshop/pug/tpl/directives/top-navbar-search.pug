@@ -28,7 +28,7 @@
             //- Sidebar
             .search-result-sidebar
                 //- Results by key
-                .search-result-sidebar-item(
+                h2.search-result-sidebar-item(
                     ng-repeat="groupKey in $dir.groupKeyList"
                     ng-click="$dir.setGroupKey(groupKey)"
                     ng-class="{active: $dir.groupKey == groupKey}")

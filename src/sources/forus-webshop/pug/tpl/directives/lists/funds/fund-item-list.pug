@@ -4,7 +4,7 @@ a.fund-item
         alt="Dit is de afbeelding van {{ $dir.fund.name }}")
 
     .fund-content: .fund-details
-        .fund-name(ng-bind="$dir.fund.name")
+        h2.fund-name(ng-bind="$dir.fund.name")
 
         .fund-description(ng-if="$dir.fund.description_short")
             span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")

@@ -66,6 +66,7 @@
                 border-radius: calc(var(--border-radius) / 2);
                 font: 700 14px/24px var(--base-font);
                 margin-bottom: 5px;
+                margin-top: 0;
                 transition: color 0.4s, background-color 0.4s;
 
                 .search-result-sidebar-item-icon {
