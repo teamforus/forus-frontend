@@ -101,11 +101,14 @@ main(id="main-content")
                             collapse 
                             ng-repeat="question in $ctrl.fund.faq"
                             ng-class="{active: question.isActive}" 
-                            ng-click="question.isActive = !question.isActive" 
+                            ng-click="question.isActive = !question.isActive"
+                            role="button"
+                            aria-expanded="{{question.isActive ? true : false}}"
+                            aria-controls="{{ 'faq_item_' + $index }}"
                             collapse-item)
                             
                             .faq-item-header(collapse-header)
-                                h2(ng-bind="question.title" role="button" tabindex="0" aria-expanded="{{question.isActive}}" ).faq-item-title
+                                h2(ng-bind="question.title" role="button" tabindex="0").faq-item-title
                                 .faq-item-chevron-down.mdi.mdi-chevron-down
                                 .faq-item-chevron-up.mdi.mdi-chevron-up
-                            .faq-item-content: .block.block-markdown(ng-bind-html="question.description_html")    
+                            .faq-item-content(id="{{ 'faq_item_' + $index }}"): .block.block-markdown(ng-bind-html="question.description_html")    

@@ -38,12 +38,12 @@ main(id="main-content")
                     .product-properties
                         .product-property
                             .product-property-label(i18n="product.labels.category")
-                            .product-property-value(ng-bind="$ctrl.product.product_category.name")
+                            h2.product-property-value(ng-bind="$ctrl.product.product_category.name")
                     
                     .product-properties
                         .product-property.product-property-full
                             .product-property-label(i18n="product.labels.description")
-                            .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
+                            .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html" role="heading" aria-level="3")
                 
                 +bookmark_toggle()
 

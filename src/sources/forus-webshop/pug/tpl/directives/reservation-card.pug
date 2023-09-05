@@ -4,11 +4,11 @@
         alt="")
 
     .reservation-details
-        a.reservation-name(
-            ui-sref="product($dir.product)" 
-            ng-bind="$dir.product.name" 
+        div(role="heading" aria-level="2"): a.reservation-name(
+            ui-sref="product($dir.product)"
             dusk="reservationProduct" 
             role="link" 
+            ng-bind="$dir.product.name"
             tabindex="0")
 
         a.reservation-organization(
