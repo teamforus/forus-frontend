@@ -1,42 +1,21 @@
-const MobileFooterDirective = function(
+const MobileMenuDirective = function (
     $scope,
+    $rootScope,
     $state,
+    appConfigs,
+    FundService,
     VoucherService,
     ModalService,
-    FundService,
-    appConfigs
 ) {
     const { $dir } = $scope;
 
-    $dir.visible = true;
-    $dir.vouchers = null;
-    $dir.funds = null;
-    $dir.profileMenuOpened = false;
+    $dir.showMainMenuGroup = $dir.showUserMenuGroup = true;
     $dir.appConfigs = appConfigs;
 
-    $dir.hideProfileMenu = () => {
-        $dir.profileMenuOpened = false;
-    }
+    $scope.$dir = $dir;
 
-    $dir.openProfileMenu = ($e) => {
-        if ($e?.target?.tagName != 'A') {
-            $e.stopPropagation();
-            $e.preventDefault();
-        }
-
-        $dir.profileMenuOpened = !$dir.profileMenuOpened;
-    }
-
-    $dir.startFundRequest = () => {
-        $dir.hideProfileMenu();
-
-        if ($dir.funds && $dir.funds.length > 0) {
-            $state.go('start');
-        }
-    };
-
-    $dir.openPinCodePopup = () => {
-        ModalService.open('modalPinCode');
+    $dir.hideMobileMenu = () => {
+        $rootScope.mobileMenuOpened = false;
     };
 
     const getFundList = () => {
@@ -52,6 +31,18 @@ const MobileFooterDirective = function(
         VoucherService.list().then((res) => $dir.vouchers = res.data.data);
     };
 
+    $dir.startFundRequest = () => {
+        $dir.hideMobileMenu();
+
+        if ($dir.funds && $dir.funds.length > 0) {
+            $state.go('start');
+        }
+    };
+
+    $dir.openPinCodePopup = () => {
+        ModalService.open('modalPinCode');
+    };
+
     $dir.$onInit = () => {
         getFundList();
         $dir.$state = $state;
@@ -62,19 +53,21 @@ const MobileFooterDirective = function(
 
 module.exports = () => {
     return {
+        scope: {},
         restrict: "EA",
         replace: true,
         bindToController: true,
         controllerAs: '$dir',
         controller: [
             '$scope',
+            '$rootScope',
             '$state',
+            'appConfigs',
+            'FundService',
             'VoucherService',
             'ModalService',
-            'FundService',
-            'appConfigs',
-            MobileFooterDirective
+            MobileMenuDirective
         ],
-        templateUrl: 'assets/tpl/directives/mobile-footer.html'
+        templateUrl: 'assets/tpl/directives/mobile-menu.html'
     };
 };

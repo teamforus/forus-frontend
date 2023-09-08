@@ -113,7 +113,7 @@ app.service('TagService', require('./services/TagService'));
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
 app.directive('topNavbarSearch', require('./directives/TopNavbarSearchDirective'));
-app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
+app.directive('mobileMenu', require('./directives/MobileMenuDirective'));
 app.directive('skipLinks', require('./directives/SkipLinksDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));

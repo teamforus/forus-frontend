@@ -740,11 +740,17 @@
                 border-radius: 0;
                 justify-content: flex-start;
 
-                .navbar-search-button {
+                .navbar-search-button, .navbar-menu-button {
                     .mdi {
                         display: block;
                         float: none;
                         margin: 0;
+                    }
+                }
+
+                .navbar-menu-button {
+                    &.active {
+                        color: var(--color-primary);
                     }
                 }
             }
@@ -899,7 +905,7 @@
         &.block-navbar {
             .button {
                 padding: 10px 0px;
-                min-width: 80px;
+                min-width: 60px;
                 font: 400 12px/1.5em var(--base-font);
             }
         }

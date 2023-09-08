@@ -58,6 +58,19 @@ const TopNavbarDirective = function (
         $rootScope.showSearchBox = !$rootScope.showSearchBox;
     }
 
+    $dir.hideMobileMenu = () => {
+        $rootScope.mobileMenuOpened = false;
+    }
+
+    $dir.openMobileMenu = ($e) => {
+        if ($e?.target?.tagName != 'A') {
+            $e.stopPropagation();
+            $e.preventDefault();
+        }
+
+        $rootScope.mobileMenuOpened = !$rootScope.mobileMenuOpened;
+    }
+
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
 

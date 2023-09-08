@@ -9,6 +9,7 @@ module.exports = {
         identity:"Profiel",
         signup:"Uitleg aanbieders",
         search:"Zoek",
+        menu: "Meer",
         westerkwartier: {
             funds:"Potjes",
         },
@@ -113,6 +114,8 @@ module.exports = {
                 sessions: "Sessies",
                 bookmarked_products: "Mijn verlanglijstje",
                 authorize: "Log in op de app",
+                home: "Home",
+                explanation: "Uitleg",
                 westerkwartier: {
                     funds: "Aanvragen",
                 },
