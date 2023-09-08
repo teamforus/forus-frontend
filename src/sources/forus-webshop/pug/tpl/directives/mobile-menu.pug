@@ -1,5 +1,5 @@
 //- Dropdown menu
-.block.block-mobile-menu(ng-show="$root.mobileMenuOpened")
+.block.block-mobile-menu(ng-show="$root.mobileMenuOpened").show-sm
     //- Mobile subitems group
     .mobile-menu-subitems-group
         .mobile-menu-subitems-group-header(ng-click="$dir.showMainMenuGroup = !$dir.showMainMenuGroup") 
@@ -59,6 +59,7 @@
         .mobile-menu-subitems(ng-if="$dir.showUserMenuGroup")
             //- Log in Me-App
             .mobile-menu-subitem(
+                ng-if="$root.auth_user"
                 ng-click="$dir.openPinCodePopup()"
                 tabindex="0"
                 role="button")

@@ -290,15 +290,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
     //- Main navigation menu
     .navbar-inner.wrapper(ng-class="{'search-shown': $root.showSearchBox}")
-        .block.block-auth.show-sm(ng-if="!$root.showSearchBox")
-            button.button.button-default(
-                ng-if="!$root.auth_user && $root.appConfigs.flags.showStartButton"
-                ng-click="$dir.startFundRequest({ restore_with_email: true })"
-                role="button").show-sm
-
-                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-start.svg
-                span(ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'")
-
         if (!qdt_c.platform.env_data.flags || !qdt_c.platform.env_data.flags.genericSearchUseToggle)
             +navbar_list()
         else
