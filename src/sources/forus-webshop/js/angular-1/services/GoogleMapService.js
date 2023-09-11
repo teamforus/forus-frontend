@@ -1,5 +1,5 @@
 let GoogleMapService = function($q) {
-    var style = {
+    const style = {
         'style': [{
             "featureType": "water",
             "elementType": "geometry",
@@ -118,14 +118,36 @@ let GoogleMapService = function($q) {
         }]
     };
 
-    var getStyle = function() {
+    const autocompleteOptions = {
+        componentRestrictions: {
+            country: ["nl", "md"]
+        },
+        fields: [
+            "address_components", "geometry",
+        ],
+        types: [
+            "address",
+        ],
+    };
+
+    const getStyle = function() {
         return $q(function(resolve, reject) {
             resolve(style);
         });
     };
 
+    const getAutocompleteOptions = () => autocompleteOptions;
+
+    const getAddressComponent = (component, place) => {
+        return place.address_components.find((address_component) => {
+            return address_component.types.includes(component);
+        });
+    }
+
     return {
-        getStyle: getStyle
+        getStyle: getStyle,
+        getAddressComponent: getAddressComponent,
+        getAutocompleteOptions: getAutocompleteOptions,
     };
 };
 
