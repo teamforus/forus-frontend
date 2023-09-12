@@ -200,14 +200,21 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             li.navbar-item-wrapper(
                 ng-repeat="menuItem in $dir.menuItems" 
                 ng-if="menuItem.enabled"
-                ng-class="menuItem.class")
+                ng-class="[menuItem.class, $index >= $dir.menuItems.length - 3 ? 'navbar-item-wrapper_first-to-last' : '']")
 
                 a.navbar-item(
-                    ng-if="['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1"
-                    ui-sref="{{ menuItem.sref }}"
+                    ng-if="['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1 && !menuItem.href"
+                    ui-sref="{{ menuItem.srefValue }}"
                     ui-sref-active="active"
-                    translate="{{ menuItem.nameKey }}"
-                    translate-default="{{ menuItem.nameDefault }}"
+                    translate="{{ menuItem.nameTranslate }}"
+                    translate-default="{{ menuItem.nameTranslateDefault || menuItem.nameTranslate }}"
+                    target="{{ menuItem.target || '_blank' }}")
+
+                a.navbar-item(
+                    ng-if="['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1 && menuItem.href"
+                    href="{{ menuItem.href }}"
+                    translate="{{ menuItem.nameTranslate }}"
+                    translate-default="{{ menuItem.nameTranslateDefault || menuItem.nameTranslate }}"
                     target="{{ menuItem.target || '_blank' }}")
 
                 //- Social media items

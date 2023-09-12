@@ -166,7 +166,23 @@ module.exports = (core) => {
                         // hideSignInEmailOption: true,
                         // hideSignInQrCodeOption: true,
                     }
-                }
+                },
+                // navbar menu item override settings
+                /* 
+                menuItems: [{
+                    id: 'href_example',
+                    name: 'Href example',
+                    href: 'https://example.com',
+                    target: '_blank',
+                }, {
+                    id: 'sref_example1',
+                    name: 'Fund 1',
+                    sref: 'fund',
+                    srefParams: { id: 1 },
+                }, {
+                    id: 'providers_page'
+                }], 
+                */
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -176,7 +192,7 @@ module.exports = (core) => {
             ios_iphone_link: ios_iphone_link,
             html5ModeEnabled: true,
             html5Mode: {
-                basePath: '/'
+                basePath: '/',
             },
         });
 
@@ -557,29 +573,6 @@ module.exports = (core) => {
 
                 // voucher settings
                 shareProducts: false,
-
-                // navbar menu item override settings
-                overrideMenuItems: true,
-                menuItems: [{
-                    id: 'fund_meedoen',
-                    name: 'Meedoen',
-                    sref: 'fund',
-                    srefParams: {id: 26},
-                }, {
-                    id: 'fund_bus',
-                    name: 'Bus',
-                    sref: 'fund',
-                    srefParams: {id: 37},
-                }, {
-                    id: 'fund_inkomenstoeslag',
-                    name: 'Inkomenstoeslag',
-                    sref: 'fund',
-                    srefParams: {id: 79},
-                }, {
-                    id: 'funds_page',
-                    name: 'Alle vergoedingen',
-                    sref: 'funds',
-                }],
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,

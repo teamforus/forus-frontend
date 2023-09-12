@@ -21,106 +21,94 @@ const TopNavbarDirective = function (
         $rootScope.showSearchBox = window.innerWidth >= 1000;
     };
 
-    const menuItems = [{
-        "id": "home_page",
-        "nameKey": `topnavbar.items.home`,
-        "sref": "home",
-        "srefParams": {},
-        "target": "_self",
-        "enabled": true,
-    }, {
-        "id": "funds_page",
-        "nameKey": `topnavbar.items.${appConfigs.client_key}.funds`,
-        "nameDefault": $i18n(`topnavbar.items.funds`),
-        "sref": "funds",
-        "srefParams": {},
-        "target": "_self",
-        "enabled": appConfigs.flags.fundsMenu && 
-            ($rootScope.auth_user || appConfigs.flags.fundsMenuIfLoggedOut),
-    }, {
-        "id": "products_page",
-        "nameKey": `topnavbar.items.${appConfigs.client_key}.products`,
-        "nameDefault": $i18n(`topnavbar.items.products`),
-        "sref": "products",
-        "srefParams": {},
-        "target": "_self",
-        "enabled": appConfigs.features.has_budget_funds && 
-            appConfigs.features.products.list && 
-            (appConfigs.flags.productsMenu || $rootScope.auth_user),
-    }, {
-        "id": "actions_page",
-        "nameKey": `topnavbar.items.subsidies`,
-        "sref": "actions",
-        "srefParams": {},
-        "target": "_self",
-        "enabled": appConfigs.features.has_subsidy_funds && 
-            appConfigs.features.products.list && 
-            (appConfigs.flags.productsMenu || $rootScope.auth_user),
-    }, {
-        "id": "providers_page",
-        "nameKey": `topnavbar.items.providers`,
-        "sref": "providers",
-        "srefParams": {},
-        "target": "_self",
-        "enabled": appConfigs.flags.providersMenu,
-    }, {
-        "id": "explanation_page",
-        "target": appConfigs.features.pages.explanation && 
-            appConfigs.features.pages.explanation.external ? '_blank' : '_self',
-        "class": !appConfigs.flags.providersSignUpMenu ? 'navbar-item-wrapper_first-to-last' : '',
-        "nameKey": `topnavbar.items.${appConfigs.client_key}.explanation`,
-        "nameDefault": $i18n(`topnavbar.items.explanation`),
-        "sref": "explanation",
-        "srefParams": {},
-        "target": "_self",
-        "enabled": true,
-    }, {
-        "id": "providers_sign_up_page",
-        "class": appConfigs.flags.providersSignUpMenu ? 'navbar-item-wrapper_first-to-last' : '',
-        "nameKey": `topnavbar.items.signup`,
-        "sref": "sign-up",
-        "srefParams": {},
-        "target": "_self",
-        "enabled": appConfigs.flags.providersSignUpMenu,
-    }];
+    const replaceMenuItems = (defaultMenuItems, customMenuItems) => {
+        return customMenuItems.map((menuItem) => {
+            const defaultItem = defaultMenuItems.find((item) => item.id == menuItem.id);
+            const item = { ...defaultItem, ...{ ...menuItem, enabled: true } };
 
-    const makeMenuItems = () => {
-        $dir.menuItems = menuItems.filter(menuItem => menuItem.enabled);
+            return { ...item };
+        }).filter((menuItem) => menuItem.enabled);
+    };
 
-        if (appConfigs.flags.overrideMenuItems) {
-            $dir.menuItems = appConfigs.flags.menuItems.map(menuItem => {
-                let defaultItem = $dir.menuItems.find(item => item.id == menuItem.id);
+    const makeMenuItems = (appConfigs, authUser) => {
+        const features = appConfigs?.features;
+        const flags = appConfigs?.flags;
 
-                let item = {
-                    ...defaultItem,
-                    ...menuItem,
-                };
-                
-                return {
-                    ...item,
-                    nameKey: !item.name ? item.nameKey : 'null',
-                    nameDefault: !menuItem.name ? item.nameDefault : item.name,
-                    target: item.target || "_self",
-                    sref: `${menuItem.sref}(${JSON.stringify(menuItem.srefParams)})`,
-                    enabled: true,
-                };
-            });
-        }
+        const defaultMenuItems = [{
+            id: "home_page",
+            nameTranslate: `topnavbar.items.home`,
+            sref: "home",
+            srefParams: {},
+            target: "_self",
+            enabled: true,
+        }, {
+            id: "funds_page",
+            nameTranslate: `topnavbar.items.${appConfigs.client_key}.funds`,
+            nameTranslateDefault: $i18n(`topnavbar.items.funds`),
+            sref: "funds",
+            srefParams: {},
+            target: "_self",
+            enabled: flags.fundsMenu && (!!authUser || flags.fundsMenuIfLoggedOut),
+        }, {
+            id: "products_page",
+            nameTranslate: `topnavbar.items.${appConfigs.client_key}.products`,
+            nameTranslateDefault: $i18n(`topnavbar.items.products`),
+            sref: "products",
+            srefParams: {},
+            target: "_self",
+            enabled: features?.has_budget_funds && features?.products?.list && (flags.productsMenu || !!authUser),
+        }, {
+            id: "actions_page",
+            nameTranslate: `topnavbar.items.subsidies`,
+            sref: "actions",
+            srefParams: {},
+            target: "_self",
+            enabled: features?.has_subsidy_funds && features?.products?.list && (flags.productsMenu || !!authUser),
+        }, {
+            id: "providers_page",
+            nameTranslate: `topnavbar.items.providers`,
+            sref: "providers",
+            srefParams: {},
+            target: "_self",
+            enabled: flags.providersMenu,
+        }, {
+            id: "explanation_page",
+            target: features?.pages?.explanation?.external ? '_blank' : '_self',
+            nameTranslate: `topnavbar.items.${appConfigs.client_key}.explanation`,
+            nameTranslateDefault: $i18n(`topnavbar.items.explanation`),
+            sref: "explanation",
+            srefParams: {},
+            target: "_self",
+            enabled: true,
+        }, {
+            id: "providers_sign_up_page",
+            nameTranslate: `topnavbar.items.signup`,
+            sref: "sign-up",
+            srefParams: {},
+            target: "_self",
+            enabled: flags.providersSignUpMenu,
+        }].filter((menuItem) => menuItem.enabled);
 
         const requiredItems = [{
-            "id": "social_media_items",
-            "class": (appConfigs.features.social_medias.length ? '' : 'navbar-item-wrapper_first-to-last') + 
-                " navbar-item-wrapper_social_icons",
-            "enabled": true,
+            id: "social_media_items",
+            class: "navbar-item-wrapper_social_icons",
+            enabled: true,
         }, {
-            "id": "logout_item",
-            "class": "navbar-item-wrapper_sign-out",
-            "enabled": $rootScope.auth_user,
+            id: "logout_item",
+            class: "navbar-item-wrapper_sign-out",
+            enabled: !!authUser,
         }];
 
-        requiredItems.forEach(item => {
-            $dir.menuItems.push(item);
-        });
+        $dir.menuItems = [
+            ...(flags.menuItems ? replaceMenuItems(defaultMenuItems, flags.menuItems) : defaultMenuItems),
+            ...requiredItems
+        ].map((item) => ({
+            ...item,
+            nameTranslate: item?.name || item?.nameTranslate,
+            nameTranslateDefault: item?.name || item?.nameTranslateDefault,
+            target: item.target || "_self",
+            srefValue: item.sref ? `${item.sref}(${item.srefParams ? JSON.stringify(item.srefParams) : ''})` : null,
+        }));
     };
 
     $dir.visible = false;
@@ -174,7 +162,8 @@ const TopNavbarDirective = function (
             onResize();
         }
 
-        makeMenuItems();
+        $rootScope.$watch('auth_user', () => makeMenuItems($rootScope.appConfigs, $rootScope.auth_user), true);
+        $rootScope.$watch('appConfigs', () => makeMenuItems($rootScope.appConfigs, $rootScope.auth_user), true);
     };
 
     $dir.$onDestroy = () => {
