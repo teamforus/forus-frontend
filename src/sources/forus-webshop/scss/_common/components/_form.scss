@@ -375,10 +375,10 @@
             }
 
             .select-control-container {
-                width: 100vw;
                 box-sizing: border-box;
-                padding-right: 50px;
                 border: none;
+                width: 500%;
+                max-width: calc(100vw - 40px);
 
                 .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
                     padding: 8px 15px;
@@ -391,6 +391,7 @@
                     border-top-right-radius: var(--border-radius);
 
                     .select-control-search {
+                        border-radius: inherit;
                         background-color: #FBFBFB !important;
                     }
                 }

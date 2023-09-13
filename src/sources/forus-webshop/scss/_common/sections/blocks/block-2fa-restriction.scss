@@ -109,7 +109,7 @@
                 text-align: left;
 
                 .restriction-hero-title {
-                    font: 700 14px/24px var(--base-font);
+                    font: 700 14px/20px var(--base-font);
                 }
 
                 .restriction-hero-description {
@@ -132,7 +132,8 @@
         .restriction-reasons {
             .restriction-details {
                 .restriction-title {
-                    font: 700 14px/24px var(--base-font);
+                    font: 700 14px/20px var(--base-font);
+                    margin: 0 0 10px;
                 }
 
                 .restriction-description {

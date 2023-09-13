@@ -13,13 +13,13 @@ main(id="main-content"): section.section.section-voucher-details: .wrapper
                 div.pull-left
                     .profile-content-title-count(ng-bind="$ctrl.provider_types.length")
                     h1.profile-content-header Tweefactorauthenticatie
-
-            .block.block-auth-2fa
-                .auth-2fa-description
+            .profile-content-header.clearfix: h2.profile-content-title
+                .profile-content-subtitle
                     | Voeg een extra beveiligingslaag toe aan uw account door tweefactorauthenticatie in te schakelen.
                     | U kunt kiezen uit de volgende verificatiemethoden: Authenticator app en SMS-verificatie.
 
-                .auth-2fa-item(ng-repeat="provider_type in $ctrl.provider_types")
+            .block.block-auth-2fa(ng-repeat="provider_type in $ctrl.provider_types")
+                .auth-2fa-item
                     .auth-2fa-item-icon
                         .mdi.mdi-cellphone-key(ng-if="provider_type.type == 'authenticator'")
                         .mdi.mdi-cellphone-message(ng-if="provider_type.type == 'phone'")
@@ -30,8 +30,7 @@ main(id="main-content"): section.section.section-voucher-details: .wrapper
                         .label-group: .label.label-light(ng-if="!$ctrl.active_providers[provider_type.type]") Uitgeschakeld
                         .flex(ng-if="$ctrl.active_providers[provider_type.type]")
                             .mdi.mdi-check-circle 
-                            | Ingeschakeld:&nbsp
-                            | {{ $ctrl.active_providers[provider_type.type].created_at_locale }}
+                            | Ingeschakeld: {{ $ctrl.active_providers[provider_type.type].created_at_locale }}
                     
                     .auth-2fa-item-space
 

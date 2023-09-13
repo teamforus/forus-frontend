@@ -1,4 +1,5 @@
 &.block-auth-2fa {
+    --success-icon-color: #39B924;
     margin-bottom: 20px;
     background-color: #fff;
     border: 1px solid var(--border-color);
@@ -14,10 +15,6 @@
     }
 
     .auth-2fa-item {
-        padding: 20px;
-        background-color: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: var(--border-radius);
         margin: 0 0 15px;
         display: flex;
 
@@ -53,11 +50,12 @@
             display: inline-flex;
             flex-direction: column;
             justify-content: center;
+            font: 600 13px/24px var(--base-font);
 
             .mdi {
-                font-size: 14px;
-                line-height: 20px;
-                color: #39B924;
+                font-size: 16px;
+                line-height: 24px;
+                color: var(--success-icon-color);
                 padding-right: 5px;
             }
         }
@@ -79,10 +77,6 @@
     }
 
     @media screen and (max-width: 1000px) {
-        background: none;
-        border: none;
-        padding: 0;
-
         .auth-2fa-item {
             flex-direction: row;
             flex-wrap: wrap;
@@ -109,7 +103,7 @@
             }
 
             .auth-2fa-item-label {
-                font: 600 11px/11px var(--base-font);
+                font: 600 11px/24px var(--base-font);
 
                 .label {
                     font: 600 10px/10px var(--base-font);
@@ -117,7 +111,7 @@
                 }
 
                 .mdi, span {
-                    line-height: 14px;
+                    line-height: 24px;
                 }
             }
 

@@ -1017,29 +1017,33 @@
         }
 
         .sign_up-options {
-            .sign_up-option {
-                padding: 12px;
+            &.sign_up-options-2fa {
+                .sign_up-option {
+                    padding: 10px;
+    
+                    .sign_up-option-media {
+                        margin-right: 8px;
 
-                .sign_up-option-media {
-                    .sign_up-option-media-img {
-                        width: 20px;
+                        .sign_up-option-media-img {
+                            width: 40px;
+                        }
                     }
-                }
-
-                .sign_up-option-details {
-                    .sign_up-option-title {
-                        font: 700 14px/24px var(--base-font);
-                    }
-
+    
                     .sign_up-option-details {
-                        font: 700 14px/24px var(--base-font);
+                        .sign_up-option-title {
+                            font: 700 14px/20px var(--base-font);
+                        }
+    
+                        .sign_up-option-details {
+                            font: 700 12px/20px var(--base-font);
+                        }
                     }
-                }
-
-                .sign_up-option-button {
-                    .button {
-                        padding: 10px;
-                        font: 600 11px/11px var(--base-font);
+    
+                    .sign_up-option-button {
+                        .button {
+                            padding: 10px;
+                            font: 600 11px/11px var(--base-font);
+                        }
                     }
                 }
             }
