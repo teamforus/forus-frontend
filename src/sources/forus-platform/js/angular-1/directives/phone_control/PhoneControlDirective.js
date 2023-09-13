@@ -22,7 +22,7 @@ const PhoneControlDirective = function (
     };
 
     $dir.clear = (value) => {
-        return value.replace(regEx, '').replace(regExSpace, '')
+        return value?.replace(regEx, '').replace(regExSpace, '') || '';
     }
 
     $dir.getFullPhoneNumber = () => {

@@ -132,3 +132,7 @@
 
     animation: blink 1.5s ease-in-out infinite;
 }
+
+@function assetUrl($url) {
+    @return if(variable-exists(buildReact), url('./assets/' + $url), url('../' + $url));
+}
