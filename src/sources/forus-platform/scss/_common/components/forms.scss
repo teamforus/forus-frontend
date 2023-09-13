@@ -328,7 +328,7 @@
     }
 
     select.form-control {
-        background-image: url('../img/select-bg.png');
+        background-image: assetUrl('img/select-bg.png');
         background-position: 100%;
         background-repeat: no-repeat;
         appearance: none;
@@ -842,6 +842,8 @@
             display: block;
             width: 18px;
             height: 18px;
+            min-width: 18px;
+            min-height: 18px;
             border: 2px solid #cbd6e2;
             position: relative;
             margin-right: 5px;

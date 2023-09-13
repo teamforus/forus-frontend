@@ -983,7 +983,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/organizations/{organization_id}/reimbursement-categories-edit",
         component: "reimbursementCategoriesEditComponent",
         resolve: {
-            organization: organziationResolver(),
+            organization: organizationResolver(),
             permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
         }
     });
@@ -1458,7 +1458,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ] : []),
                 per_page: 20,
             }))],
-            organization: organziationResolver(),
+            organization: organizationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')
         }
     });
@@ -1496,13 +1496,20 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "products",
-        url: "/organizations/{organization_id}/products?source=",
+        url: "/organizations/{organization_id}/products?q&source",
+        params: {
+            q: routeParam(''),
+            per_page: routeParam(10),
+            source: routeParam('provider'),
+        },
         component: "productsComponent",
         resolve: {
             organization: organizationResolver(),
             permission: permissionMiddleware('products-list', 'manage_products'),
             products: ['$transition$', 'ProductService', ($transition$, ProductService) => {
-                return repackResponse(ProductService.list($transition$.params().organization_id));
+                return repackPagination(ProductService.list($transition$.params().organization_id, pick($transition$.params(), [
+                    'q', 'source', 'per_page',
+                ])));
             }],
         }
     });
@@ -1670,7 +1677,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/organizations/{organization_id}/bi-connection",
         component: "biConnectionComponent",
         resolve: {
-            organization: organziationResolver(),
+            organization: organizationResolver(),
             permission: permissionMiddleware('export-api-connections', 'manage_bi_connection'),
         }
     });
@@ -1826,11 +1833,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', (
             $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, PushNotificationsService
         ) => {
-            IdentityService.authorizeAuthEmailToken(
-                $state.params.token
-            ).then(function (res) {
-                let target = $state.params.target || '';
+            let target = $state.params.target || '';
 
+            IdentityService.authorizeAuthEmailToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
 
                 $rootScope.loadAuthUser().then(auth_user => {
@@ -1877,10 +1882,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         ) => {
             let target = $state.params.target || '';
 
-            IdentityService.exchangeConfirmationToken(
-                $state.params.token
-            ).then(function (res) {
+            IdentityService.exchangeConfirmationToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
+
                 $rootScope.loadAuthUser().then(() => {
                     if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
                         $state.go('home', {

@@ -36,7 +36,6 @@
     @import 'blocks/block-external-validators';
     @import 'blocks/block-danger_zone';
     @import 'blocks/block-sessions';
-    @import 'blocks/block-products';
     @import 'blocks/block-providers';
     @import 'blocks/block-breadcrumbs';
     @import 'blocks/block-provider-product';
@@ -168,6 +167,7 @@ body {
 
 .app {
     flex: 1 0 auto;
+    @include webkit_scrollbar(#848588);
 
     &.app-header {
         padding: 30px 0;
@@ -357,7 +357,7 @@ body {
                             }
 
                             &.notifications-menu-item-new {
-                                background-color: #f5f8fa70;
+                                background-color: #e4ecf170;
                             }
 
                             &:last-child {
@@ -531,7 +531,7 @@ body {
 
                             &:after{
                                 content: '';
-                                background-image: url('../img/icon-check.svg');
+                                background-image: assetUrl('img/icon-check.svg');
                                 background-position: center;
                                 background-size: contain;
                                 background-repeat: no-repeat;
@@ -1764,6 +1764,8 @@ body {
                         display: block;
                         width: 22px;
                         height: 22px;
+                        min-width: 22px;
+                        min-height: 22px;
                         border: 2px solid #d2e6ff;
                         border-radius: 50%;
                         position: relative;
@@ -2414,7 +2416,7 @@ body {
             ul {
                 li {
                     font: inherit;
-                    background-image: url('../img/icon-list.svg');
+                    background-image: assetUrl('img/icon-list.svg');
                     background-repeat: no-repeat;
                     line-height: 30px;
                     padding-left: 50px;
@@ -2918,6 +2920,7 @@ body {
                     background: #EFF2F4;
                     border: none;
                     border-radius: 8px;
+                    display: block;
                 }
 
                 .photo-label {
@@ -3718,7 +3721,7 @@ body {
             box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
             border: 2px dashed #d2e6ff;
 
-            img {
+            img, canvas {
                 display: block;
                 width: 100%;
             }
@@ -3853,7 +3856,7 @@ body {
             border-radius: 15px;
             box-shadow: 0 5px 35px rgba(#000, .075);
 
-            img {
+            img, canvas {
                 display: block;
                 width: 100%;
             }
@@ -4235,7 +4238,7 @@ body {
             padding: 160px 30px 60px;
             margin: 0 auto;
             text-align: center;
-            background: url('../img/upload-bg.png') no-repeat 50% 50px;
+            background: assetUrl('img/upload-bg.png') no-repeat 50% 50px;
 
             .button-group {
                 margin: 0 0 5px;
@@ -4598,7 +4601,7 @@ body {
         width: 100%;
         border: 1px dashed #d4d9dd;
         padding: 15px 55px 15px;
-        background: url('../img/icon-file.png') no-repeat;
+        background: assetUrl('img/icon-file.png') no-repeat;
         background-position: 25px 20px;
         position: relative;
         border-radius: 4px;
@@ -4727,7 +4730,7 @@ body {
             max-width: 100%;
 
             input {
-                background-image: url('../img/looking-glass.png');
+                background-image: assetUrl('img/looking-glass.png');
                 background-repeat: no-repeat;
                 background-size: auto 120%;
                 background-position: 100% 50%;
@@ -5100,7 +5103,7 @@ body {
 
             &.button-digid {
                 background-color: #000;
-                background-image: url('../img/icon-digid.svg');
+                background-image: assetUrl('img/icon-digid.svg');
                 background-repeat: no-repeat;
                 background-position: center;
                 border-color: #000;
@@ -5246,10 +5249,10 @@ body {
     &.block-label-tabs {
         display: flex;
         margin-left: 10px;
-        border-top-left-radius: calc(var(--boarder-radius) / 2);
-        border-top-right-radius: calc(var(--boarder-radius) / 2);
-        border-bottom-left-radius: calc(var(--boarder-radius) / 2);
-        border-bottom-right-radius: calc(var(--boarder-radius) / 2);
+        border-top-left-radius: calc(var(--border-radius) / 2);
+        border-top-right-radius: calc(var(--border-radius) / 2);
+        border-bottom-left-radius: calc(var(--border-radius) / 2);
+        border-bottom-right-radius: calc(var(--border-radius) / 2);
     
         .label-tab {
             background: #fff;
@@ -5284,13 +5287,13 @@ body {
             }
 
             &:first-child {
-                border-top-left-radius: calc(var(--boarder-radius) / 2);
-                border-bottom-left-radius: calc(var(--boarder-radius) / 2);
+                border-top-left-radius: calc(var(--border-radius) / 2);
+                border-bottom-left-radius: calc(var(--border-radius) / 2);
             }
     
             &:last-child {
-                border-top-right-radius: calc(var(--boarder-radius) / 2);
-                border-bottom-right-radius: calc(var(--boarder-radius) / 2);
+                border-top-right-radius: calc(var(--border-radius) / 2);
+                border-bottom-right-radius: calc(var(--border-radius) / 2);
                 border-right: 1px solid var(--border-color);
             }
     
@@ -6364,7 +6367,7 @@ body {
 
             .toggle-item {
                 border: 1px dashed #bfbfbf;
-                border-radius: calc(var(--boarder-radius) / 2);
+                border-radius: calc(var(--border-radius) / 2);
                 align-items: center;
                 background: #f6f9fc;
                 padding: 20px;
@@ -6596,13 +6599,13 @@ body {
     }
 
     &.signup-layout-new {
-        background-color: #fff;
+        background: #fff;
 
         .button {
             line-height: 28px;
             font-size: 16px;
             font-weight: 500;
-            border-radius: calc(var(--boarder-radius) / 2);
+            border-radius: calc(var(--border-radius) / 2);
 
             &.button-disabled, [disabled] {
                 background: #eff2f4;

@@ -229,7 +229,6 @@ app.directive('menu', {
 } [env_data.panel_type]);
 
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
-app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
 app.directive('csvUpload', require('./directives/CsvUploadDirective'));
@@ -344,8 +343,6 @@ app.filter('file_size', require('./filters/FileSizeFilter'));
 app.filter('hasPerm', require('./filters/HasPerm'));
 app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('str_limit', require('./filters/StrLimitFilter'));
-app.filter('duration', require('./filters/DurationFilter'));
-app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 app.filter('phone_number_format', require('./filters/PhoneNumberFormatFilter'));
 

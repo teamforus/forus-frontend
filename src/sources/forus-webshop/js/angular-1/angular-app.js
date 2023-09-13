@@ -216,8 +216,6 @@ app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('json_pretty', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
-app.filter('duration', require('./filters/DurationFilter'));
-app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 app.filter('capitalize', require('./filters/CapitalizeFilter'));
 app.filter('str_limit', require('./filters/StrLimitFilter'));

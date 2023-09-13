@@ -16,8 +16,8 @@
                 .fund-media: img(ng-src="{{ block.media.sizes.public || './assets/img/placeholders/product-small.png' }}" alt="")
 
                 .fund-information
-                    .fund-label
-                        .label.label-primary(ng-if="block.label" ng-bind="block.label")
+                    h2.fund-label
+                        span.label.label-primary(ng-if="block.label" ng-bind="block.label")
 
                     h2.fund-title(ng-bind="block.title")
                     .fund-description: .block.block-markdown: p(ng-bind-html="block.description_html")
