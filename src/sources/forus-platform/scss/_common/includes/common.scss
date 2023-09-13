@@ -136,7 +136,7 @@ img {
 }
 
 .text-primary-mid {
-    color: --base-color !important;
+    color: var(--base-color) !important;
 }
 
 .text-primary-light {
@@ -200,6 +200,10 @@ img {
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
+}
+
+.text-word-break {
+    word-break: break-word;
 }
 
 .hidden {

@@ -1,10 +1,12 @@
 &.modal-2fa-setup {
     .modal-content {
         width: 820px;
+        overflow: visible;
     }
 
     .modal-section {
         padding: 25px;
+        overflow: visible;
 
         &.modal-section-collapsed {
             border-top: 1px solid var(--border-color);
@@ -35,7 +37,7 @@
             margin: 0 0 5px;
         }
 
-        .block-pincode {
+        .phone-control {
             margin-bottom: 10px;
         }
     }

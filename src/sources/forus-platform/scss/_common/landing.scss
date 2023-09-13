@@ -138,7 +138,7 @@ ui-view {
     }
 
     select.form-control {
-        background-image: url('../img/select-bg.png');
+        background-image: assetUrl('img/select-bg.png');
         background-position: 99%;
         background-repeat: no-repeat;
         background-size: 35px;
@@ -208,6 +208,8 @@ ui-view {
             display: block;
             width: 20px;
             height: 20px;
+            min-width: 20px;
+            min-height: 20px;
             border: 2px solid #cbd6e2;
             position: relative;
             margin-right: 5px;
@@ -372,7 +374,7 @@ ui-view {
     z-index: 0;
 
     .splash {
-        background-image: url("../img/landing/splash-top.png");
+        background-image: assetUrl("../img/landing/splash-top.png");
         background-position: 100% 0%;
         background-size: auto 100%;
         background-repeat: no-repeat;
@@ -503,13 +505,13 @@ ui-view {
         position: relative;
         margin: 0 auto;
         width: 100%;
-        background: url(../img/landing/splash-top-b.png) no-repeat 100% 0;
+        background: assetUrl("../img/landing/splash-top-b.png") no-repeat 100% 0;
         background-size: cover;
         background-position: center center;
         @include cf();
 
         .heade-sprite {
-            background: url("../img/sprite-meapp.png") no-repeat;
+            background: assetUrl("../img/sprite-meapp.png") no-repeat;
             background-position: 100% 0%;
             background-size: auto 100%;
             @include fill_parent();
@@ -587,7 +589,7 @@ ui-view {
                         top: 50%;
                         border-radius: 200px;
                         background-color: #f9fbf0;
-                        background-image: url('../img/landing/icon-app-android.svg');
+                        background-image: assetUrl('../img/icon-app/app-store-android.svg');
                         background-repeat: no-repeat;
                         background-position: 70% 50%;
                         transform: translate(0, -50%);
@@ -596,7 +598,7 @@ ui-view {
                     &.app-item-ios {
                         &:before {
                             background-color: #f2fafd;
-                            // background-image: url('../img/landing/icon-app-ios.png');
+                            // background-image: assetUrl('../img/icon-app/app-store-ios.svg');
                         }
                     }
 
@@ -669,7 +671,7 @@ ui-view {
                     bottom: 100%;
                     left: 50%;
                     transform: translate(-50%, 0);
-                    background: url('../img/popup-arrow.png');
+                    background: assetUrl('img/popup-arrow.png');
                 }
 
                 .lang-list-item {
@@ -941,14 +943,14 @@ ui-view {
 
         &:before {
             left: 0;
-            background: url('../img/landing/splash-left.png') no-repeat;
+            background: assetUrl('img/landing/splash-left.png') no-repeat;
             background-size: 100% 100%;
             background-origin: 0 0;
         }
 
         &:after {
             right: 0;
-            background: url('../img/landing/sprite-clouds.png') no-repeat;
+            background: assetUrl('img/landing/sprite-clouds.png') no-repeat;
             background-size: 100% auto;
             background-origin: 0 0;
         }
@@ -1751,7 +1753,7 @@ ui-view {
                 right: 0;
                 top: -100px;
                 display: block;
-                background: url('../img/landing/sprite-girl.png') no-repeat;
+                background: assetUrl('img/landing/sprite-girl.png') no-repeat;
                 background-size: contain;
             }
         }
@@ -2103,61 +2105,9 @@ ui-view {
             border-radius: 15px;
             box-shadow: 0 5px 35px rgba(#000, .075);
 
-            img {
+            img, canvas {
                 display: block;
                 width: 100%;
-            }
-        }
-    }
-
-    &.block-pincode {
-        margin: 30px auto 60px;
-        padding: 0;
-        text-align: center;
-        width: calc(60px * 6 + 10px * 5);
-        position: relative;
-        @include cf();
-
-        .hidden-input {
-            opacity: 0;
-            height: 40px;
-            width: 100%;
-            position: absolute;
-            top: 0px;
-            border: none;
-            background: none;
-        }
-
-        @media screen and (max-width: 767px) {
-            &.block {
-                &.block-pincode {
-                    margin: 30px auto 30px;
-                    width: calc(40px * 6 + 10px * 5);
-
-                    .pincode-number {
-                        width: 40px;
-                        height: 60px;
-                        font: 600 26px/60px var(--base-font-landing);
-                    }
-                }
-            }
-        }
-
-        .pincode-number {
-            display: block;
-            height: 75px;
-            float: left;
-            width: 60px;
-            border: 1px solid #dfe4ec;
-            background: #fff;
-            border-radius: 4px;
-            margin-right: 10px;
-            font: 600 28px/75px var(--base-font-landing);
-            text-align: center;
-            cursor: default;
-
-            &:last-of-type {
-                margin-right: 0;
             }
         }
     }

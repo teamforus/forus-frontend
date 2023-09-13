@@ -219,8 +219,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "organization-security",
-        url: "/organizations/{organization_id}/security",
+        url: "/organizations/{organization_id}/security?view_type",
         component: "organizationSecurityComponent",
+        params: {
+            view_type: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
             organization: organizationResolver(),
             permission: permissionMiddleware('funds-show', ['view_funds', 'manage_funds', 'view_finances'], false),
@@ -309,7 +315,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     // Organization providers
     $stateProvider.state({
         name: "sponsor-provider-organizations",
-        url: "/organizations/{organization_id}/providers",
+        url: [
+            "/organizations/{organization_id}/providers?",
+            "{q:string}&{order_by:string}&{fund_id:int}&{allow_budget:string}&",
+            "{allow_products:string}&{has_products:string}",
+        ].join(''),
+        params: {
+            q: routeParam(''),
+            order_by: routeParam('application_date'),
+            fund_id: routeParam(null),
+            allow_budget: routeParam(''),
+            allow_products: routeParam(''),
+            has_products: routeParam(''),
+        },
         component: "sponsorProviderOrganizationsComponent",
         resolve: {
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
@@ -323,6 +341,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$, FundUnsubscribeService,
             ) => repackResponse(FundUnsubscribeService.listSponsor($transition$.params().organization_id, {
                 per_page: 1000
+            }))],
+            providerOrganizations: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService,
+            ) => repackPagination(OrganizationService.providerOrganizations($transition$.params().organization_id, {
+                ...pick($transition$.params(), [
+                    'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products',
+                ]),
             }))],
         }
     });
@@ -958,7 +983,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/organizations/{organization_id}/reimbursement-categories-edit",
         component: "reimbursementCategoriesEditComponent",
         resolve: {
-            organization: organziationResolver(),
+            organization: organizationResolver(),
             permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
         }
     });
@@ -1433,7 +1458,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ] : []),
                 per_page: 20,
             }))],
-            organization: organziationResolver(),
+            organization: organizationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')
         }
     });
@@ -1471,21 +1496,34 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "products",
-        url: "/organizations/{organization_id}/products?source=",
+        url: "/organizations/{organization_id}/products?q&source",
+        params: {
+            q: routeParam(''),
+            per_page: routeParam(10),
+            source: routeParam('provider'),
+        },
         component: "productsComponent",
         resolve: {
             organization: organizationResolver(),
             permission: permissionMiddleware('products-list', 'manage_products'),
             products: ['$transition$', 'ProductService', ($transition$, ProductService) => {
-                return repackResponse(ProductService.list($transition$.params().organization_id));
+                return repackPagination(ProductService.list($transition$.params().organization_id, pick($transition$.params(), [
+                    'q', 'source', 'per_page',
+                ])));
             }],
         }
     });
 
     $stateProvider.state({
         name: "reservations",
-        url: "/organizations/{organization_id}/reservations",
+        url: "/organizations/{organization_id}/reservations?reservations_type",
         component: "reservationsComponent",
+        params: {
+            reservations_type: {
+                squash: true,
+                value: null
+            },
+        },
         resolve: {
             organization: organizationResolver(),
             permission: permissionMiddleware('reservations-list', 'scan_vouchers'),
@@ -1496,6 +1534,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$, ProductService
             ) => repackResponse(ProductService.list($transition$.params().organization_id, {
                 per_page: 100,
+            }))],
+            activeReservations: ['$transition$', 'ProductReservationService', (
+                $transition$, ProductReservationService
+            ) => repackPagination(ProductReservationService.list($transition$.params().organization_id, {
+                archived: 0,
+            }))],
+            archivedReservations: ['$transition$', 'ProductReservationService', (
+                $transition$, ProductReservationService
+            ) => repackPagination(ProductReservationService.list($transition$.params().organization_id, {
+                archived: 1,
             }))]
         }
     });
@@ -1629,8 +1677,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: "/organizations/{organization_id}/bi-connection",
         component: "biConnectionComponent",
         resolve: {
-            organization: organziationResolver(),
+            organization: organizationResolver(),
             permission: permissionMiddleware('export-api-connections', 'manage_bi_connection'),
+        }
+    });
+
+    // Organization contacts
+    $stateProvider.state({
+        name: "organizations-contacts",
+        url: "/organizations/{organization_id}/contacts",
+        component: "organizationContactsComponent",
+        resolve: {
+            organization: organizationResolver(),
+            permission: permissionMiddleware('fund-requests', ['manage_organization']),
         }
     });
 
@@ -1774,11 +1833,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', (
             $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, PushNotificationsService
         ) => {
-            IdentityService.authorizeAuthEmailToken(
-                $state.params.token
-            ).then(function (res) {
-                let target = $state.params.target || '';
+            let target = $state.params.target || '';
 
+            IdentityService.authorizeAuthEmailToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
 
                 $rootScope.loadAuthUser().then(auth_user => {
@@ -1825,10 +1882,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         ) => {
             let target = $state.params.target || '';
 
-            IdentityService.exchangeConfirmationToken(
-                $state.params.token
-            ).then(function (res) {
+            IdentityService.exchangeConfirmationToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
+
                 $rootScope.loadAuthUser().then(() => {
                     if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
                         $state.go('home', {

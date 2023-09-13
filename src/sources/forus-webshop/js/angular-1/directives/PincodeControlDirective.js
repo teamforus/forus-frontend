@@ -1,204 +1,191 @@
-let PincodeControlDirective = function(
+const { chunk } = require('lodash');
+
+const PincodeControl2Directive = function (
     $scope,
+    $element,
     $timeout,
-    $element
 ) {
-    let blockInputType = $scope.blockInputType = ($scope.blockInputType || 'num');
-    let blockSize = $scope.blockSize = $scope.blockSize || 6;
-    let blockCount = $scope.blockCount = $scope.blockCount || 1;
-    let totalSize = blockSize * blockCount;
-    let $input = angular.element($element[0].querySelector('.hidden-input'));
-    let len = 0;
-    let inputTypes = ['insertText', 'insertCompositionText', 'deleteContentBackward'];
-    let eventListener = null;
+    const $dir = $scope.$dir;
 
-    let isIe = () => {
-        var ua = window.navigator.userAgent;
-        var msie = ua.indexOf("MSIE ");
+    const pattern = {
+        num: /^[0-9]+$/,
+        alpha: /^[a-zA-Z]+$/,
+        alphaNum: /^[0-9a-zA-Z]+$/,
+    };
 
-        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
-            return true;
+    const isValid = (char, type) => {
+        if (type == 'alphaNum') {
+            return new RegExp(pattern.alphaNum).test(char);
+        }
+
+        if (type == 'alpha') {
+            return new RegExp(pattern.alpha).test(char);
+        }
+
+        if (type == 'num') {
+            return new RegExp(pattern.num).test(char);
         }
 
         return false;
     }
 
-    $scope.type = blockInputType === 'num' ? 'tel' : 'text';
-    $scope.pattern = {
-        num: /^[0-9]+$/,
-        alpha: /^[a-zA-Z]+$/,
-        alphanum: /^[0-9a-zA-Z]+$/,
+    const selectInputRange = (input) => {
+        const isMobile = (window.innerWidth <= 800) && (window.innerHeight <= 800);
+        input?.setSelectionRange(isMobile ? input?.value.length : 0, input?.value.length);
+        input?.focus();
+
+        $timeout(() => {
+            input?.setSelectionRange(isMobile ? input?.value.length : 0, input?.value.length);
+            input?.focus();
+        }, 0);
     };
 
-    $scope.isIe = isIe();
-
-    if (!$scope.isIe) {
-        $input[0].focus();
-        $input.val([...Array(1000).keys()].join(''));
-        $element.on('click', (e) => $input[0].focus());
+    const setCursor = (cursor) => {
+        $dir.cursor = cursor;
+        $dir.getInput($dir.cursor)?.focus();
+        selectInputRange($dir.getInput($dir.cursor));
     }
 
-    $scope.cantDeleteLength = $scope.cantDeleteLength ? $scope.cantDeleteLength : 0;
+    const setText = (text) => {
+        const suffix = $dir.ngModel.substring(0, $dir.immutableSize);
+        const textValue = text.substring($dir.immutableSize, $dir.totalSize);
 
-    $scope.updateInput = () => {
-        let chars = [];
-        let charCount = 0;
-        let flag = false;
-
-        if ($scope.ngModel && typeof $scope.ngModel == 'string') {
-            $scope.ngModel.split('').forEach((char) => {
-                chars.push(char);
-                charCount++;
-
-                if (charCount > 0 && (charCount % blockSize == 0) && charCount < totalSize) {
-                    chars.push('split');
-                }
-            });
-        }
-
-        if ($scope.filler && $scope.filler.length > 0) {
-            for (let index = 0; index < $scope.filler.length; index++) {
-                if (!flag) {
-                    flag = true;
-                    chars.push('active');
-                } else {
-                    chars.push('_');
-                }
-
-                charCount++;
-
-                if (charCount > 0 && (charCount % blockSize == 0) && charCount < totalSize) {
-                    chars.push('split');
-                }
-            }
-        }
-
-        $scope.chars = chars;
+        $dir.ngModelCtrl.$setViewValue(suffix + textValue);
+        $dir.ngModel = suffix + textValue;
+        $dir.buildChars();
     };
 
-    $scope.$watch('ngModel', function() {
-        $scope.filler = new Array(Math.max(totalSize - (
-            $scope.ngModel ? ($scope.ngModel.toString().length) : 0
-        ), 0));
-
-        $scope.updateInput();
-    });
-
-    let bind = () => {
-        if (!$scope.isIe) {
-            $input.bind('input', (e) => {
-                let data = e.data;
-
-                if (inputTypes.indexOf(e.inputType) === -1) {
-                    return;
-                }
-
-                $timeout(() => $scope.addCharCode(null, typeof data == 'string' ? data.slice(-1) : '', e));
-
-                return false;
-            });
-        }
-
-        eventListener = (e) => {
-            if ($scope.isIe || $input[0] !== e.target) {
-                $timeout(() => $scope.addCharCode(e.charCode || e.keyCode || 0, null, e), 0);
-            }
-
-            if ($scope.isIe && ((e.charCode || e.keyCode) === 8)) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        };
-
-        document.body.addEventListener('keydown', eventListener);
+    $dir.getInputs = () => {
+        return $element.find('input');
     };
 
-    $scope.addCharCode = function(key, value, e) {
-        let _delete = false;
-        let handled = false;
+    $dir.getInput = (index) => {
+        return $element.find('input')[index];
+    };
 
-        if (typeof $scope.ngModel != 'string') {
-            $scope.ngModel = '';
+    $dir.clearString = (str, type) => {
+        return str.substring(0).split('').map((i) => isValid(i, type) ? i : '').join('');
+    };
+
+    $dir.onFocus = (e) => {
+        e.target.placeholder = '';
+    };
+
+    $dir.onBlur = (e) => {
+        e.target.placeholder = '_';
+    };
+
+    $dir.onKeyDown = (e, char) => {
+        const index = $dir.chars.indexOf(char);
+        const arr = $dir.ngModel.split('');
+        const input =  $dir.getInputs()[index];
+        const value = input.value;
+        const hasText = value.trim().length > 0;
+
+        if (value == ' ') {
+            input.value = '';
+            return;
         }
 
-        if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
-            $element.val($scope.ngModel)
-            return false;
-        }
-
-        if (e.type === 'input') {
-            _delete = !e.data || (e.data.length < len);
-            len = e.data ? e.data.length : 0;
-        }
-
-        if (_delete || key == 8 || key == 46 || e.inputType == 'deleteContentBackward') {
-            if ($scope.ngModel.length > $scope.cantDeleteLength) {
-                $scope.ngModel = $scope.ngModel.slice(0, $scope.ngModel.length - 1);
-            }
-
-            return $element.val($scope.ngModel)
-        }
-
-        if (blockInputType == 'alphanum' || blockInputType == 'num') {
-            if (e.type == 'input') {
-                if ((new RegExp($scope.pattern.num).test(value)) && $scope.ngModel.length < totalSize) {
-                    $scope.ngModel += value.toString();
-                    handled = true;
-                }
-            } else {
-                // Numbers
-                if ((key >= 48 && key <= 57)) {
-                    if ($scope.ngModel.length < totalSize) {
-                        $scope.ngModel += (key - 48).toString();
-                    }
-
-                    handled = true;
-                }
-
-                // Numbers from numpad
-                if ((key >= 96 && key <= 105)) {
-                    if ($scope.ngModel.length < totalSize) {
-                        $scope.ngModel += (key - 96).toString();
-                    }
-                }
-            }
-        }
-
-        if (blockInputType == 'alphanum' || blockInputType == 'alpha') {
-            if (e.type == 'input') {
-                if ((new RegExp($scope.pattern.alpha).test(value)) && $scope.ngModel.length < totalSize) {
-                    $scope.ngModel += value.toString();
-                    handled = true;
-                }
-            } else {
-                if ((key >= 65 && key <= 90) || (key >= 97 && key <= 122)) {
-                    if ($scope.ngModel.length < totalSize) {
-                        $scope.ngModel += e.key || e.data[e.data.length - 1];
-                    }
-
-                    handled = true;
-                }
-            }
-        }
-
-        if (!handled) {
+        if ((e.key == 'Backspace' || e.key == 'Delete') && !hasText) {
             e.preventDefault();
+            arr[index] = ' ';
+            arr[index - 1] = ' ';
 
-            if ($input.val()) {
-                $input.val($input.val().slice(0, -1));
-            }
+            setText(arr.join(''));
+            setCursor(Math.max($dir.immutableSize, hasText ? index : index - 1));
         }
 
-        $element.val($scope.ngModel)
-        $scope.updateInput();
+        if (e.key == 'ArrowLeft') {
+            e.preventDefault();
+            setCursor(Math.max($dir.immutableSize, index - 1));
+        }
+
+        if (e.key == 'ArrowRight') {
+            e.preventDefault();
+            setCursor(Math.min($dir.chars.length - 1, index + 1));
+        }
+
+        if (e.currentTarget.value == e.key && hasText) {
+            e.preventDefault();
+            setCursor(Math.min($dir.chars.length - 1, index + 1));
+        }
+    }
+
+    $dir.updateModel = (index, text) => {
+        const realIndex = text == '' ? Math.max(index - 1, 0) : index;
+
+        const newText = [
+            $dir.ngModel.substring(0, realIndex).padEnd(realIndex, ' '),
+            text,
+            $dir.ngModel.substring(realIndex + text.length, $dir.ngModel.length),
+        ].join('');
+
+        setText(newText);
+        setCursor(Math.min($dir.totalSize - 1, index + text.length));
     };
 
-    $scope.updateInput();
-    $scope.$on('$destroy', function() {
-        document.body.removeEventListener('keydown', eventListener);
-    });
+    $dir.onPaste = (e, char) => {
+        e.stopPropagation();
+        e.preventDefault();
 
-    bind();
+        const clipboardData = e?.clipboardData || e?.originalEvent?.clipboardData;
+        const index = $dir.chars.indexOf(char);
+        const text = $dir.clearString(clipboardData?.getData('text') || '', $dir.blockInputType);
+
+        $dir.updateModel(index, text)
+    }
+
+    $dir.onChange = (char) => {
+        const index = $dir.chars.indexOf(char);
+        const value = $dir.getInput(index).value;
+        const text = $dir.clearString(value.trim(), $dir.blockInputType);
+
+        if (value.trim()) {
+            return $dir.updateModel(index, text)
+        }
+    };
+
+    $dir.onClick = (e, char) => {
+        const index = $dir.chars.indexOf(char);
+        e.stopPropagation();
+        setCursor(index);
+    };
+
+    $dir.buildChars = () => {
+        const chars = $dir.ngModel.padEnd($dir.totalSize, ' ').split('').map((val) => ({ val: val.trim() }));
+
+        if (!$dir.chars || $dir.chars.length != chars.length) {
+            $dir.chars = chars;
+        } else {
+            chars.forEach((element, index) => $dir.chars[index].val = element.val);
+        }
+
+        $dir.charChunks = chunk($dir.chars, $dir.blockSize);
+        $dir.immutableSize = Math.min($dir.cantDeleteLength, $dir.ngModel.toString().length);
+    };
+
+    $dir.$onInit = () => {
+        $dir.ngModel = ($dir.ngModel || '').toString();
+        $dir.blockInputType = $dir.blockInputType || 'num';
+        $dir.type = $dir.blockInputType === 'num' ? 'tel' : 'text';
+        $dir.blockSize = $dir.blockSize || 6;
+        $dir.blockCount = $dir.blockCount || 1;
+        $dir.totalSize = $dir.blockSize * $dir.blockCount;
+        $dir.cantDeleteLength = $dir.cantDeleteLength ? $dir.cantDeleteLength : 0;
+
+        $dir.buildChars();
+
+        const cancel = $scope.$watch(() => $dir.getInputs().length > 0, function (inputs) {
+            if (!inputs) {
+                return;
+            }
+
+            cancel();
+            setCursor(Math.max(0, $dir.immutableSize));
+            $scope.$watch('$dir.ngModel', () => $dir.buildChars());
+        });
+    }
 };
 
 module.exports = () => {
@@ -212,12 +199,20 @@ module.exports = () => {
         },
         restrict: "EA",
         replace: true,
+        require: {
+            ngModelCtrl: 'ngModel',
+        },
+        bindToController: true,
+        controllerAs: '$dir',
+        restrict: "EA",
+        replace: true,
         controller: [
             '$scope',
-            '$timeout',
             '$element',
-            PincodeControlDirective
+            '$timeout',
+            PincodeControl2Directive,
         ],
+        // template: require('../../../pug/tpl/directives/pincode-control.pug'),
         templateUrl: 'assets/tpl/directives/pincode-control.html'
     };
 };

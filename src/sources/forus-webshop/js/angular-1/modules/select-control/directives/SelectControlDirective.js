@@ -25,7 +25,7 @@ const SelectControlDirective = function ($scope, $timeout) {
     };
 
     $dir.buildSearchedOptions = () => {
-        const search = $dir.filter.q.toLowerCase();
+        const search = $dir.filter.q?.toString().toLowerCase();
         const search_len = search.length;
         const options = $dir.searchEnabled ? $dir.prepareOptions(search) : $dir.optionsPrepared;
 
@@ -193,6 +193,7 @@ module.exports = () => {
             return $el ? {
                 'select-control': require('./templates/select-control.pug')(),
                 'select-control-voucher': require('./templates/select-control-voucher.pug')(),
+                'select-control-country-codes': require('./templates/select-control-country-codes.pug')(),
             }[templateName] || `<div>Template: ${templateName} not found</div>` : '<div></div>';
         }
     };

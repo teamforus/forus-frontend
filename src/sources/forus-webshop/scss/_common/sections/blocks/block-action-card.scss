@@ -61,7 +61,7 @@
     .block-card-details {
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
+        flex: 1 1;
         justify-content: center;
 
         .block-card-title {
@@ -138,6 +138,93 @@
         }
     }
 
+    &.block-action-card-expandable {
+        flex-wrap: wrap;
+        padding: 0;
+        border: 1px solid #ebedf0;
+
+        .block-card-logo {
+            display: flex;
+            margin: 0 16px 0 0;
+            align-items: center;
+            text-align: center;
+
+            .mdi {
+                width: 48px;
+                height: 48px;
+                color: #151b26;
+                font-size: 24px;
+                line-height: 48px;
+                background-color: #F5F5F5;
+                border-radius: var(--border-radius);
+            }
+        }
+
+        .block-card-details {
+            .block-card-title {
+                font: 700 18px/27px var(--base-font);
+            }
+
+            .block-card-description {
+                font: 400 13px/18px var(--base-font);
+            }
+        }
+
+        .block-card-actions {
+            .button {
+                display: flex;
+                align-items: center;
+                color: #004d93;
+                font: 600 13px/13px var(--base-font);
+
+                &.button-text {
+                    .icon-right {
+                        margin: 0;
+                        font-size: 22px;
+                        color: #DBDCDB;
+                    }
+                }
+            }
+
+            &.bottom {
+                width: 100%;
+                padding: 8px 65px 0;
+
+                .button {
+                    padding: 0;
+                }
+            }
+        }
+
+        .block-action-card-main {
+            width: 100%;
+            flex-wrap: wrap;
+            padding: 16px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .block-action-card-details {
+            padding: 8px 0;
+
+            .block-action-card-details-item {
+                display: flex;
+                padding: 8px 20px 8px 16px;
+
+                .block-card-logo {
+                    background: none;
+        
+                    .mdi {
+                        color: var(--tc)
+                    }
+                }
+
+                .block-card-title {
+                    font: 700 16px/24px var(--base-font);
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         display: flex;
         flex-direction: column;
@@ -198,9 +285,70 @@
             .block-card-details {
                 .block-card-title {
                     font-size: 14px;
+                    line-height: 20px;
 
                     &.block-card-title-lg {
                         font-size: 16px;
+                        line-height: 24px;
+                    }
+                }
+            }
+        }
+
+        &.block-action-card-expandable {
+            .block-card-logo {
+                width: 100%;
+                margin: 0 0 10px;
+            }
+
+            .block-card-details {
+                .block-card-title {
+                    padding: 5px 0 5px;
+                    margin: 0 0;
+                }
+
+                .block-card-description {
+                    line-height: 22px;
+                }
+            }
+
+            .block-card-actions {
+                width: 100%;
+                text-align: center;
+
+                .button.button-text {
+                    padding: 0;
+                }
+            }
+
+            .block-action-card-main {
+                padding: 20px 15px;
+
+                .block-card-details {
+                    .block-card-title {
+                        margin: 0 0 5px;
+                        font: 700 16px/22px var(--base-font)
+                    }
+                }
+            }
+
+            .block-action-card-details {
+                padding: 8px 0;
+    
+                .block-action-card-details-item {
+                    text-align: left;
+
+                    .block-card-logo {
+                        width: 55px;
+                        justify-content: flex-start;
+                        padding-right: 15px;
+
+                        .mdi {
+                            width: 40px;
+                            height: 40px;
+                            line-height: 40px;
+                            font-size: 20px;
+                        }
                     }
                 }
             }

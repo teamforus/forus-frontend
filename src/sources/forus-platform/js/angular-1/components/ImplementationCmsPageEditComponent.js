@@ -26,6 +26,17 @@ const ImplementationCmsPageEditComponent = function (
         name: 'Public',
     }];
 
+    $ctrl.blocksPerRow = [{
+        value: 1,
+        name: 1,
+    }, {
+        value: 2,
+        name: 2,
+    }, {
+        value: 3,
+        name: 3,
+    }];
+
     $ctrl.descriptionPositions = [{
         value: 'replace',
         name: 'Standaard content overschrijven',
@@ -80,6 +91,7 @@ const ImplementationCmsPageEditComponent = function (
             state: $ctrl.states[0].value,
             external: $ctrl.types[0].value,
             page_type: $ctrl.page_type,
+            blocks_per_row: $ctrl.blocksPerRow[0].value,
             description_position: $ctrl.descriptionPositions[0]?.value,
         };
 

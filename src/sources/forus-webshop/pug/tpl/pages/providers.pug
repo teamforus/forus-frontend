@@ -106,7 +106,7 @@ block content
                                 .showcase-filters-title-count(ng-bind="$ctrl.providers.meta.total")
 
                             .showcase-filters-block: .block.block-label-tabs.form
-                                .showcase-filters-item
+                                .showcase-filters-item(ng-class="{'hide-sm': $ctrl.showMap}")
                                     label.form-label Sorteer
                                     select-control(
                                         id="sort_by"
@@ -117,15 +117,20 @@ block content
                                         options="$ctrl.sortByOptions"
                                         placeholder="Sorteer")
 
-                                .block.block-label-tabs.pull-right(ng-if="$root.appConfigs.features.show_providers_map")
+                                .block.block-label-tabs.pull-right(
+                                    ng-if="$root.appConfigs.features.show_providers_map" 
+                                    ng-class="{'block-label-tabs-sm': $ctrl.showMap}")
+                                    
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: !$ctrl.showMap}"
-                                        ng-click="$ctrl.showAsList()")
+                                        ng-click="$ctrl.showAsList()"
+                                        aria-pressed="{{ !$ctrl.showMap }}")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.showMap}"
-                                        ng-click="$ctrl.showAsMap()")
+                                        ng-click="$ctrl.showAsMap()"
+                                        aria-pressed="{{ $ctrl.showMap }}")
                                         em.mdi.mdi-map-marker-radius.icon-start
                                         | Kaart
 

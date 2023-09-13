@@ -8,6 +8,7 @@ module.exports = {
         explanation:"Uitleg",
         identity:"Profiel",
         signup:"Uitleg aanbieders",
+        search:"Zoek",
         westerkwartier: {
             funds:"Potjes",
         },
@@ -16,6 +17,9 @@ module.exports = {
         },
         waalwijk: {
             funds:"Aanvragen",
+        },
+        heumen: {
+            funds: "Activeren",
         },
         geertruidenberg: {
             funds:"Regelingen",
@@ -58,11 +62,14 @@ module.exports = {
         waalwijk: {
             activate: "Aanvragen",
         },
+        heumen: {
+            activate: "Activeren",
+        },
         geertruidenberg: {
             activate: "Aanvragen",
         },
         potjeswijzer: {
-            activate: "Aanvragen",
+            activate: "Potjes",
         },
         nijmegen: {
             activate: "Aanvragen",
@@ -86,21 +93,69 @@ module.exports = {
         providers: "Aanbieders",
 
         mobile: {
-            voucher: "Tegoeden",
+            voucher: "Mijn tegoeden",
+            groningen: {
+                voucher: "Mijn Stadjerspas"
+            },
             request: "Aanvragen",
             profile: "Profiel",
             more: "Meer",
             dropdown: {
-                vouchers: "Tegoeden",
+                vouchers: "Mijn tegoeden",
                 reservations: "Reserveringen",
                 reimbursements:"Kosten terugvragen",
                 notifications: "Notificaties",
                 preferences_notifications: "Notificatievoorkeuren",
                 preferences_emails: "E-mailinstellingen",
                 records: "Profiel",
-                funds: "Fondsen",
+                funds: "Alle tegoeden",
                 security: "Beveiliging",
-                sessions: "Sessies"
+                sessions: "Sessies",
+                bookmarked_products: "Mijn verlanglijstje",
+                authorize: "Log in op de app",
+                westerkwartier: {
+                    funds: "Aanvragen",
+                },
+                groningen: {    
+                    funds: "Aanvragen",
+                    vouchers: "Mijn Stadjerspas"
+                },
+                waalwijk: {
+                    funds: "Aanvragen",
+                },
+                heumen: {
+                    funds: "Activeren",
+                },
+                geertruidenberg: {
+                    funds: "Regelingen",
+                },
+                potjeswijzer: {
+                    funds: "Potjes",
+                },
+                berkelland: {
+                    funds: "Activeren",
+                },
+                oostgelre: {
+                    funds: "Activeren",
+                },
+                winterswijk: {
+                    funds: "Activeren",
+                },
+                nijmegen: {
+                    funds: "Aanvragen",
+                },
+                noordoostpolder: {
+                    funds: "Activeren",
+                },
+                vergoedingen: {
+                    funds: "Vergoedingen",
+                },
+                schagen: {
+                    funds: "Regelingen",
+                },
+                ede: {
+                    funds: "Regelingen",
+                },
             }
         }
     },

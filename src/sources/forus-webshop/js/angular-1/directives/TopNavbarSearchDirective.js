@@ -58,6 +58,13 @@ const TopNavbarSearchDirective = function (
         ].join("") : name;
     };
 
+    $dir.toggleGroup = ($event, groupKey) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $dir.results[groupKey].shown = !$dir.results[groupKey].shown;
+    };
+
     $dir.setGroupKey = (groupKey) => {
         $dir.groupKey = groupKey;
     };
@@ -76,6 +83,15 @@ const TopNavbarSearchDirective = function (
         $dir.resultsAll = listItems;
         $dir.showDropDown();
     };
+    
+    $dir.hideSearchBox = () => {
+        if (!appConfigs.flags.genericSearchUseToggle && window.innerWidth >= 1000) {
+            return;
+        }
+
+        $rootScope.showSearchBox = false;
+        $dir.hideDropDown();
+    }
 
     $dir.doSearch = () => {
         $timeout.cancel($dir.timeout);

@@ -8,7 +8,7 @@ main(id="main-content")
 
         .budget-vouchers(id="budget_vouchers")
             .block.block-profile
-                .profile-aside.hide-sm: profile-menu
+                .profile-aside: profile-menu
 
                 .profile-content
                     .profile-content-header.clearfix
@@ -22,12 +22,14 @@ main(id="main-content")
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: !$ctrl.filters.archived}"
                                     ng-click="$ctrl.filters.archived = 0"
+                                    aria-pressed="{{ !$ctrl.filters.archived }}"
                                     role="button")
                                     | Actief
 
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.filters.archived}"
                                     ng-click="$ctrl.filters.archived = 1"
+                                    aria-pressed="{{ $ctrl.filters.archived ? true : false }}"
                                     role="button")
                                     | Archief
 

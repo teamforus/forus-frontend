@@ -132,6 +132,17 @@
 
                 .td-title {
                     font: 700 14px/20px var(--base-font);
+
+                    .td-title-icon {
+                        color: #8FA2A5;
+
+                        &.td-title-icon-suffix {
+                            margin-left: 2px;
+                            width: 15px;
+                            text-align: right;
+                            display: inline-block;
+                        }
+                    }
                 }
 
                 .td-text {
@@ -212,6 +223,7 @@
                     display: block;
                     width: 70px;
                     border-radius: var(--border-radius);
+                    border: 1px solid var(--border-color);
                 }
 
                 .td-boolean {

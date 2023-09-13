@@ -66,6 +66,17 @@ const FundsEditComponent = function(
         name: 'Informatief (met doorlink)'
     }];
 
+    $ctrl.descriptionPositions = [{
+        value: 'replace',
+        name: 'Standaard content overschrijven',
+    }, {
+        value: 'before',
+        name: 'Voor de standaard content tonen',
+    }, {
+        value: 'after',
+        name: 'Na de standaard content tonen',
+    }];
+
     $ctrl.findMethod = (key) => {
         return $ctrl.applicationMethods.filter((method) => method.key == key)[0] || {};
     };
@@ -148,6 +159,7 @@ const FundsEditComponent = function(
             criteria: [],
             faq: [],
             state: $ctrl.fundStates[0].value,
+            description_position: $ctrl.descriptionPositions[0]?.value,
             type: 'budget',
             application_method: 'application_form',
             request_btn_text: $ctrl.findMethod('application_form').default_button_text,

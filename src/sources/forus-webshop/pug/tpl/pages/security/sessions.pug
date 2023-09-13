@@ -1,11 +1,12 @@
 top-navbar
-section.section.section-voucher-details: .wrapper
+
+main(id="main-content"): section.section.section-voucher-details: .wrapper
     .block.block-breadcrumbs.hide-sm
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active Beveiliging
 
     .block.block-profile
-        .profile-aside.hide-sm: profile-menu
+        .profile-aside: profile-menu
 
         .profile-content(ng-if="$ctrl.auth2FAState.restrictions.sessions.restricted")
             auth-2-f-a-restriction(
@@ -30,25 +31,25 @@ section.section.section-voucher-details: .wrapper
                             
                             .session-details
                                 .session-title
-                                    span(ng-if="session.last_request.client_type == 'general'") Onbekend 
-                                    span(ng-if="session.last_request.client_type == 'sponsor'") Sponsor beheeromgeving 
-                                    span(ng-if="session.last_request.client_type == 'provider'") Aanbieders beheeromgeving 
-                                    span(ng-if="session.last_request.client_type == 'validator'") Beoordelaars beheeromgeving 
-                                    span(ng-if="session.last_request.client_type == 'webshop'") Webshop 
-                                    span(ng-if="session.last_request.client_type == 'app-me_app'") Me-app
-                                    span(ng-if="session.last_request.client_type == 'app-me_app-android'") Me-app
-                                    span(ng-if="session.last_request.client_type == 'app-me_app-ios'") Me-app
-                                    span(ng-if="session.last_request.client_type == 'me_app-android'") Me-app 
-                                    span(ng-if="session.last_request.client_type == 'me_app-ios'") Me-app 
-                                    span(ng-if="session.last_request.device_string").text-primary • 
-                                    span(ng-if="session.last_request.device_string" ng-bind="session.last_request.device_string")
+                                    span(ng-if="session.last_request.client_type == 'general'" role="heading" aria-level="2") Onbekend 
+                                    span(ng-if="session.last_request.client_type == 'sponsor'" role="heading" aria-level="2") Sponsor beheeromgeving 
+                                    span(ng-if="session.last_request.client_type == 'provider'" role="heading" aria-level="2") Aanbieders beheeromgeving 
+                                    span(ng-if="session.last_request.client_type == 'validator'" role="heading" aria-level="2") Beoordelaars beheeromgeving 
+                                    span(ng-if="session.last_request.client_type == 'webshop'" role="heading" aria-level="2") Webshop 
+                                    span(ng-if="session.last_request.client_type == 'app-me_app'" role="heading" aria-level="2") Me-app
+                                    span(ng-if="session.last_request.client_type == 'app-me_app-android'" role="heading" aria-level="2") Me-app
+                                    span(ng-if="session.last_request.client_type == 'app-me_app-ios'" role="heading" aria-level="2") Me-app
+                                    span(ng-if="session.last_request.client_type == 'me_app-android'" role="heading" aria-level="2") Me-app 
+                                    span(ng-if="session.last_request.client_type == 'me_app-ios'" role="heading" aria-level="2") Me-app 
+                                    span(ng-if="session.last_request.device_string").text-primary.text-separator • 
+                                    span(ng-if="session.last_request.device_string" ng-bind="session.last_request.device_string" role="heading" aria-level="3")
                                 
                                 .session-properties
                                     .session-property
                                         .session-property-label Laatste activiteit
                                         .session-property-value
-                                            | {{ session.last_request.time_passed | duration_last_time }}  
-                                            span(ng-if="session.last_request.location").session-property-sep.text-primary • 
+                                            | {{ session.last_request.time_passed_locale }}  
+                                            span(ng-if="session.last_request.location").session-property-sep.text-primary.hide-sm •
                                             span(
                                                 ng-if="session.last_request.location" 
                                                 ng-bind="'127.0.0.1' + ' • ' +  session.last_request.location.string ")

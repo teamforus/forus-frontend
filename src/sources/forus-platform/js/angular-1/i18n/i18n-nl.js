@@ -79,6 +79,7 @@ module.exports = {
             remove_implementation_social_media: require('./nl/modals/danger-zone/remove-implementation-social-media'),
             remove_reimbursement_category: require('./nl/modals/danger-zone/remove_reimbursement_category'),
             recreate_bi_connection: require('./nl/modals/danger-zone/recreate-bi-connection'),
+            remove_reservation_field: require('./nl/modals/danger-zone/remove-reservation-field'),
         },
     },
     // PAGES
@@ -95,6 +96,8 @@ module.exports = {
     provider_funds: require('./nl/pages/provider-funds.pug.i18n'),
     fund_unsubscriptions: require('./nl/pages/fund-unsubscriptions.pug.i18n'),
     bi_connection: require('./nl/pages/bi-connection.pug.i18n'),
+    organization_contacts: require('./nl/pages/organization-contacts.pug.i18n'),
+    reservation_settings: require('./nl/pages/reservations-settings.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -495,12 +498,13 @@ module.exports = {
         labels: {
             name: "Naam",
             description_short: "Korte omschrijving",
+            description_position: "Positie van de content",
             description: "Omschrijving",
             products: "Aanbod",
             status: "Status",
             start: "Startdatum",
             end: "Einddatum",
-            notification_amount: "Aanvulherinnering grens €",
+            notification_amount: "Herinnering aanvullen budget €",
             application_method: "Aanvraagmethode",
             request_btn_text: "Knoptekst aanvragen",
             external_link_text: "Externe linktekst",
@@ -625,7 +629,7 @@ module.exports = {
     organization_edit: {
         header: {
             title_add: "Organisatie aanmaken",
-            title_edit: "Organisatie aanpassen",
+            title_edit: "Organisatie instellingen",
         },
         labels: {
             name: "Bedrijfsnaam",
@@ -673,6 +677,7 @@ module.exports = {
         buttons: {
             add: "Organisatie toevoegen",
             edit: "Organisatie instellingen",
+            contacts: "Organisatie berichten",
             notifications_preferences: "Notificatievoorkeuren",
         }
     },
@@ -760,11 +765,21 @@ module.exports = {
     products: {
         offers: "Aanbod",
         add: "Voeg aanbod toe",
+        labels: {
+            id: "ID",
+            name: "Naam",
+            photo: "Afbeelding",
+            stock_amount: "Resterend",
+            price: "Bedrag",
+            expired: "Verlopen",
+            expire_at: "Verloopdatum",
+            actions: "Actie",
+        },
         cannot_delete: 'Let op! Wanneer uw product of dienst geplaatst is moet u dit aanbod kunnen leveren. Bedenk dus goed hoeveel aanbod en daarmee reserveringen u wilt uitgeven. U kunt uw aanbod altijd ophogen maar niet meer verlagen.',
         confirm_delete: {
             title: 'Weet u zeker dat u dit aanbod wilt verwijderen?',
             description: 'Als u het aanbod verwijderd, wordt het aanbod uit de webshop gehaald. Ook verdwijnt het aanbod uit uw dashboard. U kunt uw gereserveerd aanbod dan niet meer inzien. Reeds gemaakte reserveringen blijven actief en kunnen nog opgehaald worden.'
-        }
+        },
     },
 
     // PROVIDER IDENTITIES = provider-identities.pug
@@ -1297,8 +1312,8 @@ module.exports = {
             actions: "Opties",
             email: "E-mailadres",
             expired_at: "Verlopen op",
-            first_name: "Naam",
-            last_name: "Voornamen",
+            first_name: "Voornaam",
+            last_name: "Achternaam",
             price: "Bedrag",
             sponsor_organization: "Sponsor",
             product: "Aanbod",
@@ -1311,22 +1326,6 @@ module.exports = {
             birth_date: "Geboortedatum",
             user_note: "Notitie",
         },
-    },
-
-    // RESERVATION SETTINGS - reservations-settings.pug
-    reservation_settings: {
-        header: {
-            title: "Reservering instellingen",
-        },
-        buttons: {
-            cancel: "Annuleren",
-            confirm: "Bevestigen",
-        },
-        labels: {
-            phone: "Telefoonnummer instellingen",
-            address: "Adres instellingen",
-            birth_date: "Geboortedatum instellingen",
-        }
     },
 
     // VALIDATION REQUEST - validation-request.pug

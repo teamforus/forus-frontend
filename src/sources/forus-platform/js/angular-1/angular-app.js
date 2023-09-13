@@ -84,6 +84,7 @@ app.component('implementationCmsSocialMediaEditComponent', require('./components
 app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
 app.component('biConnectionComponent', require('./components/BIConnectionComponent'));
+app.component('organizationContactsComponent', require('./components/OrganizationContactsComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -228,7 +229,6 @@ app.directive('menu', {
 } [env_data.panel_type]);
 
 app.directive('fundSelector', require('./directives/FundSelectorDirective'));
-app.directive('productCard', require('./directives/ProductCardDirective'));
 app.directive('multiSelect', require('./directives/MultiSelectDirective'));
 app.directive('scheduleControl', require('./directives/ScheduleControlDirective.js'));
 app.directive('csvUpload', require('./directives/CsvUploadDirective'));
@@ -249,7 +249,8 @@ app.directive('officeEditInline', require('./directives/OfficeEditInlineDirectiv
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
-app.directive('phoneControl', require('./directives/PhoneControlDirective'));
+app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'));
+app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
 app.directive('markdown', require('./directives/MarkdownDirective'));
@@ -293,6 +294,7 @@ app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirect
 app.directive('fundRequestRecordAttachments', require('./directives/FundRequestRecordAttachmentsDirective'));
 app.directive('fundRequestRecordClarifications', require('./directives/FundRequestRecordClarificationsDirective'));
 app.directive('fundRequestRecordHistory', require('./directives/FundRequestRecordHistoryDirective'));
+app.directive('reservationFieldsEditor', require('./directives/ReservationFieldsEditorDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
 
@@ -341,8 +343,6 @@ app.filter('file_size', require('./filters/FileSizeFilter'));
 app.filter('hasPerm', require('./filters/HasPerm'));
 app.filter('i18n', require('./filters/I18nFilter'));
 app.filter('str_limit', require('./filters/StrLimitFilter'));
-app.filter('duration', require('./filters/DurationFilter'));
-app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 app.filter('phone_number_format', require('./filters/PhoneNumberFormatFilter'));
 

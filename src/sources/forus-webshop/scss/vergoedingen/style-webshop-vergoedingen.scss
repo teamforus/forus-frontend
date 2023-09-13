@@ -5,6 +5,14 @@
 // INCLUDES
 @import 'includes/shame.scss';
 
+#main-content {
+    padding-top: 80px;
+
+    @media screen and (max-width: 1000px) {
+        padding-top: 0;
+    }
+}
+
 // BLOCKS
 .block {
     @import 'sections/blocks/block-sign_up.scss';

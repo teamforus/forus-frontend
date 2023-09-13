@@ -1,8 +1,8 @@
 module.exports = {
     fill_notes: {
         header: {
-            title: 'Vul uw naam in',
-            subtitle: '{{provider_name}} ontvangt een bericht dat u een reservering heeft gedaan.',
+            title: 'Vul uw gegevens in',
+            subtitle: '{{provider_name}} vul uw gegevens in voor het maken van een reservering.',
         },
         placeholders: {
             first_name: 'Voornaam',
@@ -37,7 +37,7 @@ module.exports = {
             notes: 'Opmerking: ',
             phone: 'Telefoonnummer: ',
             address: 'Adres: ',
-            requester_birth_date: 'Geboortedatum: '
+            birth_date: 'Geboortedatum: '
         },
         buttons: {
             adjust: 'Terug',

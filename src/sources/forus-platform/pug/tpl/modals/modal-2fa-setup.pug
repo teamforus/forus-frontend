@@ -1,6 +1,6 @@
 - var src_prefix = (qdt_c ? (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'') : '/');
 
-.modal.modal-lg.modal-animated(
+.modal.modal-2fa-setup.modal-lg.modal-animated(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
@@ -26,11 +26,11 @@
                         | Kun je deze downloaden vanuit de #[strong.text-strong Play Store] of de #[strong.text-strong App Store].
 
                     .modal-text(ng-if="$ctrl.provider"): .block.block-app_download.form: .app_download-row
-                        a.app_download-store_icon(href="{{ $ctrl.provider.url_ios }}" target="_blank")
-                            img(ng-src=src_prefix + "./assets/img/icon-app-ios.svg")
-
                         a.app_download-store_icon(href="{{ $ctrl.provider.url_android }}" target="_blank")
-                            img(ng-src=src_prefix + "./assets/img/icon-app-android.svg")  
+                            img(ng-src=src_prefix + "./assets/img/icon-app/app-store-android.svg")  
+
+                        a.app_download-store_icon(href="{{ $ctrl.provider.url_ios }}" target="_blank")
+                            img(ng-src=src_prefix + "./assets/img/icon-app/app-store-ios.svg")
 
                     .modal-section-separator
 
@@ -58,7 +58,7 @@
                     button(type="submit" ng-click="$ctrl.submitAuthenticator()").button.button-primary Bevestig
 
         //- Phone number
-        .modal-body(ng-if="$ctrl.step == 'phone_setup'"): form(ng-submit="$ctrl.submitPhoneNumber()")
+        .modal-body(ng-if="$ctrl.step == 'phone_setup'"): form(ng-submit="$ctrl.submitPhoneNumber()").form
             .modal-header
                 .modal-heading Tweefactorauthenticatie instellen
                 .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
@@ -71,13 +71,7 @@
                     .modal-separator
                     .form-group: .form-label.text-strong Telefoonnummer
                     .form-group
-                        pincode-control(
-                            ng-model="$ctrl.phoneNumber" 
-                            block-size="3" 
-                            block-count="4"
-                            cant-delete-Length="3"
-                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
-
+                        phone-control(ng-model="$ctrl.phoneNumber")
                         .form-error(ng-repeat="error in $ctrl.phoneNumberError" ng-bind="error")
 
                 auth-2-f-a-info-box.flex-center
@@ -109,7 +103,7 @@
                             ng-model="$ctrl.confirmationCode" 
                             block-size="3" 
                             block-count="2" 
-                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                            block-input-type="num").block-pincode-compact
                         
                         .form-error(ng-repeat="error in $ctrl.activateAuthErrors" ng-bind="error")
                 
@@ -157,7 +151,7 @@
                             ng-model="$ctrl.confirmationCode" 
                             block-size="3" 
                             block-count="2" 
-                            block-input-type="num").block-pincode-compact.block-pincode-mobile-collapse
+                            block-input-type="num").block-pincode-compact
                         
                         .form-error(ng-repeat="error in $ctrl.verifyAuthErrors" ng-bind="error")
                 

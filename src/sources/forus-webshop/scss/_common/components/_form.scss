@@ -181,7 +181,7 @@
     }
 
     .select-control-input {
-        $optionHeight: 40px;
+        --option-height: 40px;
         position: relative;
 
         .form-control {
@@ -258,17 +258,18 @@
             border-bottom-right-radius: var(--border-radius);
             border-bottom-left-radius: var(--border-radius);
             overflow: auto;
-            max-height: $optionHeight * 5;
+            max-height: calc(var(--option-height) * 5);
             margin-bottom: 30px;
+            @include webkit_scrollbar_gray();
 
             .select-control-option {
-                padding: 5px 15px 4px;
-                font: 500 13px/30px var(--base-font);
+                padding: calc(calc(var(--option-height) - 20px) / 2) 15px calc(calc(calc(var(--option-height) - 20px) / 2) - 1px);
+                font: 500 13px/20px var(--base-font);
                 color: rgba(var(--tc), 0.75);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
                 transition: 0.4s;
-                height: $optionHeight;
+                height: var(--option-height);
                 @include ellipsis();
 
                 strong,
@@ -297,6 +298,160 @@
         }
     }
 
+    .select-control.select-control-country-codes {
+        .select-control-input {
+            --option-height: 30px;
+
+            .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
+                font: 600 16px/24px var(--base-font);
+                border: none;
+                text-align: left;
+                box-shadow: none;
+                padding-right: 30px;
+            }
+
+            .select-control-icon {
+                .mdi {
+                    font-size: 24px;
+                }
+            }
+        }
+
+        .select-control-container {
+            background: #fff;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 300px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            margin-top: 2px;
+            text-align: left;
+
+            .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
+                padding: 6px 15px;
+                text-align: left;
+                font-weight: 600;
+                border-bottom: 1px solid var(--border-color);
+                letter-spacing: -.5px;
+                cursor: text;
+            }
+
+            .select-control-search-icon {
+                transform: translate(0, -50%);
+                font-size: 18px;
+                position: absolute;
+                color: #848484;
+                right: 10px;
+                top: 50%;
+                pointer-events: none;
+            }
+
+            .select-control-options {
+                position: initial;
+                margin: 0 0 0;
+                border: none;
+                width: 100%;
+
+                .select-control-option {
+                    font-weight: 600;
+                }
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .select-control-input {
+                --option-height: 40px;
+    
+                .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
+                    font-size: 14px;
+                }
+
+                .select-control-icon {
+                    .mdi {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            .select-control-container {
+                width: 400%;
+                max-width: 85vw;
+
+                .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
+                    padding: 8px 15px;
+                }
+            }
+        }
+    }
+
+    .phone-control {
+        --selector-width: 115px;
+        --input-padding: 12px 15px;
+
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        position: relative;
+
+        .form-control:not([type="radio"]):not([type="checkbox"]).phone-control-input {
+            padding: var(--input-padding);
+            padding-left: calc(var(--selector-width) + 10px);
+            font: 600 16px/24px var(--base-font);
+            letter-spacing: 1px;
+            height: auto;
+            
+            &::placeholder {
+                font: 400 16px/24px var(--base-font);
+            }
+        }
+
+        .select-control {
+            width: var(--selector-width);
+            position: absolute;
+
+            .select-control-input {
+                .form-control:not([type="radio"]):not([type="checkbox"]) {
+                    background: none;
+                    outline: none;
+                    padding: var(--input-padding);
+                    white-space: nowrap;    
+                    height: auto;
+                }
+
+                .select-control-search {
+                    border-right: none;
+                    border-top-right-radius: 0px;
+                    border-bottom-right-radius: 0px;
+
+                    &:after {
+                        display: block;
+                        content: "";
+                        width: 1px;
+                        background-color: #cfcfcf;
+                        position: absolute;
+                        top: 13px;
+                        bottom: 13px;
+                        right: 0;
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            --selector-width: 105px;
+            --input-padding: 12px 12px;
+
+            .form-control:not([type="radio"]):not([type="checkbox"]).phone-control-input {
+                font-size: 14px;
+            
+                &::placeholder {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
     .form-group {
         margin-bottom: 10px;
         @include cf();
@@ -308,7 +463,7 @@
             margin-bottom: 3px;
         }
 
-        &:last-child {
+        &:last-child:not(.form-group-margin) {
             margin-bottom: 0;
         }
 
@@ -811,6 +966,119 @@
                     transform: translate(-100%, -50%);
                     margin-right: -1px;
                 }
+            }
+        }
+    }
+
+    
+
+    .form-group-info {
+        position: relative;
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: row;
+
+        .form-group-info-control {
+            display: flex;
+            flex-grow: 1;
+
+            .form-control:not([type=radio]):not([type=checkbox])[type=number] {
+                padding-right: 45px;
+            }
+        }
+
+        .form-group-info-button {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            width: 42px;
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+
+            .mdi {
+                color: #004D93;
+                font-size: 18px;
+            }
+
+            &::before {
+                content: '';
+                left: 0;
+                width: 1px;
+                display: block;
+                top: 11px;
+                bottom: 11px;
+                position: absolute;
+                background-color: var(--border-color);
+            }
+        }
+
+        .block-info-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            z-index: 1;
+            display: none;
+            box-shadow: var(--box-shadow);
+
+            &:before {
+                content: "";
+                right: 11px;
+                bottom: calc(100% - 10px);
+                width: 18px;
+                height: 18px;
+                background: #fffdeb;
+                border: 1px solid var(--border-color);
+                border-radius: calc(var(--border-radius)/3) 0 0 0;
+                position: absolute;
+                transform: rotate(45deg);
+            }
+
+            &:after {
+                content: "";
+                left: 0;
+                top: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: #fffdeb;
+                border-radius: 5px;
+                z-index: 0;
+            }
+
+            & > * {
+                position: relative;
+                z-index: 1;
+            }
+
+            .info-box-icon {
+                margin-right: 10px;
+                font-size: 24px;
+            }
+
+            .info-box-content {
+                .block-markdown {
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 18px;
+
+                    p:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        &.active {
+            .block-info-box {
+                display: flex;
             }
         }
     }

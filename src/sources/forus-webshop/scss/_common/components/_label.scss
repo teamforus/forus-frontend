@@ -94,7 +94,11 @@
 
 @media screen and (max-width: 1000px) {
     .label {
-        padding: 0 10px;
+        padding: 0 8px;
         font: 700 11px/22px var(--base-font);
+
+        &.label-lg {
+            padding: 0 10px;
+        }
     }
 }

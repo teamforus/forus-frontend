@@ -68,6 +68,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
             }
 
             .sticky-footer-dropwdown-subitems {
+                overflow: scroll;
                 position: absolute;
                 bottom: 70px;
                 width: 90%;
@@ -91,7 +92,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                         font-size: 23px;
                     }
 
-                    &:hover, &.active {
+                    &.active {
                         background-color: var(--color-primary);
                         color: #FFFFFF;
                     }
@@ -104,7 +105,6 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                 .sticky-footer-dropwdown-subitem, .sticky-footer-dropwdown-info {
                     display: flex;
                     padding: 15px;
-                    text-transform: capitalize;
                     color: #4F4F4F;
                 }
 
@@ -143,6 +143,25 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
 
                 a {
                     display: block;
+                }
+
+                &.sticky-footer-dropdown {
+                    .sticky-footer-dropwdown-subitems {
+                        bottom: 62px;
+                        right: 0;
+                        left: 0;
+                        width: 100%;
+                        height: calc(100vh - 122px);
+                        border-left: none;
+                        border-right: none;
+                        box-shadow: none;
+
+                        .sticky-footer-dropwdown-subitem {
+                            &:hover {
+                                background-color: #FBFBFB;
+                            }
+                        }
+                    }
                 }
             }
         }

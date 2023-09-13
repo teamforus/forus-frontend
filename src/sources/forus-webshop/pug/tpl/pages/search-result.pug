@@ -19,8 +19,13 @@ block content
                         .showcase-aside-block
                             .form-label Uitgelicht
                             .form-group(ng-repeat="searchItemType in $ctrl.searchItemTypes track by $index")
-                                .checkbox(ng-click="$ctrl.toggleType($event, searchItemType.key)")
+                                .checkbox(
+                                    ng-click="$ctrl.toggleType($event, searchItemType.key)" 
+                                    role="checkbox" 
+                                    aria-checked="{{ $ctrl.filters.search_item_types.indexOf(searchItemType.key) != -1 }}")
+                                    
                                     input(
+                                        aria-hidden="true"
                                         type="checkbox"
                                         id="{{ 'type_' + $index }}"
                                         ng-checked="$ctrl.filters.search_item_types.indexOf(searchItemType.key) != -1")
@@ -78,13 +83,17 @@ block content
                                 .label-tab-set
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'list'}"
-                                        ng-click="$ctrl.showAs('list')")
+                                        ng-click="$ctrl.showAs('list')"
+                                        aria-pressed="{{ $ctrl.display_type == 'list' }}"
+                                        role="button")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
 
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'grid'}"
-                                        ng-click="$ctrl.showAs('grid')")
+                                        ng-click="$ctrl.showAs('grid')"
+                                        aria-pressed="{{ $ctrl.display_type == 'grid' }}"
+                                        role="button")
                                         em.mdi.mdi-view-grid-outline.icon-start
                                         | Foto's
 

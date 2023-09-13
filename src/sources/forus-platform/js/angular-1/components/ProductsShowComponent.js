@@ -1,4 +1,4 @@
-let ProductsShowComponent = function(
+const ProductsShowComponent = function(
     $sce,
     $state,
     ModalService,
@@ -15,7 +15,6 @@ let ProductsShowComponent = function(
     $ctrl.fund_toggles = {};
 
     $ctrl.$onInit = function() {
-        $ctrl.cardLevel = "show";
         $ctrl.product.description_html = $sce.trustAsHtml($ctrl.product.description_html);
 
         $ctrl.mapFundsWithChats();

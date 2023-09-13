@@ -136,7 +136,8 @@ app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
-app.directive('phoneControl', require('./directives/PhoneControlDirective'));
+app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'));
+app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
@@ -173,6 +174,7 @@ app.directive('providerListItem', require('./directives/lists/ProviderItemDirect
 app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('auth2FARestriction', require('./directives/Auth2FARestriction'));
+app.directive('blockCard2FAWarning', require('./directives/BlockCard2FAWarning'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
@@ -181,7 +183,6 @@ app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCo
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 app.component('modalProductReserveComponent', require('./components/Modals/ModalProductReserveComponent'));
-app.component('modalProductReserveDetailsComponent', require('./components/Modals/ModalProductReserveDetailsComponent'));
 app.component('modalProductReserveCancelComponent', require('./components/Modals/ModalProductReserveCancelComponent'));
 app.component('modalIdentityProxyExpiredComponent', require('./components/Modals/ModalIdentityProxyExpiredComponent'));
 app.component('modalPhysicalCardTypeComponent', require('./components/Modals/ModalPhysicalCardTypeComponent'));
@@ -215,8 +216,6 @@ app.filter('pretty_json', require('./filters/PrettyJsonFilter'));
 app.filter('json_pretty', require('./filters/PrettyJsonFilter'));
 app.filter('to_fixed', require('./filters/ToFixedFilter'));
 app.filter('i18n', require('./filters/I18nFilter'));
-app.filter('duration', require('./filters/DurationFilter'));
-app.filter('duration_last_time', require('./filters/DurationLastTimeFilter'));
 app.filter('lines_to_array', require('./filters/LinesToArrayFilter'));
 app.filter('capitalize', require('./filters/CapitalizeFilter'));
 app.filter('str_limit', require('./filters/StrLimitFilter'));

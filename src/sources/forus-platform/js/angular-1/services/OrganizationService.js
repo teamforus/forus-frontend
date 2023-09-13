@@ -220,7 +220,7 @@ module.exports = [
             };
 
             this.updateAcceptReservations = function(id, auto_accept) {
-                return ApiRequest.patch(`/platform/organizations/${id}/accept-reservations`, {
+                return ApiRequest.patch(`/platform/organizations/${id}/update-accept-reservations`, {
                     reservations_auto_accept: auto_accept,
                 });
             };

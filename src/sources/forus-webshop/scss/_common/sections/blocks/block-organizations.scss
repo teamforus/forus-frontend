@@ -237,11 +237,19 @@
                         margin-right: 0;
                     }
 
-                    .organization-total-offices {
+                    .organization-total-offices-count {
                         display: none;
                     }
+                }
+            }
+        }
+    }
 
-                    .organization-total-offices-count {
+    @media screen and (max-width: 767px) {
+        .organization-item {
+            .organization-pane {
+                .organization-pane-collapse {
+                    .organization-total-offices {
                         display: none;
                     }
                 }
