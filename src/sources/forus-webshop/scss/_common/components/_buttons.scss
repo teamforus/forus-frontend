@@ -273,6 +273,10 @@
         pointer-events: none;
         cursor: default;
 
+        .mdi {
+            color: inherit;
+        }
+
         &:hover {
             box-shadow: none;
         }
