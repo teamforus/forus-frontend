@@ -3,7 +3,7 @@ block content
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
         top-navbar(hide-on-scroll="true")
 
-        main(id="main-content")
+        main(id="main-content" ng-show="!$root.mobileMenuOpened")
             .showcase-wrapper
                 .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                     .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")

@@ -1,6 +1,6 @@
 top-navbar
 
-main(id="main-content"): section.section.section-profile: .wrapper
+main(id="main-content" ng-show="!$root.mobileMenuOpened"): section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active(translate="reservations.header.title" aria-current="location")

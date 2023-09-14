@@ -1,6 +1,6 @@
 top-navbar
 
-main(id="main-content")
+main(id="main-content" ng-show="!$root.mobileMenuOpened")
     section.section.section-voucher-details: .wrapper: .page.page-voucher
         .block.block-breadcrumbs.hide-sm
             a(ui-sref="home").breadcrumb-item Home

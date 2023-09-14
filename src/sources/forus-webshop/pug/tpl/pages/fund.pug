@@ -1,6 +1,6 @@
 top-navbar.nar-var
 
-main(id="main-content")
+main(id="main-content" ng-show="!$root.mobileMenuOpened")
     section.section.section-fund: .wrapper
         .block.block-breadcrumbs
             a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
