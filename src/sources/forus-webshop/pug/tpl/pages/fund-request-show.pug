@@ -1,5 +1,6 @@
 top-navbar
-section.section.section-profile: .wrapper
+
+main(id="main-content"): section.section.section-profile: .wrapper
     //- Breadcrumbs
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
@@ -13,57 +14,57 @@ section.section.section-profile: .wrapper
 
         //- Page content
         .profile-content
-            .card.card-fund-request
-                .card-header: .card-header-wrapper
-                    h3.card-heading.card-heading-lg Request details
-                    .card-header-status
+            .card: .card-section
+                h3.card-heading.card-heading-lg.flex
+                    .flex.flex-grow Request details
+                    .flex.flex-center.flex-vertical
                         .label.label-warning(ng-bind="$ctrl.fundRequest.state_locale" ng-if="$ctrl.fundRequest.state === 'pending'")
                         .label.label-success(ng-bind="$ctrl.fundRequest.state_locale" ng-if="$ctrl.fundRequest.state === 'approved_partly'")
                         .label.label-success(ng-bind="$ctrl.fundRequest.state_locale" ng-if="$ctrl.fundRequest.state === 'approved'")
                         .label.label-default(ng-bind="$ctrl.fundRequest.state_locale" ng-if="$ctrl.fundRequest.state === 'declined'")
                         .label.label-danger(ng-bind="$ctrl.fundRequest.state_locale" ng-if="$ctrl.fundRequest.state === 'disregarded'")
-                .card-section
-                    .fund-request-section
-                        .fund-request-props
-                            .fund-request-prop
-                                .fund-request-prop-label Fund name:
-                                .fund-request-prop-value(
-                                    dusk="fundRequestFund") {{ $ctrl.fundRequest.fund.name }}
 
-                            .fund-request-prop
-                                .fund-request-prop-label ID:
-                                .fund-request-prop-value {{ '#' + $ctrl.fundRequest.id }}
+                .fund-request-section
+                    .fund-request-props
+                        .fund-request-prop
+                            .fund-request-prop-label Fund name:
+                            .fund-request-prop-value(dusk="fundRequestFund" ng-bind="$ctrl.fundRequest.fund.name")
 
-                            .fund-request-prop
-                                .fund-request-prop-label Ingediend op:
-                                .fund-request-prop-value {{ $ctrl.fundRequest.created_at_locale }}
+                        .fund-request-prop
+                            .fund-request-prop-label ID:
+                            .fund-request-prop-value(ng-bind="'#' + $ctrl.fundRequest.id")
 
-                            .fund-request-prop
-                                .fund-request-prop-label Aantal eigenschappen:
-                                .fund-request-prop-value {{ $ctrl.fundRequest.records.length }}
+                        .fund-request-prop
+                            .fund-request-prop-label Ingediend op:
+                            .fund-request-prop-value(ng-bind="$ctrl.fundRequest.created_at_locale")
+
+                        .fund-request-prop
+                            .fund-request-prop-label Aantal eigenschappen:
+                            .fund-request-prop-value(ng-bind="$ctrl.fundRequest.records.length")
 
             h2.profile-content-header: .profile-content-title Eigenschappen
 
             .card.card-fund-request-conversation(
                 ng-repeat="record in $ctrl.fundRequest.records"
-                ng-class="{open: record.opened}"
-            )
+                ng-class="{open: record.opened}")
+
                 .card-header: .card-header-wrapper
                     .card-header-icon: em.mdi.mdi-card-account-details-outline
 
                     .card-heading-wrapper
-                        h3.card-heading.card-heading-lg {{ record.record_type.name }}
+                        h3.card-heading.card-heading-lg 
+                            | {{ record.record_type.name }}
                             span •
                             | {{ record.value }}
-                        .card-header-date {{ record.created_at_locale }}
+                        .card-header-date(ng-bind="record.created_at_locale")
 
-                    .label.info-action-label(ng-if="record.notAnsweredCount > 0")
-                        span.info-action-label-blink •
+                    .label.label-primary.label-xl.nowrap(ng-if="record.notAnsweredCount > 0")
+                        .label-blink(aria-hidden="true")
                         | {{ record.notAnsweredCount }} nieuwe actualisering
 
                     .card-header-view(
                         ng-if="record.clarifications.length"
-                        ng-click="$ctrl.openRecord(record)") View
+                        ng-click="$ctrl.toggleRecord(record)") View
                         em.mdi.mdi-chevron-down.card-header-view-arrow
 
                 .card-section(ng-if="record.opened")
@@ -71,57 +72,54 @@ section.section.section-profile: .wrapper
                         .fund-request-conversations
                             .fund-request-chat(
                                 ng-repeat="clarification in record.clarifications track by $index"
-                                ng-class="clarification.state === 'pending' ? 'new' : 'answered'"
-                            )
+                                ng-class="clarification.state === 'pending' ? 'fund-request-chat-new' : 'fund-request-chat-answered'")
+
                                 .fund-request-chat-number {{ record.clarifications.length - $index }}
                                 .fund-request-chat-info
                                     .fund-request-chat-time
                                         em.mdi.mdi-clock-outline.fund-request-chat-time-icon
                                         | {{ clarification.created_at_locale.split(' - ')[1] }}
 
-                                    .fund-request-chat-status.flex(ng-if="clarification.state === 'pending'")
+                                    .fund-request-chat-status(ng-if="clarification.state === 'pending'")
                                         em.fund-request-chat-status-icon
                                         | New request
 
-                                    .fund-request-chat-status.flex(ng-if="clarification.state === 'answered'")
+                                    .fund-request-chat-status(ng-if="clarification.state === 'answered'")
                                         em.mdi.mdi-check.fund-request-chat-status-icon
                                         | Answered
 
                                 .fund-request-chat-conversation
                                     .fund-request-chat-conversation-content
-                                        .fund-request-chat-message.incoming
-                                            .fund-request-chat-message-time {{ clarification.created_at_locale }}
+                                        .fund-request-chat-message.fund-request-chat-message-in
+                                            .fund-request-chat-message-time(ng-bind="clarification.created_at_locale")
                                             .fund-request-chat-message-content
                                                 .fund-request-chat-message-text(ng-bind="clarification.question")
 
-                                        .fund-request-chat-message.outcoming(
-                                            ng-if="clarification.state === 'answered'"
-                                        )
-                                            .fund-request-chat-message-time {{ clarification.answered_at_locale }}
+                                        .fund-request-chat-message.fund-request-chat-message-out(ng-if="clarification.state === 'answered'")
+                                            .fund-request-chat-message-time(ng-bind="clarification.answered_at_locale")
                                             .fund-request-chat-message-content
                                                 .fund-request-chat-message-text(ng-bind="clarification.answer")
-
                                                 .fund-request-chat-message-file-uploader(ng-if="clarification.files.length")
                                                     file-uploader(
                                                         type="fund_request_record_proof"
                                                         files="clarification.files"
-                                                        read-only="true"
                                                         compact="true"
+                                                        read-only="true"
                                                         hide-buttons="false")
 
                                     .fund-request-chat-conversation-reply(
-                                        ng-if="clarification.state === 'pending' && !clarification.showAnswerForm"
+                                        ng-if="clarification.state === 'pending' && !clarification.showForm"
                                         ng-click="$ctrl.openReplyForm(record, clarification)")
-                                        button.button.button-light.button-xs.button-fill.button-reply
+                                        button.button.button-light.button-xs.button-fill.flex.flex-center
                                             em.mdi.mdi-reply
                                             | Reply
 
-                                    .fund-request-chat-conversation-answer.form(
-                                        ng-if="clarification.state === 'pending' && clarification.showAnswerForm"
-                                    )
+                                    .fund-request-chat-conversation-answer.form.form-compact(
+                                        ng-if="clarification.state === 'pending' && clarification.showForm")
+
                                         .fund-request-chat-conversation-answer-box.form-group
                                             ui-control-textarea(
-                                                rows="4"
+                                                rows="5"
                                                 ng-model="$ctrl.form.values.answer"
                                                 data-placeholder="{{ fund_request_clarification.placeholder | translate }}")
                                             .form-error(ng-repeat="error in $ctrl.form.errors.answer" ng-bind="error")
@@ -137,11 +135,12 @@ section.section.section-profile: .wrapper
                                                 on-file-resolved="$ctrl.onFileInfo(files)"
                                                 on-file-batch-queued="$ctrl.onFileInfo(files)")
 
-                                            div
-                                                button.button.button-light.button-xs(ng-click="clarification.showAnswerForm = false")
+                                            .button-group
+                                                button.button.button-light.button-xs(ng-click="clarification.showForm = false")
                                                     em.mdi.mdi-close
                                                     | Cancel
-                                                button.button.button-light.button-xs(
+
+                                                button.button.button-primary.button-xs(
                                                     ng-disabled="$ctrl.isUploadingFiles || $ctrl.form.values.answer === ''"
                                                     ng-click="$ctrl.form.submit()")
                                                     em.mdi.mdi-send-outline
@@ -150,10 +149,11 @@ section.section.section-profile: .wrapper
             .card.card-collapsable(
                 ng-if="$ctrl.fundRequest.state === 'declined'"
                 ng-class="{open: $ctrl.showDeclinedNote}")
+
                 .card-header(ng-click="$ctrl.showDeclinedNote = !$ctrl.showDeclinedNote"): .card-header-wrapper
                     em.mdi.mdi-menu-down.card-header-arrow
                     h2.card-heading.card-heading-lg Reden van weigeren
+
                 .card-section(ng-if="$ctrl.showDeclinedNote")
-                    .block.block-markdown
-                        p(ng-if="$ctrl.fundRequest.note" ng-bind="$ctrl.fundRequest.note")
-                        p(ng-if="!$ctrl.fundRequest.note").text-muted No note
+                    p.block.block-markdown(ng-if="$ctrl.fundRequest.note" ng-bind="$ctrl.fundRequest.note")
+                    p.block.block-markdown(ng-if="!$ctrl.fundRequest.note").text-muted No note

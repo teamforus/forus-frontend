@@ -27,9 +27,7 @@
         role="button"
         aria-current="{{ $dir.$state.current.name == 'fund-requests' ? 'page' : '' }}").profile-menu-item
 
-        translate(
-            translate="funds.buttons.{{ $dir.appConfigs.client_key }}.fund_requests" 
-            translate-default="{{ 'funds.buttons.fund_requests' | translate }}")
+        translate(translate="profile_menu.buttons.fund_requests")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
     a(

@@ -135,27 +135,3 @@
         }
     }
 }
-
-.fund-status {
-    align-items: center;
-    padding: 24px;
-
-    .fund-status-header {
-        align-items: center;
-        gap: 16px;
-
-        .fund-list-status-icon {
-            padding: 7px 6px;
-            color: #fff;
-            background: var(--color-primary);
-            border-radius: 3px;
-        }
-
-        .fund-status-title {
-            font-size: 18px;
-            font-weight: 700;
-            line-height: 27px;
-            margin: 0;
-        }
-    }
-}

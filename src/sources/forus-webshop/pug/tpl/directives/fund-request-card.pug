@@ -11,10 +11,7 @@ a(
         .fund-request-section
             .fund-request-details
                 .fund-request-name(ui-sref="fund-request-show($dir.fundRequest)" ng-bind="$dir.fundRequest.fund.name")
-
-                .fund-request-subtitle
-                    | ID
-                    span {{ ' #' + $dir.fundRequest.id }}
+                .fund-request-subtitle ID #[strong(ng-bind="'#' + $dir.fundRequest.id")]
 
             .fund-request-overview
                 .fund-request-overview-status
@@ -26,8 +23,8 @@ a(
 
         .fund-request-values.flex
             .flex-grow
-                .label.info-action-label(ng-if="$dir.fundRequest.notAnsweredCount > 0")
-                    span.info-action-label-blink •
+                .label.label-primary.label-xl.nowrap(ng-if="$dir.fundRequest.notAnsweredCount > 0")
+                    .label-blink(aria-hidden="true")
                     | {{ $dir.fundRequest.notAnsweredCount }} nieuwe actualisering
 
             .flex-end

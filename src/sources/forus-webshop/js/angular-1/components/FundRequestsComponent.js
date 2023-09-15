@@ -23,7 +23,7 @@ const FundRequestsComponent = function(
             archived: query.archived,
             order_by: query.order_by,
             order_by_dir: query.order_by_dir,
-        });
+        }, { location: 'replace' });
     };
 
     $ctrl.onPageChange = (query = {}) => {

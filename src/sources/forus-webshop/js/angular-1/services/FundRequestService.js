@@ -1,8 +1,8 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
-let FundRequestService = function(ApiRequest) {
-    let uriPrefix = '/platform/funds/%s/requests';
-    let uriRequesterPrefix = '/platform/fund-requests';
+const FundRequestService = function(ApiRequest) {
+    const uriPrefix = '/platform/funds/%s/requests';
+    const uriRequesterPrefix = '/platform/fund-requests';
 
     return new(function() {
         this.index = function(fund_id, data = {}) {
@@ -14,7 +14,7 @@ let FundRequestService = function(ApiRequest) {
         }
 
         this.storeValidate = function(fund_id, data) {
-            return ApiRequest.post(sprintf(uriPrefix + '/validate', fund_id), data);
+            return ApiRequest.post(sprintf(`${uriPrefix}/validate`, fund_id), data);
         }
 
         this.read = function(fund_id, request_id) {
@@ -25,13 +25,13 @@ let FundRequestService = function(ApiRequest) {
             return ApiRequest.get(uriRequesterPrefix, data);
         };
 
-        this.readRequester = function(request_id) {
-            return ApiRequest.get(uriRequesterPrefix + '/' + request_id);
+        this.readRequester = function(id) {
+            return ApiRequest.get(`${uriRequesterPrefix}/${id}`);
         }
     });
 };
 
 module.exports = [
     'ApiRequest',
-    FundRequestService
+    FundRequestService,
 ];

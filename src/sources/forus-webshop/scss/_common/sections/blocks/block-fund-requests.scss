@@ -1,5 +1,5 @@
 &.block-fund-requests {
-    margin-bottom: 30px;
+    margin: 0 0 20px;
 
     .fund-request-item {
         display: flex;
@@ -26,10 +26,6 @@
             flex-direction: column;
             justify-content: center;
             background-color: #f9f9f9;
-
-            svg {
-                margin: auto;
-            }
 
             img {
                 position: absolute;
@@ -78,6 +74,11 @@
             display: flex;
             flex-direction: row;
             flex-grow: 1;
+
+            .label {
+                height: fit-content;
+                cursor: inherit;
+            }
         }
 
         .fund-request-values {
@@ -111,10 +112,6 @@
                 justify-content: flex-end;
                 margin: 0 0 5px;
                 flex-grow: 1;
-
-                .label {
-                    height: fit-content;
-                }
             }
         }
 
@@ -184,7 +181,7 @@
             }
             
             .fund-request-values {
-                .info-action-label {
+                .label {
                     margin-bottom: 10px;
                 }
 
