@@ -77,6 +77,14 @@ const FundsEditComponent = function(
         name: 'Na de standaard content tonen',
     }];
 
+    $ctrl.externalFundPageTypes = [{
+        value: false,
+        name: 'Internal page',
+    }, {
+        value: true,
+        name: 'External page',
+    }];
+
     $ctrl.findMethod = (key) => {
         return $ctrl.applicationMethods.filter((method) => method.key == key)[0] || {};
     };
@@ -166,6 +174,7 @@ const FundsEditComponent = function(
             allow_direct_requests: true,
             start_date: moment().add(6, 'days').format('DD-MM-YYYY'),
             end_date: moment().add(1, 'years').format('DD-MM-YYYY'),
+            external_page: false,
 
             // contact information
             email_required: true,
@@ -210,11 +219,13 @@ const FundsEditComponent = function(
                     return form.unlock();
                 }
 
-                try {
-                    await $ctrl.faqEditor.validate();
-                } catch (e) {
-                    PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
-                    return form.unlock();
+                if ($ctrl.faqEditor) {
+                    try {
+                        await $ctrl.faqEditor.validate();
+                    } catch (e) {
+                        PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
+                        return form.unlock();
+                    }
                 }
 
                 const { values } = form;

@@ -62,7 +62,7 @@ block content
                                 vouchers="$ctrl.vouchers" 
                                 funds="$ctrl.funds" 
                                 template="fund-item-list"
-                                ui-sref="fund(fund)"
+                                ng-click="$ctrl.goToFundPage(fund)"
                                 fund="fund")
 
                         empty-block(
