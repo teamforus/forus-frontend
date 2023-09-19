@@ -115,6 +115,7 @@ module.exports = {
     fund: require("./nl/pages/fund"),
     fund_activate: require("./nl/pages/fund-activate"),
     fund_request: require("./nl/pages/fund-request"),
+    fund_requests: require("./nl/pages/fund-requests"),
     fund_request_clarification: require("./nl/pages/fund-request-clarification"),
     funds: require("./nl/pages/funds"),
     home: require("./nl/pages/home"),

@@ -1,7 +1,7 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 //- File uploader
-.block.block-file-uploader(dusk="fileUploader")
+.block.block-file-uploader(dusk="fileUploader" ng-class="{'block-file-uploader-compact': $dir.compact}")
     //- Drop zone
     .uploader-droparea(ng-if="!$dir.readOnly")
         //- Drop zone icon
@@ -14,23 +14,25 @@
             small of
 
         //- Select file button
-        .droparea-button: button.button.button-primary(
+        .droparea-button: button.button(
+            ng-class="$dir.compact ? 'button-light button-xs' : 'button-primary'"
             dusk="fileUploaderBtn"
             type="button"
             role="button"
             ng-disabled="$dir.multipleSize && $dir.multipleSize <= $dir.files.length"
             ng-click="$dir.selectFile()")
-            .mdi.mdi-upload
+            .mdi(ng-class="$dir.compact ? 'mdi-paperclip' : 'mdi-upload'")
             | Upload een document 
 
         //- File requirements
-        .droparea-size max. grootte 8Mb
+        .droparea-size(ng-if="!$dir.compact") max. grootte 8Mb
+        .droparea-max-limit(ng-if="$dir.compact && $dir.multipleSize") Max. {{ $dir.multipleSize }} files
 
         //- Input for dusk auto tests
         input(
-            multiple 
+            multiple
             type="file"
-            ng-model="$dir.tmpFile" 
+            ng-model="$dir.tmpFile"
             class="droparea-hidden-input"
             name="file_uploader_input_hidden"
             tab-index="1000"
@@ -57,7 +59,7 @@
                 .file-item-progress: .file-item-progress-container: progress(max="100" value="{{ fileItem.progress }}")
 
                 //- Preview
-                .file-item-action(ng-if="fileItem.has_preview")
+                .file-item-action(ng-if="fileItem.has_preview && !$dir.hideButtons")
                     button(
                         ng-click="$dir.previewFile($event, fileItem)"
                         title="Bestand bekijken"
@@ -67,7 +69,7 @@
                         name="Bestand bekijken").mdi.mdi-eye-outline
 
                 //- Download
-                .file-item-action(ng-if="!fileItem.uploading")
+                .file-item-action(ng-if="!fileItem.uploading && !$dir.hideButtons")
                     button(
                         ng-click="$dir.downloadFile($event, fileItem)"
                         title="Bestand downloaden"
