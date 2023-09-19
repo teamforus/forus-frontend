@@ -126,6 +126,7 @@ block content
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'list'}"
                                         ng-click="$ctrl.showAs('list')"
+                                        aria-pressed="{{ $ctrl.display_type == 'list' }}"
                                         role="button")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
@@ -133,6 +134,7 @@ block content
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'grid'}"
                                         ng-click="$ctrl.showAs('grid')"
+                                        aria-pressed="{{ $ctrl.display_type == 'grid' }}"
                                         role="button")
                                         em.mdi.mdi-view-grid-outline.icon-start
                                         | Foto's

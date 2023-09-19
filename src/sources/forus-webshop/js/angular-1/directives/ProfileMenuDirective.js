@@ -1,5 +1,7 @@
-const ProfileMenuDirective = function($scope, appConfigs) {
+const ProfileMenuDirective = function($scope, $state, appConfigs) {
     $scope.$dir = { appConfigs };
+
+    $scope.$dir.$state = $state;
 };
 
 module.exports = () => {
@@ -9,6 +11,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$state',
             'appConfigs',
             ProfileMenuDirective
         ],

@@ -1,5 +1,6 @@
 const IdentityEmailsComponent = function(
     $timeout,
+    ModalService,
     FormBuilderService,
     IdentityEmailsService,
     PushNotificationsService
@@ -9,16 +10,28 @@ const IdentityEmailsComponent = function(
     
     $ctrl.formSuccess = false;
 
+
+    $ctrl.askConfirmation = (email, onConfirm) => {
+        ModalService.open("dangerZone", {
+            title: 'Confirmation',
+            description: `Are you sure you want to remove this email "${email.email}"?`,
+            cancelButton: `Cancel`,
+            confirmButton: `Confirm`,
+            text_align: 'center',
+            onConfirm: onConfirm
+        });
+    };
+
     $ctrl.resendVerification = (email) => {
         if (email.disabled) {
             return false;
         }
 
-        delete email.error;
+        email.error = null;
+        email.disabled = true;
         
         IdentityEmailsService.resendVerification(email.id).then(() => {
             PushNotificationsService.success('Verificatie e-mail opnieuw verstuurd!');
-            email.disabled = true;
             timeout = $timeout(() => email.disabled = false, 1000);
         }, (res) => {
             if (res.status === 429) {
@@ -43,9 +56,11 @@ const IdentityEmailsComponent = function(
             return false;
         }
 
-        IdentityEmailsService.delete(email.id).then(() => {
-            PushNotificationsService.success('Verwijderd!');
-            $ctrl.loadIdentityEmails();
+        $ctrl.askConfirmation(email, () => {
+            IdentityEmailsService.delete(email.id).then(() => {
+                PushNotificationsService.success('Verwijderd!');
+                $ctrl.loadIdentityEmails();
+            });
         });
     };
 
@@ -97,6 +112,7 @@ module.exports = {
     },
     controller: [
         '$timeout',
+        'ModalService',
         'FormBuilderService',
         'IdentityEmailsService',
         'PushNotificationsService',

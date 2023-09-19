@@ -1,13 +1,7 @@
-div(ng-show="emailServiceUrl")
-    button.button.button-primary.flex(
-        ng-if="!asText"
-        ng-click="onSwitchHandler()"
-        ng-class="'flex-' + alignDir"
-        translate="email_service_switch.confirm")
-
-    .button.button-text.button-text-padless.button-text-primary(
-        ng-if="asText"
-        ng-click="onSwitchHandler()"
-        ng-class="'flex-' + alignDir")
-        em.mdi.mdi-email.icon-start
-        span(translate="email_service_switch.confirm")
+a(
+    href="{{ $dir.url }}" 
+    ng-show="$dir.url" 
+    ng-class="$dir.type == 'button' ? 'button-primary' : 'button-text button-text-primary'").button
+    em.mdi.icon-start(ng-if="$dir.icon" ng-class="'mdi-' + $dir.icon")
+    translate(translate="email_service_switch.confirm")
+    em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
