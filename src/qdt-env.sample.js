@@ -166,7 +166,23 @@ module.exports = (core) => {
                         // hideSignInEmailOption: true,
                         // hideSignInQrCodeOption: true,
                     }
-                }
+                },
+                // navbar menu item override settings
+                /* 
+                menuItems: [{
+                    id: 'href_example',
+                    name: 'Href example',
+                    href: 'https://example.com',
+                    target: '_blank',
+                }, {
+                    id: 'sref_example1',
+                    name: 'Fund 1',
+                    sref: 'fund',
+                    srefParams: { id: 1 },
+                }, {
+                    id: 'providers_page'
+                }], 
+                */
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -176,7 +192,7 @@ module.exports = (core) => {
             ios_iphone_link: ios_iphone_link,
             html5ModeEnabled: true,
             html5Mode: {
-                basePath: '/'
+                basePath: '/',
             },
         });
 
