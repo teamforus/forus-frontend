@@ -1,9 +1,6 @@
 .block.block-empty
-    div: .block-icon(ng-if="$dir.svgIcon === 'reimbursements'")
+    .block-icon(ng-if="$dir.svgIcon === 'reimbursements'")
         include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
-
-    div: .block-icon(ng-if="$dir.svgIcon === 'fund-requests'")
-        include ../../../resources/_webshop-common/assets/img/icon-fund-request.svg
 
     h2.block-title(ng-if="$dir.title" ng-bind="$dir.title")
     p.block-description(ng-if="$dir.description" ng-bind="$dir.description")

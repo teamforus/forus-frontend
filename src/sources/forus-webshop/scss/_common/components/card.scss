@@ -1,6 +1,6 @@
 .card {
     background: #ffffff;
-    border-radius: var(--border-radius);
+    border-radius: 5px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     font: 400 14px var(--base-font);
@@ -11,12 +11,14 @@
         border-bottom: 1px solid #d4d9dd;
 
         &:first-child {
-            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            border-radius: 5px 5px 0 0;
         }
 
         &:last-child {
-            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            border-radius: 0 0 5px 5px;
         }
+
+
     }
 
     .card-title {
@@ -178,12 +180,6 @@
         &:last-child {
             border-bottom: 0;
         }
-
-        &:first-child {
-            .card-heading:first-child {
-                margin-top: -5px;
-            }
-        }
     }
 
     &.card-outline {
@@ -226,36 +222,11 @@
     }
 
     &.card-collapsable {
-        margin-bottom: 15px;
-        border: 1px solid #d4d9dd;
+        cursor: pointer;
+        transition: background .4s;
 
-        .card-header {
-            padding: 15px;
-
-            .card-header-wrapper {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: flex-start;
-
-                .card-header-arrow {
-                    font-size: 24px;
-                    color: #848484;
-                    transform: rotate(-90deg);
-                    transition: all 0.3s;
-                    margin-right: 10px;
-                }
-            }
-        }
-
-        &.open {
-            .card-header {
-                .card-header-wrapper {
-                    .card-header-arrow {
-                        transform: rotate(0deg);
-                    }
-                }
-            }
+        &:hover {
+            background: #f3f4f5;
         }
     }
 

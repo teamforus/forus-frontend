@@ -943,58 +943,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         }
     });
 
-    i18n_state($stateProvider, {
-        name: "fund-request-show",
-        url: {
-            en: "/fund-request/{id}",
-            nl: "/fondsen-aanvraag/{id}",
-        },
-        component: "fundRequestShowComponent",
-        resolve: {
-            configs: resolveConfigs(),
-            identity: ['AuthService', (
-                AuthService
-            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
-            fundRequest: ['$transition$', 'FundRequestService', 'AuthService', (
-                $transition$, FundRequestService, AuthService
-            ) => AuthService.hasCredentials() ? repackResponse(
-                FundRequestService.readRequester($transition$.params().id)
-            ) : new Promise((resolve) => resolve(null))],
-        }
-    });
-
-    i18n_state($stateProvider, {
-        name: "fund-requests",
-        url: {
-            en: "/fund-requests?{page:int}&{fund_id:int}&{archived:int}",
-            nl: "/fondsen-aanvraag?{page:int}&{fund_id:int}&{archived:int}",
-        },
-        component: "fundRequestsComponent",
-        params: {
-            page: routeParam(1),
-            fund_id: routeParam(null),
-            archived: routeParam(0),
-        },
-        resolve: {
-            identity: ['AuthService', (
-                AuthService
-            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
-            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
-            fundRequests: ['$transition$', 'FundRequestService', 'AuthService', (
-                $transition$, FundRequestService, AuthService
-            ) => AuthService.hasCredentials() ? repackPagination(
-                FundRequestService.indexRequester({
-                    q: $transition$.params().q,
-                    page: $transition$.params().page,
-                    fund_id: $transition$.params().fund_id,
-                    archived: $transition$.params().archived,
-                    per_page: 15,
-                    order_by: 'no_answer_clarification'
-                })
-            ) : new Promise((resolve) => resolve(null))],
-        }
-    });
-
     // Apply to fund by submitting fund request
     $stateProvider.state({
         name: "fund-request-clarification",
