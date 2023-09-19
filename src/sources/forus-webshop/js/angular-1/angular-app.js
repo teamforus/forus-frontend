@@ -59,8 +59,6 @@ app.component('searchResultComponent', require('./components/SearchResultCompone
 app.component('sitemapComponent', require('./components/SitemapComponent'));
 app.component('bookmarkedProductsComponent', require('./components/BookmarkedProductsComponent'));
 app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
-app.component('fundRequestShowComponent', require('./components/FundRequestShowComponent'));
-app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
 
 // Services
 app.service('ArrService', require('./services/ArrService'));
@@ -153,7 +151,6 @@ app.directive('inputRadioControl', require('./directives/InputRadioControlDirect
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
-app.directive('fundRequestCard', require('./directives/FundRequestCardDirective'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 

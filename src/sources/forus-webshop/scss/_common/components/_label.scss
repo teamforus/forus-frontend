@@ -4,7 +4,6 @@
     padding: 0 7.5px;
     border-radius: var(--border-radius);
     cursor: default;
-    height: fit-content;
 
     .mdi {
         font-size: 1.4em;
@@ -22,25 +21,6 @@
         &.icon-end {
             margin-left: 2.5px;
             margin-right: -2.5px;
-        }
-    }
-
-    .label-blink {
-        display: block;
-        width: 10px;
-        color: inherit;
-        line-height: inherit;
-        font-size: 20px;
-        float: left;
-        margin-left: -2px;
-        margin-right: 4px;
-        text-align: center;
-
-        &:before {
-            content: '•';
-            color: inherit;
-            animation: blink 1.5s ease-in-out infinite;
-            text-align: center;
         }
     }
 
@@ -101,10 +81,6 @@
 
     &.label-lg {
         padding: 2px 10px;
-    }
-
-    &.label-xl {
-        padding: 5px 10px;
     }
 
     &.label-round {

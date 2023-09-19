@@ -84,7 +84,6 @@ module.exports = {
         is_applicable: "Activeer",
         is_pending: "In behandeling",
         already_received: "Open tegoed",
-        check_status: "Status controleren",
     },
     status: {
         is_applicable: "Aanmelden",
