@@ -62,14 +62,6 @@ const FundsComponent = function(
         $ctrl.loadFunds(values);
     };
 
-    $ctrl.goToFundPage = (fund) => {
-        if (fund.external_page && fund.external_page_url) {
-            return document.location = fund.external_page_url;
-        }
-
-        $state.go('fund', {id: fund.id})
-    };
-
     $ctrl.$onInit = function() {
         if (!appConfigs.features || !appConfigs.features.funds.list) {
             return $state.go('home');

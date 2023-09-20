@@ -219,13 +219,11 @@ const FundsEditComponent = function(
                     return form.unlock();
                 }
 
-                if ($ctrl.faqEditor) {
-                    try {
-                        await $ctrl.faqEditor.validate();
-                    } catch (e) {
-                        PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
-                        return form.unlock();
-                    }
+                try {
+                    await $ctrl?.faqEditor?.validate();
+                } catch (e) {
+                    PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
+                    return form.unlock();
                 }
 
                 const { values } = form;
