@@ -9,7 +9,6 @@ const MobileMenuDirective = function (
 ) {
     const { $dir } = $scope;
 
-    $dir.showMainMenuGroup = $dir.showUserMenuGroup = true;
     $dir.appConfigs = appConfigs;
 
     $scope.$dir = $dir;

@@ -731,7 +731,7 @@
             }
 
             .button {
-                font: 400 14px/1.5em var(--base-font);
+                font: 600 14px/1.5em var(--base-font);
                 margin-right: 0;
             }
 
@@ -745,6 +745,7 @@
                         display: block;
                         float: none;
                         margin: 0;
+                        font-size: 16px;
                     }
                 }
 
@@ -906,7 +907,7 @@
             .button {
                 padding: 10px 0px;
                 min-width: 60px;
-                font: 400 12px/1.5em var(--base-font);
+                font: 600 9px/1.5em var(--base-font);
             }
         }
     }

@@ -2,7 +2,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
 
 &.block-mobile-menu {
     position: fixed;
-    top: 60px;
+    top: 50px;
     bottom: 0;
     z-index: 10;
     width: 100%;
@@ -75,6 +75,10 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
     
                 &.active {
                     color: var(--color-primary);
+
+                    .mdi {
+                        color: var(--color-primary);
+                    }
 
                     &:after {
                         position: absolute;

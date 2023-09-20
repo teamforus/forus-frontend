@@ -3,7 +3,7 @@ block content
     .block.block-showcase
         top-navbar
         
-        main(id="main-content" ng-show="!$root.mobileMenuOpened")
+        main(id="main-content")
             .showcase-wrapper
                 .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
                     .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")

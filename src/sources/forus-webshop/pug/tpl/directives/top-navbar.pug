@@ -277,7 +277,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
     //- Mobile header
     .navbar-inner.wrapper(ng-if="!$root.showSearchBox")
         .button(ng-click="$dir.openMobileMenu($event)" ng-class="{active: $root.mobileMenuOpened}").navbar-menu-button.show-sm
-            em.mdi.mdi-menu
+            em.mdi.mdi-menu(ng-class="'mdi-' + ($root.mobileMenuOpened ? 'close' : 'menu')")
             translate(translate="topnavbar.items.menu")
 
         a(ui-sref="home").navbar-logo.show-sm
@@ -290,10 +290,20 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
     //- Main navigation menu
     .navbar-inner.wrapper(ng-class="{'search-shown': $root.showSearchBox}")
+        .block.block-auth.show-sm(ng-if="!$root.auth_user && !$root.showSearchBox && !$root.mobileMenuOpened")
+            button.button.button-primary(
+                ng-click="$dir.startFundRequest()" 
+                role="button" 
+                aria-label="login" 
+                id="login_mobile").show-sm  
+
+                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
+                translate(translate="topnavbar.buttons.login")     
+
         if (!qdt_c.platform.env_data.flags || !qdt_c.platform.env_data.flags.genericSearchUseToggle)
             +navbar_list()
         else
-            top-navbar-search(ng-if="$root.appConfigs.flags.genericSearch && $root.showSearchBox")    
+            top-navbar-search(ng-if="$root.appConfigs.flags.genericSearch && $root.showSearchBox")        
     
     //- Logo/Search/Auth menu
     .block.block-subnav(

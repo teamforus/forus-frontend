@@ -67,7 +67,7 @@ mixin inline_email_form(showPolicy=true)
                     input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
                     | Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
 
-main(id="main-content" ng-show="!$root.mobileMenuOpened")
+main(id="main-content")
     header.section.section-sign-up-choose: .wrapper
         .block.block-sign_up(ng-if="$ctrl.state == 'start'"): .block-wrapper(
             ng-class="!$ctrl.appConfigs.flags.startPage.combineColumns ? 'block-wrapper-lg' : ''")

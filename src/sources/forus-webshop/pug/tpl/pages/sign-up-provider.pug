@@ -1,6 +1,6 @@
 top-navbar
 
-main(id="main-content" ng-show="!$root.mobileMenuOpened")
+main(id="main-content")
     section.section.section-details: .wrapper.flex.flex-vertical
         .flex.flex-vertical(ng-class="$ctrl.page.description_position == 'after' ? 'flex-vertical-reverse' : ''")
             .block.block-steps(ng-if="$ctrl.description_html"): .wrapper

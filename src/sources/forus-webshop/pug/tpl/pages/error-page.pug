@@ -3,7 +3,7 @@ block content
     .block.block-error-page
         top-navbar
 
-        .wrapper: main(id="main-content" ng-show="!$root.mobileMenuOpened")
+        .wrapper: main(id="main-content")
             .page-not-found-title(ng-bind="$ctrl.error")
             .page-not-found-subtitle(ng-bind="('error_page.' + $ctrl.error + '.title') | translate")
             div: button.button.button-primary(ui-sref="home")

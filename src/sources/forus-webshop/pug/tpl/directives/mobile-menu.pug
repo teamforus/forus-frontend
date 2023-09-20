@@ -2,11 +2,10 @@
 .block.block-mobile-menu(ng-show="$root.mobileMenuOpened").show-sm
     //- Mobile subitems group
     .mobile-menu-subitems-group
-        .mobile-menu-subitems-group-header(ng-click="$dir.showMainMenuGroup = !$dir.showMainMenuGroup") 
-            em.mdi(ng-class="'mdi-menu-' + ($dir.showMainMenuGroup ? 'down' : 'right')")
+        .mobile-menu-subitems-group-header
             | Main navigation
 
-        .mobile-menu-subitems(ng-if="$dir.showMainMenuGroup")
+        .mobile-menu-subitems
             //- Home
             a.mobile-menu-subitem(
                 ui-sref="home"
@@ -52,11 +51,10 @@
 
     //- Mobile subitems group
     .mobile-menu-subitems-group
-        .mobile-menu-subitems-group-header(ng-click="$dir.showUserMenuGroup = !$dir.showUserMenuGroup")
-            em.mdi(ng-class="'mdi-menu-' + ($dir.showUserMenuGroup ? 'down' : 'right')")
+        .mobile-menu-subitems-group-header
             | User navigation
 
-        .mobile-menu-subitems(ng-if="$dir.showUserMenuGroup")
+        .mobile-menu-subitems
             //- Log in Me-App
             .mobile-menu-subitem(
                 ng-if="$root.auth_user"
@@ -151,7 +149,7 @@
 
             //- Security
             a.mobile-menu-subitem(
-                ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required" 
+                ng-if="$root.auth_user && ($root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required)" 
                 ui-sref="security-2fa"
                 ng-click="$dir.hideMobileMenu()"
                 ng-class="{active: $dir.$state.current.name == 'security-sessions'}"
@@ -207,11 +205,10 @@
                 ng-if="$root.auth_user"
                 ng-click="$root.signOut()" 
                 role="button" 
-                aria-label="{{ 'topnavbar.buttons.logout' | translate }}").show-sm
+                aria-label="{{ 'topnavbar.buttons.logout' | translate }}")
 
                 em.mdi.mdi-logout
-                span(
-                    translate="topnavbar.buttons.logout")
+                span(translate="topnavbar.buttons.logout")
 
             a.mobile-menu-subitem(ng-if="!$root.auth_user")
                 button.button.button-primary(
