@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
     "header": {
         "title": "Systeemberichten per webshop",
         "tooltip": "Het platform verstuurt automatische berichten naar gebruikers. Dit gebeurt via e-mailberichten, pushberichten via de app en webberichten in webshop/beheeromgeving."
