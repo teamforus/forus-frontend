@@ -17,8 +17,14 @@
 
         form.form(ng-submit="$ctrl.shareVoucherForm.submit()")
             .form-group
-                .form-label(for="share-note" translate="{{ 'voucher.share_voucher.labels.share_note' | i18n }}")
-                textarea(id="share-note" ng-model="$ctrl.shareVoucherForm.values.reason" placeholder="{{ 'voucher.share_voucher.reason_placeholder' | i18n }}").form-control
+                label.form-label(
+                    for="share_note" 
+                    translate="{{ 'voucher.share_voucher.labels.share_note' | i18n }}")
+
+                textarea(
+                    id="share_note" 
+                    ng-model="$ctrl.shareVoucherForm.values.reason" 
+                    placeholder="{{ 'voucher.share_voucher.reason_placeholder' | i18n }}").form-control
                 .text-center.form-error(ng-repeat="error in $ctrl.shareVoucherForm.errors.reason track by $index" ng-bind="error")
                 br
 
