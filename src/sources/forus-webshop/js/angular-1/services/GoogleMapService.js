@@ -1,4 +1,4 @@
-let GoogleMapService = function($q) {
+const GoogleMapService = function ($q) {
     const style = {
         'style': [{
             "featureType": "water",
@@ -120,7 +120,7 @@ let GoogleMapService = function($q) {
 
     const autocompleteOptions = {
         componentRestrictions: {
-            country: ["nl", "md"]
+            country: ["nl"]
         },
         fields: [
             "address_components", "geometry",
@@ -130,18 +130,16 @@ let GoogleMapService = function($q) {
         ],
     };
 
-    const getStyle = function() {
-        return $q(function(resolve, reject) {
-            resolve(style);
-        });
+    const getStyle = function () {
+        return $q((resolve) => resolve(style));
     };
 
-    const getAutocompleteOptions = () => autocompleteOptions;
+    const getAutocompleteOptions = () => {
+        return autocompleteOptions;
+    };
 
     const getAddressComponent = (component, place) => {
-        return place.address_components.find((address_component) => {
-            return address_component.types.includes(component);
-        });
+        return place.address_components.find((item) => item.types.includes(component));
     }
 
     return {
@@ -153,5 +151,5 @@ let GoogleMapService = function($q) {
 
 module.exports = [
     '$q',
-    GoogleMapService
+    GoogleMapService,
 ];

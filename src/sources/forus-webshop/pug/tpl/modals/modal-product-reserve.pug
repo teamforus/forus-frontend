@@ -92,7 +92,7 @@
                 ng-click="$ctrl.selectVoucher($ctrl.vouchers[0])") Bevestig
 
     //- Fill reservation fields except notes
-    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_DATA" ng-submit="$ctrl.validateClient()" dusk="productReserveForm")
+    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_DATA" ng-submit="$ctrl.validateFields()" dusk="productReserveForm")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
@@ -202,7 +202,7 @@
                     dusk="btnSubmit"
                     translate="popup_auth.buttons.submit").button.button-primary.button-sm Proceed     
 
-    //- Fill reservation fields except notes
+    //- Address
     form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_ADDRESS" ng-submit="$ctrl.validateAddress()" dusk="productReserveAddress")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
@@ -220,7 +220,7 @@
                 //- Address fields
                 .flex-row
                     //- Address prefill
-                    .col.col-lg-6.col-xs-12.form-group.form-group-margin
+                    .col.col-lg-12.col-xs-12.form-group.form-group-margin
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.address")
                         input(
                             id="reservation-address"
@@ -240,6 +240,7 @@
                             ng-model="$ctrl.form.values.street"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.street' | translate }}"
                             dusk="productReserveFormStreet").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.street" ng-bind="error")
 
                     //- House number (with addition)
                     .col.col-lg-6.col-xs-12.form-group.form-group-margin
@@ -250,6 +251,7 @@
                             ng-model="$ctrl.form.values.house_nr"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.house_nr' | translate }}"
                             dusk="productReserveFormHouseNumber").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.house_nr" ng-bind="error")
 
                 .flex-row
                     //- Postal code
@@ -261,6 +263,7 @@
                             ng-model="$ctrl.form.values.postal_code"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.postal_code' | translate }}"
                             dusk="productReserveFormPostalCode").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.postal_code" ng-bind="error")
 
                     //- City
                     .col.col-lg-6.col-xs-12.form-group.form-group-margin
@@ -272,6 +275,7 @@
                             ng-model="$ctrl.form.values.city"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.city' | translate }}"
                             dusk="productReserveFormCity").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.city" ng-bind="error")
 
         //- Actions
         .modal-footer
@@ -292,7 +296,7 @@
                     translate="popup_auth.buttons.submit").button.button-primary.button-sm Proceed     
 
     //- Fill reservation notes
-    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_NOTES" ng-submit="$ctrl.validateClient()" dusk="productReserveNotes")
+    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_NOTES" ng-submit="$ctrl.validateFields()" dusk="productReserveNotes")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
@@ -332,9 +336,8 @@
                     ng-click="$ctrl.back()").button.button-light.button-sm Terug
 
                 button(
-                    type="button" 
+                    type="submit" 
                     dusk="btnSubmit"
-                    ng-click="$ctrl.next()"
                     translate="popup_auth.buttons.submit").button.button-primary.button-sm Bevestig
 
     //- Reservation confirmation
@@ -351,30 +354,30 @@
                 //- First name
                 .overview-item
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.first_name")
-                    .overview-item-value(ng-bind="$ctrl.form.values.first_name")
+                    .overview-item-value(ng-bind="$ctrl.form.values.first_name || '-'")
 
                 //- Last name
                 .overview-item
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.last_name")
-                    .overview-item-value(ng-bind="$ctrl.form.values.last_name")
+                    .overview-item-value(ng-bind="$ctrl.form.values.last_name || '-'")
 
                 //- Other fields
                 .overview-item(ng-repeat="field in $ctrl.fields")
                     .overview-item-label(ng-if="!field.custom" translate="modal_product_reserve_notes.confirm_notes.labels.{{ field.key }}")
-                    .overview-item-value(ng-if="!field.custom" ng-bind="$ctrl.form.values[field.key]")
+                    .overview-item-value(ng-if="!field.custom" ng-bind="$ctrl.form.values[field.key] || '-'")
 
                     .overview-item-label(ng-if="field.custom" ng-bind="field.label")
-                    .overview-item-value(ng-if="field.custom" ng-bind="$ctrl.form.values.custom_fields[field.key]")
+                    .overview-item-value(ng-if="field.custom" ng-bind="$ctrl.form.values.custom_fields[field.key] || '-'")
 
                 //- Address field
-                .overview-item
+                .overview-item(ng-if="$ctrl.form.values.address")
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.address")
-                    .overview-item-value(ng-bind="$ctrl.form.values.address")
+                    .overview-item-value(ng-bind="$ctrl.form.values.address || '-'")
     
                 //- User note
                 .overview-item(ng-if="$ctrl.form.values.user_note")
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.notes")
-                    .overview-item-value(ng-bind="$ctrl.form.values.user_note")
+                    .overview-item-value(ng-bind="$ctrl.form.values.user_note || '-'")
 
         //- Actions
         .modal-footer
