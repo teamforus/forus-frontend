@@ -44,30 +44,35 @@ main(id="main-content"): section.section.section-profile: .wrapper
                         .label-tab.label-tab-sm(
                             role="button" 
                             ng-click="$ctrl.filters.state = null" 
+                            aria-pressed="{{ $ctrl.filters.state == null }}" 
                             ng-class="$ctrl.filters.state == null ? 'active' : ''")
                             | Alle
 
                         .label-tab.label-tab-sm(
                             role="button" 
-                            ng-click="$ctrl.filters.state = 'pending'" 
+                            ng-click="$ctrl.filters.state = 'pending'"
+                            aria-pressed="{{ $ctrl.filters.state == 'pending' }}"  
                             ng-class="$ctrl.filters.state == 'pending' ? 'active' : ''")
                             | In afwachting
 
                         .label-tab.label-tab-sm(
                             role="button" 
-                            ng-click="$ctrl.filters.state = 'approved'" 
+                            ng-click="$ctrl.filters.state = 'approved'"
+                            aria-pressed="{{ $ctrl.filters.state == 'approved' }}"  
                             ng-class="$ctrl.filters.state == 'approved' ? 'active' : ''")
                             | Uitbetaald
 
                         .label-tab.label-tab-sm(
                             role="button" 
                             ng-click="$ctrl.filters.state = 'declined'" 
+                            aria-pressed="{{ $ctrl.filters.state == 'declined' }}"
                             ng-class="$ctrl.filters.state == 'declined' ? 'active' : ''")
                             | Afgewezen
 
                         .label-tab.label-tab-sm(
                             role="button" 
-                            ng-click="$ctrl.filters.state = 'draft'" 
+                            ng-click="$ctrl.filters.state = 'draft'"
+                            aria-pressed="{{ $ctrl.filters.state == 'draft' }}" 
                             ng-class="$ctrl.filters.state == 'draft' ? 'active' : ''")
                             | Nog niet ingediend
 

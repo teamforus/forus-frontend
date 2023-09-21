@@ -180,7 +180,6 @@ app.directive('scrollBreaker', require('./directives/ScrollBreakerDirective'));
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
 app.component('modalPinCodeComponent', require('./components/Modals/ModalPinCodeComponent'));
-app.component('modalAuthCodeComponent', require('./components/Modals/ModalAuthCodeComponent'));
 app.component('modalShareVoucherComponent', require('./components/Modals/ModalShareVoucherComponent'));
 app.component('modalOpenInMeComponent', require('./components/Modals/ModalOpenInMeComponent'));
 app.component('modalProductReserveComponent', require('./components/Modals/ModalProductReserveComponent'));

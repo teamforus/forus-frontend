@@ -19,8 +19,8 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
             //- Header
             .profile-content-header
-                .profile-content-title(ng-if="!$ctrl.reimbursement") Nieuwe kosten terugvragen
-                .profile-content-title(ng-if="$ctrl.reimbursement") Declaratienummer: {{ '#' + $ctrl.reimbursement.code  }}
+                h2.profile-content-title(ng-if="!$ctrl.reimbursement") Nieuwe kosten terugvragen
+                h2.profile-content-title(ng-if="$ctrl.reimbursement") Declaratienummer: {{ '#' + $ctrl.reimbursement.code  }}
             
             //- No email warning
             .card(ng-if="!$ctrl.reimbursement && !$ctrl.identity.email && !$ctrl.identity.skipEmail" dusk="reimbursementNoEmail")
