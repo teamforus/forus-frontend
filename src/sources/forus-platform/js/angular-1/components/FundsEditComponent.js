@@ -79,10 +79,10 @@ const FundsEditComponent = function(
 
     $ctrl.externalFundPageTypes = [{
         value: false,
-        name: 'Internal page',
+        name: 'Interne pagina',
     }, {
         value: true,
-        name: 'External page',
+        name: 'Externe pagina',
     }];
 
     $ctrl.findMethod = (key) => {
