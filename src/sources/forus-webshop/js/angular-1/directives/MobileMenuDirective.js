@@ -1,11 +1,14 @@
+const pick = require('lodash/pick');
+
 const MobileMenuDirective = function (
     $scope,
     $rootScope,
     $state,
     appConfigs,
     FundService,
-    VoucherService,
+    MenuService,
     ModalService,
+    VoucherService,
 ) {
     const { $dir } = $scope;
 
@@ -36,6 +39,11 @@ const MobileMenuDirective = function (
         }
     };
 
+    $dir.signOut = () => {
+        $rootScope.signOut()
+        $dir.hideMobileMenu();
+    };
+
     $dir.openPinCodePopup = () => {
         ModalService.open('modalPinCode');
     };
@@ -45,6 +53,12 @@ const MobileMenuDirective = function (
         $dir.$state = $state;
 
         $scope.$on('identity:update', (_, auth_user) => $dir.onAuthUserChange(auth_user));
+
+        $rootScope.$watch(
+            (scope) => pick(scope, ['auth_user', 'appConfigs']),
+            (value) => $dir.menuItems = MenuService.makeMenuItems(value.appConfigs, value.auth_user),
+            true
+        );
     };
 };
 
@@ -61,8 +75,9 @@ module.exports = () => {
             '$state',
             'appConfigs',
             'FundService',
-            'VoucherService',
+            'MenuService',
             'ModalService',
+            'VoucherService',
             MobileMenuDirective,
         ],
         templateUrl: 'assets/tpl/directives/mobile-menu.html',

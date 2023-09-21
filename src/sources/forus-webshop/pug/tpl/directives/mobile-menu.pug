@@ -5,49 +5,28 @@
         .mobile-menu-group-header
             | Main navigation
 
+        mixin item_content
+            em.mobile-menu-item-icon.mdi.mdi-arrow-right
+            translate(
+                translate="{{ menuItem.nameTranslate }}"
+                translate-default="{{ menuItem.nameTranslateDefault || menuItem.nameTranslate }}")
+
         .mobile-menu-items
             //- Home
             a.mobile-menu-item(
-                ui-sref="home"
-                ng-click="$dir.hideMobileMenu()"
-                ng-class="{active: $dir.$state.current.name == 'home'}"
-                aria-current="{{ $dir.$state.current.name == 'home' }}" 
-                tabindex="0"
-                role="link")
-                
-                em.mobile-menu-item-icon.mdi.mdi-arrow-right
-                translate(
-                    translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.home"
-                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.home' | translate }}")
-  
-            //- Funds
-            a.mobile-menu-item(
-                ng-if="$dir.appConfigs.flags.fundsMenu"
-                ui-sref="funds"
-                ng-click="$dir.hideMobileMenu()"
-                ng-class="{active: $dir.$state.current.name == 'funds'}"
-                aria-current="{{ $dir.$state.current.name == 'funds' }}" 
-                tabindex="0"
-                role="link")
-                
-                em.mobile-menu-item-icon.mdi.mdi-arrow-right
-                translate(
-                    translate="topnavbar.buttons.mobile.dropdown.{{client_key}}.funds"
-                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.funds' | translate }}")
+                ng-repeat-start="menuItem in $dir.menuItems" 
+                ng-if="menuItem.enabled && ['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1 && !menuItem.href"
+                ui-sref="{{ menuItem.srefValue }}"
+                ui-sref-active="active"
+                target="{{ menuItem.target || '_blank' }}")
+                +item_content()
 
-            //- Explanation
             a.mobile-menu-item(
-                ui-sref="explanation"
-                ng-click="$dir.hideMobileMenu()"
-                ng-class="{active: $dir.$state.current.name == 'explanation'}"
-                aria-current="{{ $dir.$state.current.name == 'explanation' }}" 
-                tabindex="0"
-                role="link")
-                
-                em.mobile-menu-item-icon.mdi.mdi-arrow-right
-                translate(
-                    translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.explanation"
-                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.explanation' | translate }}")
+                ng-repeat-end 
+                ng-if="menuItem.enabled && ['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1 && menuItem.href"
+                href="{{ menuItem.href }}"
+                target="{{ menuItem.target || '_blank' }}")
+                +item_content()
 
     //- Mobile subitems group
     .mobile-menu-group
@@ -203,7 +182,7 @@
 
             a.mobile-menu-item(
                 ng-if="$root.auth_user"
-                ng-click="$root.signOut()" 
+                ng-click="$dir.signOut()" 
                 role="button" 
                 aria-label="{{ 'topnavbar.buttons.logout' | translate }}")
 
