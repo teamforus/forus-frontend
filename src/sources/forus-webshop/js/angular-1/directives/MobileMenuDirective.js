@@ -11,14 +11,12 @@ const MobileMenuDirective = function (
 
     $dir.appConfigs = appConfigs;
 
-    $scope.$dir = $dir;
-
     $dir.hideMobileMenu = () => {
         $rootScope.mobileMenuOpened = false;
     };
 
     const getFundList = () => {
-        FundService.list(null, {check_criteria: 1}).then((res) => $dir.funds = res.data.data);
+        FundService.list(null, { check_criteria: 1 }).then((res) => $dir.funds = res.data.data);
     }
 
     $dir.onAuthUserChange = (auth_user) => {
@@ -46,7 +44,7 @@ const MobileMenuDirective = function (
         getFundList();
         $dir.$state = $state;
 
-        $scope.$on('identity:update', (e, auth_user) => $dir.onAuthUserChange(auth_user));
+        $scope.$on('identity:update', (_, auth_user) => $dir.onAuthUserChange(auth_user));
     };
 };
 
@@ -65,8 +63,8 @@ module.exports = () => {
             'FundService',
             'VoucherService',
             'ModalService',
-            MobileMenuDirective
+            MobileMenuDirective,
         ],
-        templateUrl: 'assets/tpl/directives/mobile-menu.html'
+        templateUrl: 'assets/tpl/directives/mobile-menu.html',
     };
 };

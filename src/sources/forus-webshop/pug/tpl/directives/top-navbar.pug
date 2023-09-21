@@ -276,7 +276,10 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
 
     //- Mobile header
     .navbar-inner.wrapper(ng-if="!$root.showSearchBox")
-        .button(ng-click="$dir.openMobileMenu($event)" ng-class="{active: $root.mobileMenuOpened}").navbar-menu-button.show-sm
+        .button(
+            ng-click="$dir.openMobileMenu($event)" 
+            ng-class="{active: $root.mobileMenuOpened}").navbar-menu-button.show-sm
+
             em.mdi.mdi-menu(ng-class="'mdi-' + ($root.mobileMenuOpened ? 'close' : 'menu')")
             translate(translate="topnavbar.items.menu")
 
@@ -284,20 +287,26 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             img(ng-src="{{ './assets/img/logo-normal' + $dir.logoExtension }}" alt="Terug naar hoofdpagina")
             img(ng-src="{{ './assets/img/logo-hover' + $dir.logoExtension }}" alt="Terug naar hoofdpagina").hover
 
-        .button(ng-if="$root.appConfigs.flags.genericSearch" ng-click="$dir.toggleSearchBox($event)" role="button").navbar-search-button.show-sm
+        .button(
+            ng-if="$root.appConfigs.flags.genericSearch" 
+            ng-click="$dir.toggleSearchBox($event)" role="button").navbar-search-button.show-sm
+
             em.mdi.mdi-magnify
             translate(translate="topnavbar.items.search")
+
+        .button(
+            ng-if="!$root.appConfigs.flags.genericSearch" 
+            aria-hidden="true").navbar-search-button.show-sm
 
     //- Main navigation menu
     .navbar-inner.wrapper(ng-class="{'search-shown': $root.showSearchBox}")
         .block.block-auth.show-sm(ng-if="!$root.auth_user && !$root.showSearchBox && !$root.mobileMenuOpened")
-            button.button.button-primary(
+            button.button.button-primary.button-xs(
                 ng-click="$dir.startFundRequest()" 
                 role="button" 
                 aria-label="login" 
                 id="login_mobile").show-sm  
-
-                include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
+                em.mdi.mdi-account.icon-start
                 translate(translate="topnavbar.buttons.login")     
 
         if (!qdt_c.platform.env_data.flags || !qdt_c.platform.env_data.flags.genericSearchUseToggle)
@@ -341,7 +350,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                         role="button"
                         dusk="btnStart")
 
-                        include ../../../resources/_webshop-common/assets/img/icon-menu/icon-menu-apply.svg
+                        em.mdi.mdi-account.icon-start
                         span(
                             translate="home.header.{{ $root.client_key }}.button" 
                             translate-default="{{ 'home.header.button' | translate }}" 

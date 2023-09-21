@@ -175,7 +175,7 @@ app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('auth2FARestriction', require('./directives/Auth2FARestriction'));
 app.directive('blockCard2FAWarning', require('./directives/BlockCard2FAWarning'));
-app.directive('mobileMenuScrollBreaker', require('./directives/MobileMenuScrollBreakerDirective'));
+app.directive('scrollBreaker', require('./directives/ScrollBreakerDirective'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));
