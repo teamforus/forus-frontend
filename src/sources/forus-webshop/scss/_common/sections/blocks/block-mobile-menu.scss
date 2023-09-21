@@ -64,6 +64,24 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                         height: 10px;
                         margin-right: 5px;
                     }
+
+                    &.button-default {
+                        background-color: var(--btn-auth-bg);
+                        border: solid 1px var(--btn-auth-border);
+                        color: var(--tc-auth-btn);
+        
+                        .mdi {
+                            color: var(--tc-auth-btn);
+                        }
+        
+                        &:hover {
+                            border: solid 1px var(--btn-auth-border);
+        
+                            .mdi {
+                                color: var(--tc-auth-btn);
+                            }
+                        }
+                    }
                 }
     
                 &.active {

@@ -190,6 +190,14 @@
                 translate(translate="topnavbar.buttons.logout")
 
             a.mobile-menu-item(ng-if="!$root.auth_user")
+                button.button.button-default(
+                    ng-if="$root.appConfigs.flags.showStartButton"
+                    ng-click="$dir.startFundRequest({ restore_with_email: true })"
+                    role="button").button-sm
+
+                    em.mdi.mdi-plus-circle.icon-start
+                    span(ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'")
+
                 button.button.button-primary(
                     ng-click="$dir.startFundRequest()" 
                     role="button" 
