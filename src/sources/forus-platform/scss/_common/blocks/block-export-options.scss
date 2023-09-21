@@ -91,6 +91,29 @@
             }
         }
 
+        &.export-section-collapsable {
+            padding-top: 15px;
+            border-top: 1px solid #d4d9dd;
+            margin-bottom: 0;
+
+            .export-section-label {
+                align-items: center;
+                margin-bottom: 15px;
+
+                .collapsable-icon {
+                    font-size: 20px;
+                }
+            }
+
+            .export-options {
+                margin-bottom: 15px;
+            }
+
+            &:last-child {
+                border-top: 1px solid #d4d9dd;
+            }
+        }
+
         &:last-child {
             margin-bottom: 0;
         }

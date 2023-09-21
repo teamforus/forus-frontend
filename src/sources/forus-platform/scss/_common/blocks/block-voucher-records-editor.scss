@@ -1,0 +1,26 @@
+&.block-voucher-records-editor {
+    .block-voucher-record-list {
+        border-radius: 5px;
+        border: 1px dashed #D4D9DD;
+        padding: 15px;
+        margin-bottom: 20px;
+
+        .form-group {
+            &.form-group-inline {
+                &.form-group-inline-md {
+                    &>.form-control {
+                        width: calc(100% - 205px) !important;
+                    }
+            
+                    .button-remove-record {
+                        margin-left: 10px;
+            
+                        .mdi {
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

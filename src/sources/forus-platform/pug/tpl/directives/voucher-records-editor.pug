@@ -1,0 +1,30 @@
+.block.block-voucher-records-editor
+    .block-voucher-record-list(ng-if="$dir.voucherRecords.length")
+        .form-group.form-group-inline.form-group-inline-md(ng-repeat="record in $dir.voucherRecords")
+            label.form-label(ng-bind="record.name")
+            input(
+                type="text"
+                ng-model="record.value").form-control
+            .button.button-default.button-remove-record(ng-click="$dir.removeRecord(record.key)")
+                em.mdi.mdi-close
+            .form-error(ng-repeat="error in $ctrl.form.errors[record.key]" ng-bind="error")        
+
+    .block-voucher-record-add
+        .form-group.form-group-inline.form-group-inline-md
+            label.form-label Selecteer eigenschap
+
+            .button.button-primary(
+                ng-if="!$dir.showRecordSelector"
+                ng-click="$dir.showRecordSelector = true")
+                em.mdi.mdi-plus.icon-start
+                | Eigenschap toevoegen
+            select(
+                ng-if="$dir.showRecordSelector"
+                ng-options="record.key as record.name for record in $dir.recordsList" 
+                ng-model="$dir.record").form-control    
+
+        .form-group.form-group-inline.form-group-inline-md(ng-if="$dir.showRecordSelector")
+            .form-label
+            .block-voucher-record-add-actions
+                .button.button-default(ng-click="$dir.showRecordSelector = false") Annuleren
+                .button.button-primary(ng-click="$dir.addRecord($dir.record)") Toevoegen

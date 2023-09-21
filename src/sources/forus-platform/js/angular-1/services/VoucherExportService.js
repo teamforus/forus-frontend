@@ -27,17 +27,20 @@ const VoucherExportService = function(
             { value: 'png', label: $translateField('export_type_png'), icon: 'image-outline' },
         ];
 
-        const makeSections = (fields) => ([
-            { type: "radio", key: "data_format", fields: dataFormats, value: "csv", title: $translateTitle('data_formats') },
-            { type: "checkbox", key: "fields", fields, fieldsPerRow: 3, selectAll: true, title: $translateTitle('fields') },
-            { type: "radio", key: "qr_format", fields: qrFormats, value: "null", title: $translateTitle('qr_formats') }
+        const makeSections = (fields, extra_fields = []) => ([
+            { type: "radio", key: "data_format", fields: dataFormats, value: "csv", title: $translateTitle('data_formats'), collapsable: false },
+            { type: "checkbox", key: "fields", fields, fieldsPerRow: 3, selectAll: true, title: $translateTitle('fields'), collapsable: true },
+            { type: "checkbox", key: "extra_fields", fields: extra_fields, fieldsPerRow: 3, selectAll: true, title: $translateTitle('record_fields'), collapsable: true },
+            { type: "radio", key: "qr_format", fields: qrFormats, value: "null", title: $translateTitle('qr_formats'), collapsable: false }
         ]);
 
         const exportVouchers = (organization_id, filters = {}, type = 'budget') => {
             VoucherService.exportFields(organization_id, { type }).then((res) => {
+                const extra_fields = res.data.data.filter(field => field.is_record_field);
+
                 ModalService.open('exportDataSelect', {
                     fields: res.data,
-                    sections: makeSections(res.data.data),
+                    sections: makeSections(res.data.data, extra_fields),
                     success: onSuccess
                 });
             });

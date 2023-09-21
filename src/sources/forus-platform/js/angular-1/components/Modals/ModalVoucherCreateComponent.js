@@ -5,6 +5,8 @@ const ModalVoucherCreateComponent = function(
 ) {
     const $ctrl = this;
 
+    $ctrl.showGeneralFields = $ctrl.showRecordFields = true;
+
     $ctrl.assignTypes = [{
         key: 'activation_code',
         label: 'Activatiecode',
@@ -84,6 +86,7 @@ const ModalVoucherCreateComponent = function(
             fund_id: $ctrl.fund.id,
             expire_at: $ctrl.fund.end_date,
             limit_multiplier: 1,
+            records: [],
         }, (form) => {
             const values = {
                 ...form.values,

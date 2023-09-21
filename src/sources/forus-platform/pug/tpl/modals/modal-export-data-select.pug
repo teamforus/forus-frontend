@@ -11,15 +11,17 @@
         .modal-body: .modal-section: .block.block-export-options
             .modal-heading(ng-if="$ctrl.description" ng-bind="$ctrl.description")
 
-            .export-section(ng-repeat="section in $ctrl.sections")
-                .export-section-label.flex
+            .export-section(ng-repeat="section in $ctrl.sections" ng-class="{'export-section-collapsable': section.collapsable}")
+                .export-section-label.flex(ng-click="section.collapsed = !section.collapsed")
+                    em.mdi.collapsable-icon(ng-if="section.collapsable" ng-class="section.collapsed ? 'mdi-menu-right' : 'mdi-menu-down'")
+                    
                     .flex.flex-grow.flex-vertical.flex-center: .form-label(ng-bind="section.title")
                     .flex(ng-if="section.type === 'checkbox'"): label(for="checkbox_{{ section.key }}_check_all").form-toggle
                         input(type="checkbox" id="checkbox_{{ section.key }}_check_all" ng-model="section.selectAll" ng-click="$ctrl.toggleAllFields(section)")
                         .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
 
                 //- Checkboxes
-                .export-options(ng-if="section.type === 'checkbox'"): table
+                .export-options(ng-if="section.type === 'checkbox' && !section.collapsed"): table
                     tr(ng-repeat="row in section.fieldsView")
                         td(ng-repeat="field in row")
                             input-checkbox-control(
@@ -30,7 +32,7 @@
                                 ng-change="$ctrl.updateSelectedFields(section)")
 
                 //- Radio
-                .export-options(ng-if="section.type === 'radio'")
+                .export-options(ng-if="section.type === 'radio' && !section.collapsed")
                     label.export-option(
                         ng-repeat="field in section.fields" 
                         for="radio_{{ section.key }}_{{ field.value }}")

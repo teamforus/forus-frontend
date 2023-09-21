@@ -352,6 +352,28 @@
             }
         }
 
+        .modal-fields-group {
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #d4d9dd;
+
+            .modal-fields-group-title {
+                display: flex;
+                color: #282B39;
+                font: 600 13px/13px var(--base-font);
+                align-items: center;
+
+                .mdi {
+                    font-size: 20px;
+                    color: #646F79;
+                }
+            }
+
+            .modal-fields-list {
+                margin-top: 15px;
+            }
+        }
+
         &:last-child {
             border-bottom: none;
             border-bottom-left-radius: inherit;
@@ -986,6 +1008,33 @@
 
             .phone-control {
                 margin-bottom: 10px;
+            }
+        }
+    }
+
+    &.modal-voucher-create {
+        .modal-window {
+            .modal-body {
+                .modal-section {
+                    padding: 25px 60px;
+                }
+            }
+        
+            &.form {
+                .form-group {
+                    &.form-group-inline {
+                        &.form-group-inline-md {
+                            &>.form-label {
+                                width: 150px;
+                                color: #134478;
+                            }
+    
+                            &>.form-control {
+                                width: calc(100% - 150px);
+                            }
+                        }
+                    }
+                }
             }
         }
     }
