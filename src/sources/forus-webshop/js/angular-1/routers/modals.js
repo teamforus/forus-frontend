@@ -9,10 +9,6 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalPinCodeComponent'
     });
 
-    ModalRouteProvider.modal('modalAuthCode', {
-        component: 'modalAuthCodeComponent'
-    });
-
     ModalRouteProvider.modal('modalShareVoucher', {
         component: 'modalShareVoucherComponent'
     });
