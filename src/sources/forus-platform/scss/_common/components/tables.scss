@@ -335,6 +335,14 @@
                 vertical-align: top;
             }
         }
+
+        &.table-highlight {
+            tr:hover {
+                td {
+                    background-color: rgba(#fcf2dd, $alpha: 0.5);
+                }
+            }
+        }
     }
 
     &.table-wrapper-scroll {
