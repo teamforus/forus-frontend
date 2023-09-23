@@ -85,7 +85,18 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             tabindex="0")
                             em.mdi.mdi-receipt-outline
                             | Kosten terugvragen
-                        
+
+                        .auth-user-menu-item(
+                            ui-sref="fund-requests"
+                            ui-sref-active="active"
+                            id="fund-requests"
+                            ng-click="$dir.goToState('fund-requests')"
+                            role="link"
+                            dusk="btnFundRequests"
+                            tabindex="0")
+                            em.mdi.mdi-card-account-details-outline
+                            | Fondsaanvragen
+
                         .auth-user-menu-item(
                             ui-sref="notifications"
                             ui-sref-active="active"
