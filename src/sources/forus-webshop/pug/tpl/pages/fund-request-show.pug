@@ -60,7 +60,8 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
                     .label.label-primary.label-xl.nowrap(ng-if="record.notAnsweredCount > 0")
                         .label-blink(aria-hidden="true")
-                        | {{ record.notAnsweredCount }} nieuwe actualisering
+                        | {{ record.notAnsweredCount }}
+                        .label-text nieuwe actualisering
 
                     .card-header-view(
                         ng-if="record.clarifications.length"

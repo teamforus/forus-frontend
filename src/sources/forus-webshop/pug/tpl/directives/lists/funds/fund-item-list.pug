@@ -4,25 +4,6 @@ a.fund-item
         alt="Dit is de afbeelding van {{ $dir.fund.name }}")
 
     .fund-content: .fund-details
-        h2.fund-name(ng-bind="$dir.fund.name")
-
-        .fund-description(ng-if="$dir.fund.description_short")
-            span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
-            span(ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
-            br
-            
-            .fund-description-more(
-                ng-if="!$dir.showMore && $dir.fund.description_short.length > 190" 
-                ng-click="$dir.setShowMore($event, true)") 
-                span Toon meer
-                em.mdi.mdi-chevron-down
-
-            .fund-description-more(
-                ng-if="$dir.showMore && $dir.fund.description_short.length > 190" 
-                ng-click="$dir.setShowMore($event, false)") 
-                span Toon minder
-                em.mdi.mdi-chevron-up
-
         .fund-status-label
             .label.label-light(
                 ng-if="$dir.fund.canApply && !$dir.fund.showActivateButton"
@@ -43,10 +24,36 @@ a.fund-item
             .label.label-light(
                 ng-if="$dir.fund.showRequestButton"
                 translate="funds.status.is_applicable")
+
+        h2.fund-name(ng-bind="$dir.fund.name")
+
+        .fund-description(ng-if="$dir.fund.description_short")
+            span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
+            span(ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
+            br
+            
+            .fund-description-more(
+                ng-if="!$dir.showMore && $dir.fund.description_short.length > 190" 
+                ng-click="$dir.setShowMore($event, true)") 
+                span Toon meer
+                em.mdi.mdi-chevron-down
+
+            .fund-description-more(
+                ng-if="$dir.showMore && $dir.fund.description_short.length > 190" 
+                ng-click="$dir.setShowMore($event, false)") 
+                span Toon minder
+                em.mdi.mdi-chevron-up
                 
-    .fund-actions(ng-if="$dir.fund.canActivate")
-        button.button.button-primary.button-fill(
-            type="button"
-            ng-click="$dir.applyFund($event,$dir.fund)")
-            translate(translate="funds.buttons.is_applicable")
-            em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+        .fund-actions(ng-if="$dir.fund.showActivateButton")
+            button.button.button-primary.button-sm(
+                type="button"
+                ng-click="$dir.applyFund($event,$dir.fund)")
+                translate(translate="funds.buttons.is_applicable")
+                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+
+        .fund-actions(ng-if="$dir.fund.showPendingButton")
+            button.button.button-text.button-sm.button-check-status(
+                type="button"
+                ng-click="$dir.goToFundRequests($event)")
+                translate(translate="funds.buttons.check_status")
+                em.mdi.mdi-chevron-right.icon-right(aria-hidden="true")

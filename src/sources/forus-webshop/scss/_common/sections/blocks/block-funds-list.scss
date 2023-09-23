@@ -96,12 +96,22 @@
         }
 
         .fund-actions {
-            min-width: 200px;
-            padding: 15px;
-            border-left: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding-top: 24px;
+
+            .button-primary {
+                font: 600 13px/14px var(--base-font);
+            }
+
+            .button-check-status {
+                font: 600 13px/13px var(--base-font);
+                padding: 0;
+                color: #282B39;
+
+                .mdi {
+                    color: #DBDCDB;
+                    margin-left: 2px;
+                }
+            }
         }
 
         &:hover {
@@ -135,9 +145,8 @@
                 width: 100%;
 
                 .fund-status-label {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
+                    position: initial;
+                    margin-bottom: 6px;
                 }
 
                 .fund-name {
@@ -151,13 +160,7 @@
             }
 
             .fund-actions {
-                min-width: auto;
-                padding-left: 0;
-                border: none;
-
-                .button-primary {
-                    font: 700 12px/18px var(--base-font);
-                }
+                padding-top: 16px;
 
                 .label {
                     line-height: 18px;
