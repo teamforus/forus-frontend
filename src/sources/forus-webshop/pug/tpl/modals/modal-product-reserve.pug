@@ -67,7 +67,7 @@
                         img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
 
                     .voucher-details
-                        h2.voucher-name(ng-bind="voucher.fund.name")
+                        h3.voucher-name(ng-bind="voucher.fund.name")
                         .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount_locale")
 
                         .voucher-organization
