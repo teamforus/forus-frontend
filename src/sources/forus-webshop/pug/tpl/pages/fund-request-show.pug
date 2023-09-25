@@ -16,7 +16,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
         .profile-content
             .card: .card-section
                 h3.card-heading.card-heading-lg.flex
-                    .flex.flex-grow Request details
+                    .flex.flex-grow Aanvraag details
                     .flex.flex-center.flex-vertical
                         .label.label-warning(ng-bind="$ctrl.fundRequest.state_locale" ng-if="$ctrl.fundRequest.state === 'pending'")
                         .label.label-success(ng-bind="$ctrl.fundRequest.state_locale" ng-if="$ctrl.fundRequest.state === 'approved_partly'")
@@ -27,7 +27,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                 .fund-request-section
                     .fund-request-props
                         .fund-request-prop
-                            .fund-request-prop-label Fund name:
+                            .fund-request-prop-label Naam van het fonds:
                             .fund-request-prop-value(dusk="fundRequestFund" ng-bind="$ctrl.fundRequest.fund.name")
 
                         .fund-request-prop
@@ -60,11 +60,12 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
                     .label.label-primary.label-xl.nowrap(ng-if="record.notAnsweredCount > 0")
                         .label-blink(aria-hidden="true")
-                        | {{ record.notAnsweredCount }} nieuwe actualisering
+                        | {{ record.notAnsweredCount }}
+                        .label-text nieuwe actualisering
 
                     .card-header-view(
                         ng-if="record.clarifications.length"
-                        ng-click="$ctrl.toggleRecord(record)") View
+                        ng-click="$ctrl.toggleRecord(record)") Bekijk
                         em.mdi.mdi-chevron-down.card-header-view-arrow
 
                 .card-section(ng-if="record.opened")
@@ -82,11 +83,11 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
                                     .fund-request-chat-status(ng-if="clarification.state === 'pending'")
                                         em.fund-request-chat-status-icon
-                                        | New request
+                                        | Nieuw verzoek
 
                                     .fund-request-chat-status(ng-if="clarification.state === 'answered'")
                                         em.mdi.mdi-check.fund-request-chat-status-icon
-                                        | Answered
+                                        | Beantwoord
 
                                 .fund-request-chat-conversation
                                     .fund-request-chat-conversation-content
@@ -112,7 +113,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                         ng-click="$ctrl.openReplyForm(record, clarification)")
                                         button.button.button-light.button-xs.button-fill.flex.flex-center
                                             em.mdi.mdi-reply
-                                            | Reply
+                                            | Antwoord
 
                                     .fund-request-chat-conversation-answer.form.form-compact(
                                         ng-if="clarification.state === 'pending' && clarification.showForm")
@@ -138,13 +139,13 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                             .button-group
                                                 button.button.button-light.button-xs(ng-click="clarification.showForm = false")
                                                     em.mdi.mdi-close
-                                                    | Cancel
+                                                    | Annuleer
 
                                                 button.button.button-primary.button-xs(
                                                     ng-disabled="$ctrl.isUploadingFiles || $ctrl.form.values.answer === ''"
                                                     ng-click="$ctrl.form.submit()")
                                                     em.mdi.mdi-send-outline
-                                                    | Send
+                                                    | Verzend
 
             .card.card-collapsable(
                 ng-if="$ctrl.fundRequest.state === 'declined'"

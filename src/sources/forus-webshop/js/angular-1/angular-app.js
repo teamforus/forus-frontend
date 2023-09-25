@@ -39,7 +39,6 @@ app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundComponent', require('./components/FundComponent'));
 app.component('fundRequestComponent', require('./components/FundRequestComponent'));
 app.component('fundActivateComponent', require('./components/FundActivateComponent'));
-app.component('fundRequestClarificationComponent', require('./components/FundRequestClarificationComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
 app.component('recordCreateComponent', require('./components/RecordCreateComponent'));

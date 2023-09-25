@@ -124,82 +124,107 @@
         margin-bottom: 0;
     }
 
-    @media screen and (max-width: 650px) {
+    @media screen and (max-width: 767px) {
         .fund-request-item {
-            padding: 0;
-            height: auto;
-            position: relative;
-            min-height: auto;
-            margin: 0 0 15px;
-            flex-direction: column;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
 
             .fund-request-image {
-                width: 100%;
-                overflow: hidden;
+                min-width: 70px;
+                width: 70px;
+                padding: 10px 0 10px 10px;
+                background: transparent;
+                justify-content: flex-start;
                 border: none;
                 flex-basis: auto;
                 display: flex;
 
                 img {
                     position: initial;
+                    height: 51px;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 3px;
+                    overflow: hidden;
+                }
+            }
+
+            .fund-request-container {
+                padding: 10px 10px 10px 0;
+            }
+
+            .fund-request-section {
+                flex-direction: column-reverse;
+                gap: 6px;
+
+                & > * {
+                    padding: 0;
+                }
+
+                .label {
+                    border-radius: 3px;
+                    padding: 4px 5px;
+                    font: 600 10px/1 var(--base-font);
                 }
             }
 
             .fund-request-details {
-                width: 100%;
-                text-align: center;
-                padding: 20px 20px 10px;
-
-                .fund-request-name {
-                    font: 700 16px/24px var(--base-font);
-                    margin: 0 0 0;
-                    @include ellipsis();
-                }
+                text-align: left;
+                gap: 6px;
 
                 .fund-request-subtitle {
-                    font: 400 12px/18px var(--base-font);
-                    margin: 0 0 10px;
+                    font: 400 11px/11px var(--base-font);
+                    margin: 0;
+                }
+
+                .fund-request-name {
+                    font: 600 14px/19px var(--base-font);
+                    margin: 0;
+                    @include ellipsis();
                 }
             }
 
             .fund-request-overview {
-                text-align: center;
-                padding: 0 20px 20px;
-
                 .fund-request-overview-status {
-                    justify-content: center;
-                    text-align: center;
+                    justify-content: flex-start;
+                    margin: 0;
                 }
             }
 
-            .fund-request-values,
-            .fund-request-section,
-            .fund-request-container {
-                display: flex;
-                flex-direction: column;
-                flex-grow: 1;
-            }
-            
             .fund-request-values {
-                .label {
-                    margin-bottom: 10px;
-                }
+                padding: 10px;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                background: #FBFBFB;
+                box-shadow: 0 0 1px 0 #e5e5e5;
 
                 .fund-request-value-title {
-                    text-align: center;
+                    font: 400 11px/13px var(--base-font);
+                    color: #353535;
                 }
 
                 .fund-request-value {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    padding: 0 0;
-                    text-align: center;
+                    font: 600 12px/18px var(--base-font);
                 }
-            }
 
-            &:last-child {
-                margin-bottom: 0;
+                .label {
+                    margin: 0;
+                    padding: 5px 5px 7px;
+                    line-height: 1;
+                    display: block;
+                    border-radius: 5px;
+
+                    .label-blink {
+                        width: 5px;
+                        font-size: 16px;
+                        line-height: 11px;
+                        margin-left: 0;
+                        margin-right: 3px;
+                    }
+                }
             }
         }
     }

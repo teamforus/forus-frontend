@@ -998,32 +998,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         }
     });
 
-    // Apply to fund by submitting fund request
-    $stateProvider.state({
-        name: "fund-request-clarification",
-        url: "/funds/{fund_id}/requests/{request_id}/clarifications/{clarification_id}",
-        component: "fundRequestClarificationComponent",
-        data: {
-            fund_id: null,
-            request_id: null,
-            clarification_id: null,
-        },
-        resolve: {
-            fund: ['$transition$', 'FundService', (
-                $transition$, FundService
-            ) => repackResponse(FundService.readById(
-                $transition$.params().fund_id
-            ))],
-            clarification: ['$transition$', 'FundRequestClarificationService', 'AuthService', (
-                $transition$, FundRequestClarificationService, AuthService
-            ) => AuthService.hasCredentials() ? repackResponse(FundRequestClarificationService.read(
-                $transition$.params().fund_id,
-                $transition$.params().request_id,
-                $transition$.params().clarification_id
-            )) : promiseResolve(null)],
-        }
-    });
-
     $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",

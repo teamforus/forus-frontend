@@ -69,8 +69,14 @@
                     }
                 }
 
-                .label:not(:last-child):not(:last-of-type) {
-                    margin: 0;
+                .label {
+                    &:not(:last-child):not(:last-of-type) {
+                        margin: 0;
+                    }
+
+                    .label-text {
+                        display: inline-block;
+                    }
                 }
             }
 
@@ -254,8 +260,9 @@
                                 .fund-request-chat-message-content {
                                     border-radius: calc(var(--border-radius) * 0.5) calc(var(--border-radius) * 1.5)
                                         calc(var(--border-radius) * 1.5) calc(var(--border-radius) * 1.5);
-                                    background: #004d93;
-                                    color: #fff;
+                                    border: 1px solid var(--color-primary);
+                                    background: #fff;
+                                    color: var(--tc);
                                 }
                             }
 
@@ -404,12 +411,214 @@
                         .fund-request-chat-conversation-answer {
                             .fund-request-chat-conversation-answer-options {
                                 flex-wrap: wrap;
+                                gap: 10px;
+
+                                .block {
+                                    &.block-file-uploader {
+                                        &.block-file-uploader-compact {
+                                            width: 100%;
+
+                                            .uploader-droparea {
+                                                flex-direction: column;
+                                                gap: 10px;
+
+                                                .droparea-button {
+                                                    width: 100%;
+
+                                                    .button {
+                                                        width: 100%;
+
+                                                        .mdi-paperclip {
+                                                            float: none;
+                                                            display: inline-block;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .button-group {
+                                    width: 100%;
+                                    gap: 8px;
+
+                                    .button {
+                                        flex-grow: 1;
+                                        justify-content: center;
+                                        margin: 0;
+                                    }
+                                }
                             }
                         }
     
                         .fund-request-chat-conversation-content {
                             .fund-request-chat-message {
                                 width: 80%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .card {
+            &.card-fund-request-conversation {
+                margin-bottom: 12px;
+
+                .card-header {
+                    .card-header-wrapper {
+                        gap: 8px;
+                        flex-wrap: nowrap;
+
+                        .card-header-icon {
+                            width: 30px;
+                            height: 30px;
+                            line-height: 30px;
+                        }
+
+                        .card-heading-wrapper {
+                            gap: 10px;
+                            width: auto;
+                        }
+
+                        .card-header-date {
+                            font: 400 12px/12px var(--base-font);
+                        }
+
+                        .card-header-view {
+                            font: 600 12px/12px var(--base-font);
+
+                            .card-header-view-arrow {
+                                font-size: 18px;
+                                line-height: 18px;
+                            }
+                        }
+                    }
+
+                    .label {
+                        line-height: 11px;
+                        border-radius: 5px;
+
+                        &.label-xl {
+                            padding: 6px;
+                            display: flex;
+                        }
+
+                        .label-blink {
+                            margin-right: 3px;
+                            margin-left: 0px;
+                            width: 5px;
+                            font-size: 15px;
+                        }
+
+                        .label-text {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .card-section,
+            .card-heading {
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+
+            .card-section {
+                padding: 15px;
+            }
+
+            .card-heading {
+                &.card-heading-lg {
+                    font: 700 14px/14px var(--base-font);
+
+                    .label {
+                        font: 600 10px/16px var(--base-font);
+                        border-radius: 3px;
+                    }
+                }
+            }
+        }
+
+        .fund-request-section {
+            .fund-request-props {
+                padding: 12px;
+                gap: 16px;
+
+                .fund-request-prop {
+                    gap: 10px;
+
+                    .fund-request-prop-label {
+                        font: 500 12px/1 var(--base-font);
+                    }
+
+                    .fund-request-prop-value {
+                        font: 600 13px/1 var(--base-font);
+                    }
+                }
+            }
+
+            .fund-request-conversations {
+                .fund-request-chat {
+                    .fund-request-chat-number {
+                        width: 22px;
+                        height: 22px;
+                        font-size: 13px;
+                        top: 12px;
+                        left: 17px;
+                    }
+
+                    .fund-request-chat-info {
+                        margin-bottom: 12px;
+
+                        .fund-request-chat-time {
+                            font: 400 11px/19px var(--base-font);
+
+                            .fund-request-chat-time-icon {
+                                font-size: 15px;
+                                line-height: 15px;
+                                margin-right: 2px;
+                            }
+                        }
+
+                        .fund-request-chat-status {
+                            font: 600 12px/12px var(--base-font);
+
+                            .fund-request-chat-status-icon {
+                                font-size: 21px;
+                                line-height: 11px;
+                            }
+                        }
+                    }
+
+                    .fund-request-chat-conversation {
+                        .fund-request-chat-conversation-content {
+                            padding: 12px;
+                            gap: 12px;
+
+                            .fund-request-chat-message {
+                                .fund-request-chat-message-content {
+                                    .fund-request-chat-message-text {
+                                        padding: 10px;
+                                    }
+
+                                    .fund-request-chat-message-file-uploader {
+                                        padding: 10px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .fund-request-chat-conversation-reply {
+                            padding: 10px 12px 12px;
+                            border-top: 1px solid #DBDCDB;
+
+                            .button {
+                                font: 600 11px/20px var(--base-font);
                             }
                         }
                     }

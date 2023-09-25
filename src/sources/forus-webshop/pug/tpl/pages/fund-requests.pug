@@ -51,7 +51,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                     ng-repeat="fundRequest in $ctrl.fundRequests.data"
                     fund-request="fundRequest")
 
-            //- No reimbursement requests 
+            //- No reimbursement requests
             empty-block(
                 dusk="fundRequestsEmptyBlock"
                 ng-if="$ctrl.fundRequests.data.length == 0"
