@@ -109,12 +109,13 @@ app.service('PhysicalCardsRequestService', require('./services/PhysicalCardsRequ
 app.service('HelperService', require('./services/HelperService'));
 app.service('SearchService', require('./services/SearchService'));
 app.service('TagService', require('./services/TagService'));
+app.service('MenuService', require('./services/MenuService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
 app.directive('topNavbarSearch', require('./directives/TopNavbarSearchDirective'));
-app.directive('mobileFooter', require('./directives/MobileFooterDirective'));
+app.directive('mobileMenu', require('./directives/MobileMenuDirective'));
 app.directive('skipLinks', require('./directives/SkipLinksDirective'));
 app.directive('webshops', require('./directives/WebshopsDirective'));
 app.directive('implementation', require('./directives/ImplementationDirective'));
@@ -177,6 +178,7 @@ app.directive('cmsBlocks', require('./directives/CmsBlocksDirective'));
 app.directive('announcements', require('./directives/AnnouncementsDirective'));
 app.directive('auth2FARestriction', require('./directives/Auth2FARestriction'));
 app.directive('blockCard2FAWarning', require('./directives/BlockCard2FAWarning'));
+app.directive('scrollBreaker', require('./directives/ScrollBreakerDirective'));
 
 // Modal Components
 app.component('modalNotificationComponent', require('./components/Modals/ModalNotificationComponent'));

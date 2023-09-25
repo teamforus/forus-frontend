@@ -4,20 +4,28 @@
             position: sticky;
             background-color: var(--bg-nav);
 
-            .navbar-logo {
-                img {
-                    display: none;
-
-                    &.hover {
-                        display: block;
+            .navbar-inner {
+                .button {
+                    svg {
+                        path {
+                            fill: #fff;
+                        }
                     }
                 }
-            }
 
-            .button {
-                svg {
-                    path {
-                        fill: #fff;
+                .navbar-logo {
+                    img {
+                        display: none;
+    
+                        &.hover {
+                            display: block;
+                        }
+                    }
+                }
+
+                .navbar-menu-button {
+                    &.active {
+                        color: #fff;
                     }
                 }
             }
