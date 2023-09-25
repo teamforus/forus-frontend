@@ -124,11 +124,12 @@
                 border: none;
                 padding: 0 0 10px;
                 flex-grow: 0;
-                padding-right: 40px;
+                padding-right: 50px;
 
                 .product-name {
                     font: 700 13px/18px var(--base-font);
                     margin: 0;
+                    word-break: break-word;
                 }
 
                 .product-organization {
