@@ -123,12 +123,13 @@
 
             .fund-photo {
                 width: 80px;
+                min-width: 80px;
                 justify-content: flex-start;
             }
 
             .fund-content {
                 flex-direction: row;
-                flex-grow: 1;
+                width: calc(100% - 80px);
             }
 
             .fund-details {
@@ -142,6 +143,8 @@
 
                 .fund-name {
                     font: 700 16px/24px var(--base-font);
+                    word-wrap: break-word;
+                    padding-right: 60px;
                 }
 
                 .fund-organization {
@@ -162,6 +165,22 @@
                 .label {
                     line-height: 18px;
                     margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 360px) {
+        .fund-item {
+            .fund-content {
+                .fund-details {
+                    .fund-name {
+                        font: 700 12px/20px var(--base-font);
+                    }
+
+                    .fund-description {
+                        font: 400 12px/20px var(--base-font);
+                    }
                 }
             }
         }

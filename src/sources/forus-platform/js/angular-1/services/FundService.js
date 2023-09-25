@@ -169,6 +169,7 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
             const { description, description_html, description_position, description_short } = apiResource;
             const { notification_amount, default_validator_employee_id, auto_requests_validation } = apiResource;
             const { request_btn_text, external_link_text, external_link_url, allow_direct_requests } = apiResource;
+            const { external_page, external_page_url } = apiResource;
 
             const { email_required, contact_info_enabled } = apiResource;
             const { contact_info_required, contact_info_message_custom, contact_info_message_text } = apiResource;
@@ -182,6 +183,7 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
 
                 ...{ email_required, contact_info_enabled },
                 ...{ contact_info_required, contact_info_message_custom, contact_info_message_text },
+                ...{ external_page, external_page_url },
 
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),
