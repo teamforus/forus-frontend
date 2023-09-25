@@ -76,6 +76,19 @@
                 em.mobile-menu-item-icon.mdi.mdi-receipt-outline
                 translate(translate="topnavbar.buttons.mobile.dropdown.reimbursements")
 
+            //- Fund requests
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ui-sref="fund-requests"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'fund-requests'}"
+                aria-current="{{ $dir.$state.current.name == 'fund-requests' }}"
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-card-account-details-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.fund_requests")
+
             //- Reservations
             a.mobile-menu-item(
                 ng-if="$root.auth_user"
