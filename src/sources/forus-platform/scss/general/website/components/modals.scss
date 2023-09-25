@@ -175,7 +175,7 @@ html {
                             padding: 0px 20px;
                             margin: auto;
 
-                            img {
+                            img, canvas {
                                 display: block;
                                 width: 100%;
                             }
@@ -243,7 +243,7 @@ html {
             box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
             border: 2px dashed #000;
 
-            img {
+            img, canvas {
                 display: block;
                 width: 100%;
             }

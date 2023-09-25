@@ -676,6 +676,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         component: 'voucherComponent',
         data: { address: null },
         resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
             voucher: ['$transition$', 'VoucherService', (
                 $transition$, VoucherService
             ) => repackResponse(VoucherService.get(

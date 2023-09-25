@@ -27,7 +27,7 @@
                     | Inloggen
                     em.mdi.mdi-login.icon-end
 
-        h2.block-title(ng-if="$ctrl.state != 'error'" translate="sign_up_validator.header.main_header")
+        h2.block-title(translate="sign_up_validator.header.main_header")
 
         //- General sign up information
         div(ng-if="$ctrl.step == $ctrl.STEP_INFO_GENERAL")
@@ -40,7 +40,7 @@
                     .sign_up-pane-text(translate="sign_up_validator.header.subtitle_step_1")
                     .sign_up-pane-media: img(ng-src="./assets/img/sign_up_first_step.png") 
 
-                .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-right): .row
+                .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless
                     .col.col-lg-6.text-right: .button.button-text.button-text-padless(ng-click="$ctrl.next()")
                         | {{ 'sign_up_validator.buttons.next' | translate }}
@@ -57,7 +57,7 @@
                     .sign_up-pane-media: img(src=src_prefix + "./assets/img/icon-smartphone-sign_up.svg")
                     .sign_up-pane-text(translate="sign_up_validator.header.subtitle_step_2")
 
-                .sign_up-pane-footer(em.mdi.mdi-chevron-right.icon-right): .row
+                .sign_up-pane-footer: .row
                     .col.col-lg-6.text-left: .button.button-text.button-text-padless(ng-click="$ctrl.back()")
                         em.mdi.mdi-chevron-left.icon-left
                         | {{ 'sign_up_validator.buttons.back' | translate }}
@@ -87,11 +87,11 @@
                                 .form-error(ng-repeat="error in ($ctrl.signUpForm.errors.email || $ctrl.signUpForm.errors['records.primary_email'])" ng-bind="error")
                         .col.col-md-5.col-xs-12
                             .form-group
-                            label.form-label &nbsp;
-                            button.button.button-primary.button-fill(
-                                type="submit"
-                                translate="sign_up_validator.app_instruction.create_profile"
-                                ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
+                                label.form-label &nbsp;
+                                button.button.button-primary.button-fill(
+                                    type="submit"
+                                    translate="sign_up_validator.app_instruction.create_profile"
+                                    ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
 
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_sponsor.no_app.to_app").visible-md.visible-lg
 
@@ -323,22 +323,6 @@
                     .text-center: .button.button-primary-variant(
                         ng-click="$ctrl.finish()"
                         translate="sign_up_validator.buttons.go_to_dashboard")
-
-        //- Error
-        div(ng-if="$ctrl.state == 'error'")
-            h2.block-title Zomerzwemregeling aanvraag
-
-            .sign_up-pane
-                .sign_up-pane-header Error during sign up request submission.
-                .sign_up-pane-body: .row
-                    .form-group.col.col-lg-12
-                        .block-icon: .mdi.mdi-close
-                        p.sign_up-pane-text.text-center
-                            | Reason:
-                            span(ng-bind="$ctrl.errorReason")
-
-                        .text-center: .button.button-default(ng-click="$ctrl.finish()") Terug naar het dashboard
-                    .form-group.col.col-lg-12: br
 
         //- Mobile device warning
         //- .block.block-desktop-only.visible-xs: .block-inner

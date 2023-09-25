@@ -69,7 +69,8 @@ module.exports = {
                 description: 'The provider has received your voucher and the message. Please contact or visit the provider for further information.'
             },
             labels: {
-                send_copy: "Send a copy of the message to yourself"
+                send_copy: 'Send a copy of the message to yourself',
+                share_note: 'Message to the provider',
             }
         },
         delete_voucher: {

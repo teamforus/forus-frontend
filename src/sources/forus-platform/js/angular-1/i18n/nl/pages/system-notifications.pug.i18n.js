@@ -1,4 +1,4 @@
-{
+module.exports = {
     "header": {
         "title": "Systeemberichten per webshop",
         "tooltip": "Het platform verstuurt automatische berichten naar gebruikers. Dit gebeurt via e-mailberichten, pushberichten via de app en webberichten in webshop/beheeromgeving."
@@ -51,7 +51,7 @@
         "notifications_fund_providers.fund_expiring": {
             "title": "Fonds verloopt bijna",
             "description": "Aanbieders ontvangen dit bericht wanneer een fonds binnenkort verloopt waar zij aangemeld voor staan."
-        },        
+        },
         "notifications_identities.requester_provider_approved_budget": {
             "title": "Aanbieder goedgekeurd voor het scannen van financiële tegoeden",
             "description": "Deelnemers ontvangen dit bericht wanneer een aanbieder wordt goedgekeurd om hun financiële tegoeden te mogen scannen."
@@ -306,4 +306,4 @@
     "buttons": {
         "activate": "Activeren"
     }
-}
+};

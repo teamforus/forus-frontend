@@ -1,13 +1,17 @@
-.select-control
+.select-control(
+    role="button"
+    aria-haspopup="listbox"
+    aria-expanded="{{ $dir.showOptions }}"
+    aria-labelledby="{{ $dir.id }}"
+    aria-controls="{{ $dir.id + '_options' }}")
+
     .select-control-input(
         ng-class="{options : $dir.showOptions}"
         ng-disabled="$dir.disabled || $dir.ngDisabled"
-        click-outside="$dir.onClickOutside()"
-        aria-haspopup="listbox"
-        aria-expanded="{{ $dir.showOptions }}"
-        aria-labelledby="{{ $dir.id }}")
+        click-outside="$dir.onClickOutside()")
 
         label.select-control-search.form-control(
+            role="presentation"
             for="{{ $dir.controlId }}"
             title="{{ $dir.value.raw[$dir.as] || $dir.placeholder }}"
             ng-show="($dir.mode == 'strict' && !$dir.showOptions) || !$dir.searchEnabled" 
@@ -33,6 +37,8 @@
                 aria-label="cancel"): .mdi.mdi-close-circle 
         
         select-control-options(
+            id="{{ $dir.id + '_options' }}"
+            role="listbox"
             ng-if="$dir.showOptions" 
             change="$dir.selectOption(option)" 
             options="$dir.optionsFiltered"

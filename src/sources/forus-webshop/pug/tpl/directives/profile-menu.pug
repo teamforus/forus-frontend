@@ -1,56 +1,84 @@
 .profile-menu
-    a(ui-sref="vouchers" ui-sref-active="active" role="button").profile-menu-item
+    a(ui-sref="vouchers" ui-sref-active="active" aria-current="{{ $dir.$state.current.name == 'vouchers' ? 'page': '' }}").profile-menu-item
         translate(translate="profile_menu.buttons.vouchers")
         em.mdi.mdi-arrow-right(aria-hidden="true")
     
-    a(ui-sref="bookmarked-products" ui-sref-active="active" role="button").profile-menu-item
+    a(ui-sref="bookmarked-products" ui-sref-active="active" aria-current="{{ $dir.$state.current.name == 'bookmarked-products' ? 'page': '' }}").profile-menu-item
         translate(translate="profile_menu.buttons.bookmarks")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
-    a(ui-sref="reservations" ui-sref-active="active" role="button").profile-menu-item
+    a(ui-sref="reservations" ui-sref-active="active" aria-current="{{ $dir.$state.current.name == 'reservations' ? 'page': '' }}").profile-menu-item
         translate(translate="profile_menu.buttons.reservations")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
     a(
         ui-sref="reimbursements" 
-        ui-sref-active="active" 
-        role="button" 
+        ui-sref-active="active"
         ng-if="$dir.appConfigs.features.has_reimbursements" 
-        dusk="menuBtnReimbursements").profile-menu-item
+        dusk="menuBtnReimbursements"
+        aria-current="{{ $dir.$state.current.name == 'reimbursements' ? 'page': '' }}").profile-menu-item
 
         translate(translate="profile_menu.buttons.reimbursements")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
-    a(ui-sref="fund-requests" ui-sref-active="active" role="button").profile-menu-item
+    a(
+        ui-sref="fund-requests" 
+        ui-sref-active="active" 
+        role="button"
+        aria-current="{{ $dir.$state.current.name == 'fund-requests' ? 'page': '' }}").profile-menu-item
         translate(translate="profile_menu.buttons.fund_requests")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
-    a(ui-sref="funds" ui-sref-active="active" ng-if="$dir.appConfigs.flags.fundsMenu" role="button").profile-menu-item.show-sm
+    a(
+        ui-sref="funds" 
+        ui-sref-active="active" 
+        ng-if="$dir.appConfigs.flags.fundsMenu" 
+        role="button"
+        aria-current="{{ $dir.$state.current.name == 'funds' ? 'page': '' }}").profile-menu-item.show-sm
+
         translate(
             translate="funds.buttons.{{ $dir.appConfigs.client_key }}.start_request" 
             translate-default="{{ 'funds.buttons.start_request' | translate }}")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
-    a(ui-sref="records" ui-sref-active="active" ng-if="$dir.appConfigs.features.records.list" role="button").profile-menu-item 
+    a(
+        ui-sref="records" 
+        ui-sref-active="active" 
+        ng-if="$dir.appConfigs.features.records.list" 
+        aria-current="{{ $dir.$state.current.name == 'records' ? 'page': '' }}").profile-menu-item 
+
         translate(translate="profile_menu.buttons.records")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
-    a(ui-sref="notifications" ui-sref-active="active" role="button").profile-menu-item 
+    a(ui-sref="notifications" ui-sref-active="active" aria-current="{{ $dir.$state.current.name == 'notifications' ? 'page': '' }}").profile-menu-item 
         translate(translate="profile_menu.buttons.notifications")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
-    a(ui-sref="preferences-notifications" ui-sref-active="active" role="button").profile-menu-item 
+    a(
+        ui-sref="preferences-notifications" 
+        ui-sref-active="active" 
+        aria-current="{{ $dir.$state.current.name == 'preferences-notifications' ? 'page': '' }}").profile-menu-item 
+
         translate(translate="profile_menu.buttons.notification_preferences")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
-    a(ui-sref="security-sessions" ui-sref-active="active" ng-if="$dir.appConfigs.sessions" role="button").profile-menu-item
+    a(
+        ui-sref="security-sessions" 
+        ui-sref-active="active" ng-if="$dir.appConfigs.sessions" 
+        aria-current="{{ $dir.$state.current.name == 'security-sessions' ? 'page': '' }}").profile-menu-item
+
         translate(translate="profile_menu.buttons.sessions")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
-    a(ui-sref="identity-emails" ui-sref-active="active" role="button").profile-menu-item 
+    a(ui-sref="identity-emails" ui-sref-active="active" aria-current="{{ $dir.$state.current.name == 'identity-emails' ? 'page': '' }}").profile-menu-item 
         translate(translate="profile_menu.buttons.email_settings")
         em.mdi.mdi-arrow-right(aria-hidden="true")
 
-    a(ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required" ui-sref="security-2fa" ui-sref-active="active" role="button").profile-menu-item 
+    a(
+        ng-if="$root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required" 
+        ui-sref="security-2fa" 
+        ui-sref-active="active" 
+        aria-current="{{ $dir.$state.current.name == 'security-2fa' ? 'page': '' }}").profile-menu-item 
+
         translate(translate="profile_menu.buttons.security")
         em.mdi.mdi-arrow-right(aria-hidden="true")
