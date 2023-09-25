@@ -1,0 +1,463 @@
+&.block-fund-request {
+    .card {
+        &.card-fund-request {
+            margin-bottom: 16px;
+            border: 1px solid #d4d9dd;
+            border-radius: 7px;
+
+            .card-header {
+                padding: 25px 25px 20px;
+                border-bottom: 0;
+
+                .card-header-wrapper {
+                    gap: 12px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .card-heading {
+                        margin: 0;
+                    }
+
+                    .card-header-status {
+                        .label {
+                            height: fit-content;
+                        }
+                    }
+                }
+            }
+
+            .card-section {
+                padding-top: 0;
+            }
+        }
+
+        &.card-fund-request-conversation {
+            margin-bottom: 16px;
+            border: 1px solid #d4d9dd;
+            border-radius: 7px;
+
+            .card-header {
+                padding: 16px;
+
+                .card-header-wrapper {
+                    gap: 12px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    flex: 1 0 0;
+                    align-self: stretch;
+
+                    .card-header-icon {
+                        display: flex;
+                        padding: 9px 12px;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: calc(var(--border-radius)/2);
+                        background: #F4F5F7;
+                    }
+
+                    .card-heading-wrapper {
+                        width: 100%;
+
+                        .card-heading {
+                            margin-bottom: 0;
+
+                            span {
+                                padding: 0 5px;
+                                color: #d4d9dd;
+                            }
+
+                            & + .card-header-date {
+                                margin-top: 4px;
+                            }
+                        }
+                    }
+
+                    .card-header-date {
+                        color: #646f79;
+                        font-size: 13px;
+                        font-weight: 400;
+                        line-height: 18px;
+                    }
+
+                    .card-header-view {
+                        color: #282B39;
+                        font-size: 13px;
+                        font-weight: 600;
+                        line-height: 13px;
+                        display: flex;
+                        align-items: center;
+                        white-space: nowrap;
+
+                        .card-header-view-arrow {
+                            transform: rotate(-90deg);
+                            color: #DBDCDB;
+                            font-size: 25px;
+                            line-height: 25px;
+                            transition: all 0.3s;
+                        }
+                    }
+                }
+
+                .label:not(:last-child):not(:last-of-type) {
+                    margin: 0;
+                }
+            }
+
+            .card-section {
+                padding: 0 0 16px 0;
+            }
+
+            &.open {
+                .card-header {
+                    .card-header-icon {
+                        background: var(--color-primary);
+                        color: #fff;
+                    }
+
+                    .card-header-view {
+                        .card-header-view-arrow {
+                            transform: rotate(-180deg);
+                        }
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            &.card-fund-request-conversation {
+                .card-header {
+                    .card-header-wrapper {
+                        flex-wrap: wrap;
+
+                        .card-heading-wrapper {
+                            width: 80%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .fund-request-section {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 30px;
+        width: 100%;
+
+        .fund-request-props {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex-basis: 60%;
+            flex-grow: 1;
+            padding: 20px;
+            align-items: flex-start;
+            gap: 10px;
+            align-self: stretch;
+            border-radius: 7px;
+            background: #F4F5F7;
+
+            .fund-request-prop {
+                display: flex;
+                flex-direction: row;
+                gap: 5px;
+                width: 100%;
+
+                .fund-request-prop-label,
+                .fund-request-prop-value {
+                    display: block;
+                    font: 600 14px/24px var(--base-font);
+                }
+
+                .fund-request-prop-label {
+                    width: 50%;
+                    max-width: 210px;
+                    color: #646F79;
+                }
+
+                .fund-request-prop-value {
+                    color: #303030;
+                    width: auto;
+                    flex: 1 0 0;
+                }
+            }
+        }
+
+        .fund-request-conversations {
+            width: 100%;
+
+            .fund-request-chat {
+                padding: 16px 16px 8px 51px;
+                position: relative;
+
+                .fund-request-chat-number {
+                    display: flex;
+                    width: 26px;
+                    height: 26px;
+                    flex-direction: column;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    background: #FFF;
+                    text-align: center;
+                    font-size: 14px;
+                    font-weight: 700;
+                    border-radius: calc(var(--border-radius)/2);
+                    border: 1px solid var(--color-primary);
+                    position: absolute;
+                    top: 12px;
+                    left: 12px
+                }
+
+                .fund-request-chat-info {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 12px;
+
+                    .fund-request-chat-time {
+                        color: #222;
+                        font-size: 13px;
+                        font-weight: 400;
+                        line-height: 13px;
+
+                        .fund-request-chat-time-icon {
+                            color: #848484;
+                            font-size: 15px;
+                            line-height: 15px;
+                            margin-right: 3px;
+                        }
+                    }
+
+                    .fund-request-chat-status {
+                        color: #222;
+                        font-size: 13px;
+                        font-weight: 600;
+                        line-height: 13px;
+
+                        .fund-request-chat-status-icon {
+                            font-size: 24px;
+                            position: relative;
+                        }
+                    }
+                }
+
+                .fund-request-chat-conversation {
+                    border-radius: 7px;
+                    border: 1px solid #DBDCDB;
+                    background: #FFF;
+
+                    .fund-request-chat-conversation-content {
+                        padding: 16px;
+                        gap: 16px;
+                        display: flex;
+                        flex-direction: column;
+
+                        .fund-request-chat-message {
+                            width: 55%;
+
+                            .fund-request-chat-message-time {
+                                color: #595959;
+                                font-size: 11px;
+                                font-weight: 600;
+                                line-height: 11px;
+                                margin-bottom: 8px;
+                            }
+
+                            .fund-request-chat-message-content {
+                                display: flex;
+                                align-items: flex-start;
+                                font-size: 13px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 18px;
+                                flex-direction: column;
+
+                                .fund-request-chat-message-text {
+                                    padding: 12px;
+                                }
+
+                                .fund-request-chat-message-file-uploader {
+                                    width: 100%;
+                                    padding: 12px;
+                                    border-top: 1px solid #DBDCDB;
+                                }
+                            }
+
+                            &.incoming {
+                                .fund-request-chat-message-content {
+                                    border-radius: 5px 14px 14px 14px;
+                                    background: #004D93;
+                                    color: #fff;
+                                }
+                            }
+
+                            &.outcoming {
+                                align-self: flex-end;
+
+                                .fund-request-chat-message-content {
+                                    border: 1px solid #DBDCDB;
+                                    background: #F4F5F7;
+                                    border-radius: 14px 5px 14px 14px;
+                                }
+
+                                .fund-request-chat-message-time {
+                                    text-align: right;
+                                }
+                            }
+                        }
+                    }
+
+                    .fund-request-chat-conversation-reply {
+                        padding: 16px;
+
+                        .button-reply {
+                            .mdi {
+                                float: none;
+                            }
+                        }
+                    }
+
+                    .fund-request-chat-conversation-answer {
+                        display: flex;
+                        padding: 16px;
+                        flex-direction: column;
+                        gap: 16px;
+                        background: #FFF;
+                        box-shadow: 0 1px 0 0 #E5E5E5 inset;
+                        border-radius: 0 0 7px 7px;
+
+                        .fund-request-chat-conversation-answer-box {
+                            width: 100%;
+                            margin: 0;
+
+                            textarea {
+                                border-color: #9E9E9E;
+                                border-radius: 5px;
+                                width: 100%;
+                                padding: 16px;
+                            }
+                        }
+
+                        .fund-request-chat-conversation-answer-options {
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 16px;
+                            justify-content: space-between;
+
+                            .uploader-button {
+                                flex-wrap: wrap;
+                                gap: 10px;
+                            }
+                        }
+                    }
+
+                    &.answered {
+                        background: #848484;
+                    }
+                }
+
+                &.new {
+                    .fund-request-chat-info {
+                        .fund-request-chat-status {
+                            .fund-request-chat-status-icon {
+                                width: 6px;
+                                height: 6px;
+                                border-radius: 100px;
+                                background: #F21010;
+                                margin: 1px 3px;
+                                display: inline-block;
+                                top: 2px;
+                            }
+                        }
+                    }
+
+                    .fund-request-chat-number {
+                        background: var(--color-primary);
+                        color: #fff;
+                    }
+                }
+
+                &.answered {
+                    .fund-request-chat-conversation {
+                        .fund-request-chat-conversation-content {
+                            background: #F4F5F7;
+
+                            .fund-request-chat-message.outcoming {
+                                .fund-request-chat-message-content {
+                                    background: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &:before {
+                    content: '';
+                    height: 100%;
+                    border-right: 1px solid #d4d9dd;
+                    position: absolute;
+                    left: 25px;
+                    top: 0;
+                }
+
+                &:last-child {
+                    padding: 16px 16px 0px 51px;
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .fund-request-section {
+            display: flex;
+            flex-direction: column;
+            margin: 0 0 20px;
+
+            .fund-request-conversations {
+                .fund-request-chat-conversation {
+                    .fund-request-chat-conversation-answer {
+                        .fund-request-chat-conversation-answer-options {
+                            flex-wrap: wrap;
+                        }
+                    }
+
+                    .fund-request-chat-conversation-content {
+                        .fund-request-chat-message {
+                            width: 80%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.info-action-label {
+    display: flex;
+    padding: 9px;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    border-radius: calc(var(--border-radius)/2);
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 12px;
+    white-space: nowrap;
+    width: fit-content;
+
+    .info-action-label-blink {
+        animation: blink 1.5s ease-in-out infinite;
+        margin-right: 3px;
+    }
+}

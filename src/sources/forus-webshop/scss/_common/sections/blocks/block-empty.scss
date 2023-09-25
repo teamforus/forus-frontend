@@ -29,6 +29,12 @@
             @include fill_parent();
             opacity: 0.075;
         }
+
+        &.block-icon-transparent {
+            &:before {
+                content: none;
+            }
+        }
     }
 
     .block-title {

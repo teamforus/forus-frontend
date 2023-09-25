@@ -212,12 +212,17 @@ const FundService = function (
             fund.showActivateButton = !fund.alreadyReceived && fund.isApplicable;
             fund.showReceivedButton = fund.alreadyReceived;
 
-            fund.linkPrimaryButton = [
+            const hasButton = [
                 fund.showRequestButton,
                 fund.showPendingButton,
                 fund.showActivateButton,
                 fund.alreadyReceived,
             ].filter((flag) => flag).length === 0;
+
+            fund.linkPrimaryButton = hasButton;
+
+            fund.hasButton = (fund.external_link_text && fund.external_link_url) || hasButton;
+
 
             return fund;
         };

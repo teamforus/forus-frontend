@@ -1,9 +1,9 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 //- File uploader
-.block.block-file-uploader(dusk="fileUploader")
+.block.block-file-uploader(dusk="fileUploader" ng-class="{'block-file-uploader-compact': $dir.compact}")
     //- Drop zone
-    .uploader-droparea(ng-if="!$dir.readOnly")
+    .uploader-droparea(ng-if="!$dir.readOnly && !$dir.compact")
         //- Drop zone icon
         .droparea-icon: .mdi.mdi-tray-arrow-up
 
@@ -36,6 +36,30 @@
             tab-index="1000"
             onchange="angular.element(this).scope().$dir.addFilesHidden(this)")
 
+    .uploader-button(ng-if="!$dir.readOnly && $dir.compact")
+        button.button.button-light.button-xs(
+            dusk="fileUploaderBtn"
+            type="button"
+            role="button"
+            ng-disabled="$dir.multipleSize && $dir.multipleSize <= $dir.files.length"
+            ng-click="$dir.selectFile()")
+            .mdi.mdi-paperclip
+            | Upload een document
+
+        .upload-size-info(ng-if="$dir.multipleSize")
+            span *
+            | Max. {{ $dir.multipleSize }} files
+
+        //- Input for dusk auto tests
+        input(
+            multiple
+            type="file"
+            ng-model="$dir.tmpFile"
+            class="droparea-hidden-input"
+            name="file_uploader_input_hidden"
+            tab-index="1000"
+            onchange="angular.element(this).scope().$dir.addFilesHidden(this)")
+
     //- Files list
     .uploader-files(ng-if="$dir.files.length > 0")
         //- File item
@@ -57,7 +81,7 @@
                 .file-item-progress: .file-item-progress-container: progress(max="100" value="{{ fileItem.progress }}")
 
                 //- Preview
-                .file-item-action(ng-if="fileItem.has_preview")
+                .file-item-action(ng-if="fileItem.has_preview && !$dir.hideButtons")
                     button(
                         ng-click="$dir.previewFile($event, fileItem)"
                         title="Bestand bekijken"
@@ -67,7 +91,7 @@
                         name="Bestand bekijken").mdi.mdi-eye-outline
 
                 //- Download
-                .file-item-action(ng-if="!fileItem.uploading")
+                .file-item-action(ng-if="!fileItem.uploading && !$dir.hideButtons")
                     button(
                         ng-click="$dir.downloadFile($event, fileItem)"
                         title="Bestand downloaden"
