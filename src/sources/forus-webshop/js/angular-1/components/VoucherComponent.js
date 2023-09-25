@@ -48,6 +48,10 @@ const VoucherComponent = function(
     }
 
     $ctrl.sendVoucherEmail = function(voucher) {
+        if (!$ctrl.identity.email){
+            return $state.go('identity-emails');
+        }
+
         return ModalService.open('modalNotification', {
             type: 'confirm',
             title: "E-mail naar mij",
@@ -154,6 +158,7 @@ const VoucherComponent = function(
 module.exports = {
     bindings: {
         voucher: '<',
+        identity: '<',
         products: '<',
         subsidies: '<',
     },
