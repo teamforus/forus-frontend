@@ -109,6 +109,7 @@ const SponsorProviderOrganizationsComponent = function(
                 })),
                 accepted_funds_count: acceptedFunds,
                 accepted_funds_count_locale: acceptedFundsLocale,
+                collapsed: false,
             }
         };
     };

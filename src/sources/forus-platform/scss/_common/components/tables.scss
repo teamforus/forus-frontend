@@ -224,6 +224,11 @@
                     width: 70px;
                     border-radius: var(--border-radius);
                     border: 1px solid var(--border-color);
+
+                    &.td-media-sm {
+                        width: 30px;
+                        border-radius: 4px;
+                    }
                 }
 
                 .td-boolean {
@@ -265,6 +270,16 @@
                 
                 &.td-paddless {
                     padding: 0;
+                }
+
+                &.td-collapsable {
+                    .icon-collapse {
+                        font-size: 20px;
+                    }
+
+                    .td-media {
+                        margin-right: 5px;
+                    }
                 }
             }
 
