@@ -277,7 +277,7 @@
 
             //- Fund criteria editor
             .card-section.card-section-primary(
-                ng-if="$root.appConfigs.features.organizations.funds.criteria"
+                ng-if="$root.appConfigs.features.organizations.funds.criteria && !$ctrl.form.values.external_page"
                 ng-show="$ctrl.form.values.criteria.length > 0 || ($ctrl.organization | hasPerm:'manage_funds')")
                 .form-group.form-group-inline
                     label.form-label Criteria

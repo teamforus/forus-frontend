@@ -252,7 +252,7 @@ const FundsEditComponent = function(
                 }, onError);
             }
 
-            if ($rootScope.appConfigs.features.organizations.funds.criteria) {
+            if ($rootScope.appConfigs.features.organizations.funds.criteria && !form.values.external_page) {
                 return $ctrl.criteriaEditor.saveCriteria().then(onCriteriaSaved);
             }
 
