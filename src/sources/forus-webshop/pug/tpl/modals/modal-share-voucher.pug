@@ -7,7 +7,7 @@
 
     .modal-backdrop(ng-click="$ctrl.close()")
     .modal-content: .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()")
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button" aria-label="Sluiten")
         .modal-section
             .text-center
                 .modal-icon(ng-if="$ctrl.icon")
@@ -17,7 +17,14 @@
 
         form.form(ng-submit="$ctrl.shareVoucherForm.submit()")
             .form-group
-                textarea(ng-model="$ctrl.shareVoucherForm.values.reason" placeholder="{{ 'voucher.share_voucher.reason_placeholder' | i18n }}").form-control
+                label.form-label(
+                    for="share_note" 
+                    translate="{{ 'voucher.share_voucher.labels.share_note' | i18n }}")
+
+                textarea(
+                    id="share_note" 
+                    ng-model="$ctrl.shareVoucherForm.values.reason" 
+                    placeholder="{{ 'voucher.share_voucher.reason_placeholder' | i18n }}").form-control
                 .text-center.form-error(ng-repeat="error in $ctrl.shareVoucherForm.errors.reason track by $index" ng-bind="error")
                 br
 
@@ -26,7 +33,7 @@
                     for="send_copy" 
                     role="checkbox" 
                     tabindex="0" 
-                    aria-checked="{{ $ctrl.shareVoucherForm.values.send_copy }}" 
+                    aria-checked="{{ $ctrl.shareVoucherForm.values.send_copy ? true : false }}" 
                     ng-click="$ctrl.toggleSendCopy($event, $ctrl.shareVoucherForm.values.send_copy)").checkbox
 
                     input#send_copy(type="checkbox" checked ng-model="$ctrl.shareVoucherForm.values.send_copy" tabindex="-1" aria-hidden="true")

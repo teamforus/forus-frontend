@@ -96,7 +96,8 @@ module.exports = {
                 description: 'De aanbieder heeft de reservering en uw bericht ontvangen. Neem contact op met de aanbieder of ga bij de aanbieder langs om het aanbod af te nemen.'
             },
             labels: {
-                send_copy: "Stuur e-mail als bewijs ook naar uzelf"
+                send_copy: "Stuur e-mail als bewijs ook naar uzelf",
+                share_note: 'Bericht voor aanbieder',
             }
         },
         delete_voucher: {

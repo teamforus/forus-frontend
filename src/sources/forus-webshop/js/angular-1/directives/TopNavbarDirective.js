@@ -1,11 +1,14 @@
+const pick = require('lodash/pick');
+
 const TopNavbarDirective = function (
     $state,
     $scope,
     $filter,
     appConfigs,
     $rootScope,
+    MenuService,
     ModalService,
-    ConfigService
+    ConfigService,
 ) {
     const $dir = $scope.$dir;
     const $i18n = $filter('i18n');
@@ -58,6 +61,19 @@ const TopNavbarDirective = function (
         $rootScope.showSearchBox = !$rootScope.showSearchBox;
     }
 
+    $dir.hideMobileMenu = () => {
+        $rootScope.mobileMenuOpened = false;
+    }
+
+    $dir.openMobileMenu = ($e) => {
+        if ($e?.target?.tagName != 'A') {
+            $e.stopPropagation();
+            $e.preventDefault();
+        }
+
+        $rootScope.mobileMenuOpened = !$rootScope.mobileMenuOpened;
+    }
+
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
 
@@ -71,6 +87,12 @@ const TopNavbarDirective = function (
             window.addEventListener('resize', onResize);
             onResize();
         }
+
+        $rootScope.$watch(
+            (scope) => pick(scope, ['auth_user', 'appConfigs']),
+            (value) => $dir.menuItems = MenuService.makeMenuItems(value.appConfigs, value.auth_user),
+            true
+        );
     };
 
     $dir.$onDestroy = () => {
@@ -95,6 +117,7 @@ module.exports = () => {
             '$filter',
             'appConfigs',
             '$rootScope',
+            'MenuService',
             'ModalService',
             'ConfigService',
             TopNavbarDirective,
