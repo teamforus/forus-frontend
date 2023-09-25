@@ -197,7 +197,6 @@ const FundService = function (
             fund.isApplicable = fund.criteria.length > 0 && fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
             fund.alreadyReceived = fund.vouchers.length !== 0;
             fund.canApply = !fund.is_external && !fund.alreadyReceived && fund.isApplicable && !fund.has_pending_fund_requests;
-            fund.voucherStateName = 'vouchers';
 
             fund.showRequestButton =
                 !fund.alreadyReceived &&
@@ -206,23 +205,15 @@ const FundService = function (
                 fund.allow_direct_requests &&
                 configs.funds.fund_requests;
 
-            fund.showExternalLink = fund.external_link_text && fund.external_link_url;
-
             fund.showPendingButton = !fund.alreadyReceived && fund.has_pending_fund_requests;
             fund.showActivateButton = !fund.alreadyReceived && fund.isApplicable;
-            fund.showReceivedButton = fund.alreadyReceived;
 
-            const hasButton = [
+            fund.linkPrimaryButton = [
                 fund.showRequestButton,
                 fund.showPendingButton,
                 fund.showActivateButton,
                 fund.alreadyReceived,
             ].filter((flag) => flag).length === 0;
-
-            fund.linkPrimaryButton = hasButton;
-
-            fund.hasButton = (fund.external_link_text && fund.external_link_url) || hasButton;
-
 
             return fund;
         };

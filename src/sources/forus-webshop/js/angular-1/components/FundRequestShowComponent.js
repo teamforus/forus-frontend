@@ -1,14 +1,14 @@
-const FundRequestShowComponent = function(
+const FundRequestShowComponent = function (
     $state,
     FormBuilderService,
-    FundRequestService,
     PushNotificationsService,
     FundRequestClarificationService
 ) {
     const $ctrl = this;
+
+    $ctrl.files = [];
     $ctrl.showDeclinedNote = true;
     $ctrl.isUploadingFiles = false;
-    $ctrl.files = [];
 
     const mapRecords = () => {
         $ctrl.fundRequest.records = $ctrl.fundRequest.records.map((record) => {
@@ -20,41 +20,27 @@ const FundRequestShowComponent = function(
         });
     };
 
-    const closeAllRecords = () => {
-        $ctrl.fundRequest.records = $ctrl.fundRequest.records.map((item) => {
-            item.opened = false;
-
-            return item;
-        });
-    }
-
-    $ctrl.openRecord = (record) => {
-        if (record.opened) {
-            return closeAllRecords();
-        }
-
-        closeAllRecords();
-        record.opened = true;
+    $ctrl.toggleRecord = (record) => {
+        $ctrl.fundRequest.records = $ctrl.fundRequest.records.map((item) => ({
+            ...item, opened: item == record && !record.opened,
+        }));
     }
 
     $ctrl.onFileInfo = (files) => {
-        $ctrl.form.values.files = files.filter(
-            (item) => item.uploaded && item.file_data?.uid
-        ).map(file => file.file_data?.uid);
+        $ctrl.form.values.files = files
+            .filter((item) => item.uploaded && item.file_data?.uid)
+            .map((file) => file.file_data?.uid);
 
-        $ctrl.isUploadingFiles = files.filter(
-            (item) => item.uploading
-        ).length > 0;
+        $ctrl.isUploadingFiles = files
+            .filter((item) => item.uploading)
+            .length > 0;
     };
 
     $ctrl.openReplyForm = (record, clarification) => {
-        record.clarifications = record.clarifications.map((item) => {
-            item.showAnswerForm = false;
+        record.clarifications = record.clarifications.map((item) => ({
+            ...item, showForm: item == clarification,
+        }));
 
-            return item;
-        });
-
-        clarification.showAnswerForm = true;
         $ctrl.files = [];
 
         $ctrl.form = FormBuilderService.build({
@@ -70,11 +56,7 @@ const FundRequestShowComponent = function(
                 PushNotificationsService.success('Succes!');
 
                 record.clarifications = record.clarifications.map((item) => {
-                    if (item.id === res.data.data.id) {
-                        item = res.data.data;
-                    }
-
-                    return item;
+                    return item.id === res.data.data.id ? res.data.data : item;
                 });
 
                 mapRecords();
@@ -85,7 +67,7 @@ const FundRequestShowComponent = function(
         }, true);
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         // The user has to sign-in first
         if (!$ctrl.identity) {
             return $state.go('start');
@@ -103,7 +85,6 @@ module.exports = {
     controller: [
         '$state',
         'FormBuilderService',
-        'FundRequestService',
         'PushNotificationsService',
         'FundRequestClarificationService',
         FundRequestShowComponent,

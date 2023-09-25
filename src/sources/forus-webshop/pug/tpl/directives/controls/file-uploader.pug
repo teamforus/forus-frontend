@@ -3,7 +3,7 @@
 //- File uploader
 .block.block-file-uploader(dusk="fileUploader" ng-class="{'block-file-uploader-compact': $dir.compact}")
     //- Drop zone
-    .uploader-droparea(ng-if="!$dir.readOnly && !$dir.compact")
+    .uploader-droparea(ng-if="!$dir.readOnly")
         //- Drop zone icon
         .droparea-icon: .mdi.mdi-tray-arrow-up
 
@@ -14,41 +14,19 @@
             small of
 
         //- Select file button
-        .droparea-button: button.button.button-primary(
+        .droparea-button: button.button(
+            ng-class="$dir.compact ? 'button-light button-xs' : 'button-primary'"
             dusk="fileUploaderBtn"
             type="button"
             role="button"
             ng-disabled="$dir.multipleSize && $dir.multipleSize <= $dir.files.length"
             ng-click="$dir.selectFile()")
-            .mdi.mdi-upload
+            .mdi(ng-class="$dir.compact ? 'mdi-paperclip' : 'mdi-upload'")
             | Upload een document 
 
         //- File requirements
-        .droparea-size max. grootte 8Mb
-
-        //- Input for dusk auto tests
-        input(
-            multiple 
-            type="file"
-            ng-model="$dir.tmpFile" 
-            class="droparea-hidden-input"
-            name="file_uploader_input_hidden"
-            tab-index="1000"
-            onchange="angular.element(this).scope().$dir.addFilesHidden(this)")
-
-    .uploader-button(ng-if="!$dir.readOnly && $dir.compact")
-        button.button.button-light.button-xs(
-            dusk="fileUploaderBtn"
-            type="button"
-            role="button"
-            ng-disabled="$dir.multipleSize && $dir.multipleSize <= $dir.files.length"
-            ng-click="$dir.selectFile()")
-            .mdi.mdi-paperclip
-            | Upload een document
-
-        .upload-size-info(ng-if="$dir.multipleSize")
-            span *
-            | Max. {{ $dir.multipleSize }} files
+        .droparea-size(ng-if="!$dir.compact") max. grootte 8Mb
+        .droparea-max-limit(ng-if="$dir.compact && $dir.multipleSize") Max. {{ $dir.multipleSize }} files
 
         //- Input for dusk auto tests
         input(
