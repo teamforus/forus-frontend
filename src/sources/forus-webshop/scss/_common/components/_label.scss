@@ -118,8 +118,12 @@
 
 @media screen and (max-width: 1000px) {
     .label {
-        padding: 0 8px;
-        font: 700 11px/22px var(--base-font);
+        padding: 0 5px;
+        font: 700 11px/20px var(--base-font);
+
+        &:not(.label-round) {
+            border-radius: calc(var(--border-radius) / 2);
+        }
 
         &.label-lg {
             padding: 0 10px;

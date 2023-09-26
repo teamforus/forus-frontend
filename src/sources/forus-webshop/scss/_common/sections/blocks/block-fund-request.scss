@@ -470,7 +470,7 @@
 
                 .card-header {
                     .card-header-wrapper {
-                        gap: 8px;
+                        gap: 10px;
                         flex-wrap: nowrap;
 
                         .card-header-icon {
@@ -480,16 +480,25 @@
                         }
 
                         .card-heading-wrapper {
-                            gap: 10px;
                             width: auto;
+
+                            .card-heading {
+                                font: 700 14px/16px var(--base-font);
+                                margin: 0 0 4px;
+                
+                                .label {
+                                    font: 600 10px/10px var(--base-font);
+                                    border-radius: 3px;
+                                }
+                            }
                         }
 
                         .card-header-date {
-                            font: 400 12px/12px var(--base-font);
+                            font: 400 12px/10px var(--base-font);
                         }
 
                         .card-header-view {
-                            font: 600 12px/12px var(--base-font);
+                            font: 600 12px/20px var(--base-font);
 
                             .card-header-view-arrow {
                                 font-size: 18px;
@@ -533,14 +542,7 @@
             }
 
             .card-heading {
-                &.card-heading-lg {
-                    font: 700 14px/14px var(--base-font);
-
-                    .label {
-                        font: 600 10px/16px var(--base-font);
-                        border-radius: 3px;
-                    }
-                }
+                font: 700 14px/20px var(--base-font);
             }
         }
 

@@ -999,6 +999,19 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     });
 
     $stateProvider.state({
+        name: "fund-request-clarification",
+        url: "/funds/{fund_id}/requests/{request_id}/clarifications/{clarification_id}",
+        data: { fund_id: null, request_id: null, clarification_id: null },
+        controller: ['$state', '$transition$', ($state, $transition$) => {
+            if ($transition$.params().clarification_id) {
+                return $state.go('fund-request-show', { id: $transition$.params().request_id });
+            }
+            
+            return $state.go('home');
+        }],
+    });
+
+    $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",
         controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', (

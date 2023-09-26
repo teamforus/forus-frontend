@@ -1,16 +1,12 @@
-let sprintf = require('sprintf-js').sprintf;
-
-let FundRequestClarificationService = function(ApiRequest) {
-    let uriPrefix = '/platform/funds/%s/requests/%s/clarifications';
-
+const FundRequestClarificationService = function(ApiRequest) {
     return new(function() {
         this.update = function(fund_id, request_id, id, data = {}) {
-            return ApiRequest.patch(sprintf(uriPrefix + '/%s', fund_id, request_id, id), data);
+            return ApiRequest.patch(`/platform/fund-requests/${request_id}/clarifications/${id}`, data);
         };
     });
 };
 
 module.exports = [
     'ApiRequest',
-    FundRequestClarificationService
+    FundRequestClarificationService,
 ];

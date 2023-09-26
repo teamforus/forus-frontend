@@ -14,28 +14,28 @@ a(
                 .fund-request-subtitle ID #[strong(ng-bind="'#' + $dir.fundRequest.id")]
 
             .fund-request-overview
-                .fund-request-overview-status
-                    .label.label-warning(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'pending'")
-                    .label.label-success(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'approved_partly'")
-                    .label.label-success(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'approved'")
-                    .label.label-default(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'declined'")
-                    .label.label-danger(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'disregarded'")
+                .label.label-warning(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'pending'")
+                .label.label-success(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'approved_partly'")
+                .label.label-success(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'approved'")
+                .label.label-default(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'declined'")
+                .label.label-danger(ng-bind="$dir.fundRequest.state_locale" ng-if="$dir.fundRequest.state === 'disregarded'")
 
-        .fund-request-values.flex.hidden-xs
-            .flex-grow
-                .label.label-primary.label-xl.nowrap(ng-if="$dir.fundRequest.notAnsweredCount > 0")
+        .fund-request-values
+            .fund-request-values-label
+                .label.label-primary.label-xl(ng-if="$dir.fundRequest.notAnsweredCount > 0")
                     .label-blink(aria-hidden="true")
                     | {{ $dir.fundRequest.notAnsweredCount }} nieuwe actualisering
 
-            .flex-end
+            .fund-request-values-date
                 .fund-request-value-title Ingediend op:
                 .fund-request-value(ng-bind="$dir.fundRequest.created_at_locale")
-    .fund-request-values.flex.flex-horizontal.hidden-sm.hidden-md.hidden-lg
-        .flex-grow
-            .flex.flex-start.fund-request-value-title Ingediend op:
-            .flex.flex-start.fund-request-value(ng-bind="$dir.fundRequest.created_at_locale")
 
-        .flex-end
-            .flex.flex-end.label.label-primary.label-xl.nowrap(ng-if="$dir.fundRequest.notAnsweredCount > 0")
+    .fund-request-footer
+        .fund-request-values-date
+            .fund-request-value-title Ingediend op:
+            .fund-request-value(ng-bind="$dir.fundRequest.created_at_locale")
+
+        .fund-request-values-label
+            .label.label-primary.label-xl(ng-if="$dir.fundRequest.notAnsweredCount > 0")
                 .label-blink(aria-hidden="true")
                 | {{ $dir.fundRequest.notAnsweredCount }} nieuwe actualisering

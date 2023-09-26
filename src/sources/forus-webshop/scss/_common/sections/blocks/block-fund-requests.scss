@@ -2,7 +2,8 @@
     margin: 0 0 20px;
 
     .fund-request-item {
-        display: flex;
+        display: grid;
+        grid-template-columns: 145px 1fr;
         background-color: #fff;
         border-radius: var(--border-radius);
         margin-bottom: 15px;
@@ -10,108 +11,113 @@
         position: relative;
         transition: 0.4s;
         min-height: 135px;
-        overflow: hidden;
         cursor: default;
 
         .fund-request-image {
             display: flex;
-            flex-basis: 145px;
-            min-width: 145px;
-            overflow: hidden;
-            background-size: cover;
-            background-position: 50% 50%;
+            width: 100%;
             position: relative;
-            border-top-left-radius: inherit;
-            border-bottom-left-radius: inherit;
             flex-direction: column;
-            justify-content: center;
-            background-color: #f9f9f9;
+            justify-content: flex-start;
+            background-color: #fff;
+            padding: 15px 0 15px 15px;
 
             img {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
                 display: block;
-            }
-        }
-
-        .fund-request-details {
-            display: flex;
-            padding: 20px 20px 15px;
-            flex-direction: column;
-            flex-grow: 1;
-            min-width: 0;
-
-            .fund-request-name {
-                font: 700 18px/27px var(--hf);
-                margin: 0 0 5px;
-                color: #282B39;
-                @include ellipsis();
-            }
-
-            .fund-request-subtitle {
-                font: 400 13px/18px var(--base-font);
-                color: #222222;
-                margin-bottom: 10px;
-
-                span {
-                    font-weight: 600;
-                }
+                width: 100%;
+                border-radius: calc(var(--border-radius) / 2);
             }
         }
 
         .fund-request-container {
+            padding: 15px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
-        }
 
-        .fund-request-section,
-        .fund-request-values {
-            display: flex;
-            flex-direction: row;
-            flex-grow: 1;
+            .fund-request-section {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
+                gap: 5px;
 
-            .label {
-                height: fit-content;
-                cursor: inherit;
+                .fund-request-details {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+        
+                    .fund-request-name {
+                        font: 700 18px/27px var(--hf);
+                        margin: 0 0 5px;
+                        color: #282b39;
+                    }
+        
+                    .fund-request-subtitle {
+                        font: 400 13px/18px var(--base-font);
+                        color: #222222;
+                        margin-bottom: 10px;
+        
+                        span {
+                            font-weight: 600;
+                        }
+                    }
+                }
+    
+                .fund-request-overview {
+                    display: flex;
+                    flex-direction: column;
+
+                    .label {
+                        align-self: flex-start;
+                    }
+                }
             }
         }
 
+        .fund-request-footer,
         .fund-request-values {
-            padding: 0 15px 15px 20px;
-            align-items: center;
+            display: flex;
+            flex-direction: row;
+
+            .label {
+                cursor: inherit;
+            }
+
+            .fund-request-values-date,
+            .fund-request-values-label {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .fund-request-values-date {
+                flex-direction: column;
+                text-align: right;
+                flex-grow: 1;
+            }
 
             .fund-request-value-title {
                 padding: 0;
                 font: 400 11px/16px var(--base-font);
                 color: #353535;
-                text-align: right;
             }
 
             .fund-request-value {
                 font: 600 14px/21px var(--base-font);
                 color: #222222;
-                text-align: right;
             }
         }
 
-        .fund-request-overview {
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-            position: relative;
-            justify-content: flex-end;
-            white-space: nowrap;
+        .fund-request-footer {
+            display: none;
+            padding: 10px 15px;
+            border-top: 1px solid var(--border-color);
+            background-color: #fbfbfb;
+            grid-column-start: 1;
+            grid-column-end: col2-end;
 
-            .fund-request-overview-status {
-                display: flex;
-                justify-content: flex-end;
-                margin: 0 0 5px;
-                flex-grow: 1;
+            .fund-request-values-date {
+                text-align: left;
             }
         }
 
@@ -126,105 +132,45 @@
 
     @media screen and (max-width: 767px) {
         .fund-request-item {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 10px;
+            grid-template-columns: 70px 1fr;
 
             .fund-request-image {
-                min-width: 70px;
-                width: 70px;
                 padding: 10px 0 10px 10px;
-                background: transparent;
-                justify-content: flex-start;
-                border: none;
-                flex-basis: auto;
-                display: flex;
-
-                img {
-                    position: initial;
-                    height: 51px;
-                    width: 100%;
-                    object-fit: cover;
-                    border-radius: 3px;
-                    overflow: hidden;
-                }
             }
 
             .fund-request-container {
-                padding: 10px 10px 10px 0;
-            }
+                padding: 10px 15px 10px 10px;
 
-            .fund-request-section {
-                flex-direction: column-reverse;
-                gap: 6px;
-
-                & > * {
-                    padding: 0;
-                }
-
-                .label {
-                    border-radius: 3px;
-                    padding: 4px 5px;
-                    font: 600 10px/1 var(--base-font);
-                }
-            }
-
-            .fund-request-details {
-                text-align: left;
-                gap: 6px;
-
-                .fund-request-subtitle {
-                    font: 400 11px/11px var(--base-font);
-                    margin: 0;
-                }
-
-                .fund-request-name {
-                    font: 600 14px/19px var(--base-font);
-                    margin: 0;
-                    @include ellipsis();
+                .fund-request-section {
+                    flex-direction: column-reverse;
+    
+                    .fund-request-details {
+                        .fund-request-name {
+                            font: 700 14px/20px var(--hf);
+                            margin: 0 0 5px;
+                        }
+            
+                        .fund-request-subtitle {
+                            font-size: 11px;
+                            margin: 0
+                        }
+                    }
                 }
             }
 
-            .fund-request-overview {
-                .fund-request-overview-status {
-                    justify-content: flex-start;
-                    margin: 0;
+            .fund-request-footer,
+            .fund-request-values {
+                .fund-request-value {
+                    font: 600 12px/20px var(--base-font);
                 }
             }
 
             .fund-request-values {
-                padding: 10px;
-                align-items: center;
-                gap: 10px;
-                width: 100%;
-                background: #FBFBFB;
-                box-shadow: 0 0 1px 0 #e5e5e5;
+                display: none;
+            }
 
-                .fund-request-value-title {
-                    font: 400 11px/13px var(--base-font);
-                    color: #353535;
-                }
-
-                .fund-request-value {
-                    font: 600 12px/18px var(--base-font);
-                }
-
-                .label {
-                    margin: 0;
-                    padding: 5px 5px 7px;
-                    line-height: 1;
-                    display: block;
-                    border-radius: 5px;
-
-                    .label-blink {
-                        width: 5px;
-                        font-size: 16px;
-                        line-height: 11px;
-                        margin-left: 0;
-                        margin-right: 3px;
-                    }
-                }
+            .fund-request-footer {
+                display: flex;
             }
         }
     }

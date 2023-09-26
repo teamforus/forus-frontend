@@ -190,7 +190,19 @@
         border-radius: calc(var(--border-radius) / 2);
 
         .mdi {
-            margin-right: 4px;
+            &.icon-right {
+                margin-right: -5px;
+                margin-left: 5px;
+            }
+        }
+
+        &.button-text {
+            .mdi {
+                &.icon-right {
+                    margin-right: -2px;
+                    margin-left: 2px;
+                }
+            }
         }
     }
 
