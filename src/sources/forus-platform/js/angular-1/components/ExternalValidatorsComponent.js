@@ -10,7 +10,19 @@ const ExternalValidatorsComponent = function(
     let $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_external_validators.${key}`);
 
     $ctrl.filters = {
+        show: false,
         values: {},
+        defaultValues: {
+            q: '',
+            email: '',
+            phone: '',
+            website: '',
+            order_by: 'name',
+            order_dir: 'asc',
+        },
+        reset: function() {
+            this.values = { ...this.defaultValues };
+        }
     };
 
     let prepareValidators = (organizations, approvedOrganizations) => {
@@ -27,13 +39,15 @@ const ExternalValidatorsComponent = function(
         return organizations;
     };
 
+    $ctrl.hideFilters = () => $ctrl.filters.show = false;
+
     $ctrl.onPageChange = (query) => {
         let promisses = [
             $ctrl.fetchAvailableList(query),
             $ctrl.fetchApprovedList()
         ];
 
-        $q.all(promisses).then(() => resolve($ctrl.updateModels()), reject);
+        $q.all(promisses).then(() => resolve($ctrl.updateModels()));
     };
 
     $ctrl.fetchAvailableList = (query = {}) => {
