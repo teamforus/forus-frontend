@@ -13,7 +13,6 @@ const SponsorProviderOrganizationsComponent = function(
     const $translate = $filter('translate');
 
     $ctrl.loaded = false;
-    $ctrl.extendedView = localStorage.getItem('sponsor_providers.extended_view') === 'true';
 
     $ctrl.orderByOptions = [{
         value: 'application_date',
@@ -50,11 +49,6 @@ const SponsorProviderOrganizationsComponent = function(
             { ...query, organization_id: $ctrl.organization.id },
             { location: 'replace' },
         );
-    };
-
-    $ctrl.setExtendedView = function(extendedView) {
-        localStorage.setItem('sponsor_providers.extended_view', extendedView)
-        $ctrl.extendedView = extendedView;
     };
 
     $ctrl.onPageChange = (query) => {
@@ -105,8 +99,8 @@ const SponsorProviderOrganizationsComponent = function(
     $ctrl.hideFilters = () => $ctrl.filters.show = false;
     $ctrl.transformList = (providers) => providers.map(provider => $ctrl.transformItem(provider));
 
-    const transformFundProviderItems = (fundProviders) => {
-        return (fundProviders || []).map((fundProvider) => ({
+    const transformFundProviderItems = (fund_providers) => {
+        return (fund_providers || []).map((fundProvider) => ({
             ...fundProvider,
             state_locale: $translate(`provider_organizations.labels.fund_provider_state.${fundProvider.state}`),
             uiViewParams: {
@@ -118,8 +112,8 @@ const SponsorProviderOrganizationsComponent = function(
     };
 
     $ctrl.transformItem = (providerOrganization) => {
-        const acceptedFunds = (providerOrganization.fundProviders.data || [])
-            .filter((fund) => fund.fund_provider_state === 'accepted').length;
+        const acceptedFunds = (providerOrganization.fund_providers.data || [])
+            .filter((fund_provider) => fund_provider.state === 'accepted').length;
 
         const acceptedFundsLocale = acceptedFunds === 0
             ? 'geen fondsen'
@@ -132,9 +126,9 @@ const SponsorProviderOrganizationsComponent = function(
                     organization_id: $ctrl.organization.id,
                     provider_organization_id: providerOrganization.id
                 },
-                fundProviders: {
-                    ...providerOrganization.fundProviders,
-                    data: transformFundProviderItems(providerOrganization.fundProviders.data),
+                fund_providers: {
+                    ...providerOrganization.fund_providers,
+                    data: transformFundProviderItems(providerOrganization.fund_providers.data),
                 },
                 accepted_funds_count: acceptedFunds,
                 accepted_funds_count_locale: acceptedFundsLocale,
@@ -157,7 +151,7 @@ const SponsorProviderOrganizationsComponent = function(
 
             //- Fund details block
             $ctrl.rows.push({
-                data: organization.fundProviders.data,
+                data: organization.fund_providers.data,
                 index: organization.id,
                 show: false,
                 fundsBlock: true,
@@ -166,7 +160,7 @@ const SponsorProviderOrganizationsComponent = function(
             //- Pagination block
             $ctrl.rows.push({
                 data: {
-                    ...organization.fundProviders,
+                    ...organization.fund_providers,
                     organization_id: organization.id,
                 },
                 index: organization.id,
