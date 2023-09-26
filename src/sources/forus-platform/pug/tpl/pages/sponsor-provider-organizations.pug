@@ -147,37 +147,38 @@
                     th(translate="provider_organizations.labels.related_funds")
                     th(translate="provider_organizations.labels.actions").text-right
 
-                tr(ng-repeat="providerOrganization in $ctrl.providerOrganizations.data")
-                    td.td-collapsable(ng-click="providerOrganization.collapsed = !providerOrganization.collapsed"): .flex.flex-align-items-center
-                        em.mdi.icon-collapse(ng-class="providerOrganization.collapsed ? 'mdi-menu-down' : 'mdi-menu-right'")
+                tr(ng-repeat="row in $ctrl.rows" ng-if="row.show")
+                    td.td-collapsable(ng-if="!row.detailsBlock" ng-click="$ctrl.showOrganizationDetails(row)"): .flex.flex-align-items-center
+                        em.mdi.icon-collapse(ng-class="row.collapsed ? 'mdi-menu-down' : 'mdi-menu-right'")
                         img.td-media.td-media-sm(
-                            ng-src="{{ providerOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                            ng-src="{{ row.data.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                         .text-primary.text-strong(
-                            ng-bind="providerOrganization.name | str_limit:40")
-                    td(ng-bind="providerOrganization.products_count")
-                    td(ng-bind="providerOrganization.last_activity_locale")
-                    td(ng-bind="providerOrganization.accepted_funds_count_locale")
+                            ng-bind="row.data.name | str_limit:40")
                     
-                    td.text-right
-                        a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-primary 
+                    td(ng-if="!row.detailsBlock" ng-bind="row.data.products_count")
+                    td(ng-if="!row.detailsBlock" ng-bind="row.data.last_activity_locale")
+                    td(ng-if="!row.detailsBlock" ng-bind="row.data.accepted_funds_count_locale")
+                    
+                    td.text-right(ng-if="!row.detailsBlock")
+                        a(ui-sref="sponsor-provider-organization(row.data.uiViewParams)").button.button-primary 
                             em.mdi.mdi-eye-outline.icon-start
                             translate(translate="provider_organizations.buttons.view")
 
-                    //- td.td-collapsed(ng-if="providerOrganization.collapsed"): table.table
-                    //-     tr
-                    //-         th Fondsnaam
-                    //-         th Status
-                    //-         th Opties
-                    //-     tr(ng-repeat="fund in providerOrganization.funds")
-                    //-         td(ng-bind="fund.name")
-                    //-         td
-                    //-             .label.label-success(ng-if="fund.fund_provider_state == 'accepted'" ng-bind="fund.fund_provider_state_locale")
-                    //-             .label.label-default(ng-if="fund.fund_provider_state == 'pending'" ng-bind="fund.fund_provider_state_locale")
-                    //-             .label.label-danger(ng-if="fund.fund_provider_state == 'rejected'" ng-bind="fund.fund_provider_state_locale")
-                    //-         td.td-narrow.text-right
-                    //-             a(ui-sref="fund-provider(fund.uiViewParams)").button.button-default.nowrap  
-                    //-                 em.mdi.mdi-eye-outline.icon-start
-                    //-                 | Bekijk aanbod
+                    td(ng-if="row.detailsBlock && row.show" colspan = "5").td-table: .table-wrapper: table.table
+                        tr
+                            th Fondsnaam
+                            th Status
+                            th Opties
+                        tr(ng-repeat="fund in row.data")
+                            td(ng-bind="fund.name")
+                            td
+                                .label.label-success(ng-if="fund.fund_provider_state == 'accepted'" ng-bind="fund.fund_provider_state_locale")
+                                .label.label-default(ng-if="fund.fund_provider_state == 'pending'" ng-bind="fund.fund_provider_state_locale")
+                                .label.label-danger(ng-if="fund.fund_provider_state == 'rejected'" ng-bind="fund.fund_provider_state_locale")
+                            td.td-narrow.text-right
+                                a(ui-sref="fund-provider(fund.uiViewParams)").button.button-default.nowrap  
+                                    em.mdi.mdi-eye-outline.icon-start
+                                    | Bekijk aanbod
 
             //- Pagination
             .card-section(ng-if="$ctrl.providerOrganizations.meta" ng-show="$ctrl.providerOrganizations.meta.last_page > 0")

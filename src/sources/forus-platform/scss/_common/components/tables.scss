@@ -281,6 +281,28 @@
                         margin-right: 5px;
                     }
                 }
+
+                &.td-table {
+                    padding: 0;
+
+                    .table-wrapper {
+                        .table {
+                            &>tbody {
+                                tr {
+                                    td, th {
+                                        border-bottom: 1px solid #d4d9dd;
+                                    }
+
+                                    &:last-child {
+                                        td, th {
+                                            border-bottom: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             &[ng-click]:hover, &[ui-sref]:hover {

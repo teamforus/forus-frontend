@@ -114,9 +114,37 @@ const SponsorProviderOrganizationsComponent = function(
         };
     };
 
+    const makeTableRows = (providerOrganizations) => {
+        $ctrl.rows = [];
+
+        providerOrganizations.forEach(organization => {
+            $ctrl.rows.push({
+                data: organization,
+                show: true,
+                collapsed: false,
+                detailsBlock: false,
+            });
+
+            $ctrl.rows.push({
+                data: organization.funds,
+                index: organization.id,
+                show: false,
+                detailsBlock: true,
+            });
+        });
+    };
+
+    $ctrl.showOrganizationDetails = (tableRow) => {
+        tableRow.collapsed = !tableRow.collapsed;
+
+        // Toggle the related details section
+        $ctrl.rows.find(row => row.index == tableRow.data.id && row.detailsBlock).show = tableRow.collapsed;
+    };
+
     $ctrl.$onInit = function() {
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds];
         $ctrl.providerOrganizations.data = $ctrl.transformList($ctrl.providerOrganizations.data);
+        makeTableRows($ctrl.providerOrganizations.data);
 
         $ctrl.requests = $ctrl.fundUnsubscribes.length;
         $ctrl.requestsExpired = $ctrl.fundUnsubscribes.filter((item) => item.state == 'overdue').length;
