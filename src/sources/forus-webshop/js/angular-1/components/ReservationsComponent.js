@@ -32,12 +32,12 @@ const ReservationsComponent = function (
     };
 
     $ctrl.onPageChange = (query = {}) => {
-        $ctrl.filters = { ...$ctrl.filters, ...query };
+        const filters = { ...$ctrl.filters, ...query };
 
         PageLoadingBarService.setProgress(0);
 
         ProductReservationService
-            .list($ctrl.filters)
+            .list(filters)
             .then((res) => $ctrl.reservations = res.data)
             .finally(() => PageLoadingBarService.setProgress(100));
     };

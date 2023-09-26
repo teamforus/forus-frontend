@@ -1,6 +1,6 @@
-top-navbar.nar-var
+top-navbar(ng-if="$ctrl.loaded").nar-var
 
-main(id="main-content")
+main(id="main-content" ng-if="$ctrl.loaded")
     section.section.section-fund: .wrapper
         .block.block-breadcrumbs
             a(ng-if="$ctrl.searchData" ui-sref="search-result($ctrl.searchData)").breadcrumb-item.breadcrumb-item-back
@@ -59,7 +59,7 @@ main(id="main-content")
                 .fund-card: .fund-details
                     h1.fund-name(ng-bind="$ctrl.fund.name") 
                     .fund-description: .block.block-markdown: p(ng-if="$ctrl.fund.description_short" ng-bind="$ctrl.fund.description_short")
-                    .fund-details-items                                 
+                    .fund-details-items(ng-if="!$root.appConfigs.flags.hideFundMeta")
                         .fund-details-item
                             .fund-details-item-label Uitgifte door:
                             .fund-details-item-value(ng-bind="$ctrl.fund.organization.name")
