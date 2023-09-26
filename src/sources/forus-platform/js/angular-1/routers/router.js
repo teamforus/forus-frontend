@@ -346,7 +346,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$, OrganizationService,
             ) => repackPagination(OrganizationService.providerOrganizations($transition$.params().organization_id, {
                 ...pick($transition$.params(), [
-                    'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products',
+                    'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products', 'order_by',
                 ]),
             }))],
         }

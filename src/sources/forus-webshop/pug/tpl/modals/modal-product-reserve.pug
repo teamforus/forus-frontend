@@ -22,7 +22,7 @@
 
         .modal-body: .modal-section.flex.flex-center.flex-grow.flex-vertical.text-center
             .media: include ../../../resources/_webshop-common/assets/img/icon-email-add.svg
-            .modal-title E-mailadres toevoegen
+            h2.modal-title E-mailadres toevoegen
             .modal-subtitle
                 | Voeg uw e-mailadres toe om berichten te kunnen ontvangen.
             
@@ -49,7 +49,7 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-header
-            .modal-title(translate="{{ 'modal_product_reserve.header.title_' + $ctrl.appConfigs.features.communication_type }}")
+            h2.modal-title(translate="{{ 'modal_product_reserve.header.title_' + $ctrl.appConfigs.features.communication_type }}")
             .modal-subtitle(
                 translate="{{ 'modal_product_reserve.description_' + $ctrl.appConfigs.features.communication_type }}"
                 translate-values="$ctrl.transValues")
@@ -67,7 +67,7 @@
                         img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
 
                     .voucher-details
-                        .voucher-name(ng-bind="voucher.fund.name")
+                        h3.voucher-name(ng-bind="voucher.fund.name")
                         .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount_locale")
 
                         .voucher-organization
@@ -97,7 +97,7 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
         .modal-header
-            .modal-title(translate="modal_product_reserve_notes.fill_notes.header.title")
+            h2.modal-title(translate="modal_product_reserve_notes.fill_notes.header.title")
             .modal-subtitle(
                 translate="modal_product_reserve_notes.fill_notes.header.subtitle" 
                 translate-vars="{ provider_name: $ctrl.provider.name }")
@@ -208,7 +208,7 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
         .modal-header
-            .modal-title(translate="modal_product_reserve_notes.fill_notes.header.title")
+            h2.modal-title(translate="modal_product_reserve_notes.fill_notes.header.title")
             .modal-subtitle(
                 translate="modal_product_reserve_notes.fill_notes.header.subtitle" 
                 translate-vars="{ provider_name: $ctrl.provider.name }")
@@ -253,7 +253,7 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-header
-            .modal-title(translate="modal_product_reserve_notes.confirm_notes.header.title")
+            h2.modal-title(translate="modal_product_reserve_notes.confirm_notes.header.title")
             .modal-subtitle(translate="modal_product_reserve_notes.confirm_notes.modal_section.title")
             +progress()
         

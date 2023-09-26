@@ -219,6 +219,15 @@
             .organization-pane {
                 .organization-pane-info {
                     padding: 15px 10px;
+                    width: calc(100% - 50px);
+
+                    .organization-title {
+                        overflow: hidden;
+
+                        .organization-title-value {
+                            word-wrap: break-word;
+                        }
+                    }
                 }
 
                 .organization-pane-collapse {
@@ -243,6 +252,34 @@
                     .organization-total-offices {
                         display: none;
                     }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 360px) {
+        .organization-item {
+            .organization-pane {
+                .organization-pane-info {
+                    padding: 15px 10px;
+
+                    .organization-logo {
+                        .organization-logo-img {
+                            width: 40px;
+                        }
+                    }
+
+                    .organization-title {
+                        font: 600 12px/18px var(--hf);
+
+                        .organization-page-link {
+                            font: 600 10px/12px var(--base-font);
+                        }
+                    }
+                }
+
+                .organization-pane-collapse {
+                    padding: 10px 5px;
                 }
             }
         }

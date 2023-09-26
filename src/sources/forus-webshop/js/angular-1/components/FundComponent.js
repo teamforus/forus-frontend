@@ -29,6 +29,11 @@ const FundsComponent = function (
     };
 
     $ctrl.$onInit = function () {
+        if ($ctrl.fund.external_page && $ctrl.fund.external_page_url) {
+            return document.location.replace($ctrl.fund.external_page_url);
+        }
+
+        $ctrl.loaded = true;
         $ctrl.searchData = $stateParams.searchData || null;
         $ctrl.updateFundsMeta();
 
