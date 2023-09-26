@@ -148,37 +148,47 @@
                     th(translate="provider_organizations.labels.actions").text-right
 
                 tr(ng-repeat="row in $ctrl.rows" ng-if="row.show")
-                    td.td-collapsable(ng-if="!row.detailsBlock" ng-click="$ctrl.showOrganizationDetails(row)"): .flex.flex-align-items-center
+                    td.td-collapsable(ng-if="row.mainContentBlock" ng-click="$ctrl.toggleOrganizationDetails(row)"): .flex.flex-align-items-center
                         em.mdi.icon-collapse(ng-class="row.collapsed ? 'mdi-menu-down' : 'mdi-menu-right'")
                         img.td-media.td-media-sm(
                             ng-src="{{ row.data.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
                         .text-primary.text-strong(
                             ng-bind="row.data.name | str_limit:40")
                     
-                    td(ng-if="!row.detailsBlock" ng-bind="row.data.products_count")
-                    td(ng-if="!row.detailsBlock" ng-bind="row.data.last_activity_locale")
-                    td(ng-if="!row.detailsBlock" ng-bind="row.data.accepted_funds_count_locale")
+                    td(ng-if="row.mainContentBlock" ng-bind="row.data.products_count")
+                    td(ng-if="row.mainContentBlock" ng-bind="row.data.last_activity_locale")
+                    td(ng-if="row.mainContentBlock" ng-bind="row.data.accepted_funds_count_locale")
                     
-                    td.text-right(ng-if="!row.detailsBlock")
+                    td.text-right(ng-if="row.mainContentBlock")
                         a(ui-sref="sponsor-provider-organization(row.data.uiViewParams)").button.button-primary 
                             em.mdi.mdi-eye-outline.icon-start
                             translate(translate="provider_organizations.buttons.view")
 
-                    td(ng-if="row.detailsBlock && row.show" colspan = "5").td-table: .table-wrapper: table.table
+                    td(ng-if="row.fundsBlock" colspan = "5").td-table: .table-wrapper: table.table
                         tr
                             th Fondsnaam
                             th Status
                             th Opties
-                        tr(ng-repeat="fund in row.data")
-                            td(ng-bind="fund.name")
+                        tr(ng-repeat="fundProvider in row.data")
+                            td(ng-bind="fundProvider.fund.name")
                             td
-                                .label.label-success(ng-if="fund.fund_provider_state == 'accepted'" ng-bind="fund.fund_provider_state_locale")
-                                .label.label-default(ng-if="fund.fund_provider_state == 'pending'" ng-bind="fund.fund_provider_state_locale")
-                                .label.label-danger(ng-if="fund.fund_provider_state == 'rejected'" ng-bind="fund.fund_provider_state_locale")
+                                .label.label-success(ng-if="fundProvider.state == 'accepted'" ng-bind="fundProvider.state_locale")
+                                .label.label-default(ng-if="fundProvider.state == 'pending'" ng-bind="fundProvider.state_locale")
+                                .label.label-danger(ng-if="fundProvider.state == 'rejected'" ng-bind="fundProvider.state_locale")
                             td.td-narrow.text-right
-                                a(ui-sref="fund-provider(fund.uiViewParams)").button.button-default.nowrap  
+                                a(ui-sref="fund-provider(fundProvider.uiViewParams)").button.button-default.nowrap  
                                     em.mdi.mdi-eye-outline.icon-start
                                     | Bekijk aanbod
+
+                    td(ng-if="row.paginationBlock" colspan = "5").td-table.td-pagination: .table-wrapper: table.table
+                        tr: td
+                            //- Pagination
+                            div(ng-if="row.data.total" ng-show="row.data.last_page > 0")
+                                paginator(
+                                    meta="row.data"
+                                    filters="row.data" 
+                                    count-buttons="5" 
+                                    on-page-change="$ctrl.onFundsPageChange(query)")
 
             //- Pagination
             .card-section(ng-if="$ctrl.providerOrganizations.meta" ng-show="$ctrl.providerOrganizations.meta.last_page > 0")

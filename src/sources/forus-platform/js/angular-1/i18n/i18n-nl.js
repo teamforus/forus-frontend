@@ -589,6 +589,11 @@ module.exports = {
             last_active: "Laatst actief",
             related_funds: "Aangesloten fondsen",
             actions: "Actie",
+            fund_provider_state: {
+                pending: 'Wachtend',
+                accepted: 'Geaccepteerd',
+                rejected: 'Geweigerd',
+            }
         },
         buttons: {
             view: "Bekijken",

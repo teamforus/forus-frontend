@@ -2,12 +2,15 @@ const { pick } = require("lodash");
 
 const SponsorProviderOrganizationsComponent = function(
     $state,
+    $filter,
     $stateParams,
     FileService,
     ModalService,
-    OrganizationService
+    OrganizationService,
+    ProviderFundService
 ) {
     const $ctrl = this;
+    const $translate = $filter('translate');
 
     $ctrl.loaded = false;
     $ctrl.extendedView = localStorage.getItem('sponsor_providers.extended_view') === 'true';
@@ -39,6 +42,8 @@ const SponsorProviderOrganizationsComponent = function(
         }
     };
 
+    $ctrl.fundFilters = {};
+
     $ctrl.updateState = (query) => {
         $state.go(
             'sponsor-provider-organizations',
@@ -64,6 +69,22 @@ const SponsorProviderOrganizationsComponent = function(
         }));
     };
 
+    $ctrl.onFundsPageChange = (query) => {
+        ProviderFundService.listFunds(query.organization_id, {
+            page: query.page,
+            per_page: query.per_page,
+            archived: 0,
+            sponsor_organization_id: $ctrl.organization.id,
+        }).then((res => {
+            $ctrl.rows.find(row => row.index == query.organization_id && row.fundsBlock).data = transformFundProviderItems(res.data.data);
+            
+            $ctrl.rows.find(row => row.index == query.organization_id && row.paginationBlock).data = { 
+                ...res.data.meta,
+                organization_id: query.organization_id,
+            };
+        }));
+    };
+
     // Export to XLS file
     $ctrl.exportList = () => {
         ModalService.open('exportType', {
@@ -84,8 +105,20 @@ const SponsorProviderOrganizationsComponent = function(
     $ctrl.hideFilters = () => $ctrl.filters.show = false;
     $ctrl.transformList = (providers) => providers.map(provider => $ctrl.transformItem(provider));
 
+    const transformFundProviderItems = (fundProviders) => {
+        return (fundProviders || []).map((fundProvider) => ({
+            ...fundProvider,
+            state_locale: $translate(`provider_organizations.labels.fund_provider_state.${fundProvider.state}`),
+            uiViewParams: {
+                fund_id: fundProvider.fund.id,
+                organization_id: fundProvider.fund.organization_id,
+                fund_provider_id: fundProvider.id,
+            },
+        }));
+    };
+
     $ctrl.transformItem = (providerOrganization) => {
-        const acceptedFunds = (providerOrganization.funds || [])
+        const acceptedFunds = (providerOrganization.fundProviders.data || [])
             .filter((fund) => fund.fund_provider_state === 'accepted').length;
 
         const acceptedFundsLocale = acceptedFunds === 0
@@ -99,14 +132,10 @@ const SponsorProviderOrganizationsComponent = function(
                     organization_id: $ctrl.organization.id,
                     provider_organization_id: providerOrganization.id
                 },
-                funds: (providerOrganization.funds || []).map((fund) => ({
-                    ...fund,
-                    uiViewParams: {
-                        fund_id: fund.id,
-                        organization_id: fund.organization_id,
-                        fund_provider_id: fund.fund_provider_id
-                    },
-                })),
+                fundProviders: {
+                    ...providerOrganization.fundProviders,
+                    data: transformFundProviderItems(providerOrganization.fundProviders.data),
+                },
                 accepted_funds_count: acceptedFunds,
                 accepted_funds_count_locale: acceptedFundsLocale,
                 collapsed: false,
@@ -118,27 +147,43 @@ const SponsorProviderOrganizationsComponent = function(
         $ctrl.rows = [];
 
         providerOrganizations.forEach(organization => {
+            //- Main content block
             $ctrl.rows.push({
                 data: organization,
                 show: true,
                 collapsed: false,
-                detailsBlock: false,
+                mainContentBlock: true,
             });
 
+            //- Fund details block
             $ctrl.rows.push({
-                data: organization.funds,
+                data: organization.fundProviders.data,
                 index: organization.id,
                 show: false,
-                detailsBlock: true,
+                fundsBlock: true,
+            });
+
+            //- Pagination block
+            $ctrl.rows.push({
+                data: {
+                    ...organization.fundProviders,
+                    organization_id: organization.id,
+                },
+                index: organization.id,
+                show: false,
+                paginationBlock: true,
             });
         });
     };
 
-    $ctrl.showOrganizationDetails = (tableRow) => {
+    $ctrl.toggleOrganizationDetails = (tableRow) => {
         tableRow.collapsed = !tableRow.collapsed;
 
         // Toggle the related details section
-        $ctrl.rows.find(row => row.index == tableRow.data.id && row.detailsBlock).show = tableRow.collapsed;
+        $ctrl.rows.filter(row => row.index == tableRow.data.id && !row.mainContentBlock).map(row => {
+            row.show = tableRow.collapsed;
+            return row;
+        });
     };
 
     $ctrl.$onInit = function() {
@@ -161,10 +206,12 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$filter',
         '$stateParams',
         'FileService',
         'ModalService',
         'OrganizationService',
+        'ProviderFundService',
         SponsorProviderOrganizationsComponent
     ],
     templateUrl: 'assets/tpl/pages/sponsor-provider-organizations.html'

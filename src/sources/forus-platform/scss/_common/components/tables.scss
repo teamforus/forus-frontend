@@ -293,9 +293,31 @@
                                         border-bottom: 1px solid #d4d9dd;
                                     }
 
+                                    th {
+                                        background-color: #F7F9FC;
+                                    }
+
+                                    td {
+                                        background-color: #F6F8F9;
+                                    }
+
                                     &:last-child {
                                         td, th {
                                             border-bottom: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &.td-pagination {
+                        .table-wrapper {
+                            .table {
+                                &>tbody {
+                                    tr {
+                                        td {
+                                            background-color: #FFF;
                                         }
                                     }
                                 }
