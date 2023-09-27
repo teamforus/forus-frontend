@@ -27,20 +27,31 @@ const VoucherExportService = function(
             { value: 'png', label: $translateField('export_type_png'), icon: 'image-outline' },
         ];
 
-        const makeSections = (fields, extra_fields = []) => ([
-            { type: "radio", key: "data_format", fields: dataFormats, value: "csv", title: $translateTitle('data_formats'), collapsable: false },
-            { type: "checkbox", key: "fields", fields, fieldsPerRow: 3, selectAll: true, title: $translateTitle('fields'), collapsable: true },
-            { type: "checkbox", key: "extra_fields", fields: extra_fields, fieldsPerRow: 3, selectAll: true, title: $translateTitle('record_fields'), collapsable: true },
-            { type: "radio", key: "qr_format", fields: qrFormats, value: "null", title: $translateTitle('qr_formats'), collapsable: false }
-        ]);
+        const makeSections = (fields, record_fields = []) => {
+            const sections = [
+                { type: "radio", key: "data_format", fields: dataFormats, value: "csv", title: $translateTitle('data_formats'), collapsable: false },
+                { type: "checkbox", key: "fields", fields, fieldsPerRow: 3, selectAll: true, title: $translateTitle('fields'), collapsable: true },
+                { type: "radio", key: "qr_format", fields: qrFormats, value: "null", title: $translateTitle('qr_formats'), collapsable: false }
+            ];
 
-        const exportVouchers = (organization_id, filters = {}, type = 'budget') => {
+            if (record_fields.length) {
+                // Insert voucher records field section after the normal field section
+                sections.splice(sections.findIndex((section) => section.key == 'fields') + 1, 0, { 
+                    type: "checkbox", key: "extra_fields", fields: record_fields, fieldsPerRow: 3, selectAll: true, title: $translateTitle('record_fields'), collapsable: true 
+                });
+            }
+
+            return sections;
+        };
+
+        const exportVouchers = (organization_id, allow_voucher_records = false, filters = {}, type = 'budget') => {
             VoucherService.exportFields(organization_id, { type }).then((res) => {
-                const extra_fields = res.data.data.filter(field => field.is_record_field);
+                const fields = res.data.data.filter(field => !field.is_record_field);
+                const extra_fields = allow_voucher_records ? res.data.data.filter(field => field.is_record_field) : [];
 
                 ModalService.open('exportDataSelect', {
                     fields: res.data,
-                    sections: makeSections(res.data.data, extra_fields),
+                    sections: makeSections(fields, extra_fields),
                     success: onSuccess
                 });
             });

@@ -96,12 +96,21 @@
             border-top: 1px solid #d4d9dd;
             margin-bottom: 0;
 
+            table {
+                margin-left: -2px;
+            }
+
             .export-section-label {
                 align-items: center;
                 margin-bottom: 15px;
 
                 .collapsable-icon {
                     font-size: 20px;
+                    margin-left: -5px;
+                }
+
+                .form-label {
+                    cursor: pointer;
                 }
             }
 
@@ -109,8 +118,9 @@
                 margin-bottom: 15px;
             }
 
-            &:last-child {
-                border-top: 1px solid #d4d9dd;
+            &.export-section-extra-fields {
+                border-bottom: 1px solid #d4d9dd;
+                margin-bottom: 15px;
             }
         }
 

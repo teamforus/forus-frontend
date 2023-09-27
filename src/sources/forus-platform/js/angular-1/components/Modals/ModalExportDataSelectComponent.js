@@ -30,6 +30,12 @@ const ModalExportDataComponent = function () {
         $ctrl.isValid = !$ctrl.required || (!checkboxSections.length || checkboxSectionsChecked.length);
     };
 
+    $ctrl.collapseSection = (section) => {
+        if (section.collapsable) {
+            section.collapsed = !section.collapsed;
+        }
+    };
+
     $ctrl.onSubmit = () => {
         const { close } = $ctrl.modal;
         const { success } = $ctrl.modal.scope;

@@ -81,13 +81,13 @@
                                 ng-model="$ctrl.form.values.note").form-control.r-n
                             .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
                 
-                .modal-fields-group
+                .modal-fields-group(ng-if="$ctrl.fund.allow_voucher_records")
                     .modal-fields-group-title(ng-click="$ctrl.showRecordFields = !$ctrl.showRecordFields")
                         em.mdi.mdi-menu-down(ng-class="{'mdi-menu-right': !$ctrl.showRecordFields}")
                         | Persoonlijke eigenschappen
 
                     .modal-fields-list(ng-if="$ctrl.showRecordFields")
-                        voucher-records-editor(fund="$ctrl.fund" voucher-record-values="$ctrl.form.values.records")
+                        voucher-records-editor(voucher-record-values="$ctrl.form.values.records")
 
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label

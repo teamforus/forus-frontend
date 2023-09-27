@@ -9,7 +9,7 @@
                 em.mdi.mdi-close
             .form-error(ng-repeat="error in $ctrl.form.errors[record.key]" ng-bind="error")        
 
-    .block-voucher-record-add
+    .block-voucher-record-add(ng-if="$dir.showVoucherAddBlock")
         .form-group.form-group-inline.form-group-inline-md
             label.form-label Selecteer eigenschap
 
@@ -20,7 +20,7 @@
                 | Eigenschap toevoegen
             select(
                 ng-if="$dir.showRecordSelector"
-                ng-options="record.key as record.name for record in $dir.recordsList" 
+                ng-options="record.key as record.name for record in $dir.recordOptions" 
                 ng-model="$dir.record").form-control    
 
         .form-group.form-group-inline.form-group-inline-md(ng-if="$dir.showRecordSelector")

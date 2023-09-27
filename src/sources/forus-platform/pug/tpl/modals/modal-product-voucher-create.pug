@@ -2,7 +2,7 @@
 
 .modal.modal-md.modal-animated(
     ng-if="$ctrl.modal.ready"
-    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']").modal-voucher-create
     .modal-backdrop(ng-click="$ctrl.close()")
 
     //- Voucher form
@@ -78,15 +78,13 @@
                         | Persoonlijke eigenschappen
 
                     .modal-fields-list(ng-if="$ctrl.showRecordFields")
-                        voucher-records-editor(fund="$ctrl.fund" voucher-record-values="$ctrl.form.values.records")
+                        voucher-records-editor(voucher-record-values="$ctrl.form.values.records")
 
-            .modal-section
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label
-                    .form-offset
-                        .block.block-info
-                            em.mdi.mdi-information.block-info-icon
-                            translate(translate="modals.modal_voucher_create.info")
+                    .block.block-info
+                        em.mdi.mdi-information.block-info-icon
+                        translate(translate="modals.modal_voucher_create.info")
 
         .modal-footer.text-center
             button.button.button-default(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_create.buttons.cancel")

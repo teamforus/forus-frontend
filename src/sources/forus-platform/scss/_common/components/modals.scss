@@ -366,6 +366,7 @@
                 .mdi {
                     font-size: 20px;
                     color: #646F79;
+                    margin-left: -5px;
                 }
             }
 
@@ -1029,7 +1030,7 @@
                                 color: #134478;
                             }
     
-                            &>.form-control {
+                            &>.form-control, &>.form-offset {
                                 width: calc(100% - 150px);
                             }
                         }

@@ -11,6 +11,10 @@
                     &>.form-control {
                         width: calc(100% - 205px) !important;
                     }
+
+                    &>.form-label {
+                        text-align: left;
+                    }
             
                     .button-remove-record {
                         margin-left: 10px;
