@@ -96,6 +96,7 @@ const ModalVoucherCreateComponent = function(
                     activation_code: { activate: 0, activation_code: 1 },
                 }[$ctrl.assignType.key]),
                 assign_by_type: $ctrl.assignType.key,
+                records: form.values.records.reduce((records, record) => ({...records, [record.key]: record.value }), {}),
             };
 
             const makRequest = (form) => {
