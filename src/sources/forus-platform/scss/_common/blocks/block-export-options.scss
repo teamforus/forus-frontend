@@ -5,11 +5,11 @@
         flex-direction: column;
 
         .export-section-label {
-            font: 600 11px/13px var(--base-font);
             margin-bottom: 10px;
 
             .form-label {
                 margin: 0;
+                font: 600 13px/24px var(--base-font);
             }
         }
 
@@ -20,6 +20,7 @@
 
             &>table {
                 width: 100%;
+                border-collapse: collapse;
             }
 
             .export-option {
@@ -93,24 +94,24 @@
 
         &.export-section-collapsable {
             padding-top: 15px;
-            border-top: 1px solid #d4d9dd;
+            border-top: 1px solid var(--border-color);
             margin-bottom: 0;
-
-            table {
-                margin-left: -2px;
-            }
 
             .export-section-label {
                 align-items: center;
                 margin-bottom: 15px;
 
-                .collapsable-icon {
-                    font-size: 20px;
+                .export-section-label-icon {
+                    font-size: 24px;
+                    line-height: 24px;
+                    height: 24px;
                     margin-left: -5px;
                 }
 
                 .form-label {
                     cursor: pointer;
+                    height: 24px;
+                    color: var(--text-color);
                 }
             }
 
@@ -119,7 +120,7 @@
             }
 
             &.export-section-extra-fields {
-                border-bottom: 1px solid #d4d9dd;
+                border-bottom: 1px solid var(--border-color);
                 margin-bottom: 15px;
             }
         }

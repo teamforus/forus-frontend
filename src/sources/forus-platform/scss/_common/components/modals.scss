@@ -352,26 +352,36 @@
             }
         }
 
-        .modal-fields-group {
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #d4d9dd;
-
-            .modal-fields-group-title {
-                display: flex;
-                color: #282B39;
-                font: 600 13px/13px var(--base-font);
-                align-items: center;
-
-                .mdi {
-                    font-size: 20px;
-                    color: #646F79;
-                    margin-left: -5px;
+        .modal-fields-groups {
+            .modal-fields-group {
+                border-bottom: 1px solid var(--border-color);
+                padding: 15px 0;
+    
+                .modal-fields-group-title {
+                    display: flex;
+                    color: #282B39;
+                    font: 600 13px/24px var(--base-font);
+                    align-items: center;
+    
+                    .mdi {
+                        font-size: 24px;
+                        color: #646F79;
+                        height: 24px;
+                        margin-left: -5px;
+                    }
                 }
-            }
+    
+                .modal-fields-list {
+                    padding-top: 15px;
+                }
 
-            .modal-fields-list {
-                margin-top: 15px;
+                &:first-child {
+                    padding-top: 0;
+                }
+
+                &:last-child {
+                    margin-bottom: 20px;
+                }
             }
         }
 
@@ -1015,26 +1025,11 @@
 
     &.modal-voucher-create {
         .modal-window {
+            width: 760px;
+
             .modal-body {
                 .modal-section {
-                    padding: 25px 60px;
-                }
-            }
-        
-            &.form {
-                .form-group {
-                    &.form-group-inline {
-                        &.form-group-inline-md {
-                            &>.form-label {
-                                width: 150px;
-                                color: #134478;
-                            }
-    
-                            &>.form-control, &>.form-offset {
-                                width: calc(100% - 150px);
-                            }
-                        }
-                    }
+                    padding: 25px 80px;
                 }
             }
         }

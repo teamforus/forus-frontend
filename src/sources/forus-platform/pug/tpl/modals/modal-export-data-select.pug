@@ -14,9 +14,10 @@
             .export-section(
                 ng-repeat="section in $ctrl.sections" 
                 ng-class="{'export-section-collapsable': section.collapsable, 'export-section-extra-fields': section.key == 'extra_fields'}")
+
                 .export-section-label.flex(ng-click="$ctrl.collapseSection(section)")
-                    em.mdi.collapsable-icon(ng-if="section.collapsable" ng-class="section.collapsed ? 'mdi-menu-right' : 'mdi-menu-down'")
-                    
+                    em.mdi.export-section-label-icon(ng-if="section.collapsable" ng-class="section.collapsed ? 'mdi-menu-right' : 'mdi-menu-down'")
+
                     .flex.flex-grow.flex-vertical.flex-center: .form-label(ng-bind="section.title")
                     .flex(ng-if="section.type === 'checkbox'"): label(for="checkbox_{{ section.key }}_check_all").form-toggle
                         input(type="checkbox" id="checkbox_{{ section.key }}_check_all" ng-model="section.selectAll" ng-click="$ctrl.toggleAllFields(section)")

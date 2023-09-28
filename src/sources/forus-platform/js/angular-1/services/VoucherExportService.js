@@ -1,4 +1,4 @@
-const VoucherExportService = function(
+const VoucherExportService = function (
     $q,
     $filter,
     FileService,
@@ -8,7 +8,7 @@ const VoucherExportService = function(
     ImageConvertorService,
     PushNotificationsService
 ) {
-    return new (function() {
+    return new (function () {
         const { base64ToBlob, downloadFile } = FileService;
 
         const $translate = $filter('translate');
@@ -28,20 +28,44 @@ const VoucherExportService = function(
         ];
 
         const makeSections = (fields, record_fields = []) => {
-            const sections = [
-                { type: "radio", key: "data_format", fields: dataFormats, value: "csv", title: $translateTitle('data_formats'), collapsable: false },
-                { type: "checkbox", key: "fields", fields, fieldsPerRow: 3, selectAll: true, title: $translateTitle('fields'), collapsable: true },
-                { type: "radio", key: "qr_format", fields: qrFormats, value: "null", title: $translateTitle('qr_formats'), collapsable: false }
-            ];
+            const sectionFormat = {
+                type: "radio",
+                key: "data_format",
+                fields: dataFormats,
+                value: "csv",
+                title: $translateTitle('data_formats'),
+            };
 
-            if (record_fields.length) {
-                // Insert voucher records field section after the normal field section
-                sections.splice(sections.findIndex((section) => section.key == 'fields') + 1, 0, { 
-                    type: "checkbox", key: "extra_fields", fields: record_fields, fieldsPerRow: 3, selectAll: true, title: $translateTitle('record_fields'), collapsable: true 
-                });
-            }
+            const sectionFields = {
+                type: "checkbox",
+                key: "fields",
+                fields,
+                fieldsPerRow: 3,
+                selectAll: true,
+                title: $translateTitle('fields'),
+                collapsable: true,
+            };
 
-            return sections;
+            const sectionRecords = record_fields.length ? {
+                type: "checkbox",
+                key: "extra_fields",
+                fields: record_fields,
+                fieldsPerRow: 3,
+                selectAll: true,
+                title: $translateTitle('record_fields'),
+                collapsable: true,
+                collapsed: true,
+            } : null;
+
+            const sectionQrFormat = {
+                type: "radio",
+                key: "qr_format",
+                fields: qrFormats,
+                value: "null",
+                title: $translateTitle('qr_formats'),
+            };
+
+            return [sectionFormat, sectionFields, sectionRecords, sectionQrFormat].filter((section) => section);
         };
 
         const exportVouchers = (organization_id, allow_voucher_records = false, filters = {}, type = 'budget') => {
@@ -57,10 +81,10 @@ const VoucherExportService = function(
             });
 
             const onSuccess = (data) => {
-                const { qr_format, data_format, fields } = data;
+                const { qr_format, data_format, fields, extra_fields } = data;
                 const queryFilters = {
                     ...filters,
-                    ...{ data_format, fields },
+                    ...{ data_format, fields: [...fields, ...extra_fields] },
                     ...{ qr_format: qr_format == 'png' ? 'data' : qr_format },
                 };
 
@@ -101,7 +125,7 @@ const VoucherExportService = function(
                     return resolve(false) & downloadFile(zipName, files.zip, fileTypes.zip);
                 }
 
-                JSZip.loadAsync(files.zip).then(function(zip) {
+                JSZip.loadAsync(files.zip).then(function (zip) {
                     const imgDirectory = data.length > 0 ? zip.folder("images") : null;
 
                     const promises = data.map(async (voucherData, index) => {
@@ -119,7 +143,7 @@ const VoucherExportService = function(
                         data.forEach((img) => imgDirectory.file(img.name + ".png", img.data, { base64: true }));
                         PageLoadingBarService.setProgress(80);
 
-                        zip.generateAsync({ type: "blob" }).then(function(content) {
+                        zip.generateAsync({ type: "blob" }).then(function (content) {
                             console.info('- downloading .zip file.');
 
                             downloadFile(zipName, content);

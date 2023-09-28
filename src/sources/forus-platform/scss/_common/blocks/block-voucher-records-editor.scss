@@ -1,29 +1,22 @@
 &.block-voucher-records-editor {
     .block-voucher-record-list {
         border-radius: 5px;
-        border: 1px dashed #D4D9DD;
+        border: 1px dashed var(--border-color);
         padding: 15px;
         margin-bottom: 20px;
 
-        .form-group {
-            &.form-group-inline {
-                &.form-group-inline-md {
-                    &>.form-control {
-                        width: calc(100% - 205px) !important;
-                    }
+        .voucher-record-item {
+            display: flex;
+            flex-direction: row;
 
-                    &>.form-label {
-                        text-align: left;
-                    }
-            
-                    .button-remove-record {
-                        margin-left: 10px;
-            
-                        .mdi {
-                            font-size: 18px;
-                        }
-                    }
-                }
+            .voucher-record-item-input {
+                display: flex;
+                flex-grow: 1;
+            }
+
+            .voucher-record-item-actions {
+                display: flex;
+                padding-left: 10px;
             }
         }
     }
