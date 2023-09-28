@@ -73,7 +73,7 @@ main(id="main-content" ng-if="$ctrl.loaded")
                 +fund_actions
 
         .flex.flex-vertical(ng-class="$ctrl.fund.description_position == 'before' ? 'flex-vertical-reverse' : ''")
-            block-card-2-f-a-warning(fund="$ctrl.fund")
+            block-card-2-f-a-warning(ng-if="$root.auth_user" fund="$ctrl.fund")
             
             block-products(
                 type="budget"
