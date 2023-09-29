@@ -4,10 +4,13 @@ const EventLogsDirective = function (
     appConfigs,
     EventLogService,
     PermissionsService,
+    LocalStorageService,
     PushNotificationsService
 ) {
     const $dir = $scope.$dir;
     const $strLimit = $filter('str_limit');
+
+    $dir.paginationStorageKey = 'event_logs_per_page';
 
     const loggables = [
         { key: 'fund', title: 'Fonds' },
@@ -23,7 +26,9 @@ const EventLogsDirective = function (
     };
 
     $dir.filters = {
-        values: {},
+        values: {
+            per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 15),
+        },
         visible: false,
         initialValues: {},
         hide: (e) => {
@@ -130,6 +135,7 @@ module.exports = () => {
             'appConfigs',
             'EventLogService',
             'PermissionsService',
+            'LocalStorageService',
             'PushNotificationsService',
             EventLogsDirective
         ],

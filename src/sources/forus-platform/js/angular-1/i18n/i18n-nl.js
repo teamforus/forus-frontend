@@ -1637,7 +1637,7 @@ module.exports = {
             last: "Laatste",
         },
         labels: {
-            from: "Van",
+            from: "van",
         }
     },
 

@@ -64,8 +64,13 @@
                 a(ng-href="{{ fund.implementation.url_webshop + '/aanbieders/aanmelden' }}" target="_blank").card-text-link algemene voorwaarden
 
         //- Pagination
-        .card-section(ng-if="$dir.funds.meta" ng-show="$dir.funds.meta.last_page > 1")
-            paginator(meta="$dir.funds.meta" filters="$dir.filters.values" count-buttons="5" on-page-change="$dir.onPageChange(query)")
+        .card-section(ng-if="$dir.funds.meta")
+            paginator(
+                meta="$dir.funds.meta" 
+                filters="$dir.filters.values" 
+                count-buttons="5" 
+                on-page-change="$dir.onPageChange(query)" 
+                storage-key="{{ $dir.paginationStorageKey }}")
 
         //- Not found
         block-empty(

@@ -7,10 +7,13 @@ const VouchersComponent = function (
     DateService,
     ModalService,
     VoucherService,
+    LocalStorageService,
     VoucherExportService,
     PageLoadingBarService,
 ) {
     const $ctrl = this;
+
+    $ctrl.paginationStorageKey = 'vouchers_per_page';
 
     $ctrl.states = [
         { value: null, name: 'Selecteer...' },
@@ -58,7 +61,10 @@ const VouchersComponent = function (
             sort_by: 'created_at',
             sort_order: 'desc',
         },
-        values: pick($stateParams, [
+        values: pick({ 
+            ...$stateParams,
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
+        }, [
             'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
             'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
             'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
@@ -104,7 +110,7 @@ const VouchersComponent = function (
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange($ctrl.filters.values),
         }, { maxLoadTime: 1000 });
-    }
+    };
 
     $ctrl.uploadVouchersCsv = () => {
         ModalService.open('vouchersUpload', {
@@ -207,6 +213,7 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
+        'LocalStorageService',
         'VoucherExportService',
         'PageLoadingBarService',
         VouchersComponent,

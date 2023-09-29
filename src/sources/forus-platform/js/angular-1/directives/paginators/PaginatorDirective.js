@@ -3,18 +3,45 @@ const PaginatorDirective = function (
     $state,
     $attrs,
     $timeout,
-    $stateParams
+    $stateParams,
+    LocalStorageService
 ) {
     let countButtons = $scope.countButtons || 5;
     let filterTimeout;
     let initialized;
+
+    $scope.perPageOptions = [{
+        key: 10,
+        name: 10,
+    }, {
+        key: 15,
+        name: 15,
+    }, {
+        key: 25,
+        name: 25,
+    }, {
+        key: 50,
+        name: 50,
+    }, {
+        key: 100,
+        name: 100,
+    }];
+
+    $scope.changePerPage = () => {
+        if ($scope.storageKey) {
+            LocalStorageService.setCollectionItem('pagination', $scope.storageKey, $scope.meta.per_page || 15);
+        }
+
+        $scope.setPage($scope.meta.current_page);
+    };
 
     $scope.setPage = (page) => {
         const query = {};
 
         if (typeof ($scope.filters) == 'object' && $scope.filters) {
             Object.assign(query, $scope.filters, {
-                page: page
+                page: page,
+                per_page: $scope.meta.per_page,
             });
         }
 
@@ -91,6 +118,8 @@ module.exports = () => {
             filtersFromState: '=',
             countButtons: '=',
             buttonClass: '@',
+            disablePerPageSelect: '=',
+            storageKey: '@',
         },
         restrict: "EA",
         replace: true,
@@ -100,6 +129,7 @@ module.exports = () => {
             '$attrs',
             '$timeout',
             '$stateParams',
+            'LocalStorageService',
             PaginatorDirective,
         ],
         templateUrl: 'assets/tpl/directives/paginators/paginator.html',

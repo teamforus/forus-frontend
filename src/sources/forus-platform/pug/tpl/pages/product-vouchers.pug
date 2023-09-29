@@ -242,8 +242,14 @@
                                         em.mdi.mdi-eye-outline.icon-start
 
             //- Vouchers list
-            .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.last_page > 1")
-                paginator(meta="$ctrl.vouchers.meta" filters="$ctrl.filters.values" delayed-filters="['q', 'amount_min', 'amount_max', 'count_per_identity_min', 'count_per_identity_max']" count-buttons="5" on-page-change="$ctrl.onPageChange(query)")
+            .card-section(ng-if="$ctrl.vouchers")
+                paginator(
+                    meta="$ctrl.vouchers.meta" 
+                    filters="$ctrl.filters.values" 
+                    delayed-filters="['q', 'amount_min', 'amount_max', 'count_per_identity_min', 'count_per_identity_max']" 
+                    count-buttons="5" 
+                    on-page-change="$ctrl.onPageChange(query)"
+                    storage-key="{{ $ctrl.paginationStorageKey }}")
 
             //- Not found
             .card-section(ng-if="$ctrl.vouchers.meta.total == 0"): .block.block-empty.text-center

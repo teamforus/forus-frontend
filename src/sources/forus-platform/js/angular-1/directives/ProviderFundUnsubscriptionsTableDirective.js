@@ -3,6 +3,7 @@ const ProviderFundUnsubscriptionsTableDirective = function (
     $scope,
     $filter,
     ModalService,
+    LocalStorageService,
     PageLoadingBarService,
     FundUnsubscribeService,
     PushNotificationsService,
@@ -14,10 +15,12 @@ const ProviderFundUnsubscriptionsTableDirective = function (
     $dir.selected = [];
     $dir.selectedMeta = {};
 
+    $dir.paginationStorageKey = 'provider_fund_unsubscriptions_per_page';
+
     $dir.filtersDefault = {
         q: '',
         state: null,
-        per_page: 10,
+        per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 10),
     };
 
     $dir.filters = {
@@ -139,6 +142,7 @@ module.exports = () => {
             '$scope',
             '$filter',
             'ModalService',
+            'LocalStorageService',
             'PageLoadingBarService',
             'FundUnsubscribeService',
             'PushNotificationsService',

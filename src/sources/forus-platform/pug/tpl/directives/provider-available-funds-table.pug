@@ -96,8 +96,13 @@
     .card-section(ng-if="$dir.loading"): .card-loading: .mdi.mdi-loading.mdi-spin
 
     //- Pagination
-    .card-section(ng-if="$dir.funds.meta" ng-show="$dir.funds.meta.last_page > 1")
-        paginator(meta="$dir.funds.meta" filters="$dir.filters.values" count-buttons="5" on-page-change="$dir.onPageChange(query)")
+    .card-section(ng-if="$dir.funds.meta")
+        paginator(
+            meta="$dir.funds.meta" 
+            filters="$dir.filters.values"
+            count-buttons="5" 
+            on-page-change="$dir.onPageChange(query)"
+            storage-key="{{ $dir.paginationStorageKey }}")
 
     //- Not found
     .card-section(ng-if="!$dir.loading && $dir.funds.meta.total == 0"): .block.block-empty.text-center

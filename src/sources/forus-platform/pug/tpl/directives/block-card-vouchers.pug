@@ -61,8 +61,12 @@
                                 em.mdi.mdi-eye-outline.icon-start
 
     //- Pagination
-    .card-section(ng-if="$dir.vouchers.meta" ng-show="$dir.vouchers.meta.last_page > 1")
-        paginator(meta="$dir.vouchers.meta" filters="$dir.filters.values" on-page-change="$dir.onPageChange(query)")
+    .card-section(ng-if="$dir.vouchers.meta")
+        paginator(
+            meta="$dir.vouchers.meta" 
+            filters="$dir.filters.values" 
+            on-page-change="$dir.onPageChange(query)"
+            storage-key="{{ $dir.paginationStorageKey }}")
 
     //- Not found
     .card-section(ng-if="$dir.vouchers.meta.total == 0"): .block.block-empty.text-center

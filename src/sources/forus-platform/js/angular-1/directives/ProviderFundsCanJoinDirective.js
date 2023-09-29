@@ -2,11 +2,14 @@ const ProviderFundsCanJoinDirective = function (
     $q,
     $scope,
     $filter,
+    LocalStorageService,
     ProviderFundService,
     PageLoadingBarService,
 ) {
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
+
+    $dir.paginationStorageKey = 'provider_funds_join_per_page';
 
     $dir.selected = [];
 
@@ -16,7 +19,7 @@ const ProviderFundsCanJoinDirective = function (
             q: "",
             page: 1,
             tag: null,
-            per_page: 5,
+            per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 10),
             organization_id: null,
         },
     };
@@ -98,6 +101,7 @@ module.exports = () => {
             '$q',
             '$scope',
             '$filter',
+            'LocalStorageService',
             'ProviderFundService',
             'PageLoadingBarService',
             ProviderFundsCanJoinDirective,

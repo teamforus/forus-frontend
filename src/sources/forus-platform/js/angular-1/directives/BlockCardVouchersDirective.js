@@ -1,12 +1,17 @@
 const BlockCardVouchersDirective = function (
     $scope,
     VoucherService,
+    LocalStorageService,
     PushNotificationsService
 ) {
     const $dir = $scope.$dir;
 
+    $dir.paginationStorageKey = 'block_vouchers_per_page';
+
     $dir.filters = {
-        values: {},
+        values: {
+            per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 15),
+        },
         visible: false,
         initialValues: {},
         hide: (e) => {
@@ -92,6 +97,7 @@ module.exports = () => {
         controller: [
             '$scope',
             'VoucherService',
+            'LocalStorageService',
             'PushNotificationsService',
             BlockCardVouchersDirective
         ],

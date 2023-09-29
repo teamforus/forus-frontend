@@ -220,6 +220,7 @@ app.service('ProductReservationsExportService', require('./services/ProductReser
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 app.service('ClipboardService', require('./services/ClipboardService'));
+app.service('LocalStorageService', require('./services/LocalStorageService'));
 
 // Directives
 app.directive('menu', {

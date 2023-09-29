@@ -3,14 +3,19 @@ let PrevalidatedTableDirective = async function(
     $timeout,
     FileService,
     ModalService,
+    LocalStorageService,
     PrevalidationService,
     PushNotificationsService
 ) {
     $scope.headers = [];
 
+    $scope.paginationStorageKey = 'prevalidations_per_page';
+
     $scope.filters = {
         show: false,
-        values: {},
+        values: {
+            per_page: LocalStorageService.getCollectionItem('pagination', $scope.paginationStorageKey, 15),
+        },
     };
 
     $scope.states = [{
@@ -183,6 +188,7 @@ module.exports = () => {
             '$timeout',
             'FileService',
             'ModalService',
+            'LocalStorageService',
             'PrevalidationService',
             'PushNotificationsService',
             PrevalidatedTableDirective

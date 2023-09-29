@@ -3,12 +3,14 @@ const ProviderAvailableFundsTableDirective = function (
     $scope,
     $filter,
     ModalService,
+    LocalStorageService,
     ProviderFundService,
     PageLoadingBarService,
-    PushNotificationsService,
 ) {
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
+
+    $dir.paginationStorageKey = 'provider_available_funds_per_page';
 
     $dir.selected = [];
     $dir.selectedMeta = {};
@@ -21,6 +23,7 @@ const ProviderAvailableFundsTableDirective = function (
         organization_id: null,
         order_by: 'organization_name',
         order_dir: 'asc',
+        per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 15),
     };
 
     $dir.filters = {
@@ -152,9 +155,9 @@ module.exports = () => {
             '$scope',
             '$filter',
             'ModalService',
+            'LocalStorageService',
             'ProviderFundService',
             'PageLoadingBarService',
-            'PushNotificationsService',
             ProviderAvailableFundsTableDirective,
         ],
         templateUrl: 'assets/tpl/directives/provider-available-funds-table.html',
