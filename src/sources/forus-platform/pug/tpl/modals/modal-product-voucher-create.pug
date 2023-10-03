@@ -82,7 +82,7 @@
                         | Persoonlijke eigenschappen
 
                     .modal-fields-list(ng-if="$ctrl.showRecordFields")
-                        voucher-records-editor(records="$ctrl.form.values.records")
+                        voucher-records-editor(records="$ctrl.form.values.records" record-errors="$ctrl.form.errors.records")
 
             .form-group.form-group-inline.form-group-inline-lg
                 label.form-label

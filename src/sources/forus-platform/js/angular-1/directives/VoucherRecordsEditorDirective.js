@@ -41,6 +41,7 @@ const VoucherRecordsEditorDirective = function(
     $dir.$onInit = () => {
         getVoucherRecordTypes();
         $scope.$watch('records', (records) => $dir.voucherRecords = records || [], true);
+        $scope.$watch('recordErrors', (recordErrors) => $dir.recordErrors = recordErrors || [], true);
     };
 };
 
@@ -48,6 +49,7 @@ module.exports = () => {
     return {
         scope: {
             records: '=',
+            recordErrors: '=',
         },
         replace: true,
         restrict: "EA",
