@@ -1,8 +1,8 @@
-const ProductBoardComponent = function(
+const FeedbackComponent = function(
     $scope,
     appConfigs,
+    FeedbackService,
     FormBuilderService,
-    ProductBoardService,
     PushNotificationsService,
 ) {
     const $ctrl = this;
@@ -37,7 +37,7 @@ const ProductBoardComponent = function(
             customer_email: $ctrl.auth_user?.email || '',
             urgency: null,
         }, (form) => {
-            ProductBoardService.store({...form.values, ...{
+            FeedbackService.store({...form.values, ...{
                 customer_email: form.values.use_customer_email ? form.values.customer_email : null,
             }}).then(() => {
                 $ctrl.state = 'success';
@@ -77,10 +77,10 @@ module.exports = {
     controller: [
         '$scope',
         'appConfigs',
+        'FeedbackService',
         'FormBuilderService',
-        'ProductBoardService',
         'PushNotificationsService',
-        ProductBoardComponent,
+        FeedbackComponent,
     ],
-    templateUrl: 'assets/tpl/pages/productboard.html',
+    templateUrl: 'assets/tpl/pages/feedback.html',
 };
