@@ -5,13 +5,14 @@
 
     .modal-content
         //- Deactivation confirmation
-        .modal-window(ng-if="$ctrl.step == 'confirmation'"): form(
+        form.modal-window.form(
+            ng-if="$ctrl.step == 'confirmation'"
             ng-submit="$ctrl.deactivateProvider()")
 
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie uischakelen
 
-            .modal-body.text-center: .modal-section.form
+            .modal-body.text-center: .modal-section.flex-center.flex-grow
                 .modal-heading Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in.
 
                 .modal-text
@@ -29,7 +30,7 @@
                             .form-error(ng-repeat="error in $ctrl.errorCode" ng-bind="error")
                     
                     .text-center(ng-if="$ctrl.type == 'phone'")
-                        button.button.button-text.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
+                        button.button.button-text.button-text-primary.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
                             .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
                             | Code opnieuw verzenden
                             span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} seconde(n))
@@ -37,23 +38,23 @@
                 auth-2-f-a-info-box.flex-center
 
             .modal-footer
-                .button-group
+                .button-group.flex-grow
                     //- Back
-                    button.button.button-default(
+                    button.button.button-primary-outline.button-sm(
                         type="button"
-                        ng-click="$ctrl.cancel()") Annuleer
+                        ng-click="$ctrl.cancel()").flex-grow.flex-center Annuleer
 
                     //- Submit
-                    button.button.button-primary(
+                    button.button.button-primary.button-sm(
                         type="submit"
-                        ng-disabled="$ctrl.confirmationCode.length !== 6") Verifieer
+                        ng-disabled="$ctrl.confirmationCode.length !== 6").flex-grow.flex-center Verifieer
 
         //- Success
-        .modal-window(ng-if="$ctrl.step == 'success'"): form(ng-submit="$ctrl.done()")
+        form.modal-window.form(ng-if="$ctrl.step == 'success'" ng-submit="$ctrl.done()")
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
             .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie uitschakelen
 
-            .modal-body.text-center: .modal-section.modal-section-pad.form.text-center
+            .modal-body.text-center: .modal-section.modal-section-pad.flex-center.flex-grow
                 .modal-icon-mdi: .mdi.mdi-check
                 .modal-heading: strong Tweefactorauthenticatie is succesvol uitgeschakeld
                 .modal-text: small 
