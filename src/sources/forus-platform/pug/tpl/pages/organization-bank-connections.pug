@@ -98,4 +98,4 @@
                                     ng-bind="bankConnection.state_locale")
 
             .card-section(ng-if="$ctrl.bankConnections.meta" ng-show="$ctrl.bankConnections.meta.last_page > 1")
-                paginator(meta="$ctrl.bankConnections.meta" filters="$ctrl.filters" on-page-change="$ctrl.onPageChange(query)")
+                paginator(meta="$ctrl.bankConnections.meta" filters="$ctrl.filters" on-page-change="$ctrl.onPageChange(query)" disable-per-page-select="true")

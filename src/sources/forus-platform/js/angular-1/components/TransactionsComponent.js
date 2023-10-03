@@ -8,6 +8,7 @@ const TransactionsComponent = function (
     $stateParams,
     ModalService,
     TransactionService,
+    LocalStorageService,
     TransactionsExportService,
     TransactionBulkService,
     TransactionBulksExportService,
@@ -16,6 +17,8 @@ const TransactionsComponent = function (
 ) {
     const $ctrl = this;
     const $currencyFormat = $filter('currency_format');
+
+    $ctrl.paginationStorageKey = 'transactions_per_page';
 
     $ctrl.empty = null;
     $ctrl.buildingBulks = false;
@@ -77,7 +80,10 @@ const TransactionsComponent = function (
 
     $ctrl.filters = {
         show: false,
-        values: pick($stateParams, $stateParams.type == 'transactions' ? [
+        values: pick({ 
+            ...$stateParams,
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
+        }, $stateParams.type == 'transactions' ? [
             'q', 'state', 'fund_id', 'fund_state', 'from', 'to', 'amount_min', 'amount_max',
             'order_by', 'order_dir', 'page', 'per_page',
         ] : []),
@@ -364,6 +370,7 @@ module.exports = {
         '$stateParams',
         'ModalService',
         'TransactionService',
+        'LocalStorageService',
         'TransactionsExportService',
         'TransactionBulkService',
         'TransactionBulksExportService',

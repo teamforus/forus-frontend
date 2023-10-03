@@ -4,6 +4,7 @@ const OrganizationFundsComponent = function (
     $stateParams,
     FundService,
     ModalService,
+    LocalStorageService,
     PageLoadingBarService,
     PushNotificationsService
 ) {
@@ -11,6 +12,8 @@ const OrganizationFundsComponent = function (
     const $hasPerm = $filter('hasPerm');
     const $translate = $filter('translate');
     const $translateDangerZone = (type, key) => $translate(`modals.danger_zone.${type}.${key}`);
+
+    $ctrl.paginationStorageKey = 'organization_funds_per_page';
 
     $ctrl.hasManagerPermission = false;
     $ctrl.shownFundsType = $stateParams.funds_type || 'active';
@@ -136,7 +139,9 @@ const OrganizationFundsComponent = function (
         canInviteProviders: $ctrl.hasManagerPermission && fund.state != 'closed',
         topUpTransactionFilters: { 
             show: false, 
-            values: {},
+            values: {
+                per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
+            },
         },
         form: { 
             criteria: fund.criteria,
@@ -173,6 +178,7 @@ module.exports = {
         '$stateParams',
         'FundService',
         'ModalService',
+        'LocalStorageService',
         'PageLoadingBarService',
         'PushNotificationsService',
         OrganizationFundsComponent

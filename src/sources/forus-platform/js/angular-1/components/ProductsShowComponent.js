@@ -4,12 +4,17 @@ const ProductsShowComponent = function(
     ModalService,
     ProductService,
     ProductChatService,
+    LocalStorageService,
     PushNotificationsService
 ) {
     let $ctrl = this;
 
+    $ctrl.paginationStorageKey = 'product_funds_per_page';
+
     $ctrl.filters = {
-        values: {},
+        values: {
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
+        },
     };
 
     $ctrl.fund_toggles = {};
@@ -124,6 +129,7 @@ module.exports = {
         'ModalService',
         'ProductService',
         'ProductChatService',
+        'LocalStorageService',
         'PushNotificationsService',
         ProductsShowComponent
     ],

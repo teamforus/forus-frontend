@@ -3,6 +3,7 @@ const ReservationsComponent = function (
     $timeout,
     $stateParams,
     ModalService,
+    LocalStorageService,
     OrganizationService,
     PageLoadingBarService,
     PushNotificationsService,
@@ -38,7 +39,9 @@ const ReservationsComponent = function (
 
     $ctrl.filters = {
         show: false,
-        values: {},
+        values: {
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
+        },
         reset: function () {
             this.values.q = '';
             this.values.state = $ctrl.states[0].key;
@@ -214,6 +217,7 @@ module.exports = {
         '$timeout',
         '$stateParams',
         'ModalService',
+        'LocalStorageService',
         'OrganizationService',
         'PageLoadingBarService',
         'PushNotificationsService',

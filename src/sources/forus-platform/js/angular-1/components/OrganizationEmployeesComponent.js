@@ -3,6 +3,7 @@ const OrganizationEmployeesComponent = function (
     $filter,
     FileService,
     ModalService,
+    LocalStorageService,
     PushNotificationsService,
     OrganizationEmployeesService,
     appConfigs,
@@ -15,10 +16,12 @@ const OrganizationEmployeesComponent = function (
         return $translate(`modals.danger_zone.remove_organization_employees.${key}`);
     };
 
+    $ctrl.paginationStorageKey = 'employees_per_page';
+
     $ctrl.filters = {
         values: {
             q: "",
-            per_page: 15,
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
         }
     };
 
@@ -146,6 +149,7 @@ module.exports = {
         '$filter',
         'FileService',
         'ModalService',
+        'LocalStorageService',
         'PushNotificationsService',
         'OrganizationEmployeesService',
         'appConfigs',

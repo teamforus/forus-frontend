@@ -79,7 +79,7 @@ div
                         .text-muted(ng-if="row.state !== 'pending'") Geen opties
 
 
-        .card-section(ng-show="prevalidations.meta.last_page > 1")
+        .card-section(ng-show="prevalidations.meta.total > 10")
             paginator(
                 meta="prevalidations.meta" 
                 filters="filters.values" 

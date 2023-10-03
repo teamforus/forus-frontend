@@ -2,16 +2,19 @@ const ReimbursementCategoriesDirective = function (
     $scope,
     $filter,
     ModalService,
+    LocalStorageService,
     PushNotificationsService,
     ReimbursementCategoryService
 ) {
     const $dir = $scope.$dir = {};
 
+    $dir.paginationStorageKey = 'reimbursement_categories_per_page';
+
     const $translate = $filter('translate');
     const $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_reimbursement_category.${key}`);
 
     $dir.filters = {
-        per_page: $scope.compact ? 10 : 15,
+        per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, $scope.compact ? 10 : 15),
     };
 
     $dir.onPageChange = (query = {}) => {
@@ -87,6 +90,7 @@ module.exports = () => {
             '$scope',
             '$filter',
             'ModalService',
+            'LocalStorageService',
             'PushNotificationsService',
             'ReimbursementCategoryService',
             ReimbursementCategoriesDirective,

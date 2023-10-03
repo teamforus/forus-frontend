@@ -35,13 +35,14 @@
     //- Pagination
     .card-section(
         ng-class="$dir.compact ? 'card-section-narrow' : ''"
-        ng-show="$dir.reimbursementCategories.meta.total"): .table-pagination
+        ng-show="$dir.reimbursementCategories.meta.total > 10"): .table-pagination
         paginator(
             ng-if="$dir.reimbursementCategories.meta"
             meta="$dir.reimbursementCategories.meta"
             filters="$dir.filters"
             button-class="{{ $dir.compact ? 'button-sm' : '' }}"
-            on-page-change="$dir.onPageChange(query)")
+            on-page-change="$dir.onPageChange(query)"
+            storage-key="{{ $dir.paginationStorageKey }}")
 
     //- Not found
     block-empty(

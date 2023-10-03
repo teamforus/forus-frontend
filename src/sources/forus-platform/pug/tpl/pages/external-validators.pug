@@ -39,11 +39,13 @@
 
         .card(
             ng-if="$ctrl.validatorOrganizations.meta.total > 0" 
-            ng-show="$ctrl.validatorOrganizations.meta.last_page > 1")
+            ng-show="$ctrl.validatorOrganizations.meta.total > 10")
+            
             .card-section: paginator(
                 meta="$ctrl.validatorOrganizations.meta"
                 filters="$ctrl.filters.values"
-                on-page-change="$ctrl.onPageChange(query)")
+                on-page-change="$ctrl.onPageChange(query)"
+                storage-key="{{ $ctrl.paginationStorageKey }}")
 
         div(ng-if="$ctrl.validatorOrganizations.meta.total == 0")
             block-empty(text="Geen beoordelaars beschikbaar." )

@@ -6,11 +6,17 @@ const ProductsComponent = function (
     appConfigs,
     ModalService,
     ProductService,
+    LocalStorageService,
     PageLoadingBarService,
 ) {
     const $ctrl = this;
 
-    $ctrl.filters = pick($stateParams, [
+    $ctrl.paginationStorageKey = 'products_per_page';
+
+    $ctrl.filters = pick({ 
+        ...$stateParams,
+        per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
+    }, [
         'q', 'source', 'per_page',
     ]);
 
@@ -67,6 +73,7 @@ module.exports = {
         'appConfigs',
         'ModalService',
         'ProductService',
+        'LocalStorageService',
         'PageLoadingBarService',
         ProductsComponent
     ],

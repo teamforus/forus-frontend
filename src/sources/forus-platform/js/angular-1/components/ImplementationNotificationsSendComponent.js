@@ -4,12 +4,15 @@ const ImplementationNotificationsSendComponent = function (
     $filter,
     FundService,
     ModalService,
+    LocalStorageService,
     PageLoadingBarService,
     PushNotificationsService,
     FundIdentitiesExportService,
     ImplementationNotificationsService
 ) {
     const $ctrl = this;
+
+    $ctrl.paginationStorageKey = 'notifications_send_per_page';
 
     const $translate = $filter('translate');
     const $translateKey = 'modals.danger_zone.confirm_custom_sponsor_email_notification';
@@ -51,7 +54,7 @@ const ImplementationNotificationsSendComponent = function (
         order_dir: 'asc',
         target: identityTargets[0].value,
         with_reservations: 1,
-        per_page: 10,
+        per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 10),
     };
 
     $ctrl.providersFilters = {
@@ -240,6 +243,7 @@ module.exports = {
         '$filter',
         'FundService',
         'ModalService',
+        'LocalStorageService',
         'PageLoadingBarService',
         'PushNotificationsService',
         'FundIdentitiesExportService',

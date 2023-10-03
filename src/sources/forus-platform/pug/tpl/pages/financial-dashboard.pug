@@ -239,17 +239,19 @@
                                         paginator(
                                             meta="provider.transactions.meta"
                                             filters="provider.filter" 
-                                            on-page-change="$ctrl.onProviderTransactionPageChange(provider, query)")
+                                            on-page-change="$ctrl.onProviderTransactionPageChange(provider, query)"
+                                            disable-per-page-select="true")
 
                                 block-empty(
                                     ng-if="provider.transactions.meta.total == 0"
                                     text="Geen transacties.")
 
-                .card-section(ng-if="$ctrl.providersFinances" ng-show="$ctrl.providersFinances.meta.last_page > 1")
+                .card-section(ng-if="$ctrl.providersFinances" ng-show="$ctrl.providersFinances.meta.total > 10")
                     paginator(
                         meta="$ctrl.providersFinances.meta"
                         filters="$ctrl.providerFilters" 
-                        on-page-change="$ctrl.fetchProviders(query)")
+                        on-page-change="$ctrl.fetchProviders(query)"
+                        storage-key="{{ $ctrl.paginationStorageKey }}")
 
             block-empty(
                 ng-if='$ctrl.providersFinances && $ctrl.providersFinances.meta.total == 0'

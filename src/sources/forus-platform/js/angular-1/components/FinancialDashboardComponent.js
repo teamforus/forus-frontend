@@ -6,6 +6,7 @@ const FinancialDashboardComponent = function(
     FileService,
     TransactionService,
     OrganizationService,
+    LocalStorageService,
     PageLoadingBarService,
     appConfigs,
 ) {
@@ -17,9 +18,11 @@ const FinancialDashboardComponent = function(
     $ctrl.providersFinances = null;
     $ctrl.optionsList = {};
 
+    $ctrl.paginationStorageKey = 'provider_finances_per_page';
+
     $ctrl.providerFilters = {
         page: 1,
-        per_page: 10,
+        per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 10),
     };
 
     $ctrl.fetchData = () => {
@@ -397,6 +400,7 @@ module.exports = {
         'FileService',
         'TransactionService',
         'OrganizationService',
+        'LocalStorageService',
         'PageLoadingBarService',
         'appConfigs',
         FinancialDashboardComponent,

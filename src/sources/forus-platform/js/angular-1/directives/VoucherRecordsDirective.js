@@ -2,6 +2,7 @@ const VoucherRecords = function (
     $scope,
     $filter,
     ModalService,
+    LocalStorageService,
     VoucherRecordService,
     PushNotificationsService,
 ) {
@@ -9,9 +10,11 @@ const VoucherRecords = function (
     const $translate = $filter('translate');
     const $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_voucher_record.${key}`);
 
+    $dir.paginationStorageKey = 'voucher_records_per_page';
+
     $dir.filters = {
         q: '',
-        per_page: 10,
+        per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 10),
         order_by: 'created_at',
         order_dir: 'asc',
     };
@@ -68,6 +71,7 @@ module.exports = () => {
             '$scope',
             '$filter',
             'ModalService',
+            'LocalStorageService',
             'VoucherRecordService',
             'PushNotificationsService',
             VoucherRecords,

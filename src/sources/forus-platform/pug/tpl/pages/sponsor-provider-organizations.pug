@@ -213,9 +213,10 @@
             text="Je hebt nog geen verzoeken van aanbieders")
 
         .card
-            .card-section(ng-if="$ctrl.providerOrganizations.meta" ng-show="$ctrl.providerOrganizations.meta.last_page > 0")
+            .card-section(ng-if="$ctrl.providerOrganizations.meta" ng-show="$ctrl.providerOrganizations.meta.total > 10")
                 paginator(
-                    meta="$ctrl.providerOrganizations.meta" 
+                    meta="$ctrl.providerOrganizations.meta"
                     filters="$ctrl.filters.values" 
                     count-buttons="5" 
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    storage-key="{{ $ctrl.paginationStorageKey }}")

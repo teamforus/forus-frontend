@@ -103,8 +103,12 @@
                 //- Audience pagination
                 .card-section.card-section-narrow(
                     ng-if="$ctrl.identities"
-                    ng-show="$ctrl.showIdentities && $ctrl.identities.meta.last_page > 1")
-                    paginator(meta="$ctrl.identities.meta" filters="$ctrl.identitiesFilters" on-page-change="$ctrl.identitiesOnPageChange(query)")
+                    ng-show="$ctrl.showIdentities && $ctrl.identities.meta.total > 10")
+                    paginator(
+                        meta="$ctrl.identities.meta" 
+                        filters="$ctrl.identitiesFilters" 
+                        on-page-change="$ctrl.identitiesOnPageChange(query)"
+                        storage-key="{{ $ctrl.paginationStorageKey }}")
 
                 //- Empty audience block
                 .card-section(ng-if="$ctrl.showIdentities && $ctrl.identities.meta.total == 0"): .block.block-empty.text-center

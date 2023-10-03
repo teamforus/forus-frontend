@@ -1,12 +1,15 @@
 const SponsorFundUnsubscriptionsComponent = function (
     $state,
+    LocalStorageService,
     PageLoadingBarService,
     FundUnsubscribeService,
 ) {
     const $ctrl = this;
 
+    $ctrl.paginationStorageKey = 'fund_unsubscriptions_per_page';
+
     $ctrl.filters = {
-        per_page: 10,
+        per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 10),
     };
 
     $ctrl.states = [{
@@ -71,6 +74,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        'LocalStorageService',
         'PageLoadingBarService',
         'FundUnsubscribeService',
         SponsorFundUnsubscriptionsComponent,

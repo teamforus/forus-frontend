@@ -35,7 +35,7 @@
                 span(ng-if="note.employee.identity_address !== $root.auth_user.address" ng-bind="'-'")
 
     //- Notes pagination
-    .card-section(ng-if="$dir.notes.meta.total > 0" ng-show="$dir.notes.meta.last_page > 1")
+    .card-section(ng-if="$dir.notes.meta.total > 0" ng-show="$dir.notes.meta.total > 10")
         paginator(
             meta="$dir.notes.meta" 
             filters="$dir.notesFilters" 

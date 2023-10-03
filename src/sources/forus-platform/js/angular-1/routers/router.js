@@ -1439,24 +1439,24 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
                 return repackResponse(FundService.list($transition$.params().organization_id));
             }],
-            transactions: ['$transition$', 'TransactionService', 'appConfigs', (
-                $transition$, TransactionService, appConfigs
+            transactions: ['$transition$', 'TransactionService', 'appConfigs', 'LocalStorageService', (
+                $transition$, TransactionService, appConfigs, LocalStorageService
             ) => repackPagination(TransactionService.list(appConfigs.panel_type, $transition$.params().organization_id, {
                 ...pick($transition$.params(), $transition$.params().type == 'transactions' ? [
                     'q', 'page', 'state', 'fund_id', 'fund_state', 'from', 'to', 
                     'amount_min', 'amount_max', 'quantity_min', 'quantity_max', 
                     'order_by', 'order_by_dir',
                 ] : []),
-                per_page: 20,
+                per_page: LocalStorageService.getCollectionItem('pagination', 'transactions_per_page', 15),
             }))],
-            transactionBulks: ['$transition$', 'TransactionBulkService', (
-                $transition$, TransactionBulkService
+            transactionBulks: ['$transition$', 'TransactionBulkService', 'LocalStorageService', (
+                $transition$, TransactionBulkService, LocalStorageService
             ) => repackPagination(TransactionBulkService.list($transition$.params().organization_id, {
                 ...pick($transition$.params(), $transition$.params().type == 'bulks' ? [
                     'page', 'state', 'from', 'to', 'amount_min', 'amount_max', 
                     'quantity_min', 'quantity_max', 'order_by', 'order_by_dir'
                 ] : []),
-                per_page: 20,
+                per_page: LocalStorageService.getCollectionItem('pagination', 'transactions_per_page', 15),
             }))],
             organization: organizationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')

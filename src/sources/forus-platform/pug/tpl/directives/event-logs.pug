@@ -78,7 +78,7 @@
                 div(ng-if="log.note" ng-bind="log.note_substr")
 
     //- Pagination
-    .card-section(ng-if="$dir.logs.meta")
+    .card-section(ng-if="$dir.logs.meta" ng-show="$dir.logs.meta.total > 10")
         paginator(
             meta="$dir.logs.meta" 
             filters="$dir.filters.values" 

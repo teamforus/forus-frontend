@@ -3,16 +3,19 @@ const FundsShowComponent = function (
     FundService,
     ModalService,
     PermissionsService,
+    LocalStorageService,
     PageLoadingBarService,
     PushNotificationsService,
     FundIdentitiesExportService,
 ) {
     const $ctrl = this;
 
+    $ctrl.paginationStorageKey = 'funds_show_per_page';
+
     $ctrl.identitiesFilters = {
         order_by: 'id',
         order_dir: 'asc',
-        per_page: 10,
+        per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 10),
     };
 
     $ctrl.toggleActions = (e, implementation) => {
@@ -80,6 +83,7 @@ module.exports = {
         'FundService',
         'ModalService',
         'PermissionsService',
+        'LocalStorageService',
         'PageLoadingBarService',
         'PushNotificationsService',
         'FundIdentitiesExportService',

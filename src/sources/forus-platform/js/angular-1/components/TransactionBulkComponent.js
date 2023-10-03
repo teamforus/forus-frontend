@@ -7,6 +7,7 @@ const TransactionBulkComponent = function (
     FileService,
     ModalService,
     TransactionService,
+    LocalStorageService,
     TransactionBulkService,
     TransactionsExportService,
     PageLoadingBarService,
@@ -16,9 +17,11 @@ const TransactionBulkComponent = function (
 
     $ctrl.resettingBulk = false;
 
+    $ctrl.paginationStorageKey = 'transaction_bulk_per_page';
+
     $ctrl.filters = {
         values: {
-            per_page: 20,
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
             order_by: 'created_at',
             order_dir: 'desc',
         },
@@ -288,6 +291,7 @@ module.exports = {
         'FileService',
         'ModalService',
         'TransactionService',
+        'LocalStorageService',
         'TransactionBulkService',
         'TransactionsExportService',
         'PageLoadingBarService',

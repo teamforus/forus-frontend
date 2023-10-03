@@ -1,5 +1,6 @@
 const ReimbursementsComponent = function (
     ReimbursementsExportService,
+    LocalStorageService,
     ReimbursementService,
     PageLoadingBarService,
 ) {
@@ -9,6 +10,8 @@ const ReimbursementsComponent = function (
     $ctrl.expired_options = ReimbursementService.getExpiredOptions();
     $ctrl.archived_options = ReimbursementService.getArchivedOptions();
     $ctrl.deactivated_options = ReimbursementService.getDeactivatedOptions();
+
+    $ctrl.paginationStorageKey = 'reimbursements_per_page';
 
     $ctrl.filters = {
         show: false,
@@ -23,6 +26,7 @@ const ReimbursementsComponent = function (
             from: null,
             to: null,
             page: 1,
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
         },
         values: {},
         reset: function () {
@@ -87,6 +91,7 @@ module.exports = {
     },
     controller: [
         'ReimbursementsExportService',
+        'LocalStorageService',
         'ReimbursementService',
         'PageLoadingBarService',
         ReimbursementsComponent,

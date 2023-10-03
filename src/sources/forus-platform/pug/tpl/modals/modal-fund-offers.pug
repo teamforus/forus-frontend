@@ -40,5 +40,5 @@
         .modal-footer 
             button.button.button-default.button-close(ng-click="$ctrl.close()" translate="modal_funds_add.buttons.close")
 
-            .pagination-offers(ng-if="$ctrl.offers" ng-show="$ctrl.offers.meta.last_page > 1") 
+            .pagination-offers(ng-if="$ctrl.offers" ng-show="$ctrl.offers.meta.total > 10") 
                 paginator(meta="$ctrl.offers.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")

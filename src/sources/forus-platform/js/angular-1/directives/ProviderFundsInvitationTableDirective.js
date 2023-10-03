@@ -2,6 +2,7 @@ const ProviderFundsInvitationTableDirective = function (
     $q,
     $scope,
     $filter,
+    LocalStorageService,
     PageLoadingBarService,
     PushNotificationsService,
     FundProviderInvitationsService,
@@ -9,12 +10,14 @@ const ProviderFundsInvitationTableDirective = function (
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
 
+    $dir.paginationStorageKey = 'provider_fund_invitations_per_page';
+
     $dir.selected = [];
     $dir.selectedMeta = {};
 
     $dir.filters = {
         q: '',
-        per_page: 10,
+        per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 10),
     };
 
     $dir.toggleAll = (e, items = []) => {
@@ -107,6 +110,7 @@ module.exports = () => {
             '$q',
             '$scope',
             '$filter',
+            'LocalStorageService',
             'PageLoadingBarService',
             'PushNotificationsService',
             'FundProviderInvitationsService',

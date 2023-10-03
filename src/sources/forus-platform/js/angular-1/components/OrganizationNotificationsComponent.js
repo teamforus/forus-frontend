@@ -2,15 +2,18 @@ let OrganizationNotificationsComponent = function(
     $q,
     $scope,
     $timeout,
+    LocalStorageService,
     NotificationsService
 ) {
     let $ctrl = this;
     let timeout, timeoutThreshold = 2500;
 
+    $ctrl.paginationStorageKey = 'notifications_per_page';
+
     $ctrl.loaded = false;
     $ctrl.filters = {
         values: {
-            per_page: 10
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 10),
         },
         lastFilters: {}
     };
@@ -83,6 +86,7 @@ module.exports = {
         '$q',
         '$scope',
         '$timeout',
+        'LocalStorageService',
         'NotificationsService',
         OrganizationNotificationsComponent
     ],

@@ -2,6 +2,7 @@ const ExternalValidatorsComponent = function(
     $q,
     $filter,
     ModalService,
+    LocalStorageService,
     OrganizationService,
     PushNotificationsService
 ) {
@@ -9,8 +10,12 @@ const ExternalValidatorsComponent = function(
     let $translate = $filter('translate');
     let $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_external_validators.${key}`);
 
+    $ctrl.paginationStorageKey = 'external_validators_per_page';
+
     $ctrl.filters = {
-        values: {},
+        values: {
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
+        },
     };
 
     let prepareValidators = (organizations, approvedOrganizations) => {
@@ -108,6 +113,7 @@ module.exports = {
         '$q',
         '$filter',
         'ModalService',
+        'LocalStorageService',
         'OrganizationService',
         'PushNotificationsService',
         ExternalValidatorsComponent

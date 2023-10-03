@@ -266,7 +266,8 @@
                             ng-if="fund.top_up_transactions.meta"
                             meta="fund.top_up_transactions.meta"
                             filters="fund.topUpTransactionFilters.values"
-                            on-page-change="$ctrl.fetchTopUpTransactions(fund, query)")
+                            on-page-change="$ctrl.fetchTopUpTransactions(fund, query)"
+                            storage-key="{{ $ctrl.paginationStorageKey }}")
 
                     block-empty(
                         ng-if="fund.top_up_transactions.meta.total == 0"

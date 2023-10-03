@@ -48,7 +48,8 @@
                     ng-if="$ctrl.socialMedias.meta"
                     meta="$ctrl.socialMedias.meta"
                     filters="$ctrl.topUpTransactionFilters.values"
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    disable-per-page-select="true")
 
             //- Not found
             block-empty(

@@ -5,18 +5,21 @@ const ProviderFundsTableDirective = function (
     ModalService,
     ProductService,
     ProviderFundService,
+    LocalStorageService,
     PageLoadingBarService,
     PushNotificationsService,
 ) {
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
 
+    $dir.paginationStorageKey = 'provider_funds_table_per_page';
+
     $dir.selected = [];
     $dir.selectedMeta = {};
 
     $dir.filters = {
         q: '',
-        per_page: 10,
+        per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 15),
     };
 
     const $translateDangerZone = (key, params) => {
@@ -138,6 +141,7 @@ module.exports = () => {
             'ModalService',
             'ProductService',
             'ProviderFundService',
+            'LocalStorageService',
             'PageLoadingBarService',
             'PushNotificationsService',
             ProviderFundsTableDirective,

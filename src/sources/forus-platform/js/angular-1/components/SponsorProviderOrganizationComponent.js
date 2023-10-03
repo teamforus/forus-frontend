@@ -1,12 +1,20 @@
 const SponsorProviderOrganizationComponent = function (
     $q,
     FundService,
+    LocalStorageService,
     OrganizationService,
     PushNotificationsService
 ) {
     const $ctrl = this;
 
-    const filters = { values: { q: "", per_page: 2 } };
+    $ctrl.paginationStorageKey = 'provider_organizations_per_page';
+
+    const filters = { 
+        values: { 
+            q: "",
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 10),
+        }
+    };
     const providerFilters = { values: { q: "", per_page: 10 } };
 
     const fetchFundProviders = (providerOrganization, query = {}) => {
@@ -81,6 +89,7 @@ module.exports = {
     controller: [
         '$q',
         'FundService',
+        'LocalStorageService',
         'OrganizationService',
         'PushNotificationsService',
         SponsorProviderOrganizationComponent

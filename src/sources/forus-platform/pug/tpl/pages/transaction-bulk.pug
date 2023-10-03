@@ -172,5 +172,9 @@
                                     em.mdi.mdi-eye-outline.icon-start
 
             //- Transactions pagination
-            .card-section(ng-if="$ctrl.transactions" ng-show="$ctrl.transactions.meta.last_page > 1")
-                paginator(meta="$ctrl.transactions.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
+            .card-section(ng-if="$ctrl.transactions" ng-show="$ctrl.transactions.meta.total > 10")
+                paginator(
+                    meta="$ctrl.transactions.meta" 
+                    filters="$ctrl.filters.values" 
+                    on-page-change="$ctrl.onPageChange(query)"
+                    storage-key="{{ $ctrl.paginationStorageKey }}")

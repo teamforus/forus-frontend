@@ -26,9 +26,7 @@ const EventLogsDirective = function (
     };
 
     $dir.filters = {
-        values: {
-            per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 15),
-        },
+        values: {},
         visible: false,
         initialValues: {},
         hide: (e) => {
@@ -62,7 +60,11 @@ const EventLogsDirective = function (
     };
 
     $dir.onPageChange = (query = {}) => {
-        const filters = { ...$dir.filters.values, ...query };
+        const filters = { 
+            ...$dir.filters.values, 
+            ...query, 
+            per_page: LocalStorageService.getCollectionItem('pagination', $dir.paginationStorageKey, 15),
+        };
 
         filters.loggable = filterPermissions(filters.loggable);
 

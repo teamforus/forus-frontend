@@ -242,7 +242,7 @@
                                         em.mdi.mdi-eye-outline.icon-start
 
             //- Vouchers list
-            .card-section(ng-if="$ctrl.vouchers")
+            .card-section(ng-if="$ctrl.vouchers" ng-show="$ctrl.vouchers.meta.total > 10")
                 paginator(
                     meta="$ctrl.vouchers.meta" 
                     filters="$ctrl.filters.values" 

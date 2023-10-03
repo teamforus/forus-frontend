@@ -3,6 +3,7 @@ const FundRequestsComponent = function (
     $timeout,
     FileService,
     ModalService,
+    LocalStorageService,
     FundRequestValidatorService,
     appConfigs
 ) {
@@ -10,6 +11,8 @@ const FundRequestsComponent = function (
 
     $ctrl.funds = [];
     $ctrl.validatorRequests = null;
+
+    $ctrl.paginationStorageKey = 'fund_requests_per_page';
 
     $ctrl.states = [{
         key: null,
@@ -60,7 +63,7 @@ const FundRequestsComponent = function (
         values: {},
         defaultValues: {
             page: 1,
-            per_page: 10,
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 10),
             q: '',
             state: $ctrl.states[0].key,
             employee_id: null,
@@ -150,6 +153,7 @@ module.exports = {
         '$timeout',
         'FileService',
         'ModalService',
+        'LocalStorageService',
         'FundRequestValidatorService',
         'appConfigs',
         FundRequestsComponent,

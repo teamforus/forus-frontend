@@ -217,8 +217,13 @@
                                         em.mdi.mdi-eye-outline.icon-start
 
             //- Pagination
-            .card-section(ng-if="$ctrl.reimbursements.meta" ng-show="$ctrl.reimbursements.meta.last_page > 1")
-                paginator(meta="$ctrl.reimbursements.meta" filters="$ctrl.filters.values" delayed-filters="['q', 'amount_min', 'amount_max']" on-page-change="$ctrl.onPageChange(query)")
+            .card-section(ng-if="$ctrl.reimbursements.meta" ng-show="$ctrl.reimbursements.meta.total > 10")
+                paginator(
+                    meta="$ctrl.reimbursements.meta" 
+                    filters="$ctrl.filters.values" 
+                    delayed-filters="['q', 'amount_min', 'amount_max']" 
+                    on-page-change="$ctrl.onPageChange(query)"
+                    storage-key="{{ $ctrl.paginationStorageKey }}")
 
             //- Not found
             .card-section(ng-if="$ctrl.reimbursements.meta.total == 0"): .block.block-empty.text-center

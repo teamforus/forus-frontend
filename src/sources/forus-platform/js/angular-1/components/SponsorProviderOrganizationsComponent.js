@@ -5,9 +5,12 @@ const SponsorProviderOrganizationsComponent = function(
     $stateParams,
     FileService,
     ModalService,
+    LocalStorageService,
     OrganizationService
 ) {
     const $ctrl = this;
+
+    $ctrl.paginationStorageKey = 'sponsor_providers_per_page';
 
     $ctrl.loaded = false;
     $ctrl.extendedView = localStorage.getItem('sponsor_providers.extended_view') === 'true';
@@ -22,7 +25,10 @@ const SponsorProviderOrganizationsComponent = function(
 
     $ctrl.filters = {
         show: false,
-        values: pick($stateParams, [
+        values: pick({ 
+            ...$stateParams,
+            per_page: LocalStorageService.getCollectionItem('pagination', $ctrl.paginationStorageKey, 15),
+        }, [
             'q', 'order_by', 'fund_id', 'allow_budget', 'allow_products', 'has_products',
         ]),
         defaultValues: {
@@ -135,6 +141,7 @@ module.exports = {
         '$stateParams',
         'FileService',
         'ModalService',
+        'LocalStorageService',
         'OrganizationService',
         SponsorProviderOrganizationsComponent
     ],

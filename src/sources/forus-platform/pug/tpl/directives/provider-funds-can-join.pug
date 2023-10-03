@@ -64,7 +64,7 @@
                 a(ng-href="{{ fund.implementation.url_webshop + '/aanbieders/aanmelden' }}" target="_blank").card-text-link algemene voorwaarden
 
         //- Pagination
-        .card-section(ng-if="$dir.funds.meta")
+        .card-section(ng-if="$dir.funds.meta" ng-show="$dir.funds.meta.total > 10")
             paginator(
                 meta="$dir.funds.meta" 
                 filters="$dir.filters.values" 

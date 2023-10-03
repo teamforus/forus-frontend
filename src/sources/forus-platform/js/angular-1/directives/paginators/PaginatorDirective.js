@@ -27,9 +27,29 @@ const PaginatorDirective = function (
         name: 100,
     }];
 
+    $scope.defaultPerPage = 15;
+
+    $scope.validPerPage = (per_page) => {
+        return $scope.perPageOptions.find(option => option.key == per_page);
+    };
+
+    $scope.setPerPage = () => {
+        const storage_per_page = LocalStorageService.getCollectionItem('pagination', $scope.storageKey);
+
+        if (storage_per_page && $scope.validPerPage(storage_per_page)) {
+            return storage_per_page;
+        }
+
+        if ($scope.meta.per_page && $scope.validPerPage($scope.meta.per_page)) {
+            return $scope.meta.per_page;
+        }
+
+        return $scope.defaultPerPage;
+    };
+
     $scope.changePerPage = () => {
         if ($scope.storageKey) {
-            LocalStorageService.setCollectionItem('pagination', $scope.storageKey, $scope.meta.per_page || 15);
+            LocalStorageService.setCollectionItem('pagination', $scope.storageKey, $scope.meta.per_page || $scope.defaultPerPage);
         }
 
         $scope.setPage($scope.meta.current_page);
@@ -88,6 +108,8 @@ const PaginatorDirective = function (
 
     $scope.$watch('meta', () => {
         $scope.pages = $scope.getPages();
+
+        $scope.meta.per_page = $scope.setPerPage();
 
         if ($scope.meta.current_page > $scope.meta.last_page) {
             $scope.setPage($scope.meta.last_page);
