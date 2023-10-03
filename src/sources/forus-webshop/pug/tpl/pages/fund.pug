@@ -30,10 +30,6 @@ main(id="main-content" ng-if="$ctrl.loaded")
                         span(ng-bind="$ctrl.fund.request_btn_text")
                         em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
-                    a.button.button-primary.button-wide.button-disabled(
-                        ng-if="$ctrl.fund.showPendingButton"
-                        translate="funds.buttons.is_pending")
-
                     a.button.button-primary.button-wide(
                         type="button"
                         ng-if="$ctrl.fund.showActivateButton" 
@@ -48,6 +44,16 @@ main(id="main-content" ng-if="$ctrl.loaded")
                             translate="funds.buttons.{{ $ctrl.fund.key }}.already_received"
                             translate-default="{{'funds.buttons.already_received' | translate }}")
                         em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+
+            mixin fund_pending_card
+                .block.block-action-card.block-action-card-compact(ng-if="$ctrl.fund.showPendingButton")
+                    .block-card-logo: include ../../../resources/_webshop-common/assets/img/icon-fund-request.svg
+                    .block-card-details: h3.block-card-title We zijn uw aanvraag aan het controleren
+                    .block-card-actions
+                        a.button.button-primary(
+                            ui-sref="fund-requests({fund_id: $ctrl.fund.id})")
+                            translate(translate="funds.buttons.check_status")
+                            em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
             .fund-content
                 .fund-card: .fund-details
@@ -70,7 +76,8 @@ main(id="main-content" ng-if="$ctrl.loaded")
                             .fund-details-item-label Einddatum:
                             .fund-details-item-value(ng-bind="$ctrl.fund.end_date_locale")
 
-                +fund_actions
+                +fund_actions()
+                +fund_pending_card()
 
         .flex.flex-vertical(ng-class="$ctrl.fund.description_position == 'before' ? 'flex-vertical-reverse' : ''")
             block-card-2-f-a-warning(fund="$ctrl.fund")
