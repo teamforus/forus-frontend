@@ -105,6 +105,7 @@ module.exports = {
                 vouchers: "Mijn tegoeden",
                 reservations: "Reserveringen",
                 reimbursements:"Kosten terugvragen",
+                fund_requests: "Fondsaanvragen",
                 notifications: "Notificaties",
                 preferences_notifications: "Notificatievoorkeuren",
                 preferences_emails: "E-mailinstellingen",

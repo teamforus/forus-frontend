@@ -12,7 +12,7 @@ main(id="main-content")
 
                 .sign_up-pane-body
                     .sign_up-pane-text: .sign_up-pane-heading Kies een optie
-                    .sign_up-options
+                    .sign_up-options.sign_up-options-2fa
                         .sign_up-option(
                             ng-repeat="provider_type in $ctrl.provider_types" 
                             ng-click="$ctrl.auth2FA(provider_type.type)")
@@ -37,7 +37,7 @@ main(id="main-content")
                 .sign_up-pane-body
                     .sign_up-pane-text: .sign_up-pane-heading Kies een optie
 
-                    .sign_up-options
+                    .sign_up-options.sign_up-options-2fa
                         .sign_up-option(
                             ng-repeat="provider_type in $ctrl.provider_types" 
                             ng-click="$ctrl.auth2FA(provider_type.type, true)")

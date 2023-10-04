@@ -246,6 +246,8 @@ module.exports = () => {
             onFileUploaded: '&',
             onFileResolved: '&',
             onFileBatchQueued: '&',
+            compact: "@",
+            hideButtons: "@",
         },
         bindToController: true,
         controllerAs: '$dir',
