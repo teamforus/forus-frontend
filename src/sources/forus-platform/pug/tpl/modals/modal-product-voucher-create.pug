@@ -1,6 +1,6 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-md.modal-animated(
+.modal.modal-animated.modal-loading.modal-voucher-create(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
@@ -9,70 +9,86 @@
     form(ng-submit="$ctrl.form.submit()").modal-window.form
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
         .modal-header(i18n="modals.modal_product_voucher_create.title")
-        .modal-body
-            .modal-section 
-                .form-group.form-group-inline.form-group-inline-md
-                    label.form-label.form-label-required(i18n="modals.modal_voucher_create.labels.assign_by_type")
-                    .form-offset: select-control(
-                        as="label"
-                        search="false"
-                        options="$ctrl.assignTypes"
-                        ng-change="$ctrl.onAssignTypeChange($ctrl.assignType.key)"
-                        ng-model="$ctrl.assignType").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
+        .modal-body: .modal-section 
+            .modal-fields-groups
+                .modal-fields-group
+                    .modal-fields-group-title(ng-click="$ctrl.showGeneralFields = !$ctrl.showGeneralFields")
+                        em.mdi.mdi-menu-down(ng-class="{'mdi-menu-right': !$ctrl.showGeneralFields}")
+                        | Algemeen
+ 
+                    .modal-fields-list(ng-if="$ctrl.showGeneralFields")
+                        .form-group.form-group-inline.form-group-inline-lg
+                            label.form-label.form-label-required(i18n="modals.modal_voucher_create.labels.assign_by_type")
+                            .form-offset: select-control(
+                                as="label"
+                                search="false"
+                                options="$ctrl.assignTypes"
+                                ng-change="$ctrl.onAssignTypeChange($ctrl.assignType.key)"
+                                ng-model="$ctrl.assignType").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.assign_by_type" ng-bind="error")
 
-                .form-group.form-group-inline.form-group-inline-md(ng-if="$ctrl.assignType.hasInput")
-                    label.form-label(
-                        ng-bind="$ctrl.assignType.inputLabel"
-                        ng-class="['email', 'bsn'].includes($ctrl.assignType.key) ? 'form-label-required' : ''")
-                    input(ng-model="$ctrl.form.values[$ctrl.assignType.key]" placeholder="{{ $ctrl.assignType.inputLabel }}").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
+                        .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.assignType.hasInput")
+                            label.form-label(
+                                ng-bind="$ctrl.assignType.inputLabel"
+                                ng-class="['email', 'bsn'].includes($ctrl.assignType.key) ? 'form-label-required' : ''")
+                            input(ng-model="$ctrl.form.values[$ctrl.assignType.key]" placeholder="{{ $ctrl.assignType.inputLabel }}").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors[$ctrl.assignType.key]" ng-bind="error")
 
-                .form-group.form-group-inline.form-group-inline-md
-                    label.form-label(i18n="modals.modal_product_voucher_create.labels.client_uid")
-                    input(
-                        ng-model="$ctrl.form.values.client_uid"
-                        placeholder="{{ 'modals.modal_product_voucher_create.labels.client_uid' | i18n }}").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.client_uid" ng-bind="error")
+                        .form-group.form-group-inline.form-group-inline-lg
+                            label.form-label(i18n="modals.modal_product_voucher_create.labels.client_uid")
+                            input(
+                                ng-model="$ctrl.form.values.client_uid"
+                                placeholder="{{ 'modals.modal_product_voucher_create.labels.client_uid' | i18n }}").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.client_uid" ng-bind="error")
 
-                .form-group.form-group-inline.form-group-inline-md
-                    label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
-                    .form-offset: select-control(
-                        prop="id"
-                        autoclear="true"
-                        options="$ctrl.products"
-                        ng-model="$ctrl.form.values.product_id"
-                        placeholder="Selecteer aanbod...").form-control
+                        .form-group.form-group-inline.form-group-inline-lg
+                            label.form-label(i18n="modals.modal_product_voucher_create.labels.product")
 
-                    .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
-                    .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
+                            .form-offset
+                                select-control(
+                                    prop="id"
+                                    autoclear="true"
+                                    options="$ctrl.products"
+                                    ng-model="$ctrl.form.values.product_id"
+                                    placeholder="Selecteer aanbod...").form-control
 
-                .form-group.form-group-inline.form-group-inline-md
-                    label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
-                    datepicker(
-                        input-visible="true"
-                        date-format="yyyy-MM-dd" 
-                        datepicker-mobile="" 
-                        date-min-limit="{{ $ctrl.dateMinLimit + '' }}"
-                        date-max-limit="{{ $ctrl.fund.end_date }}"
-                        date-week-start-day="1").form-control
-                        input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="jjjj-MM-dd").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
+                                .form-error(ng-repeat="error in $ctrl.form.errors.product_id" ng-bind="error")
+                                .form-error(ng-if="$ctrl.products.length == 0" i18n="modals.modal_product_voucher_create.errors.need_providers")
+
+                        .form-group.form-group-inline.form-group-inline-lg
+                            label.form-label(i18n="modals.modal_voucher_create.labels.expire_at")
+                            .form-offset
+                                datepicker(
+                                    input-visible="true"
+                                    date-format="yyyy-MM-dd" 
+                                    datepicker-mobile="" 
+                                    date-min-limit="{{ $ctrl.dateMinLimit + '' }}"
+                                    date-max-limit="{{ $ctrl.fund.end_date }}"
+                                    date-week-start-day="1").form-control
+                                    input(ng-model="$ctrl.form.values.expire_at" type="text" placeholder="jjjj-MM-dd").form-control
+                                .form-error(ng-repeat="error in $ctrl.form.errors.expire_at" ng-bind="error")
+                        
+                        .form-group.form-group-inline.form-group-inline-lg
+                            label.form-label(i18n="modals.modal_voucher_create.labels.note")
+                            .form-offset
+                                textarea(
+                                    placeholder="{{ 'modals.modal_voucher_create.labels.note' | i18n }}"
+                                    ng-model="$ctrl.form.values.note").form-control.r-n
+                                .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
                 
-                .form-group.form-group-inline.form-group-inline-md
-                    label.form-label(i18n="modals.modal_voucher_create.labels.note")
-                    textarea(
-                        placeholder="{{ 'modals.modal_voucher_create.labels.note' | i18n }}"
-                        ng-model="$ctrl.form.values.note").form-control.r-n
-                    .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
-            
-            .modal-section
-                .form-group.form-group-inline.form-group-inline-md
-                    label.form-label
-                    .form-offset
-                        .block.block-info
-                            em.mdi.mdi-information.block-info-icon
-                            translate(translate="modals.modal_voucher_create.info")
+                .modal-fields-group(ng-if="$ctrl.fund.allow_voucher_records")
+                    .modal-fields-group-title(ng-click="$ctrl.showRecordFields = !$ctrl.showRecordFields")
+                        em.mdi.mdi-menu-down(ng-class="{'mdi-menu-right': !$ctrl.showRecordFields}")
+                        | Persoonlijke eigenschappen
+
+                    .modal-fields-list(ng-if="$ctrl.showRecordFields")
+                        voucher-records-editor(records="$ctrl.form.values.records" record-errors="$ctrl.form.errors.records")
+
+            .form-group.form-group-inline.form-group-inline-lg
+                label.form-label
+                .block.block-info
+                    em.mdi.mdi-information.block-info-icon
+                    translate(translate="modals.modal_voucher_create.info")
 
         .modal-footer.text-center
             button.button.button-default(type="button" ng-click="$ctrl.close()" i18n="modals.modal_voucher_create.buttons.cancel")

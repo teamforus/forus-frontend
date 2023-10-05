@@ -302,6 +302,7 @@ app.directive('paginator', require('./directives/paginators/PaginatorDirective')
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
 
 app.directive('appLinks', require('./directives/elements/AppLinksDirective'));
+app.directive('voucherRecordsEditor', require('./directives/VoucherRecordsEditorDirective'));
 
 // Modals
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));
