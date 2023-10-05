@@ -65,6 +65,7 @@
     @import 'blocks/block-info-box.scss';
     @import 'blocks/block-bi-info.scss';
     @import 'blocks/block-pincode.scss';
+    @import 'blocks/block-voucher-records-editor.scss';
 }
 
 // Select controls
@@ -5293,7 +5294,7 @@ body {
     
             &:last-child {
                 border-top-right-radius: calc(var(--border-radius) / 2);
-                border-bottom-right-radius: calc(var(--border-radius) / 2);
+                border-bottom-right-radius: calc(var(--border-radius) / 2); 
                 border-right: 1px solid var(--border-color);
             }
     
