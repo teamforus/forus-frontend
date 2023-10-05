@@ -16,7 +16,7 @@ const titles = {
     "digid_0033": "Foutmelding", // 'DigiD - error a select',
     "digid_0040": "DigiD - Inlogpoging geannuleerd.",
     "digid_error_0040": "DigiD - Inlogpoging geannuleerd.",
-    "digid_error_403": "Inloggen bij deze organisatie is niet gelukt",
+    "digid_error_403": "Onbekende foutmelding",
     "digid_0050": "Foutmelding", // 'DigiD - busy',
     "digid_0070": "Foutmelding", // 'DigiD - Invalid session',
     "digid_0080": "Foutmelding", // 'DigiD - Web service not active',
@@ -69,7 +69,7 @@ const messages = {
     'digid_0040': 'U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan.',
     'digid_error_0040': 'U hebt deze inlogpoging geannuleerd. Probeer eventueel opnieuw om verder te gaan.',
     'digid_error_403': [
-        'nloggen bij deze organisatie is niet gelukt.',
+        'Inloggen bij deze organisatie is niet gelukt.',
         'Probeert u het later nog een keer.',
         'Lukt het nog steeds niet? Log in bij Mijn DigiD.',
         'Zo controleert u of uw DigiD goed werkt.',
