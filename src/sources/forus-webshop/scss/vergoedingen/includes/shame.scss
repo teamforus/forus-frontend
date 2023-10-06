@@ -327,11 +327,15 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     &.block-showcase {
-        .showcase-layout {
-            .showcase-aside {
-                .showcase-aside-block {
-                    box-shadow: none;
-                    padding: 0;
+        .showcase-wrapper {
+            min-height: calc(100vh - 80px);
+
+            .showcase-layout {
+                .showcase-aside {
+                    .showcase-aside-block {
+                        box-shadow: none;
+                        padding: 0;
+                    }
                 }
             }
         }
@@ -341,6 +345,12 @@ h1, h2, h3, h4, h5, h6 {
                 .showcase-aside {
                     .showcase-aside-block {
                         padding: 20px;
+                    }
+                }
+
+                .showcase-content {
+                    .block.block.block-google-map {
+                        bottom: 0;
                     }
                 }
             }
