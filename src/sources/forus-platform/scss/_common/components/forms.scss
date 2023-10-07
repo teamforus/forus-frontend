@@ -787,6 +787,7 @@
         width: 100%;
         flex-direction: row;
         position: relative;
+        z-index: 1;
 
         .form-control:not([type="radio"]):not([type="checkbox"]).phone-control-input {
             padding: var(--input-padding);

@@ -622,7 +622,7 @@
             .form-control:not([type="radio"]):not([type="checkbox"]) {
                 height: auto;
 
-                &:not(textarea) {
+                &:not(textarea):not(.phone-control-input) {
                     padding: 14px 15px;
 
                     &.form-control-sm {
