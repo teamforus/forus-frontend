@@ -1,5 +1,5 @@
-const ProductBoardService = function(ApiRequest) {
-    const uriPrefix = '/platform/productboard';
+const FeedbackService = function(ApiRequest) {
+    const uriPrefix = '/platform/feedback';
 
     return new (function() {
         this.store = (data) => {
@@ -10,5 +10,5 @@ const ProductBoardService = function(ApiRequest) {
 
 module.exports = [
     'ApiRequest',
-    ProductBoardService,
+    FeedbackService,
 ];

@@ -74,7 +74,7 @@ app.component('implementationNotificationsSendComponent', require('./components/
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
-app.component('productBoardComponent', require('./components/ProductBoardComponent'));
+app.component('feedbackComponent', require('./components/FeedbackComponent'));
 app.component('eventLogsComponent', require('./components/EventLogsComponent'));
 app.component('identitiesShowComponent', require('./components/IdentitiesShowComponent'));
 app.component('implementationCmsConfigEditComponent', require('./components/ImplementationCmsConfigEditComponent'));
@@ -210,7 +210,7 @@ app.service('ProductReservationService', require('./services/ProductReservationS
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
 app.service('TagService', require('./services/TagService'));
-app.service('ProductBoardService', require('./services/ProductBoardService'));
+app.service('FeedbackService', require('./services/FeedbackService'));
 app.service('EventLogService', require('./services/EventLogService'));
 app.service('MarkdownService', require('./services/MarkdownService'));
 app.service('FaqService', require('./services/FaqService'));

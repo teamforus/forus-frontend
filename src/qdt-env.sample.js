@@ -14,6 +14,7 @@ const siteImproveAnalyticsId = false;
 const supportSupportId = false;
 const sessions = false;
 const google_maps_api_key = '';
+const feedback_email = false;
 
 const me_app_link = 'https://forus.io/DL';
 const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
@@ -56,6 +57,7 @@ module.exports = (core) => {
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
             help_link: help_link,
+            feedback_email: feedback_email,
             html5ModeEnabled: true,
             html5Mode: {
                 basePath: '/'
