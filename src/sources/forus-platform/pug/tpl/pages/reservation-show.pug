@@ -145,6 +145,11 @@
                     .keyvalue-item(ng-if="$ctrl.reservation.birth_date")
                         .keyvalue-key(translate="reservations.labels.birth_date")
                         .keyvalue-value(ng-bind="$ctrl.reservation.birth_date_locale")
+
+                    //- Custom fields
+                    .keyvalue-item(ng-repeat="field in $ctrl.reservation.custom_fields")
+                        .keyvalue-key(ng-bind="field.label")
+                        .keyvalue-value(ng-bind="field.value")
                     
                     //- Note
                     .keyvalue-item(ng-if="$ctrl.reservation.user_note")
@@ -156,4 +161,5 @@
             ng-if="$ctrl.transaction && ($ctrl.organization | hasPerm:'view_finances')"
             organization="$ctrl.organization"
             transaction="$ctrl.transaction"
-            on-update="$ctrl.onTransactionUpdate()")
+            on-update="$ctrl.onTransactionUpdate()"
+            show-details-page-button="true")

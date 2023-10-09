@@ -56,7 +56,6 @@
 'sections/blocks/funds.scss',
 'sections/blocks/map.scss',
 'sections/blocks/phone-number.scss',
-'sections/blocks/pincode.scss',
 'sections/blocks/product.scss',
 'sections/blocks/products.scss',
 'sections/blocks/profile.scss',
@@ -93,7 +92,7 @@
     @import 'sections/blocks/block-schedule-list.scss';
     @import 'sections/blocks/block-accessibility.scss';
     @import 'sections/blocks/block-steps.scss';
-    @import 'sections/blocks/block-sticky-footer.scss';
+    @import 'sections/blocks/block-mobile-menu.scss';
     @import 'sections/blocks/block-funds-list.scss';
 
     @import 'sections/blocks/block-map-office-card.scss';
@@ -122,6 +121,13 @@
     @import 'sections/blocks/block-bookmark-toggle.scss';
     @import 'sections/blocks/block-organization-info.scss';
     @import 'sections/blocks/block-cms.scss';
+    @import 'sections/blocks/block-auth-2fa.scss';
+    @import 'sections/blocks/block-2fa-restriction.scss';
+    @import 'sections/blocks/block-app_download.scss';
+    @import 'sections/blocks/block-info-box.scss';
+    @import 'sections/blocks/block-pincode.scss';
+    @import 'sections/blocks/block-fund-request.scss';
+    @import 'sections/blocks/block-fund-requests.scss';
 }
 
 .modal {
@@ -129,4 +135,5 @@
     @import 'modals/modal-photo-cropper.scss';
     @import 'modals/modal-physical-cards.scss';
     @import 'modals/modal-product-reserve.scss';
+    @import 'modals/modal-2fa-setup.scss';
 }

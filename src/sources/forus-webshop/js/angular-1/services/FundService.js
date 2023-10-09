@@ -192,6 +192,32 @@ const FundService = function (
             });
         };
 
+        this.mapFund = (fund, vouchers, configs) => {
+            fund.vouchers = vouchers.filter(voucher => voucher.fund_id == fund.id && !voucher.expired);
+            fund.isApplicable = fund.criteria.length > 0 && fund.criteria.filter(criterion => !criterion.is_valid).length == 0;
+            fund.alreadyReceived = fund.vouchers.length !== 0;
+            fund.canApply = !fund.is_external && !fund.alreadyReceived && fund.isApplicable && !fund.has_pending_fund_requests;
+
+            fund.showRequestButton =
+                !fund.alreadyReceived &&
+                !fund.has_pending_fund_requests &&
+                !fund.isApplicable &&
+                fund.allow_direct_requests &&
+                configs.funds.fund_requests;
+
+            fund.showPendingButton = !fund.alreadyReceived && fund.has_pending_fund_requests;
+            fund.showActivateButton = !fund.alreadyReceived && fund.isApplicable;
+
+            fund.linkPrimaryButton = [
+                fund.showRequestButton,
+                fund.showPendingButton,
+                fund.showActivateButton,
+                fund.alreadyReceived,
+            ].filter((flag) => flag).length === 0;
+
+            return fund;
+        };
+
         this.redeem = function (code) {
             return ApiRequest.post('/platform/funds/redeem', { code });
         };

@@ -45,12 +45,16 @@ section.section.section-footer
                     .wrapper
                         a(href="{{ $root.appConfigs.me_app_link }}" target="_blank")
                             img(src="./assets/img/icon-app/icon-app-me.svg")
+
                         a(href="{{ $root.appConfigs.android_link }}" target="_blank")
-                            img(src="./assets/img/icon-app/play-store-badge.png" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
+                            img(src="./assets/img/icon-app/app-store-android.svg" style="height: 40px; width: 120px; padding-right: 5px; margin-top: 10px;")
+
                         a(href="{{ $root.appConfigs.ios_iphone_link }}" target="_blank")
-                            img(src="./assets/img/icon-app/app-store-badge.svg" style="height: 40px; width: 120px; margin-top: 10px;")
+                            img(src="./assets/img/icon-app/app-store-ios.svg" style="height: 40px; width: 120px; margin-top: 10px;")
+
                 nav.footer-nav(style="margin-top:0; padding:0;")
                     .footer-nav-item: a(ui-sref="me-app") Wilt u meer informatie over de Me-app?		
+
             .col.col-md-3(ng-if="$root.appConfigs.features.newsletter")
                 .footer-label Ontvang onze nieuwsbrief
                 .form

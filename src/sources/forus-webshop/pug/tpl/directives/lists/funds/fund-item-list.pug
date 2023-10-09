@@ -3,50 +3,58 @@ a.fund-item
         ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
         alt="Dit is de afbeelding van {{ $dir.fund.name }}")
 
-    .fund-content: .fund-details
-        .fund-name(ng-bind="$dir.fund.name")
+    .fund-content
+        .fund-details
+            .fund-status-label
+                .label.label-light(
+                    ng-if="$dir.fund.canApply && !$dir.fund.showActivateButton"
+                    translate="funds.status.is_applicable")
 
-        .fund-description(ng-if="$dir.fund.description_short")
-            span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
-            span(ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
-            br
-            
-            .fund-description-more(
-                ng-if="!$dir.showMore && $dir.fund.description_short.length > 190" 
-                ng-click="$dir.setShowMore($event, true)") 
-                span Toon meer
-                em.mdi.mdi-chevron-down
+                .label.label-success(
+                    ng-if="$dir.fund.showActivateButton"
+                    translate="funds.status.activateable")
 
-            .fund-description-more(
-                ng-if="$dir.showMore && $dir.fund.description_short.length > 190" 
-                ng-click="$dir.setShowMore($event, false)") 
-                span Toon minder
-                em.mdi.mdi-chevron-up
+                .label.label-primary(
+                    ng-if="$dir.fund.alreadyReceived"
+                    translate="funds.status.active")
 
-        .fund-status-label
-            .label.label-light(
-                ng-if="$dir.fund.canApply && !$dir.fund.canActivate"
-                translate="funds.status.is_applicable")
+                .label.label-warning(
+                    ng-if="$dir.fund.showPendingButton"
+                    translate="funds.status.is_pending")
 
-            .label.label-success(
-                ng-if="$dir.fund.canActivate"
-                translate="funds.status.activateable")
+                .label.label-light(
+                    ng-if="$dir.fund.showRequestButton"
+                    translate="funds.status.is_applicable")
 
-            .label.label-primary(
-                ng-if="$dir.fund.alreadyReceived"
-                translate="funds.status.active")
+            h2.fund-name(ng-bind="$dir.fund.name")
 
-            .label.label-warning(
-                ng-if="$dir.fund.isPending"
-                translate="funds.status.is_pending")
+            .fund-description(ng-if="$dir.fund.description_short")
+                span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
+                span(ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
+                br
 
-            .label.label-light(
-                ng-if="!$dir.fund.canActivate && !$dir.fund.canApply && !$dir.fund.isPending && !$dir.fund.isApplicable && !$dir.fund.alreadyReceived"
-                translate="funds.status.is_applicable")
+                button.button.button-text.button-xs(
+                    ng-if="!$dir.showMore && $dir.fund.description_short.length > 190" 
+                    ng-click="$dir.setShowMore($event, true)") 
+                    | Toon meer
+                    em.mdi.mdi-chevron-down.icon-right
+
+                button.button.button-text.button-xs(
+                    ng-if="$dir.showMore && $dir.fund.description_short.length > 190" 
+                    ng-click="$dir.setShowMore($event, false)") 
+                    | Toon minder
+                    em.mdi.mdi-chevron-up.icon-right
                 
-    .fund-actions(ng-if="$dir.fund.canActivate")
-        button.button.button-primary.button-fill(
-            type="button"
-            ng-click="$dir.applyFund($event,$dir.fund)")
-            translate(translate="funds.buttons.is_applicable")
-            em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+        .fund-actions(ng-if="$dir.fund.showActivateButton")
+            button.button.button-primary.button-xs(
+                type="button"
+                ng-click="$dir.applyFund($event,$dir.fund)")
+                translate(translate="funds.buttons.is_applicable")
+                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+
+        .fund-actions(ng-if="$dir.fund.showPendingButton")
+            button.button.button-text.button-xs(
+                role="button"
+                ng-click="$dir.goToFundRequests($event)")
+                translate(translate="funds.buttons.check_status")
+                em.mdi.mdi-chevron-right.icon-right(aria-hidden="true")

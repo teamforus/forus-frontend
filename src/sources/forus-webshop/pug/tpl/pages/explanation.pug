@@ -31,7 +31,7 @@ main(id="main-content")
                                 span(ng-bind="faq.title" aria-expanded="{{faq.isActive}}" role="button")
                                 .faq-item-chevron-down.mdi.mdi-chevron-down(aria-hidden="true")
                                 .faq-item-chevron-up.mdi.mdi-chevron-up(aria-hidden="true")
-                            .faq-item-content(ng-bind-html="faq.description_html" role="region" aria-labelledby="{{faq.title}}")
+                            .faq-item-content: .block.block-markdown(ng-bind-html="faq.description_html" role="region" aria-labelledby="{{faq.title}}")
 
 
                     //- Default FAQ
@@ -52,7 +52,7 @@ main(id="main-content")
                                 .faq-item-chevron-down.mdi.mdi-chevron-down(aria-hidden="true")
                                 .faq-item-chevron-up.mdi.mdi-chevron-up(aria-hidden="true")
 
-                            .faq-item-content(
+                            .faq-item-content: .block.block-markdown: p(
                                 translate="{{ faq.content_key }}" 
                                 i18n-vars="{ fund: faq.fund_name, start_date: faq.fund_start_date }" 
                                 translate-default="{{ faq.content_default }}"

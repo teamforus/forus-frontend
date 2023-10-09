@@ -1,4 +1,4 @@
-let sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
 module.exports = [
     'ApiRequest',
@@ -220,7 +220,7 @@ module.exports = [
             };
 
             this.updateAcceptReservations = function(id, auto_accept) {
-                return ApiRequest.patch(`/platform/organizations/${id}/accept-reservations`, {
+                return ApiRequest.patch(`/platform/organizations/${id}/update-accept-reservations`, {
                     reservations_auto_accept: auto_accept,
                 });
             };
@@ -230,6 +230,10 @@ module.exports = [
                     '/platform/organizations/' + id + '/update-business', {
                     business_type_id: business_type_id
                 });
+            };
+
+            this.updateBIConnection = function(id, values = {}) {
+                return ApiRequest.patch(`/platform/organizations/${id}/update-bi-connection`, values);
             };
 
             this.transferOwnership = function(id, query = {}) {

@@ -10,11 +10,11 @@ module.exports = {
                 category: "Kies categorie",
                 type: "Kies type",
                     },
-            cancel: "Annuleer",
+            cancel: "Annuleren",
             next: "Volgende",
             type: "Eigenschap type",
             text: "Tekst",
             back: "Terug",
-            confirm: "Bevestug",
+            confirm: "Bevestig",
             }
 }

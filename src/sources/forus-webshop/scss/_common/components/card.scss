@@ -1,6 +1,6 @@
 .card {
     background: #ffffff;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     font: 400 14px var(--base-font);
@@ -11,14 +11,12 @@
         border-bottom: 1px solid #d4d9dd;
 
         &:first-child {
-            border-radius: 5px 5px 0 0;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
         }
 
         &:last-child {
-            border-radius: 0 0 5px 5px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
         }
-
-
     }
 
     .card-title {
@@ -74,27 +72,27 @@
             border-right: 1px solid #d4d9dd;
 
             &.card-col-1 {
-                width: (100% / 6) * 1;
+                width: calc(100% / 6) * 1;
             }
 
             &.card-col-2 {
-                width: (100% / 6) * 2;
+                width: calc(100% / 6) * 2;
             }
 
             &.card-col-3 {
-                width: (100% / 6) * 3;
+                width: calc(100% / 6) * 3;
             }
 
             &.card-col-4 {
-                width: (100% / 6) * 4;
+                width: calc(100% / 6) * 4;
             }
 
             &.card-col-5 {
-                width: (100% / 6) * 5;
+                width: calc(100% / 6) * 5;
             }
 
             &.card-col-6 {
-                width: (100% / 6) * 6;
+                width: calc(100% / 6) * 6;
             }
 
             &:last-child {
@@ -180,6 +178,12 @@
         &:last-child {
             border-bottom: 0;
         }
+
+        &:first-child {
+            .card-heading:first-child {
+                margin-top: -5px;
+            }
+        }
     }
 
     &.card-outline {
@@ -222,11 +226,36 @@
     }
 
     &.card-collapsable {
-        cursor: pointer;
-        transition: background .4s;
+        margin-bottom: 15px;
+        border: 1px solid #d4d9dd;
 
-        &:hover {
-            background: #f3f4f5;
+        .card-header {
+            padding: 15px;
+
+            .card-header-wrapper {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+
+                .card-header-arrow {
+                    font-size: 24px;
+                    color: #848484;
+                    transform: rotate(-90deg);
+                    transition: all 0.3s;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        &.open {
+            .card-header {
+                .card-header-wrapper {
+                    .card-header-arrow {
+                        transform: rotate(0deg);
+                    }
+                }
+            }
         }
     }
 

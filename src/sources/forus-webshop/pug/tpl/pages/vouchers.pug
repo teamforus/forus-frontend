@@ -8,7 +8,7 @@ main(id="main-content")
 
         .budget-vouchers(id="budget_vouchers")
             .block.block-profile
-                .profile-aside.hide-sm: profile-menu
+                .profile-aside: profile-menu
 
                 .profile-content
                     .profile-content-header.clearfix
@@ -22,12 +22,14 @@ main(id="main-content")
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: !$ctrl.filters.archived}"
                                     ng-click="$ctrl.filters.archived = 0"
+                                    aria-pressed="{{ !$ctrl.filters.archived }}"
                                     role="button")
                                     | Actief
 
                                 .label-tab.label-tab-sm(
                                     ng-class="{active: $ctrl.filters.archived}"
                                     ng-click="$ctrl.filters.archived = 1"
+                                    aria-pressed="{{ $ctrl.filters.archived ? true : false }}"
                                     role="button")
                                     | Archief
 
@@ -44,7 +46,7 @@ main(id="main-content")
                         .block.block-action-card.block-action-card-compact(
                             ng-if="$ctrl.vouchers.data.length > 0 && $ctrl.reimbursementVouchers.length > 0")
                             .block-card-logo: include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
-                            .block-card-details: h3.block-card-title Kosten terugvragen
+                            .block-card-details: h2.block-card-title Kosten terugvragen
                             .block-card-actions: a(ui-sref="reimbursements-create"): .button.button-primary-outline Bon insturen
 
                     empty-block(

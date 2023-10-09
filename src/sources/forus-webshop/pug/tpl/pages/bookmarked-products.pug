@@ -8,7 +8,7 @@ main(id="main-content")
 
         .block.block-profile.block-showcase: .showcase-layout
             .bookmarked-products.f-w
-                .profile-aside.hide-sm: profile-menu
+                .profile-aside: profile-menu
 
                 .profile-content
                     .showcase-content
@@ -33,6 +33,7 @@ main(id="main-content")
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'list'}"
                                         ng-click="$ctrl.showAs('list')"
+                                        aria-pressed="{{ $ctrl.display_type == 'list' }}"
                                         role="button")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
@@ -40,6 +41,7 @@ main(id="main-content")
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'grid'}"
                                         ng-click="$ctrl.showAs('grid')"
+                                        aria-pressed="{{ $ctrl.display_type == 'grid' }}"
                                         role="button")
                                         em.mdi.mdi-view-grid-outline.icon-start
                                         | Foto's            
@@ -50,10 +52,14 @@ main(id="main-content")
 
                         empty-block(
                             ng-if="$ctrl.products.meta.total == 0"
-                            title="Er staat nog niks in het verlanglijstje."
-                            description="Er staat nog niks in het verlanglijstje."
+                            title="Er zijn nog geen aanbiedingen toegevoegd."
                             svg-icon="reimbursements"
-                            hide-link='true')
+                            hide-link='true'
+                            button-sref="products"
+                            button-text="Bekijk het aanbod"
+                            button-type="primary"
+                            button-icon="arrow-right"
+                            button-icon-end="false")
 
                         .card(ng-if="$ctrl.products" ng-show="$ctrl.products.meta.last_page > 1"): .card-section: paginator(
                             meta="$ctrl.products.meta" 

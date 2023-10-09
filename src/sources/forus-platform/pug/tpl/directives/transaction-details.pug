@@ -1,19 +1,38 @@
 .block.block-transaction-details 
-    .card(ng-if="$dir.showAmount")
+    .card.card-wrapped(ng-if="$dir.showAmount")
         .card-section: .card-title
             strong(ng-bind="$dir.transaction.amount | currency_format")
             | &nbsp;&nbsp;
             strong.text-primary.pull-right(translate="financial_dashboard_transaction.labels.payment")
+            .flex.flex-grow
 
         .card-section(ng-if="$dir.transaction.notes.length != 0")
             .card-block.card-block-notes
                 .note-item(ng-repeat='note in $dir.transaction.notes')
                     img(ng-src="/assets/img/note-icons/note-icon-{{ note.icon }}.jpg").note-item-icon
                     .note-item-text(ng-bind="note.message")
-                    .note-item-sign(ng-bind="note.created_at_locale")
+                    .note-item-sign.flex
+                        span(
+                            ng-bind="'By ' + (note.group == 'sponsor' ? $dir.transaction.fund.organization_name : $dir.transaction.organization.name)")
+                        em.mdi.mdi-circle
+                        span(ng-bind="note.created_at_locale")
 
-    .card
-        .card-header: .card-title(translate="financial_dashboard_transaction.labels.details")
+    .card.card-wrapped
+        .card-header: .flex
+            .flex.flex-grow: .card-title(translate="financial_dashboard_transaction.labels.details")
+
+            .flex: .block.block-inline-filters
+                a(
+                    ng-if="$dir.showDetailsPageButton"
+                    ui-sref="transaction({organization_id: $dir.organization.id, address: $dir.transaction.address})").button.button-primary
+                    em.mdi.mdi-eye-outline.icon-start
+                    | Transactie details
+
+                a(
+                    ng-if="$dir.transaction.voucher_id && $dir.appConfigs.panel_type == 'sponsor'"
+                    ui-sref="vouchers-show({organization_id: $dir.organization.id, voucher_id: $dir.transaction.voucher_id})").button.button-primary
+                    em.mdi.mdi-eye-outline.icon-start
+                    | Voucher details
 
         .card-section: .flex
             .flex: .card-block.card-block-keyvalue
@@ -95,6 +114,14 @@
                         tooltip(
                             text="'financial_dashboard_transaction.tooltips.pending_iban_to' | translate" 
                             ng-if="!$dir.transaction.iban_final && $dir.transaction.target != 'iban'")
+
+                //- Reservation
+                .keyvalue-item(ng-if="$dir.transaction.reservation && $dir.appConfigs.panel_type == 'provider' && $dir.showReservationPageButton")
+                    .keyvalue-key Reservering
+
+                    a.text-primary.text-strong.keyvalue-value(
+                        ui-sref="reservations-show({organization_id: $dir.organization.id, id: $dir.transaction.reservation.id})"
+                        ng-bind="'#' + $dir.transaction.reservation.code")
 
             .flex.flex-column.flex-end(ng-if="$dir.transaction.cancelable && $dir.transaction.reservation")
                 button(ng-click="$dir.cancelTransaction($dir.transaction.reservation)").button.button-default.button-sm

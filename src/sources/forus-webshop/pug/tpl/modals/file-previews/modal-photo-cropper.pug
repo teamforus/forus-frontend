@@ -37,24 +37,26 @@
                         .cropper-preview-placeholder-media: .mdi.mdi-file-outline
 
                 .cropper-pagination
-                    .cropper-pagination-btn(ng-click="$ctrl.prevMedia()"): .mdi.mdi-chevron-left
+                    .cropper-pagination-btn(ng-click="$ctrl.prevMedia()" name="Vorige"): .mdi.mdi-chevron-left
                     .cropper-pagination-nav: .cropper-pagination-item(
                         ng-repeat="(index, file) in $ctrl.files"
                         ng-class="index === $ctrl.fileIndex ? 'active' : ''"
                         ng-click="$ctrl.fileIndex = index")
-                    .cropper-pagination-btn(ng-click="$ctrl.nextMedia()"): .mdi.mdi-chevron-right
+                    .cropper-pagination-btn(ng-click="$ctrl.nextMedia()" name="Volgende"): .mdi.mdi-chevron-right
                 
                 .cropper-actions
                     .cropper-rotate
                         .cropper-rotate-btn(
                             ng-if="$ctrl.files[$ctrl.fileIndex].is_image"
-                            ng-click="$ctrl.rotate($ctrl.fileIndex, -90)"): .mdi.mdi-file-rotate-left-outline
+                            ng-click="$ctrl.rotate($ctrl.fileIndex, -90)"
+                            name="90 graden rechtsom draaien"): .mdi.mdi-file-rotate-left-outline
 
                         .cropper-rotate-btn(
                             ng-if="$ctrl.files[$ctrl.fileIndex].is_image"
-                            ng-click="$ctrl.rotate($ctrl.fileIndex, 90)"): .mdi.mdi-file-rotate-right-outline
+                            ng-click="$ctrl.rotate($ctrl.fileIndex, 90)"
+                            name="90 graden linkssom draaien"): .mdi.mdi-file-rotate-right-outline
 
-                    .cropper-action-change(ng-click="$ctrl.replaceFileAtIndex($ctrl.fileIndex)")
+                    .cropper-action-change(ng-click="$ctrl.replaceFileAtIndex($ctrl.fileIndex)" name="Kies andere afbeelding")
                         .mdi.mdi-pencil
                         | Kies andere afbeelding
 

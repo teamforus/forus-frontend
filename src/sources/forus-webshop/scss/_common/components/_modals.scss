@@ -5,7 +5,7 @@
 .modal {
     @include fill_parent();
     position: fixed;
-    z-index: 10;
+    z-index: 20;
     display: flex;
     align-items: center;
     border-radius: var(--border-radius);
@@ -36,12 +36,83 @@
         width: 1200px;
         max-width: 100%;
         border-radius: var(--border-radius);
-        display: inline-block;
         min-height: 100px;
         margin: 0 auto;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
 
         .modal-section {
-            padding: 30px;
+            padding: 30px;@include cf();
+
+            .modal-section-separator {
+                display: block;
+                padding: 0 0 0;
+                margin: 0 0 20px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .modal-section-column {
+                padding: 25px 25px;
+                margin: -25px 0;
+                float: left;
+
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                &:last-child {
+                    padding-right: 0;
+                }
+
+                &:not(:last-child) {
+                    border-right: 1px solid var(--border-color);
+                }
+
+                &.modal-section-column-2 {
+                    width: calc(100% / 3);
+                }
+
+                &.modal-section-column-4 {
+                    width: (calc(100% / 3) * 2);
+                }
+
+                &.modal-section-column-6 {
+                    width: 100%;
+                }
+            }
+
+            &:last-child {
+                border-bottom: 0;
+            }
+
+            &.modal-section-light {
+                background-color: #fff;
+            }
+
+            &.modal-section-pad {
+                padding: 25px 40px;
+
+                .modal-section-column {
+                    padding: 25px 40px;
+                    margin: -25px 0;
+                    float: left;
+                }
+            }
+
+            &.modal-section-sm {
+                padding: 20px;
+
+                .modal-section-column {
+                    padding: 20px 20px;
+                    margin: -20px 0;
+                    float: left;
+                }
+            }
+
+            &.modal-section-collapsed {
+                padding: 0;
+            }
         }
 
         .modal-close {
@@ -75,6 +146,10 @@
             &:last-child {
                 margin-bottom: 0;
             }
+
+            &.modal-title-sm {
+                font: 700 18px/30px var(--base-font);
+            }
         }
 
         .modal-subtitle {
@@ -98,23 +173,39 @@
         max-height: 100%;
         background: #fefefe;
         min-height: 100px;
-        overflow: hidden;
         margin: 0 auto;
         border-radius: var(--border-radius);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        overflow: auto;
 
-        &.modal-description-pad{
-            .description {
-                padding: 50px 0;
-                color: #134478 !important;
-            }
-        }
+        @include webkit_scrollbar();
 
         .modal-section {
+            overflow: hidden;
             padding: 30px;
 
             .modal-footer {
                 padding: 30px 0 0;
+            }
+        }
+
+        .modal-icon-mdi {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            margin: 0 0 15px;
+            border-radius: 50%;
+            font-size: 24px;
+            position: relative;
+            color: var(--color-primary-light);
+            margin: 0 auto 15px;
+
+            &:after {
+                content: '';
+                background-color: var(--color-primary-light);
+                border-radius: 50%;
+                opacity: .1;
+                @include fill_parent();
             }
         }
 
@@ -143,7 +234,7 @@
             margin: 0 0 10px;
         }
 
-        .description{
+        .description {
             padding: 0 80px;
             margin: 0 0 10px;
             font: 400 22px/34px var(--base-font);
@@ -185,6 +276,13 @@
             border-bottom-left-radius: inherit;
             border-bottom-right-radius: inherit;
         }
+
+        &.modal-description-pad{
+            .description {
+                padding: 50px 0;
+                color: #134478 !important;
+            }
+        }
     }
 
     .modal-footer {
@@ -215,6 +313,29 @@
                 width: 40px;
                 float: left;
             }
+        }
+    }
+
+    .modal-notice {
+        padding: 15px;
+        align-items: center;
+        align-content: center;
+        background-color: #e6ecff;
+        border-radius: var(--border-radius);
+        text-align: left;
+
+        .mdi {
+            padding-right: 15px;
+            font-size: 18px;
+        }
+
+        .modal-notice-title {
+            font: 600 14px/22px var(--base-font);
+            margin-bottom: 10px;
+        }
+
+        .modal-notice-description {
+            font: 400 13px/18px var(--base-font);
         }
     }
 
@@ -496,9 +617,12 @@
     }
 
     @media screen and (max-width: 767px) {
+        .modal-window {
+            max-height: 100vh;
+        }
+
         .modal-content {
             .button{
-
                 &:last-child{
                     margin-bottom: 0;
                 }
@@ -610,7 +734,7 @@
                 &:hover {
                     .auth_type-icon {
                         transform: translate(0, -10px);
-                    box-shadow: 0 10px 60px rgba(0, 0, 0, .15);
+                        box-shadow: 0 10px 60px rgba(0, 0, 0, .15);
                     }
 
                     .auth_type-name {
@@ -634,9 +758,30 @@
             border-radius: 15px;
             box-shadow: 0 5px 35px rgba(0, 0, 0, .075);
 
-            img {
+            img, canvas {
                 display: block;
                 width: 100%;
+            }
+        }
+
+
+        &.block-qr-code-fit {
+            width: 100%;
+
+            .qr_code {
+                width: 100%;
+                height: auto;
+                border: 1px solid var(--border-color);
+            }
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+
+            @media screen and (max-width: 1700px) {
+                .qr_code {
+                    max-width: 250px;
+                }
             }
         }
     }

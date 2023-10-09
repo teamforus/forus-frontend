@@ -18,8 +18,8 @@ body {
 
 pre.code {
     background-color: #fff;
-    border: 1px solid var(--boarder-color);
-    border-radius: var(--boarder-radius);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     padding: 10px 15px;
     margin: 0 0 15px;
     font-weight: 600;
@@ -136,7 +136,7 @@ img {
 }
 
 .text-primary-mid {
-    color: --base-color !important;
+    color: var(--base-color) !important;
 }
 
 .text-primary-light {
@@ -200,6 +200,10 @@ img {
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
+}
+
+.text-word-break {
+    word-break: break-word;
 }
 
 .hidden {
@@ -1452,4 +1456,8 @@ img {
 
 .relative {
     position: relative;
+}
+
+.invisible {
+    visibility: hidden;
 }

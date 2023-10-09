@@ -25,6 +25,10 @@
             vertical-align: bottom;
             cursor: pointer;
         }
+
+        @media screen and (max-width: 1000px) {
+            right: 5px;
+        }
     }
 
     .form-control:not([type="radio"]):not([type="checkbox"]) {
@@ -280,6 +284,9 @@
 
     &.ui-control-search-input {
         .ui-control-clear {
+            opacity: 1;
+            pointer-events: initial;
+
             .mdi {
                 font-size: 18px;
                 height: 18px;

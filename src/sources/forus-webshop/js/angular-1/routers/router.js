@@ -117,6 +117,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     });
 
     $stateProvider.state({
+        name: "auth-2fa",
+        url: "/auth-2fa",
+        component: "auth2FAComponent",
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        },
+    });
+
+    $stateProvider.state({
         name: "privacy",
         url: "/privacy",
         component: "privacyComponent",
@@ -535,7 +546,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         name: "bookmarked-products",
         url: {
             en: "/bookmarks?{page:int}&{display_type:string}",
-            nl: "/bladwijzers?{page:int}&{display_type:string}",
+            nl: "/verlanglijst?{page:int}&{display_type:string}",
         },
         params: {
             display_type: {
@@ -580,14 +591,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         component: "reimbursementsComponent",
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list())],
-            reimbursements: ['ReimbursementService', (ReimbursementService) => repackPagination(ReimbursementService.list({
-                archived: 0,
-            }))],
             vouchers: ['VoucherService', (VoucherService) => repackResponse(VoucherService.list({
                 allow_reimbursements: 1,
                 implementation_key: appConfigs.client_key,
                 per_page: 100,
             }))],
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
         }
     });
 
@@ -608,6 +619,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 implementation_key: appConfigs.client_key,
                 per_page: 100,
             }))],
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
         }
     });
 
@@ -633,6 +647,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             reimbursement: ['ReimbursementService', '$transition$', (ReimbursementService, $transition$) => {
                 return repackResponse(ReimbursementService.read($transition$.params().id));
             }],
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
         }
     });
 
@@ -642,7 +659,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             en: "/reimbursements/{id}",
             nl: "/declaraties/{id}",
         },
-    component: "reimbursementComponent",
+        component: "reimbursementComponent",
         resolve: {
             reimbursement: ['ReimbursementService', '$transition$', (ReimbursementService, $transition$) => {
                 return repackResponse(ReimbursementService.read($transition$.params().id));
@@ -659,6 +676,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         component: 'voucherComponent',
         data: { address: null },
         resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
             voucher: ['$transition$', 'VoucherService', (
                 $transition$, VoucherService
             ) => repackResponse(VoucherService.get(
@@ -926,30 +946,69 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         }
     });
 
-    // Apply to fund by submitting fund request
+    i18n_state($stateProvider, {
+        name: "fund-request-show",
+        url: {
+            en: "/fund-request/{id}",
+            nl: "/fondsen-aanvraag/{id}",
+        },
+        component: "fundRequestShowComponent",
+        resolve: {
+            configs: resolveConfigs(),
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            fundRequest: ['$transition$', 'FundRequestService', 'AuthService', (
+                $transition$, FundRequestService, AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                FundRequestService.readRequester($transition$.params().id)
+            ) : new Promise((resolve) => resolve(null))],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "fund-requests",
+        url: {
+            en: "/fund-requests?{page:int}&{fund_id:int}&{archived:int}",
+            nl: "/fondsen-aanvraag?{page:int}&{fund_id:int}&{archived:int}",
+        },
+        component: "fundRequestsComponent",
+        params: {
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            archived: routeParam(0),
+        },
+        resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            fundRequests: ['$transition$', 'FundRequestService', 'AuthService', (
+                $transition$, FundRequestService, AuthService
+            ) => AuthService.hasCredentials() ? repackPagination(
+                FundRequestService.indexRequester({
+                    q: $transition$.params().q,
+                    page: $transition$.params().page,
+                    fund_id: $transition$.params().fund_id,
+                    archived: $transition$.params().archived,
+                    per_page: 15,
+                    order_by: 'no_answer_clarification'
+                })
+            ) : new Promise((resolve) => resolve(null))],
+        }
+    });
+
     $stateProvider.state({
         name: "fund-request-clarification",
         url: "/funds/{fund_id}/requests/{request_id}/clarifications/{clarification_id}",
-        component: "fundRequestClarificationComponent",
-        data: {
-            fund_id: null,
-            request_id: null,
-            clarification_id: null,
-        },
-        resolve: {
-            fund: ['$transition$', 'FundService', (
-                $transition$, FundService
-            ) => repackResponse(FundService.readById(
-                $transition$.params().fund_id
-            ))],
-            clarification: ['$transition$', 'FundRequestClarificationService', 'AuthService', (
-                $transition$, FundRequestClarificationService, AuthService
-            ) => AuthService.hasCredentials() ? repackResponse(FundRequestClarificationService.read(
-                $transition$.params().fund_id,
-                $transition$.params().request_id,
-                $transition$.params().clarification_id
-            )) : promiseResolve(null)],
-        }
+        data: { fund_id: null, request_id: null, clarification_id: null },
+        controller: ['$state', '$transition$', ($state, $transition$) => {
+            if ($transition$.params().clarification_id) {
+                return $state.go('fund-request-show', { id: $transition$.params().request_id });
+            }
+            
+            return $state.go('home');
+        }],
     });
 
     $stateProvider.state({
@@ -1016,6 +1075,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         name: 'identity-emails',
         url: '/preferences/emails',
         component: 'identityEmailsComponent',
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        }
     });
 
     i18n_state($stateProvider, {
@@ -1025,6 +1089,25 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             nl: '/beveiliging/sessies',
         },
         component: 'securitySessionsComponent',
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: 'security-2fa',
+        url: {
+            en: '/security/2fa',
+            nl: '/beveiliging/2fa',
+        },
+        component: 'security2FAComponent',
+        resolve: {
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
+        },
     });
 
     $stateProvider.state({

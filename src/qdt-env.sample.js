@@ -10,6 +10,7 @@ const minify = true;
 const sourcemap = true;
 const baseImplementationKey = 'general';
 const chatId = false;
+const siteImproveAnalyticsId = false;
 const supportSupportId = false;
 const sessions = false;
 const google_maps_api_key = '';
@@ -134,6 +135,7 @@ module.exports = (core) => {
             client_key: baseImplementationKey,
             client_type: 'webshop',
             support_id: supportSupportId,
+            site_improve_analytics_id: siteImproveAnalyticsId,
             matomo_site_id: false,
             provider_sign_up_filters: {},
             /* aws_rum: {
@@ -149,6 +151,7 @@ module.exports = (core) => {
                 },
             }, */
             flags: {
+                show2FAMenu: true,
                 startPage: {
                     combineColumns: false,
                     // left column and combined column options
@@ -164,6 +167,22 @@ module.exports = (core) => {
                         // hideSignInQrCodeOption: true,
                     }
                 },
+                // navbar menu item override settings
+                /* 
+                menuItems: [{
+                    id: 'href_example',
+                    name: 'Href example',
+                    href: 'https://example.com',
+                    target: '_blank',
+                }, {
+                    id: 'sref_example1',
+                    name: 'Fund 1',
+                    sref: 'fund',
+                    srefParams: { id: 1 },
+                }, {
+                    id: 'providers_page'
+                }], 
+                */
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -173,7 +192,7 @@ module.exports = (core) => {
             ios_iphone_link: ios_iphone_link,
             html5ModeEnabled: true,
             html5Mode: {
-                basePath: '/'
+                basePath: '/',
             },
         });
 
@@ -191,7 +210,7 @@ module.exports = (core) => {
             flags: {
                 logoExtension: '.png',
                 fundsMenu: true,    
-                fundsMenuIfLoggedOut: true,   
+                fundsMenuIfLoggedOut: true,
                 // menu settings
                 meAppMenu: false,
                 forusPlatformMenu: false,
@@ -218,6 +237,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                useLightAppIcons: true,
                 
                 // menu settings
                 meAppMenu: false,
@@ -227,6 +247,9 @@ module.exports = (core) => {
 
                 // voucher settings
                 shareProducts: false,
+
+                // fund page setting
+                hideFundMeta: true,
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -243,7 +266,6 @@ module.exports = (core) => {
             client_key: 'kerstpakket',
             client_type: 'webshop',
             matomo_site_id: false,
-            flags: {},
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
         });
@@ -288,7 +310,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             matomo_site_id: false,
             flags: {
-                accessibilityPage: true,
+                accessibilityPage: true
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -355,7 +377,7 @@ module.exports = (core) => {
             client_key: 'noordoostpolder',
             client_type: 'webshop',
             flags: {
-                accessibilityPage: false,
+                accessibilityPage: false
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
@@ -377,6 +399,7 @@ module.exports = (core) => {
                 showStartButtonText: 'Start aanvraag',
                 accessibilityPage: false,
                 showFooterSponsorLogo: true,
+                useLightAppIcons: true,
             },
             sessions: sessions,
         });
@@ -392,7 +415,7 @@ module.exports = (core) => {
             client_key: 'geertruidenberg',
             client_type: 'webshop',
             flags: {
-                accessibilityPage: false,
+                accessibilityPage: false
             },
             sessions: sessions,
         });
@@ -409,7 +432,7 @@ module.exports = (core) => {
             client_type: 'webshop',
             flags: {
                 logoExtension: '.png',
-                accessibilityPage: false,
+                accessibilityPage: false
             },
             sessions: sessions,
         });
@@ -427,6 +450,7 @@ module.exports = (core) => {
             flags: {
                 logoExtension: '.png',
                 accessibilityPage: false,
+                useLightAppIcons: true,
             },
             sessions: sessions,
         });
@@ -447,6 +471,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                useLightAppIcons: true,
                 
                 // menu settings
                 meAppMenu: false,
@@ -536,7 +561,10 @@ module.exports = (core) => {
                 logoExtension: '.svg',
                 showAccountSidebar: false,
                 accessibilityPage: true,
+                
+                // search settings
                 genericSearch: true,
+                genericSearchUseToggle: true,
                 
                 // menu settings
                 meAppMenu: false,
@@ -569,6 +597,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                useLightAppIcons: true,
                 
                 // menu settings
                 meAppMenu: false,
@@ -601,6 +630,7 @@ module.exports = (core) => {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,
+                useLightAppIcons: true,
                 
                 // menu settings
                 meAppMenu: false,

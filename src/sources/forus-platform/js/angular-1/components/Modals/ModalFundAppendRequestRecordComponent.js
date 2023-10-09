@@ -22,7 +22,7 @@ let ModalFundAppendRequestRecordComponent = function(
                 $ctrl.fundRequest.id,
                 form.values
             ).then((res) => {
-                $ctrl.closeModal();
+                $ctrl.close();
                 $ctrl.onAppend(res);
             }, res => {
                 $ctrl.verificationRequested = false;
@@ -33,14 +33,6 @@ let ModalFundAppendRequestRecordComponent = function(
 
     $ctrl.backToForm = () => {
         $ctrl.verificationRequested = false;
-    };
-
-    $ctrl.closeModal = () => {
-        if ($ctrl.prevalidation) {
-            $ctrl.modal.scope.onPrevalidationCreated($ctrl.prevalidation)
-        }
-
-        $ctrl.close();
     };
 
     $ctrl.confirm = () => {

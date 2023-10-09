@@ -108,25 +108,33 @@ cms-blocks {
             position: sticky;
             background: #0D2864;
 
-            .navbar-logo {
-                img {
-                    display: none;
+            .navbar-inner {
+                .navbar-logo {
+                    img {
+                        display: none;
 
-                    &.hover {
-                        display: block;
+                        &.hover {
+                            display: block;
+                        }
                     }
                 }
-            }
 
-            .button {
-                color:#ffffff;
+                .button {
+                    color:#ffffff;
 
-                svg {
-                    path {
-                        fill: #fff;
+                    svg {
+                        path {
+                            fill: #fff;
+                        }
                     }
                 }
-            }
+
+                .navbar-menu-button {
+                    &.active {
+                        color: #fff;
+                    }
+                }
+            }    
         }
     }
 }

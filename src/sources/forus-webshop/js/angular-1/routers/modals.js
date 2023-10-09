@@ -9,10 +9,6 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalPinCodeComponent'
     });
 
-    ModalRouteProvider.modal('modalAuthCode', {
-        component: 'modalAuthCodeComponent'
-    });
-
     ModalRouteProvider.modal('modalShareVoucher', {
         component: 'modalShareVoucherComponent'
     });
@@ -61,7 +57,11 @@ module.exports = ['ModalRouteProvider', function(
         component: 'modalDeactivateVoucherComponent'
     });
 
-    ModalRouteProvider.modal('modalProductReserveDetails', {
-        component: 'modalProductReserveDetailsComponent'
+    ModalRouteProvider.modal('2FASetup', {
+        component: 'modal2FASetupComponent'
+    });
+
+    ModalRouteProvider.modal('2FADeactivate', {
+        component: 'modal2FADeactivateComponent'
     });
 }];

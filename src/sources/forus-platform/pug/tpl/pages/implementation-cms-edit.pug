@@ -43,13 +43,13 @@
             //- Webshop header title and description
             .card-section.card-section-primary: .row: .col.col-lg-9
                 //- Title
-                .form-group.form-group-inline.form-group-inline-lg
+                .form-group.form-group-inline.form-group-inline-xl
                     label(translate="implementation_edit.labels.header_title").form-label
                     input(ng-model="$ctrl.form.values.title" type="text" placeholder="Titel").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
 
                 //- Description
-                .form-group.form-group-inline.form-group-inline-lg
+                .form-group.form-group-inline.form-group-inline-xl
                     label(translate="implementation_edit.labels.header_description").form-label
                     text-angular(ng-model="$ctrl.form.values.description_html")
 
@@ -64,7 +64,7 @@
             //- Formal/Informal communication
             .card-section.card-section-primary
                 .row: .col.col-lg-9
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                    .form-group.form-group-inline.form-group-inline-xl.tooltipped
                         label(for="info_url" translate="implementation_edit.labels.communication").form-label
                         select-control(
                             as="label"
@@ -80,7 +80,7 @@
             .card-section.card-section-primary
                 .row: .col.col-lg-9
                     //- Show/Hide announcement
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                    .form-group.form-group-inline.form-group-inline-xl.tooltipped
                         label(translate="implementation_edit.labels.announcement_show").form-label
                         .form-offset
                             select-control(
@@ -92,7 +92,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors['announcement.active']" ng-bind="error")
 
                     //- Announcement type
-                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.announcement.active")
+                    .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.form.values.announcement.active")
                         label(for="announcement_type" translate="implementation_edit.labels.announcement_type").form-label
                         select-control(
                             as="label"
@@ -103,20 +103,20 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors['announcement.type']" ng-bind="error")
 
                     //- Announcement title
-                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.announcement.active")
+                    .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.form.values.announcement.active")
                         label(for="announcement_title" translate="implementation_edit.labels.announcement_title").form-label
                         input(id="announcement_title" ng-model="$ctrl.form.values.announcement.title" type="text" placeholder="Titel").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors['announcement.title']" ng-bind="error")
 
                     //- Announcement description
-                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.announcement.active")
+                    .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.form.values.announcement.active")
                         label(for="announcement_description" translate="implementation_edit.labels.announcement_description").form-label
                         .form-offset
                             markdown(value="$ctrl.form.values.announcement.description_html" ng-model="$ctrl.form.values.announcement.description" placeholder="Description...")
                             .form-error(ng-repeat="error in $ctrl.form.errors['announcement.description']" ng-bind="error")
 
                     //- Show/Hide announcement
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="$ctrl.form.values.announcement.active")
+                    .form-group.form-group-inline.form-group-inline-xl.tooltipped(ng-if="$ctrl.form.values.announcement.active")
                         label(translate="implementation_edit.labels.announcement_expire").form-label
                         .form-offset
                             select-control(
@@ -128,7 +128,7 @@
                                 ng-model="$ctrl.form.values.announcement.expire").form-control
 
                     //- Announcement expiration date
-                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.announcement.active && $ctrl.form.values.announcement.expire")
+                    .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.form.values.announcement.active && $ctrl.form.values.announcement.expire")
                         label(for="announcement_expire_at" translate="implementation_edit.labels.announcement_expire_at").form-label
                         datepicker(
                             date-format="yyyy-MM-dd" 
@@ -138,7 +138,7 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors['announcement.expire_at']" ng-bind="error")
 
                     //- Reset announcement
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="$ctrl.form.values.announcement.active")
+                    .form-group.form-group-inline.form-group-inline-xl.tooltipped(ng-if="$ctrl.form.values.announcement.active")
                         label(translate="implementation_edit.labels.announcement_replace").form-label
                         .form-offset
                             input-checkbox-control(

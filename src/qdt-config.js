@@ -24,6 +24,7 @@ core.addPlatform(require('./platforms/Webshops/WebshopNoordoostpolderPlatform'))
 core.addPlatform(require('./platforms/Webshops/WebshopGeertruidenbergPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopWaalwijkPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopHeumenPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopWadenheuvelPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopVergoedingenPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopEdePlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopHartvanWestBrabantPlatform'));

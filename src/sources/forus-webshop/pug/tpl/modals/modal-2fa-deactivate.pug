@@ -1,0 +1,63 @@
+.modal.modal-2fa-setup.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']")
+    .modal-backdrop(ng-click="$ctrl.cancel()")
+
+    .modal-content
+        //- Deactivation confirmation
+        form.modal-window.form(
+            ng-if="$ctrl.step == 'confirmation'"
+            ng-submit="$ctrl.deactivateProvider()")
+
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie uischakelen
+
+            .modal-body.text-center: .modal-section.flex-center.flex-grow
+                .modal-heading Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in.
+
+                .modal-text
+                    .text-center: .form-group
+                        .form-label(ng-if="$ctrl.type == 'phone'") Voer de 6-cijferige SMS-code in
+                        .form-label(ng-if="$ctrl.type == 'authenticator'") Voer de 6-cijferige code in vanuit de app
+
+                        .form-group-offset
+                            pincode-control(
+                                ng-model="$ctrl.confirmationCode" 
+                                block-size="3" 
+                                block-count="2" 
+                                block-input-type="num")
+                                
+                            .form-error(ng-repeat="error in $ctrl.errorCode" ng-bind="error")
+                    
+                    .text-center(ng-if="$ctrl.type == 'phone'")
+                        button.button.button-text.button-text-primary.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
+                            .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
+                            | Code opnieuw verzenden
+                            span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} seconde(n))
+
+                auth-2-f-a-info-box.flex-center
+
+            .modal-footer
+                .button-group.flex-grow
+                    //- Back
+                    button.button.button-primary-outline.button-sm(
+                        type="button"
+                        ng-click="$ctrl.cancel()").flex-grow.flex-center Annuleer
+
+                    //- Submit
+                    button.button.button-primary.button-sm(
+                        type="submit"
+                        ng-disabled="$ctrl.confirmationCode.length !== 6").flex-grow.flex-center Verifieer
+
+        //- Success
+        form.modal-window.form(ng-if="$ctrl.step == 'success'" ng-submit="$ctrl.done()")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie uitschakelen
+
+            .modal-body.text-center: .modal-section.modal-section-pad.flex-center.flex-grow
+                .modal-icon-mdi: .mdi.mdi-check
+                .modal-heading: strong Tweefactorauthenticatie is succesvol uitgeschakeld
+                .modal-text: small 
+                    | Je tweefactorauthenticatie is succesvol uitgeschakeld
+
+            .modal-footer: .button-group: .button.button-primary.button-sm(ng-click="$ctrl.done()") Bevestig

@@ -212,6 +212,12 @@
                     margin-bottom: 0;
                 }
             }
+
+            .button.button-primary-outline {
+                .mdi:not(.icon-right) {
+                    margin-right: 5px;
+                }
+            }
         }
 
         .showcase-content {
@@ -420,6 +426,10 @@
                         }
                     }
                 }
+
+                .button.button-primary-outline {
+                    font-size: 13px;
+                }
             }
 
             .showcase-content {
@@ -452,7 +462,6 @@
             margin: 0 -20px;
             display: flex;
             flex-direction: row;
-            border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 5px;
             z-index: 3;
@@ -478,7 +487,10 @@
                 font: 700 14px/30px var(--base-font);
                 color: #2b333b;
                 flex-grow: 1;
-                padding: 10px 0;
+                padding: 10px 5px 10px 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
 
             .mobile-filters-icon {
@@ -564,8 +576,18 @@
                             .label-tab {
                                 flex-grow: 1;
                             }
+
+                            &.block-label-tabs-sm {
+                                width: auto;
+                                margin-right: 0;
+                                margin-left: auto;
+                            }
                         }
                     }
+                }
+
+                .block.block.block-google-map {
+                    margin-bottom: 40px;
                 }
             }
         }
@@ -581,6 +603,29 @@
 
                 .showcase-content {
                     top: 50px;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 360px) {
+        .showcase-layout {
+            .showcase-content {
+                .showcase-content-header {
+                    .showcase-filters-block {
+                        .block-label-tabs {
+                            flex-direction: column;
+
+                            .showcase-filters-item {
+                                margin-bottom: 10px;
+                                margin-right: 0;
+
+                                .select-control {
+                                    flex-grow: 1;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

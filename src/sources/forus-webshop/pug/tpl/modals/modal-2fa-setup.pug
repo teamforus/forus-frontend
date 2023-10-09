@@ -1,0 +1,210 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.modal.modal-2fa-setup.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']")
+    .modal-backdrop(ng-click="$ctrl.cancel()")
+
+    .modal-content.form.form-compact
+        //- Select provider
+        .modal-window(ng-if="$ctrl.step == 'provider_select'")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
+
+            .modal-body: .modal-section.modal-section-providers
+                .modal-section-column.modal-section-column-4.modal-section-column-main
+                    .modal-text
+                        strong.text-strong Selecteer de authenticatie-app die u wilt gebruiken.
+                        .form-group: select-control(
+                            search='false' 
+                            ng-model="$ctrl.provider" 
+                            options="$ctrl.providers")
+
+                    .modal-text
+                        strong.text-strong Als je de {{ $ctrl.provider.name }} app niet hebt, 
+                        | Kun je deze downloaden vanuit de #[strong.text-strong Play Store] of de #[strong.text-strong App Store].
+
+                    .modal-text(ng-if="$ctrl.provider"): .block.block-app_download: .app_download-row
+                        a.app_download-store_icon(href="{{ $ctrl.provider.url_android }}" target="_blank")
+                            img(ng-src="./assets/img/icon-app/app-store-android-dark.svg" alt="Ontdek het op Google Play")
+
+                        a.app_download-store_icon(href="{{ $ctrl.provider.url_ios }}" target="_blank")
+                            img(ng-src="./assets/img/icon-app/app-store-ios-dark.svg" alt="Download in de App Store")
+
+                    .modal-section-separator
+
+                    .modal-text: strong.text-strong Als je al de Google Authenticator-app hebt, volg dan de onderstaande stappen:
+                    .modal-text 
+                        | 1. In de app, selecteer #[strong.text-strong Account instellen]
+                        br
+                        | 2. Kies #[strong.text-strong Scan een QR-code] of #[strong.text-strongEnter Voer een installatiesleutel in: {{ $ctrl.auth_2fa.secret }}]
+
+                    auth-2-f-a-info-box.flex-center.show-sm-flex
+
+                .modal-section-column.modal-section-column-2.modal-section-column-qr
+                    qr-code.block-qr-code-fit(
+                        ng-if="$ctrl.auth_2fa.secret_url" 
+                        padding="15px"
+                        qr-raw="$ctrl.auth_2fa.secret_url" 
+                        qr-logo=src_prefix + "./assets/img/me-logo.png")
+
+            .modal-body.hide-sm: .modal-section.modal-section-collapsed
+                auth-2-f-a-info-box.flex-center.block-info-box-borderless
+
+            .modal-footer
+                .button-group
+                    //- Cancel
+                    button(type="button" ng-click="$ctrl.cancel()").button.button-primary-outline.button-sm Annuleer
+                    //- Next
+                    button(type="submit" ng-click="$ctrl.submitAuthenticator()").button.button-primary.button-sm Bevestig
+
+        //- Phone number
+        form(ng-submit="$ctrl.submitPhoneNumber()" ng-if="$ctrl.step == 'phone_setup'").modal-window.form
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
+
+            .modal-body.text-center: .modal-section: .row: .col.col-sm-10.col-sm-offset-1.col-xs-12.col-xs-offset-0
+                .modal-section-icon
+                    include ../../../resources/_webshop-common/assets/img/icon-2fa-phone-connect.svg
+                .modal-heading Koppel je telefoonnummer
+
+                .modal-text.text-center
+                    | Om door te gaan, voer je telefoonnummer in
+                    .modal-separator
+                    .form-group: .form-label.text-strong Telefoonnummer
+                    .form-group
+                        phone-control(ng-model="$ctrl.phoneNumber")
+                        .form-error(ng-repeat="error in $ctrl.phoneNumberError" ng-bind="error")
+
+                auth-2-f-a-info-box.flex-center
+
+            .modal-footer: .button-group
+                //- Cancel
+                button(type="button" ng-click="$ctrl.cancel()").button.button-primary-outline.button-sm Annuleer
+
+                .flex.flex-grow.hide-sm &nbsp;
+
+                //- Next
+                button(type="submit").button.button-primary.button-sm Bevestig
+
+        //- Auth 2FA provider code confirmation
+        form.modal-window.form(
+            ng-if="$ctrl.step == 'provider_confirmation'")(
+            ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.activateProvider()")
+
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
+
+            .modal-body.text-center: .modal-section
+                .modal-heading Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in.
+
+                .modal-text.text-center
+                    .form-group
+                        .form-label(ng-if="$ctrl.type == 'phone'") Voer de 6-cijferige SMS-code in
+                        .form-label(ng-if="$ctrl.type == 'authenticator'") Voer de 6-cijferige code in vanuit de app
+
+                        pincode-control(
+                            ng-model="$ctrl.confirmationCode" 
+                            block-size="3" 
+                            block-count="2" 
+                            block-input-type="num")
+                        
+                        .form-error(ng-repeat="error in $ctrl.confirmationCodeError" ng-bind="error")
+                
+                .modal-text.text-center(ng-if="$ctrl.type == 'phone'")
+                    button.button.button-text.button-text-primary.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
+                        .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
+                        | Code opnieuw verzenden
+                        span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} seconde(n))
+
+                auth-2-f-a-info-box.flex-center
+
+            .modal-footer: .button-group
+                //- Back
+                button.button.button-primary-outline.button-sm(
+                    type="button"
+                    ng-click="$ctrl.setStep($ctrl.type == 'phone' ? 'phone_setup' : 'provider_select')") Terug
+
+                .flex.flex-grow.hide-sm &nbsp;
+
+                //- Submit
+                button.button.button-primary.button-sm(
+                    type="submit"
+                    ng-disabled="$ctrl.confirmationCode.length !== 6") Verifieer
+
+        //- Auth 2FA provider code verification
+        form.modal-window.form(
+            ng-if="$ctrl.step == 'provider_verification'"
+            ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.verifyAuthProvider()")
+
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie
+
+            .modal-body.text-center: .modal-section.form
+                .modal-heading(ng-if="$ctrl.auth_2fa.provider_type.type == 'phone'") 
+                    | Om door te gaan, voer alstublieft de 6-cijferige SMS-code in die naar je telefoonnummer is verzonden.
+
+                .modal-heading(ng-if="$ctrl.auth_2fa.provider_type.type == 'authenticator'") 
+                    | Om door te gaan, voer de 6-cijferige beveiligingscode in van {{ $ctrl.auth_2fa.provider_type.name }}.
+
+                .modal-text.text-center
+                    .form-group
+                        .form-label(ng-if="$ctrl.auth_2fa.provider_type.type == 'phone'"): .text-strong Voer de 6-cijferige SMS-code in
+                        .form-label(ng-if="$ctrl.auth_2fa.provider_type.type == 'authenticator'"): .text-strong Voer de 6-cijferige code in vanuit de app
+
+                        pincode-control(
+                            ng-model="$ctrl.confirmationCode" 
+                            block-size="3" 
+                            block-count="2" 
+                            block-input-type="num")
+                        
+                        .form-error(ng-repeat="error in $ctrl.confirmationCodeError" ng-bind="error")
+                
+                .modal-text.text-center(ng-if="$ctrl.type == 'phone'")
+                    button.button.button-text.button-text-primary.button-sm(type="button" ng-click="$ctrl.resendCode()" ng-disabled="$ctrl.resendingTime > 0")
+                        .mdi.mdi-refresh.icon-start(ng-class="$ctrl.sendingCode ? 'mdi-spin' : ''")
+                        | Code opnieuw verzenden
+                        span(ng-if="$ctrl.resendingTime > 0") &nbsp;({{ $ctrl.resendingTime }} seconde(n))
+
+                auth-2-f-a-info-box.flex-center
+
+            .modal-footer: .button-group
+                //- Cancel
+                button.button.button-light.button-sm(
+                    type="button"
+                    ng-click="$ctrl.cancel()") Annuleer
+
+                .flex.flex-grow.hide-sm &nbsp;
+
+                //- Submit
+                button.button.button-primary.button-sm(
+                    type="submit"
+                    ng-disabled="$ctrl.confirmationCode.length !== 6") Verifieer
+
+        //- Success (login)
+        .modal-window(ng-if="$ctrl.step == 'success' && $ctrl.auth")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie
+
+            .modal-body.text-center: .modal-section.modal-section-pad
+                .modal-icon-mdi: .mdi.mdi-check
+                .modal-heading Het is gelukt!
+                .modal-text.modal-text: .row: .col.col-xs-12.col-md-10.col-md-offset-1
+                    | Je bent succesvol ingelogd met tweefactorauthenticatie.
+                    | Welkom terug!
+
+            .modal-footer: .button-group: button.button.button-primary.button-sm(ng-click="$ctrl.done()") Bevestig
+
+        //- Success (setup)
+        .modal-window(ng-if="$ctrl.step == 'success' && !$ctrl.auth")
+            .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")
+            .modal-header: .modal-title.modal-title-sm Tweefactorauthenticatie instellen
+
+            .modal-body.text-center: .modal-section.modal-section-pad
+                .modal-icon-mdi: .mdi.mdi-check
+                .modal-heading Tweefactorauthenticatie succesvol ingesteld
+                .modal-text.modal-text: .row: .col.col-xs-12.col-md-10.col-md-offset-1
+                    | Je tweefactorauthenticatie is succesvol ingesteld.
+                    | Je account is nu extra beveiligd.
+
+            .modal-footer: .button-group: button.button.button-primary.button-sm(ng-click="$ctrl.done()") Bevestig

@@ -21,4 +21,17 @@
             }
         }
     }
+
+    .app.app-container {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        flex: 1 0 auto;
+        min-height: 85vh;
+    }
+}
+
+.landing-style {
+    @import '../_common/landing';
 }

@@ -4,6 +4,8 @@ const ReimbursementsComponent = function (
 ) {
     const $ctrl = this;
 
+    $ctrl.loaded = false;
+
     $ctrl.filters = {
         page: 1,
         archived: 0,
@@ -17,10 +19,8 @@ const ReimbursementsComponent = function (
     };
 
     $ctrl.onPageChange = (query = {}) => {
-        $ctrl.filters = { ...$ctrl.filters, ...query };
-
         const { state, archived, fund_id } = query;
-        const data = { ...$ctrl.filters, fund_id, state: archived ? null : state };
+        const data = { ...$ctrl.filters, ...query, fund_id, state: archived ? null : state };
 
         PageLoadingBarService.setProgress(0);
 
@@ -34,6 +34,10 @@ const ReimbursementsComponent = function (
             name: 'Alle tegoeden',
             id: null,
         });
+
+        if (!$ctrl.auth2FAState?.restrictions?.reimbursements?.restricted) {
+            $ctrl.onPageChange()
+        }
     };
 };
 
@@ -41,7 +45,7 @@ module.exports = {
     bindings: {
         funds: '<',
         vouchers: '<',
-        reimbursements: '<',
+        auth2FAState: '<',
     },
     controller: [
         'ReimbursementService',

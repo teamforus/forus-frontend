@@ -3,10 +3,9 @@
     cursor: default;
 
     .block-title {
-        font: 500 32px/36px var(--base-font);
-        text-align: center;
-        color: #191a1c;
-        margin: 0 0 20px;
+        font: 600 18px/18px var(--base-font);
+        text-align: left;
+        margin: 20px 0;
     }
 
     .block-icon {
@@ -162,6 +161,7 @@
         border: 1px solid #ebedf0;
         box-sizing: border-box;
         border-radius: calc(var(--border-radius) / 2);
+        box-shadow: var(--box-shadow);
 
         .sign_up-pane-header {
             border-bottom: 1px solid #ebedf0;
@@ -286,11 +286,11 @@
                     width: 100%;
 
                     &.sign_up-pane-col-1 {
-                        width: (100%/3) * 1;
+                        width: calc(100%/3) * 1;
                     }
 
                     &.sign_up-pane-col-2 {
-                        width: (100%/3) * 2;
+                        width: calc(100%/3) * 2;
                     }
 
                     &:last-child {
@@ -822,6 +822,19 @@
         }
     }
 
+    &.block-sign_up-fixed {
+        flex-direction: column;
+        justify-content: center;
+        display: flex;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        position: fixed;
+        padding-bottom: 60px;
+        cursor: default;
+    }
+
     @media (max-width: 1199px) {
         .sign_up-header {
             margin: 0 -90px 25px;
@@ -831,10 +844,6 @@
     @media (max-width: 991px) {
         margin: 0px -10px;
         padding: 10px 0 50px;
-
-        .block-title {
-            margin: 0 0 20px;
-        }
 
         .sign_up-header {
             margin: 0 -10px 25px;
@@ -971,7 +980,7 @@
             }
 
             .sign_up-pane-footer {
-                padding: 0px 10px 5px;
+                padding: 0px 10px 5px 25px;
 
                 .button {
                     &.button-text {
@@ -1003,6 +1012,39 @@
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+            }
+        }
+
+        .sign_up-options {
+            &.sign_up-options-2fa {
+                .sign_up-option {
+                    padding: 10px;
+    
+                    .sign_up-option-media {
+                        margin-right: 8px;
+
+                        .sign_up-option-media-img {
+                            width: 40px;
+                        }
+                    }
+    
+                    .sign_up-option-details {
+                        .sign_up-option-title {
+                            font: 700 14px/20px var(--base-font);
+                        }
+    
+                        .sign_up-option-details {
+                            font: 700 12px/20px var(--base-font);
+                        }
+                    }
+    
+                    .sign_up-option-button {
+                        .button {
+                            padding: 10px;
+                            font: 600 11px/11px var(--base-font);
+                        }
+                    }
                 }
             }
         }

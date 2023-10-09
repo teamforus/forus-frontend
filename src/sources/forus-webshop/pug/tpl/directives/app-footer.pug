@@ -1,4 +1,4 @@
-footer.section.section-footer(id="footer")
+footer.section.section-footer(id="footer" ng-show="!$root.mobileMenuOpened")
     .wrapper
         .block.block-footer: .row
             h2.sr-only Site informatie
@@ -28,9 +28,9 @@ footer.section.section-footer(id="footer")
                 .block.block-markdown(ng-if="description_footer_app_info_html" ng-bind-html="description_footer_app_info_html")
 
                 div(ng-if="!description_footer_app_info_html || description_footer_app_info_position !== 'replace'")
-                    .block.block-markdown
+                    .block.block-markdown(ng-if="$root.appConfigs.flags")
                         h3 Download de Me-app
-                        app-links
+                        app-links(theme="{{ $root.appConfigs.flags.useLightAppIcons ? 'light' : 'dark' }}")
                         
                         nav.footer-nav
                             .footer-nav-item: .flex

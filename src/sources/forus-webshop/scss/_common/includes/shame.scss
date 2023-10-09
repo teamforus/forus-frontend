@@ -10,6 +10,10 @@ html {
     display: none !important;
 }
 
+.show-sm-flex {
+    display: none !important;
+}
+
 .f-w {
     width: 100% !important;
 }
@@ -227,6 +231,10 @@ ui-view {
         display: block !important;
     }
 
+    .show-sm-flex {
+        display: flex !important;
+    }
+
     .sm-pull-left {
         float: left !important;
     }
@@ -250,11 +258,15 @@ ui-view {
             width: auto;
             padding-top: 10px;
             margin: 0 -25px 10px;
+
+            img {
+                display: none;
+            }
         }
 
         .step-item {
-            width: 25%;
-            padding: 0 30px;
+            width: 50%;
+            padding: 0 20px;
             vertical-align: top;
 
             .app-title {
@@ -263,9 +275,7 @@ ui-view {
             }
 
             img {
-                &.line-item {
-                    display: none;
-                }
+                display: none;
             }
         }
     }

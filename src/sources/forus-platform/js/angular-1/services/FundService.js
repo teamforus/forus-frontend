@@ -166,9 +166,10 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
         this.apiResourceToForm = function (apiResource) {
             const { name, state, type, criteria, tags } = apiResource;
             const { faq, faq_title, formula_products } = apiResource;
-            const { description, description_html, description_short } = apiResource;
+            const { description, description_html, description_position, description_short } = apiResource;
             const { notification_amount, default_validator_employee_id, auto_requests_validation } = apiResource;
             const { request_btn_text, external_link_text, external_link_url, allow_direct_requests } = apiResource;
+            const { external_page, external_page_url } = apiResource;
 
             const { email_required, contact_info_enabled } = apiResource;
             const { contact_info_required, contact_info_message_custom, contact_info_message_text } = apiResource;
@@ -176,12 +177,13 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
             return {
                 ...{ name, state, type, criteria },
                 ...{ faq: faq || [], faq_title: faq_title || '', formula_products: formula_products || [] },
-                ...{ description, description_html, description_short },
+                ...{ description, description_html, description_position, description_short },
                 ...{ notification_amount, default_validator_employee_id, auto_requests_validation },
                 ...{ request_btn_text, external_link_text, external_link_url, allow_direct_requests },
 
                 ...{ email_required, contact_info_enabled },
                 ...{ contact_info_required, contact_info_message_custom, contact_info_message_text },
+                ...{ external_page, external_page_url },
 
                 start_date: moment(apiResource.start_date).format('DD-MM-YYYY'),
                 end_date: moment(apiResource.end_date).format('DD-MM-YYYY'),

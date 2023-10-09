@@ -1,13 +1,28 @@
+const pick = require('lodash/pick');
+
 const TopNavbarDirective = function (
     $state,
     $scope,
     $filter,
     appConfigs,
+    $rootScope,
+    MenuService,
     ModalService,
-    ConfigService
+    ConfigService,
 ) {
     const $dir = $scope.$dir;
     const $i18n = $filter('i18n');
+
+    const updateScrolled = function () {
+        const currentOffsetY = window.pageYOffset;
+
+        $dir.visible = ($dir.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
+        $dir.prevOffsetY = currentOffsetY;
+    };
+
+    const onResize = () => {
+        $rootScope.showSearchBox = window.innerWidth >= 1000;
+    };
 
     $dir.visible = false;
     $dir.prevOffsetY = false;
@@ -39,23 +54,50 @@ const TopNavbarDirective = function (
         $dir.userMenuOpened = false;
     }
 
-    const updateScrolled = function () {
-        const currentOffsetY = window.pageYOffset;
+    $dir.toggleSearchBox = ($e) => {
+        $e.stopPropagation();
+        $e.preventDefault();
 
-        $dir.visible = ($dir.prevOffsetY > currentOffsetY) || (currentOffsetY <= 0);
-        $dir.prevOffsetY = currentOffsetY;
-    };
+        $rootScope.showSearchBox = !$rootScope.showSearchBox;
+    }
+
+    $dir.hideMobileMenu = () => {
+        $rootScope.mobileMenuOpened = false;
+    }
+
+    $dir.openMobileMenu = ($e) => {
+        if ($e?.target?.tagName != 'A') {
+            $e.stopPropagation();
+            $e.preventDefault();
+        }
+
+        $rootScope.mobileMenuOpened = !$rootScope.mobileMenuOpened;
+    }
 
     $dir.$onInit = () => {
         window.addEventListener('scroll', updateScrolled);
-        $dir.logoExtension = ConfigService.getFlag('logoExtension');
 
         // Organization logo alternative text
+        $dir.logoExtension = ConfigService.getFlag('logoExtension');
         $dir.orgLogoAltText = $i18n(`logo_alt_text.${appConfigs.client_key}`, {}, appConfigs.client_key);
+
+        if (appConfigs.flags.genericSearchUseToggle) {
+            $rootScope.showSearchBox = false;
+        } else {
+            window.addEventListener('resize', onResize);
+            onResize();
+        }
+
+        $rootScope.$watch(
+            (scope) => pick(scope, ['auth_user', 'appConfigs']),
+            (value) => $dir.menuItems = MenuService.makeMenuItems(value.appConfigs, value.auth_user),
+            true
+        );
     };
 
     $dir.$onDestroy = () => {
         window.removeEventListener('scroll', updateScrolled);
+        window.removeEventListener('resize', onResize);
     };
 };
 
@@ -74,6 +116,8 @@ module.exports = () => {
             '$scope',
             '$filter',
             'appConfigs',
+            '$rootScope',
+            'MenuService',
             'ModalService',
             'ConfigService',
             TopNavbarDirective,

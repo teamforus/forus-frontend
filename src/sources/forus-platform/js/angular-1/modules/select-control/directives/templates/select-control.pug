@@ -2,7 +2,10 @@
     .select-control-input(
         ng-class="{options : $dir.showOptions}"
         ng-disabled="$dir.disabled || $dir.ngDisabled"
-        click-outside="$dir.onClickOutside()")
+        click-outside="$dir.onClickOutside()"
+        aria-haspopup="listbox"
+        aria-expanded="{{ $dir.showOptions }}"
+        aria-labelledby="{{ $dir.id }}")
 
         label.select-control-search.form-control(
             for="{{ $dir.controlId }}"
@@ -13,15 +16,21 @@
             .select-control-search-placeholder(ng-bind="$dir.value.raw[$dir.as] || $dir.placeholder")
             .select-control-icon: .mdi(ng-class="$dir.showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down'")
 
-        input(
-            id="{{ $dir.controlId }}"
-            type="search"
-            placeholder="{{ $dir.placeholder }}"
-            ng-click="$dir.onInputClick()"
-            ng-keydown="$dir.searchKeydown($event)"
-            ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
-            ng-change="$dir.searchInputChanged()"
-            ng-model="$dir.filter.q").select-control-search.form-control
+        .select-control-search-container
+            input(
+                id="{{ $dir.controlId }}"
+                autocomplete='off'
+                placeholder="{{ $dir.placeholder }}"
+                ng-click="$dir.onInputClick()"
+                ng-keydown="$dir.searchKeydown($event)"
+                ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
+                ng-change="$dir.searchInputChanged()"
+                ng-model="$dir.filter.q").select-control-search.form-control
+
+            .select-control-search-clear(
+                ng-if="$dir.filter.q && $dir.showOptions" 
+                ng-click="$dir.clear()" 
+                aria-label="cancel"): .mdi.mdi-close-circle 
         
         select-control-options(
             ng-if="$dir.showOptions" 

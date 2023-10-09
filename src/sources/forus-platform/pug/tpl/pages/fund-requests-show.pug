@@ -26,9 +26,15 @@
                         .flex.flex-vertical.flex-center: .flex.flex-horizontal
                             //- State label
                             .label.label-tag.label-round(
+                                ng-if="!($ctrl.validatorRequest.state == 'pending' && $ctrl.validatorRequest.is_assigned)"
                                 ng-class="$ctrl.stateLabels[$ctrl.validatorRequest.state]")
                                 span(ng-class="'mdi mdi-' + $ctrl.stateLabelIcons[$ctrl.validatorRequest.state] + ' icon-start'")
                                 span(ng-bind="$ctrl.validatorRequest.state_locale")
+
+                            .label.label-tag.label-round.label-warning(
+                                ng-if="$ctrl.validatorRequest.state == 'pending' && $ctrl.validatorRequest.is_assigned")
+                                span.mdi.mdi-circle-outline.icon-start
+                                span In behandeling
 
                     //- Subtitle
                     .card-subtitle: .flex.text-muted-dark
@@ -216,21 +222,25 @@
 
                         td.text-right(ng-if="record.state == 'pending' && record.is_assigned")
                             .button-group.flex-end
-                                .button.button-default.button-icon(
+                                //- Edit record
+                                button.button.button-default.button-icon(
                                     ng-if="$ctrl.organization.allow_fund_request_record_edit"
                                     ng-click='$ctrl.editRecord(record)')
                                     em.mdi.mdi-pencil
 
-                                .button.button-primary-light.button-icon(
+                                //- Request clarification
+                                button.button.button-primary-light.button-icon(
                                     ng-click='$ctrl.clarifyRecord(record)')
                                     em.mdi.mdi-message-text
 
-                                .button.button-danger.button-icon(
+                                //- Decline Record
+                                button.button.button-danger.button-icon(
                                     ng-click='$ctrl.declineRecord(record)'
                                     ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-close
 
-                                .button.button-primary.button-icon(
+                                //- Approve Record
+                                button.button.button-primary.button-icon(
                                     ng-click='$ctrl.approveRecord(record)'
                                     ng-if='$root.appConfigs.flags.singleRecordValidation')
                                     em.mdi.mdi-check

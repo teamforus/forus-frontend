@@ -15,7 +15,6 @@ const MarkdownDirective = function ($scope, $element, $timeout, ModalService, Ma
             ModalService.open('markdownCustomLink', {
                 type: type,
                 values: values,
-                hasDescription: type != 'youtubeLink',
                 success: (data) => {
                     const { url, text, uid, alt } = data;
 

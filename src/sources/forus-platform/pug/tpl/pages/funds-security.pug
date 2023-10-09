@@ -1,0 +1,82 @@
+.app.app-container
+    menu
+    section.app.app-content
+        //- Breadcrumbs
+        .block.block-breadcrumbs(ng-if="$root.activeOrganization")
+            .breadcrumb-item(ui-sref="organization-funds({organization_id:$root.activeOrganization.id})") Fondsen
+            .breadcrumb-item.active(ng-if="$ctrl.fund" ng-bind="$ctrl.fund.name")
+            .breadcrumb-item.active(ng-if="!$ctrl.fund" i18n="funds_edit.header.title_add")
+
+        //- Fund edit form
+        .card: form(ng-submit="$ctrl.form.submit()").form
+            //- Header
+            .card-header: .card-title Tweefactorauthenticatie voor aanvragers
+
+            //- Enable/Disable
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+                //- 2fa level
+                .form-group.form-group-inline   
+                    label.form-label 2FA beperkingen
+
+                    .form-offset: select-control(
+                        prop="value"
+                        search="false"
+                        ng-model="$ctrl.form.values.auth_2fa_policy" 
+                        options="$ctrl.auth2FARequiredOptions").form-control
+                    .form-offset: .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
+
+                .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_policy == 'global'")
+                    label.form-label &nbsp;
+                    .form-offset: select-control(
+                        prop="value"
+                        search="false"
+                        ng-disabled="true"
+                        ng-model="$ctrl.fund.organization_funds_2fa.auth_2fa_policy" 
+                        options="$ctrl.auth2FARequiredOptions").form-control
+                
+                mixin auth_2fa_form(formName, disabled, show)
+                    //- Remember IP
+                    .form-group.form-group-inline(ng-if=show + ' && ' + formName + ".auth_2fa_policy == 'required'")
+                        label.form-label Onthoud IP-adres
+
+                        .form-offset: select-control(
+                            prop="value"
+                            search="false"
+                            ng-model=formName + ".auth_2fa_remember_ip" 
+                            ng-disabled=(disabled ? 'true' : 'false')
+                            options="$ctrl.auth2FARememberIpOptions").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.type" ng-bind="error")
+                    
+                    //- Restrict some features
+                    .form-group.form-group-inline(ng-if=show)
+                        label.form-label 
+
+                        .form-offset
+                            div: input-checkbox-control(
+                                ng-if=formName + ".auth_2fa_policy == 'restrict_features'"
+                                name="auth_2fa_restrict_emails" 
+                                ng-model=formName + ".auth_2fa_restrict_emails"
+                                ng-disabled=(disabled ? 'true' : 'false')
+                                label="Aanpassen van e-mailadres")
+
+                            div: input-checkbox-control(
+                                ng-if=formName + ".auth_2fa_policy == 'restrict_features'"
+                                name="auth_2fa_restrict_auth_sessions" 
+                                ng-model=formName + ".auth_2fa_restrict_auth_sessions" 
+                                ng-disabled=(disabled ? 'true' : 'false')
+                                label="Aanpassen van inlog sessies")
+
+                            div: input-checkbox-control(
+                                ng-if=formName + ".auth_2fa_policy == 'restrict_features'"
+                                name="auth_2fa_restrict_reimbursements" 
+                                ng-model=formName + ".auth_2fa_restrict_reimbursements" 
+                                ng-disabled=(disabled ? 'true' : 'false')
+                                label="Indienen van declaraties")
+
+                +auth_2fa_form("$ctrl.form.values", false, "$ctrl.form.values.auth_2fa_policy != 'global'")
+                +auth_2fa_form("$ctrl.global_2fa", true, " $ctrl.form.values.auth_2fa_policy == 'global'")
+
+                //- Submit
+                .card-section.card-section-primary: .text-center
+                    a(ui-sref="organization-funds($ctrl.fund)").button.button-default Annuleer
+                    button(type="submit").button.button-primary Bevestig

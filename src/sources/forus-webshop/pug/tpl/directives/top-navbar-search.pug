@@ -1,45 +1,52 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 .block.block-navbar-search(ng-class="{'block-navbar-search-results': $dir.dropdown}")
-    form(ng-submit="$dir.doSearch()" click-outside="$dir.hideDropDown()").search-form.form
-        //- Search icon
-        .navbar-search-icon(ng-class="{'focused': $dir.searchFocused || $dir.dropdown}"): .mdi.mdi-magnify
+    form(
+        ng-submit="$dir.doSearch()" 
+        click-outside="$dir.hideSearchBox()"
+        ng-class="$dir.resultsAll.length > 0 ? 'search-form-found' : ''").search-form.form
+        .search-area
+            //- Search icon
+            .navbar-search-icon(ng-class="{'focused': $dir.searchFocused || $dir.dropdown}"): .mdi.mdi-magnify
 
-        //- Search input
-        input.form-control(
-            type="text"
-            placeholder="{{ 'top_navbar_search.placeholders.search_' + $dir.appConfigs.features.communication_type | translate }}"
-            ng-model="$dir.query"
-            ng-change="$dir.doSearch()"
-            ng-keydown="$dir.cancelSearch($event)"
-            aria-label="Zoeken"
-            ng-class="{'focused': $dir.searchFocused || $dir.dropdown}"
-            ng-focus="$dir.searchFocused=true"
-            ng-blur="$dir.searchFocused=false")
+            //- Search input
+            input.form-control(
+                type="text"
+                placeholder="{{ 'top_navbar_search.placeholders.search_' + $dir.appConfigs.features.communication_type | translate }}"
+                ng-model="$dir.query"
+                ng-change="$dir.doSearch()"
+                ng-keydown="$dir.cancelSearch($event)"
+                aria-label="Zoeken"
+                ng-class="{'focused': $dir.searchFocused || $dir.dropdown}"
+                ng-focus="$dir.searchFocused=true"
+                ng-blur="$dir.searchFocused=false")
+
+            .search-reset(ng-class="{'show-sm': !$dir.appConfigs.flags.genericSearchUseToggle}")
+                .mdi.mdi-close(ng-click="$dir.hideSearchBox()")
 
         .search-result(ng-if="$dir.dropdown")
             //- Sidebar
-            .search-result-sidebar.hide-sm
+            .search-result-sidebar
                 //- Results by key
-                .search-result-sidebar-item(
+                h2.search-result-sidebar-item(
                     ng-repeat="groupKey in $dir.groupKeyList"
                     ng-click="$dir.setGroupKey(groupKey)"
                     ng-class="{active: $dir.groupKey == groupKey}")
 
-                    .search-result-sidebar-item-icon(ng-if="groupKey === 'all'")
+                    .search-result-sidebar-item-icon.hide-sm(ng-if="groupKey === 'all'")
                         include ../../../resources/_webshop-common/assets/img/icon-search/all.svg
 
-                    .search-result-sidebar-item-icon(ng-if="groupKey === 'funds'")
+                    .search-result-sidebar-item-icon.hide-sm(ng-if="groupKey === 'funds'")
                         include ../../../resources/_webshop-common/assets/img/icon-search/funds.svg
 
-                    .search-result-sidebar-item-icon(ng-if="groupKey === 'products'")
+                    .search-result-sidebar-item-icon.hide-sm(ng-if="groupKey === 'products'")
                         include ../../../resources/_webshop-common/assets/img/icon-search/products.svg
 
-                    .search-result-sidebar-item-icon(ng-if="groupKey === 'providers'")
+                    .search-result-sidebar-item-icon.hide-sm(ng-if="groupKey === 'providers'")
                         include ../../../resources/_webshop-common/assets/img/icon-search/providers.svg
 
                     .search-result-sidebar-item-name(translate="top_navbar_search.result.{{ groupKey }}_label")
-                    .search-result-sidebar-item-arrow: .mdi.mdi-chevron-right(ng-if="$dir.groupKey == groupKey")
+                    .search-result-sidebar-item-arrow.hide-sm: .mdi.mdi-chevron-right(ng-if="$dir.groupKey == groupKey")
 
             //- Content
             .search-result-content
@@ -50,31 +57,40 @@
 
                     //- Section title
                     .search-result-group-header
-                        .search-result-group-icon(ng-if="groupKey === 'funds'")
+                        .search-result-group-icon(ng-if="groupKey === 'funds'").hide-sm
                             include ../../../resources/_webshop-common/assets/img/icon-search/funds.svg
 
-                        .search-result-group-icon(ng-if="groupKey === 'products'")
+                        .search-result-group-icon(ng-if="groupKey === 'products'").hide-sm
                             include ../../../resources/_webshop-common/assets/img/icon-search/products.svg
 
-                        .search-result-group-icon(ng-if="groupKey === 'providers'")
+                        .search-result-group-icon(ng-if="groupKey === 'providers'").hide-sm
                             include ../../../resources/_webshop-common/assets/img/icon-search/providers.svg
 
-                        .search-result-group-title(translate="top_navbar_search.result.{{ groupKey }}_label")
+                        .search-result-group-title.flex
+                            em.mdi.mdi-menu-down.show-sm(ng-if="!$dir.results[groupKey].shown" ng-click="$dir.toggleGroup($event, groupKey)")
+                            em.mdi.mdi-menu-up.show-sm(ng-if="$dir.results[groupKey].shown" ng-click="$dir.toggleGroup($event, groupKey)")
+                            translate(translate="top_navbar_search.result.{{ groupKey }}_label" ng-click="$dir.toggleGroup($event, groupKey)")
 
                         a.search-result-group-link(
                             ng-if="$dir.results[groupKey].count > 3"
                             ui-sref="search-result({q: $dir.lastQuery, search_item_types: groupKey})"
-                            ng-bind="$dir.results[groupKey].count + ' resultaten gevonden...'")
+                            ng-bind="$dir.results[groupKey].count + ' resultaten gevonden...'").hide-sm
 
                     //- Result sections list
-                    .search-result-items(ng-if="$dir.results[groupKey]")
+                    .search-result-items(ng-if="$dir.results[groupKey] && !$dir.results[groupKey].shown")
                         a.search-result-item(
                             ng-repeat="value in $dir.results[groupKey].items"
-                            ui-sref="{{value.uiSref}}(value.uiSrefParams)"
-                            ng-bind-html="value.name")
+                            ui-sref="{{value.uiSref}}(value.uiSrefParams)")
+                            span(ng-bind-html="value.name")
+                            em.mdi.mdi-chevron-right.show-sm
+
+                        a.search-result-group-link(
+                            ng-if="$dir.results[groupKey].count > 3"
+                            ui-sref="search-result({q: $dir.lastQuery, search_item_types: groupKey})"
+                            ng-bind="$dir.results[groupKey].count + ' resultaten gevonden...'").show-sm
 
                 //- Actions
-                .search-result-actions(
+                .search-result-footer: .search-result-actions(
                     ng-if="$dir.groupKey == 'all' && $dir.resultsAll.length")
 
                     button.button.button-primary(ui-sref="search-result({q: $dir.query})")
@@ -82,12 +98,12 @@
                         .mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                 //- No results
-                .search-noresult(
+                .search-no-result(
                     ng-if="($dir.groupKey == 'all' && !$dir.resultsAll.length) || ($dir.groupKey != 'all' && !$dir.results[$dir.groupKey].items.length)")
 
-                    .search-noresult-icon
+                    .search-no-result-icon
                         include ../../../resources/_webshop-common/assets/img/icon-search/empty-search.svg
 
-                    .search-noresult-description(
+                    .search-no-result-description(
                         translate="top_navbar_search.noresult.subtitle"
                         translate-values="{ query: $dir.lastQuery }")

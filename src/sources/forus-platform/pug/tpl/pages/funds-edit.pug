@@ -73,6 +73,41 @@
                             .fund_type-name Informatief (met doorlink)
                             .fund_type-check: .mdi.mdi-check
 
+
+            .card-section.card-section-primary(ng-if="$ctrl.form.values.type == 'external'"): .row: .col.col-lg-9.col-xs-12
+                .form-group.form-group-inline
+                    label.form-label Pagina type
+                    .form-offset
+                        .form-group-info
+                            .form-group-info-control
+                                select-control(
+                                    prop="value"
+                                    search="false"
+                                    options="$ctrl.externalFundPageTypes"
+                                    ng-model="$ctrl.form.values.external_page").form-control
+
+                            .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
+                                ng-class="{active: $ctrl.showInfoBlock}")
+                                em.mdi.mdi-information
+
+                        .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
+                            .info-box-icon.mdi.mdi-information
+
+                            .info-box-content: .block.block-markdown
+                                h4 Kies de juiste instelling
+                                p
+                                    | Een interne pagina leidt de gebruiker eerst door naar een pagina binnen de webshop.
+                                    | Een externe pagina leidt de gebruiker na het klikken direct door naar de URL die is ingevuld.
+
+                        .form-error(ng-repeat="error in $ctrl.form.errors.external_page" ng-bind="error")
+
+                //- External page url
+                .form-group.form-group-inline(ng-if="$ctrl.form.values.external_page")
+                    label.form-label.form-label-required Externe url
+                    input.form-control(ng-model="$ctrl.form.values.external_page_url" placeholder="https://gemeente+1.nl/aanmelden")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.external_page_url" ng-bind="error")
+
             //- Fund webshop tags
             .card-section.card-section-primary(ng-if="$ctrl.tags.length"): .row: .col.col-lg-9.col-xs-12
                 .form-group.form-group-inline
@@ -102,7 +137,7 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.request_btn_text" ng-bind="error")
 
             //- External link
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+            .card-section.card-section-primary(ng-if="!$ctrl.form.values.external_page"): .row: .col.col-lg-9.col-xs-12
                 //- Request button text
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.external_link_text").form-label
@@ -116,7 +151,7 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.external_link_url" ng-bind="error")
             
             //- Fund long description
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+            .card-section.card-section-primary(ng-if="!$ctrl.form.values.external_page"): .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.description").form-label
                     .form-offset: markdown(
@@ -124,6 +159,35 @@
                         value="$ctrl.form.values.description_html"
                         ng-model="$ctrl.form.values.description")
                     .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
+
+            //- FAQ
+            .card-section.card-section-primary(ng-if="!$ctrl.form.values.external_page")
+                //- FAQ Title
+                .form-group.form-group-inline
+                    label.form-label Titel van blok
+                    input(type="text" ng-model="$ctrl.form.values.faq_title" placeholder="Veel gestelde vragen").form-control
+                    
+                    .form-error(ng-repeat="error in $ctrl.form.errors.faq_title" ng-bind="error")
+
+                //- FAQ Editor
+                .form-group.form-group-inline
+                    label.form-label Veel gestelde vragen
+                    .form-offset: faq-editor(
+                        faq="$ctrl.form.values.faq"
+                        organization="$ctrl.organization" 
+                        register-parent="$ctrl.registerFaqEditor(childRef)")
+
+                //- Fund description position
+            .card-section.card-section-primary(ng-if="!$ctrl.form.values.external_page"): .row: .col.col-lg-9.col-lg-12
+                .form-group.form-group-inline
+                    label(translate="funds_edit.labels.description_position").form-label
+                    .form-offset
+                        select-control(
+                            prop="value"
+                            search="false"
+                            options="$ctrl.descriptionPositions"
+                            ng-model="$ctrl.form.values.description_position").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.description_position" ng-bind="error")
             
             //- Fund start date and end date
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
@@ -159,7 +223,7 @@
 
             //- Formula products
             .card-section.card-section-primary(
-                ng-if="$root.appConfigs.features.organizations.funds.formula_products && ($ctrl.organization | hasPerm:'manage_funds')")
+                ng-if="$root.appConfigs.features.organizations.funds.formula_products && ($ctrl.organization | hasPerm:'manage_funds') && !$ctrl.form.values.external_page")
                 .form-group.form-group-inline(ng-repeat="formula_product in $ctrl.form.values.formula_products track by $index")
                     label(translate="{{ $index == 0 ? 'funds_edit.labels.products' : '' }}").form-label
                     .form-offset: .flex-row
@@ -188,7 +252,7 @@
                         translate Aanbieding toevoegen
         
             //- Default validator employee
-            .card-section.card-section-primary: .row
+            .card-section.card-section-primary(ng-if="!$ctrl.form.values.external_page"): .row
                 .form-group.form-group-inline.col.col-lg-9.col-md-12
                     label.form-label Standaard validator
                     .form-offset: select-control(
@@ -213,7 +277,7 @@
 
             //- Fund criteria editor
             .card-section.card-section-primary(
-                ng-if="$root.appConfigs.features.organizations.funds.criteria"
+                ng-if="$root.appConfigs.features.organizations.funds.criteria && !$ctrl.form.values.external_page"
                 ng-show="$ctrl.form.values.criteria.length > 0 || ($ctrl.organization | hasPerm:'manage_funds')")
                 .form-group.form-group-inline
                     label.form-label Criteria
@@ -227,33 +291,16 @@
                         register-parent="$ctrl.registerCriteriaEditor(childRef)")
             
             //- Contact info details
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+            .card-section.card-section-primary(ng-if="!$ctrl.form.values.external_page"): .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label Instellingen aanvraagformulier
                     .form-offset: fund-config-contact-info-editor(
                         fund="$ctrl.form.values" 
                         inline="false"
                         disabled="!($ctrl.organization | hasPerm:'manage_funds')")
-
-            //- FAQ
-            .card-section.card-section-primary
-                //- FAQ Title
-                .form-group.form-group-inline
-                    label.form-label Titel van blok
-                    input(type="text" ng-model="$ctrl.form.values.faq_title" placeholder="Veel gestelde vragen").form-control
-                    
-                    .form-error(ng-repeat="error in $ctrl.form.errors.faq_title" ng-bind="error")
-
-                //- FAQ Editor
-                .form-group.form-group-inline
-                    label.form-label Veel gestelde vragen
-                    .form-offset: faq-editor(
-                        faq="$ctrl.form.values.faq"
-                        organization="$ctrl.organization" 
-                        register-parent="$ctrl.registerFaqEditor(childRef)")
         
             //- Notification amount
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
+            .card-section.card-section-primary(ng-if="!$ctrl.form.values.external_page"): .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label.form-label(translate="funds_edit.labels.notification_amount")
                     input(

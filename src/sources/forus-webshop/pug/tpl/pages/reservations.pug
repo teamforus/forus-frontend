@@ -1,14 +1,15 @@
 top-navbar
-section.section.section-profile: .wrapper
+
+main(id="main-content"): section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         .breadcrumb-item.active(translate="reservations.header.title" aria-current="location")
 
     .block.block-profile
         .profile-aside
-            profile-menu.hide-sm
+            profile-menu
 
-            .form.form-compact(ng-class="{'show-mobile': $ctrl.showModalFilters}" role='search')
+            .form.form-compact
                 .profile-aside-block
                     //- Search
                     .form-group
@@ -63,12 +64,14 @@ section.section.section-profile: .wrapper
                         .label-tab.label-tab-sm(
                             ng-class="{active: !$ctrl.filters.archived}"
                             ng-click="$ctrl.filters.archived = 0"
+                            aria-pressed="{{ !$ctrl.filters.archived }}"
                             role="button")
                             | Actief
 
                         .label-tab.label-tab-sm(
                             ng-class="{active: $ctrl.filters.archived}"
                             ng-click="$ctrl.filters.archived = 1"
+                            aria-pressed="{{ $ctrl.filters.archived ? true : false }}"
                             role="button")
                             | Archief
 
