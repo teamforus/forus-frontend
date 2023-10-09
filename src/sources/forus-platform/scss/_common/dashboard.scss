@@ -4913,6 +4913,9 @@ body {
         }
 
         .block-information-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             font: 500 13px/18px var(--base-font);
             color: #646F79;
 
@@ -6759,20 +6762,5 @@ body {
 @media screen and (max-width: 1000px) {
     .wrapper {
         padding: 0 25px;
-    }
-
-    .form {
-        .form-group {
-            &.form-group-inline {
-                .form-label {
-                    width: auto;
-                }
-
-                .form-offset,
-                .form-control {
-                    width: 100%;
-                }
-            }
-        }
     }
 }

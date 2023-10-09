@@ -12,10 +12,11 @@
                     .block-information-info
                         | Bedankt dat je feedback met de ontwikkelaars wil delen. Feedback beïnvloedt de roadmap van Forus.
                         br
-                        | Heb je vragen over het gebruik en wil je graag hulp? Neem dan contact op met onze helpdesk via support@forus.io
+                        if (qdt_c.platform.env_data.feedback_email)
+                            | Heb je vragen over het gebruik en wil je graag hulp? Neem dan contact op met onze helpdesk via !{qdt_c.platform.env_data.feedback_email}
             
             //- Form
-            .card-section.card-section-primary: .row: .col.col-lg-9
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
                 //- Title
                 .form-group.form-group-inline
                     label(translate="components.feedback.labels.title").form-label.form-label-required
@@ -48,7 +49,7 @@
                 //- Contact
                 .form-group.form-group-inline
                     label.form-label(translate="components.feedback.labels.contact")
-                    label.checkbox
+                    .form-offset: label.checkbox
                         input(type="checkbox" id="use_email" ng-model="$ctrl.form.values.use_customer_email")
                         label(for="use_email").checkbox-label
                             .checkbox-box: em.mdi.mdi-check-bold
