@@ -9,7 +9,9 @@
     .fund-overview {
         border-bottom: 1px solid var(--border-color);
         display: flex;
-        flex-direction: row;
+        flex-direction: row;    
+        margin: 20px 20px 0;
+        padding-bottom: 20px;
         
         .fund-media {
             display: flex;
@@ -26,8 +28,8 @@
         .fund-details {
             display: flex;
             flex-direction: column;
-            padding: 25px 25px;
             flex: 1 0;
+            margin-left: 25px;
 
             .fund-name {
                 font: 600 16px/20px var(--base-font);
@@ -44,36 +46,9 @@
         }
     }
 
-    .fund-description {
-        .description-header {
-            background-color: #f6f9fc;
-            border-bottom: 1px solid var(--border-color);
-            padding: 25px;
-            font: 600 16px/28px var(--base-font);
-            color: #282B39;
-            @include cf();
-
-            .description-header-action {
-                display: flex;
-                flex-direction: row;
-                float: right;
-                font: 600 12px/28px var(--base-font);
-
-                .button {
-                    margin: -4px 0 -4px 10px;
-                }
-            }
-        }
-
-        .description-body {
-            font: 500 14px/24px var(--base-font);
-            padding: 20px 25px;
-            display: block;
-            color: #626262;
-
-            .block-markdown {
-                color: #282B39;
-            }
-        }
+    .fund-actions {
+        padding: 20px;
+        margin-left: auto;
+        margin-right: 0;
     }
 }

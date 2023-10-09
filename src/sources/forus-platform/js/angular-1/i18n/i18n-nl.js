@@ -519,6 +519,42 @@ module.exports = {
     // SHOW FUNDS = funds-show.pug
     funds_show: {
         criterion: "Criteria's (3)",
+        labels: {
+            base_card: {
+                header: {
+                    description: "Beschrijving",
+                    statistics: "Statistieken",
+                    criteria: "Voorwaarden",
+                },
+            },
+            details_card: {
+                header: {
+                    transactions: "Bekijk aanvullingen",
+                    webshop: "Webshop",
+                    providers: "Aanvragers",
+                },
+            }
+        },
+        top_up_table: {
+            filters: {
+                search: "Search",
+                code: "Used code",
+                iban: "IBAN",
+                amount: "Amount",
+                amount_min: "0",
+                amount_max: "All",
+                from: "Created from",
+                to: "Created to"
+            },
+            columns: {
+                fund: "Fund",
+                code: "Used code",
+                iban: "IBAN",
+                top_up_id: "Fund top-up ID",
+                amount: "Amount",
+                date: "Date",
+            }
+        }
     },
 
     // FUNDS = funds.pug

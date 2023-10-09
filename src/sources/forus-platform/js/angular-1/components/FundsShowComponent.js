@@ -1,5 +1,6 @@
 const FundsShowComponent = function (
     $state,
+    $filter,
     FundService,
     ModalService,
     PermissionsService,
@@ -8,6 +9,12 @@ const FundsShowComponent = function (
     FundIdentitiesExportService,
 ) {
     const $ctrl = this;
+    const $translate = $filter('translate');
+    const $hasPerm = $filter('hasPerm');
+
+    $ctrl.viewGeneralType = 'description';
+    $ctrl.viewType = 'transactions';
+    $ctrl.hasManagerPermission = false;
 
     $ctrl.identitiesFilters = {
         order_by: 'id',
@@ -61,8 +68,60 @@ const FundsShowComponent = function (
         });
     };
 
+    $ctrl.fundTransform = (fund) => ({
+        ...fund,
+        canAccessFund: fund.state != 'closed',
+        canInviteProviders: $ctrl.hasManagerPermission && fund.state != 'closed',
+        topUpTransactionFilters: { 
+            show: false, 
+            values: {},
+        },
+        form: { 
+            criteria: fund.criteria,
+        },
+        providersDescription: [
+            `${fund.provider_organizations_count}`,
+            `(${fund.provider_employees_count} ${$translate('fund_card_sponsor.labels.employees')})`,
+        ].join(' ')
+    });
+
+    $ctrl.fetchTopUpTransactions = (fund, query = {}) => {
+        PageLoadingBarService.setProgress(0);
+
+        FundService.listTopUpTransactions(fund.organization_id, fund.id, query).then(
+            (res) => fund.top_up_transactions = res.data,
+            (res) => PushNotificationsService.danger('Error!', res.data.message)
+        ).finally(() => PageLoadingBarService.setProgress(100));
+    };
+
+    $ctrl.onSaveCriteria = (fund) => {
+        FundService.updateCriteria(fund.organization_id, fund.id, fund.criteria).then((res) => {
+            fund.criteria = Object.assign(fund.criteria, res.data.data.criteria);
+            PushNotificationsService.success('Opgeslagen!');
+        }, (err) => PushNotificationsService.danger(err.data.message || 'Error!'));
+    };
+    
+    $ctrl.inviteProvider = (fund) => {
+        if (fund.canInviteProviders) {
+            ModalService.open('fundInviteProviders', {
+                fund: fund,
+                confirm: (res) => {
+                    PushNotificationsService.success(
+                        "Aanbieders uitgenodigd!",
+                        `${res.length} uitnodigingen verstuurt naar aanbieders!`,
+                    );
+
+                    $state.reload();
+                }
+            });
+        }
+    };
+
     $ctrl.$onInit = () => {
         $ctrl.implementations = [$ctrl.fund.implementation];
+        $ctrl.hasManagerPermission = $hasPerm($ctrl.organization, 'manage_funds');
+        $ctrl.fund = $ctrl.fundTransform($ctrl.fund);
+        $ctrl.fetchTopUpTransactions($ctrl.fund);
 
         if (PermissionsService.hasPermission($ctrl.fund.organization, 'manage_funds')) {
             $ctrl.identitiesOnPageChange($ctrl.identitiesFilters);
@@ -74,9 +133,12 @@ module.exports = {
     bindings: {
         fund: '<',
         organization: '<',
+        recordTypes: '<',
+        validatorOrganizations: '<',
     },
     controller: [
         '$state',
+        '$filter',
         'FundService',
         'ModalService',
         'PermissionsService',

@@ -21,27 +21,18 @@ module.exports = {
             archived: "Gearchiveerd",
         },
         labels: {
-            remaining: "Resterend:"
+            name: "Naam:",
+            remaining: "Resterend:",
+            requester_count: "Aanvragers:",
+            status: "Status:",
+            actions: "Acties:",
         },
-        top_up_table: {
-            filters: {
-                search: "Zoeken",
-                code: "Gebruikte code",
-                iban: "IBAN",
-                amount: "Bedrag",
-                amount_min: "0",
-                amount_max: "Alles",
-                from: "Aangemaakt vanaf",
-                to: "Aangemaakt tot en met"
-            },
-            columns: {
-                fund: "Fonds",
-                code: "Gebruikte code",
-                iban: "IBAN",
-                top_up_id: "Aanvulling ID",
-                amount: "Bedrag",
-                date: "Tijd & Datum",
-            }
-        }
+        filters: {
+            search: "Zoeken",
+            budget_left: "Resterend",
+            budget_left_min: "0",
+            budget_left_max: "Alles",
+            state: "Status",
+        },
     }
 };

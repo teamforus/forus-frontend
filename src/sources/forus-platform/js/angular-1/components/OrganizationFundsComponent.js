@@ -1,6 +1,7 @@
 const OrganizationFundsComponent = function (
     $state,
     $filter,
+    $timeout,
     $stateParams,
     FundService,
     ModalService,
@@ -8,15 +9,46 @@ const OrganizationFundsComponent = function (
     PushNotificationsService
 ) {
     const $ctrl = this;
-    const $hasPerm = $filter('hasPerm');
     const $translate = $filter('translate');
     const $translateDangerZone = (type, key) => $translate(`modals.danger_zone.${type}.${key}`);
 
-    $ctrl.hasManagerPermission = false;
     $ctrl.shownFundsType = $stateParams.funds_type || 'active';
 
-    $ctrl.hideFilters = (fund) => {
-        fund.topUpTransactionFilters.show = false;
+    $ctrl.states = [{
+        key: 'active',
+        name: 'Active',
+    }, {
+        key: 'paused',
+        name: 'Paused',
+    }, {
+        key: 'closed',
+        name: 'Closed',
+    }];
+
+    $ctrl.filters = {
+        show: false,
+        values: {},
+        defaultValues: {
+            q: '',
+            state: $ctrl.states[0].key,
+        },
+        reset: function () {
+            this.values = { ...this.values, ...this.defaultValues };
+        }
+    };
+
+    $ctrl.toggleActions = (e, fund) => {
+        $ctrl.onClickOutsideMenu(e);
+        fund.showMenu = true;
+    };
+
+    $ctrl.onClickOutsideMenu = (e) => {
+        e.stopPropagation();
+        $ctrl.funds.data.forEach((fund) => fund.showMenu = false);
+    };
+
+    $ctrl.hideFilters = () => {
+        $timeout(() => $ctrl.filters.show = false);
     };
 
     $ctrl.askConfirmation = (type, onConfirm) => {
@@ -39,72 +71,6 @@ const OrganizationFundsComponent = function (
         }
     };
 
-    $ctrl.inviteProvider = (fund) => {
-        if (fund.canInviteProviders) {
-            ModalService.open('fundInviteProviders', {
-                fund: fund,
-                confirm: (res) => {
-                    PushNotificationsService.success(
-                        "Aanbieders uitgenodigd!",
-                        `${res.length} uitnodigingen verstuurt naar aanbieders!`,
-                    );
-
-                    $state.reload();
-                }
-            });
-        }
-    };
-
-    $ctrl.toggleFundCriteria = (fund) => {
-        fund.show_criteria = !fund.show_criteria;
-        fund.show_stats = fund.show_top_ups = false;
-    };
-
-    $ctrl.toggleFundStats = (fund) => {
-        const toggle = () => {
-            fund.show_stats = !fund.show_stats;
-            fund.show_criteria = fund.show_top_ups = false;
-        }
-
-        if (fund.show_stats) {
-            return toggle();
-        }
-
-        PageLoadingBarService.setProgress(0);
-
-        FundService.read(fund.organization_id, fund.id, { stats: 'budget' }).then((res) => {
-            Object.assign(fund, $ctrl.fundTransform(res.data.data));
-        }).finally(() => {
-            toggle();
-            PageLoadingBarService.setProgress(100)
-        });
-    };
-
-    $ctrl.fetchTopUpTransactions = (fund, query = {}) => {
-        PageLoadingBarService.setProgress(0);
-
-        FundService.listTopUpTransactions(fund.organization_id, fund.id, query).then(
-            (res) => fund.top_up_transactions = res.data,
-            (res) => PushNotificationsService.danger('Error!', res.data.message)
-        ).finally(() => PageLoadingBarService.setProgress(100));
-    };
-
-    $ctrl.toggleFundTopUpHistory = (fund) => {
-        fund.show_top_ups = !fund.show_top_ups;
-        fund.show_criteria = fund.show_stats = false;
-
-        if (fund.show_top_ups) {
-            $ctrl.fetchTopUpTransactions(fund);
-        }
-    };
-
-    $ctrl.onSaveCriteria = (fund) => {
-        FundService.updateCriteria(fund.organization_id, fund.id, fund.criteria).then((res) => {
-            fund.criteria = Object.assign(fund.criteria, res.data.data.criteria);
-            PushNotificationsService.success('Opgeslagen!');
-        }, (err) => PushNotificationsService.danger(err.data.message || 'Error!'));
-    };
-
     $ctrl.archiveFund = (fund) => {
         $ctrl.askConfirmation('archive_fund', () => {
             FundService.archive(fund.organization_id, fund.id).then(() => {
@@ -125,37 +91,21 @@ const OrganizationFundsComponent = function (
         });
     };
 
-    $ctrl.getActiveFundsCount = (type) => ({
-        active: $ctrl.activeFunds.length,
-        archived: $ctrl.archivedFunds.length,
-    }[type]);
+    $ctrl.onPageChange = (query) => {
+        PageLoadingBarService.setProgress(0);
 
-    $ctrl.fundTransform = (fund) => ({
-        ...fund,
-        canAccessFund: fund.state != 'closed',
-        canInviteProviders: $ctrl.hasManagerPermission && fund.state != 'closed',
-        topUpTransactionFilters: { 
-            show: false, 
-            values: {},
-        },
-        form: { 
-            criteria: fund.criteria,
-        },
-        providersDescription: [
-            `${fund.provider_organizations_count}`,
-            `(${fund.provider_employees_count} ${$translate('fund_card_sponsor.labels.employees')})`,
-        ].join(' ')
-    });
+        FundService.list($ctrl.organization.id, { 
+            with_archived: 1, 
+            with_external: 1, 
+            stats: 'min',
+            archived: $ctrl.shownFundsType == 'archived' ? 1 : 0,
+            ...query
+        }).then((res) => $ctrl.funds = res.data).finally(() => PageLoadingBarService.setProgress(100));
+    };
 
     $ctrl.$onInit = function () {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
-        $ctrl.hasManagerPermission = $hasPerm($ctrl.organization, 'manage_funds');
-        $ctrl.canInviteProviders = $ctrl.hasManagerPermission && $ctrl.funds.length > 1;
-
-        $ctrl.funds = $ctrl.funds.map((fund) => $ctrl.fundTransform(fund));
-
-        $ctrl.activeFunds = $ctrl.funds.filter((fund) => !fund.archived);
-        $ctrl.archivedFunds = $ctrl.funds.filter((fund) => fund.archived);
+        $ctrl.filters.reset();
     };
 };
 
@@ -170,6 +120,7 @@ module.exports = {
     controller: [
         '$state',
         '$filter',
+        '$timeout',
         '$stateParams',
         'FundService',
         'ModalService',
