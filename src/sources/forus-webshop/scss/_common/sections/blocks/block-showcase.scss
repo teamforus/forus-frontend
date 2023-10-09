@@ -585,24 +585,33 @@
                         }
                     }
                 }
-
-                .block.block.block-google-map {
-                    margin-bottom: 40px;
-                }
             }
         }
 
         &.block-showcase-fullscreen {
-            .showcase-layout {
-                height: calc(100% - 50px);
+            position: absolute;
+            height: calc(85vh - 50px);
 
-                .showcase-aside {
-                    height: auto;
-                    margin: 0;
-                }
+            #main-content {
+                height: 100%;
+            }
 
-                .showcase-content {
-                    top: 50px;
+            .showcase-wrapper {
+                min-height: 100%;
+
+                .showcase-layout {
+                    .showcase-aside {
+                        height: auto;
+                        margin: 0;
+                    }
+
+                    .showcase-content {
+                        top: 50px;
+
+                        .block.block.block-google-map {
+                            bottom: 0;
+                        }
+                    }
                 }
             }
         }
