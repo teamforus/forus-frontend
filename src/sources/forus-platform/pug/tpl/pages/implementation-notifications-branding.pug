@@ -48,7 +48,7 @@
                     label.form-label Handtekening
                     .form-offset
                         markdown(
-                            extended-options="true"
+                            allow-lists="false"
                             value="$ctrl.form.values.email_signature_html"
                             ng-model="$ctrl.form.values.email_signature")
 
@@ -58,5 +58,5 @@
 
                         .form-error(ng-repeat="error in $ctrl.form.errors.email_signature" ng-bind="error")
             .card-section: .button-group.flex-center
-                button(type="submit").button.button-primary Opslaan
                 a(ui-sref="implementation-notifications({organization_id: $ctrl.organization.id})").button.button-default Annuleren
+                button(type="submit").button.button-primary Opslaan
