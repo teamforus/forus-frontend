@@ -47,9 +47,10 @@
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label Handtekening
                     .form-offset
-                        textarea(
-                            ng-model="$ctrl.form.values.email_signature"
-                            placeholder="{{ $ctrl.defaultSignature ? $ctrl.defaultSignature : 'Handtekening' }}").form-control
+                        markdown(
+                            allow-lists="false"
+                            value="$ctrl.form.values.email_signature_html"
+                            ng-model="$ctrl.form.values.email_signature")
 
                         .form-hint(
                             translate="system_notifications.hints.maxlen" 
@@ -57,5 +58,5 @@
 
                         .form-error(ng-repeat="error in $ctrl.form.errors.email_signature" ng-bind="error")
             .card-section: .button-group.flex-center
-                button(type="submit").button.button-primary Opslaan
                 a(ui-sref="implementation-notifications({organization_id: $ctrl.organization.id})").button.button-default Annuleren
+                button(type="submit").button.button-primary Opslaan

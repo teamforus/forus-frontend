@@ -13,7 +13,8 @@ block content
             .office-map(ng-if="$root.appConfigs.features.show_office_map"): .block.block-google-map: google-map(
                 map-pointers="[$ctrl.office]" 
                 map-pointer-template="providers-office-view" 
-                map-gesture-handling="'greedy'")
+                map-gesture-handling="'greedy'"
+                map-gesture-handling-mobile="'none'")
 
             .office-content(ng-class="{'office-content-top': !$root.appConfigs.features.show_office_map}")
                 .block.block-pane
