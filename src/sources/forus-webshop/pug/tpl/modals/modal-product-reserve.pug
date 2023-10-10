@@ -219,39 +219,35 @@
             .modal-section.modal-section-narrow
                 //- Address fields
                 .flex-row
-                    //- Address prefill
-                    .col.col-lg-12.col-xs-12.form-group.form-group-margin
-                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.address")
-                        input(
-                            id="reservation-address"
-                            type="text"
-                            ng-model="$ctrl.form.values.address"
-                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.address' | translate }}"
-                            dusk="productReserveFormFullAddress").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.address" ng-bind="error")
-
-                .flex-row
                     //- Street
                     .col.col-lg-6.col-xs-12.form-group.form-group-margin
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.street")
                         input(
                             type="text"
-                            disabled
                             ng-model="$ctrl.form.values.street"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.street' | translate }}"
                             dusk="productReserveFormStreet").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.street" ng-bind="error")
 
-                    //- House number (with addition)
-                    .col.col-lg-6.col-xs-12.form-group.form-group-margin
+                    //- House number
+                    .col.col-lg-3.col-xs-12.form-group.form-group-margin
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.house_nr")
                         input(
                             type="text"
-                            disabled
                             ng-model="$ctrl.form.values.house_nr"
-                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.house_nr' | translate }}"
+                            placeholder="70, 1234, 2"
                             dusk="productReserveFormHouseNumber").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.house_nr" ng-bind="error")
+
+                    //- House number addition
+                    .col.col-lg-3.col-xs-12.form-group.form-group-margin
+                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.house_nr_addition")
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.house_nr_addition"
+                            placeholder="C, -2, -12, AB"
+                            dusk="productReserveFormHouseNumberAddition").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.house_nr_addition" ng-bind="error")
 
                 .flex-row
                     //- Postal code
@@ -259,7 +255,6 @@
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.postal_code")
                         input(
                             type="text"
-                            disabled
                             ng-model="$ctrl.form.values.postal_code"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.postal_code' | translate }}"
                             dusk="productReserveFormPostalCode").form-control
@@ -270,7 +265,6 @@
                         .form-label(translate="modal_product_reserve_notes.fill_notes.labels.city")
                         input(
                             type="text"
-                            disabled
                             id="reservation-city"
                             ng-model="$ctrl.form.values.city"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.city' | translate }}"
@@ -369,10 +363,30 @@
                     .overview-item-label(ng-if="field.custom" ng-bind="field.label")
                     .overview-item-value(ng-if="field.custom" ng-bind="$ctrl.form.values.custom_fields[field.key] || '-'")
 
-                //- Address field
-                .overview-item(ng-if="$ctrl.form.values.address")
-                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.address")
-                    .overview-item-value(ng-bind="$ctrl.form.values.address || '-'")
+                //- Street field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.street")
+                    .overview-item-value(ng-bind="$ctrl.form.values.street || '-'")
+
+                //- House number field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.house_nr")
+                    .overview-item-value(ng-bind="$ctrl.form.values.house_nr || '-'")
+
+                //- House number addition field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.house_nr_addition")
+                    .overview-item-value(ng-bind="$ctrl.form.values.house_nr_addition || '-'")
+
+                //- Postal code field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.postal_code")
+                    .overview-item-value(ng-bind="$ctrl.form.values.postal_code || '-'")
+
+                //- City field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.city")
+                    .overview-item-value(ng-bind="$ctrl.form.values.city || '-'")
     
                 //- User note
                 .overview-item(ng-if="$ctrl.form.values.user_note")

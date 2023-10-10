@@ -1,11 +1,9 @@
 const ModalProductReserveComponent = function (
     $state,
     $filter,
-    $timeout,
     appConfigs,
     AuthService,
     VoucherService,
-    GoogleMapService,
     FormBuilderService,
     PushNotificationsService,
     ProductReservationService,
@@ -47,29 +45,6 @@ const ModalProductReserveComponent = function (
         $ctrl.setStep(address ? $ctrl.STEP_FILL_ADDRESS : $ctrl.STEP_FILL_DATA);
     };
 
-    const addMapAutocomplete = () => {
-        const autocompleteAddressFrom = new google.maps.places.Autocomplete(
-            angular.element(document.getElementById('reservation-address'))[0],
-            GoogleMapService.getAutocompleteOptions(),
-        );
-
-        google.maps.event.addListener(autocompleteAddressFrom, 'place_changed', () => {
-            const place = autocompleteAddressFrom.getPlace();
-
-            const postal_code = GoogleMapService.getAddressComponent("postal_code", place)?.long_name || '';
-            const street = GoogleMapService.getAddressComponent("route", place)?.short_name || '';
-            const house_nr = GoogleMapService.getAddressComponent("street_number", place)?.long_name || '';
-            const city = GoogleMapService.getAddressComponent("locality", place)?.long_name || '';
-
-            $ctrl.form.values.city = city;
-            $ctrl.form.values.street = street;
-            $ctrl.form.values.house_nr = house_nr;
-            $ctrl.form.values.postal_code = postal_code;
-
-            $ctrl.form.values.address = `${street} ${house_nr}, ${postal_code}, ${city}`;
-        });
-    }
-
     $ctrl.validateFields = () => {
         ProductReservationService.validateFields({
             ...$ctrl.form.values,
@@ -86,6 +61,7 @@ const ModalProductReserveComponent = function (
             address: $ctrl.form.values.postal_code ? $ctrl.form.values.address : null,
             street: $ctrl.form.values.street,
             house_nr: $ctrl.form.values.house_nr,
+            house_nr_addition: $ctrl.form.values.house_nr_addition,
             city: $ctrl.form.values.city,
             postal_code: $ctrl.form.values.postal_code,
             product_id: $ctrl.product.id,
@@ -131,10 +107,6 @@ const ModalProductReserveComponent = function (
 
     $ctrl.setStep = (step) => {
         $ctrl.step = step;
-
-        if (step === $ctrl.STEP_FILL_ADDRESS) {
-            $timeout(() => addMapAutocomplete(), 0);
-        }
     };
 
     $ctrl.back = () => {
@@ -222,11 +194,9 @@ module.exports = {
     controller: [
         '$state',
         '$filter',
-        '$timeout',
         'appConfigs',
         'AuthService',
         'VoucherService',
-        'GoogleMapService',
         'FormBuilderService',
         'PushNotificationsService',
         'ProductReservationService',

@@ -118,34 +118,12 @@ const GoogleMapService = function ($q) {
         }]
     };
 
-    const autocompleteOptions = {
-        componentRestrictions: {
-            country: ["nl"]
-        },
-        fields: [
-            "address_components", "geometry",
-        ],
-        types: [
-            "address",
-        ],
-    };
-
     const getStyle = function () {
         return $q((resolve) => resolve(style));
     };
 
-    const getAutocompleteOptions = () => {
-        return autocompleteOptions;
-    };
-
-    const getAddressComponent = (component, place) => {
-        return place.address_components.find((item) => item.types.includes(component));
-    }
-
     return {
         getStyle: getStyle,
-        getAddressComponent: getAddressComponent,
-        getAutocompleteOptions: getAutocompleteOptions,
     };
 };
 

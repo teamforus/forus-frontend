@@ -11,7 +11,6 @@ module.exports = {
             phone: 'Telefoonnummer',
             address: 'Adres',
             street: 'Straat',
-            house_nr: 'Huisnummer',
             postal_code: 'Postcode',
             city: 'Plaats',
             birth_date: 'Geboortedatum',
@@ -24,6 +23,7 @@ module.exports = {
             address: 'Adres',
             street: 'Straat',
             house_nr: 'Huisnummer',
+            house_nr_addition: 'Huisnummertoevoeging',
             postal_code: 'Postcode',
             city: 'Plaats',
             birth_date: 'Geboortedatum',
@@ -44,7 +44,11 @@ module.exports = {
             last_name: 'Achternaam: ',
             notes: 'Opmerking: ',
             phone: 'Telefoonnummer: ',
-            address: 'Adres: ',
+            street: 'Straat',
+            house_nr: 'Huisnummer',
+            house_nr_addition: 'Huisnummertoevoeging',
+            postal_code: 'Postcode',
+            city: 'Plaats',
             birth_date: 'Geboortedatum: '
         },
         buttons: {
