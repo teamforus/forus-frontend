@@ -48,7 +48,17 @@
 
                 .fund-description {
                     font: 400 16px/1.5em var(--base-font);
-                    margin: 0 0 25px;
+                    margin: 0;
+
+                    .block-markdown {
+                        p:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    &.with-details {
+                        margin-bottom: 25px;
+                    }
                 }
 
                 .organization-name {

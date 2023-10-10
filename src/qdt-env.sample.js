@@ -249,9 +249,6 @@ module.exports = (core) => {
 
                 // voucher settings
                 shareProducts: false,
-
-                // fund page setting
-                hideFundMeta: true,
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
