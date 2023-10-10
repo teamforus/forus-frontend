@@ -152,11 +152,26 @@
                                     translate(translate="product_edit.labels.stock_unlimited")
                         .form-error(ng-repeat="error in $ctrl.form.errors.total_amount" ng-bind="error")
 
-                    .form-group.form-group-inline(ng-if="$ctrl.product && !$ctrl.product.unlimited_stock")
+                    .form-group.form-group-inline(ng-if="$ctrl.product && !$ctrl.product.unlimited_stock").tooltipped
                         label.form-label(i18n="product_edit.labels.stock_amount")
-                        input(ng-model="$ctrl.form.values.stock_amount" type="number" placeholder="Stock" ng-disabled="!$ctrl.isEditable").form-control
-                        tooltip(text="'tooltip.product.limit'")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
+                        
+                        .form-offset
+                            .form-group-info
+                                .form-group-info-control
+                                    input(ng-model="$ctrl.form.values.stock_amount" type="number" placeholder="Stock" ng-disabled="!$ctrl.isEditable").form-control
+
+                                .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                    ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
+                                    ng-class="{active: $ctrl.showInfoBlock}")
+                                    em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    p {{ 'tooltip.product.limit' | translate }}
+
+                            .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
 
             //- Product type
             .card-section.card-section-primary
@@ -209,12 +224,30 @@
                 .row: .col.col-lg-9(ng-if="$ctrl.form.values.reservation_enabled")
                     .form-group.form-group-inline.tooltipped
                         label(for="reservation_policy").form-label Reserveringen accepteren
-                        select(
-                            ng-model="$ctrl.form.values.reservation_policy" 
-                            ng-options="policy.value as policy.label for policy in $ctrl.reservationPolicies").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_policy" ng-bind="error")
-                        tooltip(text="'Standaard instelling kunt u bij uw reserveringen aanpassen. Geef hier optioneel aan of u de reservering handmatig of automatisch wilt accepteren.'")
-                
+
+                        .form-offset
+                            .form-group-info
+                                .form-group-info-control
+                                    select-control(
+                                        as="label"
+                                        prop="value"
+                                        search="false"
+                                        ng-model="$ctrl.form.values.reservation_policy" 
+                                        options="$ctrl.reservationPolicies").form-control
+
+                                .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                    ng-click="$ctrl.showPolicyInfoBlock = !$ctrl.showPolicyInfoBlock"
+                                    ng-class="{active: $ctrl.showPolicyInfoBlock}")
+                                    em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showPolicyInfoBlock")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    p Standaard instelling kunt u bij uw reserveringen aanpassen. Geef hier optioneel aan of u de reservering handmatig of automatisch wilt accepteren.
+                            
+                            .form-error(ng-repeat="error in $ctrl.form.errors.reservation_policy" ng-bind="error")
+
                     //- Product reservation phone
                     .form-group.form-group-inline
                         label(for="reservation_phone").form-label Telefoonnummer klant

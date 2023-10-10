@@ -41,15 +41,27 @@
                     .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.allow_external").tooltipped
                         label.form-label Pagina type
                         .form-offset
-                            select-control(
-                                prop="value"
-                                search="false"
-                                options="$ctrl.types"
-                                ng-model="$ctrl.form.values.external").form-control
+                            .form-group-info
+                                .form-group-info-control
+                                    select-control(
+                                        prop="value"
+                                        search="false"
+                                        options="$ctrl.types"
+                                        ng-model="$ctrl.form.values.external").form-control
+
+                                .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                    ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
+                                    ng-class="{active: $ctrl.showInfoBlock}")
+                                    em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    p Internal pages are hosted on our webshop domain and you can edit the content of the page below. Or you can select external, to provider a custom url for the page.
+                                
                             .form-error(ng-repeat="error in $ctrl.form.errors.external" ng-bind="error")
-
-                        tooltip(text="'Internal pages are hosted on our webshop domain and you can edit the content of the page below. Or you can select external, to provider a custom url for the page.'")
-
+                            
                     //- External page url
                     .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.form.values.external")
                         label.form-label Externe url

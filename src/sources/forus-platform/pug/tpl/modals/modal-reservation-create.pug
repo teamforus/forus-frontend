@@ -41,10 +41,28 @@
                 .row: .col.col-sm-9.col-sm-offset-1.col-sm-12.col-xs-offset-0
                     .form-group.form-group-inline.form-group-inline-md.tooltipped
                         label.form-label Aanbod
-                        .form-offset: select-control(
-                            options="$ctrl.products"
-                            ng-model="$ctrl.formProducts.product").form-control
+                        .form-offset
+                            .form-group-info
+                                .form-group-info-control
+                                    select-control(
+                                        options="$ctrl.products"
+                                        ng-model="$ctrl.formProducts.product").form-control
+
+                                .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                    ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
+                                    ng-class="{active: $ctrl.showInfoBlock}")
+                                    em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    p {{ 'reservation_create.tooltips.product' | translate }}
+
                         .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
+                        .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
+                        tooltip(text="'reservation_create.tooltips.product' | translate | lines_to_array")
+                            .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
                         tooltip(text="'reservation_create.tooltips.product' | translate | lines_to_array")
 
                     .form-group.form-group-inline.form-group-inline-md
