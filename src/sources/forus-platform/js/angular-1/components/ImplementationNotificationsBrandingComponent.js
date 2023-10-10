@@ -39,7 +39,7 @@ const ImplementationNotificationsBrandingComponent = function(
     }
 
     $ctrl.$onInit = () => {
-        const { email_color, email_signature, email_logo } = $ctrl.implementation;
+        const { email_color, email_signature, email_logo, email_signature_html } = $ctrl.implementation;
         const { email_color_default, email_signature_default, email_logo_default } = $ctrl.implementation;
 
         $ctrl.logoMedia = email_logo;
@@ -50,7 +50,8 @@ const ImplementationNotificationsBrandingComponent = function(
 
         $ctrl.form = FormBuilderService.build({
             email_color: email_color ? email_color : email_color_default,
-            email_signature: email_signature ? email_signature : ''
+            email_signature: email_signature ? email_signature : '',
+            email_signature_html: email_signature_html,
         }, (form) => {
             $ctrl.storeMedia($ctrl.mediaFile).then((media) => {
                 const values = form.values;
