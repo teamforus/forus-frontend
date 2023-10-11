@@ -229,39 +229,6 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('webshop_nijmegen', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_type: 'webshop',
-            client_key: 'nijmegen',
-            matomo_site_id: false,
-            flags: {
-                showAccountSidebar: false,
-                accessibilityPage: true,
-                genericSearch: true,
-                useLightAppIcons: true,
-                
-                // menu settings
-                meAppMenu: false,
-                forusPlatformMenu: false,
-                portfolioMenu: false,
-                aboutSiteMenu: false,
-
-                // voucher settings
-                shareProducts: false,
-
-                // fund page setting
-                hideFundMeta: true,
-            },
-            sessions: sessions,
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
-
-        return platform;
-    });
-
     core.editPlatform('webshop_kerstpakket', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
