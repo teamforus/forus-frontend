@@ -1,5 +1,6 @@
 let GoogleMapDirective = function(
     $scope,
+    $window,
     $element,
     $timeout,
     $compile,
@@ -8,14 +9,19 @@ let GoogleMapDirective = function(
 ) {
     $scope.style = [];
     $scope.markers = [];
+    let map, mapOptions, initMapGestureHandling;
 
     $scope.initialize = function(obj, mapPointers) {
         mapPointers = mapPointers || [];
+        initMapGestureHandling = $scope.mapGestureHandling || undefined;
 
         let $elementCanvas = $element.find('.map-canvas');
-        let map, infowindow;
+        let infowindow;
         let image = $elementCanvas.attr("data-marker");
         let zoomLevel = 12;
+        let mapGestureHandling = $window.innerWidth >= 768
+            ? initMapGestureHandling
+            : ($scope.mapGestureHandlingMobile || initMapGestureHandling);
 
         let styles = [{
             featureType: 'poi.business',
@@ -47,7 +53,7 @@ let GoogleMapDirective = function(
             }));
         }
 
-        var mapOptions = Object.assign({
+        mapOptions = Object.assign({
             zoom: zoomLevel,
             disableDefaultUI: false,
             center: new google.maps.LatLng(centerLat, centerLon),
@@ -57,7 +63,7 @@ let GoogleMapDirective = function(
             mapTypeControlOptions: {
                 mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
             },
-            gestureHandling: $scope.mapGestureHandling || undefined,
+            gestureHandling: mapGestureHandling,
         }, $scope.mapOptions || {})
 
         map = new google.maps.Map(document.getElementById(obj), mapOptions);
@@ -108,6 +114,18 @@ let GoogleMapDirective = function(
         $scope.style = style.style;
         $scope.initialize('map-canvas-contact');
     });
+
+    angular.element($window).bind('resize', function(){
+        mapOptions.gestureHandling = $window.innerWidth >= 768
+            ? initMapGestureHandling
+            : ($scope.mapGestureHandlingMobile || initMapGestureHandling);
+
+        map.setOptions(mapOptions);
+    });
+
+    $scope.$on('$destroy', function() {
+        angular.element($window).unbind('resize');
+    });
 };
 
 module.exports = () => {
@@ -118,11 +136,13 @@ module.exports = () => {
             mapPointers: '=',
             mapPointerTemplate: '@',
             mapOptions: '=',
-            mapGestureHandling: '='
+            mapGestureHandling: '=',
+            mapGestureHandlingMobile: '=',
         },
         replace: true,
         controller: [
             '$scope',
+            '$window',
             '$element',
             '$timeout',
             '$compile',
