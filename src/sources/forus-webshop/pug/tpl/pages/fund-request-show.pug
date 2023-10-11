@@ -5,7 +5,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         a(translate="fund_requests.header.title" ui-sref="fund-requests").breadcrumb-item
-        .breadcrumb-item.active(aria-current="location") Fondsverzoek {{ '#' + $ctrl.fundRequest.id }}
+        .breadcrumb-item.active(aria-current="location") Aanvraag {{ '#' + $ctrl.fundRequest.id }}
 
     //- Page
     .block.block-profile.block-fund-request
@@ -16,7 +16,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
         .profile-content
             .card: .card-section
                 h3.card-heading.card-heading-lg.flex
-                    .flex.flex-grow Aanvraag details
+                    .flex.flex-grow Status aanvraag
                     .flex.flex-center.flex-vertical
                         .label.label-warning(ng-bind="$ctrl.fundRequest.state_locale" ng-if="$ctrl.fundRequest.state === 'pending'")
                         .label.label-success(ng-bind="$ctrl.fundRequest.state_locale" ng-if="$ctrl.fundRequest.state === 'approved_partly'")
@@ -42,7 +42,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                             .fund-request-prop-label Aantal eigenschappen:
                             .fund-request-prop-value(ng-bind="$ctrl.fundRequest.records.length")
 
-            h2.profile-content-header: .profile-content-title Eigenschappen
+            h2.profile-content-header: .profile-content-title Mijn gegevens
 
             .card.card-fund-request-conversation(
                 ng-repeat="record in $ctrl.fundRequest.records"
@@ -61,7 +61,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                     .label.label-primary.label-xl.nowrap(ng-if="record.notAnsweredCount > 0")
                         .label-blink(aria-hidden="true")
                         | {{ record.notAnsweredCount }}&nbsp;
-                        .label-text nieuwe actualisering
+                        .label-text nieuw bericht
 
                     .card-header-view(
                         ng-if="record.clarifications.length"
