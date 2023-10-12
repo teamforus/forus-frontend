@@ -1830,33 +1830,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', (
-            $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, PushNotificationsService
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', (
+            $rootScope, $state, IdentityService, CredentialsService, ModalService, PushNotificationsService
         ) => {
             let target = $state.params.target || '';
 
             IdentityService.authorizeAuthEmailToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
 
-                $rootScope.loadAuthUser().then(auth_user => {
-                    let organizations = auth_user.organizations.filter(organization =>
-                        !organization.business_type_id &&
-                        PermissionsService.hasPermission(organization, 'manage_organization')
-                    );
-
-                    let onReady = () => {
-                        if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
-                            return $state.go('organizations');
-                        }
-                    };
-
-                    if (organizations.length > 0) {
-                        ModalService.open('businessSelect', {
-                            organizations: organizations,
-                            onReady: () => onReady(),
-                        });
-                    } else {
-                        onReady();
+                $rootScope.loadAuthUser().then(() => {
+                    if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
+                        return $state.go('organizations');
                     }
                 });
             }, () => {

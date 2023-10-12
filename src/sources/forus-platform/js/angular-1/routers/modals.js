@@ -95,10 +95,6 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundOffersComponent'
     });
 
-    ModalRouteProvider.modal('businessSelect', {
-        component: 'modalBusinessSelectComponent'
-    });
-
     ModalRouteProvider.modal('employeeAddConfirmation', {
         component: 'modalEmployeeAddConfirmationComponent'
     });
