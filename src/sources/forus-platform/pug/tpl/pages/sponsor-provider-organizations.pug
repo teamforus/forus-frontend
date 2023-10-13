@@ -11,12 +11,8 @@
 
             //- Filters
             .flex.block.block-inline-filters
-                .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
-                    em.mdi.mdi-close.icon-start
-                    span(i18n="Wis filters")
-                
-                .form(ng-if="!$ctrl.filters.show")
-                    .form-group.form-group-inline
+                .form
+                    .form-group.form-group-inline(ng-if="!$ctrl.filters.show")
                         label.form-label Sorteer:
                         .form-offset: select-control(
                             id="orderBy"
@@ -24,17 +20,21 @@
                             search="false"
                             ng-model="$ctrl.filters.values.order_by" 
                             options="$ctrl.orderByOptions").form-control.form-control-text.nowrap
+                
+                    .button.button-primary(ng-if="!$ctrl.extendedView" ng-click="$ctrl.setExtendedView(true)")
+                        em.mdi.mdi-arrow-expand-vertical.icon-start
+                        | Alles uitklappen
 
-                    .form-group.inline-filters-search
+                    .button.button-primary(ng-if="$ctrl.extendedView" ng-click="$ctrl.setExtendedView(false)")
+                        em.mdi.mdi-arrow-collapse-vertical.icon-start
+                        | Alles inklappen
+
+                    .form-group(ng-if="!$ctrl.filters.show")
                         input(ng-model="$ctrl.filters.values.q" placeholder="{{ 'search' | i18n }}").form-control
-
-                .button.button-primary(ng-if="!$ctrl.extendedView" ng-click="$ctrl.setExtendedView(true)")
-                    em.mdi.mdi-arrow-expand-vertical.icon-start
-                    | Alles uitklappen
-
-                .button.button-primary(ng-if="$ctrl.extendedView" ng-click="$ctrl.setExtendedView(false)")
-                    em.mdi.mdi-arrow-collapse-vertical.icon-start
-                    | Alles inklappen
+                
+                .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
+                    em.mdi.mdi-close.icon-start
+                    span(i18n="Wis filters")
 
                 .inline-filters-dropdown(click-outside="$ctrl.hideFilters()")
                     .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")

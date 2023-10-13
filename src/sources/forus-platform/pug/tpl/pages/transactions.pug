@@ -22,6 +22,13 @@
                         em.mdi.mdi-upload.icon-start
                         | Upload bulkbestand
 
+                    //- View type
+                    .flex.form(ng-if="$ctrl.isSponsor"): div: .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
+                        ng-repeat="viewType in $ctrl.viewTypes" 
+                        ng-class="{active: $ctrl.viewType == viewType}"
+                        ng-click="$ctrl.setViewType(viewType)"
+                        ng-bind="viewType.label")
+
                     .button.button-text(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start
                         span(i18n="Wis filters")
@@ -190,13 +197,6 @@
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactionBulks.meta.total }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.bulkFilters.show = !$ctrl.bulkFilters.show"): em.mdi.mdi-filter-outline
-
-                    //- View type
-                    .flex(ng-if="$ctrl.isSponsor"): div: .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
-                        ng-repeat="viewType in $ctrl.viewTypes" 
-                        ng-class="{active: $ctrl.viewType == viewType}"
-                        ng-click="$ctrl.setViewType(viewType)"
-                        ng-bind="viewType.label")
 
             //- Transactions
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total > 0")
