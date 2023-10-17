@@ -1,5 +1,5 @@
 module.exports = {
-    product_board: {
+    feedback: {
         title: 'Feedback',
         labels: {
             email: "Email",

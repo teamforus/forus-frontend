@@ -30,11 +30,17 @@ const ModalExportDataComponent = function () {
         $ctrl.isValid = !$ctrl.required || (!checkboxSections.length || checkboxSectionsChecked.length);
     };
 
+    $ctrl.collapseSection = (section) => {
+        if (section.collapsable) {
+            section.collapsed = !section.collapsed;
+        }
+    };
+
     $ctrl.onSubmit = () => {
         const { close } = $ctrl.modal;
         const { success } = $ctrl.modal.scope;
-
-        success($ctrl.sections.reduce((values, section) => {
+        
+        const values = $ctrl.sections.reduce((values, section) => {
             if (section.type === 'radio') {
                 return { ...values, [section.key]: section.value == 'null' ? null : section.value };
             }
@@ -44,8 +50,9 @@ const ModalExportDataComponent = function () {
             }
 
             return values;
-        }, {}));
+        }, {});
 
+        success(values);
         close();
     }
 

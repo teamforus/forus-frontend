@@ -14,6 +14,11 @@ const siteImproveAnalyticsId = false;
 const supportSupportId = false;
 const sessions = false;
 const google_maps_api_key = '';
+const feedback_email = false;
+
+const features_hide = false;
+const features_contact_email = false;
+const features_contact_phone = false;
 
 const me_app_link = 'https://forus.io/DL';
 const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
@@ -56,6 +61,12 @@ module.exports = (core) => {
             ios_ipad_link: ios_ipad_link,
             ios_iphone_link: ios_iphone_link,
             help_link: help_link,
+            feedback_email: feedback_email,
+
+            features_hide: features_hide,
+            features_contact_email: features_contact_email,
+            features_contact_phone: features_contact_phone,
+
             html5ModeEnabled: true,
             html5Mode: {
                 basePath: '/'
@@ -247,6 +258,9 @@ module.exports = (core) => {
 
                 // voucher settings
                 shareProducts: false,
+
+                // fund page setting
+                hideFundMeta: true,
             },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,

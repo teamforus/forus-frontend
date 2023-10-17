@@ -77,6 +77,14 @@ const FundsEditComponent = function(
         name: 'Na de standaard content tonen',
     }];
 
+    $ctrl.externalFundPageTypes = [{
+        value: false,
+        name: 'Interne pagina',
+    }, {
+        value: true,
+        name: 'Externe pagina',
+    }];
+
     $ctrl.findMethod = (key) => {
         return $ctrl.applicationMethods.filter((method) => method.key == key)[0] || {};
     };
@@ -166,6 +174,7 @@ const FundsEditComponent = function(
             allow_direct_requests: true,
             start_date: moment().add(6, 'days').format('DD-MM-YYYY'),
             end_date: moment().add(1, 'years').format('DD-MM-YYYY'),
+            external_page: false,
 
             // contact information
             email_required: true,
@@ -211,7 +220,7 @@ const FundsEditComponent = function(
                 }
 
                 try {
-                    await $ctrl.faqEditor.validate();
+                    await $ctrl?.faqEditor?.validate();
                 } catch (e) {
                     PushNotificationsService.danger('Error!', typeof e == 'string' ? e : e.message || '');
                     return form.unlock();
@@ -243,7 +252,7 @@ const FundsEditComponent = function(
                 }, onError);
             }
 
-            if ($rootScope.appConfigs.features.organizations.funds.criteria) {
+            if ($rootScope.appConfigs.features.organizations.funds.criteria && !form.values.external_page) {
                 return $ctrl.criteriaEditor.saveCriteria().then(onCriteriaSaved);
             }
 

@@ -92,7 +92,7 @@
     @import 'sections/blocks/block-schedule-list.scss';
     @import 'sections/blocks/block-accessibility.scss';
     @import 'sections/blocks/block-steps.scss';
-    @import 'sections/blocks/block-sticky-footer.scss';
+    @import 'sections/blocks/block-mobile-menu.scss';
     @import 'sections/blocks/block-funds-list.scss';
 
     @import 'sections/blocks/block-map-office-card.scss';
@@ -126,6 +126,8 @@
     @import 'sections/blocks/block-app_download.scss';
     @import 'sections/blocks/block-info-box.scss';
     @import 'sections/blocks/block-pincode.scss';
+    @import 'sections/blocks/block-fund-request.scss';
+    @import 'sections/blocks/block-fund-requests.scss';
 }
 
 .modal {

@@ -46,6 +46,15 @@ const FundItemDirective = function(
         });
     };
 
+    $dir.goToFundRequests = function($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+
+        $state.go('fund-requests', {
+            fund_id: $dir.fund.id
+        });
+    };
+
     $dir.unwatch = $rootScope.$watch('appConfigs.features', (features) => {
         if (!features) {
             return;
