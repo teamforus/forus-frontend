@@ -1693,6 +1693,36 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Organization features
+    $stateProvider.state({
+        name: "features",
+        url: "/organizations/{organization_id}/features",
+        component: "featuresComponent",
+        resolve: {
+            organization: organizationResolver(),
+            features: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService
+            ) => repackResponse(OrganizationService.getFeatures(
+                $transition$.params().organization_id,
+            ))],
+        }
+    });
+
+    // Organization feature
+    $stateProvider.state({
+        name: "feature",
+        url: "/organizations/{organization_id}/features/{feature_key}",
+        component: "featureComponent",
+        resolve: {
+            organization: organizationResolver(),
+            features: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService
+            ) => repackResponse(OrganizationService.getFeatures(
+                $transition$.params().organization_id,
+            ))],
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',
