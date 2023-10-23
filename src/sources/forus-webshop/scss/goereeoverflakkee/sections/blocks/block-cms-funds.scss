@@ -1,0 +1,27 @@
+&.block-cms-funds {
+    .fund-item {
+        border-bottom: none;
+
+        .fund-information {
+            .fund-title {
+                font: 500 32px/48px var(--base-font);
+            }
+
+            .fund-button {
+                .button {
+                    font: 500 18px/18px var(--base-font);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .fund-item {
+            .fund-information {
+                .fund-title {
+                    font: 500 16px/24px var(--base-font);
+                }
+            }
+        }
+    }
+}

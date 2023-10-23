@@ -1,0 +1,21 @@
+.block {
+    &.block-navbar {
+        .navbar-inner {
+            .navbar-list {
+                .navbar-item-wrapper {
+                    .navbar-item {
+                        &.active {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+
+            .navbar-menu-button {
+                &.active {
+                    color: #08749B
+                };
+            }
+        }
+    }
+}

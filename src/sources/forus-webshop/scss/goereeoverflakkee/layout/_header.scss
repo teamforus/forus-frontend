@@ -1,0 +1,29 @@
+.section {
+    &.section-header {
+        .header-content {
+            .header-title {
+                font: 400 56px/62px var(--hf);
+                color: #0B0E12;
+            }
+
+            .header-description {
+                font: 400 20px/30px var(--hf);
+                color: #0B0E12;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .header-content {
+                .header-title {
+                    font: 500 28px/38px var(--hf);
+                    color: #0B0E12;
+                }
+
+                .header-description {
+                    font: 400 14px/22px var(--hf);
+                    color: #0B0E12;
+                }
+            }
+        }
+    }
+}

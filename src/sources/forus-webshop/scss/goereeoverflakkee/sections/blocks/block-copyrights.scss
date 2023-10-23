@@ -1,0 +1,13 @@
+&.block-copyrights {
+    border: none;
+    background-color: #04465E;
+    font: 500 17px/25px var(--base-font);
+
+    .links {
+        .link-item {
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+}
