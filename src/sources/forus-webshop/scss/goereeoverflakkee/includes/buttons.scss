@@ -1,16 +1,10 @@
 .button {
-    font-weight: 500;
     font-size: 18px;
-    line-height: 18px;
-    padding: 16px 30px;
+    line-height: 24px;
 
     &.button-start {
         .mdi {
             color: #fff;
         }
-    }
-
-    @media screen and (max-width: 1000px) {
-        font: 600 13px/18px var(--base-font);
     }
 }

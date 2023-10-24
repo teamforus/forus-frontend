@@ -1,13 +1,6 @@
 .section {
     .section-title {
         color: #08749B;
-        font: 400 40px/56px var(--base-font);
-    }
-
-    @media screen and (max-width: 1000px) {
-        .section-title {
-            color: #0B0E12;
-            font: 50 22px/34px var(--base-font);
-        }
+        font: 500 34px/normal var(--base-font);
     }
 }

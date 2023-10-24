@@ -1,5 +1,15 @@
 .block {
     &.block-navbar {
+        .block-auth {
+            .button {
+                line-height: 24px;
+
+                em {
+                    line-height: 23px;
+                }
+            }
+        }
+
         .navbar-inner {
             .navbar-list {
                 .navbar-item-wrapper {
