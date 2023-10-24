@@ -1,0 +1,178 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="features({organization_id: $ctrl.organization.id})") Marketplace
+            .breadcrumb-item.active(ng-bind="$ctrl.feature.name")
+
+        block-feature(feature="$ctrl.feature")
+
+        .card
+            .card-header: .card-title Description
+            .card-section: .block.block-feature-content
+                h4 Features
+                p
+                    | Lorem ipsum dolor sit amet consectetur. Ultrices phasellus enim interdum feugiat vel.
+                    | Pellentesque fames nec sit at. Nulla bibendum nulla nisl arcu blandit auctor tortor.
+                    | Libero tristique gravida lorem ac tempor condimentum sem. Morbi egestas nisl ac quisque sapien.
+                    | Magna nulla vestibulum dignissim quis. Enim vel tempus lobortis accumsan morbi arcu pulvinar.
+                    | Nibh mattis amet vitae iaculis arcu. Purus tempor neque molestie id.
+                    | Senectus sit cum ac arcu venenatis urna aliquet mattis id.
+
+                img(src="/assets/img/features/img/image-1.jpg")
+
+                hr
+
+                h4 Key benefits
+
+                .flex-row
+                    .flex-col
+                        ol
+                            li Diam habitant tristique sed laoreet nullam blandit tincidunt lorem rutrum.
+                            li Enim sit quam nisl sit interdum urna neque quam.
+                            li Nec elementum ut ut enim consectetur nullam nunc sem lectus.
+                            li Sit feugiat augue facilisi arcu lorem sapien suspendisse.
+
+                    .flex-col
+                        ol
+                            li Diam habitant tristique sed laoreet nullam blandit tincidunt lorem rutrum.
+                            li Enim sit quam nisl sit interdum urna neque quam.
+                            li Nec elementum ut ut enim consectetur nullam nunc sem lectus.
+                            li Sit feugiat augue facilisi arcu lorem sapien suspendisse.
+
+                .flex-row
+                    .flex-col: img(src="/assets/img/features/img/image-2.jpg")
+                    .flex-col: img(src="/assets/img/features/img/image-3.jpg")
+
+                hr
+
+                h4 Get The Latest Status Of Your Online & In-Person Sales
+
+                p
+                    | Eu nisi pretium arcu tellus erat morbi dictum diam. Tempus ut morbi viverra sem
+                    | ullamcorper maecenas cras adipiscing sit. Erat sit vitae enim sapien vel a.
+                    | Odio condimentum sed velit purus. Arcu duis sapien tincidunt non fermentum felis dui non.
+                    | Morbi sapien tellus et hac id. Mauris pharetra elementum at id. Ac convallis fringilla
+                    | tempus egestas lorem etiam feugiat maecenas. Ante eget viverra ullamcorper mi amet aenean.
+                    | Ullamcorper lobortis ultricies quam quam nunc sit sed sed malesuada. Fermentum pharetra neque
+                    | vitae in orci ullamcorper turpis sed. Ultrices accumsan sapien sit ridiculus tempor.
+                    | Erat pretium nulla ipsum varius amet. Ornare ut pellentesque rhoncus in enim risus vitae sit et.
+
+                p
+                    | Lorem ipsum dolor sit amet consectetur. Ultrices phasellus enim interdum feugiat vel.
+                    | Pellentesque fames nec sit at. Nulla bibendum nulla nisl arcu blandit auctor tortor.
+                    | Libero tristique gravida lorem ac tempor condimentum sem. Morbi egestas nisl ac quisque sapien.
+                    | Magna nulla vestibulum dignissim quis. Enim vel tempus lobortis accumsan morbi arcu pulvinar.
+                    | Nibh mattis amet vitae iaculis arcu. Purus tempor neque molestie id.
+                    | Senectus sit cum ac arcu venenatis urna aliquet mattis id.
+
+                p
+                    | Lorem ipsum dolor sit amet consectetur. Ultrices phasellus enim interdum feugiat vel.
+                    | Pellentesque fames nec sit at. Nulla bibendum nulla nisl arcu blandit auctor tortor.
+                    | Libero tristique gravida lorem ac tempor condimentum sem. Morbi egestas nisl ac quisque sapien.
+                    | Magna nulla vestibulum dignissim quis. Enim vel tempus lobortis accumsan morbi arcu pulvinar.
+                    | Nibh mattis amet vitae iaculis arcu. Purus tempor neque molestie id.
+                    | Senectus sit cum ac arcu venenatis urna aliquet mattis id.
+
+                img(src="/assets/img/features/img/image-4.jpg")
+
+                h4 About
+
+                p
+                    | Aliquet nunc justo enim egestas dignissim eleifend. Vitae a elementum ut vulputate.
+                    | Posuere sem nisl quam quisque pellentesque neque vitae. Id eleifend magna scelerisque nulla vestibulum.
+                    | Facilisis quis quis ut morbi nulla non elit nunc nec. Nulla auctor quisque habitasse egestas lacus adipiscing.
+                    | Massa morbi consectetur dictum fusce purus dignissim diam. Vitae amet ut in faucibus scelerisque risus pellentesque pharetra.
+                    | Sit suspendisse eu pellentesque sapien massa mattis nisl eu etiam. Varius morbi varius gravida nunc habitasse amet magna.
+                    | Facilisis molestie sed pellentesque in. Cras metus urna sollicitudin pharetra elementum morbi.
+                    | Vitae vulputate et a cras faucibus tellus amet id. Viverra tortor eu euismod sed vitae viverra.
+                    | Mauris felis integer pharetra eu massa.
+
+                img(src="/assets/img/features/img/image-5.jpg")
+
+            .card-info.card-info-dim
+                .card-info-icon.mdi.mdi-alert-circle-outline
+                .card-info-details
+                    | Lorem ipsum dolor sit amet consectetur tempus nullam scelerisque amet hendrerit risus adipiscing lacinia at lorem.
+                    | Gravida ut at sit id ac mauris sapien. Quisque mattis arcu suspendisse dictumst sit.
+
+            .card-info
+                .card-info-icon.mdi.mdi-headset
+                .card-info-details: span
+                    | Mocht u nog vragen hebben of is er nog iets onduidelijk dan kunt u ons 
+                    | bellen op: #[strong 0640997170] of via e-mail #[strong info@websitename.com]
+
+        .card
+            .card-header: .card-title Frequently asked questions
+
+            .card-section.card-section-padless: .block.block-feature-faq(collapse)
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Aliquet nunc justo enim egestas dignissim eleifend. Vitae a elementum ut vulputate.
+                            | Posuere sem nisl quam quisque pellentesque neque vitae. Id eleifend magna scelerisque nulla vestibulum.
+                            | Facilisis quis quis ut morbi nulla non elit nunc nec. Nulla auctor quisque habitasse egestas lacus adipiscing.
+                            | Massa morbi consectetur dictum fusce purus dignissim diam. Vitae amet ut in faucibus scelerisque
+                            | risus pellentesque pharetra. Sit suspendisse eu pellentesque sapien massa mattis nisl eu etiam.
+                            | Varius morbi varius gravida nunc habitasse amet magna. Facilisis molestie sed pellentesque in.
+                            | Cras metus urna sollicitudin pharetra elementum morbi. Vitae vulputate et a cras faucibus tellus amet id.
+                            | Viverra tortor eu euismod sed vitae viverra. Mauris felis integer pharetra eu massa.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Ullamco laboris nisi ut aliquip ex ea commodo consequat?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Aliquet nunc justo enim egestas dignissim eleifend. Vitae a elementum ut vulputate.
+                            | Posuere sem nisl quam quisque pellentesque neque vitae. Id eleifend magna scelerisque nulla vestibulum.
+                            | Facilisis quis quis ut morbi nulla non elit nunc nec. Nulla auctor quisque habitasse egestas lacus adipiscing.
+                            | Massa morbi consectetur dictum fusce purus dignissim diam. Vitae amet ut in faucibus scelerisque
+                            | risus pellentesque pharetra. Sit suspendisse eu pellentesque sapien massa mattis nisl eu etiam.
+                            | Varius morbi varius gravida nunc habitasse amet magna. Facilisis molestie sed pellentesque in.
+                            | Cras metus urna sollicitudin pharetra elementum morbi. Vitae vulputate et a cras faucibus tellus amet id.
+                            | Viverra tortor eu euismod sed vitae viverra. Mauris felis integer pharetra eu massa.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Dolore eu fugiat nulla pariatur
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Aliquet nunc justo enim egestas dignissim eleifend. Vitae a elementum ut vulputate.
+                            | Posuere sem nisl quam quisque pellentesque neque vitae. Id eleifend magna scelerisque nulla vestibulum.
+                            | Facilisis quis quis ut morbi nulla non elit nunc nec. Nulla auctor quisque habitasse egestas lacus adipiscing.
+                            | Massa morbi consectetur dictum fusce purus dignissim diam. Vitae amet ut in faucibus scelerisque
+                            | risus pellentesque pharetra. Sit suspendisse eu pellentesque sapien massa mattis nisl eu etiam.
+                            | Varius morbi varius gravida nunc habitasse amet magna. Facilisis molestie sed pellentesque in.
+                            | Cras metus urna sollicitudin pharetra elementum morbi. Vitae vulputate et a cras faucibus tellus amet id.
+                            | Viverra tortor eu euismod sed vitae viverra. Mauris felis integer pharetra eu massa.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Aliquet nunc justo enim egestas dignissim eleifend. Vitae a elementum ut vulputate.
+                            | Posuere sem nisl quam quisque pellentesque neque vitae. Id eleifend magna scelerisque nulla vestibulum.
+                            | Facilisis quis quis ut morbi nulla non elit nunc nec. Nulla auctor quisque habitasse egestas lacus adipiscing.
+                            | Massa morbi consectetur dictum fusce purus dignissim diam. Vitae amet ut in faucibus scelerisque
+                            | risus pellentesque pharetra. Sit suspendisse eu pellentesque sapien massa mattis nisl eu etiam.
+                            | Varius morbi varius gravida nunc habitasse amet magna. Facilisis molestie sed pellentesque in.
+                            | Cras metus urna sollicitudin pharetra elementum morbi. Vitae vulputate et a cras faucibus tellus amet id.
+                            | Viverra tortor eu euismod sed vitae viverra. Mauris felis integer pharetra eu massa.
+
+        .block.block-features-demo-banner.block-features-demo-bannerlg
+            .features-demo-banner-title Request a demo
+            .features-demo-banner-details
+                | See a module you like? Please contact us for a personal demonstration. 
+                | We are most exited to show you how it could work for you.
+            a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Call to action
