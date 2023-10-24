@@ -1,0 +1,350 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card.card-payment-connection(ng-if="!$ctrl.mollieConnection.id && !$ctrl.showForm")
+            .card-header: .card-block-with-icon
+                .payment-connection-info-icon(ng-if="!$ctrl.privacy")
+                    include ../../../resources/platform-general/assets/img/svg/mollie-payment-method-icon.svg
+                .payment-connection-info-icon(ng-if="$ctrl.privacy")
+                    include ../../../resources/platform-general/assets/img/svg/mollie-payment-method-icon-active.svg
+
+                .info-content
+                    .block.block-markdown
+                        h4 Mollie authentication
+                        p Here will be an informational text about signing in into the mollie account lorem ipsum dolor sit amet consectetur.
+                            | Non commodo nec sit nec. Mi nunc neque eu urna aliquam amet morbi.
+
+                    .form.form-group.privacy-checkbox
+                        label(for='privacy').checkbox
+                            input(type="checkbox" ng-model="$ctrl.privacy" id='privacy')
+                            .checkbox-label
+                                .checkbox-box: .mdi.mdi-check
+                                span I have read and accepted the #[a(ui-sref="mollie-privacy({organization_id: $ctrl.organization.id})") terms and conditions]
+
+            .card-section: .button-group
+                button(
+                    ng-disabled="!$ctrl.privacy"
+                    ng-click="$ctrl.showSignUpForm()"
+                    type="button").button.button-primary
+                    em.mdi.mdi-store.icon-start
+                    | Sign up
+
+                .button-text-divider(ng-class="{'text-muted': !$ctrl.privacy}") or
+
+                button(
+                    ng-disabled="!$ctrl.privacy"
+                    type="button"
+                    ng-click="$ctrl.connectMollieAccount()").button.button-text
+                    | Connect existing
+                    em.mdi.mdi-open-in-new.icon-end
+
+        div(ng-if="$ctrl.mollieConnection.id && !$ctrl.showForm")
+            .card.card-payment-connection
+                .card-header: .flex
+                    .flex.flex-grow: .flex.flex-vertical
+                        .card-block-with-icon
+                            .payment-connection-info-icon(ng-if="$ctrl.mollieConnection.onboarding_state !== 'completed'")
+                                include ../../../resources/platform-general/assets/img/svg/mollie-connection-icon.svg
+                            .payment-connection-info-icon(ng-if="$ctrl.mollieConnection.onboarding_state === 'completed'")
+                                include ../../../resources/platform-general/assets/img/svg/mollie-connection-icon-active.svg
+                            .card-title-content
+                                .card-title(translate="mollie_connection.header.title")
+
+                                .card-subtitle
+                                    .card-subtitle-label(translate="mollie_connection.labels.completed_at")
+                                    .card-subtitle-value(
+                                        ng-if="$ctrl.mollieConnection.completed_at"
+                                        ng-bind="$ctrl.mollieConnection.completed_at_locale")
+
+                                    .card-subtitle-value.text-muted(
+                                        ng-if="!$ctrl.mollieConnection.completed_at"
+                                        translate="mollie_connection.header.unknown_competed_at")
+
+                    .flex.action-section
+                        //- State label
+                        label.label(
+                            ng-class="{'needs-data': 'label-warning', 'in-review': 'label-warning', completed: 'label-success'}[$ctrl.mollieConnection.onboarding_state]"
+                            ng-bind="$ctrl.mollieConnection.onboarding_state_locale")
+
+                        .button-group
+                            .button.button-default.button-sm(ng-disabled="$ctrl.fetching" ng-click="$ctrl.fetchMollieAccount()")
+                                em.mdi.mdi-autorenew.icon-start
+                                translate(translate="mollie_connection.buttons.fetch")
+
+                            .button.button-danger.button-sm(
+                                ng-if="$root.auth_user.address === $ctrl.organization.identity_address"
+                                ng-disabled="$ctrl.fetching"
+                                ng-click="$ctrl.askConfirmationDelete()")
+                                em.mdi.mdi-close.icon-start
+                                translate(translate="mollie_connection.buttons.delete")
+
+                .card-footer.card-footer-warning.card-footer-sm
+                    .card-title: .text-small(translate="mollie_connection.header.warning")
+
+            //- Connection details
+            .card
+                .card-header: .card-title(translate="mollie_connection.titles.general_information")
+
+                .card-section
+                    .card-block.card-block-keyvalue.card-block-keyvalue-bordered
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.completed_at")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.completed_at_locale")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.organization_name")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.organization_name")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.registration_number")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.registration_number")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.vat")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.vat_number")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.business_type")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.business_type")
+
+                    .card-block.card-block-keyvalue.card-block-keyvalue-bordered
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.address")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.street")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.country")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.country_code")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.city")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.city")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.postcode")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.postcode")
+
+                    .card-block.card-block-keyvalue
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.first_name")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.first_name")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.last_name")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.last_name")
+
+            //- Profile details
+            .card(ng-if="$ctrl.mollieConnection.active_profile")
+                .card-header: .card-title(translate="mollie_connection.titles.current_profile_information")
+
+                .card-section
+                    .card-block.card-block-keyvalue
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.name")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.active_profile.name")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.phone")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.active_profile.phone")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.email")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.active_profile.email")
+
+                        .keyvalue-item
+                            .keyvalue-key(translate="mollie_connection.labels.website")
+                            .keyvalue-value(ng-bind="$ctrl.mollieConnection.active_profile.website")
+
+
+            .card(ng-if="!$ctrl.mollieConnection.active_profile"): .form
+                .card-header: .card-title(translate="mollie_connection.header_update_profile.title")
+
+                .card-section.card-section-primary
+                    .form-group: .row: .col.col-lg-9.col-lg-12
+                        .form-group.form-group-inline
+                            label.form-label &nbsp;
+                            .form-title(translate="mollie_connection.titles.profile_information")
+
+                        .form-group.form-group-inline
+                            label(translate="mollie_connection.labels.profile_name").form-label.form-label-required
+                            input(
+                                type="text"
+                                ng-model="$ctrl.form.values.name"
+                                placeholder="{{ 'mollie_connection.labels.profile_name' | translate }}").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+
+                        .form-group.form-group-inline
+                            label(translate="mollie_connection.labels.email").form-label.form-label-required
+                            input(
+                                type="text"
+                                ng-model="$ctrl.form.values.email"
+                                placeholder="{{ 'mollie_connection.labels.email' | translate }}").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
+
+                        .form-group.form-group-inline
+                            label(translate="mollie_connection.labels.phone").form-label.form-label-required
+                            input(
+                                type="text"
+                                ng-model="$ctrl.form.values.phone"
+                                placeholder="{{ 'mollie_connection.labels.phone' | translate }}").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
+
+                        .form-group.form-group-inline
+                            label(translate="mollie_connection.labels.website").form-label.form-label-required
+                            input(
+                                type="text"
+                                ng-model="$ctrl.form.values.website"
+                                placeholder="{{ 'mollie_connection.labels.website' | translate }}").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.website" ng-bind="error")
+
+                    .block.block-info-box.block-info-box-default.block-info-box-dashed
+                        .info-box-icon.mdi.mdi-information
+
+                        .info-box-content: .block.block-markdown
+                            p(translate="mollie_connection.create_form.info_content")
+
+
+                .card-section: .button-group.flex-center
+                    //- Cancel
+                    button(
+                        type="button"
+                        ng-click="$ctrl.showForm = false"
+                        i18n="mollie_connection.buttons.cancel").button.button-default
+
+                    //- Submit
+                    button(
+                        type="button"
+                        ng-click="$ctrl.form.submit()"
+                        i18n="mollie_connection.buttons.submit").button.button-primary
+
+        .card(ng-if="!$ctrl.mollieConnection.id && $ctrl.showForm"): .form
+            .card-header: .card-title(translate="mollie_connection.header_create.title")
+
+            .card-section.card-section-primary
+                .row: .col.col-lg-9.col-lg-12
+                    .form-group.form-group-inline
+                        label.form-label &nbsp;
+                        .form-title(translate="mollie_connection.titles.address")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.country").form-label.form-label-required
+                        select-control(
+                            prop="code"
+                            search="true"
+                            ng-model="$ctrl.form.values.country_code"
+                            options="$ctrl.countryOptions").form-control
+
+                        .form-error(ng-repeat="error in $ctrl.form.errors.country" ng-bind="error")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.city").form-label
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.city"
+                            placeholder="{{ 'mollie_connection.labels.city' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.city" ng-bind="error")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.street").form-label
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.street"
+                            placeholder="{{ 'mollie_connection.labels.street' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.street" ng-bind="error")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.postcode").form-label
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.postcode"
+                            placeholder="{{ 'mollie_connection.labels.postcode' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.postcode" ng-bind="error")
+
+            .card-section.card-section-primary
+                .row: .col.col-lg-9.col-lg-12
+                    .form-group.form-group-inline
+                        label.form-label &nbsp;
+                        .form-title(translate="mollie_connection.titles.contact_information")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.organization_name").form-label.form-label-required
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.name"
+                            placeholder="{{ 'mollie_connection.labels.organization_name' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.name" ng-bind="error")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.first_name").form-label.form-label-required
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.first_name"
+                            placeholder="{{ 'mollie_connection.labels.first_name' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.first_name" ng-bind="error")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.last_name").form-label.form-label-required
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.last_name"
+                            placeholder="{{ 'mollie_connection.labels.last_name' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.last_name" ng-bind="error")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.email").form-label.form-label-required
+                        input(
+                            type="email"
+                            ng-model="$ctrl.form.values.email"
+                            placeholder="{{ 'mollie_connection.labels.email' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
+
+            .card-section.card-section-primary
+                .form-group: .row: .col.col-lg-9.col-lg-12
+                    .form-group.form-group-inline
+                        label.form-label &nbsp;
+                        .form-title(translate="mollie_connection.titles.profile_information")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.profile_name").form-label.form-label-required
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.profile_name"
+                            placeholder="{{ 'mollie_connection.labels.profile_name' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.profile_name" ng-bind="error")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.phone").form-label.form-label-required
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.phone"
+                            placeholder="{{ 'mollie_connection.labels.phone' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.phone" ng-bind="error")
+
+                    .form-group.form-group-inline
+                        label(translate="mollie_connection.labels.website").form-label.form-label-required
+                        input(
+                            type="text"
+                            ng-model="$ctrl.form.values.website"
+                            placeholder="{{ 'mollie_connection.labels.website' | translate }}").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.website" ng-bind="error")
+
+
+                .block.block-info-box.block-info-box-default.block-info-box-dashed
+                    .info-box-icon.mdi.mdi-information
+
+                    .info-box-content: .block.block-markdown
+                        p(translate="mollie_connection.create_form.info_content")
+
+
+            .card-section: .button-group.flex-center
+                //- Cancel
+                button(
+                    type="button"
+                    ng-click="$ctrl.showForm = false"
+                    i18n="mollie_connection.buttons.cancel").button.button-default
+
+                //- Submit
+                button(
+                    type="button"
+                    ng-click="$ctrl.form.submit()"
+                    i18n="mollie_connection.buttons.submit").button.button-primary

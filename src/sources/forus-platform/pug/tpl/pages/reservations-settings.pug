@@ -45,6 +45,17 @@
                         organization="$ctrl.organization"
                         errors="$ctrl.form.errors")
 
+            //-.card-section.card-section-primary.card-section-settings(
+                ng-if="$ctrl.organization.allow_extra_payments_by_sponsor"
+                ): .row: .col-xs-12.col-lg-8
+                .form-group.form-group-inline
+                    label(for="reservation_extra_payments" translate="reservation_settings.labels.extra_payments").form-label
+                    select(
+                        id="reservation_extra_payments"
+                        ng-model="$ctrl.form.values.allow_reservation_extra_payments"
+                        ng-options="option.value as option.label for option in $ctrl.extraPaymentsOptions").form-control
+                    .form-error(ng-repeat="error in $ctrl.form.errors.allow_reservation_extra_payments" ng-bind="error")
+
             //- Cancel or Submit
             .card-section.card-section-primary: .button-group.flex-center
                 button(

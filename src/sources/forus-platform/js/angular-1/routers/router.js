@@ -1723,6 +1723,31 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Payment methods (mollie)
+    $stateProvider.state({
+        name: "payment-methods",
+        url: "/organizations/{organization_id}/payment-methods",
+        component: "paymentMethodsComponent",
+        resolve: {
+            organization: organizationResolver(),
+            mollieConnection: ['$transition$', 'MollieConnectionService', (
+                $transition$, MollieConnectionService
+            ) => repackResponse(MollieConnectionService.getConfigured(
+                $transition$.params().organization_id,
+            ))],
+        }
+    });
+
+    // Mollie privacy
+    $stateProvider.state({
+        name: "mollie-privacy",
+        url: "/organizations/{organization_id}/mollie-privacy",
+        component: "molliePrivacyComponent",
+        resolve: {
+            organization: organizationResolver(),
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',

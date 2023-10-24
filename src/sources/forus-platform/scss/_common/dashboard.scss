@@ -68,7 +68,7 @@
     @import 'blocks/block-voucher-records-editor.scss';
     @import 'blocks/block-features-overview.scss';
     @import 'blocks/block-features-demo-banner.scss';
-    @import 'blocks/block-feature-content.scss';
+    @import 'blocks/block-content.scss';
     @import 'blocks/block-features.scss';
     @import 'blocks/block-feature.scss';
     @import 'blocks/block-feature-faq.scss';
@@ -1188,6 +1188,14 @@ body {
         &.card-footer-success {
             background: #f7f9de;
         }
+
+        &.card-footer-sm {
+            padding: 7.5px 25px;
+
+            .card-title {
+                color: #646F79;
+            }
+        }
     }
 
     &:last-child {
@@ -1219,6 +1227,86 @@ body {
 
     &.card-padded {
         margin-bottom: 0px;
+    }
+
+    &.card-payment-connection {
+        .card-block-with-icon {
+            display: flex;
+            gap: 20px;
+
+            .payment-connection-info-icon svg {
+                border-radius: 5px;
+                border: 1px solid #D4D9DD;
+            }
+
+            .card-subtitle {
+                margin-top: 15px;
+
+                .card-subtitle-label {
+                    color: #134478;
+                    font: 600 11px var(--base-font);
+                    margin-bottom: 5px;
+                }
+
+                .card-subtitle-value {
+                    color: #151B26;
+                    font: 500 13px/20px var(--base-font);
+                }
+            }
+
+            .privacy-checkbox {
+                .checkbox-label {
+                    span {
+                        color: #414141;
+                        font: 400 12px/20px var(--base-font);
+
+                        a {
+                            color: #134478;
+                            font: 600 12px/20px var(--base-font);
+                        }
+                    }
+                }
+            }
+        }
+
+        .action-section {
+            flex-direction: column;
+            gap: 20px;
+
+            .label {
+                display: flex;
+                width: fit-content;
+                align-self: flex-end;
+            }
+        }
+    }
+
+    &.card-payment-connection-primary {
+        .card-block-with-icon {
+            display: flex;
+            gap: 20px;
+
+            .payment-connection-info-icon svg {
+                border-radius: 5px;
+                border: 1px solid #D4D9DD;
+            }
+
+            .card-title-content {
+                .card-title {
+                    font: 600 16px var(--base-font);
+                    line-height: normal;
+                }
+
+                .label {
+                    margin-left: 10px;
+                }
+
+                .card-subtitle {
+                    margin-top: 10px;
+                    align-items: center;
+                }
+            }
+        }
     }
 }
 
@@ -1416,6 +1504,12 @@ body {
                     }
                 }
             }
+        }
+
+        &.card-block-keyvalue-bordered {
+            border-bottom: 1px solid #D4D9DD;
+            padding-bottom: 14px;
+            margin-bottom: 14px;
         }
 
         &:last-child {

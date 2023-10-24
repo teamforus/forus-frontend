@@ -18,6 +18,37 @@
             update-fund-provider-allow="$ctrl.updateFundProviderAllow"
             update-fund-provider-excluded="$ctrl.updateFundProviderExcluded")
 
+
+        .card.card-payment-connection-primary(ng-if="$ctrl.organization.allow_provider_extra_payments")
+            .card-header: .flex
+                .flex.flex-grow: .flex.flex-vertical
+                    .card-block-with-icon
+                        .payment-connection-info-icon: include ../../../resources/platform-general/assets/img/svg/mollie-connection-icon.svg
+                        .card-title-content
+                            .flex.flex-center
+                                .card-title Allow connection with payment method
+                                .label.label-warning(ng-if="!$ctrl.fundProvider.allow_extra_payments") Disabled
+                                .label.label-success(ng-if="$ctrl.fundProvider.allow_extra_payments") Enabled
+
+                            .flex.card-subtitle
+                                em.mdi.mdi-information
+                                | Transactiekosten bekijken
+
+                .flex.action-section.form
+                    label(
+                        ng-disabled="$ctrl.fundProvider.submittingAllow"
+                        ng-class="$ctrl.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
+                        for="provider_allow_extra_payments").form-toggle
+                        input(
+                            type="checkbox"
+                            id="provider_allow_extra_payments"
+                            ng-change="$ctrl.updateFundProviderAllow($ctrl.fundProvider, 'allow_extra_payments')"
+                            ng-model="$ctrl.fundProvider.allow_extra_payments")
+                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+            .card-footer.card-footer-warning.card-footer-sm
+                .card-title: .text-small(translate="mollie_connection.header.warning")
+
         //- Products for subsidy fund (managed by sponsor)
         .card(ng-if="$ctrl.organization.manage_provider_products && $ctrl.fundProvider.fund.type == 'subsidies'")
             .card-header: .row

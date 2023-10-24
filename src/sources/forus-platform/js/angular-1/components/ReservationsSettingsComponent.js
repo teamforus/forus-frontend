@@ -19,12 +19,21 @@ const ReservationsSettingsComponent = function (
         label: "Verplicht",
     }];
 
+    $ctrl.extraPaymentsOptions = [{
+        value: false,
+        label: "No",
+    }, {
+        value: true,
+        label: "Yes",
+    }];
+
     const buildForm = (fields = []) => {
         $ctrl.form = FormBuilderService.build({
             fields,
             reservation_phone: $ctrl.organization.reservation_phone,
             reservation_address: $ctrl.organization.reservation_address,
             reservation_birth_date: $ctrl.organization.reservation_birth_date,
+            allow_reservation_extra_payments: $ctrl.organization.allow_reservation_extra_payments
         }, (form) => {
             OrganizationService.updateReservationFields($ctrl.organization.id, form.values).then((res) => {
                 PushNotificationsService.success('Opgeslagen!');
