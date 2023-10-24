@@ -179,6 +179,11 @@
             padding: 20px 40px 20px;
             font: 400 16px/26px var(--base-font);
 
+            h2 {
+                margin: 0;
+                font: 600 16px/26px var(--base-font);
+            }
+
             .button {
                 &.button-text {
                     color: var(--sign_up_accent_color);
