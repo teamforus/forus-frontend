@@ -73,6 +73,7 @@ module.exports = {
         participatiemunt: "Participatiemunt",
         eemsdelta: "Eemsdelta",
         doetegoed: "Doe-tegoed",
+        goereeoverflakkee: "Goeree-Overflakkee",
     },
     languages: {
         en: 'English',
@@ -101,7 +102,8 @@ module.exports = {
         westerkwartier: "Gemeente Westerkwartier",
         waalwijk: "Pas Wijzer",
         vergoedingen: "Nijmegen",
-        schagen: "Gemeente Schagen"
+        schagen: "Gemeente Schagen",
+        goereeoverflakkee: "Goeree-Overflakkee",
     },
 
     // COMPONENTS
