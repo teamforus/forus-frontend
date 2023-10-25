@@ -6,10 +6,12 @@
 'layout/_header.scss';
 
 // INCLUDES
-@import 'includes/buttons.scss';
+@import 'includes/buttons.scss',
+'includes/form.scss';
 
 // SECTIONS
-@import 'sections/flow.scss';
+@import 'sections/flow.scss',
+'sections/faq.scss';
 
 .block {
     @import 'sections/blocks/block-map.scss';
