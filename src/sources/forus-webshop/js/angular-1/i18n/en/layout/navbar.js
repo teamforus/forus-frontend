@@ -31,7 +31,7 @@ module.exports = {
                 preferences_emails: "E-mail settings",
                 records: "Profile records",
                 funds: "Funds",
-                security: "Beveiliging",
+                security: "Security",
                 sessions: "Sessions",
             }
         }
