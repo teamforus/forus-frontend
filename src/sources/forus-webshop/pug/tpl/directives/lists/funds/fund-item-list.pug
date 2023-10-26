@@ -1,4 +1,4 @@
-a.fund-item
+.fund-item
     .fund-photo: img(
         ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
         alt="Dit is de afbeelding van {{ $dir.fund.name }}")
@@ -26,7 +26,7 @@ a.fund-item
                     ng-if="$dir.fund.showRequestButton"
                     translate="funds.status.is_applicable")
 
-            h2.fund-name(ng-bind="$dir.fund.name")
+            h2.fund-name: a(ui-sref="fund($dir.fund)" ng-bind="$dir.fund.name")
 
             .fund-description(ng-if="$dir.fund.description_short")
                 span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
