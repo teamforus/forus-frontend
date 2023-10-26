@@ -30,18 +30,22 @@ a.fund-item
 
             .fund-description(ng-if="$dir.fund.description_short")
                 span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
-                span(ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
+                span(id="fund_description_short" ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
                 br
 
                 button.button.button-text.button-xs(
                     ng-if="!$dir.showMore && $dir.fund.description_short.length > 190" 
-                    ng-click="$dir.setShowMore($event, true)") 
+                    ng-click="$dir.setShowMore($event, true)"
+                    aria-expanded="{{ $dir.showMore && $dir.fund.description_short.length > 190 }}"
+                    aria-controls="fund_description_short") 
                     | Toon meer
                     em.mdi.mdi-chevron-down.icon-right
 
                 button.button.button-text.button-xs(
                     ng-if="$dir.showMore && $dir.fund.description_short.length > 190" 
-                    ng-click="$dir.setShowMore($event, false)") 
+                    ng-click="$dir.setShowMore($event, false)"
+                    aria-expanded="{{ $dir.showMore && $dir.fund.description_short.length > 190 }}"
+                    aria-controls="fund_description_short") 
                     | Toon minder
                     em.mdi.mdi-chevron-up.icon-right
                 
