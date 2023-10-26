@@ -23,6 +23,7 @@ const ProviderSignUpComponent = function(
     let progressStorage = SignUpService.makeProgressStorage('provider-sign_up');
     let $translate = $filter('translate');
 
+    let waitingSms = false;
     let isMobile = () => $(window).width() < 1000;
 
     $rootScope.showAppHeader = false;
@@ -65,6 +66,8 @@ const ProviderSignUpComponent = function(
     $ctrl.showLoginBlock = false;
     $ctrl.offices = [];
     $ctrl.employees = [];
+    $ctrl.shareSmsSent = false;
+    $ctrl.shareEmailSent = false;
 
     $ctrl.showAddOfficeBtn = true;
     $ctrl.isAddingNewOffice = false;
@@ -281,8 +284,19 @@ const ProviderSignUpComponent = function(
         $ctrl.calcSteps();
         $ctrl.restoreProgress();
 
-        $ctrl.initSmsForm();
-        $ctrl.initEmailForm();
+        $scope.phoneForm = FormBuilderService.build({
+            phone: "06"
+        }, function(form) {
+            return ShareService.sendSms({
+                phone: "+31" + form.values.phone.substr(1),
+            });
+        }, true);
+
+        $scope.emailForm = FormBuilderService.build({
+            email: ""
+        }, function(form) {
+            return ShareService.sendEmail(form.values);
+        }, true);
 
         $ctrl.filters = {
             values: {
@@ -293,36 +307,6 @@ const ProviderSignUpComponent = function(
                 organization_id: $stateParams.organization_id || null,
             },
         };
-    };
-
-    $ctrl.initSmsForm = () => {
-        $ctrl.shareSmsSent = false;
-
-        $ctrl.phoneForm = FormBuilderService.build({ phone: "+31" }, (form) => {
-            ShareService.sendSms({
-                phone: parseInt(form.values.phone.toString().replace(/\D/g, '') || 0),
-                type: 'me_app_download_link'
-            }).then(() => {
-                $ctrl.shareSmsSent = true;
-            }, (res) => {
-                $ctrl.phoneForm.errors = res.data.errors;
-
-                if (res.status == 429) {
-                    $ctrl.phoneForm.errors = { phone: [$translate('sign_up.sms.error.try_later')] };
-                }
-            }).finally(() => form.unlock());
-        }, true);
-    };
-
-    $ctrl.initEmailForm = () => {
-        $ctrl.shareEmailSent = false;
-
-        $ctrl.emailForm = FormBuilderService.build({ email: "" }, (form) => {
-            ShareService.sendEmail(form.values).then(
-                () => $ctrl.shareEmailSent = true,
-                (res) => $ctrl.emailForm.errors = res.data.errors || { email: [res.data.message] }
-            ).finally(() => form.unlock());
-        }, true);
     };
 
     $ctrl.deleteOffice = (office) => {
@@ -521,6 +505,54 @@ const ProviderSignUpComponent = function(
         progressStorage.set('organizationForm', JSON.stringify(organization));
     };
 
+    $scope.$watch('phoneForm.values.phone', (newValue, oldValue, scope) => {
+        $ctrl.phoneNumberFilled = newValue.length == 10;
+    });
+
+    $ctrl.sendSms = () => {
+        if (waitingSms) {
+            return;
+        }
+
+        let promise = $scope.phoneForm.submit();
+
+        if (promise) {
+            waitingSms = true;
+
+            promise.then(() => {
+                $ctrl.shareSmsSent = true;
+                waitingSms = false;
+                $scope.phoneForm.unlock();
+            }, (res) => {
+                waitingSms = false;
+                $scope.phoneForm.unlock();
+                $scope.phoneForm.errors = res.data.errors || { phone: [res.data.message] };
+            });
+        }
+    };
+
+    $ctrl.sendEmail = () => {
+        if (waitingSms) {
+            return;
+        }
+
+        let promise = $scope.emailForm.submit();
+
+        if (promise) {
+            waitingSms = true;
+
+            promise.then(() => {
+                $ctrl.shareEmailSent = true;
+                waitingSms = false;
+                $scope.emailForm.unlock();
+            }, (res) => {
+                waitingSms = false;
+                $scope.emailForm.unlock();
+                $scope.emailForm.errors = res.data.errors || { email: [res.data.message] };
+            });
+        }
+    };
+
     $ctrl.next = function() {
         if ($ctrl.step == $ctrl.STEP_ORGANIZATION_ADD) {
             let submit = () => $ctrl.organizationForm.submit().then((res) => {
@@ -557,9 +589,12 @@ const ProviderSignUpComponent = function(
     };
 
     $ctrl.resetShareForms = () => {
-        $ctrl.initSmsForm();
-        $ctrl.initEmailForm();
+        $ctrl.shareSmsSent = false;
+        $ctrl.shareEmailSent = false;
         $ctrl.appDownloadSkip = false;
+
+        $scope.emailForm.values.email = '';
+        $scope.phoneForm.values.phone = '';
     };
 
     $ctrl.showLoginQrCode = function() {
@@ -594,6 +629,12 @@ const ProviderSignUpComponent = function(
     $ctrl.selectPhoto = (file) => {
         orgMediaFile = file;
     };
+
+    $scope.authorizePincodeForm = FormBuilderService.build({
+        auth_code: "",
+    }, (form) => IdentityService.authorizeAuthCode(
+        form.values.auth_code
+    ), true);
 
     $ctrl.$onDestroy = function() {
         progressStorage.clear();
