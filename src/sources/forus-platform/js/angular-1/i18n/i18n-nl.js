@@ -62,6 +62,7 @@ module.exports = {
         modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
         modal_markdown_custom_link: require("./nl/modals/modal-markdown-custom-link.pug.i18n"),
         modal_voucher_transaction: require('./nl/modals/modal-voucher-transaction.pug.i18n'),
+        modal_feature_contact: require('./nl/modals/modal-feature-contact.pug.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
@@ -98,6 +99,7 @@ module.exports = {
     bi_connection: require('./nl/pages/bi-connection.pug.i18n'),
     organization_contacts: require('./nl/pages/organization-contacts.pug.i18n'),
     reservation_settings: require('./nl/pages/reservations-settings.pug.i18n'),
+    features: require('./nl/pages/features.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 

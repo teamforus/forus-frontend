@@ -52,7 +52,6 @@ module.exports = {
         }
     },
     buttons: {
-        activate: "Regelingen",
         westerkwartier: {
             activate: "Aanvragen",
         },
@@ -105,7 +104,7 @@ module.exports = {
                 vouchers: "Mijn tegoeden",
                 reservations: "Reserveringen",
                 reimbursements:"Kosten terugvragen",
-                fund_requests: "Fondsaanvragen",
+                fund_requests: "Aanvragen",
                 notifications: "Notificaties",
                 preferences_notifications: "Notificatievoorkeuren",
                 preferences_emails: "E-mailinstellingen",
