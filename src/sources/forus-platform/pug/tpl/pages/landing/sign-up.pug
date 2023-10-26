@@ -39,7 +39,7 @@
                             .card-title(translate="sign_up.sms.title")
                             .card-subtitle(translate="sign_up.sms.description")
 
-                        phone-control(ng-model="phoneForm.values.phone")
+                        phone-control-legacy(ng-model="phoneForm.values.phone" cant-delete-length="2")
                         .pincode-errors.text-center: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
                         .text-center
                             .card-subdescription(translate="sign_up.sms.subdescription")

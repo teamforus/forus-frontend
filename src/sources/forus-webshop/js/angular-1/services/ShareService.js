@@ -1,6 +1,6 @@
 const ShareService = function(ApiRequest) {
     return new (function() {
-        this.sendSms = (values) => ApiRequest.post('/platform/share/sms', values);
+        this.send = (values) => ApiRequest.post('/platform/sms/send', values);
     });
 };
 
