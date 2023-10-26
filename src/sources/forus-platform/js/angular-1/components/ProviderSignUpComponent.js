@@ -298,46 +298,31 @@ const ProviderSignUpComponent = function(
     $ctrl.initSmsForm = () => {
         $ctrl.shareSmsSent = false;
 
-        $ctrl.phoneForm = FormBuilderService.build({
-            phone: "+31"
-        }, function(form) {
-            form.lock();
-
+        $ctrl.phoneForm = FormBuilderService.build({ phone: "+31" }, (form) => {
             ShareService.sendSms({
                 phone: parseInt(form.values.phone.toString().replace(/\D/g, '') || 0),
                 type: 'me_app_download_link'
-            }).then((res) => {
+            }).then(() => {
                 $ctrl.shareSmsSent = true;
-                form.unlock();
             }, (res) => {
-                form.unlock();
                 $ctrl.phoneForm.errors = res.data.errors;
 
                 if (res.status == 429) {
-                    $ctrl.phoneForm.errors = {
-                        phone: [$filter('i18n')('sign_up.sms.error.try_later')]
-                    };
+                    $ctrl.phoneForm.errors = { phone: [$translate('sign_up.sms.error.try_later')] };
                 }
-            });
-        });
+            }).finally(() => form.unlock());
+        }, true);
     };
 
     $ctrl.initEmailForm = () => {
         $ctrl.shareEmailSent = false;
 
-        $ctrl.emailForm = FormBuilderService.build({
-            email: ""
-        }, function(form) {
-            form.lock();
-
-            ShareService.sendEmail(form.values).then((res) => {
-                $ctrl.shareEmailSent = true;
-                form.unlock();
-            }, (res) => {
-                form.unlock();
-                $ctrl.emailForm.errors = res.data.errors || { email: [res.data.message] };
-            });
-        });
+        $ctrl.emailForm = FormBuilderService.build({ email: "" }, (form) => {
+            ShareService.sendEmail(form.values).then(
+                () => $ctrl.shareEmailSent = true,
+                (res) => $ctrl.emailForm.errors = res.data.errors || { email: [res.data.message] }
+            ).finally(() => form.unlock());
+        }, true);
     };
 
     $ctrl.deleteOffice = (office) => {

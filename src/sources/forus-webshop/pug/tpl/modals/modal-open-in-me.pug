@@ -8,8 +8,7 @@
     .modal-content(ng-if="!$ctrl.sentSms"): .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-        .me-logo
-            include ../../../resources/_webshop-common/assets/img/me-logo.svg
+        .me-logo: include ../../../resources/_webshop-common/assets/img/me-logo.svg
 
         h2.modal-title(translate="open_in_me.sms.title_{{ $root.appConfigs.features.communication_type }}")
         .modal-subtitle.hide-sm(translate="open_in_me.sms.description_{{ $root.appConfigs.features.communication_type }}")
@@ -22,9 +21,10 @@
             .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
             .text-center
                 .description-small(translate="open_in_me.sms.subdescription_{{ $root.appConfigs.features.communication_type }}")
+
             .modal-footer.text-center.no-border
-                button.button.button-primary(type="submit") {{ "open_in_me.sms.button.send" | translate }}
-                button.button.button-dark(type="button" ng-click="$ctrl.skip()") {{ "open_in_me.sms.button.skip" | translate }}
+                button.button.button-dark(type="button" ng-click="$ctrl.skip()" translate='open_in_me.sms.button.skip')
+                button.button.button-primary(type="submit" translate='open_in_me.sms.button.send')
 
         .text-center.show-sm: app-links
 
