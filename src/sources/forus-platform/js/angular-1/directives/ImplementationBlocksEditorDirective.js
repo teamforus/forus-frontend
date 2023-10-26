@@ -26,6 +26,12 @@ const ImplementationBlocksEditorDirective = function (
         name: 'Nieuw tabblad',
     }];
 
+    $dir.onButtonTextChange = (block) => {
+        if (!$dir.button_link_label_edited) {
+            block.button_link_label = block.button_text;
+        }
+    };
+
     $dir.askConfirmation = (onConfirm) => {
         ModalService.open("dangerZone", {
             title: $translateDangerZone('title'),
