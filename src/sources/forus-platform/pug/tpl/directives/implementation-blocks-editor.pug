@@ -48,7 +48,7 @@
 
             //- Block title
             .form-group
-                label.form-label.form-label-required Title
+                label.form-label.form-label-required Titel
                 input(type="text" ng-model="block.title" placeholder="Title...").form-control
                 .form-hint Max. 200 tekens
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.title']" ng-bind="error")
@@ -62,7 +62,7 @@
 
             //- Block button enable
             .form-group: .flex
-                label.form-label(for="button_enabled_{{$parent.$index}}") Button
+                label.form-label(for="button_enabled_{{$parent.$index}}") Knop
 
                 .flex-col: label.form-toggle(for="button_enabled_{{$parent.$index}}")
                     input(
@@ -76,13 +76,13 @@
 
             //- Block button text
             .form-group(ng-if="block.button_enabled")
-                label.form-label.form-label-required Button Text
+                label.form-label.form-label-required Knop tekst
                 input(type="text" ng-model="block.button_text" placeholder="Button Text" ng-change="$dir.onButtonTextChange(block)").form-control
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_text']" ng-bind="error")
 
             //- Block button link
             .form-group(ng-if="block.button_enabled")
-                label.form-label.form-label-required Button Link
+                label.form-label.form-label-required Knop link
                 input(type="text" ng-model="block.button_link" placeholder="Button Link").form-control
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_link']" ng-bind="error")
 
@@ -97,8 +97,8 @@
 
             //- Block button link label
             .form-group(ng-if="block.button_enabled")
-                label.form-label Button Link Label
-                input(type="text" ng-model="block.button_link_label" placeholder="Button Link Label" ng-change="$dir.button_link_label_edited = true").form-control
+                label.form-label Alt-tekstknop
+                input(type="text" ng-model="block.button_link_label" placeholder="Alternatieve tekst" ng-change="$dir.button_link_label_edited = true").form-control
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_link_label']" ng-bind="error")
 
     //- Actions

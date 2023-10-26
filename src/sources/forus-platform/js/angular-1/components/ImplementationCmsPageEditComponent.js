@@ -20,10 +20,10 @@ const ImplementationCmsPageEditComponent = function (
 
     $ctrl.states = [{
         value: 'draft',
-        name: 'Draft',
+        name: 'Concept',
     }, {
         value: 'public',
-        name: 'Public',
+        name: 'Publiek',
     }];
 
     $ctrl.blocksPerRow = [{

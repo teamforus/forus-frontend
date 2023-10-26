@@ -6,7 +6,7 @@ module.exports = {
         subsidies: "Aanbod",
         funds: "Tegoeden",
         provider: "Aanbieder",
-        map: "Locaties op kaart"
+        map: "Locaties op de kaart"
     },
     labels: {
         fund: "Aanvragen",
