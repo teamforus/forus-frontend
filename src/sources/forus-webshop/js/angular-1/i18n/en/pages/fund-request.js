@@ -8,6 +8,7 @@ module.exports = {
             criterion_more: "'{{ name }}' moet meer dan {{ value }} zijn.",
             criterion_less: "'{{ name }}' moet minder dan {{ value }} zijn.",
             criterion_same: "'{{ name }}' moet {{ value }} zijn.",
+            criterion_any: "'{{ name }}' elke waarde.",
             fund_already_applied: "You can not submit a new application until this one is not finished.",
             footer: {
                 prev: "Vorige stap",

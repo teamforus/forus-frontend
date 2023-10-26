@@ -262,8 +262,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.list($transition$.params().organization_id, { with_archived: 1, with_external: 1, stats: 'min' }))
             }],
-            recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
-                return repackResponse(RecordTypeService.list());
+            recordTypes: ['RecordTypeService', 'organization', 'permission', (RecordTypeService, organization) => {
+                return repackResponse(RecordTypeService.list({ criteria: 1, organization_id: organization.id }));
             }],
             validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
                 return repackPagination(OrganizationService.readListValidators($transition$.params().organization_id, { per_page: 100 }));
@@ -715,8 +715,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             fundStates: ['FundService', 'permission', (FundService) => {
                 return FundService.states();
             }],
-            recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
-                return repackResponse(RecordTypeService.list());
+            recordTypes: ['RecordTypeService', 'organization', 'permission', (RecordTypeService, organization) => {
+                return repackResponse(RecordTypeService.list({ criteria: 1, organization_id: organization.id }));
             }],
             validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
                 return repackPagination(OrganizationService.readListValidators($transition$.params().organization_id, {
@@ -771,8 +771,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             fundStates: ['FundService', 'permission', (FundService) => {
                 return FundService.states();
             }],
-            recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
-                return repackResponse(RecordTypeService.list());
+            recordTypes: ['RecordTypeService', 'organization', 'permission', (RecordTypeService, organization) => {
+                return repackResponse(RecordTypeService.list({ criteria: 1, organization_id: organization.id }));
             }],
             productCategories: ['ProductCategoryService', 'permission', (ProductCategoryService) => {
                 return repackResponse(ProductCategoryService.listAll());
@@ -1718,7 +1718,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             prevalidations: ['$transition$', 'PrevalidationService', function ($transition$, PrevalidationService) {
                 return repackPagination(PrevalidationService.list(only($transition$.params(), 'page', 'q')));
             }],
-            recordTypes: ['RecordTypeService', (RecordTypeService) => repackResponse(RecordTypeService.list())]
+            recordTypes: ['RecordTypeService', (RecordTypeService) => {
+                return repackResponse(RecordTypeService.list({ criteria: 1 }));
+            }],
         }
     });
 

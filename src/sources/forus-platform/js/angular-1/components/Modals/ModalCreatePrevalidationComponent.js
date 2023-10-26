@@ -18,7 +18,7 @@ const ModalCreatePrevalidationComponent = function (
         });
 
         const eligibleKeyValue = criteria.find((criterion) => {
-            return criterion.record_type_key == eligibleKey && criterion.operator == '=';
+            return criterion.record_type.key == eligibleKey && criterion.operator == '=';
         })?.value;
 
         $ctrl.fund = fund;
@@ -37,12 +37,13 @@ const ModalCreatePrevalidationComponent = function (
                 '<': 'minder dan',
                 '>': 'meer dan',
                 '=': 'is',
+                '*': 'elk',
             }[criteria.operator];
 
-            $ctrl.criteriaRuleByKey[criteria.record_type_key] = `${operatorLocale} ${criteria.value}`;
+            $ctrl.criteriaRuleByKey[criteria.record_type.key] = `${operatorLocale} ${criteria.value}`;
 
             if (criteria.operator == '=') {
-                values[criteria.record_type_key] = criteria.value;
+                values[criteria.record_type.key] = criteria.value;
             }
         });
 

@@ -4,19 +4,26 @@
     .modal-backdrop(ng-click="$ctrl.close()")
     form(ng-submit="$ctrl.form.submit()").modal-window.form
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
-        .modal-header(i18n="modals.modal_fund_criteria_description.title")
+        .modal-header(translate="modals.modal_fund_criteria_description.title")
         .modal-body: .modal-section
             .form-group
-                label.form-label(i18n="modals.modal_fund_criteria_description.labels.title")
+                label.form-label(translate="modals.modal_fund_criteria_description.labels.title")
                 input(ng-model="$ctrl.form.values.title" type="text" placeholder="Titel").form-control
                 .form-error(ng-repeat="error in $ctrl.form.errors['criteria.0.title']" ng-bind="error")
+
             .form-group
-                label.form-label(i18n="modals.modal_fund_criteria_description.labels.description")
+                label.form-label(translate="modals.modal_fund_criteria_description.labels.description")
                 markdown(
                     value="$ctrl.form.values.description_html"
                     ng-model="$ctrl.form.values.description")
                 .form-error(ng-repeat="error in $ctrl.form.errors['criteria.0.description']" ng-bind="error")
 
         .modal-footer.text-center
-            button.button.button-primary(type="submit" i18n="modals.modal_fund_criteria_description.buttons.save")
-            button.button.button-default(type="button" i18n="modals.modal_fund_criteria_description.buttons.close" ng-click="$ctrl.close()") Sluiten
+            button.button.button-default(
+                type="button" 
+                translate="modals.modal_fund_criteria_description.buttons.close" 
+                ng-click="$ctrl.close()") Sluiten
+
+            button.button.button-primary(
+                type="submit" 
+                translate="modals.modal_fund_criteria_description.buttons.save")
