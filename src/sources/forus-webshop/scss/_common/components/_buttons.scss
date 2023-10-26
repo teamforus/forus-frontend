@@ -190,7 +190,19 @@
         border-radius: calc(var(--border-radius) / 2);
 
         .mdi {
-            margin-right: 4px;
+            &.icon-right {
+                margin-right: -5px;
+                margin-left: 5px;
+            }
+        }
+
+        &.button-text {
+            .mdi {
+                &.icon-right {
+                    margin-right: -2px;
+                    margin-left: 2px;
+                }
+            }
         }
     }
 
@@ -268,7 +280,7 @@
     &.button-disabled {
         background: #eff2f4;
         border-color: #eff2f4;
-        color: #3B3B3B;
+        color: #cdced2;
         box-shadow: none;
         pointer-events: none;
         cursor: default;
@@ -282,7 +294,7 @@
         }
 
         &:focus {
-            color: #3B3B3B;
+            color: #cdced2;
         }
     }
 

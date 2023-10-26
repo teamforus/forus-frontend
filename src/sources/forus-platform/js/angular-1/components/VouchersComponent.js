@@ -138,7 +138,7 @@ const VouchersComponent = function (
         const type = 'budget';
         const filters = $ctrl.getQueryParams($ctrl.filters.values);
 
-        VoucherExportService.exportVouchers($ctrl.organization.id, filters, type);
+        VoucherExportService.exportVouchers($ctrl.organization.id, $ctrl.fund.allow_voucher_records, filters, type);
     };
 
     $ctrl.onPageChange = (query) => {

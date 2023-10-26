@@ -6,9 +6,11 @@ const FundRequestComponent = function (
     $scope,
     $filter,
     $timeout,
+    $element,
     appConfigs,
     FundService,
     DigIdService,
+    HelperService,
     FormBuilderService,
     FundRequestService,
     IdentityEmailsService,
@@ -274,11 +276,11 @@ const FundRequestComponent = function (
     };
 
     $ctrl.nextStep = () => {
-        $ctrl.step = Math.min($ctrl.step + 1, $ctrl.steps.length - 1);
+        $ctrl.setStep(Math.min($ctrl.step + 1, $ctrl.steps.length - 1));
     };
 
     $ctrl.prevStep = () => {
-        $ctrl.step = Math.max($ctrl.step - 1, 0);
+        $ctrl.setStep(Math.max($ctrl.step - 1, 0));
     };
 
     $ctrl.applyFund = (fund) => {
@@ -293,7 +295,15 @@ const FundRequestComponent = function (
     }
 
     $ctrl.setStepByName = (stepName) => {
-        $ctrl.step = $ctrl.steps.indexOf(stepName);
+        $ctrl.setStep($ctrl.steps.indexOf(stepName));
+    };
+
+    $ctrl.setStep = (step) => {
+        $ctrl.step = step;
+
+        $timeout(() => {
+            HelperService.focusElement($element[0].querySelector('.block-sign_up'));
+        });
     };
 
     $ctrl.finish = () => {
@@ -451,9 +461,11 @@ export const controller = [
     '$scope',
     '$filter',
     '$timeout',
+    '$element',
     'appConfigs',
     'FundService',
     'DigIdService',
+    'HelperService',
     'FormBuilderService',
     'FundRequestService',
     'IdentityEmailsService',

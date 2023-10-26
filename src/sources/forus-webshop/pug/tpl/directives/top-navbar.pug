@@ -32,13 +32,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                         .auth-user-menu-separator(ng-if="$root.auth_user.email")
 
                         .auth-user-menu-item(
-                            ng-click="$dir.startFundRequest()" 
-                            id="open_activation_code_popup"
-                            role="link")
-                            img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg" alt="")
-                            span(translate="topnavbar.buttons.activate_{{ $root.client_key }}" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
-
-                        .auth-user-menu-item(
                             ui-sref="vouchers"
                             ui-sref-active="active"
                             id="vouchers"
@@ -85,7 +78,18 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             tabindex="0")
                             em.mdi.mdi-receipt-outline
                             | Kosten terugvragen
-                        
+
+                        .auth-user-menu-item(
+                            ui-sref="fund-requests"
+                            ui-sref-active="active"
+                            id="fund-requests"
+                            ng-click="$dir.goToState('fund-requests')"
+                            role="link"
+                            dusk="btnFundRequests"
+                            tabindex="0")
+                            em.mdi.mdi-card-account-details-outline
+                            | Aanvragen
+
                         .auth-user-menu-item(
                             ui-sref="notifications"
                             ui-sref-active="active"
