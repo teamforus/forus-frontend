@@ -32,6 +32,7 @@ core.addPlatform(require('./platforms/Webshops/WebshopParticipatiemuntPlatform')
 core.addPlatform(require('./platforms/Webshops/WebshopSchagenPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopEemsdeltaPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopDoetegoedPlatform'));
+core.addPlatform(require('./platforms/Webshops/WebshopGoereeoverflakkeePlatform'));
 
 // Register meapp landings
 core.addPlatform(require('./platforms/Website/Website'));
