@@ -1,3 +1,5 @@
+@import "../general/vars.scss";
+
 // do not use these scss variables outside this file
 $fonts: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap&subset=latin,cyrillic,latin-ext";
 $primaryColor: #627C18;
@@ -89,4 +91,8 @@ $primaryColorLight: #627C18;
     // Nav item line position
     --nav-line-top: 0;
     --nav-line-bottom: auto;
+
+    // Breadcrumbs
+    --breadcrumb-color: var(--htc);
+    --breadcrumb-color-active: #2D3748;
 }
