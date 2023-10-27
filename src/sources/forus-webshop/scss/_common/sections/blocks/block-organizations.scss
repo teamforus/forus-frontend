@@ -219,7 +219,7 @@
             .organization-pane {
                 .organization-pane-info {
                     padding: 15px 10px;
-                    width: calc(100% - 50px);
+                    width: calc(100% - 125px);
 
                     .organization-title {
                         overflow: hidden;
@@ -250,7 +250,7 @@
             .organization-pane {
                 .organization-pane-collapse {
                     .organization-total-offices {
-                        display: none;
+                        font: 600 12px/14px var(--base-font);
                     }
                 }
             }
@@ -280,6 +280,10 @@
 
                 .organization-pane-collapse {
                     padding: 10px 5px;
+
+                    .organization-total-offices {
+                        font: 600 10px/12px var(--base-font);
+                    }
                 }
             }
         }
