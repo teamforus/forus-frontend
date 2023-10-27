@@ -43,7 +43,10 @@ main(id="main-content")
                     .product-properties
                         .product-property.product-property-full
                             .product-property-label(i18n="product.labels.description")
-                            .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html" role="heading" aria-level="3")
+                            .product-property-value: markdown(
+                                content="$ctrl.product.description_html"  
+                                aria-level="3"
+                                role="heading")
                 
                 +bookmark_toggle()
 

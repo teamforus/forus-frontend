@@ -173,9 +173,9 @@ main(id="main-content")
                     .sign_up-pane-body: form(ng-submit="$ctrl.validateStepCriteria(invalidCriteria)").row
                         .form-group.col.col-lg-12
                             .sign_up-pane-text.block.block-markdown
-                                .sign_up-pane-text(
+                                .sign_up-pane-text: markdown(
                                     ng-if="invalidCriteria.description && invalidCriteria.description !== '_'"
-                                    ng-bind-html="invalidCriteria.description_html")
+                                    content="invalidCriteria.description_html")
 
                                 .sign_up-pane-text(
                                     ng-if="!invalidCriteria.description && invalidCriteria.description !== '_'"
