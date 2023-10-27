@@ -340,8 +340,9 @@ main(id="main-content")
 
                         //- Contact information form
                         .form-group
-                            .form-label Contactgegevens
+                            label.form-label(for="fund_request_contact_info") Contactgegevens
                             textarea(
+                                id="fund_request_contact_info"
                                 rows="5" 
                                 placeholder="Contactgegevens invullen..."
                                 ng-model="$ctrl.contactInformation"
