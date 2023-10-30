@@ -56,7 +56,10 @@
             //- Block description
             .form-group
                 label.form-label.form-label-required Omschrijving
-                markdown(value="block.description_html" ng-model="block.description" placeholder="Omschrijving...")
+                markdown-editor(
+                    value="block.description_html" 
+                    ng-model="block.description" 
+                    placeholder="Omschrijving...")
                 .form-hint Max. 5000 tekens
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.description']" ng-bind="error")
 

@@ -1,4 +1,4 @@
-const MarkdownDirective = function ($scope, $element, $timeout, ModalService, MarkdownService) {
+const MarkdownEditorDirective = function ($scope, $element, $timeout, ModalService, MarkdownService) {
     const $dir = $scope.$dir;
     const $theEditor = $($element.find('[editor]')[0]);
 
@@ -356,8 +356,8 @@ module.exports = () => {
             '$timeout',
             'ModalService',
             'MarkdownService',
-            MarkdownDirective
+            MarkdownEditorDirective,
         ],
-        templateUrl: 'assets/tpl/directives/markdown.html'
+        templateUrl: 'assets/tpl/directives/markdown-editor.html'
     };
 };

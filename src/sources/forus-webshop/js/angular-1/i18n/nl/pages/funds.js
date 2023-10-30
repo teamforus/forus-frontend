@@ -64,9 +64,6 @@ module.exports = {
         key: "{{key}}"
     },
     buttons: {
-        nijmegen: {
-            start_request: "Aanvragen"
-        },
         IIT: {
             already_received: "Aanvragen",
         },

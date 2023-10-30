@@ -82,7 +82,7 @@
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     .form-label(i18n="organization_edit.labels.description")
-                    .form-offset: markdown(
+                    .form-offset: markdown-editor(
                         value="$ctrl.form.values.description_html"
                         ng-model="$ctrl.form.values.description")
 

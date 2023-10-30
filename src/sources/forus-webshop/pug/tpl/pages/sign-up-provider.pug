@@ -4,9 +4,9 @@ main(id="main-content")
     section.section.section-details: .wrapper.flex.flex-vertical
         .flex.flex-vertical(ng-class="$ctrl.page.description_position == 'after' ? 'flex-vertical-reverse' : ''")
             .block.block-steps(ng-if="$ctrl.description_html"): .wrapper
-                .block-steps-description: .block.block-markdown(
-                    ng-class="'block-markdown-' + $ctrl.page.description_alignment"
-                    ng-bind-html="$ctrl.description_html")    
+                .block-steps-description: markdown(
+                    align="$ctrl.page.description_alignment"
+                    content="$ctrl.description_html")
 
             .block.block-sign_up-provider(ng-if="!$ctrl.description_html || $ctrl.page.description_position !== 'replace'")
                 .sign_up-overview: .block.block-steps: .block.block-markdown

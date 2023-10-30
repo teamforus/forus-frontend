@@ -28,9 +28,6 @@ module.exports = {
         potjeswijzer: {
             funds:"Potjes",
         },
-        nijmegen: {
-            funds:"Aanvragen",
-        },
         vergoedingen: {
             funds: "Vergoedingen",
         },
@@ -70,9 +67,6 @@ module.exports = {
         },
         potjeswijzer: {
             activate: "Potjes",
-        },
-        nijmegen: {
-            activate: "Aanvragen",
         },
         vergoedingen: {
             activate: "Vergoedingen"
@@ -143,9 +137,6 @@ module.exports = {
                 },
                 winterswijk: {
                     funds: "Activeren",
-                },
-                nijmegen: {
-                    funds: "Aanvragen",
                 },
                 noordoostpolder: {
                     funds: "Activeren",
