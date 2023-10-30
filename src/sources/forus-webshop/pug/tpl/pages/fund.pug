@@ -59,7 +59,10 @@ main(id="main-content" ng-if="$ctrl.loaded")
                 .fund-card: .fund-details
                     h1.fund-name(ng-bind="$ctrl.fund.name") 
                     .fund-description(ng-class="{'with-details': !$ctrl.fund.hide_meta}")
-                        .block.block-markdown: p(ng-if="$ctrl.fund.description_short" ng-bind="$ctrl.fund.description_short")
+                        .block.block-markdown: p(
+                            ng-if="$ctrl.fund.description_short" 
+                            ng-bind="$ctrl.fund.description_short")
+
                     .fund-details-items(ng-if="!$ctrl.fund.hide_meta")
                         .fund-details-item
                             .fund-details-item-label Uitgifte door:
@@ -96,9 +99,9 @@ main(id="main-content" ng-if="$ctrl.loaded")
                 filters="{fund_id: $ctrl.fund.id}")
 
             div
-                .block.block-markdown(
+                markdown(
                     ng-if="$ctrl.fund.description_html"
-                    ng-bind-html="$ctrl.fund.description_html")
+                    content="$ctrl.fund.description_html")
                 
                 section.section.section-faq(ng-if="$ctrl.fund.faq")
                     .section-splash
@@ -119,4 +122,4 @@ main(id="main-content" ng-if="$ctrl.loaded")
                                 h2(ng-bind="question.title" role="button" tabindex="0").faq-item-title
                                 .faq-item-chevron-down.mdi.mdi-chevron-down
                                 .faq-item-chevron-up.mdi.mdi-chevron-up
-                            .faq-item-content(id="{{ 'faq_item_' + $index }}"): .block.block-markdown(ng-bind-html="question.description_html")    
+                            .faq-item-content(id="{{ 'faq_item_' + $index }}"): markdown(content="question.description_html")    

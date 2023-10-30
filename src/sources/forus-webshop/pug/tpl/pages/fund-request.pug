@@ -25,16 +25,16 @@ mixin progress()
         span.sr-only Stap {{ $ctrl.step }}
         span.sr-only Stap {{ $ctrl.step }} van {{ $ctrl.steps.length }}
 
-mixin go_back()
+mixin go_back(tabindex)
     //- Back to fund-activate page
     .flex-col.text-left(ng-if="$ctrl.step == 0")
-        a.button.button-text.button-text-padless(ui-sref="fund-activate({fund_id: $ctrl.fund.id})" role="link" tabindex="0")
+        a.button.button-text.button-text-padless(ui-sref="fund-activate({fund_id: $ctrl.fund.id})" role="link" tabindex=tabindex || 0)
             .mdi.mdi-chevron-left.icon-left
             | Terug
 
     //- Back to prev step
     .flex-col.text-left(ng-if="$ctrl.step > 0")
-        .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button" tabindex="0")
+        .button.button-text.button-text-padless(ng-click="$ctrl.prevStep()" role="button" tabindex=tabindex || 0)
             .mdi.mdi-chevron-left.icon-left
             | Terug
 
@@ -68,7 +68,7 @@ main(id="main-content")
                         .form-group: .row
                             .col.col-lg-9
                                 label.form-label(i18n="popup_auth.input.mail" for="email")
-                                ui-control-email(ng-model="$ctrl.emailForm.values.email" data-placeholder="e-mail@e-mail.nl" data-id="email" tabindex="1")
+                                ui-control-email(ng-model="$ctrl.emailForm.values.email" data-placeholder="e-mail@e-mail.nl" data-id="email" data-tabindex="1")
                                 .form-error(ng-repeat="error in $ctrl.emailForm.errors.email" ng-bind="error")
 
                             .col.col-lg-3
@@ -99,13 +99,14 @@ main(id="main-content")
                                 |  Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
 
                     .sign_up-pane-footer: .flex-row
-                        +go_back()
+                        +go_back(4)
 
                         .flex-col.text-right: .button.button-text.button-text-padless(
                             ng-if="!$ctrl.emailSetupRequired"
                             ng-disabled="$ctrl.appConfigs.flags.privacyPage && !$ctrl.emailForm.values.privacy"
                             ng-click="$ctrl.nextStep()"
-                            role="button")
+                            role="button"
+                            tabindex="5")
                             | Overslaan
                             .mdi.mdi-chevron-right.icon-right
                     
@@ -172,9 +173,9 @@ main(id="main-content")
                     .sign_up-pane-body: form(ng-submit="$ctrl.validateStepCriteria(invalidCriteria)").row
                         .form-group.col.col-lg-12
                             .sign_up-pane-text.block.block-markdown
-                                .sign_up-pane-text(
+                                .sign_up-pane-text: markdown(
                                     ng-if="invalidCriteria.description && invalidCriteria.description !== '_'"
-                                    ng-bind-html="invalidCriteria.description_html")
+                                    content="invalidCriteria.description_html")
 
                                 .sign_up-pane-text(
                                     ng-if="!invalidCriteria.description && invalidCriteria.description !== '_'"
@@ -339,8 +340,9 @@ main(id="main-content")
 
                         //- Contact information form
                         .form-group
-                            .form-label Contactgegevens
+                            label.form-label(for="fund_request_contact_info") Contactgegevens
                             textarea(
+                                id="fund_request_contact_info"
                                 rows="5" 
                                 placeholder="Contactgegevens invullen..."
                                 ng-model="$ctrl.contactInformation"

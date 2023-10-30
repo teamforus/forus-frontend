@@ -34,8 +34,9 @@
                             ng-model="$ctrl.reason")
 
                     .form-group(ng-if="$ctrl.reason == 'other'")
-                        .form-label Reden
+                        label.form-label(for="deactivate_voucher_note") Reden
                         textarea(
+                            id="deactivate_voucher_note"
                             maxlength="140"
                             ng-model="$ctrl.form.note" 
                             placeholder="Reden").form-control.r-n

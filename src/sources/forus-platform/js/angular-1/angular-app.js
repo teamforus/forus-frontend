@@ -85,6 +85,8 @@ app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
 app.component('biConnectionComponent', require('./components/BIConnectionComponent'));
 app.component('organizationContactsComponent', require('./components/OrganizationContactsComponent'));
+app.component('featureComponent', require('./components/FeatureComponent'));
+app.component('featuresComponent', require('./components/FeaturesComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -142,6 +144,7 @@ app.component('modal2FADeactivateComponent', require('./components/Modals/Modal2
 app.component('modalEditReimbursementCategoryComponent', require('./components/Modals/ModalEditReimbursementCategoryComponent'));
 app.component('modalEditReimbursementCategoriesComponent', require('./components/Modals/ModalEditReimbursementCategoriesComponent'));
 app.component('modalEditRequestRecordComponent', require('./components/Modals/ModalEditRequestRecordComponent'));
+app.component('modalFeatureContactComponent', require('./components/Modals/ModalFeatureContactComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -220,6 +223,7 @@ app.service('ProductReservationsExportService', require('./services/ProductReser
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 app.service('ClipboardService', require('./services/ClipboardService'));
+app.service('FeaturesService', require('./services/FeaturesService'));
 
 // Directives
 app.directive('menu', {
@@ -253,7 +257,7 @@ app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'
 app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
-app.directive('markdown', require('./directives/MarkdownDirective'));
+app.directive('markdownEditor', require('./directives/MarkdownEditorDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('tableCheckboxControl', require('./directives/TableCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
@@ -288,6 +292,7 @@ app.directive('blockCardVouchers', require('./directives/BlockCardVouchersDirect
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
+app.directive('blockFeature', require('./directives/blocks/BlockFeatureDirective'));
 
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirective'));

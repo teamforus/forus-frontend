@@ -1,5 +1,5 @@
-let GoogleMapService = function($q) {
-    var style = {
+const GoogleMapService = function ($q) {
+    const style = {
         'style': [{
             "featureType": "water",
             "elementType": "geometry",
@@ -118,18 +118,16 @@ let GoogleMapService = function($q) {
         }]
     };
 
-    var getStyle = function() {
-        return $q(function(resolve, reject) {
-            resolve(style);
-        });
+    const getStyle = function () {
+        return $q((resolve) => resolve(style));
     };
 
     return {
-        getStyle: getStyle
+        getStyle: getStyle,
     };
 };
 
 module.exports = [
     '$q',
-    GoogleMapService
+    GoogleMapService,
 ];

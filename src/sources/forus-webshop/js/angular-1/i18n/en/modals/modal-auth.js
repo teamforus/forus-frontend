@@ -1,10 +1,6 @@
 module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
         header: {
-            nijmegen: {
-                title: "Log in to the Meedoen-regeling",
-                subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",
-            },
             berkelland: {
                 title: "Log in to the Meedoenapplicatie",
                 subtitle: "<span>Scan the QR-code with the</span> <strong><u>Me-app</u></strong><span> or log in with your e-mailaddress</span>",
@@ -68,9 +64,6 @@ module.exports = {
             confirm: "NEXT",
         },
         labels: {
-            nijmegen: {
-                mail: "<strong>Attention!</strong>: Please use your own e-mail address. You can use a maximum of one activation code per e-mail address per year for the Meedoen-regeling.",
-            },
             zuidhorn: {
                 mail: "<strong>Attention!</strong>: Please use your own e-mail address. You can use a maximum of one activation code per e-mail address per year for Kindpakket.",
             },
