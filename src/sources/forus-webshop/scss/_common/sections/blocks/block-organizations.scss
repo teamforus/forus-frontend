@@ -219,7 +219,7 @@
             .organization-pane {
                 .organization-pane-info {
                     padding: 15px 10px;
-                    width: calc(100% - 125px);
+                    width: calc(100% - 100px);
 
                     .organization-title {
                         overflow: hidden;
@@ -231,6 +231,7 @@
                 }
 
                 .organization-pane-collapse {
+                    width: 100px;
                     padding: 15px 10px;
 
                     .organization-chevron {
@@ -248,7 +249,13 @@
     @media screen and (max-width: 767px) {
         .organization-item {
             .organization-pane {
+                .organization-pane-info {
+                    width: calc(100% - 90px);
+                }
+
                 .organization-pane-collapse {
+                    width: 90px;
+
                     .organization-total-offices {
                         font: 600 12px/14px var(--base-font);
                     }
@@ -262,6 +269,7 @@
             .organization-pane {
                 .organization-pane-info {
                     padding: 15px 10px;
+                    width: calc(100% - 80px);
 
                     .organization-logo {
                         .organization-logo-img {
@@ -280,6 +288,7 @@
 
                 .organization-pane-collapse {
                     padding: 10px 5px;
+                    width: 80px;
 
                     .organization-total-offices {
                         font: 600 10px/12px var(--base-font);
