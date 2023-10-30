@@ -232,7 +232,7 @@
 
                 .organization-pane-collapse {
                     width: 100px;
-                    padding: 15px 10px;
+                    padding: 10px 10px 10px 5px;
 
                     .organization-chevron {
                         margin-right: 0;
@@ -250,14 +250,14 @@
         .organization-item {
             .organization-pane {
                 .organization-pane-info {
-                    width: calc(100% - 90px);
+                    width: calc(100% - 80px);
                 }
 
                 .organization-pane-collapse {
-                    width: 90px;
+                    width: 80px;
 
                     .organization-total-offices {
-                        font: 600 12px/14px var(--base-font);
+                        font: 600 12px/15px var(--base-font);
                     }
                 }
             }
@@ -269,7 +269,6 @@
             .organization-pane {
                 .organization-pane-info {
                     padding: 15px 10px;
-                    width: calc(100% - 80px);
 
                     .organization-logo {
                         .organization-logo-img {
@@ -283,15 +282,6 @@
                         .organization-page-link {
                             font: 600 10px/12px var(--base-font);
                         }
-                    }
-                }
-
-                .organization-pane-collapse {
-                    padding: 10px 5px;
-                    width: 80px;
-
-                    .organization-total-offices {
-                        font: 600 10px/12px var(--base-font);
                     }
                 }
             }
