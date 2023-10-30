@@ -25,7 +25,6 @@ module.exports = {
     implementation_name: {
         general: 'General',
         zuidhorn: 'Zuidhorn',
-        nijmegen: 'Nijmegen',
         westerkwartier: 'Potjeswijzer',
         forus: 'Forus platform & ',
         kerstpakket: 'Kerstpakket',

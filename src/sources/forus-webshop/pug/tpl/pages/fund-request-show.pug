@@ -156,5 +156,9 @@ main(id="main-content"): section.section.section-profile: .wrapper
                     h2.card-heading.card-heading-lg Reden van weigeren
 
                 .card-section(ng-if="$ctrl.showDeclinedNote")
-                    p.block.block-markdown(ng-if="$ctrl.fundRequest.note" ng-bind="$ctrl.fundRequest.note")
-                    p.block.block-markdown(ng-if="!$ctrl.fundRequest.note").text-muted No note
+                    p.block.block-markdown(
+                        ng-if="$ctrl.fundRequest.note" 
+                        ng-bind="$ctrl.fundRequest.note")
+                    
+                    p.block.block-markdown(
+                        ng-if="!$ctrl.fundRequest.note").text-muted No note

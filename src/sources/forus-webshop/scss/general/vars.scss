@@ -96,4 +96,10 @@ $primaryColorLight: #305dfb;
     // Nav item line position
     --nav-line-top: 0;
     --nav-line-bottom: auto;
+
+    // Breadcrumbs
+    --breadcrumb-size: 16px;
+    --breadcrumb-color: var(--color-primary);
+    --breadcrumb-color-active: #353535;
+    --breadcrumb-padding: 20px;
 }

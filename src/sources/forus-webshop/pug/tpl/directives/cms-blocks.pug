@@ -2,10 +2,10 @@
     ng-if="$dir.description_html || $dir.blocks.length > 0" 
     ng-class="$dir.noWrapper ? '' : 'wrapper'")
 
-    .block.block-markdown(
-        ng-class="'block-markdown-' + $dir.description_alignment"
+    markdown(
         ng-if="$dir.description_html"
-        ng-bind-html="$dir.description_html")
+        align="$dir.description_alignment"
+        content="$dir.description_html")
 
     .wrapper(ng-if="$dir.blocks.length > 0"): .section
         .block.block-cms-funds(
@@ -19,7 +19,7 @@
                     h2.fund-label(ng-if="block.label"): span.label.label-primary(ng-bind="block.label")
                     h2.fund-title(ng-bind="block.title")
 
-                    .fund-description: .block.block-markdown: p(ng-bind-html="block.description_html")
+                    .fund-description: markdown(content="block.description_html")
 
                     .fund-button(ng-if="block.button_enabled")
                         a.button.button-primary.fund-button-button(

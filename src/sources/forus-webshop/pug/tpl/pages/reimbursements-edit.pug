@@ -21,7 +21,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
             .profile-content-header
                 h2.profile-content-title(ng-if="!$ctrl.reimbursement") Nieuwe kosten terugvragen
                 h2.profile-content-title(ng-if="$ctrl.reimbursement") Declaratienummer: {{ '#' + $ctrl.reimbursement.code  }}
-            
+
             //- No email warning
             .card(ng-if="!$ctrl.reimbursement && !$ctrl.identity.email && !$ctrl.identity.skipEmail" dusk="reimbursementNoEmail")
                 .card-section
@@ -67,7 +67,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                         on-file-resolved="$ctrl.onFileInfo(file, files)"
                         on-file-uploaded="$ctrl.onFileUploaded(file, files)"
                         on-file-batch-queued="$ctrl.onFileInfo(file, files)")
-                    
+
                     .text-center(ng-if="$ctrl.form.errors.files")
                         br
                         .form-error(ng-repeat="error in $ctrl.form.errors.files" ng-bind="error")
@@ -104,31 +104,62 @@ main(id="main-content"): section.section.section-profile: .wrapper
                     //- Title
                     .form-group.form-group-inline
                         label(for="title").form-label Titel van de declaratie
-                        input(name="title" type="text" ng-model="$ctrl.form.values.title" placeholder="Wat heeft u gekocht?" maxlength="200").form-control
+                        input(
+                            id="title"
+                            name="title"
+                            type="text" 
+                            ng-model="$ctrl.form.values.title"
+                            placeholder="Wat heeft u gekocht?"
+                            maxlength="200").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.title" ng-bind="error")
-                    
+
                     //- Amount
                     .form-group.form-group-inline 
                         label(for="amount").form-label Bedrag €
-                        input(type="number" name="amount" step=".01" min="0.01" ng-model="$ctrl.form.values.amount" placeholder="Welk bedrag wilt u terugvragen?").form-control
+                        input(
+                            id="amount"
+                            type="number"
+                            name="amount"
+                            step=".01"
+                            min="0.01"
+                            ng-model="$ctrl.form.values.amount"
+                            placeholder="Welk bedrag wilt u terugvragen?").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.amount" ng-bind="error")
-                    
+
                     //- Description
                     .form-group.form-group-inline
                         label(for="description").form-label Omschrijving
-                        textarea(ng-model="$ctrl.form.values.description" name="description" placeholder="Wilt u nog iets kwijt?" resize="vertical" max="2000").form-control
+                        textarea(
+                            id="description"
+                            ng-model="$ctrl.form.values.description"
+                            name="description"
+                            placeholder="Wilt u nog iets kwijt?"
+                            resize="vertical"
+                            max="2000").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
-                    
+
                     //- IBAN
                     .form-group.form-group-inline
                         label(for="iban").form-label IBAN nummer
-                        input(type="text" name="iban" ng-model="$ctrl.form.values.iban" placeholder="IBAN nummer" maxlength="34").form-control
+                        input(
+                            id="iban"
+                            type="text"
+                            name="iban"
+                            ng-model="$ctrl.form.values.iban"
+                            placeholder="IBAN nummer"
+                            maxlength="34").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban" ng-bind="error")
 
                     //- IBAN Name
                     .form-group.form-group-inline
                         label(for="iban_name").form-label Naam rekeninghouder
-                        input(type="text" name="iban_name" ng-model="$ctrl.form.values.iban_name" placeholder="Op welke naam staat uw bankrekening?" maxlength="45").form-control
+                        input(
+                            id="iban_name"
+                            type="text"
+                            name="iban_name"
+                            ng-model="$ctrl.form.values.iban_name"
+                            placeholder="Op welke naam staat uw bankrekening?"
+                            maxlength="45").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.iban_name" ng-bind="error")
 
                 .card-section: .flex.flex-horizontal
