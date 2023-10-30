@@ -63,8 +63,9 @@ main(id="main-content"): section.section.section-voucher-details: .wrapper
             .block.block-auth-2fa
                 form(ng-submit="$ctrl.form.submit()").form.form-compact
                     .form-group
-                        label.form-label(for="select_organization") Onthoud IP-adres
+                        label.form-label(for="auth_2fa_remember_ip") Onthoud IP-adres
                         select-control(
+                            id="auth_2fa_remember_ip"
                             prop="value"
                             search="false"
                             ng-model="$ctrl.form.values.auth_2fa_remember_ip" 
