@@ -1,0 +1,48 @@
+.block.block-voucher-records-editor.form
+    .block-voucher-record-list(ng-if="$dir.voucherRecords.length")
+        .form-group.form-group-inline.form-group-inline-lg(ng-repeat="record in $dir.voucherRecords track by $index")
+            label.form-label(ng-bind="record.name")
+            .form-offset: .voucher-record-item
+                .voucher-record-item-input.flex-flex-vertical
+                    input(
+                        ng-if="record.key != 'birth_date'"
+                        ng-model="record.value" placeholder="{{ record.name }}").form-control
+
+                    datepicker(
+                        ng-if="record.key == 'birth_date'"
+                        input-visible="true" 
+                        date-format="yyyy-MM-dd" 
+                        datepicker-mobile="" 
+                        date-week-start-day="1").form-control
+                        input(
+                            ng-model="record.value"
+                            type="text"
+                            placeholder="yyyy-MM-dd").form-control
+                    
+                    .form-error(ng-repeat="error in $dir.recordErrors[record.key]" ng-bind="error")
+
+                .voucher-record-item-actions
+                    .button.button-icon.button-default(ng-click="$dir.removeRecord(record.key)"): em.mdi.mdi-close
+
+    .block-voucher-record-add(ng-if="$dir.showVoucherAddBlock")
+        .form-group.form-group-inline.form-group-inline-lg
+            label.form-label Selecteer eigenschap
+
+            .button.button-primary(
+                ng-if="!$dir.showRecordSelector"
+                ng-click="$dir.showRecordSelector = true")
+                em.mdi.mdi-plus.icon-start
+                | Eigenschap toevoegen
+
+            select-control(
+                prop="key"
+                search="false"
+                ng-if="$dir.showRecordSelector"
+                options="$dir.recordOptions" 
+                ng-model="$dir.record").form-control    
+
+        .form-group.form-group-inline.form-group-inline-lg(ng-if="$dir.showRecordSelector")
+            .form-label
+            .block-voucher-record-add-actions
+                button.button.button-default(type="button" ng-click="$dir.showRecordSelector = false") Annuleren
+                button.button.button-primary(type="button" ng-click="$dir.addRecord($dir.record)") Toevoegen

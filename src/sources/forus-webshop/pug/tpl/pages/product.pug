@@ -38,12 +38,15 @@ main(id="main-content")
                     .product-properties
                         .product-property
                             .product-property-label(i18n="product.labels.category")
-                            .product-property-value(ng-bind="$ctrl.product.product_category.name")
+                            h2.product-property-value(ng-bind="$ctrl.product.product_category.name")
                     
                     .product-properties
                         .product-property.product-property-full
                             .product-property-label(i18n="product.labels.description")
-                            .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html")
+                            .product-property-value: markdown(
+                                content="$ctrl.product.description_html"  
+                                aria-level="3"
+                                role="heading")
                 
                 +bookmark_toggle()
 
@@ -129,7 +132,9 @@ main(id="main-content")
                                 em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                         .fund-item-section(ng-if="fund.showPendingButton")
-                            .button.button-primary.button-wide.button-disabled(translate="funds.buttons.is_pending")
+                            .button.button-primary-outline.button-wide(
+                                ui-sref="fund-requests({fund_id: $ctrl.fund.id})")
+                                translate(translate="funds.buttons.is_pending")
 
                         .fund-item-section(ng-if="fund.showActivateButton")
                             .button.button-primary.button-wide(
@@ -165,5 +170,6 @@ main(id="main-content")
 
                 .map_card-iframe: google-map(
                     map-gesture-handling="'greedy'"
+                    map-gesture-handling-mobile="'none'"
                     map-pointer-template="providers-office"  
                     map-pointers="$ctrl.product.offices")

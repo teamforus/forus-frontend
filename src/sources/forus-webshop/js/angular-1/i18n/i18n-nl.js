@@ -54,7 +54,6 @@ module.exports = {
     implementation_name: {
         general: 'General',
         potjeswijzer: 'Potjeswijzer',
-        nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & ',
         kerstpakket: 'Kerstpakket',
@@ -73,6 +72,7 @@ module.exports = {
         participatiemunt: "Participatiemunt",
         eemsdelta: "Eemsdelta",
         doetegoed: "Doe-tegoed",
+        goereeoverflakkee: "Goeree-Overflakkee",
     },
     languages: {
         en: 'English',
@@ -93,7 +93,6 @@ module.exports = {
         heumen: "Gemeente Heumen",
         hartvanwestbrabant: "Werkplein",
         noordoostpolder: "Gemeente Noordoostpolder",
-        nijmegen: "Nijmegen",
         potjeswijzer: "Potjeswijzer",
         participatiemunt: "Participatiemunt",
         oostgelre: "Gemeente Oost Gelre",
@@ -101,7 +100,8 @@ module.exports = {
         westerkwartier: "Gemeente Westerkwartier",
         waalwijk: "Pas Wijzer",
         vergoedingen: "Nijmegen",
-        schagen: "Gemeente Schagen"
+        schagen: "Gemeente Schagen",
+        goereeoverflakkee: "Goeree-Overflakkee",
     },
 
     // COMPONENTS
@@ -115,6 +115,7 @@ module.exports = {
     fund: require("./nl/pages/fund"),
     fund_activate: require("./nl/pages/fund-activate"),
     fund_request: require("./nl/pages/fund-request"),
+    fund_requests: require("./nl/pages/fund-requests"),
     fund_request_clarification: require("./nl/pages/fund-request-clarification"),
     funds: require("./nl/pages/funds"),
     home: require("./nl/pages/home"),

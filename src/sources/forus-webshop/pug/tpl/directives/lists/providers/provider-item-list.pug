@@ -1,7 +1,7 @@
 .organization-item
     .organization-pane(ng-class="$dir.provider.showOffices ? 'active' : ''")
-        .organization-pane-info(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()" role="link")
-            .organization-logo(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()")
+        a.organization-pane-info(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()" role="link")
+            .organization-logo(ui-sref="provider($dir.provider)" ng-click="$event.stopPropagation()" role="none" tabindex="-1")
                 img(
                     ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || '/assets/img/placeholders/organization-thumbnail.png' }}"
                     alt="").organization-logo-img

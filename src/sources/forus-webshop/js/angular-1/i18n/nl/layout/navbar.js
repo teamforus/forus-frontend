@@ -9,6 +9,7 @@ module.exports = {
         identity:"Profiel",
         signup:"Uitleg aanbieders",
         search:"Zoek",
+        menu: "Meer",
         westerkwartier: {
             funds:"Potjes",
         },
@@ -26,9 +27,6 @@ module.exports = {
         },
         potjeswijzer: {
             funds:"Potjes",
-        },
-        nijmegen: {
-            funds:"Aanvragen",
         },
         vergoedingen: {
             funds: "Vergoedingen",
@@ -51,7 +49,6 @@ module.exports = {
         }
     },
     buttons: {
-        activate: "Regelingen",
         westerkwartier: {
             activate: "Aanvragen",
         },
@@ -70,9 +67,6 @@ module.exports = {
         },
         potjeswijzer: {
             activate: "Potjes",
-        },
-        nijmegen: {
-            activate: "Aanvragen",
         },
         vergoedingen: {
             activate: "Vergoedingen"
@@ -104,6 +98,7 @@ module.exports = {
                 vouchers: "Mijn tegoeden",
                 reservations: "Reserveringen",
                 reimbursements:"Kosten terugvragen",
+                fund_requests: "Aanvragen",
                 notifications: "Notificaties",
                 preferences_notifications: "Notificatievoorkeuren",
                 preferences_emails: "E-mailinstellingen",
@@ -113,6 +108,8 @@ module.exports = {
                 sessions: "Sessies",
                 bookmarked_products: "Mijn verlanglijstje",
                 authorize: "Log in op de app",
+                home: "Home",
+                explanation: "Uitleg",
                 westerkwartier: {
                     funds: "Aanvragen",
                 },
@@ -140,9 +137,6 @@ module.exports = {
                 },
                 winterswijk: {
                     funds: "Activeren",
-                },
-                nijmegen: {
-                    funds: "Aanvragen",
                 },
                 noordoostpolder: {
                     funds: "Activeren",

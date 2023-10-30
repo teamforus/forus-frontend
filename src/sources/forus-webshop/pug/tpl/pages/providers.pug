@@ -75,6 +75,7 @@ block content
                                         ng-model="$ctrl.form.values.postcode"
                                         placeholder="Postcode"
                                         type="text"
+                                        id="postcode"
                                         aria-label="Postcode...")
                                     .form-error(ng-repeat="error in $ctrl.form.errors.postcode" ng-bind="error")
 
@@ -123,12 +124,14 @@ block content
                                     
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: !$ctrl.showMap}"
-                                        ng-click="$ctrl.showAsList()")
+                                        ng-click="$ctrl.showAsList()"
+                                        aria-pressed="{{ !$ctrl.showMap }}")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
                                     button.label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.showMap}"
-                                        ng-click="$ctrl.showAsMap()")
+                                        ng-click="$ctrl.showAsMap()"
+                                        aria-pressed="{{ $ctrl.showMap }}")
                                         em.mdi.mdi-map-marker-radius.icon-start
                                         | Kaart
 
@@ -169,4 +172,5 @@ block content
                                 map-pointers="$ctrl.offices"
                                 map-pointer-template="providers-office"
                                 map-gesture-handling="'greedy'"
+                                map-gesture-handling-mobile="'none'"
                                 map-options="$ctrl.mapOptions")

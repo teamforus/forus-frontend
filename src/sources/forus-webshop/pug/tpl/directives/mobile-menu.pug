@@ -1,0 +1,223 @@
+//- Dropdown menu
+.block.block-mobile-menu(ng-show="$root.mobileMenuOpened").show-sm
+    //- Mobile subitems group
+    .mobile-menu-group.mobile-menu-group-main
+        .mobile-menu-group-header
+            | Hoofdmenu
+
+        mixin item_content
+            em.mobile-menu-item-icon.mdi.mdi-arrow-right
+            translate(
+                translate="{{ menuItem.nameTranslate }}"
+                translate-default="{{ menuItem.nameTranslateDefault || menuItem.nameTranslate }}")
+
+        .mobile-menu-items
+            //- Home
+            a.mobile-menu-item(
+                ng-repeat-start="menuItem in $dir.menuItems" 
+                ng-if="menuItem.enabled && ['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1 && !menuItem.href"
+                ui-sref="{{ menuItem.srefValue }}"
+                ui-sref-active="active"
+                target="{{ menuItem.target || '_blank' }}"
+                ng-click="$dir.hideMobileMenu()")
+                +item_content()
+
+            a.mobile-menu-item(
+                ng-repeat-end 
+                ng-if="menuItem.enabled && ['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1 && menuItem.href"
+                href="{{ menuItem.href }}"
+                target="{{ menuItem.target || '_blank' }}"
+                ng-click="$dir.hideMobileMenu()")
+                +item_content()
+
+    //- Mobile subitems group
+    .mobile-menu-group
+        .mobile-menu-group-header
+            | Persoonlijk
+
+        .mobile-menu-items
+            //- Vouchers
+            a.mobile-menu-item(
+                ng-if="$root.auth_user && $dir.vouchers.length"
+                ui-sref="vouchers"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'vouchers'}"
+                aria-current="{{ $dir.$state.current.name == 'vouchers' }}" 
+                tabindex="0"
+                role="link")
+                
+                em.mobile-menu-item-icon.mdi.mdi-ticket-percent-outline
+                translate(
+                    translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.vouchers"
+                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.vouchers' | translate }}")
+
+            //- Log in Me-App
+            .mobile-menu-item(
+                ng-if="$root.auth_user"
+                ng-click="$dir.openPinCodePopup()"
+                tabindex="0"
+                role="button")
+
+                em.mobile-menu-item-icon.mdi.mdi-cellphone
+                translate(
+                    translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.authorize"
+                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.authorize' | translate }}")
+
+            //- Favourite products
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ui-sref="bookmarked-products"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'bookmarked-products'}"
+                aria-current="{{ $dir.$state.current.name == 'bookmarked-products' }}"
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-cards-heart-outline
+                translate(
+                    translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.bookmarked_products"
+                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.bookmarked_products' | translate }}")
+
+            //- Reservations
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ui-sref="reservations"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'reservations'}"
+                aria-current="{{ $dir.$state.current.name == 'reservations' }}"
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-calendar-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.reservations")
+
+            //- Reimbursements
+            a.mobile-menu-item(
+                ng-if="$root.auth_user && $dir.appConfigs.features.has_reimbursements"
+                ui-sref="reimbursements"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'reimbursements'}"
+                aria-current="{{ $dir.$state.current.name == 'reimbursements' }}" 
+                tabindex="0"
+                role="link")
+                
+                em.mobile-menu-item-icon.mdi.mdi-receipt-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.reimbursements")
+
+            //- Fund requests
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ui-sref="fund-requests"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'fund-requests'}"
+                aria-current="{{ $dir.$state.current.name == 'fund-requests' }}"
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-card-account-details-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.fund_requests")
+
+            //- Notifications
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ui-sref="notifications"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'notifications'}"
+                aria-current="{{ $dir.$state.current.name == 'notifications' }}" 
+                tabindex="0"
+                role="link") 
+
+                em.mobile-menu-item-icon.mdi.mdi-bell-ring-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.notifications")
+
+            //- Notification preferences
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ui-sref="preferences-notifications"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'preferences-notifications' }"
+                aria-current="{{ $dir.$state.current.name == 'preferences-notifications' }}" 
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-cog-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.preferences_notifications")
+
+            //- Sessions
+            a.mobile-menu-item(
+                ng-if="$root.auth_user && $dir.appConfigs.sessions"
+                ui-sref="security-sessions"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'security-sessions'}"
+                aria-current="{{ $dir.$state.current.name == 'security-sessions' }}"
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-shield-account-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.sessions")
+            
+            //- Identity emails
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ui-sref="identity-emails"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'identity-emails'}"
+                aria-current="{{ $dir.$state.current.name == 'identity-emails' }}" 
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-email-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.preferences_emails")
+
+            //- Security
+            a.mobile-menu-item(
+                ng-if="$root.auth_user && ($root.appConfigs.flags.show2FAMenu || $root.auth_2fa.required)" 
+                ui-sref="security-2fa"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'security-2fa'}"
+                aria-current="{{ $dir.$state.current.name == 'security-2fa' }}" 
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-security
+                translate(translate="topnavbar.buttons.mobile.dropdown.security")
+
+            //- Records
+            a.mobile-menu-item(
+                ng-if="$root.auth_user && $dir.appConfigs.features.records.list"
+                ui-sref="records"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'records'}"
+                aria-current="{{ $dir.$state.current.name == 'records' }}" 
+                tabindex="0"
+                role="link")
+                
+                em.mobile-menu-item-icon.mdi.mdi-format-list-bulleted
+                translate(translate="topnavbar.buttons.mobile.dropdown.records")
+
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ng-click="$dir.signOut()" 
+                role="button" 
+                aria-label="{{ 'topnavbar.buttons.logout' | translate }}")
+
+                em.mobile-menu-item-icon.mdi.mdi-logout
+                translate(translate="topnavbar.buttons.logout")
+
+            a.mobile-menu-item(ng-if="!$root.auth_user")
+                button.button.button-default.button-start(
+                    ng-if="$root.appConfigs.flags.showStartButton"
+                    ng-click="$dir.startFundRequest({ restore_with_email: true })"
+                    role="button").button-sm
+
+                    em.mdi.mdi-plus-circle.icon-start
+                    span(ng-bind="$root.appConfigs.flags.showStartButtonText || 'Start'")
+
+                button.button.button-primary(
+                    ng-click="$dir.startFundRequest()" 
+                    role="button" 
+                    aria-label="login" 
+                    id="login_mobile").button-sm
+
+                    em.mdi.mdi-account.icon-start
+                    translate(translate="topnavbar.buttons.login")     

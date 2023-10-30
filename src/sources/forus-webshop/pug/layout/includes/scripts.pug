@@ -7,7 +7,7 @@ script(src=src_prefix + "assets/dist/bundle/js/bundle.min" + qdt_c.append_assets
 if (qdt_c.platform.env_data.google_maps_api_key)
     script.
         window.mapsCallback = () => window.mapsLoaded = true
-    script(src="https://maps.googleapis.com/maps/api/js?key=" + qdt_c.platform.env_data.google_maps_api_key + "&callback=mapsCallback&language=nl")
+    script(src="https://maps.googleapis.com/maps/api/js?libraries=places&language=nl&key=" + qdt_c.platform.env_data.google_maps_api_key + "&callback=mapsCallback&language=nl")
 
 //- custom script
 script(src=src_prefix + "assets/js/app.min" + qdt_c.append_assets + ".js")

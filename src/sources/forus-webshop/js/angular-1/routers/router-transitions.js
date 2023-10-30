@@ -1,5 +1,5 @@
-module.exports = ['$transitions', '$filter', '$rootScope', 'appConfigs', 'PageLoadingBarService', (
-    $transitions, $filter, $rootScope, appConfigs, PageLoadingBarService
+module.exports = ['$transitions', '$filter', '$rootScope', 'appConfigs', 'PageLoadingBarService', 'HelperService', (
+    $transitions, $filter, $rootScope, appConfigs, PageLoadingBarService, HelperService
 ) => {
     const $i18n = $filter('i18n');
     const $translate = $filter('translate');
@@ -33,5 +33,7 @@ module.exports = ['$transitions', '$filter', '$rootScope', 'appConfigs', 'PageLo
         if (optionsCustom.moveTop !== false) {
             document.body.scrollTop = document.documentElement.scrollTop = 0;
         }
+
+        HelperService.focusElement(document.body);
     })
 }];

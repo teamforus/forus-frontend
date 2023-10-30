@@ -44,30 +44,35 @@ main(id="main-content"): section.section.section-profile: .wrapper
                         .label-tab.label-tab-sm(
                             role="button" 
                             ng-click="$ctrl.filters.state = null" 
+                            aria-pressed="{{ $ctrl.filters.state == null }}" 
                             ng-class="$ctrl.filters.state == null ? 'active' : ''")
                             | Alle
 
                         .label-tab.label-tab-sm(
                             role="button" 
-                            ng-click="$ctrl.filters.state = 'pending'" 
+                            ng-click="$ctrl.filters.state = 'pending'"
+                            aria-pressed="{{ $ctrl.filters.state == 'pending' }}"  
                             ng-class="$ctrl.filters.state == 'pending' ? 'active' : ''")
                             | In afwachting
 
                         .label-tab.label-tab-sm(
                             role="button" 
-                            ng-click="$ctrl.filters.state = 'approved'" 
+                            ng-click="$ctrl.filters.state = 'approved'"
+                            aria-pressed="{{ $ctrl.filters.state == 'approved' }}"  
                             ng-class="$ctrl.filters.state == 'approved' ? 'active' : ''")
                             | Uitbetaald
 
                         .label-tab.label-tab-sm(
                             role="button" 
                             ng-click="$ctrl.filters.state = 'declined'" 
+                            aria-pressed="{{ $ctrl.filters.state == 'declined' }}"
                             ng-class="$ctrl.filters.state == 'declined' ? 'active' : ''")
                             | Afgewezen
 
                         .label-tab.label-tab-sm(
                             role="button" 
-                            ng-click="$ctrl.filters.state = 'draft'" 
+                            ng-click="$ctrl.filters.state = 'draft'"
+                            aria-pressed="{{ $ctrl.filters.state == 'draft' }}" 
                             ng-class="$ctrl.filters.state == 'draft' ? 'active' : ''")
                             | Nog niet ingediend
 
@@ -75,14 +80,16 @@ main(id="main-content"): section.section.section-profile: .wrapper
                         .label-tab.label-tab-sm(
                             role="button" 
                             dusk="reimbursementsFilterActive"
-                            ng-click="$ctrl.filters.archived = 0" 
+                            ng-click="$ctrl.filters.archived = 0"
+                            aria-pressed="{{ !$ctrl.filters.archived }}" 
                             ng-class="!$ctrl.filters.archived ? 'active' : ''")
                             | Actief
 
                         .label-tab.label-tab-sm(
                             role="button" 
                             dusk="reimbursementsFilterArchived"
-                            ng-click="$ctrl.filters.archived = 1" 
+                            ng-click="$ctrl.filters.archived = 1"
+                            aria-pressed="{{ $ctrl.filters.archived ? true : false }}" 
                             ng-class="$ctrl.filters.archived ? 'active' : ''")
                             | Archief
 
@@ -96,7 +103,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
             //- Add reimbursement request card
             .block.block-action-card.block-action-card-compact(ng-if="$ctrl.reimbursements.data.length > 0 && $ctrl.vouchers.length > 0")
                 .block-card-logo(role="img" aria-label=""): include ../../../resources/_webshop-common/assets/img/icon-reimbursement.svg
-                .block-card-details: h3.block-card-title Kosten terugvragen
+                .block-card-details: h2.block-card-title Kosten terugvragen
                 .block-card-actions: a(ui-sref="reimbursements-create"): .button.button-primary-outline Bon insturen
 
             //- No reimbursement requests 

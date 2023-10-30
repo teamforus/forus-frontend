@@ -375,11 +375,32 @@
             }
 
             .select-control-container {
-                width: 400%;
-                max-width: 85vw;
+                box-sizing: border-box;
+                border: none;
+                width: 500%;
+                max-width: calc(100vw - 40px);
 
                 .form-control:not([type=radio]):not([type=checkbox]).select-control-search {
                     padding: 8px 15px;
+                }
+
+                .select-control-search-container {
+                    border: 1px solid var(--border-color);
+                    border-bottom: none;
+                    border-top-left-radius: var(--border-radius);
+                    border-top-right-radius: var(--border-radius);
+
+                    .select-control-search {
+                        border-radius: inherit;
+                        background-color: #FBFBFB !important;
+                    }
+                }
+
+                .select-control-options {
+                    border: 1px solid var(--border-color);
+                    border-top: none;
+                    border-bottom-left-radius: var(--border-radius);
+                    border-bottom-right-radius: var(--border-radius);
                 }
             }
         }

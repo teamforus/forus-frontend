@@ -35,7 +35,7 @@ block content
                                     | Mijn verlanglijstje
 
                             .form-group
-                                label.form-label(for="select_provider") Zoek aanbod
+                                label.form-label(for="products_search") Zoek aanbod
                                 ui-control-search-input(
                                     ng-model="$ctrl.form.values.q"
                                     placeholder="Zoek aanbod" 
@@ -87,6 +87,7 @@ block content
                                 .col.col-md-6: .form-group
                                     label.form-label(for="postcode") Postcode
                                     input.form-control(
+                                        id="postcode"
                                         ng-model="$ctrl.form.values.postcode"
                                         placeholder="Postcode"
                                         type="text"
@@ -126,6 +127,7 @@ block content
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'list'}"
                                         ng-click="$ctrl.showAs('list')"
+                                        aria-pressed="{{ $ctrl.display_type == 'list' }}"
                                         role="button")
                                         em.mdi.mdi-format-list-text.icon-start
                                         | Lijst
@@ -133,6 +135,7 @@ block content
                                     .label-tab.label-tab-sm(
                                         ng-class="{active: $ctrl.display_type == 'grid'}"
                                         ng-click="$ctrl.showAs('grid')"
+                                        aria-pressed="{{ $ctrl.display_type == 'grid' }}"
                                         role="button")
                                         em.mdi.mdi-view-grid-outline.icon-start
                                         | Foto's

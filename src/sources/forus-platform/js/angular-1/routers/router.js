@@ -346,7 +346,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$, OrganizationService,
             ) => repackPagination(OrganizationService.providerOrganizations($transition$.params().organization_id, {
                 ...pick($transition$.params(), [
-                    'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products',
+                    'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products', 'order_by',
                 ]),
             }))],
         }
@@ -1693,6 +1693,36 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Organization features
+    $stateProvider.state({
+        name: "features",
+        url: "/organizations/{organization_id}/features",
+        component: "featuresComponent",
+        resolve: {
+            organization: organizationResolver(),
+            features: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService
+            ) => repackResponse(OrganizationService.getFeatures(
+                $transition$.params().organization_id,
+            ))],
+        }
+    });
+
+    // Organization feature
+    $stateProvider.state({
+        name: "feature",
+        url: "/organizations/{organization_id}/features/{feature_key}",
+        component: "featureComponent",
+        resolve: {
+            organization: organizationResolver(),
+            features: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService
+            ) => repackResponse(OrganizationService.getFeatures(
+                $transition$.params().organization_id,
+            ))],
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',
@@ -1819,9 +1849,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
-        name: 'productboard',
+        name: 'feedback',
         url: '/feedback',
-        component: 'productBoardComponent',
+        component: 'feedbackComponent',
     });
 
     $stateProvider.state({
@@ -1833,11 +1863,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', (
             $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, PushNotificationsService
         ) => {
-            IdentityService.authorizeAuthEmailToken(
-                $state.params.token
-            ).then(function (res) {
-                let target = $state.params.target || '';
+            let target = $state.params.target || '';
 
+            IdentityService.authorizeAuthEmailToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
 
                 $rootScope.loadAuthUser().then(auth_user => {
@@ -1884,10 +1912,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         ) => {
             let target = $state.params.target || '';
 
-            IdentityService.exchangeConfirmationToken(
-                $state.params.token
-            ).then(function (res) {
+            IdentityService.exchangeConfirmationToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
+
                 $rootScope.loadAuthUser().then(() => {
                     if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
                         $state.go('home', {

@@ -2,9 +2,12 @@ const ModalProductVoucherCreateComponent = function(
     FormBuilderService,
     ProductService,
     VoucherService,
-    ModalService
+    ModalService,
 ) {
     const $ctrl = this;
+
+    $ctrl.showRecordFields = false;
+    $ctrl.showGeneralFields = true;
 
     $ctrl.assignTypes = [{
         key: 'activation_code',
@@ -72,6 +75,7 @@ const ModalProductVoucherCreateComponent = function(
             expire_at: $ctrl.fund.end_date,
             product_id: $ctrl.product?.id,
             fund_id: $ctrl.fund.id,
+            records: [],
         }, (form) => {
             const values = {
                 ...form.values,
@@ -81,6 +85,9 @@ const ModalProductVoucherCreateComponent = function(
                     activation_code: { activate: 0, activation_code: 1 },
                 }[$ctrl.assignType.key]),
                 assign_by_type: $ctrl.assignType.key,
+                records: form.values.records.reduce((records, record) => ({
+                    ...records, [record.key]: record.value,
+                }), {}),
             };
 
             const makRequest = (form) => {

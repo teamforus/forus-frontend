@@ -3,10 +3,9 @@
     cursor: default;
 
     .block-title {
-        font: 500 32px/36px var(--base-font);
-        text-align: center;
-        color: #191a1c;
-        margin: 0 0 20px;
+        font: 600 18px/18px var(--base-font);
+        text-align: left;
+        margin: 20px 0;
     }
 
     .block-icon {
@@ -179,6 +178,11 @@
         .sign_up-pane-body {
             padding: 20px 40px 20px;
             font: 400 16px/26px var(--base-font);
+
+            h2 {
+                margin: 0;
+                font: 600 16px/26px var(--base-font);
+            }
 
             .button {
                 &.button-text {
@@ -763,8 +767,9 @@
         margin-bottom: 10px;
         padding: 25px 20px;
         background-color: #fff;
-        font: 400 16px/20px var(--base-font);
+        font: 400 16px/22px var(--base-font);
         flex-wrap: wrap;
+        flex-direction: column;
 
         .sign_up-restore-label {
             display: inline-flex;
@@ -776,7 +781,6 @@
 
         .sign_up-restore-link {
             display: inline-flex;
-            display: block;
             font: inherit;
             font-weight: 600;
             color: var(--color-primary);
@@ -845,10 +849,6 @@
     @media (max-width: 991px) {
         margin: 0px -10px;
         padding: 10px 0 50px;
-
-        .block-title {
-            margin: 0 0 20px;
-        }
 
         .sign_up-header {
             margin: 0 -10px 25px;
@@ -1017,6 +1017,39 @@
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+            }
+        }
+
+        .sign_up-options {
+            &.sign_up-options-2fa {
+                .sign_up-option {
+                    padding: 10px;
+    
+                    .sign_up-option-media {
+                        margin-right: 8px;
+
+                        .sign_up-option-media-img {
+                            width: 40px;
+                        }
+                    }
+    
+                    .sign_up-option-details {
+                        .sign_up-option-title {
+                            font: 700 14px/20px var(--base-font);
+                        }
+    
+                        .sign_up-option-details {
+                            font: 700 12px/20px var(--base-font);
+                        }
+                    }
+    
+                    .sign_up-option-button {
+                        .button {
+                            padding: 10px;
+                            font: 600 11px/11px var(--base-font);
+                        }
+                    }
                 }
             }
         }

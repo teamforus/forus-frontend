@@ -51,9 +51,6 @@ module.exports = {
             subtitle: "Welkom op de website voor het Meedoenpakket van de gemeente Noordoostpolder. Hier kunt u zien hoe hoog uw Meedoen tegoed is en waar u het aan kunt besteden.",
             cta: "Klik op ‘Start’ om u aan te melden. Dit kan met uw e-mailadres en de activatiecode uit de brief. Komt u wel in aanmerking voor het Meedoenpakket, maar heeft u de activatiecode niet ontvangen? Neem dan telefonisch contact op met de gemeente via 0527 633911",
         },
-        nijmegen: {
-            cta_av: "",
-        },
         vergoedingen: {
             button: "Inloggen / registreren"
         }
@@ -103,11 +100,6 @@ module.exports = {
         fourteen: "Log in op de webshop en klik op 'Aanbod'. Kies vervolgens het aanbod dat u wilt en klik op 'Reserveer'. Kies vervolgens het tegoed om het aanbod mee te reserveren. " + 
             "Het bedrag van het aanbod wordt van uw tegoed afgehaald en het aanbod is voor u gereserveerd. U ziet de reservering ook staan in de lijst met reserveringen op de website. " + 
             "De daadwerkelijke betaling vindt plaats wanneer u bij de aanbieder de QR-code laat scannen. Toch geen gebruik maken van het aanbod? Dan kunt u de reservering annuleren. Heeft u na de betaling nog een bedrag over, dan kunt u met dat bedrag verder winkelen.",
-        nijmegen: {
-            faq_one: "Hoe kan ik een Meedoenregeling aanvragen?",
-            one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde e-mailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde en klik daarna op 'Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden' en ga naar de volgende stap. Uw Meedoenregeling-tegoed is gelijk geactiveerd!",
-            eleven: "Nee. Kinderen komen niet in aanmerking voor de meedoen-regeling."
-        },
         potjeswijzer: {
             faq_one: "Hoe kan ik een Potje aanvragen?",
             one: "Klik bovenaan op 'Start aanvraag'. Vul uw e-mailadres in en gebruik de login link in uw eigen vertrouwde e-mailbox. Vervolgens logt u in met uw eigen DigiD. Controleer of u voldoet aan de voorwaarde!",
@@ -292,12 +284,6 @@ module.exports = {
             three: "Als u een Meedoenpakket heeft gekregen dan kunt u de QR-code waarmee u kunt betalen vinden door op ‘Mijn tegoeden’ te klikken.",
             four: "Met de QR-code betaalt u bij deelnemende aanbieders. De aanbieder scant uw code. Daarna wordt het tegoed automatisch afgeschreven. De QR-code kunt u meenemen door de code uit te printen, naar uzelf te mailen of de Me app te gebruiken.",
             five: "Klik op 'Aanbod' om de aanbiedingen te zien. Als u klikt op 'Mijn tegoeden' ziet u hoeveel tegoed u heeft."
-        },
-        nijmegen: {
-            stepone: "Stap #1",
-            one: "Controleer of u voldoet aan de voorwaarden van de Meedoenregeling.",
-            steptwo: "Stap #2",
-            two: "Klik op de start knop om uw aanvraag te starten. Gebruik uw eigen e-mailadres.",
         },
         potjeswijzer: {
             one: "Klik op de knop 'Start' om uw aanvraag te beginnen.",

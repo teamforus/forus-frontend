@@ -22,7 +22,7 @@
 
         .modal-body: .modal-section.flex.flex-center.flex-grow.flex-vertical.text-center
             .media: include ../../../resources/_webshop-common/assets/img/icon-email-add.svg
-            .modal-title E-mailadres toevoegen
+            h2.modal-title E-mailadres toevoegen
             .modal-subtitle
                 | Voeg uw e-mailadres toe om berichten te kunnen ontvangen.
             
@@ -49,7 +49,7 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-header
-            .modal-title(translate="{{ 'modal_product_reserve.header.title_' + $ctrl.appConfigs.features.communication_type }}")
+            h2.modal-title(translate="{{ 'modal_product_reserve.header.title_' + $ctrl.appConfigs.features.communication_type }}")
             .modal-subtitle(
                 translate="{{ 'modal_product_reserve.description_' + $ctrl.appConfigs.features.communication_type }}"
                 translate-values="$ctrl.transValues")
@@ -67,7 +67,7 @@
                         img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
 
                     .voucher-details
-                        .voucher-name(ng-bind="voucher.fund.name")
+                        h3.voucher-name(ng-bind="voucher.fund.name")
                         .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount_locale")
 
                         .voucher-organization
@@ -92,12 +92,12 @@
                 ng-click="$ctrl.selectVoucher($ctrl.vouchers[0])") Bevestig
 
     //- Fill reservation fields except notes
-    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_DATA" ng-submit="$ctrl.productReserve()" dusk="productReserveForm")
+    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_DATA" ng-submit="$ctrl.validateFields()" dusk="productReserveForm")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
         .modal-header
-            .modal-title(translate="modal_product_reserve_notes.fill_notes.header.title")
+            h2.modal-title(translate="modal_product_reserve_notes.fill_notes.header.title")
             .modal-subtitle(
                 translate="modal_product_reserve_notes.fill_notes.header.subtitle" 
                 translate-vars="{ provider_name: $ctrl.provider.name }")
@@ -110,8 +110,9 @@
                 .flex-row
                     //- First name
                     .col.col-lg-6.col-xs-12.form-group.form-group-margin
-                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.first_name")
+                        label.form-label(translate="modal_product_reserve_notes.fill_notes.labels.first_name" for="reservation_modal_first_name")
                         input(
+                            id="reservation_modal_first_name"
                             type="text"
                             ng-model="$ctrl.form.values.first_name"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.first_name' | translate }}"
@@ -120,8 +121,9 @@
 
                     //- Last name
                     .col.col-lg-6.col-xs-12.form-group.form-group-margin
-                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.last_name")
+                        label.form-label(translate="modal_product_reserve_notes.fill_notes.labels.last_name" for="reservation_modal_last_name")
                         input(
+                            id="reservation_modal_last_name"
                             type="text"
                             ng-model="$ctrl.form.values.last_name"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.last_name' | translate }}"
@@ -133,7 +135,7 @@
                     .col.col-xs-12.form-group.form-group-margin(
                         ng-repeat="field in $ctrl.fields"
                         ng-class="'col-lg-' + (field.fullWidth ? '12' : '6')")
-                        .form-label(ng-bind="field.label")
+                        label.form-label(ng-bind="field.label" for="{{ field.key }}")
 
                         //- custom field
                         .form-group-info(ng-if="field.custom" ng-class="field.showInfo ? 'active' : ''")
@@ -166,6 +168,7 @@
 
                         //- default field
                         input.form-control(
+                            id="{{ field.key }}"
                             ng-if="!field.custom && ['text', 'number'].includes(field.type)"
                             type="{{ field.type }}"
                             ng-model="$ctrl.form.values[field.key]"
@@ -181,6 +184,7 @@
                             date-max-limit="{{ $ctrl.dateMinLimit + '' }}"
                             date-week-start-day="1").form-control
                             input(
+                                id="{{ field.key }}"
                                 ng-model="$ctrl.form.values[field.key]"
                                 type="text"
                                 placeholder="jjjj-MM-dd").form-control
@@ -212,8 +216,8 @@
                     dusk="btnSubmit"
                     translate="popup_auth.buttons.submit").button.button-primary.button-sm Proceed     
 
-    //- Fill reservation notes
-    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_NOTES" ng-submit="$ctrl.productReserve()" dusk="productReserveNotes")
+    //- Address
+    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_ADDRESS" ng-submit="$ctrl.validateAddress()" dusk="productReserveAddress")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
@@ -226,13 +230,123 @@
 
         //- Modal content
         .modal-body: .modal-content
+            .modal-section.modal-section-narrow
+                //- Address fields
+                .flex-row
+                    //- Street
+                    .col.col-lg-6.col-xs-12.form-group.form-group-margin
+                        label.form-label(
+                            translate="modal_product_reserve_notes.fill_notes.labels.street"
+                            for="reservation_modal_street")
+
+                        input(
+                            id="reservation_modal_street"
+                            type="text"
+                            ng-model="$ctrl.form.values.street"
+                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.street' | translate }}"
+                            dusk="productReserveFormStreet").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.street" ng-bind="error")
+
+                    //- House number
+                    .col.col-lg-3.col-xs-12.form-group.form-group-margin
+                        label.form-label(
+                            translate="modal_product_reserve_notes.fill_notes.labels.house_nr"
+                            for="reservation_modal_house_nr")
+
+                        input(
+                            id="reservation_modal_house_nr"
+                            type="text"
+                            ng-model="$ctrl.form.values.house_nr"
+                            placeholder="70, 1234, 2"
+                            dusk="productReserveFormHouseNumber").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.house_nr" ng-bind="error")
+
+                    //- House number addition
+                    .col.col-lg-3.col-xs-12.form-group.form-group-margin
+                        label.form-label(
+                            translate="modal_product_reserve_notes.fill_notes.labels.house_nr_addition"
+                            for="reservation_modal_house_nr_addition")
+
+                        input(
+                            id="reservation_modal_house_nr_addition"
+                            type="text"
+                            ng-model="$ctrl.form.values.house_nr_addition"
+                            placeholder="C, -2, -12, AB"
+                            dusk="productReserveFormHouseNumberAddition").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.house_nr_addition" ng-bind="error")
+
+                .flex-row
+                    //- Postal code
+                    .col.col-lg-6.col-xs-12.form-group.form-group-margin
+                        label.form-label(
+                            translate="modal_product_reserve_notes.fill_notes.labels.postal_code"
+                            for="reservation_modal_postal_code")
+
+                        input(
+                            id="reservation_modal_postal_code"
+                            type="text"
+                            ng-model="$ctrl.form.values.postal_code"
+                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.postal_code' | translate }}"
+                            dusk="productReserveFormPostalCode").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.postal_code" ng-bind="error")
+
+                    //- City
+                    .col.col-lg-6.col-xs-12.form-group.form-group-margin
+                        label.form-label(
+                            translate="modal_product_reserve_notes.fill_notes.labels.city"
+                            for="reservation_modal_city")
+
+                        input(
+                            id="reservation_modal_city"
+                            type="text"
+                            ng-model="$ctrl.form.values.city"
+                            placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.city' | translate }}"
+                            dusk="productReserveFormCity").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.city" ng-bind="error")
+
+        //- Actions
+        .modal-footer
+            //- Back to form
+            .flex.flex-grow
+                button.button.button-light.button-sm(
+                    type="button" 
+                    ng-click="$ctrl.close()") Annuleren
+
+            //- Submit 
+            .flex
+                button(
+                    type="button" ng-click="$ctrl.back()").button.button-light.button-sm Terug
+
+                button(
+                    type="submit" 
+                    dusk="btnSubmit"
+                    translate="popup_auth.buttons.submit").button.button-primary.button-sm Proceed     
+
+    //- Fill reservation notes
+    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_NOTES" ng-submit="$ctrl.validateFields()" dusk="productReserveNotes")
+        //- Modal close
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
+
+        .modal-header
+            h2.modal-title(translate="modal_product_reserve_notes.fill_notes.header.title")
+            .modal-subtitle(
+                translate="modal_product_reserve_notes.fill_notes.header.subtitle" 
+                translate-vars="{ provider_name: $ctrl.provider.name }")
+            +progress()
+
+        //- Modal content
+        .modal-body: .modal-content
             .modal-section
                 //- Product reservation
                 .row: .col.col-xs-12.col-md-12
                     //- User note
                     .form-group
-                        .form-label(translate="modal_product_reserve_notes.fill_notes.labels.notes")
+                        label.form-label(
+                            translate="modal_product_reserve_notes.fill_notes.labels.notes" 
+                            for="reservation_modal_user_note")
+
                         textarea.form-control(
+                            id="reservation_modal_user_note"
                             ng-model="$ctrl.form.values.user_note" 
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.notes' | i18n }}"
                             dusk="productReserveFormNote")
@@ -253,9 +367,8 @@
                     ng-click="$ctrl.back()").button.button-light.button-sm Terug
 
                 button(
-                    type="button" 
+                    type="submit" 
                     dusk="btnSubmit"
-                    ng-click="$ctrl.next()"
                     translate="popup_auth.buttons.submit").button.button-primary.button-sm Bevestig
 
     //- Reservation confirmation
@@ -263,7 +376,7 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-header
-            .modal-title(translate="modal_product_reserve_notes.confirm_notes.header.title")
+            h2.modal-title(translate="modal_product_reserve_notes.confirm_notes.header.title")
             .modal-subtitle(translate="modal_product_reserve_notes.confirm_notes.modal_section.title")
             +progress()
         
@@ -272,31 +385,70 @@
                 //- First name
                 .overview-item
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.first_name")
-                    .overview-item-value(ng-bind="$ctrl.form.values.first_name")
+                    .overview-item-value(ng-bind="$ctrl.form.values.first_name || '-'")
 
                 //- Last name
                 .overview-item
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.last_name")
-                    .overview-item-value(ng-bind="$ctrl.form.values.last_name")
+                    .overview-item-value(ng-bind="$ctrl.form.values.last_name || '-'")
 
                 //- Other fields
                 .overview-item(ng-repeat="field in $ctrl.fields")
-                    .overview-item-label(ng-if="!field.custom" translate="modal_product_reserve_notes.confirm_notes.labels.{{ field.key }}")
+                    .overview-item-label(
+                        ng-if="!field.custom" 
+                        translate="modal_product_reserve_notes.confirm_notes.labels.{{ field.key }}")
                     .overview-item-value(
                         ng-if="!field.custom"
-                        ng-class="{empty: !$ctrl.form.values[field.key]}"
-                        ng-bind="$ctrl.form.values[field.key] || $ctrl.emptyText")
+                        ng-bind="$ctrl.form.values[field.key] || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values[field.key] ? 'overview-item-value-empty' : ''")
 
-                    .overview-item-label(ng-if="field.custom" ng-bind="field.label")
+                    .overview-item-label(
+                        ng-if="field.custom" 
+                        ng-bind="field.label")
                     .overview-item-value(
                         ng-if="field.custom"
-                        ng-class="{empty: !$ctrl.form.values.custom_fields[field.key]}"
-                        ng-bind="$ctrl.form.values.custom_fields[field.key] || $ctrl.emptyText")
+                        ng-bind="$ctrl.form.values.custom_fields[field.key] || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.custom_fields[field.key] ? 'overview-item-value-empty' : ''")
+
+                //- Street field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.street")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.street || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.street ? 'overview-item-value-empty' : ''")
+
+                //- House number field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.house_nr")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.house_nr || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.house_nr ? 'overview-item-value-empty' : ''")
+
+                //- House number addition field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.house_nr_addition")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.house_nr_addition || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.house_nr_addition ? 'overview-item-value-empty' : ''")
+
+                //- Postal code field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.postal_code")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.postal_code || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.postal_code ? 'overview-item-value-empty' : ''")
+
+                //- City field
+                .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
+                    .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.city")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.city || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.city ? 'overview-item-value-empty' : ''")
     
                 //- User note
                 .overview-item(ng-if="$ctrl.form.values.user_note")
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.notes")
-                    .overview-item-value(ng-bind="$ctrl.form.values.user_note")
+                    .overview-item-value(ng-bind="$ctrl.form.values.user_note || $ctrl.emptyText")
 
         //- Actions
         .modal-footer

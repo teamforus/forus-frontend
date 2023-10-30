@@ -43,9 +43,9 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
                     //- state
                     .form-group
-                        label.form-label(for="select_provider") Status
+                        label.form-label(for="select_state") Status
                         select-control(
-                            id="select_filters"
+                            id="select_state"
                             name="state"
                             prop="value"
                             ng-model="$ctrl.filters.state"
@@ -64,12 +64,14 @@ main(id="main-content"): section.section.section-profile: .wrapper
                         .label-tab.label-tab-sm(
                             ng-class="{active: !$ctrl.filters.archived}"
                             ng-click="$ctrl.filters.archived = 0"
+                            aria-pressed="{{ !$ctrl.filters.archived }}"
                             role="button")
                             | Actief
 
                         .label-tab.label-tab-sm(
                             ng-class="{active: $ctrl.filters.archived}"
                             ng-click="$ctrl.filters.archived = 1"
+                            aria-pressed="{{ $ctrl.filters.archived ? true : false }}"
                             role="button")
                             | Archief
 

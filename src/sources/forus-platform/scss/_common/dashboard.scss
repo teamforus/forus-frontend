@@ -56,7 +56,7 @@
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
     @import 'blocks/block-export-options.scss';
-    @import 'blocks/block-productboard-result.scss';
+    @import 'blocks/block-feedback-result.scss';
     @import 'blocks/block-permissions-list.scss';
     @import 'blocks/block-announcements.scss';
     @import 'blocks/block-implementation-blocks-editor';
@@ -65,6 +65,13 @@
     @import 'blocks/block-info-box.scss';
     @import 'blocks/block-bi-info.scss';
     @import 'blocks/block-pincode.scss';
+    @import 'blocks/block-voucher-records-editor.scss';
+    @import 'blocks/block-features-overview.scss';
+    @import 'blocks/block-features-demo-banner.scss';
+    @import 'blocks/block-feature-content.scss';
+    @import 'blocks/block-features.scss';
+    @import 'blocks/block-feature.scss';
+    @import 'blocks/block-feature-faq.scss';
 }
 
 // Select controls
@@ -167,6 +174,7 @@ body {
 
 .app {
     flex: 1 0 auto;
+    @include webkit_scrollbar(#848588);
 
     &.app-header {
         padding: 30px 0;
@@ -356,7 +364,7 @@ body {
                             }
 
                             &.notifications-menu-item-new {
-                                background-color: #f5f8fa70;
+                                background-color: #e4ecf170;
                             }
 
                             &:last-child {
@@ -530,7 +538,7 @@ body {
 
                             &:after{
                                 content: '';
-                                background-image: url('../img/icon-check.svg');
+                                background-image: assetUrl('img/icon-check.svg');
                                 background-position: center;
                                 background-size: contain;
                                 background-repeat: no-repeat;
@@ -1128,6 +1136,39 @@ body {
                 margin: 0 0 15px;
                 color: #282B39;
             }
+        }
+    }
+
+    .card-info {
+        border-bottom: 1px solid var(--border-color);
+        padding: 10px 15px;
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        min-height: 50px;
+        gap: 15px;
+
+        .card-info-icon {
+            min-height: 20px;
+            font-size: 18px;
+            align-self: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-info-details {
+            font: 400 13px/18px var(--base-font);
+            margin: 0 0 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            strong {
+                font-weight: 500;
+            }
+        }
+
+        &.card-info-dim {
+            background-color: #fbfbfb;
         }
     }
 
@@ -1763,6 +1804,8 @@ body {
                         display: block;
                         width: 22px;
                         height: 22px;
+                        min-width: 22px;
+                        min-height: 22px;
                         border: 2px solid #d2e6ff;
                         border-radius: 50%;
                         position: relative;
@@ -2413,7 +2456,7 @@ body {
             ul {
                 li {
                     font: inherit;
-                    background-image: url('../img/icon-list.svg');
+                    background-image: assetUrl('img/icon-list.svg');
                     background-repeat: no-repeat;
                     line-height: 30px;
                     padding-left: 50px;
@@ -2917,6 +2960,7 @@ body {
                     background: #EFF2F4;
                     border: none;
                     border-radius: 8px;
+                    display: block;
                 }
 
                 .photo-label {
@@ -3717,7 +3761,7 @@ body {
             box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
             border: 2px dashed #d2e6ff;
 
-            img {
+            img, canvas {
                 display: block;
                 width: 100%;
             }
@@ -3852,7 +3896,7 @@ body {
             border-radius: 15px;
             box-shadow: 0 5px 35px rgba(#000, .075);
 
-            img {
+            img, canvas {
                 display: block;
                 width: 100%;
             }
@@ -4234,7 +4278,7 @@ body {
             padding: 160px 30px 60px;
             margin: 0 auto;
             text-align: center;
-            background: url('../img/upload-bg.png') no-repeat 50% 50px;
+            background: assetUrl('img/upload-bg.png') no-repeat 50% 50px;
 
             .button-group {
                 margin: 0 0 5px;
@@ -4597,7 +4641,7 @@ body {
         width: 100%;
         border: 1px dashed #d4d9dd;
         padding: 15px 55px 15px;
-        background: url('../img/icon-file.png') no-repeat;
+        background: assetUrl('img/icon-file.png') no-repeat;
         background-position: 25px 20px;
         position: relative;
         border-radius: 4px;
@@ -4726,7 +4770,7 @@ body {
             max-width: 100%;
 
             input {
-                background-image: url('../img/looking-glass.png');
+                background-image: assetUrl('img/looking-glass.png');
                 background-repeat: no-repeat;
                 background-size: auto 120%;
                 background-position: 100% 50%;
@@ -4909,6 +4953,9 @@ body {
         }
 
         .block-information-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             font: 500 13px/18px var(--base-font);
             color: #646F79;
 
@@ -5099,7 +5146,7 @@ body {
 
             &.button-digid {
                 background-color: #000;
-                background-image: url('../img/icon-digid.svg');
+                background-image: assetUrl('img/icon-digid.svg');
                 background-repeat: no-repeat;
                 background-position: center;
                 border-color: #000;
@@ -5289,7 +5336,7 @@ body {
     
             &:last-child {
                 border-top-right-radius: calc(var(--border-radius) / 2);
-                border-bottom-right-radius: calc(var(--border-radius) / 2);
+                border-bottom-right-radius: calc(var(--border-radius) / 2); 
                 border-right: 1px solid var(--border-color);
             }
     
@@ -6595,7 +6642,7 @@ body {
     }
 
     &.signup-layout-new {
-        background-color: #fff;
+        background: #fff;
 
         .button {
             line-height: 28px;
@@ -6755,20 +6802,5 @@ body {
 @media screen and (max-width: 1000px) {
     .wrapper {
         padding: 0 25px;
-    }
-
-    .form {
-        .form-group {
-            &.form-group-inline {
-                .form-label {
-                    width: auto;
-                }
-
-                .form-offset,
-                .form-control {
-                    width: 100%;
-                }
-            }
-        }
     }
 }

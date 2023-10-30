@@ -19,10 +19,8 @@ const ReimbursementsComponent = function (
     };
 
     $ctrl.onPageChange = (query = {}) => {
-        $ctrl.filters = { ...$ctrl.filters, ...query };
-
         const { state, archived, fund_id } = query;
-        const data = { ...$ctrl.filters, fund_id, state: archived ? null : state };
+        const data = { ...$ctrl.filters, ...query, fund_id, state: archived ? null : state };
 
         PageLoadingBarService.setProgress(0);
 
