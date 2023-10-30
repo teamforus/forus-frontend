@@ -154,7 +154,7 @@
             .card-section.card-section-primary(ng-if="!$ctrl.form.values.external_page"): .row: .col.col-lg-9.col-lg-12
                 .form-group.form-group-inline
                     label(translate="funds_edit.labels.description").form-label
-                    .form-offset: markdown(
+                    .form-offset: markdown-editor(
                         extended-options="true"
                         value="$ctrl.form.values.description_html"
                         ng-model="$ctrl.form.values.description")

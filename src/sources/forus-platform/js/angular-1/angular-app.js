@@ -257,7 +257,7 @@ app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'
 app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
-app.directive('markdown', require('./directives/MarkdownDirective'));
+app.directive('markdownEditor', require('./directives/MarkdownEditorDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('tableCheckboxControl', require('./directives/TableCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
