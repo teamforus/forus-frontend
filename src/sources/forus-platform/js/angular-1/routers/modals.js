@@ -222,4 +222,8 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('2FADeactivate', {
         component: 'modal2FADeactivateComponent'
     });
+
+    ModalRouteProvider.modal('featureContact', {
+        component: 'modalFeatureContactComponent'
+    });
 }];

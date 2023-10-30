@@ -49,7 +49,6 @@ module.exports = {
         }
     },
     buttons: {
-        activate: "Regelingen",
         westerkwartier: {
             activate: "Aanvragen",
         },

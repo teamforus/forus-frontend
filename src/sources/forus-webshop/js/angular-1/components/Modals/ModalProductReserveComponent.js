@@ -14,16 +14,10 @@ const ModalProductReserveComponent = function (
     $ctrl.STEP_EMAIL_SETUP = 0;
     $ctrl.STEP_SELECT_VOUCHER = 1;
     $ctrl.STEP_FILL_DATA = 2;
-    $ctrl.STEP_FILL_NOTES = 3;
-    $ctrl.STEP_CONFIRM_DATA = 4;
-    $ctrl.STEP_RESERVATION_FINISHED = 5;
-
-    $ctrl.steps = [
-        $ctrl.STEP_SELECT_VOUCHER,
-        $ctrl.STEP_FILL_DATA,
-        $ctrl.STEP_FILL_NOTES,
-        $ctrl.STEP_CONFIRM_DATA,
-    ];
+    $ctrl.STEP_FILL_ADDRESS = 3;
+    $ctrl.STEP_FILL_NOTES = 4;
+    $ctrl.STEP_CONFIRM_DATA = 5;
+    $ctrl.STEP_RESERVATION_FINISHED = 6;
 
     $ctrl.dateMinLimit = new Date();
     $ctrl.fields = [];
@@ -34,7 +28,7 @@ const ModalProductReserveComponent = function (
         $state.go('reservations');
     };
 
-    $ctrl.onError = (res) => {
+    $ctrl.onError = (res, address = false) => {
         const { errors = {}, message } = res.data;
 
         $ctrl.form.errors = errors;
@@ -47,17 +41,34 @@ const ModalProductReserveComponent = function (
         if (!errors.product_id && message) {
             PushNotificationsService.danger(message);
         }
+
+        $ctrl.setStep(address ? $ctrl.STEP_FILL_ADDRESS : $ctrl.STEP_FILL_DATA);
     };
 
-    $ctrl.productReserve = () => {
-        ProductReservationService.validate({
+    $ctrl.validateFields = () => {
+        ProductReservationService.validateFields({
             ...$ctrl.form.values,
             voucher_address: $ctrl.voucher.address,
             product_id: $ctrl.product.id,
         }).then(() => {
             $ctrl.form.errors = {};
+            $ctrl.next();
+        }, (err) => $ctrl.onError(err, false));
+    };
+
+    $ctrl.validateAddress = () => {
+        ProductReservationService.validateAddress({
+            address: $ctrl.form.values.postal_code ? $ctrl.form.values.address : null,
+            street: $ctrl.form.values.street,
+            house_nr: $ctrl.form.values.house_nr,
+            house_nr_addition: $ctrl.form.values.house_nr_addition,
+            city: $ctrl.form.values.city,
+            postal_code: $ctrl.form.values.postal_code,
+            product_id: $ctrl.product.id,
+        }).then(() => {
+            $ctrl.form.errors = {};
             $ctrl.setStep($ctrl.step + 1);
-        }, $ctrl.onError);
+        }, (err) => $ctrl.onError(err, true));
     };
 
     $ctrl.confirmSubmit = () => {
@@ -76,10 +87,6 @@ const ModalProductReserveComponent = function (
     $ctrl.mapFields = (customFields = []) => {
         if ($ctrl.product.reservation.phone !== 'no') {
             $ctrl.fields.push($ctrl.makeReservationField('phone', 'text', 'productReserveFormPhone'));
-        }
-
-        if ($ctrl.product.reservation.address !== 'no') {
-            $ctrl.fields.push($ctrl.makeReservationField('address', 'text', 'productReserveFormAddress'));
         }
 
         if ($ctrl.product.reservation.birth_date !== 'no') {
@@ -103,15 +110,11 @@ const ModalProductReserveComponent = function (
     };
 
     $ctrl.back = () => {
-        $ctrl.setStep($ctrl.step - 1);
+        $ctrl.setStep($ctrl.steps[$ctrl.steps.indexOf($ctrl.step) - 1]);
     };
 
     $ctrl.next = () => {
-        if ($ctrl.step == $ctrl.STEP_FILL_DATA) {
-            $ctrl.productReserve();
-        } else {
-            $ctrl.setStep($ctrl.step + 1);
-        }
+        $ctrl.setStep($ctrl.steps[$ctrl.steps.indexOf($ctrl.step) + 1]);
     };
 
     $ctrl.selectVoucher = (voucher) => {
@@ -120,14 +123,22 @@ const ModalProductReserveComponent = function (
     };
 
     $ctrl.$onInit = () => {
+        $ctrl.product = $ctrl.modal.scope.product;
+        $ctrl.provider = $ctrl.product.organization;
+        $ctrl.vouchers = $ctrl.modal.scope.vouchers.map((voucher) => VoucherService.composeCardData({ ...voucher }));
+
+        $ctrl.steps = [
+            $ctrl.STEP_SELECT_VOUCHER,
+            $ctrl.STEP_FILL_DATA,
+            $ctrl.product.reservation.address !== 'no' ? $ctrl.STEP_FILL_ADDRESS : null,
+            $ctrl.STEP_FILL_NOTES,
+            $ctrl.STEP_CONFIRM_DATA,
+        ].filter((step) => step !== null);
+
         $ctrl.appConfigs = appConfigs;
         $ctrl.emailSetupShow = false;
         $ctrl.emailSubmitted = false;
         $ctrl.emailShowForm = false;
-
-        $ctrl.product = $ctrl.modal.scope.product;
-        $ctrl.provider = $ctrl.product.organization;
-        $ctrl.vouchers = $ctrl.modal.scope.vouchers.map((voucher) => VoucherService.composeCardData({ ...voucher }));
 
         const reservationExpireDate = moment().startOf('day').add(14, 'day').unix();
         const closestDate = Math.min(reservationExpireDate, $ctrl.modal.scope.meta.shownExpireDate.unix);
@@ -146,7 +157,10 @@ const ModalProductReserveComponent = function (
                 ...form.values,
                 voucher_address: $ctrl.voucher.address,
                 product_id: $ctrl.product.id,
-            }).then($ctrl.next(), $ctrl.onError);
+            }).then(
+                () => $ctrl.setStep($ctrl.STEP_RESERVATION_FINISHED),
+                (err) => $ctrl.onError(err, false),
+            );
         }, true);
 
         if ($ctrl.step <= $ctrl.STEP_SELECT_VOUCHER) {

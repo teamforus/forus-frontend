@@ -89,7 +89,7 @@
 
         //- Auth 2FA provider code confirmation
         form.modal-window.form(
-            ng-if="$ctrl.step == 'provider_confirmation'")(
+            ng-if="$ctrl.step == 'provider_confirmation'"
             ng-submit="$ctrl.confirmationCode.length !== 6 ? null : $ctrl.activateProvider()")
 
             .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" role="button")

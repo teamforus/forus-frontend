@@ -65,6 +65,11 @@
                 color: var(--tc);
                 padding-right: 100px;
 
+                a {
+                    font: inherit;
+                    color: var(--tc);
+                }
+
                 &:last-child {
                     margin-bottom: 0;
                 }
