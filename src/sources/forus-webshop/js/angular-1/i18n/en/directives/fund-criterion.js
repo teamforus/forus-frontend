@@ -7,9 +7,6 @@ module.exports = {
             zuidhorn: {
                 location: "Zuidhorn",
             },
-            nijmegen: {
-                location: "Nijmegen",
-            },
             westerkwartier: {
                 location: "Westerkwartier",
             },
