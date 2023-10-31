@@ -135,7 +135,7 @@ const ProductVouchersComponent = function(
         const type = 'product';
         const filters = $ctrl.getQueryParams($ctrl.filters.values);
 
-        VoucherExportService.exportVouchers($ctrl.organization.id, filters, type);
+        VoucherExportService.exportVouchers($ctrl.organization.id, $ctrl.fund.allow_voucher_records, filters, type);
     };
 
     $ctrl.onPageChange = (query) => {

@@ -64,9 +64,6 @@ module.exports = {
         key: "{{key}}"
     },
     buttons: {
-        nijmegen: {
-            start_request: "Aanvragen"
-        },
         IIT: {
             already_received: "Aanvragen",
         },
@@ -84,6 +81,7 @@ module.exports = {
         is_applicable: "Activeer",
         is_pending: "In behandeling",
         already_received: "Open tegoed",
+        check_status: "Status controleren",
     },
     status: {
         is_applicable: "Aanmelden",

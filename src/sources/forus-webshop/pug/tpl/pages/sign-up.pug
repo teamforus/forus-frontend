@@ -33,8 +33,9 @@ mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Account herst
             ng-click="$ctrl.setState('restore')"
             role="button"
             tabindex="0"
-            ng-show=ngShow dusk=dusk)=link
-        .sign_up-restore-chevron: .mdi.mdi-chevron-right
+            ng-show=ngShow dusk=dusk)
+            span=link
+            .sign_up-restore-chevron: .mdi.mdi-chevron-right
 
 mixin inline_email_form(showPolicy=true)
     form(ng-submit="$ctrl.authForm.submit()" dusk="authEmailForm").form
@@ -46,7 +47,7 @@ mixin inline_email_form(showPolicy=true)
                     ng-change="$ctrl.onChange()"
                     data-placeholder="e-mail@e-mail.nl" 
                     data-id="email" 
-                    tabindex="1" 
+                    data-tabindex="1"
                     auto-focus="true"
                     input-dusk="authEmailFormEmail"
                     name="email")

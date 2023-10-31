@@ -448,7 +448,7 @@
                 padding-bottom: 8px;
                 margin: 0;
                 text-align: right;
-                padding-right: 15px;
+                padding-right: 10px;
                 float: left;
                 color: black;
 
@@ -483,7 +483,7 @@
                 float: left;
             }
 
-            &.form-group-inline-lg {
+            &.form-group-inline-xl {
                 &>.form-label {
                     width: 250px;
                 }
@@ -496,6 +496,22 @@
                 &>.form-error {
                     margin-left: 250px;
                     width: calc(100% - 250px);
+                }
+            }
+
+            &.form-group-inline-lg {
+                &>.form-label {
+                    width: 145px;
+                }
+
+                &>.form-offset,
+                &>.form-control {
+                    width: calc(100% - 145px);
+                }
+
+                &>.form-error {
+                    margin-left: 145px;
+                    width: calc(100% - 145px);
                 }
             }
 
@@ -1016,6 +1032,26 @@
                 border-radius: 3px;
                 word-wrap: break-word;
                 white-space: pre-wrap;
+            }
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .form-group {
+            &.form-group-inline {
+                .form-label {
+                    width: auto !important;
+                    padding: 3px 0 !important;
+
+                    &.form-label-required {
+                        padding-left: 5px !important;
+                    }
+                }
+
+                .form-offset,
+                .form-control {
+                    width: 100% !important;
+                }
             }
         }
     }

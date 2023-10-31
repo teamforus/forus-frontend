@@ -7,6 +7,8 @@ module.exports = [() => {
             mobileMenuOpened: $rootScope.mobileMenuOpened
         }), (value) => {
             $element.css('overflow', (value?.modals?.length > 0 || value?.mobileMenuOpened) ? 'hidden' : 'auto');
+
+            angular.element(document.querySelector('#main-content')).css('visibility', value?.mobileMenuOpened ? 'hidden' : 'visible');
         }, true);
     };
 

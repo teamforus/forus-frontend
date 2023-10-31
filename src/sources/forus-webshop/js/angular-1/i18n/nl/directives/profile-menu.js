@@ -20,5 +20,6 @@ module.exports = {
         sessions: "Sessies",
         email_settings: "E-mail instellingen",
         security: "Beveiliging",
+        fund_requests: "Aanvragen",
     },
 }

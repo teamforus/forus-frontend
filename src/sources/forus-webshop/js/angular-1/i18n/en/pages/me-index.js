@@ -7,7 +7,6 @@ module.exports = {
     },
     header: {
         title_general: "A profile for the Forus Platform",
-        title_nijmegen: "A profile for the Meedoen-regeling",
         title_zuidhorn: "A profile for the Kindpakket",
         title_westerkwartier: "A profile for the Kindpakket",
         title_forus: "A profile for the Kerstpakket",

@@ -27,7 +27,7 @@
             .card-section.card-section-primary
                 .row: .col.col-lg-9
                     //- Select type (internal or external)
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped
+                    .form-group.form-group-inline.form-group-inline-xl.tooltipped
                         label.form-label Status
                         .form-offset
                             select-control(
@@ -38,7 +38,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.external" ng-bind="error")
 
                     //- Select type (internal or external)
-                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.allow_external").tooltipped
+                    .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.allow_external").tooltipped
                         label.form-label Pagina type
                         .form-offset
                             select-control(
@@ -51,7 +51,7 @@
                         tooltip(text="'Internal pages are hosted on our webshop domain and you can edit the content of the page below. Or you can select external, to provider a custom url for the page.'")
 
                     //- External page url
-                    .form-group.form-group-inline.form-group-inline-lg(ng-if="$ctrl.form.values.external")
+                    .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.form.values.external")
                         label.form-label Externe url
                         //- enabled field
                         input.form-control(
@@ -60,10 +60,10 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.external_url" ng-bind="error")
 
                     //- Page content
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="!$ctrl.form.values.external")
+                    .form-group.form-group-inline.form-group-inline-xl.tooltipped(ng-if="!$ctrl.form.values.external")
                         label.form-label(translate="implementation_edit.labels.{{ $ctrl.page_type }}")
                         .form-offset
-                            markdown(
+                            markdown-editor(
                                 extended-options="true"
                                 value="$ctrl.form.values.description_html" 
                                 ng-model="$ctrl.form.values.description"
@@ -71,7 +71,7 @@
                                 block-alignment="$ctrl.form.values.description_alignment")
                     
                     //- Select description default settings
-                    .form-group.form-group-inline.form-group-inline-lg.tooltipped(ng-if="$ctrl.page_type_config.description_position_configurable && !$ctrl.form.values.external")
+                    .form-group.form-group-inline.form-group-inline-xl.tooltipped(ng-if="$ctrl.page_type_config.description_position_configurable && !$ctrl.form.values.external")
                         label.form-label Positie van de content
                         .form-offset
                             select-control(
@@ -86,7 +86,7 @@
 
             //- Blocks
             .card-section.card-section-primary(ng-if="$ctrl.page_type_config.blocks && !$ctrl.form.values.external")
-                .form-group.form-group-inline.form-group-inline-lg
+                .form-group.form-group-inline.form-group-inline-xl
                     label.form-label Blokken
 
                     implementation-blocks-editor(
@@ -95,7 +95,7 @@
                         implementation="$ctrl.implementation"
                         register-parent="$ctrl.registerImplementationBlocksEditor(childRef)")
 
-                .row: .col.col-lg-9: .form-group.form-group-inline.form-group-inline-lg 
+                .row: .col.col-lg-9: .form-group.form-group-inline.form-group-inline-xl 
                     label.form-label Blokken per rij
                     select-control(
                         prop="value"
@@ -106,7 +106,7 @@
             //- FAQ
             .card-section.card-section-primary(ng-if="$ctrl.page_type_config.faq && !$ctrl.form.values.external")    
                 //- FAQ Editor
-                .form-group.form-group-inline.form-group-inline-lg
+                .form-group.form-group-inline.form-group-inline-xl
                     label.form-label Veel gestelde vragen
                     .form-offset: faq-editor(
                         faq="$ctrl.form.values.faq"
