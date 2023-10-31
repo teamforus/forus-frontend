@@ -50,7 +50,7 @@ module.exports = {
             postal_code: 'Postcode:',
             city: 'Plaats:',
             birth_date: 'Geboortedatum: ',
-            empty: 'Empty',
+            empty: 'Leeg',
         },
         buttons: {
             adjust: 'Terug',
