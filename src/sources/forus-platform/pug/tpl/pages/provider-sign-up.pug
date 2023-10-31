@@ -136,7 +136,7 @@
                             .app_download-row: h4.app_download-heading Of stuur een downloadlink direct naar uw telefoon
                             .app_download-row: .app_download-col
                                 label.form-label Mobiele telefoonnummer
-                                phone-control(ng-model="$ctrl.phoneForm.values.phone").visible-md.visible-lg
+                                phone-control(ng-model="$ctrl.phoneForm.values.phone" phone-code="$ctrl.phoneCode").visible-md.visible-lg
                                 .pincode-errors: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
 
                             .app_download-row: button.button.button-primary-outline(
@@ -189,7 +189,7 @@
 
                 //- Sms sent message
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.shareSmsSent") 
-                    .sign_up-pane-heading U heeft een SMS ontvangen op {{ $ctrl.phoneForm.values.phone | phone_number_format }}
+                    .sign_up-pane-heading U heeft een SMS ontvangen op {{ $ctrl.phoneFormatted }}
                     
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content

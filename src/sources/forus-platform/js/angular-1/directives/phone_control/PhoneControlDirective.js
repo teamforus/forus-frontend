@@ -31,10 +31,12 @@ const PhoneControlDirective = function (
 
     $dir.onChangeCountry = (e) => {
         $dir.ngModel = $dir.getFullPhoneNumber();
+        $dir.phoneCode = `+${$dir.dialCode}`;
     };
 
     $dir.onChangeNumber = () => {
         $dir.ngModel = $dir.getFullPhoneNumber();
+        $dir.phoneCode = `+${$dir.dialCode}`;
     };
 
     $dir.onKeyDown = (e) => {
@@ -53,9 +55,8 @@ module.exports = () => {
     return {
         scope: {
             ngModel: '=',
+            phoneCode: '=?',
         },
-        restrict: "EA",
-        replace: true,
         require: {
             ngModelCtrl: 'ngModel',
         },
