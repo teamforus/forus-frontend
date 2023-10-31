@@ -1,7 +1,7 @@
 .button {
     font: 700 16px/1.5em var(--base-font);
     padding: 12px 25px;
-    color: #646f79;
+    color: var(--btn-text-color);
     cursor: pointer;
     border: 1px solid transparent;
     transition: color 0.4s, background 0.4s, box-shadow 0.4s, border 0.4s;
@@ -131,7 +131,7 @@
         display: inline-block;
         color: #303030;
         background: #fff;
-        border: 1px solid #d4d9dd;
+        border: 1px solid #282B39;
 
         &:hover {
             color: #fff;
@@ -146,7 +146,7 @@
     }
 
     &.button-muted {
-        color: #9ea7b5;
+        color: var(--btn-text-muted);
         background: #f0f2f4;
         border-color: #f0f2f4;
 
@@ -280,7 +280,7 @@
     &.button-disabled {
         background: #eff2f4;
         border-color: #eff2f4;
-        color: #cdced2;
+        color: var(--tc-muted);
         box-shadow: none;
         pointer-events: none;
         cursor: default;

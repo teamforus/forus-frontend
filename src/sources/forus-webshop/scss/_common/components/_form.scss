@@ -32,9 +32,8 @@
         cursor: default;
         font: 500 12px/20px var(--base-font);
         margin-bottom: 4px;
-        color: var(--tc);
+        color: var(--tc-form-label-text);
         padding: 0;
-        color: var(--tc);
 
         &.form-label-required {
             &:after {
@@ -51,7 +50,7 @@
         border: 1px solid transparent;
         background-color: #fbfbfb;
         padding: var(--form-padding);
-        color: var(--tc);
+        color: var(--tc-input-text);
         font: var(--form-font);
         line-height: 20px;
         transition: background-color 0.4s ease, border 0.4s ease;
@@ -196,6 +195,10 @@
         .select-control-search {
             cursor: pointer;
 
+            .select-control-search-placeholder {
+                color: var(--placeholder_text_color);
+            }
+
             &:focus {
                 border: 1px solid black;
                 box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -280,8 +283,8 @@
 
                 &:hover,
                 &:focus {
-                    background: whitesmoke;
-                    border-color: whitesmoke;
+                    background: var(--select-option-hover-bg-color);
+                    color: var(--select-option-hover-tc);
                 }
 
                 &:last-child {

@@ -40,6 +40,9 @@ $primaryColorLight: #305dfb;
     --htc: var(--tc);
     --tc-var: inherit;
     --tc-link: inherit;
+    --tc-input-text: var(--tc);
+    --tc-form-label-text: #595959;
+    --tc-muted: #595959;
 
     // base color
     --bc: #d13b3b;
@@ -65,10 +68,10 @@ $primaryColorLight: #305dfb;
     --product-image-padding: 10px 0 0 10px;
 
     // placeholder text color
-    --placeholder_text_color: #9b9b9b;
+    --placeholder_text_color: #535561;
 
     --border-color: #dddddd;
-    --border-color-form: #{#{desaturate(darken(#dddddd, 35%), 75%)}};
+    --border-color-form: #282B39;
 
     --border-radius: 8px;
     --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
@@ -83,6 +86,22 @@ $primaryColorLight: #305dfb;
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
+    // buttons
+    --btn-text-color: #282B39;
+    --btn-text-muted: #595959;
+
+    // select inputs
+    --select-option-hover-bg-color: #E5E5E5;
+    --select-option-hover-tc: #000000;
+
+    // labels
+    --label-bg-color: #595959;
+
+    // label sets
+    --label-set-active-color: #282B39;
+    --label-set-hover-color: #717791;
+    --label-set-focus-color: #282B39;
+
     // sign up
     --sign_up_accent_color: #305dfb;
     --sign_up_accent_color_light: #bdcbff;
@@ -92,6 +111,7 @@ $primaryColorLight: #305dfb;
     --sign_up_digid_btn_text: #4b71ff;
     --sign_up_digid_btn_border: none;
     --sign_up_digid_btn_border_radius: 5px;
+    --sign_up_loader_icon_color: #282B39;
 
     // Nav item line position
     --nav-line-top: 0;

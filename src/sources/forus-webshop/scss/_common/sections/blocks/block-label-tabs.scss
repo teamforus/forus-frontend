@@ -60,8 +60,8 @@
 
         &:hover:not(.active) {
             color: #fff;
-            background-color: var(--color-primary-light);
-            border-color: var(--color-primary-light);
+            background-color: var(--label-set-hover-color);
+            border-color: var(--label-set-hover-color);
 
             .mdi {
                 color: #fff;
@@ -116,7 +116,7 @@
             }
 
             &:focus {
-                background-color: var(--color-primary-light);
+                background-color: var(--label-set-focus-color);
                 color: white; 
                 border-color: black;
                 outline: 5px;
@@ -128,8 +128,8 @@
         }
 
         &.active, &:active, &:focus {
-            background: var(--color-primary);
-            border-color: var(--color-primary);
+            background: var(--label-set-active-color);
+            border-color: var(--label-set-active-color);
             color: #fff;
 
             .mdi {

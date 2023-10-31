@@ -68,7 +68,7 @@
     }
 
     &.label-default {
-        background: #777;
+        background: var(--label-bg-color);
         color: #fff;
     }
 
