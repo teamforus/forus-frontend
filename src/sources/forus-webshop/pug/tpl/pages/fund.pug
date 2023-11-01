@@ -58,11 +58,10 @@ main(id="main-content" ng-if="$ctrl.loaded")
             .fund-content
                 .fund-card: .fund-details
                     h1.fund-name(ng-bind="$ctrl.fund.name") 
-                    .fund-description: .block.block-markdown: p(
-                        ng-if="$ctrl.fund.description_short" 
-                        ng-bind="$ctrl.fund.description_short")
+                    .fund-description(ng-if="$ctrl.fund.description_short")
+                        .block.block-markdown: p(ng-bind="$ctrl.fund.description_short")
 
-                    .fund-details-items(ng-if="!$root.appConfigs.flags.hideFundMeta")
+                    .fund-details-items(ng-if="!$ctrl.fund.hide_meta")
                         .fund-details-item
                             .fund-details-item-label Uitgifte door:
                             .fund-details-item-value(ng-bind="$ctrl.fund.organization.name")

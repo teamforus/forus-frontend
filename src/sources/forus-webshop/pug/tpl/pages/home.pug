@@ -29,7 +29,7 @@ main(id="main-content")
 
                 .header-description#desc(ng-if="$ctrl.appConfigs.features.settings.description")
                     markdown(
-                        ng-class="'block-markdown-' + $ctrl.appConfigs.features.settings.description_alignment" 
+                        align="$ctrl.appConfigs.features.settings.description_alignment" 
                         content="$ctrl.description_html")
 
                 .header-description#desc(ng-if="!$ctrl.appConfigs.features.settings.description && !$ctrl.digidAvailable")

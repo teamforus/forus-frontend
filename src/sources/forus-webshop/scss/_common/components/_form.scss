@@ -1011,7 +1011,13 @@
             flex-grow: 1;
 
             .form-control:not([type=radio]):not([type=checkbox])[type=number] {
-                padding-right: 45px;
+                padding: var(--form-padding);
+            }
+
+            &.has-info-btn {
+                .form-control:not([type=radio]):not([type=checkbox]) {
+                    padding-right: 45px;
+                }
             }
         }
 
