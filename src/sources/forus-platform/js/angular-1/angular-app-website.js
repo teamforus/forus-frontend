@@ -52,7 +52,6 @@ app.directive('forusChat', require('./directives/ForusChatDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('pincodeControl', require('./directives/PincodeControlDirective'));
-app.directive('phoneControl', require('./directives/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('qrCode', require('./directives/QrCodeDirective'));
 app.directive('clickOutside', require('./directives/ClickOutsideDirective'));
