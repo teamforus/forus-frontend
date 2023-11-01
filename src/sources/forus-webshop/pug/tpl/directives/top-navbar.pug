@@ -196,7 +196,8 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             ng-if="$root.appConfigs.flags.genericSearchUseToggle && $root.appConfigs.flags.genericSearch" 
             ng-click="$dir.toggleSearchBox($event)"
             ng-class="{active: $root.showSearchBox}" 
-            role="button").subnav-search-button.hide-sm
+            role="button"
+            aria-label="Zoeken").subnav-search-button.hide-sm
             em.mdi.mdi-magnify
 
     mixin navbar_list()
