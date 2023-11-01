@@ -60,7 +60,6 @@ const ProviderSignUpComponent = function(
     $ctrl.selectedOption = "";
     $ctrl.authEmailSent = false;
     $ctrl.authEmailRestoreSent = false;
-    $ctrl.phoneCode = '';
 
     $ctrl.organizationStep = false;
     $ctrl.showLoginBlock = false;
@@ -305,14 +304,11 @@ const ProviderSignUpComponent = function(
                 type: 'me_app_download_link'
             }).then(() => {
                 $ctrl.shareSmsSent = true;
-
-                const rawPhone = form.values.phone.toString().replace($ctrl.phoneCode, '');
-                $ctrl.phoneFormatted = `${$ctrl.phoneCode} ${$filter('phone_number_format')(rawPhone)}`;
             }, (res) => {
                 $ctrl.phoneForm.errors = res.data.errors;
 
                 if (res.status == 429) {
-                    $ctrl.phoneForm.errors = { phone: [$translate('sign_up.sms.error.try_later')] };
+                    $ctrl.phoneForm.errors = { phone: [res.data.message] };
                 }
             }).finally(() => form.unlock());
         }, true);
