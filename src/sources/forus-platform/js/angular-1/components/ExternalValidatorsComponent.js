@@ -5,27 +5,17 @@ const ExternalValidatorsComponent = function(
     OrganizationService,
     PushNotificationsService
 ) {
-    let $ctrl = this;
-    let $translate = $filter('translate');
-    let $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_external_validators.${key}`);
+    const $ctrl = this;
+    const $translate = $filter('translate');
+    const $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_external_validators.${key}`);
 
     $ctrl.filters = {
-        show: false,
-        values: {},
-        defaultValues: {
-            q: '',
-            email: '',
-            phone: '',
-            website: '',
-            order_by: 'name',
-            order_dir: 'asc',
-        },
-        reset: function() {
-            this.values = { ...this.defaultValues };
-        }
+        q: '',
+        order_by: 'name',
+        order_dir: 'asc',
     };
 
-    let prepareValidators = (organizations, approvedOrganizations) => {
+    $ctrl.prepareValidators = (organizations, approvedOrganizations) => {
         let approvedValidators = approvedOrganizations.map(
             validatorOrganization => validatorOrganization.validator_organization_id
         );
@@ -39,15 +29,11 @@ const ExternalValidatorsComponent = function(
         return organizations;
     };
 
-    $ctrl.hideFilters = () => $ctrl.filters.show = false;
-
     $ctrl.onPageChange = (query) => {
-        let promisses = [
+        $q.all([
             $ctrl.fetchAvailableList(query),
             $ctrl.fetchApprovedList()
-        ];
-
-        $q.all(promisses).then(() => resolve($ctrl.updateModels()));
+        ]).then($ctrl.updateModels);
     };
 
     $ctrl.fetchAvailableList = (query = {}) => {
@@ -70,7 +56,7 @@ const ExternalValidatorsComponent = function(
     };
 
     $ctrl.updateModels = () => {
-        $ctrl.validatorOrganizations.data = prepareValidators(
+        $ctrl.validatorOrganizations.data = $ctrl.prepareValidators(
             $ctrl.validatorOrganizations.data,
             $ctrl.validatorOrganizationsApproved.data
         );
@@ -105,9 +91,9 @@ const ExternalValidatorsComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        $ctrl.validatorOrganizations.data = prepareValidators(
+        $ctrl.validatorOrganizations.data = $ctrl.prepareValidators(
             $ctrl.validatorOrganizations.data,
-            $ctrl.validatorOrganizationsApproved.data
+            $ctrl.validatorOrganizationsApproved.data,
         );
     };
 };
@@ -124,7 +110,7 @@ module.exports = {
         'ModalService',
         'OrganizationService',
         'PushNotificationsService',
-        ExternalValidatorsComponent
+        ExternalValidatorsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/external-validators.html'
+    templateUrl: 'assets/tpl/pages/external-validators.html',
 };

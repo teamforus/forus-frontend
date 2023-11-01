@@ -120,7 +120,7 @@ const ProductsComponent = function (
             distance: query.distance,
             bookmarked: query.bookmarked,
             order_by: query.order_by,
-            order_by_dir: query.order_by_dir,
+            order_dir: query.order_dir,
         }, { location });
     };
 
@@ -164,10 +164,10 @@ const ProductsComponent = function (
         $ctrl.showModalFilters = $stateParams.show_menu;
         $ctrl.appConfigs = appConfigs;
 
-        if ($stateParams.order_by && $stateParams.order_by_dir) {
+        if ($stateParams.order_by && $stateParams.order_dir) {
             $ctrl.sort_by = $ctrl.sortByOptions.find(sortOption =>
                 sortOption.value.order_by == $stateParams.order_by &&
-                sortOption.value.order_by_dir == $stateParams.order_by_dir
+                sortOption.value.order_dir == $stateParams.order_dir
             );
         } else {
             $ctrl.sort_by = $ctrl.sortByOptions[0];
