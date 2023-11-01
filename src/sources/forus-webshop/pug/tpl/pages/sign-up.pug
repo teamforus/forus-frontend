@@ -3,7 +3,7 @@
 top-navbar
 
 mixin qr_option(ngIf)
-    .sign_up-option(ng-click="$ctrl.setState('qr')" ng-if=ngIf role="button")
+    .sign_up-option.sign_up-option-qr(ng-click="$ctrl.setState('qr')" ng-if=ngIf role="button")
         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title Me app
@@ -13,7 +13,7 @@ mixin qr_option(ngIf)
                 | &nbsp;
 
 mixin digid_option(ngIf, title, description)
-    .sign_up-option(ng-if=ngIf role="button" ng-click="$ctrl.startDigId()")
+    .sign_up-option.sign_up-option-digid(ng-if=ngIf role="button" ng-click="$ctrl.startDigId()")
         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title=title
@@ -41,7 +41,7 @@ mixin inline_email_form(showPolicy=true)
     form(ng-submit="$ctrl.authForm.submit()" dusk="authEmailForm").form
         .row
             .form-group.col.col-lg-9
-                label.form-label(i18n="popup_auth.input.mail" for="email")
+                label.form-label(for="email"): strong(i18n="popup_auth.input.mail" )
                 ui-control-email(
                     ng-model="$ctrl.authForm.values.email"
                     ng-change="$ctrl.onChange()"
@@ -62,11 +62,11 @@ mixin inline_email_form(showPolicy=true)
                     dusk="authEmailFormSubmit"
                     tabindex="3").button.button-primary.button-fill
         if (showPolicy)
-            .row(ng-if="$root.appConfigs.flags.privacyPage"): .col.col-lg-12
+            .row: .col.col-lg-12
                 br.hidden-lg
-                label(for='privacy' tabindex="2" ng-click="$ctrl.togglePrivacy($event)").sign_up-pane-text
+                label(for='privacy' tabindex="2" ng-click="$ctrl.togglePrivacy($event)").sign_up-pane-text.sign_up-pane-text-sm.flex
                     input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
-                    | Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
+                    strong Ik heb de #[a.text-primary-light.sign_up-pane-link(ui-sref="privacy") privacyverklaring] gelezen
 
 main(id="main-content")
     header.section.section-sign-up-choose: .wrapper
@@ -211,10 +211,10 @@ main(id="main-content")
             h1.block-title Inloggen
             .sign_up-pane
                 .sign_up-pane-body.sign_up-pane-body-padless-bottom
-                    .sign_up-pane-heading(translate='fund_request.sign_up.app.title')
-
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
+                            .sign_up-pane-heading.sign_up-pane-heading-lg(translate='fund_request.sign_up.app.title')
+
                             .sign_up-pane-text(
                                 ng-repeat="line in ('fund_request.sign_up.app.description_top' | translate | lines_to_array)"
                                 ng-bind="line")

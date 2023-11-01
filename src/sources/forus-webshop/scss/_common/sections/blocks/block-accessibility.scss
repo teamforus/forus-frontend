@@ -1,5 +1,18 @@
 &.block-accessibility {
-    max-width: 800px;
+    width: 100%;
+    padding: 32px;
+    background: #fff;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+
+    .block-accessibility-header {
+        border-bottom: 1px solid var(--border-color);
+        font: 400 18px/27px var(--base-font);
+        color: #595959;
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+    }
+
     .block-text {
         margin-bottom: 40px;
         font: 400 16px/22px var(--base-font);
@@ -15,11 +28,11 @@
         }
 
         .title {
-            font: 600 18px/27px var(--base-font);
+            font: 700 20px/32px var(--base-font);
         }
 
         .description {
-            font: 400 16px/22px var(--base-font);
+            font: 400 16px/32px var(--base-font);
         }
     }
 }
