@@ -136,14 +136,13 @@
                             .app_download-row: h4.app_download-heading Of stuur een downloadlink direct naar uw telefoon
                             .app_download-row: .app_download-col
                                 label.form-label Mobiele telefoonnummer
-                                phone-control-legacy(ng-model="phoneForm.values.phone" cant-delete-length="2").visible-md.visible-lg
-                                .pincode-errors: .form-error(ng-repeat="error in phoneForm.errors.phone" ng-bind="error")
+                                phone-control(ng-model="$ctrl.phoneForm.values.phone").visible-md.visible-lg
+                                .pincode-errors: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
 
-                                .app_download-row: button.button.button-primary-outline(
-                                    type="submit"
-                                    ng-class="{ 'button-disabled' : !$ctrl.phoneNumberFilled }" 
-                                    ng-click="$ctrl.sendSms()"
-                                    translate="sign_up_provider.download.download_link")
+                            .app_download-row: button.button.button-primary-outline(
+                                type="button"
+                                ng-click="$ctrl.phoneForm.submit()"
+                                translate="sign_up_provider.download.download_link")
 
                         //- iPad or android tablet
                         .app_download-row(ng-if="$ctrl.selectedOption == 'ipad' || $ctrl.selectedOption == 'android-tablet'"): .app_download-col
@@ -165,22 +164,21 @@
                             
                             .app_download-row: h4.app_download-heading Of stuur een link naar een e-mailadres
                             .app_download-row: .app_download-col
-                                form(ng-submit="emailForm.submit()").app_download-form_group
+                                form(ng-submit="$ctrl.emailForm.submit()").app_download-form_group
                                     .app_download-form_group-input
                                         label(for="email_input").form-label.hide-xs E-mailadres
                                         input(type="text"
                                             id="email_input"
-                                            ng-model="emailForm.values.email"
+                                            ng-model="$ctrl.emailForm.values.email"
                                             placeholder="EMAILADRES").large.form-control
                                     
                                     .app_download-form_group-button
                                         label.form-label &nbsp;
                                         button.button.button-primary-outline(
-                                            ng-disabled="!emailForm.values.email"
-                                            type="submit"
-                                            ng-click="$ctrl.sendEmail()") verstuur e-mail
+                                            ng-disabled="!$ctrl.emailForm.values.email"
+                                            type="submit") verstuur e-mail
                                 //- Form errors
-                                .app_download-form_group: .form-error(ng-repeat="error in emailForm.errors.email" ng-bind="error")
+                                .app_download-form_group: .form-error(ng-repeat="error in $ctrl.emailForm.errors.email" ng-bind="error")
 
                         //- Use email instead
                         .app_download-row
@@ -191,7 +189,7 @@
 
                 //- Sms sent message
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.shareSmsSent") 
-                    .sign_up-pane-heading U heeft een SMS ontvangen op {{ phoneForm.values.phone | phone_number_format }}
+                    .sign_up-pane-heading U heeft een SMS ontvangen op {{ $ctrl.phoneForm.values.phone | phone_number_format }}
                     
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
@@ -210,7 +208,7 @@
 
                 //- Email sent message
                 .sign_up-pane-body(ng-if="(!$ctrl.authEmailSent && !$ctrl.authEmailRestoreSent) && $ctrl.shareEmailSent") 
-                    .sign_up-pane-heading Er is een e-mail verstuurd naar {{ emailForm.values.email }}
+                    .sign_up-pane-heading Er is een e-mail verstuurd naar {{ $ctrl.emailForm.values.email }}
                     
                     .sign_up-pane-auth
                         .sign_up-pane-auth-content
@@ -265,11 +263,11 @@
 
                         .col.col-md-5.col-xs-12
                             .form-group
-                            label.form-label &nbsp;
-                            button.button.button-primary.button-fill(
-                                type="submit"
-                                translate="sign_up_provider.app_instruction.create_profile"
-                                ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
+                                label.form-label &nbsp;
+                                button.button.button-primary.button-fill(
+                                    type="submit"
+                                    translate="sign_up_provider.app_instruction.create_profile"
+                                    ng-class="{'button-disabled':!$ctrl.signUpForm.values.email}")
 
                     .sign_up-pane-link(ng-click="$ctrl.setHasAppProp(true)" translate="sign_up_provider.no_app.continue_app").visible-md.visible-lg
 

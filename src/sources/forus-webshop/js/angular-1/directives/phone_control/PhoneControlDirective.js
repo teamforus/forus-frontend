@@ -54,8 +54,6 @@ module.exports = () => {
         scope: {
             ngModel: '=',
         },
-        restrict: "EA",
-        replace: true,
         require: {
             ngModelCtrl: 'ngModel',
         },
