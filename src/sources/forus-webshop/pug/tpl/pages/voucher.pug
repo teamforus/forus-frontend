@@ -337,7 +337,6 @@ main(id="main-content")
                     | Bekijk details 
                     em.mdi.mdi-arrow-right(aria-hidden="true") 
 
-            .pane-section: .block.block-markdown
-                div(ng-bind-html="$ctrl.voucherCard.description")
+            .pane-section: markdown(content="$ctrl.voucherCard.description")
 
         span

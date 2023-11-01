@@ -54,7 +54,6 @@ module.exports = {
     implementation_name: {
         general: 'General',
         potjeswijzer: 'Potjeswijzer',
-        nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & ',
         kerstpakket: 'Kerstpakket',
@@ -94,7 +93,6 @@ module.exports = {
         heumen: "Gemeente Heumen",
         hartvanwestbrabant: "Werkplein",
         noordoostpolder: "Gemeente Noordoostpolder",
-        nijmegen: "Nijmegen",
         potjeswijzer: "Potjeswijzer",
         participatiemunt: "Participatiemunt",
         oostgelre: "Gemeente Oost Gelre",

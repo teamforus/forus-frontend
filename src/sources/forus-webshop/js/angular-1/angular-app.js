@@ -113,6 +113,7 @@ app.service('MenuService', require('./services/MenuService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
+app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
 app.directive('topNavbarSearch', require('./directives/TopNavbarSearchDirective'));
 app.directive('mobileMenu', require('./directives/MobileMenuDirective'));
