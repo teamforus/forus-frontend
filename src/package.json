@@ -63,7 +63,7 @@
     "bootstrap": "^3.4.1",
     "browserstack-local": "^1.5.1",
     "chart.js": "2.9.4",
-    "chromedriver": "^112.0.0",
+    "chromedriver": "^119.0.0",
     "date-fns": "^2.29.3",
     "file-saver": "^2.0.5",
     "gulp-protractor": "^4.1.1",
