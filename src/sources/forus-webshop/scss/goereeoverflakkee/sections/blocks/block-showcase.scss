@@ -18,18 +18,6 @@
             .showcase-aside-block {
                 border: 1px solid var(--border-color);
                 box-shadow: none;
-
-                .showcase-aside-tabs {
-                    .showcase-aside-tab {
-                        font-weight: 500;
-                        background-color: #F3F8FA;
-                        color: #2D3748;
-
-                        &.active {
-                            background-color: #08749B;
-                        }
-                    }
-                }
             }
 
             .form-group {

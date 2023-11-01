@@ -55,7 +55,7 @@
                 padding: 20px;
                 width: 100%;
                 background: #fff;
-                border-radius: var(--border-radius);
+                border-radius: var(--label-set-border-radius);
                 box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
                 margin-bottom: 30px;
 
@@ -70,23 +70,41 @@
                         display: flex;
                         flex-basis: 1;
                         flex-grow: 1;
+                        justify-content: center;
                         text-align: center;
                         background: #f6f6f6;
-                        color: #000;
+                        color: #272525;
                         border: 1px solid var(--border-color);
                         border-right: none;
-                        border-radius: var(--border-radius);
+                        border-radius: var(--label-set-border-radius);
                         border-top-right-radius: 0;
                         border-bottom-right-radius: 0;
                         transition: color .4s, background-color .4s;
                         font: 400 13px/18px var(--base-font);
-                        padding: 10px;
-                        padding-right: 5px;
+                        padding: 10px 5px;
 
                         .mdi {
-                            padding-right: 5px;
+                            padding-right: 3px;
                             font-size: 16px;
+                            line-height: 18px;
+                            height: 18px;
                             margin-right: 2px;
+                            transition: .4s;
+                            color: #272525;
+                            height: 100%;
+                            flex-direction: column;
+                            justify-content: center;
+                            display: flex;
+                        }
+
+                        &:hover:not(.active) {
+                            color: #fff;
+                            background-color: var(--label-set-hover-color);
+                            border-color: var(--label-set-hover-color);
+                
+                            .mdi {
+                                color: #fff;
+                            }
                         }
 
                         &:last-child {
@@ -94,14 +112,18 @@
                             border-left: 0px;
                             border-top-left-radius: 0;
                             border-bottom-left-radius: 0;
-                            border-top-right-radius: var(--border-radius);
-                            border-bottom-right-radius: var(--border-radius);
+                            border-top-right-radius: var(--label-set-border-radius);
+                            border-bottom-right-radius: var(--label-set-border-radius);
                         }
 
                         &.active {
-                            background: var(--color-primary);
-                            border-color: var(--color-primary);
+                            background: var(--label-set-active-color);
+                            border-color: var(--label-set-active-color);
                             color: #fff;
+                
+                            .mdi {
+                                color: #fff;
+                            }
                         }
                     }
                 }
@@ -305,6 +327,12 @@
                         }
                         
                         .select-control-input {
+                            .select-control-search {
+                                .select-control-search-placeholder {
+                                    line-height: 20px;
+                                }
+                            }
+
                             .select-control-options {
                                 .select-control-option {
                                     height: auto;
@@ -414,6 +442,7 @@
                     .showcase-aside-tabs {
                         .showcase-aside-tab {
                             font-size: 12px;
+                            padding: 10px 10px;
 
                             .mdi {
                                 margin-right: 2px;

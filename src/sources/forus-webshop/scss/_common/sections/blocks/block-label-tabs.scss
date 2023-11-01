@@ -1,9 +1,9 @@
 &.block-label-tabs {
     display: flex;
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+    border-top-left-radius: var(--label-set-border-radius);
+    border-top-right-radius: var(--label-set-border-radius);
+    border-bottom-left-radius: var(--label-set-border-radius);
+    border-bottom-right-radius: var(--label-set-border-radius);
     margin-right: 20px;
 
     .label-tab {
@@ -48,13 +48,13 @@
         }
 
         &:first-child {
-            border-top-left-radius: var(--border-radius);
-            border-bottom-left-radius: var(--border-radius);
+            border-top-left-radius: var(--label-set-border-radius);
+            border-bottom-left-radius: var(--label-set-border-radius);
         }
 
         &:last-child {
-            border-top-right-radius: var(--border-radius);
-            border-bottom-right-radius: var(--border-radius);
+            border-top-right-radius: var(--label-set-border-radius);
+            border-bottom-right-radius: var(--label-set-border-radius);
             border-right: 1px solid var(--border-color);
         }
 
@@ -106,13 +106,13 @@
             transition: all 0.3s ease;
 
             &:first-child {
-                border-top-left-radius: calc(var(--border-radius) / 2);
-                border-bottom-left-radius: calc(var(--border-radius) / 2);
+                border-top-left-radius: calc(var(--label-set-border-radius) / 2);
+                border-bottom-left-radius: calc(var(--label-set-border-radius) / 2);
             }
     
             &:last-child {
-                border-top-right-radius: calc(var(--border-radius) / 2);
-                border-bottom-right-radius: calc(var(--border-radius) / 2);
+                border-top-right-radius: calc(var(--label-set-border-radius) / 2);
+                border-bottom-right-radius: calc(var(--label-set-border-radius) / 2);
             }
 
             &:focus {

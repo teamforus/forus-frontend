@@ -16,7 +16,7 @@ main(id="main-content" ng-if="$ctrl.loaded")
         .block.block-fund
             mixin fund_actions
                 .fund-actions: .button-group
-                    a.button.button.button-wide(
+                    a.button.button(
                         target="_blank"
                         ng-class="$ctrl.fund.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'"
                         ng-if="$ctrl.fund.external_link_text && $ctrl.fund.external_link_url"
@@ -24,20 +24,20 @@ main(id="main-content" ng-if="$ctrl.loaded")
                         span(ng-bind="$ctrl.fund.external_link_text")
                         em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
-                    a.button.button-primary.button-wide(
+                    a.button.button-primary(
                         ng-if="$ctrl.fund.showRequestButton"
                         ui-sref="fund-activate({fund_id: $ctrl.fund.id})")
                         span(ng-bind="$ctrl.fund.request_btn_text")
                         em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
-                    a.button.button-primary.button-wide(
+                    a.button.button-primary(
                         type="button"
                         ng-if="$ctrl.fund.showActivateButton" 
                         ng-click="$ctrl.applyFund($event, $ctrl.fund)")
                         translate(translate="funds.buttons.is_applicable")
                         em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
-                    a.button.button-primary.button-wide(
+                    a.button.button-primary(
                         ng-if="$ctrl.fund.alreadyReceived" 
                         ui-sref="voucher({ address: $ctrl.fund.vouchers[0].address })")
                         translate(

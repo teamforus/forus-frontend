@@ -124,6 +124,11 @@
                 display: flex;
                 flex-direction: column;
 
+                .button {
+                    display: inline-flex;
+                    justify-content: center;
+                }
+
                 .fund-item-section-label {
                     display: flex;
                     font: 700 12px/20px var(--base-font);

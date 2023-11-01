@@ -265,19 +265,6 @@
             }
         }
 
-        .footer-subscribe {
-            position: relative;
-
-            .button {
-                position: absolute;
-                right: 0;
-                top: 0;
-                height: 60px;
-                border-bottom-left-radius: 0;
-                border-top-left-radius: 0;
-            }
-        }
-
         @media screen and (max-width: 1000px) {
             .block-markdown {
                 text-align: center;
@@ -395,18 +382,6 @@
 
                 .footer-nav-item {
                     font: 400 13px/20px var(--base-font);
-                }
-            }
-
-            .footer-subscribe {
-                .button {
-                    height: 50px;
-                    padding-left: 20px;
-                    padding-right: 20px;
-
-                    .mdi {
-                        font-size: 24px;
-                    }
                 }
             }
         }

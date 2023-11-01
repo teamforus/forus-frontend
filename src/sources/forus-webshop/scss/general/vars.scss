@@ -1,5 +1,5 @@
 // do not use these scss variables outside this file
-$fonts: "https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700";
+$fonts: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap";
 $primaryColor: #305dfb;
 $primaryColorLight: #305dfb;
 
@@ -40,8 +40,6 @@ $primaryColorLight: #305dfb;
     --htc: var(--tc);
     --tc-var: inherit;
     --tc-link: inherit;
-    --tc-input-text: var(--tc);
-    --tc-form-label-text: #595959;
     --tc-muted: #595959;
 
     // base color
@@ -67,11 +65,7 @@ $primaryColorLight: #305dfb;
     // product image
     --product-image-padding: 10px 0 0 10px;
 
-    // placeholder text color
-    --placeholder_text_color: #535561;
-
     --border-color: #dddddd;
-    --border-color-form: #282B39;
 
     --border-radius: 8px;
     --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
@@ -86,21 +80,38 @@ $primaryColorLight: #305dfb;
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
-    // buttons
-    --btn-text-color: #282B39;
-    --btn-text-muted: #595959;
+    // Dropdowns
+    --dropdown-item-font: 500 13px/20px var(--base-font);
+    --dropdown-item-color: #282B39;
+    --dropdown-item-background: #ffffff;
+    --dropdown-item-hover-color: #000000;
+    --dropdown-item-hover-background: #e5e5e5;
 
-    // select inputs
-    --select-option-hover-bg-color: #E5E5E5;
-    --select-option-hover-tc: #000000;
+    // Forms
+    --form-control-color: #222222;
+    --form-control-background: #ffffff;
+    --form-control-border-color: #282b39;
+    --form-control-placeholder-font: 400 13px var(--base-font);
+    --form-control-placeholder-color: #535561;
+
+    --form-label-color: #595959;
+
+    // Buttons
+    --btn-color: #282b39;
+    --btn-border-radius: calc(var(--border-radius) * .75);
+
+    --btn-disabled-color: #cdced2;
+    --btn-disabled-background: #f4f4f4;
 
     // labels
-    --label-bg-color: #595959;
+    --label-default-color: #fff;
+    --label-default-background: #595959;
 
     // label sets
-    --label-set-active-color: #282B39;
+    --label-set-border-radius: var(--border-radius);
+    --label-set-active-color: #282b39;
     --label-set-hover-color: #717791;
-    --label-set-focus-color: #282B39;
+    --label-set-focus-color: #282b39;
 
     // sign up
     --sign_up_accent_color: #305dfb;
@@ -111,7 +122,7 @@ $primaryColorLight: #305dfb;
     --sign_up_digid_btn_text: #4b71ff;
     --sign_up_digid_btn_border: none;
     --sign_up_digid_btn_border_radius: 5px;
-    --sign_up_loader_icon_color: #282B39;
+    --sign_up_loader_icon_color: #282b39;
 
     // Nav item line position
     --nav-line-top: 0;

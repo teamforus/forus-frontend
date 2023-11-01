@@ -68,8 +68,8 @@
     }
 
     &.label-default {
-        background: var(--label-bg-color);
-        color: #fff;
+        color: var(--label-default-color);
+        background: var(--label-default-background);
     }
 
     &.label-primary {
