@@ -41,7 +41,18 @@
                             ng-model="$ctrl.form.values.description_short").form-control.r-n
                         .form-hint Max. 500 tekens
                         .form-error(ng-repeat="error in $ctrl.form.errors.description_short" ng-bind="error")
-            
+
+            //- Hide fund details on webshop
+            .card-section.card-section-primary(ng-if="!$ctrl.form.values.external_page"): .row: .col.col-lg-9.col-xs-12
+                .form-group.form-group-inline.tooltipped
+                    label.form-label Verberg details
+                    input-checkbox-control(
+                        name="hide_meta"
+                        ng-model="$ctrl.form.values.hide_meta"
+                        label="Verberg de detail informatie van het fonds op de webshop")
+                    tooltip(text="'De datails die verborgen worden, zijn: Uitgifte door, tegoed per persoon, startdatum en einddatum van het fonds'")
+                    .form-error(ng-repeat="error in $ctrl.form.errors.hide_meta" ng-bind="error")
+
             .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
                 //- Fund type
                 .form-group.form-group-inline   
