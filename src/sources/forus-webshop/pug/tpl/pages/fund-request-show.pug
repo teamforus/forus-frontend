@@ -102,7 +102,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                                 .fund-request-chat-message-text(ng-bind="clarification.answer")
                                                 .fund-request-chat-message-file-uploader(ng-if="clarification.files.length")
                                                     file-uploader(
-                                                        type="fund_request_record_proof"
+                                                        type="fund_request_clarification_proof"
                                                         files="clarification.files"
                                                         compact="true"
                                                         read-only="true"
@@ -127,7 +127,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
                                         .fund-request-chat-conversation-answer-options
                                             file-uploader(
-                                                type="fund_request_record_proof"
+                                                type="fund_request_clarification_proof"
                                                 files="$ctrl.files"
                                                 compact="true"
                                                 crop-media="false"

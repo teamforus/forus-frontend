@@ -169,7 +169,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                             type="button" 
                             dusk="reimbursementFormCancel"
                             ng-disabled="$ctrl.form.locked" 
-                            ui-sref="reimbursements").button.button-dim.button-sm Annuleren
+                            ui-sref="reimbursements").button.button-light.button-sm Annuleren
 
                     //- Submit
                     .flex.flex-grow.flex-end: .button-group
@@ -183,6 +183,5 @@ main(id="main-content"): section.section.section-profile: .wrapper
                         button(
                             type="button" 
                             ng-click="$ctrl.submit(true)"
-                            dusk="reimbursementFormSubmit"
                             ng-disabled="$ctrl.submitAvailable($ctrl.form.values, $ctrl.files)"
-                            ).button.button-primary.button-sm Indienen
+                            dusk="reimbursementFormSubmit").button.button-primary.button-sm Indienen

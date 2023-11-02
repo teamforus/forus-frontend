@@ -11,13 +11,13 @@ const ProvidersComponent = function (
         label: 'Naam (oplopend)',
         value: {
             order_by: 'name',
-            order_by_dir: 'asc',
+            order_dir: 'asc',
         }
     }, {
         label: 'Naam (aflopend)',
         value: {
             order_by: 'name',
-            order_by_dir: 'desc',
+            order_dir: 'desc',
         }
     }];
 
@@ -124,7 +124,7 @@ const ProvidersComponent = function (
             show_map: $ctrl.showMap,
             show_menu: $ctrl.showModalFilters,
             order_by: query.order_by,
-            order_by_dir: query.order_by_dir,
+            order_dir: query.order_dir,
         }, { location });
     };
 
@@ -188,10 +188,10 @@ const ProvidersComponent = function (
 
         $ctrl.showModalFilters = $stateParams.show_menu;
 
-        if ($stateParams.order_by && $stateParams.order_by_dir) {
+        if ($stateParams.order_by && $stateParams.order_dir) {
             $ctrl.sortBy = $ctrl.sortByOptions.find(sortOption => 
                 sortOption.value.order_by == $stateParams.order_by && 
-                sortOption.value.order_by_dir == $stateParams.order_by_dir
+                sortOption.value.order_dir == $stateParams.order_dir
             );
         } else {
             $ctrl.sortBy = $ctrl.sortByOptions[0];

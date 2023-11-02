@@ -160,8 +160,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "products",
         url: {
-            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
-            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
+            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_dir:string}",
+            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_dir:string}",
         },
         component: "productsComponent",
         params: {
@@ -177,7 +177,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             distance: routeParam(null),
             postcode: routeParam(''),
             order_by: routeParam('created_at'),
-            order_by_dir: routeParam('desc'),
+            order_dir: routeParam('desc'),
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_products: 1 }))],
@@ -192,7 +192,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 product_category_id: $transition$.params().product_category_id,
                 bookmarked: $transition$.params().bookmarked ? 1 : 0,
                 order_by: $transition$.params().order_by,
-                order_by_dir: $transition$.params().order_by_dir,
+                order_dir: $transition$.params().order_dir,
             }))],
             productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
                 return $transition$.params().product_category_id ?
@@ -228,8 +228,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "actions",
         url: {
-            en: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_by_dir:string}",
-            nl: "/acties?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_by_dir:string}",
+            en: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_dir:string}",
+            nl: "/acties?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_dir:string}",
         },
         component: "productsComponent",
         params: {
@@ -255,7 +255,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 organization_id: $transition$.params().organization_id,
                 product_category_id: $transition$.params().product_category_id,
                 order_by: $transition$.params().order_by,
-                order_by_dir: $transition$.params().order_by_dir,
+                order_dir: $transition$.params().order_dir,
             }))],
             productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
                 return $transition$.params().product_category_id ?
@@ -321,8 +321,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "providers",
         url: {
-            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
-            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
+            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_dir:string}",
+            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_dir:string}",
         },
         component: "providersComponent",
         params: {
@@ -336,7 +336,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             business_type_id: routeParam(null),
             product_category_id: routeParam(null),
             order_by: routeParam('name'),
-            order_by_dir: routeParam('asc'),
+            order_dir: routeParam('asc'),
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_providers: 1 }))],
@@ -376,7 +376,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 business_type_id: $transition$.params().business_type_id,
                 product_category_id: $transition$.params().product_category_id,
                 order_by: $transition$.params().order_by,
-                order_by_dir: $transition$.params().order_by_dir,
+                order_dir: $transition$.params().order_dir,
             }))]
         }
     });
@@ -393,7 +393,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
 
     $stateProvider.state({
         name: "search-result",
-        url: "/search?{q:string}&{page:int}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&search_item_types&order_by&order_by_dir",
+        url: "/search?{q:string}&{page:int}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&search_item_types&order_by&order_dir",
         params: {
             q: routeParam(""),
             page: routeParam(1),
@@ -404,7 +404,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             search_item_types: routeParam('funds,providers,products'),
             fund_type: routeParam('budget'),
             order_by: routeParam('created_at'),
-            order_by_dir: routeParam('desc'),
+            order_dir: routeParam('desc'),
         },
         component: "searchResultComponent",
         resolve: {
@@ -416,7 +416,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                         with_external: 1,
                         page: $transition$.params().page,
                         order_by: $transition$.params().order_by,
-                        order_by_dir: $transition$.params().order_by_dir,
+                        order_dir: $transition$.params().order_dir,
                         search_item_types: ($transition$.params().search_item_types || '').split(',').filter((type) => type),
                         organization_id: $transition$.params().organization_id,
                         product_category_id: $transition$.params().product_category_id

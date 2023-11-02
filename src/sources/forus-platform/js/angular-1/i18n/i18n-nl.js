@@ -613,6 +613,32 @@ module.exports = {
         },
     },
 
+    // EXTERNAL VALIDATORS = external-validators.pug
+    external_validators: {
+        header: {
+            title: "Beoordelaars",
+        },
+        labels: {
+            organization_name: "Organisatie naam",
+            email: "E-mailadres",
+            phone: "Telefoonnummer",
+            website: "Website",
+            actions: "Acties",
+        },
+        filters: {
+            labels: {
+                search: 'Zoeken',
+                email: "E-mailadres",
+                phone: "Telefoonnummer",
+                website: "Website",
+            },
+        },
+        buttons: {
+            add: "Toevoegen",
+            delete: "Verwijderen",
+        },
+    },
+
     // ORGANIZATION VALIDATORS = organization-validators.pug
     organization_validators: {
         labels: {

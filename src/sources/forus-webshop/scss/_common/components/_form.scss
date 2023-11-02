@@ -32,9 +32,8 @@
         cursor: default;
         font: 500 12px/20px var(--base-font);
         margin-bottom: 4px;
-        color: var(--tc);
+        color: var(--form-label-color);
         padding: 0;
-        color: var(--tc);
 
         &.form-label-required {
             &:after {
@@ -49,15 +48,15 @@
     .form-control:not([type="radio"]):not([type="checkbox"]) {
         width: 100%;
         border: 1px solid transparent;
-        background-color: #fbfbfb;
         padding: var(--form-padding);
-        color: var(--tc);
+        color: var(--form-control-color);
+        background-color: var(--form-control-background);
         font: var(--form-font);
         line-height: 20px;
         transition: background-color 0.4s ease, border 0.4s ease;
         border-radius: calc(var(--border-radius) / 2);
+        border: 1px solid var(--form-control-border-color);
         appearance: none;
-        border: 1px solid var(--border-color-form);
 
         &[disabled] {
             background-color: #e1e1e1;
@@ -196,6 +195,12 @@
         .select-control-search {
             cursor: pointer;
 
+            .select-control-search-placeholder {
+                font: var(--form-control-font);
+                color: var(--form-control-color);
+                line-height: 24px;
+            }
+
             &:focus {
                 border: 1px solid black;
                 box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -264,24 +269,26 @@
 
             .select-control-option {
                 padding: calc(calc(var(--option-height) - 20px) / 2) 15px calc(calc(calc(var(--option-height) - 20px) / 2) - 1px);
-                font: 500 13px/20px var(--base-font);
-                color: rgba(var(--tc), 0.75);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
                 transition: 0.4s;
                 height: var(--option-height);
+                font: var(--dropdown-item-font);
+                line-height: 20px;
+                color: var(--dropdown-item-color);
+                background: var(--dropdown-item-background);
                 @include ellipsis();
 
                 strong,
                 b {
-                    color: var(--tc);
+                    color: #000;
                     font-weight: 700;
                 }
 
                 &:hover,
                 &:focus {
-                    background: whitesmoke;
-                    border-color: whitesmoke;
+                    background: var(--dropdown-item-hover-background);
+                    color: var(--dropdown-item-hover-color);
                 }
 
                 &:last-child {
@@ -1120,7 +1127,7 @@
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
             /* height: 50px; */
             padding: 8px 15px;
-            font: 400 13px/24px var(--base-font);
+            font: 500 13px/24px var(--base-font);
 
             &.ui-control-search-input {
                 padding: 0;
@@ -1136,23 +1143,23 @@
         }
 
         ::-webkit-input-placeholder {
-            color: var(--placeholder_text_color);
-            font: 400 13px var(--base-font);
+            font: var(--form-control-placeholder-font);
+            color: var(--form-control-placeholder-color);
         }
 
         ::-moz-placeholder {
-            color: var(--placeholder_text_color);
-            font: 400 13px var(--base-font);
+            font: var(--form-control-placeholder-font);
+            color: var(--form-control-placeholder-color);
         }
 
         :-moz-placeholder {
-            color: var(--placeholder_text_color);
-            font: 400 13px var(--base-font);
+            font: var(--form-control-placeholder-font);
+            color: var(--form-control-placeholder-color);
         }
 
         :-ms-input-placeholder {
-            color: var(--placeholder_text_color);
-            font: 400 13px var(--base-font);
+            font: var(--form-control-placeholder-font);
+            color: var(--form-control-placeholder-color);
         }
 
         &.form-compact-flat {
