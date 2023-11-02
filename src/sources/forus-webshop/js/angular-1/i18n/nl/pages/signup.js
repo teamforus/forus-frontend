@@ -53,5 +53,8 @@ module.exports = {
         schagen: {
             start_email: "Start",
         },
+        goereeoverflakkee: {
+            start_email: "Aanmelden",
+        },
     }
 };

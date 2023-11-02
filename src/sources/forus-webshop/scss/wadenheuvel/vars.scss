@@ -66,7 +66,9 @@
     --color_default: #3561ff;
     --color_default_light: #3561ff;
 
-    // Login button
+    // Label sets
+    --label-set-hover-background: #{rgba($primaryColor, .8)};
 
+    // Login button
     --lb: #fff;
 }
