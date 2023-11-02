@@ -19,14 +19,16 @@
         width: 100%;
 
         .form-control {
-            font-weight: 700;
+            font-weight: 600;
+            font-size: 14px;
             padding-left: 45px;
             background-color: #fff;
             transition: 0.4s;
             border-radius: var(--border-radius);
 
             &::placeholder {
-                font-weight: 700;
+                font-size: 14px;
+                font-weight: 500;
             }
 
             &:focus {

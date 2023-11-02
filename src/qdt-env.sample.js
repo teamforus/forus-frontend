@@ -253,34 +253,6 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('webshop_westerkwartier', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_key: 'westerkwartier',
-            client_type: 'webshop',
-            flags: {
-                logoExtension: '.svg',
-                showAccountSidebar: false,
-                accessibilityPage: true,
-
-                // menu settings
-                meAppMenu: false,
-                forusPlatformMenu: false,
-                portfolioMenu: false,
-                aboutSiteMenu: false,
-
-                // home
-                providersMenu: true,
-            },
-            sessions: sessions,
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
-
-        return platform;
-    });
-
     core.editPlatform('webshop_berkelland', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -478,35 +450,6 @@ module.exports = (core) => {
             matomo_site_id: false,
             flags: {
                 logoExtension: '.svg',
-                showAccountSidebar: false,
-                accessibilityPage: true,
-                genericSearch: true,
-                
-                // menu settings
-                meAppMenu: false,
-                forusPlatformMenu: false,
-                portfolioMenu: false,
-                aboutSiteMenu: false,
-
-                // voucher settings
-                shareProducts: false,
-            },
-            sessions: sessions,
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
-
-        return platform;
-    });
-
-    core.editPlatform('webshop_participatiemunt', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_type: 'webshop',
-            client_key: 'participatiemunt',
-            matomo_site_id: false,
-            flags: {
                 showAccountSidebar: false,
                 accessibilityPage: true,
                 genericSearch: true,

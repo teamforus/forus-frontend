@@ -62,7 +62,7 @@ $primaryColorLight: #1c8fd7;
     --product-image-padding: 10px 0 0 10px;
 
     // placeholder text color
-    --placeholder_text_color: #515152;
+    --form-control-placeholder-color: #515152;
 
     --border-color: #d2e6ff;
 
@@ -78,6 +78,9 @@ $primaryColorLight: #1c8fd7;
     --color-search-icon-medium: #{$primaryColor};
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
+    
+    // Label sets
+    --label-set-hover-background: #{rgba($primaryColor, .8)};
 
     // Login button
     --login-button-background: #fff;

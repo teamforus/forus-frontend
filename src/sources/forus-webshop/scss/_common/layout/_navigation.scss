@@ -130,14 +130,16 @@
 
                 .auth-user-menu-item {
                     display: block;
-                    padding: 5px 15px;
-                    font: 700 13px/26px var(--base-font);
+                    padding: 8px 15px;
                     transition: 0.4s;
                     cursor: pointer;
                     border: none;
-                    background: none;
                     width: 100%;
                     text-align: left;
+                    font: var(--dropdown-item-font);
+                    font-weight: 600;
+                    color: var(--dropdown-item-color);
+                    background: var(--dropdown-item-background);
 
                     img {
                         display: block;
@@ -156,8 +158,8 @@
                     }
 
                     &:hover {
-                        color: var(--color-primary);
-                        background: #f6f8f9;
+                        color: var(--dropdown-item-hover-color);
+                        background: var(--dropdown-item-hover-background);
                     }
                 }
 
@@ -201,7 +203,7 @@
                 margin: 0 auto;
             }
 
-            &.button-default {
+            &.button-primary-outline {
                 background-color: var(--btn-auth-bg);
                 border: solid 1px var(--btn-auth-border);
                 color: var(--tc-auth-btn);
@@ -272,7 +274,7 @@
                 .auth-user {
                     .auth-user-avatar {
                         border-color: var(--color-default);
-                        border-radius: var(--border-radius);
+                        border-radius: var(--btn-border-radius);
                         background: var(--btn-start-bg);
 
                         &:after {
@@ -743,6 +745,8 @@
                 justify-content: flex-start;
 
                 .navbar-search-button, .navbar-menu-button {
+                    box-shadow: none !important;
+
                     .mdi {
                         display: block;
                         float: none;

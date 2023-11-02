@@ -7,18 +7,18 @@
     .table-pagination-navigation
         button(
             ng-class="[meta.current_page == 1 ? 'disabled' : '', buttonClass]" 
-            ng-click="setPage(1)").button.button-default 
+            ng-click="setPage(1)").button.button-primary-outline 
             span Eerste
             em.mdi.mdi-page-first
         
         button(
             ng-repeat="page in pages" ng-bind="page"
             ng-click="setPage(page)"
-            ng-class="[page == meta.current_page ? 'button-primary' : 'button-default', buttonClass]" 
+            ng-class="[page == meta.current_page ? 'button-primary' : 'button-primary-outline', buttonClass]" 
             aria-current="{{page == meta.current_page ? 'page': ''}}").button
         
         button(
             ng-class="[meta.current_page == meta.last_page ? 'disabled' : '', buttonClass]" 
-            ng-click="setPage(meta.last_page)").button.button-default 
+            ng-click="setPage(meta.last_page)").button.button-primary-outline 
             span Laatste
             em.mdi.mdi-page-last

@@ -14,7 +14,6 @@ core.addPlatform(require('./platforms/Dashboards/DashboardGeneralValidatorPlatfo
 core.addPlatform(require('./platforms/Webshops/WebshopGeneralPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopPotjeswijzerPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopKerstpakketPlatform'));
-core.addPlatform(require('./platforms/Webshops/WebshopWesterkwartierPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopGroningenPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopBerkellandPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopOostGelrePlatform'));
@@ -27,7 +26,6 @@ core.addPlatform(require('./platforms/Webshops/WebshopWadenheuvelPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopVergoedingenPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopEdePlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopHartvanWestBrabantPlatform'));
-core.addPlatform(require('./platforms/Webshops/WebshopParticipatiemuntPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopSchagenPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopEemsdeltaPlatform'));
 core.addPlatform(require('./platforms/Webshops/WebshopDoetegoedPlatform'));
