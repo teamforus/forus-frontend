@@ -91,6 +91,9 @@ $primaryColorLight: #2f7f6b;
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
+    // Label sets
+    --label-set-hover-background: #{rgba($primaryColor, .8)};
+
     // Login button
     --login-button-background: #fff;
 

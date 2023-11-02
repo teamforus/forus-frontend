@@ -1,4 +1,5 @@
 &.block-showcase {
+    --aside-width: 330px;
     position: relative;
     cursor: default;
     margin: 0 0 30px;
@@ -46,9 +47,9 @@
 
         .showcase-aside {
             height: fit-content;
-            width: 320px;
-            max-width: 320px;
-            min-width: 320px;
+            width: var(--aside-width);
+            max-width: var(--aside-width);
+            min-width: var(--aside-width);
 
             .showcase-aside-block {
                 position: relative;
@@ -65,6 +66,7 @@
                     border-color: var(--color-primary);
                     margin-bottom: 15px;
                     flex-wrap: nowrap;
+                    background-color: #fff;
 
                     .showcase-aside-tab {
                         display: flex;
@@ -72,14 +74,14 @@
                         flex-grow: 1;
                         justify-content: center;
                         text-align: center;
-                        background: #f6f6f6;
-                        color: #272525;
-                        border: 1px solid var(--border-color);
+                        color: var(--label-set-color);
+                        background: var(--label-set-background);
+                        border: 1px solid var(--label-set-border-color);
                         border-right: none;
                         border-radius: var(--label-set-border-radius);
                         border-top-right-radius: 0;
                         border-bottom-right-radius: 0;
-                        transition: color .4s, background-color .4s;
+                        transition: all .35s ease;
                         font: 400 13px/18px var(--base-font);
                         padding: 10px 5px;
 
@@ -89,26 +91,16 @@
                             line-height: 18px;
                             height: 18px;
                             margin-right: 2px;
-                            transition: .4s;
-                            color: #272525;
+                            transition: all .35s ease;
+                            color: var(--label-set-color);
                             height: 100%;
                             flex-direction: column;
                             justify-content: center;
                             display: flex;
                         }
 
-                        &:hover:not(.active) {
-                            color: #fff;
-                            background-color: var(--label-set-hover-color);
-                            border-color: var(--label-set-hover-color);
-                
-                            .mdi {
-                                color: #fff;
-                            }
-                        }
-
                         &:last-child {
-                            border-right: 1px solid var(--border-color);
+                            border-right: 1px solid var(--label-set-border-color);
                             border-left: 0px;
                             border-top-left-radius: 0;
                             border-bottom-left-radius: 0;
@@ -116,14 +108,40 @@
                             border-bottom-right-radius: var(--label-set-border-radius);
                         }
 
-                        &.active {
-                            background: var(--label-set-active-color);
-                            border-color: var(--label-set-active-color);
-                            color: #fff;
+                        &:focus {
+                            color: var(--label-set-focus-color);
+                            border-color: var(--label-set-focus-background);
+                            background-color: var(--label-set-focus-background);
+
+                            .mdi {
+                                color: var(--label-set-focus-color);
+                            }
+                        }
+
+                        &:hover {
+                            color: var(--label-set-hover-color);
+                            background-color: var(--label-set-hover-background);
+                            border-color: var(--label-set-hover-background);
                 
                             .mdi {
-                                color: #fff;
+                                color: var(--label-set-hover-color);
                             }
+                        }
+
+                        &.active,
+                        &:active {
+                            background: var(--label-set-active-background);
+                            border-color: var(--label-set-active-background);
+                            color: var(--label-set-active-color);
+                
+                            .mdi {
+                                color: var(--label-set-active-color);
+                            }
+                        }
+                
+                        &.disabled {
+                            cursor: default;
+                            pointer-events: none;
                         }
                     }
                 }
@@ -240,7 +258,7 @@
         .showcase-content {
             padding-left: 30px;
             flex-grow: 1;
-            max-width: calc(100% - 320px);
+            max-width: calc(100% - var(--aside-width));
 
             .showcase-content-header {
                 position: relative;
@@ -322,7 +340,6 @@
                             padding-right: 25px;
                             min-width: 130px;
                             border-radius: calc(var(--border-radius) / 2);
-                            border: 1px solid var(--border-color);
                             font: 600 12px/20px var(--base-font);
                         }
                         

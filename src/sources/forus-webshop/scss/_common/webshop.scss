@@ -14,10 +14,10 @@
 @import 'includes/shame';
 
 // LAYOUTS
-@import 'layout/_footer.scss',
-'layout/_grid.scss',
-'layout/_header.scss',
-'layout/_navigation.scss';
+@import 'layout/_footer.scss';
+@import 'layout/_grid.scss';
+@import 'layout/_header.scss';
+@import 'layout/_navigation.scss';
 
 // COMPONENTS
 @import 'components/_breadcrumbs.scss';

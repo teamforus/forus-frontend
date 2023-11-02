@@ -12,6 +12,10 @@ $primaryColorLight: #305dfb;
     --logo-padding: 20px 0px;
     --logo-height: 50px;
 
+    // Outline
+    --outline-width: 2px;
+    --outline-offset: 1px;
+
     // navbar (auth) (default button)
     --tc-auth-menu: #305dfb;
     --tc-auth-btn: #305dfb;
@@ -93,7 +97,6 @@ $primaryColorLight: #305dfb;
     --form-control-border-color: #282b39;
     --form-control-placeholder-font: 400 13px/20px var(--base-font);
     --form-control-placeholder-color: #535561;
-
     --form-label-color: #595959;
 
     // Buttons
@@ -103,17 +106,23 @@ $primaryColorLight: #305dfb;
     --btn-disabled-color: #cdced2;
     --btn-disabled-background: #f4f4f4;
 
-    // labels
+    // Labels
     --label-default-color: #fff;
     --label-default-background: #595959;
 
-    // label sets
+    // Label sets
     --label-set-border-radius: var(--border-radius);
-    --label-set-active-color: #282b39;
-    --label-set-hover-color: #717791;
-    --label-set-focus-color: #282b39;
+    --label-set-border-color: var(--border-color);
+    --label-set-color: #272525;
+    --label-set-background: #ffffff;
+    --label-set-active-color: #ffffff;
+    --label-set-active-background: var(--color-primary);
+    --label-set-hover-color: #ffffff;
+    --label-set-hover-background: #{rgba($primaryColor, .8)};
+    --label-set-focus-color: #272525;
+    --label-set-focus-background: #F4F5F7;
 
-    // sign up
+    // Sign up
     --sign_up_accent_color: #305dfb;
     --sign_up_accent_color_light: #bdcbff;
     --sign_up_link_color: #e60003;
