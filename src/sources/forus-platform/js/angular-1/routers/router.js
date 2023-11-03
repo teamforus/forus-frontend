@@ -1445,7 +1445,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ...pick($transition$.params(), $transition$.params().type == 'transactions' ? [
                     'q', 'page', 'state', 'fund_id', 'fund_state', 'from', 'to', 
                     'amount_min', 'amount_max', 'quantity_min', 'quantity_max', 
-                    'order_by', 'order_by_dir',
+                    'order_by', 'order_dir',
                 ] : []),
                 per_page: 20,
             }))],
@@ -1454,7 +1454,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackPagination(TransactionBulkService.list($transition$.params().organization_id, {
                 ...pick($transition$.params(), $transition$.params().type == 'bulks' ? [
                     'page', 'state', 'from', 'to', 'amount_min', 'amount_max', 
-                    'quantity_min', 'quantity_max', 'order_by', 'order_by_dir'
+                    'quantity_min', 'quantity_max', 'order_by', 'order_dir'
                 ] : []),
                 per_page: 20,
             }))],

@@ -1,49 +1,66 @@
-.app.app-container(ng-if="$root.activeOrganization && $root.auth_user && $ctrl.validatorOrganizations")
+.app.app-container
     menu
     section.app.app-content
-        .card-heading Beoordelaars
+        .card
+            .card-header: .flex
+                .flex.flex-grow: .card-title
+                    span(translate="external_validators.header.title")
+                    | &nbsp;
+                    span(ng-bind="$ctrl.validatorOrganizations.meta.total").span-count
 
-        .block.block-external-validators
-            .validator-item(ng-repeat="organization in $ctrl.validatorOrganizations.data")
-                .validator-logo: img(
-                    ng-src="{{ organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}"
-                    ).validator-logo-img
+                .flex: .block.block-inline-filters
+                    .form(ng-if="!$ctrl.filters.show")
+                        .form-group: input(ng-model="$ctrl.filters.q" placeholder="Zoeken").form-control
+        
+            .card-section(ng-if="$ctrl.validatorOrganizations.data.length > 0"): .card-block.card-block-table: .table-wrapper: table.table
+                tr
+                    th(th-sortable filters="$ctrl.filters" label="external_validators.labels.organization_name" value="name")
+                    th(th-sortable filters="$ctrl.filters" label="external_validators.labels.email" value="email")
+                    th(th-sortable filters="$ctrl.filters" label="external_validators.labels.phone" value="phone")
+                    th(th-sortable filters="$ctrl.filters" label="external_validators.labels.website" value="website")
+                    th(translate="external_validators.labels.actions").text-right
 
-                .validator-details
-                    .validator-title(ng-click="organization.show_details = !organization.show_details")
-                        .validator-title-toggle.mdi(ng-class="organization.show_details ? 'mdi-menu-up' : 'mdi-menu-down'")
-                        span(ng-bind="organization.name")
-                    .validator-properties(ng-if="organization.show_details")
-                        .validator-property(ng-if="organization.email_public")
-                            .validator-property-label E-mail
-                            .validator-property-value.text-primary-light(ng-bind="organization.email")
-                        .validator-property(ng-if="organization.phone_public")
-                            .validator-property-label Telefonnummer
-                            .validator-property-value(ng-bind="organization.phone")
-                        .validator-property(ng-if="organization.website_public")
-                            .validator-property-label Website
-                            .validator-property-value.text-primary-light(ng-bind="organization.website")
+                tr(ng-repeat="validatorOrganization in $ctrl.validatorOrganizations.data")
+                    td: .flex.flex-align-items-center
+                        img.td-media.td-media-sm(
+                            ng-src="{{ validatorOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+                        | &nbsp;&nbsp;&nbsp;
+                        .text-primary.text-strong(
+                            ng-bind="validatorOrganization.name | str_limit:40")
 
-                .validator-actions(ng-if="organization.id != $ctrl.organization.id")
-                    .button.button-primary(
-                        ng-if="!organization.approved"
-                        ng-click="$ctrl.addExternalValidator(organization)")
-                        em.mdi.mdi-check-circle.icon-start
-                        | Toevoegen
-                    
-                    .button.button-default(
-                        ng-if="organization.approved"
-                        ng-click="$ctrl.removeExternalValidator(organization)")
-                        em.mdi.mdi-close.icon-start
-                        | Verwijderen
+                    td(
+                        ng-bind="validatorOrganization.email || '-'" 
+                        ng-class="validatorOrganization.email ? 'text-medium text-primary-light' : 'text-muted'")
 
-        .card(
-            ng-if="$ctrl.validatorOrganizations.meta.total > 0" 
-            ng-show="$ctrl.validatorOrganizations.meta.last_page > 1")
-            .card-section: paginator(
-                meta="$ctrl.validatorOrganizations.meta"
-                filters="$ctrl.filters.values"
-                on-page-change="$ctrl.onPageChange(query)")
+                    td(
+                        ng-bind="validatorOrganization.phone || '-'" 
+                        ng-class="validatorOrganization.phone ? '' : 'text-muted'")
 
-        div(ng-if="$ctrl.validatorOrganizations.meta.total == 0")
-            block-empty(text="Geen beoordelaars beschikbaar." )
+                    td(
+                        ng-bind="validatorOrganization.website || '-'" 
+                        ng-class="validatorOrganization.website ? 'text-medium text-primary-light' : 'text-muted'")
+
+                    td.text-right
+                        .button.button-primary.button-sm(
+                            ng-if="!validatorOrganization.approved"
+                            ng-click="$ctrl.addExternalValidator(validatorOrganization)")
+                            em.mdi.mdi-check-circle.icon-start
+                            translate(translate="external_validators.buttons.add")
+                        
+                        .button.button-default.button-sm(
+                            ng-if="validatorOrganization.approved"
+                            ng-click="$ctrl.removeExternalValidator(validatorOrganization)")
+                            em.mdi.mdi-close.icon-start
+                            translate(translate="external_validators.buttons.delete")
+
+            //- Pagination
+            .card-section(ng-if="$ctrl.validatorOrganizations.meta" ng-show="$ctrl.validatorOrganizations.meta.last_page > 0")
+                paginator(
+                    meta="$ctrl.validatorOrganizations.meta" 
+                    filters="$ctrl.filters" 
+                    count-buttons="5" 
+                    on-page-change="$ctrl.onPageChange(query)")
+
+            //- Not found
+            .card-section(ng-if="$ctrl.validatorOrganizations.meta.total == 0"): .block.block-empty.text-center
+                .empty-title Geen beoordelaars beschikbaar.

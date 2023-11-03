@@ -1,15 +1,16 @@
-module.exports = [() => function(phoneNumber = '') {
+const phones = require('libphonenumber-js');
+
+module.exports = [() => function (phoneNumber = '') {
     if ((typeof phoneNumber != 'string') || phoneNumber.length < 3) {
         return phoneNumber;
     }
 
-    let number = phoneNumber.slice(0, 2);
-    phoneNumber = phoneNumber.slice(2, phoneNumber.length);
-    
+    const parser = phones.parsePhoneNumber(phoneNumber);
+    let number = '';
+
     for (let i = 0; i < phoneNumber.length / 3; i++) {
         number += ' ' + phoneNumber.slice(i * 3, i * 3 + 3);
-        
     }
 
-    return number;
+    return parser.isValid() ? parser.formatInternational() : number;
 }];

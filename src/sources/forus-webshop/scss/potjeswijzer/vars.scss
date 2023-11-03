@@ -48,7 +48,7 @@ $primaryColorLight: #b9cb18;
     --text_format: inherit;
 
     // footer color
-    --footer_background_color: #4990B5;
+    --footer_background_color: #4990b5;
     --footer_color: #ffffff;
 
     // Displayed or not
@@ -58,7 +58,7 @@ $primaryColorLight: #b9cb18;
     --product-image-padding: 10px 0 0 10px;
 
     // placeholder text color
-    --placeholder_text_color: #515152;
+    --form-control-placeholder-color: #515152;
 
     --border-color: #d2e6ff;
 
@@ -74,7 +74,14 @@ $primaryColorLight: #b9cb18;
     --color-search-icon-medium: #{$primaryColor};
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
+    
+    // Label sets
+    --label-set-active-background: #4e4d40;
+    --label-set-hover-background: #{rgba(#4e4d40, .8)};
 
     // Login button
     --login-button-background: #fff;
+
+    // Breadcrumbs
+    --breadcrumb-color: #4f4f4f;
 }

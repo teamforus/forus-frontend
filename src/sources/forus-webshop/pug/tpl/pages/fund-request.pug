@@ -173,9 +173,9 @@ main(id="main-content")
                     .sign_up-pane-body: form(ng-submit="$ctrl.validateStepCriteria(invalidCriteria)").row
                         .form-group.col.col-lg-12
                             .sign_up-pane-text.block.block-markdown
-                                .sign_up-pane-text(
+                                .sign_up-pane-text: markdown(
                                     ng-if="invalidCriteria.description && invalidCriteria.description !== '_'"
-                                    ng-bind-html="invalidCriteria.description_html")
+                                    content="invalidCriteria.description_html")
 
                                 .sign_up-pane-text(
                                     ng-if="!invalidCriteria.description && invalidCriteria.description !== '_'"
@@ -340,8 +340,9 @@ main(id="main-content")
 
                         //- Contact information form
                         .form-group
-                            .form-label Contactgegevens
+                            label.form-label(for="fund_request_contact_info") Contactgegevens
                             textarea(
+                                id="fund_request_contact_info"
                                 rows="5" 
                                 placeholder="Contactgegevens invullen..."
                                 ng-model="$ctrl.contactInformation"
@@ -419,9 +420,14 @@ main(id="main-content")
                         .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").row
                             h2.sign_up-pane-heading.text-center Verzonden!
                             p.sign_up-pane-text.text-center
-                                | Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail.
+                                | Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. 
+                                | Je ontvangt hierover een e-mail.
                             .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg" alt="")
-                            .text-center: .button.button-text.button-text-primary.button-text-padless(ng-click="$ctrl.finish()" role="button") Terug
+
+                            .text-center: .button.button-primary(
+                                ng-click="$ctrl.finish()" 
+                                role="button") Terug
+
                             .form-group.col.col-lg-12.hidden-xs: br
 
                 //- Error
@@ -434,11 +440,13 @@ main(id="main-content")
                         .sign_up-pane-body: .row
                             .form-group.col.col-lg-12
                                 .block-icon: .mdi.mdi-close
-                                p.sign_up-pane-text.text-center
-                                    | Reden:
+                                p.sign_up-pane-text.text-center Reden:
                                 p.sign_up-pane-text.text-center(translate="{{ $ctrl.errorReason }}")
 
-                                .text-center: .button.button-default(ng-click="$ctrl.finish()" role="button") Verlaat formulier
+                                .text-center: .button.button-dark(
+                                    ng-click="$ctrl.finish()" 
+                                    role="button") Verlaat formulier
+
                             .form-group.col.col-lg-12: br
 
         .block.block-sign_up(ng-if="$ctrl.digiExpired"): .block-wrapper.form

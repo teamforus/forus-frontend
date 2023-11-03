@@ -53,7 +53,7 @@
                     label(translate="implementation_edit.labels.header_description").form-label
                     text-angular(ng-model="$ctrl.form.values.description_html")
 
-                    .form-offset: markdown(
+                    .form-offset: markdown-editor(
                         extended-options="true"
                         value="$ctrl.form.values.description_html" 
                         ng-model="$ctrl.form.values.description"
@@ -112,7 +112,11 @@
                     .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.form.values.announcement.active")
                         label(for="announcement_description" translate="implementation_edit.labels.announcement_description").form-label
                         .form-offset
-                            markdown(value="$ctrl.form.values.announcement.description_html" ng-model="$ctrl.form.values.announcement.description" placeholder="Description...")
+                            markdown-editor(
+                                value="$ctrl.form.values.announcement.description_html" 
+                                ng-model="$ctrl.form.values.announcement.description" 
+                                placeholder="Description...")
+
                             .form-error(ng-repeat="error in $ctrl.form.errors['announcement.description']" ng-bind="error")
 
                     //- Show/Hide announcement

@@ -1,11 +1,8 @@
 &.block-showcase {
+    --aside-width: 330px;
     position: relative;
     cursor: default;
     margin: 0 0 30px;
-
-    .block-navbar {
-        margin: 0 0 10px;
-    }
 
     .showcase-title {
         font: 700 22px/36px var(--base-font);
@@ -24,7 +21,6 @@
         max-width: 100%;
         margin: 0 auto;
         display: block;
-        padding: 10px 0 0;
         min-height: calc(100vh - 100px);
     }
 
@@ -51,16 +47,16 @@
 
         .showcase-aside {
             height: fit-content;
-            width: 320px;
-            max-width: 320px;
-            min-width: 320px;
+            width: var(--aside-width);
+            max-width: var(--aside-width);
+            min-width: var(--aside-width);
 
             .showcase-aside-block {
                 position: relative;
                 padding: 20px;
                 width: 100%;
                 background: #fff;
-                border-radius: var(--border-radius);
+                border-radius: var(--label-set-border-radius);
                 box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
                 margin-bottom: 30px;
 
@@ -70,43 +66,82 @@
                     border-color: var(--color-primary);
                     margin-bottom: 15px;
                     flex-wrap: nowrap;
+                    background-color: #fff;
 
                     .showcase-aside-tab {
                         display: flex;
                         flex-basis: 1;
                         flex-grow: 1;
+                        justify-content: center;
                         text-align: center;
-                        background: #f6f6f6;
-                        color: #000;
-                        border: 1px solid var(--border-color);
+                        color: var(--label-set-color);
+                        background: var(--label-set-background);
+                        border: 1px solid var(--label-set-border-color);
                         border-right: none;
-                        border-radius: var(--border-radius);
+                        border-radius: var(--label-set-border-radius);
                         border-top-right-radius: 0;
                         border-bottom-right-radius: 0;
-                        transition: color .4s, background-color .4s;
+                        transition: all .35s ease;
                         font: 400 13px/18px var(--base-font);
-                        padding: 10px;
-                        padding-right: 5px;
+                        padding: 10px 5px;
 
                         .mdi {
-                            padding-right: 5px;
+                            padding-right: 3px;
                             font-size: 16px;
+                            line-height: 18px;
+                            height: 18px;
                             margin-right: 2px;
+                            transition: all .35s ease;
+                            color: var(--label-set-color);
+                            height: 100%;
+                            flex-direction: column;
+                            justify-content: center;
+                            display: flex;
                         }
 
                         &:last-child {
-                            border-right: 1px solid var(--border-color);
+                            border-right: 1px solid var(--label-set-border-color);
                             border-left: 0px;
                             border-top-left-radius: 0;
                             border-bottom-left-radius: 0;
-                            border-top-right-radius: var(--border-radius);
-                            border-bottom-right-radius: var(--border-radius);
+                            border-top-right-radius: var(--label-set-border-radius);
+                            border-bottom-right-radius: var(--label-set-border-radius);
                         }
 
-                        &.active {
-                            background: var(--color-primary);
-                            border-color: var(--color-primary);
-                            color: #fff;
+                        &:focus {
+                            color: var(--label-set-focus-color);
+                            border-color: var(--label-set-focus-background);
+                            background-color: var(--label-set-focus-background);
+
+                            .mdi {
+                                color: var(--label-set-focus-color);
+                            }
+                        }
+
+                        &:hover {
+                            color: var(--label-set-hover-color);
+                            background-color: var(--label-set-hover-background);
+                            border-color: var(--label-set-hover-background);
+                
+                            .mdi {
+                                color: var(--label-set-hover-color);
+                            }
+                        }
+
+                        &.active,
+                        &:active {
+                            background: var(--label-set-active-background);
+                            border-color: var(--label-set-active-background);
+                            color: var(--label-set-active-color);
+                
+                            .mdi {
+                                color: var(--label-set-active-color);
+                            }
+                        }
+                
+                        &.disabled {
+                            cursor: default;
+                            pointer-events: none;
                         }
                     }
                 }
@@ -223,7 +258,7 @@
         .showcase-content {
             padding-left: 30px;
             flex-grow: 1;
-            max-width: calc(100% - 320px);
+            max-width: calc(100% - var(--aside-width));
 
             .showcase-content-header {
                 position: relative;
@@ -305,11 +340,16 @@
                             padding-right: 25px;
                             min-width: 130px;
                             border-radius: calc(var(--border-radius) / 2);
-                            border: 1px solid var(--border-color);
                             font: 600 12px/20px var(--base-font);
                         }
                         
                         .select-control-input {
+                            .select-control-search {
+                                .select-control-search-placeholder {
+                                    line-height: 20px;
+                                }
+                            }
+
                             .select-control-options {
                                 .select-control-option {
                                     height: auto;
@@ -406,7 +446,7 @@
 
     @media screen and (max-width: 1300px) {
         .showcase-wrapper {
-            padding: 10px 25px 0;
+            padding: 0 25px;
         }
 
         .showcase-layout {
@@ -419,6 +459,7 @@
                     .showcase-aside-tabs {
                         .showcase-aside-tab {
                             font-size: 12px;
+                            padding: 10px 10px;
 
                             .mdi {
                                 margin-right: 2px;

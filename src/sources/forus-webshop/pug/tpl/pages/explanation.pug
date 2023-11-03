@@ -6,7 +6,7 @@ main(id="main-content")
             .block.block-breadcrumbs
                 a(ui-sref="home").breadcrumb-item Home
                 .breadcrumb-item.active(i18n="Uitleg" aria-current="location")
-            
+
             .flex.flex-vertical(ng-class="$ctrl.page.description_position == 'after' ? 'flex-vertical-reverse' : ''")
                 .block.block-steps(ng-if="$ctrl.description_html")
                     .block-steps-description: cms-blocks(
@@ -18,7 +18,7 @@ main(id="main-content")
 
                     .section-splash
                     h1.section-title(i18n="home.faq.title")
-                    
+
                     //- CMS FAQ
                     .faq(collapse ng-if="$ctrl.faq.length")
                         .faq-item(
@@ -31,7 +31,11 @@ main(id="main-content")
                                 span(ng-bind="faq.title" aria-expanded="{{faq.isActive}}" role="button")
                                 .faq-item-chevron-down.mdi.mdi-chevron-down(aria-hidden="true")
                                 .faq-item-chevron-up.mdi.mdi-chevron-up(aria-hidden="true")
-                            .faq-item-content: .block.block-markdown(ng-bind-html="faq.description_html" role="region" aria-labelledby="{{faq.title}}")
+
+                            .faq-item-content: markdown(
+                                content="faq.description_html"
+                                aria-labelledby="{{faq.title}}"
+                                role="region")
 
 
                     //- Default FAQ
