@@ -12,13 +12,22 @@ const PaymentMethodsComponent = function (
     const $ctrl = this;
     const $translate = $filter('translate');
     const $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_mollie_connection.${key}`);
-    $ctrl.fetching = false;
+
     $ctrl.privacy = false;
     $ctrl.showForm = false;
+    $ctrl.fetching = false;
+
+    $ctrl.showError = (res, fallbackMessage = 'Onbekende foutmelding!') => {
+        res.status === 429
+            ? PushNotificationsService.danger(res.data.meta.title, res.data.meta.message)
+            : PushNotificationsService.danger('Mislukt!', res.data?.message || fallbackMessage);
+    };
 
     $ctrl.connectMollieAccount = () => {
-        MollieConnectionService.connect($ctrl.organization.id)
-            .then((res) => document.location.href = res.data.url);
+        MollieConnectionService.connect($ctrl.organization.id).then(
+            (res) => document.location.href = res.data.url,
+            (res) => $ctrl.showError(res),
+        );
     };
 
     $ctrl.fetchMollieAccount = () => {
@@ -31,12 +40,23 @@ const PaymentMethodsComponent = function (
         MollieConnectionService.fetch($ctrl.organization.id).then((res) => {
             $ctrl.mollieConnection = res.data.data;
             PushNotificationsService.success('Opgeslagen!');
-            $ctrl.fetching = false;
         }, (res) => {
-            res.status === 429
-                ? PushNotificationsService.danger(res.data.meta.title, res.data.meta.message)
-                : PushNotificationsService.danger('Error!', res.data?.message || 'Onbekende foutmelding!');
+            $ctrl.showError(res);
+        }).finally(() => $ctrl.fetching = false);
+    };
 
+    $ctrl.deleteMollieAccount = () => {
+        if ($ctrl.fetching) {
+            return;
+        }
+
+        $ctrl.fetching = true;
+
+        MollieConnectionService.destroy($ctrl.organization.id, $ctrl.mollieConnection.id).then((res) => {
+            PushNotificationsService.success('Opgeslagen!');
+            $state.reload();
+        }, (res) => {
+            $ctrl.showError(res);
             $ctrl.fetching = false;
         });
     };
@@ -47,27 +67,11 @@ const PaymentMethodsComponent = function (
             description: $translateDangerZone('description'),
             cancelButton: $translateDangerZone('buttons.cancel'),
             confirmButton: $translateDangerZone('buttons.confirm'),
-            onConfirm: deleteMollieAccount
+            onConfirm: $ctrl.deleteMollieAccount,
         });
     };
 
-    const deleteMollieAccount = () => {
-        if ($ctrl.fetching) {
-            return;
-        }
-
-        $ctrl.fetching = true;
-
-        MollieConnectionService.destroy($ctrl.organization.id, $ctrl.mollieConnection.id).then((res) => {
-            PushNotificationsService.success('Opgeslagen!');
-            return $state.go('home');
-        }, (res) => {
-            PushNotificationsService.danger('Error!', res.data?.message || 'Onbekende foutmelding!');
-            $ctrl.fetching = false;
-        });
-    };
-
-    $ctrl.initForm = (values = {}) => {
+    $ctrl.initForm = (values = { country_code: 'NL' }) => {
         $ctrl.form = FormBuilderService.build({ ...values }, (form) => {
             MollieConnectionService.store(
                 $ctrl.organization.id,
@@ -76,7 +80,7 @@ const PaymentMethodsComponent = function (
                 document.location.href = res.data.url;
             }, (res) => {
                 form.errors = res.data.errors;
-                PushNotificationsService.danger(res.data?.message || 'Onbekende foutmelding!');
+                $ctrl.showError(res);
             }).finally(() => form.unlock());
         }, true);
     };
@@ -113,19 +117,12 @@ const PaymentMethodsComponent = function (
     const getCountryOptions = () => {
         const countryCodes = countries.getNames("en");
 
-        return Object.keys(countryCodes).map((code) => {
-            return {
-                code: code,
-                name: countryCodes[code],
-            };
-        });
+        return Object.keys(countryCodes).map((code) => ({ code, name: countryCodes[code] }));
     };
 
     $ctrl.showSignUpForm = () => {
         $ctrl.countryOptions = getCountryOptions();
-        $ctrl.initForm({
-            country_code: 'NL',
-        });
+        $ctrl.initForm();
         $ctrl.showForm = true;
     };
 

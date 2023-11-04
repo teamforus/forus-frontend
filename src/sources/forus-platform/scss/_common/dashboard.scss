@@ -72,6 +72,7 @@
     @import 'blocks/block-features.scss';
     @import 'blocks/block-feature.scss';
     @import 'blocks/block-feature-faq.scss';
+    @import 'blocks/block-payment-connection.scss';
 }
 
 // Select controls
@@ -1227,86 +1228,6 @@ body {
 
     &.card-padded {
         margin-bottom: 0px;
-    }
-
-    &.card-payment-connection {
-        .card-block-with-icon {
-            display: flex;
-            gap: 20px;
-
-            .payment-connection-info-icon svg {
-                border-radius: 5px;
-                border: 1px solid #D4D9DD;
-            }
-
-            .card-subtitle {
-                margin-top: 15px;
-
-                .card-subtitle-label {
-                    color: #134478;
-                    font: 600 11px var(--base-font);
-                    margin-bottom: 5px;
-                }
-
-                .card-subtitle-value {
-                    color: #151B26;
-                    font: 500 13px/20px var(--base-font);
-                }
-            }
-
-            .privacy-checkbox {
-                .checkbox-label {
-                    span {
-                        color: #414141;
-                        font: 400 12px/20px var(--base-font);
-
-                        a {
-                            color: #134478;
-                            font: 600 12px/20px var(--base-font);
-                        }
-                    }
-                }
-            }
-        }
-
-        .action-section {
-            flex-direction: column;
-            gap: 20px;
-
-            .label {
-                display: flex;
-                width: fit-content;
-                align-self: flex-end;
-            }
-        }
-    }
-
-    &.card-payment-connection-primary {
-        .card-block-with-icon {
-            display: flex;
-            gap: 20px;
-
-            .payment-connection-info-icon svg {
-                border-radius: 5px;
-                border: 1px solid #D4D9DD;
-            }
-
-            .card-title-content {
-                .card-title {
-                    font: 600 16px var(--base-font);
-                    line-height: normal;
-                }
-
-                .label {
-                    margin-left: 10px;
-                }
-
-                .card-subtitle {
-                    margin-top: 10px;
-                    align-items: center;
-                }
-            }
-        }
     }
 }
 
@@ -6303,18 +6224,17 @@ body {
     }
 
     &.block-compact-datalist {
+        display: grid;
+
         .datalist-row {
-            @include cf();
             border-bottom: 1px dashed #ccc;
-            display: flex;
-            flex-direction: row;
+            display: grid;
+            grid-template-columns: 200px 1fr;
             
             .datalist-key {
                 @extend .text-wrap;
                 font: 500 14px/20px var(--base-font);
                 color: #646f79;
-                width: 50%;
-                max-width: 200px;
                 padding: 7.5px 15px 7.5px 0px;
             }
 
@@ -6322,9 +6242,7 @@ body {
                 @extend .text-wrap;
                 font: 500 14px/20px var(--base-font);
                 color: #646f79;
-                flex-grow: 1;
                 padding: 7.5px 0px;
-                max-width: calc(100% - 200px);
             }
         }
 
@@ -6344,6 +6262,33 @@ body {
 
                 &:last-child {
                     border-bottom: 0;
+                }
+            }
+        }
+
+        &.compact-datalist-vertical {
+            grid-auto-flow: column;
+            gap: 20px;
+
+            .datalist-row {
+                grid-template-columns: 1fr;
+                border: none;
+
+                .datalist-key,
+                .datalist-value {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .datalist-key {
+                    color: var(--color-primary);
+                    font: 600 11px/20px var(--base-font);
+                }
+
+
+                .datalist-value {
+                    color: var(--text-color);
+                    font: 500 13px/20px var(--base-font);
                 }
             }
         }

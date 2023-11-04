@@ -19,22 +19,21 @@
             update-fund-provider-excluded="$ctrl.updateFundProviderExcluded")
 
 
-        .card.card-payment-connection-primary(ng-if="$ctrl.organization.allow_provider_extra_payments")
-            .card-header: .flex
-                .flex.flex-grow: .flex.flex-vertical
-                    .card-block-with-icon
-                        .payment-connection-info-icon: include ../../../resources/platform-general/assets/img/svg/mollie-connection-icon.svg
-                        .card-title-content
-                            .flex.flex-center
-                                .card-title Allow connection with payment method
-                                .label.label-warning(ng-if="!$ctrl.fundProvider.allow_extra_payments") Disabled
-                                .label.label-success(ng-if="$ctrl.fundProvider.allow_extra_payments") Enabled
+        .card(ng-if="$ctrl.organization.allow_provider_extra_payments")
+            .card-section: .block.block-payment-connection.form
+                .connection-content
+                    .connection-content-icon: include ../../../resources/platform-general/assets/img/svg/mollie-connection-icon.svg
+                    .connection-content-details
+                        .connection-content-title
+                            | Allow connection with payment method
+                            .label.label-warning(ng-if="!$ctrl.fundProvider.allow_extra_payments") Disabled
+                            .label.label-success(ng-if="$ctrl.fundProvider.allow_extra_payments") Enabled
 
-                            .flex.card-subtitle
-                                em.mdi.mdi-information
-                                | Transactiekosten bekijken
+                        a(href="#").connection-content-info
+                            | Transactiekosten bekijken
+                            em.mdi.mdi-information
 
-                .flex.action-section.form
+                .connection-actions
                     label(
                         ng-disabled="$ctrl.fundProvider.submittingAllow"
                         ng-class="$ctrl.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
