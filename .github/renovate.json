@@ -1,9 +1,10 @@
 {
   "extends": ["config:base"],
+  "baseBranches": ["develop"],
   "packageRules": [
     {
       "enabled": false,
-      "matchPackagePatterns": ["*"],
+      "matchPackagePatterns": ["*"]
     }
   ],
   "vulnerabilityAlerts": {
