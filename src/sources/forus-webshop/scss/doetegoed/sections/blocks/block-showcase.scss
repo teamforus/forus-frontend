@@ -17,18 +17,6 @@
                 }
 
                 .showcase-filters-block {
-                    .block-label-tabs {
-                        .label-tab {
-                            &.active {
-                                background-color: #492638;
-                            }
-
-                            &:hover {
-                                background-color: #969495;
-                            }
-                        }
-                    }
-
                     .showcase-filters-item {
                         .form-control:not([type="radio"]):not([type="checkbox"]) {
                             border-radius: 25px;
@@ -54,22 +42,6 @@
             .showcase-aside-block {
                 .form-label {
                     font-weight: 500;
-                }
-
-                .showcase-aside-tabs {
-                    .showcase-aside-tab {
-                        border-radius: 25px;
-                        border-top-right-radius: 0;
-                        border-bottom-right-radius: 0;
-
-
-                        &:last-child {
-                            border-top-left-radius: 0;
-                            border-bottom-left-radius: 0;
-                            border-top-right-radius: 25px;
-                            border-bottom-right-radius: 25px;
-                        }
-                    }
                 }
             }
         }

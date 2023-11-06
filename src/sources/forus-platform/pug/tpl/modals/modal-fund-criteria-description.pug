@@ -13,7 +13,7 @@
 
             .form-group
                 label.form-label(translate="modals.modal_fund_criteria_description.labels.description")
-                markdown(
+                markdown-editor(
                     value="$ctrl.form.values.description_html"
                     ng-model="$ctrl.form.values.description")
                 .form-error(ng-repeat="error in $ctrl.form.errors['criteria.0.description']" ng-bind="error")

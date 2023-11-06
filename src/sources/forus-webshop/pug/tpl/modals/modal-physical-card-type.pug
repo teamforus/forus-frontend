@@ -41,7 +41,7 @@
                     .physical-card-order(ng-click="$ctrl.requestPhysicalCard()") Bestel een pas
 
                 
-                .button-group.flex-center: button.button.button-dark(
+                .button-group.flex-center: button.button.button-primary(
                     ng-class="{disabled: $ctrl.activateCodeForm.values.code.length != 12}"
                     type="button" 
                     i18n="physical_card.buttons.link_card.submit_code" 
@@ -156,7 +156,7 @@
                         alt="Fysieke pas: '{{$ctrl.voucher.fund.name}}'")
 
                 .button-group.flex-center
-                    button.button.button-dark(type="submit" translate="physical_card.buttons.request_new_card.confirm")
+                    button.button.button-primary(type="submit" translate="physical_card.buttons.request_new_card.confirm")
 
     //- Confirmation new card
     .modal-window(ng-if="$ctrl.state == 'confirm_new_card'")
@@ -176,8 +176,8 @@
                     br 
 
                 .button-group.flex-center
-                    button.button.button-dark(type="button" translate="physical_card.buttons.confirm_card.adjust" ng-click="$ctrl.state = 'select_type'")
-                    button.button.button-danger(type="button" translate="physical_card.buttons.confirm_card.submit" ng-click="$ctrl.confirmCard()")   
+                    button.button.button-light(type="button" translate="physical_card.buttons.confirm_card.adjust" ng-click="$ctrl.state = 'select_type'")
+                    button.button.button-primary(type="button" translate="physical_card.buttons.confirm_card.submit" ng-click="$ctrl.confirmCard()")   
 
     //- Success old card
     .modal-window(ng-if="$ctrl.state == 'success_old_card'")
@@ -192,7 +192,7 @@
                     i18n-vars="{ fundName: $ctrl.voucher.fund.name }")        
 
                 .button-group.flex-center
-                    button.button.button-dark(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")   
+                    button.button.button-primary(type="button" ng-click="$ctrl.close()" i18n="physical_card.buttons.close")   
 
     //- Success new card
     .modal-window(ng-if="$ctrl.state == 'success_new_card'")

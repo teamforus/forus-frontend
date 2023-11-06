@@ -7,12 +7,6 @@
                         background-color: #a21522;
                     }
                 }
-
-                &.button-default {
-                    &:hover {
-                        background-color: #074e7d;
-                    }
-                }
             }
         }
 
@@ -404,17 +398,6 @@
 
             .schedule-value {
                 color: #fff;
-            }
-        }
-
-        .footer-subscribe {
-            .button {
-                margin: 0;
-                border-radius: var(--border-radius);
-
-                .mdi {
-                    float: none;
-                }
             }
         }
     }
