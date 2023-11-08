@@ -1,0 +1,14 @@
+{
+  "extends": ["config:base"],
+  "baseBranches": ["develop"],
+  "packageRules": [
+    {
+      "enabled": false,
+      "matchPackagePatterns": ["*"]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true
+  },
+  "osvVulnerabilityAlerts": true
+}
