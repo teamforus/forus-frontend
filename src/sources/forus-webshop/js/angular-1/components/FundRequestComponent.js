@@ -60,6 +60,8 @@ const FundRequestComponent = function (
                     '=': () => value,
                     '>': () => parseInt(value) + 1,
                     '<': () => parseInt(value) - 1,
+                    '>=': () => value,
+                    '<=': () => value,
                 }[operator] || null;
 
                 return $ctrl.fund.auto_validation ? {
@@ -142,8 +144,16 @@ const FundRequestComponent = function (
     $ctrl.criterionTitle = (criterion) => {
         const record_type = criterion.record_type;
 
-        if (['>', '<', '=', '*'].includes(criterion?.operator)) {
-            const key = { '>': 'more', '<': 'less', '=': 'same', '*': 'any' }[criterion.operator] || '';
+        if (['>', '<', '>=', '<=', '=', '*'].includes(criterion?.operator)) {
+            const key = { 
+                '>': 'more', 
+                '>=': 'more_or_equal', 
+                '<': 'less', 
+                '<=': 'less_or_equal', 
+                '=': 'same', 
+                '*': 'any' 
+            }[criterion.operator] || '';
+
             const isCurrency = $ctrl.currencyKeys.includes(record_type?.key);
 
             const value = record_type.type == 'select' ?
