@@ -479,13 +479,6 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-.form {
-    .form-control:not([type="radio"]):not([type="checkbox"]) { 
-        background-color: #ffffff;
-        border: 1px solid #e4e4e4;
-    }
-}
-
 .section {
     &.section-header {
         width: 1280px;
