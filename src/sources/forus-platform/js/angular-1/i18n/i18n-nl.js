@@ -81,6 +81,7 @@ module.exports = {
             remove_reimbursement_category: require('./nl/modals/danger-zone/remove_reimbursement_category'),
             recreate_bi_connection: require('./nl/modals/danger-zone/recreate-bi-connection'),
             remove_reservation_field: require('./nl/modals/danger-zone/remove-reservation-field'),
+            remove_mollie_connection: require('./nl/modals/danger-zone/remove-mollie-connection'),
         },
     },
     // PAGES
@@ -100,6 +101,7 @@ module.exports = {
     organization_contacts: require('./nl/pages/organization-contacts.pug.i18n'),
     reservation_settings: require('./nl/pages/reservations-settings.pug.i18n'),
     features: require('./nl/pages/features.pug.i18n'),
+    mollie_connection: require('./nl/pages/mollie-connection.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
