@@ -78,6 +78,9 @@ $primaryColorLight: #2a2a7f;
     // Label sets
     --label-set-hover-background: #{rgba($primaryColor, .8)};
 
+    //- Showcase
+    --showcase-fullscreen-bottom-offset: 175px;
+
     // Login button
     --login-button-background: #fff;
 }

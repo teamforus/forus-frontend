@@ -105,56 +105,6 @@
         }
     }
 
-    &.block-products-list {
-        .product-item {
-            box-shadow: none;
-            border: solid 1px #e4e4e4;
-        }
-    }
-
-
-    &.block-showcase {
-        .showcase-layout {
-            .showcase-aside {
-                .showcase-aside-block {
-                    box-shadow: none;
-                    padding: 0;
-                }
-                
-                .button.button-primary-outline {
-                    background-color: var(--color-primary);
-                    color: #fff;
-
-                    &:hover {
-                        background: var(--color-primary-light);
-                    }
-                }
-            }
-        }
-
-        &.block-showcase-fullscreen {
-            .showcase-layout {
-                .showcase-aside {
-                    .showcase-aside-block {
-                        padding: 20px;
-                    }
-                }
-            }
-        }
-
-        @media screen and (max-width: 1000px) {
-            .showcase-wrapper {
-                .showcase-layout {
-                    .showcase-aside {
-                        .showcase-aside-block {
-                            padding: 20px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     &.block-profile {
         .profile-aside {
             .profile-menu {
@@ -189,26 +139,6 @@
 
                 .fund-title {
                     color: var(--tc);
-                }
-            }
-        }
-    }
-
-    &.block-organizations {
-        .organization-item {
-            .organization-pane {
-                box-shadow: none;
-                border: 1px solid #e4e4e4;
-
-                &.active {
-                    border: 1px solid #e4e4e4;
-                }
-            }
-
-            .organization-offices {
-                .block-offices {
-                    box-shadow: none;
-                    border: 1px solid #e4e4e4;
                 }
             }
         }

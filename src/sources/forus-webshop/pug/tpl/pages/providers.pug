@@ -92,7 +92,7 @@ block content
                             .showcase-result(ng-if="$ctrl.showMap")
                                 | Er zijn #[.showcase-result-count(ng-bind="$ctrl.providers.meta.total")] aanbieders gevonden
 
-                        a.button.button-primary-outline.button-fill.button-flat.hide-sm(
+                        a.button.button-primary.hide-sm(
                             ng-if="$root.appConfigs.features.pages.provider" 
                             ui-sref="sign-up" 
                             ng-show="!$ctrl.showMap")
