@@ -1,6 +1,6 @@
 module.exports = {
     title: "Voorzichtig!",
-    description: "You are about deleting this mollie connection",
+    description: "U gaat deze Mollie verbinding verwijderen",
     buttons: {
         cancel: 'Annuleren',
         confirm: 'Bevestigen',

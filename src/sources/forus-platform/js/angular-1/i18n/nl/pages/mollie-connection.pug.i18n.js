@@ -1,49 +1,49 @@
 module.exports = {
     header: {
-        title: 'Settings of extra payment method for mollie',
-        unknown_competed_at: 'Unknown',
-        warning: 'Lorem ipsum dolor sit amet consectetur. Cras netus vitae vitae at. Cras lorem eros nulla condimentum tortor pellentesque.',
+        title: 'Instellingen voor bijbetaalmethoden ',
+        unknown_competed_at: 'Onbekend',
+        warning: 'Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,29 cent.',
     },
     header_create: {
-        title: 'Add company information',
+        title: 'Organisatiegegevens indienen',
     },
     header_update_profile: {
-        title: 'Update profile',
+        title: 'Profiel bijwerken',
     },
     labels: {
         vat: "VAT number",
-        city: "City",
-        name: "Name",
+        city: "Stad",
+        name: "Naam",
         email: "Email",
-        phone: "Phone",
-        street: "Street",
+        phone: "Telefoonnummer",
+        street: "Straat",
         website: "Website",
-        address: "Address",
-        country: "Country",
+        address: "Adres",
+        country: "Land",
         postcode: "Postcode",
-        last_name: "Last name",
-        first_name: "First name",
-        completed_at: "Active since",
+        last_name: "Achternaam",
+        first_name: "Voornaam",
+        completed_at: "Actief sinds",
         profile_name: "Profile name",
-        business_type: "Business type",
-        organization_name: "Organization name",
-        registration_number: "Registration number"
+        business_type: "Bedrijfstype",
+        organization_name: "Organisatienaam",
+        registration_number: "Registratienummer"
     },
     titles: {
-        address: 'Address',
-        contact_information: 'Contact information',
-        general_information: 'General information',
-        profile_information: 'Profile information',
-        current_profile_information: 'Current profile information'
+        address: 'Adres',
+        contact_information: 'Contactgegevens',
+        general_information: 'Algemene Informatie',
+        profile_information: 'Profielgegevens',
+        current_profile_information: 'Huidige profielinformatie'
     },
     buttons: {
-        fetch: "Fetch details",
+        fetch: "Haal gegevens op",
         cancel: "Annuleren",
         submit: "Bevestig",
-        delete: "Deactivate"
+        delete: "Deactiveer"
     },
     create_form: {
-        info_content: "Fill in the required fields to set up your company account. " +
-            "Once your company account is set up, you will be ready to start accepting payments."
+        info_content: "Vul de vereiste velden in om uw bedrijfsaccount in te stellen. " +
+            "Zodra uw bedrijfsaccount is ingesteld, bent u klaar om betalingen te accepteren."
     }
 };

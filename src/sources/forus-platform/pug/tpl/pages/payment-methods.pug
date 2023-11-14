@@ -11,17 +11,20 @@
                     include ../../../resources/platform-general/assets/img/svg/mollie-payment-method-icon-active.svg
 
                 .connection-content-details
-                    .connection-content-title Mollie authentication
+                    .connection-content-title Bijbetalen mogelijk maken via Mollie
                     .connection-content-description 
-                        | Here will be an informational text about signing in into the mollie account lorem ipsum dolor sit amet consectetur.
-                        | Non commodo nec sit nec. Mi nunc neque eu urna aliquam amet morbi.
+                        | De koppeling met Mollie maakt het voor klanten mogelijk om direct en veilig bij te betalen|
+                        | aan u als aanbieder, wanneer hun tegoed ontoereikend is. Deze functionaliteit zorgt voor|
+                        | een gestroomlijnde en beveiligde betaalervaring, waardoor transacties efficiënter worden|
+                        | afgehandeld.
                     
                     label(for='privacy').checkbox.checkbox-narrow
                         input(type="checkbox" ng-model="$ctrl.privacy" id='privacy')
                         .checkbox-label
                             .checkbox-box: .mdi.mdi-check
-                            | I have read and accepted the 
-                            | #[a(ui-sref="mollie-privacy({organization_id: $ctrl.organization.id})" target="_blank") terms and conditions]
+                            | Ik heb de
+                            | #[a(ui-sref="mollie-privacy({organization_id: $ctrl.organization.id})" target="_blank") Algemene Voorwaarden]|
+                            | gelezen en ga akkoord
 
             .card-section: .block.block-payment-connection.form: .connection-content: .button-group
                 button(
@@ -29,7 +32,7 @@
                     ng-click="$ctrl.showSignUpForm()"
                     type="button").button.button-primary
                     em.mdi.mdi-store.icon-start
-                    | Sign up
+                    | Een nieuw Mollie account aanmaken
 
                 .button-text-divider(ng-class="{'text-muted': !$ctrl.privacy}") or
 
@@ -37,7 +40,7 @@
                     ng-disabled="!$ctrl.privacy"
                     type="button"
                     ng-click="$ctrl.connectMollieAccount()").button.button-text
-                    | Connect existing
+                    | Een bestaand Mollie account koppelen
                     em.mdi.mdi-open-in-new.icon-end
 
         //- Mollie connection details
@@ -90,9 +93,6 @@
                                     ng-click="$ctrl.askConfirmationDelete()")
                                     em.mdi.mdi-close.icon-start
                                     translate(translate="mollie_connection.buttons.delete")
-
-                .card-footer.card-footer-warning.card-footer-sm: .card-title
-                    .text-small(translate="mollie_connection.header.warning")
 
             //- Connection details
             .card

@@ -25,9 +25,9 @@
                     .connection-content-icon: include ../../../resources/platform-general/assets/img/svg/mollie-connection-icon.svg
                     .connection-content-details
                         .connection-content-title
-                            | Allow connection with payment method
-                            .label.label-warning(ng-if="!$ctrl.fundProvider.allow_extra_payments") Disabled
-                            .label.label-success(ng-if="$ctrl.fundProvider.allow_extra_payments") Enabled
+                            | Verbinding met betaalmethode toestaan
+                            .label.label-warning(ng-if="!$ctrl.fundProvider.allow_extra_payments") Geweigerd
+                            .label.label-success(ng-if="$ctrl.fundProvider.allow_extra_payments") Geaccepteerd
 
                         a(href="#").connection-content-info
                             | Transactiekosten bekijken
@@ -44,9 +44,6 @@
                             ng-change="$ctrl.updateFundProviderAllow($ctrl.fundProvider, 'allow_extra_payments')"
                             ng-model="$ctrl.fundProvider.allow_extra_payments")
                         .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
-
-            .card-footer.card-footer-warning.card-footer-sm
-                .card-title: .text-small(translate="mollie_connection.header.warning")
 
         //- Products for subsidy fund (managed by sponsor)
         .card(ng-if="$ctrl.organization.manage_provider_products && $ctrl.fundProvider.fund.type == 'subsidies'")
