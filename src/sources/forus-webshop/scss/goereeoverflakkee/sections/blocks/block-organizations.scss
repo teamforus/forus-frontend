@@ -1,19 +1,10 @@
 &.block-organizations {
     .organization-item {
         .organization-pane {
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-
             .organization-pane-info {
                 .organization-title {
-                    .organization-title-value {
-                        color: #0B0E12;
-                        font: 500 16px/24px var(--base-font);
-                    }
-
                     .organization-page-link {
                         color: #08749B;
-                        font: 500 13px/13px var(--base-font);
                     }
                 }
             }
@@ -24,9 +15,6 @@
                 }
 
                 .organization-total-offices-count {
-                    border-radius: var(--border-radius);
-                    font: 600 12px/20px var(--base-font);
-
                     &.active {
                         background-color: #08749B;
                     }
@@ -38,10 +26,8 @@
             .block-offices {
                 .office-item {
                     .office-item-map-icon {
-                        .mdi-map-marker {
-                            border-radius: 5px;
-                            background-color: #08749B;
-                        }
+                        color: #fff;
+                        background-color: #08749B;
                     }
                 }
             }

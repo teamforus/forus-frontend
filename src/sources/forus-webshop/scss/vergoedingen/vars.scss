@@ -91,6 +91,18 @@ $primaryColorLight: #2f7f6b;
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
+    //- Showcase
+    --showcase-aside-shadow: none;
+    --showcase-aside-border: none;
+    --showcase-aside-padding: 0px;
+
+    --showcase-item-shadow: none;
+    --showcase-item-background: #fff;
+    --showcase-item-border: 1px solid var(--border-color);
+    --showcase-item-border-radius: var(--border-radius);
+
+    --showcase-fullscreen-bottom-offset: 50px;
+
     // Label sets
     --label-set-hover-background: #{rgba($primaryColor, .8)};
 
