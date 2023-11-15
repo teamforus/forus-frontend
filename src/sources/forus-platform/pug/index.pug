@@ -1,6 +1,6 @@
 doctype
 html(lang="nl" ng-controller="BaseController" ng-cloak)
-    include ../layout/includes/head
+    include includes/head
 
     body(
         ng-class="$root.layout" 
@@ -9,11 +9,11 @@ html(lang="nl" ng-controller="BaseController" ng-cloak)
         page-loading-bar
         
         div(ng-class="$root.viewLayout == 'landing' ? 'landing-root' : ''").ie-hide
-            include ../layout/includes/header
+            include includes/header
 
             ui-view
 
-            div(ng-if="$root.viewLayout != 'landing'"): include ../layout/includes/footer
+            div(ng-if="$root.viewLayout != 'landing'"): include includes/footer
 
             if (qdt_c.platform.env_data.chat_id)
                 div(forus-chat ng-if="appConfigs.chat_id" chat-id="{{ appConfigs.chat_id }}")
@@ -24,8 +24,8 @@ html(lang="nl" ng-controller="BaseController" ng-cloak)
         printables-root
         push-notifications
         
-        include ../layout/includes/oldIe
-        include ../layout/includes/scripts
+        include includes/oldIe
+        include includes/scripts
 
 if (qdt_c.git_log_header) 
     | <!-- !{qdt_c.git_log_header} -->

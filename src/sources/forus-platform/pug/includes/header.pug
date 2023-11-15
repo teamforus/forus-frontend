@@ -38,27 +38,27 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                 .auth-user-menu(ng-if="$root.userMenuOpened" click-outside="$root.hideUserMenu()")
 
                     a(ui-sref="identity-emails" dusk="btnUserEmails").auth-user-menu-item
-                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-email.svg
+                        .auth-user-menu-item-icon: include ../../resources/_platform-common/assets/img/menu/icon-dropdown-email.svg
                         | E-mail instellingen
 
                     a(ui-sref="preferences-notifications").auth-user-menu-item
-                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-notifications.svg
+                        .auth-user-menu-item-icon: include ../../resources/_platform-common/assets/img/menu/icon-dropdown-notifications.svg
                         | Notificatievoorkeuren
 
                     a(
                         ng-if="$root.activeOrganization.allow_2fa_restrictions || $root.auth_user.auth_2fa.required"
                         ui-sref="security-2fa").auth-user-menu-item
-                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-security.svg
+                        .auth-user-menu-item-icon: include ../../resources/_platform-common/assets/img/menu/icon-dropdown-security.svg
                         | Beveiliging
 
                     a(ui-sref="security-sessions" ng-if="$root.appConfigs.sessions").auth-user-menu-item
-                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-sessions.svg
+                        .auth-user-menu-item-icon: include ../../resources/_platform-common/assets/img/menu/icon-dropdown-sessions.svg
                         | Sessies
 
                     .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
 
                     .auth-user-menu-item(ng-click="$root.openPinCodePopup()")
-                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-authorize-device.svg
+                        .auth-user-menu-item-icon: include ../../resources/_platform-common/assets/img/menu/icon-dropdown-authorize-device.svg
                         span(translate="topnavbar.buttons.authorize")
                     
                     .auth-user-menu-sep(ng-if="$root.activeOrganization.id")
@@ -71,7 +71,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                             href="{{ $root.appConfigs.frontends.url_validator }}"
                             ng-if="$root.auth_user.dashboards.includes('validator')"
                             ng-class="{active: $root.appConfigs.panel_type == 'validator'}").auth-user-menu-item
-                            .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-validator.svg
+                            .auth-user-menu-item-icon: include ../../resources/_platform-common/assets/img/menu/icon-dropdown-validator.svg
                             | Beoordelaar
 
                         a(
@@ -79,7 +79,7 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                             href="{{ $root.appConfigs.frontends.url_sponsor }}"
                             ng-if="$root.auth_user.dashboards.includes('sponsor')"
                             ng-class="{active: $root.appConfigs.panel_type == 'sponsor'}").auth-user-menu-item
-                            .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-sponsor.svg
+                            .auth-user-menu-item-icon: include ../../resources/_platform-common/assets/img/menu/icon-dropdown-sponsor.svg
                             | Sponsor
 
                         a(
@@ -87,12 +87,12 @@ header.app.app-header(ng-if="$root.auth_user && $root.showAppHeader")
                             href="{{ $root.appConfigs.frontends.url_provider }}"
                             ng-if="$root.auth_user.dashboards.includes('provider')"
                             ng-class="{active: $root.appConfigs.panel_type == 'provider'}").auth-user-menu-item
-                            .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-provider.svg
+                            .auth-user-menu-item-icon: include ../../resources/_platform-common/assets/img/menu/icon-dropdown-provider.svg
                             | Aanbieder
 
                         .auth-user-menu-sep
 
                     a(ng-click="$root.signOut()" dusk="btnUserLogout").auth-user-menu-item
-                        .auth-user-menu-item-icon: include ../../../resources/_platform-common/assets/img/menu/icon-dropdown-sign-out.svg
+                        .auth-user-menu-item-icon: include ../../resources/_platform-common/assets/img/menu/icon-dropdown-sign-out.svg
                         //- translate(translate="topnavbar.buttons.logour")
                         | Uitloggen

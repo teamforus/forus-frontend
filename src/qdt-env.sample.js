@@ -27,23 +27,6 @@ const android_link = 'https://media.forus.io/static/me-0.0.5-staging-7-release.a
 const help_link = 'https://helpcentrum.forus.io';
 
 module.exports = (core) => {
-    // Config markups
-    core.editPlatform('dashboard_markup', (platform) => {
-        platform.setEnvData({
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        return platform;
-    });
-
-    core.editPlatform('webshop_markup', (platform) => {
-        platform.setEnvData({
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        return platform;
-    });
-    
     // Config dashboards
     core.editPlatform('dashboard_general_sponsor', (platform) => {
         platform.setEnvData({
@@ -650,10 +633,9 @@ module.exports = (core) => {
     ]);
 
     //- Enable all but given platforms (will ignore: 'core.enableOnly' when used)
-    /*core.disableOnly([
-        'dashboard_markup',
-        'webshop_markup'
-    ]);*/
+    /* core.disableOnly([
+        'webshop_general',
+    ]); */
 
     return core;
 };
