@@ -1,12 +1,10 @@
 &.block-products-list {
     .product-item {
-        border: 1px solid var(--border-color);
-
         .product-content {
             .product-details {
                 .product-name {
-                    color: var(--htc);
                     font: 500 18px/27px var(--base-font);
+                    color: var(--htc);
                     margin-bottom: 10px;
                 }
             }

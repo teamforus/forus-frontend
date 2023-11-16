@@ -87,6 +87,8 @@ app.component('biConnectionComponent', require('./components/BIConnectionCompone
 app.component('organizationContactsComponent', require('./components/OrganizationContactsComponent'));
 app.component('featureComponent', require('./components/FeatureComponent'));
 app.component('featuresComponent', require('./components/FeaturesComponent'));
+app.component('paymentMethodsComponent', require('./components/PaymentMethodsComponent'));
+app.component('molliePrivacyComponent', require('./components/MolliePrivacyComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -224,6 +226,7 @@ app.service('ImplementationSocialMediaService', require('./services/Implementati
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 app.service('ClipboardService', require('./services/ClipboardService'));
 app.service('FeaturesService', require('./services/FeaturesService'));
+app.service('MollieConnectionService', require('./services/MollieConnectionService'));
 
 // Directives
 app.directive('menu', {

@@ -81,6 +81,20 @@ $primaryColorLight: #0f5061;
     // Login button
     --login-button-background: #fff;
 
+    //- Showcase
+    --showcase-fullscreen-bottom-offset: 125px;
+    --showcase-aside-shadow: none;
+    --showcase-aside-border: none;
+    --showcase-aside-padding: 0;
+
+    --showcase-item-shadow: none;
+    --showcase-item-background: #fff;
+    --showcase-item-border: 1px solid var(--border-color);
+    --showcase-item-border-radius: var(--border-radius);
+
+    --showcase-title-count-color: #000;
+    --showcase-title-count-background: #fae053;
+
     // buttons
     --btn-border-radius: 30px;
 
