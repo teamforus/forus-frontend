@@ -34,7 +34,7 @@ const FundRequestComponent = function (
     $ctrl.dateKeys = ['birth_date'];
     $ctrl.stepKeys = ['children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 'adults_nth'];
     $ctrl.numberKeys = ['tax_id'];
-    $ctrl.currencyKeys = ['net_worth', 'base_salary', 'income_level'];
+    $ctrl.currencyKeys = ['net_worth', 'base_salary'];
     $ctrl.checkboxKeys = ['children', 'kindpakket_eligible', 'kindpakket_2018_eligible'];
 
     $ctrl.contactInformation = '';
@@ -145,13 +145,13 @@ const FundRequestComponent = function (
         const record_type = criterion.record_type;
 
         if (['>', '<', '>=', '<=', '=', '*'].includes(criterion?.operator)) {
-            const key = { 
-                '>': 'more', 
-                '>=': 'more_or_equal', 
-                '<': 'less', 
-                '<=': 'less_or_equal', 
-                '=': 'same', 
-                '*': 'any' 
+            const key = {
+                '>': 'more',
+                '>=': 'more_or_equal',
+                '<': 'less',
+                '<=': 'less_or_equal',
+                '=': 'same',
+                '*': 'any'
             }[criterion.operator] || '';
 
             const isCurrency = $ctrl.currencyKeys.includes(record_type?.key);
@@ -237,7 +237,9 @@ const FundRequestComponent = function (
                 ...$ctrl.dateKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_date' }), {}),
             }[criterion.record_type.key] || null;
 
-            const control_type = control_type_key || control_type_base || control_type_default;
+            const control_type = ((criterion.record_type.type == 'string') && (criterion.operator == '=')) ?
+                'ui_control_checkbox' :
+                control_type_key || control_type_base || control_type_default;
 
             const control_type_default_value = {
                 ui_control_checkbox: null,
