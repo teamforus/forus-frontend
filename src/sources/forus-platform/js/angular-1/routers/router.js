@@ -150,7 +150,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "organizations",
         url: "/organizations",
-        controller: ['$rootScope', ($rootScope) => {
+        controller: ['$rootScope', function ($rootScope) {
             if (!$rootScope.auth_user) {
                 $rootScope.loadAuthUser().then((auth_user) => $rootScope.autoSelectOrganization(auth_user));
             } else {
@@ -196,9 +196,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "organizations-view",
         url: "/organization/{id}",
-        controller: ['$rootScope', '$transition$', 'OrganizationService', (
+        controller: ['$rootScope', '$transition$', 'OrganizationService', function (
             $rootScope, $transition$, OrganizationService
-        ) => {
+        ) {
             $rootScope.loadAuthUser().then(() => {
                 OrganizationService.use($transition$.params().id);
                 $rootScope.redirectToDashboard($transition$.params().id);
@@ -1885,9 +1885,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', (
+        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', function (
             $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, PushNotificationsService
-        ) => {
+        ) {
             let target = $state.params.target || '';
 
             IdentityService.authorizeAuthEmailToken($state.params.token).then(function (res) {
@@ -1932,9 +1932,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', function (
             $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService
-        ) => {
+        ) {
             let target = $state.params.target || '';
 
             IdentityService.exchangeConfirmationToken($state.params.token).then(function (res) {
@@ -1963,9 +1963,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
+        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'PushNotificationsService', function (
             $state, $rootScope, IdentityService, CredentialsService, PushNotificationsService
-        ) => {
+        ) {
             IdentityService.exchangeShortToken($state.params.token).then(res => {
                 CredentialsService.set(res.data.access_token);
                 $rootScope.loadAuthUser().then(() => $state.go('organizations'));
@@ -2024,7 +2024,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "redirect",
         url: "/redirect?target",
-        controller: ['$state', 'AuthService', ($state, AuthService) => {
+        controller: ['$state', 'AuthService', function ($state, AuthService) {
             if (!$state.params.target || !AuthService.handleAuthTarget($state.params.target)) {
                 $state.go('organizations');
             }

@@ -5,7 +5,7 @@ let ModalRouteProvider = function() {
         modals[modal] = config;
     };
 
-    this.$get = [() => {
+    this.$get = [function() {
         return {
             modals: () => modals
         }

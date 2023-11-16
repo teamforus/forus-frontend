@@ -1,4 +1,4 @@
-module.exports = [() => {
+module.exports = [function () {
     let ModalScrollBrakeDirective = function($scope, $element, ModalService) {
         $scope.modals = ModalService.getModals();
 
