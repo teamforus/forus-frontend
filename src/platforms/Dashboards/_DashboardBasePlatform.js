@@ -76,9 +76,9 @@ platform.addTask('scss', {
 
 // add pug task
 platform.addTask('pug', {
-    path: "/angular-index",
+    path: "/",
     src: [
-        "angular-index/index.pug"
+        "index.pug"
     ],
     watch: [
         "layout/**/*.pug"
