@@ -1,0 +1,54 @@
+.card
+    .card-header: .flex
+        .flex.flex-grow: .card-title Transaction of extra payment
+
+        .button-group(ng-if="$dir.isProvider")
+            .button.button-primary.button-sm(
+                ng-if="!$dir.reservation.canceled"
+                ng-click="$dir.fetchReservationExtraPayment()")
+                em.mdi.mdi-autorenew.icon-start
+                | Gegevens ophalen
+
+            .button.button-danger.button-sm(
+                ng-if="!$dir.payment.is_full_refunded && $dir.payment.is_paid"
+                ng-click="$dir.refundReservationExtraPayment()")
+                em.mdi.mdi-autorenew.icon-start
+                | Refund payment
+
+    .card-section: .flex
+        .flex: .card-block.card-block-keyvalue
+            .keyvalue-item
+                .keyvalue-key(translate="reservation.labels.status")
+                .keyvalue-value
+                    .label.label-success(
+                        ng-if="!$dir.payment.is_full_refunded && $dir.payment.is_paid"
+                        ng-bind="$dir.payment.state_locale")
+                    .label.label-default(
+                        ng-if="!$dir.payment.is_full_refunded && $dir.payment.is_pending"
+                        ng-bind="$dir.payment.state_locale")
+                    .label.label-danger(
+                        ng-if="['failed', 'canceled', 'expired'].includes($dir.payment.state)"
+                        ng-bind="$dir.payment.state_locale")
+                    .label.label-danger(ng-if="$dir.payment.is_full_refunded") Refunded
+
+            .keyvalue-item
+                .keyvalue-key(translate="reservation.labels.amount")
+                .keyvalue-value(ng-bind="$dir.reservation.amount_locale")
+
+            .keyvalue-item
+                .keyvalue-key(translate="reservation.labels.extra_amount")
+                .keyvalue-value(ng-bind="$dir.payment.amount_locale")
+
+            .keyvalue-item
+                .keyvalue-key(translate="reservation.labels.price")
+                .keyvalue-value(ng-bind="$dir.reservation.price_locale")
+
+            .keyvalue-item
+                .keyvalue-key(translate="reservation.labels.extra_payment_paid_at")
+                .keyvalue-value(
+                    ng-class="{'text-muted': !$dir.payment.paid_at_locale}"
+                    ng-bind="$dir.payment.paid_at_locale || '-'")
+
+            .keyvalue-item
+                .keyvalue-key(translate="reservation.labels.method")
+                .keyvalue-value(ng-bind="$dir.payment.method")

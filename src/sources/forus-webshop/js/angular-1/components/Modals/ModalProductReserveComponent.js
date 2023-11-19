@@ -17,7 +17,8 @@ const ModalProductReserveComponent = function (
     $ctrl.STEP_FILL_ADDRESS = 3;
     $ctrl.STEP_FILL_NOTES = 4;
     $ctrl.STEP_CONFIRM_DATA = 5;
-    $ctrl.STEP_RESERVATION_FINISHED = 6;
+    $ctrl.STEP_EXTRA_PAYMENT = 6;
+    $ctrl.STEP_RESERVATION_FINISHED = 7;
 
     $ctrl.dateMinLimit = new Date();
     $ctrl.fields = [];
@@ -72,6 +73,14 @@ const ModalProductReserveComponent = function (
         }, (err) => $ctrl.onError(err, true));
     };
 
+    $ctrl.goToFinishStep = () => {
+        if ($ctrl.voucher.extra_amount > 0) {
+            $ctrl.setStep($ctrl.STEP_EXTRA_PAYMENT);
+        } else {
+            $ctrl.confirmSubmit();
+        }
+    };
+
     $ctrl.confirmSubmit = () => {
         $ctrl.form.submit();
     };
@@ -120,21 +129,38 @@ const ModalProductReserveComponent = function (
 
     $ctrl.selectVoucher = (voucher) => {
         $ctrl.voucher = voucher;
+        $ctrl.setSteps();
         $ctrl.next();
     };
 
-    $ctrl.$onInit = () => {
-        $ctrl.product = $ctrl.modal.scope.product;
-        $ctrl.provider = $ctrl.product.organization;
-        $ctrl.vouchers = $ctrl.modal.scope.vouchers.map((voucher) => VoucherService.composeCardData({ ...voucher }));
-
+    $ctrl.setSteps = () => {
         $ctrl.steps = [
             $ctrl.STEP_SELECT_VOUCHER,
             $ctrl.STEP_FILL_DATA,
             $ctrl.product.reservation.address !== 'no' ? $ctrl.STEP_FILL_ADDRESS : null,
             $ctrl.STEP_FILL_NOTES,
             $ctrl.STEP_CONFIRM_DATA,
+            $ctrl.voucher && $ctrl.voucher.extra_amount > 0 ? $ctrl.STEP_EXTRA_PAYMENT : null
         ].filter((step) => step !== null);
+    }
+
+    $ctrl.$onInit = () => {
+        $ctrl.product = $ctrl.modal.scope.product;
+        $ctrl.provider = $ctrl.product.organization;
+        $ctrl.extraPaymentAllowed = $ctrl.modal.scope.meta.isReservationExtraPaymentAvailable;
+        const productPrice = parseFloat($ctrl.product.price);
+
+        $ctrl.vouchers = $ctrl.modal.scope.vouchers.map((voucher) => VoucherService.composeCardData({ ...voucher }))
+            .map((voucher) => {
+                const voucherAmount = parseFloat(voucher.amount);
+
+                return {
+                    ...voucher,
+                    extra_amount: ($ctrl.extraPaymentAllowed && productPrice > voucherAmount) ? productPrice - voucherAmount : 0,
+                }
+            });
+
+        $ctrl.vouchersNeedExtraPayment = $ctrl.vouchers.filter((item) => item.extra_amount > 0).length;
 
         $ctrl.appConfigs = appConfigs;
         $ctrl.emailSetupShow = false;
@@ -159,7 +185,12 @@ const ModalProductReserveComponent = function (
                 voucher_address: $ctrl.voucher.address,
                 product_id: $ctrl.product.id,
             }).then(
-                () => $ctrl.setStep($ctrl.STEP_RESERVATION_FINISHED),
+                (res) => {
+                    if (res.data.checkout_url) {
+                        return document.location = res.data.checkout_url;
+                    }
+                    $ctrl.setStep($ctrl.STEP_RESERVATION_FINISHED)
+                },
                 (err) => $ctrl.onError(err, false),
             );
         }, true);

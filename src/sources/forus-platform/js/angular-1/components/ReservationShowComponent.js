@@ -20,6 +20,10 @@ const ReservationShowComponent = function (
     }
 
     $ctrl.rejectReservation = (reservation) => {
+        if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_full_refunded) {
+            return ProductReservationService.showRejectInfoExtraPaid();
+        }
+
         ProductReservationService.confirmRejection(() => {
             ProductReservationService.reject($ctrl.organization.id, reservation.id).then((res) => {
                 PushNotificationsService.success('Opgeslagen!');
@@ -48,6 +52,16 @@ const ReservationShowComponent = function (
         if ($ctrl.reservation.voucher_transaction?.address) {
             $ctrl.fetchTransaction($ctrl.reservation.voucher_transaction.address);
         }
+
+        $ctrl.stateClass = {
+            waiting: 'label-default',
+            pending: 'label-default',
+            accepted: 'label-success',
+            rejected: 'label-danger',
+            canceled: 'label-danger',
+            canceled_by_client: 'label-danger',
+            canceled_payment_expired: 'label-danger',
+        }[$ctrl.reservation.state];
     };
 };
 

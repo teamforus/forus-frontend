@@ -1,0 +1,103 @@
+.app.app-container(ng-if="$root.activeOrganization && $root.auth_user")
+    menu
+    section.app.app-content
+        //- Navigation
+        .block.block-breadcrumbs(ng-if="$root.activeOrganization")
+            a.breadcrumb-item(
+                ui-sref="extra-payments({organization_id: $root.activeOrganization.id})"
+                ng-bind="'Bijbetalingen'")
+
+            .breadcrumb-item.active(ng-bind="'#' + $ctrl.reservation.code")
+
+        //- Base reservation details
+        .card(ng-if="$ctrl.reservation")
+            //- Title and actions
+            .card-header
+                .card-title
+                    //- Product name
+                    .flex-grow
+                        span.text-muted Product name:&nbsp;
+                        | {{ $ctrl.reservation.product.name }} &nbsp;
+
+                    .flex-center
+                        //- State label
+                        label.label(
+                            ng-if="!$ctrl.reservation.expired"
+                            ng-class="$ctrl.stateClass"
+                            ng-bind="$ctrl.reservation.state_locale")
+
+                        //- Expired label
+                        label.label.label-danger-light(
+                            ng-if="$ctrl.reservation.expired"
+                            ng-bind="'Expired'")
+
+                //- Subtitle
+                .card-subtitle: .flex
+                    .mdi.mdi-clock-outline
+                    | {{ $ctrl.reservation.created_at_locale }}
+
+            //- Base overview
+            .card-section: .card-block.card-block-table: .table-wrapper
+                table.table.table-fixed
+                    tr 
+                        //- Price
+                        td
+                            strong(translate="reservation.labels.price").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.price_locale")    
+
+                        //- Fund
+                        td
+                            strong(translate="reservation.labels.fund").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.fund.name")
+
+                        //- Sponsor organization
+                        td
+                            strong(translate="reservation.labels.sponsor_organization").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.fund.organization.name")
+
+                        //- Product name
+                        td
+                            strong(translate="reservation.labels.product").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.product.name")
+
+                    tr
+                        //- Created at
+                        td
+                            strong(translate="reservation.labels.created_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.created_at_locale")    
+
+                        //- Expire at
+                        td
+                            strong(translate="reservation.labels.expire_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.expire_at_locale")    
+
+                        //- Rejected at
+                        td(ng-if="ctrl.reservation.rejected_at")
+                            strong(translate="reservation.labels.rejected_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.rejected_at_locale")   
+
+                        //- Accepted at
+                        td(ng-if="ctrl.reservation.accepted_at")
+                            strong(translate="reservation.labels.accepted_at").text-strong.text-md.text-primary
+                            br
+                            strong.text-black(ng-bind="$ctrl.reservation.accepted_at_locale")   
+
+        //- Voucher transaction details
+        voucher-transaction-details(
+            ng-if="$ctrl.transaction && ($ctrl.organization | hasPerm:'view_finances')"
+            organization="$ctrl.organization"
+            transaction="$ctrl.transaction"
+            show-details-page-button="true")
+
+        //- Reservation extra payment details
+        reservation-extra-payment-details(
+            organization="$ctrl.organization"
+            reservation="$ctrl.reservation"
+            payment="$ctrl.extraPayment")

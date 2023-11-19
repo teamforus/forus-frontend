@@ -9,6 +9,8 @@ module.exports = {
             pending: "In afwachting",
             rejected: "Geweigerd",
             expired: "Verlopen",
+            waiting: "Wachten op betaling",
+            canceled_payment_expired: "Cancelled not paid",
         },
         rejected_at: "Geweigerd op:",
         canceled_at: "Geannuleerd op:",

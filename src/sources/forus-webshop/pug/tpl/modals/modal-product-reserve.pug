@@ -11,7 +11,7 @@
                 ng-class="{'reservation-step-active' : $ctrl.step == step, 'reservation-step-done': $ctrl.step > step}")
                 
                 .reservation-step-border
-                .reservation-step-separator(ng-if="$ctrl.step <= $ctrl.STEP_CONFIRM_DATA")
+                .reservation-step-separator(ng-if="$ctrl.step < $ctrl.STEP_RESERVATION_FINISHED")
 
     //- Modal backdrop
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
@@ -61,25 +61,49 @@
 
         .modal-body: .modal-content
             //- Vouchers list
-            .modal-section: .block.block-vouchers.block-vouchers-padding(ng-class="{'block-vouchers-compact': $ctrl.vouchers.length === 1}")
-                .voucher-item.voucher-item-compact.voucher-item-static(ng-repeat="voucher in $ctrl.vouchers")
-                    .voucher-image
-                        img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
+            .modal-section
+                .block.block-vouchers.block-vouchers-padding(ng-class="{'block-vouchers-compact': $ctrl.vouchers.length === 1}")
+                    .voucher-item.voucher-item-compact.voucher-item-static(ng-repeat="voucher in $ctrl.vouchers")
+                        .voucher-image
+                            img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
 
-                    .voucher-details
-                        h3.voucher-name(ng-bind="voucher.fund.name")
-                        .voucher-value(ng-if="voucher.fund.type === 'budget'" ng-bind="voucher.amount_locale")
+                        .voucher-details
+                            .voucher-base-information
+                                .voucher-information.flex-grow
+                                    h3.voucher-name(ng-bind="voucher.fund.name")
 
-                        .voucher-organization
-                            span(ng-if="voucher.records_title" ng-bind="voucher.records_title")
-                            span.text-separator(ng-if="voucher.records_title")
-                            span(ng-bind="voucher.fund.organization.name")
-                            
-                        .voucher-records(ng-if="voucher.records.length")
+                                    .voucher-organization
+                                        span(ng-if="voucher.records_title" ng-bind="voucher.records_title")
+                                        span.text-separator(ng-if="voucher.records_title")
+                                        span(ng-bind="voucher.fund.organization.name")
+
+                                .voucher-amounts
+                                    .voucher-amount(ng-if="voucher.fund.type === 'budget'")
+                                        .voucher-value(ng-bind="voucher.amount_locale")
+                                        .voucher-value-date(ng-bind="voucher.expire_at_locale")
+
+                                    .voucher-extra-payment(ng-if="$ctrl.extraPaymentAllowed && voucher.extra_amount > 0")
+                                        .voucher-extra-payment-value(ng-bind="voucher.extra_amount | currency_format")
+                                        .voucher-extra-payment-description Bijbetalen
+
+                            .voucher-records.hidden-xs.hidden-sm(ng-if="voucher.records.length")
+                                block-voucher-records(toggle="true" compact="true" voucher="voucher")
+
+                        .voucher-overview(ng-if="$ctrl.vouchers.length > 1")
+                            button.button.button-primary.button-sm(ng-click="$ctrl.selectVoucher(voucher)") Kies
+
+                        .voucher-records.hidden-md.hidden-lg(ng-if="voucher.records.length")
                             block-voucher-records(toggle="true" compact="true" voucher="voucher")
 
-                    .voucher-overview(ng-if="$ctrl.vouchers.length > 1")
-                        button.button.button-primary.button-sm(ng-click="$ctrl.selectVoucher(voucher)") Kies
+                .card.card-no-margin.card-no-shadow(ng-if="$ctrl.vouchersNeedExtraPayment > 0")
+                    .card-section.card-section-warning.card-section-md.card-section-has-icon
+                        .icon: em.mdi.mdi-information-outline
+                        .card-section-content(ng-if="$ctrl.vouchersNeedExtraPayment > 1")
+                            | Sommige van uw vouchers hebben niet voldoende saldo.
+                            | Door een van deze vouchers te gebruiken, moet u het ontbrekende bedrag aan het einde van de reservering bijbetalen.
+                        .card-section-content(ng-if="$ctrl.vouchersNeedExtraPayment === 1")
+                            | Er is onvoldoende saldo op uw voucher, u moet het ontbrekende bedrag aan het einde van
+                            | de reservering bijbetalen via een van de beschikbare betaalmethoden.
 
         //- Actions
         .modal-footer
@@ -467,7 +491,7 @@
                 button(
                     type="button" 
                     translate="modal_product_reserve_notes.confirm_notes.buttons.submit" 
-                    ng-click="$ctrl.confirmSubmit()"
+                    ng-click="$ctrl.goToFinishStep()"
                     dusk="btnConfirmSubmit").button.button-primary.button-sm 
 
     //- Setup identity email (if it doesn't exist)
@@ -486,3 +510,66 @@
                     dusk="btnReservationFinish").button.button-light
                     | Sluiten
     
+    //- Extra payment
+    .modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_EXTRA_PAYMENT" dusk="productReserveExtraPayment")
+        //- Modal close
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
+
+        .modal-header
+            h2.modal-title(translate="modal_product_reserve_extra_payment.header.title")
+            .modal-subtitle(translate="modal_product_reserve_extra_payment.header.subtitle")
+            +progress()
+
+        //- Modal content
+        .modal-body: .modal-content
+            .modal-section
+                .block.block-vouchers.block-vouchers-sm
+                    .voucher-item.voucher-item-compact.voucher-item-static
+                        .voucher-image
+                            img(src="{{ $ctrl.voucher.fund.logo.sizes.thumbnail || $ctrl.voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
+
+                        .voucher-details
+                            .voucher-base-information
+                                .voucher-information.flex-grow
+                                    h3.voucher-name(ng-bind="$ctrl.voucher.fund.name")
+
+                                    .voucher-organization
+                                        span(ng-if="$ctrl.voucher.records_title" ng-bind="$ctrl.voucher.records_title")
+                                        span.text-separator(ng-if="$ctrl.voucher.records_title")
+                                        span(ng-bind="$ctrl.voucher.fund.organization.name")
+
+                                .voucher-amounts
+                                    .voucher-value(ng-bind="$ctrl.voucher.amount_locale")
+
+                .payment-details
+                    .payment-amount
+                        .payment-key De kosten voor het aanbod
+                        .payment-value(ng-bind="$ctrl.product.price_locale")
+                    .payment-amount
+                        .payment-key Resterend op het tegoed
+                        .payment-value(ng-bind="$ctrl.voucher.amount_locale")
+                    .divider
+                    .payment-amount
+                        .payment-key Zelf bijbetalen
+                        .payment-value.bold(ng-bind="$ctrl.voucher.extra_amount | currency_format")
+
+                .card.card-no-margin.card-no-shadow
+                    .card-section.card-section-warning.card-section-md.card-section-has-icon
+                        .icon: em.mdi.mdi-information-outline
+                        .card-section-content De link leidt naar een externe website.
+
+        .modal-footer
+            .flex.flex-grow: button.button.button-light.button-sm(
+                type="button"
+                ng-click="$ctrl.close()") Annuleren
+
+            .flex
+                button(
+                    type="button"
+                    ng-click="$ctrl.back()").button.button-light.button-sm Terug
+
+                button(
+                    type="button"
+                    translate="modal_product_reserve_notes.confirm_notes.buttons.submit"
+                    ng-click="$ctrl.confirmSubmit()"
+                    dusk="btnConfirmSubmit").button.button-primary.button-sm

@@ -20,6 +20,9 @@ const ReservationsComponent = function (
         key: null,
         name: 'Alle'
     }, {
+        key: 'waiting',
+        name: 'Waiting', // Waiting
+    }, {
         key: 'pending',
         name: 'In afwachting', // Pending
     }, {
@@ -34,6 +37,9 @@ const ReservationsComponent = function (
     }, {
         key: 'canceled_by_client',
         name: 'Geannuleerd door aanvrager' // Canceled by client
+    }, {
+        key: 'canceled_payment_expired',
+        name: 'Canceled payment expired' // Canceled payment expired
     }];
 
     $ctrl.filters = {
@@ -89,6 +95,10 @@ const ReservationsComponent = function (
     }
 
     $ctrl.rejectReservation = (reservation) => {
+        if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_full_refunded) {
+            return ProductReservationService.showRejectInfoExtraPaid();
+        }
+
         ProductReservationService.confirmRejection(() => {
             ProductReservationService.reject($ctrl.organization.id, reservation.id).then((res) => {
                 PushNotificationsService.success('Opgeslagen!');

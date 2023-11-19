@@ -1,0 +1,26 @@
+.card
+    .card-header: .flex
+        .flex.flex-grow: .card-title
+            span(translate="reservation.header.refunds.title")
+            | &nbsp;
+            span.span-count(ng-bind="$dir.refunds.length")
+
+    .card-section
+        .card-block.card-block-table.card-block-table-fund.form
+            .table-wrapper
+                table.table
+                    tr
+                        th(translate="reservation.labels.refund_date")
+                        th(translate="reservation.labels.refund_amount")
+                        th(translate="reservation.labels.status")
+
+                    tr(ng-repeat="refund in $dir.refunds")
+                        td.nowrap
+                            strong(ng-bind="refund.created_at_locale").text-strong.text-md.text-muted-dark
+
+                        td.nowrap(ng-bind="refund.amount_locale")
+
+                        td.nowrap
+                            .tag.tag-sm.tag-success(ng-if="refund.state == 'refunded'" ng-bind="refund.state_locale")
+                            .tag.tag-sm.tag-danger(ng-if="['canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")
+                            .tag.tag-sm.tag-warning(ng-if="!['refunded', 'canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")

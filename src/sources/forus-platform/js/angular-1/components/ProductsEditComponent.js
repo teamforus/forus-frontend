@@ -46,6 +46,17 @@ const ProductsEditComponent = function (
         label: "Verplicht"
     }];
 
+    $ctrl.extraPaymentsOptions = [{
+        value: 'global',
+        label: 'Gebruik standaard instelling',
+    }, {
+        value: "no",
+        label: "Nee"
+    }, {
+        value: "yes",
+        label: "Yes"
+    }];
+
     $ctrl.goToFundProvider = (provider) => {
         $state.go('fund-provider', {
             organization_id: provider.fund.organization_id,
