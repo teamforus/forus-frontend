@@ -36,6 +36,10 @@
         margin-right: 4px;
         text-align: center;
 
+        &.label-blink-default {
+            color: var(--color-primary);
+        }
+
         &:before {
             content: '•';
             color: inherit;
@@ -55,6 +59,11 @@
     &.label-success {
         background: #9bbfa1;
         color: #030304;
+    }
+
+    &.label-waiting {
+        background: #a36a14;
+        color: #fff;
     }
 
     &.label-warning {
@@ -109,6 +118,10 @@
 
     &.label-round {
         border-radius: 30px;
+    }
+
+    &.label-bordered {
+        border: 1px solid #E5E5E5;
     }
 
     &:not(:last-child):not(:last-of-type) {

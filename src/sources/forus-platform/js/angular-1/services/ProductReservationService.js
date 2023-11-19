@@ -58,6 +58,14 @@ const ProductReservationService = function (
             return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/${id}/unarchive`);
         }
 
+        this.fetchReservationExtraPayment = function(organization_id, id) {
+            return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/${id}/extra-payments/fetch`);
+        }
+
+        this.refundReservationExtraPayment = function(organization_id, id) {
+            return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/${id}/extra-payments/refund`);
+        }
+
         this.sampleCsvProductReservations = (product_id = '') => {
             const headers = ['number', 'product_id'];
             const values = ['000000000000', product_id];
@@ -89,6 +97,14 @@ const ProductReservationService = function (
                 onConfirm,
             });
         };
+
+        this.showRejectInfoExtraPaid = () => {
+            ModalService.open("dangerZone", {
+                title: "This reservation extra payment is paid",
+                description_text: "Make refund in mollie, after you can reject this reservation.",
+                cancelButton: "Annuleren",
+            });
+        }
 
         this.confirmArchive = (reservation, onConfirm) => {
             ModalService.open("dangerZone", {

@@ -65,7 +65,7 @@ aside.app.app-sidebar
         +nav_item(
             "Payment methods", "payment-methods", 'payment-methods',
             '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization.can_view_provider_extra_payments && $root.activeOrganization | hasPerm:["manage_organization"]')
+            '$root.activeOrganization.can_view_provider_extra_payments && $root.activeOrganization | hasPerm:["manage_payment_methods"]')
 
         +nav_item(
             "Beveiliging", "organization-security", 'organization-security', 

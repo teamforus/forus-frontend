@@ -1,0 +1,98 @@
+&.block-reservation {
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+
+    .reservation-section {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 30px;
+        width: 100%;
+
+        .reservation-media {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-right: 30px;
+            flex-basis: 40%;
+            width: 40%;
+
+            .media-preview {
+                display: flex;
+                margin-bottom: 10px;
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+        }
+
+        .reservation-props {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex-basis: 60%;
+            flex-grow: 1;
+
+            .reservation-title {
+                display: flex;
+                flex-direction: row;
+                margin: 0 0 15px;
+                font: 700 20px/28px var(--base-font);
+            }
+
+            .reservation-props-section {
+                border-radius: var(--border-radius);
+                background: #f4f5f7;
+                padding: 20px;
+                margin-bottom: 24px;
+
+                .reservation-prop {
+                    display: flex;
+                    flex-direction: row;
+                    margin: 0 0 15px;
+
+                    .reservation-prop-label,
+                    .reservation-prop-value {
+                        display: block;
+                        width: 40%;
+                        font: 700 14px/20px var(--base-font);
+                    }
+
+                    .reservation-prop-label {
+                        color: #646F79;
+                    }
+
+                    .reservation-prop-value {
+                        color: #303030;
+                        width: 60%;
+
+                        a {
+                            font: 700 14px/20px var(--base-font);
+                            color: #004D93;
+                        }
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .reservation-section {
+            display: flex;
+            flex-direction: column;
+            margin: 0 0 20px;
+
+            .reservation-media {
+                width: 100%;
+                flex-basis: 100%;
+                margin: 0 0 20px;
+            }
+        }
+    }
+}

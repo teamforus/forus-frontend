@@ -150,6 +150,7 @@ module.exports = {
     modal: require("./nl/modals/modal"),
     modal_product_reserve: require("./nl/modals/modal-product-reserve"),
     modal_product_reserve_notes: require("./nl/modals/modal-product-reserve-notes"),
+    modal_product_reserve_extra_payment: require("./nl/modals/modal-product-reserve-extra-payment"),
     modal_product_reserve_cancel: require("./nl/modals/modal-product-reserve-cancel"),
 
     // DIRECTIVES

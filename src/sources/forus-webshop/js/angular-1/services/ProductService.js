@@ -88,13 +88,14 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
             });
 
             const funds = [...product.funds].map((fund) => {
-                const { reservations_enabled } = fund;
+                const { reservations_enabled, reservation_extra_payments_enabled } = fund;
 
                 const applicableVouchers = regularActiveVouchers.filter(voucher => voucher.fund.id == fund.id);
                 const reservableVouchers = applicableVouchers.filter(voucher => voucher.query_product && voucher.query_product.reservable);
 
                 const isReservable = reservableVouchers.length > 0;
                 const isReservationAvailable = isReservable && productAvailable && reservations_enabled;
+                const isReservationExtraPaymentAvailable = isReservationAvailable && reservation_extra_payments_enabled;
 
                 const voucherDates = applicableVouchers.map((voucher) => voucher.query_product ? [
                     voucher.query_product.reservable_expire_at,
@@ -110,7 +111,10 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
 
                 return {
                     ...fund,
-                    ...{ meta: { shownExpireDate, applicableVouchers, reservableVouchers, isReservationAvailable } },
+                    ...{ meta: {
+                            shownExpireDate, applicableVouchers, reservableVouchers, isReservationAvailable,
+                            isReservationExtraPaymentAvailable
+                        } },
                 };
             })
 
