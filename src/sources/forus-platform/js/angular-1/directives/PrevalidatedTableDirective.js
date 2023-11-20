@@ -1,10 +1,11 @@
-let PrevalidatedTableDirective = async function(
+let PrevalidatedTableDirective = async function (
     $scope,
     $timeout,
     FileService,
     ModalService,
     PrevalidationService,
-    PushNotificationsService
+    PushNotificationsService,
+    OrganizationEmployeesService,
 ) {
     $scope.headers = [];
 
@@ -50,7 +51,7 @@ let PrevalidatedTableDirective = async function(
         }, 0);
     };
 
-    $scope.$on('csv:uploaded', function() {
+    $scope.$on('csv:uploaded', function () {
         if ($scope.filters.values.page === 1) {
             $scope.onPageChange($scope.filters.values);
         } else {
@@ -82,10 +83,17 @@ let PrevalidatedTableDirective = async function(
 
     $scope.init = async () => {
         $scope.resetFilters();
+        $scope.employeesList = {};
 
         PrevalidationService.list($scope.filters.values).then((res => {
             $scope.prevalidations = res.data;
             $scope.buildTable($scope.prevalidations.data);
+        }));
+
+        OrganizationEmployeesService.list($scope.fund.organization_id, { per_page: 1000 }).then((res => {
+            $scope.employeesList = res.data.data?.reduce((list, employee) => {
+                return { ...list, [employee?.identity_address]: employee?.email };
+            }, {});
         }));
     };
 
@@ -174,7 +182,7 @@ module.exports = () => {
     return {
         scope: {
             recordTypes: '=',
-            fund: '='
+            fund: '=',
         },
         restrict: "EA",
         replace: true,
@@ -185,8 +193,9 @@ module.exports = () => {
             'ModalService',
             'PrevalidationService',
             'PushNotificationsService',
-            PrevalidatedTableDirective
+            'OrganizationEmployeesService',
+            PrevalidatedTableDirective,
         ],
-        templateUrl: 'assets/tpl/directives/prevalidated-table.html'
+        templateUrl: 'assets/tpl/directives/prevalidated-table.html',
     };
 };

@@ -51,27 +51,23 @@ const ModalVoucherTransactionsUploadComponent = function (
             this.selectFile = function (e) {
                 e && (e.preventDefault() && e.stopPropagation());
 
-                if (input && input.remove) {
-                    input.remove();
-                }
+                $ctrl.input?.remove();
+                $ctrl.input = document.createElement('input');
 
-                const input = document.createElement('input');
+                $ctrl.input.setAttribute("dusk", "inputUpload");
+                $ctrl.input.setAttribute("type", "file");
+                $ctrl.input.setAttribute("accept", ".csv");
+                $ctrl.input.style.display = 'none';
 
-                input.setAttribute("dusk", "inputUpload");
-                input.setAttribute("type", "file");
-                input.setAttribute("accept", ".csv");
-                input.style.display = 'none';
-
-                input.addEventListener('change', (e) => {
+                $ctrl.input.addEventListener('change', (e) => {
                     const files = e.target.files;
 
                     this.uploadFile(files[0]);
-                    input.remove();
+                    $ctrl.input.remove();
                 });
 
-                $element[0].appendChild(input);
-
-                input.click();
+                $element[0].appendChild($ctrl.input);
+                $ctrl.input.click();
             };
 
             this.defaultNote = function (row) {

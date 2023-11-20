@@ -1,19 +1,17 @@
-let FundCriteriaEditorDirective = function(
+const FundCriteriaEditorDirective = function(
     $q,
     $scope,
     $timeout,
-    $element
+    $element,
 ) {
-    let $dir = $scope.$dir = {};
+    const $dir = $scope.$dir = {};
 
     $dir.items = [];
     $dir.is_editing = false;
     $dir.deletedItemsCount = 0;
 
     $dir.updateOnEditFlag = () => {
-        $dir.is_editing = $scope.criteria.filter(
-            criterion => criterion.is_editing
-        ).length > 0;
+        $dir.is_editing = $scope.criteria.filter(criterion => criterion.is_editing).length > 0;
     };
 
     $dir.addCriteria = () => {
@@ -23,8 +21,9 @@ let FundCriteriaEditorDirective = function(
             show_attachment: false,
             external_validators: [],
             record_type_key: null,
-            operator: "=",
-            value: "",
+            operator: null,
+            value: null,
+            optional: false,
         });
 
         $dir.updateOnEditFlag();
@@ -52,11 +51,11 @@ let FundCriteriaEditorDirective = function(
     }
 
     $dir.saveCriteria = () => {
-        return $q(resolve => {
-            $q.all($dir.items.map(item => item.saveCriterion(item.criterion))).then((result) => {
+        return $q((resolve) => {
+            $q.all($dir.items.map((item) => item.saveCriterion(item.criterion))).then((result) => {
                 $dir.updateOnEditFlag();
 
-                if (result.filter(result => !result).length === 0) {
+                if (result.filter((result) => !result).length === 0) {
                     resolve(true);
                     $scope.onSaveCriteria({ fund: $dir.fund });
                 } else {
@@ -79,12 +78,9 @@ let FundCriteriaEditorDirective = function(
         $dir.isEditable = !!$scope.isEditable;
         $dir.saveButton = !!$scope.saveButton;
 
+        $dir.recordTypes = $scope.recordTypes;
         $dir.organization = $scope.organization;
         $dir.validatorOrganizations = $scope.validatorOrganizations;
-
-        $dir.recordTypes = $scope.recordTypes.filter(
-            recordType => recordType.key != 'primary_email'
-        );
 
         $dir.recordTypes.unshift({
             key: null,

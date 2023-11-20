@@ -265,12 +265,13 @@ main(id="main-content")
                 ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
                     ng-repeat="critera in $ctrl.fund.criteria" 
                     ng-class="{pending: 'item-progress', approved: 'item-valid', 'declined' : 'item-declined'}[critera.request_state]")
+
                     .item-icon: em.mdi(ng-class="{pending: 'mdi-help', approved: 'mdi-check-bold', 'declined' : 'mdi-close-thick'}[critera.request_state]")
                     span(ng-if="critera.title" ng-bind="critera.title")
                     span(
                         ng-if="!critera.title"
                         i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[critera.operator]}}" 
-                        i18n-vars="{name: critera.record_type_name, value: ($ctrl.criterionValuePrefix[critera.record_type_key]) + critera.value}")
+                        i18n-vars="{name: critera.record_type.name, value: ($ctrl.criterionValuePrefix[critera.record_type.key]) + critera.value}")
                 span(translate="fund_request.sign_up.pane.fund_already_applied")
 
         //- 2FA warning block

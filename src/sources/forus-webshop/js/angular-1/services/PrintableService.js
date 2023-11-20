@@ -1,6 +1,4 @@
-let PrintableService = function(
-    PrintableRoute, $timeout
-) {
+const PrintableService = function(PrintableRoute, $timeout) {
     let printables = {
         list: []
     };
@@ -35,6 +33,6 @@ let PrintableService = function(
     };
 };
 
-module.exports = ['PrintableRoute', '$timeout', (
-    PrintableRoute, $timeout
-) => new PrintableService(PrintableRoute, $timeout)];
+module.exports = ['PrintableRoute', '$timeout', function(PrintableRoute, $timeout) {
+    return new PrintableService(PrintableRoute, $timeout);
+}];

@@ -58,12 +58,14 @@ div
             table.table
                 tr
                     th(translate="prevalidated_table.labels.code")
-                    th(ng-repeat="headerKey in headers track by $index" ng-bind="typesByKey[headerKey]")
+                    th(translate="prevalidated_table.labels.employee")
+                    th(ng-repeat="headerKey in headers track by $index" ng-bind="typesByKey[headerKey] || headerKey")
                     th.text-right(translate="prevalidated_table.status.active")
                     th.text-right(translate="prevalidated_table.labels.exported")
                     th.text-right(translate="prevalidated_table.labels.actions")
                 tr(ng-repeat="row in rows")
                     td: .text-primary.text-strong(ng-bind="row.uid")
+                    td: .text-primary.text-strong(ng-bind="employeesList[row.identity_address] || 'Unknown'")
                     td(ng-repeat="record in row.records track by $index")
                         .text-left(ng-if="record !== false" ng-bind="record.value")
                         .text-left.text-muted(ng-if="record === false") - 

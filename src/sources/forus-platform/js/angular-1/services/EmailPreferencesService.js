@@ -1,4 +1,4 @@
-let EmailPreferencesService = (ApiRequest) => {
+let EmailPreferencesService = function (ApiRequest) {
     let uriPrefix = '/platform/notifications/settings';
 
     return new(function() {
