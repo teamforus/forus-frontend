@@ -1,4 +1,4 @@
-module.exports = [() => {
+module.exports = [function () {
     const ScrollBreakerDirective = function ($scope, $element, $rootScope, ModalService) {
         $scope.modals = ModalService.getModals();
 
