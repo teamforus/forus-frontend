@@ -81,7 +81,7 @@ const VoucherExportService = function (
             });
 
             const onSuccess = (data) => {
-                const { qr_format, data_format, fields, extra_fields } = data;
+                const { qr_format, data_format, fields, extra_fields = [] } = data;
                 const queryFilters = {
                     ...filters,
                     ...{ data_format, fields: [...fields, ...extra_fields] },

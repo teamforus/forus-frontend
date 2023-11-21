@@ -233,6 +233,10 @@
             .overview-item-value {
                 font-size: 14px;
                 font-weight: 500;
+
+                &.overview-item-value-empty {
+                    font-style: italic;
+                }
             }
 
             &:last-child {

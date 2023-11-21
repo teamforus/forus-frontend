@@ -5,7 +5,7 @@ let PrintableRouteProvider = function() {
         printables[printable] = config;
     };
 
-    this.$get = [() => {
+    this.$get = [function() {
         return {
             printables: () => printables
         }

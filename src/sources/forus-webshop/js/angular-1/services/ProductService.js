@@ -124,43 +124,43 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
                 label: 'Nieuwe eerst',
                 value: {
                     order_by: 'created_at',
-                    order_by_dir: 'desc',
+                    order_dir: 'desc',
                 }
             }, {
                 label: 'Oudste eerst',
                 value: {
                     order_by: 'created_at',
-                    order_by_dir: 'asc',
+                    order_dir: 'asc',
                 }
             }, {
                 label: 'Prijs (oplopend)',
                 value: {
                     order_by: 'price',
-                    order_by_dir: 'asc',
+                    order_dir: 'asc',
                 }
             }, {
                 label: 'Prijs (aflopend)',
                 value: {
                     order_by: 'price',
-                    order_by_dir: 'desc',
+                    order_dir: 'desc',
                 }
             }, {
                 label: 'Meest gewild',
                 value: {
                     order_by: 'most_popular',
-                    order_by_dir: 'desc',
+                    order_dir: 'desc',
                 }
             }, {
                 label: 'Naam (oplopend)',
                 value: {
                     order_by: 'name',
-                    order_by_dir: 'asc',
+                    order_dir: 'asc',
                 }
             }, {
                 label: 'Naam (aflopend)',
                 value: {
                     order_by: 'name',
-                    order_by_dir: 'desc',
+                    order_dir: 'desc',
                 }
             }];
         }

@@ -83,10 +83,12 @@ main(id="main-content"): section.section.section-voucher-details: .wrapper
                     .card-section(ng-if="$ctrl.form && !$ctrl.formSuccess")
                         h2.card-heading.card-heading-lg Voeg een e-mailadres toe
                         form(ng-submit="$ctrl.form.submit()" dusk="identityNewEmailForm").form.row: .col.col-lg-6.form-group
-                            .form-label E-mailadres
+                            label.form-label(for="preferences_form_email") E-mailadres
                             .flex-row
                                 .flex-col.flex-grow
-                                    input(type="email"
+                                    input(
+                                        type="email"
+                                        id="preferences_form_email"
                                         placeholder="e-mail@e-mail.nl"
                                         ng-model="$ctrl.form.values.email"
                                         dusk="identityNewEmailFormEmail"

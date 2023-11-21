@@ -136,13 +136,9 @@ main(id="main-content")
                         p.sign_up-pane-text(i18n="fund_request.sign_up.pane.text" i18n-vars="{fund_name: $ctrl.fund.name }")
 
                         ul.sign_up-pane-list.sign_up-pane-list-criteria: li(
-                            ng-repeat="criteria in $ctrl.fund.criteria")
+                            ng-repeat="criterion in $ctrl.pendingCriteria")
                             .item-icon.item-icon-default
-                            span(ng-if="criteria.title" ng-bind="criteria.title")
-                            span(
-                                ng-if="!criteria.title"
-                                i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[criteria.operator]}}"
-                                i18n-vars="{name: criteria.record_type_name, value: ($ctrl.criterionValuePrefix[criteria.record_type_key]) + criteria.value}")
+                            span(ng-bind="criterion.title || criterion.title_default")
 
                     //- Actions footer
                     .sign_up-pane-footer: .flex-row
@@ -161,87 +157,95 @@ main(id="main-content")
                     +time_limit_warning()
 
             //- Criteria form steps
-            div(ng-if="$ctrl.steps[$ctrl.step] == 'criteria_' + $index" ng-repeat="invalidCriteria in $ctrl.invalidCriteria track by $index")
+            div(ng-if="$ctrl.steps[$ctrl.step] == 'criteria_' + $index" ng-repeat="criterion in $ctrl.pendingCriteria track by $index")
                 +progress()
 
                 .sign_up-pane
-                    h2.sign_up-pane-header(ng-if="invalidCriteria.title" ng-bind="invalidCriteria.title")
+                    h2.sign_up-pane-header(ng-if="criterion.title" ng-bind="criterion.title")
                     .sign_up-pane-header(
-                        ng-if="!invalidCriteria.title" 
-                        ng-bind="'Bevestig uw ' + $ctrl.recordTypesByKey[invalidCriteria.record_type_key].name")
+                        ng-if="!criterion.title" 
+                        ng-bind="'Bevestig uw ' + $ctrl.recordTypesByKey[criterion.record_type.key].name")
 
-                    .sign_up-pane-body: form(ng-submit="$ctrl.validateStepCriteria(invalidCriteria)").row
+                    .sign_up-pane-body: form(ng-submit="$ctrl.validateStepCriteria(criterion)").row
                         .form-group.col.col-lg-12
                             .sign_up-pane-text.block.block-markdown
-                                .sign_up-pane-text(
-                                    ng-if="invalidCriteria.description && invalidCriteria.description !== '_'"
-                                    ng-bind-html="invalidCriteria.description_html")
+                                .sign_up-pane-text: markdown(
+                                    ng-if="criterion.description && criterion.description !== '_'"
+                                    content="criterion.description_html")
 
                                 .sign_up-pane-text(
-                                    ng-if="!invalidCriteria.description && invalidCriteria.description !== '_'"
-                                    i18n="fund_request.sign_up.pane.criterion_{{{ '>' : 'more', '<' :'less', '=': 'same' }[invalidCriteria.operator]}}"
-                                    i18n-vars="{name: invalidCriteria.record_type_name, value: ($ctrl.criterionValuePrefix[invalidCriteria.record_type_key]) + invalidCriteria.value}")
+                                    ng-if="!criterion.description && criterion.description !== '_'"
+                                    ng-bind="criterion.title_default")
 
                             label.form-label(
-                                ng-bind="$ctrl.recordTypesByKey[invalidCriteria.record_type_key].name"
-                                for="{{invalidCriteria.record_type_key}}")
+                                ng-bind="$ctrl.recordTypesByKey[criterion.record_type.key].name"
+                                for="{{criterion.record_type.key}}")
+
+                            select-control(
+                                ng-if="criterion.control_type == 'select_control'"
+                                id="criterion_{{ criterion.id }}"
+                                prop="value"
+                                name="control_{{ criterion.record_type.key }}"
+                                ng-model="criterion.input_value"
+                                options="$ctrl.recordTypesByKey[criterion.record_type.key].options"
+                                placeholder="Uw {{ criterion.record_type.name }}")
 
                             ui-control-checkbox(
-                                ng-if="invalidCriteria.control_type == 'ui_control_checkbox'"
-                                ng-model="invalidCriteria.is_checked"
-                                name="{{invalidCriteria.record_type_key}}"
-                                data-id="criterion_{{ invalidCriteria.id }}"
-                                data-label="{{ invalidCriteria.label }}"
-                                ng-change="$ctrl.setRecordValue(invalidCriteria)")
+                                ng-if="criterion.control_type == 'ui_control_checkbox'"
+                                ng-model="criterion.is_checked"
+                                name="{{ criterion.record_type.key }}"
+                                data-id="criterion_{{ criterion.id }}"
+                                data-label="{{ criterion.label }}"
+                                ng-change="$ctrl.setRecordValue(criterion)")
 
                             ui-control-step(
-                                ng-if="invalidCriteria.control_type == 'ui_control_step'"
-                                ng-model="invalidCriteria.input_value"
-                                name="{{invalidCriteria.record_type_key}}"
+                                ng-if="criterion.control_type == 'ui_control_step'"
+                                ng-model="criterion.input_value"
+                                name="{{ criterion.record_type.key }}"
                                 role="spinbutton"
                                 data-min="0"
                                 data-max="32"
-                                data-id="criterion_{{ invalidCriteria.id }}")
+                                data-id="criterion_{{ criterion.id }}")
 
                             ui-control-date(
-                                ng-if="invalidCriteria.control_type == 'ui_control_date'"
-                                ng-model="invalidCriteria.input_value"
-                                name="{{invalidCriteria.record_type_key}}"
-                                data-id="criterion_{{ invalidCriteria.id }}")
+                                ng-if="criterion.control_type == 'ui_control_date'"
+                                ng-model="criterion.input_value"
+                                name="{{ criterion.record_type.key }}"
+                                data-id="criterion_{{ criterion.id }}")
 
                             ui-control-number(
-                                ng-if="invalidCriteria.control_type == 'ui_control_number'"
-                                ng-model="invalidCriteria.input_value"
-                                name="{{invalidCriteria.record_type_key}}"
-                                data-id="criterion_{{ invalidCriteria.id }}"
-                                data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
+                                ng-if="criterion.control_type == 'ui_control_number'"
+                                ng-model="criterion.input_value"
+                                name="{{ criterion.record_type.key }}"
+                                data-id="criterion_{{ criterion.id }}"
+                                data-placeholder="Uw {{ criterion.record_type.name }}")
 
                             ui-control-text(
-                                ng-if="invalidCriteria.control_type == 'ui_control_text'"
-                                ng-model="invalidCriteria.input_value"
-                                name="{{invalidCriteria.record_type_key}}"
-                                data-id="criterion_{{ invalidCriteria.id }}"
-                                data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
+                                ng-if="criterion.control_type == 'ui_control_text'"
+                                ng-model="criterion.input_value"
+                                name="{{ criterion.record_type.key }}"
+                                data-id="criterion_{{ criterion.id }}"
+                                data-placeholder="Uw {{ criterion.record_type.name }}")
 
                             ui-control-currency(
-                                ng-if="invalidCriteria.control_type == 'ui_control_currency'"
-                                ng-model="invalidCriteria.input_value"
-                                name="{{invalidCriteria.record_type_key}}"
-                                data-id="criterion_{{ invalidCriteria.id }}"
-                                data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
-                            .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
+                                ng-if="criterion.control_type == 'ui_control_currency'"
+                                ng-model="criterion.input_value"
+                                name="{{ criterion.record_type.key }}"
+                                data-id="criterion_{{ criterion.id }}"
+                                data-placeholder="Uw {{ criterion.record_type.name }}")
+                            .form-error(ng-repeat="error in criterion.errors.value" ng-bind="error")
 
                         .form-group.col.col-lg-12
                             file-uploader(
-                                ng-if="invalidCriteria.show_attachment"
+                                ng-if="criterion.show_attachment"
                                 type="fund_request_record_proof"
-                                files="invalidCriteria.files"
+                                files="criterion.files"
                                 crop-media="false"
-                                on-file-removed="$ctrl.onFileInfo(invalidCriteria, files)"
-                                on-file-resolved="$ctrl.onFileInfo(invalidCriteria, files)"
-                                on-file-batch-queued="$ctrl.onFileInfo(invalidCriteria, files)")
-                            .form-error(ng-repeat="error in invalidCriteria.errors.file" ng-bind="error")
-                            .form-error(ng-repeat="error in invalidCriteria.errors.record" ng-bind="error")
+                                on-file-removed="$ctrl.onFileInfo(criterion, files)"
+                                on-file-resolved="$ctrl.onFileInfo(criterion, files)"
+                                on-file-batch-queued="$ctrl.onFileInfo(criterion, files)")
+                            .form-error(ng-repeat="error in criterion.errors.files" ng-bind="error")
+                            .form-error(ng-repeat="error in criterion.errors.record" ng-bind="error")
 
                     //- Actions footer
                     .sign_up-pane-footer: .row
@@ -252,8 +256,8 @@ main(id="main-content")
 
                         .col.col-lg-6.col-xs-6.text-right(ng-if="$ctrl.steps[$ctrl.step + 1] !== 'done'")
                             button.button.button-text.button-text-padless(
-                                ng-disabled="invalidCriteria.isUploadingFiles"
-                                ng-click="$ctrl.validateStepCriteria(invalidCriteria)"
+                                ng-disabled="criterion.isUploadingFiles"
+                                ng-click="$ctrl.validateStepCriteria(criterion)"
                                 type="button"
                                 role="button")
 
@@ -262,8 +266,8 @@ main(id="main-content")
 
                         .col.col-lg-6.col-xs-6.text-right(ng-if="$ctrl.steps[$ctrl.step + 1] === 'done'")
                             button.button.button-primary(
-                                ng-disabled="invalidCriteria.isUploadingFiles"
-                                ng-click="$ctrl.validateStepCriteria(invalidCriteria)"
+                                ng-disabled="criterion.isUploadingFiles"
+                                ng-click="$ctrl.validateStepCriteria(criterion)"
                                 role="button")
                                 | Verzenden
 
@@ -340,8 +344,9 @@ main(id="main-content")
 
                         //- Contact information form
                         .form-group
-                            .form-label Contactgegevens
+                            label.form-label(for="fund_request_contact_info") Contactgegevens
                             textarea(
+                                id="fund_request_contact_info"
                                 rows="5" 
                                 placeholder="Contactgegevens invullen..."
                                 ng-model="$ctrl.contactInformation"
@@ -381,11 +386,20 @@ main(id="main-content")
                             strong Vraag aan.
 
                     .sign_up-pane-body
-                        ul.sign_up-pane-list.sign_up-pane-list-criteria: li(ng-repeat="criteria in $ctrl.invalidCriteria")
+                        ul.sign_up-pane-list.sign_up-pane-list-criteria: li(ng-repeat="criteria in $ctrl.pendingCriteria")
                             .item-icon.item-icon-default
 
-                            span {{ criteria.title || criteria.record_type_name }} #[span(ng-if="criteria.operator != '='") is] 
-                            strong(ng-if="criteria.operator != '='") {{ criteria.input_value }}
+                            span {{ criteria.title || criteria.record_type.name }} #[span(ng-if="criteria.operator != '='") is] 
+
+                            strong
+                                span(ng-if="!['select', 'bool'].includes(criteria.record_type.type)") 
+                                    | {{ criteria.input_value || 'Not provided' }}
+
+                                span(ng-if="['select'].includes(criteria.record_type.type)") 
+                                    | {{ criteria.record_type.options_by_value[criteria.input_value].name || 'Not selected' }}
+
+                                span(ng-if="['bool'].includes(criteria.record_type.type)") 
+                                    | {{ criteria.is_checked ? 'Ja' : 'Nee' }}
 
                             file-uploader(
                                 ng-if="criteria.show_attachment"
@@ -416,12 +430,17 @@ main(id="main-content")
 
                     .sign_up-pane
                         h2.sign_up-pane-header Aanvraag ontvangen
-                        .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(invalidCriteria)").row
+                        .sign_up-pane-body: form(ng-submit="$ctrl.submitCriteria(criterion)").row
                             h2.sign_up-pane-heading.text-center Verzonden!
                             p.sign_up-pane-text.text-center
-                                | Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail.
+                                | Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. 
+                                | Je ontvangt hierover een e-mail.
                             .block-icon: img(src=src_prefix + "./assets/img/icon-sign_up-success.svg" alt="")
-                            .text-center: .button.button-text.button-text-primary.button-text-padless(ng-click="$ctrl.finish()" role="button") Terug
+
+                            .text-center: .button.button-primary(
+                                ng-click="$ctrl.finish()" 
+                                role="button") Terug
+
                             .form-group.col.col-lg-12.hidden-xs: br
 
                 //- Error
@@ -434,11 +453,13 @@ main(id="main-content")
                         .sign_up-pane-body: .row
                             .form-group.col.col-lg-12
                                 .block-icon: .mdi.mdi-close
-                                p.sign_up-pane-text.text-center
-                                    | Reden:
+                                p.sign_up-pane-text.text-center Reden:
                                 p.sign_up-pane-text.text-center(translate="{{ $ctrl.errorReason }}")
 
-                                .text-center: .button.button-default(ng-click="$ctrl.finish()" role="button") Verlaat formulier
+                                .text-center: .button.button-dark(
+                                    ng-click="$ctrl.finish()" 
+                                    role="button") Verlaat formulier
+
                             .form-group.col.col-lg-12: br
 
         .block.block-sign_up(ng-if="$ctrl.digiExpired"): .block-wrapper.form

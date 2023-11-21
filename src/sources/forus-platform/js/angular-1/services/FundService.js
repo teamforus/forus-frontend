@@ -171,7 +171,7 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
             const { request_btn_text, external_link_text, external_link_url, allow_direct_requests } = apiResource;
             const { external_page, external_page_url } = apiResource;
 
-            const { email_required, contact_info_enabled } = apiResource;
+            const { email_required, contact_info_enabled, hide_meta } = apiResource;
             const { contact_info_required, contact_info_message_custom, contact_info_message_text } = apiResource;
 
             return {
@@ -181,7 +181,7 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
                 ...{ notification_amount, default_validator_employee_id, auto_requests_validation },
                 ...{ request_btn_text, external_link_text, external_link_url, allow_direct_requests },
 
-                ...{ email_required, contact_info_enabled },
+                ...{ email_required, contact_info_enabled, hide_meta },
                 ...{ contact_info_required, contact_info_message_custom, contact_info_message_text },
                 ...{ external_page, external_page_url },
 

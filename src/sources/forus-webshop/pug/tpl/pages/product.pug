@@ -43,7 +43,10 @@ main(id="main-content")
                     .product-properties
                         .product-property.product-property-full
                             .product-property-label(i18n="product.labels.description")
-                            .product-property-value: .block.block-markdown: div(ng-bind-html="$ctrl.product.description_html" role="heading" aria-level="3")
+                            .product-property-value: markdown(
+                                content="$ctrl.product.description_html"  
+                                aria-level="3"
+                                role="heading")
                 
                 +bookmark_toggle()
 
@@ -115,7 +118,7 @@ main(id="main-content")
                                 dusk="reserveProduct")
 
                         .fund-item-section(ng-if="fund.external_link_text && fund.external_link_url")
-                            .button.button.button-wide(
+                            .button.button(
                                 target="_blank"
                                 ng-class="fund.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'"
                                 ng-href="{{ fund.external_link_url }}")
@@ -123,25 +126,25 @@ main(id="main-content")
                                 em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                         .fund-item-section(ng-if="fund.showRequestButton")
-                            .button.button-primary.button-wide(
+                            .button.button-primary(
                                 ui-sref="fund-activate({fund_id: fund.id})")
                                 span(ng-bind="fund.request_btn_text")
                                 em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                         .fund-item-section(ng-if="fund.showPendingButton")
-                            .button.button-primary-outline.button-wide(
+                            .button.button-primary-outline(
                                 ui-sref="fund-requests({fund_id: $ctrl.fund.id})")
                                 translate(translate="funds.buttons.is_pending")
 
                         .fund-item-section(ng-if="fund.showActivateButton")
-                            .button.button-primary.button-wide(
+                            .button.button-primary(
                                 type="button"
                                 ng-click="$ctrl.requestFund(fund)")
                                 translate(translate="funds.buttons.is_applicable")
                                 em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
                         .fund-item-section(ng-if="fund.alreadyReceived && !fund.meta.isReservationAvailable")
-                            .button.button-primary.button-wide(
+                            .button.button-primary(
                                 ui-sref="voucher({ address: fund.vouchers[0].address })")
                                 translate(
                                     translate="funds.buttons.{{ fund.key }}.already_received"

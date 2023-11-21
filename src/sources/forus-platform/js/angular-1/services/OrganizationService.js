@@ -241,6 +241,10 @@ module.exports = [
                 return ApiRequest.patch('/platform/organizations/' + id + '/update-reservation-fields', query);
             };
 
+            this.getFeatures = function(id) {
+                return ApiRequest.get(`/platform/organizations/${id}/features`);
+            };
+
             this.use = function(id) {
                 localStorage.setItem('active_organization', id);
                 $rootScope.$broadcast('organization-changed', id);
