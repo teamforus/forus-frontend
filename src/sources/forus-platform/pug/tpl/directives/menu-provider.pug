@@ -63,6 +63,11 @@ aside.app.app-sidebar
             'employees')
 
         +nav_item(
+            "Bijbetaal methodes", "payment-methods", 'payment-methods',
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization.can_view_provider_extra_payments && $root.activeOrganization | hasPerm:["manage_organization"]')
+
+        +nav_item(
             "Beveiliging", "organization-security", 'organization-security', 
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization.allow_2fa_restrictions && $root.activeOrganization | hasPerm:["manage_organization"]')

@@ -82,20 +82,6 @@
         }
     }
 
-    &.block-showcase {
-        .showcase-layout {
-            .showcase-content {
-                .showcase-content-header {
-                    .showcase-filters-title {
-                        .showcase-filters-title-count {
-                            color: #666;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     &.block-steps {    
         .block-markdown {
             a:not(.button) {
@@ -104,28 +90,6 @@
 
                 &:hover {
                     text-decoration: none;
-                }
-            }
-        }
-    }
-
-    &.block-organizations {
-        .organization-item {
-            .organization-offices {
-                .block-offices {
-                    .office-item {
-                        .office-item-map-icon {
-                            color: #666;
-                        }
-                    }
-                }
-            }
-
-            .organization-pane {
-                .organization-title {
-                    .organization-title-count {
-                        color: #666;
-                    }
                 }
             }
         }
