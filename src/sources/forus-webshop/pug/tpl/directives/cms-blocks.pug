@@ -1,6 +1,4 @@
-.block.block-cms(ng-class="{'block-cms-with-items': $dir.blocks.length}"): div(
-    ng-if="$dir.description_html || $dir.blocks.length > 0")
-
+.block.block-cms(ng-class="{'block-cms-with-items': $dir.blocks.length}")
     .wrapper(ng-if="$dir.description_html || $dir.blocks.length > 0")
         markdown(
             ng-if="$dir.description_html"
