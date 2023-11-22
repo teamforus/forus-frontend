@@ -18,7 +18,6 @@ module.exports = () => {
     return {
         scope: {
             page: '=',
-            noWrapper: '=',
         },
         bindToController: true,
         controllerAs: '$dir',
