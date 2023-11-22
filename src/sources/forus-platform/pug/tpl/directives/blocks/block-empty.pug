@@ -1,4 +1,6 @@
 .card: .card-section: .block.block-empty(ng-class="{center: 'text-center', right: 'text-right'}[$dir.align || 'center']")
+    .empty-image: img(ng-src="{{ $dir.imageSrc }}")
+    
     .empty-title(ng-if="$dir.text" ng-bind="$dir.title")
     .empty-details(ng-if="$dir.text" ng-bind="$dir.text")
 

@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 const FundService = function (
     $q,
     ApiRequest,
@@ -234,6 +236,56 @@ const FundService = function (
                 ].join(''),
             });
         };
+
+        this.getControlType = (record_type, operator = null) => {
+            const checkboxKeys = ['children', 'kindpakket_eligible', 'kindpakket_2018_eligible'];
+            const stepKeys = ['children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 'adults_nth'];
+            const currencyKeys = ['net_worth', 'base_salary'];
+            const numberKeys = ['tax_id'];
+            const dateKeys = ['birth_date'];
+
+            const control_type_default = 'ui_control_text';
+            const control_type_base = {
+                'bool': 'ui_control_checkbox',
+                'date': 'ui_control_date',
+                'string': 'ui_control_text',
+                'email': 'ui_control_text',
+                'bsn': 'ui_control_number',
+                'iban': 'ui_control_text',
+                'number': 'ui_control_number',
+                'select': 'select_control',
+            }[record_type.type];
+
+            const control_type_key = {
+                // checkboxes
+                ...checkboxKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_checkbox' }), {}),
+                // stepper
+                ...stepKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_step' }), {}),
+                // currency
+                ...currencyKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_currency' }), {}),
+                // numbers
+                ...numberKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_number' }), {}),
+                // dates
+                ...dateKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_date' }), {}),
+            }[record_type.key] || null;
+
+            return ((record_type.type == 'string') && ((operator == '=') || (record_type.operators.find((operator) => operator.key == '=')))) ?
+                'ui_control_checkbox' :
+                control_type_key || control_type_base || control_type_default;
+        }
+
+        this.getControlDefaultValue = (record_type, operator = null) => {
+            const control_type = this.getControlType(record_type, operator);
+
+            return {
+                ui_control_checkbox: null,
+                ui_control_date: format(new Date(), 'dd-MM-yyyy'),
+                ui_control_step: record_type?.key == 'adults_nth' ? 1 : 0,
+                ui_control_number: undefined,
+                ui_control_currency: undefined,
+                ui_control_text: '',
+            }[control_type];
+        }
     });
 };
 

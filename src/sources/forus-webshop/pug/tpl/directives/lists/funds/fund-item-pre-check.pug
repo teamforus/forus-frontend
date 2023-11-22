@@ -1,0 +1,134 @@
+.fund-item
+    .fund-photo: img(
+        ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
+        alt="Dit is de afbeelding van {{ $dir.fund.name }}")
+
+    .fund-content
+        .fund-details
+            .fund-status-label
+                .label.label-light(
+                    ng-if="$dir.fund.canApply && !$dir.fund.showActivateButton"
+                    translate="funds.status.is_applicable")
+
+                .label.label-success(
+                    ng-if="$dir.fund.showActivateButton"
+                    translate="funds.status.activateable")
+
+                .label.label-primary(
+                    ng-if="$dir.fund.alreadyReceived"
+                    translate="funds.status.active")
+
+                .label.label-warning(
+                    ng-if="$dir.fund.showPendingButton"
+                    translate="funds.status.is_pending")
+
+                .label.label-light(
+                    ng-if="$dir.fund.showRequestButton"
+                    translate="funds.status.is_applicable")
+
+            h2.fund-name: a(ui-sref="fund($dir.fund)" ng-bind="$dir.fund.name")
+
+            .fund-description(ng-if="$dir.fund.description_short")
+                span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
+                span(id="fund_description_short" ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
+                br
+
+                button.button.button-text.button-xs(
+                    ng-if="!$dir.showMore && $dir.fund.description_short.length > 190" 
+                    ng-click="$dir.setShowMore($event, true)"
+                    aria-expanded="{{ $dir.showMore && $dir.fund.description_short.length > 190 }}"
+                    aria-controls="fund_description_short") 
+                    | Toon meer
+                    em.mdi.mdi-chevron-down.icon-right
+
+                button.button.button-text.button-xs(
+                    ng-if="$dir.showMore && $dir.fund.description_short.length > 190" 
+                    ng-click="$dir.setShowMore($event, false)"
+                    aria-expanded="{{ $dir.showMore && $dir.fund.description_short.length > 190 }}"
+                    aria-controls="fund_description_short") 
+                    | Toon minder
+                    em.mdi.mdi-chevron-up.icon-right
+                
+        .fund-actions(ng-class="{expanded : $dir.showMoreRequestInfo}")
+            .fund-request-block
+                .fund-request-block-progress
+                    .fund-request-block-progress-title Gemiddelde kans
+                    .fund-request-block-progress-bar
+                        .fund-request-block-progress-bar-completed(style="width:100%")
+                        .fund-request-block-progress-bar-remaining(style="width:0%")
+
+                button.button.button-primary.fund-request-block-button(
+                    type="button"
+                    ng-click="$dir.applyFund($event,$dir.fund)")
+                    translate Direct aanvragen 
+                    em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+
+            .fund-totals-block
+                .fund-totals-block-amount
+                    .fund-totals-block-amount-description Totaal
+                    .fund-totals-block-amount-value € 450,-
+                
+                .fund-totals-block-show-details
+                    button.button.button-text.button-xs(
+                        ng-if="!$dir.showMoreRequestInfo" 
+                        ng-click="$dir.setShowMoreRequestInfo($event, true)"
+                        aria-expanded="{{ $dir.showMoreRequestInfo }}"
+                        aria-controls="fund_request_details") 
+                        | Toon meer
+                        em.mdi.mdi-chevron-down.icon-right
+
+                    button.button.button-text.button-xs(
+                        ng-if="$dir.showMoreRequestInfo" 
+                        ng-click="$dir.setShowMoreRequestInfo($event, false)"
+                        aria-expanded="{{ $dir.showMoreRequestInfo }}"
+                        aria-controls="fund_request_details") 
+                        | Toon minder
+                        em.mdi.mdi-chevron-up.icon-right
+
+    .fund-pre-check-info(ng-if="$dir.showMoreRequestInfo")
+        .fund-pre-check-info-criterias
+            .fund-pre-check-info-criterias-title Voorwaarden
+            .fund-pre-check-info-criterias-list
+                .fund-pre-check-info-criterias-list-item.valid 
+                    em.mdi.mdi-check-circle 
+                    | U heeft kinderen
+                .fund-pre-check-info-criterias-list-item
+                    em.mdi.mdi-close-circle 
+                    | Inkomen 120
+                .fund-pre-check-info-criterias-list-item.valid
+                    em.mdi.mdi-check-circle 
+                    | Woonachtig in gemeente Westerkwartier
+                .fund-pre-check-info-criterias-list-item.valid
+                    em.mdi.mdi-check-circle 
+                    | Lorem ipsum dolor sit amet
+                .fund-pre-check-info-criterias-list-item.valid
+                    em.mdi.mdi-check-circle 
+                    | Excepteur sint occaecat cupidatat
+
+        .fund-pre-check-info-totals
+            .fund-pre-check-info-totals-title Berekening
+            table.fund-pre-check-info-totals-table
+                tr
+                    td.description Per gezin
+                    td.value 1x €300,-
+
+                tr
+                    td 
+                    td.value 1x 1 Voucher
+
+                tr
+                    td 
+                    td.value View voucher details
+
+                tr: td(colspan="2"): br    
+
+                tr
+                    td.description Per kind
+                    td.value 3x €150,-
+
+                tr: td(colspan="2"): br   
+
+            .fund-pre-check-info-total-amount 
+                .fund-pre-check-info-total-title Totaal
+                .fund-pre-check-info-total-description € 450,-
+

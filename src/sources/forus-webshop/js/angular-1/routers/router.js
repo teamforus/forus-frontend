@@ -1110,6 +1110,33 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
     });
 
+    i18n_state($stateProvider, {
+        name: 'fund-pre-check',
+        url: {
+            en: '/fund-pre-check',
+            nl: '/fund-pre-check',
+        },
+        component: 'fundPreCheckComponent',
+        resolve: {
+            funds: ['$transition$', 'FundService', ($transition$, FundService) => {
+                return repackPagination(FundService.list(null, {
+                    q: $transition$.params().q,
+                    page: $transition$.params().page,
+                    tag_id: $transition$.params().tag_id,
+                    organization_id: $transition$.params().organization_id,
+                    per_page: 10,
+                    with_external: 1,
+                }));
+            }],
+            preChecks: ['PreCheckService', (PreCheckService) => {
+                return repackResponse(PreCheckService.list());
+            }],
+            recordTypes: ['RecordTypeService', (
+                RecordTypeService
+            ) => repackResponse(RecordTypeService.list())],
+        },
+    });
+
     $stateProvider.state({
         name: 'error',
         url: '/error/{errorCode}',

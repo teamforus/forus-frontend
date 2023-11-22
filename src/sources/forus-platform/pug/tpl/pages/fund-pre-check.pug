@@ -1,0 +1,132 @@
+.app.app-container
+    menu
+    section.app.app-content
+        //- Fund pre-check preview form
+        .card: form(ng-submit="$ctrl.preCheckForm.submit()").form
+            //- Header
+            .card-header
+                .card-title(translate="funds_pre_check.header.title")
+
+            //- Status (enabled/disabled)
+            .card-section.card-section-primary: .row: .col.col-lg-12.col-xs-12
+                .form-group
+                    label(translate="funds_pre_check.labels.status").form-label
+
+                    .form-offset: select-control(
+                        prop="key"
+                        search="false"
+                        ng-model="$ctrl.preCheckForm.values.pre_check_enabled"
+                        options="$ctrl.enableOptions").form-control
+
+                        .form-error(ng-repeat="error in $ctrl.preCheckForm.errors.pre_check_enabled" ng-bind="error")
+
+            .card-section.card-section-primary: .row: .col.col-lg-12.col-xs-12
+                .card-text(translate="funds_pre_check.labels.description_title")
+
+                //- Title
+                .form-group
+                    label(translate="funds_pre_check.labels.title").form-label.form-label-required
+                    .form-offset
+                        input(
+                            placeholder="Title"
+                            ng-model="$ctrl.preCheckForm.values.pre_check_title").form-control.r-n
+                        .form-error(ng-repeat="error in $ctrl.preCheckForm.errors.pre_check_title" ng-bind="error")
+
+                //- Description
+                .form-group
+                    label(translate="funds_pre_check.labels.description").form-label
+                    .form-offset
+                        textarea(
+                            placeholder="Add description"
+                            ng-model="$ctrl.preCheckForm.values.pre_check_description").form-control.r-n
+                        .form-error(ng-repeat="error in $ctrl.preCheckForm.errors.pre_check_description" ng-bind="error")
+
+            .card-section.card-section-primary: .row: .col.col-lg-12.col-xs-12
+                fund-pre-check-step-editor(
+                    errors="$ctrl.preCheckForm.errors"
+                    implementation="$ctrl.implementation"
+                    pre-checks="$ctrl.preChecks"
+                    register-parent="$ctrl.registerStepsEditor(childRef)")
+
+            
+            .card-section.card-section-primary: .row: .col.col-lg-12.col-xs-12
+                //- Fund type
+                block-empty(
+                    ng-if="$ctrl.funds.meta.total == 0"
+                    title="You don't have any fund"
+                    text="Lorem ipsum dolor sit amet consectetur. Malesuada enim faucibus pellentesque natoque odio id pulvinar bibendum nisi."
+                    image-src="./assets/img/no-funds-icon.svg"
+                    button-text="Go to funds page"
+                    button-sref="funds-create"
+                    button-sref-params="{organization_id: $ctrl.organization.id}"
+                    button-type="primary"
+                    button-icon="plus")
+
+                .block.block-info-box.block-info-box-primary: .flex.flex-align-center
+                    .info-box-icon.mdi.mdi-information
+
+                    .info-box-content: .block.block-markdown
+                        p
+                            | Lorem ipsum dolor sit amet consectetur. Rhoncus egestas interdum senectus bibendum a turpis gravida viverra et. 
+                            | Sit adipiscing euismod metus varius dignissim mattis sed. Sed elementum id euismod sagittis.
+                            
+            //- Submit
+            .card-section: .text-right
+                button(type="button" ng-click="$ctrl.cancel()" translate="funds_edit.buttons.cancel" id="cancel").button.button-default
+                button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
+
+        //- Fund pre-check preview form
+        .card: form(ng-submit="$ctrl.bannerForm.submit()").form
+            //- Header
+            .card-header
+                .card-title Homepage banner
+   
+            //- Fund pre-check banner
+            .card-section.card-section-primary: .form-group.form-group-inline
+                .form-group: .form-offset: photo-selector(
+                    type="pre_check_banner"
+                    thumbnail="$ctrl.thumbnailMedia.sizes.thumbnail"
+                    media="$ctrl.mediaFile"
+                    reset-photo="$ctrl.resetPhoto()"
+                    select-photo="$ctrl.selectPhoto(file)")
+
+                //- Title
+                .form-group
+                    label(translate="funds_pre_check.labels.title").form-label
+                    .form-offset
+                        input(
+                            placeholder="Title"
+                            ng-model="$ctrl.bannerForm.values.pre_check_homepage_title").form-control.r-n
+                        .form-error(ng-repeat="error in $ctrl.bannerForm.errors.pre_check_homepage_title" ng-bind="error")
+
+                //- Description
+                .form-group
+                    label(translate="funds_pre_check.labels.description").form-label
+                    .form-offset
+                        textarea(
+                            placeholder="Add description"
+                            ng-model="$ctrl.bannerForm.values.pre_check_homepage_description").form-control.r-n
+                        .form-error(ng-repeat="error in $ctrl.bannerForm.errors.pre_check_homepage_description" ng-bind="error")
+
+                //- Label title
+                .form-group
+                    label(translate="funds_pre_check.labels.title_label").form-label
+                    .form-offset
+                        input(
+                            ng-model="$ctrl.bannerForm.values.pre_check_homepage_label").form-control.r-n
+                        .form-error(ng-repeat="error in $ctrl.bannerForm.errors.pre_check_homepage_label" ng-bind="error")
+
+                .block.block-info-box.block-info-box-primary: .flex.flex-align-center
+                    .info-box-icon.mdi.mdi-information
+
+                    .info-box-content: .block.block-markdown
+                        p
+                            | Lorem ipsum dolor sit amet consectetur. Rhoncus egestas interdum senectus bibendum a turpis gravida viverra et. 
+                            | Sit adipiscing euismod metus varius dignissim mattis sed. Sed elementum id euismod sagittis.
+
+            //- Submit
+            .card-section: .text-right
+                button(type="button" ng-click="$ctrl.cancel()" translate="funds_edit.buttons.cancel" id="cancel").button.button-default
+                button(type="submit" translate="funds_edit.buttons.confirm").button.button-primary
+
+                

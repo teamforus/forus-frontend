@@ -87,6 +87,7 @@ app.component('biConnectionComponent', require('./components/BIConnectionCompone
 app.component('organizationContactsComponent', require('./components/OrganizationContactsComponent'));
 app.component('featureComponent', require('./components/FeatureComponent'));
 app.component('featuresComponent', require('./components/FeaturesComponent'));
+app.component('fundPreCheckComponent', require('./components/FundPreCheckComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -224,6 +225,7 @@ app.service('ImplementationSocialMediaService', require('./services/Implementati
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 app.service('ClipboardService', require('./services/ClipboardService'));
 app.service('FeaturesService', require('./services/FeaturesService'));
+app.service('PreCheckService', require('./services/PreCheckService'));
 
 // Directives
 app.directive('menu', {
@@ -301,6 +303,7 @@ app.directive('fundRequestRecordHistory', require('./directives/FundRequestRecor
 app.directive('reservationFieldsEditor', require('./directives/ReservationFieldsEditorDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
+app.directive('fundPreCheckStepEditor', require('./directives/FundPreCheckStepEditorDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

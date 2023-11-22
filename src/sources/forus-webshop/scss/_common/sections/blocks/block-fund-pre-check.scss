@@ -1,0 +1,227 @@
+&.block-fund-pre-check {
+    .block-fund-pre-check-progress {
+        height: fit-content;
+        width: 320px;
+        max-width: 320px;
+        min-width: 320px;
+        padding: 20px;
+        background: #fff;
+        border-radius: var(--border-radius);
+        box-shadow: 2px 2px 15px rgba(0,0,0,.05);
+
+        .block-pre-check-progress-title {
+            font: 700 18px/27px var(--base-font);
+            margin-bottom: 15px;
+        }
+
+        .block-pre-check-progress-preview {
+            display: flex;
+
+            .block-pre-check-progress-steps {
+                margin-right: 10px;
+
+                .block-pre-check-progress-step {
+                    margin-bottom: 38px;
+                    position: relative;
+
+                    .block-pre-check-progress-step-number {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        font: 600 14px/30px var(--base-font);
+                        text-align: center;
+                        background-color: #fff;
+                        color: #000;
+                        position: relative;
+                        box-shadow: 0 0 0 2px #DBDCDB;
+                    }
+
+                    .block-pre-check-progress-step-separator {
+                        position: absolute;
+                        right: -2px;
+                        margin-top: 18px;
+                        width: 34px;
+                        transform: rotate(-90deg);
+                        border-bottom: 2px solid #DBDCDB;
+                    }
+
+                    &.active {
+                        .block-pre-check-progress-step-number {
+                            background-color: #315EFD;
+                            box-shadow: 0 0 0 2px #315EFD;
+                            color: #fff;
+                        }
+
+                        .block-pre-check-progress-step-separator {
+                            border-color: #A0BBF9;
+                        }
+                    }
+
+                    &.next {
+                        .block-pre-check-progress-step-number {
+                            box-shadow: 0 0 0 2px #315EFD;
+                        }
+
+                        .block-pre-check-progress-step-separator {
+                            border-color: #DBDCDB;
+                        }
+                    }
+
+                    &:last-child {
+                        .block-pre-check-progress-step-separator {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .block-pre-check-progress-questions {
+                width: 100%;
+
+                .block-pre-check-progress-question {
+                    margin-bottom: 44px;
+                    margin-top: 3px;
+                    position: relative;
+    
+                    .block-pre-check-progress-question-title {
+                        font: 700 16px/24px var(--base-font);
+                        margin-bottom: 5px;
+                    }
+    
+                    .block-pre-check-progress-question-answer {
+                        font: 400 14px/21px var(--base-font);
+                        position: absolute;
+                    }
+    
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .block-fund-pre-check-step {
+        .block-fund-pre-check-step-title {
+            font: 700 22px/32px var(--base-font);
+            margin-bottom: 5px;
+        }
+
+        .block-fund-pre-check-step-description {
+            font: 400 16px/24px var(--base-font);
+            margin-bottom: 15px;
+        }
+
+        .block-fund-pre-check-step-section {
+            background: #fff;
+            padding: 25px 30px;
+
+            .block-fund-pre-check-step-section-details {
+                margin-bottom: 24px;
+                padding-bottom: 24px;
+                border-bottom: 1px solid #DBDCDB;
+
+                .block-fund-pre-check-step-section-title {
+                    font: 700 16px/24px var(--base-font);
+                    margin-bottom: 5px;
+                }
+
+                .block-fund-pre-check-step-section-description {
+                    font: 400 14px/21px var(--base-font);
+                }
+            }
+
+            .block-fund-pre-check-step-section-question {
+                margin-bottom: 24px;
+                padding-bottom: 24px;
+                border-bottom: 1px solid #DBDCDB;
+
+                .block-fund-pre-check-step-section-question-title {
+                    font: 700 18px/27px var(--base-font);
+                    margin-bottom: 5px;
+                }
+
+                .block-fund-pre-check-step-section-question-description {
+                    font: 400 14px/21px var(--base-font);
+                    margin-bottom: 15px;
+                }
+            }
+
+            .block-fund-pre-check-step-section-actions {
+                display: flex;
+            }
+        }
+    }
+
+    .block-fund-pre-check-step-section-results {
+        padding-top: 24px;
+        border-top: 1px solid #DBDCDB;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .block-fund-pre-check-progress {
+            .block-pre-check-progress-title {
+                font: 600 18px/22px var(--base-font);
+            }
+
+            .block-pre-check-progress-preview {
+                flex-direction: column;
+
+                .block-pre-check-progress-steps {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-right: 0;
+
+                    .block-pre-check-progress-step {
+                        margin-bottom: 0px;
+                        position: initial;
+                        display: flex;
+                        align-items: center;
+                        width: 100%;
+
+                        .block-pre-check-progress-step-number {
+                            font: 700 12px/24px var(--base-font);
+                            width: 24px;
+                            height: 24px;
+                        }
+
+                        .block-pre-check-progress-step-separator {
+                            margin-top: 0;
+                            transform: none;
+                            position: initial;
+                            flex-grow: 1;
+                        }
+
+                        &:last-child {
+                            width: auto;
+                        }
+                    }
+                }
+
+                .block-pre-check-progress-questions {
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-between;
+
+                    .block-pre-check-progress-question {
+                        margin-bottom: 20px;
+                        margin-left: -10px;
+
+                        .block-pre-check-progress-question-title {
+                            font: 700 10px/15px var(--base-font);
+                        }
+
+                        .block-pre-check-progress-question-answer {
+                            display: none;
+                        }
+
+                        &:last-child {
+                            width: auto;
+                            margin-left: -10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

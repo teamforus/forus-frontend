@@ -212,44 +212,6 @@ const FundRequestComponent = function (
         for (let i = 0; i < criteria.length; i++) {
             const criterion = criteria[i];
 
-            const control_type_default = 'ui_control_text';
-            const control_type_base = {
-                'bool': 'ui_control_checkbox',
-                'date': 'ui_control_date',
-                'string': 'ui_control_text',
-                'email': 'ui_control_text',
-                'bsn': 'ui_control_number',
-                'iban': 'ui_control_text',
-                'number': 'ui_control_number',
-                'select': 'select_control',
-            }[criterion.record_type.type];
-
-            const control_type_key = {
-                // checkboxes
-                ...$ctrl.checkboxKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_checkbox' }), {}),
-                // stepper
-                ...$ctrl.stepKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_step' }), {}),
-                // currency
-                ...$ctrl.currencyKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_currency' }), {}),
-                // numbers
-                ...$ctrl.numberKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_number' }), {}),
-                // dates
-                ...$ctrl.dateKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_date' }), {}),
-            }[criterion.record_type.key] || null;
-
-            const control_type = ((criterion.record_type.type == 'string') && (criterion.operator == '=')) ?
-                'ui_control_checkbox' :
-                control_type_key || control_type_base || control_type_default;
-
-            const control_type_default_value = {
-                ui_control_checkbox: null,
-                ui_control_date: format(new Date(), 'dd-MM-yyyy'),
-                ui_control_step: criterion?.record_type?.key == 'adults_nth' ? 1 : 0,
-                ui_control_number: undefined,
-                ui_control_currency: undefined,
-                ui_control_text: '',
-            }[control_type];
-
             criterion.record_type.options_by_value = criterion?.record_type?.options.reduce((list, option) => {
                 return { ...list, [option.value]: option };
             }, {});
@@ -257,8 +219,8 @@ const FundRequestComponent = function (
             criterion.title_default = $ctrl.criterionTitle(criterion);
             criterion.files = [];
             criterion.label = $transRecordCheckbox(criterion.record_type.key, criterion.value);
-            criterion.input_value = control_type_default_value;
-            criterion.control_type = control_type;
+            criterion.input_value = FundService.getControlDefaultValue(criterion.record_type, criterion.operator);
+            criterion.control_type = FundService.getControlType(criterion.record_type, criterion.operator);
             criterion.description_html = $sce.trustAsHtml(criterion.description_html);
         }
 

@@ -1,0 +1,342 @@
+&.block-funds-pre-check-list {
+    .fund-item {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        background: #ffffff;
+        box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+        border: 1px solid var(--border-color);
+        margin: 0 0 15px;
+        border-radius: var(--border-radius);
+        transition: box-shadow 0.4s;
+
+        .button {
+            font: 600 13px/20px var(--base-font);
+
+            &.button-text {
+                padding: 0;
+            }
+        }
+
+        .fund-photo {
+            display: block;
+            overflow: hidden;
+            position: relative;
+            padding: 15px 0 15px 15px;
+            border-bottom: 1px solid var(--border-color);
+
+            img {
+                display: block;
+                width: 105px;
+            }
+        }
+
+        .fund-content {
+            display: flex;
+            width: 100%;
+            flex: 1 0;
+            overflow: hidden;
+
+            .fund-details {
+                flex-grow: 1;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                word-wrap: break-word;
+                padding: 15px 15px;
+                border-bottom: 1px solid var(--border-color);
+    
+                .fund-status-label {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    display: flex;
+    
+                    .label {
+                        cursor: pointer;
+                    }
+                }
+    
+                .fund-name {
+                    font: 700 22px/32px var(--hf);
+                    margin: 0 0 5px;
+                    color: var(--tc);
+                    padding-right: 100px;
+    
+                    a {
+                        font: inherit;
+                        color: var(--tc);
+                    }
+    
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+    
+                .fund-description {
+                    font: 400 14px/21px var(--base-font);
+                    color: var(--tc);
+    
+                    .fund-description-more {
+                        font: inherit;
+                        display: flex;
+                        color: var(--color-primary);
+                        font-weight: 600;
+                        padding-top: 5px;
+    
+                        .mdi {
+                            color: #DBDCDB;
+                            margin-left: 3px;
+                            font-size: 16px;
+                        }
+                    }
+                }
+    
+                .fund-organization {
+                    font: 400 16px/28px var(--base-font);
+                    margin-bottom: 5px;
+                }
+            }
+    
+            .fund-actions {
+                text-align: center;
+                min-width: 200px;
+                border-left: 1px solid var(--border-color);
+                border-bottom: 1px solid var(--border-color);
+    
+                .fund-request-block {
+                    padding: 20px 10px;
+                    border-bottom: 1px solid var(--border-color);
+    
+                    .fund-request-block-progress {
+                        min-height: 100px;
+                        padding: 20px 0;
+    
+                        .fund-request-block-progress-title {
+                            font: 700 16px/24px var(--base-font);
+                            margin-bottom: 10px;
+                        }
+    
+                        .fund-request-block-progress-bar {
+                            display: flex;
+    
+                            .fund-request-block-progress-bar-completed {
+                                border: 3px solid #2E9D1C;
+                                border-top-left-radius: 3px;
+                                border-bottom-left-radius: 3px;
+                            }
+    
+                            .fund-request-block-progress-bar-remaining {
+                                border: 2px solid #C0C5D4;
+                                border-top-right-radius: 2px;
+                                border-bottom-right-radius: 2px;
+                            }
+                        }
+                    }
+    
+                    .fund-request-block-button {
+                        width: 100%;
+                    }
+                }
+    
+                .fund-totals-block {
+                    display: flex;
+                    padding: 10px;
+                    position: relative;
+    
+                    .fund-totals-block-amount {
+                        flex-grow: 1;
+                        text-align: left;
+    
+                        .fund-totals-block-amount-description {
+                            font: 400 11px/16px var(--base-font);
+                        }
+    
+                        .fund-totals-block-amount-value {
+                            font: 600 14px/21px var(--base-font);
+                        }
+                    }
+    
+                    .fund-totals-block-show-details {
+                        .button {
+                            font: 600 13px/15px var(--base-font);
+                            color: var(--tc);
+                            text-decoration: underline;
+                            position: absolute;
+                            right: 12px;
+                            top: 50%;
+                            transform: translate(0%, -50%);
+                        }
+                    }
+                }
+
+                &.expanded {
+                    border-bottom: none;
+                    
+                    .fund-totals-block {
+                        background-color: #fbfbfb;
+                    }
+                }
+            }
+        }
+
+        .fund-pre-check-info {
+            display: flex;
+            width: 100%;
+            padding: 10px;
+            flex-grow: 1;
+            background: #FBFBFB;
+            border-top-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+
+            .fund-pre-check-info-criterias, .fund-pre-check-info-totals {
+                width: 50%;
+                padding: 20px;
+                background: #FFF;
+                border: 1px solid var(--border-color);
+            }
+
+            .fund-pre-check-info-criterias {
+                border-right: none;
+                border-top-left-radius: var(--border-radius);
+                border-bottom-left-radius: var(--border-radius);
+
+                .fund-pre-check-info-criterias-title {
+                    font: 700 16px/24px var(--base-font);
+                    margin-bottom: 10px;
+                }
+
+                .fund-pre-check-info-criterias-list {
+                    .fund-pre-check-info-criterias-list-item {
+                        display: flex;
+                        align-items: center;
+                        font: 600 11px/15px var(--base-font);
+                        margin-bottom: 5px;
+
+                        .mdi {
+                            margin-right: 5px;
+                            color: #9E9E9E;
+                            font-size: 15px;
+                        }
+
+                        &.valid {
+                            .mdi {
+                                color: #315EFD;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .fund-pre-check-info-totals {
+                border-top-right-radius: var(--border-radius);
+                border-bottom-right-radius: var(--border-radius);
+
+                .fund-pre-check-info-totals-title {
+                    font: 700 16px/24px var(--base-font);
+                    margin-bottom: 10px;
+                }
+
+                .fund-pre-check-info-totals-table {
+                    border-collapse: collapse;
+                    width: 100%;
+                    border-bottom: 1px solid var(--border-color);
+
+                    tr {
+                        td {
+                            font: 600 12px/18px var(--base-font);
+
+                            &.description {
+                                color: #848484;
+                            }
+
+                            &.value {
+                                text-align: right;
+                                color: #353535;
+                            }
+                        }
+                    }
+                }
+
+                .fund-pre-check-info-total-amount {
+                    display: flex;
+                    align-items: center;
+                    padding-top: 15px;
+
+                    .fund-pre-check-info-total-title {
+                        font: 600 14px/21px var(--base-font);
+                        flex-grow: 1;
+                    }
+
+                    .fund-pre-check-info-total-description {
+                        font: 700 18px/27px var(--base-font);
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            box-shadow: var(--box-shadow);
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .fund-item {}
+    }
+
+    // @media screen and (max-width: 1000px) {
+    //     .fund-item {
+    //         grid-template-columns: 70px 1fr;
+
+    //         .fund-photo {
+    //             padding: 10px 0 10px 10px;
+    //         }
+
+    //         .fund-content {
+    //             padding: 10px 15px 10px 10px;
+    //         }
+
+    //         .fund-details {
+    //             .fund-name,
+    //             .fund-description,
+    //             .fund-status-label {
+    //                 margin: 0 0 5px;
+    //                 padding: 0 0 0;
+    //             }
+                    
+    //             .fund-status-label {
+    //                 position: initial;
+    //             }
+
+    //             .fund-name {
+    //                 font: 700 14px/20px var(--hf);
+    //             }
+
+    //             .fund-description {
+    //                 font: 400 12px/18px var(--base-font);
+    //             }
+    //         }
+
+    //         .fund-actions {
+    //             padding-top: 10px;
+    //         }
+    //     }
+    // }
+
+    // @media screen and (max-width: 360px) {
+    //     .fund-item {
+    //         .fund-content {
+    //             .fund-details {
+    //                 .fund-name {
+    //                     font: 700 12px/20px var(--base-font);
+    //                 }
+
+    //                 .fund-description {
+    //                     font: 400 12px/20px var(--base-font);
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+}

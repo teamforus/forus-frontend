@@ -518,6 +518,24 @@ module.exports = {
         }
     },
 
+    // PRE CHECK FUNDS = funds-pre-check.pug
+    funds_pre_check: {
+        header: {
+            title: "Fund pre-check",
+        },
+        labels: {
+            description_title: "Main description",
+            title: "Title",
+            title_label: "Label title",
+            description: "Description",
+            status: "Enabled",
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        }
+    },
+
     // SHOW FUNDS = funds-show.pug
     funds_show: {
         criterion: "Criteria's (3)",

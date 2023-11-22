@@ -1,0 +1,157 @@
+block content
+    .header-splash: .splash.splash-c
+    .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
+        top-navbar(hide-on-scroll="true")
+
+        main(id="main-content")
+            .showcase-wrapper: .block.block-fund-pre-check
+                .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
+                    .mobile-filters-count: .mobile-filters-count-value(ng-bind="$ctrl.countFiltersApplied")
+                    .mobile-filters-title Filter op categorieën en tegoeden
+                    .mobile-filters-icon(ng-click="$ctrl.toggleMobileMenu()" aria-label="Filter op categorieën en tegoeden"): em.mdi.mdi-filter-outline
+
+                .block.block-breadcrumbs
+                    a(ui-sref="home").breadcrumb-item Home
+                    .breadcrumb-item.active(aria-current="location") De Potjes check
+
+                .showcase-layout
+                    .block-fund-pre-check-progress
+                        .block-pre-check-progress-title Uw gegevens
+                        .block-pre-check-progress-preview
+                            .block-pre-check-progress-steps
+                                .block-pre-check-progress-step(
+                                    ng-repeat="preCheck in $ctrl.preChecks"
+                                    ng-class="{active: $ctrl.activeStepIndex >= $index, next: $ctrl.activeStepIndex + 1 == $index}")
+
+                                    .block-pre-check-progress-step-number {{ $index + 1 }}
+                                    .block-pre-check-progress-step-separator
+
+                            .block-pre-check-progress-questions
+                                .block-pre-check-progress-question(ng-repeat="preCheck in $ctrl.preChecks track by $index")
+                                    .block-pre-check-progress-question-title(ng-bind="preCheck.title")
+                                    .block-pre-check-progress-question-answer(
+                                        ng-if="$ctrl.activeStepIndex > $parent.$index"
+                                        ng-repeat="preCheckRecord in preCheck.pre_check_records") 
+                                        | {{ preCheckRecord.short_title }}: 
+                                        | {{ preCheckRecord.control_type == 'ui_control_checkbox' ? (preCheckRecord.is_checked ? 'Ja' : 'Nee') : preCheckRecord.input_value }}
+
+                    .showcase-content: .block-fund-pre-check-step
+                        .block-fund-pre-check-step-title(ng-bind="$root.appConfigs.features.pre_check_title")
+                        .block-fund-pre-check-step-description(ng-bind="$root.appConfigs.features.pre_check_description")
+
+                        .block-fund-pre-check-step-section(ng-if="!$ctrl.showTotals")
+                            //- Questions step
+                            .block-fund-pre-check-step-section-details
+                                .block-fund-pre-check-step-section-title(ng-bind="$ctrl.activePreCheck.title")
+                                .block-fund-pre-check-step-section-description(ng-bind="$ctrl.activePreCheck.description")
+
+                            .block-fund-pre-check-step-section-question(ng-repeat="preCheckRecord in $ctrl.activePreCheck.pre_check_records")
+                                .block-fund-pre-check-step-section-question-title(ng-bind="preCheckRecord.title")
+                                .block-fund-pre-check-step-section-question-description(ng-bind="preCheckRecord.description")
+                                
+                                .row.form
+                                    .col.col-md-12: .form-group
+                                        select-control(
+                                            ng-if="preCheckRecord.control_type == 'select_control'"
+                                            id="pre_check_record_{{ preCheckRecord.id }}"
+                                            prop="value"
+                                            name="control_{{ preCheckRecord.record_type.key }}"
+                                            ng-model="preCheckRecord.input_value"
+                                            options="$ctrl.recordTypesByKey[preCheckRecord.record_type.key].options"
+                                            placeholder="Uw {{ preCheckRecord.record_type.name }}")
+
+                                        ui-control-checkbox(
+                                            ng-if="preCheckRecord.control_type == 'ui_control_checkbox'"
+                                            ng-model="preCheckRecord.is_checked"
+                                            name="{{ preCheckRecord.record_type.key }}"
+                                            data-id="pre_check_record_{{ preCheckRecord.id }}"
+                                            data-label="{{ preCheckRecord.title }}"
+                                            ng-change="$ctrl.setRecordValue(preCheckRecord)")
+
+                                        ui-control-step(
+                                            ng-if="preCheckRecord.control_type == 'ui_control_step'"
+                                            ng-model="preCheckRecord.input_value"
+                                            name="{{ preCheckRecord.record_type.key }}"
+                                            role="spinbutton"
+                                            data-min="0"
+                                            data-max="32"
+                                            data-id="pre_check_record_{{ preCheckRecord.id }}")
+
+                                        ui-control-date(
+                                            ng-if="preCheckRecord.control_type == 'ui_control_date'"
+                                            ng-model="preCheckRecord.input_value"
+                                            name="{{ preCheckRecord.record_type.key }}"
+                                            data-id="pre_check_record_{{ preCheckRecord.id }}")
+
+                                        ui-control-number(
+                                            ng-if="preCheckRecord.control_type == 'ui_control_number'"
+                                            ng-model="preCheckRecord.input_value"
+                                            name="{{ preCheckRecord.record_type.key }}"
+                                            data-id="pre_check_record_{{ preCheckRecord.id }}"
+                                            data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
+
+                                        ui-control-text(
+                                            ng-if="preCheckRecord.control_type == 'ui_control_text'"
+                                            ng-model="preCheckRecord.input_value"
+                                            name="{{ preCheckRecord.record_type.key }}"
+                                            data-id="pre_check_record_{{ preCheckRecord.id }}"
+                                            data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
+
+                                        ui-control-currency(
+                                            ng-if="preCheckRecord.control_type == 'ui_control_currency'"
+                                            ng-model="preCheckRecord.input_value"
+                                            name="{{ preCheckRecord.record_type.key }}"
+                                            data-id="preCheckRecord_{{ preCheckRecord.id }}"
+                                            data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
+                                        .form-error(ng-repeat="error in preCheckRecord.errors.value" ng-bind="error")
+
+                            .block-fund-pre-check-step-section-actions
+                                .flex.flex-grow: button.button.button-light.button-sm(
+                                    ng-click="$ctrl.prev()") Vorige stap
+                                
+                                .flex: button.button.button-primary.button-sm(
+                                    ng-disabled="!$ctrl.activePreCheckFilled()"
+                                    ng-click="$ctrl.next()") Volgende
+
+                        //- Answer results
+                        div(ng-if="$ctrl.showTotals")
+                            .block-fund-pre-check-step-section-results
+                                .showcase-content-header
+                                    h1.showcase-filters-title
+                                        span Funds
+                                        .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
+
+                                    .showcase-filters-block: .block.block-label-tabs.form
+                                        .showcase-filters-item
+                                            label.form-label Sorteer
+                                            select-control(
+                                                id="sort_by"
+                                                as="label"
+                                                search="false"
+                                                ng-model="$ctrl.sort_by"
+                                                ng-change="$ctrl.updateSortBy()"
+                                                options="$ctrl.sortByOptions"
+                                                placeholder="Sorteer")
+
+                                .block.block-funds-pre-check-list(id="fund_list")
+                                    fund-pre-check-item(
+                                        ng-repeat="fund in $ctrl.funds.data"
+                                        funds="$ctrl.funds"
+                                        fund="fund")
+
+                                    empty-block(
+                                        title= "{{ 'block_funds.labels.title' | translate }}"
+                                        description="{{ 'block_funds.labels.subtitle' | translate }}"
+                                        hide-link="true" 
+                                        svg-icon="reimbursements"
+                                        ng-if="$ctrl.funds.data.length == 0")
+
+                                    .card(ng-if="$ctrl.funds" ng-show="$ctrl.funds.meta.last_page > 1"): .card-section: paginator(
+                                        meta="$ctrl.funds.meta"
+                                        filters="$ctrl.form.values"
+                                        count-buttons="5"
+                                        on-page-change="$ctrl.onPageChange(query)")
+
+                
+    
+

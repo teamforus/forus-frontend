@@ -77,6 +77,11 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             "BI integraties", "bi-connection", 'bi-connection',
             '{organization_id: $root.activeOrganization.id}',
             '$root.activeOrganization.allow_bi_connection && ($root.activeOrganization | hasPerm:["manage_bi_connection"])')
+        
+        +nav_item(
+            "Pre–Check", "pre-check", 'pre-check',
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["manage_organization"]')
 
         +nav_item(
             "Beveiliging", "organization-security", 'organization-security', 
