@@ -1895,25 +1895,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             IdentityService.authorizeAuthEmailToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
 
-                $rootScope.loadAuthUser().then(auth_user => {
-                    let organizations = auth_user.organizations.filter(organization =>
-                        !organization.business_type_id &&
-                        PermissionsService.hasPermission(organization, 'manage_organization')
-                    );
-
-                    let onReady = () => {
-                        if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
-                            return $state.go('organizations');
-                        }
-                    };
-
-                    if (organizations.length > 0) {
-                        ModalService.open('businessSelect', {
-                            organizations: organizations,
-                            onReady: () => onReady(),
-                        });
-                    } else {
-                        onReady();
+                $rootScope.loadAuthUser().then(() => {
+                    if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
+                        return $state.go('organizations');
                     }
                 });
             }, () => {

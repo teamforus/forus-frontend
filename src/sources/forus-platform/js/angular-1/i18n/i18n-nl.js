@@ -54,7 +54,6 @@ module.exports = {
         modal_voucher_deactivation: require('./nl/modals/modal-voucher-deactivation.pug.i18n'),
         modal_voucher_activation: require('./nl/modals/modal-voucher-activation.pug.i18n'),
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
-        modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
         modal_export_data: require('./nl/modals/modal-export-data-select.pug.i18n'),
         modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
