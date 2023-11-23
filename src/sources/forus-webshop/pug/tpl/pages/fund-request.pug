@@ -393,10 +393,10 @@ main(id="main-content")
 
                             strong
                                 span(ng-if="!['select', 'bool'].includes(criteria.record_type.type)") 
-                                    | {{ criteria.input_value || 'Not provided' }}
+                                    | {{ criteria.input_value || 'Geen' }}
 
                                 span(ng-if="['select'].includes(criteria.record_type.type)") 
-                                    | {{ criteria.record_type.options_by_value[criteria.input_value].name || 'Not selected' }}
+                                    | {{ criteria.record_type.options_by_value[criteria.input_value].name || 'Niet geselecteerd' }}
 
                                 span(ng-if="['bool'].includes(criteria.record_type.type)") 
                                     | {{ criteria.is_checked ? 'Ja' : 'Nee' }}

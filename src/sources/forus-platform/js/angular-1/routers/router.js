@@ -1887,8 +1887,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', function (
-            $rootScope, $state, IdentityService, CredentialsService, ModalService, PushNotificationsService
+        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', function (
+            $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, PushNotificationsService
         ) {
             let target = $state.params.target || '';
 
