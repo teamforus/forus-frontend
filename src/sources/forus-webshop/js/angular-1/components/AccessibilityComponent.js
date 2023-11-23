@@ -12,7 +12,7 @@ let AccessibilityComponent = function(
                 'website': 'https://westerkwartier.forus.io/',
                 'contact_email': 'webmaster@westerkwartier.nl',
                 'accessibility_link': 'www.westerkwartier.nl/toegankelijkheid',
-                'telephone_numer': '​14 0594'
+                'telephone_numer': '14 0594'
             },
             'noordoostpolder': {
                 'implementation_name': 'Meedoenpakket',

@@ -1613,6 +1613,7 @@ module.exports = {
         },
         labels: {
             code: "Code",
+            employee: "Medewerker",
             search: "Zoeken",
             exported: "Geëxporteerd",
             from: "Van",

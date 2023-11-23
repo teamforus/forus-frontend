@@ -18,17 +18,6 @@ require("./angular-1/angular-app");
     });
 })([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
 
-setTimeout(() => {
-    $('.nano').nanoScroller({
-        iOSNativeScrolling: true 
-    });
-    
-    $('.nano.nano-scrolldown').nanoScroller({
-        iOSNativeScrolling: true,
-        scroll: 'bottom' 
-    });
-}, 500);
-
 window.pushNotifications = new(function($node) {
     $node = $('[push-notifications]');
 
