@@ -1,4 +1,18 @@
-const Identity2FAService = function (ApiRequest) {
+const Identity2FAService = function (
+    $q,
+    $filter,
+    ApiRequest
+) {
+    const phoneCodeSendError = $filter('translate')('modals.modal_2fa_setup.errors.phone.code_sent');
+    const phoneCodeSentErrorObj = {
+        data: {
+            message: phoneCodeSendError,
+            errors: {
+                phone: [phoneCodeSendError]
+            }
+        }
+    };
+
     return new (function () {
         this.status = (data = {}) => {
             return ApiRequest.get('/identity/2fa', data);
@@ -9,11 +23,27 @@ const Identity2FAService = function (ApiRequest) {
         };
 
         this.store = (data = {}) => {
-            return ApiRequest.post('/identity/2fa', data);
+            return $q((resolve, reject) => {
+                ApiRequest.post('/identity/2fa', data).then((res) => {
+                    if (data.type === 'phone' && !res.data.code_sent) {
+                        reject(phoneCodeSentErrorObj);
+                    } else {
+                        resolve(res);
+                    }
+                }, reject);
+            });
         };
 
         this.send = (uuid, data = {}) => {
-            return ApiRequest.post(`/identity/2fa/${uuid}/resend`, data);
+            return $q((resolve, reject) => {
+                ApiRequest.post(`/identity/2fa/${uuid}/resend`, data).then((res) => {
+                    if (res.data.code_sent) {
+                        resolve(res);
+                    } else {
+                        reject(phoneCodeSentErrorObj);
+                    }
+                }, reject);
+            });
         };
 
         this.activate = (uuid, data = {}) => {
@@ -32,6 +62,8 @@ const Identity2FAService = function (ApiRequest) {
 
 
 module.exports = [
+    '$q',
+    '$filter',
     'ApiRequest',
     Identity2FAService,
 ];

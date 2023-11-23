@@ -149,6 +149,7 @@ module.exports = {
     modal_product_reserve: require("./nl/modals/modal-product-reserve"),
     modal_product_reserve_notes: require("./nl/modals/modal-product-reserve-notes"),
     modal_product_reserve_cancel: require("./nl/modals/modal-product-reserve-cancel"),
+    modal_2fa_setup: require("./nl/modals/modal-2fa-setup"),
 
     // DIRECTIVES
     app_footer: require("./nl/directives/app-footer"),
