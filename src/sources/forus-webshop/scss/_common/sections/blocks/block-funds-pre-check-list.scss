@@ -128,9 +128,20 @@
                             }
     
                             .fund-request-block-progress-bar-remaining {
-                                border: 2px solid #C0C5D4;
-                                border-top-right-radius: 2px;
-                                border-bottom-right-radius: 2px;
+                                border: 3px solid #C0C5D4;
+                                border-top-right-radius: 3px;
+                                border-bottom-right-radius: 3px;
+                            }
+
+                            &.no-progress {
+                                .fund-request-block-progress-bar-completed {
+                                    border: none;
+                                }
+
+                                .fund-request-block-progress-bar-remaining {
+                                    border-top-left-radius: 3px;
+                                    border-bottom-left-radius: 3px;
+                                }
                             }
                         }
                     }

@@ -26,6 +26,9 @@ block content
                                     .block-pre-check-progress-step-number {{ $index + 1 }}
                                     .block-pre-check-progress-step-separator
 
+                                .block-pre-check-progress-step.block-pre-check-progress-step-totals(ng-class="{active: $ctrl.showTotals}")
+                                    .block-pre-check-progress-step-number    
+
                             .block-pre-check-progress-questions
                                 .block-pre-check-progress-question(ng-repeat="preCheck in $ctrl.preChecks track by $index")
                                     .block-pre-check-progress-question-title(ng-bind="preCheck.title")
@@ -34,6 +37,23 @@ block content
                                         ng-repeat="preCheckRecord in preCheck.pre_check_records") 
                                         | {{ preCheckRecord.short_title }}: 
                                         | {{ preCheckRecord.control_type == 'ui_control_checkbox' ? (preCheckRecord.is_checked ? 'Ja' : 'Nee') : preCheckRecord.input_value }}
+
+                                .block-pre-check-progress-question
+                                    .block-pre-check-progress-question-title Advies
+                                    .block-pre-check-progress-question-answer
+                                        | Je bent er bijna!
+
+                        .block-pre-check-amounts(ng-if="$ctrl.showTotals")
+                            .block-pre-check-amount
+                                .block-pre-check-amount-title Totaal bedrag
+                                .block-pre-check-amount-value {{ $ctrl.totals.amounts.amount_total_currency | currency_format  }}
+
+                            .block-pre-check-amount
+                                .block-pre-check-amount-title Totaal regelingen
+                                .block-pre-check-amount-value 36
+                        
+                        .block-pre-check-actions(ng-if="$ctrl.showTotals")
+                            .button.button-light.button-fill(ng-click="$ctrl.changeAnswers()") Change answers
 
                     .showcase-content: .block-fund-pre-check-step
                         .block-fund-pre-check-step-title(ng-bind="$root.appConfigs.features.pre_check_title")
@@ -119,7 +139,7 @@ block content
                                 .showcase-content-header
                                     h1.showcase-filters-title
                                         span Funds
-                                        .showcase-filters-title-count(ng-bind="$ctrl.funds.meta.total")
+                                        .showcase-filters-title-count(ng-bind="$ctrl.totals.funds.length")
 
                                     .showcase-filters-block: .block.block-label-tabs.form
                                         .showcase-filters-item
@@ -135,22 +155,15 @@ block content
 
                                 .block.block-funds-pre-check-list(id="fund_list")
                                     fund-pre-check-item(
-                                        ng-repeat="fund in $ctrl.funds.data"
-                                        funds="$ctrl.funds"
-                                        fund="fund")
+                                        ng-repeat="totalsPerFund in $ctrl.totals.funds"
+                                        amounts="$ctrl.totals.amounts"
+                                        fund="totalsPerFund")
 
                                     empty-block(
                                         title= "{{ 'block_funds.labels.title' | translate }}"
                                         description="{{ 'block_funds.labels.subtitle' | translate }}"
-                                        hide-link="true" 
-                                        svg-icon="reimbursements"
-                                        ng-if="$ctrl.funds.data.length == 0")
-
-                                    .card(ng-if="$ctrl.funds" ng-show="$ctrl.funds.meta.last_page > 1"): .card-section: paginator(
-                                        meta="$ctrl.funds.meta"
-                                        filters="$ctrl.form.values"
-                                        count-buttons="5"
-                                        on-page-change="$ctrl.onPageChange(query)")
+                                        hide-link="true"
+                                        ng-if="$ctrl.totals.length.length == 0")
 
                 
     

@@ -45,6 +45,23 @@
                         border-bottom: 2px solid #DBDCDB;
                     }
 
+                    &.block-pre-check-progress-step-totals {
+                        margin-bottom: 24px;
+
+                        .block-pre-check-progress-step-number {
+                            background: url("../img/icon-pre-check-totals-inactive.svg") center no-repeat;
+                        }
+
+                        &.active {
+                            background-color: #315efd;
+                            border-radius: 50%;
+
+                            .block-pre-check-progress-step-number {
+                                background: url("../img/icon-pre-check-totals-active.svg") center no-repeat;
+                            }
+                        }
+                    }
+
                     &.active {
                         .block-pre-check-progress-step-number {
                             background-color: #315EFD;
@@ -96,6 +113,32 @@
                     &:last-child {
                         margin-bottom: 0;
                     }
+                }
+            }
+        }
+
+        .block-pre-check-amounts {
+            margin: 24px 0;
+            background-color: #FBFBFB;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+
+            .block-pre-check-amount {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+
+                .block-pre-check-amount-title {
+                    font: 600 14px/21px var(--base-font);
+                }
+
+                .block-pre-check-amount-value {
+                    font: 600 14px/21px var(--base-font);
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
         }

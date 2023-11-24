@@ -1,9 +1,23 @@
 const FundPreCheckItemDirective = function(
     $scope,
+    $state,
+    FundService,
 ) {
     const $dir = $scope.$dir = {};
 
     $dir.fund = $scope.fund;
+
+    const getProgressStatusTitle = () => {
+        if ($dir.fund.criteria_valid_percentage < 33) {
+            return 'Lage kans';
+        }
+
+        if ($dir.fund.criteria_valid_percentage < 66) {
+            return 'Goede kans';
+        }
+
+        return 'Gemiddelde kans';
+    }
 
     $dir.showMoreRequestInfo = false;
     
@@ -20,19 +34,32 @@ const FundPreCheckItemDirective = function(
         
         $dir.showMoreRequestInfo = showMoreRequestInfo;
     };
+
+    $dir.progressStatusTitle = getProgressStatusTitle();
+
+    $dir.applyFund = function ($e, fund) {
+        $e.preventDefault();
+
+        if ($dir.fund.taken_by_partner) {
+            return FundService.showTakenByPartnerModal();
+        }
+
+        $state.go('fund-activate', { fund_id: fund.id });
+    };
 };
 
 module.exports = () => {
     return {
         scope: {
             fund: '=',
-            funds: '=',
-            vouchers: '=',
+            amounts: '=',
         },
         restrict: "EA",
         replace: true,
         controller: [
             '$scope',
+            '$state',
+            'FundService',
             FundPreCheckItemDirective,
         ],
         templateUrl: ($el, $attr) => {

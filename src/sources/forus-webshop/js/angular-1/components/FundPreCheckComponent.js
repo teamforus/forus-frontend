@@ -68,6 +68,7 @@ const FundPreCheckComponent = function (
 
     $ctrl.changeAnswers = () => {
         $ctrl.activeStepIndex = 0;
+        $ctrl.showTotals = false;
         updateActivePreCheck();
     };
 

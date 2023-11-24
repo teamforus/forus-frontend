@@ -5,27 +5,6 @@
 
     .fund-content
         .fund-details
-            .fund-status-label
-                .label.label-light(
-                    ng-if="$dir.fund.canApply && !$dir.fund.showActivateButton"
-                    translate="funds.status.is_applicable")
-
-                .label.label-success(
-                    ng-if="$dir.fund.showActivateButton"
-                    translate="funds.status.activateable")
-
-                .label.label-primary(
-                    ng-if="$dir.fund.alreadyReceived"
-                    translate="funds.status.active")
-
-                .label.label-warning(
-                    ng-if="$dir.fund.showPendingButton"
-                    translate="funds.status.is_pending")
-
-                .label.label-light(
-                    ng-if="$dir.fund.showRequestButton"
-                    translate="funds.status.is_applicable")
-
             h2.fund-name: a(ui-sref="fund($dir.fund)" ng-bind="$dir.fund.name")
 
             .fund-description(ng-if="$dir.fund.description_short")
@@ -52,21 +31,23 @@
         .fund-actions(ng-class="{expanded : $dir.showMoreRequestInfo}")
             .fund-request-block
                 .fund-request-block-progress
-                    .fund-request-block-progress-title Gemiddelde kans
-                    .fund-request-block-progress-bar
-                        .fund-request-block-progress-bar-completed(style="width:100%")
-                        .fund-request-block-progress-bar-remaining(style="width:0%")
+                    .fund-request-block-progress-title(ng-bind="$dir.progressStatusTitle")
+                    .fund-request-block-progress-bar(ng-class="{'no-progress': !$dir.fund.criteria_valid_percentage}")
+                        .fund-request-block-progress-bar-completed(
+                            style="width: {{ $dir.fund.criteria_valid_percentage }}%")
+                        .fund-request-block-progress-bar-remaining(
+                            style="width: {{ $dir.fund.criteria_invalid_percentage }}%")
 
                 button.button.button-primary.fund-request-block-button(
                     type="button"
-                    ng-click="$dir.applyFund($event,$dir.fund)")
+                    ng-click="$dir.applyFund($event, $dir.fund)")
                     translate Direct aanvragen 
                     em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
             .fund-totals-block
                 .fund-totals-block-amount
                     .fund-totals-block-amount-description Totaal
-                    .fund-totals-block-amount-value € 450,-
+                    .fund-totals-block-amount-value {{ $dir.fund.amount_total | currency_format  }}
                 
                 .fund-totals-block-show-details
                     button.button.button-text.button-xs(
@@ -89,46 +70,32 @@
         .fund-pre-check-info-criterias
             .fund-pre-check-info-criterias-title Voorwaarden
             .fund-pre-check-info-criterias-list
-                .fund-pre-check-info-criterias-list-item.valid 
+                .fund-pre-check-info-criterias-list-item(ng-repeat="criterion in $dir.fund.criteria" ng-class="{valid: criterion.is_valid}") 
                     em.mdi.mdi-check-circle 
-                    | U heeft kinderen
-                .fund-pre-check-info-criterias-list-item
-                    em.mdi.mdi-close-circle 
-                    | Inkomen 120
-                .fund-pre-check-info-criterias-list-item.valid
-                    em.mdi.mdi-check-circle 
-                    | Woonachtig in gemeente Westerkwartier
-                .fund-pre-check-info-criterias-list-item.valid
-                    em.mdi.mdi-check-circle 
-                    | Lorem ipsum dolor sit amet
-                .fund-pre-check-info-criterias-list-item.valid
-                    em.mdi.mdi-check-circle 
-                    | Excepteur sint occaecat cupidatat
+                    span(ng-bind="criterion.record_type_name")
+                    | &nbsp;
+                    span(ng-bind="criterion.value")
 
         .fund-pre-check-info-totals
             .fund-pre-check-info-totals-title Berekening
             table.fund-pre-check-info-totals-table
                 tr
                     td.description Per gezin
-                    td.value 1x €300,-
+                    td.value 1x {{ $dir.fund.amount_for_identity | currency_format }}
 
                 tr
                     td 
                     td.value 1x 1 Voucher
 
-                tr
-                    td 
-                    td.value View voucher details
-
                 tr: td(colspan="2"): br    
 
                 tr
                     td.description Per kind
-                    td.value 3x €150,-
+                    td.value {{ $dir.fund.multiplier_for_identity }}x {{ $dir.fund.amount_for_identity | currency_format }}
 
                 tr: td(colspan="2"): br   
 
             .fund-pre-check-info-total-amount 
                 .fund-pre-check-info-total-title Totaal
-                .fund-pre-check-info-total-description € 450,-
+                .fund-pre-check-info-total-description {{ $dir.fund.amount_total | currency_format  }}
 
