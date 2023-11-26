@@ -65,7 +65,7 @@
                 .block.block-vouchers.block-vouchers-padding(ng-class="{'block-vouchers-compact': $ctrl.vouchers.length === 1}")
                     .voucher-item.voucher-item-compact.voucher-item-static(ng-repeat="voucher in $ctrl.vouchers")
                         .voucher-image
-                            img(src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
+                            img(ng-src="{{ voucher.fund.logo.sizes.thumbnail || voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
 
                         .voucher-details
                             .voucher-base-information
@@ -82,28 +82,28 @@
                                         .voucher-value(ng-bind="voucher.amount_locale")
                                         .voucher-value-date(ng-bind="voucher.expire_at_locale")
 
-                                    .voucher-extra-payment(ng-if="$ctrl.extraPaymentAllowed && voucher.extra_amount > 0")
-                                        .voucher-extra-payment-value(ng-bind="voucher.extra_amount | currency_format")
+                                    .voucher-extra-payment(ng-if="$ctrl.extraPaymentAllowed && voucher.amount_extra > 0")
+                                        .voucher-extra-payment-value(ng-bind="voucher.amount_extra | currency_format")
                                         .voucher-extra-payment-description Bijbetalen
 
                             .voucher-records.hidden-xs.hidden-sm(ng-if="voucher.records.length")
                                 block-voucher-records(toggle="true" compact="true" voucher="voucher")
 
-                        .voucher-overview(ng-if="$ctrl.vouchers.length > 1")
+                        .voucher-overview(ng-show="$ctrl.vouchers.length > 1")
                             button.button.button-primary.button-sm(ng-click="$ctrl.selectVoucher(voucher)") Kies
 
                         .voucher-records.hidden-md.hidden-lg(ng-if="voucher.records.length")
                             block-voucher-records(toggle="true" compact="true" voucher="voucher")
 
-                .card.card-no-margin.card-no-shadow(ng-if="$ctrl.vouchersNeedExtraPayment > 0")
-                    .card-section.card-section-warning.card-section-md.card-section-has-icon
-                        .icon: em.mdi.mdi-information-outline
-                        .card-section-content(ng-if="$ctrl.vouchersNeedExtraPayment > 1")
-                            | Sommige van uw vouchers hebben niet voldoende saldo.
-                            | Door een van deze vouchers te gebruiken, moet u het ontbrekende bedrag aan het einde van de reservering bijbetalen.
-                        .card-section-content(ng-if="$ctrl.vouchersNeedExtraPayment === 1")
-                            | Er is onvoldoende saldo op uw voucher, u moet het ontbrekende bedrag aan het einde van
-                            | de reservering bijbetalen via een van de beschikbare betaalmethoden.
+                
+                .block.block-warning(ng-if="$ctrl.vouchersNeedExtraPayment > 0")
+                    .block-warning-icon: .icon: em.mdi.mdi-information-outline
+                    .block-warning-content(ng-if="$ctrl.vouchersNeedExtraPayment > 1")                        
+                        | Sommige van uw vouchers hebben niet voldoende saldo.
+                        | Door een van deze vouchers te gebruiken, moet u het ontbrekende bedrag aan het einde van de reservering bijbetalen.
+                    .block-warning-content(ng-if="$ctrl.vouchersNeedExtraPayment === 1")
+                        | Er is onvoldoende saldo op uw voucher, u moet het ontbrekende bedrag aan het einde van
+                        | de reservering bijbetalen via een van de beschikbare betaalmethoden.
 
         //- Actions
         .modal-footer
@@ -526,7 +526,9 @@
                 .block.block-vouchers.block-vouchers-sm
                     .voucher-item.voucher-item-compact.voucher-item-static
                         .voucher-image
-                            img(src="{{ $ctrl.voucher.fund.logo.sizes.thumbnail || $ctrl.voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" alt="voucher image")
+                            img(
+                                ng-src="{{ $ctrl.voucher.fund.logo.sizes.thumbnail || $ctrl.voucher.fund.organization.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}" 
+                                alt="voucher image")
 
                         .voucher-details
                             .voucher-base-information
@@ -540,6 +542,7 @@
 
                                 .voucher-amounts
                                     .voucher-value(ng-bind="$ctrl.voucher.amount_locale")
+                                    .voucher-value-date(ng-bind="$ctrl.voucher.expire_at_locale")
 
                 .payment-details
                     .payment-amount
@@ -551,12 +554,11 @@
                     .divider
                     .payment-amount
                         .payment-key Zelf bijbetalen
-                        .payment-value.bold(ng-bind="$ctrl.voucher.extra_amount | currency_format")
+                        .payment-value.bold(ng-bind="$ctrl.voucher.amount_extra | currency_format")
 
-                .card.card-no-margin.card-no-shadow
-                    .card-section.card-section-warning.card-section-md.card-section-has-icon
-                        .icon: em.mdi.mdi-information-outline
-                        .card-section-content De link leidt naar een externe website.
+                .block.block-warning
+                    .block-warning-icon: em.mdi.mdi-information-outline
+                    .block-warning-content De link leidt naar een externe website.
 
         .modal-footer
             .flex.flex-grow: button.button.button-light.button-sm(

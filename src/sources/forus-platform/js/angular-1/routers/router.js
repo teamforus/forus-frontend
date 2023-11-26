@@ -1732,7 +1732,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             organization: organizationResolver(),
             mollieConnection: ['$transition$', 'MollieConnectionService', (
                 $transition$, MollieConnectionService
-            ) => repackResponse(MollieConnectionService.getConfigured(
+            ) => repackResponse(MollieConnectionService.getActive(
                 $transition$.params().organization_id,
             ))],
         }
@@ -1769,7 +1769,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$.params().organization_id, {
                     ...pick($transition$.params(), ['q', 'fund_id']),
                     per_page: 20,
-                }))],
+                },
+            ))],
         }
     });
 

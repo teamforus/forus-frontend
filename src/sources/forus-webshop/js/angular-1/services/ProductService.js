@@ -1,28 +1,28 @@
-const ProductService = function(ApiRequest, PushNotificationsService) {
+const ProductService = function (ApiRequest, PushNotificationsService) {
     const uriPrefix = '/platform/products';
 
-    return new (function() {
-        this.list = function(data) {
+    return new (function () {
+        this.list = function (data) {
             return ApiRequest.get(uriPrefix, data);
         }
 
-        this.sample = function(fund_type, per_page = 6) {
+        this.sample = function (fund_type, per_page = 6) {
             return ApiRequest.get(`${uriPrefix}/sample`, { fund_type, per_page });
         }
 
-        this.read = function(id) {
+        this.read = function (id) {
             return ApiRequest.get(`${uriPrefix}/${id}`);
         }
 
-        this.bookmark = function(id) {
+        this.bookmark = function (id) {
             return ApiRequest.post(`${uriPrefix}/${id}/bookmark`);
         }
 
-        this.removeBookmark = function(id) {
+        this.removeBookmark = function (id) {
             return ApiRequest.post(`${uriPrefix}/${id}/remove-bookmark`);
         }
 
-        this.toggleBookmark = function(product) {
+        this.toggleBookmark = function (product) {
             product.bookmarked = !product.bookmarked;
 
             if (product.bookmarked) {
@@ -38,7 +38,7 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
             return product;
         }
 
-        this.showBookmarkPush = function(product) {
+        this.showBookmarkPush = function (product) {
             const media = product.photo || product.logo || null;
             const productImgSrc = media?.sizes?.small || media?.sizes?.thumbnail || './assets/img/placeholders/product-small.png';
 
@@ -57,7 +57,7 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
             });
         }
 
-        this.calcExpireDate = function(dates) {
+        this.calcExpireDate = function (dates) {
             const dateParse = (date, date_locale) => {
                 return date ? {
                     unix: moment(typeof date === 'object' ? date.date : date).unix(),
@@ -76,7 +76,7 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
             }), true)[0] || null;
         }
 
-        this.checkEligibility = function(product, vouchers) {
+        this.checkEligibility = function (product, vouchers) {
             const fundIds = product.funds.map(fund => fund.id);
             const productAvailable = !product.sold_out && !product.deleted && !product.expired;
 
@@ -109,14 +109,13 @@ const ProductService = function(ApiRequest, PushNotificationsService) {
 
                 const shownExpireDate = this.calcExpireDate([...voucherDates, ...productAndFundDates]);
 
-                return {
-                    ...fund,
-                    ...{ meta: {
-                            shownExpireDate, applicableVouchers, reservableVouchers, isReservationAvailable,
-                            isReservationExtraPaymentAvailable
-                        } },
+                const meta = {
+                    ...{ shownExpireDate, applicableVouchers, reservableVouchers },
+                    ...{ isReservationAvailable, isReservationExtraPaymentAvailable },
                 };
-            })
+
+                return { ...fund, meta };
+            });
 
             const hasReservableFunds = funds.filter(fund => fund.meta.isReservationAvailable).length > 0;
 

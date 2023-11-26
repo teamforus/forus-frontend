@@ -208,7 +208,7 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.uid" value="uid" ng-if="$ctrl.isSponsor")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.price" value="amount")
                                 th(translate="transactions.labels.method" ng-if="$ctrl.isProvider").nowrap
-                                th(translate="transactions.labels.extra_amount" ng-if="$ctrl.isProvider").nowrap
+                                th(translate="transactions.labels.amount_extra" ng-if="$ctrl.isProvider").nowrap
 
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
@@ -228,11 +228,11 @@
 
                                 td(
                                     ng-if="$ctrl.isProvider"
-                                    ng-bind="(transaction.reservation && transaction.reservation.extra_amount > 0) ? 'iDeal + Tegoed' : 'Tegoed'")
+                                    ng-bind="(transaction.reservation && transaction.reservation.amount_extra > 0) ? 'iDeal + Tegoed' : 'Tegoed'")
 
                                 td(
                                     ng-if="$ctrl.isProvider"
-                                    ng-bind="(transaction.reservation && transaction.reservation.extra_amount > 0) ? transaction.reservation.extra_amount_locale : '-'")
+                                    ng-bind="(transaction.reservation && transaction.reservation.amount_extra > 0) ? transaction.reservation.amount_extra_locale : '-'")
 
                                 td
                                     strong(ng-bind="transaction.created_at_locale.split(' - ')[0]").text-primary

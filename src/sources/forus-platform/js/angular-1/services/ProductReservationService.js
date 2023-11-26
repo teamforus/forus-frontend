@@ -98,6 +98,16 @@ const ProductReservationService = function (
             });
         };
 
+        this.confirmRefund = (onConfirm) => {
+            ModalService.open("dangerZone", {
+                title: "Refund extra payment?",
+                description_text: "Refund extra payment.",
+                cancelButton: "Annuleren",
+                confirmButton: "Bevestigen",
+                onConfirm,
+            });
+        };
+
         this.showRejectInfoExtraPaid = () => {
             ModalService.open("dangerZone", {
                 title: "This reservation extra payment is paid",

@@ -20,7 +20,7 @@ const ReservationShowComponent = function (
     }
 
     $ctrl.rejectReservation = (reservation) => {
-        if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_full_refunded) {
+        if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
             return ProductReservationService.showRejectInfoExtraPaid();
         }
 
@@ -61,7 +61,8 @@ const ReservationShowComponent = function (
             canceled: 'label-danger',
             canceled_by_client: 'label-danger',
             canceled_payment_expired: 'label-danger',
-        }[$ctrl.reservation.state];
+            canceled_payment_canceled: 'label-danger',
+        }[$ctrl.reservation.state] || 'label-default';
     };
 };
 

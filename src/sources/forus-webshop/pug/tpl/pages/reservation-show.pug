@@ -23,16 +23,15 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                     ng-src="{{ $ctrl.media.sizes.small || $ctrl.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}"
                                     alt="")
 
-                            .reservation-props
-                                .flex
-                                    .flex-grow
-                                        h2.reservation-title Reservation details
-                                    .text-right
-                                        .label(
-                                            ng-class="'label-' + $ctrl.stateData.stateClass"
-                                            ng-bind="$ctrl.stateData.stateText")
+                            .reservation-content
+                                .reservation-header
+                                    h2.reservation-title 
+                                        | Reservation details
+                                    .label(
+                                        ng-class="'label-' + $ctrl.stateData.stateClass"
+                                        ng-bind="$ctrl.stateData.stateText")
 
-                                .reservation-props-section
+                                .reservation-props
                                     .reservation-prop
                                         .reservation-prop-label Titel
                                         .reservation-prop-value(dusk="reservationOverviewTitle")
@@ -49,17 +48,17 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                             dusk="reservationOverviewFundName"
                                             ng-bind="$ctrl.reservation.fund.name")
 
-                                    .reservation-prop(ng-if="$ctrl.reservation.extra_amount > 0")
+                                    .reservation-prop(ng-if="$ctrl.reservation.amount_extra > 0")
                                         .reservation-prop-label Betaald van tegoed
                                         .reservation-prop-value(
                                             dusk="reservationOverviewCode"
                                             ng-bind="$ctrl.reservation.amount_locale")
 
-                                    .reservation-prop(ng-if="$ctrl.reservation.extra_amount > 0")
+                                    .reservation-prop(ng-if="$ctrl.reservation.amount_extra > 0")
                                         .reservation-prop-label Zelf bijbetaal
                                         .reservation-prop-value(
                                             dusk="reservationOverviewExtraAmount"
-                                            ng-bind="$ctrl.reservation.extra_amount_locale")
+                                            ng-bind="$ctrl.reservation.amount_extra_locale")
 
                                     .reservation-prop
                                         .reservation-prop-label Bedrag
@@ -67,25 +66,22 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                             dusk="reservationOverviewAmount"
                                             ng-bind="$ctrl.reservation.price_locale")
 
-                                .row
-                                    .col(ng-class="'col-lg-' + ($ctrl.reservation.state === 'waiting' ? '6' : '12')")
-                                        .button.button-light.button-sm.pull-right.button-fill.flex.flex-center(
-                                            ng-if="$ctrl.reservation.cancelable || ['accepted','pending','waiting'].includes($ctrl.reservation.state) || $ctrl.reservation.expired"
-                                            ng-click="$ctrl.cancelReservation()")
-                                            em.mdi.mdi-trash-can-outline.icon-start
-                                            | {{ "reservation.labels.cancel" | translate }}
+                                .reservation-actions
+                                    .button.button-light.button-sm(
+                                        ng-if="$ctrl.reservation.cancelable"
+                                        ng-click="$ctrl.cancelReservation()")
+                                        em.mdi.mdi-trash-can-outline.icon-start
+                                        | {{ "reservation.labels.cancel" | translate }}
 
-                                    .col.col-lg-6(ng-if="$ctrl.reservation.state === 'waiting'")
-                                        .button.button-primary.button-sm.button-fill.flex.flex-center(
-                                            ng-click="$ctrl.payExtraReservation()")
-                                            .mdi.mdi-check.icon-start
-                                            | Ga door naar betalen
+                                    .button.button-primary.button-sm(
+                                        ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn > 0"
+                                        ng-click="$ctrl.payExtraReservation()")
+                                        em.mdi.mdi-credit-card-outline.icon-start
+                                        | Ga door naar betalen
 
-                .card-footer.card-footer-warning.card-footer-sm(ng-if="$ctrl.reservation.state === 'waiting'")
-                    .card-title De reservering wordt automatisch geannuleerd na een uur vanaf het moment dat u het
-                        | reserveringsproces stopt. U heeft dus #[strong {{ $ctrl.stateData.extraPaymentExpiresAfterMinutes }} minuten]
-                        | de tijd om over te gaan tot betaling of om de
-                        | reservering zelf te annuleren, anders wordt de reservering automatisch verwijderd.
+                .card-footer.card-footer-warning.card-footer-sm(ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn")
+                    | Please note that you have #[strong {{ $ctrl.stateData.expiresIn }} minutes] to complete 
+                    | the payment and secure your reservation. Otherwise, the reservation will be canceled automatically.
 
                 .card-footer.card-footer-warning.card-footer-sm(ng-if="$ctrl.reservation.state === 'canceled_payment_expired'")
-                    .card-title Sorry, uw reservering is tijdens het afrekenproces geannuleerd omdat het geselecteerde product uitverkocht is.
+                    | Sorry, uw reservering is tijdens het afrekenproces geannuleerd omdat het geselecteerde product uitverkocht is.

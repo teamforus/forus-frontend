@@ -21,6 +21,6 @@ module.exports = {
         method: "Method",
         actions: "Opties",
         search: "Zoeken",
-        extra_amount: "Bijbetaald",
+        amount_extra: "Bijbetaald",
     },
 };

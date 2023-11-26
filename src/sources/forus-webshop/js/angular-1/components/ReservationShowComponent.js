@@ -1,27 +1,36 @@
 const ReservationShowComponent = function (
     ModalService,
+    PageLoadingBarService,
     PushNotificationsService,
     ProductReservationService,
 ) {
     const $ctrl = this;
 
     $ctrl.payExtraReservation = () => {
-        ProductReservationService.payExtra($ctrl.reservation.id).then((res) => {
-            document.location.href = res.data.url
-        }, (res) => PushNotificationsService.danger('Error.', res.data.message));
+        PageLoadingBarService.setProgress(0);
+
+        ProductReservationService.checkoutExtra($ctrl.reservation.id).then(
+            (res) => document.location.href = res.data.url,
+            (res) => PushNotificationsService.danger('Error.', res.data.message),
+        ).finally(() => PageLoadingBarService.setProgress(100));
     };
 
     $ctrl.cancelReservation = () => {
         ModalService.open('modalProductReserveCancel', {
             reservation: $ctrl.reservation,
             onConfirm: () => {
-                ProductReservationService.update($ctrl.reservation.id, {
+                PageLoadingBarService.setProgress(0);
+
+                ProductReservationService.cancel($ctrl.reservation.id, {
                     state: 'canceled_by_client',
-                }).then((res) => {
-                    $ctrl.reservation = res.data.data;
-                    $ctrl.$onInit();
-                    PushNotificationsService.success('Reservering geannuleerd.');
-                }, (res) => PushNotificationsService.danger('Error.', res.data.message));
+                }).then(
+                    (res) => {
+                        $ctrl.reservation = res.data.data;
+                        $ctrl.$onInit();
+                        PushNotificationsService.success('Reservering geannuleerd.');
+                    },
+                    (res) => PushNotificationsService.danger('Error.', res.data.message),
+                ).finally(() => PageLoadingBarService.setProgress(100));
             },
         });
     };
@@ -40,9 +49,10 @@ module.exports = {
     },
     controller: [
         'ModalService',
+        'PageLoadingBarService',
         'PushNotificationsService',
         'ProductReservationService',
         ReservationShowComponent,
     ],
-    templateUrl: 'assets/tpl/pages/reservation.html',
+    templateUrl: 'assets/tpl/pages/reservation-show.html',
 };

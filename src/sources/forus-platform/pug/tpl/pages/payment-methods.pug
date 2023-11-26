@@ -120,17 +120,17 @@
                         +keyvalue_item('last_name', 'last_name')
 
             //- Profile details
-            .card(ng-if="$ctrl.mollieConnection.active_profile")
+            .card(ng-if="$ctrl.mollieConnection.profile_active")
                 .card-header: .card-title(translate="mollie_connection.titles.current_profile_information")
 
                 .card-section: .card-block.card-block-keyvalue
-                    +keyvalue_item('name', 'active_profile.name')
-                    +keyvalue_item('phone', 'active_profile.phone')
-                    +keyvalue_item('email', 'active_profile.email')
-                    +keyvalue_item('website', 'active_profile.website')
+                    +keyvalue_item('name', 'profile_active.name')
+                    +keyvalue_item('phone', 'profile_active.phone')
+                    +keyvalue_item('email', 'profile_active.email')
+                    +keyvalue_item('website', 'profile_active.website')
 
             //- Profile form
-            .card(ng-if="!$ctrl.mollieConnection.active_profile"): .form
+            .card(ng-if="!$ctrl.mollieConnection.profile_active"): .form
                 .card-header: .card-title(translate="mollie_connection.header_update_profile.title")
 
                 .card-section.card-section-primary

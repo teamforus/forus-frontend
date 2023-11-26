@@ -74,7 +74,7 @@ const ModalProductReserveComponent = function (
     };
 
     $ctrl.goToFinishStep = () => {
-        if ($ctrl.voucher.extra_amount > 0) {
+        if ($ctrl.voucher.amount_extra > 0) {
             $ctrl.setStep($ctrl.STEP_EXTRA_PAYMENT);
         } else {
             $ctrl.confirmSubmit();
@@ -140,27 +140,30 @@ const ModalProductReserveComponent = function (
             $ctrl.product.reservation.address !== 'no' ? $ctrl.STEP_FILL_ADDRESS : null,
             $ctrl.STEP_FILL_NOTES,
             $ctrl.STEP_CONFIRM_DATA,
-            $ctrl.voucher && $ctrl.voucher.extra_amount > 0 ? $ctrl.STEP_EXTRA_PAYMENT : null
+            $ctrl.voucher && $ctrl.voucher.amount_extra > 0 ? $ctrl.STEP_EXTRA_PAYMENT : null
         ].filter((step) => step !== null);
+    }
+
+    $ctrl.mapVouchers = (vouchers) => {
+        return vouchers.map((item) => VoucherService.composeCardData({ ...item })).map((voucher) => {
+            const productPrice = parseFloat($ctrl.product.price);
+            const voucherAmount = parseFloat(voucher.amount);
+
+            return {
+                ...voucher,
+                amount_extra: ($ctrl.extraPaymentAllowed && productPrice > voucherAmount) ?
+                    productPrice - voucherAmount : 0,
+            }
+        })
     }
 
     $ctrl.$onInit = () => {
         $ctrl.product = $ctrl.modal.scope.product;
         $ctrl.provider = $ctrl.product.organization;
         $ctrl.extraPaymentAllowed = $ctrl.modal.scope.meta.isReservationExtraPaymentAvailable;
-        const productPrice = parseFloat($ctrl.product.price);
 
-        $ctrl.vouchers = $ctrl.modal.scope.vouchers.map((voucher) => VoucherService.composeCardData({ ...voucher }))
-            .map((voucher) => {
-                const voucherAmount = parseFloat(voucher.amount);
-
-                return {
-                    ...voucher,
-                    extra_amount: ($ctrl.extraPaymentAllowed && productPrice > voucherAmount) ? productPrice - voucherAmount : 0,
-                }
-            });
-
-        $ctrl.vouchersNeedExtraPayment = $ctrl.vouchers.filter((item) => item.extra_amount > 0).length;
+        $ctrl.vouchers = $ctrl.mapVouchers($ctrl.modal.scope.vouchers);
+        $ctrl.vouchersNeedExtraPayment = $ctrl.vouchers.filter((item) => item.amount_extra > 0).length;
 
         $ctrl.appConfigs = appConfigs;
         $ctrl.emailSetupShow = false;
@@ -189,6 +192,7 @@ const ModalProductReserveComponent = function (
                     if (res.data.checkout_url) {
                         return document.location = res.data.checkout_url;
                     }
+
                     $ctrl.setStep($ctrl.STEP_RESERVATION_FINISHED)
                 },
                 (err) => $ctrl.onError(err, false),

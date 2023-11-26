@@ -10,9 +10,9 @@
                 | Gegevens ophalen
 
             .button.button-danger.button-sm(
-                ng-if="!$dir.payment.is_full_refunded && $dir.payment.is_paid"
+                ng-if="!$dir.payment.is_fully_refunded && $dir.payment.is_paid"
                 ng-click="$dir.refundReservationExtraPayment()")
-                em.mdi.mdi-autorenew.icon-start
+                em.mdi.mdi-undo-variant.icon-start
                 | Refund payment
 
     .card-section: .flex
@@ -21,22 +21,22 @@
                 .keyvalue-key(translate="reservation.labels.status")
                 .keyvalue-value
                     .label.label-success(
-                        ng-if="!$dir.payment.is_full_refunded && $dir.payment.is_paid"
+                        ng-if="!$dir.payment.is_fully_refunded && $dir.payment.is_paid"
                         ng-bind="$dir.payment.state_locale")
                     .label.label-default(
-                        ng-if="!$dir.payment.is_full_refunded && $dir.payment.is_pending"
+                        ng-if="!$dir.payment.is_fully_refunded && $dir.payment.is_pending"
                         ng-bind="$dir.payment.state_locale")
                     .label.label-danger(
                         ng-if="['failed', 'canceled', 'expired'].includes($dir.payment.state)"
                         ng-bind="$dir.payment.state_locale")
-                    .label.label-danger(ng-if="$dir.payment.is_full_refunded") Refunded
+                    .label.label-danger(ng-if="$dir.payment.is_fully_refunded") Refunded
 
             .keyvalue-item
                 .keyvalue-key(translate="reservation.labels.amount")
                 .keyvalue-value(ng-bind="$dir.reservation.amount_locale")
 
             .keyvalue-item
-                .keyvalue-key(translate="reservation.labels.extra_amount")
+                .keyvalue-key(translate="reservation.labels.amount_extra")
                 .keyvalue-value(ng-bind="$dir.payment.amount_locale")
 
             .keyvalue-item

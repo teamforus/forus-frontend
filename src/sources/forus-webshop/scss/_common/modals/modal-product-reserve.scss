@@ -118,7 +118,7 @@
                 }
 
                 &.block-vouchers-padding {
-                    margin-bottom: 24px;
+                    margin-bottom: 25px;
                 }
 
                 &.block-vouchers-compact {
@@ -126,27 +126,7 @@
                     border: none;
                     background: none;
                     overflow: visible;
-
-                    .voucher-item {
-                        box-shadow: var(--box-shadow);
-
-                        .voucher-image {
-                            padding: 16px;
-                        }
-
-                        .voucher-details {
-                            text-align: left;
-
-                            .voucher-name {
-                                font: 700 24px/32px var(--base-font);
-                            }
-
-                            .voucher-organization {
-                                font: 500 14px/22px var(--base-font);
-                            }
-                        }
-                    }
-                }
+                } 
 
                 &.block-vouchers-sm {
                     padding: 0;
@@ -156,26 +136,27 @@
                     margin-bottom: 12px;
 
                     .voucher-item {
-                        min-height: 50px;
+                        min-height: auto;
                         box-shadow: none;
+                        grid-template-columns: auto 1fr auto auto;
 
                         .voucher-image {
-                            flex-basis: 35px;
+                            padding: 10px;
                             border-radius: var(--border-radius);
-                            padding: 12px 0 12px 7px;
                             display: flex;
                             align-self: center;
 
                             img {
                                 border-radius: var(--border-radius);
-                                height: 28px;
-                                width: 28px;
+                                height: 30px;
+                                width: 30px;
                                 border: 1px solid var(--border-color);
                             }
                         }
 
                         .voucher-details {
-                            padding: 12px;
+                            padding: 10px;
+                            padding-left: 0;
 
                             .voucher-name {
                                 font: 600 14px/16px var(--base-font);
@@ -195,6 +176,11 @@
                                     }
                                 }
                             }
+
+                            .voucher-amounts {
+                                gap: 0;
+                                margin: -5px 0;
+                            }
                         }
                     }
                 }
@@ -204,7 +190,7 @@
         .payment-details {
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
-            padding: 16px;
+            padding: 15px;
             margin-bottom: 12px;
 
             .payment-amount {
@@ -520,13 +506,6 @@
                                         display: grid;
                                     }
 
-                                    .voucher-value {
-                                        font: 700 14px/14px  var(--base-font);
-                                        color: #222;
-                                        margin-bottom: 0;
-                                        text-align: left;
-                                    }
-
                                     .voucher-value-date {
                                         font: 600 11px/11px var(--base-font);
                                         color: #848484;
@@ -614,35 +593,15 @@
 
                     &.block-vouchers-sm {
                         .voucher-item {
+                            display: grid;
+                            grid-template-columns: 30px 1fr;
+
                             .voucher-image {
-                                min-width: 35px;
-                                max-width: 35px;
-                                align-self: flex-start;
+                                flex-basis: auto;
                             }
 
                             .voucher-details {
-                                border-bottom: 0;
-
-                                .voucher-base-information {
-                                    flex-direction: column;
-
-                                    .voucher-information {
-                                        margin-bottom: 12px;
-
-                                        .voucher-name {
-                                            margin-bottom: 5px;
-                                        }
-                                    }
-
-                                    .voucher-amounts {
-                                        text-align: left;
-
-                                        .voucher-value {
-                                            font: 600 13px/16px var(--base-font);
-                                            margin-bottom: 0;
-                                        }
-                                    }
-                                }
+                                flex-basis: auto;
                             }
                         }
                     }

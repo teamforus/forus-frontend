@@ -281,7 +281,10 @@ main(id="main-content")
 
                     .transactions-item-details
                         .transactions-item-counterpart(ng-if="transaction.type == 'product_voucher' && transaction.product_reservation")
-                            | Reservering #[a(ui-sref="reservation-show({id: transaction.product_reservation.id})") {{ '#' + transaction.product_reservation.code }}]
+                            | Reservering 
+                            a(
+                                ui-sref="reservation-show({id: transaction.product_reservation.id})"
+                                ng-bind="'#' + transaction.product_reservation.code")
 
                         .transactions-item-counterpart(
                             ng-if="(transaction.type == 'product_voucher' || $ctrl.voucherCard.fund.type != 'budget') && !transaction.product_reservation")

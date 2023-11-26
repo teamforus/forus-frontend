@@ -1,7 +1,6 @@
 const ReservationExtraPaymentsComponent = function (
     $q,
     $state,
-    appConfigs,
     $stateParams,
     PageLoadingBarService,
     ReservationExtraPaymentService,
@@ -73,7 +72,7 @@ const ReservationExtraPaymentsComponent = function (
     $ctrl.$onInit = () => {
         $ctrl.funds.unshift({
             id: null,
-            name: 'Selecteer fond'
+            name: 'Selecteer fond',
         });
 
         $ctrl.mapExtraPayments($ctrl.extraPayments);
@@ -89,7 +88,6 @@ module.exports = {
     controller: [
         '$q',
         '$state',
-        'appConfigs',
         '$stateParams',
         'PageLoadingBarService',
         'ReservationExtraPaymentService',

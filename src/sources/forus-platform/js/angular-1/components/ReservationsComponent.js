@@ -40,6 +40,12 @@ const ReservationsComponent = function (
     }, {
         key: 'canceled_payment_expired',
         name: 'Canceled payment expired' // Canceled payment expired
+    }, {
+        key: 'canceled_payment_canceled',
+        name: 'Canceled payment canceled' // Canceled payment canceled
+    }, {
+        key: 'canceled_payment_failed',
+        name: 'Canceled payment failed' // Canceled payment failed
     }];
 
     $ctrl.filters = {
@@ -95,7 +101,7 @@ const ReservationsComponent = function (
     }
 
     $ctrl.rejectReservation = (reservation) => {
-        if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_full_refunded) {
+        if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
             return ProductReservationService.showRejectInfoExtraPaid();
         }
 

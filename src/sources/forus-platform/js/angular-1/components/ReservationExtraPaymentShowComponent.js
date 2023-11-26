@@ -1,13 +1,21 @@
 const ReservationExtraPaymentShowComponent = function (
     appConfigs,
     TransactionService,
+    PageLoadingBarService,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
 
     $ctrl.fetchTransaction = (transaction_address) => {
-        TransactionService.show(appConfigs.panel_type, $ctrl.organization.id, transaction_address).then((res) => {
-            $ctrl.transaction = res.data.data;
-        });
+        PageLoadingBarService.setProgress(0);
+
+        TransactionService
+            .show(appConfigs.panel_type, $ctrl.organization.id, transaction_address)
+            .then(
+                (res) => $ctrl.transaction = res.data.data,
+                (res) => PushNotificationsService.danger('Error!', res?.data?.message || 'Unknown error.'),
+            )
+            .finally(() => PageLoadingBarService.setProgress(100));
     }
 
     $ctrl.$onInit = () => {
@@ -25,6 +33,7 @@ const ReservationExtraPaymentShowComponent = function (
             canceled: 'label-danger',
             canceled_by_client: 'label-danger',
             canceled_payment_expired: 'label-danger',
+            canceled_payment_canceled: 'label-danger',
         }[$ctrl.reservation.state];
     };
 };
@@ -37,6 +46,8 @@ module.exports = {
     controller: [
         'appConfigs',
         'TransactionService',
+        'PageLoadingBarService',
+        'PushNotificationsService',
         ReservationExtraPaymentShowComponent,
     ],
     templateUrl: 'assets/tpl/pages/reservation-extra-payment-show.html',

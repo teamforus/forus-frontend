@@ -11,6 +11,8 @@ module.exports = {
             expired: "Verlopen",
             waiting: "Wachten op betaling",
             canceled_payment_expired: "Cancelled not paid",
+            canceled_payment_failed: "Cancelled payment failed",
+            canceled_payment_canceled: "Cancelled payment canceled",
         },
         rejected_at: "Geweigerd op:",
         canceled_at: "Geannuleerd op:",

@@ -89,11 +89,11 @@ const PaymentMethodsComponent = function (
         $ctrl.form = FormBuilderService.build({ ...values }, (form) => {
             let promise;
 
-            if ($ctrl.mollieConnection.pending_profile) {
+            if ($ctrl.mollieConnection.profile_pending) {
                 promise = MollieConnectionService.updateProfile(
                     $ctrl.organization.id,
                     $ctrl.mollieConnection.id,
-                    $ctrl.mollieConnection.pending_profile.id,
+                    $ctrl.mollieConnection.profile_pending.id,
                     form.values,
                 );
             } else {
@@ -127,8 +127,8 @@ const PaymentMethodsComponent = function (
     };
 
     $ctrl.$onInit = function () {
-        if ($ctrl.mollieConnection.id && !$ctrl.mollieConnection.active_profile) {
-            $ctrl.initProfileForm($ctrl.mollieConnection.pending_profile || {});
+        if ($ctrl.mollieConnection.id && !$ctrl.mollieConnection.profile_active) {
+            $ctrl.initProfileForm($ctrl.mollieConnection.profile_pending || {});
         }
     };
 };

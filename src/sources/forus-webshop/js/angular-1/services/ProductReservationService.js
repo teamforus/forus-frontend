@@ -22,24 +22,21 @@ const ProductReservationService = function ($filter, ApiRequest) {
             return ApiRequest.post(uriPrefix, data);
         }
 
-        this.update = function (id, values = {}) {
-            return ApiRequest.patch(`${uriPrefix}/${id}`, values);
+        this.cancel = function (id, values = {}) {
+            return ApiRequest.post(`${uriPrefix}/${id}/cancel`, values);
         }
 
-        this.payExtra = function (id) {
-            return ApiRequest.get(`${uriPrefix}/${id}/extra-payment/create`);
+        this.checkoutExtra = function (id) {
+            return ApiRequest.post(`${uriPrefix}/${id}/extra-payment/checkout`);
         }
 
         this.composeStateAndExpires = (reservation) => {
             const $transState = (key) => $filter('translate')(`reservation.labels.status.${key}`);
             const stateClasses = { pending: 'warning', accepted: 'success', rejected: 'default', waiting: 'waiting' };
 
-            let data = {};
-            const expiresMinutes = reservation.extra_payment_expire_at
-                ? moment().diff(moment(reservation.extra_payment_expire_at, 'YYYY-MM-DD HH:mm:ss'), 'minutes')
-                : null;
-
-            data.extraPaymentExpiresAfterMinutes = expiresMinutes !== null && expiresMinutes < 60 ? 60 - expiresMinutes : null;
+            const data = {
+                expiresIn: Math.ceil(reservation.extra_payment_expires_in / 60),
+            };
 
             if (reservation.expired) {
                 data.stateText = $transState('expired');

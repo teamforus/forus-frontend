@@ -19,6 +19,6 @@ module.exports = {
         reserved_at: "Aangemaakt op",
         status: "Status",
         actions: "Opties",
-        extra_amount: "Bijbetaald",
+        amount_extra: "Bijbetaald",
     },
 };

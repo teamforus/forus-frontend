@@ -44,7 +44,7 @@ module.exports = {
         transfer_in_min: '0',
         transfer_in_max: '14',
         method: "Betaalmethode(s)",
-        extra_amount: "Extra betaling",
+        amount_extra: "Extra betaling",
     },
     buttons: {
         previous: "Vorige",
