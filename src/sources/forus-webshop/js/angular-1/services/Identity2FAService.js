@@ -1,17 +1,10 @@
 const Identity2FAService = function (
     $q,
     $filter,
-    ApiRequest
+    ApiRequest,
 ) {
-    const phoneCodeSendError = $filter('translate')('modal_2fa_setup.errors.phone.code_sent');
-    const phoneCodeSentErrorObj = {
-        data: {
-            message: phoneCodeSendError,
-            errors: {
-                phone: [phoneCodeSendError]
-            }
-        }
-    };
+    const phoneError = $filter('translate')('modal_2fa_setup.errors.code_sent');
+    const phoneErrorObj = { data: { message: phoneError, errors: { phone: [phoneError] } } };
 
     return new (function () {
         this.status = (data = {}) => {
@@ -25,11 +18,7 @@ const Identity2FAService = function (
         this.store = (data = {}) => {
             return $q((resolve, reject) => {
                 ApiRequest.post('/identity/2fa', data).then((res) => {
-                    if (data.type === 'phone' && !res.data.code_sent) {
-                        reject(phoneCodeSentErrorObj);
-                    } else {
-                        resolve(res);
-                    }
+                    data.type === 'phone' && !res.data.code_sent ? reject(phoneErrorObj) : resolve(res);
                 }, reject);
             });
         };
@@ -37,11 +26,7 @@ const Identity2FAService = function (
         this.send = (uuid, data = {}) => {
             return $q((resolve, reject) => {
                 ApiRequest.post(`/identity/2fa/${uuid}/resend`, data).then((res) => {
-                    if (res.data.code_sent) {
-                        resolve(res);
-                    } else {
-                        reject(phoneCodeSentErrorObj);
-                    }
+                    res.data.code_sent ? resolve(res) : reject(phoneErrorObj);
                 }, reject);
             });
         };
