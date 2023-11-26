@@ -16,13 +16,13 @@ const SearchResultComponent = function(
         label: 'Oudste eerst',
         value: {
             order_by: 'created_at',
-            order_by_dir: 'asc',
+            order_dir: 'asc',
         }
     }, {
         label: 'Nieuwe eerst',
         value: {
             order_by: 'created_at',
-            order_by_dir: 'desc',
+            order_dir: 'desc',
         }
     }];
 
@@ -77,7 +77,7 @@ const SearchResultComponent = function(
             q: values.q,
             order_by: values.order_by,
             fund_id: values.fund_id,
-            order_by_dir: values.order_by_dir,
+            order_dir: values.order_dir,
             organization_id: values.organization_id,
             product_category_id: values.product_category_id,
             overview: 0,
@@ -128,9 +128,9 @@ const SearchResultComponent = function(
     });
 
     $ctrl.$onInit = () => {
-        const { q, overview, fund_id, organization_id, product_category_id, page, order_by, order_by_dir } = $stateParams;
+        const { q, overview, fund_id, organization_id, product_category_id, page, order_by, order_dir } = $stateParams;
         const search_item_types = ($stateParams.search_item_types || '').split(',').filter((i) => i);
-        const stateParams = { q, overview, fund_id, organization_id, product_category_id, search_item_types, page, order_by, order_by_dir };
+        const stateParams = { q, overview, fund_id, organization_id, product_category_id, search_item_types, page, order_by, order_dir };
 
         $ctrl.display_type = $stateParams.display_type;
 
@@ -157,7 +157,7 @@ const SearchResultComponent = function(
 
         $ctrl.sortBy = $ctrl.sortByOptions.filter((option) => {
             return option.value.order_by == $ctrl.filters.order_by &&
-                option.value.order_by_dir == $ctrl.filters.order_by_dir;
+                option.value.order_dir == $ctrl.filters.order_dir;
         })[0];
 
         $ctrl.searchItems = $ctrl.transformItems(

@@ -127,13 +127,13 @@
             }
 
             &.sign_up-step-active {
-                color: var(--sign_up_accent_color_light);
+                color: var(--color-primary);
 
                 .sign_up-step-border:before {
                     content: "";
                     display: block;
                     @include fill_parent();
-                    background-color: var(--sign_up_accent_color_light);
+                    background-color: var(--color-primary);
                 }
             }
 
@@ -178,6 +178,11 @@
         .sign_up-pane-body {
             padding: 20px 40px 20px;
             font: 400 16px/26px var(--base-font);
+
+            h2 {
+                margin: 0;
+                font: 600 16px/26px var(--base-font);
+            }
 
             .button {
                 &.button-text {
@@ -535,7 +540,7 @@
                 .mdi {
                     display: flex;
                     font-size: 40px;
-                    opacity: .5;
+                    color: var(--sign_up_loader_icon_color);
                 }
             }
 
@@ -622,7 +627,7 @@
             .form-control:not([type="radio"]):not([type="checkbox"]) {
                 height: auto;
 
-                &:not(textarea) {
+                &:not(textarea):not(.phone-control-input) {
                     padding: 14px 15px;
 
                     &.form-control-sm {
@@ -762,8 +767,9 @@
         margin-bottom: 10px;
         padding: 25px 20px;
         background-color: #fff;
-        font: 400 16px/20px var(--base-font);
+        font: 400 16px/22px var(--base-font);
         flex-wrap: wrap;
+        flex-direction: column;
 
         .sign_up-restore-label {
             display: inline-flex;
@@ -775,7 +781,6 @@
 
         .sign_up-restore-link {
             display: inline-flex;
-            display: block;
             font: inherit;
             font-weight: 600;
             color: var(--color-primary);

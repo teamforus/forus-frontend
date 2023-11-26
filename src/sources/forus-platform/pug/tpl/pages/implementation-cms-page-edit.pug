@@ -75,7 +75,7 @@
                     .form-group.form-group-inline.form-group-inline-xl.tooltipped(ng-if="!$ctrl.form.values.external")
                         label.form-label(translate="implementation_edit.labels.{{ $ctrl.page_type }}")
                         .form-offset
-                            markdown(
+                            markdown-editor(
                                 extended-options="true"
                                 value="$ctrl.form.values.description_html" 
                                 ng-model="$ctrl.form.values.description"

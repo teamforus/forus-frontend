@@ -7,7 +7,7 @@ module.exports = {
             content: "Bericht",
             urgency: "Urgentie",
             contact: "Contact",
-            use_customer_email: "ik wil per e-mail berichten ontvangen over deze feedback"
+            use_customer_email: "Ja, Forus mag per e-mail contact met mij opnemen over deze feedback"
         },
         buttons: {
             cancel: "Annuleren",

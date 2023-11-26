@@ -36,18 +36,6 @@
             | Persoonlijk
 
         .mobile-menu-items
-            //- Log in Me-App
-            .mobile-menu-item(
-                ng-if="$root.auth_user"
-                ng-click="$dir.openPinCodePopup()"
-                tabindex="0"
-                role="button")
-                
-                em.mobile-menu-item-icon.mdi.mdi-cellphone
-                translate(
-                    translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.authorize"
-                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.authorize' | translate }}")
-
             //- Vouchers
             a.mobile-menu-item(
                 ng-if="$root.auth_user && $dir.vouchers.length"
@@ -62,6 +50,46 @@
                 translate(
                     translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.vouchers"
                     translate-default="{{ 'topnavbar.buttons.mobile.dropdown.vouchers' | translate }}")
+
+            //- Log in Me-App
+            .mobile-menu-item(
+                ng-if="$root.auth_user"
+                ng-click="$dir.openPinCodePopup()"
+                tabindex="0"
+                role="button")
+
+                em.mobile-menu-item-icon.mdi.mdi-cellphone
+                translate(
+                    translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.authorize"
+                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.authorize' | translate }}")
+
+            //- Favourite products
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ui-sref="bookmarked-products"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'bookmarked-products'}"
+                aria-current="{{ $dir.$state.current.name == 'bookmarked-products' }}"
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-cards-heart-outline
+                translate(
+                    translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.bookmarked_products"
+                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.bookmarked_products' | translate }}")
+
+            //- Reservations
+            a.mobile-menu-item(
+                ng-if="$root.auth_user"
+                ui-sref="reservations"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'reservations'}"
+                aria-current="{{ $dir.$state.current.name == 'reservations' }}"
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-calendar-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.reservations")
 
             //- Reimbursements
             a.mobile-menu-item(
@@ -89,19 +117,6 @@
                 em.mobile-menu-item-icon.mdi.mdi-card-account-details-outline
                 translate(translate="topnavbar.buttons.mobile.dropdown.fund_requests")
 
-            //- Reservations
-            a.mobile-menu-item(
-                ng-if="$root.auth_user"
-                ui-sref="reservations"
-                ng-click="$dir.hideMobileMenu()"
-                ng-class="{active: $dir.$state.current.name == 'reservations'}"
-                aria-current="{{ $dir.$state.current.name == 'reservations' }}" 
-                tabindex="0"
-                role="link")
-
-                em.mobile-menu-item-icon.mdi.mdi-calendar-outline
-                translate(translate="topnavbar.buttons.mobile.dropdown.reservations")
-            
             //- Notifications
             a.mobile-menu-item(
                 ng-if="$root.auth_user"
@@ -127,6 +142,19 @@
 
                 em.mobile-menu-item-icon.mdi.mdi-cog-outline
                 translate(translate="topnavbar.buttons.mobile.dropdown.preferences_notifications")
+
+            //- Sessions
+            a.mobile-menu-item(
+                ng-if="$root.auth_user && $dir.appConfigs.sessions"
+                ui-sref="security-sessions"
+                ng-click="$dir.hideMobileMenu()"
+                ng-class="{active: $dir.$state.current.name == 'security-sessions'}"
+                aria-current="{{ $dir.$state.current.name == 'security-sessions' }}"
+                tabindex="0"
+                role="link")
+
+                em.mobile-menu-item-icon.mdi.mdi-shield-account-outline
+                translate(translate="topnavbar.buttons.mobile.dropdown.sessions")
             
             //- Identity emails
             a.mobile-menu-item(
@@ -154,19 +182,6 @@
                 em.mobile-menu-item-icon.mdi.mdi-security
                 translate(translate="topnavbar.buttons.mobile.dropdown.security")
 
-            //- Sessions
-            a.mobile-menu-item(
-                ng-if="$root.auth_user && $dir.appConfigs.sessions"
-                ui-sref="security-sessions"
-                ng-click="$dir.hideMobileMenu()"
-                ng-class="{active: $dir.$state.current.name == 'security-sessions'}"
-                aria-current="{{ $dir.$state.current.name == 'security-sessions' }}" 
-                tabindex="0"
-                role="link")
-                
-                em.mobile-menu-item-icon.mdi.mdi-shield-account-outline
-                translate(translate="topnavbar.buttons.mobile.dropdown.sessions")
-
             //- Records
             a.mobile-menu-item(
                 ng-if="$root.auth_user && $dir.appConfigs.features.records.list"
@@ -180,21 +195,6 @@
                 em.mobile-menu-item-icon.mdi.mdi-format-list-bulleted
                 translate(translate="topnavbar.buttons.mobile.dropdown.records")
 
-            //- Favourite products
-            a.mobile-menu-item(
-                ng-if="$root.auth_user"
-                ui-sref="bookmarked-products"
-                ng-click="$dir.hideMobileMenu()"
-                ng-class="{active: $dir.$state.current.name == 'bookmarked-products'}"
-                aria-current="{{ $dir.$state.current.name == 'bookmarked-products' }}" 
-                tabindex="0"
-                role="link")
-                
-                em.mobile-menu-item-icon.mdi.mdi-cards-heart-outline
-                translate(
-                    translate="topnavbar.buttons.mobile.dropdown.{{ $root.client_key }}.bookmarked_products"
-                    translate-default="{{ 'topnavbar.buttons.mobile.dropdown.bookmarked_products' | translate }}")
-
             a.mobile-menu-item(
                 ng-if="$root.auth_user"
                 ng-click="$dir.signOut()" 
@@ -205,7 +205,7 @@
                 translate(translate="topnavbar.buttons.logout")
 
             a.mobile-menu-item(ng-if="!$root.auth_user")
-                button.button.button-default.button-start(
+                button.button.button-primary-outline.button-start(
                     ng-if="$root.appConfigs.flags.showStartButton"
                     ng-click="$dir.startFundRequest({ restore_with_email: true })"
                     role="button").button-sm

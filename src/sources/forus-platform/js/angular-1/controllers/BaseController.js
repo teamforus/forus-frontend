@@ -23,7 +23,7 @@ const BaseController = function (
             OrganizationService.list({
                 per_page: 500,
                 order_by: `is_${appConfigs.panel_type}`,
-                order_by_dir: 'desc',
+                order_dir: 'desc',
                 dependency: "permissions,logo",
             }).then((res) => resolve($scope.organizations = res.data.data), reject);
         });

@@ -483,6 +483,12 @@
                 float: left;
             }
 
+            &>.form-title {
+                padding-left: 0;
+                width: calc(100% - 200px);
+                float: left;
+            }
+
             &.form-group-inline-xl {
                 &>.form-label {
                     width: 250px;
@@ -787,6 +793,7 @@
         width: 100%;
         flex-direction: row;
         position: relative;
+        z-index: 1;
 
         .form-control:not([type="radio"]):not([type="checkbox"]).phone-control-input {
             padding: var(--input-padding);
@@ -1034,6 +1041,12 @@
                 white-space: pre-wrap;
             }
         }
+    }
+
+    .form-title {
+        font: 600 14px/20px var(--base-font);
+        color: #151B26;
+        padding: 8px;
     }
 
     @media screen and (max-width: 600px) {

@@ -1,4 +1,4 @@
-module.exports = [() => {
+module.exports = [function () {
     return new(function () {
         this.hasPermission = (organization, permissions, all = true) => {
             if (!organization || !organization.permissions) {

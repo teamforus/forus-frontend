@@ -1,7 +1,7 @@
-let SessionsService = (ApiRequest) => {
+let SessionsService = function (ApiRequest) {
     let uriPrefix = '/identity/sessions';
 
-    return new(function() {
+    return new (function () {
         this.list = (data = {}) => {
             return ApiRequest.get(`${uriPrefix}`, data);
         };

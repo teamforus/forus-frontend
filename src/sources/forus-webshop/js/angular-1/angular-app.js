@@ -113,6 +113,7 @@ app.service('MenuService', require('./services/MenuService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
+app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
 app.directive('topNavbarSearch', require('./directives/TopNavbarSearchDirective'));
 app.directive('mobileMenu', require('./directives/MobileMenuDirective'));
@@ -138,7 +139,6 @@ app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
-app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'));
 app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));

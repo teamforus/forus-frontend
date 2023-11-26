@@ -56,7 +56,7 @@
                     
                     .form-group.form-group-inline.tooltipped
                         label.form-label.form-label-required(translate="product_edit.labels.description")
-                        .form-offset: markdown(
+                        .form-offset: markdown-editor(
                             ng-model="$ctrl.form.values.description" 
                             value="$ctrl.form.values.description_html" 
                             disabled="{{!$ctrl.isEditable}}")
