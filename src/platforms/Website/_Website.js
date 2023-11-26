@@ -19,7 +19,6 @@ platform.setLibs([
     "angular_translate_storage_cookies",
     "angular_translate_storage_local",
     "mdi",
-    "nanoscroller",
     "qrcodejs",
     "ui_cropper",
     "ui_router",

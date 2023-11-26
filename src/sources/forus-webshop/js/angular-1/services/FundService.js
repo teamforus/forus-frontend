@@ -89,7 +89,7 @@ const FundService = function (
             organization_id = null
         ) => {
             let validRecords = records.filter(record => {
-                return record.key == criterion.record_type_key;
+                return record.key == criterion.record_type.key;
             }).filter(record => {
                 return (record.validations.filter(validation => {
                     return (validation.organization_id == organization_id ||
@@ -180,10 +180,10 @@ const FundService = function (
 
         this.fundCriteriaList = (criteria, recordsByTypesKey) => {
             return criteria.filter(
-                criterion => !criterion.record_type_key.endsWith('_eligible')
+                criterion => !criterion.record_type.key.endsWith('_eligible')
             ).map(criterion => {
                 return {
-                    key: recordsByTypesKey[criterion.record_type_key].name || '',
+                    key: recordsByTypesKey[criterion.record_type.key].name || '',
                     value: [
                         criterion.operator != '=' ? criterion.operator : "",
                         criterion.value

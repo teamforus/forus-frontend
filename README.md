@@ -14,7 +14,7 @@ gulp init
 gulp
 ```
 
-Optional: edit src/qdt-env.js to connect to local backend.
+*Optional:* edit src/qdt-env.js to connect to local backend.
 
 ## License
 ### 1. About the Forus Foundation

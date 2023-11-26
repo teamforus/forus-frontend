@@ -24,7 +24,6 @@ platform.setLibs([
     "chart_js",
     "mdi",
     "jszip",
-    "nanoscroller",
     "papaparse",
     "progressbar_js",
     "qrcodejs",

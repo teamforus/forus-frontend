@@ -78,7 +78,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     $stateProvider.state({
         name: "sign-up-redirect",
         url: "/aanbieders/inloggen",
-        controller: ['ConfigService', (ConfigService) => {
+        controller: ['ConfigService', function (ConfigService) {
             ConfigService.get().then(res => document.location = res.data.fronts.url_provider)
         }]
     });
@@ -93,13 +93,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     $stateProvider.state({
         name: "sign-up-en",
         url: "/sign-up",
-        controller: ['$state', ($state) => $state.go('sign-up')],
+        controller: ['$state', function ($state) {
+            $state.go('sign-up');
+        }],
     });
 
     $stateProvider.state({
         name: "sign-up-redirect-en",
         url: "/providers/sign-in",
-        controller: ['$state', ($state) => $state.go('sign-up-redirect')],
+        controller: ['$state', function ($state) {
+            $state.go('sign-up-redirect');
+        }],
     });
 
     $stateProvider.state({
@@ -1018,7 +1022,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         name: "fund-request-clarification",
         url: "/funds/{fund_id}/requests/{request_id}/clarifications/{clarification_id}",
         data: { fund_id: null, request_id: null, clarification_id: null },
-        controller: ['$state', '$transition$', ($state, $transition$) => {
+        controller: ['$state', '$transition$', function ($state, $transition$) {
             if ($transition$.params().clarification_id) {
                 return $state.go('fund-request-show', { id: $transition$.params().request_id });
             }
@@ -1030,9 +1034,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', (
-            $rootScope, $state, IdentityService, CredentialsService, ModalService, AuthService
-        ) => {
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', function (
+            $rootScope, $state, IdentityService, CredentialsService, ModalService, AuthService,
+        ) {
             const { token, target } = $state.params;
             const { handleAuthTarget, onAuthRedirect } = AuthService;
 
@@ -1058,9 +1062,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', 'AuthService', (
-            $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService, AuthService
-        ) => {
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', 'AuthService', function (
+            $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService, AuthService,
+        ) {
             const { token, target } = $state.params;
             const { handleAuthTarget, onAuthRedirect } = AuthService;
 
@@ -1140,9 +1144,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         data: {
             token: null
         },
-        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'AuthService', 'PushNotificationsService', (
+        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'AuthService', 'PushNotificationsService', function (
             $state, $rootScope, IdentityService, CredentialsService, AuthService, PushNotificationsService
-        ) => {
+        ) {
             const { token, target } = $state.params;
             const { handleAuthTarget, onAuthRedirect } = AuthService;
 
@@ -1174,7 +1178,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     $stateProvider.state({
         name: "redirect",
         url: "/redirect?target",
-        controller: ['$state', 'AuthService', ($state, AuthService) => {
+        controller: ['$state', 'AuthService', function ($state, AuthService) {
             if (!$state.params.target || !AuthService.handleAuthTarget($state.params.target)) {
                 $state.go('home');
             }

@@ -1,122 +1,216 @@
 .criterion-item
-    .criterion-section
+    .criterion-head
         .criterion-title(
             ng-class="{'criterion-title-large' : !$dir.criterion.is_editing && $dir.criterion.external_validators.length == 0}"
-            ng-bind="criterion.title || $dir.criterion.header")
+            ng-bind="$dir.criterion.title || $dir.criterion.header")
+
         .criterion-actions
+            //- Edit description
+            .button.button-primary.button-icon.pull-left(
+                ng-if="$dir.criterion.is_editing"
+                ng-click="$dir.editDescription($dir.criterion)")
+                em.mdi.mdi-comment-text.icon-start
+
+            //- Edit
             .button.button-default(
                 ng-if="!$dir.criterion.is_editing"
                 ng-click="$dir.criterionEdit($dir.criterion)")
                 em.mdi.mdi-pencil.icon-start
                 translate(translate="components.fund_criteria_editor_item.buttons.edit")
 
+            //- Cancel
             .button.button-default(
                 ng-if="$dir.criterion.is_editing"
                 ng-click="$dir.cancelCriterion($dir.criterion)")
                 em.mdi.mdi-close.icon-start
                 translate(translate="components.fund_criteria_editor_item.buttons.cancel")
-    
-        .criterion-organizations-list(ng-if="!$dir.criterion.is_editing")
-            .row(ng-if="$dir.criterion.validators_models.length > 0"): .col.col-lg-12: label.form-label Organisaties die mogen beoordelen
-            .criterion-organization(ng-repeat="validator in $dir.criterion.validators_models").active
-                .criterion-organization-icon: .mdi.mdi-shield-check(ng-class="{'text-muted' : !validator.accepted}")
-                .criterion-organization-name(ng-bind="validator.validator_organization.name")
 
-        .flex-row(ng-if="$dir.criterion.is_editing")
-            .flex-col.flex-col-2.form-group
-                label.form-label Eigenschap
-                .form-offset: select-control(
-                    prop="key"
-                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
-                    ng-model="$dir.criterion.record_type_key" 
-                    options="$dir.recordTypes").form-control
-                .form-error(ng-repeat="error in $dir.errors['criteria.0.record_type_key']" ng-bind="error")
-            
-            .flex-col.flex-col-2.form-group
-                label.form-label Verhouding
-                .form-offset: select-control(
-                    prop="key"
-                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
-                    ng-model="$dir.criterion.operator" 
-                    options="$dir.operators").form-control
-                .form-error(ng-repeat="error in $dir.errors['criteria.0.operator']" ng-bind="error")
-            
-            .flex-col.flex-col-2.form-group
-                label.form-label Waarde
-                input(
-                    type="text" 
-                    ng-model="$dir.criterion.value" 
-                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')").form-control
-                .form-error(ng-repeat="error in $dir.errors['criteria.0.value']" ng-bind="error")
-            
-            .flex-col.form-group
-                label.form-label &nbsp;
-                
-                .button.button-primary.button-icon.pull-left(
-                    ng-click="$dir.editDescription($dir.criterion)")
-                    em.mdi.mdi-comment-text.icon-start
-                
-                .button.button-default.button-icon.pull-left(
-                    ng-if="$dir.isEditable" 
-                    ng-click="$dir.removeCriterion()"
-                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')")
-                    em.mdi.mdi-close.icon-start
+            //- Delete
+            .button.button-danger(
+                ng-if="$dir.isEditable" 
+                ng-click="$dir.removeCriterion()"
+                ng-disabled="!$dir.isEditable || $dir.criterion.is_editing || !(organization | hasPerm:'manage_funds')")
+                em.mdi.mdi-delete-outline.icon-start
+                translate(translate="components.fund_criteria_editor_item.buttons.edit")
 
-        .flex-row(ng-if="$dir.criterion.is_editing")
-            .flex-col.flex-col-2.form-group
-                label(
-                    for='criterion_{{ $dir.criterion.id }}'
-                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')").checkbox.checkbox-narrow
+    .criterion-body(ng-if="$dir.criterion.is_editing")
+        .criterion-section
+            .criterion-organizations-list(ng-if="!$dir.criterion.is_editing")
+                .row(ng-if="$dir.criterion.validators_models.length > 0"): .col.col-lg-12: label.form-label Organisaties die mogen beoordelen
+                .criterion-organization(ng-repeat="validator in $dir.criterion.validators_models").active
+                    .criterion-organization-icon: .mdi.mdi-shield-check(ng-class="{'text-muted' : !validator.accepted}")
+                    .criterion-organization-name(ng-bind="validator.validator_organization.name")
+
+            .form-group: .row
+                //- Record type
+                .col.col-xs-12.col-sm-4
+                    label.form-label Eigenschap
+                    .form-offset: select-control(
+                        placeholder="Eigenschap"
+                        ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
+                        ng-model="$dir.recordType" 
+                        options="$dir.recordTypes").form-control
+                    .form-error(ng-repeat="error in $dir.errors['criteria.0.record_type_key']" ng-bind="error")
+
+                //- Operator (number)
+                .col.col-xs-12.col-sm-4(ng-if="$dir.recordType.operators.length > 0")
+                    label.form-label Verhouding
+                    .form-offset: select-control(
+                        prop="key"
+                        search="false"
+                        placeholder="Verhouding"
+                        ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
+                        ng-model="$dir.operators[$dir.recordType.key]" 
+                        options="$dir.recordType.operators").form-control
+                    .form-error(ng-repeat="error in $dir.errors['criteria.0.operator']" ng-bind="error")
+
+                //- Value
+                .col.col-xs-12.col-sm-4(ng-if="$dir.recordType.operators.length > 0 && $dir.operators[$dir.recordType.key] !== '*'")
+                    label.form-label Waarde
+
+                    //- Value except: 'select', 'bool' or 'date'
                     input(
-                        type="checkbox" 
-                        ng-model="$dir.criterion.show_attachment" 
-                        id='criterion_{{ $dir.criterion.id }}'
+                        ng-if="!['select', 'bool', 'date'].includes($dir.recordType.type) && !$dir.operators[$dir.recordType.key] != '*'"
+                        type="text" 
+                        placeholder="Waarde"
+                        ng-model="$dir.values[$dir.recordType.key]" 
+                        ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')").form-control
+
+                    //- Value: 'select', 'bool'
+                    .form-offset: select-control(
+                        ng-if="['select', 'bool'].includes($dir.recordType.type) && !$dir.operators[$dir.recordType.key] != '*'"
+                        prop="value"
+                        placeholder="Waarde"
+                        search="$dir.recordType.type != 'bool'"
+                        ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
+                        ng-model="$dir.values[$dir.recordType.key]"
+                        options="$dir.recordType.options").form-control
+
+                    //- Value: 'date'
+                    datepicker(
+                        ng-if="['date'].includes($dir.recordType.type) && !$dir.operators[$dir.recordType.key] != '*'"
+                        date-format="dd-MM-yyyy"
+                        datepicker-mobile="" 
+                        date-week-start-day="1").form-control
+                        input(ng-model="$dir.values[$dir.recordType.key]" type="text" placeholder="dd-MM-jjjj").form-control
+                    
+                    input(
+                        ng-if="$dir.operators[$dir.recordType.key] == '*'"
+                        type="text" 
+                        placeholder="Waarde"
+                        ng-disabled="true").form-control
+
+                    .form-error(ng-repeat="error in $dir.errors['criteria.0.value']" ng-bind="error")
+
+            .row(ng-if="$dir.recordType.key")
+                //- Require attachments
+                .col.flex-xs-12.form-group: input-checkbox-control(
+                    name='criterion_{{ $dir.blockId }}_attachments'
+                    narrow="true"
+                    ng-model="$dir.criterion.show_attachment" 
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
+                    label="{{ 'components.fund_criteria_editor_item.allow_attachments' | translate }}")
+
+                //- Is optional
+                .col.flex-xs-12.form-group: input-checkbox-control(
+                    name='criterion_{{ $dir.blockId }}_optional'
+                    narrow="true"
+                    ng-model="$dir.criterion.optional" 
+                    ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')"
+                    label="{{ 'components.fund_criteria_editor_item.optional' | translate }}")
+
+        .criterion-section(ng-if="$dir.recordType.validations.length > 0")
+            .row: .col.col-xs-12: .criterion-subtitle Validations
+            .row
+                //- Min
+                .col.col-xs-12.col.col-sm-6: .form-group(ng-if="$dir.recordType.validations.includes('min')")
+                    .form-label(for='criterion_{{ $dir.blockId }}_min') Min
+                    input.form-control(
+                        ng-if="$dir.recordType.type == 'number' || $dir.recordType.type == 'string'" 
+                        type="number" 
+                        ng-model="$dir.validations[$dir.recordType.key].min"
+                        placeholder="Max"
                         ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')")
-                    .checkbox-label 
-                        .checkbox-box: .mdi.mdi-check
-                        translate(translate="components.fund_criteria_editor_item.buttons.allow_attachments")
 
-    .criterion-section(ng-if="$dir.criterion.is_editing && ($dir.criterion.show_external_validators_form || $dir.criterion.external_validators.length > 0)")
-        .criterion-organizations-root
+                    datepicker(
+                        ng-if="$dir.recordType.type == 'date'"
+                        date-format="dd-MM-yyyy"
+                        datepicker-mobile="" 
+                        date-week-start-day="1").form-control
+                        input(ng-model="$dir.validations[$dir.recordType.key].min" type="text" placeholder="dd-MM-jjjj").form-control
+
+                //- Max
+                .col.col-xs-12.col.col-sm-6: .form-group(ng-if="$dir.recordType.validations.includes('max')")
+                    .form-label(for='criterion_{{ $dir.blockId }}_max') Max
+                    input.form-control(
+                        ng-if="$dir.recordType.type == 'number' || $dir.recordType.type == 'string'" 
+                        type="number" 
+                        ng-model="$dir.validations[$dir.recordType.key].max"
+                        placeholder="Max"
+                        ng-disabled="!$dir.isEditable || !(organization | hasPerm:'manage_funds')")
+
+                    datepicker(
+                        ng-if="$dir.recordType.type == 'date'"
+                        date-format="dd-MM-yyyy"
+                        datepicker-mobile="" 
+                        date-week-start-day="1").form-control
+                        input(ng-model="$dir.validations[$dir.recordType.key].max" type="text" placeholder="dd-MM-jjjj").form-control
+
+            .row(ng-init="$dir.shouldBeValid = true")
+                //- Valid email
+                .col.col-xs-12.form-group(ng-if="$dir.recordType.validations.includes('email')"): input-checkbox-control(
+                    narrow="true"
+                    ng-model="$dir.shouldBeValid"
+                    ng-disabled="true"
+                    label="Should be in valid email format. ex: email@example.com")
+
+                //- Valid date
+                .col.col-xs-12.form-group(ng-if="$dir.recordType.validations.includes('date')"): input-checkbox-control(
+                    narrow="true"
+                    ng-model="$dir.shouldBeValid"
+                    ng-disabled="true"
+                    label="Should be in valid date format. ex: dd-MM-jjjj")
+
+                //- Valid iban
+                .col.col-xs-12.form-group(ng-if="$dir.recordType.validations.includes('iban')"): input-checkbox-control(
+                    narrow="true"
+                    ng-model="$dir.shouldBeValid"
+                    ng-disabled="true"
+                    label="Should be in valid IBAN format")
+
+        .criterion-section(ng-if="$dir.criterion.validators_available.length > 1 || $dir.criterion.external_validators.length > 0")
             .criterion-subtitle Organisaties die mogen beoordelen
-            .flex-row(ng-if="$dir.criterion.external_validators.length > 0")
-                .flex-col: .criterion-organizations(ng-if="$dir.criterion.validators_list[0].length > 0")
-                    .criterion-organization(ng-repeat="validator in $dir.criterion.validators_list[0]")
-                        .criterion-organization-icon: .mdi.mdi-shield-check(ng-class="{'text-muted' : !validator.accepted}")
-                        .criterion-organization-name(ng-bind="validator.validator_organization.name")
-                        .criterion-organization-actions(
-                            ng-click="$dir.removeExternalValidator($dir.criterion, validator.id)"
-                            ): .mdi.mdi-close
-                
-                .flex-col: .criterion-organizations(ng-if="$dir.criterion.validators_list[1].length > 0")
-                    .criterion-organization(ng-repeat="validator in $dir.criterion.validators_list[1]")
-                        .criterion-organization-icon: .mdi.mdi-shield-check(ng-class="{'text-muted' : !validator.accepted}")
-                        .criterion-organization-name(ng-bind="validator.validator_organization.name")
-                        .criterion-organization-actions(
-                            ng-click="$dir.removeExternalValidator($dir.criterion, validator.id)"
-                            ): .mdi.mdi-close
+            .criterion-organizations-root
+                .flex-row(ng-if="$dir.criterion.external_validators.length > 0")
+                    .flex-col: .criterion-organizations(ng-if="$dir.criterion.validators_list[0].length > 0")
+                        .criterion-organization(ng-repeat="validator in $dir.criterion.validators_list[0]")
+                            .criterion-organization-icon: .mdi.mdi-shield-check(ng-class="{'text-muted' : !validator.accepted}")
+                            .criterion-organization-name(ng-bind="validator.validator_organization.name")
+                            .criterion-organization-actions(ng-click="$dir.removeExternalValidator($dir.criterion, validator.id)"): .mdi.mdi-close
 
-        div(ng-if="$dir.criterion.show_external_validators_form")
-            .flex-row
-                .flex-col: .flex-row
-                    .flex-col.flex-grow: .form-group
-                        label.form-label Selecteer organisatie
-                        select(
-                            ng-options="validator.id as validator.validator_organization.name for validator in $dir.criterion.validators_available"
-                            ng-model="$dir.criterion.new_validator").form-control
+                    .flex-col: .criterion-organizations(ng-if="$dir.criterion.validators_list[1].length > 0")
+                        .criterion-organization(ng-repeat="validator in $dir.criterion.validators_list[1]")
+                            .criterion-organization-icon: .mdi.mdi-shield-check(ng-class="{'text-muted' : !validator.accepted}")
+                            .criterion-organization-name(ng-bind="validator.validator_organization.name")
+                            .criterion-organization-actions(ng-click="$dir.removeExternalValidator($dir.criterion, validator.id)"): .mdi.mdi-close
 
-                    .flex-col: .form-group
-                        label.form-label &nbsp;
-                        .button-group
-                            .button.button-primary(
-                                ng-class="{'button-disabled' : !$dir.criterion.new_validator}"
-                                ng-click="$dir.pushExternalValidator($dir.criterion)") Toevoegen
-                            .button.button-default(ng-click="$dir.cancelAddExternalValidator($dir.criterion)") Annuleren
-                .flex-col
+            .row(ng-if="$dir.criterion.show_external_validators_form")
+                .col.col-xs-12.col-sm-6: .form-group
+                    label.form-label Selecteer organisatie
+                    select(
+                        ng-options="validator.id as validator.validator_organization.name for validator in $dir.criterion.validators_available"
+                        ng-model="$dir.criterion.new_validator").form-control
 
-    .criterion-section(ng-if="$dir.criterion.is_editing && (!$dir.criterion.show_external_validators_form && ($dir.criterion.validators_available.length > 1))")
-        .button.button-primary(
-            ng-if="!$dir.criterion.show_external_validators_form && ($dir.criterion.validators_available.length > 1)"
-            ng-click="$dir.addExternalValidator($dir.criterion)")
-            em.mdi.mdi-plus-circle.icon-start
-            translate(translate="components.fund_criteria_editor_item.buttons.add_external_validator")
+                .col.col-xs-12.col-sm-6: .form-group
+                    label.form-label &nbsp;
+                    .button-group
+                        .button.button-primary(
+                            ng-class="{'button-disabled' : !$dir.criterion.new_validator}"
+                            ng-click="$dir.pushExternalValidator($dir.criterion)") Toevoegen
+                        .button.button-default(ng-click="$dir.cancelAddExternalValidator($dir.criterion)") Annuleren
+
+            .button.button-primary(
+                ng-if="!$dir.criterion.show_external_validators_form && ($dir.criterion.validators_available.length > 1)"
+                ng-click="$dir.addExternalValidator($dir.criterion)")
+                em.mdi.mdi-plus-circle.icon-start
+                translate(translate="components.fund_criteria_editor_item.buttons.add_external_validator")
