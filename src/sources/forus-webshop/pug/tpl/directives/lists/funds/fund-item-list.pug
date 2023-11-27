@@ -1,4 +1,4 @@
-a.fund-item
+.fund-item
     .fund-photo: img(
         ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
         alt="Dit is de afbeelding van {{ $dir.fund.name }}")
@@ -26,22 +26,26 @@ a.fund-item
                     ng-if="$dir.fund.showRequestButton"
                     translate="funds.status.is_applicable")
 
-            h2.fund-name(ng-bind="$dir.fund.name")
+            h2.fund-name: a(ui-sref="fund($dir.fund)" ng-bind="$dir.fund.name")
 
             .fund-description(ng-if="$dir.fund.description_short")
                 span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
-                span(ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
+                span(id="fund_description_short" ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
                 br
 
                 button.button.button-text.button-xs(
                     ng-if="!$dir.showMore && $dir.fund.description_short.length > 190" 
-                    ng-click="$dir.setShowMore($event, true)") 
+                    ng-click="$dir.setShowMore($event, true)"
+                    aria-expanded="{{ $dir.showMore && $dir.fund.description_short.length > 190 }}"
+                    aria-controls="fund_description_short") 
                     | Toon meer
                     em.mdi.mdi-chevron-down.icon-right
 
                 button.button.button-text.button-xs(
                     ng-if="$dir.showMore && $dir.fund.description_short.length > 190" 
-                    ng-click="$dir.setShowMore($event, false)") 
+                    ng-click="$dir.setShowMore($event, false)"
+                    aria-expanded="{{ $dir.showMore && $dir.fund.description_short.length > 190 }}"
+                    aria-controls="fund_description_short") 
                     | Toon minder
                     em.mdi.mdi-chevron-up.icon-right
                 

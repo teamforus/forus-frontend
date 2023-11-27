@@ -314,8 +314,8 @@ const ModalVouchersUploadComponent = function(
                 $ctrl.loading = true;
 
                 PushNotificationsService.success(
-                    'Loading...',
-                    'Loading existing vouchers to check for duplicates!',
+                    'Wordt verwerkt...',
+                    'Bestaande tegoeden worden verwerkt om te controleren op dubbelingen.',
                     'download-outline'
                 );
 
@@ -330,8 +330,8 @@ const ModalVouchersUploadComponent = function(
                     });
                 }, 4).then(data => {
                     PushNotificationsService.success(
-                        'Comparing...',
-                        'Vouchers loaded! Comparing with .csv...',
+                        'Aan het vergelijken...',
+                        'De tegoeden zijn ingeladen en worden vergeleken met het .csv bestand...',
                         'timer-sand'
                     );
 
@@ -491,7 +491,7 @@ const ModalVouchersUploadComponent = function(
                 $ctrl.hideModal = true;
 
                 ModalService.open('duplicatesPicker', {
-                    hero_title: "Voucher import has errors",
+                    hero_title: "Er zijn fouten opgetreden bij het importeren van de tegoeden",
                     hero_subtitle: message,
                     enableToggles: false,
                     items: items.map((item) => ({ value: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}` })),

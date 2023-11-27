@@ -6,21 +6,13 @@ let AccessibilityComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.vars = {
-            'nijmegen': {
-                'implementation_name': 'Inkomensondersteuning',
-                'organization_name': 'Nijmegen',
-                'contact_email': 'gemeente@nijmegen.nl',
-                'website': 'https://inkomensondersteuning.nijmegen.nl/',
-                'accessibility_link': 'https://www.nijmegen.nl/toegankelijkheid',
-                'telephone_numer': '14 024'
-            },
             'westerkwartier': {
                 'implementation_name': 'Kindpakket',
                 'organization_name': 'Westerkwartier',
                 'website': 'https://westerkwartier.forus.io/',
                 'contact_email': 'webmaster@westerkwartier.nl',
                 'accessibility_link': 'www.westerkwartier.nl/toegankelijkheid',
-                'telephone_numer': '​14 0594'
+                'telephone_numer': '14 0594'
             },
             'noordoostpolder': {
                 'implementation_name': 'Meedoenpakket',

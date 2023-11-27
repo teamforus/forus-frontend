@@ -736,23 +736,23 @@ $formPadding: 14px 15px;
         }
 
         ::-webkit-input-placeholder{
-            color: var(--placeholder_text_color);
-            font: 400 13px var(--base-font);
+            font: var(--form-control-placeholder-font);
+            color: var(--form-control-placeholder-color);
         }
 
         ::-moz-placeholder{
-            color: var(--placeholder_text_color);
-            font: 400 13px var(--base-font);
+            font: var(--form-control-placeholder-font);
+            color: var(--form-control-placeholder-color);
         }
 
         :-moz-placeholder{
-            color: var(--placeholder_text_color);
-            font: 400 13px var(--base-font);
+            font: var(--form-control-placeholder-font);
+            color: var(--form-control-placeholder-color);
         }
 
         :-ms-input-placeholder {
-            color: var(--placeholder_text_color);
-            font: 400 13px var(--base-font);
+            font: var(--form-control-placeholder-font);
+            color: var(--form-control-placeholder-color);
         }
     }
 }

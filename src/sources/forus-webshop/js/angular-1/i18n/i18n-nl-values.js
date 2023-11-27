@@ -12,13 +12,6 @@ module.exports = {
         start_date: "20 December 2018",
         amount: "10",
     },
-    nijmegen: {
-        name: "Nijmegen",
-        fund: "de Meedoen-regeling",
-        voucher: "Meedoen-tegoed",
-        start_date: "1 Januari 2019",
-        amount: "150",
-    },
     zuidhorn: {
         name: "Zuidhorn",
         fund: "het Kindpakket",

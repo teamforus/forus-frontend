@@ -822,18 +822,6 @@
         }
     }
 
-    &.modal-business-update {
-        .modal-description {
-            font: 500 16px var(--base-font);
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .modal-body {
-            overflow: initial;
-        }
-    }
-
     &.modal-animated {
         .modal-backdrop, .modal-window {
             opacity: 1;
@@ -1031,6 +1019,99 @@
                 .modal-section {
                     padding: 25px 80px;
                 }
+            }
+        }
+    }
+
+    &.modal-feature-contact {
+        .modal-close {
+            top: 15px;
+            color: #646F79;
+        }
+        
+        .modal-header {
+            padding: 15px 20px
+        }
+        
+        .modal-section {
+            .icon-wrapper {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 15px;
+
+                .icon {
+                    border-radius: 5px;
+                    border: 1px solid #D4D9DD;
+                    background: #FFF;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 48px;
+                    width: 50px;
+
+                    .mdi {
+                        font-size: 22px;
+                        line-height: 22px;
+                        color: #004195;
+                    }
+                }
+            }
+
+            .title {
+                font: 600 16px/24px var(--base-font);
+                color: #2B303A;
+                margin-bottom: 5px;
+            }
+
+            .description {
+                font: 400 13px/18px var(--base-font);
+                color: #414141;
+                margin-bottom: 24px;
+            }
+
+            .contact-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+
+                .contact-item {
+                    flex-basis: 0;
+                    flex-grow: 1;
+                    max-width: 100%;
+                    border-radius: 5px;
+                    border: 1px dashed #D4D9DD;
+                    background: #FFF;
+                    padding: 20px;
+
+                    .icon {
+                        margin-bottom: 10px;
+
+                        .mdi {
+                            font-size: 18px;
+                            line-height: 18px;
+                            color: #134478;
+                        }
+                    }
+
+                    .title {
+                        font: 600 14px/1 var(--base-font);
+                        color: #282B39;
+                        margin-bottom: 5px;
+                    }
+
+                    .description {
+                        font: 400 14px/20px var(--base-font);
+                        color: #282B39;
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .modal-footer {
+            .button {
+                line-height: 1;
+                padding: 8px 12px;
             }
         }
     }

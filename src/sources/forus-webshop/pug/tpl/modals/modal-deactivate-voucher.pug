@@ -34,8 +34,9 @@
                             ng-model="$ctrl.reason")
 
                     .form-group(ng-if="$ctrl.reason == 'other'")
-                        .form-label Reden
+                        label.form-label(for="deactivate_voucher_note") Reden
                         textarea(
+                            id="deactivate_voucher_note"
                             maxlength="140"
                             ng-model="$ctrl.form.note" 
                             placeholder="Reden").form-control.r-n
@@ -44,8 +45,8 @@
 
                     br
                     .button-group.flex-center
-                        button.button.button-dark(type="button" ng-click="$ctrl.closeModal()") Annuleer
-                        button.button.button-danger(type="submit" ng-if="$ctrl.reason != null") Volgende
+                        button.button.button-light(type="button" ng-click="$ctrl.closeModal()") Annuleer
+                        button.button.button-dark(type="submit" ng-if="$ctrl.reason != null") Volgende
 
             //- Deactivation confirmation
             .modal-section(ng-if="$ctrl.state == 'confirmation'")
@@ -58,8 +59,8 @@
                     br
 
                     .button-group.flex-center
-                        button.button.button-dark(type="button" ng-click="$ctrl.showReasonForm()") Terug
-                        button.button.button-danger(type="button" ng-click="$ctrl.form.submit()") Bevestig
+                        button.button.button-light(type="button" ng-click="$ctrl.showReasonForm()") Terug
+                        button.button.button-dark(type="button" ng-click="$ctrl.form.submit()") Bevestig
 
             //- Deactivation succcess
             .modal-section(ng-if="$ctrl.state == 'success'")
