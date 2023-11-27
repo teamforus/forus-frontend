@@ -3,7 +3,7 @@
 top-navbar
 
 mixin qr_option(ngIf)
-    .sign_up-option.sign_up-option-qr(ng-click="$ctrl.setState('qr')" ng-if=ngIf role="button")
+    .sign_up-option(ng-click="$ctrl.setState('qr')" ng-if=ngIf role="button")
         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-me_app.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title Me app
@@ -13,7 +13,7 @@ mixin qr_option(ngIf)
                 | &nbsp;
 
 mixin digid_option(ngIf, title, description)
-    .sign_up-option.sign_up-option-digid(ng-if=ngIf role="button" ng-click="$ctrl.startDigId()")
+    .sign_up-option(ng-if=ngIf role="button" ng-click="$ctrl.startDigId()")
         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-digid.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title=title
@@ -61,8 +61,9 @@ mixin inline_email_form(showPolicy=true)
                     type="submit"
                     dusk="authEmailFormSubmit"
                     tabindex="3").button.button-primary.button-fill
+
         if (showPolicy)
-            .row: .col.col-lg-12
+            .row(ng-if="$root.appConfigs.flags.privacyPage"): .col.col-lg-12
                 br.hidden-lg
                 label(for='privacy' tabindex="2" ng-click="$ctrl.togglePrivacy($event)").sign_up-pane-text.sign_up-pane-text-sm.flex
                     input(type="checkbox" ng-model="$ctrl.authForm.values.privacy" id='privacy')
