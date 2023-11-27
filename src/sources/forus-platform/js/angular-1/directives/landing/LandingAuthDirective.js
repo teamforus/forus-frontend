@@ -28,20 +28,8 @@ const LandingAuthDirective = function(
 
     $scope.goToDashboard = () => {
         if (['provider'].indexOf(appConfigs.panel_type) != -1) {
-            $rootScope.loadAuthUser().then(auth_user => {
-                let organizations = auth_user.organizations.filter(organization =>
-                    !organization.business_type_id &&
-                    PermissionsService.hasPermission(organization, 'manage_organization')
-                );
-
-                if (organizations.length > 0) {
-                    ModalService.open('businessSelect', {
-                        organizations: organizations,
-                        onReady: () => $state.go('organizations'),
-                    });
-                } else {
-                    $state.go('organizations');
-                }
+            $rootScope.loadAuthUser().then(() => {
+                $state.go('organizations');
             });
         } else {
             $rootScope.loadAuthUser().then(() => $state.go('organizations'));

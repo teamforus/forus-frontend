@@ -12,12 +12,12 @@ const ModalOpenInMeComponent = function(
 
     $ctrl.$onInit = () => {
         $ctrl.phoneForm = FormBuilderService.build({
-            phone: "06"
+            phone: "+31"
         }, function(form) {
             form.lock();
 
             ShareService.sendSms({
-                phone: "+31" + form.values.phone.substr(1),
+                phone: parseInt(form.values.phone.toString().replace(/\D/g, '') || 0),
                 type: 'me_app_download_link'
             }).then((res) => {
                 $ctrl.sentSms = true;

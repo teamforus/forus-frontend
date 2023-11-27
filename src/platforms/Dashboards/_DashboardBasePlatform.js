@@ -24,7 +24,6 @@ platform.setLibs([
     "chart_js",
     "mdi",
     "jszip",
-    "nanoscroller",
     "papaparse",
     "progressbar_js",
     "qrcodejs",
@@ -76,9 +75,9 @@ platform.addTask('scss', {
 
 // add pug task
 platform.addTask('pug', {
-    path: "/angular-index",
+    path: "/",
     src: [
-        "angular-index/index.pug"
+        "index.pug"
     ],
     watch: [
         "layout/**/*.pug"

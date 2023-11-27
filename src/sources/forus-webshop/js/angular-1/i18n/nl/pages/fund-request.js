@@ -11,8 +11,11 @@ module.exports = {
             header_title: "Overzicht",
             text: "We hebben nog wat gegevens nodig. Doorloop de volgende stappen:",
             criterion_more: "'{{ name }}' moet meer dan {{ value }} zijn.",
+            criterion_more_or_equal: "'{{ name }}' moet meer of gelijk zijn aan {{ value }}.",
             criterion_less: "'{{ name }}' moet minder dan {{ value }} zijn.",
+            criterion_less_or_equal: "'{{ name }}' moet minder of gelijk zijn aan {{ value }}.",
             criterion_same: "'{{ name }}' moet {{ value }} zijn.",
+            criterion_any: "'{{ name }}' kan elke waarde zijn.",
             fund_already_applied: "U kunt niet nogmaals een aanvraag indienen.",
             footer: {
                 prev: "Vorige stap",

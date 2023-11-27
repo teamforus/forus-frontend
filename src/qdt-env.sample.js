@@ -27,23 +27,6 @@ const android_link = 'https://media.forus.io/static/me-0.0.5-staging-7-release.a
 const help_link = 'https://helpcentrum.forus.io';
 
 module.exports = (core) => {
-    // Config markups
-    core.editPlatform('dashboard_markup', (platform) => {
-        platform.setEnvData({
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        return platform;
-    });
-
-    core.editPlatform('webshop_markup', (platform) => {
-        platform.setEnvData({
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        return platform;
-    });
-    
     // Config dashboards
     core.editPlatform('dashboard_general_sponsor', (platform) => {
         platform.setEnvData({
@@ -244,34 +227,6 @@ module.exports = (core) => {
             client_key: 'kerstpakket',
             client_type: 'webshop',
             matomo_site_id: false,
-            sessions: sessions,
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
-
-        return platform;
-    });
-
-    core.editPlatform('webshop_westerkwartier', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_key: 'westerkwartier',
-            client_type: 'webshop',
-            flags: {
-                logoExtension: '.svg',
-                showAccountSidebar: false,
-                accessibilityPage: true,
-
-                // menu settings
-                meAppMenu: false,
-                forusPlatformMenu: false,
-                portfolioMenu: false,
-                aboutSiteMenu: false,
-
-                // home
-                providersMenu: true,
-            },
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
         });
@@ -500,35 +455,6 @@ module.exports = (core) => {
         return platform;
     });
 
-    core.editPlatform('webshop_participatiemunt', (platform) => {
-        platform.setEnvData({
-            api_url: apiUrl,
-            client_type: 'webshop',
-            client_key: 'participatiemunt',
-            matomo_site_id: false,
-            flags: {
-                showAccountSidebar: false,
-                accessibilityPage: true,
-                genericSearch: true,
-                
-                // menu settings
-                meAppMenu: false,
-                forusPlatformMenu: false,
-                portfolioMenu: false,
-                aboutSiteMenu: false,
-
-                // voucher settings
-                shareProducts: false,
-            },
-            sessions: sessions,
-            google_maps_api_key: google_maps_api_key,
-        });
-
-        platform.editTask('js', (task) => ({...task, minify, sourcemap}));
-
-        return platform;
-    });
-
     core.editPlatform('webshop_vergoedingen', (platform) => {
         platform.setEnvData({
             api_url: apiUrl,
@@ -707,10 +633,9 @@ module.exports = (core) => {
     ]);
 
     //- Enable all but given platforms (will ignore: 'core.enableOnly' when used)
-    /*core.disableOnly([
-        'dashboard_markup',
-        'webshop_markup'
-    ]);*/
+    /* core.disableOnly([
+        'webshop_general',
+    ]); */
 
     return core;
 };

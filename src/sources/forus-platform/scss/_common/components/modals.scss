@@ -822,18 +822,6 @@
         }
     }
 
-    &.modal-business-update {
-        .modal-description {
-            font: 500 16px var(--base-font);
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .modal-body {
-            overflow: initial;
-        }
-    }
-
     &.modal-animated {
         .modal-backdrop, .modal-window {
             opacity: 1;

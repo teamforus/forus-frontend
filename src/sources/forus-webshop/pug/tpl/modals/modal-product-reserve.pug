@@ -27,7 +27,7 @@
                 | Voeg uw e-mailadres toe om berichten te kunnen ontvangen.
             
             .button-group.flex-center
-                button(ng-click="$ctrl.addEmail()" role="link").button.button-primary.button-wide
+                button(ng-click="$ctrl.addEmail()" role="link").button.button-primary
                     em.mdi.mdi-open-in-new.icon-start
                     | Toevoegen
 
@@ -132,19 +132,29 @@
                     .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
 
                 .flex-row
-                    .col.col-lg-6.col-xs-12.form-group.form-group-margin(
+                    .col.col-xs-12.form-group.form-group-margin(
                         ng-repeat="field in $ctrl.fields"
                         ng-class="'col-lg-' + (field.fullWidth ? '12' : '6')")
                         label.form-label(ng-bind="field.label" for="{{ field.key }}")
 
                         //- custom field
                         .form-group-info(ng-if="field.custom" ng-class="field.showInfo ? 'active' : ''")
-                            .form-group-info-control: input.form-control(
-                                ng-if="['text', 'number'].includes(field.type)"
-                                type="{{ field.type }}"
-                                ng-model="$ctrl.form.values.custom_fields[field.key]"
-                                placeholder="{{ field.placeholder }}"
-                                dusk="{{ field.dusk }}")
+                            .form-group-info-control(ng-class="field.description ? 'has-info-btn' : ''")
+                                input.form-control(
+                                    ng-if="field.type === 'text'"
+                                    type="{{ field.type }}"
+                                    ng-model="$ctrl.form.values.custom_fields[field.key]"
+                                    placeholder="{{ field.placeholder }}"
+                                    dusk="{{ field.dusk }}")
+
+                                input.form-control(
+                                    ng-if="field.type === 'number'"
+                                    type="{{ field.type }}"
+                                    pattern="[0-9]+"
+                                    max="9999999999999999"
+                                    ng-model="$ctrl.form.values.custom_fields[field.key]"
+                                    placeholder="{{ field.placeholder }}"
+                                    dusk="{{ field.dusk }}")
 
                             .form-group-info-button(
                                 ng-click="field.showInfo = !field.showInfo; $event.stopPropagation()"
@@ -384,41 +394,61 @@
 
                 //- Other fields
                 .overview-item(ng-repeat="field in $ctrl.fields")
-                    .overview-item-label(ng-if="!field.custom" translate="modal_product_reserve_notes.confirm_notes.labels.{{ field.key }}")
-                    .overview-item-value(ng-if="!field.custom" ng-bind="$ctrl.form.values[field.key] || '-'")
+                    .overview-item-label(
+                        ng-if="!field.custom" 
+                        translate="modal_product_reserve_notes.confirm_notes.labels.{{ field.key }}")
+                    .overview-item-value(
+                        ng-if="!field.custom"
+                        ng-bind="$ctrl.form.values[field.key] || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values[field.key] ? 'overview-item-value-empty' : ''")
 
-                    .overview-item-label(ng-if="field.custom" ng-bind="field.label")
-                    .overview-item-value(ng-if="field.custom" ng-bind="$ctrl.form.values.custom_fields[field.key] || '-'")
+                    .overview-item-label(
+                        ng-if="field.custom" 
+                        ng-bind="field.label")
+                    .overview-item-value(
+                        ng-if="field.custom"
+                        ng-bind="$ctrl.form.values.custom_fields[field.key] || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.custom_fields[field.key] ? 'overview-item-value-empty' : ''")
 
                 //- Street field
                 .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.street")
-                    .overview-item-value(ng-bind="$ctrl.form.values.street || '-'")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.street || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.street ? 'overview-item-value-empty' : ''")
 
                 //- House number field
                 .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.house_nr")
-                    .overview-item-value(ng-bind="$ctrl.form.values.house_nr || '-'")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.house_nr || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.house_nr ? 'overview-item-value-empty' : ''")
 
                 //- House number addition field
                 .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.house_nr_addition")
-                    .overview-item-value(ng-bind="$ctrl.form.values.house_nr_addition || '-'")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.house_nr_addition || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.house_nr_addition ? 'overview-item-value-empty' : ''")
 
                 //- Postal code field
                 .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.postal_code")
-                    .overview-item-value(ng-bind="$ctrl.form.values.postal_code || '-'")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.postal_code || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.postal_code ? 'overview-item-value-empty' : ''")
 
                 //- City field
                 .overview-item(ng-if="$ctrl.product.reservation.address !== 'no'")
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.city")
-                    .overview-item-value(ng-bind="$ctrl.form.values.city || '-'")
+                    .overview-item-value(
+                        ng-bind="$ctrl.form.values.city || $ctrl.emptyText"
+                        ng-class="!$ctrl.form.values.city ? 'overview-item-value-empty' : ''")
     
                 //- User note
                 .overview-item(ng-if="$ctrl.form.values.user_note")
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.notes")
-                    .overview-item-value(ng-bind="$ctrl.form.values.user_note || '-'")
+                    .overview-item-value(ng-bind="$ctrl.form.values.user_note || $ctrl.emptyText")
 
         //- Actions
         .modal-footer
@@ -453,6 +483,6 @@
                 .button-group.flex-center: button(
                     ng-click="$ctrl.finish()" 
                     role="button" 
-                    dusk="btnReservationFinish").button.button-light.button-wide
+                    dusk="btnReservationFinish").button.button-light
                     | Sluiten
     

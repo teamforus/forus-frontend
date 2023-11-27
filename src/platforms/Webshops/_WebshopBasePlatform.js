@@ -63,8 +63,8 @@ platform.addTask('scss', {
 
 // add pug task
 platform.addTask('pug', {
-    path: "/webshop-panel",
-    src: "webshop-panel/index.pug",
+    path: "/",
+    src: "index.pug",
     watch: "layout/**/*.pug",
     minify: true
 }, 'pug');

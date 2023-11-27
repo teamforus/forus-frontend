@@ -8,7 +8,6 @@
 @import 'includes/visibility';
 
 // DEV PAGES
-@import 'includes/dev-pages';
 @import 'includes/ie';
 
 // modules
@@ -68,10 +67,11 @@
     @import 'blocks/block-voucher-records-editor.scss';
     @import 'blocks/block-features-overview.scss';
     @import 'blocks/block-features-demo-banner.scss';
-    @import 'blocks/block-feature-content.scss';
+    @import 'blocks/block-content.scss';
     @import 'blocks/block-features.scss';
     @import 'blocks/block-feature.scss';
     @import 'blocks/block-feature-faq.scss';
+    @import 'blocks/block-payment-connection.scss';
 }
 
 // Select controls
@@ -1188,6 +1188,14 @@ body {
         &.card-footer-success {
             background: #f7f9de;
         }
+
+        &.card-footer-sm {
+            padding: 7.5px 25px;
+
+            .card-title {
+                color: #646F79;
+            }
+        }
     }
 
     &:last-child {
@@ -1416,6 +1424,12 @@ body {
                     }
                 }
             }
+        }
+
+        &.card-block-keyvalue-bordered {
+            border-bottom: 1px solid #D4D9DD;
+            padding-bottom: 14px;
+            margin-bottom: 14px;
         }
 
         &:last-child {
@@ -6209,18 +6223,17 @@ body {
     }
 
     &.block-compact-datalist {
+        display: grid;
+
         .datalist-row {
-            @include cf();
             border-bottom: 1px dashed #ccc;
-            display: flex;
-            flex-direction: row;
+            display: grid;
+            grid-template-columns: 200px 1fr;
             
             .datalist-key {
                 @extend .text-wrap;
                 font: 500 14px/20px var(--base-font);
                 color: #646f79;
-                width: 50%;
-                max-width: 200px;
                 padding: 7.5px 15px 7.5px 0px;
             }
 
@@ -6228,9 +6241,7 @@ body {
                 @extend .text-wrap;
                 font: 500 14px/20px var(--base-font);
                 color: #646f79;
-                flex-grow: 1;
                 padding: 7.5px 0px;
-                max-width: calc(100% - 200px);
             }
         }
 
@@ -6250,6 +6261,33 @@ body {
 
                 &:last-child {
                     border-bottom: 0;
+                }
+            }
+        }
+
+        &.compact-datalist-vertical {
+            grid-auto-flow: column;
+            gap: 20px;
+
+            .datalist-row {
+                grid-template-columns: 1fr;
+                border: none;
+
+                .datalist-key,
+                .datalist-value {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .datalist-key {
+                    color: var(--color-primary);
+                    font: 600 11px/20px var(--base-font);
+                }
+
+
+                .datalist-value {
+                    color: var(--text-color);
+                    font: 500 13px/20px var(--base-font);
                 }
             }
         }

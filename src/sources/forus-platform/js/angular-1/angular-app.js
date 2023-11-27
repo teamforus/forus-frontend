@@ -87,6 +87,8 @@ app.component('biConnectionComponent', require('./components/BIConnectionCompone
 app.component('organizationContactsComponent', require('./components/OrganizationContactsComponent'));
 app.component('featureComponent', require('./components/FeatureComponent'));
 app.component('featuresComponent', require('./components/FeaturesComponent'));
+app.component('paymentMethodsComponent', require('./components/PaymentMethodsComponent'));
+app.component('molliePrivacyComponent', require('./components/MolliePrivacyComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -113,7 +115,6 @@ app.component('modalFundCriteriaDescriptionEditComponent', require('./components
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
 app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
-app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
 app.component('modalDangerZoneComponent', require('./components/Modals/ModalDangerZoneComponent'));
 app.component('modalFundProviderChatSponsorComponent', require('./components/Modals/ModalFundProviderChatSponsorComponent'));
@@ -224,6 +225,7 @@ app.service('ImplementationSocialMediaService', require('./services/Implementati
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 app.service('ClipboardService', require('./services/ClipboardService'));
 app.service('FeaturesService', require('./services/FeaturesService'));
+app.service('MollieConnectionService', require('./services/MollieConnectionService'));
 
 // Directives
 app.directive('menu', {
@@ -253,7 +255,6 @@ app.directive('officeEditInline', require('./directives/OfficeEditInlineDirectiv
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
-app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'));
 app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));

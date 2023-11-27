@@ -22,6 +22,7 @@ const ModalProductReserveComponent = function (
     $ctrl.dateMinLimit = new Date();
     $ctrl.fields = [];
     $ctrl.step = $ctrl.STEP_SELECT_VOUCHER;
+    $ctrl.emptyText = $trans('confirm_notes.labels.empty');
 
     $ctrl.finish = () => {
         $ctrl.close();
