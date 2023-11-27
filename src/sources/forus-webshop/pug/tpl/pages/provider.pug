@@ -18,6 +18,7 @@ block content
                 map-pointer-template="providers-office-view"
                 map-options="$ctrl.mapOptions"
                 map-gesture-handling="'greedy'"
+                map-gesture-handling-mobile="'none'"
                 open-first-pointer="true")
 
             .provider-content(ng-class="{'provider-content-top': !$root.appConfigs.features.show_provider_map}")
@@ -53,7 +54,7 @@ block content
                 //- Provider description
                 .block.block-pane(ng-if="$ctrl.provider.description_html")
                     .pane-head: h2.pane-head-title Omschrijving
-                    .pane-section: .block.block-markdown: .markdown-wrapper(ng-bind-html="$ctrl.provider.description_html")
+                    .pane-section: .block.block-markdown: markdown(content="$ctrl.provider.description_html")
 
                 //- Provider offices header
                 .block.block-pane.last-child: h2.pane-head

@@ -150,7 +150,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "organizations",
         url: "/organizations",
-        controller: ['$rootScope', ($rootScope) => {
+        controller: ['$rootScope', function ($rootScope) {
             if (!$rootScope.auth_user) {
                 $rootScope.loadAuthUser().then((auth_user) => $rootScope.autoSelectOrganization(auth_user));
             } else {
@@ -196,9 +196,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "organizations-view",
         url: "/organization/{id}",
-        controller: ['$rootScope', '$transition$', 'OrganizationService', (
+        controller: ['$rootScope', '$transition$', 'OrganizationService', function (
             $rootScope, $transition$, OrganizationService
-        ) => {
+        ) {
             $rootScope.loadAuthUser().then(() => {
                 OrganizationService.use($transition$.params().id);
                 $rootScope.redirectToDashboard($transition$.params().id);
@@ -266,6 +266,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                     stats: 'min',
                     archived: $transition$.params().funds_type == 'archived' ? 1 : 0,
                 }))
+            }],
+            recordTypes: ['RecordTypeService', 'organization', 'permission', (RecordTypeService, organization) => {
+                return repackResponse(RecordTypeService.list({ criteria: 1, organization_id: organization.id }));
+            }],
+            validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
+                return repackPagination(OrganizationService.readListValidators($transition$.params().organization_id, { per_page: 100 }));
             }],
         }
     });
@@ -714,8 +720,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             fundStates: ['FundService', 'permission', (FundService) => {
                 return FundService.states();
             }],
-            recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
-                return repackResponse(RecordTypeService.list());
+            recordTypes: ['RecordTypeService', 'organization', 'permission', (RecordTypeService, organization) => {
+                return repackResponse(RecordTypeService.list({ criteria: 1, organization_id: organization.id }));
             }],
             validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
                 return repackPagination(OrganizationService.readListValidators($transition$.params().organization_id, {
@@ -776,8 +782,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             fundStates: ['FundService', 'permission', (FundService) => {
                 return FundService.states();
             }],
-            recordTypes: ['RecordTypeService', 'permission', (RecordTypeService) => {
-                return repackResponse(RecordTypeService.list());
+            recordTypes: ['RecordTypeService', 'organization', 'permission', (RecordTypeService, organization) => {
+                return repackResponse(RecordTypeService.list({ criteria: 1, organization_id: organization.id }));
             }],
             productCategories: ['ProductCategoryService', 'permission', (ProductCategoryService) => {
                 return repackResponse(ProductCategoryService.listAll());
@@ -1450,7 +1456,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ...pick($transition$.params(), $transition$.params().type == 'transactions' ? [
                     'q', 'page', 'state', 'fund_id', 'fund_state', 'from', 'to', 
                     'amount_min', 'amount_max', 'quantity_min', 'quantity_max', 
-                    'order_by', 'order_by_dir',
+                    'order_by', 'order_dir',
                 ] : []),
                 per_page: 20,
             }))],
@@ -1459,7 +1465,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackPagination(TransactionBulkService.list($transition$.params().organization_id, {
                 ...pick($transition$.params(), $transition$.params().type == 'bulks' ? [
                     'page', 'state', 'from', 'to', 'amount_min', 'amount_max', 
-                    'quantity_min', 'quantity_max', 'order_by', 'order_by_dir'
+                    'quantity_min', 'quantity_max', 'order_by', 'order_dir'
                 ] : []),
                 per_page: 20,
             }))],
@@ -1698,6 +1704,61 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Organization features
+    $stateProvider.state({
+        name: "features",
+        url: "/organizations/{organization_id}/features",
+        component: "featuresComponent",
+        resolve: {
+            organization: organizationResolver(),
+            features: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService
+            ) => repackResponse(OrganizationService.getFeatures(
+                $transition$.params().organization_id,
+            ))],
+        }
+    });
+
+    // Organization feature
+    $stateProvider.state({
+        name: "feature",
+        url: "/organizations/{organization_id}/features/{feature_key}",
+        component: "featureComponent",
+        resolve: {
+            organization: organizationResolver(),
+            features: ['$transition$', 'OrganizationService', (
+                $transition$, OrganizationService
+            ) => repackResponse(OrganizationService.getFeatures(
+                $transition$.params().organization_id,
+            ))],
+        }
+    });
+
+    // Payment methods (mollie)
+    $stateProvider.state({
+        name: "payment-methods",
+        url: "/organizations/{organization_id}/payment-methods",
+        component: "paymentMethodsComponent",
+        resolve: {
+            organization: organizationResolver(),
+            mollieConnection: ['$transition$', 'MollieConnectionService', (
+                $transition$, MollieConnectionService
+            ) => repackResponse(MollieConnectionService.getConfigured(
+                $transition$.params().organization_id,
+            ))],
+        }
+    });
+
+    // Mollie privacy
+    $stateProvider.state({
+        name: "mollie-privacy",
+        url: "/organizations/{organization_id}/mollie-privacy",
+        component: "molliePrivacyComponent",
+        resolve: {
+            organization: organizationResolver(),
+        }
+    });
+
     // Validators
     $stateProvider.state({
         name: 'csv-validation',
@@ -1723,7 +1784,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             prevalidations: ['$transition$', 'PrevalidationService', function ($transition$, PrevalidationService) {
                 return repackPagination(PrevalidationService.list(only($transition$.params(), 'page', 'q')));
             }],
-            recordTypes: ['RecordTypeService', (RecordTypeService) => repackResponse(RecordTypeService.list())]
+            recordTypes: ['RecordTypeService', (RecordTypeService) => {
+                return repackResponse(RecordTypeService.list({ criteria: 1 }));
+            }],
         }
     });
 
@@ -1824,9 +1887,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     });
 
     $stateProvider.state({
-        name: 'productboard',
+        name: 'feedback',
         url: '/feedback',
-        component: 'productBoardComponent',
+        component: 'feedbackComponent',
     });
 
     $stateProvider.state({
@@ -1835,33 +1898,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', (
+        controller: ['$rootScope', '$state', 'PermissionsService', 'IdentityService', 'CredentialsService', 'ModalService', 'PushNotificationsService', function (
             $rootScope, $state, PermissionsService, IdentityService, CredentialsService, ModalService, PushNotificationsService
-        ) => {
+        ) {
             let target = $state.params.target || '';
 
             IdentityService.authorizeAuthEmailToken($state.params.token).then(function (res) {
                 CredentialsService.set(res.data.access_token);
 
-                $rootScope.loadAuthUser().then(auth_user => {
-                    let organizations = auth_user.organizations.filter(organization =>
-                        !organization.business_type_id &&
-                        PermissionsService.hasPermission(organization, 'manage_organization')
-                    );
-
-                    let onReady = () => {
-                        if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
-                            return $state.go('organizations');
-                        }
-                    };
-
-                    if (organizations.length > 0) {
-                        ModalService.open('businessSelect', {
-                            organizations: organizations,
-                            onReady: () => onReady(),
-                        });
-                    } else {
-                        onReady();
+                $rootScope.loadAuthUser().then(() => {
+                    if (typeof target != 'string' || !handleAuthTarget($state, target.split('-'))) {
+                        return $state.go('organizations');
                     }
                 });
             }, () => {
@@ -1882,9 +1929,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', function (
             $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService
-        ) => {
+        ) {
             let target = $state.params.target || '';
 
             IdentityService.exchangeConfirmationToken($state.params.token).then(function (res) {
@@ -1913,9 +1960,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         data: {
             token: null
         },
-        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'PushNotificationsService', (
+        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'PushNotificationsService', function (
             $state, $rootScope, IdentityService, CredentialsService, PushNotificationsService
-        ) => {
+        ) {
             IdentityService.exchangeShortToken($state.params.token).then(res => {
                 CredentialsService.set(res.data.access_token);
                 $rootScope.loadAuthUser().then(() => $state.go('organizations'));
@@ -1974,7 +2021,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     $stateProvider.state({
         name: "redirect",
         url: "/redirect?target",
-        controller: ['$state', 'AuthService', ($state, AuthService) => {
+        controller: ['$state', 'AuthService', function ($state, AuthService) {
             if (!$state.params.target || !AuthService.handleAuthTarget($state.params.target)) {
                 $state.go('organizations');
             }

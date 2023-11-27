@@ -6,18 +6,23 @@ const FundRequestComponent = function (
     $scope,
     $filter,
     $timeout,
+    $element,
     appConfigs,
     FundService,
     DigIdService,
+    HelperService,
     FormBuilderService,
     FundRequestService,
     IdentityEmailsService,
     PushNotificationsService,
 ) {
     const $ctrl = this;
+    const $i18n = $filter('i18n');
     const $trans = $filter('translate');
+    const $currency_format = $filter('currency_format');
 
     $ctrl.step = 1;
+    $ctrl.pendingCriteria = [];
     $ctrl.invalidCriteria = [];
     $ctrl.submitInProgress = false;
     $ctrl.errorReason = false;
@@ -25,14 +30,16 @@ const FundRequestComponent = function (
     $ctrl.bsnIsKnown = true;
     $ctrl.emailSubmitted = false;
 
+
+    $ctrl.dateKeys = ['birth_date'];
+    $ctrl.stepKeys = ['children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 'adults_nth'];
+    $ctrl.numberKeys = ['tax_id'];
+    $ctrl.currencyKeys = ['net_worth', 'base_salary'];
+    $ctrl.checkboxKeys = ['children', 'kindpakket_eligible', 'kindpakket_2018_eligible'];
+
     $ctrl.contactInformation = '';
     $ctrl.contactInformationError = null;
     $ctrl.steps = [];
-
-    $ctrl.criterionValuePrefix = {
-        net_worth: '€',
-        base_salary: '€',
-    };
 
     const $transRecordCheckbox = (criteria_record_key, value) => {
         const trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
@@ -42,25 +49,31 @@ const FundRequestComponent = function (
         return translated === trans_key ? $trans(trans_fallback_key, { value: value }) : translated;
     };
 
-    const criterionToValue = (criterion, auto_validation) => {
-        const { id, value, operator, input_value, record_type_key, files_uid } = criterion;
-
-        return auto_validation ? {
-            value: operator == '=' ? value : (operator == '>' ? parseInt(value) + 1 : parseInt(value) - 1),
-            record_type_key: record_type_key,
-            fund_criterion_id: id,
-        } : {
-            files: files_uid,
-            value: input_value,
-            record_type_key: record_type_key,
-            fund_criterion_id: id,
-        };
-    };
-
     const formDataBuild = (criteria) => {
         return {
             contact_information: $ctrl.contactInformation,
-            records: criteria.map((criterion) => criterionToValue(criterion, $ctrl.fund.auto_validation)),
+            records: criteria.map((criterion) => {
+                const { id, value, operator, input_value = '', files_uid = [] } = criterion;
+
+                const makeValue = {
+                    '*': () => value,
+                    '=': () => value,
+                    '>': () => parseInt(value) + 1,
+                    '<': () => parseInt(value) - 1,
+                    '>=': () => value,
+                    '<=': () => value,
+                }[operator] || null;
+
+                return $ctrl.fund.auto_validation ? {
+                    files: [],
+                    value: makeValue ? makeValue() : null,
+                    fund_criterion_id: id,
+                } : {
+                    files: files_uid,
+                    value: input_value,
+                    fund_criterion_id: id,
+                };
+            }),
         };
     };
 
@@ -75,9 +88,9 @@ const FundRequestComponent = function (
         return FundRequestService.storeValidate($ctrl.fund.id, formDataBuild(criteria)).then(() => {
             return false;
         }, (res) => ({
-            value: res.data.errors['records.0.value'],
             record: res.data.errors['records.0'],
-            record_type_key: res.data.errors['records.0.record_type_key'],
+            value: res.data.errors['records.0.value'],
+            files: res.data.errors['records.0.files'],
             fund_criterion_id: res.data.errors['records.0.fund_criterion_id'],
         })).finally(() => $ctrl.submitInProgress = false);
     };
@@ -89,7 +102,7 @@ const FundRequestComponent = function (
             $ctrl.submitInProgress = true;
         }
 
-        FundRequestService.store($ctrl.fund.id, formDataBuild($ctrl.invalidCriteria)).then(() => {
+        FundRequestService.store($ctrl.fund.id, formDataBuild($ctrl.pendingCriteria)).then(() => {
             if ($ctrl.fund.auto_validation) {
                 return $ctrl.applyFund($ctrl.fund);
             }
@@ -126,6 +139,32 @@ const FundRequestComponent = function (
                 } : res.data.errors;
             }).finally(() => form.unlock());
         }, true);
+    };
+
+    $ctrl.criterionTitle = (criterion) => {
+        const record_type = criterion.record_type;
+
+        if (['>', '<', '>=', '<=', '=', '*'].includes(criterion?.operator)) {
+            const key = {
+                '>': 'more',
+                '>=': 'more_or_equal',
+                '<': 'less',
+                '<=': 'less_or_equal',
+                '=': 'same',
+                '*': 'any'
+            }[criterion.operator] || '';
+
+            const isCurrency = $ctrl.currencyKeys.includes(record_type?.key);
+
+            const value = record_type.type == 'select' ?
+                (record_type.options.find((option) => option.value == criterion.value)?.name || '') :
+                criterion.value;
+
+            return $i18n(`fund_request.sign_up.pane.criterion_${key}`, {
+                name: criterion?.record_type?.name,
+                value: isCurrency ? $currency_format(value) : value,
+            });
+        }
     };
 
     // Start digid sign-in
@@ -172,36 +211,52 @@ const FundRequestComponent = function (
 
         for (let i = 0; i < criteria.length; i++) {
             const criterion = criteria[i];
-            const control_type = criterion.operator == '=' ? 'ui_control_checkbox' : {
-                // checkboxes
-                'children': 'ui_control_checkbox',
-                'kindpakket_eligible': 'ui_control_checkbox',
-                'kindpakket_2018_eligible': 'ui_control_checkbox',
-                // dates
-                'birth_date': 'ui_control_date',
-                // stepper
-                'children_nth': 'ui_control_step',
-                'waa_kind_0_tm_4_2021_eligible_nth': 'ui_control_step',
-                'waa_kind_4_tm_18_2021_eligible_nth': 'ui_control_step',
-                'adults_nth': 'ui_control_step',
-                // numbers
-                'tax_id': 'ui_control_number',
+
+            const control_type_default = 'ui_control_text';
+            const control_type_base = {
+                'bool': 'ui_control_checkbox',
+                'date': 'ui_control_date',
+                'string': 'ui_control_text',
+                'email': 'ui_control_text',
                 'bsn': 'ui_control_number',
+                'iban': 'ui_control_text',
+                'number': 'ui_control_number',
+                'select': 'select_control',
+            }[criterion.record_type.type];
+
+            const control_type_key = {
+                // checkboxes
+                ...$ctrl.checkboxKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_checkbox' }), {}),
+                // stepper
+                ...$ctrl.stepKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_step' }), {}),
                 // currency
-                'net_worth': 'ui_control_currency',
-                'base_salary': 'ui_control_currency',
-            }[criterion.record_type_key] || 'ui_control_text';
+                ...$ctrl.currencyKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_currency' }), {}),
+                // numbers
+                ...$ctrl.numberKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_number' }), {}),
+                // dates
+                ...$ctrl.dateKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_date' }), {}),
+            }[criterion.record_type.key] || null;
+
+            const control_type = ((criterion.record_type.type == 'string') && (criterion.operator == '=')) ?
+                'ui_control_checkbox' :
+                control_type_key || control_type_base || control_type_default;
 
             const control_type_default_value = {
                 ui_control_checkbox: null,
                 ui_control_date: format(new Date(), 'dd-MM-yyyy'),
-                ui_control_step: 0,
+                ui_control_step: criterion?.record_type?.key == 'adults_nth' ? 1 : 0,
                 ui_control_number: undefined,
                 ui_control_currency: undefined,
+                ui_control_text: '',
             }[control_type];
 
+            criterion.record_type.options_by_value = criterion?.record_type?.options.reduce((list, option) => {
+                return { ...list, [option.value]: option };
+            }, {});
+
+            criterion.title_default = $ctrl.criterionTitle(criterion);
             criterion.files = [];
-            criterion.label = $transRecordCheckbox(criterion.record_type_key, criterion.value);
+            criterion.label = $transRecordCheckbox(criterion.record_type.key, criterion.value);
             criterion.input_value = control_type_default_value;
             criterion.control_type = control_type;
             criterion.description_html = $sce.trustAsHtml(criterion.description_html);
@@ -211,8 +266,8 @@ const FundRequestComponent = function (
     };
 
     $ctrl.buildSteps = () => {
-        const hideOverview = ($ctrl.invalidCriteria.length == 1 || $ctrl.fund.auto_validation) && !$ctrl.shouldAddContactInfo;
-        const criteriaStepsList = [...(new Array($ctrl.invalidCriteria.length).keys())].map((index) => `criteria_${index}`);
+        const hideOverview = ($ctrl.pendingCriteria.length == 1 || $ctrl.fund.auto_validation) && !$ctrl.shouldAddContactInfo;
+        const criteriaStepsList = [...(new Array($ctrl.pendingCriteria.length).keys())].map((index) => `criteria_${index}`);
 
         const criteriaSteps = [
             $ctrl.fund.auto_validation ? 'confirm_criteria' : null,
@@ -233,11 +288,11 @@ const FundRequestComponent = function (
     };
 
     $ctrl.nextStep = () => {
-        $ctrl.step = Math.min($ctrl.step + 1, $ctrl.steps.length - 1);
+        $ctrl.setStep(Math.min($ctrl.step + 1, $ctrl.steps.length - 1));
     };
 
     $ctrl.prevStep = () => {
-        $ctrl.step = Math.max($ctrl.step - 1, 0);
+        $ctrl.setStep(Math.max($ctrl.step - 1, 0));
     };
 
     $ctrl.applyFund = (fund) => {
@@ -252,7 +307,15 @@ const FundRequestComponent = function (
     }
 
     $ctrl.setStepByName = (stepName) => {
-        $ctrl.step = $ctrl.steps.indexOf(stepName);
+        $ctrl.setStep($ctrl.steps.indexOf(stepName));
+    };
+
+    $ctrl.setStep = (step) => {
+        $ctrl.step = step;
+
+        $timeout(() => {
+            HelperService.focusElement($element[0].querySelector('.block-sign_up'));
+        });
     };
 
     $ctrl.finish = () => {
@@ -327,7 +390,8 @@ const FundRequestComponent = function (
         const from = $state.params?.from;
         const voucher = $ctrl.getFirstActiveFundVoucher($ctrl.fund, $ctrl.vouchers);
         const pendingRequests = $ctrl.fundRequests.data.filter((request) => request.state === 'pending');
-        const invalidCriteria = $ctrl.fund.criteria.filter((criterion) => !criterion.is_valid);
+        const pendingCriteria = $ctrl.fund.criteria.filter((criterion) => !criterion.is_valid || !criterion.has_record);
+        const invalidCriteria = $ctrl.fund.criteria.filter((criterion) => !criterion.is_valid)
         const { email_required, contact_info_enabled, contact_info_required } = $ctrl.fund;
 
         // Voucher already received, go to the voucher
@@ -349,7 +413,8 @@ const FundRequestComponent = function (
         $ctrl.emailSetupRequired = email_required;
         $ctrl.shouldAddContactInfo = !$ctrl.identity.email && contact_info_enabled;
         $ctrl.shouldAddContactInfoRequired = $ctrl.shouldAddContactInfo && contact_info_required;
-        $ctrl.invalidCriteria = $ctrl.convertInvalidCriteria(invalidCriteria);
+        $ctrl.pendingCriteria = $ctrl.convertInvalidCriteria(pendingCriteria);
+        $ctrl.invalidCriteria = invalidCriteria;
         $ctrl.recordTypesByKey = $ctrl.recordTypes.reduce((acc, type) => ({ ...acc, [type.key]: type }), {});
         $ctrl.emailForm = makeEmailForm();
 
@@ -408,9 +473,11 @@ export const controller = [
     '$scope',
     '$filter',
     '$timeout',
+    '$element',
     'appConfigs',
     'FundService',
     'DigIdService',
+    'HelperService',
     'FormBuilderService',
     'FundRequestService',
     'IdentityEmailsService',

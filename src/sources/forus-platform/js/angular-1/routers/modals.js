@@ -95,10 +95,6 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
         component: 'modalFundOffersComponent'
     });
 
-    ModalRouteProvider.modal('businessSelect', {
-        component: 'modalBusinessSelectComponent'
-    });
-
     ModalRouteProvider.modal('employeeAddConfirmation', {
         component: 'modalEmployeeAddConfirmationComponent'
     });
@@ -221,5 +217,9 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('2FADeactivate', {
         component: 'modal2FADeactivateComponent'
+    });
+
+    ModalRouteProvider.modal('featureContact', {
+        component: 'modalFeatureContactComponent'
     });
 }];

@@ -34,15 +34,15 @@ main(id="main-content"): section.section.section-voucher-details: .wrapper
                     
                     .auth-2fa-item-space
 
-                    .auth-phone-details.show-sm(ng-if="provider_type.type == 'phone' && $ctrl.active_providers[provider_type.type]"): .flex
-                        .auth-item-icon 
-                            em.mdi.mdi-message-processing
-                        .flex.flex-vertical.flex-grow
-                            .auth-phone-details-title SMS Bericht
-                            .auth-phone-details-subtitle.flex
-                                .auth-phone-details-phone(ng-bind="$ctrl.active_providers[provider_type.type].phone")
-                                .label-group.pull-right: .label.label-success Nummer bevestigd
-                            .auth-phone-details-description Verificatie codes zijn verzonden via SMS
+                    //- .auth-phone-details.show-sm(ng-if="provider_type.type == 'phone' && $ctrl.active_providers[provider_type.type]"): .flex
+                    //-     .auth-item-icon 
+                    //-         em.mdi.mdi-message-processing
+                    //-     .flex.flex-vertical.flex-grow
+                    //-         .auth-phone-details-title SMS Bericht
+                    //-         .auth-phone-details-subtitle.flex
+                    //-             .auth-phone-details-phone(ng-bind="$ctrl.active_providers[provider_type.type].phone")
+                    //-             .label-group.pull-right: .label.label-success Nummer bevestigd
+                    //-         .auth-phone-details-description Verificatie codes zijn verzonden via SMS
 
                     .auth-2fa-item-actions: .button-group
                         .button.button-primary.button-sm(
@@ -63,8 +63,9 @@ main(id="main-content"): section.section.section-voucher-details: .wrapper
             .block.block-auth-2fa
                 form(ng-submit="$ctrl.form.submit()").form.form-compact
                     .form-group
-                        label.form-label(for="select_organization") Onthoud IP-adres
+                        label.form-label(for="auth_2fa_remember_ip") Onthoud IP-adres
                         select-control(
+                            id="auth_2fa_remember_ip"
                             prop="value"
                             search="false"
                             ng-model="$ctrl.form.values.auth_2fa_remember_ip" 

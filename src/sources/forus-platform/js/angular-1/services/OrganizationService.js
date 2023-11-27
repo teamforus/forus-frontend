@@ -225,13 +225,6 @@ module.exports = [
                 });
             };
 
-            this.updateBusinessType = function(id, business_type_id) {
-                return ApiRequest.patch(
-                    '/platform/organizations/' + id + '/update-business', {
-                    business_type_id: business_type_id
-                });
-            };
-
             this.updateBIConnection = function(id, values = {}) {
                 return ApiRequest.patch(`/platform/organizations/${id}/update-bi-connection`, values);
             };
@@ -246,6 +239,10 @@ module.exports = [
 
             this.updateReservationFields = function(id, query = {}) {
                 return ApiRequest.patch('/platform/organizations/' + id + '/update-reservation-fields', query);
+            };
+
+            this.getFeatures = function(id) {
+                return ApiRequest.get(`/platform/organizations/${id}/features`);
             };
 
             this.use = function(id) {

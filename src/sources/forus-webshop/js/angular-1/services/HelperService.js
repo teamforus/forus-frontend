@@ -48,6 +48,14 @@ const HelperService = function($q) {
 
             return provider && providersList.includes(provider) ? ('https://' + provider) : null;
         };
+
+        this.focusElement = (element) => {
+            const link = document.createElement('a');
+            link.href = '#';
+            element.prepend(link)
+            link.focus();
+            link.remove();
+        };
     });
 };
 

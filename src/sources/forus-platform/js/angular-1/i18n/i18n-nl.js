@@ -54,7 +54,6 @@ module.exports = {
         modal_voucher_deactivation: require('./nl/modals/modal-voucher-deactivation.pug.i18n'),
         modal_voucher_activation: require('./nl/modals/modal-voucher-activation.pug.i18n'),
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
-        modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
         modal_export_data: require('./nl/modals/modal-export-data-select.pug.i18n'),
         modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
@@ -62,6 +61,7 @@ module.exports = {
         modal_physical_card_order: require("./nl/modals/modal-physical_card-order"),
         modal_markdown_custom_link: require("./nl/modals/modal-markdown-custom-link.pug.i18n"),
         modal_voucher_transaction: require('./nl/modals/modal-voucher-transaction.pug.i18n'),
+        modal_feature_contact: require('./nl/modals/modal-feature-contact.pug.i18n'),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),
@@ -80,6 +80,7 @@ module.exports = {
             remove_reimbursement_category: require('./nl/modals/danger-zone/remove_reimbursement_category'),
             recreate_bi_connection: require('./nl/modals/danger-zone/recreate-bi-connection'),
             remove_reservation_field: require('./nl/modals/danger-zone/remove-reservation-field'),
+            remove_mollie_connection: require('./nl/modals/danger-zone/remove-mollie-connection'),
         },
     },
     // PAGES
@@ -98,6 +99,8 @@ module.exports = {
     bi_connection: require('./nl/pages/bi-connection.pug.i18n'),
     organization_contacts: require('./nl/pages/organization-contacts.pug.i18n'),
     reservation_settings: require('./nl/pages/reservations-settings.pug.i18n'),
+    features: require('./nl/pages/features.pug.i18n'),
+    mollie_connection: require('./nl/pages/mollie-connection.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -644,6 +647,32 @@ module.exports = {
             view_request: "Bekijk aanvraag",
             export_csv: "Exporteer als .CSV",
             export_xls: "Exporteer als .XLS",
+        },
+    },
+
+    // EXTERNAL VALIDATORS = external-validators.pug
+    external_validators: {
+        header: {
+            title: "Beoordelaars",
+        },
+        labels: {
+            organization_name: "Organisatie naam",
+            email: "E-mailadres",
+            phone: "Telefoonnummer",
+            website: "Website",
+            actions: "Acties",
+        },
+        filters: {
+            labels: {
+                search: 'Zoeken',
+                email: "E-mailadres",
+                phone: "Telefoonnummer",
+                website: "Website",
+            },
+        },
+        buttons: {
+            add: "Toevoegen",
+            delete: "Verwijderen",
         },
     },
 
@@ -1619,6 +1648,7 @@ module.exports = {
         },
         labels: {
             code: "Code",
+            employee: "Medewerker",
             search: "Zoeken",
             exported: "Geëxporteerd",
             from: "Van",

@@ -1,6 +1,6 @@
 module.exports = {
     header: {
-        title: "Fondsaanvragen",
+        title: "Aanvragen",
     },
     empty_block: {
         title: "Geen fondsaanvragen",

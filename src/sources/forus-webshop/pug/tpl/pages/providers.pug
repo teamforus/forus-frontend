@@ -75,6 +75,7 @@ block content
                                         ng-model="$ctrl.form.values.postcode"
                                         placeholder="Postcode"
                                         type="text"
+                                        id="postcode"
                                         aria-label="Postcode...")
                                     .form-error(ng-repeat="error in $ctrl.form.errors.postcode" ng-bind="error")
 
@@ -91,7 +92,7 @@ block content
                             .showcase-result(ng-if="$ctrl.showMap")
                                 | Er zijn #[.showcase-result-count(ng-bind="$ctrl.providers.meta.total")] aanbieders gevonden
 
-                        a.button.button-primary-outline.button-fill.button-flat.hide-sm(
+                        a.button.button-primary.hide-sm(
                             ng-if="$root.appConfigs.features.pages.provider" 
                             ui-sref="sign-up" 
                             ng-show="!$ctrl.showMap")
@@ -171,4 +172,5 @@ block content
                                 map-pointers="$ctrl.offices"
                                 map-pointer-template="providers-office"
                                 map-gesture-handling="'greedy'"
+                                map-gesture-handling-mobile="'none'"
                                 map-options="$ctrl.mapOptions")

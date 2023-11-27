@@ -56,7 +56,10 @@
             //- Block description
             .form-group
                 label.form-label.form-label-required Omschrijving
-                markdown(value="block.description_html" ng-model="block.description" placeholder="Omschrijving...")
+                markdown-editor(
+                    value="block.description_html" 
+                    ng-model="block.description" 
+                    placeholder="Omschrijving...")
                 .form-hint Max. 5000 tekens
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.description']" ng-bind="error")
 
@@ -77,7 +80,7 @@
             //- Block button text
             .form-group(ng-if="block.button_enabled")
                 label.form-label.form-label-required Button Text
-                input(type="text" ng-model="block.button_text" placeholder="Button Text").form-control
+                input(type="text" ng-model="block.button_text" placeholder="Button Text" ng-change="$dir.onButtonTextChange(block)").form-control
                 .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_text']" ng-bind="error")
 
             //- Block button link
@@ -94,6 +97,12 @@
                     search="false"
                     ng-model="block.button_target_blank"
                     options="$dir.buttonTargets").form-control
+
+            //- Block button link label
+            .form-group(ng-if="block.button_enabled")
+                label.form-label Button Link Label
+                input(type="text" ng-model="block.button_link_label" placeholder="Button Link Label" ng-change="$dir.button_link_label_edited = true").form-control
+                .form-error(ng-repeat="error in $dir.errors['blocks.' + $parent.$index + '.button_link_label']" ng-bind="error")
 
     //- Actions
     .block-editor-actions
