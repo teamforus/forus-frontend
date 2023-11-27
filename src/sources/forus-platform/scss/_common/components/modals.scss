@@ -764,6 +764,16 @@
         }
     }
 
+    &.modal-reservation-create {
+        .modal-window {
+            width: 740px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+        }
+    }
+
     &.modal-notification {
         .modal-content {
             .modal-section {

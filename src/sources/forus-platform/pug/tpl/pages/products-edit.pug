@@ -161,15 +161,13 @@
                                     input(ng-model="$ctrl.form.values.stock_amount" type="number" placeholder="Stock" ng-disabled="!$ctrl.isEditable").form-control
 
                                 .form-group-info-button: .button.button-default.button-icon.pull-left(
-                                    ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
-                                    ng-class="{active: $ctrl.showInfoBlock}")
+                                    ng-click="$ctrl.showInfoBlockStock = !$ctrl.showInfoBlockStock"
+                                    ng-class="{active: $ctrl.showInfoBlockStock}")
                                     em.mdi.mdi-information
 
-                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlockStock")
                                 .info-box-icon.mdi.mdi-information
-
-                                .info-box-content: .block.block-markdown
-                                    p {{ 'tooltip.product.limit' | translate }}
+                                .info-box-content: .block.block-markdown(translate="tooltip.product.limit")
 
                             .form-error(ng-repeat="error in $ctrl.form.errors.stock_amount" ng-bind="error")
 
@@ -236,15 +234,16 @@
                                         options="$ctrl.reservationPolicies").form-control
 
                                 .form-group-info-button: .button.button-default.button-icon.pull-left(
-                                    ng-click="$ctrl.showPolicyInfoBlock = !$ctrl.showPolicyInfoBlock"
-                                    ng-class="{active: $ctrl.showPolicyInfoBlock}")
+                                    ng-click="$ctrl.showInfoBlockStockReservationPolicy = !$ctrl.showInfoBlockStockReservationPolicy"
+                                    ng-class="{active: $ctrl.showInfoBlockStockReservationPolicy}")
                                     em.mdi.mdi-information
 
-                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showPolicyInfoBlock")
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlockStockReservationPolicy")
                                 .info-box-icon.mdi.mdi-information
 
                                 .info-box-content: .block.block-markdown
-                                    p Standaard instelling kunt u bij uw reserveringen aanpassen. Geef hier optioneel aan of u de reservering handmatig of automatisch wilt accepteren.
+                                    | Standaard instelling kunt u bij uw reserveringen aanpassen. 
+                                    | Geef hier optioneel aan of u de reservering handmatig of automatisch wilt accepteren.
                             
                             .form-error(ng-repeat="error in $ctrl.form.errors.reservation_policy" ng-bind="error")
 

@@ -1,4 +1,4 @@
-.modal.modal-md.modal-animated.modal-loading(
+.modal.modal-reservation-create.modal-animated.modal-loading(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
@@ -13,7 +13,7 @@
                 br
                 | persoonlijke 12-cijferige code die op de pas staat.
 
-            .row: .col.col-sm-9.col-sm-offset-1.col-sm-12.col-xs-offset-0
+            .row: .col.col-sm-11.col-xs-12
                 .form-group.form-group-inline.form-group-inline-md
                     label.form-label.form-label-required Pasnummer
                     input(  
@@ -38,8 +38,8 @@
                     br
                     | De notitie wordt toegevoegd aan het transactieoverzicht.
 
-                .row: .col.col-sm-9.col-sm-offset-1.col-sm-12.col-xs-offset-0
-                    .form-group.form-group-inline.form-group-inline-md.tooltipped
+                .row: .col.col-sm-11.col-xs-12
+                    .form-group.form-group-inline.form-group-inline-md
                         label.form-label Aanbod
                         .form-offset
                             .form-group-info
@@ -56,14 +56,11 @@
                             .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
                                 .info-box-icon.mdi.mdi-information
 
-                                .info-box-content: .block.block-markdown
-                                    p {{ 'reservation_create.tooltips.product' | translate }}
+                                .info-box-content: .block.block-markdown: div(
+                                    ng-repeat="line in 'reservation_create.tooltips.product' | translate | lines_to_array"
+                                    ng-bind="line")
 
                         .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
-                        .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
-                        tooltip(text="'reservation_create.tooltips.product' | translate | lines_to_array")
-                            .form-error(ng-repeat="error in $ctrl.formProducts.errors.product_id" ng-bind="error")
-                        tooltip(text="'reservation_create.tooltips.product' | translate | lines_to_array")
 
                     .form-group.form-group-inline.form-group-inline-md
                         label.form-label.form-label-required Notitie
