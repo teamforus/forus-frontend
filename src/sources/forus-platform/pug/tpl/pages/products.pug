@@ -41,7 +41,7 @@
                         .form-group: input(
                             ng-model="$ctrl.filters.q"
                             dusk="searchTransaction"
-                            placeholder="{{ 'transactions.labels.search' | i18n }}").form-control
+                            placeholder="{{ 'transactions.labels.search' | translate }}").form-control
 
             .card-section(ng-show="$ctrl.loading"): .card-loading: .mdi.mdi-loading.mdi-spin
 

@@ -36,8 +36,11 @@
                         span(translate="reimbursements.buttons.clear_filter")
 
                     //- Search box
-                    .form(ng-if="!$ctrl.filters.show")
-                        .form-group: input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'reimbursements.labels.search' | translate }}" dusk="searchReimbursement").form-control
+                    .form(ng-if="!$ctrl.filters.show"): .form-group: input(
+                        type="text"
+                        ng-model="$ctrl.filters.values.q"
+                        placeholder="{{ 'reimbursements.labels.search' | translate }}"
+                        dusk="searchReimbursement").form-control
 
                     //- Filters dropdown
                     .form: .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")

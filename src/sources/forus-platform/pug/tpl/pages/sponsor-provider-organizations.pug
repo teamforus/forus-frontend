@@ -30,11 +30,11 @@
                         | Alles inklappen
 
                     .form-group(ng-if="!$ctrl.filters.show")
-                        input(ng-model="$ctrl.filters.values.q" placeholder="{{ 'search' | i18n }}").form-control
+                        input(ng-model="$ctrl.filters.values.q" placeholder="{{ 'search' | translate }}").form-control
                 
                 .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                     em.mdi.mdi-close.icon-start
-                    span(i18n="Wis filters")
+                    span(translate="Wis filters")
 
                 .inline-filters-dropdown(click-outside="$ctrl.hideFilters()")
                     .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")

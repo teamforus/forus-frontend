@@ -8,7 +8,7 @@
             .form: .form-group: input(
                 type="search"
                 ng-model="$dir.filters.values.q"
-                placeholder="Zoeken").form-control
+                placeholder="{{ 'event_logs.labels.search' | translate }}").form-control
 
         //- Filters
         .flex(ng-if="!$dir.hideFilterForm"): .block.block-inline-filters
@@ -21,7 +21,7 @@
             .form(ng-if="!$dir.filters.visible"): .form-group: input(
                 type="search"
                 ng-model="$dir.filters.values.q"
-                placeholder="Zoeken").form-control
+                placeholder="{{ 'event_logs.labels.search' | translate }}").form-control
 
             //- Filters menu
             .inline-filters-dropdown.pull-right
