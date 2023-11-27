@@ -19,7 +19,7 @@ const TransactionDetailsDirective = function (
     }
 
     $dir.cancelTransaction = (reservation) => {
-        if (reservation.extra_payment?.is_paid) {
+        if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
             return ProductReservationService.showRejectInfoExtraPaid();
         }
 
