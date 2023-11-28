@@ -589,9 +589,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "reservation-show",
         url: {
-            en: "/reservations/{id}",
-            nl: "/reserveringen/{id}",
+            en: "/reservations/{id}?checkout",
+            nl: "/reserveringen/{id}?checkout",
         },
+        params: { checkout: null },
         component: "reservationShowComponent",
         resolve: {
             reservation: ['$transition$', 'ProductReservationService', (

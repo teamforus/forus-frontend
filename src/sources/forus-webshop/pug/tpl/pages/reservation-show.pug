@@ -74,12 +74,16 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                         | {{ "reservation.labels.cancel" | translate }}
 
                                     .button.button-primary.button-sm(
-                                        ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn > 0"
+                                        ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn > 0 && !$ctrl.showLoadingBtn"
                                         ng-click="$ctrl.payExtraReservation()")
                                         em.mdi.mdi-credit-card-outline.icon-start
                                         | Ga door naar betalen
+                                    button.button.button-primary.button-sm(ng-if="$ctrl.showLoadingBtn" disabled)
+                                        em.mdi.mdi-loading.mdi-spin.icon-start
+                                        | Loading
 
-                .card-footer.card-footer-warning.card-footer-sm(ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn")
+                .card-footer.card-footer-warning.card-footer-sm(
+                    ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn && !$ctrl.showLoadingBtn")
                     | Houd er rekening mee dat er nog #[strong {{ $ctrl.stateData.expiresIn }} minuten] over zijn 
                     | om de bijbetaling uit te voeren. Anders zal de reservering automatisch worden geannuleerd.
 
