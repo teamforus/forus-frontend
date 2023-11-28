@@ -1,7 +1,7 @@
 module.exports = {
     header: {
       refunds: {
-          title: 'Extra payment refunds'
+          title: 'Bijbetalingen die zijn terugbetaald'
       }
     },
     labels: {
@@ -28,8 +28,8 @@ module.exports = {
         amount: "Betaald vanuit tegoed",
         amount_extra: "Betaald door inwoner",
         method: "Method",
-        extra_payment_paid_at: "Paid at",
-        refund_date: "Date",
-        refund_amount: "Amount"
+        extra_payment_paid_at: "Datum van bijbetaling",
+        refund_date: "Datum van terugbetaling",
+        refund_amount: "Terugbetaald"
     },
 };

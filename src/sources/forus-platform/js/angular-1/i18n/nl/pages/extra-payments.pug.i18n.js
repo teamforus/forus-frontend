@@ -1,6 +1,6 @@
 module.exports = {
     header: {
-        title: "Extra payments",
+        title: "Bijbetalingen",
     },
     filters: {
         fund: "Fonds",
@@ -13,12 +13,12 @@ module.exports = {
     },
     labels: {
         id: "ID",
-        fund: "Fund",
+        fund: "Fonds",
         product: "Aanbod",
         price: "Bedrag",
-        provider: "Provider",
-        paid_at: "Paid at",
-        method: "Method",
+        provider: "Aanbieder",
+        paid_at: "Datum",
+        method: "Methode",
         actions: "Opties",
         search: "Zoeken",
         amount_extra: "Bijbetaald",

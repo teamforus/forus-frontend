@@ -5,7 +5,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
     .block.block-breadcrumbs
         a(ui-sref="home").breadcrumb-item Home
         a(translate="reservations.header.title" ui-sref="reservations").breadcrumb-item
-        .breadcrumb-item.active(aria-current="location") Reservation
+        .breadcrumb-item.active(aria-current="location") Reservering
 
     //- Page
     .block.block-profile
@@ -26,7 +26,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                             .reservation-content
                                 .reservation-header
                                     h2.reservation-title 
-                                        | Reservation details
+                                        | Details van de reservering
                                     .label(
                                         ng-class="'label-' + $ctrl.stateData.stateClass"
                                         ng-bind="$ctrl.stateData.stateText")
@@ -43,7 +43,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                             | {{ '#' + $ctrl.reservation.code }}
 
                                     .reservation-prop
-                                        .reservation-prop-label Fund name
+                                        .reservation-prop-label Fonds naam
                                         .reservation-prop-value(
                                             dusk="reservationOverviewFundName"
                                             ng-bind="$ctrl.reservation.fund.name")
@@ -55,7 +55,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                             ng-bind="$ctrl.reservation.amount_locale")
 
                                     .reservation-prop(ng-if="$ctrl.reservation.amount_extra > 0")
-                                        .reservation-prop-label Zelf bijbetaal
+                                        .reservation-prop-label Zelf bijbetaald
                                         .reservation-prop-value(
                                             dusk="reservationOverviewExtraAmount"
                                             ng-bind="$ctrl.reservation.amount_extra_locale")
@@ -78,15 +78,14 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                         ng-click="$ctrl.payExtraReservation()")
                                         em.mdi.mdi-credit-card-outline.icon-start
                                         | Ga door naar betalen
-
                                     button.button.button-primary.button-sm(ng-if="$ctrl.showLoadingBtn" disabled)
                                         em.mdi.mdi-loading.mdi-spin.icon-start
                                         | Loading
 
                 .card-footer.card-footer-warning.card-footer-sm(
                     ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn && !$ctrl.showLoadingBtn")
-                    | Please note that you have #[strong {{ $ctrl.stateData.expiresIn }} minutes] to complete 
-                    | the payment and secure your reservation. Otherwise, the reservation will be canceled automatically.
+                    | Houd er rekening mee dat er nog #[strong {{ $ctrl.stateData.expiresIn }} minuten] over zijn 
+                    | om de bijbetaling uit te voeren. Anders zal de reservering automatisch worden geannuleerd.
 
                 .card-footer.card-footer-warning.card-footer-sm(ng-if="$ctrl.reservation.state === 'canceled_payment_expired'")
                     | Sorry, uw reservering is tijdens het afrekenproces geannuleerd omdat het geselecteerde product uitverkocht is.

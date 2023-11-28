@@ -100,8 +100,8 @@ const ProductReservationService = function (
 
         this.confirmRefund = (onConfirm) => {
             ModalService.open("dangerZone", {
-                title: "Refund extra payment?",
-                description_text: "Refund extra payment.",
+                title: "Weet u zeker dat u de bijbetaling wilt annuleren?",
+                description_text: "Wanneer u de bijbetaling annuleert wordt u niet meer uitbetaald.",
                 cancelButton: "Annuleren",
                 confirmButton: "Bevestigen",
                 onConfirm,
@@ -110,8 +110,8 @@ const ProductReservationService = function (
 
         this.showRejectInfoExtraPaid = () => {
             ModalService.open("dangerZone", {
-                title: "This reservation extra payment is paid",
-                description_text: "Make refund in mollie, after you can reject this reservation.",
+                title: "De bijbetaling van deze reservering is al betaald.",
+                description_text: "Na het terugbetalen in Mollie, kunt u deze reservering annuleren.",
                 cancelButton: "Annuleren",
             });
         }

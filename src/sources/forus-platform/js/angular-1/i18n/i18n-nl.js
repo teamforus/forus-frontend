@@ -737,7 +737,7 @@ module.exports = {
             unlimited: "Onbeperkt",
             alternative_text: "Alt-tekst",
             alternative_text_placeholder: "Omschrijving van de afbeelding",
-            extra_payments: 'Accepting extra payment',
+            extra_payments: 'Bijbetaling accepteren',
         },
         tooltips: {
             product_type: ["Kies het soort aanbod. Voorbeelden:",

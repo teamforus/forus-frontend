@@ -52,11 +52,11 @@
                 .reservation-section-row
                     .reservation-value-list
                         .reservation-value-item(ng-if="$dir.reservation.amount_extra == 0")
-                            .reservation-value-title Products price
+                            .reservation-value-title Productprijs
                             .reservation-value(ng-bind="$dir.reservation.price_locale")
 
                         .reservation-value-item(ng-if="$dir.reservation.amount_extra > 0")
-                            .reservation-value-title Products price
+                            .reservation-value-title Productprijs
                             .reservation-value(ng-bind="$dir.reservation.price_locale")
 
                         .reservation-value-item(ng-if="$dir.reservation.amount_extra > 0")
@@ -125,9 +125,9 @@
                         .reservation-details-item-value(ng-bind="$dir.reservation.price_locale")
 
                 a.reservation-details-view-all(ui-sref="reservation-show({id: $dir.reservation.id})")
-                    | View all details
+                    | Bekijk all details
                     em.mdi.mdi-chevron-right
 
     .reservation-item-footer(ng-if="$dir.reservation.state === 'waiting' && $dir.stateData.expiresIn")
-        | Please note that you have #[strong {{ $dir.stateData.expiresIn }} minutes] to complete 
-        | the payment and secure your reservation. Otherwise, the reservation will be canceled automatically.
+        | Houd er rekening mee dat er nog #[strong {{ $dir.stateData.expiresIn }} minuten] over zijn 
+        | om de bijbetaling uit te voeren. Anders zal de reservering automatisch worden geannuleerd.

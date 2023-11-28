@@ -54,7 +54,7 @@ const ProductsEditComponent = function (
         label: "Nee"
     }, {
         value: "yes",
-        label: "Yes"
+        label: "Ja"
     }];
 
     $ctrl.goToFundProvider = (provider) => {
