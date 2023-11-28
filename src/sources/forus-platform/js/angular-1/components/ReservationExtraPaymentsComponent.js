@@ -72,7 +72,7 @@ const ReservationExtraPaymentsComponent = function (
     $ctrl.$onInit = () => {
         $ctrl.funds.unshift({
             id: null,
-            name: 'Selecteer fond',
+            name: 'Selecteer fonds',
         });
 
         $ctrl.mapExtraPayments($ctrl.extraPayments);

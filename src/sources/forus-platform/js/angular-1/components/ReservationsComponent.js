@@ -21,7 +21,7 @@ const ReservationsComponent = function (
         name: 'Alle'
     }, {
         key: 'waiting',
-        name: 'Waiting', // Waiting
+        name: 'Wachtend op bijbetaling', // Waiting
     }, {
         key: 'pending',
         name: 'In afwachting', // Pending
@@ -33,19 +33,19 @@ const ReservationsComponent = function (
         name: 'Geweigerd' // Rejected
     }, {
         key: 'canceled',
-        name: 'Geannuleerd' // Canceled by provider
+        name: 'Geannuleerd door aanbieder' // Canceled by provider
     }, {
         key: 'canceled_by_client',
         name: 'Geannuleerd door aanvrager' // Canceled by client
     }, {
         key: 'canceled_payment_expired',
-        name: 'Canceled payment expired' // Canceled payment expired
+        name: 'Geannuleerd door verlopen bijbetaling' // Canceled payment expired
     }, {
         key: 'canceled_payment_canceled',
-        name: 'Canceled payment canceled' // Canceled payment canceled
+        name: 'Geannuleerd door ingetrokken bijbetaling' // Canceled payment canceled
     }, {
         key: 'canceled_payment_failed',
-        name: 'Canceled payment failed' // Canceled payment failed
+        name: 'Geannuleerd door mislukte bijbetaling' // Canceled payment failed
     }];
 
     $ctrl.filters = {

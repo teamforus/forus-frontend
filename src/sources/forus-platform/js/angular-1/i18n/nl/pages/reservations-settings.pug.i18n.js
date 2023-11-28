@@ -11,7 +11,7 @@ module.exports = {
         phone: "Telefoonnummer instellingen",
         address: "Adres instellingen",
         birth_date: "Geboortedatum instellingen",
-        extra_payments: "Accepting extra payment",
+        extra_payments: "Bijbetaling instellingen",
     },
     buttons: {
         cancel: "Annuleren",

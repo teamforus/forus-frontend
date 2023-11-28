@@ -13,7 +13,7 @@
                 ng-if="!$dir.payment.is_fully_refunded && $dir.payment.is_paid"
                 ng-click="$dir.refundReservationExtraPayment()")
                 em.mdi.mdi-undo-variant.icon-start
-                | Refund payment
+                | Bijbetaling terugbetalen
 
     .card-section: .flex
         .flex: .card-block.card-block-keyvalue
@@ -29,7 +29,7 @@
                     .label.label-danger(
                         ng-if="['failed', 'canceled', 'expired'].includes($dir.payment.state)"
                         ng-bind="$dir.payment.state_locale")
-                    .label.label-danger(ng-if="$dir.payment.is_fully_refunded") Refunded
+                    .label.label-danger(ng-if="$dir.payment.is_fully_refunded") Terugbetaald
 
             .keyvalue-item
                 .keyvalue-key(translate="reservation.labels.amount")
