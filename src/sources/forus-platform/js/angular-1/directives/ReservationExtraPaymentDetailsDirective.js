@@ -29,6 +29,9 @@ const ReservationExtraPaymentDetailsDirective = function (
                     $dir.reservation = res.data.data;
                     $dir.payment = $dir.reservation.extra_payment;
                     PushNotificationsService.success('Refund created!');
+                    if (typeof $dir.onUpdate == 'function') {
+                        $dir.onUpdate();
+                    }
                 },
                 (res) => PushNotificationsService.danger(res.data?.message || 'Onbekende foutmelding!')
             ).finally(() => PageLoadingBarService.setProgress(100));
@@ -47,6 +50,7 @@ module.exports = () => {
             payment: '=',
             reservation: '=',
             organization: '=',
+            onUpdate: '&',
         },
         controllerAs: '$dir',
         restrict: "EA",

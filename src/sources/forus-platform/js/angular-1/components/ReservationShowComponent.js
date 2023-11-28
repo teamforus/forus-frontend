@@ -1,10 +1,12 @@
 const ReservationShowComponent = function (
+    $scope,
     appConfigs,
     TransactionService,
     PushNotificationsService,
     ProductReservationService,
 ) {
     const $ctrl = this;
+    $ctrl.allowAcceptReservation = false;
 
     $ctrl.acceptReservation = (reservation) => {
         ProductReservationService.confirmApproval(reservation, () => {
@@ -48,10 +50,18 @@ const ReservationShowComponent = function (
         $ctrl.fetchReservation($ctrl.reservation.id);
     };
 
-    $ctrl.$onInit = () => {
+    $ctrl.onExtraPaymentUpdate = () => {
         if ($ctrl.reservation.voucher_transaction?.address) {
             $ctrl.fetchTransaction($ctrl.reservation.voucher_transaction.address);
         }
+    };
+
+    const updateReservationFlags = () => {
+        $ctrl.allowAcceptReservation = $ctrl.reservation &&
+            $ctrl.reservation.state === 'pending' &&
+            !$ctrl.reservation.expired &&
+            !$ctrl.reservation.product.deleted &&
+            (!$ctrl.reservation.extra_payment || !$ctrl.reservation.extra_payment.is_fully_refunded);
 
         $ctrl.stateClass = {
             waiting: 'label-default',
@@ -62,7 +72,15 @@ const ReservationShowComponent = function (
             canceled_by_client: 'label-danger',
             canceled_payment_expired: 'label-danger',
             canceled_payment_canceled: 'label-danger',
-        }[$ctrl.reservation.state] || 'label-default';
+        }[$ctrl.reservation?.state] || 'label-default';
+    }
+
+    $scope.$watch('$ctrl.reservation', updateReservationFlags, true);
+
+    $ctrl.$onInit = () => {
+        if ($ctrl.reservation.voucher_transaction?.address) {
+            $ctrl.fetchTransaction($ctrl.reservation.voucher_transaction.address);
+        }
     };
 };
 
@@ -72,6 +90,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$scope',
         'appConfigs',
         'TransactionService',
         'PushNotificationsService',

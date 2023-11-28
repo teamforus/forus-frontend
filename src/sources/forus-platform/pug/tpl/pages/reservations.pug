@@ -159,7 +159,7 @@
 
                         td: .flex-group.flex.flex-end
                             button.button.button-sm.button-primary-light.button-icon(
-                                ng-if="reservation.state === 'pending' && !reservation.expired && !reservation.product.deleted" 
+                                ng-if="reservation.allowAcceptReservation"
                                 ng-click="$ctrl.acceptReservation(reservation)")
                                 em.mdi.mdi-check
 

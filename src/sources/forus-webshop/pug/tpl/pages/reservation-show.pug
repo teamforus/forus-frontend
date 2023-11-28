@@ -74,12 +74,17 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                         | {{ "reservation.labels.cancel" | translate }}
 
                                     .button.button-primary.button-sm(
-                                        ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn > 0"
+                                        ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn > 0 && !$ctrl.showLoadingBtn"
                                         ng-click="$ctrl.payExtraReservation()")
                                         em.mdi.mdi-credit-card-outline.icon-start
                                         | Ga door naar betalen
 
-                .card-footer.card-footer-warning.card-footer-sm(ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn")
+                                    button.button.button-primary.button-sm(ng-if="$ctrl.showLoadingBtn" disabled)
+                                        em.mdi.mdi-loading.mdi-spin.icon-start
+                                        | Loading
+
+                .card-footer.card-footer-warning.card-footer-sm(
+                    ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn && !$ctrl.showLoadingBtn")
                     | Please note that you have #[strong {{ $ctrl.stateData.expiresIn }} minutes] to complete 
                     | the payment and secure your reservation. Otherwise, the reservation will be canceled automatically.
 

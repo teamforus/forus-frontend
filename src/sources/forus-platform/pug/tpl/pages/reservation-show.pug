@@ -42,7 +42,7 @@
 
                 .flex.flex-self-start: .flex-row: .button-group
                     .button.button-primary.button-sm(
-                        ng-if="$ctrl.reservation.state === 'pending' && !$ctrl.reservation.expired && !$ctrl.reservation.product.deleted" 
+                        ng-if="$ctrl.allowAcceptReservation"
                         ng-click="$ctrl.acceptReservation($ctrl.reservation)")
                         em.mdi.mdi-check.icon-start
                         | Accepteer
@@ -179,7 +179,8 @@
             ng-if="$ctrl.reservation.extra_payment"
             organization="$ctrl.organization"
             reservation="$ctrl.reservation"
-            payment="$ctrl.reservation.extra_payment")
+            payment="$ctrl.reservation.extra_payment"
+            on-update="$ctrl.onExtraPaymentUpdate()")
 
         //- Reservation extra payment details
         reservation-extra-payment-refunds(

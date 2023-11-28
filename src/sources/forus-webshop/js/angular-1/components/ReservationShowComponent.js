@@ -1,4 +1,7 @@
 const ReservationShowComponent = function (
+    $q,
+    $state,
+    $timeout,
     ModalService,
     PageLoadingBarService,
     PushNotificationsService,
@@ -7,12 +10,16 @@ const ReservationShowComponent = function (
     const $ctrl = this;
 
     $ctrl.payExtraReservation = () => {
-        PageLoadingBarService.setProgress(0);
+        fetchReservation().then(() => {
+            if (!$ctrl.reservation.extra_payment?.is_paid) {
+                PageLoadingBarService.setProgress(0);
 
-        ProductReservationService.checkoutExtra($ctrl.reservation.id).then(
-            (res) => document.location.href = res.data.url,
-            (res) => PushNotificationsService.danger('Error.', res.data.message),
-        ).finally(() => PageLoadingBarService.setProgress(100));
+                ProductReservationService.checkoutExtra($ctrl.reservation.id).then(
+                    (res) => document.location.href = res.data.url,
+                    (res) => PushNotificationsService.danger('Error.', res.data.message),
+                ).finally(() => PageLoadingBarService.setProgress(100));
+            }
+        });
     };
 
     $ctrl.cancelReservation = () => {
@@ -26,7 +33,7 @@ const ReservationShowComponent = function (
                 }).then(
                     (res) => {
                         $ctrl.reservation = res.data.data;
-                        $ctrl.$onInit();
+                        prepareStateAndProduct();
                         PushNotificationsService.success('Reservering geannuleerd.');
                     },
                     (res) => PushNotificationsService.danger('Error.', res.data.message),
@@ -35,11 +42,32 @@ const ReservationShowComponent = function (
         });
     };
 
-    $ctrl.$onInit = function () {
+    const fetchReservation = () => {
+        return $q((resolve, reject) => {
+            ProductReservationService.read($ctrl.reservation.id).then((res) => {
+                $ctrl.reservation = res.data.data;
+                $ctrl.showLoadingBtn = false;
+                prepareStateAndProduct();
+
+                resolve($ctrl.reservation);
+            }, reject);
+        })
+    };
+
+    const prepareStateAndProduct = () => {
         $ctrl.product = $ctrl.reservation.product;
         $ctrl.media = $ctrl.product.photo || $ctrl.product.logo || null;
 
         $ctrl.stateData = ProductReservationService.composeStateAndExpires($ctrl.reservation);
+    }
+
+    $ctrl.$onInit = function () {
+        prepareStateAndProduct();
+
+        if ($state.params.checkout && $ctrl.reservation.extra_payment?.is_pending) {
+            $ctrl.showLoadingBtn = true;
+            $timeout(fetchReservation, 5000);
+        }
     };
 };
 
@@ -48,6 +76,9 @@ module.exports = {
         reservation: '<',
     },
     controller: [
+        '$q',
+        '$state',
+        '$timeout',
         'ModalService',
         'PageLoadingBarService',
         'PushNotificationsService',
