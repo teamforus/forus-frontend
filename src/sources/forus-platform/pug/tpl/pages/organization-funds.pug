@@ -4,38 +4,38 @@
         .card
             .card-header: .flex-row
                 //- Organization funds title
-                .flex.flex-grow: .card-title
+                .flex-col.flex-grow: .card-title
                     span(i18n="components.organization_funds.title") 
                     span(ng-bind="$ctrl.funds.meta.total").span-count
 
                 //- Filters
                 .flex: .block.block-inline-filters
-                    .button.button-default.button-sm(
-                        ng-if="$ctrl.organization.allow_2fa_restrictions && ($ctrl.organization | hasPerm:['manage_organization'])"
-                        ui-sref="organization-security({organization_id: $ctrl.organization.id, view_type: 'funds'})")
-                        em.mdi.mdi-security.icon-start
-                        translate(translate="components.organization_funds.buttons.security")
-
                     .button.button-primary.button-sm(
                         ng-if='$root.activeOrganization | hasPerm:["manage_funds"]'
                         ui-sref="funds-create({organization_id: $root.activeOrganization.id})"
                         id="create_fund")
                         em.mdi.mdi-plus-circle.icon-start
                         translate(translate="components.organization_funds.buttons.add")
+
+                    .button.button-default.button-sm(
+                        ng-if="$ctrl.organization.allow_2fa_restrictions && ($ctrl.organization | hasPerm:['manage_organization'])"
+                        ui-sref="organization-security({organization_id: $ctrl.organization.id, view_type: 'funds'})")
+                        em.mdi.mdi-security.icon-start
+                        translate(translate="components.organization_funds.buttons.security")
                     
                     //- View type
-                    .flex: .flex-row
-                        .flex-col: .block.block-label-tabs: .label-tab-set 
-                            .label-tab.label-tab-sm(
-                                ng-class="{'active' : $ctrl.shownFundsType == 'active'}"
-                                ui-sref="organization-funds({funds_type: 'active'})")
-                                | Lopend ({{ $ctrl.funds.meta.unarchived_funds_total }})
+                    .form: .flex: div: .block.block-label-tabs: .label-tab-set 
+                        .label-tab.label-tab-sm(
+                            ng-class="{'active' : $ctrl.shownFundsType == 'active'}"
+                            ui-sref="organization-funds({funds_type: 'active'})")
+                            | Lopend ({{ $ctrl.funds.meta.unarchived_funds_total }})
 
-                            .label-tab.label-tab-sm(
-                                ng-class="{'active' : $ctrl.shownFundsType == 'archived'}"
-                                ui-sref="organization-funds({funds_type: 'archived'})")
-                                | Archief ({{ $ctrl.funds.meta.archived_funds_total }})    
+                        .label-tab.label-tab-sm(
+                            ng-class="{'active' : $ctrl.shownFundsType == 'archived'}"
+                            ui-sref="organization-funds({funds_type: 'archived'})")
+                            | Archief ({{ $ctrl.funds.meta.archived_funds_total }})    
 
+                    .flex
                         .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                             em.mdi.mdi-close.icon-start
                             span(i18n="Wis filters")
@@ -74,26 +74,62 @@
                         table.table
                             tr
                                 th(translate="components.organization_funds.labels.name" value="name")
-                                th(translate="components.organization_funds.labels.remaining" value="remaining_amount")
-                                th(translate="components.organization_funds.labels.requester_count" value="requester_count")
+
+                                th(
+                                    value="remaining_amount"
+                                    ng-if="$ctrl.shownFundsType == 'active'"
+                                    translate="components.organization_funds.labels.remaining")
+
+                                th(
+                                    value="requester_count"
+                                    ng-if="$ctrl.shownFundsType == 'active'"
+                                    translate="components.organization_funds.labels.requester_count")
+
                                 th(translate="components.organization_funds.labels.status" value="state")
                                 th(translate="components.organization_funds.labels.actions").th-narrow.text-right
 
-                            tr(ng-repeat="fund in $ctrl.funds.data")
-                                td(ng-bind="fund.name | str_limit:25" title="{{ fund.name || '-' }}")
+                            tr(
+                                ng-repeat="fund in $ctrl.funds.data"
+                                ui-sref="funds-show(fund)")
+                                //- Fund name
+                                td: .td-entity-main
+                                    .td-entity-main-media: img.td-media.td-media-sm.td-media-round(
+                                        ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                                    .td-entity-main-content
+                                        .text-strong.text-primary(ng-bind="fund.name | str_limit:25" title="{{ fund.name || '-' }}")
+                                        .text-muted-dark(ng-bind="fund.type_locale")
 
-                                td.text-primary-light: span(ng-if="!fund.archived" ng-bind="fund.budget.total - fund.budget.used | currency_format")
+                                //- Fund amount left
+                                td(
+                                    ng-if="!fund.archived"
+                                    ng-bind="fund.budget.total - fund.budget.used | currency_format")
 
-                                td: strong(ng-if="!fund.archived" ng-bind="fund.requester_count").text-strong.text-md.text-muted-dark
+                                //- Requesters number
+                                td(
+                                    ng-if="!fund.archived"
+                                    ng-bind="fund.requester_count").text-strong.text-muted-dark
 
+                                //- Status label
                                 td
-                                    .tag.tag-sm.tag-success(ng-if="!fund.archived && fund.state == 'active'" ng-bind="fund.state")
-                                    .tag.tag-warning.tag-sm(ng-if="!fund.archived && fund.state == 'paused'" translate="components.organization_funds.states.paused")
-                                    .tag.tag-default.tag-sm(ng-if="!fund.archived && fund.state == 'closed'" translate="components.organization_funds.states.closed")
-                                    .tag.tag-default.tag-sm(ng-if="fund.archived" translate="components.organization_funds.states.archived")
+                                    .label.label-success(
+                                        ng-if="!fund.archived && fund.state == 'active'"
+                                        ng-bind="fund.state")
 
+                                    .label.label-warning(
+                                        ng-if="!fund.archived && fund.state == 'paused'"
+                                        translate="components.organization_funds.states.paused")
+
+                                    .label.label-default(
+                                        ng-if="!fund.archived && fund.state == 'closed'"
+                                        translate="components.organization_funds.states.closed")
+
+                                    .label.label-default(
+                                        ng-if="fund.archived"
+                                        translate="components.organization_funds.states.archived")
+
+                                //- Fund actions
                                 td.td-narrow.text-right
-                                    button.button.button-icon.button-text.button-menu.active(
+                                    button.button.button-text.button-menu(
                                         ng-if="!fund.archived"
                                         type="button" 
                                         ng-click="$ctrl.toggleActions($event, fund)")
@@ -106,15 +142,8 @@
                                             .menu-dropdown-arrow
                                             .dropdown.dropdown-actions
                                                 a(
-                                                    target="_blank" 
                                                     ui-sref="funds-show(fund)").dropdown-item
                                                     | #[em.mdi.mdi-eye.icon-start] Bekijken
-                                                
-                                                a(
-                                                    ng-if="fund.balance_provider == 'top_ups' && fund.key && fund.state != 'closed'"
-                                                    ng-disabled="!fund.organization.has_bank_connection"
-                                                    ng-click="$ctrl.topUpModal(fund)").dropdown-item
-                                                    | #[em.mdi.mdi-plus-circle.icon-start] Budget toevoegen
 
                                                 a(
                                                     ng-if="fund.organization | hasPerm:['manage_funds','manage_fund_texts']:false"
@@ -123,18 +152,24 @@
 
                                                 a(
                                                     ng-if="$ctrl.organization.allow_2fa_restrictions && ($ctrl.organization | hasPerm:['manage_organization'])"
-                                                    ui-sref="organization-security({organization_id: $ctrl.organization.id, view_type: 'funds'})").dropdown-item
+                                                    ui-sref="funds-security(fund)").dropdown-item
                                                     | #[em.mdi.mdi-security.icon-start] Beveiliging
+                                                
+                                                a(
+                                                    ng-if="fund.balance_provider == 'top_ups' && fund.key && fund.state != 'closed'"
+                                                    ng-disabled="!fund.organization.has_bank_connection"
+                                                    ng-click="$ctrl.topUpModal(fund)").dropdown-item
+                                                    | #[em.mdi.mdi-plus-circle.icon-start] Budget toevoegen
 
                                                 a(
-                                                    ng-if="fund.key && fund.state == 'closed'" 
+                                                    ng-disabled="fund.key && fund.state != 'closed'" 
                                                     ng-click="$ctrl.archiveFund(fund)").dropdown-item
                                                     | #[em.mdi.mdi-download-box-outline.icon-start]
-                                                    translate(translate="components.organization_funds.buttons.archive")
+                                                    span(translate="components.organization_funds.buttons.archive")
 
                                     .button.button-primary(
                                         ng-if="fund.archived && (fund.organization | hasPerm:'manage_funds')" 
-                                        ng-click="$ctrl.restoreFund(fund)")
+                                        ng-click="$ctrl.restoreFund($event, fund)")
                                         em.mdi.mdi-lock-reset.icon-start
                                         translate(translate="components.organization_funds.buttons.restore")
 

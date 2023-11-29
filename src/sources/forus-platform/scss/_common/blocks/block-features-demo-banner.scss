@@ -29,7 +29,7 @@
 
     &.block-features-demo-banner-lg {
         height: 280px;
-        border-radius: calc(var(--border-radius) / 2);
+        border-radius: calc(var(--border-radius));
     }
 
     @media screen and (max-width: 1000px) {

@@ -6,7 +6,7 @@ const OrganizationFundsComponent = function (
     FundService,
     ModalService,
     PageLoadingBarService,
-    PushNotificationsService
+    PushNotificationsService,
 ) {
     const $ctrl = this;
     const $translate = $filter('translate');
@@ -74,14 +74,16 @@ const OrganizationFundsComponent = function (
     $ctrl.archiveFund = (fund) => {
         $ctrl.askConfirmation('archive_fund', () => {
             FundService.archive(fund.organization_id, fund.id).then(() => {
-                fund.state = 'archive';
                 $state.go($state.$current.name, { funds_type: 'archived' });
                 PushNotificationsService.success('Opgeslagen!');
             }, (err) => PushNotificationsService.danger(err.data.message || 'Error!'));
         });
     };
 
-    $ctrl.restoreFund = (fund) => {
+    $ctrl.restoreFund = (e, fund) => {
+        e?.stopPropagation();
+        e?.preventDefault();
+
         $ctrl.askConfirmation('restore_fund', () => {
             FundService.unarchive(fund.organization_id, fund.id).then(() => {
                 fund.state = 'archive';
@@ -126,7 +128,7 @@ module.exports = {
         'ModalService',
         'PageLoadingBarService',
         'PushNotificationsService',
-        OrganizationFundsComponent
+        OrganizationFundsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/organization-funds.html'
+    templateUrl: 'assets/tpl/pages/organization-funds.html',
 };

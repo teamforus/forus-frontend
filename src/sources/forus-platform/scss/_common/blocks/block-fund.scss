@@ -1,54 +1,62 @@
 &.block-fund {
     display: flex;
     flex-direction: column;
-    margin: 0 0 20px;
+    margin: 0 0;
     background: #fff;
-    border-radius: calc(var(--border-radius) / 2);
-    box-shadow: var(--box-shadow);
+    gap: 20px;
+    display: grid;
 
     .fund-overview {
         border-bottom: 1px solid var(--border-color);
-        display: flex;
-        flex-direction: row;    
-        margin: 20px 20px 0;
-        padding-bottom: 20px;
-        
+        display: grid;
+        flex-direction: row;
+        grid-template-columns: 190px 1fr;
+        padding-bottom: 25px;
+        gap: 25px;
+
         .fund-media {
-            display: flex;
-            border-top-left-radius: calc(var(--border-radius) / 2);
-            overflow: hidden;
-            width: 190px;
+            display: grid;
 
             .fund-media-img {
                 display: block;
-                width: 190px;
+                border-radius: calc(var(--border-radius));
+                width: 100%;
             }
         }
 
         .fund-details {
-            display: flex;
-            flex-direction: column;
-            flex: 1 0;
-            margin-left: 25px;
+            display: grid;
+            grid-template-rows: max-content;
+            gap: 15px;
 
-            .fund-name {
-                font: 600 16px/20px var(--base-font);
-                color: #151B26;
-                margin: 0 0 15px;
+            .fund-header {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 20px;
+                font: 500 16px/24px var(--base-font);
+
+                .fund-name {
+                    font: inherit;
+                    color: #151b26;
+                    margin: 0;
+                }
+
+                .tag {
+                    height: fit-content;
+                }
             }
 
-            .fund-description-short {
-                display: flex;
-                flex-direction: row;
-                font: 500 14px/20px var(--base-font);
-                color: #646F79;
+            .fund-description {
+                display: block;
+                font: 400 14px/20px var(--base-font);
+                color: #646f79;
             }
         }
     }
 
     .fund-actions {
-        padding: 20px;
-        margin-left: auto;
-        margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 }

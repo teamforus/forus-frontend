@@ -27,7 +27,6 @@
 // blocks
 .block {
     @import 'blocks/block-chat';
-    @import 'blocks/block-funds';
     @import 'blocks/block-fund';
     @import 'blocks/block-critera-editor';
     @import 'blocks/block-faq-editor';
@@ -789,7 +788,7 @@ body {
 .card {
     --card-margin: 20px;
     background: #ffffff;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     box-shadow: 0 2px 8px rgba(#000, 0.1);
     margin-bottom: var(--card-margin);
     cursor: default;
@@ -815,7 +814,7 @@ body {
     }
 
     .card-title {
-        font: 500 16px/28px var(--base-font);
+        font: 600 16px/28px var(--base-font);
         color: #282b39;
         cursor: inherit;
         display: flex;
@@ -838,7 +837,7 @@ body {
         }
 
         &.card-title-sm {
-            font-size: 13px;
+            font-size: 14px;
         }
     }
 
@@ -5306,10 +5305,10 @@ body {
     &.block-label-tabs {
         display: flex;
         margin-left: 10px;
-        border-top-left-radius: calc(var(--border-radius) / 2);
-        border-top-right-radius: calc(var(--border-radius) / 2);
-        border-bottom-left-radius: calc(var(--border-radius) / 2);
-        border-bottom-right-radius: calc(var(--border-radius) / 2);
+        border-top-left-radius: calc(var(--border-radius));
+        border-top-right-radius: calc(var(--border-radius));
+        border-bottom-left-radius: calc(var(--border-radius));
+        border-bottom-right-radius: calc(var(--border-radius));
     
         .label-tab {
             background: #fff;
@@ -5344,13 +5343,13 @@ body {
             }
 
             &:first-child {
-                border-top-left-radius: calc(var(--border-radius) / 2);
-                border-bottom-left-radius: calc(var(--border-radius) / 2);
+                border-top-left-radius: calc(var(--border-radius));
+                border-bottom-left-radius: calc(var(--border-radius));
             }
     
             &:last-child {
-                border-top-right-radius: calc(var(--border-radius) / 2);
-                border-bottom-right-radius: calc(var(--border-radius) / 2); 
+                border-top-right-radius: calc(var(--border-radius));
+                border-bottom-right-radius: calc(var(--border-radius)); 
                 border-right: 1px solid var(--border-color);
             }
     
@@ -6448,7 +6447,7 @@ body {
 
             .toggle-item {
                 border: 1px dashed #bfbfbf;
-                border-radius: calc(var(--border-radius) / 2);
+                border-radius: calc(var(--border-radius));
                 align-items: center;
                 background: #f6f9fc;
                 padding: 20px;
@@ -6686,7 +6685,7 @@ body {
             line-height: 28px;
             font-size: 16px;
             font-weight: 500;
-            border-radius: calc(var(--border-radius) / 2);
+            border-radius: calc(var(--border-radius));
 
             &.button-disabled, [disabled] {
                 background: #eff2f4;

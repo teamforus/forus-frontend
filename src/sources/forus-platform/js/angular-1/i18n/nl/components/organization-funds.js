@@ -21,11 +21,11 @@ module.exports = {
             archived: "Gearchiveerd",
         },
         labels: {
-            name: "Naam:",
-            remaining: "Resterend:",
-            requester_count: "Aanvragers:",
-            status: "Status:",
-            actions: "Acties:",
+            name: "Naam",
+            remaining: "Resterend bedrag",
+            requester_count: "Aanvragers",
+            status: "Status",
+            actions: "Actie",
         },
         filters: {
             search: "Zoeken",

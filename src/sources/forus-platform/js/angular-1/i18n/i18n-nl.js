@@ -521,7 +521,11 @@ module.exports = {
 
     // SHOW FUNDS = funds-show.pug
     funds_show: {
-        criterion: "Criteria's (3)",
+        titles: {
+            top_ups: 'Bekijk aanvullingen',
+            identities: 'Aanvragers',
+            implementations: 'Webshop',
+        },
         labels: {
             base_card: {
                 header: {
@@ -557,6 +561,16 @@ module.exports = {
                 amount: "Amount",
                 date: "Date",
             }
+        },
+        implementations_table: {
+            filters: {
+                search: "Search",
+            },
+        },
+        implementations_table: {
+            filters: {
+                search: "Search",
+            },
         }
     },
 
