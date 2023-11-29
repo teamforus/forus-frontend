@@ -323,6 +323,7 @@ main(id="main-content")
                 map-pointers="$ctrl.voucherCard.offices" 
                 map-pointer-template="providers-office"
                 map-gesture-handling="'greedy'"
+                map-gesture-handling-mobile="'none'"
                 map-options="$ctrl.mapOptions")
             
             //- regular voucher
@@ -336,7 +337,6 @@ main(id="main-content")
                     | Bekijk details 
                     em.mdi.mdi-arrow-right(aria-hidden="true") 
 
-            .pane-section: .block.block-markdown
-                div(ng-bind-html="$ctrl.voucherCard.description")
+            .pane-section: markdown(content="$ctrl.voucherCard.description")
 
         span

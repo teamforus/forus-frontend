@@ -151,7 +151,7 @@
                         ng-click="$dir.addVariable('content', variable)")
 
                     //- Edit
-                    markdown(
+                    markdown-editor(
                         ng-show="$dir.editForm && $dir.template"
                         editor-id="{{ $dir.descriptionId }}"
                         value="$dir.editForm.values.content_html" 

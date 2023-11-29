@@ -21,10 +21,14 @@ const TopNavbarDirective = function (
     };
 
     const onResize = () => {
-        $rootScope.showSearchBox = window.innerWidth >= 1000;
+        if ($dir.prevWidth !== window.innerWidth) {
+            $dir.prevWidth = window.innerWidth;
+            $rootScope.showSearchBox = window.innerWidth >= 1000;
+        }
     };
 
     $dir.visible = false;
+    $dir.prevWidth = null;
     $dir.prevOffsetY = false;
     $dir.userMenuOpened = false;
 

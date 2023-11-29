@@ -109,7 +109,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     $stateProvider.state({
         name: "dl_lc",
         url: "/dl",
-        controller: ['$state', ($state) => $state.go('dl')]
+        controller: ['$state', function ($state) {
+            $state.go('dl');
+        }]
     });
 
     $stateProvider.state({

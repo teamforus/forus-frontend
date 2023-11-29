@@ -11,8 +11,6 @@ const clearTask = require('./qdt/tasks/clearTask');
 const serverTask = require('./qdt/tasks/serverTask');
 const assetsTask = require('./qdt/tasks/assetsTask');
 const sourceAddTask = require('./qdt/tasks/sourceAddTask');
-const protractorTask = require('./qdt/tasks/protractorTask');
-const browserstackTask = require('./qdt/tasks/browserstackTask');
 const sourceRemoveTask = require('./qdt/tasks/sourceRemoveTask');
 
 // soruce add
@@ -51,12 +49,6 @@ gulp.task('serve', serverTask);
 // initialize qdt on fresh install
 gulp.task('init', initTask);
 
-// Setting up the test task
-gulp.task('browserstack', browserstackTask);
-
-// Setting up the test task
-gulp.task('protractor', protractorTask);
-
 // watch changes
 gulp.task('watch', gulp.parallel([
     serverTask, watchTask
@@ -70,11 +62,6 @@ gulp.task('build', gulp.series([
 // build task alias
 gulp.task('compile', gulp.series([
     'build'
-]), done => done());
-
-// default test
-gulp.task('test', gulp.series([
-    'browserstack', 'protractor'
 ]), done => done());
 
 // default task

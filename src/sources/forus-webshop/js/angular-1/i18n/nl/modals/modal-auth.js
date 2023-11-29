@@ -32,9 +32,6 @@ module.exports = {
         confirm: "Volgende",
     },
     labels: {
-        nijmegen: {
-            mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor de Meedoen-regeling per jaar maximaal één activatiecode per e-mailadres gebruiken.",
-        },
         zuidhorn: {
             mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor het Kindpakket per jaar maximaal één activatiecode per e-mailadres gebruiken.",
         },

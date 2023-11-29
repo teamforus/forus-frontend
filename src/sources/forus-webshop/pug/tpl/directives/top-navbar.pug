@@ -32,13 +32,6 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                         .auth-user-menu-separator(ng-if="$root.auth_user.email")
 
                         .auth-user-menu-item(
-                            ng-click="$dir.startFundRequest()" 
-                            id="open_activation_code_popup"
-                            role="link")
-                            img(src="./assets/img/icon-menu/icon-menu-my-vouchers.svg" alt="")
-                            span(translate="topnavbar.buttons.activate_{{ $root.client_key }}" translate-default="{{ 'topnavbar.buttons.activate' | translate }}")
-
-                        .auth-user-menu-item(
                             ui-sref="vouchers"
                             ui-sref-active="active"
                             id="vouchers"
@@ -85,7 +78,18 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             tabindex="0")
                             em.mdi.mdi-receipt-outline
                             | Kosten terugvragen
-                        
+
+                        .auth-user-menu-item(
+                            ui-sref="fund-requests"
+                            ui-sref-active="active"
+                            id="fund-requests"
+                            ng-click="$dir.goToState('fund-requests')"
+                            role="link"
+                            dusk="btnFundRequests"
+                            tabindex="0")
+                            em.mdi.mdi-card-account-details-outline
+                            | Aanvragen
+
                         .auth-user-menu-item(
                             ui-sref="notifications"
                             ui-sref-active="active"
@@ -184,7 +188,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             role="link"
                             dusk="btnUserLogout"
                             tabindex="0")
-                            img(src="./assets/img/icon-menu/icon-menu-sign-out.svg" alt="")
+                            em.mdi.mdi-logout
                             span(translate="topnavbar.buttons.logout")
 
     mixin subnav_search_button()
@@ -192,7 +196,8 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
             ng-if="$root.appConfigs.flags.genericSearchUseToggle && $root.appConfigs.flags.genericSearch" 
             ng-click="$dir.toggleSearchBox($event)"
             ng-class="{active: $root.showSearchBox}" 
-            role="button").subnav-search-button.hide-sm
+            role="button"
+            aria-label="Zoeken").subnav-search-button.hide-sm
             em.mdi.mdi-magnify
 
     mixin navbar_list()
@@ -266,7 +271,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
     //- Main navigation menu
     .navbar-inner.wrapper(ng-class="{'search-shown': $root.showSearchBox}")
         .block.block-auth.show-sm(ng-if="!$root.auth_user && !$root.showSearchBox && !$root.mobileMenuOpened")
-            button.button.button-default.button-start.button-xs(
+            button.button.button-primary-outline.button-start.button-xs(
                 ng-if="$root.appConfigs.flags.showStartButton"
                 ng-click="$dir.startFundRequest({ restore_with_email: true })"
                 role="button").show-sm
@@ -308,7 +313,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                 +subnav_search_button
 
                 .block.block-auth
-                    button.button.button-default(
+                    button.button.button-primary-outline(
                         ng-if="!$root.auth_user && $root.appConfigs.flags.showStartButton"
                         ng-click="$dir.startFundRequest({ restore_with_email: true })"
                         role="button")

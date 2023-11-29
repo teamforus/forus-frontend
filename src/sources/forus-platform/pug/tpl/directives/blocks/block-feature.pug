@@ -1,0 +1,13 @@
+.card: .card-section: .block.block-feature
+    .block-feature-icon: img(ng-src="/assets/img/features/icons/{{ $dir.feature.key }}.svg")
+    .block-feature-info
+        .block-feature-title
+            span(ng-bind="$dir.feature.name")
+            .block-feature-label.active(ng-if="$dir.feature.enabled") Active
+
+        .block-feature-details(ng-bind="$dir.feature.description")
+        .block-feature-label(ng-bind="$dir.feature.label")
+
+        .button-group
+            .button.button-primary.button-sm(ng-click="$dir.openContactModal()") Contact Sales
+            .button.button-default.button-sm Check Helpcenter Articles

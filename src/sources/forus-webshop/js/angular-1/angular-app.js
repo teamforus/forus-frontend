@@ -39,7 +39,6 @@ app.component('voucherComponent', require('./components/VoucherComponent'));
 app.component('fundComponent', require('./components/FundComponent'));
 app.component('fundRequestComponent', require('./components/FundRequestComponent'));
 app.component('fundActivateComponent', require('./components/FundActivateComponent'));
-app.component('fundRequestClarificationComponent', require('./components/FundRequestClarificationComponent'));
 app.component('recordValidateComponent', require('./components/RecordValidateComponent'));
 app.component('recordValidationsComponent', require('./components/RecordValidationsComponent'));
 app.component('recordCreateComponent', require('./components/RecordCreateComponent'));
@@ -59,6 +58,8 @@ app.component('searchResultComponent', require('./components/SearchResultCompone
 app.component('sitemapComponent', require('./components/SitemapComponent'));
 app.component('bookmarkedProductsComponent', require('./components/BookmarkedProductsComponent'));
 app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
+app.component('fundRequestShowComponent', require('./components/FundRequestShowComponent'));
+app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
 
 // Services
 app.service('ArrService', require('./services/ArrService'));
@@ -112,6 +113,7 @@ app.service('MenuService', require('./services/MenuService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
+app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
 app.directive('topNavbarSearch', require('./directives/TopNavbarSearchDirective'));
 app.directive('mobileMenu', require('./directives/MobileMenuDirective'));
@@ -137,7 +139,6 @@ app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
-app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'));
 app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));
@@ -152,6 +153,7 @@ app.directive('inputRadioControl', require('./directives/InputRadioControlDirect
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
+app.directive('fundRequestCard', require('./directives/FundRequestCardDirective'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 

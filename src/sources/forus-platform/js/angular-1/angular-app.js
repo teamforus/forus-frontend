@@ -74,7 +74,7 @@ app.component('implementationNotificationsSendComponent', require('./components/
 app.component('providerOverviewComponent', require('./components/ProviderOverviewComponent'));
 app.component('organizationBankConnectionsComponent', require('./components/OrganizationBankConnectionsComponent'));
 app.component('transactionBulkComponent', require('./components/TransactionBulkComponent'));
-app.component('productBoardComponent', require('./components/ProductBoardComponent'));
+app.component('feedbackComponent', require('./components/FeedbackComponent'));
 app.component('eventLogsComponent', require('./components/EventLogsComponent'));
 app.component('identitiesShowComponent', require('./components/IdentitiesShowComponent'));
 app.component('implementationCmsConfigEditComponent', require('./components/ImplementationCmsConfigEditComponent'));
@@ -85,6 +85,10 @@ app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 app.component('reimbursementCategoriesEditComponent', require('./components/ReimbursementCategoriesEditComponent'));
 app.component('biConnectionComponent', require('./components/BIConnectionComponent'));
 app.component('organizationContactsComponent', require('./components/OrganizationContactsComponent'));
+app.component('featureComponent', require('./components/FeatureComponent'));
+app.component('featuresComponent', require('./components/FeaturesComponent'));
+app.component('paymentMethodsComponent', require('./components/PaymentMethodsComponent'));
+app.component('molliePrivacyComponent', require('./components/MolliePrivacyComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -111,7 +115,6 @@ app.component('modalFundCriteriaDescriptionEditComponent', require('./components
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
 app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
-app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
 app.component('modalDangerZoneComponent', require('./components/Modals/ModalDangerZoneComponent'));
 app.component('modalFundProviderChatSponsorComponent', require('./components/Modals/ModalFundProviderChatSponsorComponent'));
@@ -142,6 +145,7 @@ app.component('modal2FADeactivateComponent', require('./components/Modals/Modal2
 app.component('modalEditReimbursementCategoryComponent', require('./components/Modals/ModalEditReimbursementCategoryComponent'));
 app.component('modalEditReimbursementCategoriesComponent', require('./components/Modals/ModalEditReimbursementCategoriesComponent'));
 app.component('modalEditRequestRecordComponent', require('./components/Modals/ModalEditRequestRecordComponent'));
+app.component('modalFeatureContactComponent', require('./components/Modals/ModalFeatureContactComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -210,7 +214,7 @@ app.service('ProductReservationService', require('./services/ProductReservationS
 app.service('BanksService', require('./services/BanksService'));
 app.service('BankConnectionService', require('./services/BankConnectionService'));
 app.service('TagService', require('./services/TagService'));
-app.service('ProductBoardService', require('./services/ProductBoardService'));
+app.service('FeedbackService', require('./services/FeedbackService'));
 app.service('EventLogService', require('./services/EventLogService'));
 app.service('MarkdownService', require('./services/MarkdownService'));
 app.service('FaqService', require('./services/FaqService'));
@@ -220,6 +224,8 @@ app.service('ProductReservationsExportService', require('./services/ProductReser
 app.service('ImplementationSocialMediaService', require('./services/ImplementationSocialMediaService'));
 app.service('ReimbursementsExportService', require('./services/ReimbursementsExportService'));
 app.service('ClipboardService', require('./services/ClipboardService'));
+app.service('FeaturesService', require('./services/FeaturesService'));
+app.service('MollieConnectionService', require('./services/MollieConnectionService'));
 
 // Directives
 app.directive('menu', {
@@ -249,11 +255,10 @@ app.directive('officeEditInline', require('./directives/OfficeEditInlineDirectiv
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('informationBlock', require('./directives/InformationBlockDirective'));
 app.directive('menuScrollToggle', require('./directives/landing/MenuScrollToggleDirective'));
-app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'));
 app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
-app.directive('markdown', require('./directives/MarkdownDirective'));
+app.directive('markdownEditor', require('./directives/MarkdownEditorDirective'));
 app.directive('inputCheckboxControl', require('./directives/InputCheckboxControlDirective'));
 app.directive('tableCheckboxControl', require('./directives/TableCheckboxControlDirective'));
 app.directive('formLabelToggle', require('./directives/FormLabelToggleDirective'));
@@ -288,6 +293,7 @@ app.directive('blockCardVouchers', require('./directives/BlockCardVouchersDirect
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
+app.directive('blockFeature', require('./directives/blocks/BlockFeatureDirective'));
 
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirective'));
@@ -302,6 +308,7 @@ app.directive('paginator', require('./directives/paginators/PaginatorDirective')
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));
 
 app.directive('appLinks', require('./directives/elements/AppLinksDirective'));
+app.directive('voucherRecordsEditor', require('./directives/VoucherRecordsEditorDirective'));
 
 // Modals
 app.directive('modalsRoot', require('./directives/modals/ModalsRootDirective'));

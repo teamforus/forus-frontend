@@ -9,5 +9,5 @@
         em.mdi.mdi-alert(ng-if="announcement.type == 'warning'")
         span(ng-bind="announcement.title")
 
-    .announcement-description: .block.block-markdown(ng-bind-html="announcement.description_html")
+    .announcement-description: markdown(content="announcement.description_html")
     .announcement-close.mdi.mdi-close(ng-click="$dir.dismiss(announcement)")

@@ -19,7 +19,7 @@ const FundRequestsShowComponent = function (
         const { state, records, replaced, allowed_employees } = $ctrl.validatorRequest;
         const isPending = state == 'pending';
 
-        const recordTypes = records.map((record) => record.record_type_key);
+        const recordTypes = records.map((record) => record.record_type.key);
         const pendingRecords = records.filter((record) => record.state == 'pending');
         const assignedRecords = records.filter((record) => record.employee?.identity_address === $ctrl.authUser.address);
         const assignableRecords = pendingRecords.filter((record) => record.is_assignable);
@@ -64,7 +64,7 @@ const FundRequestsShowComponent = function (
 
         $ctrl.validatorRequest.fund.criteria = $ctrl.validatorRequest.fund.criteria.map((criterion) => {
             const operator = { '>': 'moet meer dan', '<': 'moet minder dan' }[criterion.operator] || 'moet';
-            const value = `${criterion.record_type_key === 'net_worth' ? '€' : ''}${criterion.value}`;
+            const value = `${criterion.record_type.key === 'net_worth' ? '€' : ''}${criterion.value}`;
 
             return { ...criterion, description: `${criterion.record_type_name} ${operator} ${value} zijn.` };
         });

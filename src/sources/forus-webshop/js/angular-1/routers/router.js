@@ -78,7 +78,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     $stateProvider.state({
         name: "sign-up-redirect",
         url: "/aanbieders/inloggen",
-        controller: ['ConfigService', (ConfigService) => {
+        controller: ['ConfigService', function (ConfigService) {
             ConfigService.get().then(res => document.location = res.data.fronts.url_provider)
         }]
     });
@@ -93,13 +93,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     $stateProvider.state({
         name: "sign-up-en",
         url: "/sign-up",
-        controller: ['$state', ($state) => $state.go('sign-up')],
+        controller: ['$state', function ($state) {
+            $state.go('sign-up');
+        }],
     });
 
     $stateProvider.state({
         name: "sign-up-redirect-en",
         url: "/providers/sign-in",
-        controller: ['$state', ($state) => $state.go('sign-up-redirect')],
+        controller: ['$state', function ($state) {
+            $state.go('sign-up-redirect');
+        }],
     });
 
     $stateProvider.state({
@@ -160,8 +164,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "products",
         url: {
-            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
-            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
+            en: "/products?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_dir:string}",
+            nl: "/aanbod?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{bookmarked:bool}&{organization_id:int}&{distance:int}&{postcode:string}&{order_by:string}&{order_dir:string}",
         },
         component: "productsComponent",
         params: {
@@ -177,7 +181,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             distance: routeParam(null),
             postcode: routeParam(''),
             order_by: routeParam('created_at'),
-            order_by_dir: routeParam('desc'),
+            order_dir: routeParam('desc'),
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_products: 1 }))],
@@ -192,7 +196,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 product_category_id: $transition$.params().product_category_id,
                 bookmarked: $transition$.params().bookmarked ? 1 : 0,
                 order_by: $transition$.params().order_by,
-                order_by_dir: $transition$.params().order_by_dir,
+                order_dir: $transition$.params().order_dir,
             }))],
             productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
                 return $transition$.params().product_category_id ?
@@ -228,8 +232,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "actions",
         url: {
-            en: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_by_dir:string}",
-            nl: "/acties?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_by_dir:string}",
+            en: "/actions?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_dir:string}",
+            nl: "/acties?{page:int}&{q:string}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&{order_by:string}&{order_dir:string}",
         },
         component: "productsComponent",
         params: {
@@ -255,7 +259,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 organization_id: $transition$.params().organization_id,
                 product_category_id: $transition$.params().product_category_id,
                 order_by: $transition$.params().order_by,
-                order_by_dir: $transition$.params().order_by_dir,
+                order_dir: $transition$.params().order_dir,
             }))],
             productCategory: ['ProductCategoryService', '$transition$', (ProductCategoryService, $transition$) => {
                 return $transition$.params().product_category_id ?
@@ -321,8 +325,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     i18n_state($stateProvider, {
         name: "providers",
         url: {
-            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
-            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_by_dir:string}",
+            en: "/providers?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_dir:string}",
+            nl: "/aanbieders?{page:int}&{q:string}&{fund_id:int}&{business_type_id:int}&{product_category_id:int}&{show_map:bool}&{show_menu:bool}&{distance:int}&{postcode:string}&{order_by:string}&{order_dir:string}",
         },
         component: "providersComponent",
         params: {
@@ -336,7 +340,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             business_type_id: routeParam(null),
             product_category_id: routeParam(null),
             order_by: routeParam('name'),
-            order_by_dir: routeParam('asc'),
+            order_dir: routeParam('asc'),
         },
         resolve: {
             funds: ['FundService', (FundService) => repackResponse(FundService.list(null, { has_providers: 1 }))],
@@ -376,7 +380,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                 business_type_id: $transition$.params().business_type_id,
                 product_category_id: $transition$.params().product_category_id,
                 order_by: $transition$.params().order_by,
-                order_by_dir: $transition$.params().order_by_dir,
+                order_dir: $transition$.params().order_dir,
             }))]
         }
     });
@@ -393,7 +397,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
 
     $stateProvider.state({
         name: "search-result",
-        url: "/search?{q:string}&{page:int}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&search_item_types&order_by&order_by_dir",
+        url: "/search?{q:string}&{page:int}&{fund_id:int}&{display_type:string}&{product_category_id:int}&{show_menu:bool}&{organization_id:int}&search_item_types&order_by&order_dir",
         params: {
             q: routeParam(""),
             page: routeParam(1),
@@ -404,7 +408,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
             search_item_types: routeParam('funds,providers,products'),
             fund_type: routeParam('budget'),
             order_by: routeParam('created_at'),
-            order_by_dir: routeParam('desc'),
+            order_dir: routeParam('desc'),
         },
         component: "searchResultComponent",
         resolve: {
@@ -416,7 +420,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                         with_external: 1,
                         page: $transition$.params().page,
                         order_by: $transition$.params().order_by,
-                        order_by_dir: $transition$.params().order_by_dir,
+                        order_dir: $transition$.params().order_dir,
                         search_item_types: ($transition$.params().search_item_types || '').split(',').filter((type) => type),
                         organization_id: $transition$.params().organization_id,
                         product_category_id: $transition$.params().product_category_id
@@ -946,38 +950,77 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         }
     });
 
-    // Apply to fund by submitting fund request
+    i18n_state($stateProvider, {
+        name: "fund-request-show",
+        url: {
+            en: "/fund-request/{id}",
+            nl: "/fondsen-aanvraag/{id}",
+        },
+        component: "fundRequestShowComponent",
+        resolve: {
+            configs: resolveConfigs(),
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            fundRequest: ['$transition$', 'FundRequestService', 'AuthService', (
+                $transition$, FundRequestService, AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(
+                FundRequestService.readRequester($transition$.params().id)
+            ) : new Promise((resolve) => resolve(null))],
+        }
+    });
+
+    i18n_state($stateProvider, {
+        name: "fund-requests",
+        url: {
+            en: "/fund-requests?{page:int}&{fund_id:int}&{archived:int}",
+            nl: "/fondsen-aanvraag?{page:int}&{fund_id:int}&{archived:int}",
+        },
+        component: "fundRequestsComponent",
+        params: {
+            page: routeParam(1),
+            fund_id: routeParam(null),
+            archived: routeParam(0),
+        },
+        resolve: {
+            identity: ['AuthService', (
+                AuthService
+            ) => AuthService.hasCredentials() ? repackResponse(AuthService.identity()) : null],
+            funds: ['FundService', (FundService) => repackResponse(FundService.list())],
+            fundRequests: ['$transition$', 'FundRequestService', 'AuthService', (
+                $transition$, FundRequestService, AuthService
+            ) => AuthService.hasCredentials() ? repackPagination(
+                FundRequestService.indexRequester({
+                    q: $transition$.params().q,
+                    page: $transition$.params().page,
+                    fund_id: $transition$.params().fund_id,
+                    archived: $transition$.params().archived,
+                    per_page: 15,
+                    order_by: 'no_answer_clarification'
+                })
+            ) : new Promise((resolve) => resolve(null))],
+        }
+    });
+
     $stateProvider.state({
         name: "fund-request-clarification",
         url: "/funds/{fund_id}/requests/{request_id}/clarifications/{clarification_id}",
-        component: "fundRequestClarificationComponent",
-        data: {
-            fund_id: null,
-            request_id: null,
-            clarification_id: null,
-        },
-        resolve: {
-            fund: ['$transition$', 'FundService', (
-                $transition$, FundService
-            ) => repackResponse(FundService.readById(
-                $transition$.params().fund_id
-            ))],
-            clarification: ['$transition$', 'FundRequestClarificationService', 'AuthService', (
-                $transition$, FundRequestClarificationService, AuthService
-            ) => AuthService.hasCredentials() ? repackResponse(FundRequestClarificationService.read(
-                $transition$.params().fund_id,
-                $transition$.params().request_id,
-                $transition$.params().clarification_id
-            )) : promiseResolve(null)],
-        }
+        data: { fund_id: null, request_id: null, clarification_id: null },
+        controller: ['$state', '$transition$', function ($state, $transition$) {
+            if ($transition$.params().clarification_id) {
+                return $state.go('fund-request-show', { id: $transition$.params().request_id });
+            }
+            
+            return $state.go('home');
+        }],
     });
 
     $stateProvider.state({
         name: "restore-email",
         url: "/identity-restore?token&target",
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', (
-            $rootScope, $state, IdentityService, CredentialsService, ModalService, AuthService
-        ) => {
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'ModalService', 'AuthService', function (
+            $rootScope, $state, IdentityService, CredentialsService, ModalService, AuthService,
+        ) {
             const { token, target } = $state.params;
             const { handleAuthTarget, onAuthRedirect } = AuthService;
 
@@ -1003,9 +1046,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         data: {
             token: null
         },
-        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', 'AuthService', (
-            $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService, AuthService
-        ) => {
+        controller: ['$rootScope', '$state', 'IdentityService', 'CredentialsService', 'PushNotificationsService', 'AuthService', function (
+            $rootScope, $state, IdentityService, CredentialsService, PushNotificationsService, AuthService,
+        ) {
             const { token, target } = $state.params;
             const { handleAuthTarget, onAuthRedirect } = AuthService;
 
@@ -1085,9 +1128,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         data: {
             token: null
         },
-        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'AuthService', 'PushNotificationsService', (
+        controller: ['$state', '$rootScope', 'IdentityService', 'CredentialsService', 'AuthService', 'PushNotificationsService', function (
             $state, $rootScope, IdentityService, CredentialsService, AuthService, PushNotificationsService
-        ) => {
+        ) {
             const { token, target } = $state.params;
             const { handleAuthTarget, onAuthRedirect } = AuthService;
 
@@ -1119,7 +1162,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
     $stateProvider.state({
         name: "redirect",
         url: "/redirect?target",
-        controller: ['$state', 'AuthService', ($state, AuthService) => {
+        controller: ['$state', 'AuthService', function ($state, AuthService) {
             if (!$state.params.target || !AuthService.handleAuthTarget($state.params.target)) {
                 $state.go('home');
             }

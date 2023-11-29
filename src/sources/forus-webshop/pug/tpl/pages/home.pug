@@ -28,9 +28,9 @@ main(id="main-content")
                     translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")
 
                 .header-description#desc(ng-if="$ctrl.appConfigs.features.settings.description")
-                    .block.block-markdown(
-                        ng-class="'block-markdown-' + $ctrl.appConfigs.features.settings.description_alignment" 
-                        ng-bind-html="$ctrl.description_html")
+                    markdown(
+                        align="$ctrl.appConfigs.features.settings.description_alignment" 
+                        content="$ctrl.description_html")
 
                 .header-description#desc(ng-if="!$ctrl.appConfigs.features.settings.description && !$ctrl.digidAvailable")
                     p(ng-if="$ctrl.funds.length <= 1" translate="home.header.{{ $root.client_key }}.subtitle" translate-default="{{'home.header.subtitle' | translate:{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale } }}" i18n-vars="{ fund: $ctrl.funds[0].name, start_date: $ctrl.funds[0].start_date_locale }")
@@ -61,15 +61,15 @@ main(id="main-content")
                 h2.block-title Gemeente Nijmegen
                 p.block-description De gemeente Nijmegen heeft verschillende vergoedingen voor mensen met een laag inkomen. Denk aan de Meedoenregeling, dan krijgen inwoners met een laag inkomen maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Of bijvoorbeeld het busvoordeelabonnement. Alle vergoedingen vindt u hieronder.
                 ul.block-list
-                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/26") Meedoenregeling
-                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/37") Busvoordeelabonnement
-                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/79") Individuele inkomenstoeslag
-                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/82") Studietoeslag
-                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/81") Collectieve Aanvullende Ziektekostenverzekering (CAZ)
-                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/83") Bijzondere bijstand
-                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/84") Kwijtschelding gemeentelijke belastingen
-                    li: a(href="https://inkomensondersteuning.nijmegen.nl/fondsen/87") Energietoeslag
-                a(href="https://inkomensondersteuning.nijmegen.nl/fondsen") Meer vergoedingen van gemeente Nijmegen
+                    li: a(href="https://vergoedingen.nijmegen.nl/fondsen/26") Meedoenregeling
+                    li: a(href="https://vergoedingen.nijmegen.nl/fondsen/37") Busvoordeelabonnement
+                    li: a(href="https://vergoedingen.nijmegen.nl/fondsen/79") Individuele inkomenstoeslag
+                    li: a(href="https://vergoedingen.nijmegen.nl/fondsen/82") Studietoeslag
+                    li: a(href="https://vergoedingen.nijmegen.nl/fondsen/81") Collectieve Aanvullende Ziektekostenverzekering (CAZ)
+                    li: a(href="https://vergoedingen.nijmegen.nl/fondsen/83") Bijzondere bijstand
+                    li: a(href="https://vergoedingen.nijmegen.nl/fondsen/84") Kwijtschelding gemeentelijke belastingen
+                    li: a(href="https://vergoedingen.nijmegen.nl/fondsen/87") Energietoeslag
+                a(href="https://vergoedingen.nijmegen.nl/fondsen") Meer vergoedingen van gemeente Nijmegen
             
             .info-block-panel
                 h2.block-title Stichting Leergeld Nijmegen
@@ -94,6 +94,6 @@ main(id="main-content")
                 .block-content
                     h2.block-title(i18n="home.map.title")
                     .block-description(i18n="home.map.subtitle")
-                    button(ui-sref="providers({show_map:true})" id="show_map").button.button-primary.button-wide
+                    button(ui-sref="providers({show_map:true})" id="show_map").button.button-primary
                         translate(translate="buttons.show_map")
                         em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
